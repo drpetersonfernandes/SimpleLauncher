@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Er is een fout opgetreden bij het proberen het bestand te verwijderen.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Een open-source frontend voor emulators</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Een andere instantie van Simple Launcher draait al.</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Er is een onverwachte fout opgetreden tijdens het initialiseren van de 7-Zip bibliotheek.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' is een fout tegengekomen bij het laden van de API-configuratie.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API-configuratiefout</system:String>
     <system:String x:Key="ApiKey">API-sleutel</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">Annuleren</system:String>
     <system:String x:Key="CancelButtonText">Annuleer</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
+    <system:String x:Key="CancellingPleasewait">Annuleren... Even geduld aub</system:String>
     <system:String x:Key="cannotbeextracted">kan niet worden uitgepakt.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Kan de extractiemap niet maken of openen.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Kan geen schermafbeelding maken van een geminimaliseerd venster.</system:String>
@@ -107,6 +109,7 @@
 <system:String x:Key="CompatibilityWarning">Compatibiliteitswaarschuwing</system:String>
 <system:String x:Key="ConfigurationWarning">Configuratie waarschuwing</system:String>
     <system:String x:Key="Confirmation">Bevestiging</system:String>
+    <system:String x:Key="ConfirmClose">Sluiten bevestigen</system:String>
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
     <system:String x:Key="CopyError">Kopieerfout</system:String>
     <system:String x:Key="Core">Kern</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">Huidige drempel:</system:String>
     <system:String x:Key="Cyan">Cyaan</system:String>
     <system:String x:Key="Dark">Donker</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">Een dode zone is het gebied rond het midden van de thumbsticks van je gamepad waar geen beweging wordt geregistreerd. Dit voorkomt ongewenste cursorbewegingen wanneer de stick niet perfect gecentreerd is door slijtage of productietoleranties.</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">Wat is een dode zone?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
     <system:String x:Key="DeadZoneX">Dode zone X</system:String>
     <system:String x:Key="DeadZoneY">Dode zone Y</system:String>
@@ -286,6 +291,10 @@
 <system:String x:Key="FolderName">Mapnaam</system:String>
 <system:String x:Key="FolderPathColumnHeader">Map Pad</system:String>
     <system:String x:Key="FuzzyImageMatching">Fuzzy beeldmatching</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">Hogere drempel (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">Vindt minder overeenkomsten, maar alleen zeer vergelijkbare bestandsnamen</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">Lage drempel (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">Vindt meer overeenkomsten, maar kan onjuiste afbeeldingen bevatten</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Stel de fuzzy matching drempel in</system:String>
     <system:String x:Key="Gamelaunchtimedout">Game-lancering verlopen</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Game-lancering is verlopen. Probeer het opnieuw of controleer of de emulator is gestart.</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">Gameplaymomentopname niet gevonden</system:String>
     <system:String x:Key="GlobalSearch">Globaal zoeken</system:String>
     <system:String x:Key="GlobalStats">Globale statistieken</system:String>
+    <system:String x:Key="GlobalStatsExplanation">Dit venster berekent uitgebreide statistieken over uw gamebibliotheek, inclusief het totale aantal systemen, emulators, games en overeenkomende afbeeldingen. Klik op 'Proces starten' om de analyse te beginnen.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
     <system:String x:Key="Green">Groen</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">is verwijderd.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">is succesvol verwijderd.</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">is succesvol gedownload en geïnstalleerd.</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• Hogere waarden = grotere dode zone = meer stickbeweging nodig voordat de cursor beweegt</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Ik kon het bestand 'system.xml' niet vinden dat nodig is om de applicatie te starten.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Voer de applicatie indien mogelijk uit met beheerdersrechten.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Als dat niet werkt, installeer 'Simple Launcher' opnieuw.</system:String>
@@ -378,6 +389,7 @@
 <system:String x:Key="LoadingUserCompletionProgress">Gebruikersvoltooiingsvoortgang laden...</system:String>
     <system:String x:Key="LoadingUserProfile">Gebruikersprofiel laden...</system:String>
 <system:String x:Key="LoadingUserUnlocks">Gebruikersontgrendelingen laden...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• Lagere waarden = kleinere dode zone = gevoeligere cursorbeweging, maar kan drift veroorzaken</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">Machinedescriptie</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
 <system:String x:Key="MameDescription">MAME beschrijving</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
-    <system:String x:Key="MissingFile">Ontbrekend bestand</system:String>
     <system:String x:Key="MissingRequiredFiles">Ontbrekende vereiste bestanden</system:String>
 <system:String x:Key="MoreOptions">Meer opties</system:String>
     <system:String x:Key="Name">Naam</system:String>
@@ -444,12 +455,15 @@
 <system:String x:Key="OpeningPlayHistory">Speelgeschiedenis wordt geopend...</system:String>
 <system:String x:Key="OpeningRetroAchievementsSettings">RetroAchievements-instellingen worden geopend...</system:String>
 <system:String x:Key="OpeningROMHistory">ROM-geschiedenis wordt geopend...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">Geluidsconfiguratie-instellingen openen...</system:String>
 <system:String x:Key="OpeningSupportWindow">Ondersteuningsvenster wordt geopend...</system:String>
 <system:String x:Key="OpeningTitleSnapshot">Titelsnapshot wordt geopend...</system:String>
 <system:String x:Key="OpeningVideoLink">Videolink wordt geopend...</system:String>
 <system:String x:Key="OpeningWalkthrough">Walkthrough wordt geopend...</system:String>
     <system:String x:Key="OpenROMHistory">ROM-geschiedenis openen</system:String>
     <system:String x:Key="OpenVideoLink">Videolink openen</system:String>
+    <system:String x:Key="OperationCancelled">Bewerking geannuleerd</system:String>
+    <system:String x:Key="OperationCancelledMessage">De bewerking is geannuleerd.</system:String>
     <system:String x:Key="Options">Opties</system:String>
     <system:String x:Key="Orange">Oranje</system:String>
     <system:String x:Key="outof">van</system:String>
@@ -467,6 +481,7 @@
 <system:String x:Key="PlayingVideo">Video afspelen...</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">Speeltijd</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Bewerk de systeeminstellingen en schakel de optie 'Bestanden groeperen op map' uit.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Bewerk dit systeem om het probleem op te lossen.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Voer alstublieft een zoekopdracht in.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Voer een zoekterm in.</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">Selecteer een systeem om te verwijderen.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Selecteer de systeemmap.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Selecteer de systeemafbeeldingsmap.</system:String>
-<system:String x:Key="PopulatingSystemSelectionGrid">Systeemselectierooster vullen...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Mogelijk ongeldige paden gedetecteerd.</system:String>
 <system:String x:Key="PreparingRetroAchievements">RetroAchievements voorbereiden...</system:String>
     <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">Vorige pagina</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">Speelgeschiedenisgegevens verwerken...</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">De verwerking is nog bezig. Wilt u annuleren en sluiten?</system:String>
     <system:String x:Key="Purple">Paars</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Plaats ROMs of ISOs voor dit systeem in</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Selecteer {config.SystemName} systeem</system:String>
     <system:String x:Key="SelectSystemComboBox">Selecteer Systeem ComboBox</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">Bericht verzenden... Even geduld aub</system:String>
 <system:String x:Key="SendingSupportRequest">Ondersteuningsverzoek verzenden...</system:String>
     <system:String x:Key="SendSupportRequest">Ondersteuningsverzoek Verzenden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Knopverhouding instellen</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">Afbeeldingsmap van systeem instellen</system:String>
     <system:String x:Key="Setthegamewindowto">Stel het venster van het spel in op niet-volledig scherm. Dit is belangrijk.</system:String>
     <system:String x:Key="SetThreshold">Drempel instellen</system:String>
+    <system:String x:Key="Settingittoohighmay">• Te hoog instellen kan precieze bewegingen bemoeilijken</system:String>
+    <system:String x:Key="Settingittoolowmay">• Te laag instellen kan ervoor zorgen dat je cursor drift wanneer je de stick niet aanraakt</system:String>
 <system:String x:Key="SettingsFileNotFoundCreatingDefault">Instellingenbestand niet gevonden, maakt standaard aan...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Instellingen succesvol opgeslagen.</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml'-bestand kon niet worden geladen.</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' kon de downloadlink niet openen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' kon de downloadlink voor het afbeeldingspakket niet openen.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' ondersteunt geen RetroAchievements-hash van systemen gegroepeerd op map.</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' ondersteunt de huidige processorarchitectuur niet. We ondersteunen alleen 64-bit (x64) of ARM64. De applicatie wordt nu gesloten.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher-fout</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' heeft onvoldoende rechten om naar het bestand 'settings.xml' te schrijven.</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">Geluidsconfiguratie</system:String>
     <system:String x:Key="Square">Vierkant</system:String>
 <system:String x:Key="StartingGlobalSearch">Globale zoekopdracht starten...</system:String>
+    <system:String x:Key="StartProcess">Proces starten</system:String>
     <system:String x:Key="Steel">Staal</system:String>
     <system:String x:Key="StopDownload">Stop download</system:String>
     <system:String x:Key="Success">Succes</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">Taupe</system:String>
     <system:String x:Key="Teal">Groenblauw</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Schakel tijdelijk uw antivirus uit en probeer het opnieuw.</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">De 7z dll ontbreekt in de applicatiemap!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">De applicatie kan het ondersteuningsverzoek niet verzenden.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">De applicatie wordt afgesloten.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">De bug is gemeld aan de ontwikkelaar en zal worden verholpen.</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">Totaal aantal overeenkomende afbeeldingen:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">Totale Speeltijd</system:String>
     <system:String x:Key="TotalSystems">Totaal aantal systemen:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">Totaal aantal systemen met ontbrekende afbeeldingen:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Het bestand 'helpuser.xml' kan niet worden geladen. Het bestand kan beschadigd zijn.</system:String>
     <system:String x:Key="Unabletoopenthelink">Kan de link niet openen.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Er is een onverwachte fout opgetreden bij het laden van 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Onbekend</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">Onbekende Favorietenstatus</system:String>
+    <system:String x:Key="UnsupportedArchitecture">Niet-ondersteunde architectuur</system:String>
     <system:String x:Key="UpdateAvailable">Update beschikbaar</system:String>
     <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' ontbreekt, 'Simple Launcher' zal proberen het te downloaden.</system:String>
     <system:String x:Key="Updating">Bezig met bijwerken</system:String>
 <system:String x:Key="UpdatingPlayHistory">Speelgeschiedenis bijwerken...</system:String>
 <system:String x:Key="UpdatingSystemPlayTime">Systeemspeeltijd bijwerken...</system:String>

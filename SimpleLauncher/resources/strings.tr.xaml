@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Dosya silinmeye çalışılırken bir hata oluştu.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Açık kaynaklı bir emülatör ön yüzü</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Başka bir Simple Launcher örneği zaten çalışıyor.</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">7-Zip kütüphanesi başlatılırken beklenmeyen bir hata oluştu.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher', API yapılandırmasını yüklerken bir hatayla karşılaştı.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API Yapılandırma Hatası</system:String>
     <system:String x:Key="ApiKey">API Anahtarı</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">İptal</system:String>
     <system:String x:Key="CancelButtonText">İptal</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
+    <system:String x:Key="CancellingPleasewait">İptal ediliyor... Lütfen bekleyin</system:String>
     <system:String x:Key="cannotbeextracted">çıkarılamıyor.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Çıkarma klasörü oluşturulamıyor veya erişilemiyor.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Küçültülmüş bir pencerenin ekran görüntüsü alınamıyor.</system:String>
@@ -107,6 +109,7 @@
     <system:String x:Key="CompatibilityWarning">Uyumluluk Uyarısı</system:String>
     <system:String x:Key="ConfigurationWarning">Yapılandırma Uyarısı</system:String>
     <system:String x:Key="Confirmation">Onay</system:String>
+    <system:String x:Key="ConfirmClose">Kapatmayı Onayla</system:String>
     <system:String x:Key="ConfirmDeletion">Silme İşlemini Onayla</system:String>
     <system:String x:Key="CopyError">Kopyalama Hatası</system:String>
     <system:String x:Key="Core">Çekirdek</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">Mevcut Eşik:</system:String>
     <system:String x:Key="Cyan">Camgöbeği</system:String>
     <system:String x:Key="Dark">Koyu</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">Ölü bölge, gamepad'inizin başparmak çubuklarının merkezi etrafındaki, hiçbir hareketin kaydedilmediği alandır. Bu, aşınma veya üretim toleransları nedeniyle çubuğun mükemmel şekilde ortalanmadığı durumlarda istenmeyen imleç hareketini önler.</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">Ölü Bölge Nedir?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
     <system:String x:Key="DeadZoneX">Ölü Bölge X</system:String>
     <system:String x:Key="DeadZoneY">Ölü Bölge Y</system:String>
@@ -286,6 +291,10 @@
     <system:String x:Key="FolderName">Klasör Adı</system:String>
 <system:String x:Key="FolderPathColumnHeader">Klasör Yolu</system:String>
     <system:String x:Key="FuzzyImageMatching">Bulanık Görüntü Eşleştirme</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">Yüksek eşik (%90-95):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">Daha az eşleşme bulur ancak yalnızca çok benzer dosya adlarını içerir</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">Düşük eşik (%70-80):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">Daha fazla eşleşme bulur ancak yanlış resimler içerebilir</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Bulanık eşleştirme eşiğini ayarla</system:String>
     <system:String x:Key="Gamelaunchtimedout">Oyun başlatma süresi doldu</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Oyun başlatma süresi doldu. Lütfen tekrar deneyin veya emülatörün başladığından emin olun.</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">Oynanış Görüntüsü Bulunamadı</system:String>
     <system:String x:Key="GlobalSearch">Genel Arama</system:String>
     <system:String x:Key="GlobalStats">Genel İstatistikler</system:String>
+    <system:String x:Key="GlobalStatsExplanation">Bu pencere, toplam sistemler, emülatörler, oyunlar ve eşleşen görüntüler dahil olmak üzere oyun kütüphaneniz hakkında kapsamlı istatistikler hesaplar. Analizi başlatmak için 'İşlemi Başlat' düğmesine tıklayın.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher'a yönetici izinleri verin ve tekrar deneyin.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'a yönetici erişimi verin ve tekrar deneyin.</system:String>
     <system:String x:Key="Green">Yeşil</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">silindi.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">başarıyla silindi.</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">başarıyla indirildi ve kuruldu.</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• Daha yüksek değerler = daha büyük ölü bölge = imleç hareket etmeden önce daha fazla çubuk hareketi gerekir</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Uygulamayı başlatmak için gereken 'system.xml' dosyası bulunamadı.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Mümkünse yönetici yetkisiyle çalıştırın.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Eğer bu işe yaramazsa, 'Simple Launcher'ı yeniden yükleyin.</system:String>
@@ -378,6 +389,7 @@
     <system:String x:Key="LoadingUserCompletionProgress">Kullanıcı tamamlama ilerlemesi yükleniyor...</system:String>
     <system:String x:Key="LoadingUserProfile">Kullanıcı profili yükleniyor...</system:String>
     <system:String x:Key="LoadingUserUnlocks">Kullanıcı kilitleri yükleniyor...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• Daha düşük değerler = daha küçük ölü bölge = daha hassas imleç hareketi, ancak kaymaya neden olabilir</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">Makine Tanımı</system:String>
     <system:String x:Key="Magenta">Eflatun</system:String>
     <system:String x:Key="MameDescription">MAME Açıklaması</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">Sorunu düzeltmek için lütfen 'Simple Launcher'ı manuel olarak yeniden yükleyin.</system:String>
     <system:String x:Key="Mauve">Eflatun</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Belki internet bağlantınızda bir sorun vardır ya da GitHub sunucusu çevrim dışıdır.</system:String>
-    <system:String x:Key="MissingFile">Eksik Dosya</system:String>
     <system:String x:Key="MissingRequiredFiles">Eksik Gerekli Dosyalar</system:String>
     <system:String x:Key="MoreOptions">Daha Fazla Seçenek</system:String>
     <system:String x:Key="Name">İsim</system:String>
@@ -444,12 +455,15 @@
     <system:String x:Key="OpeningPlayHistory">Oynatma Geçmişi açılıyor...</system:String>
     <system:String x:Key="OpeningRetroAchievementsSettings">RetroBaşarılar ayarları açılıyor...</system:String>
     <system:String x:Key="OpeningROMHistory">ROM geçmişi açılıyor...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">Ses Yapılandırma ayarları açılıyor...</system:String>
     <system:String x:Key="OpeningSupportWindow">Destek penceresi açılıyor...</system:String>
     <system:String x:Key="OpeningTitleSnapshot">Başlık ekran görüntüsü açılıyor...</system:String>
     <system:String x:Key="OpeningVideoLink">Video bağlantısı açılıyor...</system:String>
     <system:String x:Key="OpeningWalkthrough">Oyun rehberi açılıyor...</system:String>
     <system:String x:Key="OpenROMHistory">ROM Geçmişini Aç</system:String>
     <system:String x:Key="OpenVideoLink">Video Bağlantısını Aç</system:String>
+    <system:String x:Key="OperationCancelled">İşlem İptal Edildi</system:String>
+    <system:String x:Key="OperationCancelledMessage">İşlem iptal edildi.</system:String>
     <system:String x:Key="Options">Seçenekler</system:String>
     <system:String x:Key="Orange">Turuncu</system:String>
     <system:String x:Key="outof">toplam</system:String>
@@ -467,6 +481,7 @@
     <system:String x:Key="PlayingVideo">Video oynatılıyor...</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">Oynama Süresi</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Lütfen sistem ayarlarını düzenleyin ve 'Dosyaları Klasöre Göre Gruplandır' seçeneğini devre dışı bırakın.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Sorunu düzeltmek için bu sistemi düzenleyin.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Lütfen bir arama sorgusu girin.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Lütfen bir arama terimi girin.</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">Lütfen silmek için bir sistem seçin.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Sistem klasörünü seçin.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Sistem resim klasörünü seçin.</system:String>
-    <system:String x:Key="PopulatingSystemSelectionGrid">Sistem seçim ızgarası dolduruluyor...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Potansiyel olarak geçersiz yollar algılandı.</system:String>
     <system:String x:Key="PreparingRetroAchievements">RetroBaşarılar hazırlanıyor...</system:String>
     <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">Oynatma geçmişi verileri işleniyor...</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">İşlem hala devam ediyor. İptal edip kapatmak ister misiniz?</system:String>
     <system:String x:Key="Purple">Mor</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Bu sistem için kapak görsellerini şu klasöre yerleştirin:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Bu sistem için ROM'ları veya ISO dosyalarını şu klasöre yerleştirin:</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} sistemini seçin</system:String>
 <system:String x:Key="SelectSystemComboBox">Sistem ComboBox'ını Seçin</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">Mesaj gönderiliyor... Lütfen bekleyin</system:String>
     <system:String x:Key="SendingSupportRequest">Destek talebi gönderiliyor...</system:String>
     <system:String x:Key="SendSupportRequest">Destek Talebi Gönder</system:String>
     <system:String x:Key="SetButtonAspectRatio">Düğme En Boy Oranını Ayarla</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">Sistem görüntü klasörünü ayarla</system:String>
     <system:String x:Key="Setthegamewindowto">Oyun penceresini tam ekran olmayan bir moda ayarlayın. Bu önemlidir.</system:String>
     <system:String x:Key="SetThreshold">Eşiği Ayarla</system:String>
+    <system:String x:Key="Settingittoohighmay">• Çok yüksek ayarlamak, hassas hareketleri zorlaştırabilir</system:String>
+    <system:String x:Key="Settingittoolowmay">• Çok düşük ayarlamak, çubuğa dokunmadığınızda imlecinizin kaymasına neden olabilir</system:String>
     <system:String x:Key="SettingsFileNotFoundCreatingDefault">Ayarlar dosyası bulunamadı, varsayılan oluşturuluyor...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Ayarlar başarıyla kaydedildi.</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' dosyası yüklenemedi.</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher', Klasöre Göre Gruplandırılmış Sistemlerin RetroAchievements karmasını desteklemiyor.</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' mevcut işlemci mimarisini desteklemiyor. Yalnızca 64-bit (x64) veya ARM64 destekliyoruz. Uygulama şimdi kapanacak.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Hatası</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher', 'settings.xml' dosyasına yazmak için gerekli izinlere sahip değil.</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">Ses Yapılandırması</system:String>
     <system:String x:Key="Square">Kare</system:String>
     <system:String x:Key="StartingGlobalSearch">Global arama başlatılıyor...</system:String>
+    <system:String x:Key="StartProcess">İşlemi Başlat</system:String>
     <system:String x:Key="Steel">Çelik</system:String>
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">Toprak</system:String>
     <system:String x:Key="Teal">Cam Göbeği</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Antivirüsünüzü geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">7z dll uygulama klasöründe eksik!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Uygulama destek talebini gönderemeyecek.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Uygulama kapatılacak.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Hata geliştiriciye bildirildi ve sorunun çözülmesi planlanıyor.</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">Eşleşen toplam görsel sayısı:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">Toplam Oynama Süresi</system:String>
     <system:String x:Key="TotalSystems">Toplam sistem sayısı:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">Eksik Resimli Toplam Sistem Sayısı:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' dosyası yüklenemiyor. Dosya muhtemelen bozulmuş olabilir.</system:String>
     <system:String x:Key="Unabletoopenthelink">Bağlantı açılamıyor.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' yüklenirken beklenmeyen bir hata oluştu.</system:String>
     <system:String x:Key="Unknown">Bilinmiyor</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">Bilinmeyen Favori Durumu</system:String>
+    <system:String x:Key="UnsupportedArchitecture">Desteklenmeyen Mimari</system:String>
     <system:String x:Key="UpdateAvailable">Güncelleme Mevcut</system:String>
     <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' eksik, 'Simple Launcher' indirmeye çalışacak.</system:String>
     <system:String x:Key="Updating">Güncelleme yapılıyor</system:String>
     <system:String x:Key="UpdatingPlayHistory">Oynatma geçmişi güncelleniyor...</system:String>
     <system:String x:Key="UpdatingSystemPlayTime">Sistem oynatma süresi güncelleniyor...</system:String>

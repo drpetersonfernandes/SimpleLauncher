@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">فائل کو حذف کرنے کی کوشش میں ایرر آیا ہے۔</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">ایک اوپن سورس ایمولیٹر فرنٹ اینڈ</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher کی ایک اور مثال پہلے ہی چل رہی ہے۔</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">7-Zip لائبریری کو شروع کرتے وقت ایک غیر متوقع خرابی پیش آئی۔</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' کو اپنی API کنفیگریشن لوڈ کرتے وقت ایک خرابی کا سامنا کرنا پڑا۔</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API کنفیگریشن خرابی</system:String>
     <system:String x:Key="ApiKey">API کلید</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">منسوخ کریں</system:String>
     <system:String x:Key="CancelButtonText">منسوخ کریں</system:String>
     <system:String x:Key="Cancelingdownload">ڈاؤن لوڈ منسوخ کر رہے ہیں...</system:String>
+    <system:String x:Key="CancellingPleasewait">منسوخ کیا جا رہا ہے... براہ کرم انتظار کریں</system:String>
     <system:String x:Key="cannotbeextracted">کو ایکسٹریکٹ نہیں کیا جا سکتا۔</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">ایکسٹریکشن فولڈر نہیں بنایا جا سکتا یا اس تک رسائی حاصل نہیں کی جا سکتی۔</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">کم سے کم کی گئی ونڈو کا اسکرین شاٹ نہیں لیا جا سکتا۔</system:String>
@@ -107,6 +109,7 @@
     <system:String x:Key="CompatibilityWarning">مطابقت کی وارننگ</system:String>
     <system:String x:Key="ConfigurationWarning">کنفیگریشن وارننگ</system:String>
     <system:String x:Key="Confirmation">تصدیق</system:String>
+    <system:String x:Key="ConfirmClose">بند کرنے کی تصدیق کریں</system:String>
     <system:String x:Key="ConfirmDeletion">حذف کرنے کی تصدیق کریں</system:String>
     <system:String x:Key="CopyError">کاپی کی خرابی</system:String>
     <system:String x:Key="Core">کور</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">موجودہ حد:</system:String>
     <system:String x:Key="Cyan">فیروزی</system:String>
     <system:String x:Key="Dark">گہرا</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">ڈیڈ زون آپ کے گیم پیڈ کے تھمب اسٹکس کے مرکز کے گرد کا وہ علاقہ ہے جہاں کوئی حرکت رجسٹر نہیں ہوتی ہے۔ یہ اس وقت ناپسندیدہ کرسر کی حرکت کو روکتا ہے جب اسٹک ٹوٹ پھوٹ یا مینوفیکچرنگ کی خرابیوں کی وجہ سے بالکل مرکز میں نہ ہو۔</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">ڈیڈ زون کیا ہے؟</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">ڈیڈ زون کی قدریں کامیابی سے محفوظ کر لی گئیں۔</system:String>
     <system:String x:Key="DeadZoneX">ڈیڈ زون X</system:String>
     <system:String x:Key="DeadZoneY">ڈیڈ زون Y</system:String>
@@ -286,6 +291,10 @@
     <system:String x:Key="FolderName">فولڈر کا نام</system:String>
 <system:String x:Key="FolderPathColumnHeader">فولڈر کا راستہ</system:String>
     <system:String x:Key="FuzzyImageMatching">فزی امیج میچنگ</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">اعلی حد (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">کم مماثلتیں تلاش کرتا ہے لیکن صرف بہت ملتے جلتے فائل نام</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">کم حد (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">زیادہ مماثلتیں تلاش کرتا ہے لیکن اس میں غلط تصاویر شامل ہو سکتی ہیں</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">فزی میچنگ کی حد سیٹ کریں</system:String>
     <system:String x:Key="Gamelaunchtimedout">گیم لانچ کا وقت ختم</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">گیم لانچ کا وقت ختم ہو گیا۔ براہ کرم دوبارہ کوشش کریں یا چیک کریں کہ ایمولیٹر شروع ہوا ہے یا نہیں۔</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">گیم پلے اسنیپ شاٹ نہیں ملا</system:String>
     <system:String x:Key="GlobalSearch">عالمی تلاش</system:String>
     <system:String x:Key="GlobalStats">عالمی اعدادوشمار</system:String>
+    <system:String x:Key="GlobalStatsExplanation">یہ ونڈو آپ کی گیم لائبریری کے بارے میں جامع اعدادوشمار کا حساب لگاتی ہے، بشمول کل سسٹمز، ایمولیٹرز، گیمز، اور مماثل تصاویر۔ تجزیہ شروع کرنے کے لیے 'عمل شروع کریں' پر کلک کریں۔</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' کو انتظامی اجازت دیں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' کو منتظم کی رسائی دیں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="Green">سبز</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">حذف کر دیا گیا ہے۔</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">کامیابی کے ساتھ حذف کر دی گئی۔</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">کو کامیابی کے ساتھ ڈاؤن لوڈ اور انسٹال کر دیا گیا ہے۔</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• زیادہ قدریں = بڑا ڈیڈ زون = کرسر کی حرکت سے پہلے زیادہ اسٹک کی حرکت کی ضرورت</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">ایپلیکیشن کو شروع کرنے کے لئے ضروری 'system.xml' فائل نہیں ملی۔</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">اگر ممکن ہو تو، اسے انتظامی مراعات کے ساتھ چلائیں۔</system:String>
     <system:String x:Key="Ifthatdoesnotwork">اگر یہ کام نہیں کرتا تو 'Simple Launcher' کو دوبارہ انسٹال کریں۔</system:String>
@@ -378,6 +389,7 @@
     <system:String x:Key="LoadingUserCompletionProgress">یوزر کی تکمیل کی پیشرفت لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingUserProfile">صارف کا پروفائل لوڈ ہو رہا ہے...</system:String>
     <system:String x:Key="LoadingUserUnlocks">یوزر انلاکس لوڈ کر رہا ہے...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• کم قدریں = چھوٹا ڈیڈ زون = زیادہ حساس کرسر کی حرکت، لیکن بہاؤ کا سبب بن سکتی ہے</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">مشین کی تفصیل</system:String>
     <system:String x:Key="Magenta">مجنٹا</system:String>
     <system:String x:Key="MameDescription">MAME تفصیل</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">مسئلہ کو ٹھیک کرنے کے لیے براہ کرم 'Simple Launcher' کو دستی طور پر دوبارہ انسٹال کریں۔</system:String>
     <system:String x:Key="Mauve">مالوے</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ممکن ہے آپ کے انٹرنیٹ کنیکشن میں مسئلہ ہو یا GitHub سرور آف لائن ہو۔</system:String>
-    <system:String x:Key="MissingFile">فائل غائب ہے</system:String>
     <system:String x:Key="MissingRequiredFiles">مطلوبہ فائلیں غائب ہیں</system:String>
     <system:String x:Key="MoreOptions">مزید اختیارات</system:String>
     <system:String x:Key="Name">نام</system:String>
@@ -444,12 +455,15 @@
     <system:String x:Key="OpeningPlayHistory">پلے ہسٹری کھول رہا ہے...</system:String>
     <system:String x:Key="OpeningRetroAchievementsSettings">ریٹرو اچیومنٹس کی ترتیبات کھول رہا ہے...</system:String>
     <system:String x:Key="OpeningROMHistory">ROM ہسٹری کھول رہا ہے...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">ساؤنڈ کنفیگریشن کی ترتیبات کھولی جا رہی ہیں...</system:String>
     <system:String x:Key="OpeningSupportWindow">سپورٹ ونڈو کھول رہا ہے...</system:String>
     <system:String x:Key="OpeningTitleSnapshot">ٹائٹل سنیپ شاٹ کھول رہا ہے...</system:String>
     <system:String x:Key="OpeningVideoLink">ویڈیو لنک کھول رہا ہے...</system:String>
     <system:String x:Key="OpeningWalkthrough">واک تھرو کھول رہا ہے...</system:String>
     <system:String x:Key="OpenROMHistory">ROM کی تاریخ کھولیں</system:String>
     <system:String x:Key="OpenVideoLink">ویڈیو لنک کھولیں</system:String>
+    <system:String x:Key="OperationCancelled">آپریشن منسوخ کر دیا گیا</system:String>
+    <system:String x:Key="OperationCancelledMessage">آپریشن منسوخ کر دیا گیا تھا۔</system:String>
     <system:String x:Key="Options">اختیارات</system:String>
     <system:String x:Key="Orange">نارنجی</system:String>
     <system:String x:Key="outof">میں سے</system:String>
@@ -467,6 +481,7 @@
     <system:String x:Key="PlayingVideo">ویڈیو چلا رہا ہے...</system:String>
     <system:String x:Key="Playtime">کھیل کا وقت:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">کھیلنے کا وقت</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">براہ کرم سسٹم کی ترتیبات میں ترمیم کریں اور 'فائلوں کو فولڈر کے لحاظ سے گروپ کریں' کے آپشن کو غیر فعال کریں۔</system:String>
     <system:String x:Key="Pleaseeditthissystemto">مسئلہ ٹھیک کرنے کے لئے اس سسٹم کو ایڈٹ کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchquery">براہ کرم تلاش کا سوال درج کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchterm">براہ کرم تلاش کی اصطلاح درج کریں۔</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">براہ کرم حذف کرنے کے لیے سسٹم منتخب کریں۔</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">براہ کرم نظام فولڈر منتخب کریں۔</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">براہ کرم نظام کی تصاویر کا فولڈر منتخب کریں۔</system:String>
-    <system:String x:Key="PopulatingSystemSelectionGrid">سسٹم سلیکشن گرڈ بھر رہا ہے...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">ممکنہ طور پر غلط راستے دریافت ہوئے۔</system:String>
     <system:String x:Key="PreparingRetroAchievements">ریٹرو اچیومنٹس تیار کر رہا ہے...</system:String>
     <system:String x:Key="Preparingtodownload">ڈاؤن لوڈ کے لیے تیاری کر رہا ہے</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">پلے ہسٹری ڈیٹا پروسیس کر رہا ہے...</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">پروسیسنگ ابھی بھی چل رہی ہے۔ کیا آپ منسوخ کر کے بند کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Purple">جامنی</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">اس سسٹم کے لیے کور تصاویر یہاں رکھیں</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">اس سسٹم کے لیے ROMs یا ISOs یہاں رکھیں</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} سسٹم منتخب کریں</system:String>
 <system:String x:Key="SelectSystemComboBox">سسٹم کامبو باکس منتخب کریں</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">پیغام بھیجا جا رہا ہے... براہ کرم انتظار کریں</system:String>
     <system:String x:Key="SendingSupportRequest">سپورٹ کی درخواست بھیج رہا ہے...</system:String>
     <system:String x:Key="SendSupportRequest">سپورٹ کی درخواست بھیجیں</system:String>
     <system:String x:Key="SetButtonAspectRatio">بٹن کا تناسب سیٹ کریں</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">سسٹم امیج فولڈر سیٹ کریں</system:String>
     <system:String x:Key="Setthegamewindowto">گیم ونڈو کو مکمل اسکرین سے ہٹائیں۔ یہ ضروری ہے۔</system:String>
     <system:String x:Key="SetThreshold">حد سیٹ کریں</system:String>
+    <system:String x:Key="Settingittoohighmay">• اسے بہت زیادہ سیٹ کرنے سے درست حرکتیں مشکل ہو سکتی ہیں</system:String>
+    <system:String x:Key="Settingittoolowmay">• اسے بہت کم سیٹ کرنے سے آپ کا کرسر بہہ سکتا ہے جب آپ اسٹک کو نہیں چھو رہے ہوں</system:String>
     <system:String x:Key="SettingsFileNotFoundCreatingDefault">ترتیبات کی فائل نہیں ملی، ڈیفالٹ بنائی جا رہی ہے...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">ترتیبات کامیابی سے محفوظ ہو گئیں۔</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' فائل لوڈ نہیں کی جا سکی۔</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' ڈاؤن لوڈ لنک نہیں کھول سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' امیج پیکج کے ڈاؤن لوڈ لنک کو کھول نہیں سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' نے اس نظام کے لیے تصاویر کا ایک فولڈر بنایا ہے:۔</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'سادہ لانچر' فولڈر کے لحاظ سے گروپ کردہ سسٹمز کے RetroAchievements ہیش کو سپورٹ نہیں کرتا ہے۔</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'سادہ لانچر' موجودہ پروسیسر آرکیٹیکچر کو سپورٹ نہیں کرتا ہے۔ ہم صرف 64-بٹ (x64) یا ARM64 کو سپورٹ کرتے ہیں۔ ایپلیکیشن اب بند ہو جائے گی۔</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher خرابی</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' اس نظام کے لیے ضروری فولڈر بنانے میں ناکام رہا۔</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' کے پاس 'settings.xml' فائل پر لکھنے کے لئے کافی اختیارات نہیں ہیں۔</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">آواز کی ترتیب</system:String>
     <system:String x:Key="Square">مربع</system:String>
     <system:String x:Key="StartingGlobalSearch">گلوبل سرچ شروع کر رہا ہے...</system:String>
+    <system:String x:Key="StartProcess">عمل شروع کریں</system:String>
     <system:String x:Key="Steel">اسٹیل</system:String>
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">تاوپ</system:String>
     <system:String x:Key="Teal">‌ٹیئل</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">اپنا اینٹی وائرس عارضی طور پر غیر فعال کریں اور دوبارہ کوشش کریں۔</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">7z dll ایپلیکیشن فولڈر سے غائب ہے!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">ایپلیکیشن سپورٹ کی درخواست بھیجنے کے قابل نہیں ہوگی۔</system:String>
     <system:String x:Key="Theapplicationwillshutdown">ایپلیکیشن بند ہو جائے گی۔</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">خرابی کو ڈویلپر کو رپورٹ کیا گیا ہے اور اسے حل کیا جائے گا۔</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">مطابق امیجز کی کل تعداد:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">کل کھیلنے کا وقت</system:String>
     <system:String x:Key="TotalSystems">سسٹمز کی کل تعداد:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">گمشدہ تصاویر والے کل سسٹمز:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' فائل کو لوڈ کرنے میں ناکامی۔ ممکن ہے کہ فائل خراب ہو۔</system:String>
     <system:String x:Key="Unabletoopenthelink">رابطہ کھولنے میں ناکام۔</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' کو لوڈ کرتے وقت ایک غیر متوقع خامی واقع ہوئی۔</system:String>
     <system:String x:Key="Unknown">نامعلوم</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">نامعلوم پسندیدہ حالت</system:String>
+    <system:String x:Key="UnsupportedArchitecture">غیر تعاون یافتہ آرکیٹیکچر</system:String>
     <system:String x:Key="UpdateAvailable">اپ ڈیٹ دستیاب ہے</system:String>
     <system:String x:Key="UpdateHistory">اپ ڈیٹ کی تاریخ</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' غائب ہے، 'Simple Launcher' اسے ڈاؤن لوڈ کرنے کی کوشش کرے گا۔</system:String>
     <system:String x:Key="Updating">اپ ڈیٹ ہو رہا ہے</system:String>
     <system:String x:Key="UpdatingPlayHistory">پلے ہسٹری اپ ڈیٹ کر رہا ہے...</system:String>
     <system:String x:Key="UpdatingSystemPlayTime">سسٹم کے پلے ٹائم کو اپ ڈیٹ کر رہا ہے...</system:String>

@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">حدث خطأ أثناء محاولة حذف الملف.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">يتم تشغيل نسخة أخرى من Simple Launcher بالفعل.</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">حدث خطأ غير متوقع أثناء تهيئة مكتبة 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">واجه 'Simple Launcher' خطأ أثناء تحميل تهيئة واجهة برمجة التطبيقات (API) الخاصة به.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">خطأ في تهيئة واجهة برمجة التطبيقات (API)</system:String>
     <system:String x:Key="ApiKey">مفتاح API</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">إلغاء</system:String>
     <system:String x:Key="CancelButtonText">إلغاء</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
+    <system:String x:Key="CancellingPleasewait">جاري الإلغاء... يرجى الانتظار</system:String>
     <system:String x:Key="cannotbeextracted">لا يمكن استخراجه.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">لا يمكن إنشاء مجلد الاستخراج أو الوصول إليه.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">لا يمكن التقاط لقطة شاشة لنافذة مصغرة.</system:String>
@@ -107,6 +109,7 @@
 <system:String x:Key="CompatibilityWarning">تحذير التوافق</system:String>
 <system:String x:Key="ConfigurationWarning">تحذير التكوين</system:String>
     <system:String x:Key="Confirmation">تأكيد</system:String>
+    <system:String x:Key="ConfirmClose">تأكيد الإغلاق</system:String>
     <system:String x:Key="ConfirmDeletion">تأكيد الحذف</system:String>
     <system:String x:Key="CopyError">خطأ في النسخ</system:String>
     <system:String x:Key="Core">الأساسي</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">العتبة الحالية:</system:String>
     <system:String x:Key="Cyan">سماوي</system:String>
     <system:String x:Key="Dark">داكن</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">المنطقة الميتة هي المنطقة المحيطة بمركز عصا التحكم في لوحة الألعاب الخاصة بك حيث لا يتم تسجيل أي حركة. هذا يمنع حركة المؤشر غير المرغوب فيها عندما لا تكون العصا متمركزة تمامًا بسبب التآكل أو تفاوتات التصنيع.</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">ما هي المنطقة الميتة؟</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">تم حفظ قيم المنطقة الميتة بنجاح.</system:String>
     <system:String x:Key="DeadZoneX">المنطقة الميتة X</system:String>
     <system:String x:Key="DeadZoneY">المنطقة الميتة Y</system:String>
@@ -286,6 +291,10 @@
 <system:String x:Key="FolderName">اسم المجلد</system:String>
     <system:String x:Key="FolderPathColumnHeader">مسار المجلد</system:String>
     <system:String x:Key="FuzzyImageMatching">مطابقة الصورة الضبابية</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">عتبة أعلى (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">يعثر على عدد أقل من التطابقات ولكن فقط لأسماء الملفات المتشابهة جدًا</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">عتبة منخفضة (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">يعثر على المزيد من التطابقات ولكنه قد يتضمن صورًا غير صحيحة</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">قم بضبط عتبة المطابقة الضبابية</system:String>
     <system:String x:Key="Gamelaunchtimedout">انتهت مهلة إطلاق اللعبة</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">انتهت مهلة إطلاق اللعبة. يرجى المحاولة مرة أخرى أو التحقق مما إذا كان المحاكي قد بدأ.</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">لقطة اللعب غير موجودة</system:String>
     <system:String x:Key="GlobalSearch">بحث شامل</system:String>
     <system:String x:Key="GlobalStats">الإحصائيات العامة</system:String>
+    <system:String x:Key="GlobalStatsExplanation">تحسب هذه النافذة إحصائيات شاملة حول مكتبة الألعاب الخاصة بك، بما في ذلك إجمالي الأنظمة والمحاكيات والألعاب والصور المتطابقة. انقر على 'بدء العملية' لبدء التحليل.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">امنح 'Simple Launcher' صلاحيات المسؤول وحاول مرة أخرى.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">امنح 'Simple Launcher' صلاحيات إدارية وحاول مرة أخرى.</system:String>
     <system:String x:Key="Green">أخضر</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">تم حذفه.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">تم حذفه بنجاح.</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">تم التحميل والتثبيت بنجاح.</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• قيم أعلى = منطقة ميتة أكبر = حركة عصا أكبر مطلوبة قبل تحرك المؤشر</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">لم أتمكن من العثور على ملف 'system.xml'، الذي يتطلب لتشغيل التطبيق.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">إذا أمكن، قم بتشغيله بصلاحيات إدارية.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">إذا لم ينجح ذلك، يرجى إعادة تثبيت 'Simple Launcher'.</system:String>
@@ -378,6 +389,7 @@
 <system:String x:Key="LoadingUserCompletionProgress">تحميل تقدم إنجاز المستخدم...</system:String>
     <system:String x:Key="LoadingUserProfile">جاري تحميل الملف الشخصي...</system:String>
 <system:String x:Key="LoadingUserUnlocks">تحميل فتحات المستخدم...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• قيم أقل = منطقة ميتة أصغر = حركة مؤشر أكثر حساسية، ولكن قد تسبب الانجراف</system:String>
     <system:String x:Key="MachineDescriptionColumnHeader">وصف الجهاز</system:String>
     <system:String x:Key="Magenta">قرمزي</system:String>
 <system:String x:Key="MameDescription">وصف MAME</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
-    <system:String x:Key="MissingFile">ملف مفقود</system:String>
     <system:String x:Key="MissingRequiredFiles">الملفات المطلوبة مفقودة</system:String>
 <system:String x:Key="MoreOptions">المزيد من الخيارات</system:String>
     <system:String x:Key="Name">الاسم</system:String>
@@ -444,12 +455,15 @@
 <system:String x:Key="OpeningPlayHistory">فتح سجل اللعب...</system:String>
 <system:String x:Key="OpeningRetroAchievementsSettings">فتح إعدادات RetroAchievements...</system:String>
 <system:String x:Key="OpeningROMHistory">فتح سجل ROM...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">جاري فتح إعدادات تهيئة الصوت...</system:String>
 <system:String x:Key="OpeningSupportWindow">فتح نافذة الدعم...</system:String>
 <system:String x:Key="OpeningTitleSnapshot">فتح لقطة العنوان...</system:String>
 <system:String x:Key="OpeningVideoLink">فتح رابط الفيديو...</system:String>
 <system:String x:Key="OpeningWalkthrough">فتح الإرشادات التفصيلية...</system:String>
     <system:String x:Key="OpenROMHistory">فتح سجل ROM</system:String>
     <system:String x:Key="OpenVideoLink">فتح رابط الفيديو</system:String>
+    <system:String x:Key="OperationCancelled">تم إلغاء العملية</system:String>
+    <system:String x:Key="OperationCancelledMessage">تم إلغاء العملية.</system:String>
     <system:String x:Key="Options">الخيارات</system:String>
     <system:String x:Key="Orange">برتقالي</system:String>
     <system:String x:Key="outof">من أصل</system:String>
@@ -467,6 +481,7 @@
 <system:String x:Key="PlayingVideo">تشغيل الفيديو...</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">وقت اللعب</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">يرجى تعديل إعدادات النظام وتعطيل خيار 'تجميع الملفات حسب المجلد'.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">يرجى تحرير هذا النظام لإصلاح ذلك.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">يرجى إدخال استعلام بحث.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">يرجى إدخال مصطلح البحث.</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">يرجى اختيار نظام للحذف.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">يرجى اختيار مجلد النظام.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">يرجى اختيار مجلد صور النظام.</system:String>
-<system:String x:Key="PopulatingSystemSelectionGrid">تعبئة شبكة اختيار النظام...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">تم اكتشاف مسارات قد تكون غير صالحة.</system:String>
 <system:String x:Key="PreparingRetroAchievements">تحضير RetroAchievements...</system:String>
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">معالجة بيانات سجل اللعب...</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">المعالجة لا تزال قيد التشغيل. هل تريد الإلغاء والإغلاق؟</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">ضع صور الأغلفة لهذا النظام داخل</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">ضع ملفات ROMs أو ISOs لهذا النظام داخل</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">اختر النظام</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">اختر نظام {config.SystemName}</system:String>
     <system:String x:Key="SelectSystemComboBox">اختر قائمة نظام</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">جاري إرسال الرسالة... يرجى الانتظار</system:String>
 <system:String x:Key="SendingSupportRequest">إرسال طلب دعم...</system:String>
     <system:String x:Key="SendSupportRequest">إرسال طلب الدعم</system:String>
     <system:String x:Key="SetButtonAspectRatio">تعيين نسبة العرض إلى الارتفاع للزر</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">تعيين مجلد صور النظام</system:String>
     <system:String x:Key="Setthegamewindowto">اضبط نافذة اللعبة على الوضع غير الكامل. هذا مهم.</system:String>
     <system:String x:Key="SetThreshold">تعيين العتبة</system:String>
+    <system:String x:Key="Settingittoohighmay">• قد يؤدي ضبطه على مستوى عالٍ جدًا إلى صعوبة الحركات الدقيقة</system:String>
+    <system:String x:Key="Settingittoolowmay">• قد يؤدي ضبطه على مستوى منخفض جدًا إلى انجراف المؤشر عندما لا تلمس العصا</system:String>
 <system:String x:Key="SettingsFileNotFoundCreatingDefault">لم يتم العثور على ملف الإعدادات، يتم إنشاء ملف افتراضي...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">تم حفظ الإعدادات بنجاح.</system:String>
     <system:String x:Key="settingsxmlfilecouldnotbeloaded">ملف 'settings.xml' لم يتمكن من التحميل.</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' لا يدعم تجزئة RetroAchievements للأنظمة المجمعة حسب المجلد.</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' لا يدعم بنية المعالج الحالية. نحن ندعم فقط 64-بت (x64) أو ARM64. سيتم إغلاق التطبيق الآن.</system:String>
     <system:String x:Key="SimpleLauncherError">خطأ في Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' يفتقر إلى الصلاحيات الكافية للكتابة في ملف 'settings.xml'.</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">إعدادات الصوت</system:String>
     <system:String x:Key="Square">مربع</system:String>
 <system:String x:Key="StartingGlobalSearch">بدء البحث العام...</system:String>
+    <system:String x:Key="StartProcess">بدء العملية</system:String>
     <system:String x:Key="Steel">فولاذي</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">رمادي بني</system:String>
     <system:String x:Key="Teal">فيروزي</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">قم بتعطيل برنامج مكافحة الفيروسات مؤقتًا وحاول مرة أخرى.</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">ملف 7z dll مفقود من مجلد التطبيق!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">لن يكون التطبيق قادرًا على إرسال طلب الدعم.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">سيتم إغلاق التطبيق.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">إجمالي عدد الصور المتطابقة:</system:String>
     <system:String x:Key="TotalPlaytimeInfo">إجمالي وقت اللعب</system:String>
     <system:String x:Key="TotalSystems">إجمالي عدد الأنظمة:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">إجمالي الأنظمة ذات الصور المفقودة:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">غير قادر على تحميل 'helpuser.xml'. قد يكون الملف تالفًا.</system:String>
     <system:String x:Key="Unabletoopenthelink">غير قادر على فتح الرابط.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">خطأ غير متوقع أثناء تحميل 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">غير معروف</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">حالة مفضل غير معروفة</system:String>
+    <system:String x:Key="UnsupportedArchitecture">بنية غير مدعومة</system:String>
     <system:String x:Key="UpdateAvailable">تحديث متاح</system:String>
     <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' مفقود، سيحاول 'Simple Launcher' تنزيله.</system:String>
     <system:String x:Key="Updating">جارٍ التحديث</system:String>
 <system:String x:Key="UpdatingPlayHistory">تحديث سجل اللعب...</system:String>
 <system:String x:Key="UpdatingSystemPlayTime">تحديث وقت لعب النظام...</system:String>

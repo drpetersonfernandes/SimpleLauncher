@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Si è verificato un errore durante il tentativo di eliminare il file.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Un'interfaccia frontend open source per emulatori</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Un'altra istanza di Simple Launcher è già in esecuzione.</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Si è verificato un errore imprevisto durante l'inizializzazione della libreria 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' ha riscontrato un errore durante il caricamento della sua configurazione API.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Errore di configurazione API</system:String>
     <system:String x:Key="ApiKey">Chiave API</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">Annulla</system:String>
     <system:String x:Key="CancelButtonText">Annulla</system:String>
     <system:String x:Key="Cancelingdownload">Annullamento del download...</system:String>
+    <system:String x:Key="CancellingPleasewait">Annullamento... Attendere prego</system:String>
     <system:String x:Key="cannotbeextracted">non può essere estratto.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Impossibile creare o accedere alla cartella di estrazione.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Impossibile acquisire uno screenshot di una finestra minimizzata.</system:String>
@@ -107,6 +109,7 @@
 <system:String x:Key="CompatibilityWarning">Avviso di compatibilità</system:String>
 <system:String x:Key="ConfigurationWarning">Avviso di configurazione</system:String>
     <system:String x:Key="Confirmation">Conferma</system:String>
+    <system:String x:Key="ConfirmClose">Conferma chiusura</system:String>
     <system:String x:Key="ConfirmDeletion">Conferma eliminazione</system:String>
     <system:String x:Key="CopyError">Errore di copia</system:String>
     <system:String x:Key="Core">Nucleo</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">Soglia attuale:</system:String>
     <system:String x:Key="Cyan">Ciano</system:String>
     <system:String x:Key="Dark">Scuro</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">Una zona morta è l'area intorno al centro degli stick analogici del tuo gamepad dove non viene registrato alcun movimento. Questo previene movimenti indesiderati del cursore quando lo stick non è perfettamente centrato a causa dell'usura o delle tolleranze di fabbricazione.</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">Cos'è una Zona Morta?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Valori zona morta salvati correttamente.</system:String>
     <system:String x:Key="DeadZoneX">Zona morta X</system:String>
     <system:String x:Key="DeadZoneY">Zona morta Y</system:String>
@@ -286,6 +291,10 @@
 <system:String x:Key="FolderName">Nome cartella</system:String>
 <system:String x:Key="FolderPathColumnHeader">Percorso Cartella</system:String>
     <system:String x:Key="FuzzyImageMatching">Corrispondenza immagine fuzzy</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">Soglia alta (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">Trova meno corrispondenze ma solo nomi di file molto simili</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">Soglia bassa (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">Trova più corrispondenze ma potrebbe includere immagini errate</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Imposta la soglia di corrispondenza fuzzy</system:String>
     <system:String x:Key="Gamelaunchtimedout">Avvio del gioco scaduto</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Avvio del gioco scaduto. Riprova o verifica se l'emulatore è stato avviato.</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">Istantanea del gameplay non trovata</system:String>
     <system:String x:Key="GlobalSearch">Ricerca globale</system:String>
     <system:String x:Key="GlobalStats">Statistiche globali</system:String>
+    <system:String x:Key="GlobalStatsExplanation">Questa finestra calcola statistiche complete sulla tua libreria di giochi, inclusi il totale di sistemi, emulatori, giochi e immagini corrispondenti. Clicca su 'Avvia processo' per iniziare l'analisi.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Concedi i permessi di amministratore a 'Simple Launcher' e riprova.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Concedi l'accesso amministrativo a 'Simple Launcher' e riprova.</system:String>
     <system:String x:Key="Green">Verde</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">è stato eliminato.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">è stato eliminato con successo.</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">è stato scaricato e installato con successo.</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• Valori più alti = zona morta più grande = maggiore movimento dello stick necessario prima che il cursore si muova</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Non sono riuscito a trovare il file 'system.xml', necessario per avviare l'applicazione.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Se possibile, eseguilo con privilegi amministrativi.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Se ciò non funziona, reinstalla 'Simple Launcher'.</system:String>
@@ -378,6 +389,7 @@
 <system:String x:Key="LoadingUserCompletionProgress">Caricamento progresso di completamento utente...</system:String>
     <system:String x:Key="LoadingUserProfile">Caricamento profilo utente...</system:String>
 <system:String x:Key="LoadingUserUnlocks">Caricamento sblocchi utente...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• Valori più bassi = zona morta più piccola = movimento del cursore più sensibile, ma potrebbe causare deriva</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">Descrizione Macchina</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
 <system:String x:Key="MameDescription">Descrizione MAME</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">Reinstallare 'Simple Launcher' manualmente per risolvere il problema.</system:String>
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Forse c'è un problema con la tua connessione internet o il server di GitHub è offline.</system:String>
-    <system:String x:Key="MissingFile">File mancante</system:String>
     <system:String x:Key="MissingRequiredFiles">File richiesti mancanti</system:String>
 <system:String x:Key="MoreOptions">Altre opzioni</system:String>
     <system:String x:Key="Name">Nome</system:String>
@@ -444,12 +455,15 @@
 <system:String x:Key="OpeningPlayHistory">Apertura Cronologia di Gioco...</system:String>
 <system:String x:Key="OpeningRetroAchievementsSettings">Apertura Impostazioni RetroAchievements...</system:String>
 <system:String x:Key="OpeningROMHistory">Apertura Cronologia ROM...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">Apertura impostazioni di configurazione audio...</system:String>
 <system:String x:Key="OpeningSupportWindow">Apertura finestra di supporto...</system:String>
 <system:String x:Key="OpeningTitleSnapshot">Apertura snapshot titolo...</system:String>
 <system:String x:Key="OpeningVideoLink">Apertura link video...</system:String>
 <system:String x:Key="OpeningWalkthrough">Apertura guida passo-passo...</system:String>
     <system:String x:Key="OpenROMHistory">Apri cronologia ROM</system:String>
     <system:String x:Key="OpenVideoLink">Apri il link del video</system:String>
+    <system:String x:Key="OperationCancelled">Operazione Annullata</system:String>
+    <system:String x:Key="OperationCancelledMessage">L'operazione è stata annullata.</system:String>
     <system:String x:Key="Options">Opzioni</system:String>
     <system:String x:Key="Orange">Arancione</system:String>
     <system:String x:Key="outof">di</system:String>
@@ -467,6 +481,7 @@
 <system:String x:Key="PlayingVideo">Riproduzione video...</system:String>
     <system:String x:Key="Playtime">Tempo di gioco:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">Tempo di Gioco</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Si prega di modificare le impostazioni di sistema e disabilitare l'opzione 'Raggruppa file per cartella'.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Modifica questo sistema per risolvere il problema.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Inserisci una query di ricerca.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Inserisci un termine di ricerca.</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">Per favore, seleziona un sistema da eliminare.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Per favore, seleziona la cartella del sistema.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Per favore, seleziona la cartella delle immagini del sistema.</system:String>
-<system:String x:Key="PopulatingSystemSelectionGrid">Popolamento griglia selezione sistema...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Percorsi potenzialmente non validi rilevati.</system:String>
 <system:String x:Key="PreparingRetroAchievements">Preparazione RetroAchievements...</system:String>
     <system:String x:Key="Preparingtodownload">Preparazione al download</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">Pagina Precedente</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">Elaborazione dati cronologia di gioco...</system:String>
     <system:String x:Key="Processingpleasewait">Elaborazione in corso, attendere...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">L'elaborazione è ancora in corso. Vuoi annullare e chiudere?</system:String>
     <system:String x:Key="Purple">Viola</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Inserisci le immagini di copertina per questo sistema in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Inserisci ROM o ISO per questo sistema in</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">Seleziona Sistema</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Seleziona sistema {config.SystemName}</system:String>
 <system:String x:Key="SelectSystemComboBox">Seleziona ComboBox Sistema</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">Invio messaggio... Attendere prego</system:String>
 <system:String x:Key="SendingSupportRequest">Invio richiesta di supporto...</system:String>
     <system:String x:Key="SendSupportRequest">Invia Richiesta di Supporto</system:String>
     <system:String x:Key="SetButtonAspectRatio">Imposta proporzioni pulsante</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">Imposta cartella delle immagini del sistema</system:String>
     <system:String x:Key="Setthegamewindowto">Imposta la finestra del gioco in modalità non a schermo intero. È importante.</system:String>
     <system:String x:Key="SetThreshold">Imposta soglia</system:String>
+    <system:String x:Key="Settingittoohighmay">• Impostarlo troppo alto potrebbe rendere difficili i movimenti precisi</system:String>
+    <system:String x:Key="Settingittoolowmay">• Impostarlo troppo basso potrebbe causare la deriva del cursore quando non si tocca lo stick</system:String>
 <system:String x:Key="SettingsFileNotFoundCreatingDefault">File di impostazioni non trovato, creazione predefiniti...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Impostazioni salvate correttamente.</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">Il file 'settings.xml' non è stato possibile caricarlo.</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' non è riuscito ad aprire il link di download.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' non è riuscito ad aprire il collegamento per il download del pacchetto di immagini.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ha creato una cartella immagini per questo sistema in</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' non supporta l'hash RetroAchievements dei sistemi raggruppati per cartella.</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' non supporta l'architettura del processore attuale. Supportiamo solo 64-bit (x64) o ARM64. L'applicazione si chiuderà ora.</system:String>
     <system:String x:Key="SimpleLauncherError">Errore di Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' non è riuscito a creare le cartelle necessarie per questo sistema.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' non ha privilegi sufficienti per scrivere nel file 'settings.xml'.</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">Configurazione audio</system:String>
     <system:String x:Key="Square">Quadrato</system:String>
 <system:String x:Key="StartingGlobalSearch">Avvio ricerca globale...</system:String>
+    <system:String x:Key="StartProcess">Avvia processo</system:String>
     <system:String x:Key="Steel">Acciaio</system:String>
     <system:String x:Key="StopDownload">Interrompi download</system:String>
     <system:String x:Key="Success">Successo</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">Talpa</system:String>
     <system:String x:Key="Teal">Verde acqua</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Disabilita temporaneamente il tuo antivirus e riprova.</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">Il file 7z dll manca dalla cartella dell'applicazione!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">L'applicazione non sarà in grado di inviare la richiesta di supporto.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">L'applicazione verrà chiusa.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Il bug è stato segnalato allo sviluppatore che cercherà di risolverlo.</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">Numero totale di immagini corrispondenti:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">Tempo di Gioco Totale</system:String>
     <system:String x:Key="TotalSystems">Numero totale di sistemi:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">Sistemi totali con immagini mancanti:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Impossibile caricare 'helpuser.xml'. Il file potrebbe essere corrotto.</system:String>
     <system:String x:Key="Unabletoopenthelink">Impossibile aprire il link.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Errore imprevisto durante il caricamento di 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Sconosciuto</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">Stato Preferito Sconosciuto</system:String>
+    <system:String x:Key="UnsupportedArchitecture">Architettura non supportata</system:String>
     <system:String x:Key="UpdateAvailable">Aggiornamento disponibile</system:String>
     <system:String x:Key="UpdateHistory">Cronologia aggiornamenti</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' è mancante, 'Simple Launcher' tenterà di scaricarlo.</system:String>
     <system:String x:Key="Updating">Aggiornamento in corso</system:String>
 <system:String x:Key="UpdatingPlayHistory">Aggiornamento cronologia di gioco...</system:String>
 <system:String x:Key="UpdatingSystemPlayTime">Aggiornamento tempo di gioco sistema...</system:String>

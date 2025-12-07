@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Произошла ошибка при попытке удалить файл.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Открытая фронтенд-платформа для эмуляторов</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Другой экземпляр Simple Launcher уже запущен.</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Произошла непредвиденная ошибка при инициализации библиотеки 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' столкнулся с ошибкой при загрузке своей конфигурации API.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Ошибка конфигурации API</system:String>
     <system:String x:Key="ApiKey">Ключ API</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">Отмена</system:String>
     <system:String x:Key="CancelButtonText">Отмена</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
+    <system:String x:Key="CancellingPleasewait">Отмена... Пожалуйста, подождите</system:String>
     <system:String x:Key="cannotbeextracted">не может быть извлечён.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Невозможно создать или получить доступ к папке извлечения.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Невозможно сделать снимок экрана свёрнутого окна.</system:String>
@@ -107,6 +109,7 @@
     <system:String x:Key="CompatibilityWarning">Предупреждение о совместимости</system:String>
     <system:String x:Key="ConfigurationWarning">Предупреждение о конфигурации</system:String>
     <system:String x:Key="Confirmation">Подтверждение</system:String>
+    <system:String x:Key="ConfirmClose">Подтвердить закрытие</system:String>
     <system:String x:Key="ConfirmDeletion">Подтвердите удаление</system:String>
     <system:String x:Key="CopyError">Ошибка копирования</system:String>
     <system:String x:Key="Core">Ядро</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">Текущий порог:</system:String>
     <system:String x:Key="Cyan">Голубой</system:String>
     <system:String x:Key="Dark">Темная</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">Мертвая зона — это область вокруг центра стиков вашего геймпада, где не регистрируется движение. Это предотвращает нежелательное перемещение курсора, когда стик не идеально центрирован из-за износа или производственных допусков.</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">Что такое мертвая зона?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
     <system:String x:Key="DeadZoneX">Мертвая зона X</system:String>
     <system:String x:Key="DeadZoneY">Мертвая зона Y</system:String>
@@ -286,6 +291,10 @@
     <system:String x:Key="FolderName">Имя папки</system:String>
 <system:String x:Key="FolderPathColumnHeader">Путь к папке</system:String>
     <system:String x:Key="FuzzyImageMatching">Нечеткое сопоставление изображений</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">Высокий порог (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">Находит меньше совпадений, но только очень похожие имена файлов</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">Низкий порог (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">Находит больше совпадений, но может включать некорректные изображения</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Установите порог нечеткого сопоставления</system:String>
     <system:String x:Key="Gamelaunchtimedout">Время запуска игры истекло</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Время запуска игры истекло. Пожалуйста, попробуйте снова или проверьте, запустился ли эмулятор.</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">Скриншот игрового процесса не найден</system:String>
     <system:String x:Key="GlobalSearch">Глобальный поиск</system:String>
     <system:String x:Key="GlobalStats">Глобальная статистика</system:String>
+    <system:String x:Key="GlobalStatsExplanation">Это окно рассчитывает исчерпывающую статистику о вашей игровой библиотеке, включая общее количество систем, эмуляторов, игр и совпадающих изображений. Нажмите 'Начать процесс', чтобы начать анализ.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Предоставьте 'Simple Launcher' права администратора и попробуйте снова.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Предоставьте программе 'Simple Launcher' права администратора и попробуйте снова.</system:String>
     <system:String x:Key="Green">Зеленый</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">была удалена.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">успешно удалён.</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">был успешно загружен и установлен.</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• Более высокие значения = большая мертвая зона = большее движение стика требуется до перемещения курсора</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Не удалось найти файл 'system.xml', необходимый для запуска приложения.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Если возможно, запустите с привилегиями администратора.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Если это не поможет, переустановите 'Simple Launcher'.</system:String>
@@ -378,6 +389,7 @@
     <system:String x:Key="LoadingUserCompletionProgress">Загрузка прогресса завершения пользователя...</system:String>
     <system:String x:Key="LoadingUserProfile">Загрузка профиля пользователя...</system:String>
     <system:String x:Key="LoadingUserUnlocks">Загрузка разблокировок пользователя...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• Более низкие значения = меньшая мертвая зона = более чувствительное движение курсора, но может вызвать дрейф</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">Описание машины</system:String>
     <system:String x:Key="Magenta">Пурпурный</system:String>
     <system:String x:Key="MameDescription">Описание MAME</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">Пожалуйста, переустановите 'Simple Launcher' вручную, чтобы устранить проблему.</system:String>
     <system:String x:Key="Mauve">Лавандовый</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Возможно, возникли проблемы с вашим интернет-соединением, либо сервер GitHub недоступен.</system:String>
-    <system:String x:Key="MissingFile">Отсутствующий файл</system:String>
     <system:String x:Key="MissingRequiredFiles">Отсутствуют необходимые файлы</system:String>
     <system:String x:Key="MoreOptions">Больше опций</system:String>
     <system:String x:Key="Name">Имя</system:String>
@@ -444,12 +455,15 @@
     <system:String x:Key="OpeningPlayHistory">Открытие истории игр...</system:String>
     <system:String x:Key="OpeningRetroAchievementsSettings">Открытие настроек RetroAchievements...</system:String>
     <system:String x:Key="OpeningROMHistory">Открытие истории ROM-ов...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">Открытие настроек конфигурации звука...</system:String>
     <system:String x:Key="OpeningSupportWindow">Открытие окна поддержки...</system:String>
     <system:String x:Key="OpeningTitleSnapshot">Открытие снимка экрана заголовка...</system:String>
     <system:String x:Key="OpeningVideoLink">Открытие видеоссылки...</system:String>
     <system:String x:Key="OpeningWalkthrough">Открытие прохождения...</system:String>
     <system:String x:Key="OpenROMHistory">Открыть историю ROM</system:String>
     <system:String x:Key="OpenVideoLink">Открыть ссылку на видео</system:String>
+    <system:String x:Key="OperationCancelled">Операция отменена</system:String>
+    <system:String x:Key="OperationCancelledMessage">Операция была отменена.</system:String>
     <system:String x:Key="Options">Опции</system:String>
     <system:String x:Key="Orange">Оранжевый</system:String>
     <system:String x:Key="outof">из</system:String>
@@ -467,6 +481,7 @@
     <system:String x:Key="PlayingVideo">Воспроизведение видео...</system:String>
     <system:String x:Key="Playtime">Время игры:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">Время игры</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Пожалуйста, отредактируйте настройки системы и отключите опцию 'Группировать файлы по папкам'.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Отредактируйте данную систему, чтобы устранить проблему.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Пожалуйста, введите поисковый запрос.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Пожалуйста, введите поисковый запрос.</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">Пожалуйста, выберите систему для удаления.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Выберите папку системы.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Выберите папку с изображениями системы.</system:String>
-    <system:String x:Key="PopulatingSystemSelectionGrid">Заполнение сетки выбора системы...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Обнаружены потенциально недействительные пути.</system:String>
     <system:String x:Key="PreparingRetroAchievements">Подготовка RetroAchievements...</system:String>
     <system:String x:Key="Preparingtodownload">Подготовка к загрузке</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">Предыдущая страница</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">Обработка данных истории игр...</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">Обработка все еще выполняется. Вы хотите отменить и закрыть?</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Поместите обложки для этой системы в</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Поместите ROM или ISO для этой системы в</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Выбрать систему {config.SystemName}</system:String>
 <system:String x:Key="SelectSystemComboBox">Выбрать выпадающий список системы</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">Отправка сообщения... Пожалуйста, подождите</system:String>
     <system:String x:Key="SendingSupportRequest">Отправка запроса в поддержку...</system:String>
     <system:String x:Key="SendSupportRequest">Отправить запрос на поддержку</system:String>
     <system:String x:Key="SetButtonAspectRatio">Задать соотношение сторон кнопки</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">Установить папку изображений системы</system:String>
     <system:String x:Key="Setthegamewindowto">Установите окно игры в режим, отличный от полноэкранного. Это важно.</system:String>
     <system:String x:Key="SetThreshold">Установить порог</system:String>
+    <system:String x:Key="Settingittoohighmay">• Слишком высокая настройка может затруднить точные движения</system:String>
+    <system:String x:Key="Settingittoolowmay">• Слишком низкая настройка может привести к дрейфу курсора, когда вы не касаетесь стика</system:String>
     <system:String x:Key="SettingsFileNotFoundCreatingDefault">Файл настроек не найден, создается по умолчанию...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Настройки успешно сохранены.</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">Файл 'settings.xml' не удалось загрузить.</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' не смог открыть ссылку для загрузки.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' не удалось открыть ссылку для загрузки пакета изображений.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' не поддерживает хэш RetroAchievements для систем, сгруппированных по папкам.</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' не поддерживает текущую архитектуру процессора. Мы поддерживаем только 64-битную (x64) или ARM64. Приложение будет закрыто.</system:String>
     <system:String x:Key="SimpleLauncherError">Ошибка Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' недостаточно привилегий для записи в файл 'settings.xml'.</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">Настройка звука</system:String>
     <system:String x:Key="Square">Квадрат</system:String>
     <system:String x:Key="StartingGlobalSearch">Запуск глобального поиска...</system:String>
+    <system:String x:Key="StartProcess">Начать процесс</system:String>
     <system:String x:Key="Steel">Стальной</system:String>
     <system:String x:Key="StopDownload">Остановить загрузку</system:String>
     <system:String x:Key="Success">Успех</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">Серо-коричневый</system:String>
     <system:String x:Key="Teal">Бирюзовый</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Временно отключите антивирус и попробуйте снова.</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">Файл 7z dll отсутствует в папке приложения!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Приложение не сможет отправить запрос на поддержку.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Приложение будет закрыто.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Ошибка была отправлена разработчику и будет исправлена.</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">Общее количество совпадающих изображений:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">Общее время игры</system:String>
     <system:String x:Key="TotalSystems">Общее количество систем:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">Всего систем с отсутствующими изображениями:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Не удалось загрузить файл 'helpuser.xml'. Возможно, файл поврежден.</system:String>
     <system:String x:Key="Unabletoopenthelink">Невозможно открыть ссылку.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Неожиданная ошибка при загрузке файла 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Неизвестно</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">Неизвестный статус избранного</system:String>
+    <system:String x:Key="UnsupportedArchitecture">Неподдерживаемая архитектура</system:String>
     <system:String x:Key="UpdateAvailable">Доступно обновление</system:String>
     <system:String x:Key="UpdateHistory">История обновлений</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' отсутствует, 'Simple Launcher' попытается его загрузить.</system:String>
     <system:String x:Key="Updating">Обновление</system:String>
     <system:String x:Key="UpdatingPlayHistory">Обновление истории игр...</system:String>
     <system:String x:Key="UpdatingSystemPlayTime">Обновление времени игры системы...</system:String>

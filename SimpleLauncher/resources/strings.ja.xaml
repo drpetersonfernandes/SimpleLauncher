@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ファイル削除中にエラーが発生しました。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">オープンソースのエミュレーター用フロントエンド</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">別のSimple Launcherのインスタンスがすでに実行中です。</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">7-Zipライブラリの初期化中に予期せぬエラーが発生しました。</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' は、API 設定の読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API 設定エラー</system:String>
     <system:String x:Key="ApiKey">APIキー</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">キャンセル</system:String>
     <system:String x:Key="CancelButtonText">キャンセル</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
+    <system:String x:Key="CancellingPleasewait">キャンセル中...お待ちください</system:String>
     <system:String x:Key="cannotbeextracted">は抽出できません。</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">展開フォルダーを作成またはアクセスできません。</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">最小化されたウィンドウのスクリーンショットは撮れません。</system:String>
@@ -107,6 +109,7 @@
 <system:String x:Key="CompatibilityWarning">互換性に関する警告</system:String>
 <system:String x:Key="ConfigurationWarning">設定に関する警告</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
+    <system:String x:Key="ConfirmClose">閉じるを確認</system:String>
     <system:String x:Key="ConfirmDeletion">削除を確認</system:String>
     <system:String x:Key="CopyError">コピーエラー</system:String>
     <system:String x:Key="Core">コア</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">現在の閾値：</system:String>
     <system:String x:Key="Cyan">シアン</system:String>
     <system:String x:Key="Dark">ダーク</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">デッドゾーンとは、ゲームパッドのサムスティックの中心周辺の領域で、動きが登録されない場所です。これにより、摩耗や製造公差によりスティックが完全に中央にない場合に、意図しないカーソル移動を防ぎます。</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">デッドゾーンとは？</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">デッドゾーンの値が正常に保存されました。</system:String>
     <system:String x:Key="DeadZoneX">デッドゾーンX</system:String>
     <system:String x:Key="DeadZoneY">デッドゾーンY</system:String>
@@ -286,6 +291,10 @@
 <system:String x:Key="FolderName">フォルダー名</system:String>
 <system:String x:Key="FolderPathColumnHeader">フォルダ パス</system:String>
     <system:String x:Key="FuzzyImageMatching">ファジー画像マッチング</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">高しきい値 (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">マッチは少なくなりますが、非常に類似したファイル名のみを見つけます</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">低しきい値 (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">より多くのマッチを見つけますが、不正確な画像が含まれる場合があります</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">ファジーマッチングの閾値を設定</system:String>
     <system:String x:Key="Gamelaunchtimedout">ゲームの起動がタイムアウト</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">ゲームの起動がタイムアウトしました。もう一度お試しください、またはエミュレータが起動したか確認してください。</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">ゲームプレイのスクリーンショットが見つかりません</system:String>
     <system:String x:Key="GlobalSearch">グローバル検索</system:String>
     <system:String x:Key="GlobalStats">グローバル統計</system:String>
+    <system:String x:Key="GlobalStatsExplanation">このウィンドウは、合計システム、エミュレーター、ゲーム、一致した画像を含む、ゲームライブラリに関する包括的な統計を計算します。「プロセス開始」をクリックして分析を開始してください。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">『Simple Launcher』に管理者権限を付与し、再試行してください。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' に管理者権限を付与して、再試行してください。</system:String>
     <system:String x:Key="Green">緑</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">が削除されました。</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">が正常に削除されました。</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">が正常にダウンロードおよびインストールされました。</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• 値が高いほど = デッドゾーンが大きくなる = カーソルが動く前により多くのスティック操作が必要</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">アプリケーションを起動するために必要な 'system.xml' ファイルが見つかりません。</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">可能であれば、管理者権限で実行してください。</system:String>
     <system:String x:Key="Ifthatdoesnotwork">それでも解決しない場合は、'Simple Launcher' を再インストールしてください。</system:String>
@@ -378,6 +389,7 @@
 <system:String x:Key="LoadingUserCompletionProgress">ユーザーの完了進捗状況を読み込んでいます...</system:String>
     <system:String x:Key="LoadingUserProfile">ユーザープロフィールを読み込み中...</system:String>
 <system:String x:Key="LoadingUserUnlocks">ユーザーアンロックを読み込んでいます...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• 値が低いほど = デッドゾーンが小さくなる = カーソル操作がより敏感になるが、ドリフトを引き起こす可能性がある</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">マシン説明</system:String>
     <system:String x:Key="Magenta">マゼンタ</system:String>
 <system:String x:Key="MameDescription">MAMEの説明</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">問題を修正するには、'Simple Launcher' を手動で再インストールしてください。</system:String>
     <system:String x:Key="Mauve">モーヴ</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">インターネット接続に問題があるか、GitHub サーバーがオフラインになっている可能性があります。</system:String>
-    <system:String x:Key="MissingFile">ファイルが見つかりません</system:String>
     <system:String x:Key="MissingRequiredFiles">不足している必須ファイル</system:String>
 <system:String x:Key="MoreOptions">その他のオプション</system:String>
     <system:String x:Key="Name">名前</system:String>
@@ -444,12 +455,15 @@
 <system:String x:Key="OpeningPlayHistory">プレイ履歴を開いています...</system:String>
 <system:String x:Key="OpeningRetroAchievementsSettings">RetroAchievements設定を開いています...</system:String>
 <system:String x:Key="OpeningROMHistory">ROM履歴を開いています...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">サウンド設定を開いています...</system:String>
 <system:String x:Key="OpeningSupportWindow">サポートウィンドウを開いています...</system:String>
 <system:String x:Key="OpeningTitleSnapshot">タイトルスナップショットを開いています...</system:String>
 <system:String x:Key="OpeningVideoLink">ビデオリンクを開いています...</system:String>
 <system:String x:Key="OpeningWalkthrough">ウォークスルーを開いています...</system:String>
     <system:String x:Key="OpenROMHistory">ROM履歴を開く</system:String>
     <system:String x:Key="OpenVideoLink">ビデオリンクを開く</system:String>
+    <system:String x:Key="OperationCancelled">操作がキャンセルされました</system:String>
+    <system:String x:Key="OperationCancelledMessage">操作はキャンセルされました。</system:String>
     <system:String x:Key="Options">オプション</system:String>
     <system:String x:Key="Orange">オレンジ</system:String>
     <system:String x:Key="outof">のうち</system:String>
@@ -467,6 +481,7 @@
 <system:String x:Key="PlayingVideo">ビデオを再生中...</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
 <system:String x:Key="PlayTimeColumnHeader">プレイ時間</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">システム設定を編集し、「ファイルをフォルダでグループ化」オプションを無効にしてください。</system:String>
     <system:String x:Key="Pleaseeditthissystemto">これを修正するには、このシステムを編集してください。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">検索クエリを入力してください。</system:String>
     <system:String x:Key="Pleaseenterasearchterm">検索語を入力してください。</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">削除するシステムを選択してください。</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">システムフォルダーを選択してください。</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">システム画像フォルダーを選択してください。</system:String>
-<system:String x:Key="PopulatingSystemSelectionGrid">システム選択グリッドを生成しています...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">無効な可能性のあるパスが検出されました。</system:String>
 <system:String x:Key="PreparingRetroAchievements">RetroAchievementsを準備中...</system:String>
     <system:String x:Key="Preparingtodownload">ダウンロードの準備中</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">前のページ</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">プレイ履歴データを処理中...</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">処理はまだ実行中です。キャンセルして閉じますか？</system:String>
     <system:String x:Key="Purple">紫</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">このシステムのカバー画像を次の場所に配置してください:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">このシステムのROMまたはISOファイルを次の場所に配置してください:</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">システムを選択</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} システムを選択</system:String>
 <system:String x:Key="SelectSystemComboBox">システム コンボボックスを選択</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">メッセージを送信中...お待ちください</system:String>
 <system:String x:Key="SendingSupportRequest">サポートリクエストを送信中...</system:String>
     <system:String x:Key="SendSupportRequest">サポートリクエストを送信</system:String>
     <system:String x:Key="SetButtonAspectRatio">ボタンの縦横比を設定</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">システム画像フォルダーを設定</system:String>
     <system:String x:Key="Setthegamewindowto">ゲームウィンドウを非フルスクリーンモードに設定してください。これは重要です。</system:String>
     <system:String x:Key="SetThreshold">閾値を設定</system:String>
+    <system:String x:Key="Settingittoohighmay">• 設定を高くしすぎると、正確な操作が難しくなる可能性があります</system:String>
+    <system:String x:Key="Settingittoolowmay">• 設定を低くしすぎると、スティックに触れていないときにカーソルがドリフトする可能性があります</system:String>
 <system:String x:Key="SettingsFileNotFoundCreatingDefault">設定ファイルが見つかりませんでした。デフォルトを作成します...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">設定が正常に保存されました。</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' ファイルが読み込めませんでした。</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">「Simple Launcher」はダウンロードリンクを開くことができませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' は画像パックのダウンロードリンクを開けませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' はこのシステムのための画像フォルダーを作成しました:</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' は、フォルダでグループ化されたシステムのRetroAchievementsハッシュをサポートしていません。</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' は現在のプロセッサアーキテクチャをサポートしていません。64ビット (x64) または ARM64 のみをサポートしています。アプリケーションは終了します。</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcherエラー</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' はこのシステム用に必要なフォルダーを作成できませんでした。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' は 'settings.xml' ファイルの書き込み権限が不十分です。</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">サウンド設定</system:String>
     <system:String x:Key="Square">正方形</system:String>
 <system:String x:Key="StartingGlobalSearch">グローバル検索を開始しています...</system:String>
+    <system:String x:Key="StartProcess">プロセス開始</system:String>
     <system:String x:Key="Steel">スチール</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
     <system:String x:Key="Success">成功</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">トープ</system:String>
     <system:String x:Key="Teal">ティール</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">ウイルス対策ソフトを一時的に無効にして、再試行してください。</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">アプリケーションフォルダに7z dllがありません！</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">アプリケーションはサポートリクエストを送信できません。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">アプリケーションが終了します。</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">バグが開発者に報告され、修正される予定です。</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">一致する画像の総数：</system:String>
 <system:String x:Key="TotalPlaytimeInfo">総プレイ時間</system:String>
     <system:String x:Key="TotalSystems">システムの総数：</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">画像が不足している合計システム数:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' を読み込むことができません。ファイルが壊れている可能性があります。</system:String>
     <system:String x:Key="Unabletoopenthelink">リンクを開くことができません。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' の読み込み中に予期しないエラーが発生しました。</system:String>
     <system:String x:Key="Unknown">不明</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">不明なお気に入りステータス</system:String>
+    <system:String x:Key="UnsupportedArchitecture">サポートされていないアーキテクチャ</system:String>
     <system:String x:Key="UpdateAvailable">更新が利用可能です</system:String>
     <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' が見つかりません。「Simple Launcher」がダウンロードを試みます。</system:String>
     <system:String x:Key="Updating">更新中</system:String>
 <system:String x:Key="UpdatingPlayHistory">プレイ履歴を更新しています...</system:String>
 <system:String x:Key="UpdatingSystemPlayTime">システムプレイ時間を更新しています...</system:String>

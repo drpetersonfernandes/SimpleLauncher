@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Terjadi kesalahan saat mencoba menghapus file.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Frontend emulator sumber terbuka</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Instansi lain dari Simple Launcher sudah berjalan.</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Terjadi kesalahan tak terduga saat menginisialisasi pustaka 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' mengalami kesalahan saat memuat konfigurasi API-nya.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Kesalahan Konfigurasi API</system:String>
     <system:String x:Key="ApiKey">Kunci API</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">Batal</system:String>
     <system:String x:Key="CancelButtonText">Batal</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
+    <system:String x:Key="CancellingPleasewait">Membatalkan... Harap tunggu</system:String>
     <system:String x:Key="cannotbeextracted">tidak dapat diekstraksi.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Tidak dapat membuat atau mengakses folder ekstraksi.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Tidak dapat mengambil tangkapan layar dari jendela yang diminimalkan.</system:String>
@@ -107,6 +109,7 @@
 <system:String x:Key="CompatibilityWarning">Peringatan Kompatibilitas</system:String>
 <system:String x:Key="ConfigurationWarning">Peringatan Konfigurasi</system:String>
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
+    <system:String x:Key="ConfirmClose">Konfirmasi Tutup</system:String>
     <system:String x:Key="ConfirmDeletion">Konfirmasi Penghapusan</system:String>
     <system:String x:Key="CopyError">Kesalahan Salin</system:String>
     <system:String x:Key="Core">Inti</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">Ambang Batas Saat Ini:</system:String>
     <system:String x:Key="Cyan">Sian</system:String>
     <system:String x:Key="Dark">Gelap</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">Zona mati adalah area di sekitar pusat thumbstick gamepad Anda di mana tidak ada gerakan yang terdaftar. Ini mencegah gerakan kursor yang tidak diinginkan ketika stick tidak sepenuhnya terpusat karena keausan atau toleransi manufaktur.</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">Apa itu Zona Mati?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Nilai zona mati berhasil disimpan.</system:String>
     <system:String x:Key="DeadZoneX">Zona Mati X</system:String>
     <system:String x:Key="DeadZoneY">Zona Mati Y</system:String>
@@ -286,6 +291,10 @@
 <system:String x:Key="FolderName">Nama Folder</system:String>
 <system:String x:Key="FolderPathColumnHeader">Jalur Folder</system:String>
     <system:String x:Key="FuzzyImageMatching">Pencocokan Gambar Fuzzy</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">Ambang batas tinggi (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">Menemukan lebih sedikit kecocokan tetapi hanya nama file yang sangat mirip</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">Ambang batas rendah (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">Menemukan lebih banyak kecocokan tetapi mungkin menyertakan gambar yang salah</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">Atur ambang batas pencocokan fuzzy</system:String>
     <system:String x:Key="Gamelaunchtimedout">Peluncuran game timeout</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Peluncuran game telah timeout. Silakan coba lagi atau periksa apakah emulator telah dimulai.</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">Snapshot Gameplay tidak ditemukan</system:String>
     <system:String x:Key="GlobalSearch">Pencarian Global</system:String>
     <system:String x:Key="GlobalStats">Statistik Global</system:String>
+    <system:String x:Key="GlobalStatsExplanation">Jendela ini menghitung statistik komprehensif tentang perpustakaan game Anda, termasuk total sistem, emulator, game, dan gambar yang cocok. Klik 'Mulai Proses' untuk memulai analisis.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Berikan keizinan pentadbir kepada 'Simple Launcher' dan cuba lagi.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Berikan akses administratif ke 'Simple Launcher' dan coba lagi.</system:String>
     <system:String x:Key="Green">Hijau</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">telah dihapus.</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">berhasil dihapus.</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">telah berhasil diunduh dan diinstal.</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• Nilai lebih tinggi = zona mati lebih besar = lebih banyak gerakan stick diperlukan sebelum kursor bergerak</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">Saya tidak dapat menemukan file 'system.xml' yang diperlukan untuk menjalankan aplikasi.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Jika memungkinkan, jalankan dengan hak administratif.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Jika itu tidak berhasil, instal ulang 'Simple Launcher'.</system:String>
@@ -378,6 +389,7 @@
 <system:String x:Key="LoadingUserCompletionProgress">Memuat progres penyelesaian pengguna...</system:String>
     <system:String x:Key="LoadingUserProfile">Memuat profil pengguna...</system:String>
 <system:String x:Key="LoadingUserUnlocks">Memuat buka kunci pengguna...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• Nilai lebih rendah = zona mati lebih kecil = gerakan kursor lebih sensitif, tetapi dapat menyebabkan drift</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">Deskripsi Mesin</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
 <system:String x:Key="MameDescription">Deskripsi MAME</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">Harap instal ulang 'Simple Launcher' secara manual untuk memperbaiki masalah.</system:String>
     <system:String x:Key="Mauve">Ungu Muda</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Mungkin ada masalah dengan koneksi internet Anda atau server GitHub sedang offline.</system:String>
-    <system:String x:Key="MissingFile">File Hilang</system:String>
     <system:String x:Key="MissingRequiredFiles">File yang Diperlukan Hilang</system:String>
 <system:String x:Key="MoreOptions">Lebih Banyak Opsi</system:String>
     <system:String x:Key="Name">Nama</system:String>
@@ -444,12 +455,15 @@
 <system:String x:Key="OpeningPlayHistory">Membuka Riwayat Putar...</system:String>
 <system:String x:Key="OpeningRetroAchievementsSettings">Membuka Pengaturan RetroAchievements...</system:String>
 <system:String x:Key="OpeningROMHistory">Membuka Riwayat ROM...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">Membuka pengaturan Konfigurasi Suara...</system:String>
 <system:String x:Key="OpeningSupportWindow">Membuka jendela dukungan...</system:String>
 <system:String x:Key="OpeningTitleSnapshot">Membuka cuplikan judul...</system:String>
 <system:String x:Key="OpeningVideoLink">Membuka tautan video...</system:String>
 <system:String x:Key="OpeningWalkthrough">Membuka panduan...</system:String>
     <system:String x:Key="OpenROMHistory">Buka Riwayat ROM</system:String>
     <system:String x:Key="OpenVideoLink">Buka Tautan Video</system:String>
+    <system:String x:Key="OperationCancelled">Operasi Dibatalkan</system:String>
+    <system:String x:Key="OperationCancelledMessage">Operasi dibatalkan.</system:String>
     <system:String x:Key="Options">Pilihan</system:String>
     <system:String x:Key="Orange">Oranye</system:String>
     <system:String x:Key="outof">dari</system:String>
@@ -467,6 +481,7 @@
 <system:String x:Key="PlayingVideo">Memutar video...</system:String>
     <system:String x:Key="Playtime">Waktu Bermain:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">Waktu Bermain</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Harap edit pengaturan sistem dan nonaktifkan opsi 'Kelompokkan File berdasarkan Folder'.</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Silakan edit sistem ini untuk memperbaikinya.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Silakan masukkan kueri pencarian.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Silakan masukkan kata pencarian.</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">Silakan pilih sistem untuk dihapus.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Silakan pilih folder sistem.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Silakan pilih folder gambar sistem.</system:String>
-<system:String x:Key="PopulatingSystemSelectionGrid">Mengisi kisi pilihan sistem...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Jalur yang berpotensi tidak valid terdeteksi.</system:String>
 <system:String x:Key="PreparingRetroAchievements">Menyiapkan RetroAchievements...</system:String>
     <system:String x:Key="Preparingtodownload">Sedang mempersiapkan untuk mengunduh</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">Memproses data riwayat putar...</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">Pemrosesan masih berjalan. Apakah Anda ingin membatalkan dan menutup?</system:String>
     <system:String x:Key="Purple">Ungu</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Masukkan gambar sampul untuk sistem ini di dalam</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Masukkan ROM atau ISO untuk sistem ini di dalam</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">Pilih Sistem</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Pilih sistem {config.SystemName}</system:String>
 <system:String x:Key="SelectSystemComboBox">Pilih ComboBox Sistem</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">Mengirim pesan... Harap tunggu</system:String>
 <system:String x:Key="SendingSupportRequest">Mengirim permintaan dukungan...</system:String>
     <system:String x:Key="SendSupportRequest">Kirim Permintaan Dukungan</system:String>
     <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">Atur Folder Gambar Sistem</system:String>
     <system:String x:Key="Setthegamewindowto">Atur jendela game ke non-layar penuh. Ini penting.</system:String>
     <system:String x:Key="SetThreshold">Atur Ambang Batas</system:String>
+    <system:String x:Key="Settingittoohighmay">• Mengaturnya terlalu tinggi dapat membuat gerakan yang tepat menjadi sulit</system:String>
+    <system:String x:Key="Settingittoolowmay">• Mengaturnya terlalu rendah dapat menyebabkan kursor Anda melayang saat Anda tidak menyentuh stick</system:String>
 <system:String x:Key="SettingsFileNotFoundCreatingDefault">File pengaturan tidak ditemukan, membuat default...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Pengaturan berhasil disimpan.</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">File 'settings.xml' tidak dapat dimuat.</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' tidak dapat membuka tautan unduhan.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' tidak mendukung hash RetroAchievements dari sistem yang Dikelompokkan berdasarkan Folder.</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' tidak mendukung arsitektur prosesor saat ini. Kami hanya mendukung 64-bit (x64) atau ARM64. Aplikasi akan ditutup sekarang.</system:String>
     <system:String x:Key="SimpleLauncherError">Kesalahan Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' tidak memiliki hak istimewa yang cukup untuk menulis ke file 'settings.xml'.</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">Konfigurasi Suara</system:String>
     <system:String x:Key="Square">Persegi</system:String>
 <system:String x:Key="StartingGlobalSearch">Memulai pencarian global...</system:String>
+    <system:String x:Key="StartProcess">Mulai Proses</system:String>
     <system:String x:Key="Steel">Biru Baja</system:String>
     <system:String x:Key="StopDownload">Hentikan Unduhan</system:String>
     <system:String x:Key="Success">Berhasil</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">Abu-abu Coklat</system:String>
     <system:String x:Key="Teal">Hijau Toska</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Nonaktifkan antivirus Anda sementara dan coba lagi.</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">Dll 7z hilang dari folder aplikasi!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Aplikasi tidak akan dapat mengirim permintaan dukungan.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Aplikasi akan ditutup.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Pepijat telah dilaporkan kepada pembangun, dan mereka akan cuba membetulkannya.</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">Jumlah Total Gambar yang Cocok:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">Total Waktu Bermain</system:String>
     <system:String x:Key="TotalSystems">Jumlah Total Sistem:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">Total Sistem dengan Gambar Hilang:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Tidak dapat memuat 'helpuser.xml'. File tersebut mungkin rusak.</system:String>
     <system:String x:Key="Unabletoopenthelink">Tidak dapat membuka tautan.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Kesalahan tak terduga saat memuat 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Tidak Diketahui</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">Status Favorit Tidak Dikenal</system:String>
+    <system:String x:Key="UnsupportedArchitecture">Arsitektur Tidak Didukung</system:String>
     <system:String x:Key="UpdateAvailable">Pembaruan Tersedia</system:String>
     <system:String x:Key="UpdateHistory">Riwayat Pembaruan</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' hilang, 'Simple Launcher' akan mencoba mengunduhnya.</system:String>
     <system:String x:Key="Updating">Memperbarui</system:String>
 <system:String x:Key="UpdatingPlayHistory">Memperbarui riwayat putar...</system:String>
 <system:String x:Key="UpdatingSystemPlayTime">Memperbarui waktu bermain sistem...</system:String>

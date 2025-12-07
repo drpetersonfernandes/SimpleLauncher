@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">嘗試刪除文件時出現錯誤。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">一個開源的模擬器前端</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher的另一個實例已在執行中。</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">初始化 7-Zip 庫時發生意外錯誤。</system:String>
     <system:String x:Key="ApiConfigErrorMessage">「Simple Launcher」載入其 API 設定時遇到錯誤。</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API 設定錯誤</system:String>
     <system:String x:Key="ApiKey">API金鑰</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">取消</system:String>
     <system:String x:Key="CancelButtonText">取消</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下載...</system:String>
+    <system:String x:Key="CancellingPleasewait">正在取消... 請稍候</system:String>
     <system:String x:Key="cannotbeextracted">無法解壓。</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">無法建立或存取解壓縮資料夾。</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">無法截取最小化視窗的螢幕截圖。</system:String>
@@ -107,6 +109,7 @@
     <system:String x:Key="CompatibilityWarning">相容性警告</system:String>
     <system:String x:Key="ConfigurationWarning">配置警告</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
+    <system:String x:Key="ConfirmClose">確認關閉</system:String>
     <system:String x:Key="ConfirmDeletion">確認刪除</system:String>
     <system:String x:Key="CopyError">複製錯誤</system:String>
     <system:String x:Key="Core">核心</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">目前閾值：</system:String>
     <system:String x:Key="Cyan">青色</system:String>
     <system:String x:Key="Dark">深色</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">死區是遊戲手把搖桿中心周圍的區域，在此區域內不會註冊任何移動。這可以防止由於磨損或製造公差導致搖桿未完全居中時出現不必要的游標移動。</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">什麼是死區？</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">死區值已成功儲存。</system:String>
     <system:String x:Key="DeadZoneX">死區 X</system:String>
     <system:String x:Key="DeadZoneY">死區 Y</system:String>
@@ -286,6 +291,10 @@
     <system:String x:Key="FolderName">資料夾名稱</system:String>
 <system:String x:Key="FolderPathColumnHeader">資料夾路徑</system:String>
     <system:String x:Key="FuzzyImageMatching">模糊影像配對</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">較高閾值 (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">找到較少匹配項，但只匹配非常相似的檔案名稱</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">較低閾值 (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">找到更多匹配項，但可能包含不正確的圖像</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">設定模糊配對閾值</system:String>
     <system:String x:Key="Gamelaunchtimedout">遊戲啟動逾時</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">遊戲啟動逾時。請重試或檢查模擬器是否已啟動。</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">找不到遊戲截圖</system:String>
     <system:String x:Key="GlobalSearch">全域搜尋</system:String>
     <system:String x:Key="GlobalStats">全域統計</system:String>
+    <system:String x:Key="GlobalStatsExplanation">此視窗計算您的遊戲庫的綜合統計數據，包括系統總數、模擬器、遊戲和匹配的圖像。點擊「開始處理」以開始分析。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">請授予 'Simple Launcher' 管理員權限後重試。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">請賦予 'Simple Launcher' 管理員權限後重試。</system:String>
     <system:String x:Key="Green">綠色</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">已刪除。</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">已成功刪除。</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">已成功下載和安裝。</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• 值越高 = 死區越大 = 游標移動前需要更大的搖桿移動</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">找不到檔案「system.xml」，該檔案是啟動應用程式所需。</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">如果可能，請以管理員權限執行。</system:String>
     <system:String x:Key="Ifthatdoesnotwork">若仍無法解決，請重新安裝 'Simple Launcher'。</system:String>
@@ -378,6 +389,7 @@
     <system:String x:Key="LoadingUserCompletionProgress">正在載入使用者完成進度...</system:String>
     <system:String x:Key="LoadingUserProfile">正在載入用戶設定檔...</system:String>
     <system:String x:Key="LoadingUserUnlocks">正在載入使用者解鎖...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• 值越低 = 死區越小 = 游標移動越靈敏，但可能導致漂移</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">機器描述</system:String>
     <system:String x:Key="Magenta">洋紅色</system:String>
     <system:String x:Key="MameDescription">MAME 描述</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">請手動重新安裝「Simple Launcher」以解決此問題。</system:String>
     <system:String x:Key="Mauve">淡紫色</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">您的網路連線可能出現問題，或 GitHub 伺服器目前無法使用。</system:String>
-    <system:String x:Key="MissingFile">檔案缺失</system:String>
     <system:String x:Key="MissingRequiredFiles">缺少必要檔案</system:String>
     <system:String x:Key="MoreOptions">更多選項</system:String>
     <system:String x:Key="Name">姓名</system:String>
@@ -444,12 +455,15 @@
     <system:String x:Key="OpeningPlayHistory">正在開啟遊玩歷史...</system:String>
     <system:String x:Key="OpeningRetroAchievementsSettings">正在開啟 RetroAchievements 設定...</system:String>
     <system:String x:Key="OpeningROMHistory">正在開啟 ROM 歷史記錄...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">正在開啟聲音配置設定...</system:String>
     <system:String x:Key="OpeningSupportWindow">正在開啟支援視窗...</system:String>
     <system:String x:Key="OpeningTitleSnapshot">正在開啟標題快照...</system:String>
     <system:String x:Key="OpeningVideoLink">正在開啟影片連結...</system:String>
     <system:String x:Key="OpeningWalkthrough">正在開啟攻略...</system:String>
     <system:String x:Key="OpenROMHistory">打開ROM記錄</system:String>
     <system:String x:Key="OpenVideoLink">打開視頻連結</system:String>
+    <system:String x:Key="OperationCancelled">操作已取消</system:String>
+    <system:String x:Key="OperationCancelledMessage">操作已取消。</system:String>
     <system:String x:Key="Options">選項</system:String>
     <system:String x:Key="Orange">橙色</system:String>
     <system:String x:Key="outof">共計</system:String>
@@ -467,6 +481,7 @@
     <system:String x:Key="PlayingVideo">正在播放影片...</system:String>
     <system:String x:Key="Playtime">遊玩時間：</system:String>
 <system:String x:Key="PlayTimeColumnHeader">遊玩時間</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">請編輯系統設定並停用「按資料夾分組檔案」選項。</system:String>
     <system:String x:Key="Pleaseeditthissystemto">請編輯此系統以修復問題。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">請輸入搜尋查詢。</system:String>
     <system:String x:Key="Pleaseenterasearchterm">請輸入搜尋詞。</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">請選擇一個系統以刪除。</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">請選擇系統資料夾。</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">請選擇系統圖片資料夾。</system:String>
-    <system:String x:Key="PopulatingSystemSelectionGrid">正在填入系統選擇網格...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">偵測到潛在的無效路徑。</system:String>
     <system:String x:Key="PreparingRetroAchievements">正在準備 RetroAchievements...</system:String>
     <system:String x:Key="Preparingtodownload">準備下載</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">上一頁</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">正在處理遊玩歷史資料...</system:String>
     <system:String x:Key="Processingpleasewait">正在處理，請稍候...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">處理仍在運行。您要取消並關閉嗎？</system:String>
     <system:String x:Key="Purple">紫色</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">將此系統的封面圖片放入</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">將此系統的ROM或ISO檔案放入</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">選擇系統</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">選擇 {config.SystemName} 系統</system:String>
 <system:String x:Key="SelectSystemComboBox">選擇系統組合框</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">正在傳送訊息... 請稍候</system:String>
     <system:String x:Key="SendingSupportRequest">正在傳送支援請求...</system:String>
     <system:String x:Key="SendSupportRequest">發送支援請求</system:String>
     <system:String x:Key="SetButtonAspectRatio">設定按鈕長寬比</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">設置系統圖片資料夾</system:String>
     <system:String x:Key="Setthegamewindowto">請將遊戲視窗設為非全螢幕模式。這很重要。</system:String>
     <system:String x:Key="SetThreshold">設定閾值</system:String>
+    <system:String x:Key="Settingittoohighmay">• 設定過高可能會使精確移動變得困難</system:String>
+    <system:String x:Key="Settingittoolowmay">• 設定過低可能會導致您不觸碰搖桿時游標漂移</system:String>
     <system:String x:Key="SettingsFileNotFoundCreatingDefault">未找到設定檔案，正在建立預設設定...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">設定已成功儲存。</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' 檔案無法載入。</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">“Simple Launcher”無法打開下載連結。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">「Simple Launcher」無法開啟圖片包的下載鏈接。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 為此系統創建了一個圖片資料夾：</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' 不支援按資料夾分組的 RetroAchievements 系統雜湊。</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' 不支援目前的處理器架構。我們只支援 64 位元 (x64) 或 ARM64。應用程式現在將關閉。</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher錯誤</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 未能為此系統創建所需資料夾。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">「Simple Launcher」沒有足夠的權限寫入檔案「settings.xml」。</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">聲音配置</system:String>
     <system:String x:Key="Square">正方形</system:String>
     <system:String x:Key="StartingGlobalSearch">正在啟動全域搜尋...</system:String>
+    <system:String x:Key="StartProcess">開始處理</system:String>
     <system:String x:Key="Steel">鋼鐵色</system:String>
     <system:String x:Key="StopDownload">停止下載</system:String>
     <system:String x:Key="Success">成功</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">灰褐色</system:String>
     <system:String x:Key="Teal">青綠色</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">請暫時停用您的防毒軟件後再試。</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">應用程式資料夾中缺少 7z dll！</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">應用程式將無法發送支援請求。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">應用程序將關機。</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">錯誤已回報給開發者，並將修復。</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">匹配的圖片總數：</system:String>
 <system:String x:Key="TotalPlaytimeInfo">總遊玩時間</system:String>
     <system:String x:Key="TotalSystems">系統總數：</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">缺少圖像的系統總數：</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">無法載入檔案「helpuser.xml」。檔案可能已損壞。</system:String>
     <system:String x:Key="Unabletoopenthelink">無法打開鏈接。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">載入「helpuser.xml」檔案時發生意外錯誤。</system:String>
     <system:String x:Key="Unknown">未知</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">未知收藏狀態</system:String>
+    <system:String x:Key="UnsupportedArchitecture">不支援的架構</system:String>
     <system:String x:Key="UpdateAvailable">有更新可用</system:String>
     <system:String x:Key="UpdateHistory">更新歷史</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' 缺失，'Simple Launcher' 將嘗試下載它。</system:String>
     <system:String x:Key="Updating">正在更新</system:String>
     <system:String x:Key="UpdatingPlayHistory">正在更新遊玩歷史...</system:String>
     <system:String x:Key="UpdatingSystemPlayTime">正在更新系統遊玩時間...</system:String>

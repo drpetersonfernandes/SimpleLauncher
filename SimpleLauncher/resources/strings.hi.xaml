@@ -53,6 +53,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">फ़ाइल को हटाने के प्रयास में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">एक ओपन सोर्स एम्युलेटर फ्रंटेंड</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher का एक और उदाहरण पहले से ही चल रहा है।</system:String>
+    <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">7-ज़िप लाइब्रेरी को इनिशियलाइज़ करते समय एक अप्रत्याशित त्रुटि हुई।</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' को अपनी API कॉन्फ़िगरेशन लोड करते समय एक त्रुटि का सामना करना पड़ा।</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API कॉन्फ़िगरेशन त्रुटि</system:String>
     <system:String x:Key="ApiKey">एपीआई कुंजी</system:String>
@@ -83,6 +84,7 @@
     <system:String x:Key="Cancel">रद्द करें</system:String>
     <system:String x:Key="CancelButtonText">रद्द करें</system:String>
     <system:String x:Key="Cancelingdownload">डाउनलोड रद्द कर रहा है...</system:String>
+    <system:String x:Key="CancellingPleasewait">रद्द किया जा रहा है... कृपया प्रतीक्षा करें</system:String>
     <system:String x:Key="cannotbeextracted">को एक्सट्रैक्ट नहीं किया जा सकता।</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">निष्कर्षण फ़ोल्डर बनाया या एक्सेस नहीं किया जा सकता है।</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">मिनिमाइज्ड विंडो का स्क्रीनशॉट नहीं लिया जा सकता।</system:String>
@@ -107,6 +109,7 @@
 <system:String x:Key="CompatibilityWarning">संगतता चेतावनी</system:String>
 <system:String x:Key="ConfigurationWarning">कॉन्फ़िगरेशन चेतावनी</system:String>
     <system:String x:Key="Confirmation">पुष्टि</system:String>
+    <system:String x:Key="ConfirmClose">बंद करने की पुष्टि करें</system:String>
     <system:String x:Key="ConfirmDeletion">हटाने की पुष्टि करें</system:String>
     <system:String x:Key="CopyError">कॉपी त्रुटि</system:String>
     <system:String x:Key="Core">कोर</system:String>
@@ -127,6 +130,8 @@
     <system:String x:Key="CurrentThresholdLabel">वर्तमान सीमा:</system:String>
     <system:String x:Key="Cyan">सियान</system:String>
     <system:String x:Key="Dark">गहरा</system:String>
+    <system:String x:Key="DeadZoneExplanationContent">एक डेड ज़ोन आपके गेमपैड के थंबस्टिक्स के केंद्र के चारों ओर का वह क्षेत्र है जहाँ कोई गतिविधि दर्ज नहीं की जाती है। यह पहनने या निर्माण सहनशीलता के कारण स्टिक के पूरी तरह से केंद्रित न होने पर अवांछित कर्सर आंदोलन को रोकता है।</system:String>
+    <system:String x:Key="DeadZoneExplanationTitle">डेड ज़ोन क्या है?</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">डेड ज़ोन मान सफलतापूर्वक सहेजे गए।</system:String>
     <system:String x:Key="DeadZoneX">डेड ज़ोन X</system:String>
     <system:String x:Key="DeadZoneY">डेड ज़ोन Y</system:String>
@@ -286,6 +291,10 @@
 <system:String x:Key="FolderName">फ़ोल्डर का नाम</system:String>
 <system:String x:Key="FolderPathColumnHeader">फ़ोल्डर पथ</system:String>
     <system:String x:Key="FuzzyImageMatching">फजी इमेज मैचिंग</system:String>
+    <system:String x:Key="FuzzyMatchingHighThreshold">उच्च थ्रेशोल्ड (90-95%):</system:String>
+    <system:String x:Key="FuzzyMatchingHighThresholdDescription">कम मिलान ढूंढता है लेकिन केवल बहुत समान फ़ाइलनाम</system:String>
+        <system:String x:Key="FuzzyMatchingLowThreshold">कम थ्रेशोल्ड (70-80%):</system:String>
+    <system:String x:Key="FuzzyMatchingLowThresholdDescription">अधिक मिलान ढूंढता है लेकिन इसमें गलत छवियां शामिल हो सकती हैं</system:String>
     <system:String x:Key="FuzzyMatchingThresholdHintSlider">फजी मैचिंग सीमा सेट करें</system:String>
     <system:String x:Key="Gamelaunchtimedout">गेम लॉन्च का समय समाप्त</system:String>
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">गेम लॉन्च का समय समाप्त हो गया। कृपया पुनः प्रयास करें या जांचें कि एमुलेटर शुरू हुआ है या नहीं।</system:String>
@@ -297,6 +306,7 @@
     <system:String x:Key="GameplaySnapshotnotfound">गेमप्ले स्नैपशॉट नहीं मिला</system:String>
     <system:String x:Key="GlobalSearch">वैश्विक खोज</system:String>
     <system:String x:Key="GlobalStats">वैश्विक सांख्यिकी</system:String>
+    <system:String x:Key="GlobalStatsExplanation">यह विंडो आपकी गेम लाइब्रेरी के बारे में व्यापक आंकड़े गणना करती है, जिसमें कुल सिस्टम, एमुलेटर, गेम और मिलान की गई छवियां शामिल हैं। विश्लेषण शुरू करने के लिए 'प्रक्रिया प्रारंभ करें' पर क्लिक करें।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' को प्रशासनिक अनुमतियाँ दें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' को प्रशासनिक पहुंच प्रदान करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="Green">हरा</system:String>
@@ -310,6 +320,7 @@
     <system:String x:Key="hasbeendeleted">हटा दिया गया है।</system:String>
     <system:String x:Key="hasbeensuccessfullydeleted">सफलतापूर्वक हटा दी गई है।</system:String>
     <system:String x:Key="hasbeensuccessfullydownloadedandinstalled">सफलतापूर्वक डाउनलोड और इंस्टॉल किया गया है।</system:String>
+    <system:String x:Key="Highervalueslargerdeadzone">• उच्च मान = बड़ा डेड ज़ोन = कर्सर हिलने से पहले अधिक स्टिक आंदोलन की आवश्यकता</system:String>
     <system:String x:Key="Icouldnotfindthefilesystemxml">आवेदन चलाने के लिए आवश्यक 'system.xml' फाइल नहीं मिली।</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">यदि संभव हो, तो इसे प्रशासनिक अनुमति के साथ चलाएं।</system:String>
     <system:String x:Key="Ifthatdoesnotwork">यदि यह काम नहीं करता है, तो 'Simple Launcher' को पुनः स्थापित करें।</system:String>
@@ -378,6 +389,7 @@
 <system:String x:Key="LoadingUserCompletionProgress">उपयोगकर्ता पूर्णता प्रगति लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingUserProfile">उपयोगकर्ता प्रोफ़ाइल लोड हो रही है...</system:String>
 <system:String x:Key="LoadingUserUnlocks">उपयोगकर्ता अनलॉक्स लोड कर रहा है...</system:String>
+    <system:String x:Key="Lowervaluessmallerdeadzone">• कम मान = छोटा डेड ज़ोन = अधिक संवेदनशील कर्सर आंदोलन, लेकिन बहाव का कारण बन सकता है</system:String>
 <system:String x:Key="MachineDescriptionColumnHeader">मशीन विवरण</system:String>
     <system:String x:Key="Magenta">मैजेंटा</system:String>
 <system:String x:Key="MameDescription">MAME विवरण</system:String>
@@ -386,7 +398,6 @@
     <system:String x:Key="ManualReinstallSuggestion">समस्या को ठीक करने के लिए कृपया 'Simple Launcher' को मैन्युअल रूप से फिर से स्थापित करें।</system:String>
     <system:String x:Key="Mauve">मॉव</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">शायद आपके इंटरनेट कनेक्शन में कोई समस्या है या GitHub सर्वर ऑफ़लाइन है।</system:String>
-    <system:String x:Key="MissingFile">फ़ाइल गुम है</system:String>
     <system:String x:Key="MissingRequiredFiles">आवश्यक फ़ाइलें गायब हैं</system:String>
 <system:String x:Key="MoreOptions">अधिक विकल्प</system:String>
     <system:String x:Key="Name">नाम</system:String>
@@ -444,12 +455,15 @@
 <system:String x:Key="OpeningPlayHistory">प्ले हिस्ट्री खोल रहा है...</system:String>
 <system:String x:Key="OpeningRetroAchievementsSettings">रेट्रोअचीवमेंट्स सेटिंग्स खोल रहा है...</system:String>
 <system:String x:Key="OpeningROMHistory">ROM हिस्ट्री खोल रहा है...</system:String>
+    <system:String x:Key="OpeningSoundConfigurationSettings">ध्वनि कॉन्फ़िगरेशन सेटिंग्स खोली जा रही हैं...</system:String>
 <system:String x:Key="OpeningSupportWindow">समर्थन विंडो खोल रहा है...</system:String>
 <system:String x:Key="OpeningTitleSnapshot">शीर्षक स्नैपशॉट खोल रहा है...</system:String>
 <system:String x:Key="OpeningVideoLink">वीडियो लिंक खोल रहा है...</system:String>
 <system:String x:Key="OpeningWalkthrough">वॉकथ्रू खोल रहा है...</system:String>
     <system:String x:Key="OpenROMHistory">ROM इतिहास खोलें</system:String>
     <system:String x:Key="OpenVideoLink">वीडियो लिंक खोलें</system:String>
+    <system:String x:Key="OperationCancelled">ऑपरेशन रद्द किया गया</system:String>
+    <system:String x:Key="OperationCancelledMessage">ऑपरेशन रद्द कर दिया गया था।</system:String>
     <system:String x:Key="Options">विकल्प</system:String>
     <system:String x:Key="Orange">नारंगी</system:String>
     <system:String x:Key="outof">में से</system:String>
@@ -467,6 +481,7 @@
 <system:String x:Key="PlayingVideo">वीडियो चला रहा है...</system:String>
     <system:String x:Key="Playtime">खेलने का समय:</system:String>
 <system:String x:Key="PlayTimeColumnHeader">खेलने का समय</system:String>
+    <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">कृपया सिस्टम सेटिंग्स संपादित करें और 'फ़ाइलों को फ़ोल्डर द्वारा समूहित करें' विकल्प को अक्षम करें।</system:String>
     <system:String x:Key="Pleaseeditthissystemto">इसे ठीक करने के लिए कृपया इस सिस्टम को संपादित करें।</system:String>
     <system:String x:Key="Pleaseenterasearchquery">कृपया एक खोज क्वेरी दर्ज करें।</system:String>
     <system:String x:Key="Pleaseenterasearchterm">कृपया एक खोज शब्द दर्ज करें।</system:String>
@@ -493,7 +508,6 @@
     <system:String x:Key="Pleaseselectasystemtodelete">कृपया ऐसा सिस्टम चुनें जिसे हटाना है।</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">कृपया सिस्टम फ़ोल्डर चुनें।</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">कृपया सिस्टम की छवि फ़ोल्डर का चयन करें।</system:String>
-<system:String x:Key="PopulatingSystemSelectionGrid">सिस्टम चयन ग्रिड पॉप्युलेट कर रहा है...</system:String>
     <system:String x:Key="PotentiallyInvalidPathsDetected2">संभावित रूप से अमान्य पथों का पता चला।</system:String>
 <system:String x:Key="PreparingRetroAchievements">रेट्रोअचीवमेंट्स तैयार कर रहा है...</system:String>
     <system:String x:Key="Preparingtodownload">डाउनलोड करने की तैयारी कर रहा है</system:String>
@@ -502,6 +516,7 @@
     <system:String x:Key="PreviousPage">पिछला पृष्ठ</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">प्ले हिस्ट्री डेटा प्रोसेस कर रहा है...</system:String>
     <system:String x:Key="Processingpleasewait">प्रोसेसिंग हो रही है, कृपया प्रतीक्षा करें...</system:String>
+    <system:String x:Key="ProcessingStillRunningMessage">प्रसंस्करण अभी भी चल रहा है। क्या आप रद्द करके बंद करना चाहते हैं?</system:String>
     <system:String x:Key="Purple">बैंगनी</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">इस सिस्टम के लिए कवर छवियां अंदर रखें</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">इस सिस्टम के लिए ROMs या ISOs अंदर रखें</system:String>
@@ -577,6 +592,7 @@
     <system:String x:Key="SelectSystem">सिस्टम चुनें</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} सिस्टम चुनें</system:String>
 <system:String x:Key="SelectSystemComboBox">सिस्टम कॉम्बोबॉक्स चुनें</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">संदेश भेजा जा रहा है... कृपया प्रतीक्षा करें</system:String>
 <system:String x:Key="SendingSupportRequest">समर्थन अनुरोध भेज रहा है...</system:String>
     <system:String x:Key="SendSupportRequest">समर्थन अनुरोध भेजें</system:String>
     <system:String x:Key="SetButtonAspectRatio">बटन पहलू अनुपात सेट करें</system:String>
@@ -594,6 +610,8 @@
     <system:String x:Key="SetSystemImageFolder">सिस्टम इमेज फ़ोल्डर सेट करें</system:String>
     <system:String x:Key="Setthegamewindowto">खेल की विंडो को पूर्ण स्क्रीन से हटाकर सेट करें। यह आवश्यक है।</system:String>
     <system:String x:Key="SetThreshold">सीमा निर्धारित करें</system:String>
+    <system:String x:Key="Settingittoohighmay">• इसे बहुत अधिक सेट करने से सटीक चालें मुश्किल हो सकती हैं</system:String>
+    <system:String x:Key="Settingittoolowmay">• इसे बहुत कम सेट करने से आपका कर्सर तब बह सकता है जब आप स्टिक को नहीं छू रहे हों</system:String>
 <system:String x:Key="SettingsFileNotFoundCreatingDefault">सेटिंग्स फ़ाइल नहीं मिली, डिफ़ॉल्ट बना रहा है...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">सेटिंग्स सफलतापूर्वक सहेजी गईं।</system:String>
 <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' फ़ाइल लोड नहीं की जा सकी।</system:String>
@@ -615,6 +633,8 @@
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' डाउनलोड लिंक खोल नहीं सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' इमेज पैक डाउनलोड लिंक खोलने में विफल रहा।</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ने इस सिस्टम के लिए एक छवि फ़ोल्डर बनाया</system:String>
+    <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'सिंपल लॉन्चर' फ़ोल्डर द्वारा समूहीकृत सिस्टम के RetroAchievements हैश का समर्थन नहीं करता है।</system:String>
+    <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'सिंपल लॉन्चर' वर्तमान प्रोसेसर आर्किटेक्चर का समर्थन नहीं करता है। हम केवल 64-बिट (x64) या ARM64 का समर्थन करते हैं। एप्लिकेशन अब बंद हो जाएगा।</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher त्रुटि</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' इस सिस्टम के लिए आवश्यक फ़ोल्डर बनाने में विफल रहा।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' के पास 'settings.xml' फाइल में लिखने के लिए पर्याप्त अनुमति नहीं है।</system:String>
@@ -628,6 +648,7 @@
     <system:String x:Key="SoundConfiguration">ध्वनि कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="Square">वर्ग</system:String>
 <system:String x:Key="StartingGlobalSearch">ग्लोबल सर्च शुरू कर रहा है...</system:String>
+    <system:String x:Key="StartProcess">प्रक्रिया प्रारंभ करें</system:String>
     <system:String x:Key="Steel">स्टील</system:String>
     <system:String x:Key="StopDownload">डाउनलोड रोकें</system:String>
     <system:String x:Key="Success">सफलता</system:String>
@@ -660,6 +681,7 @@
     <system:String x:Key="Taupe">टोपी</system:String>
     <system:String x:Key="Teal">टील</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">अपने एंटीवायरस को अस्थायी रूप से निष्क्रिय करें और फिर प्रयास करें।</system:String>
+    <system:String x:Key="The7zdllismissingfromtheapplicationfolder">एप्लिकेशन फ़ोल्डर से 7z dll गायब है!</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">एप्लिकेशन समर्थन अनुरोध भेजने में सक्षम नहीं होगा।</system:String>
     <system:String x:Key="Theapplicationwillshutdown">एप्लिकेशन बंद हो जाएगा।</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">बग को डेवलपर को रिपोर्ट कर दिया गया है, जो इसे ठीक करने का प्रयास करेगा।</system:String>
@@ -756,14 +778,15 @@
     <system:String x:Key="TotalImages">मेल खाने वाली छवियों की कुल संख्या:</system:String>
 <system:String x:Key="TotalPlaytimeInfo">कुल खेलने का समय</system:String>
     <system:String x:Key="TotalSystems">संपूर्ण सिस्टम की संख्या:</system:String>
+    <system:String x:Key="TotalSystemsWithMissingImages">छवियों के बिना कुल सिस्टम:</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' को लोड करने में अक्षम। फाइल शायद क्षतिग्रस्त हो सकती है।</system:String>
     <system:String x:Key="Unabletoopenthelink">लिंक खोलने में असमर्थ।</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' लोड करते समय अप्रत्याशित त्रुटि।</system:String>
     <system:String x:Key="Unknown">अज्ञात</system:String>
 <system:String x:Key="UnknownFavoriteStatusLabel">अज्ञात पसंदीदा स्थिति</system:String>
+    <system:String x:Key="UnsupportedArchitecture">असमर्थित आर्किटेक्चर</system:String>
     <system:String x:Key="UpdateAvailable">अपडेट उपलब्ध</system:String>
     <system:String x:Key="UpdateHistory">अपडेट इतिहास</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' गायब है, 'Simple Launcher' इसे डाउनलोड करने का प्रयास करेगा।</system:String>
     <system:String x:Key="Updating">अपडेट किया जा रहा है</system:String>
 <system:String x:Key="UpdatingPlayHistory">प्ले हिस्ट्री अपडेट कर रहा है...</system:String>
 <system:String x:Key="UpdatingSystemPlayTime">सिस्टम प्ले टाइम अपडेट कर रहा है...</system:String>
