@@ -14,10 +14,6 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services;
 
-/// <summary>
-/// Scans for games installed via Steam, Epic, GOG, Ubisoft, EA, and Microsoft Store,
-/// integrating them into Simple Launcher.
-/// </summary>
 public class GameScannerService
 {
     private readonly ILogErrors _logErrors;
@@ -153,7 +149,6 @@ public class GameScannerService
 
         try
         {
-            // Logic adapted from PlayniteExtensions SteamLibrary/Steam.cs
             // Prioritize HKCU as it reflects the current user's installation
             var steamPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null) as string;
 
@@ -233,7 +228,7 @@ public class GameScannerService
                 }
             }
 
-            // 4. Scan for Source Mods (Logic from Playnite SteamLocalService.cs)
+            // 4. Scan for Source Mods
             // Mods are usually in Steam\steamapps\sourcemods
             var sourceModsPath = Path.Combine(steamPath, "steamapps", "sourcemods");
             if (Directory.Exists(sourceModsPath))
@@ -285,7 +280,6 @@ public class GameScannerService
     {
         try
         {
-            // Logic based on Playnite SteamLibrary/ModInfo.cs
             var gameInfoPath = Path.Combine(modDir, "gameinfo.txt");
             if (!File.Exists(gameInfoPath)) return;
 
@@ -395,7 +389,6 @@ public class GameScannerService
     {
         try
         {
-            // Logic adapted from PlayniteExtensions EpicLibrary/EpicLauncher.cs
             // Method 1: LauncherInstalled.dat (Preferred/Faster)
             var allUsersPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Epic");
             var installedDatPath = Path.Combine(allUsersPath, "UnrealEngineLauncher", "LauncherInstalled.dat");
@@ -468,7 +461,7 @@ public class GameScannerService
                 }
             }
 
-            // Method 2: Fallback to scanning Manifests directly (Old method)
+            // Method 2: Fallback to scanning Manifests directly
             var manifestsDir = Path.Combine(allUsersPath, "EpicGamesLauncher", "Data", "Manifests");
             if (Directory.Exists(manifestsDir))
             {
@@ -526,7 +519,7 @@ public class GameScannerService
 
     #endregion
 
-    #region GOG Galaxy (Unchanged but included for completeness)
+    #region GOG Galaxy
 
     private async Task ScanGogGamesAsync()
     {
@@ -575,7 +568,7 @@ public class GameScannerService
 
     #endregion
 
-    #region Ubisoft Connect (Unchanged)
+    #region Ubisoft Connect
 
     private async Task ScanUbisoftGamesAsync()
     {
@@ -620,7 +613,7 @@ public class GameScannerService
 
     #endregion
 
-    #region EA App (Unchanged)
+    #region EA App
 
     private async Task ScanEaGamesAsync()
     {
@@ -671,7 +664,6 @@ public class GameScannerService
     {
         try
         {
-            // Playnite uses Windows.Management.Deployment APIs which are cleaner but require WinRT references.
             // Sticking to PowerShell for portability in this context, but refining the filter.
             const string script = "Get-StartApps | ConvertTo-Json";
 
@@ -741,9 +733,7 @@ public class GameScannerService
     private Task ExtractIconFromGameFolder(string gameInstallPath, string sanitizedGameName, string specificExePath = null)
     {
         var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
-        if (File.Exists(iconPath)) return Task.CompletedTask;
-
-        if (!Directory.Exists(gameInstallPath)) return Task.CompletedTask;
+        if (File.Exists(iconPath) || !Directory.Exists(gameInstallPath)) return Task.CompletedTask;
 
         var mainExe = specificExePath;
 
