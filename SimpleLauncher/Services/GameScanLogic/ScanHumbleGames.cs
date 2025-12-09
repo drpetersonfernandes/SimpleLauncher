@@ -74,11 +74,11 @@ public class ScanHumbleGames
                             fullExePath = Path.Combine(installDir, exePath);
                         }
 
-                        await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        continue;
+                        await logErrors.LogErrorAsync(ex, "Error processing Humble game entry.");
                     }
                 }
             }

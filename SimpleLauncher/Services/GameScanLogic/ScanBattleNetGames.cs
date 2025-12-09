@@ -102,7 +102,7 @@ public class ScanBattleNetGames
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
-                                    await GameScannerService.ExtractIconFromGameFolder(installLocation, sanitizedGameName, windowsImagesPath);
+                                    await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath);
                                 }
                             }
                         }
@@ -120,13 +120,13 @@ public class ScanBattleNetGames
                                 var exePath = Path.Combine(installLocation, def.Exe);
                                 var batContent = $"@echo off\r\ncd /d \"{installLocation}\"\r\nstart \"\" \"{def.Exe}\"";
                                 await File.WriteAllTextAsync(shortcutPath, batContent);
-                                await GameScannerService.ExtractIconFromGameFolder(installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, exePath);
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        continue;
+                        await logErrors.LogErrorAsync(ex, $"Error processing Battle.net game registry key: {subKeyName}");
                     }
                 }
             }

@@ -51,11 +51,11 @@ public class ScanUplayGames
                             fullExePath = gameExe;
                         }
 
-                        await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        /* Ignore */
+                        await logErrors.LogErrorAsync(ex, $"Error processing Ubisoft game registry key: {gameId}");
                     }
                 }
             }

@@ -84,14 +84,14 @@ public class ScanRockstarGames
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
                                     var exePath = Path.Combine(installLocation, gameDef.Exe);
-                                    await GameScannerService.ExtractIconFromGameFolder(installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                    await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, exePath);
                                 }
                             }
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        continue;
+                        await logErrors.LogErrorAsync(ex, $"Error processing Rockstar game registry key: {subKeyName}");
                     }
                 }
             }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
@@ -15,7 +16,7 @@ public static class SteamVdfParser
     // Improved regex to handle escaped quotes within strings: "some \"value\" here"
     private static readonly Regex TokenRegex = new("\"((?:\\\\.|[^\\\\\"])*)\"", RegexOptions.Compiled);
 
-    public static Dictionary<string, object> Parse(string filePath)
+    public static Dictionary<string, object> Parse(string filePath, ILogErrors logErrors = null)
     {
         try
         {
@@ -74,7 +75,15 @@ public static class SteamVdfParser
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[SteamVdfParser] Failed to parse VDF file: {filePath}. Error: {ex.Message}");
+            if (logErrors != null)
+            {
+                _ = logErrors.LogErrorAsync(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
+            }
+            else
+            {
+                DebugLogger.Log($"[SteamVdfParser] Failed to parse VDF file: {filePath}. Error: {ex.Message}");
+            }
+
             return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         }
     }

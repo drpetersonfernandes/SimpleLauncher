@@ -95,12 +95,12 @@ public class ScanMicrosoftStoreGames
                     // Attempt Icon Extraction from Package Assets
                     if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                     {
-                        await TryExtractStoreIcon(installLocation, sanitizedGameName, windowsImagesPath);
+                        await TryExtractStoreIcon(logErrors, installLocation, sanitizedGameName, windowsImagesPath);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    /* Ignore */
+                    await logErrors.LogErrorAsync(ex, "Error processing Microsoft Store game entry.");
                 }
             }
         }
@@ -110,45 +110,50 @@ public class ScanMicrosoftStoreGames
         }
     }
 
-    private static Task TryExtractStoreIcon(string installPath, string sanitizedGameName, string windowsImagesPath)
+    private static async Task TryExtractStoreIcon(ILogErrors logErrors, string installPath, string sanitizedGameName, string windowsImagesPath)
     {
-        var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-        if (File.Exists(destPath)) return Task.CompletedTask;
-
-        // Heuristic: Look for Logo.png, StoreLogo.png, or images in Assets folder
-        // Playnite has complex logic for reading resources.pri, but we will do a file scan.
-
-        var possibleFiles = new[] { "StoreLogo.png", "Logo.png", "AppIcon.png", "Square150x150Logo.png", "Square44x44Logo.png" };
-
-        // Check root
-        foreach (var fileName in possibleFiles)
+        try
         {
-            var p = Path.Combine(installPath, fileName);
-            if (File.Exists(p))
-            {
-                File.Copy(p, destPath, true);
-                return Task.CompletedTask;
-            }
-        }
+            var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
+            if (File.Exists(destPath)) return;
 
-        // Check Assets or Images folder
-        var subDirs = new[] { "Assets", "Images" };
-        foreach (var sub in subDirs)
-        {
-            var dir = Path.Combine(installPath, sub);
-            if (Directory.Exists(dir))
+            // Heuristic: Look for Logo.png, StoreLogo.png, or images in Assets folder
+            // Playnite has complex logic for reading resources.pri, but we will do a file scan.
+
+            var possibleFiles = new[] { "StoreLogo.png", "Logo.png", "AppIcon.png", "Square150x150Logo.png", "Square44x44Logo.png" };
+
+            // Check root
+            foreach (var fileName in possibleFiles)
             {
-                var pngs = Directory.GetFiles(dir, "*.png");
-                // Pick the largest one usually
-                var bestIcon = pngs.OrderByDescending(f => new FileInfo(f).Length).FirstOrDefault();
-                if (bestIcon != null)
+                var p = Path.Combine(installPath, fileName);
+                if (File.Exists(p))
                 {
-                    File.Copy(bestIcon, destPath, true);
-                    return Task.CompletedTask;
+                    File.Copy(p, destPath, true);
+                    return;
+                }
+            }
+
+            // Check Assets or Images folder
+            var subDirs = new[] { "Assets", "Images" };
+            foreach (var sub in subDirs)
+            {
+                var dir = Path.Combine(installPath, sub);
+                if (Directory.Exists(dir))
+                {
+                    var pngs = Directory.GetFiles(dir, "*.png");
+                    // Pick the largest one usually
+                    var bestIcon = pngs.OrderByDescending(f => new FileInfo(f).Length).FirstOrDefault();
+                    if (bestIcon != null)
+                    {
+                        File.Copy(bestIcon, destPath, true);
+                        return;
+                    }
                 }
             }
         }
-
-        return Task.CompletedTask;
+        catch (Exception ex)
+        {
+            await logErrors.LogErrorAsync(ex, $"Failed to extract Microsoft Store icon for {sanitizedGameName}");
+        }
     }
 }

@@ -74,7 +74,7 @@ public class ScanEpicGames
 
                             if (ignoredGameNames.Contains(displayName)) continue;
 
-                            await CreateEpicShortcut(displayName, app.AppName, app.InstallLocation, launchExe, windowsRomsPath, windowsImagesPath);
+                            await CreateEpicShortcut(logErrors, displayName, app.AppName, app.InstallLocation, launchExe, windowsRomsPath, windowsImagesPath);
                         }
 
                         return; // Successfully processed via DAT file
@@ -82,7 +82,7 @@ public class ScanEpicGames
                 }
                 catch (Exception ex)
                 {
-                    DebugLogger.Log($"[GameScannerService] Error reading Epic LauncherInstalled.dat: {ex.Message}. Falling back to manifests.");
+                    await logErrors.LogErrorAsync(ex, "Error reading Epic LauncherInstalled.dat. Falling back to manifests.");
                 }
             }
 
@@ -139,11 +139,11 @@ public class ScanEpicGames
                         var installLoc = root.TryGetProperty("InstallLocation", out var il) ? il.GetString() : "";
                         var launchExe = root.TryGetProperty("LaunchExecutable", out var le) ? le.GetString() : "";
 
-                        await CreateEpicShortcut(displayName, appName, installLoc, launchExe, windowsRomsPath, windowsImagesPath);
+                        await CreateEpicShortcut(logErrors, displayName, appName, installLoc, launchExe, windowsRomsPath, windowsImagesPath);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        /* Ignore */
+                        await logErrors.LogErrorAsync(ex, $"Error processing Epic manifest: {manifestFile}");
                     }
                 }
             }
@@ -154,7 +154,7 @@ public class ScanEpicGames
         }
     }
 
-    private static async Task CreateEpicShortcut(string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
+    private static async Task CreateEpicShortcut(ILogErrors logErrors, string displayName, string appName, string installLocation, string launchExecutable, string windowsRomsPath, string windowsImagesPath)
     {
         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
         var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
@@ -166,7 +166,7 @@ public class ScanEpicGames
         if (!string.IsNullOrEmpty(installLocation) && !string.IsNullOrEmpty(launchExecutable))
         {
             var fullExePath = Path.Combine(installLocation, launchExecutable);
-            await GameScannerService.ExtractIconFromGameFolder(installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
+            await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
         }
     }
 }

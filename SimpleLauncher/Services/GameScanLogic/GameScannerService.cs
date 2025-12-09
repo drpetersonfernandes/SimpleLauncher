@@ -145,51 +145,49 @@ public class GameScannerService
         }
     }
 
-    internal static Task ExtractIconFromGameFolder(string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal static async Task ExtractIconFromGameFolder(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
-        var iconPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-        if (File.Exists(iconPath) || !Directory.Exists(gameInstallPath)) return Task.CompletedTask;
-
-        var mainExe = specificExePath;
-
-        if (string.IsNullOrEmpty(mainExe) || !File.Exists(mainExe))
+        try
         {
-            // Heuristics to find the main EXE
-            var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
+            var iconPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
+            if (File.Exists(iconPath) || !Directory.Exists(gameInstallPath)) return;
 
-            // 1. Name match
-            // 2. Contains name
-            mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase)) ?? exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+            var mainExe = specificExePath;
 
-            // 3. Largest EXE (ignoring uninstallers/unity crash handlers)
-            if (mainExe == null && exeFiles.Length > 0)
+            if (string.IsNullOrEmpty(mainExe) || !File.Exists(mainExe))
             {
-                mainExe = exeFiles
-                    .Where(static f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("redist", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("dxsetup", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("update", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
-                    .OrderByDescending(static f => new FileInfo(f).Length)
-                    .FirstOrDefault();
-            }
-        }
+                // Heuristics to find the main EXE
+                var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
 
-        if (mainExe != null && File.Exists(mainExe))
-        {
-            try
+                // 1. Name match
+                // 2. Contains name
+                mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase)) ?? exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+
+                // 3. Largest EXE (ignoring uninstallers/unity crash handlers)
+                if (mainExe == null && exeFiles.Length > 0)
+                {
+                    mainExe = exeFiles
+                        .Where(static f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("redist", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("dxsetup", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("update", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
+                                           !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
+                        .OrderByDescending(static f => new FileInfo(f).Length)
+                        .FirstOrDefault();
+                }
+            }
+
+            if (mainExe != null && File.Exists(mainExe))
             {
                 IconExtractor.SaveIconFromExe(mainExe, iconPath);
             }
-            catch
-            {
-                /* Ignore icon extraction failure */
-            }
         }
-
-        return Task.CompletedTask;
+        catch (Exception ex)
+        {
+            await logErrors.LogErrorAsync(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
+        }
     }
 }

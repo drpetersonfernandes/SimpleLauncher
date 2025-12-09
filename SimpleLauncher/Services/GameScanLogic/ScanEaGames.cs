@@ -36,11 +36,11 @@ public class ScanEaGames
                     var shortcutContent = $"[InternetShortcut]\nURL=origin2://game/launch?offerIds={contentId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath);
+                    await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    /* Ignore */
+                    await logErrors.LogErrorAsync(ex, $"Error processing EA game: {contentId}");
                 }
             }
         }

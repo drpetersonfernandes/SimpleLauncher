@@ -55,7 +55,7 @@ public class ScanSteamGames
             {
                 try
                 {
-                    var vdfData = SteamVdfParser.Parse(libraryFoldersVdf);
+                    var vdfData = SteamVdfParser.Parse(libraryFoldersVdf, logErrors);
 
                     // Handle new VDF format (numeric keys at root or inside "libraryfolders")
                     var rootNode = vdfData.TryGetValue("libraryfolders", out var value)
@@ -89,7 +89,7 @@ public class ScanSteamGames
                 }
                 catch (Exception ex)
                 {
-                    DebugLogger.Log($"[GameScannerService] Error parsing libraryfolders.vdf: {ex.Message}");
+                    await logErrors.LogErrorAsync(ex, "Error parsing libraryfolders.vdf");
                 }
             }
 
@@ -114,7 +114,7 @@ public class ScanSteamGames
                 var modDirectories = Directory.GetDirectories(sourceModsPath);
                 foreach (var modDir in modDirectories)
                 {
-                    await ProcessSourceMod(modDir, windowsRomsPath);
+                    await ProcessSourceMod(modDir, windowsRomsPath, logErrors);
                 }
             }
         }
@@ -128,7 +128,7 @@ public class ScanSteamGames
     {
         try
         {
-            var appData = SteamVdfParser.Parse(manifestFile);
+            var appData = SteamVdfParser.Parse(manifestFile, logErrors);
             if (appData.TryGetValue("AppState", out var appState) && appState is Dictionary<string, object> appStateDict)
             {
                 if (appStateDict.TryGetValue("name", out var nameObj) && nameObj is string gameName &&
@@ -144,17 +144,17 @@ public class ScanSteamGames
                     var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await TryCopySteamArtworkAsync(steamPath, appId, sanitizedGameName, gameInstallPath, windowsImagesPath);
+                    await TryCopySteamArtworkAsync(logErrors, steamPath, appId, sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Ignore individual manifest errors
+            await logErrors.LogErrorAsync(ex, $"Error processing Steam manifest: {manifestFile}");
         }
     }
 
-    private static async Task ProcessSourceMod(string modDir, string windowsRomsPath)
+    private static async Task ProcessSourceMod(string modDir, string windowsRomsPath, ILogErrors logErrors)
     {
         try
         {
@@ -202,9 +202,9 @@ public class ScanSteamGames
 
             DebugLogger.Log($"[GameScannerService] Found Source Mod: {gameName}. Skipping shortcut creation (requires base AppID resolution).");
         }
-        catch
+        catch (Exception ex)
         {
-            // Ignore mod errors
+            await logErrors.LogErrorAsync(ex, $"Error processing Source Mod in {modDir}");
         }
     }
 
@@ -223,13 +223,13 @@ public class ScanSteamGames
         }
     }
 
-    private static Task TryCopySteamArtworkAsync(string steamPath, string appId, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
+    private static async Task TryCopySteamArtworkAsync(ILogErrors logErrors, string steamPath, string appId, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
     {
         var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-        if (File.Exists(destArtworkPath)) return Task.CompletedTask;
+        if (File.Exists(destArtworkPath)) return;
 
         var cachePath = Path.Combine(steamPath, "appcache", "librarycache");
-        if (!Directory.Exists(cachePath)) return Task.CompletedTask;
+        if (!Directory.Exists(cachePath)) return;
 
         string[] searchPatterns =
         {
@@ -246,22 +246,20 @@ public class ScanSteamGames
                 try
                 {
                     // Convert JPG to PNG
-                    using (var image = Image.FromFile(sourcePath))
-                    {
-                        image.Save(destArtworkPath, ImageFormat.Png);
-                    }
+                    using var image = Image.FromFile(sourcePath);
+                    image.Save(destArtworkPath, ImageFormat.Png);
 
-                    return Task.CompletedTask; // Successfully converted and saved
+                    return; // Successfully converted and saved
                 }
                 catch (Exception ex)
                 {
-                    DebugLogger.Log($"[ScanSteamGames] Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath}): {ex.Message}");
+                    await logErrors.LogErrorAsync(ex, $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
                     // Continue to the next pattern or fallback if conversion fails
                 }
             }
         }
 
         // Fallback to EXE icon if no artwork was found or successfully converted
-        return GameScannerService.ExtractIconFromGameFolder(gameInstallPath, sanitizedGameName, windowsImagesPath);
+        await GameScannerService.ExtractIconFromGameFolder(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
     }
 }

@@ -93,11 +93,11 @@ public class ScanGogGames
                         var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://launch/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        await GameScannerService.ExtractIconFromGameFolder(installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
+                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        continue;
+                        await logErrors.LogErrorAsync(ex, $"Error processing GOG game registry key: {subKeyName}");
                     }
                 }
             }

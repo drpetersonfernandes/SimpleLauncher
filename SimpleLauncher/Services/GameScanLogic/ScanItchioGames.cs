@@ -106,12 +106,12 @@ public class ScanItchioGames
                         var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(launchExe)}\"\r\nstart \"\" \"{Path.GetFileName(launchExe)}\"";
                         await File.WriteAllTextAsync(batPath, batContent);
 
-                        await GameScannerService.ExtractIconFromGameFolder(gameDir, sanitizedGameName, windowsImagesPath, launchExe);
+                        await GameScannerService.ExtractIconFromGameFolder(logErrors, gameDir, sanitizedGameName, windowsImagesPath, launchExe);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    continue;
+                    await logErrors.LogErrorAsync(ex, $"Error processing Itch.io game directory: {gameDir}");
                 }
             }
         }
