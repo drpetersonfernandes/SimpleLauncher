@@ -11,6 +11,18 @@ public partial class MainWindow
 {
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        // Initialize the status bar timer
+        StatusBarTimer = new DispatcherTimer();
+
+        var statusBarTimeoutSeconds = App.Configuration.GetValue("StatusBarTimeoutSeconds", 3);
+        StatusBarTimer.Interval = TimeSpan.FromSeconds(statusBarTimeoutSeconds);
+
+        StatusBarTimer.Tick += (s, eventArgs) =>
+        {
+            StatusBarText.Content = ""; // Clear the status bar
+            StatusBarTimer.Stop(); // Stop the timer after clearing
+        };
+
         // Apply language
         SetLanguageAndCheckMenu(_settings.Language);
         DebugLogger.Log("Language and menu was set.");
@@ -52,7 +64,7 @@ public partial class MainWindow
         CheckForRequiredFiles.CheckFiles();
         DebugLogger.Log("Required files were checked.");
 
-        // --- Set initial checked state for overlay buttons ---
+        // Set initial checked state for overlay buttons
         RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
         VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
         InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
@@ -75,17 +87,5 @@ public partial class MainWindow
         _gamePadController.DeadZoneX = _settings.DeadZoneX;
         _gamePadController.DeadZoneY = _settings.DeadZoneY;
         DebugLogger.Log("GamePadController dead zone settings were updated.");
-
-        // Initialize the status bar timer
-        StatusBarTimer = new DispatcherTimer();
-
-        var statusBarTimeoutSeconds = App.Configuration.GetValue("StatusBarTimeoutSeconds", 3);
-        StatusBarTimer.Interval = TimeSpan.FromSeconds(statusBarTimeoutSeconds);
-
-        StatusBarTimer.Tick += (s, eventArgs) =>
-        {
-            StatusBarText.Content = ""; // Clear the status bar
-            StatusBarTimer.Stop(); // Stop the timer after clearing
-        };
     }
 }

@@ -156,7 +156,7 @@ public partial class App : IDisposable
         Current.MainWindow = mainWindow;
         mainWindow.Show();
 
-        // Start background scan for Steam/Epic games
+        // Start background scan for Installed Windows games
         var gameScanner = ServiceProvider.GetRequiredService<GameScannerService>();
         _ = Task.Run(async () =>
         {
@@ -164,11 +164,11 @@ public partial class App : IDisposable
             // After scanning, if a new system was created, tell MainWindow to refresh its system list.
             if (gameScanner.WasNewSystemCreated)
             {
-                await Dispatcher.InvokeAsync(() =>
+                await Dispatcher.InvokeAsync(static () =>
                 {
                     var activeMainWindow = Current.MainWindow as MainWindow;
                     activeMainWindow?.LoadOrReloadSystemManager();
-                    UpdateStatusBar.UpdateContent("Found new games from Steam/Epic. Refreshing system list.", activeMainWindow);
+                    UpdateStatusBar.UpdateContent("Found new Microsoft Windows games. Refreshing system list.", activeMainWindow);
                 });
             }
         });
