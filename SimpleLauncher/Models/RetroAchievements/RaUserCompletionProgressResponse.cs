@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Models.RetroAchievements;
 
 public class RaUserCompletionProgressResponse
 {

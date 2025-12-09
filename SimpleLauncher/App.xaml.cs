@@ -14,6 +14,7 @@ using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using SimpleLauncher.Services.GameScanLogic;
+using SimpleLauncher.Services.RetroAchievements;
 
 namespace SimpleLauncher;
 

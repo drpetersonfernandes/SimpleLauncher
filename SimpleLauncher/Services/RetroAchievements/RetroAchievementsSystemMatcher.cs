@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.RetroAchievements;
 
 /// <summary>
 /// Provides fuzzy matching for RetroAchievements system names to ensure proper hash method selection.

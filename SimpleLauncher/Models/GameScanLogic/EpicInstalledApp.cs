@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Models.GameScanLogic;
 
 public class EpicInstalledApp
 {

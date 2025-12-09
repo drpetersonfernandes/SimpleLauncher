@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Models.RetroAchievements;
 
 public class RaApiAchievement
 {

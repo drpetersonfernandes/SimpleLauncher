@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Models.RetroAchievements;
 
 // Custom exception for RetroAchievements API Unauthorized errors
 public class RaUnauthorizedException : Exception

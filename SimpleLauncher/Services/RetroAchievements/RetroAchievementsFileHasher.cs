@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.RetroAchievements;
 
 /// <summary>
 /// Provides methods for hashing ROM files according to RetroAchievements' specifications.

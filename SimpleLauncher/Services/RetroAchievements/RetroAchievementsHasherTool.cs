@@ -8,9 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
+using SimpleLauncher.Models.RetroAchievements;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.RetroAchievements;
 
 /// <summary>
 /// A helper class to execute the external RAHasher.exe tool for generating game file hashes,

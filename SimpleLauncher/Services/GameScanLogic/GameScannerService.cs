@@ -24,7 +24,10 @@ public class GameScannerService
         "DirectX",
         "Google Earth VR",
         "Spacewar",
-        "PC Health Check"
+        "PC Health Check",
+        "Rockstar Games Launcher",
+        "Battle.net",
+        "Ubisoft Connect"
     };
 
     // Whitelist for Microsoft Store games to avoid adding Calculator/Photos etc.
@@ -54,16 +57,16 @@ public class GameScannerService
             {
                 ScanSteamGames.ScanSteamGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanEpicGames.ScanEpicGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                // ScanAmazonGamesAsync(),
-                // ScanBattleNetGamesAsync(),
+                ScanAmazonGames.ScanAmazonGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanBattleNetGames.ScanBattleNetGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanGogGames.ScanGogGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                // ScanHumbleGamesAsync(),
-                ScanItchioGames.ScanItchioGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames), // Added Itch
-                // ScanRockstarGamesAsync(),
-                // ScanXboxGamesAsync(),
+                ScanHumbleGames.ScanHumbleGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanItchioGames.ScanItchioGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                ScanRockstarGames.ScanRockstarGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
+                // ScanXboxGamesAsync(), // Xbox is partially covered by Microsoft Store scan
                 ScanUplayGames.ScanUplayGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanEaGames.ScanEaGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath) // Added images path arg
+                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath)
             };
 
             await Task.WhenAll(tasks);
@@ -166,7 +169,8 @@ public class GameScannerService
                     .Where(static f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
                                        !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
                                        !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
-                                       !f.Contains("unity", StringComparison.OrdinalIgnoreCase))
+                                       !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
+                                       !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
                     .OrderByDescending(static f => new FileInfo(f).Length)
                     .FirstOrDefault();
             }

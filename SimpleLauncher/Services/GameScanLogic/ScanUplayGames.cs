@@ -13,34 +13,43 @@ public class ScanUplayGames
     {
         try
         {
-            const string ubiRegKey = @"SOFTWARE\WOW6432Node\Ubisoft\Launcher\Installs";
-            using var baseKey = Registry.LocalMachine.OpenSubKey(ubiRegKey);
-            if (baseKey == null) return;
+            // Playnite checks both registry views
+            var registryViews = new[] { RegistryView.Registry32, RegistryView.Registry64 };
+            const string ubiRegKey = @"SOFTWARE\Ubisoft\Launcher\Installs";
 
-            foreach (var gameId in baseKey.GetSubKeyNames())
+            foreach (var view in registryViews)
             {
-                try
+                using var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view).OpenSubKey(ubiRegKey);
+                if (baseKey == null) continue;
+
+                foreach (var gameId in baseKey.GetSubKeyNames())
                 {
-                    using var gameKey = baseKey.OpenSubKey(gameId);
-                    if (gameKey == null) continue;
+                    try
+                    {
+                        using var gameKey = baseKey.OpenSubKey(gameId);
+                        if (gameKey == null) continue;
 
-                    var installDir = gameKey.GetValue("InstallDir") as string;
-                    if (string.IsNullOrEmpty(installDir) || !Directory.Exists(installDir)) continue;
+                        var installDir = gameKey.GetValue("InstallDir") as string;
+                        if (string.IsNullOrEmpty(installDir) || !Directory.Exists(installDir)) continue;
 
-                    var gameName = new DirectoryInfo(installDir).Name.Replace(" Edition", "").Trim();
-                    if (ignoredGameNames.Contains(gameName)) continue;
+                        // Clean up path separators
+                        installDir = installDir.Replace('/', Path.DirectorySeparatorChar);
 
-                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
-                    var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
+                        var gameName = new DirectoryInfo(installDir).Name.Replace(" Edition", "").Trim();
+                        if (ignoredGameNames.Contains(gameName)) continue;
 
-                    var shortcutContent = $"[InternetShortcut]\nURL=uplay://launch/{gameId}/0";
-                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+                        var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
+                        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
-                    await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath);
-                }
-                catch
-                {
-                    /* Ignore */
+                        var shortcutContent = $"[InternetShortcut]\nURL=uplay://launch/{gameId}/0";
+                        await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+                        await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath);
+                    }
+                    catch
+                    {
+                        /* Ignore */
+                    }
                 }
             }
         }

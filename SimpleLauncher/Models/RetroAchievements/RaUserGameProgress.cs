@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Models.RetroAchievements;
 
 public class RaUserGameProgress
 {

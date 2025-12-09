@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MessagePack;
 
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Models.RetroAchievements;
 
 [MessagePackObject]
 public class RaGameInfo

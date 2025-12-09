@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Models;
-using System.Net;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Managers;
+using SimpleLauncher.Models.RetroAchievements;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.RetroAchievements;
 
 public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, RetroAchievementsManager raManager, ILogErrors logErrors) : IDisposable
 {
