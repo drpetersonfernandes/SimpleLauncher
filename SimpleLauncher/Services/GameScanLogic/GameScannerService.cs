@@ -63,7 +63,6 @@ public class GameScannerService
                 ScanHumbleGames.ScanHumbleGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanItchioGames.ScanItchioGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanRockstarGames.ScanRockstarGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                // ScanXboxGamesAsync(), // Xbox is partially covered by Microsoft Store scan
                 ScanUplayGames.ScanUplayGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanEaGames.ScanEaGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath)
