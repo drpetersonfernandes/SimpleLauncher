@@ -6,4 +6,5 @@ public class BNetAppDef
     public string Name { get; set; }
     public bool IsClassic { get; set; }
     public string Exe { get; set; }
+    public string ProductId { get; set; }
 }

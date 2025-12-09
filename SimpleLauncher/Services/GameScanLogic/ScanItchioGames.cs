@@ -98,26 +98,6 @@ public class ScanItchioGames
                     if (ignoredGameNames.Contains(prettyName)) continue;
 
                     var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(prettyName);
-                    Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
-
-                    // Fallback name logic
-                    if (!string.IsNullOrEmpty(launchExe) && File.Exists(launchExe))
-                    {
-                        var versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(launchExe);
-                        if (!string.IsNullOrEmpty(versionInfo.ProductName))
-                        {
-                            prettyName = versionInfo.ProductName;
-                        }
-                    }
-
-                    if (string.IsNullOrEmpty(prettyName))
-                    {
-                        prettyName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(gameName.Replace("-", " "));
-                    }
-
-                    if (ignoredGameNames.Contains(prettyName)) continue;
-
-                    sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(prettyName);
 
                     // Create .bat launch file
                     if (!string.IsNullOrEmpty(launchExe) && File.Exists(launchExe))

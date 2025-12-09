@@ -42,8 +42,8 @@ public class ScanBattleNetGames
         new BNetAppDef { InternalId = "w2r", Name = "Warcraft II: Remastered" },
         new BNetAppDef { InternalId = "d1", Name = "Diablo" },
         // Classics
-        new BNetAppDef { InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe" },
-        new BNetAppDef { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe" }
+        new BNetAppDef { InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe", ProductId = "D2" },
+        new BNetAppDef { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
     };
 
     public static async Task ScanBattleNetGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
@@ -96,7 +96,8 @@ public class ScanBattleNetGames
                                 // Let's use protocol for simplicity in .url file, or create .bat if needed.
                                 // Protocol: battlenet://{InternalId} usually works.
 
-                                var shortcutContent = $"[InternetShortcut]\nURL=battlenet://{def.InternalId}";
+                                var launchId = !string.IsNullOrEmpty(def.ProductId) ? def.ProductId : def.InternalId;
+                                var shortcutContent = $"[InternetShortcut]\nURL=battlenet://{launchId}";
                                 await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
