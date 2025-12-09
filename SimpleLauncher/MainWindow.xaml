@@ -660,75 +660,75 @@
             </MenuItem>
             <MenuItem Header="{DynamicResource Tools}">
                 <MenuItem Click="BatchConvertIsoToXiso_Click"
-                          Header="{DynamicResource BatchConvertIsoToXiso}">
+                          Header="Batch Convert Iso To Xiso">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToCHD_Click"
-                          Header="{DynamicResource BatchConvertToCHD}">
+                          Header="Batch Convert To CHD">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToCompressedFile_Click"
-                          Header="{DynamicResource BatchConvertToCompressedFile}">
+                          Header="Batch Convert To Compressed File">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToRVZ_Click"
-                          Header="{DynamicResource BatchConvertToRVZ}">
+                          Header="Batch Convert To RVZ">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click"
-                          Header="{DynamicResource CreateBatchFilesForPS3Games}">
+                          Header="Create Batch Files For PS3 Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForScummVMGames_Click"
-                          Header="{DynamicResource CreateBatchFilesForScummVMGames}">
+                          Header="Create Batch Files For ScummVM Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForSegaModel3Games_Click"
-                          Header="{DynamicResource CreateBatchFilesForSegaModel3Games}">
+                          Header="Create Batch Files For Sega Model 3 Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForWindowsGames_Click"
-                          Header="{DynamicResource CreateBatchFilesForWindowsGames}">
+                          Header="Create Batch Files For Windows Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForXbox360XBLAGames_Click"
-                          Header="{DynamicResource CreateBatchFilesForXbox360XBLAGames}">
+                          Header="Create Batch Files For Xbox360 XBLA Games">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="FindRomCover_Click" Header="FindRomCover">
+                <MenuItem Click="FindRomCover_Click" Header="Find Rom Cover">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="GameCoverScraper_Click" Header="GameCoverScraper">
+                <MenuItem Click="GameCoverScraper_Click" Header="Game Cover Scraper">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/gamecoverscraper.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="RetroGameCoverDownloader_Click" Header="RetroGameCoverDownloader">
+                <MenuItem Click="RetroGameCoverDownloader_Click" Header="Retro Game Cover Downloader">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/retrogamecoverdownloader.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="RomValidator_Click" Header="RomValidator">
+                <MenuItem Click="RomValidator_Click" Header="Rom Validator">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>

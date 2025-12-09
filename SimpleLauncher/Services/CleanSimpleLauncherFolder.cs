@@ -39,6 +39,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "SimpleLauncher.pdb"),
         Path.Combine(AppDirectory, "7z.dll"),
         Path.Combine(AppDirectory, "7z_x86.dll"),
+        Path.Combine(AppDirectory, "7z.exe"),
+        Path.Combine(AppDirectory, "7z_x86.exe"),
         Path.Combine(AppDirectory, "whatsnew.txt"),
         Path.Combine(AppDirectory, "Updater.exe"),
         Path.Combine(AppDirectory, "easymode.xml"),

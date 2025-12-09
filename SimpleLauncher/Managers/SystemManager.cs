@@ -35,9 +35,6 @@ public partial class SystemManager
             throw new ArgumentNullException(nameof(XmlPath), @"The path to the XML file cannot be null or empty.");
         }
 
-        // Notify user
-        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystemConfigurations") ?? "Loading system configurations...", Application.Current.MainWindow as MainWindow));
-
         try
         {
             if (!File.Exists(XmlPath))
