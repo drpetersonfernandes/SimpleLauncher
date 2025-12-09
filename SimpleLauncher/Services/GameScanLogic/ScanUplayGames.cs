@@ -13,7 +13,7 @@ public class ScanUplayGames
     {
         try
         {
-            // Playnite checks both registry views
+            // Most apps checks both registry views
             var registryViews = new[] { RegistryView.Registry32, RegistryView.Registry64 };
             const string ubiRegKey = @"SOFTWARE\Ubisoft\Launcher\Installs";
 

@@ -13,7 +13,6 @@ namespace SimpleLauncher.Services.GameScanLogic;
 public class ScanBattleNetGames
 {
     // Mapping from InternalId (found in registry) to Readable Name and Executable (for icons)
-    // Derived from PlayniteExtensions BattleNetGames.cs
     private static readonly List<BNetAppDef> AppDefinitions = new()
     {
         new BNetAppDef { InternalId = "wow", Name = "World of Warcraft" },
@@ -75,7 +74,6 @@ public class ScanBattleNetGames
                         if (string.IsNullOrEmpty(uninstallString)) continue;
 
                         // Check for Battle.net UID in uninstall string
-                        // Regex from Playnite: Battle\.net.*--uid=(.*?)\s
                         var match = Regex.Match(uninstallString, @"Battle\.net.*--uid=(.*?)\s");
 
                         if (match.Success)
@@ -91,7 +89,7 @@ public class ScanBattleNetGames
                                 var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
                                 // Launch via Battle.net executable arguments to ensure login
-                                // Playnite uses: Battle.net.exe --exec="launch {uid}"
+                                // Most apps uses: Battle.net.exe --exec="launch {uid}"
                                 // We can try protocol: battlenet://{uid} (works for some, but exec is safer for login)
                                 // Let's use protocol for simplicity in .url file, or create .bat if needed.
                                 // Protocol: battlenet://{InternalId} usually works.

@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.GameScanLogic;
 
-// Adapted from PlayniteExtensions LaunchManifest
 public class ItchManifest
 {
     [JsonPropertyName("actions")]

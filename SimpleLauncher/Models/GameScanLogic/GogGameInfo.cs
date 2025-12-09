@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.GameScanLogic;
 
-// Adapted from PlayniteExtensions GogGameActionInfo
 public class GogGameInfo
 {
     [JsonPropertyName("gameId")]

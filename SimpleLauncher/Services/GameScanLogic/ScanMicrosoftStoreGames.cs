@@ -20,7 +20,7 @@ public class ScanMicrosoftStoreGames
     {
         try
         {
-            // Playnite uses PackageManager API, but we stick to PowerShell for portability in SimpleLauncher.
+            // Most apps uses PackageManager API, but we stick to PowerShell for portability in SimpleLauncher.
             // We combine Get-StartApps (for AppID) with Get-AppxPackage (for InstallLocation).
 
             const string script = """
@@ -118,7 +118,6 @@ public class ScanMicrosoftStoreGames
             if (File.Exists(destPath)) return;
 
             // Heuristic: Look for Logo.png, StoreLogo.png, or images in Assets folder
-            // Playnite has complex logic for reading resources.pri, but we will do a file scan.
 
             var possibleFiles = new[] { "StoreLogo.png", "Logo.png", "AppIcon.png", "Square150x150Logo.png", "Square44x44Logo.png" };
 

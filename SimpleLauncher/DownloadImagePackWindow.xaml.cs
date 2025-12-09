@@ -232,7 +232,7 @@ public partial class DownloadImagePackWindow : IDisposable
             UpdateStatus($"{errorInvalidDestinationPath} {componentName}");
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponent] Invalid destination path for {componentName}: {easyModeExtractPath}");
 
             return;
         }

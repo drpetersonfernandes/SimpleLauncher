@@ -2146,6 +2146,7 @@ internal static class MessageBoxLibrary
         void ShowMessage()
         {
             var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
+            var makesuretheRoMorIsOyouretrying = (string)Application.Current.TryFindResource("MakesuretheROMorISOyouretrying") ?? "Make sure the ROM or ISO you're trying to run is not corrupted.";
             var ifyouaretryingtorunMamEensurethatyourRom = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
             var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
             var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
@@ -2154,6 +2155,7 @@ internal static class MessageBoxLibrary
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var result = MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
+                                         $"{makesuretheRoMorIsOyouretrying}\n" +
                                          $"{ifyouaretryingtorunMamEensurethatyourRom}\n" +
                                          $"{ifyouaretryingtorunRetroarchensurethattheBios}\n" +
                                          $"{alsomakesureyouarecallingtheemulator}\n\n" +

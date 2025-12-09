@@ -980,7 +980,7 @@ public class GameLauncher
         return Task.CompletedTask;
     }
 
-    private bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (selectedEmulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("KegaFusion", StringComparison.OrdinalIgnoreCase) ||

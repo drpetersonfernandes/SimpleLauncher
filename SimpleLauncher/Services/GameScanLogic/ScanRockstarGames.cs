@@ -13,7 +13,6 @@ namespace SimpleLauncher.Services.GameScanLogic;
 public class ScanRockstarGames
 {
     // Mapping from TitleId to Name and Executable
-    // Derived from PlayniteExtensions RockstarGames.cs
     private static readonly List<RockstarGameDef> Games = new()
     {
         new RockstarGameDef { TitleId = "gta5", Name = "Grand Theft Auto V", Exe = "PlayGTAV.exe" },
@@ -60,7 +59,6 @@ public class ScanRockstarGames
 
                         if (string.IsNullOrEmpty(uninstallString)) continue;
 
-                        // Regex from Playnite: (?:Launcher|uninstall)\.exe.+uninstall=(.+)$
                         var match = Regex.Match(uninstallString, @"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase);
 
                         if (match.Success)
@@ -76,7 +74,7 @@ public class ScanRockstarGames
                                 var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
                                 // Rockstar Launcher Protocol
-                                // rockstargames://launch/{titleId} usually works, but Playnite uses exe arguments.
+                                // rockstargames://launch/{titleId} usually works.
                                 // We'll use the protocol for the .url file.
                                 var shortcutContent = $"[InternetShortcut]\nURL=rockstargames://launch/{titleId}";
                                 await File.WriteAllTextAsync(shortcutPath, shortcutContent);

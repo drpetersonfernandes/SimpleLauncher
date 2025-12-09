@@ -192,7 +192,7 @@ public class ScanSteamGames
             // or rely on Steam recognizing the mod ID if we can calculate it.
             // Simplified approach: Create a BAT file to launch steam with mod parameters.
 
-            // Note: Playnite calculates ModID using CRC of folder name + 0x80000000.
+            // Note: Most apps calculates ModID using CRC of folder name + 0x80000000.
             // For simplicity here, we will try to find a direct executable or skip complex mod ID calculation
             // to avoid external dependencies like SteamKit2 logic in this snippet.
             // Alternative: Launch via steam.exe -applaunch <BaseAppID> -game <ModDir>
