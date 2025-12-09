@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.GameScanLogic;
 
 /// <summary>
 /// A utility class to extract icons from executable files.

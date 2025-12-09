@@ -13,6 +13,7 @@ using SevenZip;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.GameScanLogic;
 
 namespace SimpleLauncher;
 

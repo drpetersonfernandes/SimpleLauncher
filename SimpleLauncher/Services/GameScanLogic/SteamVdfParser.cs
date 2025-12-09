@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.GameScanLogic;
 
 /// <summary>
 /// A simple parser for Valve's KeyValue (VDF) file format.
