@@ -839,6 +839,12 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">The launch of the selected tool was canceled by the user.</system:String>
+
+    <system:String x:Key="AskToRescanWindowsGamesMessage">The 'Microsoft Windows' system has been selected. Would you like to rescan your system to update the list of installed Windows games (Steam, Epic, GOG, etc.)?</system:String>
+    <system:String x:Key="RescanWindowsGamesTitle">Rescan Windows Games?</system:String>
+    <system:String x:Key="ScanningForWindowsGames">Scanning for Windows games...</system:String>
+    <system:String x:Key="WindowsGamesScanComplete">Windows games scan complete.</system:String>
+    <system:String x:Key="ErrorScanningWindowsGamesMessage">An error occurred while scanning for Windows games. Please check the log file for details.</system:String>
+    <system:String x:Key="ErrorScanningWindowsGamesTitle">Scan Error</system:String>
 </ResourceDictionary>

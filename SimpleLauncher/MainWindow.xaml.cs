@@ -16,6 +16,7 @@ using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.GameScanLogic;
 using SimpleLauncher.UiHelpers;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -122,8 +123,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Stats _stats;
     private readonly ILogErrors _logErrors;
+    private readonly GameScannerService _gameScannerService;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools, Stats stats, ILogErrors logErrors)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools, Stats stats, ILogErrors logErrors, GameScannerService gameScannerService)
     {
         InitializeComponent();
 
@@ -135,6 +137,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _launchTools = launchTools ?? throw new ArgumentNullException(nameof(launchTools));
+        _gameScannerService = gameScannerService ?? throw new ArgumentNullException(nameof(gameScannerService));
         _stats = stats ?? throw new ArgumentNullException(nameof(stats));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
 
@@ -658,115 +661,156 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             try
             {
-                if (_isUiUpdating)
-                {
-                    return; // Prevent re-entrance
-                }
-
-                if (SystemComboBox.SelectedItem == null)
-                {
-                    // Clear the cached list when no system is selected
-                    _allGamesForCurrentSystem.Clear();
-
-                    return;
-                }
-
-                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
-                _isUiUpdating = true; // Set after UI is frozen
                 try
                 {
-                    SearchTextBox.Text = "";
-                    EmulatorComboBox.ItemsSource = null;
-                    EmulatorComboBox.SelectedIndex = -1;
-                    PreviewImage.Source = null;
-
-                    _currentSearchResults.Clear();
-                    _currentFilter = null;
-                    _activeSearchQueryOrMode = null;
-
-                    GameFileGrid.Visibility = Visibility.Visible;
-                    ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-                    var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-                    var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-                    if (selectedSystem == null || selectedManager == null)
+                    if (_isUiUpdating)
                     {
-                        // Notify developer
-                        const string errorMessage = "Selected system or its configuration is null.";
-                        _ = _logErrors.LogErrorAsync(null, errorMessage);
+                        return; // Prevent re-entrance
+                    }
 
-                        // Notify user
-                        MessageBoxLibrary.InvalidSystemConfigMessageBox();
-                        SortOrderToggleButton.Visibility = Visibility.Collapsed;
-
-                        SystemComboBox.SelectedItem = null;
-                        await DisplaySystemSelectionScreenAsync();
-
-                        // Clear the cached list on error
+                    if (SystemComboBox.SelectedItem == null)
+                    {
+                        // Clear the cached list when no system is selected
                         _allGamesForCurrentSystem.Clear();
 
                         return;
                     }
 
-                    _mameSortOrder = "FileName";
-                    UpdateSortOrderButtonUi();
-                    SortOrderToggleButton.Visibility = selectedManager.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
-
-                    EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-                    if (EmulatorComboBox.Items.Count > 0)
+                    SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
+                    _isUiUpdating = true; // Set after UI is frozen
+                    try
                     {
-                        EmulatorComboBox.SelectedIndex = 0;
-                    }
+                        SearchTextBox.Text = "";
+                        EmulatorComboBox.ItemsSource = null;
+                        EmulatorComboBox.SelectedIndex = -1;
+                        PreviewImage.Source = null;
 
-                    SelectedSystem = selectedSystem;
+                        _currentSearchResults.Clear();
+                        _currentFilter = null;
+                        _activeSearchQueryOrMode = null;
 
-                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-                    PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+                        GameFileGrid.Visibility = Visibility.Visible;
+                        ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-                    // Display SystemInfo and get the validation result. Game count is now handled inside this method.
-                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
+                        var selectedSystem = SystemComboBox.SelectedItem?.ToString();
 
-                    // If validation failed, show the message box with aggregated errors
-                    if (!validationResult.IsValid)
-                    {
-                        var errorMessages = new System.Text.StringBuilder();
-                        foreach (var msg in validationResult.ErrorMessages)
+                        // --- "Microsoft Windows" rescan prompt ---
+                        if (await ReScanMicrosoftWindowsSystem(selectedSystem)) return; // Exit after handling rescan, do not proceed with normal load for this selection
+
+                        var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+                        if (selectedSystem == null || selectedManager == null)
                         {
-                            errorMessages.Append(msg);
+                            // Notify developer
+                            const string errorMessage = "Selected system or its configuration is null.";
+                            _ = _logErrors.LogErrorAsync(null, errorMessage);
+
+                            // Notify user
+                            MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                            SortOrderToggleButton.Visibility = Visibility.Collapsed;
+
+                            SystemComboBox.SelectedItem = null;
+                            await DisplaySystemSelectionScreenAsync();
+
+                            // Clear the cached list on error
+                            _allGamesForCurrentSystem.Clear();
+
+                            return;
                         }
 
-                        MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
+                        _mameSortOrder = "FileName";
+                        UpdateSortOrderButtonUi();
+                        SortOrderToggleButton.Visibility = selectedManager.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
+
+                        EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+                        if (EmulatorComboBox.Items.Count > 0)
+                        {
+                            EmulatorComboBox.SelectedIndex = 0;
+                        }
+
+                        SelectedSystem = selectedSystem;
+
+                        var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+                        PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+                        // Display SystemInfo and get the validation result. Game count is now handled inside this method.
+                        var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
+
+                        // If validation failed, show the message box with aggregated errors
+                        if (!validationResult.IsValid)
+                        {
+                            var errorMessages = new System.Text.StringBuilder();
+                            foreach (var msg in validationResult.ErrorMessages)
+                            {
+                                errorMessages.Append(msg);
+                            }
+
+                            MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
+                        }
+
+                        // Resolve the system image folder path using PathHelper
+                        var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
+
+                        _selectedRomFolders = selectedManager.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
+                        _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
+                            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName) // Use the default resolved path
+                            : resolvedSystemImageFolderPath; // Use resolved configured path
+
+                        await PopulateAllGamesForCurrentSystem(selectedManager, selectedSystem);
+
+                        _topLetterNumberMenu.DeselectLetter();
+                        ResetPaginationButtons();
                     }
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+                        _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
-                    // Resolve the system image folder path using PathHelper
-                    var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
+                        // Notify user
+                        MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-                    _selectedRomFolders = selectedManager.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
-                    _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName) // Use the default resolved path
-                        : resolvedSystemImageFolderPath; // Use resolved configured path
-
-                    await PopulateAllGamesForCurrentSystem(selectedManager, selectedSystem);
-
-                    _topLetterNumberMenu.DeselectLetter();
-                    ResetPaginationButtons();
+                        // Clear cached list on error
+                        _allGamesForCurrentSystem.Clear();
+                    }
+                    finally
+                    {
+                        SetUiLoadingState(false);
+                        _isUiUpdating = false;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
-                    const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-                    _ = _logErrors.LogErrorAsync(ex, errorMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                    // Clear cached list on error
-                    _allGamesForCurrentSystem.Clear();
+                    _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
                 }
-                finally
+
+                return;
+
+                async Task PopulateAllGamesForCurrentSystem(SystemManager selectedManager, string currentSelectedSystem)
                 {
-                    SetUiLoadingState(false);
-                    _isUiUpdating = false;
+                    var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    foreach (var folder in _selectedRomFolders)
+                    {
+                        // This part can run concurrently with other file system operations, but not modify _allGamesForCurrentSystem
+                        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedManager.FileFormatsToSearch == null) continue;
+
+                        var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                        foreach (var file in filesInFolder)
+                        {
+                            uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
+                        }
+                    }
+
+                    await _allGamesLock.WaitAsync(); // Acquire lock before modifying _allGamesForCurrentSystem
+                    try
+                    {
+                        _allGamesForCurrentSystem = uniqueFilesForSystem.Values.ToList(); // WRITE
+                        DebugLogger.Log($"[SystemComboBox_SelectionChanged] Populated _allGamesForCurrentSystem for '{currentSelectedSystem}'. Count: {_allGamesForCurrentSystem.Count}");
+                    }
+                    finally
+                    {
+                        _allGamesLock.Release(); // Release lock
+                    }
                 }
             }
             catch (Exception ex)
@@ -776,32 +820,41 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             return;
 
-            async Task PopulateAllGamesForCurrentSystem(SystemManager selectedManager, string currentSelectedSystem)
+            async Task<bool> ReScanMicrosoftWindowsSystem(string selectedSystem)
             {
-                var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                foreach (var folder in _selectedRomFolders)
+                if (selectedSystem == "Microsoft Windows")
                 {
-                    // This part can run concurrently with other file system operations, but not modify _allGamesForCurrentSystem
-                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedManager.FileFormatsToSearch == null) continue;
-
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
-                    foreach (var file in filesInFolder)
+                    var rescanResult = MessageBoxLibrary.AskToRescanWindowsGamesMessageBox();
+                    if (rescanResult == MessageBoxResult.Yes)
                     {
-                        uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
+                        SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
+                        try
+                        {
+                            // The GameScannerService.ScanForStoreGamesAsync() already handles creating the system if it doesn't exist.
+                            // It also updates the system.xml if new games are found, which LoadOrReloadSystemManager() will pick up.
+                            await _gameScannerService.ScanForStoreGamesAsync();
+
+                            // After scan, reload systems and games
+                            LoadOrReloadSystemManager();
+                            // Reload the current system's games to reflect any new shortcuts found
+                            await LoadGameFilesAsync(null, null);
+                            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("WindowsGamesScanComplete") ?? "Windows games scan complete.", this);
+                        }
+                        catch (Exception ex)
+                        {
+                            _ = _logErrors.LogErrorAsync(ex, "Error during Windows games rescan.");
+                            MessageBoxLibrary.ErrorScanningWindowsGamesMessageBox();
+                        }
+                        finally
+                        {
+                            SetUiLoadingState(false);
+                        }
+
+                        return true;
                     }
                 }
 
-                await _allGamesLock.WaitAsync(); // Acquire lock before modifying _allGamesForCurrentSystem
-                try
-                {
-                    _allGamesForCurrentSystem = uniqueFilesForSystem.Values.ToList(); // WRITE
-                    DebugLogger.Log($"[SystemComboBox_SelectionChanged] Populated _allGamesForCurrentSystem for '{currentSelectedSystem}'. Count: {_allGamesForCurrentSystem.Count}");
-                }
-                finally
-                {
-                    _allGamesLock.Release(); // Release lock
-                }
+                return false;
             }
         }
         catch (Exception ex)

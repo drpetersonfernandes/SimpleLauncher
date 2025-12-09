@@ -3503,4 +3503,27 @@ internal static class MessageBoxLibrary
             }
         }
     }
+
+    public static MessageBoxResult AskToRescanWindowsGamesMessageBox()
+    {
+        return Application.Current.Dispatcher.Invoke(static () =>
+        {
+            var message = (string)Application.Current.TryFindResource("AskToRescanWindowsGamesMessage") ?? "The 'Microsoft Windows' system has been selected. Would you like to rescan your system to update the list of installed Windows games (Steam, Epic, GOG, etc.)?";
+            var title = (string)Application.Current.TryFindResource("RescanWindowsGamesTitle") ?? "Rescan Windows Games?";
+            return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
+    }
+
+    public static void ErrorScanningWindowsGamesMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("ErrorScanningWindowsGamesMessage") ?? "An error occurred while scanning for Windows games. Please check the log file for details.";
+            var title = (string)Application.Current.TryFindResource("ErrorScanningWindowsGamesTitle") ?? "Scan Error";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }
