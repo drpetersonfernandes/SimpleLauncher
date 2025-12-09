@@ -58,12 +58,12 @@ public class GameScannerService
                 // ScanBattleNetGamesAsync(),
                 ScanGogGames.ScanGogGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 // ScanHumbleGamesAsync(),
-                // ScanItchioGamesAsync(),
+                ScanItchioGames.ScanItchioGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames), // Added Itch
                 // ScanRockstarGamesAsync(),
                 // ScanXboxGamesAsync(),
                 ScanUplayGames.ScanUplayGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
                 ScanEaGames.ScanEaGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames),
-                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(_logErrors, _windowsRomsPath)
+                ScanMicrosoftStoreGames.ScanMicrosoftStoreGamesAsync(_logErrors, _windowsRomsPath, _windowsImagesPath) // Added images path arg
             };
 
             await Task.WhenAll(tasks);
