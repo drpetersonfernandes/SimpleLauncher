@@ -28,7 +28,9 @@ public class ScanHumbleGames
                         var status = game.GetProperty("status").GetString();
                         if (status != "installed" && status != "downloaded") continue;
 
-                        var machineName = game.GetProperty("machineName").GetString();
+                        if (!game.TryGetProperty("machineName", out var machineNameProp)) continue;
+
+                        var machineName = machineNameProp.GetString();
                         var gameName = game.GetProperty("gameName").GetString();
 
                         if (string.IsNullOrEmpty(gameName) || ignoredGameNames.Contains(gameName)) continue;

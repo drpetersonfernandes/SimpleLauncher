@@ -64,7 +64,7 @@ public class ScanSteamGames
                     {
                         foreach (var kvp in rootNode)
                         {
-                            // Check if value is a dictionary containing "path"
+                            // Modern format: "0" { "path" "C:\\Games" ... }
                             if (kvp.Value is Dictionary<string, object> libData &&
                                 libData.TryGetValue("path", out var pathObj) &&
                                 pathObj is string pathStr)
@@ -72,6 +72,14 @@ public class ScanSteamGames
                                 if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
                                 {
                                     libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                }
+                            }
+                            // Legacy format: "1" "C:\\Games"
+                            else if (kvp.Value is string legacyPath)
+                            {
+                                if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
                                 }
                             }
                         }

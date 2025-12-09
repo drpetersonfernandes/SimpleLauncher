@@ -16,8 +16,6 @@ public class ScanGogGames
     {
         try
         {
-            // Playnite Logic: Scan Uninstall keys for Publisher "GOG.com"
-            // This covers both legacy installers and Galaxy installs.
             var uninstallKeys = new[]
             {
                 @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall",
@@ -37,9 +35,10 @@ public class ScanGogGames
                         if (subKey == null) continue;
 
                         var publisher = subKey.GetValue("Publisher") as string;
+                        // GOG entries usually have "GOG.com" as publisher
                         if (publisher != "GOG.com") continue;
 
-                        var gameId = subKeyName.Replace("_is1", ""); // GOG keys are usually "123456_is1"
+                        var gameId = subKeyName.Replace("_is1", "");
                         if (!long.TryParse(gameId, out _)) continue;
 
                         var installLocation = subKey.GetValue("InstallLocation") as string;
@@ -48,22 +47,14 @@ public class ScanGogGames
                         if (string.IsNullOrEmpty(installLocation) || !Directory.Exists(installLocation)) continue;
                         if (string.IsNullOrEmpty(displayName)) continue;
 
-                        // Cleanup Name (remove trademarks etc if needed, Playnite does this)
                         displayName = displayName.Replace("™", "").Replace("®", "").Trim();
 
                         if (ignoredGameNames.Contains(displayName)) continue;
 
-                        var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
-                        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
-
-                        // Create Shortcut (Launch via Galaxy)
-                        var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://openGameView/{gameId}";
-                        await File.WriteAllTextAsync(shortcutPath, shortcutContent);
-
-                        // Extract Icon
-                        // Playnite Logic: Read goggame-{id}.info to find the primary executable
+                        // --- FIX: Check for DLC via goggame-*.info ---
                         string mainExePath = null;
                         var infoFile = Path.Combine(installLocation, $"goggame-{gameId}.info");
+                        var isDlc = false;
 
                         if (File.Exists(infoFile))
                         {
@@ -72,10 +63,19 @@ public class ScanGogGames
                                 var json = await File.ReadAllTextAsync(infoFile);
                                 var gameInfo = JsonSerializer.Deserialize<GogGameInfo>(json);
 
-                                var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(t => t.IsPrimary && t.Type == "FileTask");
-                                if (primaryTask != null && !string.IsNullOrEmpty(primaryTask.Path))
+                                // If RootGameId exists and is different from GameId, this is a DLC
+                                if (gameInfo != null && !string.IsNullOrEmpty(gameInfo.RootGameId) && gameInfo.RootGameId != gameInfo.GameId)
                                 {
-                                    mainExePath = Path.Combine(installLocation, primaryTask.Path);
+                                    isDlc = true;
+                                }
+
+                                if (!isDlc)
+                                {
+                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(t => t.IsPrimary && t.Type == "FileTask");
+                                    if (primaryTask != null && !string.IsNullOrEmpty(primaryTask.Path))
+                                    {
+                                        mainExePath = Path.Combine(installLocation, primaryTask.Path);
+                                    }
                                 }
                             }
                             catch
@@ -84,13 +84,14 @@ public class ScanGogGames
                             }
                         }
 
-                        // Fallback: Look for the executable defined in registry if .info failed
-                        if (string.IsNullOrEmpty(mainExePath))
-                        {
-                            _ = subKey.GetValue("QuietUninstallString") as string;
-                            // Sometimes the uninstaller is in the same folder, not useful for icon,
-                            // but we fallback to the heuristic scanner in ExtractIconFromGameFolder
-                        }
+                        if (isDlc) continue;
+                        // ---------------------------------------------
+
+                        var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
+                        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
+
+                        var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://launch/{gameId}";
+                        await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
                         await GameScannerService.ExtractIconFromGameFolder(installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
                     }

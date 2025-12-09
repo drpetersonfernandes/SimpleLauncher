@@ -33,21 +33,24 @@ public class ScanAmazonGames
             {
                 try
                 {
-                    var gameId = reader.GetString(0);
-                    var title = reader.GetString(1);
-                    var installDir = reader.GetString(2);
+                    if (!reader.IsDBNull(0))
+                    {
+                        var gameId = reader.GetString(0);
+                        var title = reader.GetString(1);
+                        var installDir = reader.GetString(2);
 
-                    if (string.IsNullOrEmpty(title) || ignoredGameNames.Contains(title)) continue;
-                    if (!Directory.Exists(installDir)) continue;
+                        if (string.IsNullOrEmpty(title) || ignoredGameNames.Contains(title)) continue;
+                        if (!Directory.Exists(installDir)) continue;
 
-                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(title);
-                    var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
+                        var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(title);
+                        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
-                    // Amazon Games Protocol
-                    var shortcutContent = $"[InternetShortcut]\nURL=amazon-games://play/{gameId}";
-                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+                        // Amazon Games Protocol
+                        var shortcutContent = $"[InternetShortcut]\nURL=amazon-games://play/{gameId}";
+                        await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath);
+                        await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath);
+                    }
                 }
                 catch
                 {

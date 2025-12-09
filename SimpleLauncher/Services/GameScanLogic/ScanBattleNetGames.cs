@@ -36,6 +36,11 @@ public class ScanBattleNetGames
         new BNetAppDef { InternalId = "auks", Name = "Call of Duty Modern Warfare II" },
         new BNetAppDef { InternalId = "Fen", Name = "Diablo IV" },
         new BNetAppDef { InternalId = "gryphon", Name = "Warcraft Rumble" },
+        new BNetAppDef { InternalId = "w1", Name = "Warcraft: Orcs & Humans" },
+        new BNetAppDef { InternalId = "w2", Name = "Warcraft II: Battle.net Edition" },
+        new BNetAppDef { InternalId = "w1r", Name = "Warcraft: Remastered" },
+        new BNetAppDef { InternalId = "w2r", Name = "Warcraft II: Remastered" },
+        new BNetAppDef { InternalId = "d1", Name = "Diablo" },
         // Classics
         new BNetAppDef { InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe" },
         new BNetAppDef { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe" }

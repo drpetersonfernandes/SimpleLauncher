@@ -168,6 +168,9 @@ public class GameScannerService
                     .Where(static f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
                                        !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
                                        !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
+                                       !f.Contains("redist", StringComparison.OrdinalIgnoreCase) &&
+                                       !f.Contains("dxsetup", StringComparison.OrdinalIgnoreCase) &&
+                                       !f.Contains("update", StringComparison.OrdinalIgnoreCase) &&
                                        !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
                                        !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
                     .OrderByDescending(static f => new FileInfo(f).Length)

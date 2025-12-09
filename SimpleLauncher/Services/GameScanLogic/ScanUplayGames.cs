@@ -32,6 +32,7 @@ public class ScanUplayGames
                         var installDir = gameKey.GetValue("InstallDir") as string;
                         if (string.IsNullOrEmpty(installDir) || !Directory.Exists(installDir)) continue;
 
+                        var gameExe = gameKey.GetValue("ExecPath") as string;
                         // Clean up path separators
                         installDir = installDir.Replace('/', Path.DirectorySeparatorChar);
 
@@ -41,10 +42,16 @@ public class ScanUplayGames
                         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
                         var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
-                        var shortcutContent = $"[InternetShortcut]\nURL=uplay://launch/{gameId}/0";
+                        var shortcutContent = $"[InternetShortcut]\nURL=uplay://launch/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath);
+                        string fullExePath = null;
+                        if (!string.IsNullOrEmpty(gameExe) && File.Exists(gameExe))
+                        {
+                            fullExePath = gameExe;
+                        }
+
+                        await GameScannerService.ExtractIconFromGameFolder(installDir, sanitizedGameName, windowsImagesPath, fullExePath);
                     }
                     catch
                     {

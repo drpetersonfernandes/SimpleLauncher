@@ -105,8 +105,36 @@ public class ScanEpicGames
                         var displayName = nameProp.GetString();
                         var appName = appNameProp.GetString();
 
-                        // Filter UE stuff
-                        if (appName != null && (string.IsNullOrEmpty(displayName) || appName.StartsWith("UE_", StringComparison.InvariantCulture) || ignoredGameNames.Contains(displayName))) continue;
+                        // Filter UE stuff and ignored games
+                        if (string.IsNullOrEmpty(appName) || string.IsNullOrEmpty(displayName) || appName.StartsWith("UE_", StringComparison.InvariantCulture) || ignoredGameNames.Contains(displayName)) continue;
+
+                        // Filter DLCs: If MainGameAppName exists and is different from AppName, it's likely a DLC
+                        if (root.TryGetProperty("MainGameAppName", out var mainGameAppName) && !string.IsNullOrEmpty(mainGameAppName.GetString()))
+                        {
+                            if (appName != mainGameAppName.GetString()) continue;
+                        }
+
+                        // Filter by Category (exclude plugins, editors, etc.)
+                        if (root.TryGetProperty("AppCategories", out var cats))
+                        {
+                            var isGame = false;
+                            foreach (var cat in cats.EnumerateArray())
+                            {
+                                var s = cat.GetString();
+                                if (s == "games")
+                                {
+                                    isGame = true;
+                                }
+
+                                if (s is "plugins" or "editors" or "engines")
+                                {
+                                    isGame = false;
+                                    break;
+                                }
+                            }
+
+                            if (!isGame) continue;
+                        }
 
                         var installLoc = root.TryGetProperty("InstallLocation", out var il) ? il.GetString() : "";
                         var launchExe = root.TryGetProperty("LaunchExecutable", out var le) ? le.GetString() : "";

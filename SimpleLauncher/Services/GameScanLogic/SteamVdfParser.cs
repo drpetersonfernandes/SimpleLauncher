@@ -12,9 +12,8 @@ namespace SimpleLauncher.Services.GameScanLogic;
 /// </summary>
 public static class SteamVdfParser
 {
-    // This regex will find any quoted string, which we'll treat as a token.
-    // Updated to be slightly more robust against spacing.
-    private static readonly Regex TokenRegex = new("\"([^\"]*)\"", RegexOptions.Compiled);
+    // Improved regex to handle escaped quotes within strings: "some \"value\" here"
+    private static readonly Regex TokenRegex = new("\"((?:\\\\.|[^\\\\\"])*)\"", RegexOptions.Compiled);
 
     public static Dictionary<string, object> Parse(string filePath)
     {
@@ -48,7 +47,7 @@ public static class SteamVdfParser
                 }
 
                 var tokens = TokenRegex.Matches(trimmedLine)
-                    .Select(static m => m.Groups[1].Value)
+                    .Select(static m => Regex.Unescape(m.Groups[1].Value))
                     .ToList();
 
                 if (tokens.Count == 0)
@@ -58,14 +57,12 @@ public static class SteamVdfParser
 
                 if (tokens.Count > 1)
                 {
-                    // It's a key-value pair, e.g., "name" "Steamworks Common Redistributables"
                     var key = tokens[0];
                     var value = tokens[1];
                     currentDict[key] = value;
                 }
                 else
                 {
-                    // It's a section header, e.g., "AppState"
                     var key = tokens[0];
                     var newDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
                     currentDict[key] = newDict;
@@ -77,8 +74,7 @@ public static class SteamVdfParser
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, $"Failed to parse VDF file: {filePath}");
-            // Return empty dict instead of throwing to allow scan to continue
+            DebugLogger.Log($"[SteamVdfParser] Failed to parse VDF file: {filePath}. Error: {ex.Message}");
             return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         }
     }
