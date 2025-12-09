@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -223,7 +225,7 @@ public class ScanSteamGames
 
     private static Task TryCopySteamArtworkAsync(string steamPath, string appId, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
     {
-        var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.jpg");
+        var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         if (File.Exists(destArtworkPath)) return Task.CompletedTask;
 
         var cachePath = Path.Combine(steamPath, "appcache", "librarycache");
@@ -243,17 +245,23 @@ public class ScanSteamGames
             {
                 try
                 {
-                    File.Copy(sourcePath, destArtworkPath, true);
-                    return Task.CompletedTask;
+                    // Convert JPG to PNG
+                    using (var image = Image.FromFile(sourcePath))
+                    {
+                        image.Save(destArtworkPath, ImageFormat.Png);
+                    }
+
+                    return Task.CompletedTask; // Successfully converted and saved
                 }
-                catch
+                catch (Exception ex)
                 {
-                    /* Ignore */
+                    DebugLogger.Log($"[ScanSteamGames] Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath}): {ex.Message}");
+                    // Continue to the next pattern or fallback if conversion fails
                 }
             }
         }
 
-        // Fallback to EXE icon
+        // Fallback to EXE icon if no artwork was found or successfully converted
         return GameScannerService.ExtractIconFromGameFolder(gameInstallPath, sanitizedGameName, windowsImagesPath);
     }
 }
