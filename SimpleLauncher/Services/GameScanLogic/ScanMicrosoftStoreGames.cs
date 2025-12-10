@@ -30,7 +30,7 @@ public class ScanMicrosoftStoreGames
                                   $results = @()
 
                                   foreach ($app in $apps) {
-                                      $pkg = $packages | Where-Object { $app.AppID -like "$($_.PackageFamilyName)*" }
+                                      $pkg = $packages | Where-Object { $app.AppID -like ($_.PackageFamilyName + '*') }
                                       if ($pkg) {
                                           $results += @{
                                               Name = $app.Name
