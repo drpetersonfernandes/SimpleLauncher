@@ -2138,12 +2138,10 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CouldNotLaunchGameMessageBox(string logPath)
+    internal static Task CouldNotLaunchGameMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
+        return Application.Current.Dispatcher.InvokeAsync(() =>
 
-        void ShowMessage()
         {
             var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
             var makesuretheRoMorIsOyouretrying = (string)Application.Current.TryFindResource("MakesuretheROMorISOyouretrying") ?? "Make sure the ROM or ISO you're trying to run is not corrupted.";
@@ -2178,27 +2176,22 @@ internal static class MessageBoxLibrary
                     MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-        }
+        }).Task;
     }
 
-    internal static void InvalidOperationExceptionMessageBox(string logPath)
+    internal static Task InvalidOperationExceptionMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return;
-
-        void ShowMessage()
+        return Application.Current.Dispatcher.InvokeAsync(() =>
         {
             var failedtostarttheemulator = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
             var checktheintegrityoftheemulatoranditsdependencies = (string)Application.Current.TryFindResource("Checktheintegrityoftheemulatoranditsdependencies") ?? "Check the integrity of the emulator and its dependencies.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
             var result = MessageBox.Show($"{failedtostarttheemulator}\n\n" +
                                          $"{checktheintegrityoftheemulatoranditsdependencies}\n\n" +
                                          $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
                                          $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -2216,7 +2209,7 @@ internal static class MessageBoxLibrary
                         error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-        }
+        }).Task;
     }
 
     internal static void ThereWasAnErrorLaunchingThisGameMessageBox(string logPath)
@@ -3259,27 +3252,16 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
+    internal static Task DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
     {
-        // Pass the parameters to the ShowMessage local function
-        Application.Current.Dispatcher.Invoke(() => ShowMessage(ex, contextMessage, gameLauncher, playSoundEffects));
-        return;
-
-        // Modify ShowMessage to accept the parameters
-        static void ShowMessage(Exception exParam, string contextMessageParam, GameLauncher gameLauncherParam, PlaySoundEffects playSoundEffectsParam)
+        return Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            var doyouwanttoreceivesupportfromthedeveloper = (string)Application.Current.TryFindResource("Doyouwanttoreceivesupportfromthedeveloper") ?? "Do you want to receive support from the developer?";
-            var doyouwantsupport = (string)Application.Current.TryFindResource("Doyouwantsupport") ?? "Do you want support?";
-            var result = MessageBox.Show(doyouwanttoreceivesupportfromthedeveloper, doyouwantsupport, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                playSoundEffectsParam?.PlayNotificationSound();
+            // Instantiate the custom window
+            var supportOptionWindow = new SupportOptionWindow(ex, contextMessage, gameLauncher, playSoundEffects);
 
-                // Pass the received parameters to the SupportWindow constructor
-                var supportRequestWindow = new SupportWindow(exParam, contextMessageParam, gameLauncherParam);
-                supportRequestWindow.ShowDialog();
-            }
-        }
+            // Show it as a dialog (modal) so it blocks interaction with the main window until a choice is made
+            supportOptionWindow.ShowDialog();
+        }).Task;
     }
 
     internal static void WarnUserAboutMemoryConsumption()

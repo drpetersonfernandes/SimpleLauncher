@@ -57,7 +57,7 @@ public class GameLauncher
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                _ = MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -69,7 +69,7 @@ public class GameLauncher
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                _ = MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -81,7 +81,7 @@ public class GameLauncher
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                _ = MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -106,7 +106,7 @@ public class GameLauncher
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                _ = MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -161,7 +161,7 @@ public class GameLauncher
                     {
                         DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
                         // Launch default.xbe
-                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, this);
+                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
                         DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
                     }
                     else
@@ -213,7 +213,7 @@ public class GameLauncher
                             await LaunchExecutableAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                             break;
                         default:
-                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, this);
+                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
                             break;
                     }
                 }
@@ -228,7 +228,7 @@ public class GameLauncher
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                _ = MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
             }
             finally
             {
@@ -587,7 +587,6 @@ public class GameLauncher
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GamePadController gamePadController,
         GameLauncher gameLauncher)
     {
         var isDirectory = Directory.Exists(resolvedFilePath);
@@ -832,8 +831,8 @@ public class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                await MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
+                await MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         catch (Exception ex)
@@ -865,8 +864,8 @@ public class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                await MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         finally
@@ -890,14 +889,14 @@ public class GameLauncher
         }
     }
 
-    private Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         string contextMessage;
 
         // Ignore MemoryAccessViolation and DepViolation
         if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation || process.ExitCode == DepViolation)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         // Check if the output contains "File open/read error" and ignore it,
@@ -905,7 +904,7 @@ public class GameLauncher
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
-            return Task.CompletedTask;
+            return;
         }
 
         if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
@@ -936,11 +935,9 @@ public class GameLauncher
         if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+            await MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
         }
-
-        return Task.CompletedTask;
     }
 
     private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)

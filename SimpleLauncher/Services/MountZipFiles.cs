@@ -231,7 +231,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
-            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController, gameLauncher);
+            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gameLauncher);
             DebugLogger.Log($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)
@@ -451,7 +451,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
-            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController, gameLauncher);
+            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gameLauncher);
             DebugLogger.Log($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
         }
         catch (Exception ex)
