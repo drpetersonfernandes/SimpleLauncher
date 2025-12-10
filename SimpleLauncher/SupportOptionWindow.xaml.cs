@@ -1,0 +1,130 @@
+using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Text;
+using System.Windows;
+using SimpleLauncher.Services;
+
+namespace SimpleLauncher;
+
+public partial class SupportOptionWindow
+{
+    private readonly Exception _exception;
+    private readonly string _contextMessage;
+    private readonly GameLauncher _gameLauncher;
+    private readonly PlaySoundEffects _playSoundEffects;
+
+    public SupportOptionWindow(Exception ex, string contextMessage, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
+    {
+        InitializeComponent();
+        App.ApplyThemeToWindow(this); // Ensure theme consistency
+
+        _exception = ex;
+        _contextMessage = contextMessage;
+        _gameLauncher = gameLauncher;
+        _playSoundEffects = playSoundEffects;
+
+        // Set fallback text if resources are missing
+        if (Title is null or "SupportOptions")
+        {
+            Title = "Support Options";
+        }
+
+        if (BtnContactDeveloper.Content == null)
+        {
+            BtnContactDeveloper.Content = "Contact Developer (Report Bug)";
+        }
+
+        if (BtnCancel.Content == null)
+        {
+            BtnCancel.Content = "Cancel";
+        }
+    }
+
+    private void BtnContactDeveloper_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects?.PlayNotificationSound();
+
+        // Open the existing SupportWindow
+        var supportRequestWindow = new SupportWindow(_exception, _contextMessage, _gameLauncher);
+        supportRequestWindow.Show();
+
+        Close();
+    }
+
+    private void BtnAskPerplexity_Click(object sender, RoutedEventArgs e)
+    {
+        LaunchAiSearch("https://www.perplexity.ai/search?q=");
+    }
+
+    private void BtnAskPhind_Click(object sender, RoutedEventArgs e)
+    {
+        LaunchAiSearch("https://www.phind.com/search?q=");
+    }
+
+    private void BtnAskYou_Click(object sender, RoutedEventArgs e)
+    {
+        LaunchAiSearch("https://you.com/search?q=");
+    }
+
+    private void LaunchAiSearch(string baseUrl)
+    {
+        try
+        {
+            var query = BuildQuery();
+            var encodedQuery = System.Net.WebUtility.UrlEncode(query);
+            var url = $"{baseUrl}{encodedQuery}";
+
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex)
+        {
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"Could not open browser for AI support: {ex.Message}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        Close();
+    }
+
+    private string BuildQuery()
+    {
+        var sb = new StringBuilder();
+        sb.Append("I am a user of the emulator frontend 'Simple Launcher'. It launch emulators via CLI params.");
+        sb.Append("I am having trouble launching my game. Please help me out.");
+        sb.Append("I do not know if I choose the right core.");
+        sb.Append("Maybe the paths are incorrect.");
+        sb.Append("Provide me a very simple explanation of the problem and help me fix the parameters.");
+        sb.Append("'Simple Launcher' parameters reference can be found on https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters.");
+
+        if (!string.IsNullOrWhiteSpace(_contextMessage))
+        {
+            sb.Append(CultureInfo.InvariantCulture, $"Context: {_contextMessage}. ");
+        }
+
+        if (_exception != null)
+        {
+            sb.Append(CultureInfo.InvariantCulture, $"Exception Type: {_exception.GetType().Name}. ");
+            sb.Append(CultureInfo.InvariantCulture, $"Message: {_exception.Message}. ");
+
+            if (_exception.StackTrace != null)
+            {
+                // Truncate stack trace to avoid extremely long URLs
+                var stackTrace = _exception.StackTrace.Length > 1500
+                    ? string.Concat(_exception.StackTrace.AsSpan(0, 1500), "...")
+                    : _exception.StackTrace;
+                sb.Append(CultureInfo.InvariantCulture, $"Stack Trace: {stackTrace}");
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    private void BtnCancel_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+}

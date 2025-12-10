@@ -847,4 +847,13 @@
     <system:String x:Key="WindowsGamesScanComplete">Windows games scan complete.</system:String>
     <system:String x:Key="ErrorScanningWindowsGamesMessage">An error occurred while scanning for Windows games. Please check the log file for details.</system:String>
     <system:String x:Key="ErrorScanningWindowsGamesTitle">Scan Error</system:String>
+    
+    <system:String x:Key="SupportOptions">Support Options</system:String>
+    <system:String x:Key="DoYouWantSupport">Do you want support?</system:String>
+    <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">You can receive support from multiple AI providers or from the developer. Choose below.</system:String>
+    <system:String x:Key="AskAIPhindcom">Ask AI (Phind.com)</system:String>   
+    <system:String x:Key="AskAIPerplexityai">Ask AI (Perplexity.ai)</system:String>
+    <system:String x:Key="AskAIYoucom">Ask AI (You.com)</system:String>
+    <system:String x:Key="ContactDeveloper">Contact Developer (Report Bug)</system:String>
+    
 </ResourceDictionary>
