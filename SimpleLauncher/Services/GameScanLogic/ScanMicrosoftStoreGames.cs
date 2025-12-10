@@ -49,6 +49,7 @@ public class ScanMicrosoftStoreGames
                 FileName = "powershell.exe",
                 Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{script}\"",
                 RedirectStandardOutput = true,
+                RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
@@ -56,14 +57,29 @@ public class ScanMicrosoftStoreGames
             using var process = Process.Start(startInfo);
             if (process == null) return;
 
+            // Capture both standard output and standard error to diagnose script failures
             var output = await process.StandardOutput.ReadToEndAsync();
+            var errorOutput = await process.StandardError.ReadToEndAsync();
             await process.WaitForExitAsync();
+
+            // If the script failed or produced any error output, log it and abort.
+            if (process.ExitCode != 0 || !string.IsNullOrWhiteSpace(errorOutput))
+            {
+                var errorMessage = $"PowerShell script for Microsoft Store games failed. ExitCode: {process.ExitCode}, Error: {errorOutput}";
+                DebugLogger.Log($"[ScanMicrosoftStoreGames] {errorMessage}");
+                await logErrors.LogErrorAsync(new InvalidOperationException(errorOutput), "PowerShell script for scanning Microsoft Store games failed.");
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(output)) return;
 
             // Handle case where single object is returned (not array)
             var jsonStr = output.Trim();
-            if (jsonStr.StartsWith('{'))
+
+            // Safeguard against non-JSON output that might have slipped through error checks
+            if (!jsonStr.StartsWith('[') && !jsonStr.StartsWith('{')) return;
+
+            if (jsonStr.StartsWith('{')) // Single object returned
             {
                 jsonStr = $"[{jsonStr}]";
             }

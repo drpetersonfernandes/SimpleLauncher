@@ -659,10 +659,14 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
             DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
 
-            // Notify developer
-            var contextMessage = $"Error downloading {componentName}.\n" +
-                                 $"URL: {downloadUrl}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            // Notify developer only if it's not a disk space error
+            // Disk space errors are user-environment issues, not code issues
+            if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space") || ioEx.Message.Contains("Cannot check disk space"))))
+            {
+                var contextMessage = $"Error downloading {componentName}.\n" +
+                                     $"URL: {downloadUrl}";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            }
 
             switch (type)
             {

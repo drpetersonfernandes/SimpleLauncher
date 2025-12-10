@@ -73,6 +73,11 @@ public class LaunchTools : ILaunchTools
 
             Process.Start(psi);
         }
+        catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+        {
+            // Handle user cancellation of security prompts
+            MessageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
+        }
         catch (Exception ex)
         {
             // Notify developer
