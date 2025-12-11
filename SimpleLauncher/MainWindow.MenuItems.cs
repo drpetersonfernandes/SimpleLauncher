@@ -112,14 +112,13 @@ public partial class MainWindow
         }
     }
 
-    public async void ResetUi()
+    private async void ResetUi()
     {
         try
         {
             if (_isUiUpdating) return;
 
             _isUiUpdating = true;
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ResettingUI") ?? "Resetting UI...", this);
 
             if (_isLoadingGames)
             {
@@ -802,7 +801,6 @@ public partial class MainWindow
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RestartingUI") ?? "Restarting UI...", this);
         _playSoundEffects.PlayNotificationSound();
 
         ResetUi();

@@ -908,7 +908,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingGameFiles") ?? "Loading game files...", this);
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
         Dispatcher.Invoke(() => SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
         await SetUiBeforeLoadGameFilesAsync();
 

@@ -58,11 +58,6 @@ public partial class PlayHistoryWindow
     {
         try
         {
-            // Create a new token source for this load operation
-            _cancellationTokenSource?.Dispose();
-            _cancellationTokenSource = new CancellationTokenSource();
-            var token = _cancellationTokenSource.Token;
-
             LoadingOverlay.Visibility = Visibility.Visible;
             LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...";
             await Task.Yield(); // Allow the UI to render the loading overlay
@@ -70,7 +65,6 @@ public partial class PlayHistoryWindow
             try
             {
                 // Step 1: Load and process all history data in a background thread
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ProcessingPlayHistoryData") ?? "Processing play history data...", _mainWindow);
                 var processedHistory = await LoadAndProcessHistoryAsync();
 
                 // Step 2: Populate the UI collection on the UI thread
@@ -78,14 +72,9 @@ public partial class PlayHistoryWindow
 
                 // Step 3: Check for and remove entries with missing files in the background
                 await DeleteMissingEntriesAsync();
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("CleaningUpMissingHistoryEntries") ?? "Cleaning up missing history entries...", _mainWindow);
 
                 // Step 4: Sort the data now that it's in the collection and bind to DataGrid
                 SortByDate();
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
-
-                // Step 5: Asynchronously calculate file sizes for the visible items
-                _ = LoadFileSizesAsync(_playHistoryList.ToList(), token);
             }
             catch (Exception ex)
             {
@@ -130,8 +119,7 @@ public partial class PlayHistoryWindow
                     LastPlayTime = historyItemConfig.LastPlayTime,
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
-                    CoverImage = coverImagePath,
-                    FileSizeBytes = -1
+                    CoverImage = coverImagePath
                 };
                 processedList.Add(playHistoryItem);
             }
@@ -189,45 +177,6 @@ public partial class PlayHistoryWindow
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-    }
-
-    private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess, CancellationToken cancellationToken)
-    {
-        await Parallel.ForEachAsync(itemsToProcess, new ParallelOptions { CancellationToken = cancellationToken }, async (item, token) =>
-        {
-            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemManager != null)
-            {
-                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
-                if (File.Exists(filePath))
-                {
-                    // Check for cancellation before file operation
-                    token.ThrowIfCancellationRequested();
-
-                    var fileInfo = new FileInfo(filePath);
-                    var sizeToSet = fileInfo.Length;
-                    await Dispatcher.InvokeAsync(() => { item.FileSizeBytes = sizeToSet; });
-                }
-                else
-                {
-                    await Dispatcher.InvokeAsync(() =>
-                    {
-                        item.FileSizeBytes = -2; // Error state ("N/A")
-                    });
-                }
-            }
-            else
-            {
-                await Dispatcher.InvokeAsync(() =>
-                {
-                    item.FileSizeBytes = -2; // Error state ("N/A")
-                });
-
-                // Notify developer
-                var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new Exception(contextMessage), contextMessage);
-            }
-        });
     }
 
     private static DateTime TryParseDateTime(string dateStr, string timeStr)
@@ -487,8 +436,7 @@ public partial class PlayHistoryWindow
                     LastPlayTime = historyItemConfig.LastPlayTime,
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
-                    CoverImage = coverImagePath,
-                    FileSizeBytes = -1
+                    CoverImage = coverImagePath
                 };
                 newPlayHistoryList.Add(playHistoryItem);
             }
@@ -496,9 +444,6 @@ public partial class PlayHistoryWindow
             _playHistoryList = newPlayHistoryList;
 
             SortByDate();
-
-            // Recalculate file sizes for the new list
-            _ = LoadFileSizesAsync(_playHistoryList.ToList(), _cancellationTokenSource.Token);
 
             if (previousSelectedItemIdentifier.FileName == null || previousSelectedItemIdentifier.SystemName == null)
             {

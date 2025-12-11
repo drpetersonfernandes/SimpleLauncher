@@ -103,7 +103,6 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
                     <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
-                    <DataGridTextColumn Header="File Size" Binding="{Binding FormattedFileSize}" Width="Auto" />
                     <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="160" />
                     <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
                     <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="110" />
