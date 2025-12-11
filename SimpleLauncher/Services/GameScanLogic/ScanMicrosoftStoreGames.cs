@@ -30,7 +30,7 @@ public class ScanMicrosoftStoreGames
                                   $results = @()
 
                                   foreach ($app in $apps) {
-                                      $pkg = $packages | Where-Object { $app.AppID -like ($_.PackageFamilyName + '*') }
+                                      $pkg = $packages | Where-Object { $_.PackageFamilyName -and $app.AppID -like "$($_.PackageFamilyName)*" }
                                       if ($pkg) {
                                           $results += @{
                                               Name = $app.Name
@@ -44,9 +44,17 @@ public class ScanMicrosoftStoreGames
 
                                   """;
 
+            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
+            var powerShellPath = Path.Combine(systemPath, "WindowsPowerShell", "v1.0", "powershell.exe");
+
+            if (!File.Exists(powerShellPath))
+            {
+                powerShellPath = "powershell.exe";
+            }
+
             var startInfo = new ProcessStartInfo
             {
-                FileName = "powershell.exe",
+                FileName = powerShellPath,
                 Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{script}\"",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

@@ -3510,4 +3510,38 @@ internal static class MessageBoxLibrary
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void ShowCustomMessageBox(string message, string launchError, string logPath)
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var therewasanerrorlaunchingtheselected = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheselected") ?? "There was an error launching the selected game.";
+            var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
+
+            var result = MessageBox.Show($"{therewasanerrorlaunchingtheselected}\n\n" +
+                                         $"{message}\n\n" +
+                                         $"{dowanttoopenthefileerroruserlog}", launchError, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+
+                    MessageBox.Show(thefileerroruserlogwasnotfound, launchError, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
 }

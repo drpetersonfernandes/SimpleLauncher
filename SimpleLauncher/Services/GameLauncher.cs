@@ -422,80 +422,109 @@ public class GameLauncher
         }
     }
 
-    private Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // Common UI updates
-        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} launched");
-        UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} launched", mainWindow);
+        var fileName = Path.GetFileName(resolvedFilePath);
+        TrayIconManager.ShowTrayMessage($"{fileName} launched");
+        UpdateStatusBar.UpdateContent($"{fileName} launched", mainWindow);
 
         try
         {
             var extension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
 
+            // Validate file exists first
+            if (!File.Exists(resolvedFilePath))
+            {
+                throw new FileNotFoundException($"Shortcut file not found: {resolvedFilePath}");
+            }
+
             if (extension == ".URL")
             {
-                // For .URL files (especially shell:AppsFolder), use the simplest ProcessStartInfo configuration.
-                // This is equivalent to using the Windows Run dialog and avoids all WorkingDirectory issues
-                // by letting the shell handle the protocol entirely.
-                DebugLogger.Log("LaunchShortcutFileAsync (.URL):\n\n");
-                DebugLogger.Log($"Shortcut File: {resolvedFilePath}");
-                DebugLogger.Log("Using shell-only execution to handle protocol.\n");
+                // Read and validate the .url file content
+                var urlContent = await File.ReadAllTextAsync(resolvedFilePath);
+                var urlMatch = System.Text.RegularExpressions.Regex.Match(urlContent, @"URL=(.+)",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-                Process.Start(new ProcessStartInfo(resolvedFilePath) { UseShellExecute = true });
+                if (!urlMatch.Success || string.IsNullOrWhiteSpace(urlMatch.Groups[1].Value))
+                {
+                    throw new InvalidOperationException($"Invalid .url file format or missing URL in: {resolvedFilePath}");
+                }
+
+                var targetUrl = urlMatch.Groups[1].Value.Trim();
+                DebugLogger.Log($"LaunchShortcutFileAsync (.URL):\n\nShortcut File: {resolvedFilePath}\nTarget URL: {targetUrl}\n");
+
+                // Verify protocol handler is registered
+                var protocol = targetUrl.Split(':')[0];
+                if (!string.IsNullOrEmpty(protocol) && !IsProtocolRegistered(protocol))
+                {
+                    DebugLogger.Log($"Warning: Protocol '{protocol}' may not be registered on this system.");
+                    // Continue anyway - the error will be caught and logged
+                }
+
+                // Use shell execution with explicit working directory set to null
+                var psi = new ProcessStartInfo
+                {
+                    FileName = targetUrl, // Launch the URL directly, not the .url file
+                    UseShellExecute = true,
+                    WorkingDirectory = null // Explicitly no working directory
+                };
+
+                using var process = new Process();
+                process.StartInfo = psi;
+
+                // For .URL files, we don't wait for exit as they typically launch external processes
+                if (!process.Start())
+                {
+                    throw new InvalidOperationException($"Failed to start process for URL: {targetUrl}");
+                }
             }
-            else // Assumes .LNK or other shell-executable files that might need a working directory
+            else // .LNK files
             {
                 var psi = new ProcessStartInfo
                 {
                     FileName = resolvedFilePath,
-                    UseShellExecute = true
+                    UseShellExecute = true,
+                    WorkingDirectory = Path.GetDirectoryName(resolvedFilePath) ?? AppDomain.CurrentDomain.BaseDirectory
                 };
 
-                // Only set working directory for .lnk files, as they often require it.
-                if (extension == ".LNK")
-                {
-                    try
-                    {
-                        var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
-                        if (!string.IsNullOrEmpty(workingDirectory))
-                        {
-                            psi.WorkingDirectory = workingDirectory;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
-                        psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                    }
-                }
-
-                DebugLogger.Log("LaunchShortcutFileAsync (.LNK):\n\n");
-                DebugLogger.Log($"Shortcut File: {psi.FileName}");
-                DebugLogger.Log($"Working Directory: {(psi.WorkingDirectory)}\n");
+                DebugLogger.Log($"LaunchShortcutFileAsync (.LNK):\n\nShortcut File: {psi.FileName}\nWorking Directory: {psi.WorkingDirectory}\n");
 
                 using var process = new Process();
                 process.StartInfo = psi;
-                process.Start();
+
+                if (!process.Start())
+                {
+                    throw new InvalidOperationException($"Failed to start process for shortcut: {resolvedFilePath}");
+                }
             }
         }
         catch (Exception ex)
         {
-            // Centralized error handling for both cases
+            // Enhanced error logging with file content inspection
+            var fileContent = File.Exists(resolvedFilePath)
+                ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
+                : "\nFile does not exist.";
+
             var errorDetail = $"Exception launching the shortcut file.\n" +
                               $"Shortcut file: {resolvedFilePath}\n" +
-                              $"Exception: {ex.Message}";
+                              $"Exception: {ex.Message}" +
+                              fileContent;
+
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                // More specific user message
+                var message = ex is FileNotFoundException
+                    ? $"Shortcut file not found: {Path.GetFileName(resolvedFilePath)}."
+                    : "Could not launch the game shortcut. The protocol handler may not be installed. Please ensure the game launcher (Steam, GOG Galaxy, etc.) is installed.";
+
+                MessageBoxLibrary.ShowCustomMessageBox(message, "Launch Error", _logPath);
             }
         }
-
-        return Task.CompletedTask;
     }
 
     private async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
@@ -1002,5 +1031,18 @@ public class GameLauncher
         }
 
         return false;
+    }
+
+    private static bool IsProtocolRegistered(string protocol)
+    {
+        try
+        {
+            using var key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(protocol);
+            return key != null;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

@@ -114,12 +114,6 @@ public class SettingsManager
             var unrecognizedFields = childElementNames.Except(KnownSettingsFields).ToList();
             var needsResave = unrecognizedFields.Count != 0;
 
-            if (needsResave)
-            {
-                var fieldsToRemove = string.Join(", ", unrecognizedFields);
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Cleaning settings.xml. Removing unrecognized fields: {fieldsToRemove}");
-            }
-
             // Notify user
             Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSettings") ?? "Loading settings...", Application.Current.MainWindow as MainWindow));
 
