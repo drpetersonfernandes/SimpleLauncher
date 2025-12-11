@@ -39,7 +39,7 @@ public static class DisplaySystemInformation
         var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
         var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
         var emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "Emulator Name";
-        var emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorLocation") ?? "Emulator Location";
+        var emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorPath") ?? "Emulator Path";
         var emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
         var receiveNotificationEmulatorError2 = (string)Application.Current.TryFindResource("receiveNotificationEmulatorError") ?? "Receive a Notification on Emulator Error?";
 

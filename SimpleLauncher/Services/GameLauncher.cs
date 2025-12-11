@@ -1012,10 +1012,14 @@ public class GameLauncher
             selectedEmulatorName.Contains("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Kega", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
+            resolvedEmulatorExePath.Contains("Fusion.exe", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Project64", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Project 64", StringComparison.OrdinalIgnoreCase) ||
+            resolvedEmulatorExePath.Contains("Project64.exe", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Emulicious", StringComparison.OrdinalIgnoreCase) ||
-            resolvedEmulatorExePath.Contains("Project64.exe", StringComparison.OrdinalIgnoreCase))
+            resolvedEmulatorExePath.Contains("Emulicious.exe", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("Speccy", StringComparison.OrdinalIgnoreCase) ||
+            resolvedEmulatorExePath.Contains("Speccy.exe", StringComparison.OrdinalIgnoreCase))
         {
             // Notify developer
             var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
