@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -1034,28 +1031,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var simpleLauncherlackssufficientprivilegestowrite = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
-            var areyourunningasecondinstance = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
-            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-            var ensurethattheSimpleLauncherfolderislocatedinawritable = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-            MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite}\n\n" +
-                            $"{areyourunningasecondinstance}\n\n" +
-                            $"{grantSimpleLauncheradministrative}\n\n" +
-                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable}\n\n" +
-                            $"{temporarilydisableyourantivirus}", error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
     internal static void SystemXmlIsCorruptedMessageBox(string logPath)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -1353,109 +1328,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ImagePackDownloadExtractionFailedMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var imagePackdownloadorextraction = (string)Application.Current.TryFindResource("ImagePackdownloadorextraction") ?? "Image Pack download or extraction failed!";
-            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show($"{imagePackdownloadorextraction}\n\n" +
-                            $"{grantSimpleLauncheradministrative}\n\n" +
-                            $"{ensuretheSimpleLauncher}\n\n" +
-                            $"{temporarilydisableyourantivirussoftware}", info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-    }
-
-    internal static void DownloadExtractionSuccessfullyMessageBox(string extractionFolder)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var theimagepackwassuccessfullyextractedintothefolder = (string)Application.Current.TryFindResource("Theimagepackwassuccessfullyextractedintothefolder") ?? "The image pack was successfully extracted into the folder";
-            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show($"{theimagepackwassuccessfullyextractedintothefolder} {extractionFolder}", info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-    }
-
-    internal static void ImagePackDownloadErrorOfferRedirectMessageBox(EasyModeSystemConfig selectedSystem)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var downloaderror = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            var wouldyouliketoberedirected = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-            var result = MessageBox.Show($"{downloaderror}\n\n" +
-                                         $"{wouldyouliketoberedirected}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
-                    {
-                        return;
-                    }
-
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = selectedSystem.Emulators.Emulator.ImagePackDownloadLink,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error opening the Browser.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-                    // Notify user
-                    var simpleLaunchercouldnotopentheImage = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";
-                    MessageBox.Show(simpleLaunchercouldnotopentheImage, error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-    }
-
-    internal static void ErrorLoadingEasyModeXmlMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var errorloadingthefileeasymodexml = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
-            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-            var result = MessageBox.Show($"{errorloadingthefileeasymodexml}\n\n" +
-                                         $"{theerrorwasreportedtothedeveloper}\n" +
-                                         $"{doyouwanttoreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-            }
-            else
-            {
-                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                MessageBox.Show(pleasereinstallSimpleLaunchermanually, error, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-    }
-
     internal static void LinksSavedMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -1619,29 +1491,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SelectAHistoryItemToRemoveMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ?? "Please select a history item to remove.";
-            var pleaseselectaitem = (string)Application.Current.TryFindResource("Pleaseselectaitem") ?? "Please select a item";
-            MessageBox.Show(message, pleaseselectaitem, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-    }
-
-    internal static MessageBoxResult ReallyWantToRemoveAllPlayHistoryMessageBox()
-    {
-        return Application.Current.Dispatcher.Invoke(static () =>
-        {
-            var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ?? "Are you sure you want to remove all play history?";
-            var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
-            return MessageBox.Show(message, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
-        });
-    }
-
     internal static Task ShowImagePackDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
@@ -1680,6 +1529,29 @@ internal static class MessageBoxLibrary
                 }
             }
         }
+    }
+
+    internal static void SelectAHistoryItemToRemoveMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ?? "Please select a history item to remove.";
+            var pleaseselectaitem = (string)Application.Current.TryFindResource("Pleaseselectaitem") ?? "Please select a item";
+            MessageBox.Show(message, pleaseselectaitem, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static MessageBoxResult ReallyWantToRemoveAllPlayHistoryMessageBox()
+    {
+        return Application.Current.Dispatcher.Invoke(static () =>
+        {
+            var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ?? "Are you sure you want to remove all play history?";
+            var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
+            return MessageBox.Show(message, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
@@ -2247,24 +2119,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CannotExtractThisFileMessageBox(string filePath)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var theselectedfile = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
-            var cannotbeextracted = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
-            var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
-            var pleasegotoEditSystem = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
-            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            MessageBox.Show($"{theselectedfile} '{filePath}' {cannotbeextracted}\n\n" +
-                            $"{toextractafileitneedstobe}\n\n" +
-                            $"{pleasegotoEditSystem}", warning, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-    }
-
     internal static void NullFileExtensionMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -2564,36 +2418,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var potentiallyInvalidPathsDetected = (string)Application.Current.TryFindResource("PotentiallyInvalidPathsDetected2") ?? "Potentially invalid paths detected.";
-            var parameterPathsInvalidWarningFooter2 = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarningFooter2") ?? "The parameter validation may falsely identify paths as invalid sometimes. Double-check the parameter fields to ensure they are correct.";
-            var youCanSaveYourConfiguration = (string)Application.Current.TryFindResource("Youcansaveyourconfiguration2") ?? "You can save your configuration even when the parameter validation logic fails.";
-            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-
-            var finalWarningMessage = new StringBuilder();
-
-            if (invalidPaths.Count > 0)
-            {
-                finalWarningMessage.Append(potentiallyInvalidPathsDetected);
-                foreach (var path in invalidPaths)
-                {
-                    finalWarningMessage.Append(CultureInfo.InvariantCulture, $"\n• {path}");
-                }
-            }
-
-            finalWarningMessage.Append("\n\n").Append(parameterPathsInvalidWarningFooter2);
-            finalWarningMessage.Append("\n\n").Append(youCanSaveYourConfiguration);
-
-            MessageBox.Show(finalWarningMessage.ToString(), warning, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-    }
-
     internal static void ToggleFuzzyMatchingFailureMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -2604,19 +2428,6 @@ internal static class MessageBoxLibrary
             var therewasanerrortogglingthefuzzymatchinglogic = (string)Application.Current.TryFindResource("Therewasanerrortogglingthefuzzymatchinglogic") ?? "There was an error toggling the fuzzy matching logic.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(therewasanerrortogglingthefuzzymatchinglogic, error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    internal static void FuzzyMatchingErrorValueOutsideValidRangeMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "The selected threshold is outside the valid range (70% to 95%).";
-            var invalidInputMessageTitle = (string)Application.Current.TryFindResource("InvalidInputMessageTitle") ?? "Invalid Input";
-            MessageBox.Show(invalidInputMessageText, invalidInputMessageTitle, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -2890,23 +2701,6 @@ internal static class MessageBoxLibrary
                             $"{actionTaken}\n\n" +
                             $"{reportedToDeveloper}", title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
-    }
-
-    internal static MessageBoxResult RelativePathsWarningMessageBox(List<string> relativePaths)
-    {
-        return Application.Current.Dispatcher.Invoke(() =>
-        {
-            var title = (string)Application.Current.TryFindResource("RelativePathsDetected") ?? "Relative Paths Detected";
-            var relativePathsMessage = (string)Application.Current.TryFindResource("RelativePathsMessage") ?? "The following relative paths were detected in your configuration:";
-            var systemFolderExplanation = (string)Application.Current.TryFindResource("SystemFolderExplanation") ?? "For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").";
-            var parameterExplanation = (string)Application.Current.TryFindResource("ParameterExplanation") ?? "For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., -F \"%BASEFOLDER%\\roms\\Atari 2600\\stella_libretro.dll\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.";
-            var saveConfigurationQuestion = (string)Application.Current.TryFindResource("SaveConfigurationQuestion") ?? "Do you want to save this configuration?";
-            var pathsList = string.Join("\n", relativePaths.Select(static p => $"- {p}"));
-            return MessageBox.Show($"{relativePathsMessage}\n\n{pathsList}\n\n" +
-                                   $"{systemFolderExplanation}\n\n" +
-                                   $"{parameterExplanation}\n\n" +
-                                   $"{saveConfigurationQuestion}", title, MessageBoxButton.YesNo, MessageBoxImage.Question);
-        });
     }
 
     internal static void CouldNotOpenSoundConfigurationWindow()
@@ -3184,19 +2978,6 @@ internal static class MessageBoxLibrary
             var gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted = (string)Application.Current.TryFindResource("GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted") ?? "Game launch timed out. Please try again or check if the emulator started.";
             var gamelaunchtimedout = (string)Application.Current.TryFindResource("Gamelaunchtimedout") ?? "Game launch timed out";
             MessageBox.Show(gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted, gamelaunchtimedout, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    internal static void RaHasherNotFoundMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var raHasherexetoolnotfound = (string)Application.Current.TryFindResource("RAHasherexetoolnotfound") ?? "RAHasher.exe tool not found.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(raHasherexetoolnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
