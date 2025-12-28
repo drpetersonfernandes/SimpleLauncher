@@ -37,6 +37,16 @@ Core may require BIOS files or system files to work properly.
 
 .
 
+**Emulator Name:** CPCEC<br>
+**Emulator Path (Example):** D:\Emulators\CPCEC\CPCEC.EXE<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Amstrad CPC;%SYSTEMFOLDER%" cpc6128 -flop1<br>
