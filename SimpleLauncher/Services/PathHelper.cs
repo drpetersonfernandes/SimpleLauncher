@@ -296,7 +296,7 @@ public static class PathHelper
         foreach (var folder in systemManager.SystemFolders)
         {
             var filePath = CombineAndResolveRelativeToAppDirectory(folder, fileName);
-            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+            if (!string.IsNullOrEmpty(filePath) && File.Exists(@"\\?\" + filePath))
             {
                 return filePath;
             }

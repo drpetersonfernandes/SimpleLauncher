@@ -20,9 +20,16 @@ public static class CheckPath
         try
         {
             var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(path);
+            if (string.IsNullOrEmpty(resolvedPath))
+            {
+                return false;
+            }
+
+            // Prepend the long path prefix to handle paths longer than 260 characters reliably.
+            var pathForCheck = @"\\?\" + resolvedPath;
 
             // Check if the resolved path exists as a file or directory
-            return !string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath));
+            return File.Exists(pathForCheck) || Directory.Exists(pathForCheck);
         }
         catch
         {
