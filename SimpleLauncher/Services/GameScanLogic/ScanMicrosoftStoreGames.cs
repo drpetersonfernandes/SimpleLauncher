@@ -9,7 +9,7 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanMicrosoftStoreGames
+public static class ScanMicrosoftStoreGames
 {
     // Replaced Whitelist with a Blacklist (IgnoredAppNames) to allow all games to be found automatically.
     // This list includes common system apps and tools that are not games.
