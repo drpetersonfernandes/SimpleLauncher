@@ -23,10 +23,12 @@ public static class ScanMicrosoftStoreGames
         "Microsoft.XboxApp", "Microsoft.XboxGamingOverlay", "Microsoft.XboxGameOverlay",
         "Microsoft.XboxSpeechToTextOverlay", "Microsoft.XboxIdentityProvider", "Microsoft.GamingApp",
         "Microsoft.MicrosoftStickyNotes", "Microsoft.ScreenSketch", "Microsoft.WindowsTerminal",
-        "Microsoft.Paint", "Microsoft.Notepad", "Microsoft.WindowsFeedbackHub", "Microsoft.Microsoft365",
+        "Microsoft.Paint", "Microsoft.Notepad", "Notepad", "Microsoft.WindowsFeedbackHub", "Microsoft.Microsoft365",
         "Microsoft.OneDrive", "Microsoft.ToDo", "Microsoft.BingNews", "Microsoft.BingWeather",
         "Microsoft.Windows.ContentDeliveryManager", "Microsoft.Windows.ShellExperienceHost",
-        "Microsoft.AsyncTextService", "Microsoft.ECApp", "Microsoft.LockApp", "Microsoft.CredDialogHost"
+        "Microsoft.AsyncTextService", "Microsoft.ECApp", "Microsoft.LockApp", "Microsoft.CredDialogHost", "NVIDIA Control Panel",
+        "Microsoft.WindowsSecurity", "Windows Security", "AMD Software", "Microsoft.Copilot", "Copilot",
+        "Microsoft 356 Copilot"
     };
 
     public static async Task ScanMicrosoftStoreGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)

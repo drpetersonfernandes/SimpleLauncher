@@ -156,23 +156,6 @@ public partial class App : IDisposable
         Current.MainWindow = mainWindow;
         mainWindow.Show();
 
-        // Start background scan for Installed Windows games
-        var gameScanner = ServiceProvider.GetRequiredService<GameScannerService>();
-        _ = Task.Run(async () =>
-        {
-            await gameScanner.ScanForStoreGamesAsync();
-            // After scanning, if a new system was created, tell MainWindow to refresh its system list.
-            if (gameScanner.WasNewSystemCreated)
-            {
-                await Dispatcher.InvokeAsync(static () =>
-                {
-                    var activeMainWindow = Current.MainWindow as MainWindow;
-                    activeMainWindow?.LoadOrReloadSystemManager();
-                    UpdateStatusBar.UpdateContent("Found new Microsoft Windows games. Refreshing system list.", activeMainWindow);
-                });
-            }
-        });
-
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization
         if (displayHistoryWindow)
