@@ -521,11 +521,12 @@ Core may require BIOS or system files to work properly.
 .
 
 **Emulator Name:** BizHawk<br>
-**Emulator Path (Example):** c:\emulators\BizHawk\EmuHawk.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
@@ -594,11 +595,12 @@ Core may require BIOS or system files to work properly.
 .
 
 **Emulator Name:** BizHawk<br>
-**Emulator Path (Example):** c:\emulators\BizHawk\EmuHawk.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
@@ -1844,11 +1846,12 @@ This emulator is available for Windows-x64.<br>
 .
 
 **Emulator Name:** BizHawk<br>
-**Emulator Path (Example):** c:\emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
@@ -3110,6 +3113,17 @@ The list of command-line arguments available for this emulator can be found on [
 
 .
 
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Game Gear" gamegear<br>
@@ -3439,6 +3453,17 @@ The list of command-line arguments available for this emulator can be found on [
 
 .
 
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Master System" sms<br>
@@ -3614,11 +3639,12 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 .
 
 **Emulator Name:** BizHawk<br>
-**Emulator Path (Example):** c:\emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
@@ -3682,11 +3708,12 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 .
 
 **Emulator Name:** BizHawk<br>
-**Emulator Path (Example):** c:\emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
