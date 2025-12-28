@@ -616,36 +616,25 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             }
             else
             {
-                if (_downloadManager.IsUserCancellation)
+                if (_downloadManager.IsUserCancellation) // User cancelled the download
                 {
                     var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
                     var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
                     DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
                 }
-                else
+                else if (_downloadManager.IsDownloadCompleted) // Download OK, but extraction failed
                 {
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     DownloadStatus = $"{errorFailedtoextract} {componentName}.";
+                    await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                }
+                else // Download failed for other reasons
+                {
+                    var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ?? "Error during download";
+                    DownloadStatus = $"{errorDuringDownload}: {componentName}.";
 
-                    switch (type)
-                    {
-                        case DownloadType.Emulator:
-                            await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
-                            break;
-                        case DownloadType.Core:
-                            await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
-                            break;
-                        case DownloadType.ImagePack1:
-                        case DownloadType.ImagePack2:
-                        case DownloadType.ImagePack3:
-                        case DownloadType.ImagePack4:
-                        case DownloadType.ImagePack5:
-                            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-                            break;
-                        default:
-                            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                            break;
-                    }
+                    // Fallback to original behavior for download failures
+                    await ShowDownloadErrorDialogAsync(type, selectedSystem);
                 }
 
                 StopDownloadButton.IsEnabled = false;
@@ -668,27 +657,40 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
 
-            switch (type)
+            // If download was completed, the exception was likely during extraction.
+            if (_downloadManager.IsDownloadCompleted)
             {
-                case DownloadType.Emulator:
-                    await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
-                    break;
-                case DownloadType.Core:
-                    await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
-                    break;
-                case DownloadType.ImagePack1:
-                case DownloadType.ImagePack2:
-                case DownloadType.ImagePack3:
-                case DownloadType.ImagePack4:
-                case DownloadType.ImagePack5:
-                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-                    break;
-                default:
-                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                    break;
+                await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+            }
+            else // Exception was during download
+            {
+                await ShowDownloadErrorDialogAsync(type, selectedSystem);
             }
 
             StopDownloadButton.IsEnabled = false;
+        }
+    }
+
+    private static async Task ShowDownloadErrorDialogAsync(DownloadType type, EasyModeSystemConfig selectedSystem)
+    {
+        switch (type)
+        {
+            case DownloadType.Emulator:
+                await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
+                break;
+            case DownloadType.Core:
+                await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
+                break;
+            case DownloadType.ImagePack1:
+            case DownloadType.ImagePack2:
+            case DownloadType.ImagePack3:
+            case DownloadType.ImagePack4:
+            case DownloadType.ImagePack5:
+                await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                break;
+            default:
+                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                break;
         }
     }
 

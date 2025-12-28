@@ -79,7 +79,7 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Gets the temporary folder used for downloads.
     /// </summary>
-    private string TempFolder { get; }
+    public string TempFolder { get; }
 
     // Methods
     /// <summary>

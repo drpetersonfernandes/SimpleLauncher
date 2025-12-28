@@ -3269,7 +3269,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    // public static MessageBoxResult AskToRescanWindowsGamesMessageBox()
+    // internal static MessageBoxResult AskToRescanWindowsGamesMessageBox()
     // {
     //     return Application.Current.Dispatcher.Invoke(static () =>
     //     {
@@ -3279,7 +3279,38 @@ internal static class MessageBoxLibrary
     //     });
     // }
 
-    public static void ErrorScanningWindowsGamesMessageBox()
+    internal static async Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
+    {
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            var extractionFailedTitle = (string)Application.Current.TryFindResource("ExtractionFailedTitle") ?? "Extraction Failed";
+            var extractionFailedMessage = (string)Application.Current.TryFindResource("ExtractionFailedMessage") ?? "The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.";
+            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to extract the file manually?";
+
+            var result = MessageBox.Show($"{extractionFailedMessage}\n\n{openTempFolderQuestion}", extractionFailedTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = tempFolderPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
+                    var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
+                    MessageBox.Show(errorOpeningFolderMessage, errorOpeningFolderTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open temp folder: {tempFolderPath}");
+                }
+            }
+        });
+    }
+
+    internal static void ErrorScanningWindowsGamesMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3292,7 +3323,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void ShowCustomMessageBox(string message, string launchError, string logPath)
+    internal static void ShowCustomMessageBox(string message, string launchError, string logPath)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;

@@ -291,13 +291,19 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 if (_disposed) return; // Check before UI updates in else branch
 
-                if (_downloadManager.IsUserCancellation)
+                if (_downloadManager.IsUserCancellation) // User cancelled the download
                 {
                     var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
                     var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
                     UpdateStatus($"{downloadof} {componentName} {wascanceled}");
                 }
-                else
+                else if (_downloadManager.IsDownloadCompleted) // Download OK, but extraction failed
+                {
+                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                    UpdateStatus($"{errorFailedtoextract} {componentName}.");
+                    await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                }
+                else // Download failed for other reasons
                 {
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     UpdateStatus($"{errorFailedtoextract} {componentName}.");
@@ -329,8 +335,17 @@ public partial class DownloadImagePackWindow : IDisposable
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
 
-            // Since this is an image pack, use the specific message box
-            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+            // If download was completed, the exception was likely during extraction.
+            if (_downloadManager.IsDownloadCompleted)
+            {
+                await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+            }
+            else // Exception was during download
+            {
+                // Since this is an image pack, use the specific message box for download failures
+                await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+            }
+
             if (_disposed) return; // Check after await in MessageBox
 
             StopDownloadButton.IsEnabled = false;
@@ -339,7 +354,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
     }
 
-    // ADDED: GetSelectedSystem() helper method
+    // GetSelectedSystem() helper method
     private EasyModeSystemConfig GetSelectedSystem()
     {
         return SystemNameDropdown.SelectedItem != null
