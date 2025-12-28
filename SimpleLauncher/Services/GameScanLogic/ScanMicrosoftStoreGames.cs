@@ -28,7 +28,7 @@ public static class ScanMicrosoftStoreGames
         "Microsoft.Windows.ContentDeliveryManager", "Microsoft.Windows.ShellExperienceHost",
         "Microsoft.AsyncTextService", "Microsoft.ECApp", "Microsoft.LockApp", "Microsoft.CredDialogHost", "NVIDIA Control Panel",
         "Microsoft.WindowsSecurity", "Windows Security", "AMD Software", "Microsoft.Copilot", "Copilot",
-        "Microsoft 356 Copilot"
+        "Microsoft 365 Copilot", "AMD Link", "Bloco de notas", "Microsoft Teams", "Segurança do Windows", "Realtek Audio Console"
     };
 
     public static async Task ScanMicrosoftStoreGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)

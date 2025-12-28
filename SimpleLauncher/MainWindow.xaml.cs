@@ -220,29 +220,56 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
         };
 
-        Loaded += (_, _) =>
+        Loaded += async (_, _) =>
         {
             try
             {
                 // --- First-run experience: Check if system.xml is empty ---
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
-                    var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
-                    if (result == MessageBoxResult.Yes)
+                    // This is the first run. Let's scan for Windows games automatically.
+                    SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for installed Windows games...");
+                    try
                     {
-                        var easyModeWindow = new EasyModeWindow();
-                        easyModeWindow.Owner = this;
-                        easyModeWindow.ShowDialog();
+                        await _gameScannerService.ScanForStoreGamesAsync();
+                        if (_gameScannerService.WasNewSystemCreated)
+                        {
+                            UpdateStatusBar.UpdateContent("Found new Microsoft Windows games. Refreshing system list.", this);
+                            LoadOrReloadSystemManager(); // Reload to get the new system
+                            // After reloading, the system selection screen needs to be updated.
+                            await DisplaySystemSelectionScreenAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = _logErrors.LogErrorAsync(ex, "Error during initial Windows games scan.");
+                    }
+                    finally
+                    {
+                        SetUiLoadingState(false);
+                    }
 
-                        LoadOrReloadSystemManager();
-                        _ = DisplaySystemSelectionScreenAsync();
+                    // After the scan, check again if any systems exist.
+                    // If still no systems, show the Easy Mode prompt.
+                    if (_systemManagers == null || _systemManagers.Count == 0)
+                    {
+                        var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            var easyModeWindow = new EasyModeWindow();
+                            easyModeWindow.Owner = this;
+                            easyModeWindow.ShowDialog();
+
+                            LoadOrReloadSystemManager();
+                            await DisplaySystemSelectionScreenAsync(); // Await this now
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
-                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event's first-run logic.");
+                DebugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
             }
         };
     }
@@ -694,8 +721,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                         var selectedSystem = SystemComboBox.SelectedItem?.ToString();
 
-                        // --- "Microsoft Windows" rescan prompt ---
-                        if (await ReScanMicrosoftWindowsSystem(selectedSystem)) return; // Exit after handling rescan, do not proceed with normal load for this selection
+                        // // --- "Microsoft Windows" rescan prompt ---
+                        // if (await ReScanMicrosoftWindowsSystem(selectedSystem)) return; // Exit after handling rescan, do not proceed with normal load for this selection
 
                         var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
                         if (selectedSystem == null || selectedManager == null)
@@ -820,42 +847,42 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             return;
 
-            async Task<bool> ReScanMicrosoftWindowsSystem(string selectedSystem)
-            {
-                if (selectedSystem == "Microsoft Windows")
-                {
-                    var rescanResult = MessageBoxLibrary.AskToRescanWindowsGamesMessageBox();
-                    if (rescanResult == MessageBoxResult.Yes)
-                    {
-                        SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
-                        try
-                        {
-                            // The GameScannerService.ScanForStoreGamesAsync() already handles creating the system if it doesn't exist.
-                            // It also updates the system.xml if new games are found, which LoadOrReloadSystemManager() will pick up.
-                            await _gameScannerService.ScanForStoreGamesAsync();
-
-                            // After scan, reload systems and games
-                            LoadOrReloadSystemManager();
-                            // Reload the current system's games to reflect any new shortcuts found
-                            await LoadGameFilesAsync(null, null);
-                            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("WindowsGamesScanComplete") ?? "Windows games scan complete.", this);
-                        }
-                        catch (Exception ex)
-                        {
-                            _ = _logErrors.LogErrorAsync(ex, "Error during Windows games rescan.");
-                            MessageBoxLibrary.ErrorScanningWindowsGamesMessageBox();
-                        }
-                        finally
-                        {
-                            SetUiLoadingState(false);
-                        }
-
-                        return true;
-                    }
-                }
-
-                return false;
-            }
+            // async Task<bool> ReScanMicrosoftWindowsSystem(string selectedSystem)
+            // {
+            //     if (selectedSystem == "Microsoft Windows")
+            //     {
+            //         var rescanResult = MessageBoxLibrary.AskToRescanWindowsGamesMessageBox();
+            //         if (rescanResult == MessageBoxResult.Yes)
+            //         {
+            //             SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
+            //             try
+            //             {
+            //                 // The GameScannerService.ScanForStoreGamesAsync() already handles creating the system if it doesn't exist.
+            //                 // It also updates the system.xml if new games are found, which LoadOrReloadSystemManager() will pick up.
+            //                 await _gameScannerService.ScanForStoreGamesAsync();
+            //
+            //                 // After scan, reload systems and games
+            //                 LoadOrReloadSystemManager();
+            //                 // Reload the current system's games to reflect any new shortcuts found
+            //                 await LoadGameFilesAsync(null, null);
+            //                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("WindowsGamesScanComplete") ?? "Windows games scan complete.", this);
+            //             }
+            //             catch (Exception ex)
+            //             {
+            //                 _ = _logErrors.LogErrorAsync(ex, "Error during Windows games rescan.");
+            //                 MessageBoxLibrary.ErrorScanningWindowsGamesMessageBox();
+            //             }
+            //             finally
+            //             {
+            //                 SetUiLoadingState(false);
+            //             }
+            //
+            //             return true;
+            //         }
+            //     }
+            //
+            //     return false;
+            // }
         }
         catch (Exception ex)
         {
