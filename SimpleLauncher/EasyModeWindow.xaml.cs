@@ -343,12 +343,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             return;
         }
 
+        var emulator = selectedSystem.Emulators?.Emulator;
         // Determine if download links exist for image packs (for visibility)
-        IsImagePack1Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
-        IsImagePack2Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
-        IsImagePack3Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
-        IsImagePack4Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
-        IsImagePack5Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
+        IsImagePack1Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
+        IsImagePack2Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
+        IsImagePack3Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
+        IsImagePack4Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
+        IsImagePack5Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
 
         // Check if Emulator file already exists on disk. If so, mark it as "downloaded".
         var emulatorLocation = selectedSystem.Emulators?.Emulator?.EmulatorLocation;
