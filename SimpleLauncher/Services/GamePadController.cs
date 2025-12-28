@@ -93,7 +93,7 @@ public class GamePadController : IDisposable
         }
 
         _mouseSimulator = new InputSimulator().Mouse;
-        _timer = new Timer(_ => Update(), null, Timeout.Infinite, Timeout.Infinite);
+        _timer = new Timer(_ => UpdateAsync(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
     public void Start()
@@ -161,7 +161,7 @@ public class GamePadController : IDisposable
 
                 // Stop the timer and wait for any running callback to complete.
                 // This is done outside the lock to prevent deadlocks.
-                // The Update method will see IsRunning = false or _isDisposed = true and exit quickly.
+                // The UpdateAsync method will see IsRunning = false or _isDisposed = true and exit quickly.
                 using (var waitHandle = new ManualResetEvent(false))
                 {
                     if (_timer?.Dispose(waitHandle) ?? false)
@@ -172,7 +172,7 @@ public class GamePadController : IDisposable
                     }
                 }
 
-                // At this point, the Update() method is guaranteed to no longer be running.
+                // At this point, the UpdateAsync() method is guaranteed to no longer be running.
                 // We can safely dispose of the remaining resources without a lock.
                 _directInputController?.Unacquire();
                 _directInputController?.Dispose();
@@ -197,7 +197,7 @@ public class GamePadController : IDisposable
         }
     }
 
-    private async void Update()
+    private async void UpdateAsync()
     {
         try
         {
@@ -336,7 +336,7 @@ public class GamePadController : IDisposable
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method Update in class GamePadController");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdateAsync");
             }
             finally
             {
@@ -346,7 +346,7 @@ public class GamePadController : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method Update in class GamePadController");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdateAsync");
         }
     }
 

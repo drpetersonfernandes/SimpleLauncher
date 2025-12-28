@@ -70,7 +70,7 @@ public static class ContextMenu
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching the game.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[CreateMenu] Error launching the game.");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };

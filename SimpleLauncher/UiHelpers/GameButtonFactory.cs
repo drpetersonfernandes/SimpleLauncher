@@ -573,7 +573,7 @@ public class GameButtonFactory(
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error launching the game.");
+                _ = _logErrors.LogErrorAsync(ex, "[CreateGameButtonAsync] Error launching the game.");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };

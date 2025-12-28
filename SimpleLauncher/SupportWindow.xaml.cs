@@ -144,7 +144,7 @@ public partial class SupportWindow
         }
     }
 
-    private async void SendSupportRequest_Click(object sender, RoutedEventArgs e)
+    private async void SendSupportRequestClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -175,7 +175,7 @@ public partial class SupportWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "Error in the SendSupportRequest_Click method.";
+                const string contextMessage = "Error in the SendSupportRequestClickAsync method.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
             finally
@@ -187,7 +187,7 @@ public partial class SupportWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error in the SendSupportRequest_Click method.";
+            const string contextMessage = "Error in the SendSupportRequestClickAsync method.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }

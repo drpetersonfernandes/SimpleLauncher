@@ -61,7 +61,7 @@ public partial class MainWindow
 
             LoadOrReloadSystemManager();
 
-            ResetUi();
+            ResetUiAsync();
         }
         catch (Exception ex)
         {
@@ -83,7 +83,7 @@ public partial class MainWindow
 
             LoadOrReloadSystemManager();
 
-            ResetUi();
+            ResetUiAsync();
         }
         catch (Exception ex)
         {
@@ -99,7 +99,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...", this);
 
-            ResetUi();
+            ResetUiAsync();
 
             DownloadImagePackWindow downloadImagePack = new();
             downloadImagePack.Owner = this;
@@ -112,7 +112,7 @@ public partial class MainWindow
         }
     }
 
-    private async void ResetUi()
+    private async void ResetUiAsync()
     {
         try
         {
@@ -151,7 +151,7 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUiAsync.");
             }
             finally
             {
@@ -160,7 +160,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUiAsync.");
         }
     }
 
@@ -176,7 +176,7 @@ public partial class MainWindow
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
     }
 
-    private async void EditLinks_Click(object sender, RoutedEventArgs e)
+    private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -196,13 +196,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinksClickAsync.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinksClickAsync.");
         }
     }
 
@@ -266,7 +266,7 @@ public partial class MainWindow
         }
     }
 
-    private async void ToggleFuzzyMatching_Click(object sender, RoutedEventArgs e)
+    private async void ToggleFuzzyMatchingClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -299,11 +299,11 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatching_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
         }
     }
 
-    private async void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
+    private async void SetFuzzyMatchingThresholdClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -323,7 +323,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThreshold_Click");
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThresholdClickAsync");
         }
     }
 
@@ -378,7 +378,7 @@ public partial class MainWindow
         Close();
     }
 
-    private async void ShowAllGames_Click(object sender, RoutedEventArgs e)
+    private async void ShowAllGamesClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -397,17 +397,17 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGamesClickAsync.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGamesClickAsync.");
         }
     }
 
-    private async void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
+    private async void ShowGamesWithCoverClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -427,17 +427,17 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCoverClickAsync.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCoverClickAsync.");
         }
     }
 
-    private async void ShowGamesWithoutCover_Click(object sender, RoutedEventArgs e)
+    private async void ShowGamesWithoutCoverClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -457,13 +457,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
         }
     }
 
@@ -480,7 +480,7 @@ public partial class MainWindow
         ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
     }
 
-    private async void ButtonSize_Click(object sender, RoutedEventArgs e)
+    private async void ButtonSizeClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -510,7 +510,7 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error in method ButtonSize_Click.";
+                const string errorMessage = "Error in method ButtonSizeClickAsync.";
                 _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
@@ -520,11 +520,11 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonSize_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonSizeClickAsync.");
         }
     }
 
-    private async void ButtonAspectRatio_Click(object sender, RoutedEventArgs e)
+    private async void ButtonAspectRatioClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -549,7 +549,7 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "Error in method ButtonAspectRatio_Click";
+                const string contextMessage = "Error in method ButtonAspectRatioClickAsync";
                 _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
@@ -559,11 +559,11 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonAspectRatio_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonAspectRatioClickAsync.");
         }
     }
 
-    private async void GamesPerPage_Click(object sender, RoutedEventArgs e)
+    private async void GamesPerPageClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -598,13 +598,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPageClickAsync.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPageClickAsync.");
         }
     }
 
@@ -613,7 +613,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
 
-        ResetUi();
+        ResetUiAsync();
 
         var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
         globalSearchWindow.Owner = this;
@@ -635,7 +635,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        ResetUi();
+        ResetUiAsync();
 
         var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
         favoritesWindow.Owner = this;
@@ -647,7 +647,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
 
-        ResetUi();
+        ResetUiAsync();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
         playHistoryWindow.Owner = this;
@@ -722,7 +722,7 @@ public partial class MainWindow
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
 
-                ResetUi();
+                ResetUiAsync();
             }
             else if (Equals(sender, ListView))
             {
@@ -735,7 +735,7 @@ public partial class MainWindow
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
 
-                ResetUi();
+                ResetUiAsync();
             }
 
             _settings.Save(); // Save the updated ViewMode
@@ -803,7 +803,7 @@ public partial class MainWindow
     {
         _playSoundEffects.PlayNotificationSound();
 
-        ResetUi();
+        ResetUiAsync();
     }
 
     private void NavToggleLightDarkMode_Click(object sender, RoutedEventArgs e)
@@ -848,7 +848,7 @@ public partial class MainWindow
         ExpertMode_Click(sender, e);
     }
 
-    private async void NavSelectedSystemFavoriteButton_Click(object sender, RoutedEventArgs e)
+    private async void NavSelectedSystemFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -859,11 +859,11 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButtonClickAsync.");
         }
     }
 
-    private async void NavRandomLuckGameButton_Click(object sender, RoutedEventArgs e)
+    private async void NavRandomLuckGameButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -874,11 +874,11 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
         }
     }
 
-    private async void NavZoomInButton_Click(object sender, RoutedEventArgs e)
+    private async void NavZoomInButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -910,18 +910,18 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error in method NavZoomInButton_Click.";
+                const string errorMessage = "Error in method NavZoomInButtonClickAsync.";
                 _ = _logErrors.LogErrorAsync(ex, errorMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomInButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomInButtonClickAsync.");
         }
     }
 
-    private async void NavZoomOutButton_Click(object sender, RoutedEventArgs e)
+    private async void NavZoomOutButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -953,18 +953,18 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error in method NavZoomOutButton_Click.";
+                const string errorMessage = "Error in method NavZoomOutButtonClickAsync.";
                 _ = _logErrors.LogErrorAsync(ex, errorMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButtonClickAsync.");
         }
     }
 
-    private async void NavToggleViewMode_Click(object sender, RoutedEventArgs e)
+    private async void NavToggleViewModeClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -1004,7 +1004,7 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error while using the method NavToggleViewMode_Click.";
+                const string errorMessage = "Error while using the method NavToggleViewModeClickAsync.";
                 _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
@@ -1014,7 +1014,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavToggleViewMode_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavToggleViewModeClickAsync.");
         }
     }
 

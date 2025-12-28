@@ -150,7 +150,7 @@ public class GameListFactory(
         return Task.FromResult(gameListViewItem);
     }
 
-    public async void HandleSelectionChanged(GameListViewItem selectedItem)
+    public async void HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
         try
         {
@@ -158,7 +158,7 @@ public class GameListFactory(
             if (_mainWindow == null)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChanged."), "MainWindow instance is null. Cannot update preview.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChangedAsync."), "MainWindow instance is null. Cannot update preview.");
 
                 return;
             }
@@ -166,7 +166,7 @@ public class GameListFactory(
             if (_mainWindow.PreviewImage == null)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChanged."), "PreviewImage control in MainWindow is null. Cannot update preview.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChangedAsync."), "PreviewImage control in MainWindow is null. Cannot update preview.");
 
                 return;
             }
@@ -289,7 +289,7 @@ public class GameListFactory(
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method GameListFactory.HandleSelectionChanged.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method GameListFactory.HandleSelectionChangedAsync.");
         }
     }
 
@@ -320,7 +320,7 @@ public class GameListFactory(
         if (string.IsNullOrEmpty(filePath))
         {
             // Notify developer
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "filepath is null or empty.");
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] filepath is null or empty.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -342,7 +342,7 @@ public class GameListFactory(
         if (string.IsNullOrEmpty(selectedSystemName))
         {
             // Notify developer
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "selectedSystemName is null or empty.");
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] selectedSystemName is null or empty.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -353,7 +353,7 @@ public class GameListFactory(
         if (selectedSystemManager == null)
         {
             // Notify developer
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "selectedSystemManager is null.");
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] selectedSystemManager is null.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());

@@ -16,7 +16,7 @@ public partial class MainWindow
         TotalFilesLabel.Content = null;
     }
 
-    private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
+    private async void PrevPageButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -52,11 +52,11 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the PrevPageButton_Click method.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the PrevPageButtonClickAsync method.");
         }
     }
 
-    private async void NextPageButton_Click(object sender, RoutedEventArgs e)
+    private async void NextPageButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -94,7 +94,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the NextPageButton_Click method.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the NextPageButtonClickAsync method.");
         }
     }
 

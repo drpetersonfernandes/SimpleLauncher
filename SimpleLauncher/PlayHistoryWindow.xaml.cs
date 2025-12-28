@@ -51,10 +51,10 @@ public partial class PlayHistoryWindow
         App.ApplyThemeToWindow(this);
         Closed += PlayHistoryWindow_Closed;
 
-        Loaded += PlayHistoryWindow_Loaded;
+        Loaded += PlayHistoryWindowLoadedAsync;
     }
 
-    private async void PlayHistoryWindow_Loaded(object sender, RoutedEventArgs e)
+    private async void PlayHistoryWindowLoadedAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -79,7 +79,7 @@ public partial class PlayHistoryWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindowLoadedAsync.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -92,7 +92,7 @@ public partial class PlayHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the PlayHistoryWindow_Loaded method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the PlayHistoryWindowLoadedAsync method.");
         }
     }
 
@@ -351,7 +351,7 @@ public partial class PlayHistoryWindow
         if (selectedSystemManager == null)
         {
             // Notify developer
-            const string contextMessage = "systemManager is null.";
+            const string contextMessage = "[LaunchGameFromHistoryAsync] systemManager is null.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -382,7 +382,7 @@ public partial class PlayHistoryWindow
         if (emulatorManager == null)
         {
             // Notify developer
-            const string contextMessage = "emulatorManager is null.";
+            const string contextMessage = "[LaunchGameFromHistoryAsync] emulatorManager is null.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -471,7 +471,7 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private async void LaunchGameWithDoubleClick(object sender, MouseButtonEventArgs e)
+    private async void LaunchGameWithDoubleClickAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -494,7 +494,7 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private async void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e) // Changed to async void
+    private async void SetPreviewImageOnSelectionChangedAsync(object sender, SelectionChangedEventArgs e) // Changed to async void
     {
         try
         {
@@ -516,7 +516,7 @@ public partial class PlayHistoryWindow
             PreviewImage.Source = null; // Ensure image is cleared on error
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 
@@ -674,7 +674,7 @@ public partial class PlayHistoryWindow
         PreviewImage.Source = null;
     }
 
-    private async void LaunchGame_Click(object sender, RoutedEventArgs e)
+    private async void LaunchGameClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -693,7 +693,7 @@ public partial class PlayHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error in the LaunchGame_Click method.";
+            const string contextMessage = "Error in the LaunchGameClickAsync method.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user

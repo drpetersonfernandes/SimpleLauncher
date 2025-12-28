@@ -315,11 +315,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             case > 0:
                 // Scroll up, trigger zoom in
-                NavZoomInButton_Click(null, null); // Pass null for sender and EventArgs
+                NavZoomInButtonClickAsync(null, null); // Pass null for sender and EventArgs
                 break;
             case < 0:
                 // Scroll down, trigger zoom out
-                NavZoomOutButton_Click(null, null); // Pass null for sender and EventArgs
+                NavZoomOutButtonClickAsync(null, null); // Pass null for sender and EventArgs
                 break;
         }
 
@@ -432,7 +432,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     else
                     {
                         // If not, perform the disk scan to get all files for the current system
-                        // This scenario should be rare if SystemComboBox_SelectionChanged always populates it.
+                        // This scenario should be rare if SystemComboBoxSelectionChangedAsync always populates it.
                         // It acts as a fallback.
                         DebugLogger.Log($"[Feeling Lucky] _allGamesForCurrentSystem not suitable, performing disk scan for '{selectedSystem}'.");
                         var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -653,10 +653,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         // If it's a real game item, proceed with loading the preview.
         var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
-        gameListViewFactory.HandleSelectionChanged(selectedItem);
+        gameListViewFactory.HandleSelectionChangedAsync(selectedItem);
     }
 
-    private async void GameListDoubleClickOnSelectedItem(object sender, MouseButtonEventArgs e)
+    private async void GameListDoubleClickOnSelectedItemAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -677,12 +677,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItem.";
+            const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItemAsync.";
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
-    private async void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SystemComboBoxSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
     {
         try
         {
@@ -790,7 +790,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     catch (Exception ex)
                     {
                         // Notify developer
-                        const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+                        const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
                         _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
                         // Notify user
@@ -807,7 +807,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
                 catch (Exception ex)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+                    _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
                 }
 
                 return;
@@ -832,7 +832,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     try
                     {
                         _allGamesForCurrentSystem = uniqueFilesForSystem.Values.ToList(); // WRITE
-                        DebugLogger.Log($"[SystemComboBox_SelectionChanged] Populated _allGamesForCurrentSystem for '{currentSelectedSystem}'. Count: {_allGamesForCurrentSystem.Count}");
+                        DebugLogger.Log($"[SystemComboBoxSelectionChangedAsync] Populated _allGamesForCurrentSystem for '{currentSelectedSystem}'. Count: {_allGamesForCurrentSystem.Count}");
                     }
                     finally
                     {
@@ -842,7 +842,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
 
             return;
@@ -886,7 +886,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
         }
     }
 
@@ -1302,7 +1302,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         });
     }
 
-    private async void SortOrderToggleButton_Click(object sender, RoutedEventArgs e)
+    private async void SortOrderToggleButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -1317,8 +1317,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in SortOrderToggleButton_Click.");
-            DebugLogger.Log("Error in SortOrderToggleButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in SortOrderToggleButtonClickAsync.");
+            DebugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
         }
     }
 

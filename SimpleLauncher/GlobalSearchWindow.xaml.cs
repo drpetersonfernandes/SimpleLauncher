@@ -49,7 +49,7 @@ public partial class GlobalSearchWindow : IDisposable
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        Closed += GlobalSearch_Closed;
+        Closed += GlobalSearchClosedAsync;
 
         _cancellationTokenSource = new CancellationTokenSource();
         _systemManagers = systemManagers;
@@ -74,7 +74,7 @@ public partial class GlobalSearchWindow : IDisposable
         SystemComboBox.SelectedIndex = 0;
     }
 
-    private async void SearchButton_Click(object sender, RoutedEventArgs e)
+    private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -150,7 +150,7 @@ public partial class GlobalSearchWindow : IDisposable
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, "Error in SearchButton_Click.");
+            await _logErrors.LogErrorAsync(ex, "Error in SearchButtonClickAsync.");
         }
     }
 
@@ -329,14 +329,14 @@ public partial class GlobalSearchWindow : IDisposable
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
-    private async void LaunchGameFromSearchResult(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager)
+    private async void LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager)
     {
         try
         {
             if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(null, "filePath or selectedSystemName or selectedEmulatorManager is null.");
+                _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -348,7 +348,7 @@ public partial class GlobalSearchWindow : IDisposable
             if (selectedSystemManager == null)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "System manager not found for launching game from search.");
+                _ = _logErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "[LaunchGameFromSearchResultAsync] System manager not found for launching game from search.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -361,7 +361,7 @@ public partial class GlobalSearchWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error launching game from search: {filePath}, System: {selectedSystemName}";
+            var contextMessage = $"[LaunchGameFromSearchResultAsync] Error launching game from search: {filePath}, System: {selectedSystemName}";
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -376,7 +376,7 @@ public partial class GlobalSearchWindow : IDisposable
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 _playSoundEffects.PlayNotificationSound();
-                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
+                LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
             }
             else
             {
@@ -496,7 +496,7 @@ public partial class GlobalSearchWindow : IDisposable
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
             _playSoundEffects.PlayNotificationSound();
-            LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
+            LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
         }
         catch (Exception ex)
         {
@@ -513,11 +513,11 @@ public partial class GlobalSearchWindow : IDisposable
     {
         if (e.Key == Key.Enter)
         {
-            SearchButton_Click(sender, e);
+            SearchButtonClickAsync(sender, e);
         }
     }
 
-    private async void ActionsWhenUserSelectAResultItem(object sender, SelectionChangedEventArgs e)
+    private async void ActionsWhenUserSelectAResultItemAsync(object sender, SelectionChangedEventArgs e)
     {
         try
         {
@@ -537,13 +537,13 @@ public partial class GlobalSearchWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItem (GlobalSearch).");
+            _ = _logErrors.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItemAsync (GlobalSearch).");
 
             PreviewImage.Source = null; // Ensure preview is cleared on error
         }
     }
 
-    private async void GlobalSearch_Closed(object sender, EventArgs e)
+    private async void GlobalSearchClosedAsync(object sender, EventArgs e)
     {
         try
         {

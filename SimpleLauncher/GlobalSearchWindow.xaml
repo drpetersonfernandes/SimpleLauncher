@@ -100,7 +100,7 @@
                 </GroupBox>
 
                 <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button Content="{DynamicResource Search}" Click="SearchButton_Click" Padding="5" />
+                    <Button Content="{DynamicResource Search}" Click="SearchButtonClickAsync" Padding="5" />
                     <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click"
                             IsEnabled="False"
                             Padding="5" Margin="10,0,0,0" />
@@ -116,7 +116,7 @@
                       ScrollViewer.CanContentScroll="True"
                       MouseRightButtonUp="GlobalSearchPrepareForRightClickContextMenu"
                       MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
-                      SelectionChanged="ActionsWhenUserSelectAResultItem" d:DataContext="{d:DesignInstance }">
+                      SelectionChanged="ActionsWhenUserSelectAResultItemAsync" d:DataContext="{d:DesignInstance }">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="FileName" Binding="{Binding FileNameWithExtension}" Width="*" />
                     <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}" Width="*" />

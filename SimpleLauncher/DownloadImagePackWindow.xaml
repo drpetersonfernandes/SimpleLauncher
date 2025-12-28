@@ -75,7 +75,7 @@
                                     <Button Content="{Binding DisplayName}"
                                             Width="140" Height="40"
                                             Margin="5"
-                                            Click="DownloadImagePackButton_Click"
+                                            Click="DownloadImagePackButtonClickAsync"
                                             IsEnabled="{Binding IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                             Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                             d:DataContext="{d:DesignInstance }" />

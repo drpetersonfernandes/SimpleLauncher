@@ -74,7 +74,7 @@ public partial class MainWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         _playSoundEffects.PlayNotificationSound();
-        ResetUi();
+        ResetUiAsync();
         _launchTools.FindRomCoverLaunch(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
 
@@ -89,7 +89,7 @@ public partial class MainWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         _playSoundEffects.PlayNotificationSound();
-        ResetUi();
+        ResetUiAsync();
         _launchTools.GameCoverScraper(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
 
@@ -97,7 +97,7 @@ public partial class MainWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         _playSoundEffects.PlayNotificationSound();
-        ResetUi();
+        ResetUiAsync();
         _launchTools.RetroGameCoverDownloader(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
 }

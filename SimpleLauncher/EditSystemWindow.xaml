@@ -117,7 +117,7 @@
                     Padding="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Click="SaveSystemButton_Click"
+                    Click="SaveSystemButtonClickAsync"
                     Content="{DynamicResource SaveorUpdateSystem}" />
 
                 <!-- Delete System -->

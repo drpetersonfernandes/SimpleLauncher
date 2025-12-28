@@ -8,7 +8,7 @@ namespace SimpleLauncher;
 
 public partial class MainWindow
 {
-    private async void SearchButton_Click(object sender, RoutedEventArgs e)
+    private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -19,7 +19,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = "Error in the method SearchButton_Click.";
+            const string errorMessage = "Error in the method SearchButtonClickAsync.";
             _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
@@ -27,7 +27,7 @@ public partial class MainWindow
         }
     }
 
-    private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+    private async void SearchTextBoxKeyDownAsync(object sender, KeyEventArgs e)
     {
         try
         {
@@ -39,7 +39,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error in the method SearchTextBox_KeyDown.";
+            const string contextMessage = "Error in the method SearchTextBoxKeyDownAsync.";
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

@@ -34,7 +34,7 @@ public partial class GlobalStatsWindow
         App.ApplyThemeToWindow(this);
     }
 
-    private async void StartButton_Click(object sender, RoutedEventArgs e)
+    private async void StartButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -97,7 +97,7 @@ public partial class GlobalStatsWindow
         try
         {
             // Execute the long-running operations asynchronously with cancellation support
-            _systemStats = await PopulateSystemStatsTable(cancellationToken);
+            _systemStats = await PopulateSystemStatsTableAsync(cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
 
             // Update the global stats asynchronously
@@ -177,7 +177,7 @@ public partial class GlobalStatsWindow
         GlobalInfoTextBlock.Text = explanation;
     }
 
-    private async Task<List<SystemStatsData>> PopulateSystemStatsTable(CancellationToken cancellationToken)
+    private async Task<List<SystemStatsData>> PopulateSystemStatsTableAsync(CancellationToken cancellationToken)
     {
         // Run the entire heavy calculation on a background thread
         var systemStats = await Task.Run(() => CalculateSystemStats(cancellationToken), cancellationToken);

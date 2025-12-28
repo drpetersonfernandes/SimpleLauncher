@@ -93,13 +93,13 @@
                         <UniformGrid Columns="2" Rows="1" Margin="5">
                             <Button x:Name="DownloadEmulatorButton"
                                     Content="{DynamicResource DownloadEmulator}"
-                                    Click="DownloadEmulatorButton_Click"
+                                    Click="DownloadEmulatorButtonClickAsync"
                                     IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                     Margin="5" Padding="10" />
 
                             <Button x:Name="DownloadCoreButton"
                                     Content="{DynamicResource DownloadCore}"
-                                    Click="DownloadCoreButton_Click"
+                                    Click="DownloadCoreButtonClickAsync"
                                     IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                     Margin="5" Padding="10" />
                         </UniformGrid>
@@ -111,31 +111,31 @@
 
                             <UniformGrid Columns="2">
                                 <Button x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
-                                        Click="DownloadImagePackButton1_Click"
+                                        Click="DownloadImagePackButton1ClickAsync"
                                         IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBooleanConverter}}"
                                         Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Margin="5" />
 
                                 <Button x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
-                                        Click="DownloadImagePackButton2_Click"
+                                        Click="DownloadImagePackButton2ClickAsync"
                                         IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBooleanConverter}}"
                                         Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Margin="5" />
 
                                 <Button x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
-                                        Click="DownloadImagePackButton3_Click"
+                                        Click="DownloadImagePackButton3ClickAsync"
                                         IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBooleanConverter}}"
                                         Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Margin="5" />
 
                                 <Button x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
-                                        Click="DownloadImagePackButton4_Click"
+                                        Click="DownloadImagePackButton4ClickAsync"
                                         IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBooleanConverter}}"
                                         Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Margin="5" />
 
                                 <Button x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
-                                        Click="DownloadImagePackButton5_Click"
+                                        Click="DownloadImagePackButton5ClickAsync"
                                         IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBooleanConverter}}"
                                         Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Margin="5" />
@@ -184,7 +184,7 @@
                 <!-- Main Action Button -->
                 <Button Grid.Column="1" x:Name="AddSystemButton"
                         Content="{DynamicResource AddSystem}"
-                        Click="AddSystemButton_Click"
+                        Click="AddSystemButtonClickAsync"
                         IsEnabled="False"
                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                         FontSize="16" FontWeight="Bold"

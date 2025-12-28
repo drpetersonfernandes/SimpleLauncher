@@ -56,10 +56,10 @@ public partial class FavoritesWindow
         // Set the ItemsSource immediately to the empty collection
         FavoritesDataGrid.ItemsSource = _favoriteList;
 
-        Loaded += FavoritesWindow_Loaded;
+        Loaded += FavoritesWindowLoadedAsync;
     }
 
-    private async void FavoritesWindow_Loaded(object sender, RoutedEventArgs e)
+    private async void FavoritesWindowLoadedAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -88,7 +88,7 @@ public partial class FavoritesWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading favorites data in FavoritesWindow_Loaded.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading favorites data in FavoritesWindowLoadedAsync method.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
@@ -108,7 +108,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the FavoritesWindow_Loaded method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the FavoritesWindowLoadedAsync method.");
         }
     }
 
@@ -390,7 +390,7 @@ public partial class FavoritesWindow
         }
     }
 
-    private async void LaunchGame_Click(object sender, RoutedEventArgs e)
+    private async void LaunchGameClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -408,7 +408,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error in the LaunchGame_Click method.";
+            const string contextMessage = "Error in the LaunchGameClickAsync method.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -424,7 +424,7 @@ public partial class FavoritesWindow
             if (selectedSystemManager == null)
             {
                 // Notify developer
-                const string contextMessage = "selectedSystemManager is null.";
+                const string contextMessage = "[LaunchGameFromFavoritesAsync] selectedSystemManager is null.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -444,7 +444,7 @@ public partial class FavoritesWindow
                 }
 
                 // Notify developer
-                var contextMessage = $"Favorite file does not exist or path resolution failed: {filePath}";
+                var contextMessage = $"[LaunchGameFromFavoritesAsync] Favorite file does not exist or path resolution failed: {filePath}";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -457,7 +457,7 @@ public partial class FavoritesWindow
             if (emulatorManager == null)
             {
                 // Notify developer
-                const string contextMessage = "emulatorManager is null.";
+                const string contextMessage = "[LaunchGameFromFavoritesAsync] emulatorManager is null.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -472,7 +472,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was an error launching the game from Favorites.\n" +
+            var contextMessage = $"[LaunchGameFromFavoritesAsync] There was an error launching the game from Favorites.\n" +
                                  $"File Path: {fileName}\n" +
                                  $"System Name: {selectedSystemName}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
@@ -493,7 +493,7 @@ public partial class FavoritesWindow
         FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
     }
 
-    private async void LaunchGameWithDoubleClick(object sender, MouseButtonEventArgs e)
+    private async void LaunchGameWithDoubleClickAsync(object sender, MouseButtonEventArgs e)
     {
         try
         {
@@ -513,7 +513,7 @@ public partial class FavoritesWindow
         }
     }
 
-    private async void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SetPreviewImageOnSelectionChangedAsync(object sender, SelectionChangedEventArgs e)
     {
         try
         {
@@ -532,7 +532,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 

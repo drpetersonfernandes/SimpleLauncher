@@ -36,7 +36,7 @@ public partial class EditSystemWindow
 
         ApplyExpanderSettings();
 
-        _ = LoadXml();
+        _ = LoadXmlAsync();
 
         Closing += EditSystem_Closing;
 
@@ -54,7 +54,7 @@ public partial class EditSystemWindow
         Emulator5Expander.IsExpanded = _settings.Emulator5Expanded;
     }
 
-    private async Task LoadXml()
+    private async Task LoadXmlAsync()
     {
         try
         {

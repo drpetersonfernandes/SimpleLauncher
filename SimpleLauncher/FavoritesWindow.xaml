@@ -71,7 +71,7 @@
                 <Button Content="{DynamicResource RemovefromFavorites}" Click="RemoveFavoriteButton_Click"
                         Padding="5"
                         Margin="0,0,10,0" />
-                <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGame_Click"
+                <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
                         Padding="5" />
             </StackPanel>
             <DataGrid Name="FavoritesDataGrid"
@@ -86,8 +86,8 @@
                       Grid.Column="0"
                       Margin="10"
                       MouseRightButtonUp="FavoritesPrepareForRightClickContextMenu"
-                      MouseDoubleClick="LaunchGameWithDoubleClick"
-                      SelectionChanged="SetPreviewImageOnSelectionChanged"
+                      MouseDoubleClick="LaunchGameWithDoubleClickAsync"
+                      SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
                       PreviewKeyDown="FavoritesDataGrid_PreviewKeyDown">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />

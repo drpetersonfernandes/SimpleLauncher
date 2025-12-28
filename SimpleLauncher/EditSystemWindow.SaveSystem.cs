@@ -50,13 +50,13 @@ public partial class EditSystemWindow
                 }
 
                 // Update all other fields
-                // Pass the potentially modified strings from SaveSystemButton_Click
+                // Pass the potentially modified strings from SaveSystemButtonClickAsync
                 UpdateXml(existingSystem, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, groupByFolder, formatsToLaunch, emulatorsElement);
             }
             else
             {
                 // Create and add a new system element
-                // Pass the potentially modified strings from SaveSystemButton_Click
+                // Pass the potentially modified strings from SaveSystemButtonClickAsync
                 var newSystem = AddToXml(systemNameText, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, groupByFolder, formatsToLaunch, emulatorsElement);
                 _xmlDoc.Root?.Add(newSystem); // Add to the root
             }
@@ -101,7 +101,7 @@ public partial class EditSystemWindow
         }
     }
 
-    private async void SaveSystemButton_Click(object sender, RoutedEventArgs e)
+    private async void SaveSystemButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {

@@ -42,11 +42,11 @@ public partial class DownloadImagePackWindow : IDisposable
         ImagePacksItemsControl.ItemsSource = ImagePacksToDisplay; // Bind ItemsControl to the collection
 
         // Set up event handlers
-        Closed += CloseWindowRoutine;
-        Loaded += DownloadImagePackWindow_Loaded;
+        Closed += CloseWindowRoutineAsync;
+        Loaded += DownloadImagePackWindowLoadedAsync;
     }
 
-    private async void DownloadImagePackWindow_Loaded(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackWindowLoadedAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -54,7 +54,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[DownloadImagePackWindow_Loaded] Error initializing EasyModeManager.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
         }
     }
 
@@ -161,7 +161,7 @@ public partial class DownloadImagePackWindow : IDisposable
     }
 
     // Single click handler for all dynamic image pack buttons
-    private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -176,13 +176,13 @@ public partial class DownloadImagePackWindow : IDisposable
                     clickedButton.IsEnabled = false; // Disable this specific button
                     item.IsDownloaded = false; // Mark as not downloaded while in progress
 
-                    await HandleDownloadAndExtractComponent(item);
+                    await HandleDownloadAndExtractComponentAsync(item);
                 }
                 catch (Exception ex)
                 {
                     if (_disposed) return; // Check again after catch
 
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButton_Click for {item.DisplayName}.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButtonClickAsync for {item.DisplayName}.");
                     clickedButton.IsEnabled = true; // Re-enable on error
                     item.IsDownloaded = false;
                 }
@@ -191,17 +191,17 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 if (_disposed) return; // Check again after catch
 
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton_Click.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
         }
     }
 
     // Changed signature to accept ImagePackDownloadItem
-    private async Task HandleDownloadAndExtractComponent(ImagePackDownloadItem item)
+    private async Task HandleDownloadAndExtractComponentAsync(ImagePackDownloadItem item)
     {
         if (_disposed) return; // Early exit if window is already disposed
 
@@ -232,7 +232,7 @@ public partial class DownloadImagePackWindow : IDisposable
             UpdateStatus($"{errorInvalidDestinationPath} {componentName}");
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponent] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
 
             return;
         }
@@ -385,7 +385,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         // Validate download URL for at least one image pack (or the one being downloaded)
-        // This method is called before HandleDownloadAndExtractComponent, so it should check generally.
+        // This method is called before HandleDownloadAndExtractComponentAsync, so it should check generally.
         // The specific download button's click handler will check its own URL.
         var hasAnyDownloadLink = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) ||
                                  !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) ||
@@ -507,7 +507,7 @@ public partial class DownloadImagePackWindow : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private async void CloseWindowRoutine(object sender, EventArgs e)
+    private async void CloseWindowRoutineAsync(object sender, EventArgs e)
     {
         try
         {

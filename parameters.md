@@ -2559,6 +2559,15 @@ Core may require BIOS files or system files to work properly.
 
 .
 
+**Emulator Name:** Bsnes<br>
+**Emulator Path (Example):** D:\Emulators\bsnes\bsnes.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
 **Emulator Name:** Snes9x<br>
 **Emulator Path (Example):** c:\emulators\snes9x\snes9x-x64.exe<br>
 **Emulator Parameters (Example):** -fullscreen<br>

@@ -400,67 +400,67 @@
                     </MenuItem.Icon>
                     <MenuItem
                         x:Name="Size50"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 50pixels}" />
                     <MenuItem
                         x:Name="Size100"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 100pixels}" />
                     <MenuItem
                         x:Name="Size150"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 150pixels}" />
                     <MenuItem
                         x:Name="Size200"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 200pixels}" />
                     <MenuItem
                         x:Name="Size250"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 250pixels}" />
                     <MenuItem
                         x:Name="Size300"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 300pixels}" />
                     <MenuItem
                         x:Name="Size350"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 350pixels}" />
                     <MenuItem
                         x:Name="Size400"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 400pixels}" />
                     <MenuItem
                         x:Name="Size450"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 450pixels}" />
                     <MenuItem
                         x:Name="Size500"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 500pixels}" />
                     <MenuItem
                         x:Name="Size550"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 550pixels}" />
                     <MenuItem
                         x:Name="Size600"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 600pixels}" />
                     <MenuItem
                         x:Name="Size650"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 650pixels}" />
                     <MenuItem
                         x:Name="Size700"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 700pixels}" />
                     <MenuItem
                         x:Name="Size750"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 750pixels}" />
                     <MenuItem
                         x:Name="Size800"
-                        Click="ButtonSize_Click"
+                        Click="ButtonSizeClickAsync"
                         Header="{DynamicResource 800pixels}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetButtonAspectRatio}">
@@ -469,31 +469,31 @@
                     </MenuItem.Icon>
                     <MenuItem
                         x:Name="Square"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource Square}" />
                     <MenuItem
                         x:Name="Wider"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource Wider}" />
                     <MenuItem
                         x:Name="SuperWider"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource SuperWider}" />
                     <MenuItem
                         x:Name="SuperWider2"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource SuperWider2}" />
                     <MenuItem
                         x:Name="Taller"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource Taller}" />
                     <MenuItem
                         x:Name="SuperTaller"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource SuperTaller}" />
                     <MenuItem
                         x:Name="SuperTaller2"
-                        Click="ButtonAspectRatio_Click"
+                        Click="ButtonAspectRatioClickAsync"
                         Header="{DynamicResource SuperTaller2}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetNumberOfGamesPerPage}">
@@ -502,35 +502,35 @@
                     </MenuItem.Icon>
                     <MenuItem
                         x:Name="Page100"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 100games}" />
                     <MenuItem
                         x:Name="Page200"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 200games}" />
                     <MenuItem
                         x:Name="Page300"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 300games}" />
                     <MenuItem
                         x:Name="Page400"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 400games}" />
                     <MenuItem
                         x:Name="Page500"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 500games}" />
                     <MenuItem
                         x:Name="Page1000"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 1000games}" />
                     <MenuItem
                         x:Name="Page10000"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 10000games}" />
                     <MenuItem
                         x:Name="Page1000000"
-                        Click="GamesPerPage_Click"
+                        Click="GamesPerPageClickAsync"
                         Header="{DynamicResource 1000000games}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ViewMode}">
@@ -546,18 +546,18 @@
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/noimage.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ShowAll" Header="{DynamicResource ShowAllGames}" Click="ShowAllGames_Click"
+                    <MenuItem x:Name="ShowAll" Header="{DynamicResource ShowAllGames}" Click="ShowAllGamesClickAsync"
                               IsCheckable="True" />
                     <MenuItem x:Name="ShowWithCover" Header="{DynamicResource ShowOnlyGamesWithCover}"
-                              Click="ShowGamesWithCover_Click" IsCheckable="True" />
+                              Click="ShowGamesWithCoverClickAsync" IsCheckable="True" />
                     <MenuItem x:Name="ShowWithoutCover" Header="{DynamicResource ShowOnlyGamesWithoutCover}"
-                              Click="ShowGamesWithoutCover_Click" IsCheckable="True" />
+                              Click="ShowGamesWithoutCoverClickAsync" IsCheckable="True" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource EditLinks}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Click="EditLinks_Click" Header="{DynamicResource EditLinks}">
+                    <MenuItem Click="EditLinksClickAsync" Header="{DynamicResource EditLinks}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" />
                         </MenuItem.Icon>
@@ -580,9 +580,9 @@
                         <Image Source="pack://application:,,,/images/match.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="ToggleFuzzyMatching" Header="{DynamicResource Enable}"
-                              Click="ToggleFuzzyMatching_Click"
+                              Click="ToggleFuzzyMatchingClickAsync"
                               IsCheckable="True" />
-                    <MenuItem Header="{DynamicResource SetThreshold}" Click="SetFuzzyMatchingThreshold_Click">
+                    <MenuItem Header="{DynamicResource SetThreshold}" Click="SetFuzzyMatchingThresholdClickAsync">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/setthreshold.png" Width="16" Height="16" />
                         </MenuItem.Icon>
@@ -835,28 +835,28 @@
                     <Button x:Name="ToggleViewMode"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleViewMode}"
-                            Click="NavToggleViewMode_Click"
+                            Click="NavToggleViewModeClickAsync"
                             AutomationProperties.Name="{DynamicResource ToggleViewMode}">
                         <Image Source="pack://application:,,,/images/show.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ToggleButtonAspectRatio"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleButtonAspectRatio}"
-                            Click="NavToggleButtonAspectRatio_Click"
+                            Click="NavToggleButtonAspectRatioClickAsync"
                             AutomationProperties.Name="{DynamicResource ToggleButtonAspectRatio}">
                         <Image Source="pack://application:,,,/images/aspectratio.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ZoomInButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomIn}"
-                            Click="NavZoomInButton_Click"
+                            Click="NavZoomInButtonClickAsync"
                             AutomationProperties.Name="{DynamicResource ZoomIn}">
                         <Image Source="pack://application:,,,/images/zoom-in.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ZoomOutButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomOut}"
-                            Click="NavZoomOutButton_Click"
+                            Click="NavZoomOutButtonClickAsync"
                             Margin="0,5,2,10"
                             AutomationProperties.Name="{DynamicResource ZoomOut}">
                         <Image Source="pack://application:,,,/images/zoom-out.png" Width="27" Height="27" />
@@ -909,7 +909,7 @@
                         Name="SystemComboBox"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        SelectionChanged="SystemComboBox_SelectionChanged"
+                        SelectionChanged="SystemComboBoxSelectionChangedAsync"
                         AutomationProperties.Name="{DynamicResource SelectSystemComboBox}" />
 
                     <StackPanel x:Name="SearchSystem"
@@ -922,12 +922,12 @@
                                  Width="200"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
-                                 KeyDown="SearchTextBox_KeyDown"
+                                 KeyDown="SearchTextBoxKeyDownAsync"
                                  AutomationProperties.Name="{DynamicResource SearchTextBoxLabel}"
                                  AutomationProperties.HelpText="{DynamicResource SearchTextBoxHelpText}" />
                         <Button x:Name="SearchButton"
                                 Style="{StaticResource NavImageButton3DStyle}"
-                                Click="SearchButton_Click"
+                                Click="SearchButtonClickAsync"
                                 Margin="10,0,0,0"
                                 ToolTip="{DynamicResource Search}"
                                 AutomationProperties.Name="{DynamicResource Search}">
@@ -959,7 +959,7 @@
                         Grid.RowSpan="2"
                         Grid.Column="3"
                         ToolTip="{DynamicResource SelectedSystemFavoriteButton}"
-                        Click="NavSelectedSystemFavoriteButton_Click"
+                        Click="NavSelectedSystemFavoriteButtonClickAsync"
                         Margin="10,10,0,0"
                         AutomationProperties.Name="{DynamicResource SelectedSystemFavoriteButton}">
                         <Image Source="pack://application:,,,/images/star.png" Width="27" Height="27" />
@@ -971,7 +971,7 @@
                         x:Name="RandomLuckGameButton"
                         Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource FeelingLucky}"
-                        Click="NavRandomLuckGameButton_Click"
+                        Click="NavRandomLuckGameButtonClickAsync"
                         Margin="10,10,2,0"
                         AutomationProperties.Name="{DynamicResource FeelingLucky}">
                         <Image Source="pack://application:,,,/images/dice.png" Width="27" Height="27" />
@@ -983,7 +983,7 @@
                         Grid.RowSpan="2"
                         Grid.Column="5"
                         ToolTip="Sort by File Name"
-                        Click="SortOrderToggleButton_Click"
+                        Click="SortOrderToggleButtonClickAsync"
                         Margin="10,10,2,0"
                         Visibility="Collapsed"
                         AutomationProperties.Name="{Binding RelativeSource={RelativeSource Self}, Path=ToolTip}"> <!-- Dynamic AutomationProperties.Name -->
@@ -1010,7 +1010,7 @@
                     <!-- DataGrid in the left column -->
                     <DataGrid Grid.Column="0"
                               Name="GameDataGrid"
-                              MouseDoubleClick="GameListDoubleClickOnSelectedItem"
+                              MouseDoubleClick="GameListDoubleClickOnSelectedItemAsync"
                               ItemsSource="{Binding GameListItems}"
                               Margin="10,5,5,0"
                               BorderThickness="1"
@@ -1145,7 +1145,7 @@
                         Margin="0"
                         ToolTip="{DynamicResource PreviousPage}"
                         Style="{StaticResource NavImageButton3DStyle}"
-                        Click="PrevPageButton_Click"
+                        Click="PrevPageButtonClickAsync"
                         AutomationProperties.Name="{DynamicResource PreviousPage}">
                     <Image Source="pack://application:,,,/images/arrowleft.png"
                            Height="27"
@@ -1155,7 +1155,7 @@
                         Margin="10,0,0,0"
                         ToolTip="{DynamicResource NextPage}"
                         Style="{StaticResource NavImageButton3DStyle}"
-                        Click="NextPageButton_Click"
+                        Click="NextPageButtonClickAsync"
                         AutomationProperties.Name="{DynamicResource NextPage}">
                     <Image Source="pack://application:,,,/images/arrowright.png"
                            Height="27"

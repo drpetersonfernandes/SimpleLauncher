@@ -734,7 +734,7 @@ public static class ContextMenuFunctions
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not create the system image folder: {systemImageFolder}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
             }
 
             // Capture initial window count before launch
@@ -872,7 +872,7 @@ public static class ContextMenuFunctions
                 catch (Exception ex)
                 {
                     // Notify developer
-                    const string contextMessage = "Failed to update button image after screenshot.";
+                    const string contextMessage = "[TakeScreenshotOfSelectedWindow] Failed to update button image after screenshot.";
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Do not notify the user
@@ -887,14 +887,14 @@ public static class ContextMenuFunctions
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "There was a problem loading the Game Files.";
+                const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem loading the Game Files.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "There was a problem saving the screenshot.";
+            const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user

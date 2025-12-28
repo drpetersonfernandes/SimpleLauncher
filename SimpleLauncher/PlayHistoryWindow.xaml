@@ -73,7 +73,7 @@
                 <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
                         Padding="5"
                         Margin="0,0,10,0" />
-                <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGame_Click"
+                <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
                         Padding="5"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource SortByDate}" Click="SortByDate_Click"
@@ -97,8 +97,8 @@
                       Grid.Column="0"
                       Margin="10"
                       MouseRightButtonUp="PlayHistoryPrepareForRightClickContext"
-                      MouseDoubleClick="LaunchGameWithDoubleClick"
-                      SelectionChanged="SetPreviewImageOnSelectionChanged"
+                      MouseDoubleClick="LaunchGameWithDoubleClickAsync"
+                      SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
                       PreviewKeyDown="DeleteHistoryItemWithDelButton">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />

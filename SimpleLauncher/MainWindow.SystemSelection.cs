@@ -108,12 +108,12 @@ public partial class MainWindow
             // Apply the 3D style from MainWindow's resources
             systemButton.SetResourceReference(StyleProperty, "SystemButtonStyle");
 
-            systemButton.Click += SystemButton_Click;
+            systemButton.Click += SystemButtonClickAsync;
             GameFileGrid.Children.Add(systemButton);
         }
     }
 
-    private async void SystemButton_Click(object sender, RoutedEventArgs e)
+    private async void SystemButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -136,7 +136,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in SystemButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in SystemButtonClickAsync.");
         }
     }
 
@@ -202,7 +202,7 @@ public partial class MainWindow
         return Task.FromResult(File.Exists(defaultImagePath) ? defaultImagePath : Path.Combine(appBaseDir, "images", "default.png"));
     }
 
-    private async void NavToggleButtonAspectRatio_Click(object sender, RoutedEventArgs e)
+    private async void NavToggleButtonAspectRatioClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -236,7 +236,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = "Error in the method NavToggleButtonAspectRatio_Click.";
+            const string errorMessage = "Error in the method NavToggleButtonAspectRatioClickAsync.";
             _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user

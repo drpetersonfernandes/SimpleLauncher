@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center">
             <Button x:Name="StartButton"
                     Width="110"
-                    Click="StartButton_Click"
+                    Click="StartButtonClickAsync"
                     Content="{DynamicResource StartProcess}" />
         </StackPanel>
 

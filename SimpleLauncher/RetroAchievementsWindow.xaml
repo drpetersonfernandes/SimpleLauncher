@@ -637,9 +637,9 @@
                         <TextBlock Text="To:" VerticalAlignment="Center" Margin="15,0,5,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                         <DatePicker x:Name="ToDatePicker" Width="120" ToolTip="Select the end date for unlocks (defaults to today)"
                                     Style="{DynamicResource MahApps.Styles.DatePicker}" />
-                        <Button Content="Fetch Unlocks" Click="FetchUnlocks_Click" Margin="15,0,0,0" Padding="10,5" x:Name="FetchUnlocksButton"
+                        <Button Content="Fetch Unlocks" Click="FetchUnlocksClickAsync" Margin="15,0,0,0" Padding="10,5" x:Name="FetchUnlocksButton"
                                 Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
-                        <Button Content="Reset Dates" Click="ResetDates_Click" Margin="10,0,0,0" Padding="10,5"
+                        <Button Content="Reset Dates" Click="ResetDatesClickAsync" Margin="10,0,0,0" Padding="10,5"
                                 Style="{DynamicResource MahApps.Styles.Button.Square}" />
                     </StackPanel>
 

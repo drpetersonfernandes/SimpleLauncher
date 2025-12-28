@@ -909,7 +909,7 @@ public partial class RetroAchievementsWindow
         });
     }
 
-    private async void FetchUnlocks_Click(object sender, RoutedEventArgs e)
+    private async void FetchUnlocksClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -949,7 +949,7 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private async void ResetDates_Click(object sender, RoutedEventArgs e)
+    private async void ResetDatesClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {

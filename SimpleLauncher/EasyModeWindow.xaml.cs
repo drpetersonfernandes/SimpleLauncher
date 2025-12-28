@@ -222,11 +222,11 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
-        Closed += CloseWindowRoutine;
-        Loaded += EasyModeWindow_Loaded;
+        Closed += CloseWindowRoutineAsync;
+        Loaded += EasyModeWindowLoadedAsync;
     }
 
-    private async void EasyModeWindow_Loaded(object sender, RoutedEventArgs e)
+    private async void EasyModeWindowLoadedAsync(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -234,7 +234,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[EasyModeWindow_Loaded] Error initializing EasyModeManager.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[EasyModeWindowLoadedAsync] Error initializing EasyModeManager.");
         }
     }
 
@@ -388,94 +388,94 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder);
     }
 
-    private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
+    private async void DownloadEmulatorButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.Emulator);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.Emulator);
         }
         catch (Exception ex)
         {
             if (_disposed) return;
 
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButtonClickAsync.");
         }
     }
 
-    private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
+    private async void DownloadCoreButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.Core);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.Core);
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadCoreButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadCoreButtonClickAsync.");
         }
     }
 
-    private async void DownloadImagePackButton1_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton1ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack1);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack1);
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton1ClickAsync.");
         }
     }
 
-    private async void DownloadImagePackButton2_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton2ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack2);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack2);
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton2ClickAsync.");
         }
     }
 
-    private async void DownloadImagePackButton3_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton3ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack3);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack3);
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton3ClickAsync.");
         }
     }
 
-    private async void DownloadImagePackButton4_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton4ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack4);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack4);
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton4ClickAsync.");
         }
     }
 
-    private async void DownloadImagePackButton5_Click(object sender, RoutedEventArgs e)
+    private async void DownloadImagePackButton5ClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack5);
+            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack5);
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton5ClickAsync.");
         }
     }
 
     // Helper method to reduce code duplication for downloads and extractions
-    private async Task HandleDownloadAndExtractComponent(DownloadType type)
+    private async Task HandleDownloadAndExtractComponentAsync(DownloadType type)
     {
         if (_disposed) return;
 
@@ -569,7 +569,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponent] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
 
             return;
         }
@@ -751,7 +751,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         DownloadStatus = cancelingdownload2;
     }
 
-    private async void AddSystemButton_Click(object sender, RoutedEventArgs e)
+    private async void AddSystemButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try // Top-level catch for async Task method
         {
@@ -838,7 +838,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
         }
     }
 
@@ -1047,7 +1047,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     }
 
 
-    private async void CloseWindowRoutine(object sender, EventArgs e)
+    private async void CloseWindowRoutineAsync(object sender, EventArgs e)
     {
         try // Top-level catch for async Task method
         {
