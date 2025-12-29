@@ -49,7 +49,7 @@ public class ScanAmazonGames
                         var shortcutContent = $"[InternetShortcut]\nURL=amazon-games://play/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath);
+                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, title, installDir, sanitizedGameName, windowsImagesPath);
                     }
                 }
                 catch (Exception ex)

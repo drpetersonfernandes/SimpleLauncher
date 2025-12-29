@@ -74,7 +74,7 @@ public class ScanHumbleGames
                             fullExePath = Path.Combine(installDir, exePath);
                         }
 
-                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
                     }
                     catch (Exception ex)
                     {

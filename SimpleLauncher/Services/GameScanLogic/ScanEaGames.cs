@@ -36,7 +36,7 @@ public class ScanEaGames
                     var shortcutContent = $"[InternetShortcut]\nURL=origin2://game/launch?offerIds={contentId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath);
+                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath);
                 }
                 catch (Exception ex)
                 {

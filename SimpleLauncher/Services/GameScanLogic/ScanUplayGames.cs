@@ -51,7 +51,7 @@ public class ScanUplayGames
                             fullExePath = gameExe;
                         }
 
-                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
                     }
                     catch (Exception ex)
                     {

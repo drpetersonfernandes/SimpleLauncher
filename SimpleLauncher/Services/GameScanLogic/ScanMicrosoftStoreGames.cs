@@ -164,7 +164,7 @@ public static class ScanMicrosoftStoreGames
                     // Attempt Icon Extraction
                     if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                     {
-                        await TryExtractStoreIcon(logErrors, installLocation, logoRelativePath, sanitizedGameName, windowsImagesPath);
+                        await TryExtractStoreIcon(logErrors, name, installLocation, logoRelativePath, sanitizedGameName, windowsImagesPath);
                     }
                 }
                 catch (Exception ex)
@@ -179,25 +179,39 @@ public static class ScanMicrosoftStoreGames
         }
     }
 
-    private static async Task TryExtractStoreIcon(ILogErrors logErrors, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
+    private static async Task TryExtractStoreIcon(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
+        var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
+        if (File.Exists(destPath)) return;
+
+        // 1. Try API first
+        if (await GameScannerService.TryDownloadImageFromApiAsync(gameName, destPath, logErrors))
+        {
+            return;
+        }
+
         try
         {
-            var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-            if (File.Exists(destPath)) return;
-
-            // 1. Try the Logo property returned by PowerShell (often points to Assets\StoreLogo.png or similar)
+            // 2. Try the Logo property returned by PowerShell (often points to Assets\StoreLogo.png or similar)
             if (!string.IsNullOrEmpty(logoRelativePath))
             {
                 var fullLogoPath = Path.Combine(installPath, logoRelativePath);
                 if (File.Exists(fullLogoPath))
                 {
-                    File.Copy(fullLogoPath, destPath, true);
-                    return;
+                    // Use try-catch for file operations
+                    try
+                    {
+                        File.Copy(fullLogoPath, destPath, true);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                    }
                 }
             }
 
-            // 2. Heuristic Search: Look for common logo names
+            // 3. Heuristic Search: Look for common logo names
             // Windows Store apps often use "targetsize" naming for scaled icons.
             var possibleFiles = new List<string>
             {
@@ -219,8 +233,16 @@ public static class ScanMicrosoftStoreGames
                     var p = Path.Combine(dir, fileName);
                     if (File.Exists(p))
                     {
-                        File.Copy(p, destPath, true);
-                        return;
+                        try
+                        {
+                            File.Copy(p, destPath, true);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                            // Continue to next possibility
+                        }
                     }
                 }
 
@@ -233,8 +255,15 @@ public static class ScanMicrosoftStoreGames
 
                 if (bestIcon != null)
                 {
-                    File.Copy(bestIcon, destPath, true);
-                    return;
+                    try
+                    {
+                        File.Copy(bestIcon, destPath, true);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                    }
                 }
 
                 // Fallback: Just take the largest PNG in the Assets folder
@@ -243,11 +272,21 @@ public static class ScanMicrosoftStoreGames
                     var largestPng = pngs.OrderByDescending(f => new FileInfo(f).Length).FirstOrDefault();
                     if (largestPng != null)
                     {
-                        File.Copy(largestPng, destPath, true);
-                        return;
+                        try
+                        {
+                            File.Copy(largestPng, destPath, true);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+                        }
                     }
                 }
             }
+
+            // 4. Final fallback to extracting icon from an EXE in the install folder
+            await GameScannerService.ExtractIconFromGameFolder(logErrors, installPath, sanitizedGameName, windowsImagesPath);
         }
         catch (Exception ex)
         {

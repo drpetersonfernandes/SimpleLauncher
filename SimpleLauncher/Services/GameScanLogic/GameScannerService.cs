@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
@@ -145,42 +149,84 @@ public class GameScannerService
         }
     }
 
+    internal static async Task<bool> TryDownloadImageFromApiAsync(string gameName, string destinationPath, ILogErrors logErrors)
+    {
+        if (string.IsNullOrWhiteSpace(gameName)) return false;
+
+        try
+        {
+            var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+            using var client = httpClientFactory.CreateClient("GameImageClient");
+
+            var encodedGameName = System.Net.WebUtility.UrlEncode(gameName);
+            var response = await client.GetAsync($"api/v1/games/search?name={encodedGameName}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
+                {
+                    DebugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                }
+
+                return false;
+            }
+
+            await using var jsonStream = await response.Content.ReadAsStreamAsync();
+            var apiResponse = await JsonSerializer.DeserializeAsync<GameImageApiResponse>(jsonStream);
+
+            if (apiResponse is { Success: true, ImageUrl: not null } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
+            {
+                using var imageClient = httpClientFactory.CreateClient(); // Use a general client for external URL
+                var imageBytes = await imageClient.GetByteArrayAsync(apiResponse.ImageUrl);
+                await File.WriteAllBytesAsync(destinationPath, imageBytes);
+                DebugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            await logErrors.LogErrorAsync(ex, $"Failed to fetch or download image for '{gameName}' from API.");
+        }
+
+        return false;
+    }
+
+    internal static async Task FindAndSaveGameImageAsync(ILogErrors logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    {
+        try
+        {
+            var imagePath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
+            if (File.Exists(imagePath)) return;
+
+            // 1. Try to download from API
+            if (await TryDownloadImageFromApiAsync(originalGameName, imagePath, logErrors))
+            {
+                return;
+            }
+
+            // 2. Fallback to extracting icon from EXE
+            var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
+            if (mainExe != null)
+            {
+                IconExtractor.SaveIconFromExe(mainExe, imagePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            await logErrors.LogErrorAsync(ex, $"Failed to find/save image for {sanitizedGameName} in {gameInstallPath}");
+        }
+    }
+
+    // This is the final fallback for special cases like Steam/Microsoft Store
     internal static async Task ExtractIconFromGameFolder(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
         try
         {
             var iconPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-            if (File.Exists(iconPath) || !Directory.Exists(gameInstallPath)) return;
+            if (File.Exists(iconPath)) return;
 
-            var mainExe = specificExePath;
-
-            if (string.IsNullOrEmpty(mainExe) || !File.Exists(mainExe))
-            {
-                // Heuristics to find the main EXE
-                var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
-
-                // 1. Name match
-                // 2. Contains name
-                mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase)) ?? exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
-
-                // 3. Largest EXE (ignoring uninstallers/unity crash handlers)
-                if (mainExe == null && exeFiles.Length > 0)
-                {
-                    mainExe = exeFiles
-                        .Where(static f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("redist", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("dxsetup", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("update", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
-                                           !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
-                        .OrderByDescending(static f => new FileInfo(f).Length)
-                        .FirstOrDefault();
-                }
-            }
-
-            if (mainExe != null && File.Exists(mainExe))
+            var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
+            if (mainExe != null)
             {
                 IconExtractor.SaveIconFromExe(mainExe, iconPath);
             }
@@ -189,5 +235,41 @@ public class GameScannerService
         {
             await logErrors.LogErrorAsync(ex, $"Failed to extract icon for {sanitizedGameName} in {gameInstallPath}");
         }
+    }
+
+    private static string FindMainExecutable(string gameInstallPath, string sanitizedGameName, string specificExePath = null)
+    {
+        if (!Directory.Exists(gameInstallPath)) return null;
+
+        // 1. Use the specific path if provided and it exists.
+        if (!string.IsNullOrEmpty(specificExePath) && File.Exists(specificExePath))
+        {
+            return specificExePath;
+        }
+
+        // 2. Heuristics to find the main EXE
+        var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
+        if (exeFiles.Length == 0) return null;
+
+        // 2a. Name match
+        var mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+        if (mainExe != null) return mainExe;
+
+        // 2b. Contains name
+        mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+        if (mainExe != null) return mainExe;
+
+        // 2c. Largest EXE (ignoring common non-game executables)
+        return exeFiles
+            .Where(static f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("redist", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("dxsetup", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("update", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
+                               !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
+            .OrderByDescending(static f => new FileInfo(f).Length)
+            .FirstOrDefault();
     }
 }

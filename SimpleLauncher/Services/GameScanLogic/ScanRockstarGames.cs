@@ -82,7 +82,7 @@ public class ScanRockstarGames
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
                                     var exePath = Path.Combine(installLocation, gameDef.Exe);
-                                    await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameDef.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
                                 }
                             }
                         }

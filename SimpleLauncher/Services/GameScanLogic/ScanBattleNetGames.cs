@@ -100,7 +100,7 @@ public class ScanBattleNetGames
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
-                                    await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath);
+                                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath);
                                 }
                             }
                         }
@@ -118,7 +118,7 @@ public class ScanBattleNetGames
                                 var exePath = Path.Combine(installLocation, def.Exe);
                                 var batContent = $"@echo off\r\ncd /d \"{installLocation}\"\r\nstart \"\" \"{def.Exe}\"";
                                 await File.WriteAllTextAsync(shortcutPath, batContent);
-                                await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                await GameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
                             }
                         }
                     }

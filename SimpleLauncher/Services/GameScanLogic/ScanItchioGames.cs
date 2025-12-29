@@ -106,7 +106,7 @@ public class ScanItchioGames
                         var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(launchExe)}\"\r\nstart \"\" \"{Path.GetFileName(launchExe)}\"";
                         await File.WriteAllTextAsync(batPath, batContent);
 
-                        await GameScannerService.ExtractIconFromGameFolder(logErrors, gameDir, sanitizedGameName, windowsImagesPath, launchExe);
+                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, prettyName, gameDir, sanitizedGameName, windowsImagesPath, launchExe);
                     }
                 }
                 catch (Exception ex)

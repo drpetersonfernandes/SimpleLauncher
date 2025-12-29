@@ -44,6 +44,11 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("UpdateCheckerClient");
         serviceCollection.AddHttpClient("SupportWindowClient");
         serviceCollection.AddHttpClient("RetroAchievementsClient");
+        serviceCollection.AddHttpClient("GameImageClient", client =>
+        {
+            var apiUrl = Configuration.GetValue<string>("ApiSettings:GameImageUrl");
+            client.BaseAddress = new Uri(apiUrl ?? "https://simple-launcher-api.doutorpeterson.workers.dev/");
+        });
         serviceCollection.AddHttpClient("EasyModeClient", static client =>
         {
             // Set the base address for the EasyMode configuration API

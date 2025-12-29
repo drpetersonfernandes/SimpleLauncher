@@ -144,7 +144,7 @@ public class ScanSteamGames
                     var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await TryCopySteamArtworkAsync(logErrors, steamPath, appId, sanitizedGameName, gameInstallPath, windowsImagesPath);
+                    await TryCopySteamArtworkAsync(logErrors, steamPath, appId, gameName, sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
             }
         }
@@ -223,43 +223,49 @@ public class ScanSteamGames
         }
     }
 
-    private static async Task TryCopySteamArtworkAsync(ILogErrors logErrors, string steamPath, string appId, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
+    private static async Task TryCopySteamArtworkAsync(ILogErrors logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
     {
         var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         if (File.Exists(destArtworkPath)) return;
 
+        // 1. Try API first
+        if (await GameScannerService.TryDownloadImageFromApiAsync(gameName, destArtworkPath, logErrors))
+        {
+            return;
+        }
+
+        // 2. Try Steam's local artwork cache
         var cachePath = Path.Combine(steamPath, "appcache", "librarycache");
-        if (!Directory.Exists(cachePath)) return;
-
-        string[] searchPatterns =
+        if (Directory.Exists(cachePath))
         {
-            $"{appId}_library_600x900.jpg",
-            $"{appId}_header.jpg",
-            $"{appId}_library_hero.jpg"
-        };
-
-        foreach (var pattern in searchPatterns)
-        {
-            var sourcePath = Path.Combine(cachePath, pattern);
-            if (File.Exists(sourcePath))
+            string[] searchPatterns =
             {
-                try
-                {
-                    // Convert JPG to PNG
-                    using var image = Image.FromFile(sourcePath);
-                    image.Save(destArtworkPath, ImageFormat.Png);
+                $"{appId}_library_600x900.jpg",
+                $"{appId}_header.jpg",
+                $"{appId}_library_hero.jpg"
+            };
 
-                    return; // Successfully converted and saved
-                }
-                catch (Exception ex)
+            foreach (var pattern in searchPatterns)
+            {
+                var sourcePath = Path.Combine(cachePath, pattern);
+                if (File.Exists(sourcePath))
                 {
-                    await logErrors.LogErrorAsync(ex, $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
-                    // Continue to the next pattern or fallback if conversion fails
+                    try
+                    {
+                        // Convert JPG to PNG
+                        using var image = Image.FromFile(sourcePath);
+                        image.Save(destArtworkPath, ImageFormat.Png);
+                        return; // Successfully converted and saved
+                    }
+                    catch (Exception ex)
+                    {
+                        await logErrors.LogErrorAsync(ex, $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
+                    }
                 }
             }
         }
 
-        // Fallback to EXE icon if no artwork was found or successfully converted
+        // 3. Fallback to EXE icon if no artwork was found
         await GameScannerService.ExtractIconFromGameFolder(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
     }
 }

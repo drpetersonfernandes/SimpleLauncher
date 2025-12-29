@@ -166,7 +166,11 @@ public class ScanEpicGames
         if (!string.IsNullOrEmpty(installLocation) && !string.IsNullOrEmpty(launchExecutable))
         {
             var fullExePath = Path.Combine(installLocation, launchExecutable);
-            await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
+            await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
+        }
+        else if (!string.IsNullOrEmpty(installLocation))
+        {
+            await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath);
         }
     }
 }

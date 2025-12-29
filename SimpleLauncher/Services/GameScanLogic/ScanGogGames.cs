@@ -93,7 +93,7 @@ public class ScanGogGames
                         var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://launch/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        await GameScannerService.ExtractIconFromGameFolder(logErrors, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
+                        await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
                     }
                     catch (Exception ex)
                     {
