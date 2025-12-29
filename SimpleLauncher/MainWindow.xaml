@@ -637,24 +637,25 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource GlobalSearch}">
-                <MenuItem Click="ShowGlobalSearchWindow_Click" Header="{DynamicResource GlobalSearch}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/search2.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="{DynamicResource Favorites}">
+            <MenuItem Header="{DynamicResource SelectWindow}">
                 <MenuItem Click="ShowFavoritesWindow_Click" Header="{DynamicResource Favorites}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/heart.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="{DynamicResource PlayHistory}">
+                <MenuItem Click="ShowGlobalSearchWindow_Click" Header="{DynamicResource GlobalSearch}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/search2.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Click="ShowPlayHistoryWindow_Click" Header="{DynamicResource PlayHistory}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="ShowRetroAchievementsWindow_Click" Header="{DynamicResource RetroAchievements}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -804,13 +805,6 @@
                             AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}">
                         <Image Source="pack://application:,,,/images/darkmode.png" Width="27" Height="27" />
                     </Button>
-                    <Button x:Name="NavGlobalSearchButton"
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource GlobalSearch}"
-                            Click="NavGlobalSearchButton_Click"
-                            AutomationProperties.Name="{DynamicResource GlobalSearch}">
-                        <Image Source="pack://application:,,,/images/search2.png" Width="27" Height="27" />
-                    </Button>
                     <Button x:Name="NavFavoritesButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Favorites}"
@@ -818,12 +812,26 @@
                             AutomationProperties.Name="{DynamicResource Favorites}">
                         <Image Source="pack://application:,,,/images/heart.png" Width="27" Height="27" />
                     </Button>
+                    <Button x:Name="NavGlobalSearchButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
+                            ToolTip="{DynamicResource GlobalSearch}"
+                            Click="NavGlobalSearchButton_Click"
+                            AutomationProperties.Name="{DynamicResource GlobalSearch}">
+                        <Image Source="pack://application:,,,/images/search2.png" Width="27" Height="27" />
+                    </Button>
                     <Button x:Name="NavHistoryButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource PlayHistory}"
                             Click="NavHistoryButton_Click"
                             AutomationProperties.Name="{DynamicResource PlayHistory}">
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="27" Height="27" />
+                    </Button>
+                    <Button x:Name="NavRetroAchievementsButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
+                            ToolTip="{DynamicResource RetroAchievements}"
+                            Click="NavRetroAchievementsButton_Click"
+                            AutomationProperties.Name="{DynamicResource RetroAchievements}">
+                        <Image Source="pack://application:,,,/images/trophy.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="NavExpertModeButton"
                             Style="{StaticResource NavImageButton3DStyle}"

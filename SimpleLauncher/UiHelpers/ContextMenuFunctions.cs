@@ -374,7 +374,7 @@ public static class ContextMenuFunctions
                 // Ensure this is run on the UI thread as it creates a new window
                 await mainWindow.Dispatcher.InvokeAsync(() =>
                 {
-                    var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
+                    var achievementsWindow = new RetroAchievementsForAGameWindow(matchedGame.Id, fileNameWithoutExtension);
                     achievementsWindow.Owner = mainWindow; // Set owner
                     achievementsWindow.Show();
                 });

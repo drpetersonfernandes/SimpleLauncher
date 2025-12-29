@@ -654,6 +654,16 @@ public partial class MainWindow
         playHistoryWindow.Show();
     }
 
+    private void ShowRetroAchievementsWindow_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", this);
+
+        var retroAchievementsWindow = new RetroAchievementsWindow();
+        retroAchievementsWindow.Owner = this;
+        retroAchievementsWindow.Show();
+    }
+
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
         Size50.IsChecked = selectedSize == 50;
@@ -841,6 +851,11 @@ public partial class MainWindow
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
         ShowPlayHistoryWindow_Click(sender, e);
+    }
+
+    private void NavRetroAchievementsButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowRetroAchievementsWindow_Click(sender, e);
     }
 
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
