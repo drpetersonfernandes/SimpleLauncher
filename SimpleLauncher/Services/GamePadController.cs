@@ -315,18 +315,24 @@ public class GamePadController : IDisposable
                     }
                     catch (Exception ex)
                     {
-                        // This catch block handles exceptions from the outer logic of Update,
-                        // like checking _xinputController.IsConnected if _xinputController somehow became null (unlikely with current init).
-                        // Or exceptions from the reconnection logic itself if it's called directly here.
-                        // The specific NRE caught and ignored previously is now handled more granularly
-                        // or should be prevented by better DirectInput management.
-                        // Notify developer
-                        ErrorLogger?.Invoke(ex, $"Unexpected error in GamePadController Update loop.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}");
+                        // Check for the specific UIPI exception from InputSimulatorCore.
+                        // This is a known limitation when trying to send input to a higher-privilege window.
+                        // We will log it for debugging but not report it as a critical error to the user or developer.
+                        if (ex.Message.Contains("User Interface Privacy Isolation (UIPI)", StringComparison.OrdinalIgnoreCase))
+                        {
+                            DebugLogger.Log($"[GamePadController] UIPI blocked input simulation: {ex.Message}");
+                            // Do not call ErrorLogger or show a message box. This is an expected OS behavior.
+                        }
+                        else
+                        {
+                            // For any other unexpected exception, log it and notify the user.
+                            ErrorLogger?.Invoke(ex, $"Unexpected error in GamePadController Update loop.\n\n" +
+                                                    $"Exception type: {ex.GetType().Name}\n" +
+                                                    $"Exception details: {ex.Message}");
 
-                        // Notify user
-                        Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                            // Notify user
+                            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                        }
 
                         // Attempt reconnection as a recovery step
                         // Do NOT call CheckAndReconnectControllers here - it will be called by the timer
