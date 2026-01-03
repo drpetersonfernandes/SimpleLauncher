@@ -944,7 +944,7 @@ internal static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileMissingMessageBox()
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         static void ShowMessage()
