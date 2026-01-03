@@ -636,6 +636,12 @@
                             Source="pack://application:,,,/images/image.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Click="ScanForMicrosoftWindowsGames_Click" Header="{DynamicResource ScanForMicrosoftWindowsGames}">
+                    <MenuItem.Icon>
+                        <Image
+                            Source="pack://application:,,,/images/search2.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource SelectWindow}">
                 <MenuItem Click="ShowFavoritesWindow_Click" Header="{DynamicResource Favorites}">
