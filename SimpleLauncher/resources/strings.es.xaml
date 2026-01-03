@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ScanForMicrosoftWindowsGames">Buscar juegos de Microsoft Windows</system:String>
+
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
     <system:String x:Key="1000games">1000 juegos</system:String>
