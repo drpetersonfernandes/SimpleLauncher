@@ -228,7 +228,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
                     // This is the first run. Let's scan for Windows games automatically.
-                    SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for installed Windows games...");
+                    SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
                     try
                     {
                         await _gameScannerService.ScanForStoreGamesAsync();

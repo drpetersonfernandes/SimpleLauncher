@@ -61,20 +61,19 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">Applying game visibility filter...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">Applying game visibility settings...</system:String>
     <system:String x:Key="ArchivePathMessage">Archive file:</system:String>
-    <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Are you sure you want to delete the cover image of</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Are you sure you want to delete the file</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Are you sure you want to delete this system?</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Are you sure you want to remove all play history?</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.</system:String>
+    <system:String x:Key="AskAIPerplexityai">Ask AI (Perplexity.ai)</system:String>
+    <system:String x:Key="AskAIPhindcom">Ask AI (Phind.com)</system:String>
+    <system:String x:Key="AskAIYoucom">Ask AI (You.com)</system:String>
+    <system:String x:Key="AskToRescanWindowsGamesMessage">The 'Microsoft Windows' system has been selected. Would you like to rescan your system to update the list of installed Windows games (Steam, Epic, GOG, etc.)?</system:String>
     <system:String x:Key="assoonasyouselectawindow">As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.</system:String>
     <system:String x:Key="Attention">Attention</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.</system:String>
     <system:String x:Key="BaseTheme">Base Theme</system:String>
-    <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
-    <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
-    <system:String x:Key="BatchConvertToCompressedFile">Batch Convert To Compressed File</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Batch Convert To RVZ</system:String>
     <system:String x:Key="Blue">Blue</system:String>
     <system:String x:Key="Brown">Brown</system:String>
     <system:String x:Key="ButIfoundabackupfile">But I found a backup file.</system:String>
@@ -85,7 +84,6 @@
     <system:String x:Key="CancelButtonText">Cancel</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="CancellingPleasewait">Cancelling ... Please wait</system:String>
-    <system:String x:Key="cannotbeextracted">can not be extracted.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Cannot create or access the extraction folder.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Cannot take a screenshot of a minimized window.</system:String>
     <system:String x:Key="Cart">Cart</system:String>
@@ -102,7 +100,6 @@
     <system:String x:Key="ChooseFile">Choose file</system:String>
     <system:String x:Key="ChooseFolder">Choose Folder</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Select a folder containing ROMs or ISOs</system:String>
-    <system:String x:Key="CleaningUpMissingHistoryEntries">Cleaning up missing history entries...</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
@@ -111,6 +108,7 @@
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmClose">Confirm Close</system:String>
     <system:String x:Key="ConfirmDeletion">Confirm Deletion</system:String>
+    <system:String x:Key="ContactDeveloper">Contact Developer (Report Bug)</system:String>
     <system:String x:Key="CopyError">Copy Error</system:String>
     <system:String x:Key="Core">Core</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
@@ -119,11 +117,6 @@
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Could not open sound configuration window</system:String>
     <system:String x:Key="Cover">Cover</system:String>
     <system:String x:Key="Covernotfound">Cover not found</system:String>
-    <system:String x:Key="CreateBatchFilesForPS3Games">Create Batch Files For PS3 Games</system:String>
-    <system:String x:Key="CreateBatchFilesForScummVMGames">Create Batch Files For ScummVM Games</system:String>
-    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Create Batch Files For Sega Model3 Games</system:String>
-    <system:String x:Key="CreateBatchFilesForWindowsGames">Create Batch Files For Windows Games</system:String>
-    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Create Batch Files For Xbox 360 XBLA Games</system:String>
     <system:String x:Key="Creatingsystemfolders">Creating system folders...</system:String>
     <system:String x:Key="Crimson">Crimson</system:String>
     <system:String x:Key="CurrentSystemInfo">Current System</system:String>
@@ -167,7 +160,7 @@
     <system:String x:Key="DownloadorExtractionFailed">Download or extraction failed.</system:String>
     <system:String x:Key="downloadprocess">download process.</system:String>
     <system:String x:Key="DownloadProgress">Download Progress</system:String>
-    <system:String x:Key="Doyouwantsupport">Do you want support?</system:String>
+    <system:String x:Key="DoYouWantSupport">Do you want support?</system:String>
     <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Do you want to add your first system using the Easy Mode?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Do you want to automatically reinstall 'Simple Launcher' to fix the problem?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
@@ -175,7 +168,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Do you want to download and install the latest version automatically?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Do you want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Do you want to open the file 'error_user.log' to debug the error?</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Do you want to receive support from the developer?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Do you want to reinstall 'Simple Launcher' to fix the issue?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Do you want to search online for the ROM history?</system:String>
     <system:String x:Key="EasyMode">Easy Mode</system:String>
@@ -211,10 +203,10 @@
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
     <system:String x:Key="Emulator5Path">Emulator 5 Path</system:String>
     <system:String x:Key="Emulator5pathisrequired">Emulator 5 path is required.</system:String>
-    <system:String x:Key="EmulatorLocation">Emulator Location</system:String>
     <system:String x:Key="EmulatorName">Emulator Name</system:String>
     <system:String x:Key="Emulatornameisrequired">Emulator name is required.</system:String>
     <system:String x:Key="EmulatorParameters">Emulator Parameters</system:String>
+    <system:String x:Key="EmulatorPath">Emulator Path</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator path is not valid for</system:String>
     <system:String x:Key="Enable">Enable</system:String>
     <system:String x:Key="EnableNotificationSound">Enable notification sound</system:String>
@@ -229,16 +221,20 @@
     <system:String x:Key="Error">Error</system:String>
     <system:String x:Key="ErrorDetails">Details:</system:String>
     <system:String x:Key="Errorduring">Error during</system:String>
+    <system:String x:Key="Errorduringdownload">Error during download</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Error: Failed to add system.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Failed to extract</system:String>
     <system:String x:Key="ErrorInvalidDestinationPath">Error: Invalid destination path for</system:String>
-    <system:String x:Key="Errorloadingthefileeasymodexml">Error loading the file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Error: No download URL for</system:String>
+    <system:String x:Key="ErrorOpeningFolderMessage">Could not open the temporary folder.</system:String>
+    <system:String x:Key="ErrorOpeningFolderTitle">Error Opening Folder</system:String>
     <system:String x:Key="ErrorOpeningInfoLink">Error opening info link.</system:String>
     <system:String x:Key="ErrorOpeningROMHistory">Error opening ROM history.</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Error opening the download link.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error opening the Update History window.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Error opening video link.</system:String>
+    <system:String x:Key="ErrorScanningWindowsGamesMessage">An error occurred while scanning for Windows games. Please check the log file for details.</system:String>
+    <system:String x:Key="ErrorScanningWindowsGamesTitle">Scan Error</system:String>
     <system:String x:Key="errorSettingSoundFile">Error choosing or copying sound file.</system:String>
     <system:String x:Key="ExecutingSearch">Executing search...</system:String>
     <system:String x:Key="Exit">Exit</system:String>
@@ -252,6 +248,8 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Extract File Before Launch?</system:String>
     <system:String x:Key="Extracting">Extracting</system:String>
     <system:String x:Key="Extractionfailed">Extraction failed.</system:String>
+    <system:String x:Key="ExtractionFailedMessage">The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.</system:String>
+    <system:String x:Key="ExtractionFailedTitle">Extraction Failed</system:String>
     <system:String x:Key="Failedtocopylogcontent">Failed to copy log content.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Failed to load language resources.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Failed to load the image in the Image Viewer window.</system:String>
@@ -334,7 +332,6 @@
     <system:String x:Key="ImagePack3">Image Pack 3</system:String>
     <system:String x:Key="ImagePack4">Image Pack 4</system:String>
     <system:String x:Key="ImagePack5">Image Pack 5</system:String>
-    <system:String x:Key="ImagePackdownloadorextraction">Image Pack download or extraction failed!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">In case the Image Pack is not available you can download Images for this system in the following websites:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>
@@ -346,8 +343,6 @@
     <system:String x:Key="InThisWindowYouCanDownload">In this window, you can download and install emulators that don’t require BIOS or other system files.</system:String>
     <system:String x:Key="InvalidDownloadLink">Invalid Download Link</system:String>
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
-    <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
-    <system:String x:Key="InvalidInputMessageTitle">Invalid Input</system:String>
     <system:String x:Key="InvalidSearch">Invalid Search</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
@@ -376,7 +371,6 @@
     <system:String x:Key="LoadingExtendedGameInfo">Loading extended game info...</system:String>
     <system:String x:Key="LoadingFavoriteGamesForSystem">Loading favorite games for system...</system:String>
     <system:String x:Key="LoadingFavorites">Loading favorites...</system:String>
-    <system:String x:Key="LoadingGameFiles">Loading game files...</system:String>
     <system:String x:Key="LoadingGameRankings">Loading game rankings...</system:String>
     <system:String x:Key="LoadingGames">Loading Games...</system:String>
     <system:String x:Key="LoadingHistory">Loading history...</system:String>
@@ -385,13 +379,13 @@
     <system:String x:Key="LoadingROMHistory">Loading ROM history...</system:String>
     <system:String x:Key="LoadingSettings">Loading settings...</system:String>
     <system:String x:Key="LoadingSystem">Loading system...</system:String>
-    <system:String x:Key="LoadingSystemConfigurations">Loading system configurations...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Loading user completion progress...</system:String>
     <system:String x:Key="LoadingUserProfile">Loading user profile...</system:String>
     <system:String x:Key="LoadingUserUnlocks">Loading user unlocks...</system:String>
     <system:String x:Key="Lowervaluessmallerdeadzone">• Lower values = smaller dead zone = more sensitive cursor movement, but may cause drift</system:String>
     <system:String x:Key="MachineDescriptionColumnHeader">Machine Description</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
+    <system:String x:Key="MakesuretheROMorISOyouretrying">Make sure the ROM or ISO you're trying to run is not corrupted.</system:String>
     <system:String x:Key="MameDescription">MAME Description</system:String>
     <system:String x:Key="Manual">Manual</system:String>
     <system:String x:Key="Manualnotfound">Manual not found</system:String>
@@ -453,6 +447,7 @@
     <system:String x:Key="OpeningManual">Opening manual...</system:String>
     <system:String x:Key="OpeningPCBImage">Opening PCB image...</system:String>
     <system:String x:Key="OpeningPlayHistory">Opening Play History...</system:String>
+    <system:String x:Key="OpeningRetroAchievements">Opening RetroAchievements...</system:String>
     <system:String x:Key="OpeningRetroAchievementsSettings">Opening RetroAchievements settings...</system:String>
     <system:String x:Key="OpeningROMHistory">Opening ROM history...</system:String>
     <system:String x:Key="OpeningSoundConfigurationSettings">Opening Sound Configuration settings...</system:String>
@@ -461,6 +456,7 @@
     <system:String x:Key="OpeningVideoLink">Opening video link...</system:String>
     <system:String x:Key="OpeningWalkthrough">Opening walkthrough...</system:String>
     <system:String x:Key="OpenROMHistory">Open ROM History</system:String>
+    <system:String x:Key="OpenTempFolderQuestion">Would you like to open the temporary folder to extract the file manually?</system:String>
     <system:String x:Key="OpenVideoLink">Open Video Link</system:String>
     <system:String x:Key="OperationCancelled">Operation Cancelled</system:String>
     <system:String x:Key="OperationCancelledMessage">The operation was cancelled.</system:String>
@@ -468,8 +464,6 @@
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="outof">out of</system:String>
     <system:String x:Key="OverlayButtonSettings">Overlay Button Settings</system:String>
-    <system:String x:Key="ParameterExplanation">For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., -F \"%BASEFOLDER%\\roms\\Atari 2600\\stella_libretro.dll\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter2">The parameter validation may falsely identify paths as invalid sometimes. Double-check the parameter fields to ensure they are correct.</system:String>
     <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
@@ -493,7 +487,6 @@
     <system:String x:Key="PleasefixthatintheEditwindow">Please fix that in the Edit window.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Please fix them to proceed.</system:String>
     <system:String x:Key="Pleasefixthisfield">Please fix this field.</system:String>
-    <system:String x:Key="PleasegotoEditSystem">Please go to Edit System - Expert Mode and edit this system.</system:String>
     <system:String x:Key="Pleasemovetheapplicationfolder">Please move the application folder to a writable location like the 'Documents' folder.</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Please reinstall 'Simple Launcher' manually to fix the issue.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Please reinstall 'Simple Launcher' manually to fix the issue.</system:String>
@@ -508,27 +501,22 @@
     <system:String x:Key="Pleaseselectasystemtodelete">Please select a system to delete.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Please select the System Folder</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Please select the System Image Folder</system:String>
-    <system:String x:Key="PotentiallyInvalidPathsDetected2">Potentially invalid paths detected.</system:String>
     <system:String x:Key="PreparingRetroAchievements">Preparing RetroAchievements...</system:String>
     <system:String x:Key="Preparingtodownload">Preparing to download</system:String>
     <system:String x:Key="PreviewImage">Preview Image</system:String>
     <system:String x:Key="PreviewImageLabel">Preview Image</system:String>
     <system:String x:Key="PreviousPage">Previous Page</system:String>
-    <system:String x:Key="ProcessingPlayHistoryData">Processing play history data...</system:String>
     <system:String x:Key="Processingpleasewait">Processing, please wait...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Processing is still running. Do you want to cancel and close?</system:String>
     <system:String x:Key="Purple">Purple</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Put cover images for this system inside</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Put ROMs or ISOs for this system inside</system:String>
-    <system:String x:Key="RAHasherexetoolnotfound">RAHasher.exe tool not found.</system:String>
     <system:String x:Key="ReasonLabel">Reason:</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">Receive a Notification on Emulator Error?</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">Receive a Notification on Emulator Error?</system:String>
     <system:String x:Key="Red">Red</system:String>
     <system:String x:Key="RefreshingGameList">Refreshing game list...</system:String>
     <system:String x:Key="ReinstallSuggestion">This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?</system:String>
-    <system:String x:Key="RelativePathsDetected">Relative Paths Detected</system:String>
-    <system:String x:Key="RelativePathsMessage">The following relative paths were detected in your configuration:</system:String>
     <system:String x:Key="Remove">Remove</system:String>
     <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
     <system:String x:Key="RemovefromFavorites">Remove from Favorites</system:String>
@@ -539,12 +527,11 @@
     <system:String x:Key="RemovingHistoryItem">Removing history item...</system:String>
     <system:String x:Key="ReportedToDeveloper">This security issue has been reported to the developer team.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Report saved successfully.</system:String>
+    <system:String x:Key="RescanWindowsGamesTitle">Rescan Windows Games?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">Resetting dates and fetching unlocks...</system:String>
-    <system:String x:Key="ResettingUI">Resetting UI...</system:String>
     <system:String x:Key="ResetToDefault">Reset to default</system:String>
     <system:String x:Key="Restart">Restart</system:String>
     <system:String x:Key="RestartError">Restart Error</system:String>
-    <system:String x:Key="RestartingUI">Restarting UI...</system:String>
     <system:String x:Key="RestoreBackup">Restore Backup?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement Overlay Button</system:String>
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
@@ -555,7 +542,6 @@
     <system:String x:Key="RomHistory">Rom History</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM History not found</system:String>
     <system:String x:Key="Save">Save</system:String>
-    <system:String x:Key="SaveConfigurationQuestion">Do you want to save this configuration?</system:String>
     <system:String x:Key="SaveDeadZone">Save</system:String>
     <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
     <system:String x:Key="SaveorUpdateSystem">Save or Update System</system:String>
@@ -568,6 +554,7 @@
     <system:String x:Key="SavingRetroAchievementsSettings">Saving RetroAchievements settings...</system:String>
     <system:String x:Key="SavingSettings">Saving settings...</system:String>
     <system:String x:Key="SavingSoundSettings">Saving sound settings...</system:String>
+    <system:String x:Key="ScanningForWindowsGames">Scanning for Windows games...</system:String>
     <system:String x:Key="Search">Search</system:String>
     <system:String x:Key="SearchFor">Search For</system:String>
     <system:String x:Key="Searchingpleasewait">Searching, please wait...</system:String>
@@ -592,6 +579,7 @@
     <system:String x:Key="SelectSystem">Select System</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Select {config.SystemName} system</system:String>
     <system:String x:Key="SelectSystemComboBox">Select System ComboBox</system:String>
+    <system:String x:Key="SelectWindow">Select Window</system:String>
     <system:String x:Key="SendingMessagePleaseWait">Sending message ... Please wait</system:String>
     <system:String x:Key="SendingSupportRequest">Sending support request...</system:String>
     <system:String x:Key="SendSupportRequest">Send Support Request</system:String>
@@ -631,13 +619,11 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' could not mount the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' could not open the download link.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' could not open the Image Pack download link.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Error</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
-    <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
     <system:String x:Key="SortByDate">Sort By Date</system:String>
     <system:String x:Key="SortByFileNameTooltip">Sort by File Name</system:String>
@@ -657,11 +643,11 @@
     <system:String x:Key="SuperWider">Super Wider</system:String>
     <system:String x:Key="SuperWider2">Super Wider 2</system:String>
     <system:String x:Key="Support">Support</system:String>
+    <system:String x:Key="SupportOptions">Support Options</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Support request sent successfully.</system:String>
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'System Folder' cannot be empty or contain only spaces.</system:String>
-    <system:String x:Key="SystemFolderExplanation">For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">System Folder path is not valid or does not exist:</system:String>
     <system:String x:Key="SystemFolderRequired">System Folder (Required)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>
@@ -700,7 +686,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">The game will launch now.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">The image may be corrupted or inaccessible.</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">The image pack was successfully extracted into the folder</system:String>
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">The launch of the selected tool was canceled by the user.</system:String>
     <system:String x:Key="Theme">Theme</system:String>
     <system:String x:Key="Thename">The name</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">There is a software update available.</system:String>
@@ -743,7 +729,6 @@
     <system:String x:Key="TherewasaproblemopeningtheHistorywindow">There was a problem opening the History window.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheUrl">There was a problem opening the Url.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">There was a problem opening the Video Link.</system:String>
-    <system:String x:Key="Theselectedfile">The selected file</system:String>
     <system:String x:Key="Theselectedfilecannotbe">The selected file cannot be extracted.</system:String>
     <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">The selected system does not have a valid download link.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">The selected tool was not found in the expected path.</system:String>
@@ -814,6 +799,7 @@
     <system:String x:Key="WelcomeToSimpleLauncher">Welcome to 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.</system:String>
     <system:String x:Key="Wider">Wider</system:String>
+    <system:String x:Key="WindowsGamesScanComplete">Windows games scan complete.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
@@ -828,7 +814,7 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">You can define custom Gamepad DeadZone</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
     <system:String x:Key="YoucandownloadDokanfrom">You can download Dokan from: https://github.com/dokan-dev/dokany</system:String>
-    <system:String x:Key="Youcansaveyourconfiguration2">You can save your configuration even when the parameter validation logic fails.</system:String>
+    <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">You can receive support from multiple AI providers or from the developer. Choose below.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">You can turn off this error message in Expert mode.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
@@ -839,21 +825,4 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">The launch of the selected tool was canceled by the user.</system:String>
-
-    <system:String x:Key="AskToRescanWindowsGamesMessage">The 'Microsoft Windows' system has been selected. Would you like to rescan your system to update the list of installed Windows games (Steam, Epic, GOG, etc.)?</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Rescan Windows Games?</system:String>
-    <system:String x:Key="ScanningForWindowsGames">Scanning for Windows games...</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Windows games scan complete.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">An error occurred while scanning for Windows games. Please check the log file for details.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Scan Error</system:String>
-    
-    <system:String x:Key="SupportOptions">Support Options</system:String>
-    <system:String x:Key="DoYouWantSupport">Do you want support?</system:String>
-    <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">You can receive support from multiple AI providers or from the developer. Choose below.</system:String>
-    <system:String x:Key="AskAIPhindcom">Ask AI (Phind.com)</system:String>   
-    <system:String x:Key="AskAIPerplexityai">Ask AI (Perplexity.ai)</system:String>
-    <system:String x:Key="AskAIYoucom">Ask AI (You.com)</system:String>
-    <system:String x:Key="ContactDeveloper">Contact Developer (Report Bug)</system:String>
-    
 </ResourceDictionary>
