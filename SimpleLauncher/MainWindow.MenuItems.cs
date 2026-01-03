@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Managers;
@@ -121,8 +122,9 @@ public partial class MainWindow
             try
             {
                 await _gameScannerService.ScanForStoreGamesAsync();
+                await Task.Delay(2000);
                 LoadOrReloadSystemManager();
-                await DisplaySystemSelectionScreenAsync();
+                ResetUiAsync();
             }
             catch (Exception ex)
             {
