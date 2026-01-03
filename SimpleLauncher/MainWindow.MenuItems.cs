@@ -117,22 +117,16 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
-
             SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
             try
             {
                 await _gameScannerService.ScanForStoreGamesAsync();
-                if (_gameScannerService.WasNewSystemCreated)
-                {
-                    UpdateStatusBar.UpdateContent("Found new Microsoft Windows games. Refreshing system list.", this);
-                    LoadOrReloadSystemManager(); // Reload to get the new system
-                    // After reloading, the system selection screen needs to be updated.
-                    await DisplaySystemSelectionScreenAsync();
-                }
+                LoadOrReloadSystemManager();
+                await DisplaySystemSelectionScreenAsync();
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error during initial Windows games scan.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in method ScanForMicrosoftWindowsGames_Click.");
             }
             finally
             {
@@ -141,7 +135,6 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the method ScanForMicrosoftWindowsGames_Click.");
         }
     }
