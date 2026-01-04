@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -111,6 +112,8 @@ public static class ScanMicrosoftStoreGames
                 DebugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell warning/error: {errorOutput}");
             }
 
+            var foundGames = new List<string>();
+
             if (string.IsNullOrWhiteSpace(output)) return;
 
             var jsonStr = output.Trim();
@@ -154,6 +157,8 @@ public static class ScanMicrosoftStoreGames
                         }
                     }
 
+                    foundGames.Add($"Name: {name}, AppID: {appId}, PackageFamilyName: {packageFamilyName}");
+
                     var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(name);
                     var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
 
@@ -171,6 +176,18 @@ public static class ScanMicrosoftStoreGames
                 {
                     await logErrors.LogErrorAsync(ex, "Error processing Microsoft Store game entry.");
                 }
+            }
+
+            if (foundGames.Count > 0)
+            {
+                var report = new System.Text.StringBuilder();
+                report.AppendLine(CultureInfo.InvariantCulture, $"Found {foundGames.Count} potential games from Microsoft Store scan:");
+                foreach (var game in foundGames)
+                {
+                    report.AppendLine(CultureInfo.InvariantCulture, $"- {game}");
+                }
+
+                await logErrors.LogErrorAsync(new Exception("Microsoft Store Games Scan Report"), report.ToString());
             }
         }
         catch (Exception ex)
