@@ -3033,16 +3033,14 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static Task DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
+    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
     {
-        return Application.Current.Dispatcher.InvokeAsync(() =>
+        Application.Current.Dispatcher.Invoke(() =>
         {
-            // Instantiate the custom window
             var supportOptionWindow = new SupportOptionWindow(ex, contextMessage, gameLauncher, playSoundEffects);
-
             // Show it as a dialog (modal) so it blocks interaction with the main window until a choice is made
             supportOptionWindow.ShowDialog();
-        }).Task;
+        });
     }
 
     internal static void WarnUserAboutMemoryConsumption()

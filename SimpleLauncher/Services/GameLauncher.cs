@@ -864,7 +864,7 @@ public class GameLauncher
             {
                 // Notify user
                 await MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
-                await MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         catch (Exception ex)
@@ -897,7 +897,7 @@ public class GameLauncher
             {
                 // Notify user
                 await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-                await MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         finally
@@ -968,7 +968,7 @@ public class GameLauncher
         {
             // Notify user
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-            await MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
+            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
         }
     }
 
