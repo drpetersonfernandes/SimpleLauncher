@@ -21,6 +21,7 @@ public class PlayHistoryManager
 
     // The data file path.
     private static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playhistory.dat");
+    private static string TempFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playhistory.dat.tmp");
 
     // Constants for date and time formats
     private const string IsoDateFormat = "yyyy-MM-dd";
@@ -197,11 +198,38 @@ public class PlayHistoryManager
     /// </summary>
     public void SavePlayHistory()
     {
-        // Notify user
-        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
+        try
+        {
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
 
-        var bytes = MessagePackSerializer.Serialize(this);
-        File.WriteAllBytes(FilePath, bytes);
+            var bytes = MessagePackSerializer.Serialize(this);
+
+            // Write to a temporary file first to prevent data loss on crash
+            File.WriteAllBytes(TempFilePath, bytes);
+
+            // Atomically replace the main file with the temp file
+            File.Move(TempFilePath, FilePath, true);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error saving playhistory.dat";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+            // Attempt to clean up temp file if it exists
+            try
+            {
+                if (File.Exists(TempFilePath))
+                {
+                    File.Delete(TempFilePath);
+                }
+            }
+            catch (Exception cleanupEx)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary play history file after failed save");
+            }
+        }
     }
 
     /// <summary>
