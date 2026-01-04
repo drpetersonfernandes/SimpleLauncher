@@ -42,6 +42,7 @@ public static class ContextMenu
         };
         launchMenuItem.Click += async (_, _) =>
         {
+            context.MainWindow.SetGameButtonsEnabled(false);
             try
             {
                 context.PlaySoundEffects.PlayNotificationSound();
@@ -61,7 +62,10 @@ public static class ContextMenu
                     selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
                 }
 
-                if (await CheckParametersForNullOrEmptyAsync(selectedEmulatorName)) return; // Will check Parameters for Null or Empty values. If true, will return the call and will not launch the game.
+                if (await CheckParametersForNullOrEmptyAsync(selectedEmulatorName))
+                {
+                    return; // The finally block will still execute
+                }
 
                 await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.GamePadController);
 
@@ -72,6 +76,10 @@ public static class ContextMenu
             {
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[CreateMenu] Error launching the game.");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
+            }
+            finally
+            {
+                context.MainWindow.SetGameButtonsEnabled(true);
             }
         };
 
