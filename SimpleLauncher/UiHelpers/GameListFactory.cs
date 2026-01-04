@@ -120,14 +120,15 @@ public class GameListFactory(
             long sizeToSet;
             try
             {
+                var longEntityPath = entityPath.StartsWith(@"\\?\", StringComparison.Ordinal) ? entityPath : @"\\?\" + entityPath;
                 if (isDirectory)
                 {
                     // Sum up the size of all files in the directory and its subdirectories
-                    sizeToSet = new DirectoryInfo(entityPath).EnumerateFiles("*", SearchOption.AllDirectories).Sum(static fi => fi.Length);
+                    sizeToSet = new DirectoryInfo(longEntityPath).EnumerateFiles("*", SearchOption.AllDirectories).Sum(static fi => fi.Length);
                 }
-                else if (File.Exists(entityPath))
+                else if (File.Exists(longEntityPath))
                 {
-                    sizeToSet = new FileInfo(entityPath).Length;
+                    sizeToSet = new FileInfo(longEntityPath).Length;
                 }
                 else
                 {

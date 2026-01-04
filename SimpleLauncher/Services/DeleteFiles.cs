@@ -8,17 +8,22 @@ namespace SimpleLauncher.Services;
 
 public static class DeleteFiles
 {
-    private const int MaxDeleteRetries = 5; // Number of times to retry deletion
-    private const int DeleteRetryDelayMs = 100; // Delay between retries in milliseconds
+    private const int MaxDeleteRetries = 5;
+    private const int DeleteRetryDelayMs = 100;
 
     public static void TryDeleteFile(string filePath)
     {
-        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
+        if (string.IsNullOrEmpty(filePath)) return;
+
+        // Prepend long path prefix if not already present, assuming absolute path
+        var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal) ? filePath : @"\\?\" + filePath;
+
+        if (!File.Exists(longPath)) return;
 
         // Check for and remove the read-only attribute before attempting deletion
         try
         {
-            var fileInfo = new FileInfo(filePath);
+            var fileInfo = new FileInfo(longPath);
             if (fileInfo.IsReadOnly)
             {
                 fileInfo.IsReadOnly = false;
@@ -27,7 +32,7 @@ public static class DeleteFiles
         catch (Exception ex)
         {
             // If we can't even read/modify the attributes, log and exit
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to access or modify file attributes for '{filePath}'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to access or modify file attributes for '{longPath}'.");
             return;
         }
 
@@ -35,7 +40,7 @@ public static class DeleteFiles
         {
             try
             {
-                File.Delete(filePath);
+                File.Delete(longPath);
                 // If deletion succeeds, return
                 return;
             }
@@ -46,7 +51,7 @@ public static class DeleteFiles
                 {
                     // Log final failure after retries
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete file '{filePath}' after {MaxDeleteRetries} retries.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
 
                     return; // Exit after logging final failure
                 }
@@ -60,7 +65,7 @@ public static class DeleteFiles
                 if (i == MaxDeleteRetries - 1)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete file '{filePath}' after {MaxDeleteRetries} retries (permissions).");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
 
                     return;
                 }
@@ -71,7 +76,7 @@ public static class DeleteFiles
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{filePath}'. Stopping retries.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
 
                 return;
             }

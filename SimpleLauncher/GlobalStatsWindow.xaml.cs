@@ -240,7 +240,19 @@ public partial class GlobalStatsWindow
                     allRomFiles.Select(Path.GetFileNameWithoutExtension),
                     StringComparer.OrdinalIgnoreCase);
 
-                var totalDiskSize = allRomFiles.Sum(static file => new FileInfo(file).Length);
+                var totalDiskSize = allRomFiles.Sum(static file =>
+                {
+                    try
+                    {
+                        // Prepend long path prefix if not already present
+                        var longPath = file.StartsWith(@"\\?\", StringComparison.Ordinal) ? file : @"\\?\" + file;
+                        return new FileInfo(longPath).Length;
+                    }
+                    catch
+                    {
+                        return 0L; // If getting file info fails, return 0 for this file
+                    }
+                });
 
                 cancellationToken.ThrowIfCancellationRequested();
 

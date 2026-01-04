@@ -269,7 +269,17 @@ public class GameScannerService
                                !f.Contains("update", StringComparison.OrdinalIgnoreCase) &&
                                !f.Contains("unity", StringComparison.OrdinalIgnoreCase) &&
                                !f.Contains("launcher", StringComparison.OrdinalIgnoreCase))
-            .OrderByDescending(static f => new FileInfo(f).Length)
+            .OrderByDescending(static f =>
+            {
+                try
+                {
+                    return new FileInfo(@"\\?\" + f).Length;
+                }
+                catch
+                {
+                    return 0L;
+                }
+            })
             .FirstOrDefault();
     }
 }
