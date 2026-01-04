@@ -1,5 +1,5 @@
 # Release 4.8.0
-*2026-01-03*
+*2026-01-04*
 ---
 
 Introduces a major overhaul of Microsoft Windows Game scanning, significantly enhancing error handling, and refining the user interface.
