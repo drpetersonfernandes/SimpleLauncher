@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -13,16 +14,18 @@ public partial class SupportOptionWindow
     private readonly string _contextMessage;
     private readonly GameLauncher _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IConfiguration _configuration;
 
-    public SupportOptionWindow(Exception ex, string contextMessage, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
+    public SupportOptionWindow(Exception ex, string contextMessage, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, IConfiguration configuration)
     {
         InitializeComponent();
-        App.ApplyThemeToWindow(this); // Ensure theme consistency
+        App.ApplyThemeToWindow(this);
 
         _exception = ex;
         _contextMessage = contextMessage;
         _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
+        _configuration = configuration;
 
         // Set fallback text if resources are missing
         if (Title is null or "SupportOptions")
@@ -45,7 +48,6 @@ public partial class SupportOptionWindow
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        // Open the existing SupportWindow
         var supportRequestWindow = new SupportWindow(_exception, _contextMessage, _gameLauncher);
         supportRequestWindow.Show();
 
@@ -98,7 +100,19 @@ public partial class SupportOptionWindow
         sb.Append("I do not know if I choose the right core.");
         sb.Append("Maybe the paths are incorrect.");
         sb.Append("Provide me a very simple explanation of the problem and help me fix the parameters.");
-        sb.Append("'Simple Launcher' parameters reference can be found on https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters.");
+
+        // Retrieve the URL from appsettings.json
+        var wikiParametersUrl = _configuration.GetValue<string>("WikiParametersUrl");
+        if (!string.IsNullOrEmpty(wikiParametersUrl))
+        {
+            sb.Append(CultureInfo.InvariantCulture, $"'Simple Launcher' parameters reference can be found on {wikiParametersUrl}.");
+        }
+        else
+        {
+            // Fallback to hardcoded URL if not found in config, or log an error
+            sb.Append(" 'Simple Launcher' parameters reference can be found on https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters.");
+            // Log this fallback as a warning if ILogErrors was available here
+        }
 
         if (!string.IsNullOrWhiteSpace(_contextMessage))
         {

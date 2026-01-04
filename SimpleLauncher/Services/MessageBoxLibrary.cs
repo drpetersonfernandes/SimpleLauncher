@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -3037,7 +3038,8 @@ internal static class MessageBoxLibrary
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var supportOptionWindow = new SupportOptionWindow(ex, contextMessage, gameLauncher, playSoundEffects);
+            var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
+            var supportOptionWindow = new SupportOptionWindow(ex, contextMessage, gameLauncher, playSoundEffects, configuration);
             // Show it as a dialog (modal) so it blocks interaction with the main window until a choice is made
             supportOptionWindow.ShowDialog();
         });
