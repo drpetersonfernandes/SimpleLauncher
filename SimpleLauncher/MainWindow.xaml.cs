@@ -60,6 +60,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
+    public bool IsPlayTimeVisible
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged(nameof(IsPlayTimeVisible));
+        }
+    } = true;
+
     private bool _isLoadingGames;
 
     public bool IsLoadingGames
@@ -696,6 +708,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     {
                         // Clear the cached list when no system is selected
                         _allGamesForCurrentSystem.Clear();
+                        IsPlayTimeVisible = false; // Hide when no system is selected
 
                         return;
                     }
@@ -740,6 +753,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                             return;
                         }
+
+                        var formats = selectedManager.FileFormatsToSearch;
+                        IsPlayTimeVisible = formats == null || !formats.Any(static f =>
+                            f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
+                            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
+                            f.Equals("bat", StringComparison.OrdinalIgnoreCase));
 
                         _mameSortOrder = "FileName";
                         UpdateSortOrderButtonUi();

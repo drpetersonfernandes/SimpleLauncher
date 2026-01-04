@@ -1194,11 +1194,11 @@
                     <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
                 </StackPanel>
                 <!-- Playtime Info -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0"
-                            AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0" AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}"
+                            Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
                     <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
-                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
+                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
                 </StackPanel>
                 <!-- Dummy usage to suppress "Resource 'SystemButtonStyle' is never used" warning -->
                 <Button Style="{StaticResource SystemButtonStyle}" Visibility="Collapsed" Width="0" Height="0" />
