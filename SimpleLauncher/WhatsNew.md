@@ -1,3 +1,26 @@
+# Release 4.8.0
+*2026-01-03*
+---
+
+Introduces a major overhaul of Microsoft Windows Game scanning, significantly enhancing error handling, and refining the user interface.
+
+Key changes include:
+
+1.  **Game Scanning Refactoring & Expansion:** The monolithic `GameScannerService` was broken down into modular, platform-specific classes (e.g., `ScanSteamGames`, `ScanEpicGames`, `ScanGogGames`, `ScanMicrosoftStoreGames`, `ScanAmazonGames`, `ScanBattleNetGames`, `ScanHumbleGames`, `ScanItchioGames`, `ScanRockstarGames`, `ScanUplayGames`). This adds support for new platforms and improves existing scanning logic with better filtering, DLC detection, executable identification, and icon extraction heuristics.
+2.  **API-based Artwork Download:** A new API integration (`GameImageClient`) was added to download game artwork for Microsoft Windows Games, with robust fallback mechanisms to local icon extraction if the API fails.
+3.  **Enhanced Error Handling & Robustness:**
+    *   Implemented **long path support** (`\\?\` prefix) for reliable file and directory operations across services.
+    *   Improved **download and extraction error handling**, including retry logic, disk space checks, user cancellation management, and a new `ShowExtractionFailedMessageBoxAsync` for manual intervention.
+    *   Refined **game launching error handling** in `GameLauncher`, adding `.URL` validation, protocol checks, and a new `ShowCustomMessageBox` for detailed notifications.
+    *   Gracefully handles **UIPI exceptions** in `GamePadController` and refines error logging.
+4.  **UI/UX Improvements:**
+    *   Introduced a new global `RetroAchievementsWindow` for user profiles and unlocks.
+    *   Automated **first-run game scanning** for Microsoft Windows games.
+    *   Updated menu structures, replacing dynamic headers with static strings for consistency.
+    *   Added a new **SupportOptionWindow** for AI-based troubleshooting and developer contact.
+5.  **Binary & Dependency Updates:** Updated various external tools (e.g., RetroGameCoverDownloader, GameCoverScraper, BatchConvertToCHD).
+6.  **Code Cleanup & Localization:** Cleaned up unused code, and updated localization strings across all supported languages.
+
 # Release 4.7.0
 *2025-12-07*
 ---
