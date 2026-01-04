@@ -389,6 +389,9 @@ public class GamePadController : IDisposable
                     // Recreate DirectInput object
                     try
                     {
+                        // Dispose the old instance if it exists before creating a new one.
+                        _directInput?.Dispose();
+
                         _directInput = new DirectInput();
 
                         // Notify developer
