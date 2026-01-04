@@ -654,6 +654,11 @@
                         <Image Source="pack://application:,,,/images/search2.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Click="ShowPlayHistoryWindow_Click" Header="{DynamicResource PlayHistory}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" />
@@ -738,11 +743,6 @@
                 <MenuItem Click="RomValidator_Click" Header="Rom Validator">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
