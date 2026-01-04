@@ -1,18 +1,13 @@
 #nullable enable
 using MessagePack;
-using SimpleLauncher.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 
 namespace SimpleLauncher.Models;
 
-// MessagePack format
 [MessagePackObject]
 public class Favorite : INotifyPropertyChanged
 {
-    private long _fileSizeBytes = -1; // Backing field, initialized to -1 (e.g., "Calculating...")
-
     [Key(0)]
     public required string FileName { get; init; }
 
@@ -37,27 +32,6 @@ public class Favorite : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-
-    [IgnoreMember]
-    public long FileSizeBytes
-    {
-        get => _fileSizeBytes;
-        set
-        {
-            if (_fileSizeBytes == value) return;
-
-            _fileSizeBytes = value;
-            OnPropertyChanged(); // Notify for FileSizeBytes itself (if bound directly)
-            OnPropertyChanged(nameof(FormattedFileSize)); // Notify for the derived FormattedFileSize
-        }
-    }
-
-    // Add property to format file size using the helper (ignored for serialization)
-    [IgnoreMember]
-    public string FormattedFileSize =>
-        _fileSizeBytes == -1 ? (string)Application.Current.TryFindResource("Calculating") ?? "Calculating..." : // Show "Calculating..." if size is -1
-        _fileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "Not Available" : // Show "N/A" for other negative values (errors/not found)
-        FormatFileSize.FormatToMb(_fileSizeBytes); // Otherwise, format the size
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

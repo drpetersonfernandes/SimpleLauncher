@@ -218,10 +218,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
                 DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
             }
-        };
 
-        Loaded += async (_, _) =>
-        {
             try
             {
                 // --- First-run experience: Check if system.xml is empty ---

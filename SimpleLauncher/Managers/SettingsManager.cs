@@ -310,83 +310,97 @@ public class SettingsManager
 
     private void SetDefaultsAndSave()
     {
-        ThumbnailSize = 200;
-        GamesPerPage = 100;
-        ShowGames = "ShowAll";
-        ViewMode = "GridView";
-        EnableGamePadNavigation = true;
-        VideoUrl = "https://www.youtube.com/results?search_query=";
-        InfoUrl = "https://www.igdb.com/search?q=";
-        BaseTheme = "Light";
-        AccentColor = "Blue";
-        Language = "en";
-        DeadZoneX = DefaultDeadZoneX;
-        DeadZoneY = DefaultDeadZoneY;
-        ButtonAspectRatio = "Square";
-        EnableFuzzyMatching = true;
-        FuzzyMatchingThreshold = 0.80;
-        EnableNotificationSound = true;
-        CustomNotificationSoundFile = DefaultNotificationSoundFileName;
-        RaUsername = string.Empty;
-        RaApiKey = string.Empty;
-        OverlayRetroAchievementButton = false;
-        OverlayOpenVideoButton = true;
-        OverlayOpenInfoButton = false;
-        AdditionalSystemFoldersExpanded = true;
-        Emulator1Expanded = true;
-        Emulator2Expanded = true;
-        Emulator3Expanded = true;
-        Emulator4Expanded = true;
-        Emulator5Expanded = true;
-        // Do not reset SystemPlayTimes here to allow salvaging from a corrupt file
-        Save();
+        try
+        {
+            ThumbnailSize = 200;
+            GamesPerPage = 100;
+            ShowGames = "ShowAll";
+            ViewMode = "GridView";
+            EnableGamePadNavigation = true;
+            VideoUrl = "https://www.youtube.com/results?search_query=";
+            InfoUrl = "https://www.igdb.com/search?q=";
+            BaseTheme = "Light";
+            AccentColor = "Blue";
+            Language = "en";
+            DeadZoneX = DefaultDeadZoneX;
+            DeadZoneY = DefaultDeadZoneY;
+            ButtonAspectRatio = "Square";
+            EnableFuzzyMatching = true;
+            FuzzyMatchingThreshold = 0.80;
+            EnableNotificationSound = true;
+            CustomNotificationSoundFile = DefaultNotificationSoundFileName;
+            RaUsername = string.Empty;
+            RaApiKey = string.Empty;
+            OverlayRetroAchievementButton = false;
+            OverlayOpenVideoButton = true;
+            OverlayOpenInfoButton = false;
+            AdditionalSystemFoldersExpanded = true;
+            Emulator1Expanded = true;
+            Emulator2Expanded = true;
+            Emulator3Expanded = true;
+            Emulator4Expanded = true;
+            Emulator5Expanded = true;
+            // Do not reset SystemPlayTimes here to allow salvaging from a corrupt file
+            Save();
 
-        // Notify user
-        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSettings") ?? "Saving settings...", Application.Current.MainWindow as MainWindow));
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSettings") ?? "Saving settings...", Application.Current.MainWindow as MainWindow));
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving default settings.");
+        }
     }
 
     public void Save()
     {
-        var systemPlayTimesElement = new XElement("SystemPlayTimes");
-        foreach (var systemPlayTime in SystemPlayTimes.Where(static s => !string.IsNullOrWhiteSpace(s.SystemName)))
+        try
         {
-            systemPlayTimesElement.Add(new XElement("SystemPlayTime",
-                new XElement("SystemName", systemPlayTime.SystemName),
-                new XElement("PlayTime", systemPlayTime.PlayTime)
-            ));
-        }
+            var systemPlayTimesElement = new XElement("SystemPlayTimes");
+            foreach (var systemPlayTime in SystemPlayTimes.Where(static s => !string.IsNullOrWhiteSpace(s.SystemName)))
+            {
+                systemPlayTimesElement.Add(new XElement("SystemPlayTime",
+                    new XElement("SystemName", systemPlayTime.SystemName),
+                    new XElement("PlayTime", systemPlayTime.PlayTime)
+                ));
+            }
 
-        new XElement("Settings",
-            new XElement("ThumbnailSize", ThumbnailSize),
-            new XElement("GamesPerPage", GamesPerPage),
-            new XElement("ShowGames", ShowGames),
-            new XElement("ViewMode", ViewMode),
-            new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
-            new XElement("VideoUrl", VideoUrl),
-            new XElement("InfoUrl", InfoUrl),
-            new XElement("BaseTheme", BaseTheme),
-            new XElement("AccentColor", AccentColor),
-            new XElement("Language", Language),
-            new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
-            new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
-            new XElement("ButtonAspectRatio", ButtonAspectRatio),
-            new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
-            new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
-            new XElement("EnableNotificationSound", EnableNotificationSound),
-            new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
-            new XElement("RA_Username", RaUsername),
-            new XElement("RA_ApiKey", RaApiKey),
-            new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
-            new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
-            new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
-            new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
-            new XElement("Emulator1Expanded", Emulator1Expanded),
-            new XElement("Emulator2Expanded", Emulator2Expanded),
-            new XElement("Emulator3Expanded", Emulator3Expanded),
-            new XElement("Emulator4Expanded", Emulator4Expanded),
-            new XElement("Emulator5Expanded", Emulator5Expanded),
-            systemPlayTimesElement
-        ).Save(_filePath);
+            new XElement("Settings",
+                new XElement("ThumbnailSize", ThumbnailSize),
+                new XElement("GamesPerPage", GamesPerPage),
+                new XElement("ShowGames", ShowGames),
+                new XElement("ViewMode", ViewMode),
+                new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
+                new XElement("VideoUrl", VideoUrl),
+                new XElement("InfoUrl", InfoUrl),
+                new XElement("BaseTheme", BaseTheme),
+                new XElement("AccentColor", AccentColor),
+                new XElement("Language", Language),
+                new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
+                new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
+                new XElement("ButtonAspectRatio", ButtonAspectRatio),
+                new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
+                new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
+                new XElement("EnableNotificationSound", EnableNotificationSound),
+                new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
+                new XElement("RA_Username", RaUsername),
+                new XElement("RA_ApiKey", RaApiKey),
+                new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
+                new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
+                new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
+                new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
+                new XElement("Emulator1Expanded", Emulator1Expanded),
+                new XElement("Emulator2Expanded", Emulator2Expanded),
+                new XElement("Emulator3Expanded", Emulator3Expanded),
+                new XElement("Emulator4Expanded", Emulator4Expanded),
+                new XElement("Emulator5Expanded", Emulator5Expanded),
+                systemPlayTimesElement
+            ).Save(_filePath);
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.");
+        }
     }
 
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)

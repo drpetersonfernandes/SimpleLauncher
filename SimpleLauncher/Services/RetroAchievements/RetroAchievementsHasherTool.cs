@@ -37,7 +37,7 @@ public static class RetroAchievementsHasherTool
 
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
-        "atari 5200", "Arudboy", "nintendo dsi", "wii", "wii u", "nintendo 3ds", "sega pico",
+        "atari 5200", "Arduboy", "nintendo dsi", "wii", "wii u", "nintendo 3ds", "sega pico",
         "atari st", "pc-8000/8800", "commodore 64", "amiga", "zx spectrum", "fairchild channel f",
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",

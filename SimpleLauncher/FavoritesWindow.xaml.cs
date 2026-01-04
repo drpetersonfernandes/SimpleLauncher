@@ -81,9 +81,6 @@ public partial class FavoritesWindow
 
                 // Step 3: Check for and remove entries with missing files, also in the background
                 await DeleteMissingFavoritesAsync();
-
-                // Step 4: Asynchronously calculate file sizes for the visible items
-                _ = CalculateFileSizeAsync();
             }
             catch (Exception ex)
             {
@@ -138,8 +135,7 @@ public partial class FavoritesWindow
                     SystemName = favoriteConfigItem.SystemName,
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
-                    CoverImage = coverImagePath,
-                    FileSizeBytes = -1
+                    CoverImage = coverImagePath
                 };
                 processedList.Add(favoriteItem);
             }
@@ -192,58 +188,6 @@ public partial class FavoritesWindow
             // Explicitly refresh the data grid binding to ensure UI updates
             FavoritesDataGrid.Items.Refresh();
         });
-    }
-
-    private async Task CalculateFileSizeAsync()
-    {
-        var itemsToProcess = _favoriteList.ToList(); // Create a snapshot to avoid collection modification during iteration
-
-        await Parallel.ForEachAsync(itemsToProcess, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-            async (favoriteItem, cancellationToken) =>
-            {
-                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(favoriteItem.SystemName, StringComparison.OrdinalIgnoreCase));
-
-                if (systemManager == null)
-                {
-                    await Dispatcher.InvokeAsync(() =>
-                    {
-                        favoriteItem.FileSizeBytes = -2; // "N/A"
-                    });
-                    return;
-                }
-
-                var filePath = PathHelper.FindFileInSystemFolders(systemManager, favoriteItem.FileName);
-
-                try
-                {
-                    if (File.Exists(filePath))
-                    {
-                        var sizeToSet = new FileInfo(filePath).Length;
-                        await Dispatcher.InvokeAsync(() =>
-                        {
-                            favoriteItem.FileSizeBytes = sizeToSet;
-                        });
-                    }
-                    else
-                    {
-                        await Dispatcher.InvokeAsync(() =>
-                        {
-                            favoriteItem.FileSizeBytes = -2; // "N/A"
-                        });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await Dispatcher.InvokeAsync(() =>
-                    {
-                        favoriteItem.FileSizeBytes = -2; // "N/A"
-                    });
-
-                    // Notify developer
-                    var contextMessage = $"Error getting file size for favorite: {filePath}";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-                }
-            });
     }
 
     private string GetCoverImagePath(string systemName, string fileName)

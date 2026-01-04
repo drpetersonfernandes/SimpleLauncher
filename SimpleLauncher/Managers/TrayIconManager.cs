@@ -11,7 +11,8 @@ namespace SimpleLauncher.Managers;
 
 public class TrayIconManager : IDisposable
 {
-    private static TaskbarIcon _taskbarIcon;
+    private static TrayIconManager _instance;
+    private readonly TaskbarIcon _taskbarIcon;
     private readonly ContextMenu _trayMenu;
     private readonly Window _mainWindow;
 
@@ -23,6 +24,7 @@ public class TrayIconManager : IDisposable
 
     public TrayIconManager(Window mainWindow, SettingsManager settings, GamePadController gamePadController)
     {
+        _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
 
         // Initialize delegates with correct types
@@ -146,7 +148,7 @@ public class TrayIconManager : IDisposable
 
     public static void ShowTrayMessage(string message)
     {
-        _taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
+        _instance?._taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
     }
 
     public void Dispose()
@@ -169,6 +171,7 @@ public class TrayIconManager : IDisposable
             }
         }
 
+        _instance = null;
         GC.SuppressFinalize(this);
     }
 }
