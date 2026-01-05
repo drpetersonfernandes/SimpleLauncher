@@ -52,6 +52,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
         if (_isLoadingGames) return;
 
+        CancelAndRecreateToken();
         ResetPaginationButtons();
 
         _currentSearchResults.Clear(); // Clear previous search results
@@ -85,7 +86,7 @@ public partial class MainWindow
         {
             // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
             // and _currentFilter (which is null here). It will also manage the loading indicator.
-            await LoadGameFilesAsync(null, searchQuery);
+            await LoadGameFilesAsync(null, searchQuery, _cancellationSource.Token);
         }
         catch (Exception ex)
         {

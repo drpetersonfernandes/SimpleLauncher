@@ -30,11 +30,13 @@ public partial class MainWindow
 
             try
             {
+                CancelAndRecreateToken();
+
                 _currentPage--;
                 _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
 
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingPreviousPage") ?? "Loading previous page...", this);
             }
@@ -72,11 +74,13 @@ public partial class MainWindow
 
             try
             {
+                CancelAndRecreateToken();
+
                 _currentPage++;
                 _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
 
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...", this);
             }

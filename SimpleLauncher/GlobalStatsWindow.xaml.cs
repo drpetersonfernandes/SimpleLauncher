@@ -228,7 +228,7 @@ public partial class GlobalStatsWindow
 
                     if (!string.IsNullOrEmpty(systemFolderPath) && Directory.Exists(systemFolderPath) && systemManager.FileFormatsToSearch != null)
                     {
-                        var filesInFolder = GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch).GetAwaiter().GetResult();
+                        var filesInFolder = GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch, cancellationToken).GetAwaiter().GetResult();
                         cancellationToken.ThrowIfCancellationRequested();
                         allRomFiles.AddRange(filesInFolder);
                     }

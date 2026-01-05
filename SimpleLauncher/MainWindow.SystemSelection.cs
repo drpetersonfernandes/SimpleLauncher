@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,7 +14,7 @@ namespace SimpleLauncher;
 
 public partial class MainWindow
 {
-    private async Task DisplaySystemSelectionScreenAsync()
+    private async Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken = default)
     {
         TopSystemSelection.Visibility = Visibility.Collapsed;
 
@@ -45,16 +46,18 @@ public partial class MainWindow
         }
         else
         {
-            await PopulateSystemSelectionGridAsync();
+            await PopulateSystemSelectionGridAsync(cancellationToken);
         }
 
         _topLetterNumberMenu.DeselectLetter();
     }
 
-    private async Task PopulateSystemSelectionGridAsync()
+    private async Task PopulateSystemSelectionGridAsync(CancellationToken cancellationToken)
     {
         foreach (var config in _systemManagers.OrderBy(static s => s.SystemName))
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             // Pass the injected _settings instance to GetSystemDisplayImagePathAsync
             var imagePath = await GetSystemDisplayImagePathAsync(config, _settings); // UPDATED CALL
             var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
@@ -117,22 +120,51 @@ public partial class MainWindow
     {
         try
         {
-            if (sender is Button { Tag: string systemName })
+            CancelAndRecreateToken();
+            var token = _cancellationSource.Token;
+
+            try
             {
-                if (_isUiUpdating)
+                if (sender is Button { Tag: string systemName })
                 {
-                    return;
+                    if (_isUiUpdating)
+                    {
+                        return;
+                    }
+
+                    SetUiLoadingState(true);
+                    await Task.Yield(); // Allow UI to update and show spinner
+
+                    TopSystemSelection.Visibility = Visibility.Visible;
+                    SystemComboBox.SelectedItem = systemName;
                 }
 
-                SetUiLoadingState(true);
-                await Task.Yield(); // Allow UI to update and show spinner
-
-                TopSystemSelection.Visibility = Visibility.Visible;
-                SystemComboBox.SelectedItem = systemName;
+                _playSoundEffects.PlayNotificationSound();
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
             }
+            catch (OperationCanceledException)
+            {
+                // Handle cancellation if needed, e.g., reset UI state
+                SetUiLoadingState(false);
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.", this);
+                return; // Exit the method
+            }
+            catch (Exception ex)
+            {
+                _ = _logErrors.LogErrorAsync(ex, "Error in SystemButtonClickAsync.");
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
+                SystemComboBox.SelectedItem = null; // This will trigger another selection changed event with null
+                await DisplaySystemSelectionScreenAsync(token);
+
+                // Clear the cached list on error
+                _allGamesForCurrentSystem.Clear();
+            }
+            finally
+            {
+                SetUiLoadingState(false);
+            }
         }
         catch (Exception ex)
         {

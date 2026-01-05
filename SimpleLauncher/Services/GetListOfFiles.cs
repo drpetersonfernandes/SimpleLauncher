@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
@@ -16,11 +17,13 @@ public abstract class GetListOfFiles
     /// </summary>
     /// <param name="directoryPath">The path of the directory to search for files.</param>
     /// <param name="fileExtensions">A list of file extensions to filter the search (e.g., "txt", "jpg").</param>
+    /// <param name="cancellationToken"></param>
     /// <returns>A task representing the asynchronous operation. The task result contains a list of file paths that match the specified criteria.</returns>
-    public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
+    public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, CancellationToken cancellationToken = default)
     {
         return Task.Run(() =>
         {
+            cancellationToken.ThrowIfCancellationRequested();
             try
             {
                 if (!Directory.Exists(directoryPath))
@@ -36,11 +39,13 @@ public abstract class GetListOfFiles
 
                 foreach (var ext in fileExtensions)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     try
                     {
                         // Construct the search pattern by prepending "*.
                         var searchPattern = $"*.{ext}";
                         foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, searchPattern, SearchOption.AllDirectories));
+                        cancellationToken.ThrowIfCancellationRequested();
                     }
                     catch (DirectoryNotFoundException dirEx)
                     {
@@ -90,6 +95,6 @@ public abstract class GetListOfFiles
 
                 return new List<string>(); // Return an empty list
             }
-        });
+        }, cancellationToken);
     }
 }

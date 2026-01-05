@@ -145,6 +145,8 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
+
             if (_isUiUpdating) return;
 
             _isUiUpdating = true;
@@ -175,7 +177,7 @@ public partial class MainWindow
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
 
-                await DisplaySystemSelectionScreenAsync();
+                await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -209,18 +211,18 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
             try
             {
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkEditor") ?? "Opening Link Editor...", this);
                 _playSoundEffects.PlayNotificationSound();
 
-                SetLinksWindow editLinksWindow = new(_settings);
-                editLinksWindow.ShowDialog();
-
+                UpdateShowGamesSetting("ShowAll");
+                UpdateMenuCheckMarks("ShowAll");
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -299,6 +301,8 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
             if (sender is not MenuItem menuItem) return;
@@ -311,7 +315,7 @@ public partial class MainWindow
                 _settings.Save();
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingFuzzyMatching") ?? "Toggling fuzzy matching...", this);
             }
@@ -336,6 +340,8 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
+
             _playSoundEffects.PlayNotificationSound();
 
             var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
@@ -347,7 +353,7 @@ public partial class MainWindow
             var (sl, sq) = GetLoadGameFilesParams();
             // Notify user
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFuzzyMatchingSettings") ?? "Opening fuzzy matching settings...", this);
-            await LoadGameFilesAsync(sl, sq);
+            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -411,6 +417,7 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
@@ -421,7 +428,7 @@ public partial class MainWindow
                 UpdateShowGamesSetting("ShowAll");
                 UpdateMenuCheckMarks("ShowAll");
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -440,6 +447,7 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
@@ -451,7 +459,7 @@ public partial class MainWindow
                 UpdateMenuCheckMarks("ShowWithCover");
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -470,6 +478,7 @@ public partial class MainWindow
     {
         try
         {
+            CancelAndRecreateToken();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
@@ -481,7 +490,7 @@ public partial class MainWindow
                 UpdateMenuCheckMarks("ShowWithoutCover");
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -517,6 +526,8 @@ public partial class MainWindow
 
             if (sender is not MenuItem clickedItem) return;
 
+            CancelAndRecreateToken();
+
             try
             {
                 _playSoundEffects.PlayNotificationSound();
@@ -534,7 +545,7 @@ public partial class MainWindow
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", this);
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -562,6 +573,8 @@ public partial class MainWindow
 
             if (sender is not MenuItem clickedItem) return;
 
+            CancelAndRecreateToken();
+
             try
             {
                 _playSoundEffects.PlayNotificationSound();
@@ -573,7 +586,7 @@ public partial class MainWindow
                 UpdateButtonAspectRatioCheckMarks(aspectRatio);
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -600,6 +613,8 @@ public partial class MainWindow
 
             if (sender is not MenuItem clickedItem) return;
 
+            CancelAndRecreateToken();
+
             try
             {
                 if (clickedItem.Name is "Page1000" or "Page10000" or "Page1000000")
@@ -622,7 +637,7 @@ public partial class MainWindow
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", this);
 
                 var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
             {
@@ -926,41 +941,50 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames) return;
+            CancelAndRecreateToken();
 
             try
             {
-                _playSoundEffects.PlayNotificationSound();
+                if (_isLoadingGames) return;
 
-                const int zoomStep = 50;
-                const int maxSize = 800;
-                var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
-
-                if (newSize == _settings.ThumbnailSize)
+                try
                 {
-                    return; // No change in size, no need to reload
+                    _playSoundEffects.PlayNotificationSound();
+
+                    const int zoomStep = 50;
+                    const int maxSize = 800;
+                    var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
+
+                    if (newSize == _settings.ThumbnailSize)
+                    {
+                        return; // No change in size, no need to reload
+                    }
+
+                    _gameButtonFactory.ImageHeight = newSize; // Update the image height
+                    _settings.ThumbnailSize = newSize;
+                    _settings.Save();
+                    UpdateThumbnailSizeCheckMarks(newSize);
+
+                    // Notify user
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
-
-                _gameButtonFactory.ImageHeight = newSize; // Update the image height
-                _settings.ThumbnailSize = newSize;
-                _settings.Save();
-                UpdateThumbnailSizeCheckMarks(newSize);
-
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string errorMessage = "Error in method NavZoomInButtonClickAsync.";
+                    _ = _logErrors.LogErrorAsync(ex, errorMessage);
+                }
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error in method NavZoomInButtonClickAsync.";
-                _ = _logErrors.LogErrorAsync(ex, errorMessage);
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomInButtonClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomInButtonClickAsync.");
         }
     }
@@ -969,41 +993,50 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames) return;
+            CancelAndRecreateToken();
 
             try
             {
-                _playSoundEffects.PlayNotificationSound();
+                if (_isLoadingGames) return;
 
-                const int zoomStep = 50;
-                const int minSize = 50;
-                var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
-
-                if (newSize == _settings.ThumbnailSize)
+                try
                 {
-                    return; // No change in size, no need to reload
+                    _playSoundEffects.PlayNotificationSound();
+
+                    const int zoomStep = 50;
+                    const int minSize = 50;
+                    var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
+
+                    if (newSize == _settings.ThumbnailSize)
+                    {
+                        return; // No change in size, no need to reload
+                    }
+
+                    _gameButtonFactory.ImageHeight = newSize; // Update the image height
+                    _settings.ThumbnailSize = newSize;
+                    _settings.Save();
+                    UpdateThumbnailSizeCheckMarks(newSize);
+
+                    // Notify user
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
-
-                _gameButtonFactory.ImageHeight = newSize; // Update the image height
-                _settings.ThumbnailSize = newSize;
-                _settings.Save();
-                UpdateThumbnailSizeCheckMarks(newSize);
-
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string errorMessage = "Error in method NavZoomOutButtonClickAsync.";
+                    _ = _logErrors.LogErrorAsync(ex, errorMessage);
+                }
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error in method NavZoomOutButtonClickAsync.";
-                _ = _logErrors.LogErrorAsync(ex, errorMessage);
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButtonClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButtonClickAsync.");
         }
     }
@@ -1012,52 +1045,61 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...", this);
-            if (_isLoadingGames) return;
+            CancelAndRecreateToken();
 
             try
             {
-                _playSoundEffects.PlayNotificationSound();
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...", this);
+                if (_isLoadingGames) return;
 
-                if (_settings.ViewMode == "GridView")
+                try
                 {
-                    // Switch to the ListView
-                    GridView.IsChecked = false;
-                    ListView.IsChecked = true;
-                    _settings.ViewMode = "ListView";
+                    _playSoundEffects.PlayNotificationSound();
 
-                    GameFileGrid.Visibility = Visibility.Collapsed;
-                    ListViewPreviewArea.Visibility = Visibility.Visible;
+                    if (_settings.ViewMode == "GridView")
+                    {
+                        // Switch to the ListView
+                        GridView.IsChecked = false;
+                        ListView.IsChecked = true;
+                        _settings.ViewMode = "ListView";
+
+                        GameFileGrid.Visibility = Visibility.Collapsed;
+                        ListViewPreviewArea.Visibility = Visibility.Visible;
+                    }
+                    else // Assuming it's "ListView"
+                    {
+                        // Switch to GridView
+                        GridView.IsChecked = true;
+                        ListView.IsChecked = false;
+                        _settings.ViewMode = "GridView";
+
+                        GameFileGrid.Visibility = Visibility.Visible;
+                        ListViewPreviewArea.Visibility = Visibility.Collapsed;
+                    }
+
+                    _settings.Save();
+
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
-                else // Assuming it's "ListView"
+                catch (Exception ex)
                 {
-                    // Switch to GridView
-                    GridView.IsChecked = true;
-                    ListView.IsChecked = false;
-                    _settings.ViewMode = "GridView";
+                    // Notify developer
+                    const string errorMessage = "Error while using the method NavToggleViewModeClickAsync.";
+                    _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
-                    GameFileGrid.Visibility = Visibility.Visible;
-                    ListViewPreviewArea.Visibility = Visibility.Collapsed;
+                    // Notify user
+                    MessageBoxLibrary.ErrorChangingViewModeMessageBox();
                 }
-
-                _settings.Save();
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Error while using the method NavToggleViewModeClickAsync.";
-                _ = _logErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.ErrorChangingViewModeMessageBox();
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method NavToggleViewModeClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the method NavToggleViewModeClickAsync.");
         }
     }
@@ -1103,6 +1145,8 @@ public partial class MainWindow
 
     private void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)
     {
+        CancelAndRecreateToken();
+
         if (sender is not MenuItem menuItem) return;
 
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingRetroAchievementsOverlayButton") ?? "Toggling RetroAchievements overlay button...", this);
@@ -1115,7 +1159,7 @@ public partial class MainWindow
 
             // Reload game files to reflect the change in overlay buttons
             var (sl, sq) = GetLoadGameFilesParams();
-            _ = LoadGameFilesAsync(sl, sq); // Use _ = to avoid blocking UI
+            _ = LoadGameFilesAsync(sl, sq, _cancellationSource.Token); // Use _ = to avoid blocking UI
         }
         catch (Exception ex)
         {
@@ -1126,6 +1170,8 @@ public partial class MainWindow
 
     private void ToggleVideoLinkButton_Click(object sender, RoutedEventArgs e)
     {
+        CancelAndRecreateToken();
+
         if (sender is not MenuItem menuItem) return;
 
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingVideoLinkOverlayButton") ?? "Toggling video link overlay button...", this);
@@ -1138,7 +1184,7 @@ public partial class MainWindow
 
             // Reload game files to reflect the change in overlay buttons
             var (sl, sq) = GetLoadGameFilesParams();
-            _ = LoadGameFilesAsync(sl, sq); // Use _ = to avoid blocking UI
+            _ = LoadGameFilesAsync(sl, sq, _cancellationSource.Token); // Use _ = to avoid blocking UI
         }
         catch (Exception ex)
         {
@@ -1149,6 +1195,8 @@ public partial class MainWindow
 
     private void ToggleInfoLinkButton_Click(object sender, RoutedEventArgs e)
     {
+        CancelAndRecreateToken();
+
         if (sender is not MenuItem menuItem) return;
 
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingInfoLinkOverlayButton") ?? "Toggling info link overlay button...", this);
@@ -1161,7 +1209,7 @@ public partial class MainWindow
 
             // Reload game files to reflect the change in overlay buttons
             var (sl, sq) = GetLoadGameFilesParams();
-            _ = LoadGameFilesAsync(sl, sq); // Use _ = to avoid blocking UI
+            _ = LoadGameFilesAsync(sl, sq, _cancellationSource.Token); // Use _ = to avoid blocking UI
         }
         catch (Exception ex)
         {

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -15,7 +16,7 @@ namespace SimpleLauncher.Services;
 
 public static class DisplaySystemInformation
 {
-    public static async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager selectedManager, WrapPanel gameFileGrid)
+    public static async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
         gameFileGrid.Children.Clear();
 
@@ -85,10 +86,11 @@ public static class DisplaySystemInformation
         var allFiles = new List<string>();
         foreach (var folder in selectedManager.SystemFolders)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(folder);
             if (!string.IsNullOrEmpty(resolvedPath) && Directory.Exists(resolvedPath))
             {
-                allFiles.AddRange(await GetListOfFiles.GetFilesAsync(resolvedPath, selectedManager.FileFormatsToSearch));
+                allFiles.AddRange(await GetListOfFiles.GetFilesAsync(resolvedPath, selectedManager.FileFormatsToSearch, cancellationToken));
             }
         }
 
@@ -107,7 +109,7 @@ public static class DisplaySystemInformation
         if (!string.IsNullOrEmpty(resolvedImageFolderPath) && Directory.Exists(resolvedImageFolderPath))
         {
             var imageExtensions = GetImageExtensions.GetExtensions();
-            var imageCount = await Task.Run(() => Directory.EnumerateFiles(resolvedImageFolderPath, "*.*").Count(file => imageExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))));
+            var imageCount = await Task.Run(() => Directory.EnumerateFiles(resolvedImageFolderPath, "*.*").Count(file => imageExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))), cancellationToken);
             var imageCountTextBlock = new TextBlock();
             imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));
             verticalStackPanel.Children.Add(imageCountTextBlock);

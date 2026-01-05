@@ -25,6 +25,7 @@ namespace SimpleLauncher;
 
 public partial class MainWindow : INotifyPropertyChanged, IDisposable
 {
+    private CancellationTokenSource _cancellationSource = new();
     private bool _isUiUpdating;
     private bool _wasControllerRunningBeforeDeactivation;
 
@@ -308,6 +309,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
+    private void CancelAndRecreateToken()
+    {
+        _cancellationSource.Cancel();
+        _cancellationSource.Dispose();
+        _cancellationSource = new CancellationTokenSource();
+    }
+
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()
     {
         var searchQueryToUse = _activeSearchQueryOrMode;
@@ -338,10 +346,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task TopLetterNumberMenuClickAsync(string selectedLetter)
     {
-        if (_isLoadingGames) return;
-
         try
         {
+            if (_isLoadingGames)
+            {
+                CancelAndRecreateToken();
+            }
+
             _playSoundEffects.PlayNotificationSound();
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
@@ -349,7 +360,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _currentFilter = selectedLetter; // Update current filter
             _activeSearchQueryOrMode = null; // Reset special search mode
 
-            await LoadGameFilesAsync(selectedLetter, null); // searchQuery is null
+            await LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
         }
         catch (Exception ex)
         {
@@ -360,10 +371,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task ShowSystemFavoriteGamesClickAsync()
     {
-        if (_isLoadingGames) return;
-
         try
         {
+            if (_isLoadingGames)
+            {
+                CancelAndRecreateToken();
+            }
+
             _playSoundEffects.PlayNotificationSound();
 
             // Change the filter to ShowAll (as favorites might not have covers)
@@ -371,7 +385,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _settings.Save();
             ApplyShowGamesSetting(); // Update menu check marks
 
-            ResetPaginationButtons();
             SearchTextBox.Text = ""; // Clear search field
             _currentFilter = null; // Clear any active letter filter
             _activeSearchQueryOrMode = "FAVORITES"; // Set special search mode
@@ -382,7 +395,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
 
-                await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
+                await LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token); // Call LoadGameFilesAsync
             }
             else
             {
@@ -400,10 +413,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task ShowSystemFeelingLuckyClickAsync(object sender, RoutedEventArgs e)
     {
+        if (_isLoadingGames)
+        {
+            CancelAndRecreateToken();
+        }
+
         try
         {
-            if (_isLoadingGames) return;
-
             try
             {
                 _playSoundEffects.PlayNotificationSound();
@@ -447,11 +463,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                         foreach (var folder in selectedManager.SystemFolders)
                         {
+                            _cancellationSource.Token.ThrowIfCancellationRequested();
+
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
                                 selectedManager.FileFormatsToSearch == null) continue;
 
-                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, _cancellationSource.Token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -482,7 +500,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
                     _currentSearchResults = [selectedGame]; // Store only the selected game
 
-                    await LoadGameFilesAsync(null, "RANDOM_SELECTION");
+                    await LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
 
                     // If in list view, select the game in the DataGrid
                     if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
@@ -862,43 +880,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             return;
-
-            // async Task<bool> ReScanMicrosoftWindowsSystem(string selectedSystem)
-            // {
-            //     if (selectedSystem == "Microsoft Windows")
-            //     {
-            //         var rescanResult = MessageBoxLibrary.AskToRescanWindowsGamesMessageBox();
-            //         if (rescanResult == MessageBoxResult.Yes)
-            //         {
-            //             SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
-            //             try
-            //             {
-            //                 // The GameScannerService.ScanForStoreGamesAsync() already handles creating the system if it doesn't exist.
-            //                 // It also updates the system.xml if new games are found, which LoadOrReloadSystemManager() will pick up.
-            //                 await _gameScannerService.ScanForStoreGamesAsync();
-            //
-            //                 // After scan, reload systems and games
-            //                 LoadOrReloadSystemManager();
-            //                 // Reload the current system's games to reflect any new shortcuts found
-            //                 await LoadGameFilesAsync(null, null);
-            //                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("WindowsGamesScanComplete") ?? "Windows games scan complete.", this);
-            //             }
-            //             catch (Exception ex)
-            //             {
-            //                 _ = _logErrors.LogErrorAsync(ex, "Error during Windows games rescan.");
-            //                 MessageBoxLibrary.ErrorScanningWindowsGamesMessageBox();
-            //             }
-            //             finally
-            //             {
-            //                 SetUiLoadingState(false);
-            //             }
-            //
-            //             return true;
-            //         }
-            //     }
-            //
-            //     return false;
-            // }
         }
         catch (Exception ex)
         {
@@ -949,7 +930,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
+    public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
         Dispatcher.Invoke(() => SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
@@ -957,9 +938,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             if (SystemComboBox.SelectedItem == null)
             {
-                await DisplaySystemSelectionScreenAsync();
+                await DisplaySystemSelectionScreenAsync(cancellationToken);
                 return;
             }
 
@@ -974,12 +957,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-                await DisplaySystemSelectionScreenAsync();
+                await DisplaySystemSelectionScreenAsync(cancellationToken);
 
                 return;
             }
 
-            var allFiles = await BuildListOfAllFilesToLoad(selectedManager);
+            var allFiles = await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (selectedManager.GroupByFolder)
             {
@@ -1019,13 +1003,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             allFiles = ProcessListOfAllFilesWithMachineDescription(selectedManager, allFiles);
+            cancellationToken.ThrowIfCancellationRequested();
 
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
+            cancellationToken.ThrowIfCancellationRequested();
 
             allFiles = SetPaginationOfListOfFiles(allFiles);
+            cancellationToken.ThrowIfCancellationRequested();
 
             foreach (var filePath in allFiles) // 'filePath' is already resolved here
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 if (_settings.ViewMode == "GridView") // GridView
                 {
                     var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager, this);
@@ -1048,6 +1037,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     break;
             }
         }
+        catch (OperationCanceledException)
+        {
+            DebugLogger.Log("[LoadGameFilesAsync] Operation was canceled.");
+            // Clear the UI to prevent showing partial results from the canceled operation.
+            GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
+            await Dispatcher.InvokeAsync(() => GameListItems.Clear());
+        }
         catch (Exception ex)
         {
             // Notify developer
@@ -1064,11 +1060,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         return;
 
-        async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager selectedManager)
+        async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager selectedManager, string startLetter2, string searchQuery2, CancellationToken token)
         {
             List<string> allFiles;
 
-            switch (searchQuery)
+            switch (searchQuery2)
             {
                 case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
                 case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
@@ -1079,10 +1075,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     // If no specific filter (letter or search query), and _allGamesForCurrentSystem is already populated for this system,
                     // use it directly. Otherwise, perform a full disk scan.
                     // The _selectedSystem field ensures _allGamesForCurrentSystem is for the *currently active* system.
-                    await _allGamesLock.WaitAsync(); // Acquire lock before accessing _allGamesForCurrentSystem
+                    await _allGamesLock.WaitAsync(token); // Acquire lock before accessing _allGamesForCurrentSystem
                     try
                     {
-                        if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery) &&
+                        if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2) &&
                             _allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 &&
                             _selectedSystem == selectedManager.SystemName)
                         {
@@ -1098,10 +1094,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                             var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                             foreach (var folder in selectedManager.SystemFolders)
                             {
+                                token.ThrowIfCancellationRequested();
+
                                 var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                                 if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
                                 foreach (var file in filesInFolder)
                                 {
                                     uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -1110,11 +1108,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                             allFiles = uniqueFiles.Values.ToList(); // This is the full list from disk for the system
 
-                            await _allGamesLock.WaitAsync(); // Re-acquire lock before potentially writing to _allGamesForCurrentSystem
+                            await _allGamesLock.WaitAsync(token); // Re-acquire lock before potentially writing to _allGamesForCurrentSystem
 
                             // If no specific filter (letter or search query), this is the "all games" list.
                             // Cache it for future "Feeling Lucky" calls and direct "All" view loads.
-                            if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery))
+                            if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2))
                             {
                                 _allGamesForCurrentSystem = new List<string>(allFiles); // WRITE
                                 DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated _allGamesForCurrentSystem for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
@@ -1127,16 +1125,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     }
 
                     // ... filtering by startLetter ...
-                    if (!string.IsNullOrWhiteSpace(startLetter))
+                    if (!string.IsNullOrWhiteSpace(startLetter2))
                     {
-                        allFiles = await FilterFilesAsync(allFiles, startLetter);
+                        allFiles = await FilterFilesAsync(allFiles, startLetter2);
                     }
 
                     // ... filtering by searchQuery ...
-                    if (!string.IsNullOrWhiteSpace(searchQuery) && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
+                    if (!string.IsNullOrWhiteSpace(searchQuery2) && searchQuery2 != "RANDOM_SELECTION" && searchQuery2 != "FAVORITES")
                     {
                         var systemIsMame = selectedManager.SystemIsMame;
-                        var lowerQuery = searchQuery.ToLowerInvariant();
+                        var lowerQuery = searchQuery2.ToLowerInvariant();
                         allFiles = await Task.Run(() =>
                             allFiles.FindAll(file =>
                             {
@@ -1150,7 +1148,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                 }
 
                                 return false;
-                            }));
+                            }), token);
 
                         _currentSearchResults = new List<string>(allFiles); // Store search results
                     }

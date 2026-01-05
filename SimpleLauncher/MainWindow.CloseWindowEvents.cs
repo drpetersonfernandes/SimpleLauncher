@@ -30,6 +30,9 @@ public partial class MainWindow
         _systemManagers?.Clear();
         _allGamesForCurrentSystem?.Clear();
 
+        _cancellationSource?.Cancel();
+        _cancellationSource?.Dispose();
+
         // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
     }
