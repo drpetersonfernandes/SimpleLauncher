@@ -574,7 +574,12 @@ public class GameLauncher
                 throw new InvalidOperationException("Failed to start the executable process.");
             }
 
-            await process.WaitForExitAsync();
+            if (!process.HasExited)
+            {
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                await process.WaitForExitAsync();
+            }
 
             if (process.ExitCode != 0)
             {
