@@ -76,6 +76,7 @@ public static partial class HelpUser
             { "Amiga", CommodoreAmigaDetails },
             { "CPC", AmstradCpcDetails },
             { "Amstrad CPC GX4000", AmstradCpcgx4000Details },
+            { "Amstrad GX4000", AmstradCpcgx4000Details },
             { "CPC GX4000", AmstradCpcgx4000Details },
             { "GX4000", AmstradCpcgx4000Details },
             { "Arcade", ArcadeDetails },
@@ -348,7 +349,7 @@ public static partial class HelpUser
 
     private static string AmstradCpcgx4000Details()
     {
-        return GetSystemDetails("Amstrad CPC GX4000");
+        return GetSystemDetails("Amstrad GX4000");
     }
 
     private static string ArcadeDetails()

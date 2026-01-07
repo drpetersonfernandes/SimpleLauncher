@@ -252,6 +252,30 @@ public class DownloadManager : IDisposable
                                 throw;
                             }
                         }
+                        catch (IOException ex)
+                        {
+                            // Notify developer
+                            _ = _logErrors.LogErrorAsync(ex, $"I/O error during download attempt {currentRetry + 1}: {ex.Message}");
+
+                            currentRetry++;
+                            if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                            {
+                                // Calculate delay with exponential backoff
+                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                                OnProgressChanged(new DownloadProgressEventArgs
+                                {
+                                    ProgressPercentage = 0,
+                                    StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                                });
+
+                                await Task.Delay(delay, _cancellationTokenSource.Token);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
                     }
 
                     if (IsDownloadCompleted)
@@ -614,7 +638,7 @@ public class DownloadManager : IDisposable
         catch (IOException ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, $"File read/write error after file download.\nURL: {downloadUrl}");
+            _ = _logErrors.LogErrorAsync(ex, $"I/O error during file download stream processing.\nURL: {downloadUrl}");
 
             // Notify user
             OnProgressChanged(new DownloadProgressEventArgs
