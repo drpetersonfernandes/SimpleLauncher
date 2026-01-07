@@ -459,10 +459,19 @@ public class GameLauncher
 
                 // Verify protocol handler is registered
                 var protocol = targetUrl.Split(':')[0];
-                if (!string.IsNullOrEmpty(protocol) && !IsProtocolRegistered(protocol))
+                if (!string.IsNullOrEmpty(protocol))
                 {
-                    DebugLogger.Log($"Warning: Protocol '{protocol}' may not be registered on this system.");
-                    // Continue anyway - the error will be caught and logged
+                    if (!IsProtocolRegistered(protocol))
+                    {
+                        // Throw a specific exception if protocol is not registered.
+                        throw new InvalidOperationException($"Protocol handler for '{protocol}://' is not registered. Please ensure the associated application (e.g., GOG Galaxy) is installed and configured correctly.");
+                    }
+                }
+                else
+                {
+                    // If no protocol is found, it's likely a malformed URL or a local file path in a .url file.
+                    // For now, let Process.Start handle it, but log a warning.
+                    DebugLogger.Log($"Warning: No protocol found in URL: '{targetUrl}'. Attempting to launch anyway.");
                 }
 
                 // Use shell execution with explicit working directory set to null
@@ -520,12 +529,14 @@ public class GameLauncher
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                // More specific user message
-                var message = ex is FileNotFoundException
-                    ? $"Shortcut file not found: {Path.GetFileName(resolvedFilePath)}."
-                    : "Could not launch the game shortcut. The protocol handler may not be installed. Please ensure the game launcher (Steam, GOG Galaxy, etc.) is installed.";
+                var userMessage = ex switch
+                {
+                    FileNotFoundException => $"Shortcut file not found: {Path.GetFileName(resolvedFilePath)}.",
+                    InvalidOperationException when ex.Message.Contains("Protocol handler for", StringComparison.OrdinalIgnoreCase) => ex.Message,
+                    _ => "Could not launch the game shortcut. The protocol handler may not be installed. Please ensure the game launcher (Steam, GOG Galaxy, etc.) is installed."
+                };
 
-                MessageBoxLibrary.ShowCustomMessageBox(message, "Launch Error", _logPath);
+                MessageBoxLibrary.ShowCustomMessageBox(userMessage, "Launch Error", _logPath);
             }
         }
     }
@@ -782,9 +793,8 @@ public class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-            DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
+            DebugLogger.Log($"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
 
             workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
         }
@@ -882,7 +892,7 @@ public class GameLauncher
             {
                 // This check is safe even if the process didn't start.
                 _ = process.Id;
-                exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode : "N/A (Still Running or Failed to get code)")}";
+                exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A (Still Running or Failed to get code)")}";
             }
             catch (InvalidOperationException)
             {
@@ -1047,13 +1057,43 @@ public class GameLauncher
 
     private static bool IsProtocolRegistered(string protocol)
     {
+        if (string.IsNullOrEmpty(protocol)) return false;
+
         try
         {
-            using var key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(protocol);
-            return key != null;
+            // Protocol names are case-insensitive in registry, but typically stored lowercase.
+            // Ensure we check for the existence of the protocol key itself.
+            using var protocolKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(protocol.ToLowerInvariant());
+            if (protocolKey == null)
+            {
+                DebugLogger.Log($"[IsProtocolRegistered] Protocol key '{protocol.ToLowerInvariant()}' not found in HKEY_CLASSES_ROOT.");
+                return false;
+            }
+
+            // A protocol is considered "registered" if it has a command handler defined.
+            // This is typically found under shell\open\command.
+            using var shellOpenCommandKey = protocolKey.OpenSubKey(@"shell\open\command");
+            if (shellOpenCommandKey == null)
+            {
+                DebugLogger.Log($"[IsProtocolRegistered] 'shell\\open\\command' subkey not found for protocol '{protocol.ToLowerInvariant()}'.");
+                return false;
+            }
+
+            var command = shellOpenCommandKey.GetValue(null) as string; // Default value
+            if (string.IsNullOrWhiteSpace(command))
+            {
+                DebugLogger.Log($"[IsProtocolRegistered] Command handler is empty for protocol '{protocol.ToLowerInvariant()}'.");
+                return false;
+            }
+
+            DebugLogger.Log($"[IsProtocolRegistered] Protocol '{protocol.ToLowerInvariant()}' is registered with command: '{command}'.");
+            return true;
         }
-        catch
+        catch (Exception ex)
         {
+            // Log any exceptions during registry access.
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error checking if protocol '{protocol}' is registered.");
+            DebugLogger.Log($"[IsProtocolRegistered] Error checking protocol '{protocol}': {ex.Message}");
             return false;
         }
     }
