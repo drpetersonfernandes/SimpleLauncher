@@ -289,7 +289,7 @@
     <None Update="images\systems\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="images\systems\Amstrad CPC GX4000.png">
+    <None Update="images\systems\Amstrad GX4000.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="images\systems\Atari Jaguar.png">
