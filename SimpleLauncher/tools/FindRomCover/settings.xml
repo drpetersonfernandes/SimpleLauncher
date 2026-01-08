@@ -117,6 +117,10 @@
         <Width>300</Width>
         <Height>300</Height>
     </ImageSize>
+    <MaxImagesToLoad>30</MaxImagesToLoad>
+    <ImageLoaderMaxRetries>3</ImageLoaderMaxRetries>
+    <ImageLoaderRetryDelayMilliseconds>200</ImageLoaderRetryDelayMilliseconds>
+    <ApiTimeoutSeconds>30</ApiTimeoutSeconds>
     <SimilarityAlgorithm>Jaro-Winkler Distance</SimilarityAlgorithm>
     <BaseTheme>Light</BaseTheme>
     <AccentColor>Blue</AccentColor>
