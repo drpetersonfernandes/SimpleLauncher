@@ -105,6 +105,7 @@ public partial class GlobalSearchWindow : IDisposable
 
             LoadingOverlay.Visibility = Visibility.Visible;
             NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
+            await Task.Yield(); // Allow UI to render the loading overlay before starting the search
 
             try
             {

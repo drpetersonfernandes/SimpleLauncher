@@ -158,6 +158,7 @@ public partial class SupportWindow
 
             MainContentGrid.IsEnabled = false;
             ProgressOverlay.Visibility = Visibility.Visible;
+            await Task.Yield(); // Allow UI to render the progress overlay
 
             try
             {

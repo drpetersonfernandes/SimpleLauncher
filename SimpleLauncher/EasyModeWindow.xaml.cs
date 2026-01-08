@@ -243,6 +243,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         LoadingOverlay.Visibility = Visibility.Visible;
         var loadingConfiguration = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
         LoadingMessage.Text = loadingConfiguration;
+        await Task.Yield(); // Allow UI to render the loading overlay
 
         _manager = await EasyModeManager.LoadAsync();
 
@@ -599,6 +600,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 DownloadStatus = $"{extracting} {componentName}...";
                 LoadingMessage.Text = $"{extracting} {componentName}...";
                 LoadingOverlay.Visibility = Visibility.Visible;
+                await Task.Yield(); // Allow UI to render the loading overlay
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
                 LoadingOverlay.Visibility = Visibility.Collapsed;
             }
@@ -783,6 +785,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 // Show overlay
                 LoadingMessage.Text = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
                 LoadingOverlay.Visibility = Visibility.Visible;
+                await Task.Yield(); // Allow UI to render the loading overlay
 
                 // Update System.xml with the *unresolved* paths, as system.xml expects them.
                 await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);

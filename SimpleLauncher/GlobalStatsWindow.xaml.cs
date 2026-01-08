@@ -49,6 +49,7 @@ public partial class GlobalStatsWindow
                 StartButton.Visibility = Visibility.Collapsed;
                 ProgressBar.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
+                await Task.Yield(); // Allow UI to render the progress bar
 
                 await ProcessGlobalStatsAsync(_cancellationTokenSource.Token);
             }

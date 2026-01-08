@@ -732,6 +732,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     }
 
                     SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
+                    await Task.Yield(); // Allow UI to update and show spinner
                     _isUiUpdating = true; // Set after UI is frozen
                     try
                     {

@@ -5,7 +5,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using SimpleLauncher.Models.GameScanLogic;
 using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameScanLogic;
@@ -31,7 +34,7 @@ public static class ScanMicrosoftStoreGames
         "Apple",
         "AppleÿMusic",
         "AppleÿTV",
-        "Aquile Reader",
+        "Aquila Reader",
         "Arduino IDE",
         "Armoury Crate",
         "Asistencia",
@@ -340,13 +343,13 @@ public static class ScanMicrosoftStoreGames
                 DebugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell warning/error: {errorOutput}");
             }
 
-            var foundGames = new List<string>();
-
             if (string.IsNullOrWhiteSpace(output)) return;
 
             var jsonStr = output.Trim();
             // Safeguard against non-JSON output
             if (!jsonStr.StartsWith('[') && !jsonStr.StartsWith('{')) return;
+
+            var potentialGames = new List<SelectableGameItem>();
 
             if (jsonStr.StartsWith('{')) // Single object returned
             {
@@ -385,20 +388,15 @@ public static class ScanMicrosoftStoreGames
                         }
                     }
 
-                    foundGames.Add($"Name: {name}, AppID: {appId}, PackageFamilyName: {packageFamilyName}");
-
-                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(name);
-                    var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
-
-                    // Use 'start shell:AppsFolder\...' for reliable launching
-                    var batchContent = $"@echo off\r\nstart \"\" \"shell:AppsFolder\\{appId}\"";
-                    await File.WriteAllTextAsync(shortcutPath, batchContent);
-
-                    // Attempt Icon Extraction
-                    if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
+                    potentialGames.Add(new SelectableGameItem
                     {
-                        await TryExtractStoreIcon(logErrors, name, installLocation, logoRelativePath, sanitizedGameName, windowsImagesPath);
-                    }
+                        Name = name,
+                        AppId = appId,
+                        InstallLocation = installLocation,
+                        PackageFamilyName = packageFamilyName,
+                        LogoRelativePath = logoRelativePath,
+                        IsSelected = true // Default to selected for the verification window
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -406,16 +404,61 @@ public static class ScanMicrosoftStoreGames
                 }
             }
 
-            if (foundGames.Count > 0)
+            if (potentialGames.Count != 0)
             {
-                var report = new System.Text.StringBuilder();
-                report.AppendLine(CultureInfo.InvariantCulture, $"Found {foundGames.Count} potential games from Microsoft Store scan:");
-                foreach (var game in foundGames)
+                // Send the list of newly found, unignored programs to the developer for analysis
+                try
                 {
-                    report.AppendLine(CultureInfo.InvariantCulture, $"- {game}");
+                    var newPrograms = potentialGames.Select(p => p.Name).ToList();
+                    if (newPrograms.Count != 0)
+                    {
+                        var reportContent = new StringBuilder();
+                        reportContent.AppendLine("--- Microsoft Store Scan Results ---");
+                        reportContent.AppendLine("The following programs were found and are not on the ignore list:");
+                        foreach (var programName in newPrograms.OrderBy(n => n))
+                        {
+                            reportContent.AppendLine(CultureInfo.InvariantCulture, $"- {programName}");
+                        }
+
+                        // Use LogErrorAsync to send the report. Pass null for the exception.
+                        await logErrors.LogErrorAsync(null, reportContent.ToString());
+                        DebugLogger.Log("[ScanMicrosoftStoreGames] Sent list of potential Microsoft Store games to developer.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await logErrors.LogErrorAsync(ex, "Failed to send Microsoft Store scan results to developer.");
                 }
 
-                await logErrors.LogErrorAsync(new Exception("Microsoft Store Games Scan Report"), report.ToString());
+                List<SelectableGameItem> confirmedGames = null;
+
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    var verificationWindow = new GameVerificationWindow(potentialGames);
+                    if (verificationWindow.ShowDialog() == true)
+                    {
+                        confirmedGames = verificationWindow.ConfirmedGames;
+                    }
+                });
+
+                if (confirmedGames != null && confirmedGames.Count != 0)
+                {
+                    foreach (var game in confirmedGames)
+                    {
+                        var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(game.Name);
+                        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
+
+                        // Use 'start shell:AppsFolder\...' for reliable launching
+                        var batchContent = $"@echo off\r\nstart \"\" \"shell:AppsFolder\\{game.AppId}\"";
+                        await File.WriteAllTextAsync(shortcutPath, batchContent);
+
+                        // Attempt Icon Extraction
+                        if (!string.IsNullOrEmpty(game.InstallLocation) && Directory.Exists(game.InstallLocation))
+                        {
+                            await TryExtractStoreIcon(logErrors, game.Name, game.InstallLocation, game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
+                        }
+                    }
+                }
             }
         }
         catch (Exception ex)
@@ -423,6 +466,7 @@ public static class ScanMicrosoftStoreGames
             await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Microsoft Store games.");
         }
     }
+
 
     private static async Task TryExtractStoreIcon(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
