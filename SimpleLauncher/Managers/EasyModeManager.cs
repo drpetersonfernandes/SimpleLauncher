@@ -144,7 +144,7 @@ public class EasyModeManager
             DebugLogger.Log("EasyMode session cache miss or expired. Fetching from API...");
             var manager = await FetchFromApiAsync().ConfigureAwait(false);
 
-            if (manager != null && manager.Systems?.Count > 0)
+            if (manager is { Systems.Count: > 0 })
             {
                 _apiCache = (manager, DateTime.UtcNow);
                 DebugLogger.Log("EasyMode configuration fetched from API and cached for session.");
