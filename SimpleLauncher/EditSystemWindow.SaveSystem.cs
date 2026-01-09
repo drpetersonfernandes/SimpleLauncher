@@ -355,9 +355,10 @@ public partial class EditSystemWindow
                 // Notify user
                 MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
 
-                // Create folders based on the *resolved* paths, not the saved strings
-                // This is already handled by TryCreateDefaultFolder in LoadSystemDetails
-                CreateFolders(systemNameText);
+                // Create folders based on the resolved paths
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
+                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
+                CreateSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
@@ -468,56 +469,5 @@ public partial class EditSystemWindow
         existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
         existingSystem.Element("Emulators")?.Remove();
         existingSystem.Add(emulatorsElement);
-    }
-
-    private static void CreateFolders(string systemNameText)
-    {
-        if (string.IsNullOrEmpty(systemNameText)) return;
-
-        var applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var folderNames = GetAdditionalFolders.GetFolders();
-
-        foreach (var folderName in folderNames)
-        {
-            var parentDirectory = Path.Combine(applicationDirectory, folderName);
-
-            if (!Directory.Exists(parentDirectory))
-            {
-                try
-                {
-                    Directory.CreateDirectory(parentDirectory);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating parent directory: {parentDirectory}");
-                }
-            }
-
-            var newFolderPath = Path.Combine(parentDirectory, systemNameText);
-
-            try
-            {
-                if (!Directory.Exists(newFolderPath))
-                {
-                    Directory.CreateDirectory(newFolderPath);
-                    if (folderName == "images")
-                    {
-                        // Notify user
-                        MessageBoxLibrary.FolderCreatedMessageBox(systemNameText);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating system specific folder: {newFolderPath}");
-                if (folderName == "images") // Only show failure for images as per original logic
-                {
-                    // Notify user
-                    MessageBoxLibrary.FolderCreationFailedMessageBox();
-                }
-            }
-        }
     }
 }

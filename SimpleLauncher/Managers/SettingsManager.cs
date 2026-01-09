@@ -16,6 +16,7 @@ namespace SimpleLauncher.Managers;
 public class SettingsManager
 {
     private readonly string _filePath;
+    private readonly object _saveLock = new();
     private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
@@ -69,7 +70,6 @@ public class SettingsManager
 
     private const string DefaultSettingsFilePath = "settings.xml";
     private const string DefaultNotificationSoundFileName = "click.mp3";
-    private static readonly string[] Separator = new[] { "<SystemPlayTime>" };
 
     public SettingsManager() : this(DefaultSettingsFilePath)
     {
@@ -231,39 +231,48 @@ public class SettingsManager
             if (!File.Exists(filePath)) return;
 
             var salvagedPlayTimes = new List<SystemPlayTime>();
-            var fileContent = File.ReadAllText(filePath);
 
-            // A simple, non-XML-parser way to find the data, robust against malformed XML
-            var playTimesBlockStartIndex = fileContent.IndexOf("<SystemPlayTimes>", StringComparison.Ordinal);
-            if (playTimesBlockStartIndex == -1) return;
-
-            var playTimesBlockEndIndex = fileContent.IndexOf("</SystemPlayTimes>", playTimesBlockStartIndex, StringComparison.Ordinal);
-            if (playTimesBlockEndIndex == -1) return;
-
-            var playTimesBlock = fileContent.Substring(playTimesBlockStartIndex, playTimesBlockEndIndex - playTimesBlockStartIndex);
-
-            var systemPlayTimeElements = playTimesBlock.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var element in systemPlayTimeElements.Skip(1)) // Skip the part before the first element
+            // Use a forgiving XmlReader to find the SystemPlayTimes fragment
+            var settings = new XmlReaderSettings
             {
-                var systemNameMatch = System.Text.RegularExpressions.Regex.Match(element, @"<SystemName>(.*?)</SystemName>");
-                var playTimeMatch = System.Text.RegularExpressions.Regex.Match(element, @"<PlayTime>(.*?)</PlayTime>");
+                ConformanceLevel = ConformanceLevel.Fragment,
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
 
-                if (systemNameMatch.Success && playTimeMatch.Success)
+            using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var reader = XmlReader.Create(fileStream, settings);
+
+            while (reader.Read())
+            {
+                if (reader.NodeType != XmlNodeType.Element || reader.Name != "SystemPlayTimes") continue;
+
+                // Found the element, now read it and its children into an XElement
+                if (XNode.ReadFrom(reader) is XElement systemPlayTimesElement)
                 {
-                    salvagedPlayTimes.Add(new SystemPlayTime
+                    foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
                     {
-                        SystemName = systemNameMatch.Groups[1].Value,
-                        PlayTime = playTimeMatch.Groups[1].Value
-                    });
+                        var systemName = systemPlayTimeElement.Element("SystemName")?.Value;
+                        var playTime = systemPlayTimeElement.Element("PlayTime")?.Value;
+
+                        if (!string.IsNullOrWhiteSpace(systemName) && !string.IsNullOrWhiteSpace(playTime))
+                        {
+                            salvagedPlayTimes.Add(new SystemPlayTime
+                            {
+                                SystemName = systemName,
+                                PlayTime = playTime
+                            });
+                        }
+                    }
                 }
+
+                break; // Stop after processing the first SystemPlayTimes block found
             }
 
-            if (salvagedPlayTimes.Count > 0)
-            {
-                SystemPlayTimes = salvagedPlayTimes;
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Successfully salvaged {salvagedPlayTimes.Count} SystemPlayTime entries from corrupt settings.xml.");
-            }
+            if (salvagedPlayTimes.Count <= 0) return;
+
+            SystemPlayTimes = salvagedPlayTimes;
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Successfully salvaged {salvagedPlayTimes.Count} SystemPlayTime entries from corrupt settings.xml.");
         }
         catch (Exception ex)
         {
@@ -354,52 +363,55 @@ public class SettingsManager
 
     public void Save()
     {
-        try
+        lock (_saveLock)
         {
-            var systemPlayTimesElement = new XElement("SystemPlayTimes");
-            foreach (var systemPlayTime in SystemPlayTimes.Where(static s => !string.IsNullOrWhiteSpace(s.SystemName)))
+            try
             {
-                systemPlayTimesElement.Add(new XElement("SystemPlayTime",
-                    new XElement("SystemName", systemPlayTime.SystemName),
-                    new XElement("PlayTime", systemPlayTime.PlayTime)
-                ));
-            }
+                var systemPlayTimesElement = new XElement("SystemPlayTimes");
+                foreach (var systemPlayTime in SystemPlayTimes.Where(static s => !string.IsNullOrWhiteSpace(s.SystemName)))
+                {
+                    systemPlayTimesElement.Add(new XElement("SystemPlayTime",
+                        new XElement("SystemName", systemPlayTime.SystemName),
+                        new XElement("PlayTime", systemPlayTime.PlayTime)
+                    ));
+                }
 
-            new XElement("Settings",
-                new XElement("ThumbnailSize", ThumbnailSize),
-                new XElement("GamesPerPage", GamesPerPage),
-                new XElement("ShowGames", ShowGames),
-                new XElement("ViewMode", ViewMode),
-                new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
-                new XElement("VideoUrl", VideoUrl),
-                new XElement("InfoUrl", InfoUrl),
-                new XElement("BaseTheme", BaseTheme),
-                new XElement("AccentColor", AccentColor),
-                new XElement("Language", Language),
-                new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
-                new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
-                new XElement("ButtonAspectRatio", ButtonAspectRatio),
-                new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
-                new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
-                new XElement("EnableNotificationSound", EnableNotificationSound),
-                new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
-                new XElement("RA_Username", RaUsername),
-                new XElement("RA_ApiKey", RaApiKey),
-                new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
-                new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
-                new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
-                new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
-                new XElement("Emulator1Expanded", Emulator1Expanded),
-                new XElement("Emulator2Expanded", Emulator2Expanded),
-                new XElement("Emulator3Expanded", Emulator3Expanded),
-                new XElement("Emulator4Expanded", Emulator4Expanded),
-                new XElement("Emulator5Expanded", Emulator5Expanded),
-                systemPlayTimesElement
-            ).Save(_filePath);
-        }
-        catch (Exception ex)
-        {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.");
+                new XElement("Settings",
+                    new XElement("ThumbnailSize", ThumbnailSize),
+                    new XElement("GamesPerPage", GamesPerPage),
+                    new XElement("ShowGames", ShowGames),
+                    new XElement("ViewMode", ViewMode),
+                    new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
+                    new XElement("VideoUrl", VideoUrl),
+                    new XElement("InfoUrl", InfoUrl),
+                    new XElement("BaseTheme", BaseTheme),
+                    new XElement("AccentColor", AccentColor),
+                    new XElement("Language", Language),
+                    new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
+                    new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
+                    new XElement("ButtonAspectRatio", ButtonAspectRatio),
+                    new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
+                    new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
+                    new XElement("EnableNotificationSound", EnableNotificationSound),
+                    new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
+                    new XElement("RA_Username", RaUsername),
+                    new XElement("RA_ApiKey", RaApiKey),
+                    new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
+                    new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
+                    new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
+                    new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
+                    new XElement("Emulator1Expanded", Emulator1Expanded),
+                    new XElement("Emulator2Expanded", Emulator2Expanded),
+                    new XElement("Emulator3Expanded", Emulator3Expanded),
+                    new XElement("Emulator4Expanded", Emulator4Expanded),
+                    new XElement("Emulator5Expanded", Emulator5Expanded),
+                    systemPlayTimesElement
+                ).Save(_filePath);
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.");
+            }
         }
     }
 

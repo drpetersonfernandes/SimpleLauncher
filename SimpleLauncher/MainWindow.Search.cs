@@ -55,7 +55,15 @@ public partial class MainWindow
         CancelAndRecreateToken();
         ResetPaginationButtons();
 
-        _currentSearchResults.Clear(); // Clear previous search results
+        await _allGamesLock.WaitAsync(_cancellationSource.Token);
+        try
+        {
+            _currentSearchResults.Clear(); // Clear previous search results
+        }
+        finally
+        {
+            _allGamesLock.Release();
+        }
 
         // Call DeselectLetter to clear any selected letter filter UI
         _topLetterNumberMenu.DeselectLetter();

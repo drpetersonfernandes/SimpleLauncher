@@ -3325,7 +3325,7 @@ internal static class MessageBoxLibrary
 
     internal static void ShowCustomMessageBox(string message, string launchError, string logPath)
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3354,6 +3354,57 @@ internal static class MessageBoxLibrary
                     MessageBox.Show(thefileerroruserlogwasnotfound, launchError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+    }
+
+    internal static void EnterValidSearchTerms()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("EnterValidSearchTerms") ?? "Please enter valid search terms.";
+            var title = (string)Application.Current.TryFindResource("InvalidSearch") ?? "Invalid Search";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void OperationCancelled()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("OperationCancelledMessage") ?? "The operation was cancelled.";
+            var title = (string)Application.Current.TryFindResource("OperationCancelled") ?? "Operation Cancelled";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static MessageBoxResult DoYouWantToCancelAndClose()
+    {
+        return Application.Current.Dispatcher.Invoke(ShowMessage);
+
+        static MessageBoxResult ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("ProcessingStillRunningMessage") ?? "Processing is still running. Do you want to cancel and close?";
+            var title = (string)Application.Current.TryFindResource("ConfirmClose") ?? "Confirm Close";
+            return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        }
+    }
+
+    internal static void CouldNotOpenBrowserForAiSupport()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("CouldnotopenbrowserforAIsupport") ?? "Could not open browser for AI support.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

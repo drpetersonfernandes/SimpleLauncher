@@ -26,7 +26,16 @@ public partial class MainWindow
 
         // Clean up collections
         GameListItems?.Clear();
-        _currentSearchResults?.Clear();
+        _allGamesLock.Wait();
+        try
+        {
+            _currentSearchResults?.Clear();
+        }
+        finally
+        {
+            _allGamesLock.Release();
+        }
+
         _systemManagers?.Clear();
         _allGamesForCurrentSystem?.Clear();
 

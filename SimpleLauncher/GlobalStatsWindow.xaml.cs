@@ -59,8 +59,7 @@ public partial class GlobalStatsWindow
                 // Only show message if we're not force closing
                 if (!_forceClose)
                 {
-                    MessageBox.Show(TryFindResource("OperationCancelledMessage") as string ?? "The operation was cancelled.",
-                        TryFindResource("OperationCancelled") as string ?? "Operation Cancelled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxLibrary.OperationCancelled();
                 }
 
                 ResetUiAfterProcessing();
@@ -430,8 +429,7 @@ public partial class GlobalStatsWindow
             e.Cancel = true;
 
             // Show message box on UI thread
-            var result = MessageBox.Show(TryFindResource("ProcessingStillRunningMessage") as string ?? "Processing is still running. Do you want to cancel and close?",
-                TryFindResource("ConfirmClose") as string ?? "Confirm Close", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBoxLibrary.DoYouWantToCancelAndClose();
 
             if (result == MessageBoxResult.Yes)
             {

@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -85,8 +87,10 @@ public partial class SupportOptionWindow
         }
         catch (Exception ex)
         {
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"Could not open browser for AI support: {ex.Message}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.CouldNotOpenBrowserForAiSupport();
+
+            var contextMessage = $"Error in LaunchAiSearch with base URL: {baseUrl}";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
 
         Close();

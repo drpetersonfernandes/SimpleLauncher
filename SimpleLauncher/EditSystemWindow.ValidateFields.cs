@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -280,21 +278,6 @@ public partial class EditSystemWindow
         {
             systemImageFolderText = prefixedDefaultPattern;
             SystemImageFolderTextBox.Text = systemImageFolderText;
-
-            // Create the directory if it doesn't exist (using the resolved path)
-            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
-            if (!string.IsNullOrEmpty(resolvedPath) && !Directory.Exists(resolvedPath)) // Add null/empty check for resolvedPath
-            {
-                try
-                {
-                    Directory.CreateDirectory(resolvedPath);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating system image folder: {resolvedPath}");
-                }
-            }
         }
 
         if (!string.IsNullOrEmpty(systemImageFolderText)) return false;
@@ -312,21 +295,6 @@ public partial class EditSystemWindow
         {
             systemFolderText = prefixedDefaultPattern;
             SystemFolderTextBox.Text = systemFolderText;
-
-            // Create the directory if it doesn't exist (using the resolved path)
-            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderText);
-            if (!string.IsNullOrEmpty(resolvedPath) && !Directory.Exists(resolvedPath)) // Add null/empty check for resolvedPath
-            {
-                try
-                {
-                    Directory.CreateDirectory(resolvedPath);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating system folder: {resolvedPath}");
-                }
-            }
         }
 
         if (!string.IsNullOrEmpty(systemFolderText)) return false;

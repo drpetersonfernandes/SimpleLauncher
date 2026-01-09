@@ -393,7 +393,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             var favoriteGames = GetFavoriteGamesForSelectedSystem(_favoritesManager);
             if (favoriteGames.Count != 0)
             {
-                _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
+                await _allGamesLock.WaitAsync();
+                try
+                {
+                    _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
+                }
+                finally
+                {
+                    _allGamesLock.Release();
+                }
 
                 await LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token); // Call LoadGameFilesAsync
             }
@@ -498,7 +506,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     SearchTextBox.Text = "";
                     _currentFilter = null; // Clear any active letter filter
                     _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
-                    _currentSearchResults = [selectedGame]; // Store only the selected game
+                    await _allGamesLock.WaitAsync();
+                    try
+                    {
+                        _currentSearchResults = [selectedGame]; // Store only the selected game
+                    }
+                    finally
+                    {
+                        _allGamesLock.Release();
+                    }
 
                     await LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
 
@@ -1067,9 +1083,24 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             switch (searchQuery2)
             {
-                case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-                case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-                    allFiles = new List<string>(_currentSearchResults);
+                case "FAVORITES" or "RANDOM_SELECTION":
+                    await _allGamesLock.WaitAsync(token);
+                    try
+                    {
+                        if (_currentSearchResults != null && _currentSearchResults.Count != 0)
+                        {
+                            allFiles = new List<string>(_currentSearchResults);
+                        }
+                        else
+                        {
+                            allFiles = [];
+                        }
+                    }
+                    finally
+                    {
+                        _allGamesLock.Release();
+                    }
+
                     break;
                 default: // This branch handles initial load, letter filter, and text search
                 {
@@ -1151,7 +1182,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                 return false;
                             }), token);
 
-                        _currentSearchResults = new List<string>(allFiles); // Store search results
+                        await _allGamesLock.WaitAsync(token);
+                        try
+                        {
+                            _currentSearchResults = new List<string>(allFiles); // Store search results
+                        }
+                        finally
+                        {
+                            _allGamesLock.Release();
+                        }
                     }
 
                     break;

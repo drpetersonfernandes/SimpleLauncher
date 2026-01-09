@@ -91,10 +91,7 @@ public partial class GlobalSearchWindow : IDisposable
 
             if (!hasMeaningfulKeywords)
             {
-                MessageBox.Show(
-                    (string)Application.Current.TryFindResource("EnterValidSearchTerms") ?? "Please enter valid search terms.",
-                    (string)Application.Current.TryFindResource("InvalidSearch") ?? "Invalid Search",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBoxLibrary.EnterValidSearchTerms();
                 return;
             }
 
