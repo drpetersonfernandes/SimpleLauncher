@@ -1351,7 +1351,10 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** OpenMSX<br>
 **Emulator Path (Example):** c:\emulators\openmsx\openmsx.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters:** -cart<br>
+**Emulator Parameters:** -diska<br>
+**Emulator Parameters:** -diskb<br>
+**Emulator Parameters:** -cassetteplayer<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
@@ -1442,7 +1445,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **Emulator Name:** OpenMSX<br>
 **Emulator Path (Example):** c:\emulators\openmsx\openmsx.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters:** -cart<br>
+**Emulator Parameters:** -diska<br>
+**Emulator Parameters:** -diskb<br>
+**Emulator Parameters:** -cassetteplayer<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
