@@ -48,6 +48,7 @@ public class RaProfile
     public int Id { get; set; }
 
     [JsonPropertyName("UserWallActive")]
+    [JsonConverter(typeof(BoolConverter))]
     public bool UserWallActive { get; set; }
 
     [JsonPropertyName("Motto")]

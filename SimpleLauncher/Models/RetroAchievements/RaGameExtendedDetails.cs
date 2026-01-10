@@ -48,6 +48,7 @@ public class RaGameExtendedDetails
     public string ReleasedAtGranularity { get; set; } = "";
 
     [JsonPropertyName("IsFinal")]
+    [JsonConverter(typeof(BoolConverter))]
     public bool IsFinal { get; set; }
 
     [JsonPropertyName("RichPresencePatch")]
