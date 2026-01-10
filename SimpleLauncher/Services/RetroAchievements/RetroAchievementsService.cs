@@ -355,6 +355,13 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<RaProfile>(json);
+
+            if (result == null)
+            {
+                DebugLogger.Log("[RA Service] Failed to deserialize user profile response.");
+                return null;
+            }
+
             var cacheOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(30))
                 .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
@@ -474,13 +481,16 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         try
         {
             DebugLogger.Log($"[RA Service] Fetching achievements earned by {username} between {fromDate:yyyy-MM-dd} and {toDate:yyyy-MM-dd}...");
+            DebugLogger.Log($"[RA Service] Epoch timestamps: from={epochFrom}, to={epochTo}");
 
             var url = $"{ApiBaseUrl}API_GetAchievementsEarnedBetween.php?u={Uri.EscapeDataString(username)}&f={epochFrom}&t={epochTo}&y={Uri.EscapeDataString(apiKey)}";
+            DebugLogger.Log($"[RA Service] Request URL: {url.Replace(apiKey, "***")}"); // Log URL without exposing API key
 
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
+                DebugLogger.Log($"[RA Service] API_GetAchievementsEarnedBetween failed. Status: {response.StatusCode}, Error: {error}");
                 _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetAchievementsEarnedBetween failed with status {response.StatusCode} for user {username}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
@@ -492,7 +502,14 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             }
 
             var json = await response.Content.ReadAsStringAsync();
+            DebugLogger.Log($"[RA Service] API_GetAchievementsEarnedBetween response length: {json.Length} characters");
+
             var apiResponse = JsonSerializer.Deserialize<List<RaEarnedAchievement>>(json);
+
+            if (apiResponse == null)
+            {
+                DebugLogger.Log("[RA Service] Failed to deserialize achievements earned between response.");
+            }
 
             if (apiResponse == null) return null;
 

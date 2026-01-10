@@ -273,7 +273,7 @@
             </TabItem>
 
             <!-- Tab 6: User Progress -->
-            <TabItem Header="User Progress">
+            <TabItem Header="User Progress |">
                 <Grid>
                     <DataGrid Name="UserProgressDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,10,10,10"
                               Style="{DynamicResource MahApps.Styles.DataGrid}"
