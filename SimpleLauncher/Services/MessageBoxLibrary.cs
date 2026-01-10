@@ -3406,4 +3406,55 @@ internal static class MessageBoxLibrary
             MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    internal static void PowerShellExecutionPolicyRestrictions()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var unabletoscanMicrosoftStoregames = (string)Application.Current.TryFindResource("UnabletoscanMicrosoftStoregames") ?? "Unable to scan Microsoft Store games due to PowerShell execution policy restrictions.";
+            var thisistypicallycausedbyGroupPolicy = (string)Application.Current.TryFindResource("ThisistypicallycausedbyGroupPolicy") ?? "This is typically caused by Group Policy settings on corporate or managed PCs.";
+            var simpleLaunchercannotperform = (string)Application.Current.TryFindResource("SimpleLaunchercannotperform") ?? "'Simple Launcher' cannot perform the requested task.";
+            var powerShellRestricted = (string)Application.Current.TryFindResource("PowerShellRestricted") ?? "PowerShell Restricted";
+            MessageBox.Show($"{unabletoscanMicrosoftStoregames}\n\n" +
+                            $"{thisistypicallycausedbyGroupPolicy}\n\n" +
+                            $"{simpleLaunchercannotperform}", powerShellRestricted, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void UnabletomountIsOfile()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var unabletomountIsOfile = (string)Application.Current.TryFindResource("UnabletomountISOfile") ?? "Unable to mount ISO file due to PowerShell execution policy restrictions.";
+            var thisistypicallycausedbyGroup = (string)Application.Current.TryFindResource("ThisistypicallycausedbyGroup") ?? "This is typically caused by Group Policy settings on corporate or managed PCs.";
+            var simpleLaunchercannotperform = (string)Application.Current.TryFindResource("SimpleLaunchercannotperform") ?? "'Simple Launcher' cannot perform the requested task.";
+            var powerShellRestricted = (string)Application.Current.TryFindResource("PowerShellRestricted") ?? "PowerShell Restricted";
+            MessageBox.Show($"{unabletomountIsOfile}\n\n" +
+                            $"{thisistypicallycausedbyGroup}\n\n" +
+                            $"{simpleLaunchercannotperform}", powerShellRestricted, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void UnabletoDismountIsOfile()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var unabletodismountIsOfile = (string)Application.Current.TryFindResource("UnabletoDismountISOfile") ?? "Unable to dismount ISO file due to PowerShell execution policy restrictions.";
+            var thisistypicallycausedbyGroup = (string)Application.Current.TryFindResource("ThisistypicallycausedbyGroup") ?? "This is typically caused by Group Policy settings on corporate or managed PCs.";
+            var simpleLaunchercannotperform = (string)Application.Current.TryFindResource("SimpleLaunchercannotperform") ?? "'Simple Launcher' cannot perform the requested task.";
+            var powerShellRestricted = (string)Application.Current.TryFindResource("PowerShellRestricted") ?? "PowerShell Restricted";
+            MessageBox.Show($"{unabletodismountIsOfile}\n\n" +
+                            $"{thisistypicallycausedbyGroup}\n\n" +
+                            $"{simpleLaunchercannotperform}", powerShellRestricted, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
 }

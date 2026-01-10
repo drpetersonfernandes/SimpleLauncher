@@ -374,13 +374,7 @@ public static class ScanMicrosoftStoreGames
                 // Check for execution policy restrictions
                 if (IsExecutionPolicyRestricted(errorOutput))
                 {
-                    MessageBox.Show(
-                        "Unable to scan Microsoft Store games due to PowerShell execution policy restrictions.\n\n" +
-                        "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
-                        "Please contact your system administrator or manually add Microsoft Store games using .bat files.",
-                        "PowerShell Restricted",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
+                    MessageBoxLibrary.PowerShellExecutionPolicyRestrictions();
                     return;
                 }
 
