@@ -10,10 +10,10 @@
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Amstrad CPC<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -64,10 +64,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -93,10 +93,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\emulators\mame\roms<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -134,10 +134,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 2600<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -197,10 +197,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 5200<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
+**Extension to Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -248,10 +248,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 7800<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -290,10 +290,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 8-Bits<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
+**Extension to Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -341,10 +341,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari Jaguar<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -379,10 +379,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** cue, cdi<br>
+**Extension to Launch After Extraction:** cue, cdi<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -404,10 +404,10 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari Lynx<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** lnx, o<br>
+**Extension to Launch After Extraction:** lnx, o<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -456,10 +456,10 @@ This emulator requires a BIOS file to run.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari ST<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** msa, st, stx, dim, ipf<br>
+**Extension to Launch After Extraction:** msa, st, stx, dim, ipf<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -509,10 +509,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -583,10 +583,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -657,10 +657,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Casio PV-1000<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -685,10 +685,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Colecovision<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** col, cv, bin, rom<br>
+**Extension to Launch After Extraction:** col, cv, bin, rom<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -737,10 +737,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore 64<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
+**Extension to Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -802,10 +802,10 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore 128<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
+**Extension to Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -857,10 +857,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore Amiga<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** adf, adz, dms, fdi, ipf, raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
+**Extension to Launch After Extraction:** adf, adz, dms, fdi, ipf, raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -939,10 +939,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, cue, ccd, nrg, mds, iso<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, cue, ccd, nrg, mds, iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -981,10 +981,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\LaserDisk<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** bat<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1017,10 +1017,10 @@ You need to create BAT files to launch the games.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** bin<br>
+**Extension to Launch After Extraction:** bin<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1055,10 +1055,10 @@ This emulator is available for Windows-x64.<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Mattel Aquarius<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1084,10 +1084,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** int, rom, bin<br>
+**Extension to Launch After Extraction:** int, rom, bin<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1125,10 +1125,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Microsoft DOS<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z, rar<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip, 7z, rar<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** bat<br>
+**Extension to Launch After Extraction:** bat<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1192,10 +1192,10 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Microsoft MSX<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+**Extension to Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1280,10 +1280,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder:** [ROM Folder]<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+**Extension to Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1368,10 +1368,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Windows Games<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** lnk, bat, exe<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** lnk, bat, exe<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1394,10 +1394,10 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Microsoft Xbox<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** iso<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1439,10 +1439,10 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Microsoft Xbox 360<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** iso<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1474,10 +1474,10 @@ There are multiple ways to use this emulator. You can use [Game Folders] or ZIP 
 **Option 1 - Use [Game Folders]**
 
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** bat<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** Xenia<br>
@@ -1491,10 +1491,10 @@ This tool will generate BAT files for you.
 **Option 2 - Use ZIP files (Recommended)**
 
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** Xenia<br>
@@ -1516,10 +1516,10 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\NEC PC Engine<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1580,10 +1580,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder:** c:\NEC PC Engine CD<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -1633,10 +1633,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\NEC PC-FX<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, cue, ccd, toc<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, cue, ccd, toc<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -1675,10 +1675,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1725,10 +1725,10 @@ This emulator requires a BIOS file to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** 3ds, cci, 3dsx, elf, axf, cxi, app<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** 3ds, cci, 3dsx, elf, axf, cxi, app<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1803,10 +1803,10 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo 64<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
+**Extension to Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1911,10 +1911,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
+**Extension to Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1962,10 +1962,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo DS<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** nds<br>
+**Extension to Launch After Extraction:** nds<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2032,10 +2032,10 @@ Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** nes, fds, unf, unif, qd<br>
+**Extension to Launch After Extraction:** nes, fds, unf, unif, qd<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2094,10 +2094,10 @@ This emulator requires a BIOS file to run this system.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2203,10 +2203,10 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2275,10 +2275,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2385,10 +2385,10 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** rvz<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** rvz<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2424,10 +2424,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo NES<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2515,10 +2515,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Satellaview<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2541,10 +2541,10 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo SNES<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
+**Extension to Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2633,10 +2633,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
+**Extension to Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2681,10 +2681,10 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Switch<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** nsp, xci, nca, nro, nso<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** nsp, xci, nca, nro, nso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2760,10 +2760,10 @@ This emulator is available for Windows-x64.<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Virtual Boy<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2788,10 +2788,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Wii<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2827,10 +2827,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** wua<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** wua<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2852,10 +2852,10 @@ This emulator is available for Windows-x64.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** wad<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** wad<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2891,10 +2891,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** iso, bin, chd, cue<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** iso, bin, chd, cue<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2920,10 +2920,10 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Philips CD-i<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, iso<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -2957,10 +2957,10 @@ There are multiple ways to use this program. You can use [Game Folders] or ZIP f
 **Option 1 - Use [Game Folders]**
 
 **System Folder (Example):** c:\ScummVM<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** bat<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** ScummVM<br>
@@ -2973,10 +2973,10 @@ Use the tool available in the 'Simple Launcher' tools menu to generate BAT files
 **Option 2 - Use ZIP files**
 
 **System Folder (Example):** c:\ScummVM<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** ScummVM<br>
@@ -3000,10 +3000,10 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, gdi, cue, bin, cdi<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, gdi, cue, bin, cdi<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -3061,10 +3061,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Game Gear<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3170,10 +3170,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3266,10 +3266,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3336,10 +3336,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, bin, cue, iso<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, bin, cue, iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -3410,10 +3410,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Master System<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3510,10 +3510,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Model 3<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** bat<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3536,10 +3536,10 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Saturn<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, cue, toc, m3u, ccd<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, cue, toc, m3u, ccd<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -3655,10 +3655,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega SC-3000<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
+**Extension to Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3724,10 +3724,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega SG-1000<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
+**Extension to Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3802,10 +3802,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sharp x68000<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3844,10 +3844,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** tzx, tap, z80, rzx, scl, trd, ipf<br>
+**Extension to Launch After Extraction:** tzx, tap, z80, rzx, scl, trd, ipf<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3905,10 +3905,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo<br>
-**System Is MAME?** true<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** true<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -3943,10 +3943,10 @@ The list of command-line arguments available for this emulator can be found on [
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, cue<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, cue<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -3985,10 +3985,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -4061,10 +4061,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -4137,10 +4137,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
-**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
+**Is the system MAME-based??** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
@@ -4223,10 +4223,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sony PlayStation 2<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -4272,10 +4272,10 @@ There are multiple ways to use this emulator. You can use [Game Folders], ZIP fi
 **Option 1 - Use [Game Folders]**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** bat<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** RPCS3<br>
@@ -4288,10 +4288,10 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Option 2 - Use ZIP files**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** RPCS3<br>
@@ -4306,10 +4306,10 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Option 3 — Use decrypted ISO files**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** iso<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** RPCS3<br>
@@ -4330,10 +4330,10 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** bin, elf, oelf<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** bin, elf, oelf<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -4355,10 +4355,10 @@ This emulator is available for Windows-x64.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** iso<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .
@@ -4380,10 +4380,10 @@ This emulator is available for Windows-x64.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sony PSP<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** cso, chd, iso, pbp, elf, prx<br>
+**Is the system MAME-based??** false<br>
+**Extension to Search in the System Folder:** cso, chd, iso, pbp, elf, prx<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
 
 .

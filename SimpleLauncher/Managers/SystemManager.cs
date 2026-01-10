@@ -224,7 +224,7 @@ public partial class SystemManager
                 throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Image Folder' in XML.");
 
             if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out var systemIsMame))
-                throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'System Is MAME'.");
+                throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Is the system MAME-based?'.");
 
             // Validate FileFormatsToSearch
             var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")

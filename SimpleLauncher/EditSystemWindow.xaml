@@ -263,7 +263,7 @@
                         IsEnabled="False"
                         HorizontalAlignment="Left" />
 
-                    <!-- System Is MAME? -->
+                    <!-- Is the system MAME-based?? -->
                     <Label
                         Margin="10,0,10,10"
                         Grid.Row="4"
