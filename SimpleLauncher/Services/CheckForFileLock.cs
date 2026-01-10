@@ -10,8 +10,12 @@ public static class CheckForFileLock
         if (string.IsNullOrEmpty(filePath))
             return false;
 
-        // Prepend long path prefix if not already present, assuming absolute path
-        var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal) ? filePath : @"\\?\" + filePath;
+        // Resolve the path to an absolute path, handling placeholders like %BASEFOLDER%
+        var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(filePath);
+        if (string.IsNullOrEmpty(resolvedPath))
+            return false; // Path could not be resolved
+
+        var longPath = resolvedPath.StartsWith(@"\\?\", StringComparison.Ordinal) ? resolvedPath : @"\\?\" + resolvedPath;
 
         if (!File.Exists(longPath))
             return false;
