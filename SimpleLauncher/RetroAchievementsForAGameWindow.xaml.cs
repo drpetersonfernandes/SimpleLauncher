@@ -110,19 +110,19 @@ public partial class RetroAchievementsForAGameWindow
 
                 if (!string.IsNullOrWhiteSpace(progress.UserCompletion))
                 {
-                    var casualText = progress.UserCompletion.Trim('%');
+                    var casualText = progress.UserCompletion.Replace("%", "").Trim();
                     if (!double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture, out casualCompletion))
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse casual completion percentage: {casualText}");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
                     }
                 }
 
                 if (!string.IsNullOrWhiteSpace(progress.UserCompletionHardcore))
                 {
-                    var hardcoreText = progress.UserCompletionHardcore.Trim('%');
+                    var hardcoreText = progress.UserCompletionHardcore.Replace("%", "").Trim();
                     if (!double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture, out hardcoreCompletion))
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse hardcore completion percentage: {hardcoreText}");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
                     }
                 }
 
