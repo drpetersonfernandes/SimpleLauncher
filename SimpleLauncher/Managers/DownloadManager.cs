@@ -18,6 +18,8 @@ namespace SimpleLauncher.Managers;
 /// </summary>
 public class DownloadManager : IDisposable
 {
+    public bool IsFileLockedDuringDownload { get; private set; }
+
     // Events
     /// <summary>
     /// Event raised when download progress changes.
@@ -111,6 +113,7 @@ public class DownloadManager : IDisposable
 
         IsDownloadCompleted = false;
         IsUserCancellation = false;
+        IsFileLockedDuringDownload = false; // Reset at the start of each download attempt
 
         // Determine file name if not provided
         if (string.IsNullOrEmpty(fileName))
@@ -252,28 +255,33 @@ public class DownloadManager : IDisposable
                                 throw;
                             }
                         }
-                        catch (IOException ex)
+                        catch (IOException ioEx) // Catch IOException
                         {
-                            // Notify developer
-                            _ = _logErrors.LogErrorAsync(ex, $"I/O error during download attempt {currentRetry + 1}: {ex.Message}");
-
-                            currentRetry++;
-                            if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                            // Check if the message indicates a file lock
+                            if (ioEx.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
                             {
-                                // Calculate delay with exponential backoff
-                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+                                IsFileLockedDuringDownload = true;
+                                // Log this specific error, then re-throw to be caught by the outer catch.
+                                _ = _logErrors.LogErrorAsync(ioEx, $"File locked during download attempt {currentRetry + 1}: {downloadFilePath}");
+                                throw; // Re-throw to exit the retry loop and be handled by the outer catch
+                            }
+                            else
+                            {
+                                // Not a file lock, handle as a generic IOException during retry
+                                _ = _logErrors.LogErrorAsync(ioEx, $"I/O error during download attempt {currentRetry + 1}: {downloadFilePath}");
+                                currentRetry++;
+                                if (currentRetry >= RetryMaxAttempts || IsUserCancellation)
+                                {
+                                    throw;
+                                }
 
+                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
                                 OnProgressChanged(new DownloadProgressEventArgs
                                 {
                                     ProgressPercentage = 0,
                                     StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
                                 });
-
                                 await Task.Delay(delay, _cancellationTokenSource.Token);
-                            }
-                            else
-                            {
-                                throw;
                             }
                         }
                     }
@@ -291,6 +299,10 @@ public class DownloadManager : IDisposable
                                 ProgressPercentage = 0,
                                 StatusMessage = GetResourceString("Downloadcanceledbyuser", "Download canceled by user.")
                             });
+                        }
+                        else if (IsFileLockedDuringDownload) // If download failed due to file lock
+                        {
+                            // No specific progress message here, the caller will show the message box.
                         }
                         else
                         {
@@ -314,6 +326,13 @@ public class DownloadManager : IDisposable
 
                     // Reset flags
                     IsDownloadCompleted = false;
+
+                    // If IsFileLockedDuringDownload is already true, it means the specific IOException
+                    // was caught and identified. No need to re-evaluate.
+                    if (IsFileLockedDuringDownload)
+                    {
+                        throw; // Re-throw for the caller to handle with specific message box
+                    }
 
                     switch (ex)
                     {

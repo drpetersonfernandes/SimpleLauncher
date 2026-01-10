@@ -617,21 +617,27 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 // Mark as successfully downloaded
                 MarkComponentAsDownloaded(type, true);
             }
-            else
+            else // Download was not completed successfully (either cancelled, locked, or other failure)
             {
+                if (_disposed) return;
+
                 if (_downloadManager.IsUserCancellation) // User cancelled the download
                 {
                     var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
                     var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
                     DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
                 }
-                else if (_downloadManager.IsDownloadCompleted) // Download OK, but extraction failed
+                else if (_downloadManager.IsFileLockedDuringDownload) // Specific check for file lock during download
+                {
+                    await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                }
+                else if (_downloadManager.IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
                 {
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     DownloadStatus = $"{errorFailedtoextract} {componentName}.";
                     await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                 }
-                else // Download failed for other reasons
+                else // Generic download failure (not user cancelled, not file locked, not extraction failure)
                 {
                     var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ?? "Error during download";
                     DownloadStatus = $"{errorDuringDownload}: {componentName}.";
@@ -641,12 +647,16 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 }
 
                 StopDownloadButton.IsEnabled = false;
+                MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on failure/cancellation
+                return;
             }
 
             return;
         }
         catch (Exception ex)
         {
+            if (_disposed) return;
+
             var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
             var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
             DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
@@ -660,8 +670,14 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
 
+            // Check if the download failed due to a file lock
+            if (_downloadManager.IsFileLockedDuringDownload)
+            {
+                await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+            }
+
             // If download was completed, the exception was likely during extraction.
-            if (_downloadManager.IsDownloadCompleted)
+            else if (_downloadManager.IsDownloadCompleted)
             {
                 await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
             }
@@ -670,7 +686,11 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 await ShowDownloadErrorDialogAsync(type, selectedSystem);
             }
 
+            if (_disposed) return;
+
             StopDownloadButton.IsEnabled = false;
+            MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on exception
+            return;
         }
     }
 

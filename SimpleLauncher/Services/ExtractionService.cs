@@ -86,8 +86,8 @@ public class ExtractionService : IExtractionService
                 var contextMessage = $"The downloaded file appears to be locked after {maxRetries} retries: {archivePath}";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.FileIsLockedMessageBox();
+                // Notify user, passing the directory of the locked archive
+                MessageBoxLibrary.FileIsLockedMessageBox(Path.GetDirectoryName(archivePath));
 
                 return false;
             }

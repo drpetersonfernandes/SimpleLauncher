@@ -1309,22 +1309,44 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FileIsLockedMessageBox()
+    internal static void FileIsLockedMessageBox(string tempFolderPath)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
-        static void ShowMessage()
+        void ShowMessage()
         {
             var downloadedfileislocked = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
             var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
             var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file or try to extract it manually?"; // New line
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show($"{downloadedfileislocked}\n\n" +
-                            $"{grantSimpleLauncheradministrative}\n\n" +
-                            $"{temporarilydisableyourantivirussoftware}\n\n" +
-                            $"{ensuretheSimpleLauncher}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+
+            var result = MessageBox.Show($"{downloadedfileislocked}\n\n" +
+                                         $"{grantSimpleLauncheradministrative}\n\n" +
+                                         $"{temporarilydisableyourantivirussoftware}\n\n" +
+                                         $"{ensuretheSimpleLauncher}\n\n" +
+                                         $"{openTempFolderQuestion}", error, MessageBoxButton.YesNo, MessageBoxImage.Error); // Changed to YesNo
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = tempFolderPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
+                    var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
+                    MessageBox.Show(errorOpeningFolderMessage, errorOpeningFolderTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open temp folder: {tempFolderPath}");
+                }
+            }
         }
     }
 
@@ -3260,6 +3282,36 @@ internal static class MessageBoxLibrary
             var extractionFailedMessage = (string)Application.Current.TryFindResource("ExtractionFailedMessage") ?? "The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.";
             var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to extract the file manually?";
             var result = MessageBox.Show($"{extractionFailedMessage}\n\n{openTempFolderQuestion}", extractionFailedTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = tempFolderPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
+                    var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
+                    MessageBox.Show(errorOpeningFolderMessage, errorOpeningFolderTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open temp folder: {tempFolderPath}");
+                }
+            }
+        });
+    }
+
+    internal static async Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
+    {
+        await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            var downloadFailedTitle = (string)Application.Current.TryFindResource("DownloadFailedTitle") ?? "Download Failed";
+            var downloadFileLockedMessage = (string)Application.Current.TryFindResource("DownloadFileLockedMessage") ?? "The download could not be completed because the temporary file is locked by another process (e.g., antivirus software).";
+            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file or try to download it manually?";
+            var result = MessageBox.Show($"{downloadFileLockedMessage}\n\n{openTempFolderQuestion}", downloadFailedTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {
