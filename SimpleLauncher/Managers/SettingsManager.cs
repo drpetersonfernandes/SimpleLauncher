@@ -171,18 +171,21 @@ public class SettingsManager
             Emulator4Expanded = ParseBoolSetting(settings, "Emulator4Expanded", true);
             Emulator5Expanded = ParseBoolSetting(settings, "Emulator5Expanded", true);
 
-            SystemPlayTimes.Clear(); // Clear existing times only after a successful load
-            var systemPlayTimesElement = settings.Element("SystemPlayTimes");
-            if (systemPlayTimesElement != null)
+            lock (_saveLock)
             {
-                foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
+                SystemPlayTimes.Clear(); // Clear existing times only after a successful load
+                var systemPlayTimesElement = settings.Element("SystemPlayTimes");
+                if (systemPlayTimesElement != null)
                 {
-                    var systemPlayTime = new SystemPlayTime
+                    foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
                     {
-                        SystemName = systemPlayTimeElement.Element("SystemName")?.Value ?? string.Empty,
-                        PlayTime = systemPlayTimeElement.Element("PlayTime")?.Value ?? string.Empty
-                    };
-                    SystemPlayTimes.Add(systemPlayTime);
+                        var systemPlayTime = new SystemPlayTime
+                        {
+                            SystemName = systemPlayTimeElement.Element("SystemName")?.Value ?? string.Empty,
+                            PlayTime = systemPlayTimeElement.Element("PlayTime")?.Value ?? string.Empty
+                        };
+                        SystemPlayTimes.Add(systemPlayTime);
+                    }
                 }
             }
 
@@ -417,11 +420,11 @@ public class SettingsManager
 
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
     {
+        // Validate parameters outside lock for quick failure
         if (string.IsNullOrWhiteSpace(systemName))
         {
             // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "The systemName is null or empty.");
-
             return;
         }
 
@@ -429,38 +432,40 @@ public class SettingsManager
         {
             // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "The playTime is equal to 0 in the method UpdateSystemPlayTime.");
-
             return;
         }
 
         // Notify user
         Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingSystemPlayTime") ?? "Updating system play time...", Application.Current.MainWindow as MainWindow));
 
-        var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
-        if (systemPlayTime == null)
+        lock (_saveLock)
         {
-            systemPlayTime = new SystemPlayTime { SystemName = systemName, PlayTime = "00:00:00" };
-            SystemPlayTimes.Add(systemPlayTime);
-        }
-
-        var existingPlayTime = TimeSpan.Zero;
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(systemPlayTime.PlayTime))
+            var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
+            if (systemPlayTime == null)
             {
-                existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime, CultureInfo.InvariantCulture);
+                systemPlayTime = new SystemPlayTime { SystemName = systemName, PlayTime = "00:00:00" };
+                SystemPlayTimes.Add(systemPlayTime);
             }
-        }
-        catch (FormatException ex)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
 
-            existingPlayTime = TimeSpan.Zero;
-            systemPlayTime.PlayTime = "00:00:00";
-        }
+            var existingPlayTime = TimeSpan.Zero;
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(systemPlayTime.PlayTime))
+                {
+                    existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime, CultureInfo.InvariantCulture);
+                }
+            }
+            catch (FormatException ex)
+            {
+                // Notify developer
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
 
-        var updatedPlayTime = existingPlayTime + playTime;
-        systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+                existingPlayTime = TimeSpan.Zero;
+                systemPlayTime.PlayTime = "00:00:00";
+            }
+
+            var updatedPlayTime = existingPlayTime + playTime;
+            systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
+        }
     }
 }
