@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -221,6 +222,28 @@ public class GameLauncher
                     }
                 }
             }
+            catch (Win32Exception ex) // Catch Win32Exception specifically
+            {
+                if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                {
+                    // Specific handling for application control policy block
+                    MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching game/tool.");
+                }
+                else
+                {
+                    // Existing error handling for other Win32Exceptions
+                    // Notify developer
+                    var contextMessage = $"Unhandled error in GameLauncher's main launch block.\n" +
+                                         $"FilePath: {resolvedFilePath}\n" +
+                                         $"SelectedSystem: {selectedSystemName}\n" +
+                                         $"SelectedEmulator: {selectedEmulatorName}";
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    _ = MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                }
+            }
             catch (Exception ex)
             {
                 // Notify developer
@@ -404,6 +427,32 @@ public class GameLauncher
                 }
             }
         }
+        catch (Win32Exception ex) // Catch Win32Exception specifically
+        {
+            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            {
+                MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching batch file.");
+            }
+            else
+            {
+                // Existing error handling for other Win32Exceptions
+                var errorDetail = $"Exception running the batch process.\n" +
+                                  $"Batch file: {psi.FileName}\n" +
+                                  $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                                  $"Exception: {ex.Message}\n" +
+                                  $"Output: {output}\n" +
+                                  $"Error: {error}";
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"{errorDetail}\n{userNotified}";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                }
+            }
+        }
         catch (Exception ex)
         {
             // Notify developer
@@ -511,18 +560,43 @@ public class GameLauncher
                 }
             }
         }
+        catch (Win32Exception ex) // Catch Win32Exception specifically
+        {
+            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            {
+                MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching shortcut file.");
+            }
+            else
+            {
+                // Existing error handling for other Win32Exceptions
+                var fileContent = File.Exists(@"\\?\" + resolvedFilePath)
+                    ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
+                    : "\nFile does not exist.";
+                var errorDetail = $"Exception launching the shortcut file.\n" +
+                                  $"Shortcut file: {resolvedFilePath}\n" +
+                                  $"Exception: {ex.Message}" +
+                                  fileContent;
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"{errorDetail}\n{userNotified}";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    MessageBoxLibrary.ShowCustomMessageBox("There was a Win32Exception.", "Launch Error", _logPath);
+                }
+            }
+        }
         catch (Exception ex)
         {
             // Enhanced error logging with file content inspection
             var fileContent = File.Exists(@"\\?\" + resolvedFilePath)
                 ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
                 : "\nFile does not exist.";
-
             var errorDetail = $"Exception launching the shortcut file.\n" +
                               $"Shortcut file: {resolvedFilePath}\n" +
                               $"Exception: {ex.Message}" +
                               fileContent;
-
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
@@ -605,6 +679,30 @@ public class GameLauncher
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                }
+            }
+        }
+        catch (Win32Exception ex) // Catch Win32Exception specifically
+        {
+            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            {
+                MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching executable.");
+            }
+            else
+            {
+                // Existing error handling for other Win32Exceptions
+                var errorDetail = $"Exception launching the executable file.\n" +
+                                  $"Executable file: {psi.FileName}\n" +
+                                  $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                                  $"Exception: {ex.Message}";
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"{errorDetail}\n{userNotified}";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
                     MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
                 }
             }
@@ -879,7 +977,49 @@ public class GameLauncher
             {
                 // Notify user
                 await MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+            }
+        }
+        catch (Win32Exception ex) // Catch Win32Exception specifically
+        {
+            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            {
+                MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");
+            }
+            else
+            {
+                // Existing error handling for other Win32Exceptions
+                // Notify developer
+                // Safely check if the process ever started before trying to access its properties.
+                // A simple way is to check if an ID was ever assigned.
+                string exitCodeInfo;
+                try
+                {
+                    // This check is safe even if the process didn't start.
+                    _ = process.Id;
+                    exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A (Still Running or Failed to get code)")}";
+                }
+                catch (InvalidOperationException)
+                {
+                    exitCodeInfo = "Exit code: N/A (Process failed to start)";
+                }
+
+                var errorDetail = $"{exitCodeInfo}\n" +
+                                  $"Emulator: {psi.FileName}\n" +
+                                  $"Calling parameters: {psi.Arguments}\n" +
+                                  $"Emulator output: {output}\n" +
+                                  $"Emulator error: {error}\n";
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    // Notify user
+                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                    SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                }
             }
         }
         catch (Exception ex)
@@ -912,7 +1052,7 @@ public class GameLauncher
             {
                 // Notify user
                 await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         finally
@@ -983,7 +1123,7 @@ public class GameLauncher
         {
             // Notify user
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
+            SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
         }
     }
 

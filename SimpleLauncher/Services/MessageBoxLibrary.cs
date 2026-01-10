@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -1878,20 +1877,20 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FolderCreatedMessageBox(string systemNameText)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
-            var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
-            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show($"{simpleLaunchercreatedaimagefolder} '.\\images\\{systemNameText}'.\n\n" +
-                            $"{youmayplacethecoverimagesforthissystem}\n\n", info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-    }
+    // internal static void FolderCreatedMessageBox(string systemNameText)
+    // {
+    //     Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+    //     return;
+    //
+    //     void ShowMessage()
+    //     {
+    //         var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
+    //         var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
+    //         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+    //         MessageBox.Show($"{simpleLaunchercreatedaimagefolder} '.\\images\\{systemNameText}'.\n\n" +
+    //                         $"{youmayplacethecoverimagesforthissystem}\n\n", info, MessageBoxButton.OK, MessageBoxImage.Information);
+    //     }
+    // }
 
     internal static void FolderCreationFailedMessageBox()
     {
@@ -1948,7 +1947,6 @@ internal static class MessageBoxLibrary
             var therewasanerrorfinding = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ?? "There was an error finding the game files.";
             var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
             var result = MessageBox.Show($"{therewasanerrorfinding}\n\n" +
                                          $"{doyouwanttoopenthefileerroruserlog}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -1984,7 +1982,6 @@ internal static class MessageBoxLibrary
             var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
             var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController}\n\n" +
                                          $"{grantSimpleLauncheradministrative}\n\n" +
                                          $"{temporarilydisableyourantivirus}\n\n" +
@@ -2024,7 +2021,6 @@ internal static class MessageBoxLibrary
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
             var result = MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
                                          $"{makesuretheRoMorIsOyouretrying}\n" +
                                          $"{ifyouaretryingtorunMamEensurethatyourRom}\n" +
@@ -2288,8 +2284,7 @@ internal static class MessageBoxLibrary
             var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             var languageLoadingError = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
             MessageBox.Show($"{failedtoloadlanguageresources}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper}",
-                languageLoadingError, MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"{theerrorwasreportedtothedeveloper}", languageLoadingError, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -3034,17 +3029,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
-    {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
-            var supportOptionWindow = new SupportOptionWindow(ex, contextMessage, gameLauncher, playSoundEffects, configuration);
-            // Show it as a dialog (modal) so it blocks interaction with the main window until a choice is made
-            supportOptionWindow.ShowDialog();
-        });
-    }
-
     internal static MessageBoxResult WarnUserAboutMemoryConsumption()
     {
         return Application.Current.Dispatcher.Invoke(ShowMessage);
@@ -3268,16 +3252,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    // internal static MessageBoxResult AskToRescanWindowsGamesMessageBox()
-    // {
-    //     return Application.Current.Dispatcher.Invoke(static () =>
-    //     {
-    //         var message = (string)Application.Current.TryFindResource("AskToRescanWindowsGamesMessage") ?? "The 'Microsoft Windows' system has been selected. Would you like to rescan your system to update the list of installed Windows games (Steam, Epic, GOG, etc.)?";
-    //         var title = (string)Application.Current.TryFindResource("RescanWindowsGamesTitle") ?? "Rescan Windows Games?";
-    //         return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
-    //     });
-    // }
-
     internal static async Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
     {
         await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -3285,7 +3259,6 @@ internal static class MessageBoxLibrary
             var extractionFailedTitle = (string)Application.Current.TryFindResource("ExtractionFailedTitle") ?? "Extraction Failed";
             var extractionFailedMessage = (string)Application.Current.TryFindResource("ExtractionFailedMessage") ?? "The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.";
             var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to extract the file manually?";
-
             var result = MessageBox.Show($"{extractionFailedMessage}\n\n{openTempFolderQuestion}", extractionFailedTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
@@ -3455,6 +3428,39 @@ internal static class MessageBoxLibrary
             MessageBox.Show($"{unabletodismountIsOfile}\n\n" +
                             $"{thisistypicallycausedbyGroup}\n\n" +
                             $"{simpleLaunchercannotperform}", powerShellRestricted, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void ApplicationControlPolicyBlockedMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("ApplicationControlPolicyBlockedFile") ?? "An application control policy blocked this file or link.";
+            var simpleLaunchercannotperform = (string)Application.Current.TryFindResource("SimpleLaunchercannotperform") ?? "'Simple Launcher' cannot perform the requested task.";
+            var securityPolicyBlocked = (string)Application.Current.TryFindResource("SecurityPolicyBlocked") ?? "Security Policy Blocked";
+            MessageBox.Show($"{message}\n\n" +
+                            $"{simpleLaunchercannotperform}\n\n", securityPolicyBlocked, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void ApplicationControlPolicyBlockedManualLinkMessageBox(string url)
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("ApplicationControlPolicyBlockedFileManualLink") ?? "An application control policy blocked this link.";
+            var simpleLaunchercannotperform = (string)Application.Current.TryFindResource("SimpleLaunchercannotperform") ?? "'Simple Launcher' cannot perform the requested task.";
+            var theUrLwascopiedtotheclipboard = (string)Application.Current.TryFindResource("TheURLwascopiedtotheclipboard") ?? "The URL was copied to the clipboard for your convenience. You can paste it into your browser.";
+            var securityPolicyBlocked = (string)Application.Current.TryFindResource("SecurityPolicyBlocked") ?? "Security Policy Blocked";
+            MessageBox.Show($"{message}\n\n" +
+                            $"{simpleLaunchercannotperform}\n\n" +
+                            $"{theUrLwascopiedtotheclipboard}", securityPolicyBlocked, MessageBoxButton.OK, MessageBoxImage.Warning);
+            Clipboard.SetText(url); // Copy URL to clipboard
         }
     }
 }

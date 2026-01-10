@@ -596,6 +596,21 @@ public partial class EditSystemWindow
             });
             _playSoundEffects.PlayNotificationSound();
         }
+        catch (Win32Exception ex) // Catch Win32Exception specifically
+        {
+            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            {
+                // Specific message for application control policy blocking links
+                MessageBoxLibrary.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked opening HelpLink.");
+            }
+            else
+            {
+                // Existing error handling for other Win32Exceptions
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method HelpLink_Click");
+                MessageBoxLibrary.ErrorOpeningUrlMessageBox();
+            }
+        }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method HelpLink_Click");
