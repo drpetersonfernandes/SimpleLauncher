@@ -3045,17 +3045,16 @@ internal static class MessageBoxLibrary
         });
     }
 
-    internal static void WarnUserAboutMemoryConsumption()
+    internal static MessageBoxResult WarnUserAboutMemoryConsumption()
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
+        return Application.Current.Dispatcher.Invoke(ShowMessage);
 
-        static void ShowMessage()
+        static MessageBoxResult ShowMessage()
         {
-            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage")
-                                 ?? "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
+            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage") ?? "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
+            var proceedQuestion = (string)Application.Current.TryFindResource("AreYouSureYouWantToProceed") ?? "Are you sure you want to proceed?";
             var warningTitle = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            MessageBox.Show(warningMessage, warningTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+            return MessageBox.Show($"{warningMessage}\n\n{proceedQuestion}", warningTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
         }
     }
 

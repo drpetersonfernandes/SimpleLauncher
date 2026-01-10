@@ -620,7 +620,10 @@ public partial class MainWindow
             {
                 if (clickedItem.Name is "Page1000" or "Page10000" or "Page1000000")
                 {
-                    MessageBoxLibrary.WarnUserAboutMemoryConsumption();
+                    if (MessageBoxLibrary.WarnUserAboutMemoryConsumption() == MessageBoxResult.No)
+                    {
+                        return; // User chose not to proceed
+                    }
                 }
 
                 _playSoundEffects.PlayNotificationSound();

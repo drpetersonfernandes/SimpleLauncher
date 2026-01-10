@@ -371,6 +371,19 @@ public static class ScanMicrosoftStoreGames
 
             if (process.ExitCode != 0 && !string.IsNullOrWhiteSpace(errorOutput))
             {
+                // Check for execution policy restrictions
+                if (IsExecutionPolicyRestricted(errorOutput))
+                {
+                    MessageBox.Show(
+                        "Unable to scan Microsoft Store games due to PowerShell execution policy restrictions.\n\n" +
+                        "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                        "Please contact your system administrator or manually add Microsoft Store games using .bat files.",
+                        "PowerShell Restricted",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+
                 // Log warning but don't crash, PS might emit non-fatal errors to stderr
                 DebugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell warning/error: {errorOutput}");
             }
@@ -613,5 +626,21 @@ public static class ScanMicrosoftStoreGames
         {
             await logErrors.LogErrorAsync(ex, $"Failed to extract Microsoft Store icon for {sanitizedGameName}");
         }
+    }
+
+    /// <summary>
+    /// Detects if PowerShell error output indicates execution policy restrictions
+    /// </summary>
+    private static bool IsExecutionPolicyRestricted(string errorOutput)
+    {
+        if (string.IsNullOrWhiteSpace(errorOutput)) return false;
+
+        var lowerError = errorOutput.ToLowerInvariant();
+        return lowerError.Contains("execution of scripts is disabled") ||
+               (lowerError.Contains("execution policy") &&
+                (lowerError.Contains("prevents execution") ||
+                 lowerError.Contains("restricted") ||
+                 lowerError.Contains("cannot be loaded"))) ||
+               (lowerError.Contains("is not digitally signed") && lowerError.Contains("execution policy"));
     }
 }

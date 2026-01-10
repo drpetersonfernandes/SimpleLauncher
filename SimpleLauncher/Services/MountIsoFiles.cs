@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
+using System.Windows;
 
 namespace SimpleLauncher.Services;
 
@@ -204,6 +205,19 @@ public static class MountIsoFiles
             var errors = errorBuilder.ToString().Trim();
             if (process.ExitCode != 0 || !string.IsNullOrEmpty(errors))
             {
+                // Check for execution policy restrictions
+                if (IsExecutionPolicyRestricted(errors))
+                {
+                    MessageBox.Show(
+                        "Unable to mount ISO file due to PowerShell execution policy restrictions.\n\n" +
+                        "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                        "Please contact your system administrator or extract the ISO contents manually.",
+                        "PowerShell Restricted",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return null;
+                }
+
                 // Notify developer
                 var errorMessage = $"PowerShell command to mount ISO failed. Exit Code: {process.ExitCode}.\nPath: {isoPath}\nErrors: {errors}\nOutput: {outputBuilder}";
                 DebugLogger.Log($"[MountIsoFiles] Error: {errorMessage}");
@@ -228,6 +242,19 @@ public static class MountIsoFiles
         }
         catch (OperationCanceledException) // Catches TaskCanceledException from WaitForExitAsync with timeout
         {
+            // Check if the error output contains execution policy restrictions
+            var errorOutput = errorBuilder.ToString().Trim();
+            if (IsExecutionPolicyRestricted(errorOutput))
+            {
+                MessageBox.Show(
+                    "Unable to mount ISO file due to PowerShell execution policy restrictions.\n\n" +
+                    "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                    "Please contact your system administrator or extract the ISO contents manually.",
+                    "PowerShell Restricted",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
             // Notify developer
             var timeoutMessage = $"PowerShell mount command timed out (30s) for ISO {isoPath}.";
             DebugLogger.Log($"[MountIsoFiles] Timeout: {timeoutMessage}");
@@ -248,6 +275,18 @@ public static class MountIsoFiles
         }
         catch (Exception ex)
         {
+            // Check if the exception message indicates execution policy restrictions
+            if (IsExecutionPolicyRestricted(ex.Message))
+            {
+                MessageBox.Show(
+                    "Unable to mount ISO file due to PowerShell execution policy restrictions.\n\n" +
+                    "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                    "Please contact your system administrator or extract the ISO contents manually.",
+                    "PowerShell Restricted",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
             // Notify developer
             var errorMessage = $"Exception while executing PowerShell mount command for ISO {isoPath}: {ex.Message}\nOutput: {outputBuilder}\nError: {errorBuilder}";
             DebugLogger.Log($"[MountIsoFiles] Exception: {errorMessage}");
@@ -294,6 +333,18 @@ public static class MountIsoFiles
             var errors = errorBuilder.ToString().Trim();
             if (process.ExitCode != 0 || !string.IsNullOrEmpty(errors))
             {
+                // Check for execution policy restrictions
+                if (IsExecutionPolicyRestricted(errors))
+                {
+                    MessageBox.Show(
+                        "Unable to dismount ISO file due to PowerShell execution policy restrictions.\n\n" +
+                        "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                        "The ISO may remain mounted. Please contact your system administrator or manually dismount using Windows Explorer.",
+                        "PowerShell Restricted",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+
                 var warningMessage = $"PowerShell dismount command for ISO {isoPath} finished with Exit Code: {process.ExitCode} or reported errors (ErrorAction SilentlyContinue was used).\nErrors: {errors}";
                 DebugLogger.Log($"[MountIsoFiles] Info: {warningMessage}"); // Log as Info/Warning
             }
@@ -304,6 +355,19 @@ public static class MountIsoFiles
         }
         catch (OperationCanceledException)
         {
+            // Check if the error output contains execution policy restrictions
+            var errorOutput = errorBuilder.ToString().Trim();
+            if (IsExecutionPolicyRestricted(errorOutput))
+            {
+                MessageBox.Show(
+                    "Unable to dismount ISO file due to PowerShell execution policy restrictions.\n\n" +
+                    "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                    "The ISO may remain mounted. Please contact your system administrator or manually dismount using Windows Explorer.",
+                    "PowerShell Restricted",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
             // Notify developer
             var timeoutMessage = $"PowerShell dismount command timed out (30s) for ISO {isoPath}.";
             DebugLogger.Log($"[MountIsoFiles] Timeout: {timeoutMessage}");
@@ -323,10 +387,38 @@ public static class MountIsoFiles
         }
         catch (Exception ex)
         {
+            // Check if the exception message indicates execution policy restrictions
+            if (IsExecutionPolicyRestricted(ex.Message))
+            {
+                MessageBox.Show(
+                    "Unable to dismount ISO file due to PowerShell execution policy restrictions.\n\n" +
+                    "This is typically caused by Group Policy settings on corporate or managed PCs.\n\n" +
+                    "The ISO may remain mounted. Please contact your system administrator or manually dismount using Windows Explorer.",
+                    "PowerShell Restricted",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+            }
+
             // Notify developer
             var errorMessage = $"Exception while executing PowerShell dismount command for ISO {isoPath}: {ex.Message}";
             DebugLogger.Log($"[MountIsoFiles] Exception: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, errorMessage);
         }
+    }
+
+    /// <summary>
+    /// Detects if PowerShell error output indicates execution policy restrictions
+    /// </summary>
+    private static bool IsExecutionPolicyRestricted(string errorOutput)
+    {
+        if (string.IsNullOrWhiteSpace(errorOutput)) return false;
+
+        var lowerError = errorOutput.ToLowerInvariant();
+        return lowerError.Contains("execution of scripts is disabled") ||
+               (lowerError.Contains("execution policy") &&
+                (lowerError.Contains("prevents execution") ||
+                 lowerError.Contains("restricted") ||
+                 lowerError.Contains("cannot be loaded"))) ||
+               (lowerError.Contains("is not digitally signed") && lowerError.Contains("execution policy"));
     }
 }
