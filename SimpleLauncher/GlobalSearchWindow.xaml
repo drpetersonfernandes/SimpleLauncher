@@ -10,6 +10,7 @@
                       Height="600"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
+    <!-- Resources section remains unchanged -->
     <Window.Resources>
         <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
             <Setter Property="Width" Value="8" />
@@ -21,7 +22,6 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="2">
                             <Grid>
-                                <!-- Visual indicators - dots in the center -->
                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
                                     <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
@@ -118,10 +118,10 @@
                       MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
                       SelectionChanged="ActionsWhenUserSelectAResultItemAsync" d:DataContext="{d:DesignInstance }">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="FileName" Binding="{Binding FileNameWithExtension}" Width="*" />
-                    <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineName}" Width="*" />
-                    <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -142,7 +142,7 @@
                            Margin="20"/>
             </Border>
 
-            <!-- GridSplitter between columns 0 and 2 -->
+            <!-- GridSplitter -->
             <GridSplitter Grid.Row="0" Grid.RowSpan="4" Grid.Column="1"
                           Background="Gray"
                           ResizeDirection="Columns"
