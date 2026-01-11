@@ -366,7 +366,6 @@
     <system:String x:Key="Linkssavedsuccessfully">Links saved successfully.</system:String>
     <system:String x:Key="ListofFavorites">List of Favorites</system:String>
     <system:String x:Key="ListView">List View</system:String>
-    <system:String x:Key="Loading">Loading...</system:String>
     <system:String x:Key="LoadingAchievements">Loading achievements...</system:String>
     <system:String x:Key="Loadingconfiguration">Loading configuration...</system:String>
     <system:String x:Key="LoadingExtendedGameInfo">Loading extended game info...</system:String>
@@ -535,7 +534,6 @@
     <system:String x:Key="RestartError">Restart Error</system:String>
     <system:String x:Key="RestoreBackup">Restore Backup?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement Overlay Button</system:String>
-    <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
     <system:String x:Key="RetroAchievementsSettings">Retro Achievements Settings</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Reverting gamepad dead zone settings...</system:String>
     <system:String x:Key="RevertingLinkSettings">Reverting link settings...</system:String>
@@ -826,4 +824,286 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+<!-- RetroAchievements General -->
+<system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+<system:String x:Key="AchievementsTab">Achievements |</system:String>
+<system:String x:Key="GameInfoTab">Game Info |</system:String>
+<system:String x:Key="GameRankingTab">Game Ranking |</system:String>
+<system:String x:Key="MyProfileTab">My Profile |</system:String>
+<system:String x:Key="UnlocksTab">Unlocks |</system:String>
+<system:String x:Key="UserProgressTab">User Progress |</system:String>
+<system:String x:Key="OpenRaSettings">Open RetroAchievements Settings</system:String>
+
+<!-- Achievements Tab -->
+<system:String x:Key="CasualProgress">Casual Progress:</system:String>
+<system:String x:Key="HardcoreProgress">Hardcore Progress:</system:String>
+<system:String x:Key="AchievementsEarned">Achievements Earned</system:String>
+<system:String x:Key="TotalAchievements">Total Achievements</system:String>
+<system:String x:Key="TotalPointsEarned">Total Points Earned</system:String>
+<system:String x:Key="TruePointsEarned">True Points Earned</system:String>
+<system:String x:Key="HighestAward">Highest Award:</system:String>
+<system:String x:Key="AwardOn"> on </system:String>
+<system:String x:Key="NoAchievementsFound">No achievements found for this game.</system:String>
+
+<!-- Game Info Tab -->
+<system:String x:Key="GameImages">Game Images</system:String>
+<system:String x:Key="Icon">Icon</system:String>
+<system:String x:Key="TitleScreen">Title Screen</system:String>
+<system:String x:Key="InGame">In-Game</system:String>
+<system:String x:Key="BoxArt">Box Art</system:String>
+<system:String x:Key="GameDetails">Game Details</system:String>
+<system:String x:Key="ViewOnRetroAchievements">View on RetroAchievements.org</system:String>
+<system:String x:Key="Genre">Genre:</system:String>
+<system:String x:Key="Released">Released:</system:String>
+<system:String x:Key="Developer">Developer:</system:String>
+<system:String x:Key="Publisher">Publisher:</system:String>
+<system:String x:Key="Players">Players:</system:String>
+<system:String x:Key="Console">Console:</system:String>
+<system:String x:Key="Updated">Updated:</system:String>
+<system:String x:Key="ConsoleID">Console ID:</system:String>
+<system:String x:Key="GameID">Game ID:</system:String>
+<system:String x:Key="ParentGame">Parent Game:</system:String>
+<system:String x:Key="ForumTopic">Forum Topic:</system:String>
+<system:String x:Key="ReleaseGranularity">Release Granularity:</system:String>
+<system:String x:Key="GuideURL">Guide URL:</system:String>
+<system:String x:Key="PlayerStatistics">Player Statistics</system:String>
+<system:String x:Key="TotalPlayers">Total Players</system:String>
+<system:String x:Key="CasualPlayers">Casual Players</system:String>
+<system:String x:Key="HardcorePlayers">Hardcore Players</system:String>
+<system:String x:Key="DevelopmentClaims">Development Claims</system:String>
+<system:String x:Key="AchievementsList">Achievements List</system:String>
+<system:String x:Key="NoGameInfoAvailable">Extended game information not available.</system:String>
+
+<!-- Game Ranking Tab -->
+<system:String x:Key="YourRankAndScore">Your Rank and Score</system:String>
+<system:String x:Key="Rank">Rank:</system:String>
+<system:String x:Key="Score">Score:</system:String>
+<system:String x:Key="LastAward">Last Award:</system:String>
+<system:String x:Key="NoRankData">No rank data available. Ensure your RetroAchievements credentials are set.</system:String>
+<system:String x:Key="LatestMasters">Latest Masters</system:String>
+<system:String x:Key="HighScores">High Scores</system:String>
+<system:String x:Key="NoLatestMasters">No latest masters found for this game.</system:String>
+<system:String x:Key="NoHighScores">No high scores found for this game.</system:String>
+
+<!-- Profile Tab -->
+<system:String x:Key="ViewProfileOnRA">View Profile on RetroAchievements.org</system:String>
+<system:String x:Key="CurrentlyPlaying">Currently Playing</system:String>
+<system:String x:Key="Points">Points</system:String>
+<system:String x:Key="TruePoints">True Points</system:String>
+<system:String x:Key="UserDetails">User Details</system:String>
+<system:String x:Key="MemberSince">Member Since:</system:String>
+<system:String x:Key="UserID">User ID:</system:String>
+<system:String x:Key="Contributions">Contributions:</system:String>
+<system:String x:Key="SoftcorePoints">Softcore Points:</system:String>
+<system:String x:Key="Permissions">Permissions:</system:String>
+<system:String x:Key="Status">Status:</system:String>
+<system:String x:Key="ProfileID">Profile ID (ULID):</system:String>
+<system:String x:Key="WallActive">Wall Active:</system:String>
+<system:String x:Key="RecentlyPlayedGames">Recently Played Games:</system:String>
+<system:String x:Key="NoProfileLoaded">Could not load user profile. Check username and API key in settings.</system:String>
+<system:String x:Key="CheckSettingsTryAgain">Please check your username and API key in settings, or try again later.</system:String>
+
+<!-- Unlocks Tab -->
+<system:String x:Key="FromDate">From:</system:String>
+<system:String x:Key="ToDate">To:</system:String>
+<system:String x:Key="FetchUnlocks">Fetch Unlocks</system:String>
+<system:String x:Key="ResetDates">Reset Dates</system:String>
+<system:String x:Key="TotalUnlocksInRange">Total Unlocks in Range: </system:String>
+<system:String x:Key="TotalPointsEarnedInRange">Total Points Earned: </system:String>
+<system:String x:Key="NoUnlocksFound">No unlocks found for the selected date range.</system:String>
+
+<!-- User Progress Tab -->
+<system:String x:Key="Casual">Casual</system:String>
+<system:String x:Key="Hardcore">Hardcore</system:String>
+<system:String x:Key="MostRecentAward">Most Recent Award</system:String>
+<system:String x:Key="HighestAwardDate">Highest Award Date</system:String>
+<system:String x:Key="NoUserProgress">Could not load user completion progress.</system:String>
+
+<!-- DataGrid Headers -->
+<system:String x:Key="HeaderIcon">Icon</system:String>
+<system:String x:Key="HeaderTitle">Title</system:String>
+<system:String x:Key="HeaderDescription">Description</system:String>
+<system:String x:Key="HeaderPoints">Points</system:String>
+<system:String x:Key="HeaderTrueRatio">True Ratio</system:String>
+<system:String x:Key="HeaderUnlocked">Unlocked</system:String>
+<system:String x:Key="HeaderMode">Mode</system:String>
+<system:String x:Key="HeaderRarity">Rarity</system:String>
+<system:String x:Key="HeaderAuthor">Author</system:String>
+<system:String x:Key="HeaderCreated">Created</system:String>
+<system:String x:Key="HeaderRank">Rank</system:String>
+<system:String x:Key="HeaderUser">User</system:String>
+<system:String x:Key="HeaderScore">Score</system:String>
+<system:String x:Key="HeaderAchievements">Achievements</system:String>
+<system:String x:Key="HeaderLastAward">Last Award</system:String>
+<system:String x:Key="HeaderGameIcon">Game Icon</system:String>
+<system:String x:Key="HeaderGameTitle">Game Title</system:String>
+<system:String x:Key="HeaderBadge">Badge</system:String>
+<system:String x:Key="HeaderAchievement">Achievement</system:String>
+<system:String x:Key="HeaderUnlockedDate">Unlocked Date</system:String>
+<system:String x:Key="HeaderConsole">Console</system:String>
+<system:String x:Key="HeaderHighestAward">Highest Award</system:String>
+<system:String x:Key="Loading">Loading...</system:String>
+
+    <!-- DownloadImagePackWindow & EasyModeWindow -->
+    <system:String x:Key="SelectASystemWatermark">Select a system...</system:String>
+    <system:String x:Key="Resources">Resources:</system:String>
+    <system:String x:Key="LibretroThumbnailsGitHub">Libretro Thumbnails (GitHub)</system:String>
+    <system:String x:Key="EmuMoviesFiles">EmuMovies Files</system:String>
+    <system:String x:Key="ImagePackSelectionHint">Select an image pack to begin downloading and extracting to your system folder.</system:String>
+    <system:String x:Key="ExtractingEllipsis">Extracting...</system:String>
+    <system:String x:Key="PathToRomsWatermark">Path to ROMs...</system:String>
+    <system:String x:Key="Essentials">Essentials</system:String>
+    <system:String x:Key="ImagePacksOptional">Image Packs (Optional)</system:String>
+    <system:String x:Key="ProcessingEllipsis">Processing...</system:String>
+
+    <!-- GameVerificationWindow -->
+    <system:String x:Key="VerifyMicrosoftStoreGames">Verify Microsoft Store Games</system:String>
+    <system:String x:Key="VerifyWindowsGamesDescription">Simple Launcher found the following applications from the Microsoft Store. Please select the ones that are games to add them to your library.</system:String>
+    <system:String x:Key="Confirm">Confirm</system:String>
+
+    <!-- GlobalSearchWindow -->
+    <system:String x:Key="MachineDescriptionMameHeader">Machine Description (for MAME files)</system:String>
+    <system:String x:Key="DefaultEmulatorHeader">Default Emulator</system:String>
+    <system:String x:Key="SystemNameHeader">System Name</system:String>
+
+    <!-- LogWindow -->
+    <system:String x:Key="Debugger">Debugger</system:String>
+    <system:String x:Key="ClearLog">Clear Log</system:String>
+    <system:String x:Key="CopyLog">Copy Log</system:String>
+
+    <!-- MainWindow Tools Menu -->
+    <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
+    <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
+    <system:String x:Key="BatchConvertToCompressedFile">Batch Convert To Compressed File</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Batch Convert To RVZ</system:String>
+    <system:String x:Key="CreateBatchFilesForPS3Games">Create Batch Files For PS3 Games</system:String>
+    <system:String x:Key="CreateBatchFilesForScummVMGames">Create Batch Files For ScummVM Games</system:String>
+    <system:String x:Key="CreateBatchFilesForSegaModel3Games">Create Batch Files For Sega Model 3 Games</system:String>
+    <system:String x:Key="CreateBatchFilesForWindowsGames">Create Batch Files For Windows Games</system:String>
+    <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Create Batch Files For Xbox360 XBLA Games</system:String>
+    <system:String x:Key="FindRomCover">Find Rom Cover</system:String>
+    <system:String x:Key="GameCoverScraper">Game Cover Scraper</system:String>
+    <system:String x:Key="RetroGameCoverDownloader">Retro Game Cover Downloader</system:String>
+    <system:String x:Key="RomValidator">Rom Validator</system:String>
+
+        <!-- Launch Tools & External Applications -->
+    <system:String x:Key="ToolPathNullOrEmpty">Tool path cannot be null or empty.</system:String>
+    <system:String x:Key="ExternalToolNotFound">External tool not found: {0}</system:String>
+    <system:String x:Key="ErrorLaunchingExternalTool">An error occurred while launching external tool: {0}.&#x0a;Arguments: {1}&#x0a;Working Directory: {2}</system:String>
+    <system:String x:Key="AppNotAvailableForArch">This application is not available for {0}</system:String>
+    <system:String x:Key="AppNotAvailableForArm64">This application is not available for win-arm64</system:String>
+
+    <!-- Update Checker & Process -->
+    <system:String x:Key="HttpClientNotInitialized">HttpClientFactory is not initialized. Update check cannot proceed.</system:String>
+    <system:String x:Key="UpdateCheckSuccess">Check for Updates Success</system:String>
+    <system:String x:Key="LatestVersionNotFound">Could not determine latest version from API response.</system:String>
+    <system:String x:Key="NewVersionAvailableNoUpdater">A new version ({0}) is available, but the required '{1}' for automatic updater update was not found.</system:String>
+    <system:String x:Key="ManualDownloadPackage">You can try to download the main package '{0}' manually from the releases page.</system:String>
+    <system:String x:Key="MainReleaseNotFound">The main release package was also not found. Please check the GitHub releases page.</system:String>
+    <system:String x:Key="GitHubApiFailed">GitHub API request failed with status code {0}.</system:String>
+    <system:String x:Key="ErrorCheckingUpdatesVariant">Error checking for updates (variant).</system:String>
+    <system:String x:Key="ErrorFetchingUpdaterInfo">Error fetching latest updater info.</system:String>
+    <system:String x:Key="StartingUpdateProcess">Starting update process...</system:String>
+    <system:String x:Key="DownloadingUpdaterFrom">Attempting to download and update the updater from URL: {0}</system:String>
+    <system:String x:Key="ExtractingUpdaterTo">Extracting updater to '{0}'...</system:String>
+    <system:String x:Key="UpdaterExtractedSuccess">Updater files extracted successfully.</system:String>
+    <system:String x:Key="UpdaterExtractionFailed">Update of Updater.exe failed: Not all files from the updater package could be extracted.</system:String>
+    <system:String x:Key="ErrorProcessingUpdater">Error downloading or extracting updater package: {0}</system:String>
+    <system:String x:Key="LaunchingNewUpdater">Launching newly updated Updater.exe...</system:String>
+    <system:String x:Key="UpdaterRemoteFailFallback">Failed to update Updater.exe from remote zip. Attempting to launch existing local Updater.exe...</system:String>
+    <system:String x:Key="LaunchingExistingUpdater">Launching existing Updater.exe...</system:String>
+    <system:String x:Key="UpdaterLaunchFailedAll">All attempts to launch Updater.exe (new or existing) have failed.</system:String>
+    <system:String x:Key="ManualDownloadFrom">Please download the main update package manually from: {0}</system:String>
+    <system:String x:Key="MainReleaseUrlNotFound">The main release package URL was not found. Please visit the GitHub releases page for {0}/{1}.</system:String>
+    <system:String x:Key="ErrorPreparingUpdate">There was an error preparing for the application update.</system:String>
+    <system:String x:Key="UnexpectedUpdateError">An unexpected error occurred during the update process: {0}</system:String>
+    <system:String x:Key="ZipSlipWarning">Security Warning: Path traversal attempt detected for entry '{0}'. Aborting update.</system:String>
+    <system:String x:Key="ZipEmptyOrCorrupt">Warning: The downloaded ZIP archive is empty or corrupted.</system:String>
+    <system:String x:Key="UpdateZipProcessError">Error processing the update ZIP archive.</system:String>
+    <system:String x:Key="InvalidVersionComparison">Invalid version string for comparison.</system:String>
+    <system:String x:Key="InvalidVersionNormalization">Invalid version string after normalization.</system:String>
+    <system:String x:Key="SearchingForAssets">Searching for assets: '{0}' and '{1}'</system:String>
+    <system:String x:Key="GitHubJsonParseError">Failed to parse JSON response from GitHub API.</system:String>
+
+    <!-- Game Scanning Logic -->
+    <system:String x:Key="StoreScanCompleted">All store game scans completed.</system:String>
+    <system:String x:Key="GameScanError">An error occurred during the game scanning process.</system:String>
+    <system:String x:Key="SystemNotFoundCreating">'{0}' system not found. Creating it now.</system:String>
+    <system:String x:Key="SystemXmlCreateFail">Failed to create 'Microsoft Windows' system in system.xml.</system:String>
+    <system:String x:Key="ApiQueryFailed">API query for '{0}' failed with status: {1}</system:String>
+    <system:String x:Key="ApiImageDownloadSuccess">Successfully downloaded image for '{0}' from API.</system:String>
+    <system:String x:Key="ApiImageDownloadFail">Failed to fetch or download image for '{0}' from API.</system:String>
+    <system:String x:Key="GameImageSaveFail">Failed to find/save image for {0} in {1}</system:String>
+    <system:String x:Key="IconExtractionFail">Failed to extract icon for {0} in {1}</system:String>
+
+    <!-- UI & Window Errors -->
+    <system:String x:Key="EasyModeInitError">Error initializing EasyModeManager.</system:String>
+    <system:String x:Key="SystemDropdownPopulateError">Error populating system dropdown.</system:String>
+    <system:String x:Key="ImagePackButtonClickError">Error in DownloadImagePackButtonClickAsync for {0}.</system:String>
+    <system:String x:Key="ImagePackDownloadErrorGeneric">Error in DownloadImagePackButtonClickAsync.</system:String>
+    <system:String x:Key="InvalidDestinationPath">Invalid destination path for {0}: {1}</system:String>
+    <system:String x:Key="ExtractionFolderCreateError">Error creating the extraction folder.</system:String>
+    <system:String x:Key="DownloadLinkOpenError">Error opening the download link.</system:String>
+    <system:String x:Key="AddSystemWindowCloseError">Error closing the Add System window.</system:String>
+    <system:String x:Key="EmulatorDownloadButtonClickError">Error in DownloadEmulatorButtonClickAsync.</system:String>
+    <system:String x:Key="CoreDownloadButtonClickError">Error in DownloadCoreButtonClickAsync.</system:String>
+    <system:String x:Key="ImagePackDownloadButtonClickError">Error in DownloadImagePackButton{0}ClickAsync.</system:String>
+    <system:String x:Key="AddSystemUnexpectedError">Unexpected error adding system.</system:String>
+    <system:String x:Key="AddSystemButtonClickError">Error in AddSystemButtonClickAsync.</system:String>
+    <system:String x:Key="SystemXmlInvalidRoot">Invalid root in system.xml, creating new.</system:String>
+    <system:String x:Key="SystemXmlParseError">Error parsing existing system.xml, creating new.</system:String>
+    <system:String x:Key="SystemXmlReadError">Error reading existing system.xml.</system:String>
+    <system:String x:Key="SystemXmlReadFail">Could not read the existing system configuration file.</system:String>
+    <system:String x:Key="SystemXmlSaveFail">Could not save system configuration.</system:String>
+    <system:String x:Key="SystemXmlUpdateUnexpectedError">Unexpected error updating system.xml.</system:String>
+    <system:String x:Key="EmulatorNameNullOrEmpty">selectedEmulatorName is null or empty.</system:String>
+    <system:String x:Key="AchievementsOpenError">Error opening achievements for {0}</system:String>
+    <system:String x:Key="RetroAchievementsWindowOpenError">Error opening Retro Achievements Window.</system:String>
+    <system:String x:Key="VideoLinkOpenError">Error opening video link for {0}</system:String>
+    <system:String x:Key="VideoLinkError">Error opening the video Link.</system:String>
+    <system:String x:Key="InfoLinkOpenError">Error opening info link for {0}</system:String>
+    <system:String x:Key="InfoLinkError">Error opening the info Link.</system:String>
+    <system:String x:Key="GameLaunchError">Error launching the game.</system:String>
+    <system:String x:Key="FileSizeGetError">Error getting file size for {0}</system:String>
+    <system:String x:Key="MainWindowNullError">MainWindow instance is null.</system:String>
+    <system:String x:Key="PreviewImageControlNullError">PreviewImage control in MainWindow is null.</system:String>
+    <system:String x:Key="FilePathNullOrEmpty">selectedItem.FilePath is null or empty.</system:String>
+    <system:String x:Key="InvalidFilePathPreview">Selected item has an invalid file path. Cannot load preview.</system:String>
+    <system:String x:Key="SystemNameNullOrEmpty">Selected system name is null or empty from ComboBox.</system:String>
+    <system:String x:Key="NoSystemConfigFound">System configuration not found for '{0}'.</system:String>
+    <system:String x:Key="PreviewImageLoadError">Error loading preview image.</system:String>
+    <system:String x:Key="FallbackPreviewImageLoadError">Error loading fallback preview image after an initial error.</system:String>
+    <system:String x:Key="HandleSelectionChangedError">Error in method GameListFactory.HandleSelectionChangedAsync.</system:String>
+    <system:String x:Key="SelectedItemNull">selectedItem is null.</system:String>
+    <system:String x:Key="HandleDoubleClickError">Error in method HandleDoubleClickAsync.</system:String>
+
+    <!-- Global Search & Stats -->
+    <system:String x:Key="GlobalSearchError">Error during search operation.</system:String>
+    <system:String x:Key="SearchButtonClickError">Error in SearchButtonClickAsync.</system:String>
+    <system:String x:Key="LaunchGameSearchError">Error launching game from search.</system:String>
+    <system:String x:Key="LaunchButtonSearchError">Error in LaunchButton_Click (GlobalSearch).</system:String>
+    <system:String x:Key="RightClickMenuSearchError">Error in GlobalSearch right-click context menu.</system:String>
+    <system:String x:Key="ResultsDoubleClickSearchError">Error in ResultsDataGrid_MouseDoubleClick (GlobalSearch).</system:String>
+    <system:String x:Key="ResultItemSelectionError">Error loading image in ActionsWhenUserSelectAResultItemAsync (GlobalSearch).</system:String>
+    <system:String x:Key="FileSizeTaskCloseError">Error awaiting file size tasks on window close.</system:String>
+    <system:String x:Key="ResourceCleanupCloseError">Error cleaning up resources on window close.</system:String>
+    <system:String x:Key="GlobalStatsCalcError">An error occurred while calculating Global Statistics.</system:String>
+    <system:String x:Key="GlobalStatsImageFolderInvalid">GlobalStats: System image folder path invalid or not found for system '{0}': '{1}' -> '{2}'.</system:String>
+    <system:String x:Key="CalculateGlobalStatsError">Error in the CalculateGlobalStats method.</system:String>
+    <system:String x:Key="GlobalStatsReportSaveFail">Failed to save the report in the Global Stats window.</system:String>
+    <system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
+    <system:String x:Key="SystemSpecificStatsHeader">System-Specific Stats</system:String>
+    <system:String x:Key="SystemNameLabel">System Name:</system:String>
+    <system:String x:Key="RomCountLabel">Number of ROMs or ISOs:</system:String>
+    <system:String x:Key="MatchedImageCountLabel">Number of Matched Images:</system:String>
+    <system:String x:Key="OperationCancelError">An error occurred while cancelling the operation.</system:String>
+    <system:String x:Key="ImageRenameError">Error renaming image file: {0}. New file name: {1}</system:String>
+
+    <!-- Update History & Markdown -->
+    <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' not found&#x0a;&#x0a;The update history file could not be found.</system:String>
+    <system:String x:Key="WhatsNewLoadError">Failed to load 'whatsnew.md'.</system:String>
+    <system:String x:Key="UpdateHistoryLoadError">Error&#x0a;&#x0a;Could not load the update history. The error has been logged.</system:String>
+    <system:String x:Key="LinkOpenFail">Failed to open link: {0}</system:String>
+
 </ResourceDictionary>

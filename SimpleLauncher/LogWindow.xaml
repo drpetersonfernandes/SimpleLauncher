@@ -5,7 +5,7 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
-                      Title="Debugger" Height="400" Width="800"
+                      Title="{DynamicResource Debugger}" Height="400" Width="800"
                       WindowStartupLocation="Manual"
                       Left="100"
                       Top="100">
@@ -29,8 +29,8 @@
                  FontSize="12" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Content="Clear Log" Margin="5,0" Click="ClearLogButton_Click" />
-            <Button Content="Copy Log" Margin="5,0" Click="CopyLogButton_Click" />
+            <Button Content="{DynamicResource ClearLog}" Margin="5,0" Click="ClearLogButton_Click" />
+            <Button Content="{DynamicResource CopyLog}" Margin="5,0" Click="CopyLogButton_Click" />
         </StackPanel>
     </Grid>
 </mah:MetroWindow>

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Documents;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
+using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
@@ -24,7 +25,8 @@ public partial class UpdateHistoryWindow
 
         try
         {
-            var markdownText = File.Exists(filePath) ? File.ReadAllText(filePath) : "# 'whatsnew.md' not found\n\nThe update history file could not be found.";
+            var defaultContent = (string)Application.Current.TryFindResource("WhatsNewFileNotFound") ?? "# 'whatsnew.md' not found\n\nThe update history file could not be found.";
+            var markdownText = File.Exists(filePath) ? File.ReadAllText(filePath) : defaultContent;
 
             // Parse Markdown and set as TextBlock with inlines
             ParseMarkdownToTextBlock(markdownText);
@@ -36,7 +38,7 @@ public partial class UpdateHistoryWindow
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             HistoryTextBlock.Inlines.Clear();
-            HistoryTextBlock.Inlines.Add(new Run("Error\n\nCould not load the update history. The error has been logged."));
+            HistoryTextBlock.Inlines.Add(new Run((string)Application.Current.TryFindResource("UpdateHistoryLoadError") ?? "Error\n\nCould not load the update history. The error has been logged."));
         }
     }
 

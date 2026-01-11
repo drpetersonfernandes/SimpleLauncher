@@ -137,10 +137,11 @@ public partial class SupportWindow
     {
         get
         {
-            var version2 = (string)Application.Current.TryFindResource("Version") ?? "Version:";
-            var unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
+            // Removed localization strings for developer reports
+            const string versionPrefix = "Version:";
+            const string unknownVersion = "Unknown";
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            return version2 + (version?.ToString() ?? unknown2);
+            return versionPrefix + " " + (version?.ToString() ?? unknownVersion);
         }
     }
 
