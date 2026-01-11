@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">AI কে জিজ্ঞাসা করুন (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">AI কে জিজ্ঞাসা করুন (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">AI কে জিজ্ঞাসা করুন (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">"Microsoft Windows" সিস্টেম নির্বাচিত হয়েছে। আপনার সিস্টেম পুনরায় স্ক্যান করে ইনস্টল করা Windows গেমসের (Steam, Epic, GOG, ইত্যাদি) তালিকা আপডেট করতে চান?</system:String>
     <system:String x:Key="assoonasyouselectawindow">উইন্ডোটি নির্বাচন করার সাথে সাথেই স্ক্রিনশট নেওয়া হবে এবং এটি সিস্টেম ইমেজ ফোল্ডারে সংরক্ষণ করা হবে</system:String>
     <system:String x:Key="Attention">মনোযোগ</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">ফাইলপথে বিশেষ অক্ষর ব্যবহার করা এড়িয়ে চলুন, যেমন @, !, ?, ~, বা অন্য কোনো বিশেষ অক্ষর।</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">বিস্তারিত গেম তথ্য আনা হচ্ছে...</system:String>
     <system:String x:Key="FetchingGameAchievements">গেমের অ্যাচিভমেন্ট আনা হচ্ছে...</system:String>
     <system:String x:Key="FetchingGameRankings">গেম র‍্যাঙ্কিং আনা হচ্ছে...</system:String>
-    <system:String x:Key="FetchingUnlocks">আনলক আনা হচ্ছে...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">ব্যবহারকারীর সম্পন্ন করার অগ্রগতি আনা হচ্ছে...</system:String>
     <system:String x:Key="FetchingUserProfile">ব্যবহারকারীর প্রোফাইল আনা হচ্ছে...</system:String>
     <system:String x:Key="FileAddedToFavorites">ফাইল প্রিয়তে যোগ করা হয়েছে।</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">ইমেজ প্যাক ডাউনলোডার খোলা হচ্ছে...</system:String>
     <system:String x:Key="OpeningInfoLink">তথ্য লিঙ্ক খোলা হচ্ছে...</system:String>
     <system:String x:Key="OpeningLink">লিঙ্ক খোলা হচ্ছে...</system:String>
-    <system:String x:Key="OpeningLinkEditor">লিঙ্ক এডিটর খোলা হচ্ছে...</system:String>
     <system:String x:Key="OpeningManual">ম্যানুয়াল খোলা হচ্ছে...</system:String>
     <system:String x:Key="OpeningPCBImage">পিসিবি ইমেজ খোলা হচ্ছে...</system:String>
     <system:String x:Key="OpeningPlayHistory">প্লে হিস্টরি খোলা হচ্ছে...</system:String>
@@ -519,7 +516,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">এমুলেটর ত্রুটির উপর একটি বিজ্ঞপ্তি পেতে চান?</system:String>
     <system:String x:Key="Red">লাল</system:String>
     <system:String x:Key="RefreshingGameList">গেম তালিকা রিফ্রেশ করা হচ্ছে...</system:String>
-    <system:String x:Key="ReinstallSuggestion">এটি কিছু বৈশিষ্ট্য (যেমন স্বয়ংক্রিয় বাগ রিপোর্টিং) সঠিকভাবে কাজ করা থেকে আটকাতে পারে। আপনি কি এটি ঠিক করার জন্য Simple Launcher পুনরায় ইনস্টল করতে চান?</system:String>
+    <system:String x:Key="ReinstallSuggestion">এটি কিছু বৈশিষ্ট্য (যেমন স্বয়ংক্রিয় বাগ রিপোর্টিং) সঠিকভাবে কাজ করা থেকে আটকাতে পারে। আপনি কি এটি ঠিক করার জন্য 'Simple Launcher' পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Remove">সরান</system:String>
     <system:String x:Key="RemoveAllfromHistory">ইতিহাস থেকে সব সরান</system:String>
     <system:String x:Key="RemovefromFavorites">প্রিয় থেকে সরান</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">হিস্টরি আইটেম সরানো হচ্ছে...</system:String>
     <system:String x:Key="ReportedToDeveloper">এই নিরাপত্তা সমস্যাটি ডেভেলপার টিমের কাছে রিপোর্ট করা হয়েছে।</system:String>
     <system:String x:Key="Reportsavedsuccessfully">রিপোর্ট সফল হয়েছে।</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Windows গেমস পুনরায় স্ক্যান করবেন?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">তারিখ রিসেট করা এবং আনলক আনা হচ্ছে...</system:String>
     <system:String x:Key="ResetToDefault">ডিফল্টে রিসেট করুন</system:String>
     <system:String x:Key="Restart">রিস্টার্ট</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">‘সিম্পল লঞ্চার’-এ স্বাগতম!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">যখন ‘ফাইল লঞ্চ করার আগে এক্সট্র্যাকশন’ সত্য হয়, তখন ‘সিস্টেম ফোল্ডারে অনুসন্ধানের এক্সটেনশন’ এ ‘zip’, ‘7z’, বা ‘rar’ থাকতে হবে।</system:String>
     <system:String x:Key="Wider">প্রশস্ত</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Windows গেমস স্ক্যান সম্পূর্ণ।</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">আপনি কি ডাউনলোড পেজে যেতে চান?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">ম্যানুয়ালি ইনস্টল বা আপডেট করতে ডাউনলোড পৃষ্ঠায় যাওয়ার জন্য আপনাকে পুনঃনির্দেশিত করা হবে কি?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">'error_user.log' ফাইল খুলে সমস্যা পরীক্ষা করতে চান?</system:String>

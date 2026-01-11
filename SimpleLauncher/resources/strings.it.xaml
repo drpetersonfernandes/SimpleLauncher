@@ -55,7 +55,7 @@
     <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">Si è verificato un errore durante l'invio della richiesta di supporto.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Si è verificato un errore durante il tentativo di eliminare il file.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Un'interfaccia frontend open source per emulatori</system:String>
-    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Un'altra istanza di Simple Launcher è già in esecuzione.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Un'altra istanza di 'Simple Launcher' è già in esecuzione.</system:String>
     <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Si è verificato un errore imprevisto durante l'inizializzazione della libreria 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' ha riscontrato un errore durante il caricamento della sua configurazione API.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Errore di configurazione API</system:String>
@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">Chiedi all'IA (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Chiedi all'IA (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">Chiedi all'IA (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">È stato selezionato il sistema "Microsoft Windows". Vuoi riscontare il tuo sistema per aggiornare l'elenco dei giochi Windows installati (Steam, Epic, GOG, ecc.)?</system:String>
     <system:String x:Key="assoonasyouselectawindow">Non appena selezioni una finestra, verrà catturata una schermata e salvata nella cartella immagini del sistema selezionato.</system:String>
     <system:String x:Key="Attention">Attenzione</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Evitare di utilizzare caratteri speciali nel percorso del file, come @, !, ?, ~, o qualsiasi altro carattere speciale.</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">Recupero informazioni di gioco estese...</system:String>
     <system:String x:Key="FetchingGameAchievements">Recupero obiettivi di gioco...</system:String>
     <system:String x:Key="FetchingGameRankings">Recupero classifiche di gioco...</system:String>
-    <system:String x:Key="FetchingUnlocks">Recupero sblocchi...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">Recupero progresso di completamento utente...</system:String>
     <system:String x:Key="FetchingUserProfile">Recupero profilo utente...</system:String>
     <system:String x:Key="FileAddedToFavorites">File aggiunto ai preferiti.</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">Apertura Downloader Pacchetto Immagini...</system:String>
     <system:String x:Key="OpeningInfoLink">Apertura link informazioni...</system:String>
     <system:String x:Key="OpeningLink">Apertura Link...</system:String>
-    <system:String x:Key="OpeningLinkEditor">Apertura Editor Link...</system:String>
     <system:String x:Key="OpeningManual">Apertura manuale...</system:String>
     <system:String x:Key="OpeningPCBImage">Apertura immagine PCB...</system:String>
     <system:String x:Key="OpeningPlayHistory">Apertura Cronologia di Gioco...</system:String>
@@ -519,7 +516,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">Ricevere una notifica in caso di errore dell'emulatore?</system:String>
     <system:String x:Key="Red">Rosso</system:String>
     <system:String x:Key="RefreshingGameList">Aggiornamento lista giochi...</system:String>
-    <system:String x:Key="ReinstallSuggestion">Ciò potrebbe impedire ad alcune funzionalità (come la segnalazione automatica dei bug) di funzionare correttamente. Vuoi reinstallare Simple Launcher per risolvere questo problema?</system:String>
+    <system:String x:Key="ReinstallSuggestion">Ciò potrebbe impedire ad alcune funzionalità (come la segnalazione automatica dei bug) di funzionare correttamente. Vuoi reinstallare 'Simple Launcher' per risolvere questo problema?</system:String>
     <system:String x:Key="Remove">Rimuovi</system:String>
     <system:String x:Key="RemoveAllfromHistory">Rimuovi tutto dalla cronologia</system:String>
     <system:String x:Key="RemovefromFavorites">Rimuovi dai preferiti</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">Rimozione elemento cronologia...</system:String>
     <system:String x:Key="ReportedToDeveloper">Questo problema di sicurezza è stato segnalato al team di sviluppatori.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapporto salvato con successo.</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Riscansiona giochi Windows?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">Reset date e recupero sblocchi...</system:String>
     <system:String x:Key="ResetToDefault">Ripristina predefiniti</system:String>
     <system:String x:Key="Restart">Riavvia</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">Benvenuto in 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Quando 'Estrai il file prima di lanciare' è attivato, l''Estensione da cercare nella cartella di sistema' deve includere 'zip', '7z' o 'rar'.</system:String>
     <system:String x:Key="Wider">Più largo</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Scansione giochi Windows completata.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Vuoi essere reindirizzato alla pagina di download?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Vuoi essere reindirizzato alla pagina di download per installare o aggiornare manualmente?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Vuoi aprire il file 'error_user.log' per indagare sul problema?</system:String>

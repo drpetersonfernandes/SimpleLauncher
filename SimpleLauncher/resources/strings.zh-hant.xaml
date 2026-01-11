@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">詢問 AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">詢問 AI (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">詢問 AI (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">已選擇「Microsoft Windows」系統。您要重新掃描系統以更新已安裝的 Windows 遊戲清單（Steam、Epic、GOG 等）嗎？</system:String>
     <system:String x:Key="assoonasyouselectawindow">一旦選擇視窗，將截取畫面並儲存到選擇系統的圖片資料夾中。</system:String>
     <system:String x:Key="Attention">注意</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">避免在檔案路徑中使用特殊字元，例如 @、!、?、~ 或任何其他特殊字元。</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">正在獲取擴展遊戲資訊...</system:String>
     <system:String x:Key="FetchingGameAchievements">正在獲取遊戲成就...</system:String>
     <system:String x:Key="FetchingGameRankings">正在獲取遊戲排名...</system:String>
-    <system:String x:Key="FetchingUnlocks">正在獲取解鎖...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">正在獲取使用者完成進度...</system:String>
     <system:String x:Key="FetchingUserProfile">正在獲取使用者個人資料...</system:String>
     <system:String x:Key="FileAddedToFavorites">檔案已添加到我的最愛。</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">正在開啟圖像包下載器...</system:String>
     <system:String x:Key="OpeningInfoLink">正在開啟資訊連結...</system:String>
     <system:String x:Key="OpeningLink">正在開啟連結...</system:String>
-    <system:String x:Key="OpeningLinkEditor">正在開啟連結編輯器...</system:String>
     <system:String x:Key="OpeningManual">正在開啟手冊...</system:String>
     <system:String x:Key="OpeningPCBImage">正在開啟 PCB 圖片...</system:String>
     <system:String x:Key="OpeningPlayHistory">正在開啟遊玩歷史...</system:String>
@@ -519,7 +516,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">在模擬器錯誤時接收通知？</system:String>
     <system:String x:Key="Red">紅色</system:String>
     <system:String x:Key="RefreshingGameList">正在重新整理遊戲列表...</system:String>
-    <system:String x:Key="ReinstallSuggestion">這可能會阻止某些功能（例如自動錯誤報告）正常工作。您想重新安裝 Simple Launcher 來解決此問題嗎？</system:String>
+    <system:String x:Key="ReinstallSuggestion">這可能會阻止某些功能（例如自動錯誤報告）正常工作。您想重新安裝 'Simple Launcher' 來解決此問題嗎？</system:String>
     <system:String x:Key="Remove">移除</system:String>
     <system:String x:Key="RemoveAllfromHistory">從歷史中全部移除</system:String>
     <system:String x:Key="RemovefromFavorites">從收藏中移除</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">正在移除歷史項目...</system:String>
     <system:String x:Key="ReportedToDeveloper">此安全問題已報告給開發團隊。</system:String>
     <system:String x:Key="Reportsavedsuccessfully">報告已成功儲存。</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">重新掃描 Windows 遊戲？</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">正在重設日期並獲取解鎖...</system:String>
     <system:String x:Key="ResetToDefault">重設為預設</system:String>
     <system:String x:Key="Restart">重啟</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">歡迎使用「簡易啟動器」！</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">當「啟動前解壓縮文件」已啟用時，「在系統文件夾中搜索的擴展名」必須包含「zip」、「7z」或「rar」。</system:String>
     <system:String x:Key="Wider">更寬</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Windows 遊戲掃描完成。</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">是否需要跳轉到下載頁面？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳轉到下載頁面以手動安裝或更新？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想開啟 'error_user.log' 檔案來調查此問題？</system:String>

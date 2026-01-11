@@ -480,8 +480,8 @@ This release brings significant user-interface improvements, new features for ga
 -   Added a tool to `Organize System Images`.
 -   Implemented code to automatically redirect the user to the `Simple Launcher Wiki page` if the provided parameters for emulator launch fail.
 -   Implemented the automatic launch of the `UpdateHistory` window after an update so the user can see what is new in the release.
--   Implemented logic to automatically reinstall Simple Launcher if the required files are missing.
--   Improved the `Updater` application. It will always automatically install the latest version of Simple Launcher even if the parameters provided are invalid.
+-   Implemented logic to automatically reinstall 'Simple Launcher' if the required files are missing.
+-   Improved the `Updater` application. It will always automatically install the latest version of 'Simple Launcher' even if the parameters provided are invalid.
 -   Fixed the `UpdateHistory` window to wrap the text. It is better for the user.
 
 # Release 3.3.2

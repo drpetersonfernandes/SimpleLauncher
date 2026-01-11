@@ -55,7 +55,7 @@
     <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">Đã xảy ra lỗi khi gửi yêu cầu hỗ trợ.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Đã xảy ra lỗi khi cố gắng xoá tệp.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Một giao diện trình giả lập mã nguồn mở</system:String>
-    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Một phiên bản khác của Simple Launcher đang chạy.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Một phiên bản khác của 'Simple Launcher' đang chạy.</system:String>
     <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Đã xảy ra lỗi không mong muốn khi khởi tạo thư viện 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' đã gặp lỗi khi tải cấu hình API của nó.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Lỗi cấu hình API</system:String>
@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">Hỏi AI (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Hỏi AI (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">Hỏi AI (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">Hệ thống 'Microsoft Windows' đã được chọn. Bạn có muốn quét lại hệ thống để cập nhật danh sách các trò chơi Windows đã cài đặt (Steam, Epic, GOG, v.v.) không?</system:String>
     <system:String x:Key="assoonasyouselectawindow">Ngay khi bạn chọn một cửa sổ, một ảnh chụp màn hình sẽ được tạo và lưu vào thư mục hình ảnh của hệ thống được chọn.</system:String>
     <system:String x:Key="Attention">Chú ý</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Tránh sử dụng các ký tự đặc biệt trong đường dẫn tệp, chẳng hạn như @, !, ?, ~, hoặc bất kỳ ký tự đặc biệt nào khác.</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">Đang tìm nạp thông tin trò chơi mở rộng...</system:String>
     <system:String x:Key="FetchingGameAchievements">Đang tìm nạp thành tích trò chơi...</system:String>
     <system:String x:Key="FetchingGameRankings">Đang tìm nạp bảng xếp hạng trò chơi...</system:String>
-    <system:String x:Key="FetchingUnlocks">Đang tìm nạp các mở khóa...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">Đang tìm nạp tiến độ hoàn thành của người dùng...</system:String>
     <system:String x:Key="FetchingUserProfile">Đang tìm nạp hồ sơ người dùng...</system:String>
     <system:String x:Key="FileAddedToFavorites">Tệp đã được thêm vào mục ưa thích.</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">Đang mở Trình tải gói hình ảnh...</system:String>
     <system:String x:Key="OpeningInfoLink">Đang mở liên kết thông tin...</system:String>
     <system:String x:Key="OpeningLink">Đang mở liên kết...</system:String>
-    <system:String x:Key="OpeningLinkEditor">Đang mở Trình chỉnh sửa liên kết...</system:String>
     <system:String x:Key="OpeningManual">Đang mở hướng dẫn sử dụng...</system:String>
     <system:String x:Key="OpeningPCBImage">Đang mở hình ảnh PCB...</system:String>
     <system:String x:Key="OpeningPlayHistory">Đang mở Lịch sử chơi...</system:String>
@@ -519,7 +516,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">Nhận thông báo khi có lỗi của trình giả lập?</system:String>
     <system:String x:Key="Red">Đỏ</system:String>
     <system:String x:Key="RefreshingGameList">Đang làm mới danh sách trò chơi...</system:String>
-    <system:String x:Key="ReinstallSuggestion">Điều này có thể ngăn một số tính năng (như báo cáo lỗi tự động) hoạt động chính xác. Bạn có muốn cài đặt lại Simple Launcher để khắc phục điều này không?</system:String>
+    <system:String x:Key="ReinstallSuggestion">Điều này có thể ngăn một số tính năng (như báo cáo lỗi tự động) hoạt động chính xác. Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục điều này không?</system:String>
     <system:String x:Key="Remove">Xóa</system:String>
     <system:String x:Key="RemoveAllfromHistory">Xóa tất cả khỏi lịch sử</system:String>
     <system:String x:Key="RemovefromFavorites">Xóa khỏi mục yêu thích</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">Đang xóa mục lịch sử...</system:String>
     <system:String x:Key="ReportedToDeveloper">Vấn đề bảo mật này đã được báo cáo cho đội ngũ phát triển.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Báo cáo đã được lưu thành công.</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Quét lại trò chơi Windows?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">Đang đặt lại ngày và tìm nạp các mở khóa...</system:String>
     <system:String x:Key="ResetToDefault">Đặt lại về mặc định</system:String>
     <system:String x:Key="Restart">Khởi động lại</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">Chào mừng đến với 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Khi "Giải nén tệp trước khi khởi động" được bật, "Phần mở rộng để tìm trong thư mục hệ thống" phải bao gồm "zip", "7z" hoặc "rar".</system:String>
     <system:String x:Key="Wider">Rộng hơn</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Quét trò chơi Windows hoàn tất.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Bạn có muốn được chuyển hướng đến trang tải xuống không?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>

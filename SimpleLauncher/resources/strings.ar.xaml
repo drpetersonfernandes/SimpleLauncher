@@ -54,7 +54,7 @@
     <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">حدث خطأ أثناء إرسال طلب الدعم.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">حدث خطأ أثناء محاولة حذف الملف.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
-    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">يتم تشغيل نسخة أخرى من Simple Launcher بالفعل.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">يتم تشغيل نسخة أخرى من 'Simple Launcher' بالفعل.</system:String>
     <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">حدث خطأ غير متوقع أثناء تهيئة مكتبة 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">واجه 'Simple Launcher' خطأ أثناء تحميل تهيئة واجهة برمجة التطبيقات (API) الخاصة به.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">خطأ في تهيئة واجهة برمجة التطبيقات (API)</system:String>
@@ -71,7 +71,6 @@
     <system:String x:Key="AskAIPerplexityai">اسأل الذكاء الاصطناعي (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">اسأل الذكاء الاصطناعي (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">اسأل الذكاء الاصطناعي (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">تم تحديد نظام "Microsoft Windows". هل تريد إعادة مسح نظامك لتحديث قائمة ألعاب Windows المثبتة (Steam، Epic، GOG، إلخ)؟</system:String>
     <system:String x:Key="assoonasyouselectawindow">بمجرد تحديد نافذة، سيتم التقاط لقطة وحفظها في مجلد الصور للنظام المختار.</system:String>
     <system:String x:Key="Attention">انتباه</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">تجنب استخدام الأحرف الخاصة في مسار الملف، مثل @، !، ?، ~، أو أي أحرف خاصة أخرى.</system:String>
@@ -272,7 +271,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">جلب معلومات اللعبة الموسعة...</system:String>
     <system:String x:Key="FetchingGameAchievements">جلب إنجازات اللعبة...</system:String>
     <system:String x:Key="FetchingGameRankings">جلب تصنيفات اللعبة...</system:String>
-    <system:String x:Key="FetchingUnlocks">جلب الفتحات...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">جلب تقدم إنجاز المستخدم...</system:String>
     <system:String x:Key="FetchingUserProfile">جلب ملف تعريف المستخدم...</system:String>
     <system:String x:Key="FileAddedToFavorites">تمت إضافة الملف إلى المفضلة.</system:String>
@@ -445,7 +443,6 @@
     <system:String x:Key="OpeningImagePackDownloader">فتح أداة تنزيل حزمة الصور...</system:String>
     <system:String x:Key="OpeningInfoLink">فتح رابط المعلومات...</system:String>
     <system:String x:Key="OpeningLink">فتح الرابط...</system:String>
-    <system:String x:Key="OpeningLinkEditor">فتح محرر الروابط...</system:String>
     <system:String x:Key="OpeningManual">فتح الدليل...</system:String>
     <system:String x:Key="OpeningPCBImage">فتح صورة لوحة الدوائر المطبوعة...</system:String>
     <system:String x:Key="OpeningPlayHistory">فتح سجل اللعب...</system:String>
@@ -518,7 +515,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">تلقي إشعار عند حدوث خطأ في المحاكي؟</system:String>
     <system:String x:Key="Red">أحمر</system:String>
     <system:String x:Key="RefreshingGameList">تحديث قائمة الألعاب...</system:String>
-    <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت Simple Launcher لإصلاح هذا؟</system:String>
+    <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت 'Simple Launcher' لإصلاح هذا؟</system:String>
     <system:String x:Key="Remove">إزالة</system:String>
     <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
     <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
@@ -529,7 +526,6 @@
     <system:String x:Key="RemovingHistoryItem">إزالة عنصر السجل...</system:String>
     <system:String x:Key="ReportedToDeveloper">تم الإبلاغ عن هذه المشكلة الأمنية إلى فريق المطورين.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">تم حفظ التقرير بنجاح.</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">إعادة مسح ألعاب Windows؟</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">إعادة تعيين التواريخ وجلب الفتحات...</system:String>
     <system:String x:Key="ResetToDefault">إعادة تعيين إلى الافتراضي</system:String>
     <system:String x:Key="Restart">إعادة التشغيل</system:String>
@@ -801,7 +797,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">مرحباً بك في 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>
     <system:String x:Key="Wider">أوسع</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">اكتمل مسح ألعاب Windows.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">هل ترغب في الانتقال إلى صفحة التنزيل؟</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>

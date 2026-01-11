@@ -55,7 +55,7 @@
     <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">지원 요청을 보내는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">파일 삭제 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">오픈소스 에뮬레이터 프론트엔드</system:String>
-    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">다른 Simple Launcher 인스턴스가 이미 실행 중입니다.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">다른 'Simple Launcher' 인스턴스가 이미 실행 중입니다.</system:String>
     <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">7-Zip 라이브러리를 초기화하는 동안 예기치 않은 오류가 발생했습니다.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher'가 API 구성을 로드하는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API 구성 오류</system:String>
@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">AI에게 물어보기 (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">AI에게 물어보기 (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">AI에게 물어보기 (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">'Microsoft Windows' 시스템이 선택되었습니다. 설치된 Windows 게임(Steam, Epic, GOG 등) 목록을 업데이트하기 위해 시스템을 다시 스캔하시겠습니까?</system:String>
     <system:String x:Key="assoonasyouselectawindow">창을 선택하자마자 스크린샷이 찍히며, 해당 시스템의 이미지 폴더에 저장됩니다.</system:String>
     <system:String x:Key="Attention">주의</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">파일 경로에 @, !, ?, ~ 또는 기타 특수 문자를 사용하지 마십시오.</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">확장 게임 정보 가져오는 중...</system:String>
     <system:String x:Key="FetchingGameAchievements">게임 업적 가져오는 중...</system:String>
     <system:String x:Key="FetchingGameRankings">게임 랭킹 가져오는 중...</system:String>
-    <system:String x:Key="FetchingUnlocks">잠금 해제 가져오는 중...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">사용자 완료 진행률 가져오는 중...</system:String>
     <system:String x:Key="FetchingUserProfile">사용자 프로필 가져오는 중...</system:String>
     <system:String x:Key="FileAddedToFavorites">파일이 즐겨찾기에 추가되었습니다.</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">이미지 팩 다운로더 열기...</system:String>
     <system:String x:Key="OpeningInfoLink">정보 링크 열기...</system:String>
     <system:String x:Key="OpeningLink">링크 열기...</system:String>
-    <system:String x:Key="OpeningLinkEditor">링크 편집기 열기...</system:String>
     <system:String x:Key="OpeningManual">매뉴얼 열기...</system:String>
     <system:String x:Key="OpeningPCBImage">PCB 이미지 열기...</system:String>
     <system:String x:Key="OpeningPlayHistory">플레이 기록 열기...</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">기록 항목 제거 중...</system:String>
     <system:String x:Key="ReportedToDeveloper">이 보안 문제는 개발자 팀에 보고되었습니다.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">보고서가 성공적으로 저장되었습니다.</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Windows 게임 다시 스캔?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">날짜 재설정 및 잠금 해제 가져오는 중...</system:String>
     <system:String x:Key="ResetToDefault">기본값으로 재설정</system:String>
     <system:String x:Key="Restart">재시작</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">'Simple Launcher'에 오신 것을 환영합니다!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘실행 전 파일 추출’이 활성화된 경우, ‘시스템 폴더에서 검색할 확장자’에는 ‘zip’, ‘7z’, 또는 ‘rar’이 포함되어야 합니다.</system:String>
     <system:String x:Key="Wider">넓게</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Windows 게임 스캔 완료.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>

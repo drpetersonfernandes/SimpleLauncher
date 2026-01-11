@@ -55,7 +55,7 @@
     <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">Beim Senden der Support-Anfrage ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Beim Versuch, die Datei zu löschen, ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Eine Open-Source-Oberfläche für Emulatoren</system:String>
-    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Eine weitere Instanz von Simple Launcher läuft bereits.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Eine weitere Instanz von 'Simple Launcher' läuft bereits.</system:String>
     <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Beim Initialisieren der 7-Zip-Bibliothek ist ein unerwarteter Fehler aufgetreten.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' ist beim Laden seiner API-Konfiguration auf einen Fehler gestoßen.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API-Konfigurationsfehler</system:String>
@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">KI fragen (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">KI fragen (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">KI fragen (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">Das System „Microsoft Windows“ wurde ausgewählt. Möchten Sie Ihr System erneut scannen, um die Liste der installierten Windows-Spiele (Steam, Epic, GOG usw.) zu aktualisieren?</system:String>
     <system:String x:Key="assoonasyouselectawindow">Sobald Sie ein Fenster ausgewählt haben, wird ein Screenshot erstellt und im Bildordner des ausgewählten Systems gespeichert.</system:String>
     <system:String x:Key="Attention">Achtung</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Vermeiden Sie die Verwendung von Sonderzeichen im Dateipfad, wie @, !, ?, ~, oder andere Sonderzeichen.</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">Erweiterte Spielinformationen werden abgerufen...</system:String>
     <system:String x:Key="FetchingGameAchievements">Spielerrungenschaften werden abgerufen...</system:String>
     <system:String x:Key="FetchingGameRankings">Spielranglisten werden abgerufen...</system:String>
-    <system:String x:Key="FetchingUnlocks">Freischaltungen werden abgerufen...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">Benutzer-Abschlussfortschritt wird abgerufen...</system:String>
     <system:String x:Key="FetchingUserProfile">Benutzerprofil wird abgerufen...</system:String>
     <system:String x:Key="FileAddedToFavorites">Datei zu Favoriten hinzugefügt.</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">Image Pack Downloader wird geöffnet...</system:String>
     <system:String x:Key="OpeningInfoLink">Info-Link wird geöffnet...</system:String>
     <system:String x:Key="OpeningLink">Link wird geöffnet...</system:String>
-    <system:String x:Key="OpeningLinkEditor">Link-Editor wird geöffnet...</system:String>
     <system:String x:Key="OpeningManual">Handbuch wird geöffnet...</system:String>
     <system:String x:Key="OpeningPCBImage">Leiterplattenbild wird geöffnet...</system:String>
     <system:String x:Key="OpeningPlayHistory">Spielverlauf wird geöffnet...</system:String>
@@ -519,7 +516,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">Möchten Sie eine Benachrichtigung bei Emulatorfehler erhalten?</system:String>
     <system:String x:Key="Red">Rot</system:String>
     <system:String x:Key="RefreshingGameList">Spieleliste wird aktualisiert...</system:String>
-    <system:String x:Key="ReinstallSuggestion">Dies könnte verhindern, dass einige Funktionen (wie die automatische Fehlerberichterstattung) korrekt funktionieren. Möchten Sie Simple Launcher neu installieren, um dies zu beheben?</system:String>
+    <system:String x:Key="ReinstallSuggestion">Dies könnte verhindern, dass einige Funktionen (wie die automatische Fehlerberichterstattung) korrekt funktionieren. Möchten Sie 'Simple Launcher' neu installieren, um dies zu beheben?</system:String>
     <system:String x:Key="Remove">Entfernen</system:String>
     <system:String x:Key="RemoveAllfromHistory">Alles aus Verlauf entfernen</system:String>
     <system:String x:Key="RemovefromFavorites">Aus Favoriten entfernen</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">Verlaufseintrag wird entfernt...</system:String>
     <system:String x:Key="ReportedToDeveloper">Dieses Sicherheitsproblem wurde dem Entwicklerteam gemeldet.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Bericht erfolgreich gespeichert.</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Windows-Spiele erneut scannen?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">Daten zurücksetzen und Freischaltungen abrufen...</system:String>
     <system:String x:Key="ResetToDefault">Auf Standard zurücksetzen</system:String>
     <system:String x:Key="Restart">Neustarten</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">Willkommen bei 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Wenn "Datei vor dem Start extrahieren" auf "Wahr" gesetzt ist, muss "Erweiterung zum Suchen im Systemordner" "zip", "7z" oder "rar" enthalten.</system:String>
     <system:String x:Key="Wider">Breiter</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Scan der Windows-Spiele abgeschlossen.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Möchten Sie zur Download-Seite weitergeleitet werden?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Möchten Sie zur Download-Seite weitergeleitet werden, um es manuell zu installieren oder zu aktualisieren?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Möchten Sie die Datei 'error_user.log' öffnen, um das Problem zu untersuchen?</system:String>

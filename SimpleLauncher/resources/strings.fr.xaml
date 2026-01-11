@@ -55,7 +55,7 @@
     <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">Une erreur s'est produite lors de l'envoi de la demande de support.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Une erreur est survenue lors de la tentative de suppression du fichier.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Une interface frontend open source pour les émulateurs</system:String>
-    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Une autre instance de Simple Launcher est déjà en cours d'exécution.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Une autre instance de 'Simple Launcher' est déjà en cours d'exécution.</system:String>
     <system:String x:Key="Anunexpectederroroccurredwhileinitializingthe7Ziplibrary">Une erreur inattendue est survenue lors de l'initialisation de la bibliothèque 7-Zip.</system:String>
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' a rencontré une erreur lors du chargement de sa configuration API.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Erreur de configuration de l'API</system:String>
@@ -72,7 +72,6 @@
     <system:String x:Key="AskAIPerplexityai">Demander à l'IA (Perplexity.ai)</system:String>
     <system:String x:Key="AskAIPhindcom">Demander à l'IA (Phind.com)</system:String>
     <system:String x:Key="AskAIYoucom">Demander à l'IA (You.com)</system:String>
-    <system:String x:Key="AskToRescanWindowsGamesMessage">Le système « Microsoft Windows » a été sélectionné. Souhaitez-vous rescanner votre système pour mettre à jour la liste des jeux Windows installés (Steam, Epic, GOG, etc.) ?</system:String>
     <system:String x:Key="assoonasyouselectawindow">Dès que vous sélectionnez une fenêtre, une capture d'écran sera prise et enregistrée dans le dossier images du système sélectionné.</system:String>
     <system:String x:Key="Attention">Attention</system:String>
     <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Évitez d'utiliser des caractères spéciaux dans le chemin du fichier, tels que @, !, ?, ~, ou tout autre caractère spécial.</system:String>
@@ -273,7 +272,6 @@
     <system:String x:Key="FetchingExtendedGameInfo">Récupération des informations de jeu étendues...</system:String>
     <system:String x:Key="FetchingGameAchievements">Récupération des succès du jeu...</system:String>
     <system:String x:Key="FetchingGameRankings">Récupération des classements de jeux...</system:String>
-    <system:String x:Key="FetchingUnlocks">Récupération des déverrouillages...</system:String>
     <system:String x:Key="FetchingUserCompletionProgress">Récupération de la progression d'achèvement de l'utilisateur...</system:String>
     <system:String x:Key="FetchingUserProfile">Récupération du profil utilisateur...</system:String>
     <system:String x:Key="FileAddedToFavorites">Fichier ajouté aux favoris.</system:String>
@@ -446,7 +444,6 @@
     <system:String x:Key="OpeningImagePackDownloader">Ouverture du Téléchargeur de packs d'images...</system:String>
     <system:String x:Key="OpeningInfoLink">Ouverture du lien d'information...</system:String>
     <system:String x:Key="OpeningLink">Ouverture du lien...</system:String>
-    <system:String x:Key="OpeningLinkEditor">Ouverture de l'Éditeur de liens...</system:String>
     <system:String x:Key="OpeningManual">Ouverture du manuel...</system:String>
     <system:String x:Key="OpeningPCBImage">Ouverture de l'image du PCB...</system:String>
     <system:String x:Key="OpeningPlayHistory">Ouverture de l'Historique de jeu...</system:String>
@@ -519,7 +516,7 @@
     <system:String x:Key="receiveNotificationEmulatorError">Recevoir une notification en cas d'erreur de l'émulateur ?</system:String>
     <system:String x:Key="Red">Rouge</system:String>
     <system:String x:Key="RefreshingGameList">Actualisation de la liste de jeux...</system:String>
-    <system:String x:Key="ReinstallSuggestion">Cela pourrait empêcher certaines fonctionnalités (comme le rapport d'erreurs automatique) de fonctionner correctement. Souhaitez-vous réinstaller Simple Launcher pour corriger cela ?</system:String>
+    <system:String x:Key="ReinstallSuggestion">Cela pourrait empêcher certaines fonctionnalités (comme le rapport d'erreurs automatique) de fonctionner correctement. Souhaitez-vous réinstaller 'Simple Launcher' pour corriger cela ?</system:String>
     <system:String x:Key="Remove">Supprimer</system:String>
     <system:String x:Key="RemoveAllfromHistory">Tout supprimer de l'historique</system:String>
     <system:String x:Key="RemovefromFavorites">Retirer des favoris</system:String>
@@ -530,7 +527,6 @@
     <system:String x:Key="RemovingHistoryItem">Suppression de l'élément de l'historique...</system:String>
     <system:String x:Key="ReportedToDeveloper">Ce problème de sécurité a été signalé à l'équipe de développeurs.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapport enregistré avec succès.</system:String>
-    <system:String x:Key="RescanWindowsGamesTitle">Rescanner les jeux Windows ?</system:String>
     <system:String x:Key="ResettingDatesAndFetchingUnlocks">Réinitialisation des dates et récupération des déverrouillages...</system:String>
     <system:String x:Key="ResetToDefault">Réinitialiser par défaut</system:String>
     <system:String x:Key="Restart">Redémarrer</system:String>
@@ -802,7 +798,6 @@
     <system:String x:Key="WelcomeToSimpleLauncher">Bienvenue sur 'Simple Launcher' !</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Lorsque 'Extraire le fichier avant le lancement' est activé, l''Extension à rechercher dans le dossier système' doit inclure 'zip', '7z' ou 'rar'.</system:String>
     <system:String x:Key="Wider">Plus large</system:String>
-    <system:String x:Key="WindowsGamesScanComplete">Balayage des jeux Windows terminé.</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Souhaitez-vous être redirigé vers la page de téléchargement ?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Voulez-vous être redirigé vers la page de téléchargement pour l'installer ou le mettre à jour manuellement ?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour enquêter sur le problème ?</system:String>

@@ -1320,7 +1320,7 @@ internal static class MessageBoxLibrary
             var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
             var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file or try to extract it manually?"; // New line
+            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?"; // New line
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var result = MessageBox.Show($"{downloadedfileislocked}\n\n" +
@@ -2513,7 +2513,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var anotherinstanceofSimpleLauncherisalreadyrunning = (string)Application.Current.TryFindResource("AnotherinstanceofSimpleLauncherisalreadyrunning") ?? "Another instance of Simple Launcher is already running.";
+            var anotherinstanceofSimpleLauncherisalreadyrunning = (string)Application.Current.TryFindResource("AnotherinstanceofSimpleLauncherisalreadyrunning") ?? "Another instance of 'Simple Launcher' is already running.";
             MessageBox.Show(anotherinstanceofSimpleLauncherisalreadyrunning, "Simple Launcher", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
@@ -2525,7 +2525,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var failedtostartSimpleLauncherAnerroroccurred = (string)Application.Current.TryFindResource("FailedtostartSimpleLauncherAnerroroccurred") ?? "Failed to start Simple Launcher. An error occurred while checking for existing instances.";
+            var failedtostartSimpleLauncherAnerroroccurred = (string)Application.Current.TryFindResource("FailedtostartSimpleLauncherAnerroroccurred") ?? "Failed to start 'Simple Launcher'. An error occurred while checking for existing instances.";
             var simpleLauncherError = (string)Application.Current.TryFindResource("SimpleLauncherError") ?? "Simple Launcher Error";
             MessageBox.Show(failedtostartSimpleLauncherAnerroroccurred, simpleLauncherError, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -2599,7 +2599,7 @@ internal static class MessageBoxLibrary
             var apiConfigErrorTitle = (string)Application.Current.TryFindResource("ApiConfigErrorTitle") ?? "API Configuration Error";
             var apiConfigErrorMessage = (string)Application.Current.TryFindResource("ApiConfigErrorMessage") ?? "'Simple Launcher' encountered an error loading its API configuration.";
             var reasonLabel = (string)Application.Current.TryFindResource("ReasonLabel") ?? "Reason:";
-            var reinstallSuggestion = (string)Application.Current.TryFindResource("ReinstallSuggestion") ?? "This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?";
+            var reinstallSuggestion = (string)Application.Current.TryFindResource("ReinstallSuggestion") ?? "This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall 'Simple Launcher' to fix this?";
 
             var result = MessageBox.Show($"{apiConfigErrorMessage}\n\n" +
                                          $"{reasonLabel} {reason}\n\n" +
@@ -3280,7 +3280,7 @@ internal static class MessageBoxLibrary
         {
             var extractionFailedTitle = (string)Application.Current.TryFindResource("ExtractionFailedTitle") ?? "Extraction Failed";
             var extractionFailedMessage = (string)Application.Current.TryFindResource("ExtractionFailedMessage") ?? "The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.";
-            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to extract the file manually?";
+            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?";
             var result = MessageBox.Show($"{extractionFailedMessage}\n\n{openTempFolderQuestion}", extractionFailedTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
@@ -3310,7 +3310,7 @@ internal static class MessageBoxLibrary
         {
             var downloadFailedTitle = (string)Application.Current.TryFindResource("DownloadFailedTitle") ?? "Download Failed";
             var downloadFileLockedMessage = (string)Application.Current.TryFindResource("DownloadFileLockedMessage") ?? "The download could not be completed because the temporary file is locked by another process (e.g., antivirus software).";
-            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file or try to download it manually?";
+            var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?";
             var result = MessageBox.Show($"{downloadFileLockedMessage}\n\n{openTempFolderQuestion}", downloadFailedTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
