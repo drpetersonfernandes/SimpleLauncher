@@ -25,7 +25,7 @@ public partial class UpdateHistoryWindow
 
         try
         {
-            var defaultContent = (string)Application.Current.TryFindResource("WhatsNewFileNotFound") ?? "# 'whatsnew.md' not found\n\nThe update history file could not be found.";
+            var defaultContent = (string)Application.Current.TryFindResource("WhatsNewFileNotFound") ?? "# 'whatsnew.md' not found. The update history file could not be found.";
             var markdownText = File.Exists(filePath) ? File.ReadAllText(filePath) : defaultContent;
 
             // Parse Markdown and set as TextBlock with inlines
@@ -38,7 +38,7 @@ public partial class UpdateHistoryWindow
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             HistoryTextBlock.Inlines.Clear();
-            HistoryTextBlock.Inlines.Add(new Run((string)Application.Current.TryFindResource("UpdateHistoryLoadError") ?? "Error\n\nCould not load the update history. The error has been logged."));
+            HistoryTextBlock.Inlines.Add(new Run((string)Application.Current.TryFindResource("UpdateHistoryLoadError") ?? "Error. Could not load the update history. The error has been logged."));
         }
     }
 

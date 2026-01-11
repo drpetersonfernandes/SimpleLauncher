@@ -819,6 +819,7 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
     <system:String x:Key="AchievementsTab">Achievements |</system:String>
     <system:String x:Key="GameInfoTab">Game Info |</system:String>
@@ -945,23 +946,23 @@
     <system:String x:Key="SystemNameLabel">System Name:</system:String>
     <system:String x:Key="RomCountLabel">Number of ROMs or ISOs:</system:String>
     <system:String x:Key="MatchedImageCountLabel">Number of Matched Images:</system:String>
-    <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' not found&#x0a;&#x0a;The update history file could not be found.</system:String>
-    <system:String x:Key="UpdateHistoryLoadError">Error&#x0a;&#x0a;Could not load the update history. The error has been logged.</system:String>
-    SystemLoadCancelled
-    AreYouSureYouWantToProceed
-    DownloadFailedTitle
-    DownloadFileLockedMessage
-    CouldnotopenbrowserforAIsupport
-    UnabletoscanMicrosoftStoregames
-    ThisistypicallycausedbyGroupPolicy
-    SimpleLaunchercannotperform
-    PowerShellRestricted
-    UnabletomountISOfile
-    ThisistypicallycausedbyGroup
-    UnabletoDismountISOfile
-    ApplicationControlPolicyBlockedFile
-    SecurityPolicyBlocked
-    ApplicationControlPolicyBlockedFileManualLink
-    TheURLwascopiedtotheclipboard
-
+    <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' not found. The update history file could not be found.</system:String>
+    <system:String x:Key="UpdateHistoryLoadError">Error. Could not load the update history. The error has been logged.</system:String>
+    <system:String x:Key="SystemLoadCancelled">System load cancelled.</system:String>
+    <system:String x:Key="AreYouSureYouWantToProceed">Are you sure you want to proceed?</system:String>
+    <system:String x:Key="DownloadFailedTitle">Download Failed</system:String>
+    <system:String x:Key="DownloadFileLockedMessage">The download could not be completed because the temporary file is locked by another process (e.g., antivirus software).</system:String>
+    <system:String x:Key="CouldnotopenbrowserforAIsupport">Could not open browser for AI support.</system:String>
+    <system:String x:Key="UnabletoscanMicrosoftStoregames">Unable to scan Microsoft Store games due to PowerShell execution policy restrictions.</system:String>
+    <system:String x:Key="ThisistypicallycausedbyGroupPolicy">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
+    <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' cannot perform the requested task.</system:String>
+    <system:String x:Key="PowerShellRestricted">PowerShell Restricted</system:String>
+    <system:String x:Key="UnabletomountISOfile">Unable to mount ISO file due to PowerShell execution policy restrictions.</system:String>
+    <system:String x:Key="ThisistypicallycausedbyGroup">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
+    <system:String x:Key="UnabletoDismountISOfile">Unable to dismount ISO file due to PowerShell execution policy restrictions.</system:String>
+    <system:String x:Key="ApplicationControlPolicyBlockedFile">An application control policy blocked this file or link.</system:String>
+    <system:String x:Key="SecurityPolicyBlocked">Security Policy Blocked</system:String>
+    <system:String x:Key="ApplicationControlPolicyBlockedFileManualLink">An application control policy blocked this link.</system:String>
+    <system:String x:Key="TheURLwascopiedtotheclipboard">The URL was copied to the clipboard for your convenience. You can paste it into your browser.</system:String>
+    
 </ResourceDictionary>
