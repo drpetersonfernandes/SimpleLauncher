@@ -13,6 +13,7 @@ using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
@@ -373,21 +374,21 @@ public partial class GlobalStatsWindow
     private static string GenerateReportText(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
     {
         // Global statistics
-        var report = $"Global Stats Report\n" +
+        var report = $"{(string)Application.Current.TryFindResource("GlobalStatsReportTitle") ?? "Global Stats Report"}\n" +
                      $"-------------------\n" +
-                     $"Total Number of Systems: {globalStats.TotalSystems}\n" +
-                     $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
-                     $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
-                     $"Total Number of Matched Images: {globalStats.TotalImages:N0}\n" +
-                     $"Total Systems with Missing Images: {globalStats.TotalSystemsWithMissingImages}\n" +
-                     $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
-                     $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n";
+                     $"{(string)Application.Current.TryFindResource("TotalSystems") ?? "Total Number of Systems:"} {globalStats.TotalSystems}\n" +
+                     $"{(string)Application.Current.TryFindResource("TotalEmulators") ?? "Total Number of Emulators:"} {globalStats.TotalEmulators}\n" +
+                     $"{(string)Application.Current.TryFindResource("TotalGames") ?? "Total Number of Games:"} {globalStats.TotalGames:N0}\n" +
+                     $"{(string)Application.Current.TryFindResource("TotalImages") ?? "Total Number of Matched Images:"} {globalStats.TotalImages:N0}\n" +
+                     $"{(string)Application.Current.TryFindResource("TotalSystemsWithMissingImages") ?? "Total Systems with Missing Images:"} {globalStats.TotalSystemsWithMissingImages}\n" +
+                     $"{(string)Application.Current.TryFindResource("ApplicationFolder") ?? "Application Folder:"} {AppDomain.CurrentDomain.BaseDirectory}\n" +
+                     $"{(string)Application.Current.TryFindResource("TotalDiskSize") ?? "Disk Size of all Games:"} {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n";
 
         // System-specific statistics
-        report += "System-Specific Stats\n";
+        report += $"{(string)Application.Current.TryFindResource("SystemSpecificStatsHeader") ?? "System-Specific Stats"}\n";
         report += "---------------------\n";
 
-        return systemStats.Aggregate(report, static (current, system) => current + $"System Name: {system.SystemName}\n" + $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" + $"Number of Matched Images: {system.NumberOfImages}\n\n");
+        return systemStats.Aggregate(report, static (current, system) => current + $"{(string)Application.Current.TryFindResource("SystemNameLabel") ?? "System Name:"} {system.SystemName}\n" + $"{(string)Application.Current.TryFindResource("RomCountLabel") ?? "Number of ROMs or ISOs:"} {system.NumberOfFiles}\n" + $"{(string)Application.Current.TryFindResource("MatchedImageCountLabel") ?? "Number of Matched Images:"} {system.NumberOfImages}\n\n");
     }
 
     private void SaveReport_Click(object sender, RoutedEventArgs routedEventArgs)
