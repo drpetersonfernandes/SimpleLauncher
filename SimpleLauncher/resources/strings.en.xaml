@@ -217,7 +217,6 @@
     <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">Ensure you have a default browser installed and configured correctly on your system.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Ensure you have enough space in the HDD to extract the file.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Please enter valid search terms.</system:String>
-    <system:String x:Key="error">Error</system:String>
     <system:String x:Key="Error">Error</system:String>
     <system:String x:Key="ErrorDetails">Details:</system:String>
     <system:String x:Key="Errorduring">Error during</system:String>
