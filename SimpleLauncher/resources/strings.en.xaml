@@ -820,6 +820,7 @@
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     
+    
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
     <system:String x:Key="AchievementsTab">Achievements |</system:String>
     <system:String x:Key="GameInfoTab">Game Info |</system:String>
@@ -884,6 +885,9 @@
     <system:String x:Key="SoftcorePoints">Softcore Points:</system:String>
     <system:String x:Key="Permissions">Permissions:</system:String>
     <system:String x:Key="Status">Status:</system:String>
+    
+    
+    
     <system:String x:Key="ProfileID">Profile ID (ULID):</system:String>
     <system:String x:Key="WallActive">Wall Active:</system:String>
     <system:String x:Key="RecentlyPlayedGames">Recently Played Games:</system:String>
