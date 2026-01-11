@@ -90,10 +90,10 @@
                       SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
                       PreviewKeyDown="FavoritesDataGrid_PreviewKeyDown">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="FileName" Binding="{Binding FileName}" Width="*" />
-                    <DataGridTextColumn Header="Machine Description (for MAME files)" Binding="{Binding MachineDescription}" Width="*" />
-                    <DataGridTextColumn Header="Default Emulator" Binding="{Binding DefaultEmulator}" Width="180" />
-                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="200" />
+                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
                 </DataGrid.Columns>
             </DataGrid>
 
