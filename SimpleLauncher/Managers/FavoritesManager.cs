@@ -59,12 +59,10 @@ public class FavoritesManager
             .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
-        FavoriteList.Clear();
-        foreach (var fav in orderedFavorites)
-        {
-            FavoriteList.Add(fav);
-        }
+        // Replace the entire list atomically
+        FavoriteList = new ObservableCollection<Favorite>(orderedFavorites);
 
+        // Now serialize
         try
         {
             // Notify user
