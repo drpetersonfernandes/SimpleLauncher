@@ -24,12 +24,6 @@ public class FilterMenu
         InitializeAllButton();
         InitializeNumberButton();
         InitializeLetterButtons();
-
-        // // Set initial selected button to "All"
-        // if (LetterPanel.Children.Count > 0 && LetterPanel.Children[0] is Button allButton)
-        // {
-        //     UpdateSelectedButton(allButton);
-        // }
     }
 
     private void InitializeNumberButton()
@@ -70,7 +64,8 @@ public class FilterMenu
 
     private void InitializeAllButton()
     {
-        var allButton = new Button { Content = "All", Width = 50, Height = 32 };
+        var allText = (string)Application.Current.TryFindResource("1000000games") ?? "All"; // Using existing key for "All games"
+        var allButton = new Button { Content = allText, Width = 50, Height = 32 };
         // Set AutomationProperties.Name for screen readers
         AutomationProperties.SetName(allButton, (string)Application.Current.TryFindResource("FilterByAll") ?? "Filter by All");
         allButton.Click += (_, _) =>
