@@ -29,7 +29,7 @@
                     controls:TabControlHelper.Underlined="TabPanel" x:Name="TabControl">
 
             <!-- Tab 1: Achievements -->
-            <TabItem Header="{DynamicResource AchievementsTab}">
+            <TabItem Header="{DynamicResource AchievementsTab}" Tag="Achievements">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -164,7 +164,7 @@
             </TabItem>
 
             <!-- Tab 2: Game Info -->
-            <TabItem Header="{DynamicResource GameInfoTab}">
+            <TabItem Header="{DynamicResource GameInfoTab}" Tag="GameInfo">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
                     <StackPanel>
 
@@ -352,7 +352,7 @@
             </TabItem>
 
             <!-- Tab 3: Game Ranking -->
-            <TabItem Header="{DynamicResource GameRankingTab}">
+            <TabItem Header="{DynamicResource GameRankingTab}" Tag="GameRanking">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
                     <StackPanel>
 
@@ -446,7 +446,7 @@
             </TabItem>
 
             <!-- Tab 4: My Profile -->
-            <TabItem Header="{DynamicResource MyProfileTab}">
+            <TabItem Header="{DynamicResource MyProfileTab}" Tag="MyProfile">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
                     <Grid>
                         <StackPanel x:Name="UserProfilePanel">
@@ -622,7 +622,7 @@
             </TabItem>
 
             <!-- Tab 5: Unlocks by Date -->
-            <TabItem Header="{DynamicResource UnlocksTab}">
+            <TabItem Header="{DynamicResource UnlocksTab}" Tag="Unlocks">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -703,7 +703,7 @@
             </TabItem>
 
             <!-- Tab 6: User Progress -->
-            <TabItem Header="{DynamicResource UserProgressTab}">
+            <TabItem Header="{DynamicResource UserProgressTab}" Tag="UserProgress">
                 <Grid>
                     <DataGrid Name="UserProgressDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,10,10,10"
                               Style="{DynamicResource MahApps.Styles.DataGrid}"

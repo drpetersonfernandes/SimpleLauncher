@@ -68,10 +68,9 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="*" />
-                    <DataGridTextColumn Header="Number of ROMs or ISOs" Binding="{Binding NumberOfFiles}" Width="Auto" />
-                    <DataGridTextColumn Header="Number of Matched Images" Binding="{Binding NumberOfImages}"
-                                        Width="Auto" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource RomCountColumnHeader}" Binding="{Binding NumberOfFiles}" Width="Auto" />
+                    <DataGridTextColumn Header="{DynamicResource MatchedImageCountColumnHeader}" Binding="{Binding NumberOfImages}" Width="Auto" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

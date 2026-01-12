@@ -57,32 +57,28 @@ public partial class RetroAchievementsForAGameWindow
 
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // Explicitly cast e.Source to TabControl and then access SelectedItem
         if (e.Source is TabControl { SelectedItem: TabItem selectedTab })
         {
-            // Ensure the event is not fired during initialization or when no tab is selected
             if (selectedTab is not { IsSelected: true }) return;
 
-            var header = selectedTab.Header.ToString();
-            // Remove the trailing " |" for matching, if present
-            header = header?.Replace(" |", "").Trim();
+            // Use Tag instead of Header for language-independent tab identification
+            var tag = selectedTab.Tag?.ToString();
 
-            // All data loading methods now manage their own loading overlay and error states.
-            switch (header)
+            switch (tag)
             {
                 case "Achievements":
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingAchievements") ?? "Loading achievements...", Owner as MainWindow);
                     _ = LoadGameAchievementsAsync();
                     break;
-                case "Game Info":
+                case "GameInfo":
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingExtendedGameInfo") ?? "Loading extended game info...", Owner as MainWindow);
                     _ = LoadGameInfoAsync();
                     break;
-                case "Game Ranking":
+                case "GameRanking":
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingGameRankings") ?? "Loading game rankings...", Owner as MainWindow);
                     _ = LoadGameRankingAsync();
                     break;
-                case "My Profile":
+                case "MyProfile":
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...", Owner as MainWindow);
                     _ = LoadUserProfileAsync();
                     break;
@@ -90,7 +86,7 @@ public partial class RetroAchievementsForAGameWindow
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...", Owner as MainWindow);
                     _ = LoadUnlocksByDateAsync();
                     break;
-                case "User Progress":
+                case "UserProgress":
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...", Owner as MainWindow);
                     _ = LoadUserProgressAsync();
                     break;
@@ -279,32 +275,31 @@ public partial class RetroAchievementsForAGameWindow
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
     {
         var settingsWindow = new RetroAchievementsSettingsWindow(_settings);
-        settingsWindow.Owner = this; // Set owner to this window
+        settingsWindow.Owner = this;
         settingsWindow.ShowDialog();
 
-        // After settings are saved, try reloading the current tab's data
-        // Get the currently selected tab header
+        // Reload current tab using Tag instead of Header
         if (TabControl.SelectedItem is TabItem selectedTab)
         {
-            var header = selectedTab.Header.ToString()?.Replace(" |", "").Trim();
-            switch (header)
+            var tag = selectedTab.Tag?.ToString();
+            switch (tag)
             {
                 case "Achievements":
                     _ = LoadGameAchievementsAsync();
                     break;
-                case "Game Info":
+                case "GameInfo":
                     _ = LoadGameInfoAsync();
                     break;
-                case "Game Ranking":
+                case "GameRanking":
                     _ = LoadGameRankingAsync();
                     break;
-                case "My Profile":
+                case "MyProfile":
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
                     _ = LoadUnlocksByDateAsync();
                     break;
-                case "User Progress":
+                case "UserProgress":
                     _ = LoadUserProgressAsync();
                     break;
             }
