@@ -1,3 +1,45 @@
+# Release 4.9.0
+*2026-01-13*
+---
+
+### Core Updates
+- **RetroAchievements Enhancements**:
+    - Added password support (`RaPassword` in settings).
+    - Refactored `RetroAchievementsService`: Removed caching/session reset; added `BoolConverter` for JSON booleans (0/1).
+    - New `RetroAchievementsEmulatorConfiguratorService` for auto-config (RetroArch, Flycast, BizHawk; others stubbed).
+    - UI: New buttons in `RetroAchievementsSettingsWindow`; localized RA windows/tabs.
+
+### Scanning & Blacklist
+- **Microsoft Store Games**:
+    - Massively expanded `IgnoredAppNames` (~300 entries: apps, utils, system tools).
+    - Added `SelectableGameItem` model & `GameVerificationWindow` for user-confirmed additions.
+    - PowerShell policy checks/notifications; reports new games to dev.
+
+### Thread Safety & Performance
+- **Cancellation Tokens**: Added across `MainWindow` (menu/pagination/search/systems), services (`GetListOfFiles`, etc.).
+- **Locks**: `_currentSearchResults`, `SettingsManager.SystemPlayTimes`.
+- **UI Responsiveness**: `Task.Yield()` before long tasks; `FavoritesWindow` uses UI snapshots.
+- **Refactors**: `FavoritesManager` list replacement streamlined; `MessageBoxLibrary` for reusable dialogs.
+
+### UI & Localization
+- **Extensive i18n**: 100+ new strings (RA UI, errors, columns, tabs); static text → dynamic resources (e.g., `GlobalStatsWindow`, tabs via `Tag`).
+- **EasyModeWindow.xaml**: Uniform MahApps square accent buttons (140x40px).
+- **Other**: `SortOrderToggleButton` localized; `FilterMenu`/`LaunchTools` dynamic text.
+
+### Error Handling & Robustness
+- **Win32Exception**: App control policy checks (`ApplicationControlPolicy` class); contextual messages.
+- **File Locks**: Enhanced `DownloadManager`/`ExtractionService` with temp folder opens.
+- **PowerShell**: Policy warnings extracted; ISO mount/dismount handling.
+- **Parsing**: Percentage fix (`Replace("%", "").Trim()`); path resolution via `PathHelper`.
+
+### Cleanups & Misc
+- **Terminology**: "Format" → "Extension" (params/help).
+- **Tools**: `FindRomCover` config (limits/retries/timeout); `GameCoverScraper` arm64/x64.
+- **Images**: Amstrad GX4000 rename; OpenMSX params updated.
+- **Removals**: Unused strings; redundant code (e.g., `SupportFromTheDeveloper` → service).
+
+**Impact**: Improves stability (cancellations/locks), usability (RA config/UI), i18n coverage, scanning accuracy, error UX; no breaking changes. ~50 files touched, focused on reliability/internationalization.
+
 # Release 4.8.0
 *2026-01-04*
 ---
