@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">آخری بار کھیلنے کی تاریخ</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">آخری بار کھیلنے کا وقت</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROMs یا ISOs کی تعداد</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">ملتی جلتی تصاویر کی تعداد</system:String>
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
@@ -599,7 +603,7 @@
     <system:String x:Key="ProcessingEllipsis">پروسیس ہو رہا ہے...</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">پروسیسنگ ابھی بھی چل رہی ہے۔ کیا آپ منسوخ کر کے بند کرنا چاہتے ہیں؟</system:String>
-<system:String x:Key="ProfileID">پروفائل ID (ULID):</system:String>
+    <system:String x:Key="ProfileID">پروفائل ID (ULID):</system:String>
     <system:String x:Key="Publisher">پبلشر:</system:String>
     <system:String x:Key="Purple">جامنی</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">اس سسٹم کے لیے کور تصاویر یہاں رکھیں</system:String>
@@ -632,7 +636,7 @@
     <system:String x:Key="RestartError">دوبارہ آغاز کی خرابی</system:String>
     <system:String x:Key="RestoreBackup">بیک اپ بحال کریں؟</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">ریٹرو اچیومنٹ اوورلے بٹن</system:String>
-<system:String x:Key="RetroAchievements">ریٹرو اچیومنٹس</system:String>
+    <system:String x:Key="RetroAchievements">ریٹرو اچیومنٹس</system:String>
     <system:String x:Key="RetroAchievementsSettings">ریٹرو اچیومنٹس کی ترتیبات</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">گیم پیڈ ڈیڈ زون کی ترتیبات واپس لے رہا ہے...</system:String>
     <system:String x:Key="RevertingLinkSettings">لنک کی ترتیبات واپس لے رہا ہے...</system:String>

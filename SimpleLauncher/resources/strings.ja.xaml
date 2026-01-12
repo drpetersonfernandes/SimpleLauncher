@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">最終プレイ日</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">最終プレイ時間</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROMまたはISOの数</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">一致した画像の数</system:String>
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -599,7 +603,7 @@
     <system:String x:Key="ProcessingEllipsis">処理中...</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">処理はまだ実行中です。キャンセルして閉じますか？</system:String>
-<system:String x:Key="ProfileID">プロフィールID (ULID):</system:String>
+    <system:String x:Key="ProfileID">プロフィールID (ULID):</system:String>
     <system:String x:Key="Publisher">パブリッシャー:</system:String>
     <system:String x:Key="Purple">紫</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">このシステムのカバー画像を次の場所に配置してください:</system:String>
@@ -632,7 +636,7 @@
     <system:String x:Key="RestartError">再起動エラー</system:String>
     <system:String x:Key="RestoreBackup">バックアップを復元しますか？</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement オーバーレイボタン</system:String>
-<system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
     <system:String x:Key="RetroAchievementsSettings">レトロ実績設定</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">ゲームパッドデッドゾーン設定を元に戻しています...</system:String>
     <system:String x:Key="RevertingLinkSettings">リンク設定を元に戻しています...</system:String>

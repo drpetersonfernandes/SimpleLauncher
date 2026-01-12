@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">Data da Última Vez Jogado</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Hora da Última Vez Jogado</system:String>
+    <system:String x:Key="RomCountColumnHeader">Número de ROMs ou ISOs</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Número de Imagens Correspondentes</system:String>
     <system:String x:Key="1000000games">Todos os jogos</system:String>
     <system:String x:Key="10000games">10000 jogos</system:String>
     <system:String x:Key="1000games">1000 jogos</system:String>

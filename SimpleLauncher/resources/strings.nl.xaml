@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">Laatst gespeeld (datum)</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Laatst gespeeld (tijd)</system:String>
+    <system:String x:Key="RomCountColumnHeader">Aantal ROMs of ISO's</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Aantal overeenkomende afbeeldingen</system:String>
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -599,7 +603,7 @@
     <system:String x:Key="ProcessingEllipsis">Verwerken...</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">De verwerking is nog bezig. Wilt u annuleren en sluiten?</system:String>
-<system:String x:Key="ProfileID">Profiel-ID (ULID):</system:String>
+    <system:String x:Key="ProfileID">Profiel-ID (ULID):</system:String>
     <system:String x:Key="Publisher">Uitgever:</system:String>
     <system:String x:Key="Purple">Paars</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>
@@ -632,7 +636,7 @@
     <system:String x:Key="RestartError">Herstartfout</system:String>
     <system:String x:Key="RestoreBackup">Back-up herstellen?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement-overlayknop</system:String>
-<system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
     <system:String x:Key="RetroAchievementsSettings">Retro Prestaties Instellingen</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad Dead Zone-instellingen herstellen...</system:String>
     <system:String x:Key="RevertingLinkSettings">Linkinstellingen herstellen...</system:String>

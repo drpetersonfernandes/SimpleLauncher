@@ -962,7 +962,6 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-
     <system:String x:Key="LastPlayedDateColumnHeader">Last Played Date</system:String>
     <system:String x:Key="LastPlayedTimeColumnHeader">Last Played Time</system:String>
     <system:String x:Key="RomCountColumnHeader">Number of ROMs or ISOs</system:String>

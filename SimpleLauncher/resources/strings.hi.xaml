@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">अंतिम बार खेलने की तिथि</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">अंतिम बार खेलने का समय</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROMs या ISOs की संख्या</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">मिलान की गई छवियों की संख्या</system:String>
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -599,7 +603,7 @@
     <system:String x:Key="ProcessingEllipsis">प्रसंस्करण हो रहा है...</system:String>
     <system:String x:Key="Processingpleasewait">प्रोसेसिंग हो रही है, कृपया प्रतीक्षा करें...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">प्रसंस्करण अभी भी चल रहा है। क्या आप रद्द करके बंद करना चाहते हैं?</system:String>
-<system:String x:Key="ProfileID">प्रोफ़ाइल आईडी (ULID):</system:String>
+    <system:String x:Key="ProfileID">प्रोफ़ाइल आईडी (ULID):</system:String>
     <system:String x:Key="Publisher">प्रकाशक:</system:String>
     <system:String x:Key="Purple">बैंगनी</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">इस सिस्टम के लिए कवर छवियां अंदर रखें</system:String>
@@ -632,7 +636,7 @@
     <system:String x:Key="RestartError">पुनः प्रारंभ त्रुटि</system:String>
     <system:String x:Key="RestoreBackup">बैकअप पुनर्स्थापित करें?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">रेट्रो अचीवमेंट ओवरले बटन</system:String>
-<system:String x:Key="RetroAchievements">रेट्रोअचीवमेंट्स</system:String>
+    <system:String x:Key="RetroAchievements">रेट्रोअचीवमेंट्स</system:String>
     <system:String x:Key="RetroAchievementsSettings">रेट्रो उपलब्धियां सेटिंग्स</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">गेमपैड डेड ज़ोन सेटिंग्स वापस कर रहा है...</system:String>
     <system:String x:Key="RevertingLinkSettings">लिंक सेटिंग्स वापस कर रहा है...</system:String>

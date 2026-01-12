@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">Son Oynama Tarihi</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Son Oynama Saati</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROM veya ISO Sayısı</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Eşleşen Görüntü Sayısı</system:String>
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -599,7 +603,7 @@
     <system:String x:Key="ProcessingEllipsis">İşleniyor...</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">İşlem hala devam ediyor. İptal edip kapatmak ister misiniz?</system:String>
-<system:String x:Key="ProfileID">Profil Kimliği (ULID):</system:String>
+    <system:String x:Key="ProfileID">Profil Kimliği (ULID):</system:String>
     <system:String x:Key="Publisher">Yayıncı:</system:String>
     <system:String x:Key="Purple">Mor</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Bu sistem için kapak görsellerini şu klasöre yerleştirin:</system:String>
@@ -632,7 +636,7 @@
     <system:String x:Key="RestartError">Yeniden Başlatma Hatası</system:String>
     <system:String x:Key="RestoreBackup">Yedeği geri yükle?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement Katman Düğmesi</system:String>
-<system:String x:Key="RetroAchievements">RetroBaşarımlar</system:String>
+    <system:String x:Key="RetroAchievements">RetroBaşarımlar</system:String>
     <system:String x:Key="RetroAchievementsSettings">Retro Başarımlar Ayarları</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad ölü bölge ayarları geri alınıyor...</system:String>
     <system:String x:Key="RevertingLinkSettings">Bağlantı ayarları geri alınıyor...</system:String>

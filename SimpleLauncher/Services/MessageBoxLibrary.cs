@@ -2349,7 +2349,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify user
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                    var error = (string)Application.Current.TryFindResource("error") ?? "Error";
+                    var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
                     MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

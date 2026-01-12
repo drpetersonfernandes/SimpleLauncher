@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="LastPlayedDateColumnHeader">Ngày chơi cuối cùng</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Thời gian chơi cuối cùng</system:String>
+    <system:String x:Key="RomCountColumnHeader">Số lượng ROM hoặc ISO</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Số lượng hình ảnh khớp</system:String>
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -599,7 +603,7 @@
     <system:String x:Key="ProcessingEllipsis">Đang xử lý...</system:String>
     <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Quá trình xử lý vẫn đang chạy. Bạn có muốn hủy và đóng không?</system:String>
-<system:String x:Key="ProfileID">ID Hồ sơ (ULID):</system:String>
+    <system:String x:Key="ProfileID">ID Hồ sơ (ULID):</system:String>
     <system:String x:Key="Publisher">Nhà xuất bản:</system:String>
     <system:String x:Key="Purple">Tím</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Đặt hình ảnh bìa cho hệ thống này vào</system:String>
@@ -632,7 +636,7 @@
     <system:String x:Key="RestartError">Lỗi khởi động lại</system:String>
     <system:String x:Key="RestoreBackup">Khôi phục sao lưu?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">Nút Lớp phủ RetroAchievement</system:String>
-<system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
     <system:String x:Key="RetroAchievementsSettings">Cài đặt Thành tích Retro</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Đang hoàn tác cài đặt vùng chết gamepad...</system:String>
     <system:String x:Key="RevertingLinkSettings">Đang hoàn tác cài đặt liên kết...</system:String>
