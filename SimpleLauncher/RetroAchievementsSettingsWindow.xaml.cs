@@ -36,9 +36,6 @@ public partial class RetroAchievementsSettingsWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...", Application.Current.MainWindow as MainWindow);
 
-        var oldUsername = _settings.RaUsername;
-        var oldApiKey = _settings.RaApiKey;
-
         var newUsername = UsernameTextBox.Text.Trim();
         var newApiKey = ApiKeyPasswordBox.Password;
         var newPassword = RaPasswordPasswordBox.Password;
@@ -47,13 +44,6 @@ public partial class RetroAchievementsSettingsWindow
         _settings.RaApiKey = newApiKey;
         _settings.RaPassword = newPassword;
         _settings.Save();
-
-        // If credentials changed, clear the RetroAchievements cache
-        if (!string.Equals(oldUsername, newUsername, StringComparison.Ordinal) || !string.Equals(oldApiKey, newApiKey, StringComparison.Ordinal))
-        {
-            var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
-            raService.ClearCache();
-        }
 
         DialogResult = true;
         Close();

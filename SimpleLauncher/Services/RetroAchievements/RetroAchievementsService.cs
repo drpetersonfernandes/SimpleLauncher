@@ -4,42 +4,22 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models.RetroAchievements;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
-public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, RetroAchievementsManager raManager, ILogErrors logErrors) : IDisposable
+public class RetroAchievementsService(IHttpClientFactory httpClientFactory, RetroAchievementsManager raManager, ILogErrors logErrors)
 {
     private const string ApiBaseUrl = "https://retroachievements.org/API/";
     private const string SiteBaseUrl = "https://retroachievements.org";
     private readonly HttpClient _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient");
-    private readonly IMemoryCache _cache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
     private readonly ILogErrors _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-    private CancellationTokenSource _cacheResetTokenSource = new();
     public RetroAchievementsManager RaManager { get; } = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
     // Constructor to inject dependencies
-
-    /// <summary>
-    /// Clears all RetroAchievements related cache entries.
-    /// This should be called when user credentials change.
-    /// </summary>
-    public void ClearCache()
-    {
-        // Cancel the old token, which invalidates all cache entries tied to it.
-        _cacheResetTokenSource.Cancel();
-        _cacheResetTokenSource.Dispose();
-
-        // Create a new token source for future cache entries.
-        _cacheResetTokenSource = new CancellationTokenSource();
-        DebugLogger.Log("[RA Service] Cache cleared due to credential change.");
-    }
 
     /// <summary>
     /// Fetches the user's progress and achievement list for a specific game ID.
@@ -56,13 +36,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         {
             DebugLogger.Log("[RA Service] Username or API Key is missing.");
             return (null, null);
-        }
-
-        var cacheKey = $"UserGameProgress_{username}_{gameId}";
-        if (_cache.TryGetValue(cacheKey, out (RaUserGameProgress Progress, List<RaAchievement> Achievements) cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
         }
 
         try
@@ -138,13 +111,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
                     TrueRatio = a.TrueRatio
                 }).ToList();
 
-            var result = (progress, achievements);
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, result, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
-            return result;
+            return (progress, achievements);
         }
         catch (RaUnauthorizedException)
         {
@@ -166,13 +133,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
-        var cacheKey = $"GameExtendedInfo_{gameId}";
-        if (_cache.TryGetValue(cacheKey, out RaGameExtendedDetails cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
-        }
-
         try
         {
             var url = $"{ApiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&i={gameId}&y={Uri.EscapeDataString(apiKey)}";
@@ -192,11 +152,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<RaGameExtendedDetails>(json);
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, result, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return result;
         }
         catch (RaUnauthorizedException)
@@ -219,13 +174,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
-        var cacheKey = $"UserGameRankAndScore_{username}_{gameId}";
-        if (_cache.TryGetValue(cacheKey, out List<RaUserGameRank> cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
-        }
-
         try
         {
             var url = $"{ApiBaseUrl}API_GetUserGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
@@ -245,11 +193,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<List<RaUserGameRank>>(json);
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(2))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, result, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return result;
         }
         catch (RaUnauthorizedException)
@@ -273,13 +216,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
         var typeParam = latestMasters ? "1" : "0";
-        var cacheKey = $"GameRankAndScore_{gameId}_{typeParam}";
-        if (_cache.TryGetValue(cacheKey, out List<RaGameRankAndScore> cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
-        }
-
         try
         {
             var url = $"{ApiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}&t={typeParam}";
@@ -301,11 +237,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             DebugLogger.Log($"[RA Service] API_GetGameRankAndScore response: {json}");
 
             var result = JsonSerializer.Deserialize<List<RaGameRankAndScore>>(json);
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(2))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, result, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
 
             return result;
         }
@@ -328,13 +259,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
     public async Task<RaProfile> GetUserProfileAsync(string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
-
-        var cacheKey = $"UserProfile_{username}";
-        if (_cache.TryGetValue(cacheKey, out RaProfile cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
-        }
 
         try
         {
@@ -362,11 +286,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
                 return null;
             }
 
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(30))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, result, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return result;
         }
         catch (RaUnauthorizedException)
@@ -398,13 +317,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             return null;
         }
 
-        var cacheKey = $"UserRecentlyPlayedGames_{username}_{count}_{offset}";
-        if (_cache.TryGetValue(cacheKey, out List<RaRecentlyPlayedGame> cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
-        }
-
         try
         {
             DebugLogger.Log($"[RA Service] Fetching recently played games for {username} (Count: {count}, Offset: {offset})...");
@@ -430,11 +342,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
 
             if (apiResponse == null) return null;
 
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(15))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, apiResponse, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return apiResponse;
         }
         catch (RaUnauthorizedException)
@@ -471,13 +378,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         var epochFrom = new DateTimeOffset(fromDate).ToUnixTimeSeconds();
         var epochTo = new DateTimeOffset(toDate.AddDays(1).AddSeconds(-1)).ToUnixTimeSeconds();
 
-        var cacheKey = $"AchievementsEarnedBetween_{username}_{epochFrom}_{epochTo}";
-        if (_cache.TryGetValue(cacheKey, out List<RaEarnedAchievement> cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
-        }
-
         try
         {
             DebugLogger.Log($"[RA Service] Fetching achievements earned by {username} between {fromDate:yyyy-MM-dd} and {toDate:yyyy-MM-dd}...");
@@ -513,11 +413,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
 
             if (apiResponse == null) return null;
 
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(15))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, apiResponse, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return apiResponse;
         }
         catch (RaUnauthorizedException)
@@ -547,13 +442,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         {
             DebugLogger.Log("[RA Service] Username or API Key is missing for GetUserCompletionProgressAsync.");
             return null;
-        }
-
-        var cacheKey = $"UserCompletionProgress_{username}_{count}_{offset}";
-        if (_cache.TryGetValue(cacheKey, out List<RaUserCompletionGame> cachedResult))
-        {
-            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
-            return cachedResult;
         }
 
         try
@@ -590,11 +478,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
                 }
             }
 
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(15))
-                .AddExpirationToken(new CancellationChangeToken(_cacheResetTokenSource.Token));
-            _cache.Set(cacheKey, apiResponse.Results, cacheOptions);
-            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return apiResponse.Results;
         }
         catch (RaUnauthorizedException)
@@ -606,11 +489,5 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserCompletionProgressAsync for user {username}.");
             return null;
         }
-    }
-
-    public void Dispose()
-    {
-        _cacheResetTokenSource.Dispose();
-        GC.SuppressFinalize(this);
     }
 }
