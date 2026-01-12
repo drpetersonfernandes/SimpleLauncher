@@ -966,4 +966,6 @@
     <system:String x:Key="LastPlayedTimeColumnHeader">Last Played Time</system:String>
     <system:String x:Key="RomCountColumnHeader">Number of ROMs or ISOs</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Number of Matched Images</system:String>
+    
+    <system:String x:Key="EmulatorIntegration">Emulator Integration (Auto-Setup)</system:String>
 </ResourceDictionary>
