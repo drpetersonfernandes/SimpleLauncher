@@ -32,7 +32,7 @@ public partial class RetroAchievementsSettingsWindow
         RaPasswordPasswordBox.Password = _settings.RaPassword;
     }
 
-    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    private void SaveSettings()
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...", Application.Current.MainWindow as MainWindow);
 
@@ -44,9 +44,13 @@ public partial class RetroAchievementsSettingsWindow
         _settings.RaApiKey = newApiKey;
         _settings.RaPassword = newPassword;
         _settings.Save();
+    }
 
-        DialogResult = true;
-        Close();
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+        // Save the settings without closing the window.
+        // The user can close the window using the "Cancel" button or the window's close button.
+        SaveSettings();
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -104,12 +108,17 @@ public partial class RetroAchievementsSettingsWindow
         var apiKey = ApiKeyPasswordBox.Password;
         var password = RaPasswordPasswordBox.Password;
 
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
+        // 1. Check if all required fields are filled.
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(password))
         {
-            MessageBox.Show("Please enter your RetroAchievements username and API key before configuring an emulator.", "Credentials Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.EnterYourRetroAchievementsUsername();
             return;
         }
 
+        // 2. Save the current settings before proceeding.
+        SaveSettings();
+
+        // 3. Proceed with emulator configuration.
         var openFileDialog = new Microsoft.Win32.OpenFileDialog
         {
             Title = $"Select {emulatorName} Executable",
@@ -135,16 +144,16 @@ public partial class RetroAchievementsSettingsWindow
 
             if (success)
             {
-                MessageBox.Show($"{emulatorName} configured successfully for RetroAchievements!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxLibrary.EmulatorConfiguredSuccessfully();
             }
             else
             {
-                MessageBox.Show($"Failed to configure {emulatorName}. The configuration file might be missing, in an unexpected location, or read-only.", "Configuration Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxLibrary.FailedToConfigureTheEmulator();
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"An error occurred while configuring {emulatorName}:\n\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulator();
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
         }
     }

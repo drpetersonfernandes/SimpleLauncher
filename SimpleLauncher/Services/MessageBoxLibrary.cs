@@ -3515,4 +3515,56 @@ internal static class MessageBoxLibrary
             Clipboard.SetText(url); // Copy URL to clipboard
         }
     }
+
+    public static void EnterYourRetroAchievementsUsername()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("PleaseenteryourRetroAchievements") ?? "Please enter your RetroAchievements username, API key, and password before configuring an emulator.";
+            var message2 = (string)Application.Current.TryFindResource("CredentialsRequired") ?? "Credentials Required";
+            MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    public static void EmulatorConfiguredSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Emulatorconfiguredsuccessfullyfor") ?? "Emulator configured successfully for RetroAchievements!";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToConfigureTheEmulator()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Failedtoconfiguretheemulator") ?? "Failed to configure the emulator. The configuration file might be missing, in an unexpected location, or read-only.";
+            var message2 = (string)Application.Current.TryFindResource("ConfigurationFailed") ?? "Configuration Failed";
+            MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void AnErrorOccurredWhileConfiguringTheEmulator()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Anerroroccurredwhileconfiguringtheemulator") ?? "An error occurred while configuring the emulator.";
+            var message2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

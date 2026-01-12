@@ -969,5 +969,12 @@
     
     <system:String x:Key="EmulatorIntegration">Emulator Integration (Auto-Setup)</system:String>
     <system:String x:Key="RetroAchievementsPassword">Password</system:String>
+
+    <system:String x:Key="PleaseenteryourRetroAchievements">Please enter your RetroAchievements username, API key, and password before configuring an emulator.</system:String>
+    <system:String x:Key="CredentialsRequired">Credentials Required</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator configured successfully for RetroAchievements!</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Failed to configure the emulator. The configuration file might be missing, in an unexpected location, or read-only.</system:String>
+    <system:String x:Key="ConfigurationFailed">Configuration Failed</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">An error occurred while configuring the emulator.</system:String>
     
 </ResourceDictionary>
