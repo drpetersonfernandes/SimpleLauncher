@@ -19,6 +19,7 @@
     <CustomNotificationSoundFile>click.mp3</CustomNotificationSoundFile>
     <RA_Username/>
     <RA_ApiKey/>
+    <RA_Password/>
     <OverlayRetroAchievementButton>false</OverlayRetroAchievementButton>
     <OverlayOpenVideoButton>true</OverlayOpenVideoButton>
     <OverlayOpenInfoButton>false</OverlayOpenInfoButton>

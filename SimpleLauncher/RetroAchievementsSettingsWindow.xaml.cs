@@ -29,6 +29,7 @@ public partial class RetroAchievementsSettingsWindow
     {
         UsernameTextBox.Text = _settings.RaUsername;
         ApiKeyPasswordBox.Password = _settings.RaApiKey;
+        RaPasswordPasswordBox.Password = _settings.RaPassword;
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -40,9 +41,11 @@ public partial class RetroAchievementsSettingsWindow
 
         var newUsername = UsernameTextBox.Text.Trim();
         var newApiKey = ApiKeyPasswordBox.Password;
+        var newPassword = RaPasswordPasswordBox.Password;
 
         _settings.RaUsername = newUsername;
         _settings.RaApiKey = newApiKey;
+        _settings.RaPassword = newPassword;
         _settings.Save();
 
         // If credentials changed, clear the RetroAchievements cache
@@ -109,6 +112,7 @@ public partial class RetroAchievementsSettingsWindow
     {
         var username = UsernameTextBox.Text.Trim();
         var apiKey = ApiKeyPasswordBox.Password;
+        var password = RaPasswordPasswordBox.Password;
 
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -130,13 +134,13 @@ public partial class RetroAchievementsSettingsWindow
         {
             switch (emulatorName)
             {
-                case "RetroArch": success = EmulatorConfiguratorService.ConfigureRetroArch(exePath, username, apiKey); break;
-                case "PCSX2": success = EmulatorConfiguratorService.ConfigurePcsx2(exePath, username, apiKey); break;
-                case "DuckStation": success = EmulatorConfiguratorService.ConfigureDuckStation(exePath, username, apiKey); break;
-                case "PPSSPP": success = EmulatorConfiguratorService.ConfigurePpspp(exePath, username, apiKey); break;
-                case "Dolphin": success = EmulatorConfiguratorService.ConfigureDolphin(exePath, username, apiKey); break;
-                case "Flycast": success = EmulatorConfiguratorService.ConfigureFlycast(exePath, username, apiKey); break;
-                case "BizHawk": success = EmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey); break;
+                case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, apiKey, password); break;
+                // case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, apiKey, password); break;
+                // case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, apiKey, password); break;
+                // case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, apiKey, password); break;
+                // case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, apiKey, password); break;
+                // case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, apiKey, password); break;
+                // case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey, password); break;
             }
 
             if (success)

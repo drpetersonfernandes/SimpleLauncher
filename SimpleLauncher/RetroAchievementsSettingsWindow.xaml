@@ -6,11 +6,11 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Title="{DynamicResource RetroAchievementsSettings}"
-                      Width="500" Height="450"
-                      ResizeMode="NoResize"
-                      WindowStartupLocation="CenterOwner">
+                      Width="550" Height="500"
+                      WindowStartupLocation="CenterScreen">
     <Grid Margin="15">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -29,10 +29,14 @@
 
         <!-- API Key -->
         <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource ApiKey}" VerticalAlignment="Center" Margin="0,0,10,10"/>
-        <PasswordBox x:Name="ApiKeyPasswordBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,10"/>
+        <PasswordBox x:Name="ApiKeyPasswordBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,10" />
+
+        <!-- RA Password -->
+        <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource RetroAchievementsPassword}" VerticalAlignment="Center" Margin="0,0,10,10" />
+        <PasswordBox x:Name="RaPasswordPasswordBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,10" />
 
         <!-- Hyperlink -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="0,10,0,10">
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="0,10,0,10">
             <Run Text="{DynamicResource FindYourApiKeyHere}"/>
             <Hyperlink NavigateUri="https://retroachievements.org/controlpanel.php" RequestNavigate="Hyperlink_RequestNavigate">
                 <Run Text="RetroAchievements Control Panel"/>
@@ -40,20 +44,20 @@
         </TextBlock>
 
         <!-- Emulator Integration Section -->
-        <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource EmulatorIntegration}" Margin="0,0,0,10">
+        <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource EmulatorIntegration}" Margin="0,20,0,10">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="RetroArch" Click="ConfigureRetroArch_Click" Margin="5"/>
-                <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Margin="5"/>
-                <Button Content="DuckStation" Click="ConfigureDuckStation_Click" Margin="5"/>
-                <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Margin="5"/>
-                <Button Content="Dolphin" Click="ConfigureDolphin_Click" Margin="5"/>
-                <Button Content="Flycast" Click="ConfigureFlycast_Click" Margin="5"/>
-                <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Margin="5"/>
+                <!-- <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Margin="5"/> -->
+                <!-- <Button Content="DuckStation" Click="ConfigureDuckStation_Click" Margin="5"/> -->
+                <!-- <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Margin="5"/> -->
+                <!-- <Button Content="Dolphin" Click="ConfigureDolphin_Click" Margin="5"/> -->
+                <!-- <Button Content="Flycast" Click="ConfigureFlycast_Click" Margin="5"/> -->
+                <!-- <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Margin="5"/> -->
             </WrapPanel>
         </GroupBox>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="{DynamicResource Save}" Click="SaveButton_Click" IsDefault="True" Width="80" Margin="0,0,10,0"/>
             <Button Content="{DynamicResource Cancel}" IsCancel="True" Width="80"/>
         </StackPanel>

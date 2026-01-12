@@ -56,6 +56,7 @@ public class SettingsManager
     public string CustomNotificationSoundFile { get; set; }
     public string RaUsername { get; set; }
     public string RaApiKey { get; set; }
+    public string RaPassword { get; set; }
     public bool OverlayRetroAchievementButton { get; set; }
     public bool OverlayOpenVideoButton { get; set; }
     public bool OverlayOpenInfoButton { get; set; }
@@ -130,6 +131,7 @@ public class SettingsManager
             ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
             RaUsername = settings.Element("RA_Username")?.Value ?? string.Empty;
             RaApiKey = settings.Element("RA_ApiKey")?.Value ?? string.Empty;
+            RaPassword = settings.Element("RA_Password")?.Value ?? string.Empty;
 
             if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
             {
@@ -399,6 +401,7 @@ public class SettingsManager
                     new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
                     new XElement("RA_Username", RaUsername),
                     new XElement("RA_ApiKey", RaApiKey),
+                    new XElement("RA_Password", RaPassword),
                     new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
                     new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
                     new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
