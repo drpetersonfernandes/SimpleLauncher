@@ -1,5 +1,5 @@
 # Release 4.9.0
-*2026-01-12*
+*2026-01-13*
 ---
 
 ## 🎮 RetroAchievements Enhancements
