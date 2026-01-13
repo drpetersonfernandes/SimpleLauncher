@@ -490,6 +490,9 @@ public static class ScanMicrosoftStoreGames
             using var doc = JsonDocument.Parse(jsonStr);
             if (doc.RootElement.ValueKind != JsonValueKind.Array) return;
 
+            // Track seen AppIds to avoid duplicates from multiple Start Menu entries
+            var seenAppIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
             foreach (var element in doc.RootElement.EnumerateArray())
             {
                 try
@@ -501,6 +504,9 @@ public static class ScanMicrosoftStoreGames
                     var logoRelativePath = element.TryGetProperty("Logo", out var lg) ? lg.GetString() : null;
 
                     if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(appId)) continue;
+
+                    // Skip duplicates
+                    if (!seenAppIds.Add(appId)) continue;
 
                     // 1. Blacklist Check
                     if (IgnoredAppNames.Contains(name) || IgnoredAppNames.Contains(packageFamilyName)) continue;

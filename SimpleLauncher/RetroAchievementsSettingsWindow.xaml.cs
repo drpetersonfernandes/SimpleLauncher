@@ -48,9 +48,8 @@ public partial class RetroAchievementsSettingsWindow
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        // Save the settings without closing the window.
-        // The user can close the window using the "Cancel" button or the window's close button.
         SaveSettings();
+        Close();
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
