@@ -1,6 +1,14 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="EmulatorIntegration">Integrasi Emulator (Pengaturan Otomatis)</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Kata Sandi</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Harap masukkan nama pengguna, kunci API, dan kata sandi RetroAchievements Anda sebelum mengonfigurasi emulator.</system:String>
+    <system:String x:Key="CredentialsRequired">Kredensial Diperlukan</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator berhasil dikonfigurasi untuk RetroAchievements!</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Gagal mengonfigurasi emulator. File konfigurasi mungkin hilang, berada di lokasi yang tidak terduga, atau hanya-baca.</system:String>
+    <system:String x:Key="ConfigurationFailed">Konfigurasi Gagal</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Terjadi kesalahan saat mengonfigurasi emulator.</system:String>
     <system:String x:Key="LastPlayedDateColumnHeader">Tanggal Terakhir Dimainkan</system:String>
     <system:String x:Key="LastPlayedTimeColumnHeader">Waktu Terakhir Dimainkan</system:String>
     <system:String x:Key="RomCountColumnHeader">Jumlah ROM atau ISO</system:String>

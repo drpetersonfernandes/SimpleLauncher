@@ -1,6 +1,15 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="EmulatorIntegration">এমুলেটর ইন্টিগ্রেশন (স্বয়ংক্রিয় সেটআপ)</system:String>
+    <system:String x:Key="RetroAchievementsPassword">পাসওয়ার্ড</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">একটি এমুলেটর কনফিগার করার আগে আপনার RetroAchievements ব্যবহারকারীর নাম, API কী এবং পাসওয়ার্ড লিখুন।</system:String>
+    <system:String x:Key="CredentialsRequired">শংসাপত্র প্রয়োজন</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">RetroAchievements-এর জন্য এমুলেটর সফলভাবে কনফিগার করা হয়েছে!</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">এমুলেটর কনফিগার করতে ব্যর্থ হয়েছে। কনফিগারেশন ফাইলটি অনুপস্থিত থাকতে পারে, একটি অপ্রত্যাশিত অবস্থানে থাকতে পারে, অথবা শুধুমাত্র পঠনযোগ্য হতে পারে।</system:String>
+    <system:String x:Key="ConfigurationFailed">কনফিগারেশন ব্যর্থ হয়েছে</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">এমুলেটর কনফিগার করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="LastPlayedDateColumnHeader">শেষ খেলার তারিখ</system:String>
     <system:String x:Key="LastPlayedTimeColumnHeader">শেষ খেলার সময়</system:String>
     <system:String x:Key="RomCountColumnHeader">ROM বা ISO-এর সংখ্যা</system:String>

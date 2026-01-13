@@ -2,6 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
+    <system:String x:Key="EmulatorIntegration">تكامل المحاكي (إعداد تلقائي)</system:String>
+    <system:String x:Key="RetroAchievementsPassword">كلمة المرور</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">الرجاء إدخال اسم مستخدم RetroAchievements ومفتاح API وكلمة المرور قبل تهيئة المحاكي.</system:String>
+    <system:String x:Key="CredentialsRequired">بيانات الاعتماد مطلوبة</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">تم تكوين المحاكي بنجاح لـ RetroAchievements!</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">فشل في تكوين المحاكي. قد يكون ملف التكوين مفقودًا، أو في موقع غير متوقع، أو للقراءة فقط.</system:String>
+    <system:String x:Key="ConfigurationFailed">فشل التكوين</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">حدث خطأ أثناء تكوين المحاكي.</system:String>
     <system:String x:Key="LastPlayedDateColumnHeader">تاريخ آخر تشغيل</system:String>
     <system:String x:Key="LastPlayedTimeColumnHeader">وقت آخر تشغيل</system:String>
     <system:String x:Key="RomCountColumnHeader">عدد ملفات ROM أو ISO</system:String>

@@ -1,6 +1,14 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="EmulatorIntegration">Emülatör Entegrasyonu (Otomatik Kurulum)</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Şifre</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Bir emülatörü yapılandırmadan önce lütfen RetroAchievements kullanıcı adınızı, API anahtarınızı ve şifrenizi girin.</system:String>
+    <system:String x:Key="CredentialsRequired">Kimlik Bilgileri Gerekli</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emülatör RetroAchievements için başarıyla yapılandırıldı!</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Emülatör yapılandırılamadı. Yapılandırma dosyası eksik olabilir, beklenmedik bir konumda olabilir veya salt okunur olabilir.</system:String>
+    <system:String x:Key="ConfigurationFailed">Yapılandırma Başarısız</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Emülatör yapılandırılırken bir hata oluştu.</system:String>
     <system:String x:Key="LastPlayedDateColumnHeader">Son Oynama Tarihi</system:String>
     <system:String x:Key="LastPlayedTimeColumnHeader">Son Oynama Saati</system:String>
     <system:String x:Key="RomCountColumnHeader">ROM veya ISO Sayısı</system:String>

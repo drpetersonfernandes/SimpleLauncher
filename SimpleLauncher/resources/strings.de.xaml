@@ -1,6 +1,15 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="EmulatorIntegration">Emulator-Integration (Auto-Setup)</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Passwort</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Bitte geben Sie Ihren RetroAchievements-Benutzernamen, API-Schlüssel und Ihr Passwort ein, bevor Sie einen Emulator konfigurieren.</system:String>
+    <system:String x:Key="CredentialsRequired">Anmeldeinformationen erforderlich</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator erfolgreich für RetroAchievements konfiguriert!</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Fehler beim Konfigurieren des Emulators. Die Konfigurationsdatei fehlt möglicherweise, befindet sich an einem unerwarteten Ort oder ist schreibgeschützt.</system:String>
+    <system:String x:Key="ConfigurationFailed">Konfiguration fehlgeschlagen</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Beim Konfigurieren des Emulators ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="LastPlayedDateColumnHeader">Zuletzt gespielt (Datum)</system:String>
     <system:String x:Key="LastPlayedTimeColumnHeader">Zuletzt gespielt (Uhrzeit)</system:String>
     <system:String x:Key="RomCountColumnHeader">Anzahl der ROMs oder ISOs</system:String>
