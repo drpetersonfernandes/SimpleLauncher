@@ -73,7 +73,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Button Content="{Binding DisplayName}"
-                                            Width="140" Height="40"
+                                            Height="40"
                                             Margin="5"
                                             Click="DownloadImagePackButtonClickAsync"
                                             IsEnabled="{Binding IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"

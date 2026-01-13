@@ -388,6 +388,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         // Resolve path for display in the textbox
         SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder);
+
+        UpdateAddSystemButtonState();
     }
 
     private async void DownloadEmulatorButtonClickAsync(object sender, RoutedEventArgs e)
