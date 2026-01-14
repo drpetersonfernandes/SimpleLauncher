@@ -280,12 +280,6 @@ public static class PathHelper
         return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
-    /// <summary>
-    /// Searches for a file across all configured system folders for a given system.
-    /// </summary>
-    /// <param name="systemManager">The system manager containing the folder list.</param>
-    /// <param name="fileName">The name of the file to find.</param>
-    /// <returns>The full, resolved path to the first found file, or null if not found.</returns>
     public static string FindFileInSystemFolders(SystemManager systemManager, string fileName)
     {
         if (systemManager?.SystemFolders == null || string.IsNullOrEmpty(fileName))
@@ -296,7 +290,12 @@ public static class PathHelper
         foreach (var folder in systemManager.SystemFolders)
         {
             var filePath = CombineAndResolveRelativeToAppDirectory(folder, fileName);
-            if (!string.IsNullOrEmpty(filePath) && File.Exists(@"\\?\" + filePath))
+            if (string.IsNullOrEmpty(filePath)) continue;
+
+            var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal) ? filePath : @"\\?\" + filePath;
+
+            // Check both standard and long-path prefixed versions
+            if (File.Exists(filePath) || File.Exists(longPath))
             {
                 return filePath;
             }

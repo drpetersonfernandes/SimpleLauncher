@@ -37,20 +37,22 @@ public class GameLauncher
         {
             // Resolve the path first to get a full, canonical path.
             var resolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
-            // Prepend the long path prefix to handle paths longer than 260 characters reliably.
-            var pathForCheck = @"\\?\" + resolvedFilePath;
 
-            if (string.IsNullOrWhiteSpace(resolvedFilePath) || (!File.Exists(pathForCheck) && !Directory.Exists(pathForCheck)))
+            // Check existence using both standard and long-path prefixed versions to ensure maximum compatibility
+            // across different drive types (local, removable, network).
+            var pathForCheck = resolvedFilePath.StartsWith(@"\\?\", StringComparison.Ordinal) ? resolvedFilePath : @"\\?\" + resolvedFilePath;
+            var exists = File.Exists(resolvedFilePath) || File.Exists(pathForCheck) || Directory.Exists(resolvedFilePath) || Directory.Exists(pathForCheck);
+
+            if (string.IsNullOrWhiteSpace(resolvedFilePath) || !exists)
             {
-                // Notify developer
+                // Notify developer - pass a real exception instead of null to avoid "Exception is null" logs
                 var contextMessage = $"Invalid resolvedFilePath or file/directory does not exist.\n\n" +
                                      $"Original filePath: {filePath}\n" +
                                      $"Resolved filePath: {resolvedFilePath}";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(contextMessage), contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FilePathIsInvalid(_logPath);
-
                 return;
             }
 
@@ -506,21 +508,16 @@ public class GameLauncher
                 var targetUrl = urlMatch.Groups[1].Value.Trim();
                 DebugLogger.Log($"LaunchShortcutFileAsync (.URL):\n\nShortcut File: {resolvedFilePath}\nTarget URL: {targetUrl}\n");
 
-                // Verify protocol handler is registered
-                var protocol = targetUrl.Split(':')[0];
-                if (!string.IsNullOrEmpty(protocol))
+                // Verify protocol handler is registered ONLY if it's a real URI (contains ://)
+                // This prevents treating drive letters (C:\) as protocols.
+                var protocolIndex = targetUrl.IndexOf("://", StringComparison.Ordinal);
+                if (protocolIndex > 0)
                 {
+                    var protocol = targetUrl.Substring(0, protocolIndex);
                     if (!IsProtocolRegistered(protocol))
                     {
-                        // Throw a specific exception if protocol is not registered.
-                        throw new InvalidOperationException($"Protocol handler for '{protocol}://' is not registered. Please ensure the associated application (e.g., GOG Galaxy) is installed and configured correctly.");
+                        throw new InvalidOperationException($"Protocol handler for '{protocol}://' is not registered. Please ensure the associated application is installed.");
                     }
-                }
-                else
-                {
-                    // If no protocol is found, it's likely a malformed URL or a local file path in a .url file.
-                    // For now, let Process.Start handle it, but log a warning.
-                    DebugLogger.Log($"Warning: No protocol found in URL: '{targetUrl}'. Attempting to launch anyway.");
                 }
 
                 // Use shell execution with explicit working directory set to null
@@ -534,11 +531,9 @@ public class GameLauncher
                 using var process = new Process();
                 process.StartInfo = psi;
 
-                // For .URL files, we don't wait for exit as they typically launch external processes
-                if (!process.Start())
-                {
-                    throw new InvalidOperationException($"Failed to start process for URL: {targetUrl}");
-                }
+                // For shell execution, Start() might return false if a process was reused.
+                // Win32Exception will be thrown if it actually fails.
+                process.Start();
             }
             else // .LNK files
             {
@@ -554,10 +549,8 @@ public class GameLauncher
                 using var process = new Process();
                 process.StartInfo = psi;
 
-                if (!process.Start())
-                {
-                    throw new InvalidOperationException($"Failed to start process for shortcut: {resolvedFilePath}");
-                }
+                // For shell execution, Start() might return false if a process was reused.
+                process.Start();
             }
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
@@ -589,10 +582,12 @@ public class GameLauncher
         }
         catch (Exception ex)
         {
-            // Enhanced error logging with file content inspection
-            var fileContent = File.Exists(@"\\?\" + resolvedFilePath)
+            // Only attempt to read file content if it's a text-based .URL file
+            var isUrlFile = Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase);
+            var fileContent = (isUrlFile && File.Exists(resolvedFilePath))
                 ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
-                : "\nFile does not exist.";
+                : "\nFile content not displayed (binary .LNK or missing file).";
+
             var errorDetail = $"Exception launching the shortcut file.\n" +
                               $"Shortcut file: {resolvedFilePath}\n" +
                               $"Exception: {ex.Message}" +
