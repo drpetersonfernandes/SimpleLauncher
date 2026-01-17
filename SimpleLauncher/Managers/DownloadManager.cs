@@ -36,6 +36,7 @@ public class DownloadManager : IDisposable
     private readonly IExtractionService _extractionService;
     private readonly ILogErrors _logErrors;
     private CancellationTokenSource _cancellationTokenSource;
+    private readonly object _lock = new();
     private bool _disposed;
 
     /// <summary>
@@ -89,15 +90,20 @@ public class DownloadManager : IDisposable
     /// </summary>
     public void CancelDownload()
     {
-        IsUserCancellation = true;
-        _cancellationTokenSource?.Cancel();
-        ResetCancellationToken();
+        lock (_lock)
+        {
+            IsUserCancellation = true;
+            _cancellationTokenSource?.Cancel();
+        }
     }
 
     private void ResetCancellationToken()
     {
-        _cancellationTokenSource?.Dispose();
-        _cancellationTokenSource = new CancellationTokenSource();
+        lock (_lock)
+        {
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
     }
 
     /// <summary>
@@ -110,6 +116,12 @@ public class DownloadManager : IDisposable
     {
         // Reset the cancellation token source at the beginning of every download attempt.
         ResetCancellationToken();
+
+        CancellationToken token;
+        lock (_lock)
+        {
+            token = _cancellationTokenSource.Token;
+        }
 
         IsDownloadCompleted = false;
         IsUserCancellation = false;
@@ -165,7 +177,7 @@ public class DownloadManager : IDisposable
                     {
                         try
                         {
-                            await DownloadWithProgressAsync(downloadUrl, downloadFilePath, _cancellationTokenSource.Token);
+                            await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
 
                             if (IsDownloadCompleted)
                                 break;
@@ -182,7 +194,7 @@ public class DownloadManager : IDisposable
                                 StatusMessage = GetResourceString("RetryingDownload", $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
                             });
 
-                            await Task.Delay(delay, _cancellationTokenSource.Token);
+                            await Task.Delay(delay, token);
                         }
                         catch (TaskCanceledException tcEx) when (tcEx.InnerException is TimeoutException || (tcEx.InnerException is OperationCanceledException && !IsUserCancellation))
                         {
@@ -198,7 +210,7 @@ public class DownloadManager : IDisposable
                                     StatusMessage = GetResourceString("RetryingDownloadTimeout", $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
                                 });
 
-                                await Task.Delay(delay, _cancellationTokenSource.Token);
+                                await Task.Delay(delay, token);
                             }
                             else
                             {
@@ -224,7 +236,7 @@ public class DownloadManager : IDisposable
                                     StatusMessage = GetResourceString("RetryingDownloadTimeout", $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
                                 });
 
-                                await Task.Delay(delay, _cancellationTokenSource.Token);
+                                await Task.Delay(delay, token);
                             }
                             else
                             {
@@ -248,7 +260,7 @@ public class DownloadManager : IDisposable
                                     StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
                                 });
 
-                                await Task.Delay(delay, _cancellationTokenSource.Token);
+                                await Task.Delay(delay, token);
                             }
                             else
                             {
@@ -281,7 +293,7 @@ public class DownloadManager : IDisposable
                                     ProgressPercentage = 0,
                                     StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
                                 });
-                                await Task.Delay(delay, _cancellationTokenSource.Token);
+                                await Task.Delay(delay, token);
                             }
                         }
                     }
@@ -761,7 +773,13 @@ public class DownloadManager : IDisposable
             return;
         }
 
-        _cancellationTokenSource?.Dispose();
+        lock (_lock)
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+        }
+
         _disposed = true;
         GC.SuppressFinalize(this);
     }
