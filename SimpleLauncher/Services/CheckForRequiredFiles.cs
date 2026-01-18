@@ -18,6 +18,7 @@ public static class CheckForRequiredFiles
     private static readonly string AppSettings = Path.Combine(BaseDirectory, "appsettings.json");
     private static readonly string ZipDllX64 = Path.Combine(BaseDirectory, "7z_x64.dll");
     private static readonly string ZipDllArm64 = Path.Combine(BaseDirectory, "7z_arm64.dll");
+    private static readonly string MameDat = Path.Combine(BaseDirectory, "mame.dat");
 
     public static void CheckFiles()
     {
@@ -29,7 +30,8 @@ public static class CheckForRequiredFiles
             NotificationSoundFile,
             ShutterSoundFile,
             TrashSoundFile,
-            AppSettings
+            AppSettings,
+            MameDat
         };
 
         try
