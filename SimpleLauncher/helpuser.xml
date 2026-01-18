@@ -4701,7 +4701,21 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 There are multiple ways to use this emulator. You can use [Game Folders], ZIP files or ISO files.<br>
 
-**Option 1 - Use [Game Folders]**
+**Option 1 — Use decrypted ISO files (Recommended)**
+
+**System Folder (Example):** c:\Sony PlayStation 3<br>
+**Is the system MAME-based?** false<br>
+**Extension to Search in the System Folder:** iso<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Name:** RPCS3<br>
+**Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Option 2 - Use [Game Folders]**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **Is the system MAME-based?** false<br>
@@ -4717,7 +4731,7 @@ There are multiple ways to use this emulator. You can use [Game Folders], ZIP fi
 
 Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files for you.<br>
 
-**Option 2 - Use ZIP files**
+**Option 3 - Use ZIP files**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **Is the system MAME-based?** false<br>
@@ -4733,23 +4747,6 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 
 You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
-For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'.
-
-**Option 3 — Use decrypted ISO files**
-
-**System Folder (Example):** c:\Sony PlayStation 3<br>
-**Is the system MAME-based?** false<br>
-**Extension to Search in the System Folder:** iso<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false<br>
-
-**Emulator Name:** RPCS3<br>
-**Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-'Simple Launcher' will mount the ISO file using native Microsoft Windows capabilities, then load the game using a custom logic.<br>
 For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'.
 ]]>
         </SystemHelper>
