@@ -3537,7 +3537,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 **System Folder (Example):** c:\Sega Saturn<br>
 **Is the system MAME-based?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Extension to Search in the System Folder:** chd, cue, toc, m3u, ccd<br>
+**Extension to Search in the System Folder:** ccd, chd, cue, iso, mds<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
