@@ -111,41 +111,8 @@ public class GameListFactory(
             ),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
-            PlayTime = playTime,
-            FileSizeBytes = -1 // Initialize to "Calculating..." state via the backing field
+            PlayTime = playTime
         };
-
-        _ = Task.Run(() => // Fire and forget; UI updates via INotifyPropertyChanged
-        {
-            long sizeToSet;
-            try
-            {
-                var longEntityPath = entityPath.StartsWith(@"\\?\", StringComparison.Ordinal) ? entityPath : @"\\?\" + entityPath;
-                if (isDirectory)
-                {
-                    // Sum up the size of all files in the directory and its subdirectories
-                    sizeToSet = new DirectoryInfo(longEntityPath).EnumerateFiles("*", SearchOption.AllDirectories).Sum(static fi => fi.Length);
-                }
-                else if (File.Exists(longEntityPath))
-                {
-                    sizeToSet = new FileInfo(longEntityPath).Length;
-                }
-                else
-                {
-                    sizeToSet = -2; // "N/A"
-                }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error getting file size for {entityPath}");
-
-                sizeToSet = -2; // Indicate N/A or Error
-            }
-
-            // This assignment will trigger OnPropertyChanged in GameListViewItem, updating the UI.
-            gameListViewItem.FileSizeBytes = sizeToSet;
-        });
 
         // Return the item immediately. The file size will update in the UI when the task completes.
         return Task.FromResult(gameListViewItem);

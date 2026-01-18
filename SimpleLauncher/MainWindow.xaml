@@ -1077,8 +1077,6 @@
                                                 AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}" />
                             <DataGridTextColumn Header="{DynamicResource FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*"
                                                 AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}" />
-                            <DataGridTextColumn Header="{DynamicResource FileSizeColumnHeader}" Binding="{Binding FileSize}" Width="Auto"
-                                                AutomationProperties.Name="{DynamicResource FileSizeColumnHeader}" />
                             <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto"
                                                 AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}" />
                             <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto"
