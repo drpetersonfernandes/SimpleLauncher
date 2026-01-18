@@ -1,19 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="EmulatorIntegration">এমুলেটর ইন্টিগ্রেশন (স্বয়ংক্রিয় সেটআপ)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">পাসওয়ার্ড</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">একটি এমুলেটর কনফিগার করার আগে আপনার RetroAchievements ব্যবহারকারীর নাম, API কী এবং পাসওয়ার্ড লিখুন।</system:String>
-    <system:String x:Key="CredentialsRequired">শংসাপত্র প্রয়োজন</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">RetroAchievements-এর জন্য এমুলেটর সফলভাবে কনফিগার করা হয়েছে!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">এমুলেটর কনফিগার করতে ব্যর্থ হয়েছে। কনফিগারেশন ফাইলটি অনুপস্থিত থাকতে পারে, একটি অপ্রত্যাশিত অবস্থানে থাকতে পারে, অথবা শুধুমাত্র পঠনযোগ্য হতে পারে।</system:String>
-    <system:String x:Key="ConfigurationFailed">কনফিগারেশন ব্যর্থ হয়েছে</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">এমুলেটর কনফিগার করার সময় একটি ত্রুটি ঘটেছে।</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">শেষ খেলার তারিখ</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">শেষ খেলার সময়</system:String>
-    <system:String x:Key="RomCountColumnHeader">ROM বা ISO-এর সংখ্যা</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">মিলে যাওয়া ছবির সংখ্যা</system:String>
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -61,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">এই গেমটি ফেভারিটে যোগ করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">গ্লোবাল পরিসংখ্যান গণনা করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">আপডেট পরীক্ষা করার সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">এমুলেটর কনফিগার করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">নির্বাচিত টুল চালু করার সময় একটি ত্রুটি হয়েছে।</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM ইতিহাস লোড করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">ব্রাউজার খোলার সময় একটি ত্রুটি ঘটেছে।</system:String>
@@ -101,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
-    <system:String x:Key="Calculating">গণনা করা হচ্ছে...</system:String>
     <system:String x:Key="Cancel">বাতিল করুন</system:String>
     <system:String x:Key="CancelButtonText">বাতিল করুন</system:String>
     <system:String x:Key="Cancelingdownload">ডাউনলোড বাতিল করা হচ্ছে...</system:String>
@@ -131,6 +118,7 @@
     <system:String x:Key="Close">বন্ধ করুন</system:String>
     <system:String x:Key="Cobalt">কোবাল্ট</system:String>
     <system:String x:Key="CompatibilityWarning">সামঞ্জস্য সতর্কতা</system:String>
+    <system:String x:Key="ConfigurationFailed">কনফিগারেশন ব্যর্থ হয়েছে</system:String>
     <system:String x:Key="ConfigurationWarning">কনফিগারেশন সতর্কতা</system:String>
     <system:String x:Key="Confirm">নিশ্চিত করুন</system:String>
     <system:String x:Key="Confirmation">নিশ্চিতকরণ</system:String>
@@ -151,6 +139,7 @@
     <system:String x:Key="Cover">কভার</system:String>
     <system:String x:Key="Covernotfound">কভার পাওয়া যায়নি</system:String>
     <system:String x:Key="Creatingsystemfolders">সিস্টেম ফোল্ডার তৈরি হচ্ছে...</system:String>
+    <system:String x:Key="CredentialsRequired">শংসাপত্র প্রয়োজন</system:String>
     <system:String x:Key="Crimson">গাঢ় লাল</system:String>
     <system:String x:Key="CurrentlyPlaying">এখন খেলছেন</system:String>
     <system:String x:Key="CurrentSystemInfo">বর্তমান সিস্টেম</system:String>
@@ -208,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">আপডেট স্বয়ংক্রিয় পরিচন্ন।</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">'error_user.log' ফাইলটি ডিবাগ করার জন্য খুলতে চান?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">ত্রুটি সমাধানের জন্য আপনি কি 'error_user.log' ফাইলটি খুলতে চান?</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">আপনি কি গ্লোবাল RetroAchievements উইন্ডোটি খুলতে চান?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">সমস্যা ঠিক করতে আপনি কি 'Simple Launcher' পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">অনলাইন অনুসন্ধান করতে চান?</system:String>
     <system:String x:Key="EasyMode">সহজ মোড</system:String>
@@ -243,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">এমুলেটর ৫ প্যারামিটার</system:String>
     <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
     <system:String x:Key="Emulator5pathisrequired">এমুলেটর ৫ এর পাথ প্রয়োজন।</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">RetroAchievements-এর জন্য এমুলেটর সফলভাবে কনফিগার করা হয়েছে!</system:String>
+    <system:String x:Key="EmulatorIntegration">এমুলেটর ইন্টিগ্রেশন (স্বয়ংক্রিয় সেটআপ)</system:String>
     <system:String x:Key="EmulatorName">এমুলেটর নাম</system:String>
     <system:String x:Key="Emulatornameisrequired">এমুলেটারের নাম প্রয়োজন।</system:String>
     <system:String x:Key="EmulatorParameters">এমুলেটর প্যারামিটার</system:String>
@@ -290,6 +282,7 @@
     <system:String x:Key="Extractionfailed">উত্তোলন ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="ExtractionFailedMessage">ফাইলটি সফলভাবে ডাউনলোড হয়েছে, কিন্তু স্বয়ংক্রিয় এক্সট্রাকশন ব্যর্থ হয়েছে। এটি ঘটতে পারে যদি অ্যান্টিভাইরাস প্রোগ্রাম ফাইলটি স্ক্যান বা লক করছে।</system:String>
     <system:String x:Key="ExtractionFailedTitle">এক্সট্রাকশন ব্যর্থ</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">এমুলেটর কনফিগার করতে ব্যর্থ হয়েছে। কনফিগারেশন ফাইলটি অনুপস্থিত থাকতে পারে, একটি অপ্রত্যাশিত অবস্থানে থাকতে পারে, অথবা শুধুমাত্র পঠনযোগ্য হতে পারে।</system:String>
     <system:String x:Key="Failedtocopylogcontent">লগ বিষয়বস্তু কপি করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">ভাষা সংস্থান লোড করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">চিত্র দর্শক উইন্ডোতে চিত্র লোড করতে ব্যর্থ হয়েছে।</system:String>
@@ -319,7 +312,6 @@
     <system:String x:Key="Filename">ফাইলের নাম</system:String>
     <system:String x:Key="FileNameColumnHeader">ফাইলের নাম</system:String>
     <system:String x:Key="FileRemovedFromFavorites">ফাইল প্রিয় থেকে সরানো হয়েছে।</system:String>
-    <system:String x:Key="FileSizeColumnHeader">ফাইলের সাইজ</system:String>
     <system:String x:Key="FilterByAll">সবকিছু অনুসারে ফিল্টার করুন</system:String>
     <system:String x:Key="FilterByLetter">অক্ষর অনুসারে ফিল্টার করুন</system:String>
     <system:String x:Key="FilterByNumber">সংখ্যা অনুসারে ফিল্টার করুন</system:String>
@@ -344,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">গেম লঞ্চের সময়সীমা শেষ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন বা এমুলেটর শুরু হয়েছে কিনা পরীক্ষা করুন।</system:String>
     <system:String x:Key="GameListGrid">গেম লিস্ট গ্রিড</system:String>
     <system:String x:Key="GameListGridHelpText">গেম লিস্ট গ্রিড সাহায্য</system:String>
-    <system:String x:Key="GameNotSupportedByRA">এই গেমটি বর্তমানে RetroAchievements ডাটাবেস দ্বারা সমর্থিত নয়।</system:String>
     <system:String x:Key="GamepadSupport">গেমপ্যাড সমর্থন</system:String>
     <system:String x:Key="GameplaySnapshot">গেমপ্লে স্ন্যাপশট</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">গেমপ্লে স্ন্যাপশট পাওয়া যায়নি</system:String>
@@ -435,6 +426,8 @@
     <system:String x:Key="Language">ভাষা</system:String>
     <system:String x:Key="LanguageLoadingError">ভাষা লোডিং ত্রুটি</system:String>
     <system:String x:Key="LastAward">শেষ পুরস্কার:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">শেষ খেলার তারিখ</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">শেষ খেলার সময়</system:String>
     <system:String x:Key="LatestMasters">সাম্প্রতিক মাস্টাররা</system:String>
     <system:String x:Key="launchedwith">দিয়ে চালু হয়েছে</system:String>
     <system:String x:Key="LaunchGame">গেম চালু করুন</system:String>
@@ -474,6 +467,7 @@
     <system:String x:Key="Manual">ম্যানুয়াল</system:String>
     <system:String x:Key="Manualnotfound">ম্যানুয়াল পাওয়া যায়নি।</system:String>
     <system:String x:Key="ManualReinstallSuggestion">সমস্যাটি ঠিক করতে অনুগ্রহ করে 'Simple Launcher' ম্যানুয়ালি পুনরায় ইনস্টল করুন।</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">মিলে যাওয়া ছবির সংখ্যা</system:String>
     <system:String x:Key="MatchedImageCountLabel">ম্যাচ করা ছবির সংখ্যা:</system:String>
     <system:String x:Key="Mauve">ফিকে বেগুনি</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">সম্ভবত আপনার ইন্টারনেট সংযোগে কোনো সমস্যা রয়েছে অথবা GitHub সার্ভার অফলাইন।</system:String>
@@ -506,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">কোন সিস্টেম কনফিগার করা হয়নি। সিস্টেম যোগ করার জন্য 'এডিট সিস্টেম' মেনু ব্যবহার করুন।</system:String>
     <system:String x:Key="Nosystemselected">কোনো সিস্টেম নির্বাচিত হয়নি</system:String>
     <system:String x:Key="NoSystemsFound">আপনার কনফিগারেশনে কোনো সিস্টেম পাওয়া যায়নি।</system:String>
-    <system:String x:Key="NotAvailable">উপলব্ধ নয়</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">নিষ্কাশনের জন্য পর্যাপ্ত ডিস্ক স্পেস নেই।</system:String>
     <system:String x:Key="Notextavailable">কোনো পাঠ্য উপলব্ধ নেই।</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">প্রিয় নয়</system:String>
@@ -583,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">অনুগ্রহ করে সমর্থন অনুরোধের বিস্তারিত লিখুন।</system:String>
     <system:String x:Key="Pleaseentertheemail">অনুগ্রহ করে ইমেল লিখুন।</system:String>
     <system:String x:Key="Pleaseenterthename">অনুগ্রহ করে নাম লিখুন।</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">একটি এমুলেটর কনফিগার করার আগে আপনার RetroAchievements ব্যবহারকারীর নাম, API কী এবং পাসওয়ার্ড লিখুন।</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">দয়া করে এটি ম্যানুয়ালি ঠিক করুন অথবা মুছুন।</system:String>
     <system:String x:Key="Pleasefixthat">অনুগ্রহ করে এটি ঠিক করুন।</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">এডিট উইন্ডোতে এটি ঠিক করুন।</system:String>
@@ -646,10 +640,12 @@
     <system:String x:Key="RestoreBackup">ব্যাকআপ পুনরুদ্ধার।</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">রেট্রো অ্যাচিভমেন্ট ওভারলে বাটন</system:String>
     <system:String x:Key="RetroAchievements">রেট্রো অ্যাচিভমেন্টস</system:String>
+    <system:String x:Key="RetroAchievementsPassword">পাসওয়ার্ড</system:String>
     <system:String x:Key="RetroAchievementsSettings">রেট্রো অ্যাচিভমেন্টস সেটিংস</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">গেমপ্যাড ডেড জোন সেটিংস পূর্বাবস্থায় ফিরিয়ে আনা হচ্ছে...</system:String>
     <system:String x:Key="RevertingLinkSettings">লিঙ্ক সেটিংস পূর্বাবস্থায় ফিরিয়ে আনা হচ্ছে...</system:String>
     <system:String x:Key="ReverttoDefaultValues">ডিফল্ট মানে পুনঃস্থাপন করুন</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROM বা ISO-এর সংখ্যা</system:String>
     <system:String x:Key="RomCountLabel">ROMs বা ISOs এর সংখ্যা:</system:String>
     <system:String x:Key="RomHistory">পূর্ব জ্ঞান রম।</system:String>
     <system:String x:Key="ROMHistorynotfound">কোনো সন্ধান পাওয়া যায়নি।</system:String>
@@ -727,6 +723,7 @@
     <system:String x:Key="Sienna">গাঢ় তামাটে</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' অনুরোধ করা কাজটি সম্পাদন করতে পারে না।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' Web API অ্যাক্সেস করতে পারেনি আপডেটেড URL ডাউনলোড করতে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' এই গেমটির হ্যাশ মান গণনা করতে পারেনি অথবা এই গেমটি এখনও RetroAchievements দ্বারা সমর্থিত নয়।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' নির্দিষ্ট পাথের জন্য ডিস্ক স্পেস পরীক্ষা করতে পারেনি। অনুগ্রহ করে পাথটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' গিটহাবে আপডেটার অ্যাপ্লিকেশনটি খুঁজে পায়নি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' নির্বাচিত গেমটি চালু করতে পারেনি।</system:String>

@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="EmulatorIntegration">Integrasi Emulator (Pengaturan Otomatis)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">Kata Sandi</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">Harap masukkan nama pengguna, kunci API, dan kata sandi RetroAchievements Anda sebelum mengonfigurasi emulator.</system:String>
-    <system:String x:Key="CredentialsRequired">Kredensial Diperlukan</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator berhasil dikonfigurasi untuk RetroAchievements!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">Gagal mengonfigurasi emulator. File konfigurasi mungkin hilang, berada di lokasi yang tidak terduga, atau hanya-baca.</system:String>
-    <system:String x:Key="ConfigurationFailed">Konfigurasi Gagal</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Terjadi kesalahan saat mengonfigurasi emulator.</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">Tanggal Terakhir Dimainkan</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">Waktu Terakhir Dimainkan</system:String>
-    <system:String x:Key="RomCountColumnHeader">Jumlah ROM atau ISO</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">Jumlah Gambar yang Cocok</system:String>
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -60,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Terjadi kesalahan saat menambahkan game ini ke favorit.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Terjadi kesalahan saat menghitung statistik global.</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Terjadi kesalahan saat memeriksa pembaruan.</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Terjadi kesalahan saat mengonfigurasi emulator.</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Terjadi kesalahan saat meluncurkan alat yang dipilih.</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Terjadi kesalahan saat memuat riwayat ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Terjadi kesalahan saat membuka browser.</system:String>
@@ -100,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">Namun, saya menemukan file cadangan.</system:String>
     <system:String x:Key="Cabinet">Kabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Kabinet tidak ditemukan</system:String>
-    <system:String x:Key="Calculating">Menghitung...</system:String>
     <system:String x:Key="Cancel">Batal</system:String>
     <system:String x:Key="CancelButtonText">Batal</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
@@ -130,6 +118,7 @@
     <system:String x:Key="Close">Tutup</system:String>
     <system:String x:Key="Cobalt">Biru Kobalt</system:String>
     <system:String x:Key="CompatibilityWarning">Peringatan Kompatibilitas</system:String>
+    <system:String x:Key="ConfigurationFailed">Konfigurasi Gagal</system:String>
     <system:String x:Key="ConfigurationWarning">Peringatan Konfigurasi</system:String>
     <system:String x:Key="Confirm">Konfirmasi</system:String>
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
@@ -150,6 +139,7 @@
     <system:String x:Key="Cover">Sampul</system:String>
     <system:String x:Key="Covernotfound">Sampul tidak ditemukan</system:String>
     <system:String x:Key="Creatingsystemfolders">Membuat folder sistem...</system:String>
+    <system:String x:Key="CredentialsRequired">Kredensial Diperlukan</system:String>
     <system:String x:Key="Crimson">Merah Tua</system:String>
     <system:String x:Key="CurrentlyPlaying">Sedang Dimainkan</system:String>
     <system:String x:Key="CurrentSystemInfo">Sistem Saat Ini</system:String>
@@ -207,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Apakah Anda ingin mengunduh dan menginstal versi terbaru secara otomatis?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Apakah Anda ingin membuka file 'error_user.log' untuk memeriksa kesalahan?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk memperbaiki kesalahan?</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">Apakah Anda ingin membuka jendela global RetroAchievements?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Apakah Anda ingin mencari riwayat ROM secara online?</system:String>
     <system:String x:Key="EasyMode">Mode Mudah</system:String>
@@ -242,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">Parameter Emulator 5</system:String>
     <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">Path Emulator 5 diperlukan.</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator berhasil dikonfigurasi untuk RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorIntegration">Integrasi Emulator (Pengaturan Otomatis)</system:String>
     <system:String x:Key="EmulatorName">Nama Emulator</system:String>
     <system:String x:Key="Emulatornameisrequired">Nama emulator diperlukan.</system:String>
     <system:String x:Key="EmulatorParameters">Parameter Emulator</system:String>
@@ -289,6 +282,7 @@
     <system:String x:Key="Extractionfailed">Ekstraksi gagal.</system:String>
     <system:String x:Key="ExtractionFailedMessage">File berhasil diunduh, tetapi ekstraksi otomatis gagal. Ini bisa terjadi jika program antivirus sedang memindai atau mengunci file tersebut.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Ekstraksi Gagal</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Gagal mengonfigurasi emulator. File konfigurasi mungkin hilang, berada di lokasi yang tidak terduga, atau hanya-baca.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Gagal menyalin konten log.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Gagal memuat sumber bahasa.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Gambar gagal dimuat di jendela penampil gambar.</system:String>
@@ -318,7 +312,6 @@
     <system:String x:Key="Filename">Nama File</system:String>
     <system:String x:Key="FileNameColumnHeader">Nama File</system:String>
     <system:String x:Key="FileRemovedFromFavorites">File dihapus dari favorit.</system:String>
-    <system:String x:Key="FileSizeColumnHeader">Ukuran File</system:String>
     <system:String x:Key="FilterByAll">Filter berdasarkan Semua</system:String>
     <system:String x:Key="FilterByLetter">Filter berdasarkan Huruf</system:String>
     <system:String x:Key="FilterByNumber">Filter berdasarkan Nomor</system:String>
@@ -343,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Peluncuran game telah timeout. Silakan coba lagi atau periksa apakah emulator telah dimulai.</system:String>
     <system:String x:Key="GameListGrid">Grid Daftar Game</system:String>
     <system:String x:Key="GameListGridHelpText">Bantuan Grid Daftar Game</system:String>
-    <system:String x:Key="GameNotSupportedByRA">Game ini saat ini tidak didukung oleh database RetroAchievements.</system:String>
     <system:String x:Key="GamepadSupport">Dukungan Gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Snapshot Gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Snapshot Gameplay tidak ditemukan</system:String>
@@ -434,6 +426,8 @@
     <system:String x:Key="Language">Bahasa</system:String>
     <system:String x:Key="LanguageLoadingError">Ralat pemuatan bahasa</system:String>
     <system:String x:Key="LastAward">Penghargaan Terakhir:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">Tanggal Terakhir Dimainkan</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Waktu Terakhir Dimainkan</system:String>
     <system:String x:Key="LatestMasters">Master Terbaru</system:String>
     <system:String x:Key="launchedwith">diluncurkan dengan</system:String>
     <system:String x:Key="LaunchGame">Luncurkan Game</system:String>
@@ -473,6 +467,7 @@
     <system:String x:Key="Manual">Manual</system:String>
     <system:String x:Key="Manualnotfound">Panduan tidak ditemukan.</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Harap instal ulang 'Simple Launcher' secara manual untuk memperbaiki masalah.</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Jumlah Gambar yang Cocok</system:String>
     <system:String x:Key="MatchedImageCountLabel">Jumlah Gambar yang Cocok:</system:String>
     <system:String x:Key="Mauve">Ungu Muda</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Mungkin ada masalah dengan koneksi internet Anda atau server GitHub sedang offline.</system:String>
@@ -505,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">Tidak ada sistem yang dikonfigurasi. Harap gunakan menu 'Edit Sistem' untuk menambahkan sistem.</system:String>
     <system:String x:Key="Nosystemselected">Tidak ada sistem yang dipilih</system:String>
     <system:String x:Key="NoSystemsFound">Tidak ada sistem yang ditemukan dalam konfigurasi Anda.</system:String>
-    <system:String x:Key="NotAvailable">Tidak Tersedia</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Ruang disk tidak cukup untuk ekstraksi.</system:String>
     <system:String x:Key="Notextavailable">Tidak ada teks yang tersedia.</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">Bukan Favorit</system:String>
@@ -582,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">Silakan masukkan detail permintaan dukungan.</system:String>
     <system:String x:Key="Pleaseentertheemail">Silakan masukkan email.</system:String>
     <system:String x:Key="Pleaseenterthename">Silakan masukkan nama.</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Harap masukkan nama pengguna, kunci API, dan kata sandi RetroAchievements Anda sebelum mengonfigurasi emulator.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Harap perbaiki secara manual atau hapus.</system:String>
     <system:String x:Key="Pleasefixthat">Harap perbaiki itu.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Harap perbaiki ini di jendela edit.</system:String>
@@ -645,10 +640,12 @@
     <system:String x:Key="RestoreBackup">Pulihkan Cadangan?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">Tombol Overlay RetroAchievement</system:String>
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Kata Sandi</system:String>
     <system:String x:Key="RetroAchievementsSettings">Pengaturan Pencapaian Retro</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Mengembalikan pengaturan dead zone gamepad...</system:String>
     <system:String x:Key="RevertingLinkSettings">Mengembalikan pengaturan tautan...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Kembalikan ke Nilai Default</system:String>
+    <system:String x:Key="RomCountColumnHeader">Jumlah ROM atau ISO</system:String>
     <system:String x:Key="RomCountLabel">Jumlah ROM atau ISO:</system:String>
     <system:String x:Key="RomHistory">Riwayat ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Riwayat ROM tidak ditemukan</system:String>
@@ -726,6 +723,7 @@
     <system:String x:Key="Sienna">Coklat Tua</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' tidak dapat melakukan tugas yang diminta.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' tidak dapat mengakses Web API untuk mengunduh URL yang diperbarui. Silakan coba lagi nanti.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' tidak dapat menghitung nilai hash game ini atau game ini belum didukung oleh RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' tidak dapat memeriksa ruang disk untuk jalur yang ditentukan. Harap periksa jalur dan coba lagi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' tidak dapat menemukan aplikasi pembaru di GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>

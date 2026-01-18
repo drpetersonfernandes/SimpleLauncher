@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="EmulatorIntegration">Emülatör Entegrasyonu (Otomatik Kurulum)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">Şifre</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">Bir emülatörü yapılandırmadan önce lütfen RetroAchievements kullanıcı adınızı, API anahtarınızı ve şifrenizi girin.</system:String>
-    <system:String x:Key="CredentialsRequired">Kimlik Bilgileri Gerekli</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emülatör RetroAchievements için başarıyla yapılandırıldı!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">Emülatör yapılandırılamadı. Yapılandırma dosyası eksik olabilir, beklenmedik bir konumda olabilir veya salt okunur olabilir.</system:String>
-    <system:String x:Key="ConfigurationFailed">Yapılandırma Başarısız</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Emülatör yapılandırılırken bir hata oluştu.</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">Son Oynama Tarihi</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">Son Oynama Saati</system:String>
-    <system:String x:Key="RomCountColumnHeader">ROM veya ISO Sayısı</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">Eşleşen Görüntü Sayısı</system:String>
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -60,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Bu oyun favorilere eklenirken bir hata oluştu.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Küresel istatistikler hesaplanırken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Güncellemeler kontrol edilirken bir hata oluştu.</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Emülatör yapılandırılırken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Seçilen aracı başlatırken bir hata oluştu.</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM geçmişi yüklenirken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Tarayıcı açılırken bir hata oluştu.</system:String>
@@ -100,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
-    <system:String x:Key="Calculating">Hesaplanıyor...</system:String>
     <system:String x:Key="Cancel">İptal</system:String>
     <system:String x:Key="CancelButtonText">İptal</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
@@ -130,6 +118,7 @@
     <system:String x:Key="Close">Kapat</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="CompatibilityWarning">Uyumluluk Uyarısı</system:String>
+    <system:String x:Key="ConfigurationFailed">Yapılandırma Başarısız</system:String>
     <system:String x:Key="ConfigurationWarning">Yapılandırma Uyarısı</system:String>
     <system:String x:Key="Confirm">Onayla</system:String>
     <system:String x:Key="Confirmation">Onay</system:String>
@@ -150,6 +139,7 @@
     <system:String x:Key="Cover">Kapak</system:String>
     <system:String x:Key="Covernotfound">Kapak bulunamadı</system:String>
     <system:String x:Key="Creatingsystemfolders">Sistem klasörleri oluşturuluyor...</system:String>
+    <system:String x:Key="CredentialsRequired">Kimlik Bilgileri Gerekli</system:String>
     <system:String x:Key="Crimson">Kızıl</system:String>
     <system:String x:Key="CurrentlyPlaying">Şu Anda Oynanıyor</system:String>
     <system:String x:Key="CurrentSystemInfo">Mevcut Sistem</system:String>
@@ -207,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Son sürümü otomatik indirmek ve yüklemek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Hata ayıklamak için 'error_user.log' dosyasını açmak istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">'error_user.log' dosyasını açarak hatayı ayıklamak istiyor musunuz?</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">Genel RetroAchievements penceresini açmak istiyor musunuz?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' uygulamasını yeniden kurarak sorunu çözmek istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM geçmişini çevrimiçi aramak ister misiniz?</system:String>
     <system:String x:Key="EasyMode">Kolay Mod</system:String>
@@ -242,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
     <system:String x:Key="Emulator5Path">Emülatör 5 Yolu</system:String>
     <system:String x:Key="Emulator5pathisrequired">Emülatör 5 yolu gereklidir.</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emülatör RetroAchievements için başarıyla yapılandırıldı!</system:String>
+    <system:String x:Key="EmulatorIntegration">Emülatör Entegrasyonu (Otomatik Kurulum)</system:String>
     <system:String x:Key="EmulatorName">Emülatör Adı</system:String>
     <system:String x:Key="Emulatornameisrequired">Emülatör adı gereklidir.</system:String>
     <system:String x:Key="EmulatorParameters">Emülatör Parametreleri</system:String>
@@ -289,6 +282,7 @@
     <system:String x:Key="Extractionfailed">Arşivden çıkarma başarısız oldu.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Dosya başarıyla indirildi ancak otomatik çıkarma başarısız oldu. Bu, bir antivirüs programının dosyayı taraması veya kilitlemesi durumunda olabilir.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Çıkarma Başarısız</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Emülatör yapılandırılamadı. Yapılandırma dosyası eksik olabilir, beklenmedik bir konumda olabilir veya salt okunur olabilir.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Günlük içeriği kopyalanamadı.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Dil kaynakları yüklenemedi.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Resim görüntüleyici penceresinde resim yüklenemedi.</system:String>
@@ -318,7 +312,6 @@
     <system:String x:Key="Filename">Dosya Adı</system:String>
     <system:String x:Key="FileNameColumnHeader">Dosya Adı</system:String>
     <system:String x:Key="FileRemovedFromFavorites">Dosya favorilerden kaldırıldı.</system:String>
-    <system:String x:Key="FileSizeColumnHeader">Dosya Boyutu</system:String>
     <system:String x:Key="FilterByAll">Tümüne Göre Filtrele</system:String>
     <system:String x:Key="FilterByLetter">Harfe Göre Filtrele</system:String>
     <system:String x:Key="FilterByNumber">Numaraya Göre Filtrele</system:String>
@@ -343,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Oyun başlatma süresi doldu. Lütfen tekrar deneyin veya emülatörün başladığından emin olun.</system:String>
     <system:String x:Key="GameListGrid">Oyun Listesi Izgarası</system:String>
     <system:String x:Key="GameListGridHelpText">Oyun Listesi Izgarası Yardımı</system:String>
-    <system:String x:Key="GameNotSupportedByRA">Bu oyun şu anda RetroAchievements veritabanı tarafından desteklenmiyor.</system:String>
     <system:String x:Key="GamepadSupport">Gamepad desteği</system:String>
     <system:String x:Key="GameplaySnapshot">Oynanış Görüntüsü</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Oynanış Görüntüsü Bulunamadı</system:String>
@@ -434,6 +426,8 @@
     <system:String x:Key="Language">Dil</system:String>
     <system:String x:Key="LanguageLoadingError">Dil Yükleme Hatası</system:String>
     <system:String x:Key="LastAward">Son Ödül:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">Son Oynama Tarihi</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Son Oynama Saati</system:String>
     <system:String x:Key="LatestMasters">En Son Ustalar</system:String>
     <system:String x:Key="launchedwith">ile başlatıldı</system:String>
     <system:String x:Key="LaunchGame">Oyunu Başlat</system:String>
@@ -473,6 +467,7 @@
     <system:String x:Key="Manual">Kılavuz</system:String>
     <system:String x:Key="Manualnotfound">Kılavuz bulunamadı</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Sorunu düzeltmek için lütfen 'Simple Launcher'ı manuel olarak yeniden yükleyin.</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Eşleşen Görüntü Sayısı</system:String>
     <system:String x:Key="MatchedImageCountLabel">Eşleşen Resim Sayısı:</system:String>
     <system:String x:Key="Mauve">Eflatun</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Belki internet bağlantınızda bir sorun vardır ya da GitHub sunucusu çevrim dışıdır.</system:String>
@@ -505,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">Hiç sistem yapılandırılmadı. Sistem eklemek için 'Sistemi Düzenle' menüsünü kullanın.</system:String>
     <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
     <system:String x:Key="NoSystemsFound">Yapılandırmanızda hiçbir sistem bulunamadı.</system:String>
-    <system:String x:Key="NotAvailable">Mevcut Değil</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Çıkarma için yeterli disk alanı yok.</system:String>
     <system:String x:Key="Notextavailable">Metin bulunamadı.</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">Favori Değil</system:String>
@@ -582,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">Lütfen destek talebinin detaylarını girin.</system:String>
     <system:String x:Key="Pleaseentertheemail">Lütfen e-postayı girin.</system:String>
     <system:String x:Key="Pleaseenterthename">Lütfen ismi girin.</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Bir emülatörü yapılandırmadan önce lütfen RetroAchievements kullanıcı adınızı, API anahtarınızı ve şifrenizi girin.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Lütfen el ile düzeltin ya da dosyayı silin.</system:String>
     <system:String x:Key="Pleasefixthat">Lütfen bunu düzeltin.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Bunu düzenleme penceresinden düzeltin.</system:String>
@@ -645,10 +640,12 @@
     <system:String x:Key="RestoreBackup">Yedeği geri yükle?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement Katman Düğmesi</system:String>
     <system:String x:Key="RetroAchievements">RetroBaşarımlar</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Şifre</system:String>
     <system:String x:Key="RetroAchievementsSettings">Retro Başarımlar Ayarları</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad ölü bölge ayarları geri alınıyor...</system:String>
     <system:String x:Key="RevertingLinkSettings">Bağlantı ayarları geri alınıyor...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROM veya ISO Sayısı</system:String>
     <system:String x:Key="RomCountLabel">ROM veya ISO Sayısı:</system:String>
     <system:String x:Key="RomHistory">ROM Geçmişi</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM geçmişi bulunamadı</system:String>
@@ -726,6 +723,7 @@
     <system:String x:Key="Sienna">Kiremit</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' istenen görevi gerçekleştiremiyor.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher', güncellenmiş URL'leri indirmek için Web API'ye erişemedi. Lütfen daha sonra tekrar deneyin.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' bu oyunun hash değerini hesaplayamadı veya bu oyun henüz RetroAchievements tarafından desteklenmiyor.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher', belirtilen yol için disk alanını kontrol edemedi. Lütfen yolu kontrol edin ve tekrar deneyin.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' güncelleme uygulamasını GitHub'da bulamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>

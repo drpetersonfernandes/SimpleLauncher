@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="EmulatorIntegration">Интеграция эмулятора (Автоматическая настройка)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">Пароль</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">Пожалуйста, введите ваше имя пользователя RetroAchievements, ключ API и пароль перед настройкой эмулятора.</system:String>
-    <system:String x:Key="CredentialsRequired">Требуются учетные данные</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Эмулятор успешно настроен для RetroAchievements!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">Не удалось настроить эмулятор. Файл конфигурации может отсутствовать, находиться в неожиданном месте или быть доступным только для чтения.</system:String>
-    <system:String x:Key="ConfigurationFailed">Сбой конфигурации</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Произошла ошибка при настройке эмулятора.</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">Дата последнего запуска</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">Время последнего запуска</system:String>
-    <system:String x:Key="RomCountColumnHeader">Количество ROM или ISO</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">Количество совпадающих изображений</system:String>
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -60,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Произошла ошибка при добавлении этой игры в избранное.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Произошла ошибка при вычислении глобальной статистики.</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Произошла ошибка при проверке обновлений.</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Произошла ошибка при настройке эмулятора.</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Произошла ошибка при запуске выбранного инструмента.</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Произошла ошибка при загрузке истории ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Произошла ошибка при открытии браузера.</system:String>
@@ -100,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">Но я нашёл резервную копию файла.</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
-    <system:String x:Key="Calculating">Вычисление...</system:String>
     <system:String x:Key="Cancel">Отмена</system:String>
     <system:String x:Key="CancelButtonText">Отмена</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
@@ -130,6 +118,7 @@
     <system:String x:Key="Close">Закрыть</system:String>
     <system:String x:Key="Cobalt">Кобальтовый</system:String>
     <system:String x:Key="CompatibilityWarning">Предупреждение о совместимости</system:String>
+    <system:String x:Key="ConfigurationFailed">Сбой конфигурации</system:String>
     <system:String x:Key="ConfigurationWarning">Предупреждение о конфигурации</system:String>
     <system:String x:Key="Confirm">Подтвердить</system:String>
     <system:String x:Key="Confirmation">Подтверждение</system:String>
@@ -150,6 +139,7 @@
     <system:String x:Key="Cover">Обложка</system:String>
     <system:String x:Key="Covernotfound">Обложка не найдена</system:String>
     <system:String x:Key="Creatingsystemfolders">Создание папок системы...</system:String>
+    <system:String x:Key="CredentialsRequired">Требуются учетные данные</system:String>
     <system:String x:Key="Crimson">Малиновый</system:String>
     <system:String x:Key="CurrentlyPlaying">Сейчас играет</system:String>
     <system:String x:Key="CurrentSystemInfo">Текущая система</system:String>
@@ -207,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Хотите автоматически скачать и установить последнюю версию?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Вы хотите открыть файл 'error_user.log', чтобы отладить ошибку?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">Вы хотите открыть глобальное окно RetroAchievements?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Вы хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Хотите выполнить поиск истории ROM в интернете?</system:String>
     <system:String x:Key="EasyMode">Простой режим</system:String>
@@ -242,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">Параметры эмулятора 5</system:String>
     <system:String x:Key="Emulator5Path">Путь эмулятора 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">Требуется путь к Эмулятору 5.</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Эмулятор успешно настроен для RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorIntegration">Интеграция эмулятора (Автоматическая настройка)</system:String>
     <system:String x:Key="EmulatorName">Имя эмулятора</system:String>
     <system:String x:Key="Emulatornameisrequired">Требуется имя эмулятора.</system:String>
     <system:String x:Key="EmulatorParameters">Параметры эмулятора</system:String>
@@ -289,6 +282,7 @@
     <system:String x:Key="Extractionfailed">Распаковка не удалась.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Файл успешно загружен, но автоматическое извлечение не удалось. Это может произойти, если антивирусная программа сканирует или блокирует файл.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Извлечение не удалось</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Не удалось настроить эмулятор. Файл конфигурации может отсутствовать, находиться в неожиданном месте или быть доступным только для чтения.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Не удалось скопировать содержимое журнала.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Не удалось загрузить языковые ресурсы.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Не удалось загрузить изображение в окне просмотра изображений.</system:String>
@@ -318,7 +312,6 @@
     <system:String x:Key="Filename">Имя файла</system:String>
     <system:String x:Key="FileNameColumnHeader">Имя файла</system:String>
     <system:String x:Key="FileRemovedFromFavorites">Файл удален из избранного.</system:String>
-    <system:String x:Key="FileSizeColumnHeader">Размер файла</system:String>
     <system:String x:Key="FilterByAll">Фильтровать по всем</system:String>
     <system:String x:Key="FilterByLetter">Фильтровать по букве</system:String>
     <system:String x:Key="FilterByNumber">Фильтровать по номеру</system:String>
@@ -343,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Время запуска игры истекло. Пожалуйста, попробуйте снова или проверьте, запустился ли эмулятор.</system:String>
     <system:String x:Key="GameListGrid">Сетка списка игр</system:String>
     <system:String x:Key="GameListGridHelpText">Справка по сетке списка игр</system:String>
-    <system:String x:Key="GameNotSupportedByRA">Эта игра в настоящее время не поддерживается базой данных RetroAchievements.</system:String>
     <system:String x:Key="GamepadSupport">Поддержка геймпада</system:String>
     <system:String x:Key="GameplaySnapshot">Скриншот игрового процесса</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Скриншот игрового процесса не найден</system:String>
@@ -434,6 +426,8 @@
     <system:String x:Key="Language">Язык</system:String>
     <system:String x:Key="LanguageLoadingError">Ошибка загрузки языка</system:String>
     <system:String x:Key="LastAward">Последняя награда:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">Дата последнего запуска</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Время последнего запуска</system:String>
     <system:String x:Key="LatestMasters">Последние мастера</system:String>
     <system:String x:Key="launchedwith">запущено с помощью</system:String>
     <system:String x:Key="LaunchGame">Запустить игру</system:String>
@@ -473,6 +467,7 @@
     <system:String x:Key="Manual">Руководство</system:String>
     <system:String x:Key="Manualnotfound">Руководство не найдено</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Пожалуйста, переустановите 'Simple Launcher' вручную, чтобы устранить проблему.</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Количество совпадающих изображений</system:String>
     <system:String x:Key="MatchedImageCountLabel">Количество совпавших изображений:</system:String>
     <system:String x:Key="Mauve">Лавандовый</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Возможно, возникли проблемы с вашим интернет-соединением, либо сервер GitHub недоступен.</system:String>
@@ -505,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">Системы не настроены. Пожалуйста, используйте меню «Редактировать систему» для добавления систем.</system:String>
     <system:String x:Key="Nosystemselected">Система не выбрана</system:String>
     <system:String x:Key="NoSystemsFound">Системы в вашей конфигурации не найдены.</system:String>
-    <system:String x:Key="NotAvailable">Недоступно</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Недостаточно места на диске для извлечения.</system:String>
     <system:String x:Key="Notextavailable">Текст недоступен.</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">Не избранное</system:String>
@@ -582,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">Пожалуйста, введите детали запроса на поддержку.</system:String>
     <system:String x:Key="Pleaseentertheemail">Пожалуйста, введите электронную почту.</system:String>
     <system:String x:Key="Pleaseenterthename">Пожалуйста, введите имя.</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Пожалуйста, введите ваше имя пользователя RetroAchievements, ключ API и пароль перед настройкой эмулятора.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Исправьте его вручную или удалите.</system:String>
     <system:String x:Key="Pleasefixthat">Пожалуйста, исправьте это.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Исправьте это в окне редактирования.</system:String>
@@ -645,10 +640,12 @@
     <system:String x:Key="RestoreBackup">Восстановить резервную копию?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">Кнопка наложения RetroAchievement</system:String>
 <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Пароль</system:String>
     <system:String x:Key="RetroAchievementsSettings">Настройки ретро-достижений</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Отмена настроек мертвой зоны геймпада...</system:String>
     <system:String x:Key="RevertingLinkSettings">Отмена настроек ссылок...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
+    <system:String x:Key="RomCountColumnHeader">Количество ROM или ISO</system:String>
     <system:String x:Key="RomCountLabel">Количество ROM'ов или ISO:</system:String>
     <system:String x:Key="RomHistory">История ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">История ROM не найдена</system:String>
@@ -726,6 +723,7 @@
     <system:String x:Key="Sienna">Охра</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' не может выполнить запрошенную задачу.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' не удалось получить доступ к Web API для загрузки обновленных URL-адресов. Пожалуйста, попробуйте позже.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' не удалось вычислить хеш-сумму этой игры, или эта игра еще не поддерживается RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' не удалось проверить место на диске для указанного пути. Пожалуйста, проверьте путь и попробуйте снова.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' не удалось найти приложение обновления на GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>

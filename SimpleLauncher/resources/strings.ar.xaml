@@ -1,20 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    
-    <system:String x:Key="EmulatorIntegration">تكامل المحاكي (إعداد تلقائي)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">كلمة المرور</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">الرجاء إدخال اسم مستخدم RetroAchievements ومفتاح API وكلمة المرور قبل تهيئة المحاكي.</system:String>
-    <system:String x:Key="CredentialsRequired">بيانات الاعتماد مطلوبة</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">تم تكوين المحاكي بنجاح لـ RetroAchievements!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">فشل في تكوين المحاكي. قد يكون ملف التكوين مفقودًا، أو في موقع غير متوقع، أو للقراءة فقط.</system:String>
-    <system:String x:Key="ConfigurationFailed">فشل التكوين</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">حدث خطأ أثناء تكوين المحاكي.</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">تاريخ آخر تشغيل</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">وقت آخر تشغيل</system:String>
-    <system:String x:Key="RomCountColumnHeader">عدد ملفات ROM أو ISO</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">عدد الصور المطابقة</system:String>
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -62,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">حدث خطأ أثناء إضافة هذه اللعبة إلى المفضلات.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">حدث خطأ أثناء حساب الإحصائيات العالمية.</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">حدث خطأ أثناء التحقق من التحديثات.</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">حدث خطأ أثناء تكوين المحاكي.</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">حدث خطأ أثناء تشغيل الأداة المحددة.</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">حدث خطأ أثناء تحميل تاريخ ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">حدث خطأ أثناء فتح المتصفح.</system:String>
@@ -102,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
-    <system:String x:Key="Calculating">جارٍ الحساب...</system:String>
     <system:String x:Key="Cancel">إلغاء</system:String>
     <system:String x:Key="CancelButtonText">إلغاء</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
@@ -132,6 +118,7 @@
     <system:String x:Key="Close">إغلاق</system:String>
     <system:String x:Key="Cobalt">كوبالت</system:String>
     <system:String x:Key="CompatibilityWarning">تحذير التوافق</system:String>
+    <system:String x:Key="ConfigurationFailed">فشل التكوين</system:String>
     <system:String x:Key="ConfigurationWarning">تحذير التكوين</system:String>
     <system:String x:Key="Confirm">تأكيد</system:String>
     <system:String x:Key="Confirmation">تأكيد</system:String>
@@ -152,6 +139,7 @@
     <system:String x:Key="Cover">الغلاف</system:String>
     <system:String x:Key="Covernotfound">الغلاف غير موجود</system:String>
     <system:String x:Key="Creatingsystemfolders">جارٍ إنشاء مجلدات النظام...</system:String>
+    <system:String x:Key="CredentialsRequired">بيانات الاعتماد مطلوبة</system:String>
     <system:String x:Key="Crimson">أحمر داكن</system:String>
     <system:String x:Key="CurrentlyPlaying">يلعب حاليًا</system:String>
     <system:String x:Key="CurrentSystemInfo">النظام الحالي</system:String>
@@ -209,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">هل ترغب في تنزيل وتثبيت الإصدار الأخير تلقائيًا؟</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">هل تريد فتح الملف 'error_user.log' لتصحيح الخطأ؟</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">هل تريد فتح نافذة RetroAchievements العامة؟</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttosearchonline">هل تريد البحث عبر الإنترنت عن تاريخ روم؟</system:String>
     <system:String x:Key="EasyMode">الوضع السهل</system:String>
@@ -244,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
     <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">مسار المحاكي 5 مطلوب.</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">تم تكوين المحاكي بنجاح لـ RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorIntegration">تكامل المحاكي (إعداد تلقائي)</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
@@ -291,6 +282,7 @@
     <system:String x:Key="Extractionfailed">فشل الاستخراج.</system:String>
     <system:String x:Key="ExtractionFailedMessage">تم تنزيل الملف بنجاح، لكن فشل الاستخراج التلقائي. قد يحدث هذا إذا كان برنامج مكافحة الفيروسات يفحص الملف أو يقفله.</system:String>
     <system:String x:Key="ExtractionFailedTitle">فشل الاستخراج</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">فشل في تكوين المحاكي. قد يكون ملف التكوين مفقودًا، أو في موقع غير متوقع، أو للقراءة فقط.</system:String>
     <system:String x:Key="Failedtocopylogcontent">فشل نسخ محتوى السجل.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">فشل في تحميل موارد اللغة.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">فشل في تحميل الصورة في نافذة عارض الصور.</system:String>
@@ -320,7 +312,6 @@
     <system:String x:Key="Filename">اسم الملف</system:String>
     <system:String x:Key="FileNameColumnHeader">اسم الملف</system:String>
     <system:String x:Key="FileRemovedFromFavorites">تمت إزالة الملف من المفضلة.</system:String>
-    <system:String x:Key="FileSizeColumnHeader">حجم الملف</system:String>
     <system:String x:Key="FilterByAll">تصفية حسب الكل</system:String>
     <system:String x:Key="FilterByLetter">تصفية حسب الحرف</system:String>
     <system:String x:Key="FilterByNumber">تصفية حسب الرقم</system:String>
@@ -345,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">انتهت مهلة إطلاق اللعبة. يرجى المحاولة مرة أخرى أو التحقق مما إذا كان المحاكي قد بدأ.</system:String>
     <system:String x:Key="GameListGrid">شبكة قائمة الألعاب</system:String>
     <system:String x:Key="GameListGridHelpText">مساعدة شبكة قائمة الألعاب</system:String>
-    <system:String x:Key="GameNotSupportedByRA">هذه اللعبة غير مدعومة حاليًا بواسطة قاعدة بيانات RetroAchievements.</system:String>
     <system:String x:Key="GamepadSupport">دعم وحدة التحكم</system:String>
     <system:String x:Key="GameplaySnapshot">لقطة اللعب</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">لقطة اللعب غير موجودة</system:String>
@@ -436,6 +426,8 @@
     <system:String x:Key="Language">اللغة</system:String>
     <system:String x:Key="LanguageLoadingError">خطأ في تحميل اللغة</system:String>
     <system:String x:Key="LastAward">آخر جائزة:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">تاريخ آخر تشغيل</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">وقت آخر تشغيل</system:String>
     <system:String x:Key="LatestMasters">آخر من أتموا اللعبة</system:String>
     <system:String x:Key="launchedwith">تم الإطلاق باستخدام</system:String>
     <system:String x:Key="LaunchGame">تشغيل اللعبة</system:String>
@@ -475,6 +467,7 @@
     <system:String x:Key="Manual">الدليل</system:String>
     <system:String x:Key="Manualnotfound">لم يتم العثور على الدليل.</system:String>
     <system:String x:Key="ManualReinstallSuggestion">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">عدد الصور المطابقة</system:String>
     <system:String x:Key="MatchedImageCountLabel">عدد الصور المطابقة:</system:String>
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
@@ -507,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة "تحرير النظام" لإضافة أنظمة.</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="NoSystemsFound">لم يتم العثور على أنظمة في التكوين الخاص بك.</system:String>
-    <system:String x:Key="NotAvailable">غير متاح</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">مساحة القرص غير كافية للاستخراج.</system:String>
     <system:String x:Key="Notextavailable">لا يوجد نص متاح.</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">غير مفضل</system:String>
@@ -584,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">يرجى إدخال تفاصيل طلب الدعم.</system:String>
     <system:String x:Key="Pleaseentertheemail">يرجى إدخال البريد الإلكتروني.</system:String>
     <system:String x:Key="Pleaseenterthename">يرجى إدخال الاسم.</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">الرجاء إدخال اسم مستخدم RetroAchievements ومفتاح API وكلمة المرور قبل تهيئة المحاكي.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">يرجى إصلاحه يدويًا أو حذفه.</system:String>
     <system:String x:Key="Pleasefixthat">يرجى إصلاح ذلك.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">يرجى إصلاح ذلك في نافذة التحرير.</system:String>
@@ -647,10 +640,12 @@
     <system:String x:Key="RestoreBackup">استعادة النسخة الاحتياطية؟</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">زر تراكب الإنجازات الرجعية</system:String>
     <system:String x:Key="RetroAchievements">إنجازات الريترو</system:String>
+    <system:String x:Key="RetroAchievementsPassword">كلمة المرور</system:String>
     <system:String x:Key="RetroAchievementsSettings">إعدادات إنجازات ريترو</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">التراجع عن إعدادات منطقة الموت للوحة الألعاب...</system:String>
     <system:String x:Key="RevertingLinkSettings">التراجع عن إعدادات الروابط...</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
+    <system:String x:Key="RomCountColumnHeader">عدد ملفات ROM أو ISO</system:String>
     <system:String x:Key="RomCountLabel">عدد ملفات ROMs أو ISOs:</system:String>
     <system:String x:Key="RomHistory">تاريخ روم</system:String>
     <system:String x:Key="ROMHistorynotfound">لم يتم العثور على تاريخ روم</system:String>
@@ -728,6 +723,7 @@
     <system:String x:Key="Sienna">سيينا</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">لا يمكن لـ "Simple Launcher" تنفيذ المهمة المطلوبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">تعذر على "Simple Launcher" الوصول إلى واجهة برمجة تطبيقات الويب (Web API) لتنزيل عناوين URL المحدثة. يرجى المحاولة مرة أخرى لاحقاً.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">لم يتمكن 'Simple Launcher' من حساب قيمة الهاش لهذه اللعبة أو أن هذه اللعبة غير مدعومة بعد من قبل RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">لم يتمكن 'Simple Launcher' من التحقق من مساحة القرص للمسار المحدد. يرجى التحقق من المسار والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">لم يتمكن 'Simple Launcher' من العثور على تطبيق التحديث على GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>

@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="EmulatorIntegration">模拟器集成 (自动设置)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">密码</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">在配置模拟器之前，请先输入您的RetroAchievements用户名、API密钥和密码。</system:String>
-    <system:String x:Key="CredentialsRequired">需要凭据</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">模拟器已成功为RetroAchievements配置！</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">配置模拟器失败。配置文件可能丢失、位于意外位置或只读。</system:String>
-    <system:String x:Key="ConfigurationFailed">配置失败</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">配置模拟器时发生错误。</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">上次游玩日期</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">上次游玩时间</system:String>
-    <system:String x:Key="RomCountColumnHeader">ROM或ISO数量</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">匹配图片数量</system:String>
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -60,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">在将这个游戏添加到最爱时出现错误。</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">计算全局统计数据时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">检查更新时发生错误。</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">配置模拟器时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">启动所选工具时出现错误。</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">加载ROM历史记录时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">打开浏览器时发生错误。</system:String>
@@ -100,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">但我找到了一个备份文件。</system:String>
     <system:String x:Key="Cabinet">机柜</system:String>
     <system:String x:Key="Cabinetnotfound">未找到机柜</system:String>
-    <system:String x:Key="Calculating">正在计算...</system:String>
     <system:String x:Key="Cancel">取消</system:String>
     <system:String x:Key="CancelButtonText">取消</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下载...</system:String>
@@ -130,6 +118,7 @@
     <system:String x:Key="Close">关闭</system:String>
     <system:String x:Key="Cobalt">钴蓝色</system:String>
     <system:String x:Key="CompatibilityWarning">兼容性警告</system:String>
+    <system:String x:Key="ConfigurationFailed">配置失败</system:String>
     <system:String x:Key="ConfigurationWarning">配置警告</system:String>
     <system:String x:Key="Confirm">确认</system:String>
     <system:String x:Key="Confirmation">确认</system:String>
@@ -150,6 +139,7 @@
     <system:String x:Key="Cover">封面</system:String>
     <system:String x:Key="Covernotfound">未找到封面</system:String>
     <system:String x:Key="Creatingsystemfolders">正在创建系统文件夹...</system:String>
+    <system:String x:Key="CredentialsRequired">需要凭据</system:String>
     <system:String x:Key="Crimson">深红色</system:String>
     <system:String x:Key="CurrentlyPlaying">当前正在玩</system:String>
     <system:String x:Key="CurrentSystemInfo">当前系统</system:String>
@@ -207,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">您希望自动下载并安装最新版本吗？</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">是否希望打开文件 'error_user.log' 以排查错误？</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">你想打开 'error_user.log' 文件来调试错误吗？</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">您要打开全局 RetroAchievements 窗口吗？</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您希望重新安装'Simple Launcher'以修复问题吗?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">您想在线搜索 ROM 历史记录吗？</system:String>
     <system:String x:Key="EasyMode">简单模式</system:String>
@@ -242,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">模拟器5参数</system:String>
     <system:String x:Key="Emulator5Path">模拟器5路径</system:String>
     <system:String x:Key="Emulator5pathisrequired">模拟器5路径是必需的。</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">模拟器已成功为RetroAchievements配置！</system:String>
+    <system:String x:Key="EmulatorIntegration">模拟器集成 (自动设置)</system:String>
     <system:String x:Key="EmulatorName">模拟器名称</system:String>
     <system:String x:Key="Emulatornameisrequired">需要模拟器名称。</system:String>
     <system:String x:Key="EmulatorParameters">模拟器参数</system:String>
@@ -289,6 +282,7 @@
     <system:String x:Key="Extractionfailed">解压失败。</system:String>
     <system:String x:Key="ExtractionFailedMessage">文件下载成功，但自动解压失败。这可能发生在杀毒软件扫描或锁定文件时。</system:String>
     <system:String x:Key="ExtractionFailedTitle">解压失败</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">配置模拟器失败。配置文件可能丢失、位于意外位置或只读。</system:String>
     <system:String x:Key="Failedtocopylogcontent">复制日志内容失败。</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">无法加载语言资源。</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">无法在图片查看器窗口中加载图片。</system:String>
@@ -318,7 +312,6 @@
     <system:String x:Key="Filename">文件名</system:String>
     <system:String x:Key="FileNameColumnHeader">文件名</system:String>
     <system:String x:Key="FileRemovedFromFavorites">文件已从收藏夹中移除。</system:String>
-    <system:String x:Key="FileSizeColumnHeader">文件大小</system:String>
     <system:String x:Key="FilterByAll">按全部筛选</system:String>
     <system:String x:Key="FilterByLetter">按字母筛选</system:String>
     <system:String x:Key="FilterByNumber">按数字筛选</system:String>
@@ -343,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">游戏启动超时。请重试或检查模拟器是否已启动。</system:String>
     <system:String x:Key="GameListGrid">游戏列表网格</system:String>
     <system:String x:Key="GameListGridHelpText">游戏列表网格帮助</system:String>
-    <system:String x:Key="GameNotSupportedByRA">此游戏目前不受 RetroAchievements 数据库支持。</system:String>
     <system:String x:Key="GamepadSupport">手柄支持</system:String>
     <system:String x:Key="GameplaySnapshot">游戏截图</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">未找到游戏截图</system:String>
@@ -434,6 +426,8 @@
     <system:String x:Key="Language">语言</system:String>
     <system:String x:Key="LanguageLoadingError">语言加载错误</system:String>
     <system:String x:Key="LastAward">上次奖励：</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">上次游玩日期</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">上次游玩时间</system:String>
     <system:String x:Key="LatestMasters">最新大师</system:String>
     <system:String x:Key="launchedwith">启动方式：</system:String>
     <system:String x:Key="LaunchGame">启动游戏</system:String>
@@ -473,6 +467,7 @@
     <system:String x:Key="Manual">手册</system:String>
     <system:String x:Key="Manualnotfound">找不到手册</system:String>
     <system:String x:Key="ManualReinstallSuggestion">请手动重新安装“Simple Launcher”以解决此问题。</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">匹配图片数量</system:String>
     <system:String x:Key="MatchedImageCountLabel">匹配图像数量:</system:String>
     <system:String x:Key="Mauve">淡紫色</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">可能是您的互联网连接有问题，或者 GitHub 服务器当前不可用。</system:String>
@@ -505,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">未配置系统。请使用“编辑系统”菜单添加系统。</system:String>
     <system:String x:Key="Nosystemselected">未选择任何系统</system:String>
     <system:String x:Key="NoSystemsFound">您的配置中未找到任何系统。</system:String>
-    <system:String x:Key="NotAvailable">不可用</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">没有足够的磁盘空间进行提取。</system:String>
     <system:String x:Key="Notextavailable">无可用文本。</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">未收藏</system:String>
@@ -582,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">请输入支持请求的详细信息。</system:String>
     <system:String x:Key="Pleaseentertheemail">请输入电子邮件。</system:String>
     <system:String x:Key="Pleaseenterthename">请输入姓名。</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">在配置模拟器之前，请先输入您的RetroAchievements用户名、API密钥和密码。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">请手动修复或删除。</system:String>
     <system:String x:Key="Pleasefixthat">请修复此问题。</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">请在编辑窗口中修复。</system:String>
@@ -645,10 +640,12 @@
     <system:String x:Key="RestoreBackup">恢复备份？</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement 叠加按钮</system:String>
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievementsPassword">密码</system:String>
     <system:String x:Key="RetroAchievementsSettings">复古成就设置</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">正在恢复手柄死区设置...</system:String>
     <system:String x:Key="RevertingLinkSettings">正在恢复链接设置...</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢复为默认值</system:String>
+    <system:String x:Key="RomCountColumnHeader">ROM或ISO数量</system:String>
     <system:String x:Key="RomCountLabel">ROM 或 ISO 数量:</system:String>
     <system:String x:Key="RomHistory">ROM 历史记录</system:String>
     <system:String x:Key="ROMHistorynotfound">未找到 ROM 历史记录</system:String>
@@ -726,6 +723,7 @@
     <system:String x:Key="Sienna">赭石色</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">“Simple Launcher”无法执行请求的任务。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' 无法访问 Web API 以下载更新的 URL。请稍后重试。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">“Simple Launcher”无法计算此游戏的哈希值，或者 RetroAchievements 尚不支持此游戏。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">“Simple Launcher”无法检查指定路径的磁盘空间。请检查路径并重试。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' 未能在 GitHub 上找到更新器应用程序。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">“Simple Launcher”无法启动所选游戏。</system:String>

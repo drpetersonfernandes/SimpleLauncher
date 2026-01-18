@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="EmulatorIntegration">Emulator-integratie (Automatische installatie)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">Wachtwoord</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">Voer uw RetroAchievements gebruikersnaam, API-sleutel en wachtwoord in voordat u een emulator configureert.</system:String>
-    <system:String x:Key="CredentialsRequired">Gegevens vereist</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator succesvol geconfigureerd voor RetroAchievements!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">Het configureren van de emulator is mislukt. Het configuratiebestand is mogelijk zoek, bevindt zich op een onverwachte locatie of is alleen-lezen.</system:String>
-    <system:String x:Key="ConfigurationFailed">Configuratie mislukt</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Er is een fout opgetreden tijdens het configureren van de emulator.</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">Laatst gespeeld (datum)</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">Laatst gespeeld (tijd)</system:String>
-    <system:String x:Key="RomCountColumnHeader">Aantal ROMs of ISO's</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">Aantal overeenkomende afbeeldingen</system:String>
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -60,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Er is een fout opgetreden bij het toevoegen van dit spel aan de favorieten.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Er is een fout opgetreden bij het berekenen van de globale statistieken.</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Er is een fout opgetreden bij het controleren op updates.</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Er is een fout opgetreden tijdens het configureren van de emulator.</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Er is een fout opgetreden bij het starten van het geselecteerde hulpmiddel.</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Er is een fout opgetreden bij het laden van de ROM-geschiedenis.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Er is een fout opgetreden bij het openen van de browser.</system:String>
@@ -100,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
-    <system:String x:Key="Calculating">Bezig met berekenen...</system:String>
     <system:String x:Key="Cancel">Annuleren</system:String>
     <system:String x:Key="CancelButtonText">Annuleer</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
@@ -130,6 +118,7 @@
     <system:String x:Key="Close">Sluiten</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="CompatibilityWarning">Compatibiliteitswaarschuwing</system:String>
+    <system:String x:Key="ConfigurationFailed">Configuratie mislukt</system:String>
     <system:String x:Key="ConfigurationWarning">Configuratie waarschuwing</system:String>
     <system:String x:Key="Confirm">Bevestigen</system:String>
     <system:String x:Key="Confirmation">Bevestiging</system:String>
@@ -150,6 +139,7 @@
     <system:String x:Key="Cover">Voorblad</system:String>
     <system:String x:Key="Covernotfound">Voorblad niet gevonden</system:String>
     <system:String x:Key="Creatingsystemfolders">Systeemmappen worden aangemaakt...</system:String>
+    <system:String x:Key="CredentialsRequired">Gegevens vereist</system:String>
     <system:String x:Key="Crimson">Karmozijn</system:String>
     <system:String x:Key="CurrentlyPlaying">Momenteel Aan Het Spelen</system:String>
     <system:String x:Key="CurrentSystemInfo">Huidig Systeem</system:String>
@@ -207,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Wil je de laatste versie automatisch downloaden en installeren?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Wil je het bestand 'error_user.log' openen om de fout op te sporen?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">Wilt u het globale RetroAchievements-venster openen?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wilt u 'Simple Launcher' opnieuw installeren om het probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Wil je online zoeken naar de ROM-geschiedenis?</system:String>
     <system:String x:Key="EasyMode">Eenvoudige modus</system:String>
@@ -242,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
     <system:String x:Key="Emulator5Path">Emulator 5 Pad</system:String>
     <system:String x:Key="Emulator5pathisrequired">Emulator 5-pad is vereist.</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator succesvol geconfigureerd voor RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorIntegration">Emulator-integratie (Automatische installatie)</system:String>
     <system:String x:Key="EmulatorName">Naam van de emulator</system:String>
     <system:String x:Key="Emulatornameisrequired">Emulatornaam is vereist.</system:String>
     <system:String x:Key="EmulatorParameters">Parameters van de emulator</system:String>
@@ -289,6 +282,7 @@
     <system:String x:Key="Extractionfailed">Uitpakken mislukt.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Het bestand is succesvol gedownload, maar automatische extractie is mislukt. Dit kan gebeuren als een antivirusprogramma het bestand scant of vergrendelt.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Extractie mislukt</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Het configureren van de emulator is mislukt. Het configuratiebestand is mogelijk zoek, bevindt zich op een onverwachte locatie of is alleen-lezen.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Kopiëren van loginhoud mislukt.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Het laden van taalbronnen is mislukt.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">De afbeelding kon niet worden geladen in het afbeeldingsvenster.</system:String>
@@ -318,7 +312,6 @@
     <system:String x:Key="Filename">Bestandsnaam</system:String>
     <system:String x:Key="FileNameColumnHeader">Bestandsnaam</system:String>
     <system:String x:Key="FileRemovedFromFavorites">Bestand verwijderd uit favorieten.</system:String>
-    <system:String x:Key="FileSizeColumnHeader">Bestandsgrootte</system:String>
     <system:String x:Key="FilterByAll">Filteren op alles</system:String>
     <system:String x:Key="FilterByLetter">Filteren op letter</system:String>
     <system:String x:Key="FilterByNumber">Filteren op nummer</system:String>
@@ -343,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Game-lancering is verlopen. Probeer het opnieuw of controleer of de emulator is gestart.</system:String>
     <system:String x:Key="GameListGrid">Game Lijst Raster</system:String>
     <system:String x:Key="GameListGridHelpText">Help voor Game Lijst Raster</system:String>
-    <system:String x:Key="GameNotSupportedByRA">Deze game wordt momenteel niet ondersteund door de RetroAchievements-database.</system:String>
     <system:String x:Key="GamepadSupport">Gamepad-ondersteuning</system:String>
     <system:String x:Key="GameplaySnapshot">Gameplay-momentopname</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Gameplaymomentopname niet gevonden</system:String>
@@ -434,6 +426,8 @@
     <system:String x:Key="Language">Taal</system:String>
     <system:String x:Key="LanguageLoadingError">Fout bij het laden van taal</system:String>
     <system:String x:Key="LastAward">Laatste Award:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">Laatst gespeeld (datum)</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Laatst gespeeld (tijd)</system:String>
     <system:String x:Key="LatestMasters">Nieuwste Masters</system:String>
     <system:String x:Key="launchedwith">gestart met</system:String>
     <system:String x:Key="LaunchGame">Spel starten</system:String>
@@ -473,6 +467,7 @@
     <system:String x:Key="Manual">Handleiding</system:String>
     <system:String x:Key="Manualnotfound">Handleiding niet gevonden</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Aantal overeenkomende afbeeldingen</system:String>
     <system:String x:Key="MatchedImageCountLabel">Aantal overeenkomende afbeeldingen:</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
@@ -505,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">Geen systemen geconfigureerd. Gebruik het menu 'Systeem bewerken' om systemen toe te voegen.</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
     <system:String x:Key="NoSystemsFound">Geen systemen gevonden in uw configuratie.</system:String>
-    <system:String x:Key="NotAvailable">Niet beschikbaar</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Onvoldoende schijfruimte voor extractie.</system:String>
     <system:String x:Key="Notextavailable">Geen tekst beschikbaar.</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">Geen Favoriet</system:String>
@@ -582,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">Voer de details van het ondersteuningsverzoek in.</system:String>
     <system:String x:Key="Pleaseentertheemail">Voer het e-mailadres in.</system:String>
     <system:String x:Key="Pleaseenterthename">Voer de naam in.</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Voer uw RetroAchievements gebruikersnaam, API-sleutel en wachtwoord in voordat u een emulator configureert.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Los dit handmatig op of verwijder het bestand.</system:String>
     <system:String x:Key="Pleasefixthat">Los dit alsjeblieft op.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Los dit op in het Bewerken-venster.</system:String>
@@ -645,10 +640,12 @@
     <system:String x:Key="RestoreBackup">Back-up herstellen?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement-overlayknop</system:String>
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Wachtwoord</system:String>
     <system:String x:Key="RetroAchievementsSettings">Retro Prestaties Instellingen</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad Dead Zone-instellingen herstellen...</system:String>
     <system:String x:Key="RevertingLinkSettings">Linkinstellingen herstellen...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
+    <system:String x:Key="RomCountColumnHeader">Aantal ROMs of ISO's</system:String>
     <system:String x:Key="RomCountLabel">Aantal ROM's of ISO's:</system:String>
     <system:String x:Key="RomHistory">ROM-geschiedenis</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM-geschiedenis niet gevonden</system:String>
@@ -726,6 +723,7 @@
     <system:String x:Key="Sienna">Sienna</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' kan de gevraagde taak niet uitvoeren.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' kon geen toegang krijgen tot de Web API om de bijgewerkte URL's te downloaden. Probeer het later opnieuw.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' kon de hash-waarde van dit spel niet berekenen of dit spel wordt nog niet ondersteund door RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' kon de schijfruimte voor het opgegeven pad niet controleren. Controleer het pad en probeer het opnieuw.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' kon de updater-applicatie niet vinden op GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>

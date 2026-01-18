@@ -1,18 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="EmulatorIntegration">Integrazione Emulatore (Configurazione Automatica)</system:String>
-    <system:String x:Key="RetroAchievementsPassword">Password</system:String>
-    <system:String x:Key="PleaseenteryourRetroAchievements">Inserisci il tuo nome utente, la chiave API e la password di RetroAchievements prima di configurare un emulatore.</system:String>
-    <system:String x:Key="CredentialsRequired">Credenziali Richieste</system:String>
-    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulatore configurato con successo per RetroAchievements!</system:String>
-    <system:String x:Key="Failedtoconfiguretheemulator">Impossibile configurare l'emulatore. Il file di configurazione potrebbe mancare, trovarsi in una posizione inattesa o essere di sola lettura.</system:String>
-    <system:String x:Key="ConfigurationFailed">Configurazione Fallita</system:String>
-    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Si è verificato un errore durante la configurazione dell'emulatore.</system:String>
-    <system:String x:Key="LastPlayedDateColumnHeader">Data ultima riproduzione</system:String>
-    <system:String x:Key="LastPlayedTimeColumnHeader">Ora ultima riproduzione</system:String>
-    <system:String x:Key="RomCountColumnHeader">Numero di ROM o ISO</system:String>
-    <system:String x:Key="MatchedImageCountColumnHeader">Numero di immagini corrispondenti</system:String>
     <system:String x:Key="1000000games">Tutti i giochi</system:String>
     <system:String x:Key="10000games">10000 giochi</system:String>
     <system:String x:Key="1000games">1000 giochi</system:String>
@@ -60,6 +48,7 @@
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Si è verificato un errore durante l'aggiunta di questo gioco ai preferiti.</system:String>
     <system:String x:Key="AnerroroccurredwhilecalculatingtheGlobal">Si è verificato un errore durante il calcolo delle statistiche globali.</system:String>
     <system:String x:Key="Anerroroccurredwhilecheckingforupdates">Si è verificato un errore durante il controllo degli aggiornamenti.</system:String>
+    <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">Si è verificato un errore durante la configurazione dell'emulatore.</system:String>
     <system:String x:Key="Anerroroccurredwhilelaunchingtheselectedtool">Si è verificato un errore durante l'avvio dello strumento selezionato.</system:String>
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Si è verificato un errore durante il caricamento della cronologia ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Si è verificato un errore durante l'apertura del browser.</system:String>
@@ -100,7 +89,6 @@
     <system:String x:Key="ButIfoundabackupfile">Ma ho trovato un file di backup.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet non trovato</system:String>
-    <system:String x:Key="Calculating">Calcolo in corso...</system:String>
     <system:String x:Key="Cancel">Annulla</system:String>
     <system:String x:Key="CancelButtonText">Annulla</system:String>
     <system:String x:Key="Cancelingdownload">Annullamento del download...</system:String>
@@ -130,6 +118,7 @@
     <system:String x:Key="Close">Chiudi</system:String>
     <system:String x:Key="Cobalt">Cobalto</system:String>
     <system:String x:Key="CompatibilityWarning">Avviso di compatibilità</system:String>
+    <system:String x:Key="ConfigurationFailed">Configurazione Fallita</system:String>
     <system:String x:Key="ConfigurationWarning">Avviso di configurazione</system:String>
     <system:String x:Key="Confirm">Conferma</system:String>
     <system:String x:Key="Confirmation">Conferma</system:String>
@@ -150,6 +139,7 @@
     <system:String x:Key="Cover">Copertina</system:String>
     <system:String x:Key="Covernotfound">Copertina non trovata</system:String>
     <system:String x:Key="Creatingsystemfolders">Creazione delle cartelle di sistema...</system:String>
+    <system:String x:Key="CredentialsRequired">Credenziali Richieste</system:String>
     <system:String x:Key="Crimson">Cremisi</system:String>
     <system:String x:Key="CurrentlyPlaying">Attualmente in Gioco</system:String>
     <system:String x:Key="CurrentSystemInfo">Sistema Attuale</system:String>
@@ -207,6 +197,7 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Vuoi scaricare e installare automaticamente l'ultima versione?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Vuoi aprire il file 'error_user.log' per eseguire il debug dell'errore?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Vuoi aprire il file 'error_user.log' per effettuare il debug dell'errore?</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">Vuoi aprire la finestra globale di RetroAchievements?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Vuoi reinstallare 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Vuoi cercare online la cronologia ROM?</system:String>
     <system:String x:Key="EasyMode">Modalità facile</system:String>
@@ -242,6 +233,8 @@
     <system:String x:Key="Emulator5Parameters">Parametri emulatore 5</system:String>
     <system:String x:Key="Emulator5Path">Percorso Emulatore 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">Il percorso dell'Emulatore 5 è richiesto.</system:String>
+    <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulatore configurato con successo per RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorIntegration">Integrazione Emulatore (Configurazione Automatica)</system:String>
     <system:String x:Key="EmulatorName">Nome dell'Emulatore</system:String>
     <system:String x:Key="Emulatornameisrequired">Il nome dell'emulatore è obbligatorio.</system:String>
     <system:String x:Key="EmulatorParameters">Parametri dell'Emulatore</system:String>
@@ -289,6 +282,7 @@
     <system:String x:Key="Extractionfailed">L'estrazione è fallita.</system:String>
     <system:String x:Key="ExtractionFailedMessage">Il file è stato scaricato con successo, ma l'estrazione automatica è fallita. Questo può accadere se un programma antivirus sta scansionando o bloccando il file.</system:String>
     <system:String x:Key="ExtractionFailedTitle">Estrazione fallita</system:String>
+    <system:String x:Key="Failedtoconfiguretheemulator">Impossibile configurare l'emulatore. Il file di configurazione potrebbe mancare, trovarsi in una posizione inattesa o essere di sola lettura.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Impossibile copiare il contenuto del log.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Caricamento delle risorse linguistiche non riuscito.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Impossibile caricare l'immagine nella finestra del visualizzatore di immagini.</system:String>
@@ -318,7 +312,6 @@
     <system:String x:Key="Filename">Nome file</system:String>
     <system:String x:Key="FileNameColumnHeader">Nome File</system:String>
     <system:String x:Key="FileRemovedFromFavorites">File rimosso dai preferiti.</system:String>
-    <system:String x:Key="FileSizeColumnHeader">Dimensione File</system:String>
     <system:String x:Key="FilterByAll">Filtra per Tutto</system:String>
     <system:String x:Key="FilterByLetter">Filtra per Lettera</system:String>
     <system:String x:Key="FilterByNumber">Filtra per Numero</system:String>
@@ -343,7 +336,6 @@
     <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Avvio del gioco scaduto. Riprova o verifica se l'emulatore è stato avviato.</system:String>
     <system:String x:Key="GameListGrid">Griglia Elenco Giochi</system:String>
     <system:String x:Key="GameListGridHelpText">Aiuto Griglia Elenco Giochi</system:String>
-    <system:String x:Key="GameNotSupportedByRA">Questo gioco non è attualmente supportato dal database RetroAchievements.</system:String>
     <system:String x:Key="GamepadSupport">Supporto per gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Istantanea del gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Istantanea del gameplay non trovata</system:String>
@@ -434,6 +426,8 @@
     <system:String x:Key="Language">Lingua</system:String>
     <system:String x:Key="LanguageLoadingError">Errore nel caricamento della lingua</system:String>
     <system:String x:Key="LastAward">Ultimo Riconoscimento:</system:String>
+    <system:String x:Key="LastPlayedDateColumnHeader">Data ultima riproduzione</system:String>
+    <system:String x:Key="LastPlayedTimeColumnHeader">Ora ultima riproduzione</system:String>
     <system:String x:Key="LatestMasters">Ultimi Maestri</system:String>
     <system:String x:Key="launchedwith">avviato con</system:String>
     <system:String x:Key="LaunchGame">Avvia gioco</system:String>
@@ -473,6 +467,7 @@
     <system:String x:Key="Manual">Manuale</system:String>
     <system:String x:Key="Manualnotfound">Manuale non trovato.</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Reinstallare 'Simple Launcher' manualmente per risolvere il problema.</system:String>
+    <system:String x:Key="MatchedImageCountColumnHeader">Numero di immagini corrispondenti</system:String>
     <system:String x:Key="MatchedImageCountLabel">Numero di immagini corrispondenti:</system:String>
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Forse c'è un problema con la tua connessione internet o il server di GitHub è offline.</system:String>
@@ -505,7 +500,6 @@
     <system:String x:Key="NoSystemsConfiguredMessage">Nessun sistema configurato. Usa il menu "Modifica sistema" per aggiungere sistemi.</system:String>
     <system:String x:Key="Nosystemselected">Nessun sistema selezionato</system:String>
     <system:String x:Key="NoSystemsFound">Nessun sistema trovato nella configurazione.</system:String>
-    <system:String x:Key="NotAvailable">Non disponibile</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Spazio su disco insufficiente per l'estrazione.</system:String>
     <system:String x:Key="Notextavailable">Nessun testo disponibile.</system:String>
     <system:String x:Key="NotFavoriteStatusLabel">Non Preferito</system:String>
@@ -582,6 +576,7 @@
     <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">Inserisci i dettagli della richiesta di supporto.</system:String>
     <system:String x:Key="Pleaseentertheemail">Inserisci l'email.</system:String>
     <system:String x:Key="Pleaseenterthename">Inserisci il nome.</system:String>
+    <system:String x:Key="PleaseenteryourRetroAchievements">Inserisci il tuo nome utente, la chiave API e la password di RetroAchievements prima di configurare un emulatore.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Correggilo manualmente o eliminalo.</system:String>
     <system:String x:Key="Pleasefixthat">Per favore correggi questo.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Per favore, correggi questo nella finestra di modifica.</system:String>
@@ -645,10 +640,12 @@
     <system:String x:Key="RestoreBackup">Ripristinare il backup?</system:String>
     <system:String x:Key="RetroAchievementOverlayButton">Pulsante overlay RetroAchievement</system:String>
     <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="RetroAchievementsPassword">Password</system:String>
     <system:String x:Key="RetroAchievementsSettings">Impostazioni Obiettivi Retro</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Ripristino impostazioni zona morta gamepad...</system:String>
     <system:String x:Key="RevertingLinkSettings">Ripristino impostazioni link...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Ripristina ai valori predefiniti</system:String>
+    <system:String x:Key="RomCountColumnHeader">Numero di ROM o ISO</system:String>
     <system:String x:Key="RomCountLabel">Numero di ROM o ISO:</system:String>
     <system:String x:Key="RomHistory">Cronologia ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Cronologia ROM non trovata</system:String>
@@ -726,6 +723,7 @@
     <system:String x:Key="Sienna">Terra di Siena</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' non può eseguire l'attività richiesta.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' non ha potuto accedere alla Web API per scaricare gli URL aggiornati. Per favore riprova più tardi.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' non è riuscito a calcolare il valore hash di questo gioco o questo gioco non è ancora supportato da RetroAchievements. </system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' non è riuscito a controllare lo spazio su disco per il percorso specificato. Controllare il percorso e riprovare.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' non è riuscito a trovare l'applicazione di aggiornamento su GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' non è riuscito ad avviare il gioco selezionato.</system:String>
