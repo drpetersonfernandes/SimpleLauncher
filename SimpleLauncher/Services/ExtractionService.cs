@@ -171,6 +171,11 @@ public class ExtractionService : IExtractionService
 
                         // Path traversal check
                         var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
+                        if (!fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                        {
+                            fullResolvedDestFolder += Path.DirectorySeparatorChar;
+                        }
+
                         foreach (ZipEntry zipEntry in zipFile)
                         {
                             var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, zipEntry.Name));
@@ -292,6 +297,10 @@ public class ExtractionService : IExtractionService
 
                 // First, validate for path traversal before extracting
                 var fullTempDir = Path.GetFullPath(tempDirectory);
+                if (!fullTempDir.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                {
+                    fullTempDir += Path.DirectorySeparatorChar;
+                }
 
                 foreach (var entry in extractor.ArchiveFileData)
                 {
