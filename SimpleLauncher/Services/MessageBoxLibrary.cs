@@ -2973,17 +2973,16 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void GameNotSupportedByRetroAchievementsMessageBox()
+    internal static MessageBoxResult GameNotSupportedByRetroAchievementsMessageBox()
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
-            var message = (string)Application.Current.TryFindResource("GameNotSupportedByRA") ?? "This game is not currently supported by the RetroAchievements database.";
+            var message1 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotcalculate") ?? "'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.";
+            var message2 = (string)Application.Current.TryFindResource("DoyouwanttoopentheglobalRetroAchievements") ?? "Do you want to open the global RetroAchievements window?";
             var title = (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements";
-            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+            return MessageBox.Show($"{message1}\n\n" +
+                                   $"{message2}", title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void GameLaunchTimeoutMessageBox()

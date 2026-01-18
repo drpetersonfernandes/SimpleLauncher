@@ -315,7 +315,15 @@ public static class ContextMenuFunctions
             {
                 DebugLogger.Log("[RA Service] SystemName is null or empty.");
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[RA Service] SystemName is null or empty.");
-                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+
+                var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    playSoundEffects.PlayNotificationSound();
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                    var retroAchievementsWindow = new RetroAchievementsWindow();
+                    retroAchievementsWindow.Show();
+                }
 
                 UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
 
@@ -341,7 +349,15 @@ public static class ContextMenuFunctions
                 // Check if the failure was due to "system not supported"
                 if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true)
                 {
-                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                    var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        playSoundEffects.PlayNotificationSound();
+                        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = new RetroAchievementsWindow();
+                        retroAchievementsWindow.Show();
+                    }
+
                     UpdateStatusBar.UpdateContent($"System '{systemName}' is not supported by RetroAchievements.", mainWindow);
                 }
                 // Check if the failure was due to an actual extraction issue (and not just "system not supported")
@@ -352,7 +368,15 @@ public static class ContextMenuFunctions
                 }
                 else // A generic hashing failure not covered by the above
                 {
-                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox(); // Fallback to generic "not supported" if no specific error message
+                    var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        playSoundEffects.PlayNotificationSound();
+                        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = new RetroAchievementsWindow();
+                        retroAchievementsWindow.Show();
+                    }
+
                     UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
                 }
 
@@ -383,7 +407,15 @@ public static class ContextMenuFunctions
             {
                 DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
                 UpdateStatusBar.UpdateContent($"No match found for hash: {hash}", mainWindow);
-                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+
+                var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    playSoundEffects.PlayNotificationSound();
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                    var retroAchievementsWindow = new RetroAchievementsWindow();
+                    retroAchievementsWindow.Show();
+                }
             }
         }
         catch (Exception ex)

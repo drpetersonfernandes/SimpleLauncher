@@ -976,5 +976,7 @@
     <system:String x:Key="ConfigurationFailed">Configuration Failed</system:String>
     <system:String x:Key="Anerroroccurredwhileconfiguringtheemulator">An error occurred while configuring the emulator.</system:String>
     
+    <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.</system:String>
+    <system:String x:Key="DoyouwanttoopentheglobalRetroAchievements">Do you want to open the global RetroAchievements window?</system:String>
     
 </ResourceDictionary>

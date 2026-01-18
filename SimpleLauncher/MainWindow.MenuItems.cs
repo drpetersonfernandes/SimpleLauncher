@@ -702,7 +702,7 @@ public partial class MainWindow
         playHistoryWindow.Show();
     }
 
-    private void ShowRetroAchievementsWindow_Click(object sender, RoutedEventArgs e)
+    public void ShowRetroAchievementsWindow_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", this);
