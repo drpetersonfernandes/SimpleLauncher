@@ -1,3 +1,17 @@
+# Release 4.9.1
+*2026-01-18*
+---
+
+*   **Package Updates:** Several Microsoft-related NuGet packages (Data.Sqlite, Extensions, CodeAnalysis) were updated to their latest patch versions (e.g., from `10.0.1` to `10.0.2`).
+*   **Long Path Support:** Enhanced file and directory existence checks in `GameLauncher.cs` and `PathHelper.cs` by explicitly handling the long-path prefix (`\\?\`). This ensures compatibility across different drive types (local, network, removable) and paths exceeding 260 characters.
+*   **Shortcut Validation:**
+    *   Refined `.URL` file launching to only validate protocol handlers (like `steam://`) if the target is a true URI. This prevents drive letters (e.g., `C:\`) from being incorrectly identified as protocols.
+    *   Improved error logging for shortcuts by preventing the app from attempting to read binary content from `.LNK` files during an exception.
+*   **Thread Safety:** Added lock mechanisms in `DownloadManager.cs` around the `CancellationTokenSource`. This ensures that starting, canceling, and disposing of downloads is thread-safe.
+*   **Enhanced Logging**
+*   **Microsoft Store Filtering:** Significantly expanded the exclusion list in `ScanMicrosoftStoreGames.cs`.
+*   **Tool Updates:** Updated several external tools bundled with the launcher, including `BatchConvertToCHD`, `chdman`, `GameCoverScraper` (arm64/x64), `SimpleZipDrive`, and `BatchConvertIsoToXiso`.
+
 # Release 4.9.0
 *2026-01-13*
 ---
