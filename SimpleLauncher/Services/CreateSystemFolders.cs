@@ -26,6 +26,9 @@ public static class CreateSystemFolders
                 {
                     // Notify developer
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the primary system folder.");
+
+                    // Notify user
+                    MessageBoxLibrary.FolderCreationFailedMessageBox();
                 }
             }
 
@@ -39,6 +42,9 @@ public static class CreateSystemFolders
                 {
                     // Notify developer
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the primary image folder.");
+
+                    // Notify user
+                    MessageBoxLibrary.FolderCreationFailedMessageBox();
                 }
             }
 
@@ -55,6 +61,9 @@ public static class CreateSystemFolders
                 {
                     // Notify developer
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the {folder} folder.");
+
+                    // Notify user
+                    MessageBoxLibrary.FolderCreationFailedMessageBox();
                 }
             }
         }
