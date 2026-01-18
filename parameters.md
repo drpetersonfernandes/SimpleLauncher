@@ -5,7 +5,7 @@
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -26,7 +26,6 @@
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -59,7 +58,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -88,7 +87,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -129,7 +128,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -192,7 +191,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -243,7 +242,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -285,7 +284,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -336,7 +335,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -374,7 +373,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -399,7 +398,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -451,7 +450,7 @@ This emulator requires a BIOS file to run.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -504,7 +503,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -578,7 +577,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -652,7 +651,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -680,7 +679,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -732,7 +731,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -797,7 +796,7 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -852,7 +851,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -934,7 +933,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -976,7 +975,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1012,7 +1011,7 @@ You need to create BAT files to launch the games.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1050,7 +1049,7 @@ This emulator is available for Windows-x64.<br>
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1079,7 +1078,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1120,7 +1119,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1187,7 +1186,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1275,7 +1274,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1363,7 +1362,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1389,7 +1388,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1434,7 +1433,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1461,7 +1460,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can optimize origin
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1511,7 +1510,7 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1575,7 +1574,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1628,7 +1627,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1670,7 +1669,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1720,7 +1719,7 @@ This emulator requires a BIOS file to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1798,7 +1797,7 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1906,7 +1905,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -1957,7 +1956,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2027,7 +2026,7 @@ Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2089,7 +2088,7 @@ This emulator requires a BIOS file to run this system.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2198,7 +2197,7 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2270,7 +2269,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2380,7 +2379,7 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2419,7 +2418,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2510,7 +2509,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2536,7 +2535,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2628,7 +2627,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2676,7 +2675,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2755,7 +2754,7 @@ This emulator is available for Windows-x64.<br>
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2783,7 +2782,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2822,7 +2821,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2847,7 +2846,7 @@ This emulator is available for Windows-x64.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2886,7 +2885,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2915,7 +2914,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2944,7 +2943,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -2995,7 +2994,7 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3056,7 +3055,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3165,7 +3164,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3261,7 +3260,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3331,7 +3330,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3405,7 +3404,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3505,7 +3504,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3531,7 +3530,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3650,7 +3649,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3719,7 +3718,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3797,7 +3796,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3839,7 +3838,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3900,7 +3899,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3938,7 +3937,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -3980,7 +3979,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -4056,7 +4055,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -4132,7 +4131,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -4218,7 +4217,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -4259,7 +4258,7 @@ Core may require BIOS files or system files to work properly.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)<br>
 
@@ -4322,7 +4321,7 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -4347,7 +4346,7 @@ This emulator is available for Windows-x64.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
@@ -4372,7 +4371,7 @@ This emulator is available for Windows-x64.
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
