@@ -8,7 +8,7 @@
     -   Refined `.URL` file launching to only validate protocol handlers (like `steam://`) if the target is a true URI. This prevents drive letters (e.g., `C:\`) from being incorrectly identified as protocols.
     -   Improved error logging for shortcuts by preventing the app from attempting to read binary content from `.LNK` files during an exception.
 -   **Thread Safety:** Added lock mechanisms in `DownloadManager.cs` around the `CancellationTokenSource`. This ensures that starting, canceling, and disposing of downloads is thread-safe.
--   **Enhanced Logging:**
+-   **Enhanced Logging**
 -   **Microsoft Store Filtering:** Significantly expanded the exclusion list in `ScanMicrosoftStoreGames.cs`.
 -   **Tool Updates:** Updated several external tools bundled with the launcher, including `BatchConvertToCHD`, `chdman`, `GameCoverScraper` (arm64/x64), `SimpleZipDrive`, and `BatchConvertIsoToXiso`.
 
