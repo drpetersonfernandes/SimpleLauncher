@@ -68,11 +68,12 @@ public class LogErrorsService : ILogErrors
 
     public async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
-        // If no exception is provided, create one using the context message to ensure
-        // the log contains useful information instead of "Exception is null".
-        var actualEx = ex ?? new Exception(contextMessage ?? "An error occurred without a specific exception object.");
+        if (ex == null)
+        {
+            ex = new Exception("Exception is null.");
+        }
 
-        DebugLogger.LogException(actualEx, contextMessage);
+        DebugLogger.LogException(ex, contextMessage);
 
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var errorLogPath = Path.Combine(baseDirectory, "error.log");
@@ -94,8 +95,8 @@ public class LogErrorsService : ILogErrors
             $"Architecture: {architecture}\n" +
             $"Bitness: {is64Bit}\n" +
             $"Windows Version: {windowsVersion}\n\n" +
-            $"Exception type: {actualEx.GetType().Name}\n" +
-            $"Exception details: {actualEx.Message}\n\n" +
+            $"Exception type: {ex.GetType().Name}\n" +
+            $"Exception details: {ex.Message}\n\n" +
             $"{contextMessage}\n\n";
 
         try
