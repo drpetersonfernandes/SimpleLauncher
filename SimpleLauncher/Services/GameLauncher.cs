@@ -815,7 +815,7 @@ public class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(contextMessage), "Emulator configuration error.");
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
