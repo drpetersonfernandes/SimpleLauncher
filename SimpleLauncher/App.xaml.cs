@@ -63,7 +63,12 @@ public partial class App : IDisposable
 
         // Register Managers as singletons
         serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
-        serviceCollection.AddSingleton<SettingsManager>();
+        serviceCollection.AddSingleton(static _ =>
+        {
+            var sm = new SettingsManager();
+            sm.Load();
+            return sm;
+        });
         serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddSingleton<Stats>();
         serviceCollection.AddSingleton<PlaySoundEffects>();

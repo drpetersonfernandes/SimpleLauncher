@@ -16,8 +16,8 @@ namespace SimpleLauncher.Managers;
 [MessagePackObject(AllowPrivate = true)]
 public class SettingsManager
 {
-    [IgnoreMember] private readonly string _filePath;
-    [IgnoreMember] private readonly string _xmlFilePath;
+    [IgnoreMember] private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
+    [IgnoreMember] private readonly string _xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, OldSettingsFilePath);
 
     [IgnoreMember] private readonly object _saveLock = new();
 
@@ -60,21 +60,13 @@ public class SettingsManager
     [Key(26)] public bool Emulator3Expanded { get; set; }
     [Key(27)] public bool Emulator4Expanded { get; set; }
     [Key(28)] public bool Emulator5Expanded { get; set; }
-    [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; }
+    [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
 
-    public SettingsManager()
-    {
-        _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
-        _xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, OldSettingsFilePath);
-        SystemPlayTimes = [];
-        Load();
-    }
-
-    private void Load()
+    public void Load()
     {
         // 1. Try loading from MessagePack (.dat)
         if (File.Exists(_filePath))
@@ -88,7 +80,10 @@ public class SettingsManager
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading settings.dat. Attempting fallback.");
+                if (App.ServiceProvider != null)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading settings.dat. Attempting fallback.");
+                }
             }
         }
 
