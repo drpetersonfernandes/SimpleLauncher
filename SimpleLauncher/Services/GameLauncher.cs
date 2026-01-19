@@ -264,7 +264,7 @@ public class GameLauncher
 
                 if (playTime.TotalSeconds > 5)
                 {
-                    UpdateStatsAndPlayCountAsync(playTime);
+                    UpdateStatsAndPlayCountAsync(playTime, resolvedFilePath);
                 }
             }
         }
@@ -275,12 +275,8 @@ public class GameLauncher
 
         return;
 
-        void UpdateStatsAndPlayCountAsync(TimeSpan playTime)
+        void UpdateStatsAndPlayCountAsync(TimeSpan playTime, string resolvedFilePath)
         {
-            // Always use the original file path for history, not the resolved/extracted path.
-            // The 'filePath' parameter passed into HandleButtonClickAsync is the original path from the game list.
-            var fileNameForHistory = Path.GetFileName(filePath);
-
             settings.UpdateSystemPlayTime(selectedSystemName, playTime);
             settings.Save();
             var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
@@ -293,8 +289,8 @@ public class GameLauncher
             try
             {
                 var playHistoryManager = mainWindow.PlayHistoryManager;
-                playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
-                mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
+                playHistoryManager.AddOrUpdatePlayHistoryItem(resolvedFilePath, selectedSystemName, playTime);
+                mainWindow.RefreshGameListAfterPlay(resolvedFilePath, selectedSystemName);
             }
             catch (Exception ex)
             {

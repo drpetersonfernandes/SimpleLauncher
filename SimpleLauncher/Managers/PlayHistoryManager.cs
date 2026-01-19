@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
@@ -235,7 +236,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Adds or updates a play history item based on the game info and play time.
     /// </summary>
-    public void AddOrUpdatePlayHistoryItem(string fileName, string systemName, TimeSpan playTime)
+    public void AddOrUpdatePlayHistoryItem(string fullPath, string systemName, TimeSpan playTime)
     {
         try
         {
@@ -253,7 +254,7 @@ public class PlayHistoryManager
             var timeStr = now.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
 
             // Check if the game already exists in play history
-            var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == systemName);
+            var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName == systemName);
 
             if (existingItem != null)
             {
@@ -268,7 +269,7 @@ public class PlayHistoryManager
                 // Create new record
                 var newItem = new PlayHistoryItem
                 {
-                    FileName = fileName,
+                    FileName = fullPath,
                     SystemName = systemName,
                     TotalPlayTime = (long)playTime.TotalSeconds,
                     TimesPlayed = 1,
@@ -286,5 +287,32 @@ public class PlayHistoryManager
             const string contextMessage = "Error in AddOrUpdatePlayHistoryItem method.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
+    }
+
+    /// <summary>
+    /// Migrates old records that only contain filenames to full absolute paths.
+    /// </summary>
+    public void MigrateFilenamesToFullPaths(List<SystemManager> systemManagers)
+    {
+        var needsSave = false;
+        foreach (var item in PlayHistoryList)
+        {
+            // If the path is not rooted, it's an old "filename only" record
+            if (!Path.IsPathRooted(item.FileName))
+            {
+                var system = systemManagers.FirstOrDefault(s => s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (system != null)
+                {
+                    var resolvedPath = PathHelper.FindFileInSystemFolders(system, item.FileName);
+                    if (!string.IsNullOrEmpty(resolvedPath))
+                    {
+                        item.FileName = resolvedPath;
+                        needsSave = true;
+                    }
+                }
+            }
+        }
+
+        if (needsSave) SavePlayHistory();
     }
 }

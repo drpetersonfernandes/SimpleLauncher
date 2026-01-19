@@ -101,7 +101,7 @@
                       SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
                       PreviewKeyDown="DeleteHistoryItemWithDelButton">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="160" />
                     <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />

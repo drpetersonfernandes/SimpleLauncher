@@ -136,11 +136,8 @@ public partial class PlayHistoryWindow
             var currentHistory = _playHistoryList.ToList();
             foreach (var item in currentHistory)
             {
-                var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-                if (systemManager == null) continue;
-
-                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
-                if (!File.Exists(filePath))
+                // Since FileName now stores the full path, we check existence directly
+                if (!File.Exists(item.FileName))
                 {
                     toRemove.Add(item);
                 }
@@ -277,8 +274,7 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedItem.FileName);
-            if (!File.Exists(filePath))
+            if (!File.Exists(selectedItem.FileName))
             {
                 var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
                 if (itemToRemove != null)
@@ -307,7 +303,7 @@ public partial class PlayHistoryWindow
             }
 
             var context = new RightClickContext(
-                PathHelper.FindFileInSystemFolders(systemManager, selectedItem.FileName),
+                selectedItem.FileName,
                 selectedItem.FileName,
                 Path.GetFileNameWithoutExtension(selectedItem.FileName),
                 selectedItem.SystemName,
@@ -360,8 +356,7 @@ public partial class PlayHistoryWindow
             return;
         }
 
-        var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
-        if (!File.Exists(filePath))
+        if (!File.Exists(fileName))
         {
             // Auto remove the history item from the list since the file no longer exists
             var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == selectedSystemName);
@@ -399,7 +394,7 @@ public partial class PlayHistoryWindow
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
-        await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
 
         RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }

@@ -201,6 +201,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Initialize _gameListFactory
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
 
+        // Migrate old play history records to full paths
+        PlayHistoryManager.MigrateFilenamesToFullPaths(_systemManagers);
+
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
         Activated += MainWindow_Activated;
@@ -566,8 +569,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             // Find and update the specific item
             var gameItem = GameListItems.FirstOrDefault(item =>
-                // ReSharper disable once PossibleNullReferenceException
-                Path.GetFileName(item.FilePath).Equals(fileName, StringComparison.OrdinalIgnoreCase));
+                item.FilePath.Equals(fileName, StringComparison.OrdinalIgnoreCase));
 
             if (gameItem != null)
             {

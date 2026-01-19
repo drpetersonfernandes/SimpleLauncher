@@ -30,6 +30,9 @@ public class PlayHistoryItem : INotifyPropertyChanged
     public string MachineDescription { get; set; }
 
     [IgnoreMember]
+    public string DisplayName => !string.IsNullOrEmpty(FileName) ? System.IO.Path.GetFileName(FileName) : string.Empty;
+
+    [IgnoreMember]
     public string CoverImage { get; set; }
 
     [IgnoreMember]
