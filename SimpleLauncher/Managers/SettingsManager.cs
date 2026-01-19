@@ -4,8 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using System.Windows;
 using System.Xml.Linq;
+using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -13,116 +13,150 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Managers;
 
+[MessagePackObject(AllowPrivate = true)]
 public class SettingsManager
 {
-    private readonly string _filePath;
-    private readonly object _saveLock = new();
-    private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
-    private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
-    private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
-    private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
-    private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
+    [IgnoreMember] private readonly string _filePath;
+    [IgnoreMember] private readonly string _xmlFilePath;
 
-    private static readonly HashSet<string> KnownSettingsFields =
-    [
-        "ThumbnailSize", "GamesPerPage", "ShowGames", "ViewMode", "EnableGamePadNavigation",
-        "VideoUrl", "InfoUrl", "BaseTheme", "AccentColor", "Language", "DeadZoneX", "DeadZoneY",
-        "ButtonAspectRatio", "EnableFuzzyMatching", "FuzzyMatchingThreshold", "EnableNotificationSound",
-        "CustomNotificationSoundFile", "RA_Username", "RA_ApiKey", "OverlayRetroAchievementButton",
-        "OverlayOpenVideoButton", "OverlayOpenInfoButton", "AdditionalSystemFoldersExpanded",
-        "Emulator1Expanded", "Emulator2Expanded", "Emulator3Expanded", "Emulator4Expanded",
-        "Emulator5Expanded", "SystemPlayTimes"
-    ];
+    [IgnoreMember] private readonly object _saveLock = new();
 
+    [IgnoreMember] private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+    [IgnoreMember] private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
 
-    public int ThumbnailSize { get; set; }
-    public int GamesPerPage { get; set; }
-    public string ShowGames { get; set; }
-    public string ViewMode { get; set; }
-    public bool EnableGamePadNavigation { get; set; }
-    public string VideoUrl { get; set; }
-    public string InfoUrl { get; set; }
-    public string BaseTheme { get; set; }
-    public string AccentColor { get; set; }
-    public string Language { get; set; }
-    public float DeadZoneX { get; set; }
-    public float DeadZoneY { get; set; }
-    public string ButtonAspectRatio { get; set; }
-    public bool EnableFuzzyMatching { get; set; }
-    public double FuzzyMatchingThreshold { get; set; }
-    public const float DefaultDeadZoneX = 0.05f;
-    public const float DefaultDeadZoneY = 0.02f;
-    public bool EnableNotificationSound { get; set; }
-    public string CustomNotificationSoundFile { get; set; }
-    public string RaUsername { get; set; }
-    public string RaApiKey { get; set; }
-    public string RaPassword { get; set; }
-    public bool OverlayRetroAchievementButton { get; set; }
-    public bool OverlayOpenVideoButton { get; set; }
-    public bool OverlayOpenInfoButton { get; set; }
-    public bool AdditionalSystemFoldersExpanded { get; set; }
-    public bool Emulator1Expanded { get; set; }
-    public bool Emulator2Expanded { get; set; }
-    public bool Emulator3Expanded { get; set; }
-    public bool Emulator4Expanded { get; set; }
-    public bool Emulator5Expanded { get; set; }
+    [IgnoreMember] private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
+    [IgnoreMember] private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
 
-    public List<SystemPlayTime> SystemPlayTimes { get; private set; }
+    [IgnoreMember] private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
 
-    private const string DefaultSettingsFilePath = "settings.xml";
-    private const string DefaultNotificationSoundFileName = "click.mp3";
+    [Key(0)] public int ThumbnailSize { get; set; }
+    [Key(1)] public int GamesPerPage { get; set; }
+    [Key(2)] public string ShowGames { get; set; }
+    [Key(3)] public string ViewMode { get; set; }
+    [Key(4)] public bool EnableGamePadNavigation { get; set; }
+    [Key(5)] public string VideoUrl { get; set; }
+    [Key(6)] public string InfoUrl { get; set; }
+    [Key(7)] public string BaseTheme { get; set; }
+    [Key(8)] public string AccentColor { get; set; }
+    [Key(9)] public string Language { get; set; }
+    [Key(10)] public float DeadZoneX { get; set; }
+    [Key(11)] public float DeadZoneY { get; set; }
+    [Key(12)] public string ButtonAspectRatio { get; set; }
+    [Key(13)] public bool EnableFuzzyMatching { get; set; }
+    [Key(14)] public double FuzzyMatchingThreshold { get; set; }
+    [IgnoreMember] public const float DefaultDeadZoneX = 0.05f;
+    [IgnoreMember] public const float DefaultDeadZoneY = 0.02f;
+    [Key(15)] public bool EnableNotificationSound { get; set; }
+    [Key(16)] public string CustomNotificationSoundFile { get; set; }
+    [Key(17)] public string RaUsername { get; set; }
+    [Key(18)] public string RaApiKey { get; set; }
+    [Key(19)] public string RaPassword { get; set; }
+    [Key(20)] public bool OverlayRetroAchievementButton { get; set; }
+    [Key(21)] public bool OverlayOpenVideoButton { get; set; }
+    [Key(22)] public bool OverlayOpenInfoButton { get; set; }
+    [Key(23)] public bool AdditionalSystemFoldersExpanded { get; set; }
+    [Key(24)] public bool Emulator1Expanded { get; set; }
+    [Key(25)] public bool Emulator2Expanded { get; set; }
+    [Key(26)] public bool Emulator3Expanded { get; set; }
+    [Key(27)] public bool Emulator4Expanded { get; set; }
+    [Key(28)] public bool Emulator5Expanded { get; set; }
+    [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; }
 
-    public SettingsManager() : this(DefaultSettingsFilePath)
+    [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
+    [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
+    [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
+
+    public SettingsManager()
     {
-    }
-
-    private SettingsManager(string filePath)
-    {
-        _filePath = filePath;
+        _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
+        _xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, OldSettingsFilePath);
         SystemPlayTimes = [];
         Load();
     }
 
     private void Load()
     {
-        if (!File.Exists(_filePath))
+        // 1. Try loading from MessagePack (.dat)
+        if (File.Exists(_filePath))
         {
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SettingsFileNotFoundCreatingDefault") ?? "Settings file not found, creating default...", Application.Current.MainWindow as MainWindow));
-
-            SetDefaultsAndSave();
-            return;
+            try
+            {
+                var bytes = File.ReadAllBytes(_filePath);
+                var loaded = MessagePackSerializer.Deserialize<SettingsManager>(bytes);
+                CopyFrom(loaded);
+                return;
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading settings.dat. Attempting fallback.");
+            }
         }
 
+        // 2. Fallback: Try migrating from old XML (.xml)
+        if (File.Exists(_xmlFilePath))
+        {
+            if (MigrateFromXml())
+            {
+                return;
+            }
+        }
+
+        // 3. If nothing exists or migration failed, set defaults
+        SetDefaultsAndSave();
+    }
+
+    private void CopyFrom(SettingsManager other)
+    {
+        ThumbnailSize = other.ThumbnailSize;
+        GamesPerPage = other.GamesPerPage;
+        ShowGames = other.ShowGames;
+        ViewMode = other.ViewMode;
+        EnableGamePadNavigation = other.EnableGamePadNavigation;
+        VideoUrl = other.VideoUrl;
+        InfoUrl = other.InfoUrl;
+        BaseTheme = other.BaseTheme;
+        AccentColor = other.AccentColor;
+        Language = other.Language;
+        DeadZoneX = other.DeadZoneX;
+        DeadZoneY = other.DeadZoneY;
+        ButtonAspectRatio = other.ButtonAspectRatio;
+        EnableFuzzyMatching = other.EnableFuzzyMatching;
+        FuzzyMatchingThreshold = other.FuzzyMatchingThreshold;
+        EnableNotificationSound = other.EnableNotificationSound;
+        CustomNotificationSoundFile = other.CustomNotificationSoundFile;
+        RaUsername = other.RaUsername;
+        RaApiKey = other.RaApiKey;
+        RaPassword = other.RaPassword;
+        OverlayRetroAchievementButton = other.OverlayRetroAchievementButton;
+        OverlayOpenVideoButton = other.OverlayOpenVideoButton;
+        OverlayOpenInfoButton = other.OverlayOpenInfoButton;
+        AdditionalSystemFoldersExpanded = other.AdditionalSystemFoldersExpanded;
+        Emulator1Expanded = other.Emulator1Expanded;
+        Emulator2Expanded = other.Emulator2Expanded;
+        Emulator3Expanded = other.Emulator3Expanded;
+        Emulator4Expanded = other.Emulator4Expanded;
+        Emulator5Expanded = other.Emulator5Expanded;
+        SystemPlayTimes = other.SystemPlayTimes ?? [];
+    }
+
+    private bool MigrateFromXml()
+    {
         try
         {
+            DebugLogger.Log("Migrating settings from settings.xml to settings.dat...");
             XElement settings;
+            var xmlSettings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
 
-            // Use secure XML settings to prevent XXE attacks
-            var xmlSettings = new XmlReaderSettings
+            using (var reader = XmlReader.Create(_xmlFilePath, xmlSettings))
             {
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null
-            };
-
-            using (var reader = XmlReader.Create(_filePath, xmlSettings))
-            {
-                settings = XElement.Load(reader, LoadOptions.None);
+                settings = XElement.Load(reader);
             }
-
-            // Check for and remove unrecognized fields
-            var childElementNames = settings.Elements().Select(static e => e.Name.LocalName).ToList();
-            var unrecognizedFields = childElementNames.Except(KnownSettingsFields).ToList();
-            var needsResave = unrecognizedFields.Count != 0;
-
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSettings") ?? "Loading settings...", Application.Current.MainWindow as MainWindow));
 
             ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
             ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
             ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
-            EnableGamePadNavigation = ParseBoolSetting(settings, "EnableGamePadNavigation");
+            EnableGamePadNavigation = !bool.TryParse(settings.Element("EnableGamePadNavigation")?.Value, out var gp) || gp;
             VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
             InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
             BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
@@ -132,237 +166,40 @@ public class SettingsManager
             RaUsername = settings.Element("RA_Username")?.Value ?? string.Empty;
             RaApiKey = settings.Element("RA_ApiKey")?.Value ?? string.Empty;
             RaPassword = settings.Element("RA_Password")?.Value ?? string.Empty;
-
-            if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
-            {
-                deadZoneX = DefaultDeadZoneX;
-            }
-
-            DeadZoneX = deadZoneX;
-
-            if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
-            {
-                deadZoneY = DefaultDeadZoneY;
-            }
-
-            DeadZoneY = deadZoneY;
-
-            EnableFuzzyMatching = ParseBoolSetting(settings, "EnableFuzzyMatching");
-            if (!double.TryParse(settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fuzzyThreshold))
-            {
-                fuzzyThreshold = 0.80;
-            }
-
-            FuzzyMatchingThreshold = fuzzyThreshold;
-
-            EnableNotificationSound = ParseBoolSetting(settings, "EnableNotificationSound", true);
+            DeadZoneX = float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx) ? dzx : DefaultDeadZoneX;
+            DeadZoneY = float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy) ? dzy : DefaultDeadZoneY;
+            EnableFuzzyMatching = !bool.TryParse(settings.Element("EnableFuzzyMatching")?.Value, out var fm) || fm;
+            FuzzyMatchingThreshold = double.TryParse(settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt) ? fmt : 0.80;
+            EnableNotificationSound = !bool.TryParse(settings.Element("EnableNotificationSound")?.Value, out var ens) || ens;
             CustomNotificationSoundFile = settings.Element("CustomNotificationSoundFile")?.Value ?? DefaultNotificationSoundFileName;
-            if (string.IsNullOrWhiteSpace(CustomNotificationSoundFile))
+            OverlayRetroAchievementButton = bool.TryParse(settings.Element("OverlayRetroAchievementButton")?.Value, out var ora) && ora;
+            OverlayOpenVideoButton = !bool.TryParse(settings.Element("OverlayOpenVideoButton")?.Value, out var ovb) || ovb;
+            OverlayOpenInfoButton = bool.TryParse(settings.Element("OverlayOpenInfoButton")?.Value, out var oib) && oib;
+
+            var playTimes = settings.Element("SystemPlayTimes");
+            if (playTimes != null)
             {
-                CustomNotificationSoundFile = DefaultNotificationSoundFileName;
-            }
-
-            OverlayRetroAchievementButton = ParseBoolSetting(settings, "OverlayRetroAchievementButton", false);
-            OverlayOpenVideoButton = ParseBoolSetting(settings, "OverlayOpenVideoButton", true);
-            OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", false);
-
-            AdditionalSystemFoldersExpanded = ParseBoolSetting(settings, "AdditionalSystemFoldersExpanded", true);
-            Emulator1Expanded = ParseBoolSetting(settings, "Emulator1Expanded", true);
-            Emulator2Expanded = ParseBoolSetting(settings, "Emulator2Expanded", true);
-            Emulator3Expanded = ParseBoolSetting(settings, "Emulator3Expanded", true);
-            Emulator4Expanded = ParseBoolSetting(settings, "Emulator4Expanded", true);
-            Emulator5Expanded = ParseBoolSetting(settings, "Emulator5Expanded", true);
-
-            lock (_saveLock)
-            {
-                SystemPlayTimes.Clear(); // Clear existing times only after a successful load
-                var systemPlayTimesElement = settings.Element("SystemPlayTimes");
-                if (systemPlayTimesElement != null)
+                foreach (var pt in playTimes.Elements("SystemPlayTime"))
                 {
-                    foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
+                    SystemPlayTimes.Add(new SystemPlayTime
                     {
-                        var systemPlayTime = new SystemPlayTime
-                        {
-                            SystemName = systemPlayTimeElement.Element("SystemName")?.Value ?? string.Empty,
-                            PlayTime = systemPlayTimeElement.Element("PlayTime")?.Value ?? string.Empty
-                        };
-                        SystemPlayTimes.Add(systemPlayTime);
-                    }
+                        SystemName = pt.Element("SystemName")?.Value ?? "",
+                        PlayTime = pt.Element("PlayTime")?.Value ?? "00:00:00"
+                    });
                 }
             }
 
-            if (needsResave)
-            {
-                Save();
-            }
-        }
-        catch (XmlException ex)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'. Attempting to salvage play time data.");
+            Save(); // Save to .dat
 
-            // Notify user
-            MessageBoxLibrary.SettingsXmlFileIsCorruptMessageBox();
-
-            TrySalvageSystemPlayTimes(_filePath);
-            SetDefaultsAndSave();
-        }
-        catch (IOException ex)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was an IOException while loading the file 'setting.xml'.");
-
-            // Notify user
-            MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
-
-            SetDefaultsAndSave();
+            // Delete old file
+            File.Delete(_xmlFilePath);
+            DebugLogger.Log("Migration successful. settings.xml deleted.");
+            return true;
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading or parsing 'setting.xml'.");
-
-            // Notify user
-            MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
-
-            SetDefaultsAndSave();
-        }
-    }
-
-    private void TrySalvageSystemPlayTimes(string filePath)
-    {
-        try
-        {
-            if (!File.Exists(filePath)) return;
-
-            var salvagedPlayTimes = new List<SystemPlayTime>();
-
-            // Use a forgiving XmlReader to find the SystemPlayTimes fragment
-            var settings = new XmlReaderSettings
-            {
-                ConformanceLevel = ConformanceLevel.Fragment,
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null
-            };
-
-            using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using var reader = XmlReader.Create(fileStream, settings);
-
-            while (reader.Read())
-            {
-                if (reader.NodeType != XmlNodeType.Element || reader.Name != "SystemPlayTimes") continue;
-
-                // Found the element, now read it and its children into an XElement
-                if (XNode.ReadFrom(reader) is XElement systemPlayTimesElement)
-                {
-                    foreach (var systemPlayTimeElement in systemPlayTimesElement.Elements("SystemPlayTime"))
-                    {
-                        var systemName = systemPlayTimeElement.Element("SystemName")?.Value;
-                        var playTime = systemPlayTimeElement.Element("PlayTime")?.Value;
-
-                        if (!string.IsNullOrWhiteSpace(systemName) && !string.IsNullOrWhiteSpace(playTime))
-                        {
-                            salvagedPlayTimes.Add(new SystemPlayTime
-                            {
-                                SystemName = systemName,
-                                PlayTime = playTime
-                            });
-                        }
-                    }
-                }
-
-                break; // Stop after processing the first SystemPlayTimes block found
-            }
-
-            if (salvagedPlayTimes.Count <= 0) return;
-
-            SystemPlayTimes = salvagedPlayTimes;
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Successfully salvaged {salvagedPlayTimes.Count} SystemPlayTime entries from corrupt settings.xml.");
-        }
-        catch (Exception ex)
-        {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An unexpected error occurred while trying to salvage SystemPlayTime data.");
-            SystemPlayTimes.Clear(); // Ensure list is empty if salvage fails
-        }
-    }
-
-    private int ValidateThumbnailSize(string value)
-    {
-        if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) && _validThumbnailSizes.Contains(parsed))
-            return parsed;
-
-        return 200;
-    }
-
-    private int ValidateGamesPerPage(string value)
-    {
-        if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) && _validGamesPerPage.Contains(parsed))
-            return parsed;
-
-        return 100;
-    }
-
-    private string ValidateShowGames(string value)
-    {
-        return !string.IsNullOrEmpty(value) && _validShowGames.Contains(value) ? value : "ShowAll";
-    }
-
-    private string ValidateViewMode(string value)
-    {
-        return !string.IsNullOrEmpty(value) && _validViewModes.Contains(value) ? value : "GridView";
-    }
-
-    private string ValidateButtonAspectRatio(string value)
-    {
-        return !string.IsNullOrEmpty(value) && _validButtonAspectRatio.Contains(value) ? value : "Square";
-    }
-
-    private static bool ParseBoolSetting(XElement settings, string settingName, bool defaultValue = false)
-    {
-        return settingName != null && (bool.TryParse(settings.Element(settingName)?.Value, out var value) ? value : defaultValue);
-    }
-
-    private void SetDefaultsAndSave()
-    {
-        try
-        {
-            ThumbnailSize = 200;
-            GamesPerPage = 100;
-            ShowGames = "ShowAll";
-            ViewMode = "GridView";
-            EnableGamePadNavigation = true;
-            VideoUrl = "https://www.youtube.com/results?search_query=";
-            InfoUrl = "https://www.igdb.com/search?q=";
-            BaseTheme = "Light";
-            AccentColor = "Blue";
-            Language = "en";
-            DeadZoneX = DefaultDeadZoneX;
-            DeadZoneY = DefaultDeadZoneY;
-            ButtonAspectRatio = "Square";
-            EnableFuzzyMatching = true;
-            FuzzyMatchingThreshold = 0.80;
-            EnableNotificationSound = true;
-            CustomNotificationSoundFile = DefaultNotificationSoundFileName;
-            RaUsername = string.Empty;
-            RaApiKey = string.Empty;
-            OverlayRetroAchievementButton = false;
-            OverlayOpenVideoButton = true;
-            OverlayOpenInfoButton = false;
-            AdditionalSystemFoldersExpanded = true;
-            Emulator1Expanded = true;
-            Emulator2Expanded = true;
-            Emulator3Expanded = true;
-            Emulator4Expanded = true;
-            Emulator5Expanded = true;
-            // Do not reset SystemPlayTimes here to allow salvaging from a corrupt file
-            Save();
-
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSettings") ?? "Saving settings...", Application.Current.MainWindow as MainWindow));
-        }
-        catch (Exception ex)
-        {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving default settings.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to migrate settings from XML.");
+            return false;
         }
     }
 
@@ -372,103 +209,92 @@ public class SettingsManager
         {
             try
             {
-                var systemPlayTimesElement = new XElement("SystemPlayTimes");
-                foreach (var systemPlayTime in SystemPlayTimes.Where(static s => !string.IsNullOrWhiteSpace(s.SystemName)))
-                {
-                    systemPlayTimesElement.Add(new XElement("SystemPlayTime",
-                        new XElement("SystemName", systemPlayTime.SystemName),
-                        new XElement("PlayTime", systemPlayTime.PlayTime)
-                    ));
-                }
-
-                new XElement("Settings",
-                    new XElement("ThumbnailSize", ThumbnailSize),
-                    new XElement("GamesPerPage", GamesPerPage),
-                    new XElement("ShowGames", ShowGames),
-                    new XElement("ViewMode", ViewMode),
-                    new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
-                    new XElement("VideoUrl", VideoUrl),
-                    new XElement("InfoUrl", InfoUrl),
-                    new XElement("BaseTheme", BaseTheme),
-                    new XElement("AccentColor", AccentColor),
-                    new XElement("Language", Language),
-                    new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
-                    new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
-                    new XElement("ButtonAspectRatio", ButtonAspectRatio),
-                    new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
-                    new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
-                    new XElement("EnableNotificationSound", EnableNotificationSound),
-                    new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
-                    new XElement("RA_Username", RaUsername),
-                    new XElement("RA_ApiKey", RaApiKey),
-                    new XElement("RA_Password", RaPassword),
-                    new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
-                    new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
-                    new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
-                    new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
-                    new XElement("Emulator1Expanded", Emulator1Expanded),
-                    new XElement("Emulator2Expanded", Emulator2Expanded),
-                    new XElement("Emulator3Expanded", Emulator3Expanded),
-                    new XElement("Emulator4Expanded", Emulator4Expanded),
-                    new XElement("Emulator5Expanded", Emulator5Expanded),
-                    systemPlayTimesElement
-                ).Save(_filePath);
+                var tempPath = _filePath + ".tmp";
+                var bytes = MessagePackSerializer.Serialize(this);
+                File.WriteAllBytes(tempPath, bytes);
+                File.Move(tempPath, _filePath, true);
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.dat");
             }
         }
     }
 
+    private int ValidateThumbnailSize(string value)
+    {
+        return int.TryParse(value, out var p) && _validThumbnailSizes.Contains(p) ? p : 250;
+    }
+
+    private int ValidateGamesPerPage(string value)
+    {
+        return int.TryParse(value, out var p) && _validGamesPerPage.Contains(p) ? p : 200;
+    }
+
+    private string ValidateShowGames(string value)
+    {
+        return _validShowGames.Contains(value) ? value : "ShowAll";
+    }
+
+    private string ValidateViewMode(string value)
+    {
+        return _validViewModes.Contains(value) ? value : "GridView";
+    }
+
+    private string ValidateButtonAspectRatio(string value)
+    {
+        return _validButtonAspectRatio.Contains(value) ? value : "Square";
+    }
+
+    private void SetDefaultsAndSave()
+    {
+        ThumbnailSize = 250;
+        GamesPerPage = 200;
+        ShowGames = "ShowAll";
+        ViewMode = "GridView";
+        EnableGamePadNavigation = false;
+        VideoUrl = "https://www.youtube.com/results?search_query=";
+        InfoUrl = "https://www.igdb.com/search?q=";
+        BaseTheme = "Light";
+        AccentColor = "Blue";
+        Language = "en";
+        DeadZoneX = DefaultDeadZoneX;
+        DeadZoneY = DefaultDeadZoneY;
+        ButtonAspectRatio = "Square";
+        EnableFuzzyMatching = true;
+        FuzzyMatchingThreshold = 0.80;
+        EnableNotificationSound = true;
+        CustomNotificationSoundFile = DefaultNotificationSoundFileName;
+        OverlayRetroAchievementButton = false;
+        OverlayOpenVideoButton = true;
+        OverlayOpenInfoButton = false;
+        AdditionalSystemFoldersExpanded = true;
+        Emulator1Expanded = true;
+        Emulator2Expanded = true;
+        Emulator3Expanded = true;
+        Emulator4Expanded = true;
+        Emulator5Expanded = true;
+        SystemPlayTimes = [];
+        Save();
+    }
+
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
     {
-        // Validate parameters outside lock for quick failure
-        if (string.IsNullOrWhiteSpace(systemName))
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "The systemName is null or empty.");
-            return;
-        }
-
-        if (playTime == TimeSpan.Zero)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "The playTime is equal to 0 in the method UpdateSystemPlayTime.");
-            return;
-        }
-
-        // Notify user
-        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingSystemPlayTime") ?? "Updating system play time...", Application.Current.MainWindow as MainWindow));
+        if (string.IsNullOrWhiteSpace(systemName) || playTime == TimeSpan.Zero) return;
 
         lock (_saveLock)
         {
-            var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
-            if (systemPlayTime == null)
+            var item = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
+            if (item == null)
             {
-                systemPlayTime = new SystemPlayTime { SystemName = systemName, PlayTime = "00:00:00" };
-                SystemPlayTimes.Add(systemPlayTime);
+                item = new SystemPlayTime { SystemName = systemName, PlayTime = "00:00:00" };
+                SystemPlayTimes.Add(item);
             }
 
-            var existingPlayTime = TimeSpan.Zero;
-            try
+            if (TimeSpan.TryParse(item.PlayTime, CultureInfo.InvariantCulture, out var existing))
             {
-                if (!string.IsNullOrWhiteSpace(systemPlayTime.PlayTime))
-                {
-                    existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime, CultureInfo.InvariantCulture);
-                }
+                item.PlayTime = (existing + playTime).ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
             }
-            catch (FormatException ex)
-            {
-                // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
-
-                existingPlayTime = TimeSpan.Zero;
-                systemPlayTime.PlayTime = "00:00:00";
-            }
-
-            var updatedPlayTime = existingPlayTime + playTime;
-            systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
         }
     }
 }
