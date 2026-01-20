@@ -52,7 +52,7 @@
                 <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Margin="5"/>
                 <Button Content="Dolphin" Click="ConfigureDolphin_Click" Margin="5"/>
                 <Button Content="Flycast" Click="ConfigureFlycast_Click" Margin="5"/>
-                <!-- <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Margin="5"/> -->
+                <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Margin="5"/>
             </WrapPanel>
         </GroupBox>
 

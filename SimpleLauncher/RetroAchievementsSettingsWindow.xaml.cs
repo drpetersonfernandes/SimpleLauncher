@@ -163,7 +163,7 @@ public partial class RetroAchievementsSettingsWindow
                     case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token); break;
                     case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token); break;
                     case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token); break;
-                    // case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey, password); break;
+                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey, password); break;
                 }
 
                 if (success)

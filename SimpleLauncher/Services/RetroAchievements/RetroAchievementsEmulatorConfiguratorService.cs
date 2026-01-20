@@ -179,19 +179,19 @@ public static class RetroAchievementsEmulatorConfiguratorService
 
         var settingsToUpdate = new Dictionary<string, string>
         {
-            { "enable", "yes" },
-            { "username", username },
-            { "token", token },
-            { "hardcore", "yes" }
+            { "Enabled", "yes" },
+            { "HardcoreMode", "yes" },
+            { "Token", token },
+            { "UserName", username }
         };
 
-        return UpdateIniFile(configPath, "retroachievements", settingsToUpdate);
+        return UpdateIniFile(configPath, "achievements", settingsToUpdate);
     }
 
     // BizHawk
     public static bool ConfigureBizHawk(string exePath, string username, string apiKey, string password)
     {
-        var configPath = Path.Combine(Path.GetDirectoryName(exePath)!, "config.json");
+        var configPath = Path.Combine(Path.GetDirectoryName(exePath)!, "config.ini");
         if (!File.Exists(configPath)) return false;
 
         try
