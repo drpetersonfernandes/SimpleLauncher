@@ -101,59 +101,89 @@ public partial class RetroAchievementsSettingsWindow
         ConfigureEmulator("BizHawk");
     }
 
-    private void ConfigureEmulator(string emulatorName)
+    private async void ConfigureEmulator(string emulatorName)
     {
-        var username = UsernameTextBox.Text.Trim();
-        var apiKey = ApiKeyPasswordBox.Password;
-        var password = RaPasswordPasswordBox.Password;
-
-        // 1. Check if all required fields are filled.
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(password))
-        {
-            MessageBoxLibrary.EnterYourRetroAchievementsUsername();
-            return;
-        }
-
-        // 2. Save the current settings before proceeding.
-        SaveSettings();
-
-        // 3. Proceed with emulator configuration.
-        var openFileDialog = new Microsoft.Win32.OpenFileDialog
-        {
-            Title = $"Select {emulatorName} Executable",
-            Filter = "Executable files (*.exe)|*.exe"
-        };
-
-        if (openFileDialog.ShowDialog() != true) return;
-
-        var exePath = openFileDialog.FileName;
-        var success = false;
         try
         {
-            switch (emulatorName)
+            var username = UsernameTextBox.Text.Trim();
+            var apiKey = ApiKeyPasswordBox.Password;
+            var password = RaPasswordPasswordBox.Password;
+
+            // 1. Check if all required fields are filled.
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(password))
             {
-                case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, apiKey, password); break;
-                // case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, apiKey, password); break;
-                // case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, apiKey, password); break;
-                // case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, apiKey, password); break;
-                // case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, apiKey, password); break;
-                // case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, apiKey, password); break;
-                // case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey, password); break;
+                MessageBoxLibrary.EnterYourRetroAchievementsUsername();
+                return;
             }
 
-            if (success)
+            // 2. Save the current settings before proceeding.
+            SaveSettings();
+
+            // 3. Get Session Token if needed (RetroArch uses password, others use token)
+            var token = _settings.RaToken;
+            if (emulatorName != "RetroArch")
             {
-                MessageBoxLibrary.EmulatorConfiguredSuccessfully();
+                if (string.IsNullOrEmpty(token))
+                {
+                    UpdateStatusBar.UpdateContent("Logging in to RetroAchievements...", Application.Current.MainWindow as MainWindow);
+                    var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
+                    token = await raService.GetSessionTokenAsync(username, password);
+
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        _settings.RaToken = token;
+                        _settings.Save();
+                    }
+                    else
+                    {
+                        MessageBoxLibrary.FailedToLoginToRetroAchievements();
+                        return;
+                    }
+                }
             }
-            else
+
+            // 4. Proceed with emulator configuration.
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
-                MessageBoxLibrary.FailedToConfigureTheEmulator();
+                Title = $"Select {emulatorName} Executable",
+                Filter = "Executable files (*.exe)|*.exe"
+            };
+
+            if (openFileDialog.ShowDialog() != true) return;
+
+            var exePath = openFileDialog.FileName;
+            var success = false;
+            try
+            {
+                switch (emulatorName)
+                {
+                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, apiKey, password); break;
+                    case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, token); break;
+                    case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, token); break;
+                    case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token); break;
+                    case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token); break;
+                    case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token); break;
+                    // case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey, password); break;
+                }
+
+                if (success)
+                {
+                    MessageBoxLibrary.EmulatorConfiguredSuccessfully();
+                }
+                else
+                {
+                    MessageBoxLibrary.FailedToConfigureTheEmulator();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulator();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
             }
         }
         catch (Exception ex)
         {
-            MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulator();
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in ConfigureEmulator method.");
         }
     }
 }

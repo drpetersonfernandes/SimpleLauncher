@@ -29,87 +29,122 @@ public static class RetroAchievementsEmulatorConfiguratorService
         return UpdateSimpleIniFile(configPath, settingsToUpdate, " = ");
     }
 
-    // // PCSX2
-    // public static bool ConfigurePcsx2(string exePath, string username, string apiKey, string password)
-    // {
-    //     var exeDir = Path.GetDirectoryName(exePath)!;
-    //     var configDir = Directory.Exists(Path.Combine(exeDir, "inis")) ? Path.Combine(exeDir, "inis") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PCSX2", "inis");
-    //     var configPath = Path.Combine(configDir, "PCSX2.ini");
-    //
-    //     if (!File.Exists(configPath)) return false;
-    //
-    //     var settingsToUpdate = new Dictionary<string, string>
-    //     {
-    //         { "Enabled", "true" },
-    //         { "Username", username },
-    //         { "Token", password },
-    //         { "Hardcore", "true" }
-    //     };
-    //
-    //     return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
-    // }
+    // PCSX2
+    public static bool ConfigurePcsx2(string exePath, string username, string token)
+    {
+        var exeDir = Path.GetDirectoryName(exePath)!;
+        var configDir = Directory.Exists(Path.Combine(exeDir, "inis")) ? Path.Combine(exeDir, "inis") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PCSX2", "inis");
+        var configPath = Path.Combine(configDir, "PCSX2.ini");
 
-    // // DuckStation
-    // public static bool ConfigureDuckStation(string exePath, string username, string apiKey, string password)
-    // {
-    //     var exeDir = Path.GetDirectoryName(exePath)!;
-    //     var configDir = File.Exists(Path.Combine(exeDir, "portable.txt")) ? exeDir : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DuckStation");
-    //     var configPath = Path.Combine(configDir, "settings.ini");
-    //
-    //     if (!File.Exists(configPath)) return false;
-    //
-    //     var settingsToUpdate = new Dictionary<string, string>
-    //     {
-    //         { "Enabled", "true" },
-    //         { "Username", username },
-    //         { "Token", password },
-    //         { "Hardcore", "true" }
-    //     };
-    //
-    //     return UpdateIniFile(configPath, "RA", settingsToUpdate);
-    // }
+        if (!File.Exists(configPath)) return false;
 
-    // // PPSSPP
-    // public static bool ConfigurePpspp(string exePath, string username, string apiKey, string password)
-    // {
-    //     var exeDir = Path.GetDirectoryName(exePath)!;
-    //     var configPath = Path.Combine(exeDir, "memstick", "PSP", "SYSTEM", "ppsspp.ini");
-    //
-    //     if (!File.Exists(configPath)) return false;
-    //
-    //     var settingsToUpdate = new Dictionary<string, string>
-    //     {
-    //         { "Enable", "True" },
-    //         { "Username", username },
-    //         { "Token", password },
-    //         { "Hardcore", "True" }
-    //     };
-    //
-    //     return UpdateIniFile(configPath, "RetroAchievements", settingsToUpdate);
-    // }
+        var settingsToUpdate = new Dictionary<string, string>
+        {
+            { "Enabled", "true" },
+            { "Username", username },
+            { "Token", token },
+            { "Hardcore", "true" }
+        };
 
-    // // Dolphin
-    // public static bool ConfigureDolphin(string exePath, string username, string apiKey, string password)
-    // {
-    //     var exeDir = Path.GetDirectoryName(exePath)!;
-    //     var configDir = File.Exists(Path.Combine(exeDir, "portable.txt")) ? Path.Combine(exeDir, "User", "Config") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Dolphin Emulator", "Config");
-    //     var configPath = Path.Combine(configDir, "Dolphin.ini");
-    //
-    //     if (!File.Exists(configPath)) return false;
-    //
-    //     var settingsToUpdate = new Dictionary<string, string>
-    //     {
-    //         { "Enabled", "True" },
-    //         { "Username", username },
-    //         { "Token", password },
-    //         { "HardcoreMode", "True" }
-    //     };
-    //
-    //     return UpdateIniFile(configPath, "RetroAchievements", settingsToUpdate);
-    // }
+        return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
+    }
+
+    // DuckStation
+    public static bool ConfigureDuckStation(string exePath, string username, string token)
+    {
+        var exeDir = Path.GetDirectoryName(exePath)!;
+        var configDir = File.Exists(Path.Combine(exeDir, "portable.txt")) ? exeDir : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DuckStation");
+        var configPath = Path.Combine(configDir, "settings.ini");
+
+        if (!File.Exists(configPath)) return false;
+
+
+        var settingsToUpdate = new Dictionary<string, string>
+        {
+            { "Enabled", "true" },
+            { "ChallengeMode", "true" },
+            { "EncoreMode", "false" },
+            { "SpectatorMode", "false" },
+            { "UnofficialTestMode", "false" },
+            { "UseRAIntegration", "false" },
+            { "Notifications", "true" },
+            { "LeaderboardNotifications", "true" },
+            { "LeaderboardTrackers", "true" },
+            { "SoundEffects", "true" },
+            { "ProgressIndicators", "true" },
+            { "NotificationLocation", "TopLeft" },
+            { "IndicatorLocation", "BottomRight" },
+            { "ChallengeIndicatorMode", "Notification" },
+            { "NotificationsDuration", "5" },
+            { "LeaderboardsDuration", "10" },
+            { "Username", username },
+            { "Token", token }
+        };
+        return UpdateIniFile(configPath, "Cheevos", settingsToUpdate);
+    }
+
+    // PPSSPP
+    public static bool ConfigurePpspp(string exePath, string username, string token)
+    {
+        var exeDir = Path.GetDirectoryName(exePath)!;
+        var configDir = Path.Combine(exeDir, "memstick", "PSP", "SYSTEM");
+        var configPath = Path.Combine(configDir, "ppsspp.ini");
+
+        if (!File.Exists(configPath)) return false;
+
+        // 1. Update the main INI file
+        var settingsToUpdate = new Dictionary<string, string>
+        {
+            { "AchievementsEnable", "True" },
+            { "AchievementsChallengeMode", "True" },
+            { "AchievementsUserName", username }
+        };
+
+        var iniUpdated = UpdateIniFile(configPath, "Achievements", settingsToUpdate);
+
+        // 2. Save the session key to the separate .dat file
+        try
+        {
+            var datFilePath = Path.Combine(configDir, "ppsspp_retroachievements.dat");
+            File.WriteAllText(datFilePath, token);
+            return iniUpdated;
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to create PPSSPP session file at {configDir}");
+            return false;
+        }
+    }
+
+    // Dolphin
+    public static bool ConfigureDolphin(string exePath, string username, string token)
+    {
+        var exeDir = Path.GetDirectoryName(exePath)!;
+        var configDir = File.Exists(Path.Combine(exeDir, "portable.txt")) ? Path.Combine(exeDir, "User", "Config") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Dolphin Emulator", "Config");
+        var configPath = Path.Combine(configDir, "RetroAchievements.ini");
+
+        if (!File.Exists(configPath)) return false;
+
+        var settingsToUpdate = new Dictionary<string, string>
+        {
+            { "ChallengeIndicatorsEnabled", "True" },
+            { "DiscordPresenceEnabled", "False" },
+            { "Enabled", "True" },
+            { "EncoreEnabled", "False" },
+            { "HardcoreEnabled", "True" },
+            { "LeaderboardTrackerEnabled", "True" },
+            { "ProgressEnabled", "True" },
+            { "SpectatorEnabled", "False" },
+            { "UnofficialEnabled", "False" },
+            { "Username", username },
+            { "ApiToken", token }
+        };
+
+        return UpdateIniFile(configPath, "Achievements", settingsToUpdate);
+    }
 
     // Flycast
-    public static bool ConfigureFlycast(string exePath, string username, string apiKey, string password)
+    public static bool ConfigureFlycast(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath)!;
         var configPath = Path.Combine(exeDir, "emu.cfg");
@@ -126,7 +161,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
         {
             { "enable", "yes" },
             { "username", username },
-            { "token", password },
+            { "token", token },
             { "hardcore", "yes" }
         };
 

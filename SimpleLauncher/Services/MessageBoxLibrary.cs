@@ -3566,4 +3566,17 @@ internal static class MessageBoxLibrary
             MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void FailedToLoginToRetroAchievements()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtologintoRetroAchievements") ?? "Failed to log in to RetroAchievements. Please check your username and password.";
+            var message2 = (string)Application.Current.TryFindResource("LoginFailed") ?? "Login Failed";
+            MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

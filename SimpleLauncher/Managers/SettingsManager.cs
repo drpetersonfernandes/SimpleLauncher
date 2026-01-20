@@ -51,6 +51,7 @@ public class SettingsManager
     [Key(17)] public string RaUsername { get; set; }
     [Key(18)] public string RaApiKey { get; set; }
     [Key(19)] public string RaPassword { get; set; }
+    [Key(30)] public string RaToken { get; set; } // Added RaToken
     [Key(20)] public bool OverlayRetroAchievementButton { get; set; }
     [Key(21)] public bool OverlayOpenVideoButton { get; set; }
     [Key(22)] public bool OverlayOpenInfoButton { get; set; }
@@ -122,6 +123,7 @@ public class SettingsManager
         RaUsername = other.RaUsername;
         RaApiKey = other.RaApiKey;
         RaPassword = other.RaPassword;
+        RaToken = other.RaToken;
         OverlayRetroAchievementButton = other.OverlayRetroAchievementButton;
         OverlayOpenVideoButton = other.OverlayOpenVideoButton;
         OverlayOpenInfoButton = other.OverlayOpenInfoButton;
@@ -161,6 +163,7 @@ public class SettingsManager
             RaUsername = settings.Element("RA_Username")?.Value ?? string.Empty;
             RaApiKey = settings.Element("RA_ApiKey")?.Value ?? string.Empty;
             RaPassword = settings.Element("RA_Password")?.Value ?? string.Empty;
+            RaToken = settings.Element("RA_Token")?.Value ?? string.Empty; // Migrate token if it existed in XML (unlikely but safe)
             DeadZoneX = float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx) ? dzx : DefaultDeadZoneX;
             DeadZoneY = float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy) ? dzy : DefaultDeadZoneY;
             EnableFuzzyMatching = !bool.TryParse(settings.Element("EnableFuzzyMatching")?.Value, out var fm) || fm;

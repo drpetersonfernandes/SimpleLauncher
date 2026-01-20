@@ -47,11 +47,11 @@
         <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource EmulatorIntegration}" Margin="0,20,0,10">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="RetroArch" Click="ConfigureRetroArch_Click" Margin="5"/>
-                <!-- <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Margin="5"/> -->
+                <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Margin="5"/>
                 <!-- <Button Content="DuckStation" Click="ConfigureDuckStation_Click" Margin="5"/> -->
-                <!-- <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Margin="5"/> -->
-                <!-- <Button Content="Dolphin" Click="ConfigureDolphin_Click" Margin="5"/> -->
-                <!-- <Button Content="Flycast" Click="ConfigureFlycast_Click" Margin="5"/> -->
+                <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Margin="5"/>
+                <Button Content="Dolphin" Click="ConfigureDolphin_Click" Margin="5"/>
+                <Button Content="Flycast" Click="ConfigureFlycast_Click" Margin="5"/>
                 <!-- <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Margin="5"/> -->
             </WrapPanel>
         </GroupBox>

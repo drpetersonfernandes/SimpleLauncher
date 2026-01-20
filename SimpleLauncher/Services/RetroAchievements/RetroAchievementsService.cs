@@ -14,12 +14,57 @@ namespace SimpleLauncher.Services.RetroAchievements;
 public class RetroAchievementsService(IHttpClientFactory httpClientFactory, RetroAchievementsManager raManager, ILogErrors logErrors)
 {
     private const string ApiBaseUrl = "https://retroachievements.org/API/";
+    private const string RequestBaseUrl = "https://retroachievements.org/dorequest.php";
     private const string SiteBaseUrl = "https://retroachievements.org";
     private readonly HttpClient _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient");
     private readonly ILogErrors _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
     public RetroAchievementsManager RaManager { get; } = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
     // Constructor to inject dependencies
+
+    /// <summary>
+    /// Logs in to RetroAchievements to retrieve a session token.
+    /// </summary>
+    /// <param name="username">The user's RetroAchievements username.</param>
+    /// <param name="password">The user's RetroAchievements password.</param>
+    /// <returns>The session token if successful, otherwise null.</returns>
+    public async Task<string> GetSessionTokenAsync(string username, string password)
+    {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            return null;
+
+        try
+        {
+            // Ensure User-Agent is set to avoid 403 Forbidden
+            if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
+            {
+                _httpClient.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
+            }
+
+            var values = new Dictionary<string, string>
+            {
+                { "r", "login" },
+                { "u", username },
+                { "p", password }
+            };
+
+            var content = new FormUrlEncodedContent(values);
+            var response = await _httpClient.PostAsync(RequestBaseUrl, content);
+
+            if (!response.IsSuccessStatusCode) return null;
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+            using var doc = JsonDocument.Parse(jsonString);
+            var root = doc.RootElement;
+
+            return root.TryGetProperty("Success", out var success) && success.GetBoolean() && root.TryGetProperty("Token", out var token) ? token.GetString() : null;
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "[RA Service] Failed to get session token.");
+            return null;
+        }
+    }
 
     /// <summary>
     /// Fetches the user's progress and achievement list for a specific game ID.
