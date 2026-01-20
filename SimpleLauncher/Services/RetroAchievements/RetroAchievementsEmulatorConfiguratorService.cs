@@ -201,12 +201,16 @@ public static class RetroAchievementsEmulatorConfiguratorService
             if (JsonNode.Parse(jsonContent) is not JsonObject jsonNode) return false;
 
             // BizHawk uses flat root-level keys for RA settings
+            jsonNode["SkipRATelemetryWarning"] = true;
             jsonNode["RAUsername"] = username;
             jsonNode["RAToken"] = token;
             jsonNode["RACheevosActive"] = true;
-            jsonNode["RAHardcoreMode"] = true;
+            jsonNode["RALBoardsActive"] = true;
             jsonNode["RARichPresenceActive"] = true;
+            jsonNode["RAHardcoreMode"] = true;
             jsonNode["RASoundEffects"] = true;
+            jsonNode["RAAllowUnofficialCheevos"] = false;
+            jsonNode["RAAutostart"] = true;
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             File.WriteAllText(configPath, jsonNode.ToJsonString(options));
