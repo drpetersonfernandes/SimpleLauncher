@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
@@ -36,9 +32,9 @@ public static class DisplaySystemInformation
         var groupFilesByFolder2 = (string)Application.Current.TryFindResource("GroupFilesByFolder") ?? "Group Files by Folder?";
         var extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ?? "Extract File Before Launch?";
         var extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction2") ?? "Extension to Launch After Extraction";
-        var totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "Number of games in the System Folder: {0}";
-        var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
-        var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
+        // var totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "Number of games in the System Folder: {0}";
+        // var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
+        // var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
         var emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "Emulator Name";
         var emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorPath") ?? "Emulator Path";
         var emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
@@ -83,44 +79,44 @@ public static class DisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedManager.FileFormatsToLaunch)}"));
         verticalStackPanel.Children.Add(systemInfoTextBlock);
 
-        // --- Game and Image Count ---
-        var allFiles = new List<string>();
-        foreach (var folder in selectedManager.SystemFolders)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-            if (!string.IsNullOrEmpty(resolvedPath) && Directory.Exists(resolvedPath))
-            {
-                allFiles.AddRange(await GetListOfFiles.GetFilesAsync(resolvedPath, selectedManager.FileFormatsToSearch, cancellationToken));
-            }
-        }
-
-        var gameCount = allFiles.Count;
-
-        var gameCountTextBlock = new TextBlock();
-        gameCountTextBlock.Inlines.Add(new LineBreak());
-        gameCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, totalGamesCount2, gameCount)));
-        verticalStackPanel.Children.Add(gameCountTextBlock);
-
-        var imageFolderPath = selectedManager.SystemImageFolder;
-        var resolvedImageFolderPath = string.IsNullOrWhiteSpace(imageFolderPath)
-            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
-            : PathHelper.ResolveRelativeToAppDirectory(imageFolderPath);
-
-        if (!string.IsNullOrEmpty(resolvedImageFolderPath) && Directory.Exists(resolvedImageFolderPath))
-        {
-            var imageExtensions = GetImageExtensions.GetExtensions();
-            var imageCount = await Task.Run(() => Directory.EnumerateFiles(resolvedImageFolderPath, "*.*").Count(file => imageExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))), cancellationToken);
-            var imageCountTextBlock = new TextBlock();
-            imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));
-            verticalStackPanel.Children.Add(imageCountTextBlock);
-        }
-        else
-        {
-            var noImageFolderTextBlock = new TextBlock();
-            noImageFolderTextBlock.Inlines.Add(new Run(imageFolderNotExist2));
-            verticalStackPanel.Children.Add(noImageFolderTextBlock);
-        }
+        // // --- Game and Image Count ---
+        // var allFiles = new List<string>();
+        // foreach (var folder in selectedManager.SystemFolders)
+        // {
+        //     cancellationToken.ThrowIfCancellationRequested();
+        //     var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+        //     if (!string.IsNullOrEmpty(resolvedPath) && Directory.Exists(resolvedPath))
+        //     {
+        //         allFiles.AddRange(await GetListOfFiles.GetFilesAsync(resolvedPath, selectedManager.FileFormatsToSearch, cancellationToken));
+        //     }
+        // }
+        //
+        // var gameCount = allFiles.Count;
+        //
+        // var gameCountTextBlock = new TextBlock();
+        // gameCountTextBlock.Inlines.Add(new LineBreak());
+        // gameCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, totalGamesCount2, gameCount)));
+        // verticalStackPanel.Children.Add(gameCountTextBlock);
+        //
+        // var imageFolderPath = selectedManager.SystemImageFolder;
+        // var resolvedImageFolderPath = string.IsNullOrWhiteSpace(imageFolderPath)
+        //     ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
+        //     : PathHelper.ResolveRelativeToAppDirectory(imageFolderPath);
+        //
+        // if (!string.IsNullOrEmpty(resolvedImageFolderPath) && Directory.Exists(resolvedImageFolderPath))
+        // {
+        //     var imageExtensions = GetImageExtensions.GetExtensions();
+        //     var imageCount = await Task.Run(() => Directory.EnumerateFiles(resolvedImageFolderPath, "*.*").Count(file => imageExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))), cancellationToken);
+        //     var imageCountTextBlock = new TextBlock();
+        //     imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));
+        //     verticalStackPanel.Children.Add(imageCountTextBlock);
+        // }
+        // else
+        // {
+        //     var noImageFolderTextBlock = new TextBlock();
+        //     noImageFolderTextBlock.Inlines.Add(new Run(imageFolderNotExist2));
+        //     verticalStackPanel.Children.Add(noImageFolderTextBlock);
+        // }
 
         // --- Emulator Info ---
         foreach (var emulator in selectedManager.Emulators)
