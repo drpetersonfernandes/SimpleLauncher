@@ -157,13 +157,13 @@ public partial class RetroAchievementsSettingsWindow
             {
                 switch (emulatorName)
                 {
-                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, apiKey, password); break;
+                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, password); break;
                     case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, token); break;
                     case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, token); break;
                     case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token); break;
                     case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token); break;
                     case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token); break;
-                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, apiKey, password); break;
+                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, token); break;
                 }
 
                 if (success)

@@ -13,7 +13,7 @@ namespace SimpleLauncher.Services.RetroAchievements;
 public static class RetroAchievementsEmulatorConfiguratorService
 {
     // RetroArch
-    public static bool ConfigureRetroArch(string exePath, string username, string apiKey, string password)
+    public static bool ConfigureRetroArch(string exePath, string username, string password)
     {
         var configPath = Path.Combine(Path.GetDirectoryName(exePath)!, "retroarch.cfg");
         if (!File.Exists(configPath)) return false;
@@ -189,7 +189,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
     }
 
     // BizHawk
-    public static bool ConfigureBizHawk(string exePath, string username, string apiKey, string password)
+    public static bool ConfigureBizHawk(string exePath, string username, string token)
     {
         var configPath = Path.Combine(Path.GetDirectoryName(exePath)!, "config.ini");
         if (!File.Exists(configPath)) return false;
@@ -197,21 +197,16 @@ public static class RetroAchievementsEmulatorConfiguratorService
         try
         {
             var jsonContent = File.ReadAllText(configPath);
-            var jsonNode = JsonNode.Parse(jsonContent);
 
-            if (jsonNode == null) return false;
+            if (JsonNode.Parse(jsonContent) is not JsonObject jsonNode) return false;
 
-            var raNode = jsonNode["RetroAchievements"];
-            if (raNode == null)
-            {
-                raNode = new JsonObject();
-                jsonNode["RetroAchievements"] = raNode;
-            }
-
-            raNode["Enabled"] = true;
-            raNode["Username"] = username;
-            raNode["Token"] = password;
-            raNode["HardcoreMode"] = true;
+            // BizHawk uses flat root-level keys for RA settings
+            jsonNode["RAUsername"] = username;
+            jsonNode["RAToken"] = token;
+            jsonNode["RACheevosActive"] = true;
+            jsonNode["RAHardcoreMode"] = true;
+            jsonNode["RARichPresenceActive"] = true;
+            jsonNode["RASoundEffects"] = true;
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             File.WriteAllText(configPath, jsonNode.ToJsonString(options));
@@ -224,7 +219,7 @@ public static class RetroAchievementsEmulatorConfiguratorService
         }
     }
 
-    // Helper for simple INI files like retroarch.cfg (key = "value")
+    // Helper for simple INI files
     private static bool UpdateSimpleIniFile(string filePath, Dictionary<string, string> settingsToUpdate, string separator)
     {
         try
