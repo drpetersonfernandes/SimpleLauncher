@@ -45,7 +45,8 @@ public static class DisplaySystemInformation
         var receiveNotificationEmulatorError2 = (string)Application.Current.TryFindResource("receiveNotificationEmulatorError") ?? "Receive a Notification on Emulator Error?";
 
         // --- Validate Configuration ---
-        var validationResult = ValidateSystemConfiguration(selectedManager);
+        // Offload path validation to a background thread to prevent UI freezing
+        var validationResult = await Task.Run(() => ValidateSystemConfiguration(selectedManager), cancellationToken);
 
         // --- Create UI Elements and Apply Validation Styling ---
         var systemInfoTextBlock = new TextBlock();

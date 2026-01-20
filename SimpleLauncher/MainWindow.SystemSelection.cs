@@ -133,7 +133,7 @@ public partial class MainWindow
                     }
 
                     SetUiLoadingState(true);
-                    await Task.Yield(); // Allow UI to update and show spinner
+                    await Task.Delay(100, token);
 
                     TopSystemSelection.Visibility = Visibility.Visible;
                     SystemComboBox.SelectedItem = systemName;

@@ -750,7 +750,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     }
 
                     SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
-                    await Task.Yield(); // Allow UI to update and show spinner
+                    await Task.Delay(100); // Give the UI thread time to render the loading overlay
                     _isUiUpdating = true; // Set after UI is frozen
                     try
                     {
