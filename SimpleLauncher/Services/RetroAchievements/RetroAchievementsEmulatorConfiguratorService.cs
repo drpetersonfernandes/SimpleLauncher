@@ -120,10 +120,30 @@ public static class RetroAchievementsEmulatorConfiguratorService
     public static bool ConfigureDolphin(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath)!;
-        var configDir = File.Exists(Path.Combine(exeDir, "portable.txt")) ? Path.Combine(exeDir, "User", "Config") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Dolphin Emulator", "Config");
+        string configDir;
+
+        if (File.Exists(Path.Combine(exeDir, "portable.txt")))
+        {
+            configDir = Path.Combine(exeDir, "User", "Config");
+        }
+        else
+        {
+            // %APPDATA%
+            configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dolphin Emulator", "Config");
+        }
+
         var configPath = Path.Combine(configDir, "RetroAchievements.ini");
 
-        if (!File.Exists(configPath)) return false;
+        try
+        {
+            if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
+            if (!File.Exists(configPath)) File.WriteAllText(configPath, ""); // Create empty file if missing
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to prepare Dolphin config path at {configDir}");
+            return false;
+        }
 
         var settingsToUpdate = new Dictionary<string, string>
         {
