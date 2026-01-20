@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Buffers.Binary;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
@@ -231,6 +232,71 @@ public static class RetroAchievementsFileHasher
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate N64 hash for {filePath}");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Calculates the hash for GameCube games by hashing the internal main.dol executable.
+    /// </summary>
+    public static async Task<string> CalculateGameCubeHashAsync(string filePath)
+    {
+        try
+        {
+            await using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var buffer = new byte[256];
+
+            // 1. Verify it's a GameCube/Wii Disc (Magic number 0xC2339F3D at offset 0x1C)
+            fs.Seek(0x1C, SeekOrigin.Begin);
+            if (await fs.ReadAsync(buffer.AsMemory(0, 4)) != 4) return null;
+
+            var magic = BinaryPrimitives.ReadUInt32BigEndian(buffer.AsSpan(0, 4));
+            if (magic != 0xC2339F3D)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[GC Hasher] Invalid Magic Number: {magic:X}");
+                return null;
+            }
+
+            // 2. Get the offset of main.dol (Offset 0x420)
+            fs.Seek(0x420, SeekOrigin.Begin);
+            if (await fs.ReadAsync(buffer.AsMemory(0, 4)) != 4) return null;
+
+            var dolOffset = BinaryPrimitives.ReadUInt32BigEndian(buffer.AsSpan(0, 4));
+
+            // 3. Determine the size of main.dol by reading its header
+            fs.Seek(dolOffset, SeekOrigin.Begin);
+            if (await fs.ReadAsync(buffer) != 256) return null;
+
+            uint maxOffset = 0;
+            // DOL header: 7 text sections (offsets at 0x00, lengths at 0x48)
+            //            11 data sections (offsets at 0x1C, lengths at 0x64)
+            // Total 18 sections to check
+            for (var i = 0; i < 18; i++)
+            {
+                var offsetVal = BinaryPrimitives.ReadUInt32BigEndian(buffer.AsSpan(i * 4, 4));
+                var lenVal = BinaryPrimitives.ReadUInt32BigEndian(buffer.AsSpan(0x48 + (i * 4), 4));
+                if (offsetVal + lenVal > maxOffset)
+                {
+                    maxOffset = offsetVal + lenVal;
+                }
+            }
+
+            // 4. Hash the main.dol byte range
+            fs.Seek(dolOffset, SeekOrigin.Begin);
+
+            // We need to hash exactly 'maxOffset' bytes starting from 'dolOffset'.
+            // Since MD5.ComputeHash takes a stream, we can use a bounded read approach or read into buffer.
+            // Given main.dol is usually a few MBs, reading into memory is acceptable for modern systems,
+            // but a chunked approach is safer for memory.
+            var dolBytes = new byte[maxOffset];
+            await fs.ReadExactlyAsync(dolBytes, 0, (int)maxOffset);
+            var hashBytes = MD5.HashData(dolBytes);
+
+            return ToHexString(hashBytes);
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate GameCube hash for {filePath}");
             return null;
         }
     }
