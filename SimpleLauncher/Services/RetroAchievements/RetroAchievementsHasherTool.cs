@@ -293,10 +293,18 @@ public static class RetroAchievementsHasherTool
 
                 case "GameCube":
                 {
-                    // Handle RVZ conversion if necessary
+                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
+                    if (systemId <= 0)
+                    {
+                        extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
+                        isExtractionSuccessful = false;
+                        break;
+                    }
+
                     string tempIsoPath = null;
                     try
                     {
+                        // Handle RVZ conversion if necessary
                         if (Path.GetExtension(fileToProcess).Equals(".rvz", StringComparison.OrdinalIgnoreCase))
                         {
                             DebugLogger.Log($"[RA Hasher Tool] RVZ detected. Converting to ISO for hashing: {fileToProcess}");
@@ -314,9 +322,9 @@ public static class RetroAchievementsHasherTool
 
                         if (isExtractionSuccessful)
                         {
-                            DebugLogger.Log($"[RA Hasher Tool] Calculating GameCube hash for '{Path.GetFileName(fileToProcess)}'...");
-                            hash = await RetroAchievementsFileHasher.CalculateGameCubeHashAsync(fileToProcess);
-                            DebugLogger.Log($"[RA Hasher Tool] Calculated GameCube hash: {hash}");
+                            DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for GameCube (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
+                            hash = await GetHashAsync(fileToProcess, systemId);
+                            DebugLogger.Log($"[RA Hasher Tool] RAHasher result: {hash}");
                         }
                     }
                     finally
