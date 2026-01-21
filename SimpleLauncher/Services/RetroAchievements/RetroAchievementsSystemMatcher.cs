@@ -40,7 +40,7 @@ public static class RetroAchievementsSystemMatcher
         ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nds", "ds"]),
         ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "vb"]),
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
-        ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "dsi"]),
+        ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi"]),
         ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds"]),
         ["wii"] = new RaSystemInfo(19, ["wii"]),
         ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu"]),

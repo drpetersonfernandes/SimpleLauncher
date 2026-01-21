@@ -32,13 +32,13 @@ public static class RetroAchievementsHasherTool
     private static readonly List<string> SystemWithComplexHashLogic =
     [
         "3do interactive multiplayer", "atari jaguar cd", "pc engine cd/turbografx-cd",
-        "pc-fx", "nintendo ds", "neo geo cd", "dreamcast", "saturn", "sega cd",
+        "pc-fx", "nintendo ds", "nintendo dsi", "neo geo cd", "dreamcast", "saturn", "sega cd",
         "playstation", "playstation 2", "playstation portable"
     ];
 
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
-        "atari 5200", "Arduboy", "nintendo dsi", "wii", "wii u", "nintendo 3ds", "sega pico",
+        "atari 5200", "Arduboy", "wii", "wii u", "nintendo 3ds", "sega pico",
         "atari st", "pc-8000/8800", "commodore 64", "amiga", "zx spectrum", "fairchild channel f",
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
@@ -276,9 +276,8 @@ public static class RetroAchievementsHasherTool
                     if (systemId > 0)
                     {
                         DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
-                        // For complex/disc-based systems, the original file path (even if compressed) is passed to the tool.
-                        // The tool handles reading from archives/disc images internally.
-                        hash = await GetHashAsync(filePath, systemId); // Call the existing GetHashAsync
+                        // Use fileToProcess (the extracted file) instead of filePath (the zip)
+                        hash = await GetHashAsync(fileToProcess, systemId);
                     }
                     else
                     {
