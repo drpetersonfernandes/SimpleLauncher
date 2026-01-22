@@ -194,7 +194,7 @@ public static class ScanMicrosoftStoreGames
         "Dragon Center",
         "Dropshelf",
         "Dropbox",
-        "Dropbox - promozione",
+        "Dropbox - promoção",
         "Dropbox promotion",
         "DTS Audio Processing",
         "DTS CUSTOM",
@@ -684,6 +684,7 @@ public static class ScanMicrosoftStoreGames
             // 4. Matches them based on PackageFamilyName.
             const string script = """
                                   $ErrorActionPreference = 'SilentlyContinue'
+                                  $OutputEncoding = [Console]::OutputEncoding = [System.Text.Encoding]::UTF8;
                                   $apps = Get-StartApps
                                   $packages = Get-AppxPackage
                                   $pkgHash = @{}
@@ -719,7 +720,7 @@ public static class ScanMicrosoftStoreGames
                                           }
                                       }
                                   }
-                                  $results | ConvertTo-Json -Depth 2
+                                  $results | ConvertTo-Json -Depth 2 -Compress
                                   """;
 
             var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
@@ -737,7 +738,8 @@ public static class ScanMicrosoftStoreGames
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = true
+                CreateNoWindow = true,
+                StandardOutputEncoding = Encoding.UTF8
             };
 
             using var process = Process.Start(startInfo);
@@ -838,7 +840,7 @@ public static class ScanMicrosoftStoreGames
                         var reportContent = new StringBuilder();
                         reportContent.AppendLine("--- Microsoft Store Scan Results ---");
                         reportContent.AppendLine("The following programs were found and are not on the ignore list:");
-                        foreach (var programName in newPrograms.OrderBy(n => n))
+                        foreach (var programName in newPrograms.OrderBy(static n => n))
                         {
                             reportContent.AppendLine(CultureInfo.InvariantCulture, $"- {programName}");
                         }
