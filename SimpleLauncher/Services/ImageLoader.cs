@@ -109,14 +109,21 @@ public static class ImageLoader
             throw new Exception($"An unexpected error occurred while reading image file '{filePath}'.", ex);
         }
 
-        using var ms = new MemoryStream(imageData);
-        var bi = new BitmapImage();
-        bi.BeginInit();
-        bi.CacheOption = BitmapCacheOption.OnLoad; // Ensures the image is loaded into memory
-        bi.StreamSource = ms;
-        bi.EndInit();
-        bi.Freeze(); // Makes the image thread-safe
+        try
+        {
+            using var ms = new MemoryStream(imageData);
+            var bi = new BitmapImage();
+            bi.BeginInit();
+            bi.CacheOption = BitmapCacheOption.OnLoad; // Ensures the image is loaded into memory
+            bi.StreamSource = ms;
+            bi.EndInit();
+            bi.Freeze(); // Makes the image thread-safe
 
-        return bi;
+            return bi;
+        }
+        catch (NotSupportedException ex)
+        {
+            throw new NotSupportedException($"The image format or codec is not supported by the system: {filePath}", ex);
+        }
     }
 }

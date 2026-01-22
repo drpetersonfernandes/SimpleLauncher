@@ -17,6 +17,7 @@ public static class ScanMicrosoftStoreGames
 {
     private static readonly HashSet<string> IgnoredAppNames = new(StringComparer.OrdinalIgnoreCase)
     {
+        "123 FacilePhoto",
         "18496Starpine.Screenbox_rm8wvch11q4my",
         "1Password",
         "22450.PPTXViewer_0aqw1zw0x2snt",
@@ -39,12 +40,13 @@ public static class ScanMicrosoftStoreGames
         "Acer Purified Voice Console (R)",
         "AccessEnum",
         "Accessoires Xbox",
+        "ADExplorer",
+        "ADInsight",
+        "Adobe XD",
         "Adobe",
         "Adobe Express Photos",
         "Adobe Fresco",
-        "Adobe XD",
-        "ADExplorer",
-        "ADInsight",
+        "Adquira o Office",
         "Affinity",
         "Affinity Designer 2",
         "Affinity Photo 2",
@@ -122,6 +124,7 @@ public static class ScanMicrosoftStoreGames
         "Calendario",
         "Calendrier",
         "CANAL+",
+        "CameraL",
         "Camo Studio",
         "Canon",
         "Canon Inkjet",
@@ -152,6 +155,8 @@ public static class ScanMicrosoftStoreGames
         "Comix",
         "Compagnon de la console Xbox",
         "Company Portal",
+        "Conectar",
+        "Contatar o Suporte",
         "Convert-Image",
         "Cool File",
         "Copilot",
@@ -164,11 +169,13 @@ public static class ScanMicrosoftStoreGames
         "CPU Stress",
         "Crosshair Zoom",
         "CrystalDiskMark",
+        "Dados da Rede Celular e Wi-Fi Pagos",
         "DDT Global",
         "de notas",
         "DebugView",
         "Debian",
         "Dell",
+        "Dell Free Fall Data Protection",
         "Desktop remoto",
         "Desktops",
         "Dev Home",
@@ -203,6 +210,7 @@ public static class ScanMicrosoftStoreGames
         "Easy Disk Catalog Maker",
         "EasyMail",
         "ECApp",
+        "Editable Word",
         "Editor",
         "Editor de avatares de Xbox",
         "eFootballT Settings",
@@ -233,6 +241,7 @@ public static class ScanMicrosoftStoreGames
         "Filelight",
         "Files",
         "Film e TV",
+        "Filmes e TV",
         "Films & TV",
         "Films en tv",
         "Films et TV",
@@ -243,6 +252,7 @@ public static class ScanMicrosoftStoreGames
         "Flock",
         "FluentInfo",
         "Fluent Video Player",
+        "FluentWeather",
         "Focus To-Do",
         "Food Storage",
         "Forfaits mobiles",
@@ -280,9 +290,12 @@ public static class ScanMicrosoftStoreGames
         "HP Audio Center",
         "HP Audio Control",
         "HP Display Center",
+        "HP Enhanced Lighting",
         "HP PC Hardware Diagnostics Windows",
         "HP Privacy Settings",
         "HP Prime Free",
+        "HP Programmable Key",
+        "HP QuickDrop",
         "HP Smart",
         "HP Support Assistant",
         "HP System Event Utility",
@@ -300,6 +313,7 @@ public static class ScanMicrosoftStoreGames
         "Intel",
         "Intel(R) Management and Security Status",
         "Intel© Application Optimization",
+        "Intel© Connectivity Performance Suite",
         "Intel© Grafikleri Kontrol Merkezi",
         "Intel© Rapid Storage Technology Application",
         "Intel© Unisont",
@@ -444,10 +458,13 @@ public static class ScanMicrosoftStoreGames
         "OMEN Gaming Hub",
         "One Calendar",
         "One Game Launcher",
+        "One Photo Viewer",
         "OneDrive",
+        "OneNote",
         "OneNote for Windows 10",
         "OP Auto Clicker",
         "Online Radio",
+        "Open RAR",
         "Operator messages",
         "Outil Capture",
         "Outlook",
@@ -558,6 +575,7 @@ public static class ScanMicrosoftStoreGames
         "SketchBook",
         "Skype",
         "SkypeApp",
+        "Skype Preview",
         "SLU Service",
         "Smart File Renamer ù",
         "SmartAudio 2",
@@ -579,6 +597,7 @@ public static class ScanMicrosoftStoreGames
         "Surface",
         "Sway",
         "Sweet Home",
+        "Sweet Home 3D",
         "Sysinternals Suite",
         "Szybka pomoc",
         "Takvim",
@@ -588,6 +607,8 @@ public static class ScanMicrosoftStoreGames
         "Telefoonkoppeling",
         "Terminal",
         "Terminale",
+        "Terminal Preview",
+        "Text Reader",
         "ThunderboltT",
         "Tips",
         "Tobii Experience",
@@ -615,6 +636,7 @@ public static class ScanMicrosoftStoreGames
         "Visionneuse",
         "Visionneuse 3D",
         "Visum Visionneuse de photo",
+        "VLC",
         "VMMap",
         "Vreme",
         "WavesAudio.WavesMaxxAudioProforDell_fh4rh281wavaa",
@@ -891,7 +913,8 @@ public static class ScanMicrosoftStoreGames
                     // Use try-catch for file operations
                     try
                     {
-                        File.Copy(fullLogoPath, destPath, true);
+                        var fileBytes = await File.ReadAllBytesAsync(fullLogoPath);
+                        await File.WriteAllBytesAsync(destPath, fileBytes);
                         return;
                     }
                     catch (Exception ex)
@@ -925,7 +948,8 @@ public static class ScanMicrosoftStoreGames
                     {
                         try
                         {
-                            File.Copy(p, destPath, true);
+                            var fileBytes = await File.ReadAllBytesAsync(p);
+                            await File.WriteAllBytesAsync(destPath, fileBytes);
                             return;
                         }
                         catch (Exception ex)
@@ -947,7 +971,8 @@ public static class ScanMicrosoftStoreGames
                 {
                     try
                     {
-                        File.Copy(bestIcon, destPath, true);
+                        var fileBytes = await File.ReadAllBytesAsync(bestIcon);
+                        await File.WriteAllBytesAsync(destPath, fileBytes);
                         return;
                     }
                     catch (Exception ex)
@@ -964,7 +989,8 @@ public static class ScanMicrosoftStoreGames
                     {
                         try
                         {
-                            File.Copy(largestPng, destPath, true);
+                            var fileBytes = await File.ReadAllBytesAsync(largestPng);
+                            await File.WriteAllBytesAsync(destPath, fileBytes);
                             return;
                         }
                         catch (Exception ex)
