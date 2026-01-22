@@ -1,3 +1,26 @@
+# Release 4.10
+*2026-01-21*
+---
+
+### 1. RetroAchievements (RA) Enhancements
+-   **Expanded Emulator Support:** Implemented auto-configuration logic for **PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, and BizHawk**. Logic will inject login information into those emulators automatically.
+-   **Hashing Support:**
+    *   Fix for **GameCube hashing**.
+    *   Fix Retroachievements hash calculation for multiple systems.
+
+### 2. Settings & Infrastructure
+-   **MessagePack Migration:** Migrated the settings system from XML (`settings.xml`) to MessagePack (`settings.dat`) for better performance. It includes a migration path to convert old XML settings automatically.
+-   **Play History Refactor:** Changed how play history is tracked, moving from simple filenames to **full absolute paths**. A migration utility is included to update existing records.
+
+### 3. UI & Performance
+-   **Thread Safety:** Offloaded system configuration validation to background threads to prevent the UI from freezing.
+-   **UI Responsiveness:** Adjusted loading overlays with slight delays to ensure the "Loading" spinner renders correctly before heavy operations begin.
+-   **Simplified Info:** Removed game and image count logic from the system information display to improve loading speed.
+
+### 4. Error Handling & Maintenance
+-   **Async Operations:** Switched several file operations (like icon copying in the MS Store scan) to asynchronous methods.
+-   **Robustness:** Improved error handling in the `ImageLoader` for unsupported formats and refined null-exception logging.
+
 # Release 4.9.1
 *2026-01-18*
 ---
