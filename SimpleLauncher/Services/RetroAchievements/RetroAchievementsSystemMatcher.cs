@@ -36,15 +36,15 @@ public static class RetroAchievementsSystemMatcher
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color"]),
         ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom"]),
-        ["gamecube"] = new RaSystemInfo(16, ["gamecube", "gc"]),
-        ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nds", "ds"]),
-        ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "vb"]),
+        ["gamecube"] = new RaSystemInfo(16, ["gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube", "nintendo gc"]),
+        ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nintendo-ds", "nintendods", "nds", "ds", "nintendo ds"]),
+        ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
-        ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi"]),
-        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds"]),
-        ["wii"] = new RaSystemInfo(19, ["wii"]),
-        ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu"]),
-        ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds"]),
+        ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi", "nintendo ndsi", "nintendo dsi"]),
+        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds"]),
+        ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii"]),
+        ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
+        ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds"]),
 
         // Sega systems
         ["genesis/mega drive"] = new RaSystemInfo(1, ["genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis", "sega megadrive", "sega mega drive"]),
@@ -64,7 +64,10 @@ public static class RetroAchievementsSystemMatcher
 
         // NEC systems
         ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16"]),
-        ["pc engine cd/turbografx-cd"] = new RaSystemInfo(76, ["pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pc-engine cd", "turbografx-cd", "turbografx cd", "pce-cd"]),
+        ["pc engine cd/turbografx-cd"] = new RaSystemInfo(76, [
+            "pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pcenginecd", "pcecd", "pce-cd", "pc-engine cd", "turbografx-cd", "turbografx cd",
+            "nec pc engine cd", "nec pcengine cd", "nec pcenginecd", "nec pcecd", "nec pce-cd", "nec pc-engine cd", "nec turbografx-cd", "nec turbografx cd"
+        ]),
         ["supergrafx"] = new RaSystemInfo(8, ["supergrafx", "sgx"]), // SuperGrafx uses the same core as PC Engine
 
         // Atari systems
