@@ -8,7 +8,7 @@
                       Height="600"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen"
-                      WindowState="Maximized">
+                      WindowState="Maximized" x:ClassModifier="internal">
 
     <Window.Resources>
         <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">

@@ -6,7 +6,7 @@
                       Width="600" Height="500"
                       WindowStartupLocation="CenterScreen"
                       ShowMinButton="False"
-                      ResizeMode="CanResize">
+                      ResizeMode="CanResize" x:ClassModifier="internal">
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

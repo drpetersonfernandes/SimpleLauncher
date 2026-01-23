@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,7 +45,7 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("UpdateCheckerClient");
         serviceCollection.AddHttpClient("SupportWindowClient");
         serviceCollection.AddHttpClient("RetroAchievementsClient");
-        serviceCollection.AddHttpClient("GameImageClient", client =>
+        serviceCollection.AddHttpClient("GameImageClient", static client =>
         {
             var apiUrl = Configuration.GetValue<string>("ApiSettings:GameImageUrl");
             client.BaseAddress = new Uri(apiUrl ?? "https://simple-launcher-api.doutorpeterson.workers.dev/");
@@ -232,17 +233,17 @@ public partial class App : IDisposable
         try
         {
             string dllName;
-            switch (System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture)
+            switch (RuntimeInformation.ProcessArchitecture)
             {
-                case System.Runtime.InteropServices.Architecture.Arm64:
+                case Architecture.Arm64:
                     dllName = "7z_arm64.dll";
                     break;
-                case System.Runtime.InteropServices.Architecture.X64:
+                case Architecture.X64:
                     dllName = "7z_x64.dll";
                     break;
                 default:
                     // Notify developer
-                    var errorMessage = $"Unsupported architecture for 'Simple Launcher': {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";
+                    var errorMessage = $"Unsupported architecture for 'Simple Launcher': {RuntimeInformation.ProcessArchitecture}";
                     _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
                     // Notify user

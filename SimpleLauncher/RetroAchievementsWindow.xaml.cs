@@ -106,8 +106,10 @@ public partial class RetroAchievementsWindow
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
     {
-        var settingsWindow = new RetroAchievementsSettingsWindow(_settings);
-        settingsWindow.Owner = this;
+        var settingsWindow = new RetroAchievementsSettingsWindow(_settings)
+        {
+            Owner = this
+        };
         settingsWindow.ShowDialog();
 
         // Reload current tab using Tag instead of Header

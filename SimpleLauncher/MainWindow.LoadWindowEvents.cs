@@ -17,7 +17,7 @@ public partial class MainWindow
         var statusBarTimeoutSeconds = App.Configuration.GetValue("StatusBarTimeoutSeconds", 3);
         StatusBarTimer.Interval = TimeSpan.FromSeconds(statusBarTimeoutSeconds);
 
-        StatusBarTimer.Tick += (s, eventArgs) =>
+        StatusBarTimer.Tick += (_, _) =>
         {
             StatusBarText.Content = ""; // Clear the status bar
             StatusBarTimer.Stop(); // Stop the timer after clearing

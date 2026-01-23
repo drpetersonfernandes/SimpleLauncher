@@ -167,10 +167,6 @@ public partial class RomHistoryWindow
             {
                 OpenGoogleSearch();
             }
-            else
-            {
-                return;
-            }
         }
     }
 

@@ -11,7 +11,7 @@
                       Height="610"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen"
-                      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+                      DataContext="{Binding RelativeSource={RelativeSource Self}}" x:ClassModifier="internal">
 
     <Grid>
         <Grid.RowDefinitions>

@@ -16,7 +16,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class FavoritesWindow
+internal partial class FavoritesWindow
 {
     private static readonly string LogPath = GetLogPath.Path();
     private readonly FavoritesManager _favoritesManager;
@@ -29,7 +29,7 @@ public partial class FavoritesWindow
     private readonly GameLauncher _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
 
-    public FavoritesWindow(
+    internal FavoritesWindow(
         SettingsManager settings,
         List<SystemManager> systemManagers,
         List<MameManager> machines,
@@ -108,8 +108,8 @@ public partial class FavoritesWindow
 
     private Task<List<Favorite>> LoadAndProcessFavoritesAsync(
         List<Favorite> favoritesToProcess,
-        List<SystemManager> systemManagers,
-        List<MameManager> machines)
+        IReadOnlyCollection<SystemManager> systemManagers,
+        IReadOnlyCollection<MameManager> machines)
     {
         return Task.Run(() =>
         {
@@ -143,7 +143,7 @@ public partial class FavoritesWindow
         });
     }
 
-    private async Task DeleteMissingFavoritesAsync(List<SystemManager> systemManagers)
+    private async Task DeleteMissingFavoritesAsync(IReadOnlyCollection<SystemManager> systemManagers)
     {
         var itemsToRemove = await Task.Run(() =>
         {
@@ -289,7 +289,7 @@ public partial class FavoritesWindow
 
             void OnRemovedCallback()
             {
-                if (selectedFavorite != null)
+                if (true)
                 {
                     _favoriteList.Remove(selectedFavorite);
                     PreviewImage.Source = null; // Also clear the preview image

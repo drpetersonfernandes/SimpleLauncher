@@ -17,7 +17,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemWindow
+internal partial class EditSystemWindow
 {
     private XDocument _xmlDoc;
     private const string XmlFilePath = "system.xml";

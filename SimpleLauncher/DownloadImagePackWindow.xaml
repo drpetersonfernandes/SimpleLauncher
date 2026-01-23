@@ -7,7 +7,7 @@
                       MinWidth="550"
                       Height="600"
                       MinHeight="500"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen" x:ClassModifier="internal">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" /> <!-- Header -->

@@ -62,12 +62,4 @@ public partial class SetLinksWindow
 
         Close();
     }
-
-    private static string EncodeForXml(string input)
-    {
-        if (string.IsNullOrEmpty(input))
-            return string.Empty;
-
-        return System.Security.SecurityElement.Escape(input);
-    }
 }

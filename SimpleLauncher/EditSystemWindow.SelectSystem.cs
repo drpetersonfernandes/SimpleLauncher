@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
@@ -9,7 +10,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemWindow
+internal partial class EditSystemWindow
 {
     private void PopulateSystemNamesDropdown()
     {
@@ -176,7 +177,7 @@ public partial class EditSystemWindow
         }
     }
 
-    private void PopulateEmulatorFields(XElement emulatorElement, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, ComboBox notificationComboBox)
+    private void PopulateEmulatorFields(XContainer emulatorElement, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
     {
         if (emulatorElement != null)
         {
