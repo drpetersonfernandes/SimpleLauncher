@@ -62,7 +62,7 @@ public static class QuitApplication
 
             // Use Dispatcher to ensure shutdown happens on the UI thread,
             // then forcefully exit.
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(static () =>
             {
                 Application.Current.Shutdown();
                 Process.GetCurrentProcess().Kill();

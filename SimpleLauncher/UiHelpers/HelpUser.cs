@@ -818,7 +818,7 @@ public static partial class HelpUser
         // Sort matches by their starting index
         // This is crucial for correct processing order and handling overlaps (e.g., a markdown link
         // will take precedence over a raw URL that might be part of its URL component).
-        matches.Sort((a, b) => a.Match.Index.CompareTo(b.Match.Index));
+        matches.Sort(static (a, b) => a.Match.Index.CompareTo(b.Match.Index));
 
         var lastIndex = 0;
 
@@ -862,7 +862,7 @@ public static partial class HelpUser
         // Add any remaining plain text (and raw URLs within it) after the last match
         if (lastIndex < text.Length)
         {
-            var remainingText = text.Substring(lastIndex);
+            var remainingText = text[lastIndex..];
             AddRawUrlsToParagraph(paragraph, remainingText);
         }
 

@@ -184,10 +184,10 @@ public partial class RetroAchievementsForAGameWindow
         if (string.IsNullOrWhiteSpace(input))
             return input;
 
-        return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input.Substring(1);
+        return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input[1..];
     }
 
-    private void OpenUrlInBrowser(string url)
+    private static void OpenUrlInBrowser(string url)
     {
         try
         {
@@ -274,8 +274,10 @@ public partial class RetroAchievementsForAGameWindow
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
     {
-        var settingsWindow = new RetroAchievementsSettingsWindow(_settings);
-        settingsWindow.Owner = this;
+        var settingsWindow = new RetroAchievementsSettingsWindow(_settings)
+        {
+            Owner = this
+        };
         settingsWindow.ShowDialog();
 
         // Reload current tab using Tag instead of Header
@@ -607,7 +609,7 @@ public partial class RetroAchievementsForAGameWindow
             }
 
             // Load High Scores (t=0, default)
-            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey, false);
+            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (rankings is { Count: > 0 })
             {
                 for (var i = 0; i < rankings.Count; i++)
@@ -766,23 +768,24 @@ public partial class RetroAchievementsForAGameWindow
                 UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? "N/A" : userProfile.Uuid;
                 UserProfileWallActive.Text = userProfile.UserWallActive ? "Yes" : "No";
 
-                // Recently played - use the detailed list from GetUserRecentlyPlayedGamesAsync
-                if (recentlyPlayedGames is { Count: > 0 })
+                switch (recentlyPlayedGames)
                 {
-                    // Ensure full URLs are used (handled in model)
-                    UserProfileRecentlyPlayed.ItemsSource = recentlyPlayedGames;
-                }
-                else if (recentlyPlayedGames == null)
-                {
-                    // If recentlyPlayedGames is null, it indicates an API failure for this specific call
-                    DebugLogger.Log($"[RA Window] Failed to load recently played games for user {_settings.RaUsername}. API returned null.");
-                    UserProfileRecentlyPlayed.ItemsSource = null; // Ensure it's cleared
-                    // Optionally, add a message to the ListBox itself or a small text below it.
-                    // For now, just clear it and log.
-                }
-                else // recentlyPlayedGames is not null but empty
-                {
-                    UserProfileRecentlyPlayed.ItemsSource = null; // No recently played games
+                    // Recently played - use the detailed list from GetUserRecentlyPlayedGamesAsync
+                    case { Count: > 0 }:
+                        // Ensure full URLs are used (handled in model)
+                        UserProfileRecentlyPlayed.ItemsSource = recentlyPlayedGames;
+                        break;
+                    case null:
+                        // If recentlyPlayedGames is null, it indicates an API failure for this specific call
+                        DebugLogger.Log($"[RA Window] Failed to load recently played games for user {_settings.RaUsername}. API returned null.");
+                        UserProfileRecentlyPlayed.ItemsSource = null; // Ensure it's cleared
+                        // Optionally, add a message to the ListBox itself or a small text below it.
+                        // For now, just clear it and log.
+                        break;
+                    // recentlyPlayedGames is not null but empty
+                    default:
+                        UserProfileRecentlyPlayed.ItemsSource = null; // No recently played games
+                        break;
                 }
 
                 NoProfileOverlay.Visibility = Visibility.Collapsed;

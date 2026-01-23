@@ -504,10 +504,6 @@ public static class ContextMenu
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
                     }
                 }
-                else
-                {
-                    return;
-                }
             }
             catch (Exception ex)
             {
@@ -553,10 +549,6 @@ public static class ContextMenu
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
                     }
-                }
-                else
-                {
-                    return;
                 }
             }
             catch (Exception ex)

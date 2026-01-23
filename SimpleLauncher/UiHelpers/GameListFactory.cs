@@ -241,10 +241,7 @@ public class GameListFactory(
                     var (defaultImageSource, _) = await ImageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() =>
                     {
-                        if (_mainWindow?.PreviewImage != null) // Check again to be safe
-                        {
-                            _mainWindow.PreviewImage.Source = defaultImageSource;
-                        }
+                        _mainWindow?.PreviewImage?.Source = defaultImageSource;
                     });
                 }
                 catch (Exception fallbackEx)

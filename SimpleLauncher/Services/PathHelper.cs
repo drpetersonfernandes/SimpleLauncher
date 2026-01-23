@@ -8,7 +8,7 @@ using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
 
-public static class PathHelper
+internal static partial class PathHelper
 {
     private const string BaseFolderPlaceholder = "%BASEFOLDER%";
 
@@ -57,9 +57,7 @@ public static class PathHelper
             return string.Empty;
         }
 
-        var pathTokenRegex = new Regex("""
-                                       "[^"]*"|'[^']*'|\S+
-                                       """);
+        var pathTokenRegex = MyRegex();
 
         var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
         {
@@ -170,7 +168,7 @@ public static class PathHelper
         {
             basePath = AppDomain.CurrentDomain.BaseDirectory;
             // Remove the placeholder and any trailing separators
-            remainingPath = path.Substring(BaseFolderPlaceholder.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            remainingPath = path[BaseFolderPlaceholder.Length..].TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
 
         else if (Path.IsPathRooted(path))
@@ -303,4 +301,9 @@ public static class PathHelper
 
         return null;
     }
+
+    [GeneratedRegex("""
+                                       "[^"]*"|'[^']*'|\S+
+                                       """)]
+    private static partial Regex MyRegex();
 }

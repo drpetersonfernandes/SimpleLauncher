@@ -119,12 +119,12 @@ public static class MountXisoFiles
             var contextMessage = $"Error during ISO mount process for {resolvedIsoFilePath}.\nException: {ex.Message}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-            if (mountProcess != null && !mountProcess.HasExited)
+            if (mountProcess is { HasExited: false })
             {
                 mountProcess.Kill(true);
             }
 
-            mountProcess?.Dispose();
+            mountProcess.Dispose();
 
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
             return new MountXisoDrive(); // Return failed state

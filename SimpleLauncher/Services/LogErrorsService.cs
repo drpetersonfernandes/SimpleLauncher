@@ -24,7 +24,7 @@ public class LogErrorsService : ILogErrors
         (_apiKey, _bugReportApiUrl, _isApiLoggingEnabled) = LoadConfiguration(configuration);
     }
 
-    private (string ApiKey, string BugReportApiUrl, bool IsApiLoggingEnabled) LoadConfiguration(IConfiguration configuration)
+    private static (string ApiKey, string BugReportApiUrl, bool IsApiLoggingEnabled) LoadConfiguration(IConfiguration configuration)
     {
         try
         {

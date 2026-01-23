@@ -73,7 +73,7 @@ public class Stats
     /// If no emulator name is provided, then it is a general usage call.
     /// </summary>
     /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
-    public async Task CallApiAsync(string emulatorName = null)
+    internal async Task CallApiAsync(string emulatorName = null)
     {
         // Check if API is enabled before proceeding
         if (!_isApiEnabled)
@@ -91,6 +91,7 @@ public class Stats
         // Use the loaded API URL
         if (await TryApiAsync(callType, payloadEmulatorName))
         {
+            // ReSharper disable once RedundantJumpStatement
             return; // Success.
         }
     }
@@ -180,7 +181,7 @@ public class Stats
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The normalized string.</returns>
-    private string NormalizeEmulatorName(string input)
+    private static string NormalizeEmulatorName(string input)
     {
         if (string.IsNullOrWhiteSpace(input)) return string.Empty;
         // Use CultureInfo.InvariantCulture to ensure consistent title casing regardless of user's locale

@@ -1,16 +1,10 @@
 namespace SimpleLauncher.Services;
 
-public static class UpdateStatusBar
+internal static class UpdateStatusBar
 {
-    public static void UpdateContent(string content, MainWindow mainWindow)
+    internal static void UpdateContent(string content, MainWindow mainWindow)
     {
-        if (mainWindow == null)
-        {
-            // Handle null MainWindow (edge case)
-            return;
-        }
-
-        mainWindow.Dispatcher.Invoke(() =>
+        mainWindow?.Dispatcher.Invoke(() =>
         {
             // Update the status bar text
             mainWindow.StatusBarText.Content = content;
