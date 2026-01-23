@@ -151,7 +151,7 @@ public static class DisplaySystemInformation
         var result = new SystemValidationResult();
 
         // Validate all system folders
-        var allFoldersValid = selectedManager.SystemFolders.All(folder =>
+        var allFoldersValid = selectedManager.SystemFolders.All(static folder =>
         {
             var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(folder);
             return CheckPath.IsValidPath(resolvedSystemFolder);
