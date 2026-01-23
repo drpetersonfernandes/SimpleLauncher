@@ -49,9 +49,9 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Amstrad GX4000
 
@@ -78,7 +78,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
+**Attention**
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List Roms. I am not affiliated with PleasureDome in any way.
 
@@ -107,6 +107,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+**Attention**
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
@@ -182,9 +183,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Atari 5200
 
@@ -233,9 +234,9 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Atari 7800
 
@@ -275,9 +276,9 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Atari 8-Bits / Atari 800
 
@@ -313,9 +314,9 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 .
 
@@ -364,9 +365,9 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Atari Jaguar CD
 
@@ -431,8 +432,9 @@ Core requires lynxboot.img BIOS file to work.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 .
 
@@ -495,8 +497,9 @@ Emulator may require BIOS or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Bandai WonderSwan
 
@@ -568,9 +571,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Bandai WonderSwan Color
 
@@ -642,9 +645,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Casio PV-1000
 
@@ -671,8 +674,9 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Colecovision
 
@@ -723,8 +727,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Commodore 64
 
@@ -776,9 +781,9 @@ Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 .
 
@@ -818,9 +823,9 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 .
 
@@ -924,9 +929,9 @@ aXXXX: Represents a specific Amiga model with its default MAME configuration (of
 aXXXXn: Represents a specific Amiga model configured specifically to not include a hard drive, ideal for floppy-only operations or network booting<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Commodore Amiga CD32
 
@@ -966,9 +971,9 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## LaserDisk
 
@@ -1069,9 +1074,9 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Mattel Intellivision
 
@@ -1111,8 +1116,9 @@ Core requires BIOS files to work.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Microsoft DOS
 
@@ -1265,9 +1271,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Microsoft MSX2
 
@@ -1353,9 +1359,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Microsoft Windows
 
@@ -1566,8 +1572,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## NEC PC Engine CD
 
@@ -1618,9 +1625,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## NEC PC-FX
 
@@ -1660,9 +1667,9 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## NEC SuperGrafx
 
@@ -1896,9 +1903,9 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Nintendo 64DD
 
@@ -1947,9 +1954,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Nintendo DS
 
@@ -2179,8 +2186,9 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 .
 
@@ -2260,9 +2268,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Nintendo Game Boy Color
 
@@ -2360,9 +2368,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 .
 
@@ -2500,9 +2508,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Nintendo Satellaview
 
@@ -2618,9 +2626,9 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Nintendo SNES MSU1
 
@@ -2774,8 +2782,9 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Nintendo Wii
 
@@ -3046,9 +3055,9 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## Sega Game Gear
 
@@ -3155,9 +3164,9 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sega Genesis / Mega Drive
 
@@ -3251,9 +3260,9 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sega Genesis 32X / Mega Drive 32X
 
@@ -3321,9 +3330,9 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sega Genesis CD / Mega Drive CD / Sega CD
 
@@ -3395,9 +3404,9 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## Sega Master System / Mark3
 
@@ -3495,9 +3504,9 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sega Model 3
 
@@ -3640,9 +3649,9 @@ saturnus: Sega Saturn (USA, BIOS 2.xx)<br>
 saturneu: Sega Saturn (Europe, BIOS 2.xx)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## Sega SC-3000
 
@@ -3709,9 +3718,9 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sega SG-1000
 
@@ -3787,9 +3796,9 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sharp x68000
 
@@ -3829,9 +3838,9 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sinclair ZX Spectrum
 
@@ -3890,9 +3899,9 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## SNK Neo Geo
 
@@ -3919,6 +3928,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+**Attention**
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
@@ -3970,9 +3980,9 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## SNK Neo Geo Pocket
 
@@ -4046,9 +4056,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## SNK Neo Geo Pocket Color
 
@@ -4122,9 +4132,9 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
 ## Sony PlayStation 1 / PSX 1
 
@@ -4208,9 +4218,9 @@ pse – Sony PlayStation (Europe)<br>
 psa – Sony PlayStation (Asia-Pacific)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
 ## Sony PlayStation 2
 
