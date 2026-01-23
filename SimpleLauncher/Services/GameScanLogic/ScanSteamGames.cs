@@ -11,9 +11,9 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanSteamGames
+internal static class ScanSteamGames
 {
-    public static async Task ScanSteamGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    internal static async Task ScanSteamGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
 
@@ -66,22 +66,29 @@ public class ScanSteamGames
                     {
                         foreach (var kvp in rootNode)
                         {
-                            // Modern format: "0" { "path" "C:\\Games" ... }
-                            if (kvp.Value is Dictionary<string, object> libData &&
-                                libData.TryGetValue("path", out var pathObj) &&
-                                pathObj is string pathStr)
+                            switch (kvp.Value)
                             {
-                                if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
+                                // Modern format: "0" { "path" "C:\\Games" ... }
+                                case Dictionary<string, object> libData when
+                                    libData.TryGetValue("path", out var pathObj) &&
+                                    pathObj is string pathStr:
                                 {
-                                    libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                    if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                    }
+
+                                    break;
                                 }
-                            }
-                            // Legacy format: "1" "C:\\Games"
-                            else if (kvp.Value is string legacyPath)
-                            {
-                                if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
+                                // Legacy format: "1" "C:\\Games"
+                                case string legacyPath:
                                 {
-                                    libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
+                                    if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
+                                    }
+
+                                    break;
                                 }
                             }
                         }
@@ -239,11 +246,11 @@ public class ScanSteamGames
         if (Directory.Exists(cachePath))
         {
             string[] searchPatterns =
-            {
+            [
                 $"{appId}_library_600x900.jpg",
                 $"{appId}_header.jpg",
                 $"{appId}_library_hero.jpg"
-            };
+            ];
 
             foreach (var pattern in searchPatterns)
             {
