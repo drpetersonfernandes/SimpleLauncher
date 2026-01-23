@@ -31,7 +31,7 @@ public class GameLauncher
         _stats = stats ?? throw new ArgumentNullException(nameof(stats));
     }
 
-    public async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
+    internal async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
     {
         try
         {
@@ -306,15 +306,12 @@ public class GameLauncher
                 DebugLogger.Log($"System PlayTime updated: {systemPlayTime.PlayTime}");
             }
 
-            if (selectedEmulatorName is not null)
-            {
-                // Update stats
-                _ = _stats.CallApiAsync(selectedEmulatorName);
-            }
+            // Update stats
+            _ = _stats.CallApiAsync(selectedEmulatorName);
         }
     }
 
-    private bool IsArm64System()
+    private static bool IsArm64System()
     {
         try
         {
@@ -486,8 +483,10 @@ public class GameLauncher
             {
                 // Read and validate the .url file content
                 var urlContent = await File.ReadAllTextAsync(resolvedFilePath);
+#pragma warning disable SYSLIB1045
                 var urlMatch = System.Text.RegularExpressions.Regex.Match(urlContent, @"URL=(.+)",
                     System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+#pragma warning restore SYSLIB1045
 
                 if (!urlMatch.Success || string.IsNullOrWhiteSpace(urlMatch.Groups[1].Value))
                 {
@@ -502,7 +501,7 @@ public class GameLauncher
                 var protocolIndex = targetUrl.IndexOf("://", StringComparison.Ordinal);
                 if (protocolIndex > 0)
                 {
-                    var protocol = targetUrl.Substring(0, protocolIndex);
+                    var protocol = targetUrl[..protocolIndex];
                     if (!IsProtocolRegistered(protocol))
                     {
                         throw new InvalidOperationException($"Protocol handler for '{protocol}://' is not registered. Please ensure the associated application is installed.");
@@ -573,7 +572,7 @@ public class GameLauncher
         {
             // Only attempt to read file content if it's a text-based .URL file
             var isUrlFile = Path.GetExtension(resolvedFilePath).Equals(".url", StringComparison.OrdinalIgnoreCase);
-            var fileContent = (isUrlFile && File.Exists(resolvedFilePath))
+            var fileContent = isUrlFile && File.Exists(resolvedFilePath)
                 ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
                 : "\nFile content not displayed (binary .LNK or missing file).";
 
@@ -710,7 +709,7 @@ public class GameLauncher
         }
     }
 
-    public async Task LaunchRegularEmulatorAsync(
+    internal async Task LaunchRegularEmulatorAsync(
         string resolvedFilePath,
         string selectedEmulatorName,
         SystemManager selectedSystemManager,
@@ -744,7 +743,7 @@ public class GameLauncher
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
 
-        if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isDirectory && !isMountedXbe && !isMountedZip)
+        if (selectedSystemManager.ExtractFileBeforeLaunch && !isDirectory && !isMountedXbe && !isMountedZip)
         {
             if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
             {
@@ -844,8 +843,8 @@ public class GameLauncher
 
         // Handling MAME Related Games
         // Will load the filename without the extension
-        if ((selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
-             selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase)))
+        if (selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase))
         {
             string mameRomName;
             if (isDirectory)
@@ -945,8 +944,8 @@ public class GameLauncher
             {
                 if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
 
-                await CheckForMemoryAccessViolationAsync(process, psi, output, error, selectedEmulatorManager);
-                await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
+                await CheckForMemoryAccessViolationAsync(process, psi, output, error);
+                await CheckForDepViolationAsync(process, psi, output, error);
                 await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
             }
         }
@@ -1078,7 +1077,7 @@ public class GameLauncher
             return;
         }
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             // Notify developer
             contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
@@ -1103,7 +1102,7 @@ public class GameLauncher
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
         }
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             // Notify user
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
@@ -1111,7 +1110,7 @@ public class GameLauncher
         }
     }
 
-    private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (process.HasExited && process.ExitCode != MemoryAccessViolation)
         {
@@ -1131,7 +1130,7 @@ public class GameLauncher
         return Task.CompletedTask;
     }
 
-    private Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private static Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (process.HasExited && process.ExitCode != DepViolation) return Task.CompletedTask;
 
