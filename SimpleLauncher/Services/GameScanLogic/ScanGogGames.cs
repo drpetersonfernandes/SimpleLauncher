@@ -71,7 +71,7 @@ public class ScanGogGames
 
                                 if (!isDlc)
                                 {
-                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(t => t.IsPrimary && t.Type == "FileTask");
+                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(static t => t.IsPrimary && t.Type == "FileTask");
                                     if (primaryTask != null && !string.IsNullOrEmpty(primaryTask.Path))
                                     {
                                         mainExePath = Path.Combine(installLocation, primaryTask.Path);
