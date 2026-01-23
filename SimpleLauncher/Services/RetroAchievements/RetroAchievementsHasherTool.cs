@@ -17,7 +17,7 @@ namespace SimpleLauncher.Services.RetroAchievements;
 /// A helper class to execute the external RAHasher.exe tool for generating game file hashes,
 /// and to encapsulate various RetroAchievements hashing logic.
 /// </summary>
-public static class RetroAchievementsHasherTool
+internal static class RetroAchievementsHasherTool
 {
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
 
@@ -36,6 +36,7 @@ public static class RetroAchievementsHasherTool
         "playstation", "playstation 2", "playstation portable"
     ];
 
+    // ReSharper disable once UnusedMember.Local
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
         "atari 5200", "Arduboy", "wii", "wii u", "nintendo 3ds", "sega pico",

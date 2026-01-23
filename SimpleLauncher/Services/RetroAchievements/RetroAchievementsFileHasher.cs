@@ -12,14 +12,14 @@ namespace SimpleLauncher.Services.RetroAchievements;
 /// <summary>
 /// Provides methods for hashing ROM files according to RetroAchievements' specifications.
 /// </summary>
-public static class RetroAchievementsFileHasher
+internal static class RetroAchievementsFileHasher
 {
     /// <summary>
     /// Calculates the MD5 hash of the entire file.
     /// </summary>
-    public static async Task<string> CalculateStandardMd5Async(string filePath)
+    public static Task<string> CalculateStandardMd5Async(string filePath)
     {
-        return await CalculateMd5WithOffsetAsync(filePath, 0);
+        return CalculateMd5WithOffsetAsync(filePath, 0);
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public static class RetroAchievementsFileHasher
             {
                 case "atari 7800":
                     // Header: \x01ATARI7800, Offset: 128 bytes
-                    byte[] atari7800Header = { 0x01, 0x41, 0x54, 0x41, 0x52, 0x49, 0x37, 0x38, 0x30, 0x30 };
+                    byte[] atari7800Header = [0x01, 0x41, 0x54, 0x41, 0x52, 0x49, 0x37, 0x38, 0x30, 0x30];
                     if (fileInfo.Length > 128 && await FileStartsWithAsync(filePath, atari7800Header))
                     {
                         offset = 128;
@@ -126,7 +126,7 @@ public static class RetroAchievementsFileHasher
 
                 case "famicom disk system":
                     // Header: FDS\x1a, Offset: 16 bytes
-                    byte[] fdsHeader = { 0x46, 0x44, 0x53, 0x1a };
+                    byte[] fdsHeader = [0x46, 0x44, 0x53, 0x1a];
                     if (fileInfo.Length > 16 && await FileStartsWithAsync(filePath, fdsHeader))
                     {
                         offset = 16;
@@ -136,7 +136,7 @@ public static class RetroAchievementsFileHasher
 
                 case "nintendo entertainment system":
                     // Header: NES\x1a, Offset: 16 bytes
-                    byte[] nesHeader = { 0x4E, 0x45, 0x53, 0x1a };
+                    byte[] nesHeader = [0x4E, 0x45, 0x53, 0x1a];
                     if (fileInfo.Length > 16 && await FileStartsWithAsync(filePath, nesHeader))
                     {
                         offset = 16;
