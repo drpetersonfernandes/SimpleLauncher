@@ -13,12 +13,11 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Managers;
 
-[MessagePackObject]
+[MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
     // This collection will be serialized.
-    [Key(0)]
-    public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
+    [Key(0)] internal ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
     // The data file path.
     private static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playhistory.dat");
@@ -31,7 +30,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
     /// </summary>
-    public static PlayHistoryManager LoadPlayHistory()
+    internal static PlayHistoryManager LoadPlayHistory()
     {
         if (!File.Exists(FilePath))
         {
@@ -180,7 +179,7 @@ public class PlayHistoryManager
 
             // Notify developer
             const string contextMessage = "Failed to parse date/time, using current time as fallback";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new Exception($"{contextMessage}: {dateStr} {timeStr}"), contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             return true;
         }
@@ -197,7 +196,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Saves the provided play history to the MessagePack file.
     /// </summary>
-    public void SavePlayHistory()
+    internal void SavePlayHistory()
     {
         try
         {
@@ -236,7 +235,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Adds or updates a play history item based on the game info and play time.
     /// </summary>
-    public void AddOrUpdatePlayHistoryItem(string fullPath, string systemName, TimeSpan playTime)
+    internal void AddOrUpdatePlayHistoryItem(string fullPath, string systemName, TimeSpan playTime)
     {
         try
         {
@@ -279,7 +278,7 @@ public class PlayHistoryManager
                 Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(newItem));
             }
 
-            Application.Current.Dispatcher.Invoke(() => SavePlayHistory());
+            Application.Current.Dispatcher.Invoke(SavePlayHistory);
         }
         catch (Exception ex)
         {
@@ -292,7 +291,7 @@ public class PlayHistoryManager
     /// <summary>
     /// Migrates old records that only contain filenames to full absolute paths.
     /// </summary>
-    public void MigrateFilenamesToFullPaths(List<SystemManager> systemManagers)
+    internal void MigrateFilenamesToFullPaths(List<SystemManager> systemManagers)
     {
         var needsSave = false;
         foreach (var item in PlayHistoryList)
