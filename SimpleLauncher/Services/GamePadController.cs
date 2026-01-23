@@ -561,7 +561,7 @@ public class GamePadController : IDisposable
         _mouseSimulator.VerticalScroll((int)y);
     }
 
-    private (float, float) ProcessThumbStickXInput(short thumbX, short thumbY, float dzX, float dzY)
+    private static (float, float) ProcessThumbStickXInput(short thumbX, short thumbY, float dzX, float dzY)
     {
         var normalizedX = Math.Max(-1, thumbX / MaxThumbValue);
         var normalizedY = Math.Max(-1, thumbY / MaxThumbValue);
@@ -575,12 +575,12 @@ public class GamePadController : IDisposable
 
         if (dzX > 0)
         {
-            resultX = resultX * (1.0f / (1.0f - dzX)); // Scale up to full range
+            resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
         }
 
         if (dzY > 0)
         {
-            resultY = resultY * (1.0f / (1.0f - dzY)); // Scale up to full range
+            resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
         }
 
         return (resultX, resultY);
@@ -682,12 +682,12 @@ public class GamePadController : IDisposable
 
         if (dzX > 0)
         {
-            resultX = resultX * (1.0f / (1.0f - dzX)); // Scale up to full range
+            resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
         }
 
         if (dzY > 0)
         {
-            resultY = resultY * (1.0f / (1.0f - dzY)); // Scale up to full range
+            resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
         }
 
         return (resultX, resultY);
@@ -719,12 +719,12 @@ public class GamePadController : IDisposable
 
         if (dzX > 0)
         {
-            resultX = resultX * (1.0f / (1.0f - dzX)); // Scale up to full range
+            resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
         }
 
         if (dzY > 0)
         {
-            resultY = resultY * (1.0f / (1.0f - dzY)); // Scale up to full range
+            resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
         }
 
         return (resultX, resultY);

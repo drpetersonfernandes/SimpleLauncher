@@ -84,7 +84,6 @@ public static class ImageLoader
     /// <exception cref="IOException">Thrown if there's an I/O error reading the file.</exception>
     /// <exception cref="System.Security.SecurityException">Thrown if there are permission issues.</exception>
     /// <exception cref="NotSupportedException">Thrown if the file format is not supported.</exception>
-    /// <exception cref="Exception">Catches any other unexpected errors during loading.</exception>
     private static BitmapImage LoadBitmapImageSafe(string filePath)
     {
         if (!File.Exists(filePath))
@@ -106,7 +105,7 @@ public static class ImageLoader
         catch (Exception ex)
         {
             // Catch any other exceptions during file reading
-            throw new Exception($"An unexpected error occurred while reading image file '{filePath}'.", ex);
+            throw new IOException($"An unexpected error occurred while reading image file '{filePath}'.", ex);
         }
 
         try
