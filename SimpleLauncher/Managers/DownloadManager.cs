@@ -18,7 +18,7 @@ namespace SimpleLauncher.Managers;
 /// </summary>
 public class DownloadManager : IDisposable
 {
-    public bool IsFileLockedDuringDownload { get; private set; }
+    internal bool IsFileLockedDuringDownload { get; private set; }
 
     // Events
     /// <summary>
@@ -72,23 +72,23 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Gets a value indicating whether the download was completed successfully.
     /// </summary>
-    public bool IsDownloadCompleted { get; private set; }
+    internal bool IsDownloadCompleted { get; private set; }
 
     /// <summary>
     /// Gets a value indicating whether the download was canceled by the user.
     /// </summary>
-    public bool IsUserCancellation { get; private set; }
+    internal bool IsUserCancellation { get; private set; }
 
     /// <summary>
     /// Gets the temporary folder used for downloads.
     /// </summary>
-    public string TempFolder { get; }
+    internal string TempFolder { get; }
 
     // Methods
     /// <summary>
     /// Cancels any ongoing download operation.
     /// </summary>
-    public void CancelDownload()
+    internal void CancelDownload()
     {
         lock (_lock)
         {
@@ -112,7 +112,7 @@ public class DownloadManager : IDisposable
     /// <param name="downloadUrl">The URL to download from.</param>
     /// <param name="fileName">Optional custom file name to use.</param>
     /// <returns>The path to the downloaded file, or null if the download failed.</returns>
-    public async Task<string> DownloadFileAsync(string downloadUrl, string fileName = null)
+    internal async Task<string> DownloadFileAsync(string downloadUrl, string fileName = null)
     {
         // Reset the cancellation token source at the beginning of every download attempt.
         ResetCancellationToken();
@@ -418,7 +418,7 @@ public class DownloadManager : IDisposable
     /// <param name="filePath">The path to the compressed file.</param>
     /// <param name="destinationPath">The destination path to extract to.</param>
     /// <returns>True if the extraction was successful, otherwise false.</returns>
-    public async Task<bool> ExtractFileAsync(string filePath, string destinationPath)
+    internal async Task<bool> ExtractFileAsync(string filePath, string destinationPath)
     {
         try
         {
@@ -472,59 +472,6 @@ public class DownloadManager : IDisposable
 
             // Notify developer
             _ = _logErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
-
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Downloads a file and extracts it to the specified destination in a single operation.
-    /// </summary>
-    /// <param name="downloadUrl">The URL to download from.</param>
-    /// <param name="extractionPath">The destination path to extract to.</param>
-    /// <param name="fileName">Optional custom file name to use.</param>
-    /// <returns>True if the download and extraction were successful, otherwise false.</returns>
-    public async Task<bool> DownloadAndExtractAsync(string downloadUrl, string extractionPath, string fileName = null)
-    {
-        try
-        {
-            // Reset flags
-            IsDownloadCompleted = false;
-            IsUserCancellation = false;
-
-            // Download file
-            var downloadedFilePath = await DownloadFileAsync(downloadUrl, fileName);
-
-            if (string.IsNullOrEmpty(downloadedFilePath) || !IsDownloadCompleted)
-            {
-                return false;
-            }
-
-            try
-            {
-                // Extract the file
-                var extractionResult = await ExtractFileAsync(downloadedFilePath, extractionPath);
-
-                // Clean up downloaded file
-                DeleteFiles.TryDeleteFile(downloadedFilePath);
-
-                return extractionResult;
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, $"Error during extraction: {downloadedFilePath} to {extractionPath}");
-
-                // Clean up downloaded file
-                DeleteFiles.TryDeleteFile(downloadedFilePath);
-
-                return false;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, $"Error during download and extract: {downloadUrl} to {extractionPath}");
 
             return false;
         }
