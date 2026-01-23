@@ -838,7 +838,7 @@ public static class ScanMicrosoftStoreGames
                 // Send the list of newly found, unignored programs to the developer for analysis
                 try
                 {
-                    var newPrograms = potentialGames.Select(p => p.Name).ToList();
+                    var newPrograms = potentialGames.Select(static p => p.Name).ToList();
                     if (newPrograms.Count != 0)
                     {
                         var reportContent = new StringBuilder();
@@ -969,8 +969,8 @@ public static class ScanMicrosoftStoreGames
                 // Check for high-res targetsize images
                 var pngs = Directory.GetFiles(dir, "*.png");
                 var bestIcon = pngs
-                    .Where(f => f.Contains("targetsize", StringComparison.OrdinalIgnoreCase) || f.Contains("scale", StringComparison.OrdinalIgnoreCase))
-                    .OrderByDescending(f => new FileInfo(f).Length) // Bigger is usually better quality
+                    .Where(static f => f.Contains("targetsize", StringComparison.OrdinalIgnoreCase) || f.Contains("scale", StringComparison.OrdinalIgnoreCase))
+                    .OrderByDescending(static f => new FileInfo(f).Length) // Bigger is usually better quality
                     .FirstOrDefault();
 
                 if (bestIcon != null)
@@ -990,7 +990,7 @@ public static class ScanMicrosoftStoreGames
                 // Fallback: Just take the largest PNG in the Assets folder
                 if (dir.EndsWith("Assets", StringComparison.Ordinal) || dir.EndsWith("Images", StringComparison.Ordinal))
                 {
-                    var largestPng = pngs.OrderByDescending(f => new FileInfo(f).Length).FirstOrDefault();
+                    var largestPng = pngs.OrderByDescending(static f => new FileInfo(f).Length).FirstOrDefault();
                     if (largestPng != null)
                     {
                         try
