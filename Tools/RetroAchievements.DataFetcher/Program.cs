@@ -84,7 +84,7 @@ file static class Program
             Console.WriteLine();
 
             // Filter for active game systems only
-            var activeConsoles = consoles.Where(static c => c.Active && c.IsGameSystem).ToList();
+            var activeConsoles = consoles.Where(static c => c is { Active: true, IsGameSystem: true }).ToList();
             LogInfo($"Processing {activeConsoles.Count} active game consoles...");
 
             // Fetch games for each console
@@ -206,6 +206,7 @@ file static class Program
                     XmlResolver = null // Disable XML resolver for security
                 });
                 var serializer = new XmlSerializer(typeof(RaSettings));
+                // ReSharper disable once NullableWarningSuppressionIsUsed
                 settings = (RaSettings)serializer.Deserialize(xmlReader)!;
                 LogInfo($"Loaded settings for user '{settings.Username}'");
             }
@@ -271,7 +272,7 @@ file static class Program
     {
         try
         {
-            var lines = consoles.Select(c => $"{c.Id:D3}: {c.Name}");
+            var lines = consoles.Select(static c => $"{c.Id:D3}: {c.Name}");
             await File.WriteAllLinesAsync(ConsoleListFilePath, lines);
             LogInfo($"Console list saved to '{ConsoleListFilePath}' ({consoles.Count} entries)");
         }
