@@ -30,7 +30,7 @@ public static class MameSoftwareProcessor
                 {
                     var doc = XDocument.Load(file);
                     var softwares = doc.Descendants("software")
-                        .Select(software => new MachineInfo
+                        .Select(static software => new MachineInfo
                         {
                             MachineName = software.Attribute("name")?.Value ?? string.Empty,
                             Description = software.Element("description")?.Value ?? "No Description"

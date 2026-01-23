@@ -32,9 +32,9 @@ public class DatCreatorLogic
             // Add machines from the full list FIRST (full list has priority)
             foreach (var machine in fullList)
             {
-                if (!string.IsNullOrEmpty(machine.MachineName) && !uniqueMachines.ContainsKey(machine.MachineName))
+                if (!string.IsNullOrEmpty(machine.MachineName))
                 {
-                    uniqueMachines.Add(machine.MachineName, machine);
+                    uniqueMachines.TryAdd(machine.MachineName, machine);
                 }
             }
 
@@ -68,14 +68,14 @@ public class DatCreatorLogic
             // Sort machines by MachineName (case-insensitive)
             _logger.Info("Sorting machines by MachineName...");
             var sortedMachines = uniqueMachines.Values
-                .OrderBy(m => m.MachineName, StringComparer.OrdinalIgnoreCase)
+                .OrderBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
                 .ToList();
             _logger.Info($"Sorted {sortedMachines.Count} machines alphabetically.");
 
             // Save XML
             _logger.Info($"Saving merged XML to: {outputXmlPath}");
             XDocument mergedDoc = new(new XElement("Machines",
-                sortedMachines.Select(m => new XElement("Machine",
+                sortedMachines.Select(static m => new XElement("Machine",
                     new XElement("MachineName", m.MachineName),
                     new XElement("Description", m.Description)
                 ))
