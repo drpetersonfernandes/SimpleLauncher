@@ -162,15 +162,18 @@ public class ScanEpicGames
         var shortcutContent = $"[InternetShortcut]\nURL=com.epicgames.launcher://apps/{appName}?action=launch&silent=true";
         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-        // Extract icon
-        if (!string.IsNullOrEmpty(installLocation) && !string.IsNullOrEmpty(launchExecutable))
+        switch (string.IsNullOrEmpty(installLocation))
         {
-            var fullExePath = Path.Combine(installLocation, launchExecutable);
-            await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
-        }
-        else if (!string.IsNullOrEmpty(installLocation))
-        {
-            await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath);
+            // Extract icon
+            case false when !string.IsNullOrEmpty(launchExecutable):
+            {
+                var fullExePath = Path.Combine(installLocation, launchExecutable);
+                await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, fullExePath);
+                break;
+            }
+            case false:
+                await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath);
+                break;
         }
     }
 }
