@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace Updater
 {
-    partial class UpdateForm
+    internal sealed partial class UpdateForm
     {
         private IContainer components = null;
         private TextBox logTextBox;

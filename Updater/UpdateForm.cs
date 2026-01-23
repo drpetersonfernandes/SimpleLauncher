@@ -7,7 +7,7 @@ using ICSharpCode.SharpZipLib.Zip;
 
 namespace Updater;
 
-public partial class UpdateForm : Form
+internal sealed partial class UpdateForm : Form
 {
     private delegate void LogDelegate(string message);
 
@@ -187,7 +187,7 @@ public partial class UpdateForm : Form
         }
     }
 
-    private async Task<MemoryStream> DownloadUpdateFileToMemoryAsync(string url)
+    private static async Task<MemoryStream> DownloadUpdateFileToMemoryAsync(string url)
     {
         var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
 
