@@ -34,24 +34,18 @@ public class GameScannerService
         "Ubisoft Connect"
     };
 
-    // Whitelist for Microsoft Store games to avoid adding Calculator/Photos etc.
-    public static readonly string[] MicrosoftStoreKeywords =
-    {
-        "Minecraft", "Solitaire", "Forza", "Halo", "Gears of War", "Sea of Thieves", "Flight Simulator", "Age of Empires", "Among Us", "Roblox"
-    };
-
     private readonly string _windowsRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
     private readonly string _windowsImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
     private readonly string _systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
-    public bool WasNewSystemCreated { get; private set; }
+    internal bool WasNewSystemCreated { get; private set; }
 
     public GameScannerService(ILogErrors logErrors)
     {
         _logErrors = logErrors;
     }
 
-    public async Task ScanForStoreGamesAsync()
+    internal async Task ScanForStoreGamesAsync()
     {
         try
         {
