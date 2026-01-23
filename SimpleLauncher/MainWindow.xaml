@@ -664,7 +664,7 @@
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="ShowRetroAchievementsWindow_Click" Header="{DynamicResource RetroAchievements}">
+                <MenuItem Click="ShowRetroAchievementsWindowClick" Header="{DynamicResource RetroAchievements}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>

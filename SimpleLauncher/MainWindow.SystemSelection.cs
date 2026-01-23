@@ -147,7 +147,6 @@ public partial class MainWindow
                 // Handle cancellation if needed, e.g., reset UI state
                 SetUiLoadingState(false);
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.", this);
-                return; // Exit the method
             }
             catch (Exception ex)
             {
@@ -243,7 +242,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
-            string[] aspectRatios = { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
+            string[] aspectRatios = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
 
             // Get the current index of the aspect ratio
             var currentIndex = Array.IndexOf(aspectRatios, _settings.ButtonAspectRatio);

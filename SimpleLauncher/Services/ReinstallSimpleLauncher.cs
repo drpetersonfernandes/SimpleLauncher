@@ -47,7 +47,7 @@ public static class ReinstallSimpleLauncher
                     await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                     // 3. Extract the contents to the application directory
-                    var extractionSuccess = updateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null);
+                    var extractionSuccess = UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null);
 
                     if (!extractionSuccess)
                     {

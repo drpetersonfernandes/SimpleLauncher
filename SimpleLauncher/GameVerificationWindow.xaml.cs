@@ -5,11 +5,11 @@ using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher;
 
-public partial class GameVerificationWindow
+internal partial class GameVerificationWindow
 {
-    public List<SelectableGameItem> ConfirmedGames { get; private set; }
+    internal List<SelectableGameItem> ConfirmedGames { get; private set; }
 
-    public GameVerificationWindow(List<SelectableGameItem> potentialGames)
+    internal GameVerificationWindow(IEnumerable<SelectableGameItem> potentialGames)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -21,7 +21,7 @@ public partial class GameVerificationWindow
     {
         if (GamesListBox.ItemsSource is List<SelectableGameItem> items)
         {
-            ConfirmedGames = items.Where(i => i.IsSelected).ToList();
+            ConfirmedGames = items.Where(static i => i.IsSelected).ToList();
         }
 
         DialogResult = true;
