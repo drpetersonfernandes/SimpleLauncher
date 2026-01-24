@@ -76,7 +76,13 @@ internal partial class GlobalSearchWindow : IDisposable
     {
         try
         {
-            _cancellationTokenSource?.Dispose();
+            // Cancel the previous source before disposing to stop running tasks
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+            }
+
             _cancellationTokenSource = new CancellationTokenSource();
 
             var searchTerm = SearchTextBox.Text;
@@ -100,7 +106,7 @@ internal partial class GlobalSearchWindow : IDisposable
 
             LoadingOverlay.Visibility = Visibility.Visible;
             NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
-            await Task.Yield(); // Allow UI to render the loading overlay before starting the search
+            await Task.Yield();
 
             try
             {
@@ -109,39 +115,42 @@ internal partial class GlobalSearchWindow : IDisposable
                 var searchMameDescription = SearchMameDescriptionCheckBox.IsChecked == true;
                 var searchFolderName = SearchFolderNameCheckBox.IsChecked == true;
                 var searchRecursively = SearchRecursivelyCheckBox.IsChecked == true;
+
+                // Pass the token from the NEW source
                 var results = await Task.Run(() => PerformSearch(
                     searchTerm, selectedSystem, searchFilename, searchMameDescription,
                     searchFolderName, searchRecursively), _cancellationTokenSource.Token);
 
-                // Bulk update instead of per-item addition
                 _searchResults.Clear();
                 if (results?.Count > 0)
                 {
                     _searchResults = new ObservableCollection<SearchResult>(results);
                     ResultsDataGrid.ItemsSource = _searchResults;
-                    LaunchButton.IsEnabled = false; // Will be enabled when item is selected
                 }
                 else
                 {
                     NoResultsMessageOverlay.Visibility = Visibility.Visible;
                     PreviewImage.Source = null;
-                    LaunchButton.IsEnabled = false;
                 }
             }
             catch (OperationCanceledException)
             {
-                // Search was canceled - ignore
+                // Search was canceled because a new search started or window closed - ignore
             }
             catch (Exception ex)
             {
                 await _logErrors.LogErrorAsync(ex, "Error during search operation.");
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
                 NoResultsMessageOverlay.Visibility = Visibility.Visible;
-                LaunchButton.IsEnabled = false;
             }
             finally
             {
-                LoadingOverlay.Visibility = Visibility.Collapsed;
+                // Only hide overlay if this specific task wasn't cancelled
+                // (prevents flickering if multiple searches are queued)
+                if (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    LoadingOverlay.Visibility = Visibility.Collapsed;
+                }
             }
         }
         catch (Exception ex)
