@@ -19,7 +19,7 @@ public class GamePadController : IDisposable
     private readonly Lock _stateLock = new();
 
     // Add an Action for error logging
-    public Action<Exception, string> ErrorLogger { get; set; }
+    internal Action<Exception, string> ErrorLogger { get; set; }
 
     private const int RefreshRate = 60;
 
@@ -46,10 +46,10 @@ public class GamePadController : IDisposable
     private bool _isDisposed;
 
     // DeadZone settings
-    public float DeadZoneX { get; set; } = 0.05f;
-    public float DeadZoneY { get; set; } = 0.02f;
+    internal float DeadZoneX { get; set; } = 0.05f;
+    internal float DeadZoneY { get; set; } = 0.02f;
 
-    public bool IsRunning { get; private set; }
+    internal bool IsRunning { get; private set; }
 
     // Handle DirectInput reconnection
     private Guid _playStationControllerGuid; // Store the GUID of the connected PlayStation controller
@@ -96,7 +96,7 @@ public class GamePadController : IDisposable
         _timer = new Timer(_ => UpdateAsync(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
-    public void Start()
+    internal void Start()
     {
         lock (_stateLock)
         {
@@ -125,7 +125,7 @@ public class GamePadController : IDisposable
         }
     }
 
-    public void Stop()
+    internal void Stop()
     {
         lock (_stateLock)
         {
@@ -630,36 +630,36 @@ public class GamePadController : IDisposable
 
     private void HandleDirectInputMovement(JoystickState state)
     {
-        // Normalize DirectInput values from [0, 65535] to [-32767, 32767]
-        // Check if axes exist before accessing
-        if (state.X == int.MinValue || state.Y == int.MinValue) return; // Check if X and Y axes are reported
+        // Normalize DirectInput values from [0, 65535] to [-32767, 32768]
+        if (state.X == int.MinValue || state.Y == int.MinValue) return;
 
-        var thumbX = (short)(state.X - 32767); // Convert absolute to relative
-        var thumbY = (short)(state.Y - 32767); // Convert absolute to relative
+        // Use int to prevent overflow when state.X/Y is 65535
+        var thumbX = state.X - 32767;
+        var thumbY = state.Y - 32767;
 
-        // Invert the X and Y-axis (DirectInput typically has an inverted axis relative to screen coordinates)
-        thumbY = (short)-thumbY;
-        thumbX = (short)-thumbX;
+        // Invert the axes
+        thumbY = -thumbY;
+        thumbX = -thumbX;
 
-        // Process the thumbstick values with the dead zone
+        // Process the thumbstick values (Method signature updated below)
         var (x, y) = ProcessLeftThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY);
 
-        // Move the mouse based on processed values
         _mouseSimulator.MoveMouseBy(-(int)x, -(int)y);
     }
 
     private void HandleDirectInputScroll(JoystickState state)
     {
-        var thumbX = (short)(state.RotationZ - 32767); // Horizontal axis
-        var thumbY = (short)-(state.RotationZ - 32767); // Inverted Y
+        // Use int to prevent overflow
+        var thumbX = state.RotationZ - 32767;
+        var thumbY = -(state.RotationZ - 32767);
 
         var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY);
 
-        _mouseSimulator.HorizontalScroll((int)x); // Assuming this is correct for your controller
+        _mouseSimulator.HorizontalScroll((int)x);
         _mouseSimulator.VerticalScroll((int)y);
     }
 
-    private static (float, float) ProcessLeftThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
+    private static (float, float) ProcessLeftThumbStickDirectInput(int thumbX, int thumbY, float dzX, float dzY)
     {
         var normalizedX = thumbX / MaxThumbValue;
         var normalizedY = thumbY / MaxThumbValue;
@@ -693,9 +693,8 @@ public class GamePadController : IDisposable
         return (resultX, resultY);
     }
 
-    private static (float, float) ProcessRightThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
+    private static (float, float) ProcessRightThumbStickDirectInput(int thumbX, int thumbY, float dzX, float dzY)
     {
-        // Normalize the thumbstick values to the range [-1, 1]
         var normalizedX = thumbX / MaxThumbValue;
         var normalizedY = thumbY / MaxThumbValue;
 

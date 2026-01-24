@@ -429,107 +429,100 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
+            _playSoundEffects.PlayNotificationSound();
+
+            // Change the filter to ShowAll (as random might not have covers)
+            _settings.ShowGames = "ShowAll";
+            _settings.Save();
+            ApplyShowGamesSetting(); // Update menu check marks
+
+            // Check if a system is selected
+            if (SystemComboBox.SelectedItem == null)
+            {
+                // Notify user
+                MessageBoxLibrary.PleaseSelectASystemBeforeMessageBox();
+                return;
+            }
+
+            await _allGamesLock.WaitAsync(); // Acquire lock before accessing _allGamesForCurrentSystem
             try
             {
-                _playSoundEffects.PlayNotificationSound();
-
-                // Change the filter to ShowAll (as random might not have covers)
-                _settings.ShowGames = "ShowAll";
-                _settings.Save();
-                ApplyShowGamesSetting(); // Update menu check marks
-
-                // Check if a system is selected
-                if (SystemComboBox.SelectedItem == null)
+                var selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+                if (selectedManager == null)
                 {
-                    // Notify user
-                    MessageBoxLibrary.PleaseSelectASystemBeforeMessageBox();
                     return;
                 }
 
-                await _allGamesLock.WaitAsync(); // Acquire lock before accessing _allGamesForCurrentSystem
+                List<string> gameFilesToPickFrom;
+
+                if (_allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 && _selectedSystem == selectedSystem)
+                {
+                    gameFilesToPickFrom = _allGamesForCurrentSystem; // READ
+                    DebugLogger.Log($"[Feeling Lucky] Reusing cached _allGamesForCurrentSystem for '{selectedSystem}'. Count: {gameFilesToPickFrom.Count}");
+                }
+                else
+                {
+                    // If not, perform the disk scan to get all files for the current system
+                    // This scenario should be rare if SystemComboBoxSelectionChangedAsync always populates it.
+                    // It acts as a fallback.
+                    DebugLogger.Log($"[Feeling Lucky] _allGamesForCurrentSystem not suitable, performing disk scan for '{selectedSystem}'.");
+                    var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    foreach (var folder in selectedManager.SystemFolders)
+                    {
+                        _cancellationSource.Token.ThrowIfCancellationRequested();
+
+                        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
+                            selectedManager.FileFormatsToSearch == null) continue;
+
+                        var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, _cancellationSource.Token);
+                        foreach (var file in filesInFolder)
+                        {
+                            uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                        }
+                    }
+
+                    gameFilesToPickFrom = uniqueFiles.Values.ToList();
+                    _allGamesForCurrentSystem = gameFilesToPickFrom; // WRITE
+                }
+
+                // Check if we have any games after filtering
+                if (gameFilesToPickFrom.Count == 0)
+                {
+                    // Notify user
+                    MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
+                    return;
+                }
+
+                // Randomly select a game
+                var random = new Random();
+                var randomIndex = random.Next(0, gameFilesToPickFrom.Count);
+                var selectedGame = gameFilesToPickFrom[randomIndex];
+
+                // Reset letter selection in the UI and current search
+                _topLetterNumberMenu.DeselectLetter();
+                SearchTextBox.Text = "";
+                _currentFilter = null; // Clear any active letter filter
+                _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
+                await _allGamesLock.WaitAsync();
                 try
                 {
-                    var selectedSystem = SystemComboBox.SelectedItem.ToString();
-                    var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-                    if (selectedManager == null)
-                    {
-                        return;
-                    }
-
-                    List<string> gameFilesToPickFrom;
-
-                    if (_allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 && _selectedSystem == selectedSystem)
-                    {
-                        gameFilesToPickFrom = _allGamesForCurrentSystem; // READ
-                        DebugLogger.Log($"[Feeling Lucky] Reusing cached _allGamesForCurrentSystem for '{selectedSystem}'. Count: {gameFilesToPickFrom.Count}");
-                    }
-                    else
-                    {
-                        // If not, perform the disk scan to get all files for the current system
-                        // This scenario should be rare if SystemComboBoxSelectionChangedAsync always populates it.
-                        // It acts as a fallback.
-                        DebugLogger.Log($"[Feeling Lucky] _allGamesForCurrentSystem not suitable, performing disk scan for '{selectedSystem}'.");
-                        var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                        foreach (var folder in selectedManager.SystemFolders)
-                        {
-                            _cancellationSource.Token.ThrowIfCancellationRequested();
-
-                            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
-                                selectedManager.FileFormatsToSearch == null) continue;
-
-                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, _cancellationSource.Token);
-                            foreach (var file in filesInFolder)
-                            {
-                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                            }
-                        }
-
-                        gameFilesToPickFrom = uniqueFiles.Values.ToList();
-                        _allGamesForCurrentSystem = gameFilesToPickFrom; // WRITE
-                    }
-
-                    // Check if we have any games after filtering
-                    if (gameFilesToPickFrom.Count == 0)
-                    {
-                        // Notify user
-                        MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
-                        return;
-                    }
-
-                    // Randomly select a game
-                    var random = new Random();
-                    var randomIndex = random.Next(0, gameFilesToPickFrom.Count);
-                    var selectedGame = gameFilesToPickFrom[randomIndex];
-
-                    // Reset letter selection in the UI and current search
-                    _topLetterNumberMenu.DeselectLetter();
-                    SearchTextBox.Text = "";
-                    _currentFilter = null; // Clear any active letter filter
-                    _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
-                    await _allGamesLock.WaitAsync();
-                    try
-                    {
-                        _currentSearchResults = [selectedGame]; // Store only the selected game
-                    }
-                    finally
-                    {
-                        _allGamesLock.Release();
-                    }
-
-                    await LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
-
-                    // If in list view, select the game in the DataGrid
-                    if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
-
-                    GameDataGrid.SelectedIndex = 0;
-                    GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
-                    GameDataGrid.Focus();
+                    _currentSearchResults = [selectedGame]; // Store only the selected game
                 }
                 finally
                 {
-                    _allGamesLock.Release(); // Release lock
+                    _allGamesLock.Release();
                 }
+
+                await LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
+
+                // If in list view, select the game in the DataGrid
+                if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
+
+                GameDataGrid.SelectedIndex = 0;
+                GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
+                GameDataGrid.Focus();
             }
             catch (Exception ex)
             {
@@ -540,10 +533,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
             }
+            finally
+            {
+                _allGamesLock.Release(); // Release lock
+            }
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
+            // Notify developer
+            const string contextMessage = "Error in the Feeling Lucky feature.";
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorMessageBox();
+        }
+        finally
+        {
+            _allGamesLock.Release(); // Release lock
         }
     }
 
