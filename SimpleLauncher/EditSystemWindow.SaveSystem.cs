@@ -13,17 +13,17 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemWindow
+internal partial class EditSystemWindow
 {
     private async Task SaveSystemConfigurationAsync(
         string systemNameText,
-        List<string> systemFolders,
+        IEnumerable<string> systemFolders,
         string systemImageFolderText,
         bool systemIsMame,
-        List<string> formatsToSearch,
+        IEnumerable<string> formatsToSearch,
         bool extractFileBeforeLaunch,
         bool groupByFolder,
-        List<string> formatsToLaunch,
+        IEnumerable<string> formatsToLaunch,
         XElement emulatorsElement,
         bool isUpdate,
         string originalSystemName)
@@ -180,14 +180,14 @@ public partial class EditSystemWindow
             if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
 
             var systemIsMame =
-                ((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString())?.Equals("true",
+                (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()?.Equals("true",
                     StringComparison.OrdinalIgnoreCase) ?? false;
 
             var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null &&
                                           bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)
                                               ?.Content.ToString() ?? "false");
 
-            var groupByFolder = ((GroupByFolderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString())
+            var groupByFolder = (GroupByFolderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
             if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch))
@@ -414,7 +414,7 @@ public partial class EditSystemWindow
         return Path.Combine("%BASEFOLDER%", trimmedPath);
     }
 
-    private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
+    private static void AddEmulatorToXml(XContainer emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
     {
         if (string.IsNullOrEmpty(name)) return;
 
@@ -426,8 +426,8 @@ public partial class EditSystemWindow
         emulatorsElement.Add(emulatorElement);
     }
 
-    private static XElement AddToXml(string systemNameText, List<string> systemFolders, string systemImageFolderText,
-        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, List<string> formatsToLaunch,
+    private static XElement AddToXml(string systemNameText, IEnumerable<string> systemFolders, string systemImageFolderText,
+        bool systemIsMame, IEnumerable<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, IEnumerable<string> formatsToLaunch,
         XElement emulatorsElement)
     {
         var newSystem = new XElement("SystemConfig",
@@ -443,8 +443,8 @@ public partial class EditSystemWindow
         return newSystem;
     }
 
-    private static void UpdateXml(XElement existingSystem, List<string> systemFolders, string systemImageFolderText,
-        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, List<string> formatsToLaunch,
+    private static void UpdateXml(XElement existingSystem, IEnumerable<string> systemFolders, string systemImageFolderText,
+        bool systemIsMame, IEnumerable<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, IEnumerable<string> formatsToLaunch,
         XElement emulatorsElement)
     {
         // Remove the old single SystemFolder tag for backward compatibility

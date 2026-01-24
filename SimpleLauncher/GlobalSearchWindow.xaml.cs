@@ -16,14 +16,12 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class GlobalSearchWindow : IDisposable
+internal partial class GlobalSearchWindow : IDisposable
 {
     private CancellationTokenSource _cancellationTokenSource;
     private static readonly string LogPath = GetLogPath.Path();
     private readonly List<SystemManager> _systemManagers;
     private readonly SettingsManager _settings;
-    private readonly List<Task> _pendingFileSizeTasks = new();
-    private readonly object _fileSizeTasksLock = new();
     private ObservableCollection<SearchResult> _searchResults;
     private readonly MainWindow _mainWindow;
     private readonly List<MameManager> _machines;
@@ -69,7 +67,7 @@ public partial class GlobalSearchWindow : IDisposable
         // Populate the System ComboBox
         var allSystemsString = (string)Application.Current.TryFindResource("AllSystems") ?? "All Systems";
         var systemNames = new List<string> { allSystemsString };
-        systemNames.AddRange(_systemManagers.Select(sm => sm.SystemName).OrderBy(name => name));
+        systemNames.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name));
         SystemComboBox.ItemsSource = systemNames;
         SystemComboBox.SelectedIndex = 0;
     }
@@ -204,8 +202,9 @@ public partial class GlobalSearchWindow : IDisposable
                     var folderNameMatch = false;
                     if (searchFolderName)
                     {
-                        var directoryName = new DirectoryInfo(Path.GetDirectoryName(file)!).Name;
-                        folderNameMatch = MatchesSearchQuery(directoryName.ToLowerInvariant(), searchTerms);
+                        var dir = Path.GetDirectoryName(file);
+                        var directoryName = dir is null ? null : new DirectoryInfo(dir).Name;
+                        folderNameMatch = MatchesSearchQuery(directoryName?.ToLowerInvariant(), searchTerms);
                     }
 
                     return filenameMatch || mameDescriptionMatch || folderNameMatch;
@@ -268,12 +267,12 @@ public partial class GlobalSearchWindow : IDisposable
         return score;
     }
 
-    private static bool MatchesSearchQuery(string text, List<string> searchTerms)
+    private static bool MatchesSearchQuery(string text, IReadOnlyCollection<string> searchTerms)
     {
         // Filter out "and" and "or" to get the actual search keywords
         var keywords = searchTerms
-            .Where(t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
-                        !t.Equals("or", StringComparison.OrdinalIgnoreCase))
+            .Where(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                               !t.Equals("or", StringComparison.OrdinalIgnoreCase))
             .ToList();
 
         // If there are no actual keywords after filtering, and the original search had terms,
@@ -289,8 +288,8 @@ public partial class GlobalSearchWindow : IDisposable
         }
 
         // Check for the presence of "and" or "or" operators in the original search terms
-        var hasAndOperator = searchTerms.Any(term => term.Equals("and", StringComparison.OrdinalIgnoreCase));
-        var hasOrOperator = searchTerms.Any(term => term.Equals("or", StringComparison.OrdinalIgnoreCase));
+        var hasAndOperator = searchTerms.Any(static term => term.Equals("and", StringComparison.OrdinalIgnoreCase));
+        var hasOrOperator = searchTerms.Any(static term => term.Equals("or", StringComparison.OrdinalIgnoreCase));
 
         // If both "and" and "or" are present, "and" typically takes precedence, or it's an invalid query.
         // For this implementation, let's assume if "and" is present, it's an AND operation.
@@ -346,7 +345,7 @@ public partial class GlobalSearchWindow : IDisposable
             if (selectedSystemManager == null)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "[LaunchGameFromSearchResultAsync] System manager not found for launching game from search.");
+                _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] System manager not found for launching game from search.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -406,7 +405,7 @@ public partial class GlobalSearchWindow : IDisposable
             if (systemManager == null)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(new Exception("SystemManager is null"), "SystemManager is null");
+                _ = _logErrors.LogErrorAsync(null, "SystemManager is null");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -541,31 +540,12 @@ public partial class GlobalSearchWindow : IDisposable
         }
     }
 
-    private async void GlobalSearchClosedAsync(object sender, EventArgs e)
+    private void GlobalSearchClosedAsync(object sender, EventArgs e)
     {
         try
         {
             // Cancel all operations first
             _cancellationTokenSource?.Cancel();
-
-            // Wait for pending file size tasks to complete
-            Task[] tasksToAwait;
-            lock (_fileSizeTasksLock)
-            {
-                tasksToAwait = _pendingFileSizeTasks.ToArray();
-            }
-
-            if (tasksToAwait.Length > 0)
-            {
-                try
-                {
-                    await Task.WhenAll(tasksToAwait);
-                }
-                catch (Exception ex)
-                {
-                    _ = _logErrors.LogErrorAsync(ex, "Error awaiting file size tasks on window close.");
-                }
-            }
 
             // Cleanup resources
             _cancellationTokenSource?.Dispose();
@@ -573,7 +553,6 @@ public partial class GlobalSearchWindow : IDisposable
 
             _searchResults?.Clear();
             _searchResults = null;
-            _pendingFileSizeTasks.Clear();
         }
         catch (Exception ex)
         {
@@ -600,6 +579,5 @@ public partial class GlobalSearchWindow : IDisposable
     public void Dispose()
     {
         _cancellationTokenSource?.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

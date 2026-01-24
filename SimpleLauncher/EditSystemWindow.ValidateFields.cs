@@ -8,9 +8,9 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemWindow
+internal partial class EditSystemWindow
 {
-    private void MarkInvalid(TextBox textBox, bool isValid)
+    private void MarkInvalid(Control textBox, bool isValid)
     {
         if (isValid)
         {
@@ -22,12 +22,12 @@ public partial class EditSystemWindow
         }
     }
 
-    private void MarkValid(TextBox textBox)
+    private void MarkValid(Control textBox)
     {
         SetTextBoxForeground(textBox, true); // Always valid state
     }
 
-    private void SetTextBoxForeground(TextBox textBox, bool isValid)
+    private void SetTextBoxForeground(Control textBox, bool isValid)
     {
         var baseTheme = _settings.BaseTheme;
         if (baseTheme == "Dark")
@@ -70,6 +70,7 @@ public partial class EditSystemWindow
         emulator5ParametersText = Emulator5ParametersTextBox.Text.Trim();
     }
 
+    // ReSharper disable once UnusedParameter.Local
     private static void ValidatePaths(string systemNameText, string systemFolderText, string systemImageFolderText, string emulator1LocationText,
         string emulator2LocationText, string emulator3LocationText, string emulator4LocationText,
         string emulator5LocationText, out bool isSystemFolderValid, out bool isSystemImageFolderValid,
@@ -109,7 +110,7 @@ public partial class EditSystemWindow
         return true;
     }
 
-    private static bool ValidateEmulator1Location(string emulator1LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator1Location(string emulator1LocationText, IEnumerable<string> formatsToSearch)
     {
         // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
@@ -128,7 +129,7 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator2Location(string emulator2NameText, string emulator2LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator2Location(string emulator2NameText, string emulator2LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator2NameText))
         {
@@ -152,7 +153,7 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator3Location(string emulator3NameText, string emulator3LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator3Location(string emulator3NameText, string emulator3LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator3NameText))
         {
@@ -176,7 +177,7 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator4Location(string emulator4NameText, string emulator4LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator4Location(string emulator4NameText, string emulator4LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator4NameText))
         {
@@ -200,7 +201,7 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator5Location(string emulator5NameText, string emulator5LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator5Location(string emulator5NameText, string emulator5LocationText, IEnumerable<string> formatsToSearch)
     {
         if (string.IsNullOrEmpty(emulator5NameText))
         {

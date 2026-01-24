@@ -17,7 +17,7 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-public partial class GlobalStatsWindow
+internal partial class GlobalStatsWindow
 {
     private readonly List<SystemManager> _systemManagers;
     private GlobalStatsData _globalStats;
@@ -27,7 +27,7 @@ public partial class GlobalStatsWindow
     private readonly object _processingLock = new();
     private bool _isProcessing;
 
-    public GlobalStatsWindow(List<SystemManager> systemManagers)
+    internal GlobalStatsWindow(List<SystemManager> systemManagers)
     {
         InitializeComponent();
 
@@ -211,92 +211,84 @@ public partial class GlobalStatsWindow
             CancellationToken = cancellationToken
         };
 
-        try
+        Parallel.ForEach(_systemManagers, parallelOptions, systemManager =>
         {
-            Parallel.ForEach(_systemManagers, parallelOptions, systemManager =>
+            // The CancellationToken is checked automatically by Parallel.ForEach,
+            // but checking it manually inside the loop can make cancellation more responsive.
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var allRomFiles = new List<string>();
+
+            foreach (var systemFolderPathRaw in systemManager.SystemFolders)
             {
-                // The CancellationToken is checked automatically by Parallel.ForEach,
-                // but checking it manually inside the loop can make cancellation more responsive.
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var allRomFiles = new List<string>();
+                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
 
-                foreach (var systemFolderPathRaw in systemManager.SystemFolders)
+                if (!string.IsNullOrEmpty(systemFolderPath) && Directory.Exists(systemFolderPath) && systemManager.FileFormatsToSearch != null)
                 {
+                    var filesInFolder = GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch, cancellationToken).GetAwaiter().GetResult();
                     cancellationToken.ThrowIfCancellationRequested();
-
-                    var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
-
-                    if (!string.IsNullOrEmpty(systemFolderPath) && Directory.Exists(systemFolderPath) && systemManager.FileFormatsToSearch != null)
-                    {
-                        var filesInFolder = GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch, cancellationToken).GetAwaiter().GetResult();
-                        cancellationToken.ThrowIfCancellationRequested();
-                        allRomFiles.AddRange(filesInFolder);
-                    }
+                    allRomFiles.AddRange(filesInFolder);
                 }
+            }
 
-                cancellationToken.ThrowIfCancellationRequested();
+            cancellationToken.ThrowIfCancellationRequested();
 
-                var romFileBaseNames = new HashSet<string>(
-                    allRomFiles.Select(Path.GetFileNameWithoutExtension),
-                    StringComparer.OrdinalIgnoreCase);
+            var romFileBaseNames = new HashSet<string>(
+                allRomFiles.Select(Path.GetFileNameWithoutExtension),
+                StringComparer.OrdinalIgnoreCase);
 
-                var totalDiskSize = allRomFiles.Sum(static file =>
+            var totalDiskSize = allRomFiles.Sum(static file =>
+            {
+                try
                 {
-                    try
-                    {
-                        // Prepend long path prefix if not already present
-                        var longPath = file.StartsWith(@"\\?\", StringComparison.Ordinal) ? file : @"\\?\" + file;
-                        return new FileInfo(longPath).Length;
-                    }
-                    catch
-                    {
-                        return 0L; // If getting file info fails, return 0 for this file
-                    }
-                });
-
-                cancellationToken.ThrowIfCancellationRequested();
-
-                var systemImageFolder = systemManager.SystemImageFolder;
-                var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName)
-                    : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
-
-                var numberOfImages = 0;
-                if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                        .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                        .Select(Path.GetFileNameWithoutExtension)
-                        .ToList();
-
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
+                    // Prepend long path prefix if not already present
+                    var longPath = file.StartsWith(@"\\?\", StringComparison.Ordinal) ? file : @"\\?\" + file;
+                    return new FileInfo(longPath).Length;
                 }
-                else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder))
+                catch
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+                    return 0L; // If getting file info fails, return 0 for this file
                 }
-
-                cancellationToken.ThrowIfCancellationRequested();
-
-                systemStats.Add(new SystemStatsData
-                {
-                    SystemName = systemManager.SystemName,
-                    NumberOfFiles = allRomFiles.Count,
-                    NumberOfImages = numberOfImages,
-                    TotalDiskSize = totalDiskSize
-                });
             });
-        }
-        catch (OperationCanceledException)
-        {
-            // The operation was canceled, which is expected. Re-throw to be handled by the caller.
-            throw;
-        }
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var systemImageFolder = systemManager.SystemImageFolder;
+            var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName)
+                : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
+
+            var numberOfImages = 0;
+            if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                    .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                    .Select(Path.GetFileNameWithoutExtension)
+                    .ToList();
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
+            }
+            else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder))
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            systemStats.Add(new SystemStatsData
+            {
+                SystemName = systemManager.SystemName,
+                NumberOfFiles = allRomFiles.Count,
+                NumberOfImages = numberOfImages,
+                TotalDiskSize = totalDiskSize
+            });
+        });
 
         // Convert the ConcurrentBag to a List and sort it to ensure a consistent order in the UI.
         return systemStats.OrderBy(static s => s.SystemName).ToList();
@@ -335,7 +327,7 @@ public partial class GlobalStatsWindow
         }
     }
 
-    private static void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
+    private static void SaveReport(GlobalStatsData globalStats, IEnumerable<SystemStatsData> systemStats)
     {
         // Create a SaveFileDialog to allow the user to select the location
         var saveFileDialog = new SaveFileDialog
@@ -371,7 +363,7 @@ public partial class GlobalStatsWindow
         }
     }
 
-    private static string GenerateReportText(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
+    private static string GenerateReportText(GlobalStatsData globalStats, IEnumerable<SystemStatsData> systemStats)
     {
         // Global statistics
         var report = $"{(string)Application.Current.TryFindResource("GlobalStatsReportTitle") ?? "Global Stats Report"}\n" +
@@ -408,7 +400,7 @@ public partial class GlobalStatsWindow
     {
         try
         {
-            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+            if (_cancellationTokenSource is { IsCancellationRequested: false })
             {
                 _cancellationTokenSource.Cancel();
                 GlobalCancellingOverlay.Visibility = Visibility.Visible;
@@ -435,7 +427,7 @@ public partial class GlobalStatsWindow
             if (result == MessageBoxResult.Yes)
             {
                 _forceClose = true;
-                if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+                if (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
                     _cancellationTokenSource.Cancel();
 
@@ -444,40 +436,5 @@ public partial class GlobalStatsWindow
                 }
             }
         }
-    }
-
-    private static Task RenameImagesToMatchRomCaseAsync(string systemImagePath, HashSet<string> romFileBaseNames)
-    {
-        if (!Directory.Exists(systemImagePath))
-            return Task.CompletedTask;
-
-        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions(); // Get extensions from service
-        var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-            .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) // Use the dynamic list
-            .ToList();
-
-        foreach (var imageFile in imageFiles)
-        {
-            var imageFileName = Path.GetFileNameWithoutExtension(imageFile);
-            var matchedRomName = romFileBaseNames.FirstOrDefault(rom => string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
-
-            if (matchedRomName == null || matchedRomName.Equals(imageFileName, StringComparison.Ordinal)) continue;
-
-            var newImagePath = Path.Combine(Path.GetDirectoryName(imageFile) ?? throw new InvalidOperationException("Could not get the directory of the imageFile"),
-                matchedRomName + Path.GetExtension(imageFile));
-            try
-            {
-                File.Move(imageFile, newImagePath, true);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                var contextMessage = $"Error renaming image file: {imageFile}\n" +
-                                     $"New file name: {newImagePath}";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-            }
-        }
-
-        return Task.CompletedTask;
     }
 }
