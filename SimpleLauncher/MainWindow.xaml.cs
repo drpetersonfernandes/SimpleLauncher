@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,11 +31,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private bool _wasControllerRunningBeforeDeactivation;
 
     // DispatcherTimer for the status bar timer
-    public DispatcherTimer StatusBarTimer { get; set; }
+    internal DispatcherTimer StatusBarTimer { get; set; }
 
     // Declare GameListItems
     // Used in ListView Mode
-    public ObservableCollection<GameListViewItem> GameListItems { get; set; } = [];
+    internal ObservableCollection<GameListViewItem> GameListItems { get; } = [];
 
     // Declare System Name and PlayTime in the Statusbar
     // _selectedSystem is the selected system from ComboBox
@@ -94,7 +95,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private TrayIconManager _trayIconManager;
 
     // Define PlayHistory
-    public PlayHistoryManager PlayHistoryManager { get; }
+    internal PlayHistoryManager PlayHistoryManager { get; }
 
     // Define Pagination Related Variables
     private int _currentPage = 1;
@@ -117,9 +118,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly Dictionary<string, string> _mameLookup;
     private string _selectedImageFolder;
     private List<string> _selectedRomFolders;
-
-    // Define the LogPath
-    private readonly string _logPath = GetLogPath.Path();
 
     private string _activeSearchQueryOrMode;
     private string _mameSortOrder = "FileName";
@@ -192,7 +190,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         if (_gameFileGrid == null)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(new Exception("GameFileGrid not found"), "GameFileGrid not found");
+            _ = _logErrors.LogErrorAsync(null, "GameFileGrid not found");
         }
 
         // Initialize _gameButtonFactory
@@ -422,7 +420,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    private async Task ShowSystemFeelingLuckyClickAsync(object sender, RoutedEventArgs e)
+    private async Task ShowSystemFeelingLuckyClickAsync()
     {
         if (_isLoadingGames)
         {
@@ -549,7 +547,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    public void RefreshGameListAfterPlay(string fileName, string systemName)
+    internal void RefreshGameListAfterPlay(string fileName, string systemName)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...", this);
         try
@@ -598,7 +596,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    public void SetUiLoadingState(bool isLoading, string message = null)
+    internal void SetUiLoadingState(bool isLoading, string message = null)
     {
         _isLoadingGames = isLoading;
         IsLoadingGames = isLoading;
@@ -625,7 +623,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Update loading message
         if (isLoading)
         {
-            LoadingMessage.Text = message ?? ((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
+            LoadingMessage.Text = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         }
     }
 
@@ -818,7 +816,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         // If validation failed, show the message box with aggregated errors
                         if (!validationResult.IsValid)
                         {
-                            var errorMessages = new System.Text.StringBuilder();
+                            var errorMessages = new StringBuilder();
                             foreach (var msg in validationResult.ErrorMessages)
                             {
                                 errorMessages.Append(msg);
@@ -897,8 +895,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
-
-            return;
         }
         catch (Exception ex)
         {
@@ -936,7 +932,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _topLetterNumberMenu.DeselectLetter();
     }
 
-    public void SetGameButtonsEnabled(bool isEnabled)
+    internal void SetGameButtonsEnabled(bool isEnabled)
     {
         if (_gameFileGrid == null) return;
 
@@ -949,7 +945,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
+    internal async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
         Dispatcher.Invoke(() => SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
@@ -1398,7 +1394,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     /// Invalidates the in-memory caches of game file paths, forcing a reload from disk
     /// or re-evaluation of search results on the next LoadGameFilesAsync call.
     /// </summary>
-    public void InvalidateGameFileCaches()
+    internal void InvalidateGameFileCaches()
     {
         // Ensure cache clearing happens on the UI thread for thread safety,
         // although LoadGameFilesAsync will also be invoked on the dispatcher.

@@ -78,8 +78,10 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects);
-            editSystemWindow.Owner = this;
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects)
+            {
+                Owner = this
+            };
             editSystemWindow.ShowDialog();
 
             LoadOrReloadSystemManager();
@@ -368,8 +370,10 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        SupportWindow supportRequestWindow = new();
-        supportRequestWindow.Owner = this;
+        SupportWindow supportRequestWindow = new()
+        {
+            Owner = this
+        };
         supportRequestWindow.ShowDialog();
     }
 
@@ -403,8 +407,10 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
 
-        AboutWindow aboutWindow = new();
-        aboutWindow.Owner = this;
+        AboutWindow aboutWindow = new()
+        {
+            Owner = this
+        };
         aboutWindow.ShowDialog();
     }
 
@@ -673,8 +679,10 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        var globalStatsWindow = new GlobalStatsWindow(_systemManagers);
-        globalStatsWindow.Owner = this;
+        var globalStatsWindow = new GlobalStatsWindow(_systemManagers)
+        {
+            Owner = this
+        };
         globalStatsWindow.Show();
     }
 
@@ -685,8 +693,10 @@ public partial class MainWindow
 
         ResetUiAsync();
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
-        favoritesWindow.Owner = this;
+        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects)
+        {
+            Owner = this
+        };
         favoritesWindow.Show();
     }
 
@@ -697,18 +707,22 @@ public partial class MainWindow
 
         ResetUiAsync();
 
-        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
-        playHistoryWindow.Owner = this;
+        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects)
+        {
+            Owner = this
+        };
         playHistoryWindow.Show();
     }
 
-    public void ShowRetroAchievementsWindow_Click(object sender, RoutedEventArgs e)
+    public void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", this);
 
-        var retroAchievementsWindow = new RetroAchievementsWindow();
-        retroAchievementsWindow.Owner = this;
+        var retroAchievementsWindow = new RetroAchievementsWindow
+        {
+            Owner = this
+        };
         retroAchievementsWindow.Show();
     }
 
@@ -903,7 +917,7 @@ public partial class MainWindow
 
     private void NavRetroAchievementsButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowRetroAchievementsWindow_Click(sender, e);
+        ShowRetroAchievementsWindowClick(sender, e);
     }
 
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
@@ -932,7 +946,7 @@ public partial class MainWindow
         {
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PickingARandomGame") ?? "Picking a random game...", this);
             _playSoundEffects.PlayNotificationSound();
-            await ShowSystemFeelingLuckyClickAsync(sender, e);
+            await ShowSystemFeelingLuckyClickAsync();
         }
         catch (Exception ex)
         {
@@ -1115,8 +1129,10 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSoundConfigurationSettings") ?? "Opening Sound Configuration settings...", this);
 
-            var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors);
-            soundConfigWindow.Owner = this;
+            var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors)
+            {
+                Owner = this
+            };
             soundConfigWindow.ShowDialog();
         }
         catch (Exception ex)
@@ -1136,8 +1152,10 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
 
-            var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings);
-            raSettingsWindow.Owner = this;
+            var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings)
+            {
+                Owner = this
+            };
             raSettingsWindow.ShowDialog();
         }
         catch (Exception ex)
