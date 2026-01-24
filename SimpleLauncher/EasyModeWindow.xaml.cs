@@ -21,7 +21,7 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 
-public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
+internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 {
     private EasyModeManager _manager;
 
@@ -174,11 +174,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
 
-    private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
-
     private string DownloadStatus
     {
-        get;
         set
         {
             // The 'field' keyword is not valid here. It should be a backing field or auto-property.
@@ -197,6 +194,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             // but also doing UI update. This is incorrect. It should be a full property with a backing field.
             // However, since the diff *only* applies to the properties above, I will not change this.
             // The diff does not touch this property, so I will leave it as it was in the original code.
+            // ReSharper disable once PropertyFieldKeywordIsNeverUsed
             field = value;
             DownloadStatusTextBlock.Text = value;
         }
@@ -204,7 +202,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged; // INotifyPropertyChanged implementation
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -346,11 +344,11 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         var emulator = selectedSystem.Emulators?.Emulator;
         // Determine if download links exist for image packs (for visibility)
-        IsImagePack1Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
-        IsImagePack2Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
-        IsImagePack3Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
-        IsImagePack4Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
-        IsImagePack5Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) && !string.IsNullOrEmpty(emulator?.ImagePackDownloadExtractPath);
+        IsImagePack1Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack2Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack3Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack4Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack5Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
 
         // Check if Emulator file already exists on disk. If so, mark it as "downloaded".
         var emulatorLocation = selectedSystem.Emulators?.Emulator?.EmulatorLocation;
@@ -650,10 +648,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
                 StopDownloadButton.IsEnabled = false;
                 MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on failure/cancellation
-                return;
             }
-
-            return;
         }
         catch (Exception ex)
         {
@@ -692,31 +687,29 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
             StopDownloadButton.IsEnabled = false;
             MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on exception
-            return;
         }
     }
 
-    private static async Task ShowDownloadErrorDialogAsync(DownloadType type, EasyModeSystemConfig selectedSystem)
+    private static Task ShowDownloadErrorDialogAsync(DownloadType type, EasyModeSystemConfig selectedSystem)
     {
         switch (type)
         {
             case DownloadType.Emulator:
-                await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
-                break;
+                return MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
             case DownloadType.Core:
-                await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
-                break;
+                return MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
             case DownloadType.ImagePack1:
             case DownloadType.ImagePack2:
             case DownloadType.ImagePack3:
             case DownloadType.ImagePack4:
             case DownloadType.ImagePack5:
-                await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-                break;
+                return MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
             default:
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
                 break;
         }
+
+        return Task.CompletedTask;
     }
 
     // Helper method to mark a component as downloaded (or not)
@@ -869,7 +862,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     }
 
     // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
-    private async Task UpdateSystemXmlAsync(
+    private static async Task UpdateSystemXmlAsync(
         string xmlPath,
         EasyModeSystemConfig selectedSystem,
         string systemFolder, // This should be the raw path with %BASEFOLDER%
@@ -1137,8 +1130,5 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         _downloadManager?.Dispose();
 
         _disposed = true;
-
-        // Tell GC not to call the finalizer since we've already cleaned up
-        GC.SuppressFinalize(this);
     }
 }

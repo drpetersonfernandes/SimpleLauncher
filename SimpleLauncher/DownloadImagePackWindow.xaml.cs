@@ -17,17 +17,16 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 
-public partial class DownloadImagePackWindow : IDisposable
+internal partial class DownloadImagePackWindow : IDisposable
 {
     private EasyModeManager _manager;
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
-    private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     // hold dynamic image pack buttons
-    public ObservableCollection<ImagePackDownloadItem> ImagePacksToDisplay { get; set; }
+    private ObservableCollection<ImagePackDownloadItem> ImagePacksToDisplay { get; }
 
-    public DownloadImagePackWindow()
+    internal DownloadImagePackWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -287,7 +286,6 @@ public partial class DownloadImagePackWindow : IDisposable
 
                 StopDownloadButton.IsEnabled = false;
                 item.IsDownloaded = true; // Mark as downloaded
-                return;
             }
             else
             {
@@ -317,7 +315,6 @@ public partial class DownloadImagePackWindow : IDisposable
 
                 StopDownloadButton.IsEnabled = false;
                 item.IsDownloaded = false; // Ensure not marked as downloaded on failure/cancellation
-                return;
             }
         }
         catch (Exception ex)
@@ -352,7 +349,6 @@ public partial class DownloadImagePackWindow : IDisposable
 
             StopDownloadButton.IsEnabled = false;
             item.IsDownloaded = false; // Ensure not marked as downloaded on exception
-            return;
         }
     }
 
@@ -362,88 +358,6 @@ public partial class DownloadImagePackWindow : IDisposable
         return SystemNameDropdown.SelectedItem != null
             ? _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
             : null;
-    }
-
-    private bool ValidateInputsAndCreateExtractionFolder(out EasyModeSystemConfig selectedSystem)
-    {
-        selectedSystem = null;
-
-        // Check if a system is selected
-        if (SystemNameDropdown.SelectedItem == null)
-        {
-            // Notify user
-            MessageBoxLibrary.SystemNameIsNullMessageBox();
-            return false;
-        }
-
-        // Get the selected system
-        selectedSystem = GetSelectedSystem(); // Using the new helper method
-
-        if (selectedSystem == null)
-        {
-            // Notify user
-            MessageBoxLibrary.SelectedSystemIsNullMessageBox();
-            return false;
-        }
-
-        // Validate download URL for at least one image pack (or the one being downloaded)
-        // This method is called before HandleDownloadAndExtractComponentAsync, so it should check generally.
-        // The specific download button's click handler will check its own URL.
-        var hasAnyDownloadLink = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) ||
-                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) ||
-                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3) ||
-                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4) ||
-                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
-
-        if (!hasAnyDownloadLink)
-        {
-            // Notify user
-            MessageBoxLibrary.DownloadUrlIsNullMessageBox();
-            return false;
-        }
-
-        // Validate extraction path
-        var pathsToValidate = new List<string>();
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath)) pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
-
-        foreach (var path in pathsToValidate)
-        {
-            var finalPath = PathHelper.ResolveRelativeToAppDirectory(path);
-            if (!CreateExtractionFolder(finalPath)) return false;
-        }
-
-        return true;
-    }
-
-    private bool CreateExtractionFolder(string extractionFolder)
-    {
-        try
-        {
-            if (!Directory.Exists(extractionFolder))
-            {
-                try
-                {
-                    if (extractionFolder != null) Directory.CreateDirectory(extractionFolder);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the extraction folder.");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify user
-            MessageBoxLibrary.ExtractionFolderCannotBeCreatedMessageBox(_logPath);
-
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the extraction folder.");
-
-            return false;
-        }
-
-        return true;
     }
 
     private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
@@ -529,7 +443,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (_disposed) return;
 

@@ -22,9 +22,9 @@ using Size = System.Drawing.Size;
 
 namespace SimpleLauncher.UiHelpers;
 
-public static class ContextMenuFunctions
+internal static class ContextMenuFunctions
 {
-    public static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
+    internal static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
     {
         try
         {
@@ -59,10 +59,7 @@ public static class ContextMenuFunctions
                 {
                     var gameItem = mainWindow.GameListItems.FirstOrDefault(g => Path.GetFileName(g.FilePath).Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase));
 
-                    if (gameItem != null)
-                    {
-                        gameItem.IsFavorite = true;
-                    }
+                    gameItem?.IsFavorite = true;
                 }
 
                 // Notify user
@@ -123,10 +120,7 @@ public static class ContextMenuFunctions
                 var gameItem = mainWindow.GameListItems
                     .FirstOrDefault(g => Path.GetFileName(g.FilePath).Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase));
 
-                if (gameItem != null)
-                {
-                    gameItem.IsFavorite = false;
-                }
+                gameItem?.IsFavorite = false;
             }
 
             // Notify user
@@ -264,8 +258,10 @@ public static class ContextMenuFunctions
                 playSoundEffects.PlayNotificationSound();
 
                 // Open RetroAchievements Settings Window
-                var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);
-                raSettingsWindow.Owner = mainWindow; // Set owner to main window
+                var raSettingsWindow = new RetroAchievementsSettingsWindow(settings)
+                {
+                    Owner = mainWindow // Set owner to main window
+                };
                 raSettingsWindow.ShowDialog();
 
                 // If user didn't save credentials, or saved empty ones, return
@@ -398,8 +394,10 @@ public static class ContextMenuFunctions
                 // Ensure this is run on the UI thread as it creates a new window
                 await mainWindow.Dispatcher.InvokeAsync(() =>
                 {
-                    var achievementsWindow = new RetroAchievementsForAGameWindow(matchedGame.Id, fileNameWithoutExtension);
-                    achievementsWindow.Owner = mainWindow; // Set owner
+                    var achievementsWindow = new RetroAchievementsForAGameWindow(matchedGame.Id, fileNameWithoutExtension)
+                    {
+                        Owner = mainWindow // Set owner
+                    };
                     achievementsWindow.Show();
                 });
             }
@@ -836,7 +834,7 @@ public static class ContextMenuFunctions
                 // If the client area fails, fall back to the full window dimensions
                 if (!WindowScreenshot.GetWindowRect(hWnd, out rectangle))
                 {
-                    throw new Exception("Failed to retrieve window dimensions.");
+                    throw new InvalidOperationException("Failed to retrieve window dimensions.");
                 }
             }
             else
@@ -890,7 +888,7 @@ public static class ContextMenuFunctions
                 // Update the button's image using the new ImageLoader
                 try
                 {
-                    if (button?.Content is Grid grid)
+                    if (button.Content is Grid grid)
                     {
                         // Find the Image control within the button's template
                         if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)

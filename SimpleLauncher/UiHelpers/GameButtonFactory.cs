@@ -17,9 +17,11 @@ using Image = System.Windows.Controls.Image;
 using System.IO;
 using SimpleLauncher.Interfaces;
 
+// ReSharper disable UnusedMember.Local
+
 namespace SimpleLauncher.UiHelpers;
 
-public class GameButtonFactory(
+internal class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     List<SystemManager> systemManagers,
@@ -102,11 +104,10 @@ public class GameButtonFactory(
         {
             IsFavorite = _favoritesManager.FavoriteList.Any(f =>
                 f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
-                f.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase))
+                f.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase)),
+            // Placeholder logic for achievements
+            HasAchievements = true
         };
-
-        // Placeholder logic for achievements
-        viewModel.HasAchievements = true;
 
         // Create a container for text that will hold two rows
         var textPanel = new StackPanel
@@ -273,7 +274,7 @@ public class GameButtonFactory(
         const double overlayButtonSpacing = 5; // Vertical spacing between buttons
         double currentVerticalOffset = 5; // Initial top margin for the first button
 
-        if (_settings.OverlayRetroAchievementButton == true)
+        if (_settings.OverlayRetroAchievementButton)
         {
             // Add the RetroAchievements trophy icon overlay
             var trophyButton = new Button
@@ -335,7 +336,7 @@ public class GameButtonFactory(
             currentVerticalOffset += overlayButtonHeight + overlayButtonSpacing; // Update offset for next button
         }
 
-        if (_settings.OverlayOpenVideoButton == true)
+        if (_settings.OverlayOpenVideoButton)
         {
             // Add the Video Link icon overlay
             var videoLinkButton = new Button
@@ -397,7 +398,7 @@ public class GameButtonFactory(
             currentVerticalOffset += overlayButtonHeight + overlayButtonSpacing; // Update offset for next button
         }
 
-        if (_settings.OverlayOpenInfoButton == true)
+        if (_settings.OverlayOpenInfoButton)
         {
             // Add the Info Link icon overlay
             var infoLinkButton = new Button
@@ -478,7 +479,7 @@ public class GameButtonFactory(
         // Set AutomationProperties.Name for screen readers
         AutomationProperties.SetName(kebabButton, (string)kebabButton.ToolTip);
 
-        kebabButton.Click += (s, e) =>
+        kebabButton.Click += (_, e) =>
         {
             e.Handled = true; // Stop the main button's click event
             _playSoundEffects.PlayNotificationSound();
