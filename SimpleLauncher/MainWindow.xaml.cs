@@ -35,7 +35,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     // Declare GameListItems
     // Used in ListView Mode
-    internal ObservableCollection<GameListViewItem> GameListItems { get; } = [];
+    public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
 
     // Declare System Name and PlayTime in the Statusbar
     // _selectedSystem is the selected system from ComboBox
