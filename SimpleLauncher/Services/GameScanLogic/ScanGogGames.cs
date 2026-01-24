@@ -10,7 +10,7 @@ using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanGogGames
+internal static class ScanGogGames
 {
     public static async Task ScanGogGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
@@ -88,10 +88,21 @@ public class ScanGogGames
                         // ---------------------------------------------
 
                         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
-                        var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
-                        var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://launch/{gameId}";
-                        await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+                        // Option A: Launch via Galaxy Protocol (Standard)
+                        // Note: 'launch' actually starts the game, 'openGameView' only shows the UI.
+                        // var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
+                        // var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://launch/{gameId}";
+                        // await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+
+                        // Option B: Direct Launch (Bypasses Galaxy)
+                        if (!string.IsNullOrEmpty(mainExePath) && File.Exists(mainExePath))
+                        {
+                            var batPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
+                            var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(mainExePath)}\"\r\nstart \"\" \"{Path.GetFileName(mainExePath)}\"";
+                            await File.WriteAllTextAsync(batPath, batContent);
+                        }
 
                         await GameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
                     }
