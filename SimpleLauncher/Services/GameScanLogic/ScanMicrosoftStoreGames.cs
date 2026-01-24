@@ -227,7 +227,7 @@ internal static class ScanMicrosoftStoreGames
         "Energy Star",
         "Enlace M¢vil",
         "Epson Print and Scan",
-        "Esc ner",
+        "Escaner",
         "Escáner",
         "Escritorio remoto",
         "ETDProperties",

@@ -44,7 +44,7 @@ public static class MountIsoFiles
         try
         {
             // 1. Mount ISO and get drive letter
-            var mountedDriveLetter = await ExecutePowerShellMountCommandAsync(resolvedIsoFilePath, logPath);
+            var mountedDriveLetter = await ExecutePowerShellMountCommandAsync(resolvedIsoFilePath);
 
             if (string.IsNullOrEmpty(mountedDriveLetter))
             {
@@ -118,7 +118,7 @@ public static class MountIsoFiles
             if (!string.IsNullOrEmpty(resolvedIsoFilePath))
             {
                 DebugLogger.Log($"[MountIsoFiles] Attempting to dismount ISO: {resolvedIsoFilePath}");
-                await ExecutePowerShellDismountCommandAsync(resolvedIsoFilePath, logPath);
+                await ExecutePowerShellDismountCommandAsync(resolvedIsoFilePath);
 
                 if (!string.IsNullOrEmpty(mountPath))
                 {
@@ -157,7 +157,7 @@ public static class MountIsoFiles
         return false;
     }
 
-    private static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, string logPath)
+    private static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath)
     {
         var escapedIsoPath = isoPath.Replace("'", "''"); // Escape single quotes for PowerShell
         var command = $"$isoPath = '{escapedIsoPath}'; " +
@@ -278,7 +278,7 @@ public static class MountIsoFiles
         }
     }
 
-    private static async Task ExecutePowerShellDismountCommandAsync(string isoPath, string logPath)
+    private static async Task ExecutePowerShellDismountCommandAsync(string isoPath)
     {
         var escapedIsoPath = isoPath.Replace("'", "''");
         var command = $"Dismount-DiskImage -ImagePath '{escapedIsoPath}' -ErrorAction SilentlyContinue";

@@ -13,14 +13,14 @@ using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
 
-public static class MountZipFiles
+internal static class MountZipFiles
 {
     private static string _preferredMountDriveLetterOnly = "Z";
     private static string _zipMountExecutableName;
     private static string _zipMountExecutableRelativePath;
-    public static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
+    internal static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
-    public static void Configure(IConfiguration configuration)
+    internal static void Configure(IConfiguration configuration)
     {
         var mountPathFromConfig = configuration.GetValue("ZipMountOptions:MountDriveLetter", "Z:");
 
@@ -100,7 +100,7 @@ public static class MountZipFiles
         return null;
     }
 
-    public static async Task MountZipFileAndLoadEbootBinAsync(
+    internal static async Task MountZipFileAndLoadEbootBinAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
@@ -108,7 +108,6 @@ public static class MountZipFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GamePadController gamePadController,
         string logPath,
         GameLauncher gameLauncher)
     {
@@ -216,7 +215,7 @@ public static class MountZipFiles
             {
                 var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
                 DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. {exitCodeInfoOnFailure} Check the console window of {_zipMountExecutableName} for details.");
-                throw new Exception($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for EBOOT.BIN...");
@@ -238,7 +237,7 @@ public static class MountZipFiles
         {
             // Notify developer
             DebugLogger.Log($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
-            var exitCodeInfoInCatch = mountProcess != null && mountProcess.HasExited ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
+            var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
@@ -246,8 +245,6 @@ public static class MountZipFiles
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
-
-            return;
         }
         finally
         {
@@ -303,7 +300,7 @@ public static class MountZipFiles
             }
             else if (mountProcessId != -1)
             {
-                var exitCodeStr = (mountProcess != null && mountProcess.HasExited) ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
+                var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
                 DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
@@ -334,7 +331,6 @@ public static class MountZipFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GamePadController gamePadController,
         string logPath,
         GameLauncher gameLauncher)
     {
@@ -438,7 +434,7 @@ public static class MountZipFiles
             {
                 var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
                 DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. {exitCodeInfoOnFailure} Check the console window of {_zipMountExecutableName} for details.");
-                throw new Exception($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for nested file...");
@@ -459,7 +455,7 @@ public static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
 
             // Notify developer
-            var exitCodeInfoInCatch = mountProcess != null && mountProcess.HasExited ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
+            var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
@@ -507,7 +503,7 @@ public static class MountZipFiles
             }
             else if (mountProcessId != -1)
             {
-                var exitCodeStr = (mountProcess != null && mountProcess.HasExited) ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
+                var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
                 DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
@@ -590,8 +586,7 @@ public static class MountZipFiles
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
         string selectedEmulatorParameters,
-        string logPath,
-        GameLauncher gameLauncher)
+        string logPath)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -694,7 +689,7 @@ public static class MountZipFiles
             {
                 var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
                 DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. {exitCodeInfoOnFailure} Check the console window of {_zipMountExecutableName} for details.");
-                throw new Exception($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Proceeding to launch with {selectedEmulatorName}.");
@@ -760,7 +755,7 @@ public static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] Exception during ScummVM ZIP mounting or launching: {ex}");
 
             // Notify developer
-            var exitCodeInfoInCatch = mountProcess != null && mountProcess.HasExited ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
+            var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
             var contextMessage = $"Error during ScummVM ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
@@ -808,7 +803,7 @@ public static class MountZipFiles
             }
             else if (mountProcessId != -1)
             {
-                var exitCodeStr = (mountProcess != null && mountProcess.HasExited) ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
+                var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
                 DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else

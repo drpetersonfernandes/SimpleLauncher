@@ -102,7 +102,7 @@ internal static class RetroAchievementsHasherTool
             process.Start();
 
             // Read output and error streams asynchronously
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20)); // 20-second timeout
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60)); // 60-second timeout
             var outputTask = process.StandardOutput.ReadToEndAsync(cts.Token);
             var errorTask = process.StandardError.ReadToEndAsync(cts.Token);
 
