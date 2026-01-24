@@ -41,7 +41,7 @@ public partial class UpdateChecker
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
     }
 
-    private string CurrentVersion
+    private static string CurrentVersion
     {
         get
         {
@@ -60,9 +60,9 @@ public partial class UpdateChecker
         }
     }
 
-    private static readonly char[] Separator = { '.' };
+    private static readonly char[] Separator = ['.'];
 
-    public async Task SilentCheckForUpdatesAsync(Window mainWindow)
+    internal async Task SilentCheckForUpdatesAsync(Window mainWindow)
     {
         try
         {
@@ -111,7 +111,7 @@ public partial class UpdateChecker
         }
     }
 
-    public async Task ManualCheckForUpdatesAsync(Window mainWindow)
+    internal async Task ManualCheckForUpdatesAsync(Window mainWindow)
     {
         try
         {
@@ -188,7 +188,7 @@ public partial class UpdateChecker
         }
     }
 
-    public async Task<(string UpdaterZipUrl, string LatestVersion)> GetLatestUpdaterInfoAsync()
+    internal async Task<(string UpdaterZipUrl, string LatestVersion)> GetLatestUpdaterInfoAsync()
     {
         try
         {
@@ -337,7 +337,7 @@ public partial class UpdateChecker
         memoryStream.Position = 0;
     }
 
-    internal bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow)
+    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow)
     {
         try
         {
@@ -353,6 +353,7 @@ public partial class UpdateChecker
                     var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.Name));
                     if (destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
                     {
+                        // ReSharper disable once RedundantJumpStatement
                         continue;
                     }
                     else
@@ -391,7 +392,7 @@ public partial class UpdateChecker
         }
     }
 
-    private bool IsNewVersionAvailable(string currentVersion, string latestVersion)
+    private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
         try
         {
@@ -436,7 +437,7 @@ public partial class UpdateChecker
         }
     }
 
-    private (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
+    private static (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
     {
         try
         {
@@ -544,12 +545,12 @@ public partial class UpdateChecker
         return (null, null, null);
     }
 
-    private string NormalizeVersion(string version)
+    private static string NormalizeVersion(string version)
     {
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
 
         var numericVersion = MyRegex1().Replace(version, "");
-        numericVersion = Regex.Replace(numericVersion, @"\.{2,}", ".").Trim('.');
+        numericVersion = MyRegex().Replace(numericVersion, ".").Trim('.');
         if (string.IsNullOrEmpty(numericVersion)) return "0.0.0.0";
 
         var parts = new List<string>(numericVersion.Split(Separator, StringSplitOptions.RemoveEmptyEntries));
@@ -572,4 +573,7 @@ public partial class UpdateChecker
 
     [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
     private static partial Regex MyRegex2();
+
+    [GeneratedRegex(@"\.{2,}")]
+    private static partial Regex MyRegex();
 }
