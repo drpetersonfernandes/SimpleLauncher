@@ -425,9 +425,19 @@ public class GameLauncher
             else
             {
                 // Existing error handling for other Win32Exceptions
+                string exitCodeInfo;
+                try
+                {
+                    exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
+                }
+                catch (InvalidOperationException)
+                {
+                    exitCodeInfo = "Exit code: N/A (Process not associated)";
+                }
+
                 var errorDetail = $"Exception running the batch process.\n" +
                                   $"Batch file: {psi.FileName}\n" +
-                                  $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                                  $"{exitCodeInfo}\n" +
                                   $"Exception: {ex.Message}\n" +
                                   $"Output: {output}\n" +
                                   $"Error: {error}";
@@ -444,9 +454,19 @@ public class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
+            string exitCodeInfo;
+            try
+            {
+                exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
+            }
+            catch (InvalidOperationException)
+            {
+                exitCodeInfo = "Exit code: N/A (Process not associated)";
+            }
+
             var errorDetail = $"Exception running the batch process.\n" +
                               $"Batch file: {psi.FileName}\n" +
-                              $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                              $"{exitCodeInfo}\n" +
                               $"Exception: {ex.Message}\n" +
                               $"Output: {output}\n" +
                               $"Error: {error}";
@@ -604,6 +624,9 @@ public class GameLauncher
         {
             FileName = resolvedFilePath,
             UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
             StandardOutputEncoding = Encoding.UTF8,
             StandardErrorEncoding = Encoding.UTF8
         };
@@ -633,6 +656,19 @@ public class GameLauncher
 
         using var process = new Process();
         process.StartInfo = psi;
+
+        StringBuilder output = new();
+        StringBuilder error = new();
+
+        process.OutputDataReceived += (_, args) =>
+        {
+            if (!string.IsNullOrEmpty(args.Data)) output.AppendLine(args.Data);
+        };
+
+        process.ErrorDataReceived += (_, args) =>
+        {
+            if (!string.IsNullOrEmpty(args.Data)) error.AppendLine(args.Data);
+        };
 
         try
         {
@@ -676,9 +712,19 @@ public class GameLauncher
             else
             {
                 // Existing error handling for other Win32Exceptions
+                string exitCodeInfo;
+                try
+                {
+                    exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
+                }
+                catch (InvalidOperationException)
+                {
+                    exitCodeInfo = "Exit code: N/A (Process not associated)";
+                }
+
                 var errorDetail = $"Exception launching the executable file.\n" +
                                   $"Executable file: {psi.FileName}\n" +
-                                  $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                                  $"{exitCodeInfo}\n" +
                                   $"Exception: {ex.Message}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
                 var contextMessage = $"{errorDetail}\n{userNotified}";
@@ -693,9 +739,19 @@ public class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
+            string exitCodeInfo;
+            try
+            {
+                exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
+            }
+            catch (InvalidOperationException)
+            {
+                exitCodeInfo = "Exit code: N/A (Process not associated)";
+            }
+
             var errorDetail = $"Exception launching the executable file.\n" +
                               $"Executable file: {psi.FileName}\n" +
-                              $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                              $"{exitCodeInfo}\n" +
                               $"Exception: {ex.Message}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";

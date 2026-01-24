@@ -344,7 +344,7 @@ Core may require BIOS files or system files to work properly.
 **Is the system MAME-based?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
+**Extension to Launch After Extraction:** j64, jag, rom, abs, cof, bin, prg<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -1372,9 +1372,9 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
-**System Folder (Example):** c:\Windows Games<br>
+**System Folder (Example):** C:\Windows Games<br>
 **Is the system MAME-based?** false<br>
-**Extension to Search in the System Folder:** lnk, bat, exe<br>
+**Extension to Search in the System Folder:** lnk, bat, url, exe<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -1919,7 +1919,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **System Folder (Example):** c:\Nintendo 64DD<br>
 **Is the system MAME-based?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
+**Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 **Group Files by Folder:** false<br>
 
