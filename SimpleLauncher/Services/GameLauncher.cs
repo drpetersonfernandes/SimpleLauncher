@@ -327,10 +327,13 @@ public class GameLauncher
 
     private async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
+        // On Windows, .bat files are not direct executables.
+        // To redirect output (UseShellExecute = false), we must run cmd.exe /c "path_to_script.bat"
         var psi = new ProcessStartInfo
         {
-            FileName = resolvedFilePath,
-            UseShellExecute = false, // UseShellExecute=false is required for redirecting output/error
+            FileName = "cmd.exe",
+            Arguments = $"/c \"{resolvedFilePath}\"",
+            UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             CreateNoWindow = true, // Hide the console window
@@ -356,11 +359,11 @@ public class GameLauncher
         }
 
         DebugLogger.Log("RunBatchFileAsync:\n\n");
-        DebugLogger.Log($"Batch File: {psi.FileName}");
+        DebugLogger.Log($"Command: {psi.FileName} {psi.Arguments}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
-        TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
-        UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
+        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} launched");
+        UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} launched", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -389,7 +392,7 @@ public class GameLauncher
             var processStarted = process.Start();
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the batch process.");
+                throw new InvalidOperationException("Failed to start the cmd.exe process for the batch file.");
             }
 
             process.BeginOutputReadLine();
@@ -400,7 +403,7 @@ public class GameLauncher
             {
                 // Notify developer
                 var errorDetail = $"There was an issue running the batch process.\n" +
-                                  $"Batch file: {psi.FileName}\n" +
+                                  $"Batch file: {resolvedFilePath}\n" +
                                   $"Exit code {process.ExitCode}\n" +
                                   $"Output: {output}\n" +
                                   $"Error: {error}";
@@ -415,7 +418,7 @@ public class GameLauncher
                 }
             }
         }
-        catch (Win32Exception ex) // Catch Win32Exception specifically
+        catch (Win32Exception ex)
         {
             if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
@@ -424,7 +427,6 @@ public class GameLauncher
             }
             else
             {
-                // Existing error handling for other Win32Exceptions
                 string exitCodeInfo;
                 try
                 {
@@ -436,7 +438,7 @@ public class GameLauncher
                 }
 
                 var errorDetail = $"Exception running the batch process.\n" +
-                                  $"Batch file: {psi.FileName}\n" +
+                                  $"Batch file: {resolvedFilePath}\n" +
                                   $"{exitCodeInfo}\n" +
                                   $"Exception: {ex.Message}\n" +
                                   $"Output: {output}\n" +
@@ -465,7 +467,7 @@ public class GameLauncher
             }
 
             var errorDetail = $"Exception running the batch process.\n" +
-                              $"Batch file: {psi.FileName}\n" +
+                              $"Batch file: {resolvedFilePath}\n" +
                               $"{exitCodeInfo}\n" +
                               $"Exception: {ex.Message}\n" +
                               $"Output: {output}\n" +
@@ -476,7 +478,6 @@ public class GameLauncher
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
             }
         }
