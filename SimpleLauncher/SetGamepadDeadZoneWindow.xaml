@@ -96,7 +96,7 @@
             Grid.Column="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            Text="{Binding ElementName=DeadZoneXSlider, Path=Value, StringFormat=F2}" />
+            Text="{Binding ElementName=DeadZoneXSlider, Path=Value, StringFormat={}{0:F2}}" />
 
         <!-- DeadZoneY -->
         <Label
@@ -125,7 +125,7 @@
             Grid.Column="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            Text="{Binding ElementName=DeadZoneYSlider, Path=Value, StringFormat=F2}" />
+            Text="{Binding ElementName=DeadZoneYSlider, Path=Value, StringFormat={}{0:F2}}" />
 
         <Grid 
             Grid.Row="4"
