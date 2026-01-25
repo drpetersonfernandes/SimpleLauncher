@@ -76,14 +76,14 @@ public static class MountXisoFiles
             return new MountXisoDrive(); // Return failed state
         }
 
-        var drivePath = $"{driveLetter.Value}:\\";
+        var driveLetterOnly = $"{driveLetter.Value}:";
         var defaultXbePath = $"{driveLetter.Value}:\\default.xbe";
         var driveRoot = $"{driveLetter.Value}:\\";
 
         var psiMount = new ProcessStartInfo
         {
             FileName = resolvedToolPath,
-            Arguments = $"\"{resolvedIsoFilePath}\" \"{drivePath}\" --launch",
+            Arguments = $"\"{resolvedIsoFilePath}\" \"{driveLetterOnly}\" --launch",
             UseShellExecute = true,
             CreateNoWindow = false,
             WindowStyle = ProcessWindowStyle.Normal,
