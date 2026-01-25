@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
@@ -13,6 +14,7 @@ namespace SimpleLauncher.Services;
 
 public class LogErrorsService : ILogErrors
 {
+    private static readonly SemaphoreSlim LogFileLock = new(1, 1);
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly string _apiKey;
     private readonly string _bugReportApiUrl;
@@ -99,6 +101,7 @@ public class LogErrorsService : ILogErrors
             $"Exception details: {ex.Message}\n\n" +
             $"{contextMessage}\n\n";
 
+        await LogFileLock.WaitAsync();
         try
         {
             // Append the error message to the general log
@@ -129,14 +132,17 @@ public class LogErrorsService : ILogErrors
         catch (Exception ex3)
         {
             WriteLocalErrorLog(ex3, "Error writing the ErrorLog.");
-            DebugLogger.LogException(ex3, "Error writing the ErrorLog");
+        }
+        finally
+        {
+            LogFileLock.Release();
         }
     }
 
     private async Task<bool> SendLogToApiAsync(string logContent)
     {
         // Check the flag again, just in case
-        if (!_isApiLoggingEnabled)
+        if (!_isApiLoggingEnabled || string.IsNullOrEmpty(_apiKey))
         {
             return false;
         }

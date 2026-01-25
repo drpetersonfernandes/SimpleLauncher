@@ -46,7 +46,6 @@ public partial class MainWindow
         LanguageUrdu.IsChecked = languageCode == "ur";
         LanguageVietnamese.IsChecked = languageCode == "vi";
         LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
-        LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
     private void EasyMode_Click(object sender, RoutedEventArgs e)
@@ -855,7 +854,6 @@ public partial class MainWindow
             "LanguageUrdu" => "ur",
             "LanguageVietnamese" => "vi",
             "LanguageChineseSimplified" => "zh-hans",
-            "LanguageChineseTraditional" => "zh-hant",
             _ => "en"
         };
 

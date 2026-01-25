@@ -51,7 +51,7 @@ public class SettingsManager
     [Key(17)] public string RaUsername { get; set; }
     [Key(18)] public string RaApiKey { get; set; }
     [Key(19)] public string RaPassword { get; set; }
-    [Key(30)] public string RaToken { get; set; } // Added RaToken
+    [Key(30)] public string RaToken { get; set; }
     [Key(20)] public bool OverlayRetroAchievementButton { get; set; }
     [Key(21)] public bool OverlayOpenVideoButton { get; set; }
     [Key(22)] public bool OverlayOpenInfoButton { get; set; }

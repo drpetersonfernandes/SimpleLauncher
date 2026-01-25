@@ -8,6 +8,8 @@ namespace SimpleLauncher;
 
 public partial class LogWindow
 {
+    private readonly object _logLock = new();
+
     // Private constructor to enforce singleton-like access via DebugLogger
     private LogWindow()
     {
@@ -45,10 +47,13 @@ public partial class LogWindow
         // Use Dispatcher to ensure UI update happens on the UI thread
         Dispatcher.Invoke(() =>
         {
-            // Add timestamp and append to the TextBox
-            LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss.fff} - {message}{Environment.NewLine}");
-            // Auto-scroll to the bottom
-            LogTextBox.ScrollToEnd();
+            lock (_logLock)
+            {
+                // Add timestamp and append to the TextBox
+                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss.fff} - {message}{Environment.NewLine}");
+                // Auto-scroll to the bottom
+                LogTextBox.ScrollToEnd();
+            }
         });
     }
 

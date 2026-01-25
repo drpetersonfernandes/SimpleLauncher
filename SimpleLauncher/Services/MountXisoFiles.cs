@@ -129,9 +129,16 @@ public static class MountXisoFiles
             var contextMessage = $"Error during ISO mount process for {resolvedIsoFilePath}.\nException: {ex.Message}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-            if (mountProcess is { HasExited: false })
+            if (!mountProcess.HasExited)
             {
-                mountProcess.Kill(true);
+                try
+                {
+                    mountProcess.Kill(true);
+                }
+                catch
+                {
+                    /* ignore */
+                }
             }
 
             mountProcess.Dispose();

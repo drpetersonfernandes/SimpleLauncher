@@ -14,9 +14,13 @@ namespace SimpleLauncher.Managers;
 [MessagePackObject]
 public class FavoritesManager
 {
+    [IgnoreMember] private static readonly object ListLock = new();
+
     // This collection will be serialized with MessagePack
     [Key(0)]
     public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
+
+    [Key(1)] public int Version { get; set; } = 1;
 
     private static string DatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat");
     private static string TempDatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat.tmp");
@@ -54,13 +58,16 @@ public class FavoritesManager
     /// </summary>
     public void SaveFavorites()
     {
-        // Order the favorites by FileName
-        var orderedFavorites = FavoriteList
-            .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
-            .ToList();
+        lock (ListLock)
+        {
+            // Order the favorites by FileName
+            var orderedFavorites = FavoriteList
+                .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
+                .ToList();
 
-        // Replace the entire list atomically
-        FavoriteList = new ObservableCollection<Favorite>(orderedFavorites);
+            // Replace the entire list atomically
+            FavoriteList = new ObservableCollection<Favorite>(orderedFavorites);
+        }
 
         // Now serialize
         try

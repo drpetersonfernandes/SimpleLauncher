@@ -168,6 +168,7 @@ public class DownloadManager : IDisposable
 
                 throw new IOException("Cannot check disk space for 'Simple Launcher' HDD. The path may be inaccessible or you may lack permissions.");
             default:
+                var success = false;
                 try
                 {
                     // Perform download with retry logic
@@ -180,7 +181,10 @@ public class DownloadManager : IDisposable
                             await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
 
                             if (IsDownloadCompleted)
+                            {
+                                success = true;
                                 break;
+                            }
 
                             currentRetry++;
                             if (currentRetry >= RetryMaxAttempts || IsUserCancellation) continue;
@@ -408,6 +412,18 @@ public class DownloadManager : IDisposable
                     }
 
                     throw;
+                }
+                finally
+                {
+                    if (!success && File.Exists(downloadFilePath))
+                    {
+                        DeleteFiles.TryDeleteFile(downloadFilePath);
+                    }
+
+                    lock (_lock)
+                    {
+                        _cancellationTokenSource?.Dispose();
+                    }
                 }
         }
     }

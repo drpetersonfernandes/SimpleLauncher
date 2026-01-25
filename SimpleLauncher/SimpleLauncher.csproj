@@ -856,7 +856,6 @@
     <Resource Include="resources\strings.ur.xaml" />
     <Resource Include="resources\strings.zh-hans.xaml" />
     <Page Remove="resources\Strings.zh-Hant.xaml" />
-    <Resource Include="resources\strings.zh-hant.xaml" />
     <Page Remove="resources\strings.ar.xaml" />
     <Resource Include="resources\strings.ar.xaml" />
     <Page Remove="resources\strings.hi.xaml" />

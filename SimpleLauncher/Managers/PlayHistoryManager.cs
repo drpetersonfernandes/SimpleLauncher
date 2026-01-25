@@ -16,8 +16,12 @@ namespace SimpleLauncher.Managers;
 [MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
+    [IgnoreMember] private static readonly object HistoryLock = new();
+
     // This collection will be serialized.
     [Key(0)] internal ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
+
+    [Key(1)] public int Version { get; set; } = 1;
 
     // The data file path.
     private static string FilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playhistory.dat");
@@ -252,30 +256,33 @@ public class PlayHistoryManager
             var dateStr = now.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
             var timeStr = now.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
 
-            // Check if the game already exists in play history
-            var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName == systemName);
+            lock (HistoryLock)
+            {
+                // Check if the game already exists in play history
+                var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName == systemName);
 
-            if (existingItem != null)
-            {
-                // Update existing record
-                existingItem.TotalPlayTime += (long)playTime.TotalSeconds;
-                existingItem.TimesPlayed += 1;
-                existingItem.LastPlayDate = dateStr;
-                existingItem.LastPlayTime = timeStr;
-            }
-            else
-            {
-                // Create new record
-                var newItem = new PlayHistoryItem
+                if (existingItem != null)
                 {
-                    FileName = fullPath,
-                    SystemName = systemName,
-                    TotalPlayTime = (long)playTime.TotalSeconds,
-                    TimesPlayed = 1,
-                    LastPlayDate = dateStr,
-                    LastPlayTime = timeStr
-                };
-                Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(newItem));
+                    // Update existing record
+                    existingItem.TotalPlayTime += (long)playTime.TotalSeconds;
+                    existingItem.TimesPlayed += 1;
+                    existingItem.LastPlayDate = dateStr;
+                    existingItem.LastPlayTime = timeStr;
+                }
+                else
+                {
+                    // Create new record
+                    var newItem = new PlayHistoryItem
+                    {
+                        FileName = fullPath,
+                        SystemName = systemName,
+                        TotalPlayTime = (long)playTime.TotalSeconds,
+                        TimesPlayed = 1,
+                        LastPlayDate = dateStr,
+                        LastPlayTime = timeStr
+                    };
+                    Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(newItem));
+                }
             }
 
             Application.Current.Dispatcher.Invoke(SavePlayHistory);
