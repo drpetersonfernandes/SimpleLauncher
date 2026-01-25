@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
@@ -11,7 +12,14 @@ namespace SimpleLauncher.Services;
 
 public static class MountXisoFiles
 {
-    private static readonly string XboxIsoVfsExe = Path.Combine("tools", "xbox-iso-vfs", "xbox-iso-vfs.exe");
+    private static string GetToolPath()
+    {
+        var exeName = RuntimeInformation.OSArchitecture == Architecture.Arm64
+            ? "SimpleXisoDrive_arm64.exe"
+            : "SimpleXisoDrive.exe";
+
+        return Path.Combine("tools", "SimpleXisoDrive", exeName);
+    }
 
     /// <summary>
     /// Finds an available drive letter from Z: down to D:.
@@ -44,13 +52,14 @@ public static class MountXisoFiles
     {
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 
-        var resolvedXboxIsoVfsPath = PathHelper.ResolveRelativeToAppDirectory(XboxIsoVfsExe);
+        var toolRelativePath = GetToolPath();
+        var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(toolRelativePath);
 
-        DebugLogger.Log($"[MountXisoFiles.MountAsync] Path to {XboxIsoVfsExe}: {resolvedXboxIsoVfsPath}");
+        DebugLogger.Log($"[MountXisoFiles.MountAsync] Path to tool: {resolvedToolPath}");
 
-        if (string.IsNullOrWhiteSpace(resolvedXboxIsoVfsPath) || !File.Exists(resolvedXboxIsoVfsPath))
+        if (string.IsNullOrWhiteSpace(resolvedToolPath) || !File.Exists(resolvedToolPath))
         {
-            const string errorMessage = "xbox-iso-vfs.exe not found. Cannot mount ISO.";
+            var errorMessage = $"{Path.GetFileName(toolRelativePath)} not found. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -73,29 +82,30 @@ public static class MountXisoFiles
 
         var psiMount = new ProcessStartInfo
         {
-            FileName = resolvedXboxIsoVfsPath,
+            FileName = resolvedToolPath,
             Arguments = $"/l \"{resolvedIsoFilePath}\" {driveLetterChar}",
             UseShellExecute = false,
             CreateNoWindow = false,
             WindowStyle = ProcessWindowStyle.Normal,
-            WorkingDirectory = Path.GetDirectoryName(resolvedXboxIsoVfsPath) ?? AppDomain.CurrentDomain.BaseDirectory
+            WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Attempting to mount on drive {driveLetter.Value}:");
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Arguments: {psiMount.Arguments}");
 
         var mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
+        var toolName = Path.GetFileName(toolRelativePath);
 
         try
         {
             if (!mountProcess.Start())
             {
-                throw new InvalidOperationException($"Failed to start the {XboxIsoVfsExe} process.");
+                throw new InvalidOperationException($"Failed to start the {toolName} process.");
             }
 
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] {XboxIsoVfsExe} process started (ID: {mountProcess.Id}).");
+            DebugLogger.Log($"[MountXisoFiles.MountAsync] {toolName} process started (ID: {mountProcess.Id}).");
 
-            var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, XboxIsoVfsExe, mountProcess.Id);
+            var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, toolName, mountProcess.Id);
 
             if (!mountSuccessful)
             {

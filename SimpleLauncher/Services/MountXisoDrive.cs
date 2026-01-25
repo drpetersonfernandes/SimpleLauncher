@@ -52,10 +52,10 @@ public class MountXisoDrive : IAsyncDisposable
             if (!_mountProcess.HasExited)
             {
                 DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] Unmounting by terminating xbox-iso-vfs.exe (ID: {_mountProcessId}).");
+                    $"[MountXisoDrive.DisposeAsync] Unmounting by terminating SimpleXisoDrive (ID: {_mountProcessId}).");
                 _mountProcess.Kill(true);
                 DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] Kill signal sent to xbox-iso-vfs.exe (ID: {_mountProcessId}). Waiting for exit (up to 10s).");
+                    $"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}). Waiting for exit (up to 10s).");
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
                 try
                 {
@@ -64,13 +64,13 @@ public class MountXisoDrive : IAsyncDisposable
                 catch (TaskCanceledException)
                 {
                     DebugLogger.Log(
-                        $"[MountXisoDrive.DisposeAsync] Timeout (10s) waiting for xbox-iso-vfs.exe (ID: {_mountProcessId}) to exit after Kill.");
+                        $"[MountXisoDrive.DisposeAsync] Timeout (10s) waiting for mounting tool (ID: {_mountProcessId}) to exit after Kill.");
                 }
 
                 if (_mountProcess.HasExited)
                 {
                     DebugLogger.Log(
-                        $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
+                        $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
                 }
                 else
                 {
@@ -81,7 +81,7 @@ public class MountXisoDrive : IAsyncDisposable
             else
             {
                 DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
+                    $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
             }
         }
         catch (InvalidOperationException ioEx) when (ioEx.Message.Contains("process has already exited",
@@ -90,14 +90,14 @@ public class MountXisoDrive : IAsyncDisposable
                                                          StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log(
-                $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) had already exited when DisposeAsync was called: {ioEx.Message}.");
+                $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited when DisposeAsync was called: {ioEx.Message}.");
         }
         catch (Exception termEx)
         {
             DebugLogger.Log(
-                $"[MountXisoDrive.DisposeAsync] Exception while terminating xbox-iso-vfs.exe (ID: {_mountProcessId}): {termEx}");
+                $"[MountXisoDrive.DisposeAsync] Exception while terminating mounting tool (ID: {_mountProcessId}): {termEx}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx,
-                $"Failed to terminate xbox-iso-vfs.exe (ID: {_mountProcessId}) for unmounting.");
+                $"Failed to terminate mounting tool (ID: {_mountProcessId}) for unmounting.");
         }
         finally
         {
