@@ -8,6 +8,7 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 
+/// <inheritdoc />
 /// <summary>
 /// Represents a temporarily mounted XISO drive.
 /// Disposing this object will unmount the drive by terminating the mounting process.

@@ -22,6 +22,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "x86"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x64"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
+        Path.Combine(AppDirectory, "tools", "xbox-iso-vfs"),
         Path.Combine(AppDirectory, "resources"),
         Path.Combine(AppDirectory, "de"),
         Path.Combine(Path.GetTempPath(), "SimpleZipDrive"),
