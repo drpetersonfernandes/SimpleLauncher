@@ -234,6 +234,8 @@ public partial class App : IDisposable
 
     private static void InitializeSevenZipSharp()
     {
+        if (ServiceProvider == null) return;
+
         try
         {
             string dllName;
@@ -325,9 +327,16 @@ public partial class App : IDisposable
                 Resources.MergedDictionaries.Add(dictionary);
 
                 // Apply the culture to the application
-                FrameworkElement.LanguageProperty.OverrideMetadata(
-                    typeof(FrameworkElement),
-                    new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+                try
+                {
+                    FrameworkElement.LanguageProperty.OverrideMetadata(
+                        typeof(FrameworkElement),
+                        new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+                }
+                catch (ArgumentException)
+                {
+                    // Metadata already overridden, ignore
+                }
 
                 DebugLogger.Log("Resource language file has been applied.");
             }
@@ -354,9 +363,16 @@ public partial class App : IDisposable
                 Thread.CurrentThread.CurrentCulture = englishCulture;
                 Thread.CurrentThread.CurrentUICulture = englishCulture;
 
-                FrameworkElement.LanguageProperty.OverrideMetadata(
-                    typeof(FrameworkElement),
-                    new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
+                try
+                {
+                    FrameworkElement.LanguageProperty.OverrideMetadata(
+                        typeof(FrameworkElement),
+                        new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
+                }
+                catch (ArgumentException)
+                {
+                    // Metadata already overridden, ignore
+                }
 
                 // Notify developer
                 _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Fallback to English language resources.");
@@ -387,9 +403,16 @@ public partial class App : IDisposable
                 Thread.CurrentThread.CurrentCulture = englishCulture;
                 Thread.CurrentThread.CurrentUICulture = englishCulture;
 
-                FrameworkElement.LanguageProperty.OverrideMetadata(
-                    typeof(FrameworkElement),
-                    new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
+                try
+                {
+                    FrameworkElement.LanguageProperty.OverrideMetadata(
+                        typeof(FrameworkElement),
+                        new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
+                }
+                catch (ArgumentException)
+                {
+                    // Metadata already overridden, ignore
+                }
 
                 // Notify developer
                 _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");

@@ -1119,24 +1119,30 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                             // This part is outside the lock because it involves I/O and doesn't modify _allGamesForCurrentSystem yet.
                             // The lock is acquired only when _allGamesForCurrentSystem is read or written.
                             _allGamesLock.Release(); // Temporarily release lock for disk scan
-                            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                            foreach (var folder in selectedManager.SystemFolders)
+
+                            try
                             {
-                                token.ThrowIfCancellationRequested();
-
-                                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
-
-                                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
-                                foreach (var file in filesInFolder)
+                                var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                                foreach (var folder in selectedManager.SystemFolders)
                                 {
-                                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                                    token.ThrowIfCancellationRequested();
+
+                                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
+                                    foreach (var file in filesInFolder)
+                                    {
+                                        uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                                    }
                                 }
+
+                                allFiles = uniqueFiles.Values.ToList(); // This is the full list from disk for the system
                             }
-
-                            allFiles = uniqueFiles.Values.ToList(); // This is the full list from disk for the system
-
-                            await _allGamesLock.WaitAsync(token); // Re-acquire lock before potentially writing to _allGamesForCurrentSystem
+                            finally
+                            {
+                                await _allGamesLock.WaitAsync(token); // Re-acquire lock before potentially writing to _allGamesForCurrentSystem
+                            }
 
                             // If no specific filter (letter or search query), this is the "all games" list.
                             // Cache it for future "Feeling Lucky" calls and direct "All" view loads.

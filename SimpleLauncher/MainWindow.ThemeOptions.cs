@@ -13,6 +13,10 @@ public partial class MainWindow
         var baseTheme = menuItem.Name;
         var currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
         if (currentAccent != null) App.ChangeTheme(baseTheme, currentAccent);
+
+        _settings.BaseTheme = baseTheme;
+        _settings.Save();
+
         _playSoundEffects.PlayNotificationSound();
 
         UncheckBaseThemes();
@@ -26,6 +30,10 @@ public partial class MainWindow
         var accentColor = menuItem.Name;
         var currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
         if (currentBaseTheme != null) App.ChangeTheme(currentBaseTheme, accentColor);
+
+        _settings.AccentColor = accentColor;
+        _settings.Save();
+
         _playSoundEffects.PlayNotificationSound();
 
         UncheckAccentColors();

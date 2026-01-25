@@ -1026,7 +1026,7 @@
                               CanUserAddRows="False"
                               IsReadOnly="True"
                               GridLinesVisibility="All"
-                              SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }"
+                              SelectionChanged="GameListSelectionChanged"
                               AutomationProperties.Name="{DynamicResource GameListGrid}"
                               AutomationProperties.HelpText="{DynamicResource GameListGridHelpText}">
                         <DataGrid.RowStyle>
@@ -1066,7 +1066,6 @@
                                     <DataTemplate>
                                         <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
                                                Visibility="{Binding IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                               d:DataContext="{d:DesignInstance }"
                                                AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" /> <!-- Dynamic AutomationProperties.Name via converter -->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -1119,7 +1118,7 @@
                 </Grid>
 
                 <!-- Loading Overlay -->
-                <Grid x:Name="LoadingOverlay" Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}" d:DataContext="{d:DesignInstance }">
+                <Grid x:Name="LoadingOverlay" Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <controls:ProgressRing IsActive="True" Width="100" Height="100" />
                         <TextBlock x:Name="LoadingMessage" Text="{DynamicResource LoadingGames}" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Margin="0,10,0,0" FontSize="16" HorizontalAlignment="Center"/>
@@ -1180,14 +1179,14 @@
                             AutomationProperties.Name="{DynamicResource CurrentSystemInfo}">
                     <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
                     <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0" />
-                    <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
+                    <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" />
                 </StackPanel>
                 <!-- Playtime Info -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0" AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}"
                             Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
                     <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
-                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
+                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" />
                 </StackPanel>
                 <!-- Dummy usage to suppress "Resource 'SystemButtonStyle' is never used" warning -->
                 <Button Style="{StaticResource SystemButtonStyle}" Visibility="Collapsed" Width="0" Height="0" />

@@ -65,10 +65,6 @@ public partial class MainWindow
             _allGamesLock.Release();
         }
 
-        // Call DeselectLetter to clear any selected letter filter UI
-        _topLetterNumberMenu.DeselectLetter();
-        _currentFilter = null; // Clear active letter filter
-
         var searchQuery = SearchTextBox.Text.Trim();
         _activeSearchQueryOrMode = searchQuery; // Set active search mode to the text query
 
@@ -89,6 +85,10 @@ public partial class MainWindow
             // For now, stick to the message.
             return;
         }
+
+        // Call DeselectLetter to clear any selected letter filter UI
+        _topLetterNumberMenu.DeselectLetter();
+        _currentFilter = null; // Clear active letter filter
 
         try
         {

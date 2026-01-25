@@ -158,7 +158,15 @@ public partial class MainWindow
                 await DisplaySystemSelectionScreenAsync(token);
 
                 // Clear the cached list on error
-                _allGamesForCurrentSystem.Clear();
+                await _allGamesLock.WaitAsync(token);
+                try
+                {
+                    _allGamesForCurrentSystem.Clear();
+                }
+                finally
+                {
+                    _allGamesLock.Release();
+                }
             }
             finally
             {
