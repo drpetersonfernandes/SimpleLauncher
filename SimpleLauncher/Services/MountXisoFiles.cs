@@ -84,7 +84,7 @@ public static class MountXisoFiles
         {
             FileName = resolvedToolPath,
             Arguments = $"\"{resolvedIsoFilePath}\" \"{drivePath}\" --launch",
-            UseShellExecute = false,
+            UseShellExecute = true,
             CreateNoWindow = false,
             WindowStyle = ProcessWindowStyle.Normal,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
