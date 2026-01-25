@@ -83,7 +83,7 @@ public static class MountXisoFiles
         var psiMount = new ProcessStartInfo
         {
             FileName = resolvedToolPath,
-            Arguments = $"\"{resolvedIsoFilePath}\" \"{driveLetterOnly}\" --launch",
+            Arguments = $"\"{resolvedIsoFilePath}\" \"{driveLetterOnly}\"",
             UseShellExecute = true,
             CreateNoWindow = false,
             WindowStyle = ProcessWindowStyle.Normal,
