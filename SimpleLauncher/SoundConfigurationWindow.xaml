@@ -7,7 +7,7 @@
                       mc:Ignorable="d"
                       Title="{DynamicResource SoundConfiguration}"
                       Width="500" Height="300"
-                      WindowStartupLocation="CenterOwner"
+                      WindowStartupLocation="CenterScreen"
                       ShowMinButton="False"
                       ResizeMode="NoResize">
     <Grid Margin="15">

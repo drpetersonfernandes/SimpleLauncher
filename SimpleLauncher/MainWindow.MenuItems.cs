@@ -214,23 +214,20 @@ public partial class MainWindow
         try
         {
             CancelAndRecreateToken();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
+            if (sender is not MenuItem) return;
 
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkSettings") ?? "Opening link settings...", this);
+            _playSoundEffects.PlayNotificationSound();
 
-                UpdateShowGamesSetting("ShowAll");
-                UpdateMenuCheckMarks("ShowAll");
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
+            SetLinksWindow setLinksWindow = new(_settings)
             {
-                // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinksClickAsync.");
-            }
+                Owner = this
+            };
+            setLinksWindow.ShowDialog();
+
+            var (sl, sq) = GetLoadGameFilesParams();
+            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -304,13 +301,12 @@ public partial class MainWindow
         try
         {
             CancelAndRecreateToken();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
-
             if (sender is not MenuItem menuItem) return;
 
             try
             {
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
                 _playSoundEffects.PlayNotificationSound();
 
                 _settings.EnableFuzzyMatching = menuItem.IsChecked;
@@ -318,6 +314,7 @@ public partial class MainWindow
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingFuzzyMatching") ?? "Toggling fuzzy matching...", this);
             }
