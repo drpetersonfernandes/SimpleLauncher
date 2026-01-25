@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="FailedtologintoRetroAchievements">RetroAchievements में लॉग इन करने में विफल। कृपया अपना उपयोगकर्ता नाम और पासवर्ड जांचें।</system:String>
+    <system:String x:Key="LoginFailed">लॉगिन विफल</system:String>
+
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>

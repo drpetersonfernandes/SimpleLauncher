@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="FailedtologintoRetroAchievements">Gagal masuk ke RetroAchievements. Silakan periksa nama pengguna dan kata sandi Anda.</system:String>
+    <system:String x:Key="LoginFailed">Gagal Masuk</system:String>
+
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>

@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="FailedtologintoRetroAchievements">Échec de la connexion à RetroAchievements. Veuillez vérifier votre nom d'utilisateur et votre mot de passe.</system:String>
+    <system:String x:Key="LoginFailed">Échec de la connexion</system:String>
+
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
     <system:String x:Key="1000games">1000 jeux</system:String>
