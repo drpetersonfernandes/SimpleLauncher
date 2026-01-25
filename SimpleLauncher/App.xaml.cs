@@ -57,7 +57,8 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("EasyModeClient", static client =>
         {
             // Set the base address for the EasyMode configuration API
-            client.BaseAddress = new Uri("https://www.purelogiccode.com/simplelauncheradmin/");
+            var easyModeUrl = Configuration.GetValue<string>("Urls:EasyModeApi");
+            client.BaseAddress = new Uri(easyModeUrl ?? "https://www.purelogiccode.com/simplelauncheradmin/");
         });
 
         // Register IConfiguration

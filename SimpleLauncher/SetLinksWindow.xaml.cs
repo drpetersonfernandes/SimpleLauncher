@@ -47,8 +47,8 @@ public partial class SetLinksWindow
 
     private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
     {
-        _settingsManager.VideoUrl = "https://www.youtube.com/results?search_query=";
-        _settingsManager.InfoUrl = "https://www.igdb.com/search?q=";
+        _settingsManager.VideoUrl = _settingsManager.VideoUrl = App.Configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
+        _settingsManager.InfoUrl = App.Configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
 
         VideoLinkTextBox.Text = _settingsManager.VideoUrl;
         InfoLinkTextBox.Text = _settingsManager.InfoUrl;

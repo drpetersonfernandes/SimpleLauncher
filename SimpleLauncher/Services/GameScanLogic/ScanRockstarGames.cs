@@ -10,27 +10,27 @@ using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanRockstarGames
+public static partial class ScanRockstarGames
 {
     // Mapping from TitleId to Name and Executable
-    private static readonly List<RockstarGameDef> Games = new()
-    {
-        new RockstarGameDef { TitleId = "gta5", Name = "Grand Theft Auto V", Exe = "PlayGTAV.exe" },
-        new RockstarGameDef { TitleId = "gta5_gen9", Name = "Grand Theft Auto V Enhanced", Exe = "GTA5_Enhanced_BE.exe" },
-        new RockstarGameDef { TitleId = "rdr2", Name = "Red Dead Redemption 2", Exe = "RDR2.exe" },
-        new RockstarGameDef { TitleId = "rdr", Name = "Red Dead Redemption", Exe = "RDR.exe" },
-        new RockstarGameDef { TitleId = "lanoire", Name = "L.A. Noire", Exe = "LANoire.exe" },
-        new RockstarGameDef { TitleId = "lanoirevr", Name = "L.A. Noire: The VR Case Files", Exe = "LANoireVR.exe" },
-        new RockstarGameDef { TitleId = "mp3", Name = "Max Payne 3", Exe = "MaxPayne3.exe" },
-        new RockstarGameDef { TitleId = "gtasa", Name = "Grand Theft Auto San Andreas", Exe = "gta_sa.exe" },
-        new RockstarGameDef { TitleId = "gta3", Name = "Grand Theft Auto III", Exe = "gta3.exe" },
-        new RockstarGameDef { TitleId = "gtavc", Name = "Grand Theft Auto Vice City", Exe = "gta-vc.exe" },
-        new RockstarGameDef { TitleId = "bully", Name = "Bully Scholarship Edition", Exe = "Bully.exe" },
-        new RockstarGameDef { TitleId = "gta4", Name = "Grand Theft Auto IV", Exe = "GTAIV.exe" },
-        new RockstarGameDef { TitleId = "gta3unreal", Name = "GTA III Definitive Edition", Exe = "Gameface/Binaries/Win64/LibertyCity.exe" },
-        new RockstarGameDef { TitleId = "gtavcunreal", Name = "GTA Vice City Definitive Edition", Exe = "Gameface/Binaries/Win64/ViceCity.exe" },
-        new RockstarGameDef { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
-    };
+    private static readonly List<RockstarGameDef> Games =
+    [
+        new() { TitleId = "gta5", Name = "Grand Theft Auto V", Exe = "PlayGTAV.exe" },
+        new() { TitleId = "gta5_gen9", Name = "Grand Theft Auto V Enhanced", Exe = "GTA5_Enhanced_BE.exe" },
+        new() { TitleId = "rdr2", Name = "Red Dead Redemption 2", Exe = "RDR2.exe" },
+        new() { TitleId = "rdr", Name = "Red Dead Redemption", Exe = "RDR.exe" },
+        new() { TitleId = "lanoire", Name = "L.A. Noire", Exe = "LANoire.exe" },
+        new() { TitleId = "lanoirevr", Name = "L.A. Noire: The VR Case Files", Exe = "LANoireVR.exe" },
+        new() { TitleId = "mp3", Name = "Max Payne 3", Exe = "MaxPayne3.exe" },
+        new() { TitleId = "gtasa", Name = "Grand Theft Auto San Andreas", Exe = "gta_sa.exe" },
+        new() { TitleId = "gta3", Name = "Grand Theft Auto III", Exe = "gta3.exe" },
+        new() { TitleId = "gtavc", Name = "Grand Theft Auto Vice City", Exe = "gta-vc.exe" },
+        new() { TitleId = "bully", Name = "Bully Scholarship Edition", Exe = "Bully.exe" },
+        new() { TitleId = "gta4", Name = "Grand Theft Auto IV", Exe = "GTAIV.exe" },
+        new() { TitleId = "gta3unreal", Name = "GTA III Definitive Edition", Exe = "Gameface/Binaries/Win64/LibertyCity.exe" },
+        new() { TitleId = "gtavcunreal", Name = "GTA Vice City Definitive Edition", Exe = "Gameface/Binaries/Win64/ViceCity.exe" },
+        new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
+    ];
 
     public static async Task ScanRockstarGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
@@ -59,7 +59,7 @@ public class ScanRockstarGames
 
                         if (string.IsNullOrEmpty(uninstallString)) continue;
 
-                        var match = Regex.Match(uninstallString, @"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase);
+                        var match = MyRegex().Match(uninstallString);
 
                         if (match.Success)
                         {
@@ -99,4 +99,7 @@ public class ScanRockstarGames
             await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Rockstar games.");
         }
     }
+
+    [GeneratedRegex(@"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
+    private static partial Regex MyRegex();
 }

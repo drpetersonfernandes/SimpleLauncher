@@ -1120,7 +1120,8 @@ internal static class MessageBoxLibrary
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                const string downloadPageUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest";
+                var downloadPageUrl = App.Configuration["Urls:GitHubReleases"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest";
+
                 try
                 {
                     Process.Start(new ProcessStartInfo
@@ -2322,53 +2323,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ExtractionFolderCannotBeCreatedMessageBox(string logPath)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var cannotcreateoraccesstheextractionfolder = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder2") ?? "Cannot create or access the extraction folder.";
-            var invalidExtractionFolder = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
-            var wouldyouliketoopenthefileerroruserlogtodebugtheerror = (string)Application.Current.TryFindResource("Wouldyouliketoopenthefileerroruserlogtodebugtheerror") ?? "Would you like to open the file 'error_user.log' to debug the error?";
-            var result = MessageBox.Show($"{cannotcreateoraccesstheextractionfolder}\n\n" +
-                                         $"{wouldyouliketoopenthefileerroruserlogtodebugtheerror}", invalidExtractionFolder, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = logPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    // Notify user
-                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                    var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                    MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-    }
-
-    internal static void DownloadUrlIsNullMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var theselectedsystemdoesnothaveavaliddownloadlink = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";
-            var invalidDownloadLink = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
-            MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink, invalidDownloadLink, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-    }
-
     internal static void UnableToOpenLinkMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -2381,32 +2335,6 @@ internal static class MessageBoxLibrary
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{unabletoopenthelink}\n\n" +
                             $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    internal static void SelectedSystemIsNullMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var couldnotfindtheselectedsystemintheconfiguration = (string)Application.Current.TryFindResource("Couldnotfindtheselectedsystemintheconfiguration") ?? "Could not find the selected system in the configuration.";
-            var systemNotFound = (string)Application.Current.TryFindResource("SystemNotFound") ?? "System Not Found";
-            MessageBox.Show(couldnotfindtheselectedsystemintheconfiguration, systemNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    internal static void SystemNameIsNullMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var pleaseselectasystemfromthedropdown = (string)Application.Current.TryFindResource("Pleaseselectasystemfromthedropdown") ?? "Please select a system from the dropdown.";
-            var selectionRequired = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
-            MessageBox.Show(pleaseselectasystemfromthedropdown, selectionRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -2874,52 +2802,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ThereWasAnErrorLaunchingTheToolMessageBox(string toolName, string logPath)
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        void ShowMessage()
-        {
-            var simpleLaunchercouldnotlaunchthetool = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthetool") ?? "'Simple Launcher' could not launch the tool";
-            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunchthetool} {toolName}.\n\n" +
-                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = logPath,
-                        UseShellExecute = true
-                    });
-                }
-                catch (Exception)
-                {
-                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                    MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-    }
-
-    internal static void XisoMountNotSupportedOnArm64()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var xIsOmountingisnotsupportedonArm64Systems = (string)Application.Current.TryFindResource("XISOmountingisnotsupportedonARM64systems") ?? "XISO mounting is not supported on ARM64 systems.";
-            var xIsoMountNotSupported = (string)Application.Current.TryFindResource("XISOMountNotSupported") ?? "XISO Mount Not Supported";
-            MessageBox.Show(xIsOmountingisnotsupportedonArm64Systems, xIsoMountNotSupported, MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-    }
-
     internal static void CannotScreenshotMinimizedWindowMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -3008,32 +2890,6 @@ internal static class MessageBoxLibrary
             var youneedtoaddRetroAchievementlogin = (string)Application.Current.TryFindResource("YouneedtoaddRetroAchievementlogin") ?? "You need to add RetroAchievement login information to use this feature.";
             var attention = (string)Application.Current.TryFindResource("Attention") ?? "Attention";
             MessageBox.Show(youneedtoaddRetroAchievementlogin, attention, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-    }
-
-    internal static void SettingsXmlFileIsCorruptMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var settingsxmlfileiscorruptItCouldnotbeloaded = (string)Application.Current.TryFindResource("settingsxmlfileiscorruptItCouldnotbeloaded") ?? "'settings.xml' file is corrupt. It could not be loaded.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(settingsxmlfileiscorruptItCouldnotbeloaded, error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    internal static void SettingsXmlFileCouldNotBeLoadedMessageBox()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var settingsxmlfilecouldnotbeloaded = (string)Application.Current.TryFindResource("settingsxmlfilecouldnotbeloaded") ?? "'settings.xml' file could not be loaded.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(settingsxmlfilecouldnotbeloaded, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -3331,19 +3187,6 @@ internal static class MessageBoxLibrary
                 }
             }
         });
-    }
-
-    internal static void ErrorScanningWindowsGamesMessageBox()
-    {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var message = (string)Application.Current.TryFindResource("ErrorScanningWindowsGamesMessage") ?? "An error occurred while scanning for Windows games. Please check the log file for details.";
-            var title = (string)Application.Current.TryFindResource("ErrorScanningWindowsGamesTitle") ?? "Scan Error";
-            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
     }
 
     internal static void ShowCustomMessageBox(string message, string launchError, string logPath)

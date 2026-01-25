@@ -58,17 +58,17 @@ public partial class SupportOptionWindow
 
     private void BtnAskPerplexity_Click(object sender, RoutedEventArgs e)
     {
-        LaunchAiSearch("https://www.perplexity.ai/search?q=");
+        LaunchAiSearch(_configuration["Urls:PerplexitySearch"] ?? "https://www.perplexity.ai/search?q=");
     }
 
     private void BtnAskPhind_Click(object sender, RoutedEventArgs e)
     {
-        LaunchAiSearch("https://www.phind.com/search?q=");
+        LaunchAiSearch(_configuration["Urls:PhindSearch"] ?? "https://www.phind.com/search?q=");
     }
 
     private void BtnAskYou_Click(object sender, RoutedEventArgs e)
     {
-        LaunchAiSearch("https://you.com/search?q=");
+        LaunchAiSearch(_configuration["Urls:YouSearch"] ?? "https://you.com/search?q=");
     }
 
     private void LaunchAiSearch(string baseUrl)

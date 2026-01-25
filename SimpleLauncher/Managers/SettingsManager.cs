@@ -154,8 +154,8 @@ public class SettingsManager
             ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
             ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
             EnableGamePadNavigation = !bool.TryParse(settings.Element("EnableGamePadNavigation")?.Value, out var gp) || gp;
-            VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
-            InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
+            VideoUrl = settings.Element("VideoUrl")?.Value ?? App.Configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
+            InfoUrl = settings.Element("InfoUrl")?.Value ?? App.Configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
             BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
             Language = settings.Element("Language")?.Value ?? "en";
@@ -251,8 +251,8 @@ public class SettingsManager
         ShowGames = "ShowAll";
         ViewMode = "GridView";
         EnableGamePadNavigation = false;
-        VideoUrl = "https://www.youtube.com/results?search_query=";
-        InfoUrl = "https://www.igdb.com/search?q=";
+        VideoUrl = App.Configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
+        InfoUrl = App.Configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
         BaseTheme = "Light";
         AccentColor = "Blue";
         Language = "en";

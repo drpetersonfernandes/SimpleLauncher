@@ -586,7 +586,7 @@ internal partial class EditSystemWindow
 
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
-        const string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
+        var searchUrl = App.Configuration["WikiParametersUrl"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
         try
         {
             Process.Start(new ProcessStartInfo
