@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaGameExtendedDetails
+public record RaGameExtendedDetails
 {
     [JsonPropertyName("ID")]
     public int Id { get; set; }

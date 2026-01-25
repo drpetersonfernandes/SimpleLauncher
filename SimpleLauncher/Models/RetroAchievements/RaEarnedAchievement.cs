@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaEarnedAchievement
+public record RaEarnedAchievement
 {
     [JsonPropertyName("Date")]
     public string Date { get; set; } = "";

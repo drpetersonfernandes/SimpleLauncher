@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaUserCompletionProgressResponse
+public record RaUserCompletionProgressResponse
 {
     [JsonPropertyName("Count")]
     public int Count { get; set; }

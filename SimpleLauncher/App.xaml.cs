@@ -44,7 +44,11 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("StatsClient");
         serviceCollection.AddHttpClient("UpdateCheckerClient");
         serviceCollection.AddHttpClient("SupportWindowClient");
-        serviceCollection.AddHttpClient("RetroAchievementsClient");
+        serviceCollection.AddHttpClient("RetroAchievementsClient", static client =>
+        {
+            client.Timeout = TimeSpan.FromSeconds(30);
+            client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
+        });
         serviceCollection.AddHttpClient("GameImageClient", static client =>
         {
             var apiUrl = Configuration.GetValue<string>("ApiSettings:GameImageUrl");

@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaRecentlyPlayedGame
+public record RaRecentlyPlayedGame
 {
     [JsonPropertyName("GameID")]
     public int GameId { get; set; }

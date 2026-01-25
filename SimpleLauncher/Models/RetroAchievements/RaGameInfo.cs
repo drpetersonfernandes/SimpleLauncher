@@ -4,7 +4,7 @@ using MessagePack;
 namespace SimpleLauncher.Models.RetroAchievements;
 
 [MessagePackObject]
-public class RaGameInfo
+public record RaGameInfo
 {
     [Key(0)]
     public int Id { get; set; }

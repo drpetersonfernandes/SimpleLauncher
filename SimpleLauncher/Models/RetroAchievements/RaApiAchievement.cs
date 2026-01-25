@@ -6,7 +6,7 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaApiAchievement
+public record RaApiAchievement
 {
     [JsonPropertyName("ID")]
     public int Id { get; set; }

@@ -35,12 +35,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, Retr
 
         try
         {
-            // Ensure User-Agent is set to avoid 403 Forbidden
-            if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
-            {
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
-            }
-
             var values = new Dictionary<string, string>
             {
                 { "r", "login" },
@@ -385,8 +379,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, Retr
             var json = await response.Content.ReadAsStringAsync();
             var apiResponse = JsonSerializer.Deserialize<List<RaRecentlyPlayedGame>>(json);
 
-            if (apiResponse == null) return null;
-
             return apiResponse;
         }
         catch (RaUnauthorizedException)
@@ -455,8 +447,6 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, Retr
             {
                 DebugLogger.Log("[RA Service] Failed to deserialize achievements earned between response.");
             }
-
-            if (apiResponse == null) return null;
 
             return apiResponse;
         }

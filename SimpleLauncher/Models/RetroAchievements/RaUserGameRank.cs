@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaUserGameRank
+public record RaUserGameRank
 {
     [JsonPropertyName("User")]
     public string User { get; set; } = "";

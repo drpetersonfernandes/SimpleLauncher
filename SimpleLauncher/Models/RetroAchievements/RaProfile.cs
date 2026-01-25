@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models.RetroAchievements;
 
-public class RaProfile
+public record RaProfile
 {
     [JsonPropertyName("User")]
     public string User { get; set; } = "";
