@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">キャンセル</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
     <system:String x:Key="CancellingPleasewait">キャンセル中...お待ちください</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">展開フォルダーを作成またはアクセスできません。</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">最小化されたウィンドウのスクリーンショットは撮れません。</system:String>
     <system:String x:Key="Cart">カートリッジ</system:String>
     <system:String x:Key="Cartnotfound">カートリッジが見つかりません</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">ログをコピー</system:String>
     <system:String x:Key="Core">コア</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">抽出フォルダ内で『抽出後に起動する拡張子』で定義された拡張子のファイルが見つかりませんでした。</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">設定で選択されたシステムが見つかりませんでした。</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">実績ウィンドウを開けませんでした。</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">AIサポートのためにブラウザを開けませんでした。</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">サウンド設定ウィンドウを開けませんでした</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">ダウンロードリンクの開封中にエラーが発生しました。</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">アップデート履歴ウィンドウを開く際にエラーが発生しました。</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">ビデオリンクを開く際にエラーが発生しました。</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Windows ゲームのスキャン中にエラーが発生しました。詳細はログ ファイルを確認してください。</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">スキャン エラー</system:String>
     <system:String x:Key="errorSettingSoundFile">サウンドファイルの選択またはコピー中にエラーが発生しました。</system:String>
     <system:String x:Key="ExecutingSearch">検索を実行中...</system:String>
     <system:String x:Key="Exit">終了</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">画像パックをインストール</system:String>
     <system:String x:Key="InSystem">システム内</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">このウィンドウでは、BIOSや他のシステムファイルを必要としないエミュレーターをダウンロードおよびインストールできます。</system:String>
-    <system:String x:Key="InvalidDownloadLink">無効なダウンロードリンク</system:String>
-    <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
     <system:String x:Key="InvalidSearch">無効な検索</system:String>
     <system:String x:Key="InvalidSystemConfiguration">無効なシステム構成</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">次のページを読み込んでいます...</system:String>
     <system:String x:Key="LoadingPreviousPage">前のページを読み込んでいます...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM履歴を読み込んでいます...</system:String>
-    <system:String x:Key="LoadingSettings">設定を読み込んでいます...</system:String>
     <system:String x:Key="LoadingSystem">システムを読み込んでいます...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">ユーザーの完了進捗状況を読み込んでいます...</system:String>
     <system:String x:Key="LoadingUserProfile">ユーザープロフィールを読み込み中...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">画像パックを選択してください</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">検索する前にシステムを選択してください。</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">フェイリングラッキー機能を使用する前に、システムを選択してください。</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">ドロップダウンからシステムを選択してください。</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">削除するシステムを選択してください。</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">システムフォルダーを選択してください。</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">システム画像フォルダーを選択してください。</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">リンク設定を保存しています...</system:String>
     <system:String x:Key="SavingPlayHistory">プレイ履歴を保存しています...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">RetroAchievements設定を保存しています...</system:String>
-    <system:String x:Key="SavingSettings">設定を保存しています...</system:String>
     <system:String x:Key="SavingSoundSettings">サウンド設定を保存しています...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Microsoft Windows ゲームをスキャン</system:String>
     <system:String x:Key="ScanningForWindowsGames">Windows ゲームをスキャン中...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">エミュレーター 4 を選択してください。</system:String>
     <system:String x:Key="SelectEmulator5">エミュレーター 5 を選択してください。</system:String>
     <system:String x:Key="SelectEmulatorComboBox">エミュレーター コンボボックスを選択</system:String>
-    <system:String x:Key="SelectionRequired">選択が必要です</system:String>
     <system:String x:Key="SelectNotificationSoundFile">通知音ファイルを選択</system:String>
     <system:String x:Key="SelectSystem">システムを選択</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} システムを選択</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">閾値を設定</system:String>
     <system:String x:Key="Settingittoohighmay">• 設定を高くしすぎると、正確な操作が難しくなる可能性があります</system:String>
     <system:String x:Key="Settingittoolowmay">• 設定を低くしすぎると、スティックに触れていないときにカーソルがドリフトする可能性があります</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">設定ファイルが見つかりませんでした。デフォルトを作成します...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">設定が正常に保存されました。</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' ファイルが読み込めませんでした。</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">'settings.xml' ファイルが破損しています。読み込めませんでした。</system:String>
     <system:String x:Key="ShowAllGames">すべてのゲームを表示</system:String>
     <system:String x:Key="ShowGames">ゲームを表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' は、指定されたパスのディスク容量を確認できませんでした。パスを確認して、もう一度お試しください。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">「Simple Launcher」は GitHub でアップデーターアプリケーションを見つけられませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' は選択したゲームを起動できませんでした。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' がツールを起動できませんでした</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">「Simple Launcher」はこのゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' は 'helpuser.xml' を読み込めませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'は'mame.dat'ファイルを読み込めないか、ファイルが破損しています。</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">システム名</system:String>
     <system:String x:Key="SystemNameLabel">システム名:</system:String>
     <system:String x:Key="SystemNameRequired">システム名（必須）</system:String>
-    <system:String x:Key="SystemNotFound">システムが見つかりません</system:String>
     <system:String x:Key="Systemsavedsuccessfully">システムが正常に保存されました。</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">システム固有の統計</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' が破損しているか、開けません。</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">URLを開く際に問題が発生しました。</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">ビデオリンクを開く際に問題が発生しました。</system:String>
     <system:String x:Key="Theselectedfilecannotbe">選択されたファイルを解凍できません。</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">選択されたシステムに有効なダウンロードリンクがありません。</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">選択したツールが想定されたパスに見つかりませんでした。</system:String>
     <system:String x:Key="Thesystem">システム</system:String>
     <system:String x:Key="Theupdateversionis">更新バージョンは</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">エラー。更新履歴を読み込めませんでした。エラーはログに記録されました。</system:String>
     <system:String x:Key="Updating">更新中</system:String>
     <system:String x:Key="UpdatingPlayHistory">プレイ履歴を更新しています...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">システムプレイ時間を更新しています...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">複数の拡張子を追加するにはカンマ [ , ] を使用してください</system:String>
     <system:String x:Key="UserDetails">ユーザー詳細</system:String>
     <system:String x:Key="UserID">ユーザーID:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">ダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">手動でインストールまたは更新するためにダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">問題を調査するために 'error_user.log' ファイルを開きますか？</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">エラーをデバッグするためにファイル 'error_user.log' を開きますか？</system:String>
     <system:String x:Key="Wouldyouliketorestore">最後のバックアップを復元しますか？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">結果を含むレポートを保存しますか？</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">ARM64 システムでは XISO マウントはサポートされていません。</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO マウントはサポートされていません</system:String>
     <system:String x:Key="Yellow">黄色</system:String>
     <system:String x:Key="Youcanaddanewsystem">新しいシステムを追加できます。</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">アンチウイルスソフトを一時的に無効化するか、「Simple Launcher」フォルダーをアンチウイルスの除外リストに追加することもできます。</system:String>

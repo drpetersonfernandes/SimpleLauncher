@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">Batal</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
     <system:String x:Key="CancellingPleasewait">Membatalkan... Harap tunggu</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Tidak dapat membuat atau mengakses folder ekstraksi.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Tidak dapat mengambil tangkapan layar dari jendela yang diminimalkan.</system:String>
     <system:String x:Key="Cart">Kartrid</system:String>
     <system:String x:Key="Cartnotfound">Kartrid tidak ditemukan</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Salin Log</system:String>
     <system:String x:Key="Core">Inti</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Tidak dapat menemukan file dengan ekstensi yang telah ditentukan di 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' dalam folder hasil ekstraksi.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Tidak dapat menemukan sistem yang dipilih dalam konfigurasi.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Tidak dapat membuka jendela pencapaian.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">Tidak dapat membuka browser untuk dukungan AI.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Tidak dapat membuka jendela konfigurasi suara</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">Kesalahan saat membuka tautan unduhan.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Kesalahan saat membuka jendela Riwayat Pembaruan.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Kesalahan saat membuka tautan video.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Terjadi kesalahan saat memindai game Windows. Silakan periksa file log untuk detailnya.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Kesalahan Pemindaian</system:String>
     <system:String x:Key="errorSettingSoundFile">Kesalahan saat memilih atau menyalin file suara.</system:String>
     <system:String x:Key="ExecutingSearch">Mengeksekusi pencarian...</system:String>
     <system:String x:Key="Exit">Keluar</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Instal Paket Gambar</system:String>
     <system:String x:Key="InSystem">Dalam Sistem</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Di jendela ini, Anda dapat mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau file sistem lainnya.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Tautan Unduhan Tidak Valid</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="InvalidSearch">Pencarian Tidak Valid</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Memuat halaman berikutnya...</system:String>
     <system:String x:Key="LoadingPreviousPage">Memuat halaman sebelumnya...</system:String>
     <system:String x:Key="LoadingROMHistory">Memuat Riwayat ROM...</system:String>
-    <system:String x:Key="LoadingSettings">Memuat pengaturan...</system:String>
     <system:String x:Key="LoadingSystem">Memuat sistem...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Memuat progres penyelesaian pengguna...</system:String>
     <system:String x:Key="LoadingUserProfile">Memuat profil pengguna...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Silakan pilih Paket Gambar</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Silakan pilih sistem sebelum mencari.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Silakan pilih sistem sebelum menggunakan fitur Merasa Beruntung.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Silakan pilih sistem dari dropdown.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Silakan pilih sistem untuk dihapus.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Silakan pilih folder sistem.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Silakan pilih folder gambar sistem.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Menyimpan pengaturan tautan...</system:String>
     <system:String x:Key="SavingPlayHistory">Menyimpan riwayat putar...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">Menyimpan pengaturan RetroAchievements...</system:String>
-    <system:String x:Key="SavingSettings">Menyimpan pengaturan...</system:String>
     <system:String x:Key="SavingSoundSettings">Menyimpan pengaturan suara...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Pindai Permainan Microsoft Windows</system:String>
     <system:String x:Key="ScanningForWindowsGames">Mencari game Windows...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">Pilih Emulator 4.</system:String>
     <system:String x:Key="SelectEmulator5">Pilih Emulator 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Pilih ComboBox Emulator</system:String>
-    <system:String x:Key="SelectionRequired">Pemilihan Diperlukan</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Pilih file suara notifikasi</system:String>
     <system:String x:Key="SelectSystem">Pilih Sistem</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Pilih sistem {config.SystemName}</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">Atur Ambang Batas</system:String>
     <system:String x:Key="Settingittoohighmay">• Mengaturnya terlalu tinggi dapat membuat gerakan yang tepat menjadi sulit</system:String>
     <system:String x:Key="Settingittoolowmay">• Mengaturnya terlalu rendah dapat menyebabkan kursor Anda melayang saat Anda tidak menyentuh stick</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">File pengaturan tidak ditemukan, membuat default...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Pengaturan berhasil disimpan.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">File 'settings.xml' tidak dapat dimuat.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">File 'settings.xml' rusak. Tidak dapat dimuat.</system:String>
     <system:String x:Key="ShowAllGames">Tampilkan Semua Permainan</system:String>
     <system:String x:Key="ShowGames">Tampilkan Permainan</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Tampilkan Hanya Permainan dengan Sampul</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' tidak dapat memeriksa ruang disk untuk jalur yang ditentukan. Harap periksa jalur dan coba lagi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' tidak dapat menemukan aplikasi pembaru di GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' tidak dapat meluncurkan alat</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' tidak dapat memuat 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">Nama Sistem</system:String>
     <system:String x:Key="SystemNameLabel">Nama Sistem:</system:String>
     <system:String x:Key="SystemNameRequired">Nama Sistem (Wajib)</system:String>
-    <system:String x:Key="SystemNotFound">Sistem Tidak Ditemukan</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistem berhasil disimpan.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">Statistik Spesifik Sistem</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' rusak atau tidak dapat dibuka.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">Ada masalah saat membuka URL.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Terjadi masalah saat membuka tautan video.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">File yang dipilih tidak dapat diekstraksi.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Sistem yang dipilih tidak memiliki tautan unduhan yang valid.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Alat yang dipilih tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Thesystem">Sistem</system:String>
     <system:String x:Key="Theupdateversionis">Versi pembaruan adalah</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Kesalahan. Tidak dapat memuat riwayat pembaruan. Kesalahan telah dicatat.</system:String>
     <system:String x:Key="Updating">Memperbarui</system:String>
     <system:String x:Key="UpdatingPlayHistory">Memperbarui riwayat putar...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Memperbarui waktu bermain sistem...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Gunakan koma [ , ] untuk menambahkan beberapa ekstensi</system:String>
     <system:String x:Key="UserDetails">Detail Pengguna</system:String>
     <system:String x:Key="UserID">ID Pengguna:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">Apakah Anda ingin diarahkan ke halaman unduhan?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan untuk menginstal atau memperbarui secara manual?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk menyelidiki masalah ini?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Apakah Anda ingin membuka file 'error_user.log' untuk men-debug kesalahan?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Apakah Anda ingin memulihkan cadangan terakhir?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Apakah Anda ingin menyimpan laporan dengan hasilnya?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">Pemasangan XISO tidak didukung pada sistem ARM64.</system:String>
-    <system:String x:Key="XISOMountNotSupported">Pemasangan XISO Tidak Didukung</system:String>
     <system:String x:Key="Yellow">Kuning</system:String>
     <system:String x:Key="Youcanaddanewsystem">Anda dapat menambahkan sistem baru sekarang.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Anda juga dapat menonaktifkan perangkat lunak antivirus Anda sementara atau menambahkan folder 'Simple Launcher' ke daftar pengecualian antivirus.</system:String>

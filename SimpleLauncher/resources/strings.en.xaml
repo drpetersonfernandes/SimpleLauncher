@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">Cancel</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="CancellingPleasewait">Cancelling ... Please wait</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Cannot create or access the extraction folder.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Cannot take a screenshot of a minimized window.</system:String>
     <system:String x:Key="Cart">Cart</system:String>
     <system:String x:Key="Cartnotfound">Cart not found</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Copy Log</system:String>
     <system:String x:Key="Core">Core</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Could not find the selected system in the configuration.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Could not open the achievements window.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">Could not open browser for AI support.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Could not open sound configuration window</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">Error opening the download link.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error opening the Update History window.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Error opening video link.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">An error occurred while scanning for Windows games. Please check the log file for details.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Scan Error</system:String>
     <system:String x:Key="errorSettingSoundFile">Error choosing or copying sound file.</system:String>
     <system:String x:Key="ExecutingSearch">Executing search...</system:String>
     <system:String x:Key="Exit">Exit</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Install Image Pack</system:String>
     <system:String x:Key="InSystem">In System</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In this window, you can download and install emulators that don’t require BIOS or other system files.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Invalid Download Link</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
     <system:String x:Key="InvalidSearch">Invalid Search</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Loading next page...</system:String>
     <system:String x:Key="LoadingPreviousPage">Loading previous page...</system:String>
     <system:String x:Key="LoadingROMHistory">Loading ROM history...</system:String>
-    <system:String x:Key="LoadingSettings">Loading settings...</system:String>
     <system:String x:Key="LoadingSystem">Loading system...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Loading user completion progress...</system:String>
     <system:String x:Key="LoadingUserProfile">Loading user profile...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Please select an Image Pack</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Please select a system before searching.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Please select a system before using the Feeling Lucky feature.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Please select a system from the dropdown.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Please select a system to delete.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Please select the System Folder</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Please select the System Image Folder</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Saving link settings...</system:String>
     <system:String x:Key="SavingPlayHistory">Saving play history...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">Saving RetroAchievements settings...</system:String>
-    <system:String x:Key="SavingSettings">Saving settings...</system:String>
     <system:String x:Key="SavingSoundSettings">Saving sound settings...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Scan For Microsoft Windows Games</system:String>
     <system:String x:Key="ScanningForWindowsGames">Scanning for Windows games...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">Select Emulator 4</system:String>
     <system:String x:Key="SelectEmulator5">Select Emulator 5</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Select Emulator ComboBox</system:String>
-    <system:String x:Key="SelectionRequired">Selection Required</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Select notification sound file</system:String>
     <system:String x:Key="SelectSystem">Select System</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Select {config.SystemName} system</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">SetThreshold</system:String>
     <system:String x:Key="Settingittoohighmay">• Setting it too high may make precise movements difficult</system:String>
     <system:String x:Key="Settingittoolowmay">• Setting it too low may cause your cursor to drift when you're not touching the stick</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">Settings file not found, creating default...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Settings saved successfully.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' file could not be loaded.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">'settings.xml' file is corrupt. It could not be loaded.</system:String>
     <system:String x:Key="ShowAllGames">Show All Games</system:String>
     <system:String x:Key="ShowGames">Show Games</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' could not find the updater application on GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' could not launch the tool</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' could not load 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">System Name</system:String>
     <system:String x:Key="SystemNameLabel">System Name:</system:String>
     <system:String x:Key="SystemNameRequired">System Name (Required)</system:String>
-    <system:String x:Key="SystemNotFound">System Not Found</system:String>
     <system:String x:Key="Systemsavedsuccessfully">System saved successfully.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">System-Specific Stats</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is corrupted or could not be opened.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">There was a problem opening the Url.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">There was a problem opening the Video Link.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">The selected file cannot be extracted.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">The selected system does not have a valid download link.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">The selected tool was not found in the expected path.</system:String>
     <system:String x:Key="Thesystem">The system</system:String>
     <system:String x:Key="Theupdateversionis">The update version is</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Error. Could not load the update history. The error has been logged.</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="UpdatingPlayHistory">Updating play history...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Updating system play time...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Use a comma [ , ] to add multiple extensions</system:String>
     <system:String x:Key="UserDetails">User Details</system:String>
     <system:String x:Key="UserID">User ID:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Would you like to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Would you like to restore the last backup?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">XISO mounting is not supported on ARM64 systems.</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO Mount Not Supported</system:String>
     <system:String x:Key="Yellow">Yellow</system:String>
     <system:String x:Key="Youcanaddanewsystem">You can add a new system now.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
@@ -972,4 +952,8 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="FailedtologintoRetroAchievements">Failed to log in to RetroAchievements. Please check your username and password.</system:String>
+    <system:String x:Key="LoginFailed">Login Failed</system:String>
+    
 </ResourceDictionary>

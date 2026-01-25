@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">रद्द करें</system:String>
     <system:String x:Key="Cancelingdownload">डाउनलोड रद्द कर रहा है...</system:String>
     <system:String x:Key="CancellingPleasewait">रद्द किया जा रहा है... कृपया प्रतीक्षा करें</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">निष्कर्षण फ़ोल्डर बनाया या एक्सेस नहीं किया जा सकता है।</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">मिनिमाइज्ड विंडो का स्क्रीनशॉट नहीं लिया जा सकता।</system:String>
     <system:String x:Key="Cart">कार्ट</system:String>
     <system:String x:Key="Cartnotfound">कार्ट नहीं मिला</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">लॉग कॉपी करें</system:String>
     <system:String x:Key="Core">कोर</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन' में परिभाषित एक्सटेंशन वाली फ़ाइल एक्सट्रैक्टेड फ़ोल्डर के अंदर नहीं मिली।</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">कॉन्फ़िगरेशन में चयनित सिस्टम नहीं मिला।</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">उपलब्धियां विंडो नहीं खोली जा सकी।</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">AI समर्थन के लिए ब्राउज़र नहीं खोला जा सका।</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">ध्वनि कॉन्फ़िगरेशन विंडो नहीं खोल सका</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">डाउनलोड लिंक खोलने में त्रुटि।</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">अपडेट इतिहास विंडो खोलने में त्रुटि।</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">वीडियो लिंक खोलने में त्रुटि।</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Windows गेम्स स्कैन करते समय एक त्रुटि हुई। विवरण के लिए लॉग फाइल जांचें।</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">स्कैन त्रुटि</system:String>
     <system:String x:Key="errorSettingSoundFile">ध्वनि फ़ाइल चुनने या कॉपी करने में त्रुटि।</system:String>
     <system:String x:Key="ExecutingSearch">खोज निष्पादित कर रहा है...</system:String>
     <system:String x:Key="Exit">बाहर जाएं</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">इमेज पैक इंस्टॉल करें</system:String>
     <system:String x:Key="InSystem">सिस्टम में</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">इस विंडो में, आप ऐसे एमुलेटर डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें BIOS या अन्य सिस्टम फाइलों की आवश्यकता नहीं है।</system:String>
-    <system:String x:Key="InvalidDownloadLink">अमान्य डाउनलोड लिंक</system:String>
-    <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
     <system:String x:Key="InvalidSearch">अमान्य खोज</system:String>
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">अगला पृष्ठ लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingPreviousPage">पिछला पृष्ठ लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM हिस्ट्री लोड कर रहा है...</system:String>
-    <system:String x:Key="LoadingSettings">सेटिंग्स लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingSystem">सिस्टम लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">उपयोगकर्ता पूर्णता प्रगति लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingUserProfile">उपयोगकर्ता प्रोफ़ाइल लोड हो रही है...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">कृपया एक छवि पैक चुनें</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">कृपया खोजने से पहले एक सिस्टम चुनें।</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">भाग्यशाली फीचर का उपयोग करने से पहले कृपया एक सिस्टम चुनें।</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">कृपया ड्रॉपडाउन से एक सिस्टम चुनें।</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">कृपया ऐसा सिस्टम चुनें जिसे हटाना है।</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">कृपया सिस्टम फ़ोल्डर चुनें।</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">कृपया सिस्टम की छवि फ़ोल्डर का चयन करें।</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">लिंक सेटिंग्स सहेज रहा है...</system:String>
     <system:String x:Key="SavingPlayHistory">प्ले हिस्ट्री सहेज रहा है...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">रेट्रोअचीवमेंट्स सेटिंग्स सहेज रहा है...</system:String>
-    <system:String x:Key="SavingSettings">सेटिंग्स सहेज रहा है...</system:String>
     <system:String x:Key="SavingSoundSettings">ध्वनि सेटिंग्स सहेज रहा है...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Microsoft Windows खेलों के लिए स्कैन करें</system:String>
     <system:String x:Key="ScanningForWindowsGames">Windows गेम्स स्कैन हो रहे हैं...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">इम्यूलेटर 4 का चयन करें।</system:String>
     <system:String x:Key="SelectEmulator5">इम्यूलेटर 5 का चयन करें।</system:String>
     <system:String x:Key="SelectEmulatorComboBox">इमुलेटर कॉम्बोबॉक्स चुनें</system:String>
-    <system:String x:Key="SelectionRequired">चयन आवश्यक है</system:String>
     <system:String x:Key="SelectNotificationSoundFile">अधिसूचना ध्वनि फ़ाइल चुनें</system:String>
     <system:String x:Key="SelectSystem">सिस्टम चुनें</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} सिस्टम चुनें</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">सीमा निर्धारित करें</system:String>
     <system:String x:Key="Settingittoohighmay">• इसे बहुत अधिक सेट करने से सटीक चालें मुश्किल हो सकती हैं</system:String>
     <system:String x:Key="Settingittoolowmay">• इसे बहुत कम सेट करने से आपका कर्सर तब बह सकता है जब आप स्टिक को नहीं छू रहे हों</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">सेटिंग्स फ़ाइल नहीं मिली, डिफ़ॉल्ट बना रहा है...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">सेटिंग्स सफलतापूर्वक सहेजी गईं।</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' फ़ाइल लोड नहीं की जा सकी।</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">'settings.xml' फ़ाइल क्षतिग्रस्त है। इसे लोड नहीं किया जा सका।</system:String>
     <system:String x:Key="ShowAllGames">सभी खेल दिखाएँ</system:String>
     <system:String x:Key="ShowGames">खेल दिखाएँ</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">केवल कवर वाले खेल दिखाएँ</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' निर्दिष्ट पथ के लिए डिस्क स्थान की जाँच नहीं कर सका। कृपया पथ की जाँच करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' को GitHub पर अपडेटर एप्लिकेशन नहीं मिला।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' चयनित गेम को लॉन्च नहीं कर सका।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'सिंपल लॉन्चर' टूल लॉन्च नहीं कर सका</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' इस गेम को लॉन्च नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' को लोड नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' फ़ाइल को लोड नहीं कर सका या यह खराब है।</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">सिस्टम का नाम</system:String>
     <system:String x:Key="SystemNameLabel">सिस्टम का नाम:</system:String>
     <system:String x:Key="SystemNameRequired">सिस्टम का नाम (आवश्यक)</system:String>
-    <system:String x:Key="SystemNotFound">सिस्टम नहीं मिला</system:String>
     <system:String x:Key="Systemsavedsuccessfully">सिस्टम सफलतापूर्वक सहेजा गया।</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">सिस्टम-विशिष्ट सांख्यिकी</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' या तो भ्रष्ट है या इसे खोला नहीं जा सकता।</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">URL खोलने में समस्या हुई।</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">वीडियो लिंक खोलने में समस्या आई।</system:String>
     <system:String x:Key="Theselectedfilecannotbe">चयनित फ़ाइल को एक्सट्रैक्ट नहीं किया जा सकता है।</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">चयनित सिस्टम का कोई वैध डाउनलोड लिंक नहीं है।</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">चयनित टूल अपेक्षित स्थान पर नहीं मिला।</system:String>
     <system:String x:Key="Thesystem">सिस्टम</system:String>
     <system:String x:Key="Theupdateversionis">अपडेट संस्करण है</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">त्रुटि। अपडेट इतिहास लोड नहीं किया जा सका। त्रुटि लॉग की गई है।</system:String>
     <system:String x:Key="Updating">अपडेट किया जा रहा है</system:String>
     <system:String x:Key="UpdatingPlayHistory">प्ले हिस्ट्री अपडेट कर रहा है...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">सिस्टम प्ले टाइम अपडेट कर रहा है...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">कई एक्सटेंशनों को जोड़ने के लिए कॉमा [ , ] का उपयोग करें</system:String>
     <system:String x:Key="UserDetails">उपयोगकर्ता विवरण</system:String>
     <system:String x:Key="UserID">उपयोगकर्ता आईडी:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">क्या आप डाउनलोड पेज पर पुनर्निर्देशित होना चाहेंगे?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">इसे मैन्युअली इंस्टॉल या अपडेट करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">क्या आप समस्या की जांच करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">क्या आप त्रुटि को डीबग करने के लिए 'error_user.log' फ़ाइल खोलना चाहेंगे?</system:String>
     <system:String x:Key="Wouldyouliketorestore">क्या आप अंतिम बैकअप को पुनर्स्थापित करना चाहेंगे?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">क्या आप परिणामों के साथ एक रिपोर्ट सहेजना चाहेंगे?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">ARM64 सिस्टम पर XISO माउंटिंग समर्थित नहीं है।</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO माउंट समर्थित नहीं</system:String>
     <system:String x:Key="Yellow">पीला</system:String>
     <system:String x:Key="Youcanaddanewsystem">अब आप एक नया सिस्टम जोड़ सकते हैं।</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">आप अस्थायी रूप से अपना एंटीवायरस सॉफ़्टवेयर निष्क्रिय कर सकते हैं या 'Simple Launcher' फ़ोल्डर को एंटीवायरस बहिष्कार सूची में जोड़ सकते हैं।</system:String>

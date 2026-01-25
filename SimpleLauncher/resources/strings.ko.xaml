@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">취소</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
     <system:String x:Key="CancellingPleasewait">취소 중... 잠시 기다려 주십시오</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">압축 해제 폴더를 생성하거나 접근할 수 없습니다.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">최소화된 창의 스크린샷을 찍을 수 없습니다.</system:String>
     <system:String x:Key="Cart">카트리지</system:String>
     <system:String x:Key="Cartnotfound">카트리지를 찾을 수 없습니다</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">로그 복사</system:String>
     <system:String x:Key="Core">코어</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'추출 후 실행할 확장자'로 정의된 확장자를 가진 파일을 추출 폴더 내에서 찾을 수 없습니다.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">구성에서 선택한 시스템을 찾을 수 없습니다.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">도전과제 창을 열 수 없습니다.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">AI 지원을 위해 브라우저를 열 수 없습니다.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">사운드 구성 창을 열 수 없습니다</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">업데이트 기록 창을 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">비디오 링크를 여는 중 오류가 발생했습니다.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Windows 게임 스캔 중 오류가 발생했습니다. 자세한 내용은 로그 파일을 확인하세요.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">스캔 오류</system:String>
     <system:String x:Key="errorSettingSoundFile">사운드 파일을 선택하거나 복사하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ExecutingSearch">검색 실행 중...</system:String>
     <system:String x:Key="Exit">종료</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">이미지 팩 설치</system:String>
     <system:String x:Key="InSystem">시스템 내</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">이 창에서는 BIOS나 기타 시스템 파일이 필요 없는 에뮬레이터를 다운로드 및 설치할 수 있습니다.</system:String>
-    <system:String x:Key="InvalidDownloadLink">잘못된 다운로드 링크</system:String>
-    <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidSearch">잘못된 검색</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">다음 페이지 불러오는 중...</system:String>
     <system:String x:Key="LoadingPreviousPage">이전 페이지 불러오는 중...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM 기록 불러오는 중...</system:String>
-    <system:String x:Key="LoadingSettings">설정 불러오는 중...</system:String>
     <system:String x:Key="LoadingSystem">시스템 불러오는 중...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">사용자 완료 진행률 불러오는 중...</system:String>
     <system:String x:Key="LoadingUserProfile">사용자 프로필 로드 중...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">이미지 팩을 선택해 주세요</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">검색하기 전에 시스템을 선택하세요.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">행운 기능을 사용하기 전에 시스템을 선택하십시오.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">드롭다운에서 시스템을 선택하세요.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">삭제할 시스템을 선택하세요.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">시스템 폴더를 선택하세요.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">시스템 이미지 폴더를 선택하세요.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">링크 설정 저장 중...</system:String>
     <system:String x:Key="SavingPlayHistory">플레이 기록 저장 중...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">RetroAchievements 설정 저장 중...</system:String>
-    <system:String x:Key="SavingSettings">설정 저장 중...</system:String>
     <system:String x:Key="SavingSoundSettings">사운드 설정 저장 중...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Microsoft Windows 게임 검색</system:String>
     <system:String x:Key="ScanningForWindowsGames">Windows 게임 검색 중...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">에뮬레이터 4를 선택하세요.</system:String>
     <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">에뮬레이터 콤보박스 선택</system:String>
-    <system:String x:Key="SelectionRequired">선택 필요</system:String>
     <system:String x:Key="SelectNotificationSoundFile">알림 소리 파일 선택</system:String>
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} 시스템 선택</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">임계값 설정</system:String>
     <system:String x:Key="Settingittoohighmay">• 너무 높게 설정하면 정밀한 움직임이 어려워질 수 있습니다</system:String>
     <system:String x:Key="Settingittoolowmay">• 너무 낮게 설정하면 스틱을 만지지 않을 때 커서가 드리프트할 수 있습니다</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">설정 파일을 찾을 수 없어 기본값 생성 중...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">설정이 성공적으로 저장되었습니다.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' 파일을 로드할 수 없습니다.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">'settings.xml' 파일이 손상되었습니다. 로드할 수 없습니다.</system:String>
     <system:String x:Key="ShowAllGames">모든 게임 보기</system:String>
     <system:String x:Key="ShowGames">게임 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher'가 지정된 경로의 디스크 공간을 확인할 수 없었습니다. 경로를 확인하고 다시 시도하십시오.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher'가 GitHub에서 업데이터 애플리케이션을 찾을 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher'는 선택한 게임을 실행할 수 없었습니다.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher'가 도구를 실행할 수 없습니다</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'가 이 게임을 실행하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher'에서 'helpuser.xml'을 로드할 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'가 'mame.dat' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">시스템 이름</system:String>
     <system:String x:Key="SystemNameLabel">시스템 이름:</system:String>
     <system:String x:Key="SystemNameRequired">시스템 이름 (필수)</system:String>
-    <system:String x:Key="SystemNotFound">시스템을 찾을 수 없음</system:String>
     <system:String x:Key="Systemsavedsuccessfully">시스템이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">시스템별 통계</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml'이 손상되었거나 열 수 없습니다.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">URL을 여는 데 문제가 발생했습니다.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">비디오 링크를 여는 중 문제가 발생했습니다.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">선택한 파일을 추출할 수 없습니다.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">선택한 시스템에 유효한 다운로드 링크가 없습니다.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">선택한 도구가 예상 경로에 없습니다.</system:String>
     <system:String x:Key="Thesystem">시스템</system:String>
     <system:String x:Key="Theupdateversionis">업데이트 버전은 다음과 같습니다:</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">오류. 업데이트 기록을 로드할 수 없습니다. 오류가 기록되었습니다.</system:String>
     <system:String x:Key="Updating">업데이트 중</system:String>
     <system:String x:Key="UpdatingPlayHistory">플레이 기록 업데이트 중...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">시스템 플레이 시간 업데이트 중...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">여러 확장자를 추가하려면 쉼표 [ , ] 를 사용하세요</system:String>
     <system:String x:Key="UserDetails">사용자 세부 정보</system:String>
     <system:String x:Key="UserID">사용자 ID:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">오류를 디버그하기 위해 'error_user.log' 파일을 여시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketorestore">마지막 백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">ARM64 시스템에서는 XISO 마운팅이 지원되지 않습니다.</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO 마운트 지원 안 됨</system:String>
     <system:String x:Key="Yellow">노랑</system:String>
     <system:String x:Key="Youcanaddanewsystem">이제 새 시스템을 추가할 수 있습니다.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">안티바이러스 소프트웨어를 일시적으로 비활성화하거나 'Simple Launcher' 폴더를 안티바이러스 제외 목록에 추가할 수 있습니다.</system:String>

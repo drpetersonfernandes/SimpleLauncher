@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">Annuleer</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
     <system:String x:Key="CancellingPleasewait">Annuleren... Even geduld aub</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Kan de extractiemap niet maken of openen.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Kan geen schermafbeelding maken van een geminimaliseerd venster.</system:String>
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Cartridge niet gevonden</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Logboek kopiëren</system:String>
     <system:String x:Key="Core">Kern</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Kon het geselecteerde systeem niet vinden in de configuratie.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Kon het prestatievenster niet openen.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">Kon browser niet openen voor AI-ondersteuning.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Kon geluidsconfiguratievenster niet openen</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fout bij het openen van het updategeschiedenisvenster.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Fout bij het openen van de videolink.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Er is een fout opgetreden bij het scannen van Windows-games. Controleer het logbestand voor details.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Scanfout</system:String>
     <system:String x:Key="errorSettingSoundFile">Fout bij het kiezen of kopiëren van geluidsbestand.</system:String>
     <system:String x:Key="ExecutingSearch">Zoekopdracht uitvoeren...</system:String>
     <system:String x:Key="Exit">Afsluiten</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Installatiepakket installeren</system:String>
     <system:String x:Key="InSystem">In systeem</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In dit venster kun je emulators downloaden en installeren die geen BIOS of andere systeembestanden nodig hebben.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Ongeldige Downloadlink</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidSearch">Ongeldige zoekopdracht</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Volgende pagina laden...</system:String>
     <system:String x:Key="LoadingPreviousPage">Vorige pagina laden...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM-geschiedenis laden...</system:String>
-    <system:String x:Key="LoadingSettings">Instellingen laden...</system:String>
     <system:String x:Key="LoadingSystem">Systeem laden...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Gebruikersvoltooiingsvoortgang laden...</system:String>
     <system:String x:Key="LoadingUserProfile">Gebruikersprofiel laden...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Selecteer een afbeeldingspakket</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Selecteer alstublieft een systeem voordat u zoekt.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Selecteer een systeem voordat u de Gelukkig Gevoel-functie gebruikt.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Selecteer een systeem uit de vervolgkeuzelijst.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Selecteer een systeem om te verwijderen.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Selecteer de systeemmap.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Selecteer de systeemafbeeldingsmap.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Linkinstellingen opslaan...</system:String>
     <system:String x:Key="SavingPlayHistory">Speelgeschiedenis opslaan...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">RetroAchievements-instellingen opslaan...</system:String>
-    <system:String x:Key="SavingSettings">Instellingen opslaan...</system:String>
     <system:String x:Key="SavingSoundSettings">Geluidsinstellingen opslaan...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Microsoft Windows-games zoeken</system:String>
     <system:String x:Key="ScanningForWindowsGames">Zoeken naar Windows-games...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">Selecteer Emulator 4.</system:String>
     <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Selecteer Emulator ComboBox</system:String>
-    <system:String x:Key="SelectionRequired">Selectie Vereist</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Meldingsgeluidsbestand selecteren</system:String>
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Selecteer {config.SystemName} systeem</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">Drempel instellen</system:String>
     <system:String x:Key="Settingittoohighmay">• Te hoog instellen kan precieze bewegingen bemoeilijken</system:String>
     <system:String x:Key="Settingittoolowmay">• Te laag instellen kan ervoor zorgen dat je cursor drift wanneer je de stick niet aanraakt</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">Instellingenbestand niet gevonden, maakt standaard aan...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Instellingen succesvol opgeslagen.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml'-bestand kon niet worden geladen.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">'settings.xml'-bestand is corrupt. Het kon niet worden geladen.</system:String>
     <system:String x:Key="ShowAllGames">Alle spellen weergeven</system:String>
     <system:String x:Key="ShowGames">Spellen weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' kon de schijfruimte voor het opgegeven pad niet controleren. Controleer het pad en probeer het opnieuw.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' kon de updater-applicatie niet vinden op GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' kon de tool niet starten</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' kon 'helpuser.xml' niet laden.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' kon het bestand 'mame.dat' niet laden of het bestand is beschadigd.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">Systeemnaam</system:String>
     <system:String x:Key="SystemNameLabel">Systeemnaam:</system:String>
     <system:String x:Key="SystemNameRequired">Systeemnaam (verplicht)</system:String>
-    <system:String x:Key="SystemNotFound">Systeem Niet Gevonden</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Systeem succesvol opgeslagen.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">Systeemspecifieke statistieken</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is beschadigd of kan niet worden geopend.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">Er was een probleem bij het openen van de URL.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Er was een probleem bij het openen van de Video-link.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Het geselecteerde bestand kan niet worden uitgepakt.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Het geselecteerde systeem heeft geen geldige downloadlink.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Het geselecteerde hulpmiddel is niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Thesystem">Het systeem</system:String>
     <system:String x:Key="Theupdateversionis">De updateversie is</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Fout. De updategeschiedenis kon niet worden geladen. De fout is gelogd.</system:String>
     <system:String x:Key="Updating">Bezig met bijwerken</system:String>
     <system:String x:Key="UpdatingPlayHistory">Speelgeschiedenis bijwerken...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Systeemspeeltijd bijwerken...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Gebruik een komma [ , ] om meerdere extensies toe te voegen</system:String>
     <system:String x:Key="UserDetails">Gebruikersdetails</system:String>
     <system:String x:Key="UserID">Gebruikers-ID:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">Wilt u doorverwezen worden naar de downloadpagina?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Wilt u het bestand 'error_user.log' openen om de fout op te sporen?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Wil je de laatste back-up herstellen?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">XISO-koppeling wordt niet ondersteund op ARM64-systemen.</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO-koppeling niet ondersteund</system:String>
     <system:String x:Key="Yellow">Geel</system:String>
     <system:String x:Key="Youcanaddanewsystem">U kunt nu een nieuw systeem toevoegen.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">U kunt ook tijdelijk uw antivirussoftware uitschakelen of de map 'Simple Launcher' toevoegen aan de uitsluitingslijst van uw antivirus.</system:String>

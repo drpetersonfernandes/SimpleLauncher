@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">Annuler</system:String>
     <system:String x:Key="Cancelingdownload">Annulation du téléchargement...</system:String>
     <system:String x:Key="CancellingPleasewait">Annulation... Veuillez patienter</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Impossible de créer ou d'accéder au dossier d'extraction.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Impossible de prendre une capture d'écran d'une fenêtre minimisée.</system:String>
     <system:String x:Key="Cart">Cartouche</system:String>
     <system:String x:Key="Cartnotfound">Cartouche introuvable</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Copier le journal</system:String>
     <system:String x:Key="Core">Principal</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Impossible de trouver un fichier avec l'extension définie dans 'Extension à lancer après extraction' dans le dossier extrait.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Impossible de trouver le système sélectionné dans la configuration.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Impossible d'ouvrir la fenêtre des succès.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">Impossible d'ouvrir le navigateur pour le support IA.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Impossible d'ouvrir la fenêtre de configuration audio</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">Erreur lors de l'ouverture du lien de téléchargement.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Erreur lors de l'ouverture de la fenêtre de l'historique des mises à jour.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Erreur lors de l'ouverture du lien vidéo.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Une erreur s'est produite lors du balayage des jeux Windows. Veuillez consulter le fichier journal pour plus de détails.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Erreur de balayage</system:String>
     <system:String x:Key="errorSettingSoundFile">Erreur lors du choix ou de la copie du fichier son.</system:String>
     <system:String x:Key="ExecutingSearch">Exécution de la recherche...</system:String>
     <system:String x:Key="Exit">Quitter</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Installer le pack d'images</system:String>
     <system:String x:Key="InSystem">Dans le système</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Dans cette fenêtre, vous pouvez télécharger et installer des émulateurs qui ne nécessitent pas de BIOS ou d'autres fichiers système.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Lien de Téléchargement Invalide</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Dossier d'Extraction Invalide</system:String>
     <system:String x:Key="InvalidSearch">Recherche invalide</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuration système invalide</system:String>
     <system:String x:Key="isalreadyinfavorites">est déjà dans les favoris.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Chargement de la page suivante...</system:String>
     <system:String x:Key="LoadingPreviousPage">Chargement de la page précédente...</system:String>
     <system:String x:Key="LoadingROMHistory">Chargement de l'historique des ROMs...</system:String>
-    <system:String x:Key="LoadingSettings">Chargement des paramètres...</system:String>
     <system:String x:Key="LoadingSystem">Chargement du système...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Chargement de la progression d'achèvement de l'utilisateur...</system:String>
     <system:String x:Key="LoadingUserProfile">Chargement du profil utilisateur...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Veuillez sélectionner un pack d'images</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Veuillez sélectionner un système avant de rechercher.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Veuillez sélectionner un système avant d'utiliser la fonction Chanceux.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Veuillez sélectionner un système dans le menu déroulant.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Veuillez sélectionner un système à supprimer.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Veuillez sélectionner le dossier système.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Veuillez sélectionner le dossier d'images système.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Enregistrement des paramètres de liens...</system:String>
     <system:String x:Key="SavingPlayHistory">Enregistrement de l'historique de jeu...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">Enregistrement des paramètres RetroAchievements...</system:String>
-    <system:String x:Key="SavingSettings">Enregistrement des paramètres...</system:String>
     <system:String x:Key="SavingSoundSettings">Enregistrement des paramètres audio...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Rechercher les jeux Microsoft Windows</system:String>
     <system:String x:Key="ScanningForWindowsGames"> Recherche de jeux Windows en cours...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">Sélectionnez l'émulateur 4.</system:String>
     <system:String x:Key="SelectEmulator5">Sélectionnez l'émulateur 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Liste déroulante de l'émulateur</system:String>
-    <system:String x:Key="SelectionRequired">Sélection Requise</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Sélectionner le fichier son de notification</system:String>
     <system:String x:Key="SelectSystem">Sélectionner le système</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Sélectionner le système {config.SystemName}</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">Définir le seuil</system:String>
     <system:String x:Key="Settingittoohighmay">• Le régler trop haut peut rendre les mouvements précis difficiles</system:String>
     <system:String x:Key="Settingittoolowmay">• Le régler trop bas peut faire dériver votre curseur lorsque vous ne touchez pas le stick</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">Fichier de paramètres non trouvé, création par défaut...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Paramètres enregistrés avec succès.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">Le fichier 'settings.xml' n'a pas pu être chargé.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">Le fichier 'settings.xml' est corrompu. Il n'a pas pu être chargé.</system:String>
     <system:String x:Key="ShowAllGames">Afficher tous les jeux</system:String>
     <system:String x:Key="ShowGames">Afficher les jeux</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Afficher uniquement les jeux avec couverture</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' n'a pas pu vérifier l'espace disque pour le chemin spécifié. Veuillez vérifier le chemin et réessayer.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' n'a pas pu trouver l'application de mise à jour sur GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' n'a pas pu lancer le jeu sélectionné.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' n'a pas pu lancer l'outil</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' n'a pas pu lancer ce jeu.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' n'a pas pu charger 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' n'a pas pu charger le fichier 'mame.dat' ou il est corrompu.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">Nom du système</system:String>
     <system:String x:Key="SystemNameLabel">Nom du système :</system:String>
     <system:String x:Key="SystemNameRequired">Nom du système (obligatoire)</system:String>
-    <system:String x:Key="SystemNotFound">Système Non Trouvé</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Système enregistré avec succès.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">Statistiques spécifiques au système</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' est corrompu ou n'a pas pu être ouvert.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">Un problème est survenu lors de l'ouverture de l'URL.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Un problème est survenu lors de l'ouverture du lien vidéo.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Le fichier sélectionné ne peut pas être extrait.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Le système sélectionné n'a pas de lien de téléchargement valide.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">L'outil sélectionné n'a pas été trouvé à l'emplacement attendu.</system:String>
     <system:String x:Key="Thesystem">Le système</system:String>
     <system:String x:Key="Theupdateversionis">La version de mise à jour est</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Erreur. Impossible de charger l'historique des mises à jour. L'erreur a été enregistrée.</system:String>
     <system:String x:Key="Updating">Mise à jour en cours</system:String>
     <system:String x:Key="UpdatingPlayHistory">Mise à jour de l'historique de jeu...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Mise à jour du temps de jeu du système...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Utilisez une virgule [ , ] pour ajouter plusieurs extensions</system:String>
     <system:String x:Key="UserDetails">Détails utilisateur</system:String>
     <system:String x:Key="UserID">ID utilisateur :</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">Souhaitez-vous être redirigé vers la page de téléchargement ?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Voulez-vous être redirigé vers la page de téléchargement pour l'installer ou le mettre à jour manuellement ?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour enquêter sur le problème ?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Souhaitez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Voulez-vous restaurer la dernière sauvegarde ?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Souhaitez-vous enregistrer un rapport avec les résultats ?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">Le montage XISO n'est pas pris en charge sur les systèmes ARM64.</system:String>
-    <system:String x:Key="XISOMountNotSupported">Montage XISO non pris en charge</system:String>
     <system:String x:Key="Yellow">Jaune</system:String>
     <system:String x:Key="Youcanaddanewsystem">Vous pouvez maintenant ajouter un nouveau système.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Vous pouvez également désactiver temporairement votre logiciel antivirus ou ajouter le dossier 'Simple Launcher' à la liste d'exclusion de l'antivirus.</system:String>

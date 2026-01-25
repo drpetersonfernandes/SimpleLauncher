@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">Отмена</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
     <system:String x:Key="CancellingPleasewait">Отмена... Пожалуйста, подождите</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Невозможно создать или получить доступ к папке извлечения.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Невозможно сделать снимок экрана свёрнутого окна.</system:String>
     <system:String x:Key="Cart">Картридж</system:String>
     <system:String x:Key="Cartnotfound">Картридж не найден</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Копировать лог</system:String>
     <system:String x:Key="Core">Ядро</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Не удалось найти файл с указанным в 'Расширение для запуска после извлечения' расширением в извлечённой папке.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Не удалось найти выбранную систему в конфигурации.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Не удалось открыть окно достижений.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">Не удалось открыть браузер для поддержки ИИ.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Не удалось открыть окно настройки звука</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Ошибка при открытии окна истории обновлений.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Ошибка при открытии видеоссылки.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Произошла ошибка при сканировании игр Windows. Проверьте файл журнала для получения подробностей.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Ошибка сканирования</system:String>
     <system:String x:Key="errorSettingSoundFile">Ошибка при выборе или копировании звукового файла.</system:String>
     <system:String x:Key="ExecutingSearch">Выполнение поиска...</system:String>
     <system:String x:Key="Exit">Выход</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Установить пакет изображений</system:String>
     <system:String x:Key="InSystem">В системе</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">В этом окне вы можете скачать и установить эмуляторы, не требующие BIOS или других системных файлов.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Недействительная Ссылка</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
     <system:String x:Key="InvalidSearch">Недопустимый поиск</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Загрузка следующей страницы...</system:String>
     <system:String x:Key="LoadingPreviousPage">Загрузка предыдущей страницы...</system:String>
     <system:String x:Key="LoadingROMHistory">Загрузка истории ROM-ов...</system:String>
-    <system:String x:Key="LoadingSettings">Загрузка настроек...</system:String>
     <system:String x:Key="LoadingSystem">Загрузка системы...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Загрузка прогресса завершения пользователя...</system:String>
     <system:String x:Key="LoadingUserProfile">Загрузка профиля пользователя...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Пожалуйста, выберите пакет изображений</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Пожалуйста, выберите систему перед поиском.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Пожалуйста, выберите систему перед использованием функции Чувствую Удачу.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Пожалуйста, выберите систему из выпадающего списка.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Пожалуйста, выберите систему для удаления.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Выберите папку системы.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Выберите папку с изображениями системы.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Сохранение настроек ссылок...</system:String>
     <system:String x:Key="SavingPlayHistory">Сохранение истории игр...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">Сохранение настроек RetroAchievements...</system:String>
-    <system:String x:Key="SavingSettings">Сохранение настроек...</system:String>
     <system:String x:Key="SavingSoundSettings">Сохранение настроек звука...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Сканировать игры Microsoft Windows</system:String>
     <system:String x:Key="ScanningForWindowsGames">Поиск игр Windows...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">Выберите Эмулятор 4.</system:String>
     <system:String x:Key="SelectEmulator5">Выберите Эмулятор 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Выбрать выпадающий список эмулятора</system:String>
-    <system:String x:Key="SelectionRequired">Требуется Выбор</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Выбрать файл звука уведомления</system:String>
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Выбрать систему {config.SystemName}</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">Установить порог</system:String>
     <system:String x:Key="Settingittoohighmay">• Слишком высокая настройка может затруднить точные движения</system:String>
     <system:String x:Key="Settingittoolowmay">• Слишком низкая настройка может привести к дрейфу курсора, когда вы не касаетесь стика</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">Файл настроек не найден, создается по умолчанию...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Настройки успешно сохранены.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">Файл 'settings.xml' не удалось загрузить.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">Файл 'settings.xml' поврежден. Не удалось его загрузить.</system:String>
     <system:String x:Key="ShowAllGames">Показать все игры</system:String>
     <system:String x:Key="ShowGames">Показать игры</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' не удалось проверить место на диске для указанного пути. Пожалуйста, проверьте путь и попробуйте снова.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' не удалось найти приложение обновления на GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' не смог запустить инструмент</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' не удалось запустить эту игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' не удалось загрузить файл 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' не может загрузить файл 'mame.dat' или файл поврежден.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">Название системы</system:String>
     <system:String x:Key="SystemNameLabel">Название системы:</system:String>
     <system:String x:Key="SystemNameRequired">Название системы (обязательно)</system:String>
-    <system:String x:Key="SystemNotFound">Система Не Найдена</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Система успешно сохранена.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">Статистика по системе</system:String>
     <system:String x:Key="systemxmliscorrupted">Файл 'system.xml' поврежден или не может быть открыт.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">Проблема при открытии URL.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Возникла проблема с открытием видеоссылки.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Выбранный файл не может быть извлечен.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">У выбранной системы нет действительной ссылки для загрузки.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Выбранный инструмент не найден в предполагаемом месте.</system:String>
     <system:String x:Key="Thesystem">Система</system:String>
     <system:String x:Key="Theupdateversionis">Версия обновления:</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Ошибка. Не удалось загрузить историю обновлений. Ошибка была записана в лог.</system:String>
     <system:String x:Key="Updating">Обновление</system:String>
     <system:String x:Key="UpdatingPlayHistory">Обновление истории игр...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Обновление времени игры системы...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Используйте запятую [ , ], чтобы добавить несколько расширений</system:String>
     <system:String x:Key="UserDetails">Данные пользователя</system:String>
     <system:String x:Key="UserID">ID пользователя:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">Вы хотите быть перенаправлены на страницу загрузки?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Хотите перейти на страницу скачивания для ручной установки или обновления?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Вы хотите открыть файл 'error_user.log', чтобы исследовать эту проблему?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Хотите восстановить последнюю резервную копию?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">Монтирование XISO не поддерживается в системах ARM64.</system:String>
-    <system:String x:Key="XISOMountNotSupported">Монтирование XISO не поддерживается</system:String>
     <system:String x:Key="Yellow">Желтый</system:String>
     <system:String x:Key="Youcanaddanewsystem">Теперь вы можете добавить новую систему.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Вы также можете временно отключить антивирусное ПО или добавить папку 'Simple Launcher' в список исключений антивируса.</system:String>

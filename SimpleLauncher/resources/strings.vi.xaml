@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">Hủy</system:String>
     <system:String x:Key="Cancelingdownload">Đang hủy tải xuống...</system:String>
     <system:String x:Key="CancellingPleasewait">Đang hủy... Vui lòng đợi</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Không thể tạo hoặc truy cập thư mục giải nén.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Không thể chụp ảnh màn hình của cửa sổ đã thu nhỏ.</system:String>
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Không tìm thấy cartridge</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Sao chép nhật ký</system:String>
     <system:String x:Key="Core">Cốt lõi</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Không thể tìm thấy tệp với phần mở rộng được chỉ định trong 'Phần mở rộng để thực thi sau khi trích xuất' trong thư mục đã trích xuất.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Không tìm thấy hệ thống đã chọn trong cấu hình.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Không thể mở cửa sổ thành tích.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">Không thể mở trình duyệt để hỗ trợ AI.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Không thể mở cửa sổ cấu hình âm thanh</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Lỗi khi mở cửa sổ Lịch sử Cập nhật.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Lỗi khi mở liên kết video.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Đã xảy ra lỗi khi quét trò chơi Windows. Vui lòng kiểm tra tệp nhật ký để biết chi tiết.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Lỗi quét</system:String>
     <system:String x:Key="errorSettingSoundFile">Lỗi khi chọn hoặc sao chép tệp âm thanh.</system:String>
     <system:String x:Key="ExecutingSearch">Đang thực hiện tìm kiếm...</system:String>
     <system:String x:Key="Exit">Thoát</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Cài đặt Gói Hình ảnh</system:String>
     <system:String x:Key="InSystem">Trong hệ thống</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Trong cửa sổ này, bạn có thể tải xuống và cài đặt trình giả lập không yêu cầu BIOS hoặc các tệp hệ thống khác.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Liên Kết Tải Xuống Không Hợp Lệ</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidSearch">Tìm kiếm không hợp lệ</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Cấu hình hệ thống không hợp lệ</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Đang tải trang tiếp theo...</system:String>
     <system:String x:Key="LoadingPreviousPage">Đang tải trang trước...</system:String>
     <system:String x:Key="LoadingROMHistory">Đang tải lịch sử ROM...</system:String>
-    <system:String x:Key="LoadingSettings">Đang tải cài đặt...</system:String>
     <system:String x:Key="LoadingSystem">Đang tải hệ thống...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Đang tải tiến độ hoàn thành của người dùng...</system:String>
     <system:String x:Key="LoadingUserProfile">Đang tải hồ sơ người dùng...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Vui lòng chọn một gói hình ảnh</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Vui lòng chọn hệ thống trước khi tìm kiếm.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Vui lòng chọn một hệ thống trước khi sử dụng tính năng Cảm thấy May Mắn.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Vui lòng chọn một hệ thống từ danh sách thả xuống.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Vui lòng chọn hệ thống để xóa.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Vui lòng chọn thư mục hệ thống.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Vui lòng chọn thư mục ảnh hệ thống.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Đang lưu cài đặt liên kết...</system:String>
     <system:String x:Key="SavingPlayHistory">Đang lưu lịch sử chơi...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">Đang lưu cài đặt RetroAchievements...</system:String>
-    <system:String x:Key="SavingSettings">Đang lưu cài đặt...</system:String>
     <system:String x:Key="SavingSoundSettings">Đang lưu cài đặt âm thanh...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Quét trò chơi Microsoft Windows</system:String>
     <system:String x:Key="ScanningForWindowsGames">Đang quét trò chơi Windows...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">Chọn Trình giả lập 4.</system:String>
     <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Chọn ComboBox Trình giả lập</system:String>
-    <system:String x:Key="SelectionRequired">Yêu Cầu Lựa Chọn</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Chọn tệp âm thanh thông báo</system:String>
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Chọn hệ thống {config.SystemName}</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">Đặt ngưỡng</system:String>
     <system:String x:Key="Settingittoohighmay">• Đặt quá cao có thể làm cho các chuyển động chính xác trở nên khó khăn</system:String>
     <system:String x:Key="Settingittoolowmay">• Đặt quá thấp có thể khiến con trỏ của bạn bị trôi khi bạn không chạm vào cần điều khiển</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">Không tìm thấy tệp cài đặt, đang tạo mặc định...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Đã lưu cài đặt thành công.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">Tệp 'settings.xml' không thể tải.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">Tệp 'settings.xml' bị hỏng. Không thể tải.</system:String>
     <system:String x:Key="ShowAllGames">Hiển thị tất cả trò chơi</system:String>
     <system:String x:Key="ShowGames">Hiển thị trò chơi</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' không thể kiểm tra dung lượng đĩa cho đường dẫn đã chỉ định. Vui lòng kiểm tra đường dẫn và thử lại.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' không thể tìm thấy ứng dụng cập nhật trên GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' không thể khởi chạy trò chơi được chọn.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' không thể khởi chạy công cụ</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' không thể tải tệp 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' không thể tải tệp 'mame.dat' hoặc tệp đã bị hỏng.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">Tên hệ thống</system:String>
     <system:String x:Key="SystemNameLabel">Tên hệ thống:</system:String>
     <system:String x:Key="SystemNameRequired">Tên hệ thống (bắt buộc)</system:String>
-    <system:String x:Key="SystemNotFound">Không Tìm Thấy Hệ Thống</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Hệ thống đã được lưu thành công.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">Thống kê cụ thể hệ thống</system:String>
     <system:String x:Key="systemxmliscorrupted">Tệp 'system.xml' bị hỏng hoặc không thể mở được.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">Đã xảy ra sự cố khi mở URL.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Đã xảy ra sự cố khi mở liên kết Video.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Tệp đã chọn không thể giải nén.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Hệ thống đã chọn không có liên kết tải xuống hợp lệ.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Không tìm thấy công cụ đã chọn tại vị trí dự kiến.</system:String>
     <system:String x:Key="Thesystem">Hệ thống</system:String>
     <system:String x:Key="Theupdateversionis">Phiên bản cập nhật là</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Lỗi. Không thể tải lịch sử cập nhật. Lỗi đã được ghi lại.</system:String>
     <system:String x:Key="Updating">Đang Cập Nhật</system:String>
     <system:String x:Key="UpdatingPlayHistory">Đang cập nhật lịch sử chơi...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Đang cập nhật thời gian chơi của hệ thống...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Sử dụng dấu phẩy [ , ] để thêm nhiều phần mở rộng</system:String>
     <system:String x:Key="UserDetails">Chi tiết người dùng</system:String>
     <system:String x:Key="UserID">ID người dùng:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">Bạn có muốn được chuyển hướng đến trang tải xuống không?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Bạn có muốn khôi phục lại bản sao lưu cuối cùng không?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">Gắn kết XISO không được hỗ trợ trên các hệ thống ARM64.</system:String>
-    <system:String x:Key="XISOMountNotSupported">Gắn kết XISO không được hỗ trợ</system:String>
     <system:String x:Key="Yellow">Vàng</system:String>
     <system:String x:Key="Youcanaddanewsystem">Bây giờ bạn có thể thêm một hệ thống mới.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Bạn cũng có thể tạm thời tắt phần mềm diệt virus hoặc thêm thư mục 'Simple Launcher' vào danh sách loại trừ của phần mềm diệt virus.</system:String>

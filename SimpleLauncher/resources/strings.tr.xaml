@@ -93,7 +93,6 @@
     <system:String x:Key="CancelButtonText">İptal</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
     <system:String x:Key="CancellingPleasewait">İptal ediliyor... Lütfen bekleyin</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Çıkarma klasörü oluşturulamıyor veya erişilemiyor.</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Küçültülmüş bir pencerenin ekran görüntüsü alınamıyor.</system:String>
     <system:String x:Key="Cart">Kartuş</system:String>
     <system:String x:Key="Cartnotfound">Kartuş bulunamadı</system:String>
@@ -132,7 +131,6 @@
     <system:String x:Key="CopyLog">Günlüğü Kopyala</system:String>
     <system:String x:Key="Core">Çekirdek</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' altında tanımlı uzantıya sahip bir dosya çıkarılan klasör içinde bulunamadı.</system:String>
-    <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Seçilen sistem yapılandırmada bulunamadı.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Başarımlar penceresi açılamadı.</system:String>
     <system:String x:Key="CouldnotopenbrowserforAIsupport">AI desteği için tarayıcı açılamadı.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Ses yapılandırma penceresi açılamadı</system:String>
@@ -264,8 +262,6 @@
     <system:String x:Key="Erroropeningthedownloadlink">İndirme bağlantısını açarken hata oluştu.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Güncelleme Geçmişi penceresi açılırken hata oluştu.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Video bağlantısı açılırken hata oluştu.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesMessage">Windows oyunları taranırken bir hata oluştu. Ayrıntılar için günlük dosyasını kontrol edin.</system:String>
-    <system:String x:Key="ErrorScanningWindowsGamesTitle">Tarama Hatası</system:String>
     <system:String x:Key="errorSettingSoundFile">Ses dosyası seçilirken veya kopyalanırken hata oluştu.</system:String>
     <system:String x:Key="ExecutingSearch">Arama yürütülüyor...</system:String>
     <system:String x:Key="Exit">Çıkış</system:String>
@@ -413,8 +409,6 @@
     <system:String x:Key="InstallImagePack">Resim Paketi Yükle</system:String>
     <system:String x:Key="InSystem">Sistemde</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Bu pencerede, BIOS veya diğer sistem dosyalarını gerektirmeyen emülatörleri indirebilir ve kurabilirsiniz.</system:String>
-    <system:String x:Key="InvalidDownloadLink">Geçersiz İndirme Bağlantısı</system:String>
-    <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="InvalidSearch">Geçersiz Arama</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="LoadingNextPage">Sonraki sayfa yükleniyor...</system:String>
     <system:String x:Key="LoadingPreviousPage">Önceki sayfa yükleniyor...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM geçmişi yükleniyor...</system:String>
-    <system:String x:Key="LoadingSettings">Ayarlar yükleniyor...</system:String>
     <system:String x:Key="LoadingSystem">Sistem yükleniyor...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Kullanıcı tamamlama ilerlemesi yükleniyor...</system:String>
     <system:String x:Key="LoadingUserProfile">Kullanıcı profili yükleniyor...</system:String>
@@ -592,7 +585,6 @@
     <system:String x:Key="PleaseselectanImagePack">Lütfen bir görüntü paketi seçin</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Lütfen arama yapmadan önce bir sistem seçin.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Şansımı Deneme özelliğini kullanmadan önce lütfen bir sistem seçin.</system:String>
-    <system:String x:Key="Pleaseselectasystemfromthedropdown">Lütfen açılır listeden bir sistem seçin.</system:String>
     <system:String x:Key="Pleaseselectasystemtodelete">Lütfen silmek için bir sistem seçin.</system:String>
     <system:String x:Key="PleaseselecttheSystemFolder">Sistem klasörünü seçin.</system:String>
     <system:String x:Key="PleaseselecttheSystemImage">Sistem resim klasörünü seçin.</system:String>
@@ -660,7 +652,6 @@
     <system:String x:Key="SavingLinkSettings">Bağlantı ayarları kaydediliyor...</system:String>
     <system:String x:Key="SavingPlayHistory">Oynatma geçmişi kaydediliyor...</system:String>
     <system:String x:Key="SavingRetroAchievementsSettings">RetroBaşarılar ayarları kaydediliyor...</system:String>
-    <system:String x:Key="SavingSettings">Ayarlar kaydediliyor...</system:String>
     <system:String x:Key="SavingSoundSettings">Ses ayarları kaydediliyor...</system:String>
     <system:String x:Key="ScanForMicrosoftWindowsGames">Microsoft Windows Oyunlarını Tara</system:String>
     <system:String x:Key="ScanningForWindowsGames">Windows oyunları taranıyor...</system:String>
@@ -686,7 +677,6 @@
     <system:String x:Key="SelectEmulator4">4. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Emülatör ComboBox'ını Seçin</system:String>
-    <system:String x:Key="SelectionRequired">Seçim Gerekli</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Bildirim ses dosyasını seçin</system:String>
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} sistemini seçin</system:String>
@@ -712,10 +702,7 @@
     <system:String x:Key="SetThreshold">Eşiği Ayarla</system:String>
     <system:String x:Key="Settingittoohighmay">• Çok yüksek ayarlamak, hassas hareketleri zorlaştırabilir</system:String>
     <system:String x:Key="Settingittoolowmay">• Çok düşük ayarlamak, çubuğa dokunmadığınızda imlecinizin kaymasına neden olabilir</system:String>
-    <system:String x:Key="SettingsFileNotFoundCreatingDefault">Ayarlar dosyası bulunamadı, varsayılan oluşturuluyor...</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Ayarlar başarıyla kaydedildi.</system:String>
-    <system:String x:Key="settingsxmlfilecouldnotbeloaded">'settings.xml' dosyası yüklenemedi.</system:String>
-    <system:String x:Key="settingsxmlfileiscorruptItCouldnotbeloaded">'settings.xml' dosyası bozuk. Yüklenemedi.</system:String>
     <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
     <system:String x:Key="ShowGames">Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
@@ -727,7 +714,6 @@
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher', belirtilen yol için disk alanını kontrol edemedi. Lütfen yolu kontrol edin ve tekrar deneyin.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' güncelleme uygulamasını GitHub'da bulamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' aracı başlatamadı</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher', 'helpuser.xml' dosyasını yükleyemedi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
@@ -776,7 +762,6 @@
     <system:String x:Key="SystemNameHeader">Sistem Adı</system:String>
     <system:String x:Key="SystemNameLabel">Sistem Adı:</system:String>
     <system:String x:Key="SystemNameRequired">Sistem adı (zorunlu)</system:String>
-    <system:String x:Key="SystemNotFound">Sistem Bulunamadı</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistem başarıyla kaydedildi.</system:String>
     <system:String x:Key="SystemSpecificStatsHeader">Sisteme Özel İstatistikler</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' bozuk veya açılamıyor.</system:String>
@@ -850,7 +835,6 @@
     <system:String x:Key="TherewasaproblemopeningtheUrl">URL açılırken bir sorun oluştu.</system:String>
     <system:String x:Key="TherewasaproblemopeningtheVideo">Video bağlantısı açılırken bir sorun oluştu.</system:String>
     <system:String x:Key="Theselectedfilecannotbe">Seçilen dosya çıkarılamaz.</system:String>
-    <system:String x:Key="Theselectedsystemdoesnothaveavaliddownloadlink">Seçilen sistemin geçerli bir indirme bağlantısı yok.</system:String>
     <system:String x:Key="Theselectedtoolwasnotfound">Seçilen araç beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Thesystem">Sistem</system:String>
     <system:String x:Key="Theupdateversionis">Güncelleme sürümü:</system:String>
@@ -911,7 +895,6 @@
     <system:String x:Key="UpdateHistoryLoadError">Hata. Güncelleme geçmişi yüklenemedi. Hata günlüğe kaydedildi.</system:String>
     <system:String x:Key="Updating">Güncelleme yapılıyor</system:String>
     <system:String x:Key="UpdatingPlayHistory">Oynatma geçmişi güncelleniyor...</system:String>
-    <system:String x:Key="UpdatingSystemPlayTime">Sistem oynatma süresi güncelleniyor...</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Birden fazla uzantı eklemek için virgül [ , ] kullanın</system:String>
     <system:String x:Key="UserDetails">Kullanıcı Detayları</system:String>
     <system:String x:Key="UserID">Kullanıcı Kimliği:</system:String>
@@ -949,11 +932,8 @@
     <system:String x:Key="Wouldyouliketoberedirected">İndirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Manuel olarak yüklemek veya güncellemek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Hatayı ayıklamak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Son yedeği geri yüklemek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">XISO bağlama, ARM64 sistemlerinde desteklenmemektedir.</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO Bağlama Desteklenmiyor</system:String>
     <system:String x:Key="Yellow">Sarı</system:String>
     <system:String x:Key="Youcanaddanewsystem">Artık yeni bir sistem ekleyebilirsiniz.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakabilir veya 'Simple Launcher' klasörünü antivirüs hariç tutma listesine ekleyebilirsiniz.</system:String>
