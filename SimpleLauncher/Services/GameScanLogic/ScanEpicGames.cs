@@ -8,7 +8,7 @@ using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanEpicGames
+public static class ScanEpicGames
 {
     public static async Task ScanEpicGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
