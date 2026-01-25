@@ -173,6 +173,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
+    private string _currentDownloadType;
 
     private string DownloadStatus
     {
@@ -394,7 +395,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.Emulator);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.Emulator);
         }
         catch (Exception ex)
         {
@@ -408,7 +409,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.Core);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.Core);
         }
         catch (Exception ex)
         {
@@ -420,7 +421,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack1);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack1);
         }
         catch (Exception ex)
         {
@@ -432,7 +433,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack2);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack2);
         }
         catch (Exception ex)
         {
@@ -444,7 +445,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack3);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack3);
         }
         catch (Exception ex)
         {
@@ -456,7 +457,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack4);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack4);
         }
         catch (Exception ex)
         {
@@ -468,7 +469,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(DownloadType.ImagePack5);
+            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack5);
         }
         catch (Exception ex)
         {
@@ -477,32 +478,34 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     }
 
     // Helper method to reduce code duplication for downloads and extractions
-    private async Task HandleDownloadAndExtractComponentAsync(DownloadType type)
+    private async Task HandleDownloadAndExtractComponentAsync(string type)
     {
         if (_disposed) return;
+
+        _currentDownloadType = type;
 
         // Reset the downloaded state at the start to disable the button
         switch (type)
         {
-            case DownloadType.Emulator:
+            case EasyModeManager.DownloadType.Emulator:
                 IsEmulatorDownloaded = false;
                 break;
-            case DownloadType.Core:
+            case EasyModeManager.DownloadType.Core:
                 IsCoreDownloaded = false;
                 break;
-            case DownloadType.ImagePack1:
+            case EasyModeManager.DownloadType.ImagePack1:
                 IsImagePack1Downloaded = false;
                 break;
-            case DownloadType.ImagePack2:
+            case EasyModeManager.DownloadType.ImagePack2:
                 IsImagePack2Downloaded = false;
                 break;
-            case DownloadType.ImagePack3:
+            case EasyModeManager.DownloadType.ImagePack3:
                 IsImagePack3Downloaded = false;
                 break;
-            case DownloadType.ImagePack4:
+            case EasyModeManager.DownloadType.ImagePack4:
                 IsImagePack4Downloaded = false;
                 break;
-            case DownloadType.ImagePack5:
+            case EasyModeManager.DownloadType.ImagePack5:
                 IsImagePack5Downloaded = false;
                 break;
         }
@@ -516,37 +519,37 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         switch (type)
         {
-            case DownloadType.Emulator:
+            case EasyModeManager.DownloadType.Emulator:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
                 break;
-            case DownloadType.Core:
+            case EasyModeManager.DownloadType.Core:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("Core") ?? "Core";
                 break;
-            case DownloadType.ImagePack1:
+            case EasyModeManager.DownloadType.ImagePack1:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("ImagePack1") ?? "Image Pack 1";
                 break;
-            case DownloadType.ImagePack2:
+            case EasyModeManager.DownloadType.ImagePack2:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("ImagePack2") ?? "Image Pack 2";
                 break;
-            case DownloadType.ImagePack3:
+            case EasyModeManager.DownloadType.ImagePack3:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("ImagePack3") ?? "Image Pack 3";
                 break;
-            case DownloadType.ImagePack4:
+            case EasyModeManager.DownloadType.ImagePack4:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("ImagePack4") ?? "Image Pack 4";
                 break;
-            case DownloadType.ImagePack5:
+            case EasyModeManager.DownloadType.ImagePack5:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = (string)Application.Current.TryFindResource("ImagePack5") ?? "Image Pack 5";
@@ -688,21 +691,25 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             StopDownloadButton.IsEnabled = false;
             MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on exception
         }
+        finally
+        {
+            _currentDownloadType = null;
+        }
     }
 
-    private static Task ShowDownloadErrorDialogAsync(DownloadType type, EasyModeSystemConfig selectedSystem)
+    private static Task ShowDownloadErrorDialogAsync(string type, EasyModeSystemConfig selectedSystem)
     {
         switch (type)
         {
-            case DownloadType.Emulator:
+            case EasyModeManager.DownloadType.Emulator:
                 return MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
-            case DownloadType.Core:
+            case EasyModeManager.DownloadType.Core:
                 return MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
-            case DownloadType.ImagePack1:
-            case DownloadType.ImagePack2:
-            case DownloadType.ImagePack3:
-            case DownloadType.ImagePack4:
-            case DownloadType.ImagePack5:
+            case EasyModeManager.DownloadType.ImagePack1:
+            case EasyModeManager.DownloadType.ImagePack2:
+            case EasyModeManager.DownloadType.ImagePack3:
+            case EasyModeManager.DownloadType.ImagePack4:
+            case EasyModeManager.DownloadType.ImagePack5:
                 return MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
             default:
                 MessageBoxLibrary.DownloadExtractionFailedMessageBox();
@@ -713,29 +720,29 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     }
 
     // Helper method to mark a component as downloaded (or not)
-    private void MarkComponentAsDownloaded(DownloadType type, bool isDownloaded)
+    private void MarkComponentAsDownloaded(string type, bool isDownloaded)
     {
         switch (type)
         {
-            case DownloadType.Emulator:
+            case EasyModeManager.DownloadType.Emulator:
                 IsEmulatorDownloaded = isDownloaded;
                 break;
-            case DownloadType.Core:
+            case EasyModeManager.DownloadType.Core:
                 IsCoreDownloaded = isDownloaded;
                 break;
-            case DownloadType.ImagePack1:
+            case EasyModeManager.DownloadType.ImagePack1:
                 IsImagePack1Downloaded = isDownloaded;
                 break;
-            case DownloadType.ImagePack2:
+            case EasyModeManager.DownloadType.ImagePack2:
                 IsImagePack2Downloaded = isDownloaded;
                 break;
-            case DownloadType.ImagePack3:
+            case EasyModeManager.DownloadType.ImagePack3:
                 IsImagePack3Downloaded = isDownloaded;
                 break;
-            case DownloadType.ImagePack4:
+            case EasyModeManager.DownloadType.ImagePack4:
                 IsImagePack4Downloaded = isDownloaded;
                 break;
-            case DownloadType.ImagePack5:
+            case EasyModeManager.DownloadType.ImagePack5:
                 IsImagePack5Downloaded = isDownloaded;
                 break;
         }
@@ -767,6 +774,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
         DownloadStatus = cancelingdownload2;
+
+        if (_currentDownloadType != null)
+        {
+            MarkComponentAsDownloaded(_currentDownloadType, false);
+            _currentDownloadType = null;
+        }
     }
 
     private async void AddSystemButtonClickAsync(object sender, RoutedEventArgs e)
@@ -1128,6 +1141,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         if (_disposed) return;
 
         _downloadManager?.Dispose();
+        _manager?.Dispose();
 
         _disposed = true;
     }

@@ -18,7 +18,7 @@ using SimpleLauncher.Services;
 namespace SimpleLauncher.Managers;
 
 [XmlRoot("EasyMode")]
-public class EasyModeManager
+public class EasyModeManager : IDisposable
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -201,5 +201,21 @@ public class EasyModeManager
     public void Validate()
     {
         Systems = Systems?.Where(static system => system.IsValid()).ToList() ?? [];
+    }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
+    public static class DownloadType
+    {
+        public const string Emulator = "Emulator";
+        public const string Core = "Core";
+        public const string ImagePack1 = "ImagePack1";
+        public const string ImagePack2 = "ImagePack2";
+        public const string ImagePack3 = "ImagePack3";
+        public const string ImagePack4 = "ImagePack4";
+        public const string ImagePack5 = "ImagePack5";
     }
 }
