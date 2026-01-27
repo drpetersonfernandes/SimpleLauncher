@@ -1068,7 +1068,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         finally
         {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
+            // Only reset the loading state if this is still the active task.
+            // If cancelled, a newer task has taken over and will manage the state.
+            if (cancellationToken == _cancellationSource.Token)
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
 
         return;

@@ -50,7 +50,6 @@ public partial class MainWindow
     private async Task ExecuteSearchAsync()
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
-        if (_isLoadingGames) return;
 
         CancelAndRecreateToken();
         ResetPaginationButtons();

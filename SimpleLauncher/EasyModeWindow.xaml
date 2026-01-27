@@ -28,7 +28,8 @@
         </StackPanel>
 
         <!-- 2. Main Content (Two Columns) -->
-        <Grid Grid.Row="1" Margin="20,10,20,10">
+        <Grid Grid.Row="1" Margin="20,10,20,10"
+              IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20" /> <!-- Spacer -->

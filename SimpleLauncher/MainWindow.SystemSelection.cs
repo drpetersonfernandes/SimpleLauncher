@@ -245,7 +245,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames) return;
+            CancelAndRecreateToken();
 
             _playSoundEffects.PlayNotificationSound();
 
@@ -270,7 +270,7 @@ public partial class MainWindow
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...", this);
 
             var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq);
+            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {

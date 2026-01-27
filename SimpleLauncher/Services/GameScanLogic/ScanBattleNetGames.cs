@@ -74,7 +74,7 @@ public class ScanBattleNetGames
                         if (string.IsNullOrEmpty(uninstallString)) continue;
 
                         // Check for Battle.net UID in uninstall string
-                        var match = Regex.Match(uninstallString, @"Battle\.net.*--uid=(.*?)\s");
+                        var match = Regex.Match(uninstallString, @"Battle\.net.*--uid=(.*?)(?:\s|$)");
 
                         if (match.Success)
                         {
