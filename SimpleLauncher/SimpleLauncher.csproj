@@ -922,6 +922,14 @@
     <Resource Include="images\darkmode.png" />
     <None Remove="images\retrogamecoverdownloader.png" />
     <Resource Include="images\retrogamecoverdownloader.png" />
+    <None Remove="images\inject.png" />
+    <Resource Include="images\inject.png" />
+    <None Remove="images\mame.png" />
+    <Resource Include="images\mame.png" />
+    <None Remove="images\retroarch.png" />
+    <Resource Include="images\retroarch.png" />
+    <None Remove="images\xenia.png" />
+    <Resource Include="images\xenia.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

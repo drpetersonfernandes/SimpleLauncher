@@ -606,6 +606,26 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="Inject Emulator Config">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/inject.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="MAME Settings" Click="ShowMameSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/mame.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="RetroArch Settings" Click="ShowRetroArchSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/retroarch.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Xenia Settings" Click="ShowXeniaSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/xenia.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
                 <MenuItem Header="{DynamicResource OverlayButtonSettings}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/overlaybutton.png" Width="16" Height="16" />
@@ -796,52 +816,52 @@
                             Margin="0">
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource Restart}"
-                            Click="NavRestartButton_Click"
-                            Margin="0,10,2,5"
-                            AutomationProperties.Name="{DynamicResource Restart}">
+                        ToolTip="{DynamicResource Restart}"
+                        Click="NavRestartButton_Click"
+                        Margin="0,10,2,5"
+                        AutomationProperties.Name="{DynamicResource Restart}">
                         <Image Source="pack://application:,,,/images/refresh.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource ToggleLightDarkMode}"
-                            Click="NavToggleLightDarkMode_Click"
-                            AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}">
+                        ToolTip="{DynamicResource ToggleLightDarkMode}"
+                        Click="NavToggleLightDarkMode_Click"
+                        AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}">
                         <Image Source="pack://application:,,,/images/darkmode.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource Favorites}"
-                            Click="NavFavoritesButton_Click"
-                            AutomationProperties.Name="{DynamicResource Favorites}">
+                        ToolTip="{DynamicResource Favorites}"
+                        Click="NavFavoritesButton_Click"
+                        AutomationProperties.Name="{DynamicResource Favorites}">
                         <Image Source="pack://application:,,,/images/heart.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource GlobalSearch}"
-                            Click="NavGlobalSearchButton_Click"
-                            AutomationProperties.Name="{DynamicResource GlobalSearch}">
+                        ToolTip="{DynamicResource GlobalSearch}"
+                        Click="NavGlobalSearchButton_Click"
+                        AutomationProperties.Name="{DynamicResource GlobalSearch}">
                         <Image Source="pack://application:,,,/images/search2.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource PlayHistory}"
-                            Click="NavHistoryButton_Click"
-                            AutomationProperties.Name="{DynamicResource PlayHistory}">
+                        ToolTip="{DynamicResource PlayHistory}"
+                        Click="NavHistoryButton_Click"
+                        AutomationProperties.Name="{DynamicResource PlayHistory}">
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource RetroAchievements}"
-                            Click="NavRetroAchievementsButton_Click"
-                            AutomationProperties.Name="{DynamicResource RetroAchievements}">
+                        ToolTip="{DynamicResource RetroAchievements}"
+                        Click="NavRetroAchievementsButton_Click"
+                        AutomationProperties.Name="{DynamicResource RetroAchievements}">
                         <Image Source="pack://application:,,,/images/trophy.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource EditSystem}"
-                            Click="NavExpertModeButton_Click"
-                            AutomationProperties.Name="{DynamicResource EditSystem}">
+                        ToolTip="{DynamicResource EditSystem}"
+                        Click="NavExpertModeButton_Click"
+                        AutomationProperties.Name="{DynamicResource EditSystem}">
                         <Image Source="pack://application:,,,/images/settings.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ToggleViewMode"
@@ -926,10 +946,10 @@
 
                     <StackPanel
                         Grid.Row="1"
-                                Grid.RowSpan="2"
-                                Grid.Column="2"
-                                Margin="10,10,0,0"
-                                Orientation="Horizontal">
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        Margin="10,10,0,0"
+                        Orientation="Horizontal">
                         <TextBox x:Name="SearchTextBox"
                                  Width="200"
                                  HorizontalAlignment="Center"
@@ -1119,7 +1139,7 @@
                 <Grid x:Name="LoadingOverlay" Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <controls:ProgressRing IsActive="True" Width="100" Height="100" />
-                        <TextBlock x:Name="LoadingMessage" Text="{DynamicResource LoadingGames}" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Margin="0,10,0,0" FontSize="16" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="LoadingMessage" Text="{DynamicResource LoadingGames}" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Margin="0,10,0,0" FontSize="16" HorizontalAlignment="Center" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -1135,7 +1155,7 @@
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                         Margin="10,0,0,0"
                         Orientation="Horizontal">
-                <Label x:Name="StatusBarText" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                <Label x:Name="StatusBarText" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center" />
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
