@@ -1,0 +1,148 @@
+<controls:MetroWindow x:Class="SimpleLauncher.SettingsForXeniaWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="Xenia Configuration"
+                      Height="800" Width="600"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- GPU Section -->
+                <GroupBox Header="Graphics (GPU)" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Graphics API:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbGpu" Grid.Column="1">
+                                <ComboBoxItem Content="d3d12"/>
+                                <ComboBoxItem Content="vulkan"/>
+                                <ComboBoxItem Content="null"/>
+                            </ComboBox>
+                        </Grid>
+                        
+                        <CheckBox x:Name="ChkVsync" Content="VSync" Margin="0,5"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="Fullscreen" Margin="0,5"/>
+
+                        <Label Content="Resolution Scale (X / Y):" Margin="0,5,0,0"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox x:Name="CmbResX" Grid.Column="0">
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                            </ComboBox>
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0"/>
+                            <ComboBox x:Name="CmbResY" Grid.Column="2">
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                            </ComboBox>
+                        </Grid>
+                        
+                        <Label Content="Post-Processing AA:" Margin="0,5,0,0"/>
+                        <ComboBox x:Name="CmbAa">
+                            <ComboBoxItem Content="None" Tag=""/>
+                            <ComboBoxItem Content="FXAA" Tag="fxaa"/>
+                            <ComboBoxItem Content="FXAA Extreme" Tag="fxaa_extreme"/>
+                        </ComboBox>
+
+                        <Label Content="Scaling &amp; Sharpening:" Margin="0,5,0,0"/>
+                        <ComboBox x:Name="CmbScaling">
+                            <ComboBoxItem Content="FSR" Tag="fsr"/>
+                            <ComboBoxItem Content="CAS" Tag="cas"/>
+                            <ComboBoxItem Content="Bilinear" Tag="bilinear"/>
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="Audio (APU)" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Audio Driver:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbApu" Grid.Column="1">
+                                <ComboBoxItem Content="xaudio2"/>
+                                <ComboBoxItem Content="sdl"/>
+                                <ComboBoxItem Content="nop"/>
+                                <ComboBoxItem Content="any"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkMute" Content="Mute Audio" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- System Section -->
+                <GroupBox Header="System &amp; Input" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkPatches" Content="Apply Game Patches" Margin="0,5"/>
+                        
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Input Driver (HID):" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbHid" Grid.Column="1">
+                                <ComboBoxItem Content="xinput"/>
+                                <ComboBoxItem Content="sdl"/>
+                                <ComboBoxItem Content="winkey"/>
+                                <ComboBoxItem Content="any"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="User Language:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbLang" Grid.Column="1">
+                                <ComboBoxItem Content="English" Tag="1"/>
+                                <ComboBoxItem Content="Japanese" Tag="2"/>
+                                <ComboBoxItem Content="German" Tag="3"/>
+                                <ComboBoxItem Content="French" Tag="4"/>
+                                <ComboBoxItem Content="Spanish" Tag="5"/>
+                                <ComboBoxItem Content="Italian" Tag="6"/>
+                                <ComboBoxItem Content="Korean" Tag="7"/>
+                                <ComboBoxItem Content="Chinese" Tag="8"/>
+                                <ComboBoxItem Content="Portuguese" Tag="9"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="Open this window before launching an Xbox 360 game" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="Save" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="Run Xenia" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

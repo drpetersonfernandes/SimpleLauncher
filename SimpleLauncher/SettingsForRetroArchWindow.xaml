@@ -1,0 +1,106 @@
+<controls:MetroWindow x:Class="SimpleLauncher.SettingsForRetroArchWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="RetroArch Configuration"
+                      Height="800" Width="600"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="Video" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Video Driver:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbVideoDriver" Grid.Column="1">
+                                <ComboBoxItem Content="gl"/>
+                                <ComboBoxItem Content="vulkan"/>
+                                <ComboBoxItem Content="d3d11"/>
+                                <ComboBoxItem Content="d3d12"/>
+                                <ComboBoxItem Content="d3d10"/>
+                                <ComboBoxItem Content="sdl2"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkFullscreen" Content="Start in Fullscreen" Margin="0,5"/>
+                        <CheckBox x:Name="ChkVsync" Content="Enable VSync" Margin="0,5"/>
+                        <CheckBox x:Name="ChkThreadedVideo" Content="Threaded Video (Improves performance)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkBilinear" Content="Bilinear Filtering (Smooth pixels)" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="Audio" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkAudioEnable" Content="Enable Audio" Margin="0,5"/>
+                        <CheckBox x:Name="ChkAudioMute" Content="Mute Audio" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Automation & Misc -->
+                <GroupBox Header="Automation &amp; Behavior" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkPauseNonActive" Content="Pause when window loses focus" Margin="0,5"/>
+                        <CheckBox x:Name="ChkSaveOnExit" Content="Save Configuration on Exit" Margin="0,5" ToolTip="If checked, changes made inside RA menu will be saved."/>
+                        <CheckBox x:Name="ChkAutoSaveState" Content="Auto Save State on Exit" Margin="0,5"/>
+                        <CheckBox x:Name="ChkAutoLoadState" Content="Auto Load State on Start" Margin="0,5"/>
+                        <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+                
+                <!-- UI Section -->
+                <GroupBox Header="User Interface" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                         <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Menu Driver:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbMenuDriver" Grid.Column="1">
+                                <ComboBoxItem Content="ozone" ToolTip="Switch-like interface"/>
+                                <ComboBoxItem Content="xmb" ToolTip="PS3-like interface"/>
+                                <ComboBoxItem Content="rgui" ToolTip="Classic retro interface"/>
+                                <ComboBoxItem Content="glui" ToolTip="Mobile-friendly interface"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- RetroAchievements -->
+                <GroupBox Header="RetroAchievements" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Credentials are managed in the main RetroAchievements Settings." FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                        <CheckBox x:Name="ChkCheevosEnable" Content="Enable RetroAchievements" Margin="0,5"/>
+                        <CheckBox x:Name="ChkCheevosHardcore" Content="Hardcore Mode (No Save States/Rewind)" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="Open this window before launching RetroArch" 
+                          Margin="5,10,0,10" FontWeight="Bold"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="Save" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="Run RetroArch" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

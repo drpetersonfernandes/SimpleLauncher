@@ -1,0 +1,77 @@
+<controls:MetroWindow x:Class="SimpleLauncher.SettingsForMameWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="MAME Configuration"
+                      Height="800" Width="600"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="Video / Display" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Video Mode:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbVideo" Grid.Column="1">
+                                <ComboBoxItem Content="auto"/>
+                                <ComboBoxItem Content="d3d"/>
+                                <ComboBoxItem Content="opengl"/>
+                                <ComboBoxItem Content="bgfx"/>
+                                <ComboBoxItem Content="gdi"/>
+                            </ComboBox>
+                        </Grid>
+                        
+                        <CheckBox x:Name="ChkWindow" Content="Run in Window" Margin="0,5"/>
+                        <CheckBox x:Name="ChkMaximize" Content="Maximize (Start maximized)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkKeepAspect" Content="Enforce Aspect Ratio" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- UX Section -->
+                <GroupBox Header="User Experience" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkSkipGameInfo" Content="Skip Game Info Screen" Margin="0,5"
+                                  ToolTip="Skips the 'This system is working...' startup screens."/>
+                        <CheckBox x:Name="ChkAutosave" Content="Autosave State" Margin="0,5"
+                                  ToolTip="Automatically save state on exit and load on start."/>
+                        <CheckBox x:Name="ChkConfirmQuit" Content="Confirm Quit" Margin="0,5"
+                                  ToolTip="Ask for confirmation before exiting MAME."/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Input Section -->
+                <GroupBox Header="Input" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkJoystick" Content="Enable Joystick / Gamepad" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="Open this window before launching a MAME game" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="Save" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="Run MAME" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="Cancel" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>
