@@ -121,7 +121,8 @@ internal static class ScanSteamGames
                 var modDirectories = Directory.GetDirectories(sourceModsPath);
                 foreach (var modDir in modDirectories)
                 {
-                    await ProcessSourceMod(modDir, windowsRomsPath, logErrors);
+                    // Pass windowsImagesPath here
+                    await ProcessSourceMod(modDir, windowsRomsPath, windowsImagesPath, logErrors);
                 }
             }
         }
@@ -161,59 +162,93 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSourceMod(string modDir, string windowsRomsPath, ILogErrors logErrors)
+    private static async Task ProcessSourceMod(string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
     {
         try
         {
             var gameInfoPath = Path.Combine(modDir, "gameinfo.txt");
             if (!File.Exists(gameInfoPath)) return;
 
-            // Simple parsing for game name in gameinfo.txt
-            var lines = await File.ReadAllLinesAsync(gameInfoPath);
+            // 1. Parse gameinfo.txt using the existing VDF parser
+            var vdfData = SteamVdfParser.Parse(gameInfoPath, logErrors);
+
             string gameName = null;
-            foreach (var line in lines)
+            string baseAppId = null;
+
+            // Source mods store info under a "GameInfo" root key
+            if (vdfData.TryGetValue("GameInfo", out var gi) && gi is Dictionary<string, object> gameInfo)
             {
-                var trimmed = line.Trim();
-                if (trimmed.StartsWith("game", StringComparison.OrdinalIgnoreCase))
+                // Get the Display Name
+                if (gameInfo.TryGetValue("game", out var nameObj))
                 {
-                    var parts = trimmed.Split('"', StringSplitOptions.RemoveEmptyEntries);
-                    if (parts.Length >= 2)
+                    gameName = nameObj.ToString();
+                }
+
+                // Get the Base AppID (e.g., 243730 for Source SDK 2013)
+                if (gameInfo.TryGetValue("FileSystem", out var fs) && fs is Dictionary<string, object> fileSystem)
+                {
+                    if (fileSystem.TryGetValue("SteamAppId", out var appIdObj))
                     {
-                        gameName = parts[1];
-                        break;
+                        baseAppId = appIdObj.ToString();
                     }
                 }
             }
 
+            // Fallback for name if not found in VDF
             if (string.IsNullOrEmpty(gameName))
             {
                 gameName = new DirectoryInfo(modDir).Name;
             }
 
+            if (string.IsNullOrEmpty(baseAppId))
+            {
+                DebugLogger.Log($"[GameScannerService] Could not resolve Base AppID for mod: {gameName}. Skipping.");
+                return;
+            }
+
+            var modFolderName = new DirectoryInfo(modDir).Name;
             var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
-            Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
+            var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.url");
 
-            // Steam launches mods via AppID. Mods usually don't have a numeric AppID in the traditional sense
-            // accessible easily without calculating CRC, but we can launch via steam.exe -applaunch <AppID> <ModDirName>
-            // However, for SimpleLauncher, we might need to point to the bat or exe if it exists,
-            // or rely on Steam recognizing the mod ID if we can calculate it.
-            // Simplified approach: Create a BAT file to launch steam with mod parameters.
+            // 2. Create the Shortcut
+            // The protocol for mods is: steam://run/<BaseAppID>//-game <ModFolderName>
+            var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{baseAppId}//-game {modFolderName}";
+            await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-            // Note: Most apps calculates ModID using CRC of folder name + 0x80000000.
-            // For simplicity here, we will try to find a direct executable or skip complex mod ID calculation
-            // to avoid external dependencies like SteamKit2 logic in this snippet.
-            // Alternative: Launch via steam.exe -applaunch <BaseAppID> -game <ModDir>
-            // Base AppID for Source SDK Base 2013 Singleplayer is 243730, etc. This is complex.
-            // Let's skip creating shortcuts for mods if we can't easily determine the AppID,
-            // or just log it.
+            // 3. Handle Icon/Image
+            var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
+            if (!File.Exists(destArtworkPath))
+            {
+                // Source mods usually have a game.ico in the root folder
+                var modIcon = Path.Combine(modDir, "game.ico");
+                if (File.Exists(modIcon))
+                {
+                    try
+                    {
+                        using var icon = new System.Drawing.Icon(modIcon, 256, 256);
+                        using var bmp = icon.ToBitmap();
+                        bmp.Save(destArtworkPath, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                    catch
+                    {
+                        /* Fallback to generic scan */
+                    }
+                }
 
-            DebugLogger.Log($"[GameScannerService] Found Source Mod: {gameName}. Skipping shortcut creation (requires base AppID resolution).");
+                if (!File.Exists(destArtworkPath))
+                {
+                    await GameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, modDir, sanitizedGameName, windowsImagesPath);
+                }
+            }
+
+            DebugLogger.Log($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
         }
         catch (Exception ex)
         {
             await logErrors.LogErrorAsync(ex, $"Error processing Source Mod in {modDir}");
         }
     }
+
 
     private static string GetSteamPathFromProcess()
     {

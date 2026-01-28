@@ -119,6 +119,97 @@ public class GameLauncher
 
             _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
+            // --- XENIA CONFIGURATION INTERCEPTION ---
+            // Check if the selected emulator is Xenia (case-insensitive check on name)
+            if (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                if (settings.XeniaShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var xeniaWindow = new SettingsForXeniaWindow(settings, true) { Owner = mainWindow };
+                        xeniaWindow.ShowDialog();
+                        shouldRun = xeniaWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                }
+
+                if (!shouldRun)
+                {
+                    // User cancelled the launch
+                    return;
+                }
+
+                // Inject the settings into the Xenia config file
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                {
+                    XeniaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+            }
+            // ----------------------------------------
+
+            // --- MAME CONFIGURATION INTERCEPTION ---
+            // Check if the selected emulator is MAME (case-insensitive check on name)
+            if (selectedEmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                if (settings.MameShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var mameWindow = new SettingsForMameWindow(settings, true) { Owner = mainWindow };
+                        mameWindow.ShowDialog();
+                        shouldRun = mameWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                }
+
+                if (!shouldRun) return; // User cancelled
+
+                // Inject settings into mame.ini
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
+                MameConfigurationService.InjectSettings(resolvedEmulatorExePath, settings, resolvedSystemFolderPath);
+            }
+            // ---------------------------------------
+
+            // --- RETROARCH CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                if (settings.RetroArchShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var raWindow = new SettingsForRetroArchWindow(settings, true) { Owner = mainWindow };
+                        raWindow.ShowDialog();
+                        shouldRun = raWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                }
+
+                if (!shouldRun) return; // User cancelled
+
+                // Inject settings into retroarch.cfg
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                {
+                    Services.RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+            }
+            // --------------------------------------------
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {
@@ -600,6 +691,7 @@ public class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = resolvedFilePath,
+            Arguments = "", // No arguments for direct executable launch unless specified
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
