@@ -1158,7 +1158,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent("Opening Xenia configuration...", this);
 
-        var xeniaWindow = new SettingsForXeniaWindow(_settings, false)
+        var xeniaWindow = new InjectXeniaConfigWindow(_settings, false)
         {
             Owner = this
         };
@@ -1170,7 +1170,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent("Opening MAME configuration...", this);
 
-        var mameWindow = new SettingsForMameWindow(_settings, false)
+        var mameWindow = new InjectMameConfigWindow(_settings, false)
         {
             Owner = this
         };
@@ -1182,7 +1182,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent("Opening RetroArch configuration...", this);
 
-        var raWindow = new SettingsForRetroArchWindow(_settings, false)
+        var raWindow = new InjectRetroArchConfigWindow(_settings, false)
         {
             Owner = this
         };

@@ -3,13 +3,13 @@ using SimpleLauncher.Managers;
 
 namespace SimpleLauncher;
 
-public partial class SettingsForMameWindow
+public partial class InjectMameConfigWindow
 {
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
 
-    public SettingsForMameWindow(SettingsManager settings, bool isLauncherMode = true)
+    public InjectMameConfigWindow(SettingsManager settings, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

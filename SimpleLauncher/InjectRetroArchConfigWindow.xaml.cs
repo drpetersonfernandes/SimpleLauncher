@@ -3,13 +3,13 @@ using SimpleLauncher.Managers;
 
 namespace SimpleLauncher;
 
-public partial class SettingsForRetroArchWindow
+public partial class InjectRetroArchConfigWindow
 {
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
 
-    public SettingsForRetroArchWindow(SettingsManager settings, bool isLauncherMode = true)
+    public InjectRetroArchConfigWindow(SettingsManager settings, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

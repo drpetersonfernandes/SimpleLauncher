@@ -129,7 +129,7 @@ public class GameLauncher
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var xeniaWindow = new SettingsForXeniaWindow(settings, true) { Owner = mainWindow };
+                        var xeniaWindow = new InjectXeniaConfigWindow(settings, true) { Owner = mainWindow };
                         xeniaWindow.ShowDialog();
                         shouldRun = xeniaWindow.ShouldRun;
                     });
@@ -163,7 +163,7 @@ public class GameLauncher
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var mameWindow = new SettingsForMameWindow(settings, true) { Owner = mainWindow };
+                        var mameWindow = new InjectMameConfigWindow(settings, true) { Owner = mainWindow };
                         mameWindow.ShowDialog();
                         shouldRun = mameWindow.ShouldRun;
                     });
@@ -190,7 +190,7 @@ public class GameLauncher
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var raWindow = new SettingsForRetroArchWindow(settings, true) { Owner = mainWindow };
+                        var raWindow = new InjectRetroArchConfigWindow(settings, true) { Owner = mainWindow };
                         raWindow.ShowDialog();
                         shouldRun = raWindow.ShouldRun;
                     });
