@@ -171,6 +171,19 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
     }
 
+    public bool IsOperationInProgress
+    {
+        get;
+        private set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+            UpdateAddSystemButtonState();
+        }
+    }
+
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
     private string _currentDownloadType;
@@ -480,7 +493,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     // Helper method to reduce code duplication for downloads and extractions
     private async Task HandleDownloadAndExtractComponentAsync(string type)
     {
-        if (_disposed) return;
+        if (_disposed || IsOperationInProgress) return;
+
+        IsOperationInProgress = true;
 
         _currentDownloadType = type;
 
@@ -694,6 +709,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         finally
         {
             _currentDownloadType = null;
+            IsOperationInProgress = false;
         }
     }
 
@@ -784,92 +800,107 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
     private async void AddSystemButtonClickAsync(object sender, RoutedEventArgs e)
     {
-        try // Top-level catch for async Task method
+        try
         {
-            var selectedSystem = GetSelectedSystem();
-            if (selectedSystem == null) return;
+            if (IsOperationInProgress) return;
 
-            string systemFolderRaw;
-            if (!string.IsNullOrEmpty(SystemFolderTextBox.Text) && !string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
+            IsOperationInProgress = true;
+
+            try // Top-level catch for async Task method
             {
-                systemFolderRaw = SystemFolderTextBox.Text;
+                var selectedSystem = GetSelectedSystem();
+                if (selectedSystem == null) return;
+
+                string systemFolderRaw;
+                if (!string.IsNullOrEmpty(SystemFolderTextBox.Text) && !string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
+                {
+                    systemFolderRaw = SystemFolderTextBox.Text;
+                }
+                else
+                {
+                    systemFolderRaw = Path.Combine("%BASEFOLDER%", "roms", selectedSystem.SystemName);
+                    // No need to update SystemFolderTextBox.Text here, it's already updated in SelectionChanged or will be updated by the user
+                }
+
+                var systemImageFolderRaw = selectedSystem.SystemImageFolder;
+
+                var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+
+                // --- Start Async Operation ---
+                try
+                {
+                    // Disable button during operation
+                    AddSystemButton.IsEnabled = false;
+
+                    // Show overlay
+                    LoadingMessage.Text = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+                    LoadingOverlay.Visibility = Visibility.Visible;
+                    await Task.Yield(); // Allow UI to render the loading overlay
+
+                    // Update System.xml with the *unresolved* paths, as system.xml expects them.
+                    await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
+
+                    // --- If XML update succeeds, continue with folder creation and UI updates ---
+                    LoadingMessage.Text = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
+
+                    // Resolve paths before passing to folder creation
+                    var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
+                    var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
+
+                    // Create System Folders using *resolved* paths
+                    CreateSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+
+                    var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
+                    DownloadStatus = systemhasbeensuccessfullyadded;
+
+                    // Notify user
+                    MessageBoxLibrary.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+
+                    // Close the window after successful addition
+                    Close();
+                }
+                catch (InvalidOperationException ex) // Catch specific exceptions from the helper
+                {
+                    var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+                    DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}";
+
+                    // Error is already logged by the helper method.
+                    // Notify user
+                    MessageBoxLibrary.AddSystemFailedMessageBox(ex.Message);
+                }
+                catch (Exception ex) // Catch any other unexpected errors
+                {
+                    var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+                    DownloadStatus = errorFailedtoaddsystem;
+
+                    // Notify developer
+                    const string contextMessage = "Unexpected error adding system.";
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.AddSystemFailedMessageBox();
+                }
+                finally
+                {
+                    LoadingOverlay.Visibility = Visibility.Collapsed; // Hide overlay
+                    if (IsLoaded) // Check if the window is still loaded
+                    {
+                        AddSystemButton.IsEnabled = true;
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                systemFolderRaw = Path.Combine("%BASEFOLDER%", "roms", selectedSystem.SystemName);
-                // No need to update SystemFolderTextBox.Text here, it's already updated in SelectionChanged or will be updated by the user
-            }
-
-            var systemImageFolderRaw = selectedSystem.SystemImageFolder;
-
-            var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
-
-            // --- Start Async Operation ---
-            try
-            {
-                // Disable button during operation
-                AddSystemButton.IsEnabled = false;
-
-                // Show overlay
-                LoadingMessage.Text = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
-                LoadingOverlay.Visibility = Visibility.Visible;
-                await Task.Yield(); // Allow UI to render the loading overlay
-
-                // Update System.xml with the *unresolved* paths, as system.xml expects them.
-                await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
-
-                // --- If XML update succeeds, continue with folder creation and UI updates ---
-                LoadingMessage.Text = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
-
-                // Resolve paths before passing to folder creation
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
-                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
-
-                // Create System Folders using *resolved* paths
-                CreateSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
-
-                var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
-                DownloadStatus = systemhasbeensuccessfullyadded;
-
-                // Notify user
-                MessageBoxLibrary.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
-
-                // Close the window after successful addition
-                Close();
-            }
-            catch (InvalidOperationException ex) // Catch specific exceptions from the helper
-            {
-                var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
-                DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}";
-
-                // Error is already logged by the helper method.
-                // Notify user
-                MessageBoxLibrary.AddSystemFailedMessageBox(ex.Message);
-            }
-            catch (Exception ex) // Catch any other unexpected errors
-            {
-                var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
-                DownloadStatus = errorFailedtoaddsystem;
-
                 // Notify developer
-                const string contextMessage = "Unexpected error adding system.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.AddSystemFailedMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
             }
             finally
             {
-                LoadingOverlay.Visibility = Visibility.Collapsed; // Hide overlay
-                if (IsLoaded) // Check if the window is still loaded
-                {
-                    AddSystemButton.IsEnabled = true;
-                }
+                IsOperationInProgress = false;
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
         }
     }
@@ -1075,7 +1106,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         // The "Add System" button is enabled if all *required* components (emulator and core) are ready.
         // Image packs are optional and do not affect this logic.
-        AddSystemButton.IsEnabled = isEmulatorReady && isCoreReady;
+        AddSystemButton.IsEnabled = isEmulatorReady && isCoreReady && !IsOperationInProgress;
     }
 
 

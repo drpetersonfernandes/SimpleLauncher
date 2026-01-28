@@ -17,11 +17,30 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 
-internal partial class DownloadImagePackWindow : IDisposable
+internal partial class DownloadImagePackWindow : IDisposable, System.ComponentModel.INotifyPropertyChanged
 {
     private EasyModeManager _manager;
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
+
+    public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+    private void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+    }
+
+    public bool IsOperationInProgress
+    {
+        get;
+        private set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
 
     // hold dynamic image pack buttons
     private ObservableCollection<ImagePackDownloadItem> ImagePacksToDisplay { get; }
@@ -30,6 +49,7 @@ internal partial class DownloadImagePackWindow : IDisposable
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+        DataContext = this;
 
         // Get the DownloadManager from the service provider
         _downloadManager = App.ServiceProvider.GetRequiredService<DownloadManager>();
@@ -165,12 +185,13 @@ internal partial class DownloadImagePackWindow : IDisposable
     {
         try
         {
-            if (_disposed) return; // Early exit if window is already disposed
+            if (_disposed || IsOperationInProgress) return; // Early exit if window is already disposed
 
             try
             {
                 if (sender is not Button { DataContext: ImagePackDownloadItem item } clickedButton) return;
 
+                IsOperationInProgress = true;
                 try
                 {
                     clickedButton.IsEnabled = false; // Disable this specific button
@@ -185,6 +206,10 @@ internal partial class DownloadImagePackWindow : IDisposable
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButtonClickAsync for {item.DisplayName}.");
                     clickedButton.IsEnabled = true; // Re-enable on error
                     item.IsDownloaded = false;
+                }
+                finally
+                {
+                    IsOperationInProgress = false;
                 }
             }
             catch (Exception ex)

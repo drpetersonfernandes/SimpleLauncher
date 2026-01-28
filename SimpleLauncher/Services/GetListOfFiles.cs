@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
@@ -35,50 +36,17 @@ public abstract class GetListOfFiles
                     return new List<string>(); // Return an empty list
                 }
 
+                var extensionsSet = new HashSet<string>(fileExtensions, StringComparer.OrdinalIgnoreCase);
                 var foundFiles = new List<string>();
+                var restrictedFolders = new List<string>();
 
-                foreach (var ext in fileExtensions)
+                // Perform safe recursive enumeration
+                EnumerateFilesRecursive(directoryPath, extensionsSet, foundFiles, restrictedFolders, cancellationToken);
+
+                // Inform user if restricted folders were encountered
+                if (restrictedFolders.Count > 0)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    try
-                    {
-                        // Construct the search pattern by prepending "*.
-                        var searchPattern = $"*.{ext}";
-                        foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, searchPattern, SearchOption.AllDirectories));
-                        cancellationToken.ThrowIfCancellationRequested();
-                    }
-                    catch (DirectoryNotFoundException dirEx)
-                    {
-                        // Notify developer
-                        var contextMessage = $"Directory not found while processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(dirEx, contextMessage);
-
-                        break; // Exit the loop since the directory is gone
-                    }
-                    catch (UnauthorizedAccessException authEx)
-                    {
-                        // Notify developer
-                        var contextMessage = $"Access denied while processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(authEx, contextMessage);
-
-                        // Continue with the next extension
-                    }
-                    catch (PathTooLongException pathEx)
-                    {
-                        // Notify developer
-                        var contextMessage = $"Path too long while processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(pathEx, contextMessage);
-
-                        // Continue with the next extension
-                    }
-                    catch (Exception innerEx)
-                    {
-                        // Notify developer
-                        var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(innerEx, contextMessage);
-
-                        // Continue with the next extension
-                    }
+                    NotifyUserOfRestrictedFolders(restrictedFolders);
                 }
 
                 return foundFiles; // Return the full list of found files
@@ -96,5 +64,74 @@ public abstract class GetListOfFiles
                 return new List<string>(); // Return an empty list
             }
         }, cancellationToken);
+    }
+
+    private static void EnumerateFilesRecursive(string path, HashSet<string> extensions, List<string> results, List<string> restrictedFolders, CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        try
+        {
+            // 1. Get files in the current directory and filter by extension
+            foreach (var file in Directory.EnumerateFiles(path))
+            {
+                var ext = Path.GetExtension(file).TrimStart('.').ToLowerInvariant();
+                if (extensions.Contains(ext))
+                {
+                    results.Add(file);
+                }
+            }
+
+            // 2. Get subdirectories and recurse
+            foreach (var dir in Directory.EnumerateDirectories(path))
+            {
+                EnumerateFilesRecursive(dir, extensions, results, restrictedFolders, token);
+            }
+        }
+        catch (UnauthorizedAccessException)
+        {
+            // Skip this folder and track it to inform the user later
+            restrictedFolders.Add(path);
+            DebugLogger.Log($"[GetListOfFiles] Access denied to folder: {path}. Skipping.");
+        }
+        catch (PathTooLongException ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Path too long during enumeration: {path}");
+        }
+        catch (DirectoryNotFoundException ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Directory disappeared during enumeration: {path}");
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unexpected error accessing folder: {path}");
+        }
+    }
+
+    private static void NotifyUserOfRestrictedFolders(List<string> restrictedFolders)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+
+            // Log detailed list to Debug Logger
+            DebugLogger.Log("The following folders were skipped due to access restrictions:");
+            foreach (var folder in restrictedFolders)
+            {
+                DebugLogger.Log($" - {folder}");
+            }
+
+            // Update Status Bar with a summary
+            var message = (string)Application.Current.TryFindResource("RestrictedFoldersSkipped")
+                          ?? "Some folders were skipped due to access restrictions. Check the log for details.";
+
+            UpdateStatusBar.UpdateContent(message, mainWindow);
+
+            // Optionally show a one-time message box if many folders are restricted
+            if (restrictedFolders.Count > 5)
+            {
+                DebugLogger.Log($"[GetListOfFiles] Warning: {restrictedFolders.Count} restricted folders encountered.");
+            }
+        });
     }
 }
