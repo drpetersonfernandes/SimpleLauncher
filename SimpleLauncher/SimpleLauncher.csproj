@@ -562,9 +562,6 @@
     <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertIsoToXiso\extract-xiso.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\BatchConvertToCHD\7z_x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -749,6 +746,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\SimpleXisoDrive\SimpleXisoDrive_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertIsoToXiso\7z_arm64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso_arm64.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

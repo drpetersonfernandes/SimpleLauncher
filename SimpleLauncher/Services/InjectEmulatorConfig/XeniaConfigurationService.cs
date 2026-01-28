@@ -1,10 +1,10 @@
 using System;
 using System.IO;
+using SimpleLauncher.Managers;
 using Tomlyn;
 using Tomlyn.Model;
-using SimpleLauncher.Managers;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class XeniaConfigurationService
 {

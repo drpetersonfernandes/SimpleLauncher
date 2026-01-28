@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using SimpleLauncher.Managers;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class RetroArchConfigurationService
 {

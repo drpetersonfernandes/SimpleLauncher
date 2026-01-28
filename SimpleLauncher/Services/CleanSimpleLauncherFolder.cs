@@ -92,6 +92,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.pdb"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.runtimeconfig.json"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "extract-xiso.exe"),
 
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "7z.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "7z.exe"),

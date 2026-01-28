@@ -10,6 +10,7 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services;
 
@@ -205,7 +206,7 @@ public class GameLauncher
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
                 if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
                 {
-                    Services.RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
                 }
             }
             // --------------------------------------------
