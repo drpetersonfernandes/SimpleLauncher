@@ -101,6 +101,17 @@ public partial class SystemManager
 
                     return new List<SystemManager>(); // Return an empty list
                 }
+                catch (IOException ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "The file 'system.xml' is locked or inaccessible by another process.";
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                    // Notify user - File is locked, not corrupted
+                    MessageBoxLibrary.FileSystemXmlIsLockedMessageBox();
+
+                    return new List<SystemManager>(); // Return an empty list
+                }
 
                 var systemManagers = new List<SystemManager>();
                 var invalidManagers = new Dictionary<XElement, string>();

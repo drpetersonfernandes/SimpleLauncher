@@ -73,32 +73,42 @@ internal static class MountZipFiles
     /// <returns>An available character for a drive letter, or null if none are available.</returns>
     private static char? GetAvailableDriveLetter()
     {
-        var existingDrives = DriveInfo.GetDrives()
-            .Select(static d => char.ToUpper(d.Name[0], CultureInfo.InvariantCulture))
-            .ToHashSet();
-
-        // First, try the preferred drive letter from configuration
-        var preferredLetter = char.ToUpper(_preferredMountDriveLetterOnly[0], CultureInfo.InvariantCulture);
-        if (!existingDrives.Contains(preferredLetter))
+        try
         {
-            DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is available.");
-            return preferredLetter;
-        }
+            // Use Environment.GetLogicalDrives() to avoid hanging on disconnected network drives
+            var existingDrives = Environment.GetLogicalDrives()
+                .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
+                .ToHashSet();
 
-        DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is already in use. Searching for alternative...");
-
-        // If preferred is not available, search from Z: down to D:
-        for (var letter = 'Z'; letter >= 'D'; letter--)
-        {
-            if (!existingDrives.Contains(letter))
+            // First, try the preferred drive letter from configuration
+            var preferredLetter = char.ToUpper(_preferredMountDriveLetterOnly[0], CultureInfo.InvariantCulture);
+            if (!existingDrives.Contains(preferredLetter))
             {
-                DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Found available drive letter: {letter}:");
-                return letter;
+                DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is available.");
+                return preferredLetter;
             }
-        }
 
-        DebugLogger.Log("[MountZipFiles.GetAvailableDriveLetter] No available drive letters found between D: and Z:.");
-        return null;
+            DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is already in use. Searching for alternative...");
+
+            // If preferred is not available, search from Z: down to D:
+            for (var letter = 'Z'; letter >= 'D'; letter--)
+            {
+                if (!existingDrives.Contains(letter))
+                {
+                    DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Found available drive letter: {letter}:");
+                    return letter;
+                }
+            }
+
+            DebugLogger.Log("[MountZipFiles.GetAvailableDriveLetter] No available drive letters found between D: and Z:.");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error enumerating available drive letters for ZIP mounting.");
+            return null;
+        }
     }
 
     internal static async Task MountZipFileAndLoadEbootBinAsync(
