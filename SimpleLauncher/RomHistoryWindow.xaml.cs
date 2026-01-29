@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 

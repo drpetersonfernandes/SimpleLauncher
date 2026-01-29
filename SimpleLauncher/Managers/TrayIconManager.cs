@@ -6,6 +6,7 @@ using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Managers;
 

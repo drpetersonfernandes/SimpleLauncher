@@ -11,6 +11,8 @@ using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.CleanFiles;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services;
 

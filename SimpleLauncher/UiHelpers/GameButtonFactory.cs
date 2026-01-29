@@ -16,6 +16,7 @@ using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 using System.IO;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 // ReSharper disable UnusedMember.Local
 

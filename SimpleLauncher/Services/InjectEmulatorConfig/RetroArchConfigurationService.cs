@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 

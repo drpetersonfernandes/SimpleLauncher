@@ -13,6 +13,7 @@ using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 

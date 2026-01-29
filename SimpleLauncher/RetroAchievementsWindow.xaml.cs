@@ -11,6 +11,7 @@ using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models.RetroAchievements;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 
 namespace SimpleLauncher;

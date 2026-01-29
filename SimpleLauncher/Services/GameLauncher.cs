@@ -10,6 +10,7 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services;
@@ -300,7 +301,7 @@ public class GameLauncher
             }
             catch (Win32Exception ex) // Catch Win32Exception specifically
             {
-                if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
                 {
                     // Specific handling for application control policy block
                     MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
@@ -487,7 +488,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex)
         {
-            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching batch file.");
@@ -631,7 +632,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching shortcut file.");
@@ -773,7 +774,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching executable.");
@@ -1090,7 +1091,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");

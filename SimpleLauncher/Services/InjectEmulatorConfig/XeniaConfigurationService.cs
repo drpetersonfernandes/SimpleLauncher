@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;
 

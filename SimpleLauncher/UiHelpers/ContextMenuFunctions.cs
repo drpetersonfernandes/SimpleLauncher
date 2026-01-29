@@ -16,9 +16,12 @@ using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 using System.Windows;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.CleanFiles;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
+using WindowScreenshot = SimpleLauncher.Services.TakeScreenshot.WindowScreenshot;
 
 namespace SimpleLauncher.UiHelpers;
 
@@ -826,7 +829,7 @@ internal static class ContextMenuFunctions
 
             var hWnd = dialog.SelectedWindowHandle;
 
-            Services.WindowScreenshot.Rectangle rectangle;
+            WindowScreenshot.Rectangle rectangle;
 
             // Try to get the client area dimensions
             if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))

@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 

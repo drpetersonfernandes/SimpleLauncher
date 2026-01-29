@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Models.DownloadFiles;
 
 namespace SimpleLauncher;
 

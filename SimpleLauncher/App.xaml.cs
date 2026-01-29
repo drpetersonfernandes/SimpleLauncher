@@ -14,7 +14,9 @@ using SevenZip;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
-using SimpleLauncher.Services.GameScanLogic;
+using SimpleLauncher.Services.CleanFiles;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.RetroAchievements;
 
 namespace SimpleLauncher;

@@ -598,7 +598,7 @@ internal partial class EditSystemWindow
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (ApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 // Specific message for application control policy blocking links
                 MessageBoxLibrary.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);

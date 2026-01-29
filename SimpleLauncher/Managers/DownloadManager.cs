@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models;
+using SimpleLauncher.Models.DownloadFiles;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Managers;
