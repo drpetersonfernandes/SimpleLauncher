@@ -13,6 +13,35 @@ namespace SimpleLauncher.Services.RetroAchievements;
 
 internal static class RetroAchievementsEmulatorConfiguratorService
 {
+    /// <summary>
+    /// Restores a sample configuration file from the samples folder if the target config is missing.
+    /// </summary>
+    private static bool RestoreConfigFromSample(string emulatorFolderName, string targetConfigPath)
+    {
+        if (File.Exists(targetConfigPath)) return true;
+
+        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples",
+            emulatorFolderName.ToLowerInvariant(), Path.GetFileName(targetConfigPath));
+
+        if (!File.Exists(samplePath)) return false;
+
+        try
+        {
+            var targetDir = Path.GetDirectoryName(targetConfigPath);
+            if (!string.IsNullOrEmpty(targetDir) && !Directory.Exists(targetDir))
+                Directory.CreateDirectory(targetDir);
+
+            File.Copy(samplePath, targetConfigPath, false);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex,
+                $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            return false;
+        }
+    }
+
     // RetroArch
     internal static bool ConfigureRetroArch(string exePath, string username, string password)
     {
@@ -20,7 +49,14 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         if (exeDir != null)
         {
             var configPath = Path.Combine(exeDir, "retroarch.cfg");
-            if (!File.Exists(configPath)) return false;
+
+            // Restore from sample if missing
+            if (!RestoreConfigFromSample("retroarch", configPath))
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                    $"RetroArch config not found and no sample available at {configPath}");
+                return false;
+            }
 
             var settingsToUpdate = new Dictionary<string, string>
             {
@@ -43,7 +79,13 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         var configDir = exeDir != null && Directory.Exists(Path.Combine(exeDir, "inis")) ? Path.Combine(exeDir, "inis") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PCSX2", "inis");
         var configPath = Path.Combine(configDir, "PCSX2.ini");
 
-        if (!File.Exists(configPath)) return false;
+        // Restore from sample if missing
+        if (!RestoreConfigFromSample("pcsx2", configPath))
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                $"PCSX2 config not found and no sample available at {configPath}");
+            return false;
+        }
 
         var settingsToUpdate = new Dictionary<string, string>
         {
@@ -66,13 +108,24 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         {
             var configPath = Path.Combine(configDir, "settings.ini");
 
-            if (!File.Exists(configPath))
+            // Restore from sample if missing
+            if (!RestoreConfigFromSample("duckstation", configPath))
             {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                    $"DuckStation config not found and no sample available at {configPath}");
                 return false;
             }
 
             // Encrypt the token using DuckStation's logic
             var encryptedToken = EncryptDuckStationToken(token, username, isPortable);
+
+            // Validate encryption succeeded
+            if (string.IsNullOrEmpty(encryptedToken))
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                    "Failed to encrypt DuckStation token - cannot configure emulator");
+                return false;
+            }
 
             var settingsToUpdate = new Dictionary<string, string>
             {
@@ -110,7 +163,13 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             var configDir = Path.Combine(exeDir, "memstick", "PSP", "SYSTEM");
             var configPath = Path.Combine(configDir, "ppsspp.ini");
 
-            if (!File.Exists(configPath)) return false;
+            // Restore from sample if missing
+            if (!RestoreConfigFromSample("ppsspp", configPath))
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                    $"PPSSPP config not found and no sample available at {configPath}");
+                return false;
+            }
 
             // 1. Update the main INI file
             var settingsToUpdate = new Dictionary<string, string>
@@ -151,7 +210,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         else
         {
-            // %APPDATA%
+            // %APPDATA%/Roaming
             configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dolphin Emulator", "Config");
         }
 
@@ -159,6 +218,13 @@ internal static class RetroAchievementsEmulatorConfiguratorService
 
         try
         {
+            // Restore from sample if missing (before creating empty file)
+            if (!RestoreConfigFromSample("dolphin", configPath))
+            {
+                // If no sample, create directory and empty file as fallback
+                DebugLogger.Log($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
+            }
+
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
             if (!File.Exists(configPath)) File.WriteAllText(configPath, ""); // Create empty file if missing
         }
@@ -194,13 +260,19 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         {
             var configPath = Path.Combine(exeDir, "emu.cfg");
 
-            // Flycast can also store config in %appdata%\flycast
-            if (!File.Exists(configPath))
+            // Try portable path first, then appdata
+            if (!File.Exists(configPath) && !RestoreConfigFromSample("flycast", configPath))
             {
                 configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "flycast", "emu.cfg");
-            }
 
-            if (!File.Exists(configPath)) return false;
+                // Try restoring to appdata if portable failed
+                if (!RestoreConfigFromSample("flycast", configPath))
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                        "Flycast config not found and no sample available");
+                    return false;
+                }
+            }
 
             var settingsToUpdate = new Dictionary<string, string>
             {
@@ -223,7 +295,14 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         if (exeDir != null)
         {
             var configPath = Path.Combine(exeDir, "config.ini");
-            if (!File.Exists(configPath)) return false;
+
+            // Restore from sample if missing
+            if (!RestoreConfigFromSample("bizhawk", configPath))
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
+                    $"BizHawk config not found and no sample available at {configPath}");
+                return false;
+            }
 
             try
             {
