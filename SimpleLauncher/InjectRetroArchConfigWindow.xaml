@@ -98,7 +98,7 @@
                 <!-- RetroAchievements -->
                 <GroupBox Header="RetroAchievements" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Credentials are managed in the main RetroAchievements Settings." FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap"/>
+                        <TextBlock Text="Credentials are managed in the 'RetroAchievements Settings' window." FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap"/>
                         <CheckBox x:Name="ChkCheevosEnable" Content="Enable RetroAchievements" Margin="0,5" ToolTip="Enables RetroAchievements integration."/>
                         <CheckBox x:Name="ChkCheevosHardcore" Content="Hardcore Mode" Margin="0,5" ToolTip="Disables cheats/rewind to earn hardcore badges."/>
                         <CheckBox x:Name="ChkDiscordAllow" Content="Discord Rich Presence" Margin="0,5" ToolTip="Shows what you are playing on your Discord profile."/>
