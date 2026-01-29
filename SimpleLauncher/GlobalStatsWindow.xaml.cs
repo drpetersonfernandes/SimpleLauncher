@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.GlobalStats.Models;
+using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 

@@ -1,5 +1,4 @@
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Mame.DatCreator.Services;
 
@@ -16,24 +15,24 @@ public class WpfLogger
 
     public void Info(string message)
     {
-        AppendLog($"[INFO] {message}", Brushes.LightGreen);
+        AppendLog($"[INFO] {message}");
     }
 
     public void Warning(string message)
     {
-        AppendLog($"[WARN] {message}", Brushes.Yellow);
+        AppendLog($"[WARN] {message}");
     }
 
     public void Error(string message, Exception? ex = null)
     {
-        AppendLog($"[ERROR] {message}", Brushes.Red);
+        AppendLog($"[ERROR] {message}");
         if (ex != null)
         {
-            AppendLog(ex.ToString(), Brushes.Red);
+            AppendLog(ex.ToString());
         }
     }
 
-    private void AppendLog(string message, Brush color)
+    private void AppendLog(string message)
     {
         if (_logTextBox.Dispatcher.CheckAccess())
         {
@@ -54,9 +53,6 @@ public class WpfLogger
         _logTextBox.ScrollToEnd();
 
         // Also scroll the parent ScrollViewer if available
-        if (_scrollViewer != null)
-        {
-            _scrollViewer.ScrollToEnd();
-        }
+        _scrollViewer?.ScrollToEnd();
     }
 }

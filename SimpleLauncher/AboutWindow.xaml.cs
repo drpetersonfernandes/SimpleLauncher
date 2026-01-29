@@ -2,10 +2,11 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
-using SimpleLauncher.Services;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Utils;
+using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;
 

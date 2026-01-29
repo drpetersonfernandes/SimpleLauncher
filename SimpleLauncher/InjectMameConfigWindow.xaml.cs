@@ -1,10 +1,10 @@
 using System;
 using System.IO;
 using System.Windows;
-using SimpleLauncher.Managers;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher;
 

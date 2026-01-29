@@ -8,18 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Managers;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.MountFiles;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.TrayIcon;
+using SimpleLauncher.Services.UsageStats;
 using SimpleLauncher.Services.Utils;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
 public class GameLauncher
 {
     private readonly string _logPath = GetLogPath.Path();
-    private SystemManager.Emulator _selectedEmulatorManager;
+    private SystemManager.SystemManager.Emulator _selectedEmulatorManager;
     private string _selectedEmulatorParameters;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
@@ -34,7 +41,7 @@ public class GameLauncher
         _stats = stats ?? throw new ArgumentNullException(nameof(stats));
     }
 
-    internal async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
+    internal async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
     {
         try
         {
@@ -394,7 +401,7 @@ public class GameLauncher
         }
     }
 
-    private async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // On Windows, .bat files are not direct executables.
         // To redirect output (UseShellExecute = false), we must run cmd.exe /c "path_to_script.bat"
@@ -552,7 +559,7 @@ public class GameLauncher
         }
     }
 
-    private async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // Common UI updates.
         var fileName = Path.GetFileName(resolvedFilePath);
@@ -688,7 +695,7 @@ public class GameLauncher
         }
     }
 
-    private async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -839,8 +846,8 @@ public class GameLauncher
     internal async Task LaunchRegularEmulatorAsync(
         string resolvedFilePath,
         string selectedEmulatorName,
-        SystemManager selectedSystemManager,
-        SystemManager.Emulator selectedEmulatorManager,
+        SystemManager.SystemManager selectedSystemManager,
+        SystemManager.SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         GameLauncher gameLauncher)
@@ -1186,7 +1193,7 @@ public class GameLauncher
         }
     }
 
-    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.SystemManager.Emulator emulatorManager)
     {
         string contextMessage;
 

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.GameItemFactory;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Utils;
-using SimpleLauncher.UiHelpers;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
@@ -852,7 +852,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", this);
         SaveApplicationSettings();
 
-        QuitApplication.RestartApplication();
+        QuitSimpleLauncher.RestartApplication();
     }
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)

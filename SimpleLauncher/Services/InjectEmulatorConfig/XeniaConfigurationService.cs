@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using SimpleLauncher.Managers;
 using SimpleLauncher.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;
@@ -9,7 +8,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class XeniaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -34,7 +33,7 @@ public static class XeniaConfigurationService
             throw new FileNotFoundException("No xenia configuration files found to inject into.");
     }
 
-    private static bool UpdateSingleConfigFile(string configPath, SettingsManager settings)
+    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManager settings)
     {
         DebugLogger.Log($"[XeniaConfig] Injecting into: {Path.GetFileName(configPath)}");
 

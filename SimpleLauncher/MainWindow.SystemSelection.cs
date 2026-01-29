@@ -7,8 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Automation;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.Utils;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 

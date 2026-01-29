@@ -9,9 +9,11 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.HelpUser;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.Utils;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -82,7 +84,7 @@ internal partial class EditSystemWindow
                 Dispatcher.Invoke(static () =>
                 {
                     MessageBoxLibrary.SystemXmlNotFoundMessageBox();
-                    QuitApplication.SimpleQuitApplication();
+                    QuitSimpleLauncher.SimpleQuitApplication();
                 });
             }
             else
@@ -157,7 +159,7 @@ internal partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator2Path(object sender, RoutedEventArgs e)
@@ -180,7 +182,7 @@ internal partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator3Path(object sender, RoutedEventArgs e)
@@ -203,7 +205,7 @@ internal partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator4Path(object sender, RoutedEventArgs e)
@@ -226,7 +228,7 @@ internal partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator5Path(object sender, RoutedEventArgs e)
@@ -248,7 +250,7 @@ internal partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -623,7 +625,7 @@ internal partial class EditSystemWindow
     {
         // Update HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void AddFolderButton_Click(object sender, RoutedEventArgs e)

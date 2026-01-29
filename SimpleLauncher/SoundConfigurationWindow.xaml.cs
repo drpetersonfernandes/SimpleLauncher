@@ -3,9 +3,11 @@ using System;
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher;
 

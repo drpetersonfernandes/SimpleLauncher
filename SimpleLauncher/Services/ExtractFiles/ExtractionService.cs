@@ -12,7 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
 using SimpleLauncher.Services.CleanFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Utils;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ExtractFiles;
 

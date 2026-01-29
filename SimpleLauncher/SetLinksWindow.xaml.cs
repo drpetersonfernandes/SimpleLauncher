@@ -1,7 +1,8 @@
 using System;
 using System.Windows;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher;
 

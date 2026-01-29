@@ -8,10 +8,10 @@ using System.Windows.Controls;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Utils;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
@@ -360,7 +360,7 @@ internal partial class EditSystemWindow
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
-                CreateSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder);
+                CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }

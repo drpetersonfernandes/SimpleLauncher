@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.Utils;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;

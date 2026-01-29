@@ -10,12 +10,21 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.ContextMenu.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlayHistory;
+using SimpleLauncher.Services.PlayHistory.Models;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.Utils;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
@@ -325,7 +334,7 @@ public partial class PlayHistoryWindow
                 _playSoundEffects
             );
 
-            var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
             if (contextMenu != null)
             {
                 PlayHistoryDataGrid.ContextMenu = contextMenu;

@@ -1,10 +1,10 @@
 using System;
 using System.Windows;
 using System.Windows.Threading;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher;

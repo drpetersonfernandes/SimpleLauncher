@@ -2,8 +2,8 @@ using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher;
 

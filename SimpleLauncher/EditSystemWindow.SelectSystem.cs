@@ -5,10 +5,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Utils;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using SimpleLauncher.Services.HelpUser;
+using SimpleLauncher.Services.MessageBox;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
@@ -75,7 +76,7 @@ internal partial class EditSystemWindow
         if (_xmlDoc == null)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new NullReferenceException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
 
             DisableAllEditableFields();
             SaveSystemButton.IsEnabled = false;
@@ -167,7 +168,7 @@ internal partial class EditSystemWindow
             ValidateParameterFields();
 
             HelpUserTextBlock.Document.Blocks.Clear();
-            UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+            HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
         }
         else
         {

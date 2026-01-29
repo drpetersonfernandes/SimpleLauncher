@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using SimpleLauncher.Services.DisplaySystemInfo;
+using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.MessageBox;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 

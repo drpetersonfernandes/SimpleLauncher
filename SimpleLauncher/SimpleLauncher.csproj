@@ -934,9 +934,6 @@
     <None Remove="images\xenia.png" />
     <Resource Include="images\xenia.png" />
   </ItemGroup>
-    <ItemGroup>
-    <Content Include="settings.xml" />
-  </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1214,5 +1211,8 @@
     <Page Remove="title_snapshots\**" />
     <Page Remove="videos\**" />
     <Page Remove="walkthrough\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\GlobalSearch\" />
   </ItemGroup>
 </Project>

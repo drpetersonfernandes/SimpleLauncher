@@ -1,0 +1,750 @@
+using System;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Security.Authentication;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DownloadService.Models;
+using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.Utils;
+
+namespace SimpleLauncher.Services.DownloadService;
+
+/// <inheritdoc />
+/// <summary>
+/// Manages the download and extraction of files with progress reporting and cancellation support.
+/// </summary>
+public class DownloadManager : IDisposable
+{
+    internal bool IsFileLockedDuringDownload { get; private set; }
+
+    // Events
+    /// <summary>
+    /// Event raised when download progress changes.
+    /// </summary>
+    public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
+
+    // Constants
+    private const int RetryMaxAttempts = 3;
+    private const int RetryBaseDelayMs = 1000;
+
+    // Private fields
+    private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IExtractionService _extractionService;
+    private readonly ILogErrors _logErrors;
+    private CancellationTokenSource _cancellationTokenSource;
+    private readonly object _lock = new();
+    private bool _disposed;
+
+    /// <summary>
+    /// Initializes a new instance of the DownloadManager.
+    /// </summary>
+    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogErrors logErrors)
+    {
+        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+
+        // Initialize temp folder
+        TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+
+        try
+        {
+            Directory.CreateDirectory(TempFolder);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"Error creating temp folder: {TempFolder}");
+        }
+
+        // Get HttpClient from the factory
+        _httpClient = _httpClientFactory?.CreateClient();
+
+        // Initialize cancellation token source
+        _cancellationTokenSource = new CancellationTokenSource();
+    }
+
+    // Properties
+    /// <summary>
+    /// Gets a value indicating whether the download was completed successfully.
+    /// </summary>
+    internal bool IsDownloadCompleted { get; private set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the download was canceled by the user.
+    /// </summary>
+    internal bool IsUserCancellation { get; private set; }
+
+    /// <summary>
+    /// Gets the temporary folder used for downloads.
+    /// </summary>
+    internal string TempFolder { get; }
+
+    // Methods
+    /// <summary>
+    /// Cancels any ongoing download operation.
+    /// </summary>
+    internal void CancelDownload()
+    {
+        lock (_lock)
+        {
+            IsUserCancellation = true;
+            _cancellationTokenSource?.Cancel();
+        }
+    }
+
+    private void ResetCancellationToken()
+    {
+        lock (_lock)
+        {
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
+    }
+
+    /// <summary>
+    /// Downloads a file from the specified URL to a temporary location.
+    /// </summary>
+    /// <param name="downloadUrl">The URL to download from.</param>
+    /// <param name="fileName">Optional custom file name to use.</param>
+    /// <returns>The path to the downloaded file, or null if the download failed.</returns>
+    internal async Task<string> DownloadFileAsync(string downloadUrl, string fileName = null)
+    {
+        // Reset the cancellation token source at the beginning of every download attempt.
+        ResetCancellationToken();
+
+        CancellationToken token;
+        lock (_lock)
+        {
+            token = _cancellationTokenSource.Token;
+        }
+
+        IsDownloadCompleted = false;
+        IsUserCancellation = false;
+        IsFileLockedDuringDownload = false; // Reset at the start of each download attempt
+
+        // Determine file name if not provided
+        if (string.IsNullOrEmpty(fileName))
+        {
+            try
+            {
+                fileName = Path.GetFileName(downloadUrl);
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    fileName = "download_" + Guid.NewGuid().ToString("N");
+                }
+            }
+            catch
+            {
+                fileName = "download_" + Guid.NewGuid().ToString("N");
+            }
+        }
+
+        // Create temp file path
+        var downloadFilePath = Path.Combine(TempFolder, fileName);
+
+        // Check disk space
+        var diskSpaceCheckResult = CheckAvailableDiskSpace(TempFolder);
+        switch (diskSpaceCheckResult)
+        {
+            case false:
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("InsufficientdiskspaceinSimpleLauncherHDD", "Insufficient disk space in 'Simple Launcher' HDD.")
+                });
+
+                throw new IOException("Insufficient disk space in 'Simple Launcher' HDD.");
+            case null:
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("CannotCheckDiskSpace", "Cannot check available disk space. The path may be inaccessible or you may lack permissions.")
+                });
+
+                throw new IOException("Cannot check disk space for 'Simple Launcher' HDD. The path may be inaccessible or you may lack permissions.");
+            default:
+                var success = false;
+                try
+                {
+                    // Perform download with retry logic
+                    var currentRetry = 0;
+
+                    while (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                    {
+                        try
+                        {
+                            await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
+
+                            if (IsDownloadCompleted)
+                            {
+                                success = true;
+                                break;
+                            }
+
+                            currentRetry++;
+                            if (currentRetry >= RetryMaxAttempts || IsUserCancellation) continue;
+
+                            // Calculate delay with exponential backoff
+                            var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("RetryingDownload", $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                            });
+
+                            await Task.Delay(delay, token);
+                        }
+                        catch (TaskCanceledException tcEx) when (tcEx.InnerException is TimeoutException || (tcEx.InnerException is OperationCanceledException && !IsUserCancellation))
+                        {
+                            // This is a timeout, not a user cancellation
+                            currentRetry++;
+                            if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                            {
+                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                                OnProgressChanged(new DownloadProgressEventArgs
+                                {
+                                    ProgressPercentage = 0,
+                                    StatusMessage = GetResourceString("RetryingDownloadTimeout", $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                                });
+
+                                await Task.Delay(delay, token);
+                            }
+                            else
+                            {
+                                // Re-throw to be caught by the general exception handler for proper user messaging
+                                throw;
+                            }
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // User cancellation
+                            if (IsUserCancellation)
+                                break;
+
+                            currentRetry++;
+                            if (currentRetry < RetryMaxAttempts)
+                            {
+                                // Calculate delay with exponential backoff
+                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                                OnProgressChanged(new DownloadProgressEventArgs
+                                {
+                                    ProgressPercentage = 0,
+                                    StatusMessage = GetResourceString("RetryingDownloadTimeout", $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                                });
+
+                                await Task.Delay(delay, token);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        catch (HttpRequestException ex)
+                        {
+                            // Notify developer
+                            _ = _logErrors.LogErrorAsync(ex, $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}");
+
+                            currentRetry++;
+                            if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                            {
+                                // Calculate delay with exponential backoff
+                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                                OnProgressChanged(new DownloadProgressEventArgs
+                                {
+                                    ProgressPercentage = 0,
+                                    StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                                });
+
+                                await Task.Delay(delay, token);
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                        catch (IOException ioEx) // Catch IOException
+                        {
+                            // Check if the message indicates a file lock
+                            if (ioEx.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
+                            {
+                                IsFileLockedDuringDownload = true;
+                                // Log this specific error, then re-throw to be caught by the outer catch.
+                                _ = _logErrors.LogErrorAsync(ioEx, $"File locked during download attempt {currentRetry + 1}: {downloadFilePath}");
+                                throw; // Re-throw to exit the retry loop and be handled by the outer catch
+                            }
+                            else
+                            {
+                                // Not a file lock, handle as a generic IOException during retry
+                                _ = _logErrors.LogErrorAsync(ioEx, $"I/O error during download attempt {currentRetry + 1}: {downloadFilePath}");
+                                currentRetry++;
+                                if (currentRetry >= RetryMaxAttempts || IsUserCancellation)
+                                {
+                                    throw;
+                                }
+
+                                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+                                OnProgressChanged(new DownloadProgressEventArgs
+                                {
+                                    ProgressPercentage = 0,
+                                    StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                                });
+                                await Task.Delay(delay, token);
+                            }
+                        }
+                    }
+
+                    if (IsDownloadCompleted)
+                    {
+                        return downloadFilePath;
+                    }
+                    else
+                    {
+                        if (IsUserCancellation)
+                        {
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("Downloadcanceledbyuser", "Download canceled by user.")
+                            });
+                        }
+                        else if (IsFileLockedDuringDownload) // If download failed due to file lock
+                        {
+                            // No specific progress message here, the caller will show the message box.
+                        }
+                        else
+                        {
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("DownloadFailedAfterRetries", $"Download failed after {RetryMaxAttempts} attempts.")
+                            });
+                        }
+
+                        // Clean up failed download
+                        DeleteFiles.TryDeleteFile(downloadFilePath);
+
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Clean up failed download
+                    DeleteFiles.TryDeleteFile(downloadFilePath);
+
+                    // Reset flags
+                    IsDownloadCompleted = false;
+
+                    // If IsFileLockedDuringDownload is already true, it means the specific IOException
+                    // was caught and identified. No need to re-evaluate.
+                    if (IsFileLockedDuringDownload)
+                    {
+                        throw; // Re-throw for the caller to handle with specific message box
+                    }
+
+                    switch (ex)
+                    {
+                        // Handle specific exceptions
+                        case HttpRequestException { StatusCode: HttpStatusCode.NotFound }:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("ErrorFilenotfoundontheserver", "Error: File not found on the server.")
+                            });
+                            break;
+                        case HttpRequestException { InnerException: AuthenticationException }:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("ErrorSSLConnection", "SSL/TLS connection issue.")
+                            });
+                            break;
+                        case HttpRequestException httpEx:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("Networkerror", $"Network error: {httpEx.Message}")
+                            });
+                            break;
+                        case IOException:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("Fileerror", $"File error: {ex.Message}")
+                            });
+                            break;
+                        case TaskCanceledException when IsUserCancellation:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("Downloadcanceledbyuser", "Download canceled by user.")
+                            });
+                            break;
+                        case TaskCanceledException:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("ErrorDownloadtimedout", "Download timed out.")
+                            });
+                            break;
+                        default:
+                            OnProgressChanged(new DownloadProgressEventArgs
+                            {
+                                ProgressPercentage = 0,
+                                StatusMessage = GetResourceString("Error", $"Error: {ex.Message}")
+                            });
+                            break;
+                    }
+
+                    // Notify developer only if it's not a disk space error
+                    // Disk space errors are user-environment issues, not code issues
+                    if (!ex.Message.Contains("Insufficient disk space") && !ex.Message.Contains("Cannot check disk space"))
+                    {
+                        _ = _logErrors.LogErrorAsync(ex, $"Error downloading file: {downloadUrl}");
+                    }
+
+                    throw;
+                }
+                finally
+                {
+                    if (!success && File.Exists(downloadFilePath))
+                    {
+                        DeleteFiles.TryDeleteFile(downloadFilePath);
+                    }
+
+                    lock (_lock)
+                    {
+                        _cancellationTokenSource?.Dispose();
+                    }
+                }
+        }
+    }
+
+    /// <summary>
+    /// Extracts a compressed file to the specified destination.
+    /// </summary>
+    /// <param name="filePath">The path to the compressed file.</param>
+    /// <param name="destinationPath">The destination path to extract to.</param>
+    /// <returns>True if the extraction was successful, otherwise false.</returns>
+    internal async Task<bool> ExtractFileAsync(string filePath, string destinationPath)
+    {
+        try
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("Extracting",
+                        $"Extracting to {destinationPath}...")
+                });
+            });
+
+            var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath);
+
+            if (result)
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 100,
+                        StatusMessage = GetResourceString("ExtractionCompleted", "Extraction completed successfully.")
+                    });
+                });
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 0,
+                        StatusMessage = GetResourceString("ExtractionFailed", "Extraction failed.")
+                    });
+                });
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("ExtractionError", $"Extraction error: {ex.Message}")
+                });
+            });
+
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
+
+            return false;
+        }
+    }
+
+    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
+    {
+        try
+        {
+            using var response = await _httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            var totalBytes = response.Content.Headers.ContentLength;
+            var totalSizeFormatted = totalBytes.HasValue
+                ? FormatFileSize.FormatToHumanReadable(totalBytes.Value)
+                : GetResourceString("unknownsize", "unknown size");
+
+            // Report initial progress
+            OnProgressChanged(new DownloadProgressEventArgs
+            {
+                BytesReceived = 0,
+                TotalBytesToReceive = totalBytes,
+                ProgressPercentage = 0,
+                StatusMessage = $"{GetResourceString("Startingdownload2", "Starting download")}: {Path.GetFileName(downloadUrl)} ({totalSizeFormatted})"
+            });
+
+            // Open file stream for writing
+            await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
+            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
+
+            // Set up buffer and tracking variables
+            var buffer = new byte[8192];
+            long totalBytesRead = 0;
+            int bytesRead;
+            var lastProgressUpdate = DateTime.Now;
+
+            // Read and write the data in chunks
+            while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
+            {
+                if (IsUserCancellation)
+                {
+                    throw new TaskCanceledException();
+                }
+
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+                totalBytesRead += bytesRead;
+
+                // Limit progress updates to reduce UI thread congestion (update every ~100ms)
+                var now = DateTime.Now;
+                if (!((now - lastProgressUpdate).TotalMilliseconds >= 100)) continue;
+
+                var progressPercentage = totalBytes.HasValue
+                    ? (double)totalBytesRead / totalBytes.Value * 100
+                    : 0;
+
+                var sizeStatus = totalBytes.HasValue
+                    ? $"{FormatFileSize.FormatToHumanReadable(totalBytesRead)} of {FormatFileSize.FormatToHumanReadable(totalBytes.Value)}"
+                    : $"{FormatFileSize.FormatToHumanReadable(totalBytesRead)} of {totalSizeFormatted}";
+
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    BytesReceived = totalBytesRead,
+                    TotalBytesToReceive = totalBytes,
+                    ProgressPercentage = progressPercentage,
+                    StatusMessage = $"{GetResourceString("Downloading", "Downloading")}: {sizeStatus} ({progressPercentage:F1}%)"
+                });
+
+                lastProgressUpdate = now;
+            }
+
+            // Check if the file was fully downloaded
+            if (totalBytesRead == totalBytes)
+            {
+                IsDownloadCompleted = true;
+
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    BytesReceived = totalBytesRead,
+                    TotalBytesToReceive = totalBytes,
+                    ProgressPercentage = 100,
+                    StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
+                });
+            }
+            else if (totalBytes.HasValue)
+            {
+                IsDownloadCompleted = false;
+
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    BytesReceived = totalBytesRead,
+                    TotalBytesToReceive = totalBytes,
+                    ProgressPercentage = 0,
+                    StatusMessage = $"{GetResourceString("Downloadincomplete", "Download incomplete")}: " +
+                                    $"{GetResourceString("Expected", "Expected")} {FormatFileSize.FormatToHumanReadable(totalBytes.Value)} " +
+                                    $"{GetResourceString("butreceived", "but received")} {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
+                });
+
+                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
+            }
+            else
+            {
+                // If the server didn't provide a content length, assume the download is complete
+                IsDownloadCompleted = true;
+
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    BytesReceived = totalBytesRead,
+                    TotalBytesToReceive = totalBytesRead,
+                    ProgressPercentage = 100,
+                    StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
+                });
+            }
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"The requested file was not available on the server.\nURL: {downloadUrl}");
+
+            // Notify user
+            OnProgressChanged(new DownloadProgressEventArgs
+            {
+                ProgressPercentage = 0,
+                StatusMessage = GetResourceString("ErrorFilenotfoundontheserver", "Error: File not found on the server.")
+            });
+
+            throw;
+        }
+        catch (HttpRequestException ex)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"Network error during file download.\nURL: {downloadUrl}");
+
+            // Notify user
+            OnProgressChanged(new DownloadProgressEventArgs
+            {
+                ProgressPercentage = 0,
+                StatusMessage = $"{GetResourceString("Networkerror", "Network error")}: {ex.Message}"
+            });
+
+            throw;
+        }
+        catch (IOException ex)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"I/O error during file download stream processing.\nURL: {downloadUrl}");
+
+            // Notify user
+            OnProgressChanged(new DownloadProgressEventArgs
+            {
+                ProgressPercentage = 0,
+                StatusMessage = $"{GetResourceString("Fileerror", "File error")}: {ex.Message}"
+            });
+
+            throw;
+        }
+        catch (TaskCanceledException ex)
+        {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(ex, $"Download was canceled by the user.\nURL: {downloadUrl}");
+
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("Downloadcanceledbyuser", "Download canceled by user")
+                });
+            }
+            else
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(ex, $"Download timed out or was canceled unexpectedly.\nURL: {downloadUrl}");
+
+                // Notify user
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("ErrorDownloadtimedout", "Download timed out or was canceled unexpectedly")
+                });
+            }
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"Generic download error.\nURL: {downloadUrl}");
+
+            // Notify user
+            OnProgressChanged(new DownloadProgressEventArgs
+            {
+                ProgressPercentage = 0,
+                StatusMessage = $"{GetResourceString("Error", "Error")}: {ex.Message}"
+            });
+
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Checks if there is enough disk space available in the specified folder.
+    /// </summary>
+    /// <param name="folderPath">The folder path to check.</param>
+    /// <param name="requiredSpace">The required space in bytes (default is 5GB).</param>
+    /// <returns>True if enough space is available, false if insufficient, null if cannot be checked.</returns>
+    private static bool? CheckAvailableDiskSpace(string folderPath, long requiredSpace = 5368709120)
+    {
+        try
+        {
+            folderPath = Path.GetFullPath(folderPath);
+            var driveInfo = new DriveInfo(Path.GetPathRoot(folderPath) ?? throw new InvalidOperationException("Could not get the drive info"));
+            return driveInfo.AvailableFreeSpace > requiredSpace;
+        }
+        catch
+        {
+            // If we can't check disk space (e.g., network drive issues, permissions),
+            // return null to indicate inability to check rather than insufficient space.
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Gets a localized string from resources.
+    /// </summary>
+    /// <param name="resourceKey">The resource key.</param>
+    /// <param name="defaultValue">The default value if the resource is not found.</param>
+    /// <returns>The localized string or the default value.</returns>
+    private static string GetResourceString(string resourceKey, string defaultValue)
+    {
+        return (string)Application.Current.TryFindResource(resourceKey) ?? defaultValue;
+    }
+
+    /// <summary>
+    /// Raises the DownloadProgressChanged event.
+    /// </summary>
+    /// <param name="e">The event arguments.</param>
+    protected virtual void OnProgressChanged(DownloadProgressEventArgs e)
+    {
+        DownloadProgressChanged?.Invoke(this, e);
+    }
+
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+
+        lock (_lock)
+        {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+        }
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+}

@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.Utils;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 

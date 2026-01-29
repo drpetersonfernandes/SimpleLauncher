@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Windows;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.Utils;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;

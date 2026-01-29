@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher;

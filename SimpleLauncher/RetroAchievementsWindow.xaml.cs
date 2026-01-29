@@ -7,11 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher;
 

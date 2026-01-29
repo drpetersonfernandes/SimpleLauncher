@@ -2,7 +2,8 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher;
 

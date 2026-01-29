@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using SimpleLauncher.Managers;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager settings, string systemRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, string systemRomPath = null)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))

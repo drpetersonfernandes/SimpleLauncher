@@ -11,15 +11,23 @@ using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
-using SimpleLauncher.Interfaces;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 using SimpleLauncher.Services.CleanFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.LaunchTools;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.MountFiles;
+using SimpleLauncher.Services.PlayHistory;
+using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.UsageStats;
+using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;
 

@@ -9,17 +9,19 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Xml.Linq;
 using Microsoft.Win32;
-using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using System.Xml;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.DownloadService;
+using SimpleLauncher.Services.DownloadService.Models;
+using SimpleLauncher.Services.EasyMode;
+using SimpleLauncher.Services.EasyMode.Models;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.Utils;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
@@ -850,7 +852,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
                     // Create System Folders using *resolved* paths
-                    CreateSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                    CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
                     var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                     DownloadStatus = systemhasbeensuccessfullyadded;

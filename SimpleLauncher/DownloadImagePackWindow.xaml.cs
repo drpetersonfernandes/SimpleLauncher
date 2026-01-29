@@ -8,13 +8,15 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using SimpleLauncher.Services.DownloadService;
+using SimpleLauncher.Services.DownloadService.Models;
+using SimpleLauncher.Services.EasyMode;
+using SimpleLauncher.Services.EasyMode.Models;
+using SimpleLauncher.Services.MessageBox;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

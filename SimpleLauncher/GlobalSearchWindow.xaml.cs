@@ -9,13 +9,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using SimpleLauncher.Managers;
-using SimpleLauncher.Models;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.ContextMenu.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameLauncher;
-using SimpleLauncher.Services.Utils;
-using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
+using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.GlobalSearch.Models;
+using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
@@ -479,7 +486,7 @@ internal partial class GlobalSearchWindow : IDisposable
                 _playSoundEffects
             );
 
-            var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
             if (contextMenu != null)
             {
                 ResultsDataGrid.ContextMenu = contextMenu;
