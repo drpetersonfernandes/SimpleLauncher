@@ -8,15 +8,15 @@ public static partial class WindowScreenshot
 {
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static partial bool GetWindowRect(IntPtr hWnd, out Models.WindowScreenshot.Rectangle lpRectangle);
+    public static partial bool GetWindowRect(IntPtr hWnd, out SharedModels.WindowScreenshot.Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool GetClientRect(IntPtr hWnd, out Models.WindowScreenshot.Rectangle lpRectangle);
+    private static partial bool GetClientRect(IntPtr hWnd, out SharedModels.WindowScreenshot.Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool ClientToScreen(IntPtr hWnd, ref Models.WindowScreenshot.Point lpPoint);
+    private static partial bool ClientToScreen(IntPtr hWnd, ref SharedModels.WindowScreenshot.Point lpPoint);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -28,9 +28,9 @@ public static partial class WindowScreenshot
     /// <param name="hWnd">Handle to the window.</param>
     /// <param name="clientRectangle">The rectangle of the client area in screen coordinates.</param>
     /// <returns>True if the client area was successfully retrieved, false otherwise.</returns>
-    public static bool GetClientAreaRect(IntPtr hWnd, out Models.WindowScreenshot.Rectangle clientRectangle)
+    public static bool GetClientAreaRect(IntPtr hWnd, out SharedModels.WindowScreenshot.Rectangle clientRectangle)
     {
-        clientRectangle = new Models.WindowScreenshot.Rectangle();
+        clientRectangle = new SharedModels.WindowScreenshot.Rectangle();
 
         // Check if the window is minimized (iconic)
         if (IsIconic(hWnd))
@@ -46,7 +46,7 @@ public static partial class WindowScreenshot
         }
 
         // Get the top-left corner of the client area in screen coordinates
-        var clientTopLeft = new Models.WindowScreenshot.Point { X = localClientRect.Left, Y = localClientRect.Top };
+        var clientTopLeft = new SharedModels.WindowScreenshot.Point { X = localClientRect.Left, Y = localClientRect.Top };
         if (!ClientToScreen(hWnd, ref clientTopLeft))
         {
             DebugLogger.Log($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");

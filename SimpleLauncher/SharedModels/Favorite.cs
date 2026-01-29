@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MessagePack;
 
-namespace SimpleLauncher.Services.Favorites.Models;
+namespace SimpleLauncher.SharedModels;
 
 [MessagePackObject]
 public class Favorite : INotifyPropertyChanged

@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleLauncher.Services.DownloadService.Models;
+namespace SimpleLauncher.SharedModels;
 
 /// <inheritdoc />
 /// <summary>

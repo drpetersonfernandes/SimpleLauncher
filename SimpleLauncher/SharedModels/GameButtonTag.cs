@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Services.GameItemFactory.Models;
+namespace SimpleLauncher.SharedModels;
 
 public class GameButtonTag
 {

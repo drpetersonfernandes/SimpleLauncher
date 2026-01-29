@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using SimpleLauncher.Services.EasyMode.Models;
 
 // Required for DefaultValueAttribute
 
-namespace SimpleLauncher.Services.EasyMode.Models;
+namespace SimpleLauncher.SharedModels;
 
 public class EasyModeSystemConfig
 {

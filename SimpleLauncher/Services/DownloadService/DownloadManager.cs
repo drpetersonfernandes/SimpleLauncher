@@ -10,6 +10,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.Utils;
+using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.DownloadService;
 

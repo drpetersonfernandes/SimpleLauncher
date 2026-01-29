@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Services.GameScan.Models;
+namespace SimpleLauncher.SharedModels;
 
 public class SelectableGameItem
 {

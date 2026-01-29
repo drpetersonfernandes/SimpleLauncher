@@ -11,14 +11,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Services.ContextMenu;
-using SimpleLauncher.Services.ContextMenu.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
-using SimpleLauncher.Services.GameItemFactory.Models;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.SharedModels;
 using Image = System.Windows.Controls.Image;
 
 // ReSharper disable UnusedMember.Local

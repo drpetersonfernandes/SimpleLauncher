@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.SettingsManager.Models;
+using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.SettingsManager;
 

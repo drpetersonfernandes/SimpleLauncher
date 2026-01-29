@@ -20,7 +20,7 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
-internal partial class GlobalStatsWindow
+internal partial class GlobalStatsWindow : IDisposable
 {
     private readonly List<SystemManager> _systemManagers;
     private GlobalStatsData _globalStats;
@@ -439,5 +439,10 @@ internal partial class GlobalStatsWindow
                 }
             }
         }
+    }
+
+    public void Dispose()
+    {
+        _cancellationTokenSource?.Dispose();
     }
 }

@@ -6,16 +6,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.ContextMenu.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
-using SimpleLauncher.Services.GameItemFactory.Models;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;

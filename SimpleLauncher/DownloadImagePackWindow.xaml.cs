@@ -14,8 +14,8 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.EasyMode;
-using SimpleLauncher.Services.EasyMode.Models;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;

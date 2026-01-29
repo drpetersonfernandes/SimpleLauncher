@@ -8,8 +8,8 @@ using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.PlayHistory.Models;
 using SimpleLauncher.Services.Utils;
+using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.PlayHistory;

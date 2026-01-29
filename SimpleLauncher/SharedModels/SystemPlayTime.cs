@@ -1,6 +1,6 @@
 using MessagePack;
 
-namespace SimpleLauncher.Services.SettingsManager.Models;
+namespace SimpleLauncher.SharedModels;
 
 [MessagePackObject]
 public class SystemPlayTime

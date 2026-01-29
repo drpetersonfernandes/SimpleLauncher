@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--141125-->
+<!--OK        Dolphin - Add a .txt file named "portable"-->
+<!--OK        Xenia - Add a .txt file named "portable"-->
+<!--OK        DuckStation - Add a .txt file named "portable"-->
+<!--OK        Citra - Add a folder named "user"-->
+<!--OK        Azahar - Add a folder named "user"-->
+<!--OK        Cemu - Add a folder named "portable"-->
+<!--OK        Xemu - Add a .toml file named "xemu"-->
+<!--OK        PCSX2 - Add an .ini file named "portable"-->
+<!--OK        puNES - Rename punes64.exe to punes64_p.exe-->
+<!--OK        Project64 - Download the Zip version-->
+<!--OK        mGBA - Download the portable .7z archive version-->
+<!--OK        RMG - Download the portable zip version-->
+<!--OK        PPSSPP - Download the Zip (portable) version-->
+<!--OK        Vita3K - Set to portable mode on startup-->
+
+<EasyMode>
+
+    <EasyModeSystemConfig>
+        <SystemName>Amstrad CPC</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Amstrad CPC</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Amstrad CPC</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch caprice32</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.21.0</CoreLatestVersion>
+                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
+                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ImagePackDownloadLink>
+                <ImagePackDownloadLink2/>
+                <ImagePackDownloadLink3/>
+                <ImagePackDownloadLink4/>
+                <ImagePackDownloadLink5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC</ImagePackDownloadExtractPath>
+
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+</EasyMode>

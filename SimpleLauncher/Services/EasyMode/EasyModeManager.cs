@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.EasyMode.Models;
+using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.EasyMode;
 

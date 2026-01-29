@@ -6,8 +6,8 @@ using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Favorites.Models;
 using SimpleLauncher.Services.Utils;
+using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.Favorites;
 

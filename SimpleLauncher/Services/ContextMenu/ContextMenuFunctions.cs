@@ -13,10 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CleanFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.Favorites.Models;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameItemFactory;
-using SimpleLauncher.Services.GameItemFactory.Models;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
@@ -24,11 +22,12 @@ using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
 using SimpleLauncher.Services.Utils;
+using SimpleLauncher.SharedModels;
 using Image = System.Windows.Controls.Image;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
-using WindowScreenshot = SimpleLauncher.Services.TakeScreenshot.Models.WindowScreenshot;
+using WindowScreenshot = SimpleLauncher.SharedModels.WindowScreenshot;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
