@@ -103,7 +103,7 @@ public class PlaySoundEffects
             }
 
             var playerInstance = new MediaPlayer();
-            playerInstance.MediaEnded += static (sender, e) =>
+            playerInstance.MediaEnded += static (sender, _) =>
             {
                 if (sender is not MediaPlayer endedPlayer) return;
 

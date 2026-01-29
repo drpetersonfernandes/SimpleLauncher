@@ -37,10 +37,10 @@ public class RaAchievement
         }
     }
 
-    public string ModeDisplay => UnlockedInHardcore ? "Hardcore" : (IsUnlocked ? "Casual" : "Not Earned");
+    public string ModeDisplay => UnlockedInHardcore ? "Hardcore" : IsUnlocked ? "Casual" : "Not Earned";
     public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;
 
     public string RarityDisplay => NumAwarded > 0 && NumAwardedHardcore > 0
-        ? $"{((double)NumAwardedHardcore / NumAwarded * 100):F1}% hardcore"
+        ? $"{(double)NumAwardedHardcore / NumAwarded * 100:F1}% hardcore"
         : "N/A";
 }

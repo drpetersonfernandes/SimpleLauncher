@@ -101,7 +101,7 @@ public partial class InjectXeniaConfigWindow
         Close();
     }
 
-    private void SelectComboByTag(ComboBox cmb, string tagValue)
+    private static void SelectComboByTag(ComboBox cmb, string tagValue)
     {
         foreach (ComboBoxItem item in cmb.Items)
         {
@@ -118,7 +118,7 @@ public partial class InjectXeniaConfigWindow
         }
     }
 
-    private string GetSelectedTag(ComboBox cmb)
+    private static string GetSelectedTag(ComboBox cmb)
     {
         if (cmb.SelectedItem is ComboBoxItem item)
         {

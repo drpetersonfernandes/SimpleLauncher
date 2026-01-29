@@ -105,7 +105,7 @@ public partial class UpdateHistoryWindow
         }
     }
 
-    private static readonly char[] Separator = new[] { '\r', '\n' };
+    private static readonly char[] Separator = ['\r', '\n'];
 
     /// <summary>
     /// Parses inline Markdown in a line (bold **text**, italic *text* or _text_, links [text](url)) and adds formatted Inlines to the TextBlock.

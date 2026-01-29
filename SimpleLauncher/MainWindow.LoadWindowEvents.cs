@@ -57,7 +57,7 @@ public partial class MainWindow
         DebugLogger.Log("Pagination was set.");
 
         // Initialize TrayIconManager
-        _trayIconManager = new TrayIconManager(this, _settings, _gamePadController);
+        _trayIconManager = new TrayIconManager(this);
         DebugLogger.Log("TrayIconManager was initialized.");
 
         // Check for required files

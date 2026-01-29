@@ -6,9 +6,9 @@ using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanItchioGames
+public static class ScanItchioGames
 {
-    private static readonly char[] Separator = new[] { '=' };
+    private static readonly char[] Separator = ['='];
 
     public static async Task ScanItchioGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {

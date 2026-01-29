@@ -73,31 +73,19 @@ public static class XeniaConfigurationService
 
             // [HID]
             var hid = GetTable("HID");
-            if (hid != null)
-            {
-                hid["hid"] = settings.XeniaHid;
-            }
+            hid?["hid"] = settings.XeniaHid;
 
             // [Kernel]
             var kernel = GetTable("Kernel");
-            if (kernel != null)
-            {
-                kernel["apply_patches"] = settings.XeniaApplyPatches;
-            }
+            kernel?["apply_patches"] = settings.XeniaApplyPatches;
 
             // [Logging]
             var logging = GetTable("Logging");
-            if (logging != null)
-            {
-                logging["show_console"] = false;
-            }
+            logging?["show_console"] = false;
 
             // [XConfig]
             var xconfig = GetTable("XConfig");
-            if (xconfig != null)
-            {
-                xconfig["user_language"] = settings.XeniaUserLanguage;
-            }
+            xconfig?["user_language"] = settings.XeniaUserLanguage;
 
             // 3. Write back to disk
             var updatedToml = Toml.FromModel(model);

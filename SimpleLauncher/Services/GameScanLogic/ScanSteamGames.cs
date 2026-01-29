@@ -225,9 +225,9 @@ internal static class ScanSteamGames
                 {
                     try
                     {
-                        using var icon = new System.Drawing.Icon(modIcon, 256, 256);
+                        using var icon = new Icon(modIcon, 256, 256);
                         using var bmp = icon.ToBitmap();
-                        bmp.Save(destArtworkPath, System.Drawing.Imaging.ImageFormat.Png);
+                        bmp.Save(destArtworkPath, ImageFormat.Png);
                     }
                     catch
                     {

@@ -10,7 +10,7 @@ public partial class WindowSelectionDialogWindow
 {
     public IntPtr SelectedWindowHandle { get; private set; } = IntPtr.Zero;
 
-    public WindowSelectionDialogWindow(List<(IntPtr Handle, string Title)> windows)
+    public WindowSelectionDialogWindow(IEnumerable<(IntPtr Handle, string Title)> windows)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

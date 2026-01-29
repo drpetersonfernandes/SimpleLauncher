@@ -10,40 +10,40 @@ using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public class ScanBattleNetGames
+public partial class ScanBattleNetGames
 {
     // Mapping from InternalId (found in registry) to Readable Name and Executable (for icons)
-    private static readonly List<BNetAppDef> AppDefinitions = new()
-    {
-        new BNetAppDef { InternalId = "wow", Name = "World of Warcraft" },
-        new BNetAppDef { InternalId = "diablo3", Name = "Diablo III" },
-        new BNetAppDef { InternalId = "s2", Name = "StarCraft II" },
-        new BNetAppDef { InternalId = "s1", Name = "StarCraft" },
-        new BNetAppDef { InternalId = "hs_beta", Name = "Hearthstone" },
-        new BNetAppDef { InternalId = "heroes", Name = "Heroes of the Storm" },
-        new BNetAppDef { InternalId = "prometheus", Name = "Overwatch 2" },
-        new BNetAppDef { InternalId = "viper", Name = "Call of Duty Black Ops 4" },
-        new BNetAppDef { InternalId = "odin", Name = "Call of Duty Modern Warfare" },
-        new BNetAppDef { InternalId = "w3", Name = "Warcraft III Reforged" },
-        new BNetAppDef { InternalId = "lazarus", Name = "Call of Duty MW2 Campaign Remastered" },
-        new BNetAppDef { InternalId = "zeus", Name = "Call of Duty Black Ops Cold War" },
-        new BNetAppDef { InternalId = "wlby", Name = "Crash Bandicoot 4" },
-        new BNetAppDef { InternalId = "osi", Name = "Diablo II Resurrected" },
-        new BNetAppDef { InternalId = "rtro", Name = "Blizzard Arcade Collection" },
-        new BNetAppDef { InternalId = "fore", Name = "Call of Duty Vanguard" },
-        new BNetAppDef { InternalId = "anbs", Name = "Diablo Immortal" },
-        new BNetAppDef { InternalId = "auks", Name = "Call of Duty Modern Warfare II" },
-        new BNetAppDef { InternalId = "Fen", Name = "Diablo IV" },
-        new BNetAppDef { InternalId = "gryphon", Name = "Warcraft Rumble" },
-        new BNetAppDef { InternalId = "w1", Name = "Warcraft: Orcs & Humans" },
-        new BNetAppDef { InternalId = "w2", Name = "Warcraft II: Battle.net Edition" },
-        new BNetAppDef { InternalId = "w1r", Name = "Warcraft: Remastered" },
-        new BNetAppDef { InternalId = "w2r", Name = "Warcraft II: Remastered" },
-        new BNetAppDef { InternalId = "d1", Name = "Diablo" },
+    private static readonly List<BNetAppDef> AppDefinitions =
+    [
+        new() { InternalId = "wow", Name = "World of Warcraft" },
+        new() { InternalId = "diablo3", Name = "Diablo III" },
+        new() { InternalId = "s2", Name = "StarCraft II" },
+        new() { InternalId = "s1", Name = "StarCraft" },
+        new() { InternalId = "hs_beta", Name = "Hearthstone" },
+        new() { InternalId = "heroes", Name = "Heroes of the Storm" },
+        new() { InternalId = "prometheus", Name = "Overwatch 2" },
+        new() { InternalId = "viper", Name = "Call of Duty Black Ops 4" },
+        new() { InternalId = "odin", Name = "Call of Duty Modern Warfare" },
+        new() { InternalId = "w3", Name = "Warcraft III Reforged" },
+        new() { InternalId = "lazarus", Name = "Call of Duty MW2 Campaign Remastered" },
+        new() { InternalId = "zeus", Name = "Call of Duty Black Ops Cold War" },
+        new() { InternalId = "wlby", Name = "Crash Bandicoot 4" },
+        new() { InternalId = "osi", Name = "Diablo II Resurrected" },
+        new() { InternalId = "rtro", Name = "Blizzard Arcade Collection" },
+        new() { InternalId = "fore", Name = "Call of Duty Vanguard" },
+        new() { InternalId = "anbs", Name = "Diablo Immortal" },
+        new() { InternalId = "auks", Name = "Call of Duty Modern Warfare II" },
+        new() { InternalId = "Fen", Name = "Diablo IV" },
+        new() { InternalId = "gryphon", Name = "Warcraft Rumble" },
+        new() { InternalId = "w1", Name = "Warcraft: Orcs & Humans" },
+        new() { InternalId = "w2", Name = "Warcraft II: Battle.net Edition" },
+        new() { InternalId = "w1r", Name = "Warcraft: Remastered" },
+        new() { InternalId = "w2r", Name = "Warcraft II: Remastered" },
+        new() { InternalId = "d1", Name = "Diablo" },
         // Classics
-        new BNetAppDef { InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe", ProductId = "D2" },
-        new BNetAppDef { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
-    };
+        new() { InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe", ProductId = "D2" },
+        new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
+    ];
 
     public static async Task ScanBattleNetGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
@@ -74,7 +74,7 @@ public class ScanBattleNetGames
                         if (string.IsNullOrEmpty(uninstallString)) continue;
 
                         // Check for Battle.net UID in uninstall string
-                        var match = Regex.Match(uninstallString, @"Battle\.net.*--uid=(.*?)(?:\s|$)");
+                        var match = MyRegex().Match(uninstallString);
 
                         if (match.Success)
                         {
@@ -134,4 +134,7 @@ public class ScanBattleNetGames
             await logErrors.LogErrorAsync(ex, "An error occurred while scanning for Battle.net games.");
         }
     }
+
+    [GeneratedRegex(@"Battle\.net.*--uid=(.*?)(?:\s|$)")]
+    private static partial Regex MyRegex();
 }

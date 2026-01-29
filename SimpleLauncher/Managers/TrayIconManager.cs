@@ -22,7 +22,7 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    public TrayIconManager(Window mainWindow, SettingsManager settings, GamePadController gamePadController)
+    public TrayIconManager(Window mainWindow)
     {
         _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
