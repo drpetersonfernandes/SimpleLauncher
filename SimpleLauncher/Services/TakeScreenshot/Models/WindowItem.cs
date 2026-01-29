@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleLauncher.Models;
+namespace SimpleLauncher.Services.TakeScreenshot.Models;
 
 public class WindowItem
 {

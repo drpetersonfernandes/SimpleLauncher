@@ -17,7 +17,9 @@ using SimpleLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Utils;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 
 namespace SimpleLauncher;
 

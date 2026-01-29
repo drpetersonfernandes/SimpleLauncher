@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;

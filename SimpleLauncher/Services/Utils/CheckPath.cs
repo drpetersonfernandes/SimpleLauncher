@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.Utils;
 
 public static class CheckPath
 {

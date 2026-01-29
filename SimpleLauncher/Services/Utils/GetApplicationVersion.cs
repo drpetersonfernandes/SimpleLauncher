@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Windows;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.Utils;
 
 public static class GetApplicationVersion
 {

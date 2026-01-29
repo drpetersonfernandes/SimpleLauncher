@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services;
 
 public class SupportFromTheDeveloper
 {
-    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
+    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher.GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
     {
         Application.Current.Dispatcher.Invoke(() =>
         {

@@ -3,8 +3,8 @@ using System.IO;
 using System.Windows;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 

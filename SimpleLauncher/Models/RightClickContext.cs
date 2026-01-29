@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using System;
+using SimpleLauncher.Services.GameLauncher;
 
 namespace SimpleLauncher.Models;
 

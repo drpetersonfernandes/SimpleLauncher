@@ -13,7 +13,8 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 
 namespace SimpleLauncher;
 

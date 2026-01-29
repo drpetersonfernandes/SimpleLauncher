@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.Utils;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.GameLauncher;
 
 public class GameLauncher
 {

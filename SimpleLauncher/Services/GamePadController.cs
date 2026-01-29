@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Utils;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 

@@ -7,6 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher.Services;
 

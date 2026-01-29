@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 using Application = System.Windows.Application;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 
 namespace SimpleLauncher;
 

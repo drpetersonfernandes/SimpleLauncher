@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SimpleLauncher.Services.TakeScreenshot;
+namespace SimpleLauncher.Services.TakeScreenshot.Models;
 
 public static partial class WindowScreenshot
 {

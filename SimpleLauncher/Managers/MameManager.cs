@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Managers;
 

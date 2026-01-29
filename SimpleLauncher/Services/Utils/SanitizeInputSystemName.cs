@@ -1,9 +1,9 @@
 using System;
 using System.IO;
-using System.Text;
 using System.Linq;
+using System.Text;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.Utils;
 
 public static class SanitizeInputSystemName
 {

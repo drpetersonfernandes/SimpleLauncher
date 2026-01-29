@@ -7,9 +7,10 @@ using System.Linq;
 using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 
 namespace SimpleLauncher.Managers;
 

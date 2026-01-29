@@ -6,9 +6,10 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher.Managers;
 

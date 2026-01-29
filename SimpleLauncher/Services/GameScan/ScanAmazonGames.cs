@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher.Services.GameScan;
 

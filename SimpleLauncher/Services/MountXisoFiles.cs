@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services;
@@ -54,7 +53,7 @@ public static class MountXisoFiles
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 
         var toolRelativePath = GetToolPath();
-        var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(toolRelativePath);
+        var resolvedToolPath = Utils.PathHelper.ResolveRelativeToAppDirectory(toolRelativePath);
 
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Path to tool: {resolvedToolPath}");
 

@@ -6,9 +6,10 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher.Managers;
 

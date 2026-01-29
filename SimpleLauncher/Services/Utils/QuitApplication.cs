@@ -1,11 +1,13 @@
 using System;
 using System.Diagnostics;
-using System.Globalization; // Add this using directive
+using System.Globalization;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services;
+// Add this using directive
+
+namespace SimpleLauncher.Services.Utils;
 
 public static class QuitApplication
 {

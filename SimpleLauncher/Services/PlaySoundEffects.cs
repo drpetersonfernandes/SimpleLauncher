@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Windows.Media;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
- 
+using SimpleLauncher.Services.DebugAndBugReport;
+
 namespace SimpleLauncher.Services;
 
 public class PlaySoundEffects

@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 
 namespace SimpleLauncher;
 

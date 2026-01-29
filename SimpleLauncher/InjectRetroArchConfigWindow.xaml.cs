@@ -3,9 +3,9 @@ using System.Windows;
 using SimpleLauncher.Managers;
 using System.Windows.Controls;
 using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 

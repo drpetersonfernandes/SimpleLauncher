@@ -2,8 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services;
 
@@ -40,7 +40,7 @@ public static class FindCoverImage
         }
         else
         {
-            systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
+            systemImageFolder = Utils.PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
         }
 
         // Check if the resolved system image folder path is valid before proceeding

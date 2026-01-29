@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimpleLauncher.Interfaces;
+namespace SimpleLauncher.Services.ExtractFiles;
 
 public interface IExtractionService
 {

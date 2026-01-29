@@ -1,11 +1,11 @@
 using System.Runtime.InteropServices;
 
-namespace SimpleLauncher.Services.TakeScreenshot;
+namespace SimpleLauncher.Services.TakeScreenshot.Models;
 
 public static partial class WindowScreenshot
 {
     [StructLayout(LayoutKind.Sequential)]
-    private struct Point
+    public struct Point
     {
         public int X;
         public int Y;

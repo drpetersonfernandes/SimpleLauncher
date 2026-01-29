@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.Utils;
 
 public static class ReinstallSimpleLauncher
 {

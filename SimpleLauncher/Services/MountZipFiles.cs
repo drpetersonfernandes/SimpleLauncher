@@ -8,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services.DebugAndBugReport;
 
@@ -110,12 +109,12 @@ internal static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher gameLauncher)
+        GameLauncher.GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
+        var resolvedZipMountExePath = Utils.PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
         DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
@@ -333,12 +332,12 @@ internal static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher gameLauncher)
+        GameLauncher.GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
+        var resolvedZipMountExePath = Utils.PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
         DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
@@ -592,7 +591,7 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
+        var resolvedZipMountExePath = Utils.PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
         DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
@@ -698,7 +697,7 @@ internal static class MountZipFiles
             // --- Custom ScummVM Launch Logic ---
 
             // 1. Resolve Emulator Path
-            var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
+            var resolvedEmulatorExePath = Utils.PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
             if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
             {
                 throw new FileNotFoundException($"Emulator executable not found: {selectedEmulatorManager.EmulatorLocation}");
@@ -710,10 +709,10 @@ internal static class MountZipFiles
                 throw new FileNotFoundException("Emulator executable folder could not be determined");
             }
 
-            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
+            var resolvedSystemFolderPath = Utils.PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
 
             // 2. Resolve Parameters
-            var resolvedParameters = PathHelper.ResolveParameterString(
+            var resolvedParameters = Utils.PathHelper.ResolveParameterString(
                 selectedEmulatorParameters,
                 resolvedSystemFolderPath,
                 resolvedEmulatorFolderPath

@@ -3,9 +3,9 @@ using System;
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher;
 

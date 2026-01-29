@@ -17,10 +17,12 @@ using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.UiHelpers;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 
 namespace SimpleLauncher;
 

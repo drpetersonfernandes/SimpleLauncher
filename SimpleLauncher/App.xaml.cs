@@ -16,6 +16,8 @@ using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using SimpleLauncher.Services.CleanFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.RetroAchievements;
 

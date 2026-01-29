@@ -8,8 +8,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameLauncher;
 
 namespace SimpleLauncher;
 

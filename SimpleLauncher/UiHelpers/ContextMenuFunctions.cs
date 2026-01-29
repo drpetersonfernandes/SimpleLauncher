@@ -15,13 +15,15 @@ using SimpleLauncher.Services;
 using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 using System.Windows;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CleanFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.Utils;
+using PathHelper = SimpleLauncher.Services.Utils.PathHelper;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
-using WindowScreenshot = SimpleLauncher.Services.TakeScreenshot.WindowScreenshot;
+using WindowScreenshot = SimpleLauncher.Services.TakeScreenshot.Models.WindowScreenshot;
 
 namespace SimpleLauncher.UiHelpers;
 
@@ -141,7 +143,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings, MainWindow mainWindow)
+    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager> machines, SettingsManager settings, MainWindow mainWindow)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -179,7 +181,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings, MainWindow mainWindow)
+    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager> machines, SettingsManager settings, MainWindow mainWindow)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -217,7 +219,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemManager systemManager, List<MameManager> machines, MainWindow mainWindow)
+    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemManager systemManager, IEnumerable<MameManager> machines, MainWindow mainWindow)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -832,10 +834,10 @@ internal static class ContextMenuFunctions
             WindowScreenshot.Rectangle rectangle;
 
             // Try to get the client area dimensions
-            if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
+            if (!Services.TakeScreenshot.WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
             {
                 // If the client area fails, fall back to the full window dimensions
-                if (!WindowScreenshot.GetWindowRect(hWnd, out rectangle))
+                if (!Services.TakeScreenshot.WindowScreenshot.GetWindowRect(hWnd, out rectangle))
                 {
                     throw new InvalidOperationException("Failed to retrieve window dimensions.");
                 }

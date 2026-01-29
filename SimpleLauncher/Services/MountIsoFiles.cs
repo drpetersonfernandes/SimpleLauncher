@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services.DebugAndBugReport;
 
@@ -23,7 +22,7 @@ public static class MountIsoFiles
         MainWindow mainWindow,
         GamePadController gamePadController,
         string logPath,
-        GameLauncher gameLauncher)
+        GameLauncher.GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountIsoFiles] Starting to mount ISO using PowerShell: {resolvedIsoFilePath}");
         DebugLogger.Log($"[MountIsoFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");

@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.Utils;
 
 public static class GetWindowsVersion
 {

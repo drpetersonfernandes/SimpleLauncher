@@ -5,6 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Utils;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.Services;

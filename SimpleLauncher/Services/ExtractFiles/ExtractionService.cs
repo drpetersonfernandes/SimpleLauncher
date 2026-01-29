@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
-using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.CleanFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Utils;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.ExtractFiles;
 
 public class ExtractionService : IExtractionService
 {
