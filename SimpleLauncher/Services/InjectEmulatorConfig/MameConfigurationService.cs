@@ -28,7 +28,7 @@ public static class MameConfigurationService
             DebugLogger.Log($"[MameConfig] Injecting configuration into: {configPath}");
 
             // Prepare the settings dictionary
-            var updates = new Dictionary<string, string>
+            var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "video", settings.MameVideo },
                 { "window", settings.MameWindow ? "1" : "0" },
@@ -37,11 +37,19 @@ public static class MameConfigurationService
                 { "skip_gameinfo", settings.MameSkipGameInfo ? "1" : "0" },
                 { "autosave", settings.MameAutosave ? "1" : "0" },
                 { "confirm_quit", settings.MameConfirmQuit ? "1" : "0" },
-                { "joystick", settings.MameJoystick ? "1" : "0" }
+                { "joystick", settings.MameJoystick ? "1" : "0" },
+                { "autoframeskip", settings.MameAutoframeskip ? "1" : "0" },
+                { "bgfx_backend", settings.MameBgfxBackend },
+                { "bgfx_screen_chains", settings.MameBgfxScreenChains },
+                { "filter", settings.MameFilter ? "1" : "0" },
+                { "cheat", settings.MameCheat ? "1" : "0" },
+                { "rewind", settings.MameRewind ? "1" : "0" },
+                { "nvram_save", settings.MameNvramSave ? "1" : "0" }
             };
 
             var lines = File.ReadAllLines(configPath).ToList();
             var modified = false;
+            var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             for (var i = 0; i < lines.Count; i++)
             {
@@ -59,6 +67,7 @@ public static class MameConfigurationService
                 {
                     // Reconstruct line preserving key, adding spacing, and new value
                     lines[i] = $"{key,-25} {newValue}";
+                    keysFound.Add(key);
                     modified = true;
                 }
                 // Handle rompath specifically to append/inject the system folder
@@ -75,6 +84,17 @@ public static class MameConfigurationService
                         lines[i] = $"{key,-25} {newPaths}";
                         modified = true;
                     }
+
+                    keysFound.Add(key);
+                }
+            }
+
+            foreach (var kvp in updates)
+            {
+                if (!keysFound.Contains(kvp.Key))
+                {
+                    lines.Add($"{kvp.Key,-25} {kvp.Value}");
+                    modified = true;
                 }
             }
 

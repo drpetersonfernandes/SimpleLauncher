@@ -89,6 +89,13 @@ public class SettingsManager
     [Key(51)] public bool MameConfirmQuit { get; set; }
     [Key(52)] public bool MameJoystick { get; set; } = true;
     [Key(53)] public bool MameShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(70)] public bool MameAutoframeskip { get; set; }
+    [Key(71)] public string MameBgfxBackend { get; set; } = "auto";
+    [Key(72)] public string MameBgfxScreenChains { get; set; } = "default";
+    [Key(73)] public bool MameFilter { get; set; } = true;
+    [Key(74)] public bool MameCheat { get; set; }
+    [Key(75)] public bool MameRewind { get; set; }
+    [Key(76)] public bool MameNvramSave { get; set; } = true;
 
     // --- RetroArch Global Configuration ---
     [Key(54)] public bool RetroArchCheevosEnable { get; set; }
@@ -206,6 +213,13 @@ public class SettingsManager
         MameConfirmQuit = other.MameConfirmQuit;
         MameJoystick = other.MameJoystick;
         MameShowSettingsBeforeLaunch = other.MameShowSettingsBeforeLaunch;
+        MameAutoframeskip = other.MameAutoframeskip;
+        MameBgfxBackend = other.MameBgfxBackend;
+        MameBgfxScreenChains = other.MameBgfxScreenChains;
+        MameFilter = other.MameFilter;
+        MameCheat = other.MameCheat;
+        MameRewind = other.MameRewind;
+        MameNvramSave = other.MameNvramSave;
 
         // RetroArch
         RetroArchCheevosEnable = other.RetroArchCheevosEnable;
@@ -290,6 +304,13 @@ public class SettingsManager
             MameConfirmQuit = bool.TryParse(settings.Element("MameConfirmQuit")?.Value, out var mcq) && mcq;
             MameJoystick = !bool.TryParse(settings.Element("MameJoystick")?.Value, out var mj) || mj;
             MameShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("MameShowSettingsBeforeLaunch")?.Value, out var mss) || mss;
+            MameAutoframeskip = bool.TryParse(settings.Element("MameAutoframeskip")?.Value, out var mafs) && mafs;
+            MameBgfxBackend = settings.Element("MameBgfxBackend")?.Value ?? "auto";
+            MameBgfxScreenChains = settings.Element("MameBgfxScreenChains")?.Value ?? "default";
+            MameFilter = !bool.TryParse(settings.Element("MameFilter")?.Value, out var mf) || mf;
+            MameCheat = bool.TryParse(settings.Element("MameCheat")?.Value, out var mc) && mc;
+            MameRewind = bool.TryParse(settings.Element("MameRewind")?.Value, out var mr) && mr;
+            MameNvramSave = !bool.TryParse(settings.Element("MameNvramSave")?.Value, out var mns) || mns;
 
             // RetroArch
             RetroArchCheevosEnable = bool.TryParse(settings.Element("RetroArchCheevosEnable")?.Value, out var race) && race;
@@ -435,6 +456,13 @@ public class SettingsManager
         MameConfirmQuit = false;
         MameJoystick = true;
         MameShowSettingsBeforeLaunch = true;
+        MameAutoframeskip = false;
+        MameBgfxBackend = "auto";
+        MameBgfxScreenChains = "default";
+        MameFilter = true;
+        MameCheat = false;
+        MameRewind = false;
+        MameNvramSave = true;
 
         // RetroArch Defaults
         RetroArchCheevosEnable = false;

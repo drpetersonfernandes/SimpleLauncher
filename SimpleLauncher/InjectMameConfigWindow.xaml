@@ -31,10 +31,43 @@
                                 <ComboBoxItem Content="gdi"/>
                             </ComboBox>
                         </Grid>
-                        
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="BGFX Backend:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbBgfxBackend" Grid.Column="1">
+                                <ComboBoxItem Content="auto"/>
+                                <ComboBoxItem Content="d3d11"/>
+                                <ComboBoxItem Content="vulkan"/>
+                                <ComboBoxItem Content="opengl"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="BGFX Shader:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbBgfxChains" Grid.Column="1" IsEditable="True">
+                                <ComboBoxItem Content="default"/>
+                                <ComboBoxItem Content="crt-geom"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkFilter" Content="Bilinear Filtering" Margin="0,5"/>
                         <CheckBox x:Name="ChkWindow" Content="Run in Window" Margin="0,5"/>
                         <CheckBox x:Name="ChkMaximize" Content="Maximize (Start maximized)" Margin="0,5"/>
                         <CheckBox x:Name="ChkKeepAspect" Content="Enforce Aspect Ratio" Margin="0,5"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Performance &amp; Advanced" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkAutoframeskip" Content="Auto Frameskip" Margin="0,5"/>
+                        <CheckBox x:Name="ChkCheat" Content="Enable Cheats" Margin="0,5"/>
+                        <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5"/>
+                        <CheckBox x:Name="ChkNvramSave" Content="Save NVRAM (High Scores)" Margin="0,5"/>
                     </StackPanel>
                 </GroupBox>
 

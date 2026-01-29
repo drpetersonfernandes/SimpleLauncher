@@ -21,6 +21,13 @@ public partial class InjectMameConfigWindow
     private void LoadSettings()
     {
         CmbVideo.Text = _settings.MameVideo;
+        CmbBgfxBackend.Text = _settings.MameBgfxBackend;
+        CmbBgfxChains.Text = _settings.MameBgfxScreenChains;
+        ChkFilter.IsChecked = _settings.MameFilter;
+        ChkAutoframeskip.IsChecked = _settings.MameAutoframeskip;
+        ChkCheat.IsChecked = _settings.MameCheat;
+        ChkRewind.IsChecked = _settings.MameRewind;
+        ChkNvramSave.IsChecked = _settings.MameNvramSave;
         ChkWindow.IsChecked = _settings.MameWindow;
         ChkMaximize.IsChecked = _settings.MameMaximize;
         ChkKeepAspect.IsChecked = _settings.MameKeepAspect;
@@ -41,6 +48,13 @@ public partial class InjectMameConfigWindow
     private void SaveSettings()
     {
         _settings.MameVideo = CmbVideo.Text;
+        _settings.MameBgfxBackend = CmbBgfxBackend.Text;
+        _settings.MameBgfxScreenChains = CmbBgfxChains.Text;
+        _settings.MameFilter = ChkFilter.IsChecked ?? true;
+        _settings.MameAutoframeskip = ChkAutoframeskip.IsChecked ?? false;
+        _settings.MameCheat = ChkCheat.IsChecked ?? false;
+        _settings.MameRewind = ChkRewind.IsChecked ?? false;
+        _settings.MameNvramSave = ChkNvramSave.IsChecked ?? true;
         _settings.MameWindow = ChkWindow.IsChecked ?? false;
         _settings.MameMaximize = ChkMaximize.IsChecked ?? true;
         _settings.MameKeepAspect = ChkKeepAspect.IsChecked ?? true;
