@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher;
 

@@ -14,11 +14,11 @@ using System.Xml;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -769,8 +769,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
     private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
     {
+        if (_disposed) return;
+
         Dispatcher.InvokeAsync(() =>
         {
+            if (_disposed) return;
+
             DownloadProgressBar.Value = e.ProgressPercentage;
             DownloadStatus = e.StatusMessage;
         });

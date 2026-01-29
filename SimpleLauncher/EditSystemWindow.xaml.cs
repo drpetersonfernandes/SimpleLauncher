@@ -9,12 +9,13 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.Utils;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 

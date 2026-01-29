@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 

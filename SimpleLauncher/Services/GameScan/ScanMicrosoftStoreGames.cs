@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.SanitizeInputString;
 using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.GameScan;

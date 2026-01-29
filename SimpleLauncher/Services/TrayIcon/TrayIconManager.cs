@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.TrayIcon;
 

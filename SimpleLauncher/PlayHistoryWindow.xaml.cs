@@ -21,7 +21,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.SharedModels;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 

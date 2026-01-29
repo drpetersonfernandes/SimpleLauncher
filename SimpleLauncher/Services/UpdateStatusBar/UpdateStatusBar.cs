@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.UpdateStatusBar;
 
 internal static class UpdateStatusBar
 {

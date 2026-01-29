@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.SanitizeInputString;
 
 public static class SanitizeInputSystemName
 {

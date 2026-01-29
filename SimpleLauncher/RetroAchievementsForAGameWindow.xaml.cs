@@ -13,7 +13,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 

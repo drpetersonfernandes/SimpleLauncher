@@ -1,9 +1,10 @@
 using System;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 
 public static class CheckIfDirectoryIsWritable
 {

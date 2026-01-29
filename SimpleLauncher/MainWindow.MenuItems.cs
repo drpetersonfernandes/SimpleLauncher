@@ -6,7 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.QuitOrReinstall;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;

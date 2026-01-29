@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

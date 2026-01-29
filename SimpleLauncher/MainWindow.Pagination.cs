@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;

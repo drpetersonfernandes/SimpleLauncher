@@ -18,7 +18,6 @@ using SimpleLauncher.Services.MountFiles;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UsageStats;
-using SimpleLauncher.Services.Utils;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
@@ -309,7 +308,7 @@ public class GameLauncher
             }
             catch (Win32Exception ex) // Catch Win32Exception specifically
             {
-                if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
                 {
                     // Specific handling for application control policy block
                     MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
@@ -374,7 +373,7 @@ public class GameLauncher
 
             var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
             TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
-            UpdateStatusBar.UpdateContent("", mainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent("", mainWindow);
 
             try
             {
@@ -439,7 +438,7 @@ public class GameLauncher
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} launched");
-        UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} launched", mainWindow);
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} launched", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -496,7 +495,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex)
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching batch file.");
@@ -564,7 +563,7 @@ public class GameLauncher
         // Common UI updates.
         var fileName = Path.GetFileName(resolvedFilePath);
         TrayIconManager.ShowTrayMessage($"{fileName} launched");
-        UpdateStatusBar.UpdateContent($"{fileName} launched", mainWindow);
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} launched", mainWindow);
 
         try
         {
@@ -640,7 +639,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching shortcut file.");
@@ -730,7 +729,7 @@ public class GameLauncher
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
-        UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -782,7 +781,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching executable.");
@@ -1036,7 +1035,7 @@ public class GameLauncher
         var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
         var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
         TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
-        UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -1099,7 +1098,7 @@ public class GameLauncher
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
-            if (CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");

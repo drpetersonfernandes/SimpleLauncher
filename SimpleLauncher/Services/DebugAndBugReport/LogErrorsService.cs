@@ -8,9 +8,9 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 

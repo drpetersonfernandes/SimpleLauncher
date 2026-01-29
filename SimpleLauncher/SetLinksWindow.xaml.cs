@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 

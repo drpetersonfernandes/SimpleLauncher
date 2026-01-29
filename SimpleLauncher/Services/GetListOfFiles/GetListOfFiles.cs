@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
 
 namespace SimpleLauncher.Services.GetListOfFiles;
 
@@ -128,7 +127,7 @@ public abstract class GetListOfFiles
             var message = (string)Application.Current.TryFindResource("RestrictedFoldersSkipped")
                           ?? "Some folders were skipped due to access restrictions. Check the log for details.";
 
-            UpdateStatusBar.UpdateContent(message, mainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent(message, mainWindow);
 
             // Optionally show a one-time message box if many folders are restricted
             if (restrictedFolders.Count > 5)

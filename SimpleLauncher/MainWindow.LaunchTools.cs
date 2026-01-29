@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Windows;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;

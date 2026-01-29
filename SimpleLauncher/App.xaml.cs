@@ -11,7 +11,7 @@ using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
-using SimpleLauncher.Services.CleanFiles;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.ExtractFiles;

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.CheckApplicationControlPolicy;
 
 public static class CheckApplicationControlPolicy
 {

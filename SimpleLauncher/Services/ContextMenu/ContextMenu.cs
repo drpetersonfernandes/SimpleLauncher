@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
 using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.ContextMenu;
@@ -72,7 +71,7 @@ public static class ContextMenu
                 await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.GamePadController);
 
                 // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingGame") ?? "Launching game...", context.MainWindow);
+                UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingGame") ?? "Launching game...", context.MainWindow);
             }
             catch (Exception ex)
             {
@@ -100,7 +99,7 @@ public static class ContextMenu
         };
         addToFavorites.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AddingToFavorites") ?? "Adding to favorites...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AddingToFavorites") ?? "Adding to favorites...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects);
         };
@@ -120,7 +119,7 @@ public static class ContextMenu
         };
         removeFromFavorites.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingFromFavorites") ?? "Removing from favorites...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingFromFavorites") ?? "Removing from favorites...", context.MainWindow);
             context.PlaySoundEffects.PlayTrashSound();
             ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow, context.PlaySoundEffects);
 
@@ -143,7 +142,7 @@ public static class ContextMenu
         };
         openVideoLink.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningVideoLink") ?? "Opening video link...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningVideoLink") ?? "Opening video link...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenVideoLink(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow);
         };
@@ -163,7 +162,7 @@ public static class ContextMenu
         };
         openInfoLink.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningInfoLink") ?? "Opening info link...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningInfoLink") ?? "Opening info link...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenInfoLink(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings, context.MainWindow);
         };
@@ -183,7 +182,7 @@ public static class ContextMenu
         };
         openHistoryWindow.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningROMHistory") ?? "Opening ROM history...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningROMHistory") ?? "Opening ROM history...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.Machines, context.MainWindow);
         };
@@ -229,7 +228,7 @@ public static class ContextMenu
         };
         openCover.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenCover(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow);
         };
@@ -249,7 +248,7 @@ public static class ContextMenu
         };
         openTitleSnapshot.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenTitleSnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -269,7 +268,7 @@ public static class ContextMenu
         };
         openGameplaySnapshot.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenGameplaySnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -289,7 +288,7 @@ public static class ContextMenu
         };
         openCart.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenCart(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -309,7 +308,7 @@ public static class ContextMenu
         };
         openVideo.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.PlayVideo(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -329,7 +328,7 @@ public static class ContextMenu
         };
         openManual.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenManual(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -349,7 +348,7 @@ public static class ContextMenu
         };
         openWalkthrough.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenWalkthrough(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -369,7 +368,7 @@ public static class ContextMenu
         };
         openCabinet.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenCabinet(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -389,7 +388,7 @@ public static class ContextMenu
         };
         openFlyer.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenFlyer(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -409,7 +408,7 @@ public static class ContextMenu
         };
         openPcb.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
             ContextMenuFunctions.OpenPcb(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
@@ -430,7 +429,7 @@ public static class ContextMenu
 
         takeScreenshot.Click += (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", context.MainWindow);
             try
             {
                 context.PlaySoundEffects.PlayNotificationSound();
@@ -478,7 +477,7 @@ public static class ContextMenu
 
         deleteGame.Click += async (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...", context.MainWindow);
             try
             {
                 context.PlaySoundEffects.PlayNotificationSound();
@@ -530,7 +529,7 @@ public static class ContextMenu
 
         deleteCoverImage.Click += async (_, _) =>
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...", context.MainWindow);
+            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...", context.MainWindow);
             try
             {
                 context.PlaySoundEffects.PlayNotificationSound();

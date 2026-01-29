@@ -4,8 +4,8 @@ using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GetApplicationVersion;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;

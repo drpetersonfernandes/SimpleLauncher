@@ -6,7 +6,6 @@ using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Utils;
 using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.Favorites;
@@ -73,7 +72,7 @@ public class FavoritesManager
         try
         {
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
 
             // Serialize using MessagePack
             var bytes = MessagePackSerializer.Serialize(this);

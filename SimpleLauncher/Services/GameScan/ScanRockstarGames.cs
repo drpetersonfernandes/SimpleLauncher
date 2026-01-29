@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

@@ -6,10 +6,10 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.ExtractFiles;
-using SimpleLauncher.Services.Utils;
 using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.DownloadService;

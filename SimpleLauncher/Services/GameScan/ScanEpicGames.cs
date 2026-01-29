@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Services.GameScan;
 

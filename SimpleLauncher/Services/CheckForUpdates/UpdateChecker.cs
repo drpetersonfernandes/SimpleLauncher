@@ -13,7 +13,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.CheckForUpdates;
 

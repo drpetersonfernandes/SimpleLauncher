@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Utils;
+using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.MessageBox;

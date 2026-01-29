@@ -8,7 +8,6 @@ using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.Utils;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -206,7 +205,7 @@ public class PlayHistoryManager
         try
         {
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
 
             var bytes = MessagePackSerializer.Serialize(this);
 
@@ -249,7 +248,7 @@ public class PlayHistoryManager
                 return;
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history...", Application.Current.MainWindow as MainWindow));
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history...", Application.Current.MainWindow as MainWindow));
 
             // Get the current date and time in a culture-invariant format
             // This ensures it can be parsed regardless of the UI language

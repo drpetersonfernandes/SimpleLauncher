@@ -5,7 +5,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.CreateFolders;
 
 public static class CreateDefaultSystemFolders
 {

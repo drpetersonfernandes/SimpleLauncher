@@ -4,7 +4,7 @@ using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
 public static class DeleteFiles
 {

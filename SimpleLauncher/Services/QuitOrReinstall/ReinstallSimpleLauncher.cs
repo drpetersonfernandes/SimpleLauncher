@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
-namespace SimpleLauncher.Services.Utils;
+namespace SimpleLauncher.Services.QuitOrReinstall;
 
 public static class ReinstallSimpleLauncher
 {
