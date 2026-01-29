@@ -121,8 +121,11 @@ public class GameLauncher
             _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
             // --- XENIA CONFIGURATION INTERCEPTION ---
-            // Check if the selected emulator is Xenia (case-insensitive check on name)
-            if (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase))
+            if (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
+                selectedEmulatorName.Contains("Xenia Canary", StringComparison.OrdinalIgnoreCase) ||
+                selectedEmulatorName.Contains("XeniaCanary", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("xenia.exe", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("xenia_canary.exe", StringComparison.OrdinalIgnoreCase))
             {
                 var shouldRun = false;
                 if (settings.XeniaShowSettingsBeforeLaunch)
@@ -152,11 +155,12 @@ public class GameLauncher
                     XeniaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
                 }
             }
-            // ----------------------------------------
 
             // --- MAME CONFIGURATION INTERCEPTION ---
-            // Check if the selected emulator is MAME (case-insensitive check on name)
-            if (selectedEmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase))
+            if (selectedEmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase) ||
+                selectedSystemName.Contains("MAME", StringComparison.OrdinalIgnoreCase))
             {
                 var shouldRun = false;
                 if (settings.MameShowSettingsBeforeLaunch)
@@ -180,10 +184,10 @@ public class GameLauncher
                 var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
                 MameConfigurationService.InjectSettings(resolvedEmulatorExePath, settings, resolvedSystemFolderPath);
             }
-            // ---------------------------------------
 
             // --- RETROARCH CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase))
+            if (selectedEmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
             {
                 var shouldRun = false;
                 if (settings.RetroArchShowSettingsBeforeLaunch)
@@ -209,7 +213,6 @@ public class GameLauncher
                     RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
                 }
             }
-            // --------------------------------------------
 
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
@@ -258,6 +261,7 @@ public class GameLauncher
                         // User is already notified by MountAsync on failure.
                     }
                 }
+
                 // Specific handling for ScummVM games with ZIP files
                 else if ((selectedSystemName.Contains("ScummVM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm-VM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
@@ -265,12 +269,14 @@ public class GameLauncher
                     DebugLogger.Log($"ScummVM game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
                     await MountZipFiles.MountZipFileAndLoadWithScummVmAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, _logPath);
                 }
+
                 // Specific handling for RPCS3 with ZIP files
                 else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
                     await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, _logPath, this);
                 }
+
                 // Specific handling for XBLA games with ZIP files
                 else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
