@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace SimpleLauncher.Converters;
+namespace SimpleLauncher.Services.Converters;
 
 /// <summary>
 /// Converts a boolean value to a localized string indicating favorite status for accessibility.

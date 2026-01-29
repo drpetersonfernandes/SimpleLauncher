@@ -1,7 +1,7 @@
 ﻿<Application x:Class="SimpleLauncher.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:SimpleLauncher.Converters">
+             xmlns:converters="clr-namespace:SimpleLauncher.Services.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

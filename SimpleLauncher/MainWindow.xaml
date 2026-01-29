@@ -9,10 +9,10 @@
                       MinHeight="650"
                       Closing="MainWindow_Closing"
                       MouseWheel="MainWindow_MouseWheel"
-                      xmlns:converters="clr-namespace:SimpleLauncher.Converters">
+                      xmlns:converters1="clr-namespace:SimpleLauncher.Services.Converters">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
+        <converters1:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
         <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
             <Setter Property="Width" Value="8" />
             <Setter Property="Template">
