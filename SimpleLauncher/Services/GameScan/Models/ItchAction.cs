@@ -1,13 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace SimpleLauncher.Models.GameScan;
-
-public class ItchManifest
-{
-    [JsonPropertyName("actions")]
-    public List<ItchAction> Actions { get; set; }
-}
+namespace SimpleLauncher.Services.GameScan.Models;
 
 public class ItchAction
 {

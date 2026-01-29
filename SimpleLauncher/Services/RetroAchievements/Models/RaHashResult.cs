@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Models.RetroAchievements;
+namespace SimpleLauncher.Services.RetroAchievements.Models;
 
 /// <summary>
 /// Represents the result of a RetroAchievements hash calculation, including the hash and any temporary extraction path.

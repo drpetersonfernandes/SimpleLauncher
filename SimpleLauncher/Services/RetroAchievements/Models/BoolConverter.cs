@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SimpleLauncher.Models.RetroAchievements;
+namespace SimpleLauncher.Services.RetroAchievements.Models;
 
 /// <summary>
 /// Custom converter to handle API returning boolean values as numbers (0/1).

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
-using SimpleLauncher.Models.RetroAchievements;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 

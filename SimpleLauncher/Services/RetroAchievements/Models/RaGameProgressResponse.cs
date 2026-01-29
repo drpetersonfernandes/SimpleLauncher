@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace SimpleLauncher.Models.RetroAchievements;
+namespace SimpleLauncher.Services.RetroAchievements.Models;
 
-public record RaGameExtendedDetails
+public record RaGameProgressResponse
 {
     [JsonPropertyName("ID")]
     public int Id { get; set; }
@@ -14,14 +14,26 @@ public record RaGameExtendedDetails
     [JsonPropertyName("ConsoleID")]
     public int ConsoleId { get; set; }
 
+    [JsonPropertyName("ConsoleName")]
+    public string ConsoleName { get; set; } = "";
+
+    [JsonPropertyName("ImageIcon")]
+    public string ImageIcon { get; set; } = "";
+
+    [JsonPropertyName("NumAchievements")]
+    public int NumAchievements { get; set; }
+
+    [JsonPropertyName("NumAwardedToUser")]
+    public int NumAwardedToUser { get; set; }
+
+    [JsonPropertyName("Achievements")]
+    public Dictionary<string, RaApiAchievement> Achievements { get; set; } = [];
+
     [JsonPropertyName("ForumTopicID")]
     public int? ForumTopicId { get; set; }
 
     [JsonPropertyName("Flags")]
     public object Flags { get; set; }
-
-    [JsonPropertyName("ImageIcon")]
-    public string ImageIcon { get; set; } = "";
 
     [JsonPropertyName("ImageTitle")]
     public string ImageTitle { get; set; } = "";
@@ -48,7 +60,6 @@ public record RaGameExtendedDetails
     public string ReleasedAtGranularity { get; set; } = "";
 
     [JsonPropertyName("IsFinal")]
-    [JsonConverter(typeof(BoolConverter))]
     public bool IsFinal { get; set; }
 
     [JsonPropertyName("RichPresencePatch")]
@@ -57,30 +68,30 @@ public record RaGameExtendedDetails
     [JsonPropertyName("GuideURL")]
     public string GuideUrl { get; set; } = "";
 
-    [JsonPropertyName("Updated")]
-    public string Updated { get; set; } = "";
-
-    [JsonPropertyName("ConsoleName")]
-    public string ConsoleName { get; set; } = "";
-
     [JsonPropertyName("ParentGameID")]
     public int? ParentGameId { get; set; }
 
     [JsonPropertyName("NumDistinctPlayers")]
     public int NumDistinctPlayers { get; set; }
 
-    [JsonPropertyName("NumAchievements")]
-    public int NumAchievements { get; set; }
-
-    [JsonPropertyName("Achievements")]
-    public Dictionary<string, RaApiAchievement> Achievements { get; set; } = new();
-
-    [JsonPropertyName("Claims")]
-    public List<object> Claims { get; set; } = new();
+    [JsonPropertyName("NumAwardedToUserHardcore")]
+    public int NumAwardedToUserHardcore { get; set; }
 
     [JsonPropertyName("NumDistinctPlayersCasual")]
     public int NumDistinctPlayersCasual { get; set; }
 
     [JsonPropertyName("NumDistinctPlayersHardcore")]
     public int NumDistinctPlayersHardcore { get; set; }
+
+    [JsonPropertyName("UserCompletion")]
+    public string UserCompletion { get; set; } = "";
+
+    [JsonPropertyName("UserCompletionHardcore")]
+    public string UserCompletionHardcore { get; set; } = "";
+
+    [JsonPropertyName("HighestAwardKind")]
+    public string HighestAwardKind { get; set; } = "";
+
+    [JsonPropertyName("HighestAwardDate")]
+    public string HighestAwardDate { get; set; } = "";
 }

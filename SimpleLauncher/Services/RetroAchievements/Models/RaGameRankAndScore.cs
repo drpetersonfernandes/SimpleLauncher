@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace SimpleLauncher.Models.RetroAchievements;
+namespace SimpleLauncher.Services.RetroAchievements.Models;
 
 public record RaGameRankAndScore
 {

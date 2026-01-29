@@ -9,10 +9,10 @@ using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
-using SimpleLauncher.Models.RetroAchievements;
 using SimpleLauncher.Services;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher;
 

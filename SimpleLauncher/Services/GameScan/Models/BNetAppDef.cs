@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Models.GameScan;
+namespace SimpleLauncher.Services.GameScan.Models;
 
 public class BNetAppDef
 {

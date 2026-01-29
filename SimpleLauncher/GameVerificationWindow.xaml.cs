@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using SimpleLauncher.Models.GameScan;
+using SimpleLauncher.Services.GameScan.Models;
 
 namespace SimpleLauncher;
 

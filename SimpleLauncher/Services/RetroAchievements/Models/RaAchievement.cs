@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleLauncher.Models.RetroAchievements;
+namespace SimpleLauncher.Services.RetroAchievements.Models;
 
 public class RaAchievement
 {

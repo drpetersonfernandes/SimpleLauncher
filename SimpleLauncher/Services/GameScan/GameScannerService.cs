@@ -10,8 +10,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models.GameScan;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameScan.Models;
 
 namespace SimpleLauncher.Services.GameScan;
 

@@ -4,8 +4,8 @@ using System.IO;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models.RetroAchievements;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Managers;
 

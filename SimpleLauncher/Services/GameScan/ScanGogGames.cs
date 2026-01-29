@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models.GameScan;
+using SimpleLauncher.Services.GameScan.Models;
 
 namespace SimpleLauncher.Services.GameScan;
 

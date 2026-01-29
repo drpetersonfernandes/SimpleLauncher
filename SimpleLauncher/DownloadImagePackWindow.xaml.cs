@@ -14,7 +14,6 @@ using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
-using SimpleLauncher.Models.DownloadFiles;
 
 namespace SimpleLauncher;
 

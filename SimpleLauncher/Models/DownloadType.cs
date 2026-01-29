@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Models.DownloadFiles;
+namespace SimpleLauncher.Models;
 
 public enum DownloadType
 {
