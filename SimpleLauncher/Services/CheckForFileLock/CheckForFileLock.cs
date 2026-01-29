@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace SimpleLauncher.Services.ExtractFiles;
+namespace SimpleLauncher.Services.CheckForFileLock;
 
 public static class CheckForFileLock
 {

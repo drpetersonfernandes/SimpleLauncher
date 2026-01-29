@@ -77,7 +77,7 @@ public class ExtractionService : IExtractionService
         const int retryDelayMs = 200;
         for (var i = 0; i < maxRetries; i++)
         {
-            if (!CheckForFileLock.IsFileLocked(archivePath))
+            if (!CheckForFileLock.CheckForFileLock.IsFileLocked(archivePath))
             {
                 break; // File is not locked, proceed
             }

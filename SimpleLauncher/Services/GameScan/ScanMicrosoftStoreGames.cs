@@ -447,7 +447,6 @@ internal static class ScanMicrosoftStoreGames
         "My RSS Feeds",
         "My Thrustmaster Panel",
         "MyASUS",
-        "MyReader",
         "Nahimic",
         "NanaZip",
         "NeeView",
@@ -929,7 +928,13 @@ internal static class ScanMicrosoftStoreGames
     private static async Task TryExtractStoreIcon(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
         var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
-        if (File.Exists(destPath)) return;
+        // Check if a valid icon already exists (non-zero size to handle corrupt/empty files from previous failed copies)
+        if (File.Exists(destPath))
+        {
+            var fileInfo = new FileInfo(destPath);
+            if (fileInfo.Length > 0) return;
+            // If file exists but is empty/corrupt, we continue to overwrite it
+        }
 
         // 1. Try API first
         if (await GameScannerService.TryDownloadImageFromApiAsync(gameName, destPath, logErrors))
@@ -948,7 +953,7 @@ internal static class ScanMicrosoftStoreGames
                     // Use try-catch for file operations
                     try
                     {
-                        await Task.Run(() => File.Copy(fullLogoPath, destPath));
+                        await Task.Run(() => File.Copy(fullLogoPath, destPath, overwrite: true));
                         return;
                     }
                     catch (Exception ex)
@@ -982,7 +987,7 @@ internal static class ScanMicrosoftStoreGames
                     {
                         try
                         {
-                            await Task.Run(() => File.Copy(p, destPath));
+                            await Task.Run(() => File.Copy(p, destPath, overwrite: true));
                             return;
                         }
                         catch (Exception ex)
@@ -1004,7 +1009,7 @@ internal static class ScanMicrosoftStoreGames
                 {
                     try
                     {
-                        await Task.Run(() => File.Copy(bestIcon, destPath));
+                        await Task.Run(() => File.Copy(bestIcon, destPath, overwrite: true));
                         return;
                     }
                     catch (Exception ex)
@@ -1021,7 +1026,7 @@ internal static class ScanMicrosoftStoreGames
                     {
                         try
                         {
-                            await Task.Run(() => File.Copy(largestPng, destPath));
+                            await Task.Run(() => File.Copy(largestPng, destPath, overwrite: true));
                             return;
                         }
                         catch (Exception ex)
