@@ -10,7 +10,7 @@ using SimpleLauncher.Models.GameScanLogic;
 
 namespace SimpleLauncher.Services.GameScanLogic;
 
-public partial class ScanBattleNetGames
+public static partial class ScanBattleNetGames
 {
     // Mapping from InternalId (found in registry) to Readable Name and Executable (for icons)
     private static readonly List<BNetAppDef> AppDefinitions =

@@ -31,7 +31,6 @@ public class PlaySoundEffects
     {
         if (_settingsManager == null)
         {
-            // This indicates a setup issue: Initialize was not called or settingsManager was null.
             // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("PlaySoundEffects not initialized with SettingsManager."), "Attempted to play notification sound before PlaySoundEffects was initialized.");
 
@@ -44,9 +43,7 @@ public class PlaySoundEffects
         }
 
         // Use the custom sound file from settings.
-        // If CustomNotificationSoundFile is empty or null, fall back to a default or do nothing.
-        // For now, assume CustomNotificationSoundFile always has a valid default.
-        PlaySound(_settingsManager.CustomNotificationSoundFile);
+        PlaySound(_settingsManager.CustomNotificationSoundFile ?? ClickSoundFile);
     }
 
     public void PlayShutterSound()
