@@ -31,10 +31,16 @@ public partial class InjectXeniaConfigWindow
 
         SelectComboByTag(CmbAa, _settings.XeniaAa);
         SelectComboByTag(CmbScaling, _settings.XeniaScaling);
+        SelectComboByTag(CmbReadback, _settings.XeniaReadbackResolve);
+        ChkGammaSrgb.IsChecked = _settings.XeniaGammaSrgb;
 
         // APU
         CmbApu.Text = _settings.XeniaApu;
         ChkMute.IsChecked = _settings.XeniaMute;
+
+        // System
+        ChkMountCache.IsChecked = _settings.XeniaMountCache;
+        ChkVibration.IsChecked = _settings.XeniaVibration;
 
         // System
         ChkPatches.IsChecked = _settings.XeniaApplyPatches;
@@ -70,10 +76,16 @@ public partial class InjectXeniaConfigWindow
 
         _settings.XeniaAa = GetSelectedTag(CmbAa);
         _settings.XeniaScaling = GetSelectedTag(CmbScaling);
+        _settings.XeniaReadbackResolve = GetSelectedTag(CmbReadback);
+        _settings.XeniaGammaSrgb = ChkGammaSrgb.IsChecked ?? false;
 
         // APU
         _settings.XeniaApu = CmbApu.Text;
         _settings.XeniaMute = ChkMute.IsChecked ?? false;
+
+        // System
+        _settings.XeniaMountCache = ChkMountCache.IsChecked ?? true;
+        _settings.XeniaVibration = ChkVibration.IsChecked ?? true;
 
         // System
         _settings.XeniaApplyPatches = ChkPatches.IsChecked ?? true;

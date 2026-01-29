@@ -79,6 +79,12 @@ public class SettingsManager
     [Key(43)] public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
     [Key(44)] public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Xenia Advanced Configuration ---
+    [Key(84)] public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
+    [Key(85)] public bool XeniaGammaSrgb { get; set; }
+    [Key(86)] public bool XeniaVibration { get; set; } = true;
+    [Key(87)] public bool XeniaMountCache { get; set; } = true;
+
     // --- MAME Global Configuration ---
     [Key(45)] public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
     [Key(46)] public bool MameWindow { get; set; }
@@ -209,6 +215,10 @@ public class SettingsManager
         XeniaUserLanguage = other.XeniaUserLanguage;
         XeniaHid = other.XeniaHid;
         XeniaShowSettingsBeforeLaunch = other.XeniaShowSettingsBeforeLaunch;
+        XeniaReadbackResolve = other.XeniaReadbackResolve;
+        XeniaGammaSrgb = other.XeniaGammaSrgb;
+        XeniaVibration = other.XeniaVibration;
+        XeniaMountCache = other.XeniaMountCache;
 
         // MAME
         MameVideo = other.MameVideo;
@@ -307,6 +317,10 @@ public class SettingsManager
             XeniaUserLanguage = int.TryParse(settings.Element("XeniaUserLanguage")?.Value, out var xul) ? xul : 1;
             XeniaHid = settings.Element("XeniaHid")?.Value ?? "xinput";
             XeniaShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xss) || xss;
+            XeniaReadbackResolve = "none";
+            XeniaGammaSrgb = false;
+            XeniaVibration = true;
+            XeniaMountCache = true;
 
             // MAME
             MameVideo = settings.Element("MameVideo")?.Value ?? "auto";
@@ -466,6 +480,10 @@ public class SettingsManager
         XeniaUserLanguage = 1;
         XeniaHid = "xinput";
         XeniaShowSettingsBeforeLaunch = true;
+        XeniaReadbackResolve = "none";
+        XeniaGammaSrgb = false;
+        XeniaVibration = true;
+        XeniaMountCache = true;
 
         // MAME Defaults
         MameVideo = "auto";

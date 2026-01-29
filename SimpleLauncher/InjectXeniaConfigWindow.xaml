@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Xenia Configuration"
-                      Height="750" Width="700"
+                      Height="850" Width="700"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
@@ -66,6 +66,16 @@
                             <ComboBoxItem Content="CAS" Tag="cas"/>
                             <ComboBoxItem Content="Bilinear" Tag="bilinear"/>
                         </ComboBox>
+
+                        <Label Content="Readback Resolve (Fixes Graphics):" Margin="0,5,0,0"/>
+                        <ComboBox x:Name="CmbReadback">
+                            <ComboBoxItem Content="None (Fastest)" Tag="none"/>
+                            <ComboBoxItem Content="Fast (Recommended)" Tag="fast"/>
+                            <ComboBoxItem Content="Full (Slowest/Most Accurate)" Tag="full"/>
+                        </ComboBox>
+
+                        <CheckBox x:Name="ChkGammaSrgb" Content="Gamma Render Target as sRGB (Color Fix)" Margin="0,5"/>
+
                     </StackPanel>
                 </GroupBox>
 
@@ -93,6 +103,8 @@
                 <GroupBox Header="System &amp; Input" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox x:Name="ChkPatches" Content="Apply Game Patches" Margin="0,5"/>
+                        <CheckBox x:Name="ChkMountCache" Content="Mount Cache Partition (Required for some games)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkVibration" Content="Enable Controller Vibration" Margin="0,5"/>
                         
                         <Grid Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>

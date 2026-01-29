@@ -15,88 +15,103 @@ public static class XeniaConfigurationService
             var emuDir = Path.GetDirectoryName(emulatorPath);
             if (string.IsNullOrEmpty(emuDir)) return;
 
-            // Xenia Manager logic: Check for canary config first, then standard config
-            var configPath = Path.Combine(emuDir, "xenia-canary.config.toml");
-            if (!File.Exists(configPath))
+            // Define all possible config filenames
+            string[] configFiles = ["xenia-canary.config.toml", "xenia.config.toml"];
+            var foundAny = false;
+
+            foreach (var fileName in configFiles)
             {
-                configPath = Path.Combine(emuDir, "xenia.config.toml");
+                var configPath = Path.Combine(emuDir, fileName);
+                if (!File.Exists(configPath)) continue;
+
+                foundAny = true;
+                UpdateSingleConfigFile(configPath, settings);
             }
 
-            if (!File.Exists(configPath))
+            if (!foundAny)
             {
                 DebugLogger.Log("[XeniaConfig] No configuration file found to inject settings into.");
-                return;
             }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[XeniaConfig] Critical failure in injection service: {ex.Message}");
+        }
+    }
 
-            DebugLogger.Log($"[XeniaConfig] Injecting configuration into: {configPath}");
+    private static void UpdateSingleConfigFile(string configPath, SettingsManager settings)
+    {
+        try
+        {
+            DebugLogger.Log($"[XeniaConfig] Injecting into: {Path.GetFileName(configPath)}");
 
-            // 1. Parse the existing TOML file
             var tomlContent = File.ReadAllText(configPath);
             var model = Toml.ToModel(tomlContent);
 
-            // 2. Update values based on SettingsManager
-            // Helper to safely get a table (section)
-            TomlTable GetTable(string key)
+            // Helper to get or create a table (section)
+            TomlTable GetOrCreateTable(string key)
             {
                 if (model.ContainsKey(key) && model[key] is TomlTable table)
                     return table;
 
-                return null;
+                var newTable = new TomlTable();
+                model[key] = newTable;
+                return newTable;
             }
 
             // [APU]
-            var apu = GetTable("APU");
-            if (apu != null)
-            {
-                apu["apu"] = settings.XeniaApu;
-                apu["mute"] = settings.XeniaMute;
-            }
+            var apu = GetOrCreateTable("APU");
+            apu["apu"] = settings.XeniaApu;
+            apu["mute"] = settings.XeniaMute;
 
             // [GPU]
-            var gpu = GetTable("GPU");
-            if (gpu != null)
-            {
-                gpu["gpu"] = settings.XeniaGpu;
-                gpu["vsync"] = settings.XeniaVsync;
-                gpu["draw_resolution_scale_x"] = settings.XeniaResScaleX;
-                gpu["draw_resolution_scale_y"] = settings.XeniaResScaleY;
-            }
+            var gpu = GetOrCreateTable("GPU");
+            gpu["gpu"] = settings.XeniaGpu;
+            gpu["vsync"] = settings.XeniaVsync;
+            gpu["draw_resolution_scale_x"] = settings.XeniaResScaleX;
+            gpu["draw_resolution_scale_y"] = settings.XeniaResScaleY;
+            gpu["readback_resolve"] = settings.XeniaReadbackResolve; // New
+            gpu["gamma_render_target_as_srgb"] = settings.XeniaGammaSrgb; // New
 
             // [Display]
-            var display = GetTable("Display");
-            if (display != null)
-            {
-                display["fullscreen"] = settings.XeniaFullscreen;
-                display["postprocess_antialiasing"] = settings.XeniaAa;
-                display["postprocess_scaling_and_sharpening"] = settings.XeniaScaling;
-            }
+            var display = GetOrCreateTable("Display");
+            display["fullscreen"] = settings.XeniaFullscreen;
+            display["postprocess_antialiasing"] = settings.XeniaAa;
+            display["postprocess_scaling_and_sharpening"] = settings.XeniaScaling;
 
             // [HID]
-            var hid = GetTable("HID");
-            hid?["hid"] = settings.XeniaHid;
+            var hid = GetOrCreateTable("HID");
+            hid["hid"] = settings.XeniaHid;
+            hid["vibration"] = settings.XeniaVibration; // New
 
             // [Kernel]
-            var kernel = GetTable("Kernel");
-            kernel?["apply_patches"] = settings.XeniaApplyPatches;
+            var kernel = GetOrCreateTable("Kernel");
+            kernel["apply_patches"] = settings.XeniaApplyPatches;
+
+            // [General]
+            var general = GetOrCreateTable("General");
+            general["discord"] = settings.XeniaDiscordPresence;
 
             // [Logging]
-            var logging = GetTable("Logging");
-            logging?["show_console"] = false;
+            var logging = GetOrCreateTable("Logging");
+            logging["enable_console"] = false;
+
+            // [Storage]
+            var storage = GetOrCreateTable("Storage");
+            storage["mount_cache"] = settings.XeniaMountCache; // New
 
             // [XConfig]
-            var xconfig = GetTable("XConfig");
-            xconfig?["user_language"] = settings.XeniaUserLanguage;
+            var xconfig = GetOrCreateTable("XConfig");
+            xconfig["user_language"] = settings.XeniaUserLanguage;
 
-            // 3. Write back to disk
+            // Write back
             var updatedToml = Toml.FromModel(model);
             File.WriteAllText(configPath, updatedToml);
-
-            DebugLogger.Log("[XeniaConfig] Injection successful.");
+            DebugLogger.Log($"[XeniaConfig] Successfully updated {Path.GetFileName(configPath)}");
         }
         catch (Exception ex)
         {
-            DebugLogger.Log($"[XeniaConfig] Failed to inject settings: {ex.Message}");
-            // We do not throw here to allow the game to attempt launch even if config fails
+            DebugLogger.Log($"[XeniaConfig] Failed to update {configPath}: {ex.Message}");
         }
     }
 }
