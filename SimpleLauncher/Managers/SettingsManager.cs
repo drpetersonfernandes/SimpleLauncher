@@ -114,6 +114,13 @@ public class SettingsManager
     [Key(67)] public bool RetroArchThreadedVideo { get; set; }
     [Key(68)] public bool RetroArchBilinear { get; set; }
     [Key(69)] public bool RetroArchShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(77)] public string RetroArchAspectRatioIndex { get; set; } = "22"; // 22 = Core Provided
+    [Key(78)] public bool RetroArchScaleInteger { get; set; }
+    [Key(79)] public bool RetroArchShaderEnable { get; set; } = true;
+    [Key(80)] public bool RetroArchHardSync { get; set; }
+    [Key(81)] public bool RetroArchRunAhead { get; set; }
+    [Key(82)] public bool RetroArchShowAdvancedSettings { get; set; } = true;
+    [Key(83)] public bool RetroArchDiscordAllow { get; set; }
 
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
@@ -238,6 +245,13 @@ public class SettingsManager
         RetroArchThreadedVideo = other.RetroArchThreadedVideo;
         RetroArchBilinear = other.RetroArchBilinear;
         RetroArchShowSettingsBeforeLaunch = other.RetroArchShowSettingsBeforeLaunch;
+        RetroArchAspectRatioIndex = other.RetroArchAspectRatioIndex;
+        RetroArchScaleInteger = other.RetroArchScaleInteger;
+        RetroArchShaderEnable = other.RetroArchShaderEnable;
+        RetroArchHardSync = other.RetroArchHardSync;
+        RetroArchRunAhead = other.RetroArchRunAhead;
+        RetroArchShowAdvancedSettings = other.RetroArchShowAdvancedSettings;
+        RetroArchDiscordAllow = other.RetroArchDiscordAllow;
     }
 
     private bool MigrateFromXml()
@@ -329,6 +343,13 @@ public class SettingsManager
             RetroArchThreadedVideo = bool.TryParse(settings.Element("RetroArchThreadedVideo")?.Value, out var ratv) && ratv;
             RetroArchBilinear = bool.TryParse(settings.Element("RetroArchBilinear")?.Value, out var rab) && rab;
             RetroArchShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("RetroArchShowSettingsBeforeLaunch")?.Value, out var rass) || rass;
+            RetroArchAspectRatioIndex = settings.Element("RetroArchAspectRatioIndex")?.Value ?? "22";
+            RetroArchScaleInteger = bool.TryParse(settings.Element("RetroArchScaleInteger")?.Value, out var rasi) && rasi;
+            RetroArchShaderEnable = !bool.TryParse(settings.Element("RetroArchShaderEnable")?.Value, out var rase) || rase;
+            RetroArchHardSync = bool.TryParse(settings.Element("RetroArchHardSync")?.Value, out var rahs) && rahs;
+            RetroArchRunAhead = bool.TryParse(settings.Element("RetroArchRunAhead")?.Value, out var rara) && rara;
+            RetroArchShowAdvancedSettings = !bool.TryParse(settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas) || rasas;
+            RetroArchDiscordAllow = bool.TryParse(settings.Element("RetroArchDiscordAllow")?.Value, out var rada) && rada;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -481,6 +502,13 @@ public class SettingsManager
         RetroArchThreadedVideo = false;
         RetroArchBilinear = false;
         RetroArchShowSettingsBeforeLaunch = true;
+        RetroArchAspectRatioIndex = "22";
+        RetroArchScaleInteger = false;
+        RetroArchShaderEnable = true;
+        RetroArchHardSync = false;
+        RetroArchRunAhead = false;
+        RetroArchShowAdvancedSettings = true;
+        RetroArchDiscordAllow = false;
 
         Save();
     }

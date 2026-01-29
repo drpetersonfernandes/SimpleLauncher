@@ -36,6 +36,22 @@
                         <CheckBox x:Name="ChkVsync" Content="Enable VSync" Margin="0,5"/>
                         <CheckBox x:Name="ChkThreadedVideo" Content="Threaded Video (Improves performance)" Margin="0,5"/>
                         <CheckBox x:Name="ChkBilinear" Content="Bilinear Filtering (Smooth pixels)" Margin="0,5"/>
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Aspect Ratio:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbAspectRatio" Grid.Column="1">
+                                <ComboBoxItem Content="Core Provided" Tag="22"/>
+                                <ComboBoxItem Content="4:3" Tag="0"/>
+                                <ComboBoxItem Content="16:9" Tag="1"/>
+                                <ComboBoxItem Content="16:10" Tag="2"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkScaleInteger" Content="Integer Scaling (Perfect pixels, black borders)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkShaderEnable" Content="Enable Shaders" Margin="0,5"/>
+                        <CheckBox x:Name="ChkHardSync" Content="GPU Hard Sync (Reduces Input Lag)" Margin="0,5"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -55,6 +71,7 @@
                         <CheckBox x:Name="ChkAutoSaveState" Content="Auto Save State on Exit" Margin="0,5"/>
                         <CheckBox x:Name="ChkAutoLoadState" Content="Auto Load State on Start" Margin="0,5"/>
                         <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5"/>
+                        <CheckBox x:Name="ChkRunAhead" Content="Run-Ahead (Remove original console lag)" Margin="0,5"/>
                     </StackPanel>
                 </GroupBox>
                 
@@ -74,6 +91,7 @@
                                 <ComboBoxItem Content="glui" ToolTip="Mobile-friendly interface"/>
                             </ComboBox>
                         </Grid>
+                        <CheckBox x:Name="ChkAdvancedSettings" Content="Show Advanced Settings" Margin="0,5"/>
                     </StackPanel>
                 </GroupBox>
 
@@ -83,6 +101,7 @@
                         <TextBlock Text="Credentials are managed in the main RetroAchievements Settings." FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap"/>
                         <CheckBox x:Name="ChkCheevosEnable" Content="Enable RetroAchievements" Margin="0,5"/>
                         <CheckBox x:Name="ChkCheevosHardcore" Content="Hardcore Mode (No Save States/Rewind)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkDiscordAllow" Content="Discord Rich Presence" Margin="0,5"/>
                     </StackPanel>
                 </GroupBox>
 

@@ -1,5 +1,6 @@
 using System.Windows;
 using SimpleLauncher.Managers;
+using System.Windows.Controls;
 
 namespace SimpleLauncher;
 
@@ -25,6 +26,10 @@ public partial class InjectRetroArchConfigWindow
         ChkVsync.IsChecked = _settings.RetroArchVsync;
         ChkThreadedVideo.IsChecked = _settings.RetroArchThreadedVideo;
         ChkBilinear.IsChecked = _settings.RetroArchBilinear;
+        SelectComboByTag(CmbAspectRatio, _settings.RetroArchAspectRatioIndex);
+        ChkScaleInteger.IsChecked = _settings.RetroArchScaleInteger;
+        ChkShaderEnable.IsChecked = _settings.RetroArchShaderEnable;
+        ChkHardSync.IsChecked = _settings.RetroArchHardSync;
 
         ChkAudioEnable.IsChecked = _settings.RetroArchAudioEnable;
         ChkAudioMute.IsChecked = _settings.RetroArchAudioMute;
@@ -34,11 +39,14 @@ public partial class InjectRetroArchConfigWindow
         ChkAutoSaveState.IsChecked = _settings.RetroArchAutoSaveState;
         ChkAutoLoadState.IsChecked = _settings.RetroArchAutoLoadState;
         ChkRewind.IsChecked = _settings.RetroArchRewind;
+        ChkRunAhead.IsChecked = _settings.RetroArchRunAhead;
 
         CmbMenuDriver.Text = _settings.RetroArchMenuDriver;
+        ChkAdvancedSettings.IsChecked = _settings.RetroArchShowAdvancedSettings;
 
         ChkCheevosEnable.IsChecked = _settings.RetroArchCheevosEnable;
         ChkCheevosHardcore.IsChecked = _settings.RetroArchCheevosHardcore;
+        ChkDiscordAllow.IsChecked = _settings.RetroArchDiscordAllow;
 
         ChkShowBeforeLaunch.IsChecked = _settings.RetroArchShowSettingsBeforeLaunch;
 
@@ -56,6 +64,10 @@ public partial class InjectRetroArchConfigWindow
         _settings.RetroArchVsync = ChkVsync.IsChecked ?? true;
         _settings.RetroArchThreadedVideo = ChkThreadedVideo.IsChecked ?? false;
         _settings.RetroArchBilinear = ChkBilinear.IsChecked ?? false;
+        _settings.RetroArchAspectRatioIndex = GetSelectedTag(CmbAspectRatio);
+        _settings.RetroArchScaleInteger = ChkScaleInteger.IsChecked ?? false;
+        _settings.RetroArchShaderEnable = ChkShaderEnable.IsChecked ?? true;
+        _settings.RetroArchHardSync = ChkHardSync.IsChecked ?? false;
 
         _settings.RetroArchAudioEnable = ChkAudioEnable.IsChecked ?? true;
         _settings.RetroArchAudioMute = ChkAudioMute.IsChecked ?? false;
@@ -65,11 +77,14 @@ public partial class InjectRetroArchConfigWindow
         _settings.RetroArchAutoSaveState = ChkAutoSaveState.IsChecked ?? false;
         _settings.RetroArchAutoLoadState = ChkAutoLoadState.IsChecked ?? false;
         _settings.RetroArchRewind = ChkRewind.IsChecked ?? false;
+        _settings.RetroArchRunAhead = ChkRunAhead.IsChecked ?? false;
 
         _settings.RetroArchMenuDriver = CmbMenuDriver.Text;
+        _settings.RetroArchShowAdvancedSettings = ChkAdvancedSettings.IsChecked ?? true;
 
         _settings.RetroArchCheevosEnable = ChkCheevosEnable.IsChecked ?? false;
         _settings.RetroArchCheevosHardcore = ChkCheevosHardcore.IsChecked ?? false;
+        _settings.RetroArchDiscordAllow = ChkDiscordAllow.IsChecked ?? false;
 
         _settings.RetroArchShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
@@ -87,5 +102,27 @@ public partial class InjectRetroArchConfigWindow
     {
         SaveSettings();
         Close();
+    }
+
+    private static void SelectComboByTag(ComboBox cmb, string tagValue)
+    {
+        foreach (ComboBoxItem item in cmb.Items)
+        {
+            if (item.Tag?.ToString() == tagValue)
+            {
+                cmb.SelectedItem = item;
+                return;
+            }
+        }
+
+        if (cmb.Items.Count > 0)
+        {
+            cmb.SelectedIndex = 0;
+        }
+    }
+
+    private static string GetSelectedTag(ComboBox cmb)
+    {
+        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "";
     }
 }

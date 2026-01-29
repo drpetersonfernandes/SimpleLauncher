@@ -40,56 +40,58 @@ public static class RetroArchConfigurationService
             Directory.CreateDirectory(statesDir);
             Directory.CreateDirectory(screenshotsDir);
 
+            // BUG FIX: RetroArch requires values to be wrapped in double quotes
+            static string Quote(string val)
+            {
+                return $"\"{val}\"";
+            }
+
+            static string BoolQuote(bool val)
+            {
+                return Quote(val ? "true" : "false");
+            }
+
             // Prepare settings dictionary
-            // Note: RetroArch expects strings in quotes, bools/numbers without.
             var updates = new Dictionary<string, string>
             {
                 // --- Video ---
-                { "video_fullscreen", settings.RetroArchFullscreen ? "true" : "false" },
-                { "video_vsync", settings.RetroArchVsync ? "true" : "false" },
-                { "video_driver", $"\"{settings.RetroArchVideoDriver}\"" },
-                { "video_aspect_ratio_auto", "true" },
-                { "video_threaded", settings.RetroArchThreadedVideo ? "true" : "false" },
-                { "video_smooth", settings.RetroArchBilinear ? "true" : "false" },
-                { "video_crop_overscan", "true" },
-                { "video_shader_enable", "true" }, // Generally enable to allow per-core overrides to work
+                { "video_fullscreen", BoolQuote(settings.RetroArchFullscreen) },
+                { "video_vsync", BoolQuote(settings.RetroArchVsync) },
+                { "video_driver", Quote(settings.RetroArchVideoDriver) },
+                { "video_threaded", BoolQuote(settings.RetroArchThreadedVideo) },
+                { "video_smooth", BoolQuote(settings.RetroArchBilinear) },
+                { "video_aspect_ratio_index", Quote(settings.RetroArchAspectRatioIndex) },
+                { "video_scale_integer", BoolQuote(settings.RetroArchScaleInteger) },
+                { "video_shader_enable", BoolQuote(settings.RetroArchShaderEnable) },
+                { "video_hard_sync", BoolQuote(settings.RetroArchHardSync) },
 
                 // --- Audio ---
-                { "audio_enable", settings.RetroArchAudioEnable ? "true" : "false" },
-                { "audio_mute_enable", settings.RetroArchAudioMute ? "true" : "false" },
+                { "audio_enable", BoolQuote(settings.RetroArchAudioEnable) },
+                { "audio_mute_enable", BoolQuote(settings.RetroArchAudioMute) },
 
                 // --- Directories (Portability) ---
-                // We use forward slashes for compatibility or escaped backslashes
-                { "system_directory", $"\"{biosDir.Replace("\\", "/")}\"" },
-                { "savefile_directory", $"\"{savesDir.Replace("\\", "/")}\"" },
-                { "savestate_directory", $"\"{statesDir.Replace("\\", "/")}\"" },
-                { "screenshot_directory", $"\"{screenshotsDir.Replace("\\", "/")}\"" },
+                { "system_directory", Quote(biosDir.Replace("\\", "/")) },
+                { "savefile_directory", Quote(savesDir.Replace("\\", "/")) },
+                { "savestate_directory", Quote(statesDir.Replace("\\", "/")) },
+                { "screenshot_directory", Quote(screenshotsDir.Replace("\\", "/")) },
 
                 // --- Automation / Misc ---
-                { "pause_nonactive", settings.RetroArchPauseNonActive ? "true" : "false" },
-                { "config_save_on_exit", settings.RetroArchSaveOnExit ? "true" : "false" },
-                { "savestate_auto_save", settings.RetroArchAutoSaveState ? "true" : "false" },
-                { "savestate_auto_load", settings.RetroArchAutoLoadState ? "true" : "false" },
-                { "rewind_enable", settings.RetroArchRewind ? "true" : "false" },
-                { "content_runtime_log", "true" },
+                { "pause_nonactive", BoolQuote(settings.RetroArchPauseNonActive) },
+                { "config_save_on_exit", BoolQuote(settings.RetroArchSaveOnExit) },
+                { "savestate_auto_save", BoolQuote(settings.RetroArchAutoSaveState) },
+                { "savestate_auto_load", BoolQuote(settings.RetroArchAutoLoadState) },
+                { "rewind_enable", BoolQuote(settings.RetroArchRewind) },
+                { "run_ahead_enabled", BoolQuote(settings.RetroArchRunAhead) },
+                { "discord_allow", BoolQuote(settings.RetroArchDiscordAllow) },
 
                 // --- UI ---
-                { "menu_driver", $"\"{settings.RetroArchMenuDriver}\"" },
+                { "menu_driver", Quote(settings.RetroArchMenuDriver) },
+                { "menu_show_advanced_settings", BoolQuote(settings.RetroArchShowAdvancedSettings) },
 
                 // --- RetroAchievements ---
-                // We inject credentials from the main SettingsManager if enabled
-                { "cheevos_enable", settings.RetroArchCheevosEnable ? "true" : "false" },
-                { "cheevos_hardcore_mode_enable", settings.RetroArchCheevosHardcore ? "true" : "false" }
+                { "cheevos_enable", BoolQuote(settings.RetroArchCheevosEnable) },
+                { "cheevos_hardcore_mode_enable", BoolQuote(settings.RetroArchCheevosHardcore) }
             };
-
-            // Only inject credentials if RA is enabled to avoid clearing them if user disabled it temporarily
-            if (settings.RetroArchCheevosEnable)
-            {
-                updates["cheevos_username"] = $"\"{settings.RaUsername}\"";
-                // Prefer Token, fallback to Password
-                var secret = !string.IsNullOrEmpty(settings.RaToken) ? settings.RaToken : settings.RaPassword;
-                updates["cheevos_password"] = $"\"{secret}\"";
-            }
 
             // Read and Update
             var lines = File.ReadAllLines(configPath).ToList();
