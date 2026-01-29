@@ -3436,4 +3436,73 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void FailedtoinjectMamEconfiguration()
+    {
+        MessageBox.Show("Failed to inject MAME configuration. The error has been logged. Please check the emulator path and try again.",
+            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    public static void MamEconfigurationinjectedsuccessfully()
+    {
+        MessageBox.Show("MAME configuration injected successfully.", "Success",
+            MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void FailedtoinjectMamEconfiguration2()
+    {
+        MessageBox.Show("Failed to inject MAME configuration. The error has been logged.",
+            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    public static void MamEemulatorpathnotfound()
+    {
+        MessageBox.Show("MAME emulator path not found. Please select 'mame.exe' or 'mame64.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void RetroArchemulatorpathnotfound()
+    {
+        MessageBox.Show("RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void FailedtoinjectRetroArchconfiguration()
+    {
+        MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged. Please check the emulator path and try again.",
+            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    public static void RetroArchconfigurationinjectedsuccessfully()
+    {
+        MessageBox.Show("RetroArch configuration injected successfully.", "Success",
+            MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void FailedtoinjectRetroArchconfiguration2()
+    {
+        MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged.",
+            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    public static void Xeniaemulatorpathnotfound()
+    {
+        MessageBox.Show("Xenia emulator path not found. Please select 'xenia.exe' or 'xenia_canary.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void FailedtoinjectXeniaconfiguration()
+    {
+        MessageBox.Show("Failed to inject Xenia configuration. The error has been logged. Please check the emulator path and try again.",
+            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+
+    public static void Xeniaconfigurationinjectedsuccessfully()
+    {
+        MessageBox.Show("Xenia configuration injected successfully.", "Success",
+            MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    public static void FailedtoinjectXeniaconfiguration2()
+    {
+        MessageBox.Show("Failed to inject Xenia configuration. The error has been logged.",
+            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
 }

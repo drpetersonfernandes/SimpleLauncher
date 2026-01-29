@@ -5,6 +5,7 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher;
@@ -74,7 +75,7 @@ public partial class InjectRetroArchConfigWindow
             return _emulatorPath;
         }
 
-        MessageBox.Show("RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        MessageBoxLibrary.RetroArchemulatorpathnotfound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RetroArch Executable|retroarch.exe|All Executables|*.exe",
@@ -150,8 +151,7 @@ public partial class InjectRetroArchConfigWindow
         }
         else
         {
-            MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged. Please check the emulator path and try again.",
-                "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.FailedtoinjectRetroArchconfiguration();
             // Keep window open so user can retry or cancel
         }
     }
@@ -162,13 +162,11 @@ public partial class InjectRetroArchConfigWindow
         var success = InjectConfig();
         if (success)
         {
-            MessageBox.Show("RetroArch configuration injected successfully.", "Success",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxLibrary.RetroArchconfigurationinjectedsuccessfully();
         }
         else
         {
-            MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged.",
-                "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBoxLibrary.FailedtoinjectRetroArchconfiguration2();
         }
 
         Close();
