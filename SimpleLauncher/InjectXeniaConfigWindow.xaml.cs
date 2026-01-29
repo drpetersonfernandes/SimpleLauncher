@@ -1,7 +1,10 @@
+using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -13,6 +16,7 @@ public partial class InjectXeniaConfigWindow
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
     private string _emulatorPath;
+    private readonly ILogErrors _logErrors;
 
 
     public InjectXeniaConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
@@ -22,6 +26,7 @@ public partial class InjectXeniaConfigWindow
         _settings = settings;
         _emulatorPath = emulatorPath;
         _isLauncherMode = isLauncherMode;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         LoadSettings();
     }
 
@@ -123,17 +128,30 @@ public partial class InjectXeniaConfigWindow
         }
 
         _settings.Save();
+    }
 
+    private bool InjectConfig()
+    {
         var path = EnsureEmulatorPath();
-        if (!string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(path))
+            return false;
+
+        try
         {
             XeniaConfigurationService.InjectSettings(path, _settings);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogErrorAsync(ex, $"Xenia configuration injection failed for path: {path}");
+            return false;
         }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
+        InjectConfig(); // Attempt injection but do not show message box per requirements
         ShouldRun = true;
         Close();
     }
@@ -141,6 +159,18 @@ public partial class InjectXeniaConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
+        var success = InjectConfig();
+        if (success)
+        {
+            MessageBox.Show("Xenia configuration injected successfully.", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            MessageBox.Show("Failed to inject Xenia configuration. The error has been logged.",
+                "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
         Close();
     }
 

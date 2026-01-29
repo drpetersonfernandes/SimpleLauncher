@@ -3,6 +3,9 @@ using System.Windows;
 using SimpleLauncher.Managers;
 using System.Windows.Controls;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace SimpleLauncher;
 
@@ -12,6 +15,7 @@ public partial class InjectRetroArchConfigWindow
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
     private string _emulatorPath;
+    private readonly ILogErrors _logErrors;
 
 
     public InjectRetroArchConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
@@ -21,6 +25,7 @@ public partial class InjectRetroArchConfigWindow
         _settings = settings;
         _emulatorPath = emulatorPath;
         _isLauncherMode = isLauncherMode;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         LoadSettings();
     }
 
@@ -114,17 +119,30 @@ public partial class InjectRetroArchConfigWindow
         _settings.RetroArchShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
         _settings.Save();
+    }
 
+    private bool InjectConfig()
+    {
         var path = EnsureEmulatorPath();
-        if (!string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(path))
+            return false;
+
+        try
         {
             RetroArchConfigurationService.InjectSettings(path, _settings);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogErrorAsync(ex, $"RetroArch configuration injection failed for path: {path}");
+            return false;
         }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
+        InjectConfig(); // Attempt injection but do not show message box per requirements
         ShouldRun = true;
         Close();
     }
@@ -132,6 +150,18 @@ public partial class InjectRetroArchConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
+        var success = InjectConfig();
+        if (success)
+        {
+            MessageBox.Show("RetroArch configuration injected successfully.", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged.",
+                "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
         Close();
     }
 

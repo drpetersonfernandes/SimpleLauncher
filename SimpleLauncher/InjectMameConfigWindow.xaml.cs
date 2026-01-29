@@ -1,7 +1,10 @@
+using System;
 using System.IO;
 using System.Windows;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher;
 
@@ -12,6 +15,7 @@ public partial class InjectMameConfigWindow
     public bool ShouldRun { get; private set; }
     private string _emulatorPath;
     private readonly string _systemRomPath;
+    private readonly ILogErrors _logErrors;
 
 
     public InjectMameConfigWindow(SettingsManager settings, string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true)
@@ -22,6 +26,7 @@ public partial class InjectMameConfigWindow
         _emulatorPath = emulatorPath;
         _systemRomPath = systemRomPath;
         _isLauncherMode = isLauncherMode;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         LoadSettings();
     }
 
@@ -92,17 +97,30 @@ public partial class InjectMameConfigWindow
         _settings.MameShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
         _settings.Save();
+    }
 
+    private bool InjectConfig()
+    {
         var path = EnsureEmulatorPath();
-        if (!string.IsNullOrEmpty(path))
+        if (string.IsNullOrEmpty(path))
+            return false;
+
+        try
         {
             MameConfigurationService.InjectSettings(path, _settings, _systemRomPath);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogErrorAsync(ex, $"MAME configuration injection failed for path: {path}");
+            return false;
         }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
+        InjectConfig(); // Attempt injection but do not show message box per requirements
         ShouldRun = true;
         Close();
     }
@@ -110,6 +128,18 @@ public partial class InjectMameConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
+        var success = InjectConfig();
+        if (success)
+        {
+            MessageBox.Show("MAME configuration injected successfully.", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            MessageBox.Show("Failed to inject MAME configuration. The error has been logged.",
+                "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
         Close();
     }
 }
