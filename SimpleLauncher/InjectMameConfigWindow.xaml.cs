@@ -1,5 +1,7 @@
+using System.IO;
 using System.Windows;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher;
 
@@ -8,12 +10,17 @@ public partial class InjectMameConfigWindow
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
+    private string _emulatorPath;
+    private readonly string _systemRomPath;
 
-    public InjectMameConfigWindow(SettingsManager settings, bool isLauncherMode = true)
+
+    public InjectMameConfigWindow(SettingsManager settings, string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _settings = settings;
+        _emulatorPath = emulatorPath;
+        _systemRomPath = systemRomPath;
         _isLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -45,6 +52,26 @@ public partial class InjectMameConfigWindow
         }
     }
 
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        MessageBox.Show("MAME emulator path not found. Please select 'mame.exe' or 'mame64.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "MAME Executable|mame*.exe|All Executables|*.exe",
+            Title = "Select MAME Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
+    }
+
     private void SaveSettings()
     {
         _settings.MameVideo = CmbVideo.Text;
@@ -65,6 +92,12 @@ public partial class InjectMameConfigWindow
         _settings.MameShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
         _settings.Save();
+
+        var path = EnsureEmulatorPath();
+        if (!string.IsNullOrEmpty(path))
+        {
+            MameConfigurationService.InjectSettings(path, _settings, _systemRomPath);
+        }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)

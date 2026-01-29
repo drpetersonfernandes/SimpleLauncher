@@ -1,6 +1,8 @@
+using System.IO;
 using System.Windows;
 using SimpleLauncher.Managers;
 using System.Windows.Controls;
+using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher;
 
@@ -9,12 +11,15 @@ public partial class InjectRetroArchConfigWindow
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
+    private string _emulatorPath;
 
-    public InjectRetroArchConfigWindow(SettingsManager settings, bool isLauncherMode = true)
+
+    public InjectRetroArchConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _settings = settings;
+        _emulatorPath = emulatorPath;
         _isLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -57,6 +62,26 @@ public partial class InjectRetroArchConfigWindow
         }
     }
 
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        MessageBox.Show("RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "RetroArch Executable|retroarch.exe|All Executables|*.exe",
+            Title = "Select RetroArch Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
+    }
+
     private void SaveSettings()
     {
         _settings.RetroArchVideoDriver = CmbVideoDriver.Text;
@@ -89,6 +114,12 @@ public partial class InjectRetroArchConfigWindow
         _settings.RetroArchShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
         _settings.Save();
+
+        var path = EnsureEmulatorPath();
+        if (!string.IsNullOrEmpty(path))
+        {
+            RetroArchConfigurationService.InjectSettings(path, _settings);
+        }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)

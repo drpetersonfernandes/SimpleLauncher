@@ -1,7 +1,9 @@
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher;
 
@@ -10,12 +12,15 @@ public partial class InjectXeniaConfigWindow
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
+    private string _emulatorPath;
 
-    public InjectXeniaConfigWindow(SettingsManager settings, bool isLauncherMode = true)
+
+    public InjectXeniaConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _settings = settings;
+        _emulatorPath = emulatorPath;
         _isLauncherMode = isLauncherMode;
         LoadSettings();
     }
@@ -55,6 +60,26 @@ public partial class InjectXeniaConfigWindow
         }
 
         SelectComboByTag(CmbLang, _settings.XeniaUserLanguage.ToString(CultureInfo.InvariantCulture));
+    }
+
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        MessageBox.Show("Xenia emulator path not found. Please select 'xenia.exe' or 'xenia_canary.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Xenia Executable|xenia*.exe|All Executables|*.exe",
+            Title = "Select Xenia Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
     }
 
     private void SaveSettings()
@@ -98,6 +123,12 @@ public partial class InjectXeniaConfigWindow
         }
 
         _settings.Save();
+
+        var path = EnsureEmulatorPath();
+        if (!string.IsNullOrEmpty(path))
+        {
+            XeniaConfigurationService.InjectSettings(path, _settings);
+        }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)

@@ -127,12 +127,13 @@ public class GameLauncher
                 filePath.Contains("xenia.exe", StringComparison.OrdinalIgnoreCase) ||
                 filePath.Contains("xenia_canary.exe", StringComparison.OrdinalIgnoreCase))
             {
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
                 var shouldRun = false;
                 if (settings.XeniaShowSettingsBeforeLaunch)
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var xeniaWindow = new InjectXeniaConfigWindow(settings) { Owner = mainWindow };
+                        var xeniaWindow = new InjectXeniaConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
                         xeniaWindow.ShowDialog();
                         shouldRun = xeniaWindow.ShouldRun;
                     });
@@ -140,20 +141,14 @@ public class GameLauncher
                 else
                 {
                     shouldRun = true;
+                    // Inject the settings into the Xenia config file since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        XeniaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
                 }
 
-                if (!shouldRun)
-                {
-                    // User cancelled the launch
-                    return;
-                }
-
-                // Inject the settings into the Xenia config file
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                {
-                    XeniaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                }
+                if (!shouldRun) return; // User cancelled the launch
             }
 
             // --- MAME CONFIGURATION INTERCEPTION ---
@@ -162,12 +157,14 @@ public class GameLauncher
                 filePath.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase) ||
                 selectedSystemName.Contains("MAME", StringComparison.OrdinalIgnoreCase))
             {
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
                 var shouldRun = false;
                 if (settings.MameShowSettingsBeforeLaunch)
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var mameWindow = new InjectMameConfigWindow(settings) { Owner = mainWindow };
+                        var mameWindow = new InjectMameConfigWindow(settings, resolvedEmulatorExePath, resolvedSystemFolderPath) { Owner = mainWindow };
                         mameWindow.ShowDialog();
                         shouldRun = mameWindow.ShouldRun;
                     });
@@ -175,14 +172,11 @@ public class GameLauncher
                 else
                 {
                     shouldRun = true;
+                    // Inject settings into mame.ini since window was skipped
+                    MameConfigurationService.InjectSettings(resolvedEmulatorExePath, settings, resolvedSystemFolderPath);
                 }
 
                 if (!shouldRun) return; // User cancelled
-
-                // Inject settings into mame.ini
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
-                MameConfigurationService.InjectSettings(resolvedEmulatorExePath, settings, resolvedSystemFolderPath);
             }
 
             // --- RETROARCH CONFIGURATION INTERCEPTION ---
@@ -190,11 +184,12 @@ public class GameLauncher
                 filePath.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
             {
                 var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
                 if (settings.RetroArchShowSettingsBeforeLaunch)
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var raWindow = new InjectRetroArchConfigWindow(settings) { Owner = mainWindow };
+                        var raWindow = new InjectRetroArchConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
                         raWindow.ShowDialog();
                         shouldRun = raWindow.ShouldRun;
                     });
@@ -202,16 +197,14 @@ public class GameLauncher
                 else
                 {
                     shouldRun = true;
+                    // Inject settings into retroarch.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
                 }
 
                 if (!shouldRun) return; // User cancelled
-
-                // Inject settings into retroarch.cfg
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                {
-                    RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                }
             }
 
             var wasGamePadControllerRunning = gamePadController.IsRunning;

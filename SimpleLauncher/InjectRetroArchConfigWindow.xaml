@@ -23,7 +23,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Video Driver:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbVideoDriver" Grid.Column="1">
+                            <ComboBox x:Name="CmbVideoDriver" Grid.Column="1" ToolTip="The driver used for video output (vulkan is recommended for modern GPUs).">
                                 <ComboBoxItem Content="gl"/>
                                 <ComboBoxItem Content="vulkan"/>
                                 <ComboBoxItem Content="d3d11"/>
@@ -32,46 +32,46 @@
                                 <ComboBoxItem Content="sdl2"/>
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkFullscreen" Content="Start in Fullscreen" Margin="0,5"/>
-                        <CheckBox x:Name="ChkVsync" Content="Enable VSync" Margin="0,5"/>
-                        <CheckBox x:Name="ChkThreadedVideo" Content="Threaded Video (Improves performance)" Margin="0,5"/>
-                        <CheckBox x:Name="ChkBilinear" Content="Bilinear Filtering (Smooth pixels)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="Start in Fullscreen" Margin="0,5" ToolTip="Starts RetroArch in fullscreen mode."/>
+                        <CheckBox x:Name="ChkVsync" Content="Enable VSync" Margin="0,5" ToolTip="Synchronizes frame rate with monitor refresh to prevent tearing."/>
+                        <CheckBox x:Name="ChkThreadedVideo" Content="Threaded Video" Margin="0,5" ToolTip="Improves performance by running video on a separate thread."/>
+                        <CheckBox x:Name="ChkBilinear" Content="Bilinear Filtering" Margin="0,5" ToolTip="Applies bilinear filtering to smooth pixels."/>
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Aspect Ratio:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbAspectRatio" Grid.Column="1">
+                            <ComboBox x:Name="CmbAspectRatio" Grid.Column="1" ToolTip="Sets the screen aspect ratio (Core Provided is usually best).">
                                 <ComboBoxItem Content="Core Provided" Tag="22"/>
                                 <ComboBoxItem Content="4:3" Tag="0"/>
                                 <ComboBoxItem Content="16:9" Tag="1"/>
                                 <ComboBoxItem Content="16:10" Tag="2"/>
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkScaleInteger" Content="Integer Scaling (Perfect pixels, black borders)" Margin="0,5"/>
-                        <CheckBox x:Name="ChkShaderEnable" Content="Enable Shaders" Margin="0,5"/>
-                        <CheckBox x:Name="ChkHardSync" Content="GPU Hard Sync (Reduces Input Lag)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkScaleInteger" Content="Integer Scaling" Margin="0,5" ToolTip="Scales the image by whole numbers to ensure perfect pixels."/>
+                        <CheckBox x:Name="ChkShaderEnable" Content="Enable Shaders" Margin="0,5" ToolTip="Enables the use of graphical shaders."/>
+                        <CheckBox x:Name="ChkHardSync" Content="GPU Hard Sync" Margin="0,5" ToolTip="Synchronizes CPU and GPU to reduce input latency."/>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
                 <GroupBox Header="Audio" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAudioEnable" Content="Enable Audio" Margin="0,5"/>
-                        <CheckBox x:Name="ChkAudioMute" Content="Mute Audio" Margin="0,5"/>
+                        <CheckBox x:Name="ChkAudioEnable" Content="Enable Audio" Margin="0,5" ToolTip="Enables audio output."/>
+                        <CheckBox x:Name="ChkAudioMute" Content="Mute Audio" Margin="0,5" ToolTip="Mutes all audio."/>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Automation & Misc -->
                 <GroupBox Header="Automation &amp; Behavior" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkPauseNonActive" Content="Pause when window loses focus" Margin="0,5"/>
+                        <CheckBox x:Name="ChkPauseNonActive" Content="Pause when window loses focus" Margin="0,5" ToolTip="Pauses the emulator when the window is not in focus."/>
                         <CheckBox x:Name="ChkSaveOnExit" Content="Save Configuration on Exit" Margin="0,5" ToolTip="If checked, changes made inside RA menu will be saved."/>
-                        <CheckBox x:Name="ChkAutoSaveState" Content="Auto Save State on Exit" Margin="0,5"/>
-                        <CheckBox x:Name="ChkAutoLoadState" Content="Auto Load State on Start" Margin="0,5"/>
-                        <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5"/>
-                        <CheckBox x:Name="ChkRunAhead" Content="Run-Ahead (Remove original console lag)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkAutoSaveState" Content="Auto Save State on Exit" Margin="0,5" ToolTip="Automatically creates a save state when closing."/>
+                        <CheckBox x:Name="ChkAutoLoadState" Content="Auto Load State on Start" Margin="0,5" ToolTip="Automatically loads the last save state when starting."/>
+                        <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5" ToolTip="Allows you to rewind gameplay in real-time."/>
+                        <CheckBox x:Name="ChkRunAhead" Content="Run-Ahead" Margin="0,5" ToolTip="Reduces input lag by predicting future frames (CPU intensive)."/>
                     </StackPanel>
                 </GroupBox>
                 
@@ -84,14 +84,14 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Menu Driver:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbMenuDriver" Grid.Column="1">
+                            <ComboBox x:Name="CmbMenuDriver" Grid.Column="1" ToolTip="The visual style of the menu (Ozone is modern, XMB is PS3-style).">
                                 <ComboBoxItem Content="ozone" ToolTip="Switch-like interface"/>
                                 <ComboBoxItem Content="xmb" ToolTip="PS3-like interface"/>
                                 <ComboBoxItem Content="rgui" ToolTip="Classic retro interface"/>
                                 <ComboBoxItem Content="glui" ToolTip="Mobile-friendly interface"/>
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkAdvancedSettings" Content="Show Advanced Settings" Margin="0,5"/>
+                        <CheckBox x:Name="ChkAdvancedSettings" Content="Show Advanced Settings" Margin="0,5" ToolTip="Shows more complex options in the RetroArch menu."/>
                     </StackPanel>
                 </GroupBox>
 
@@ -99,9 +99,9 @@
                 <GroupBox Header="RetroAchievements" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <TextBlock Text="Credentials are managed in the main RetroAchievements Settings." FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                        <CheckBox x:Name="ChkCheevosEnable" Content="Enable RetroAchievements" Margin="0,5"/>
-                        <CheckBox x:Name="ChkCheevosHardcore" Content="Hardcore Mode (No Save States/Rewind)" Margin="0,5"/>
-                        <CheckBox x:Name="ChkDiscordAllow" Content="Discord Rich Presence" Margin="0,5"/>
+                        <CheckBox x:Name="ChkCheevosEnable" Content="Enable RetroAchievements" Margin="0,5" ToolTip="Enables RetroAchievements integration."/>
+                        <CheckBox x:Name="ChkCheevosHardcore" Content="Hardcore Mode" Margin="0,5" ToolTip="Disables cheats/rewind to earn hardcore badges."/>
+                        <CheckBox x:Name="ChkDiscordAllow" Content="Discord Rich Presence" Margin="0,5" ToolTip="Shows what you are playing on your Discord profile."/>
                     </StackPanel>
                 </GroupBox>
 

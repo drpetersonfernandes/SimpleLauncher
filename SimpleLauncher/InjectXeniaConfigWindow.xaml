@@ -23,17 +23,17 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Graphics API:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbGpu" Grid.Column="1">
+                            <ComboBox x:Name="CmbGpu" Grid.Column="1" ToolTip="The graphics API used for rendering (d3d12 is standard).">
                                 <ComboBoxItem Content="d3d12"/>
                                 <ComboBoxItem Content="vulkan"/>
                                 <ComboBoxItem Content="null"/>
                             </ComboBox>
                         </Grid>
                         
-                        <CheckBox x:Name="ChkVsync" Content="VSync" Margin="0,5"/>
-                        <CheckBox x:Name="ChkFullscreen" Content="Fullscreen" Margin="0,5"/>
+                        <CheckBox x:Name="ChkVsync" Content="VSync" Margin="0,5" ToolTip="Synchronizes frame rate to prevent screen tearing."/>
+                        <CheckBox x:Name="ChkFullscreen" Content="Fullscreen" Margin="0,5" ToolTip="Starts Xenia in fullscreen mode."/>
 
-                        <Label Content="Resolution Scale (X / Y):" Margin="0,5,0,0"/>
+                        <Label Content="Resolution Scale (X / Y):" Margin="0,5,0,0" ToolTip="Internal rendering resolution scale (1=720p, 2=1440p)."/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -54,27 +54,27 @@
                         </Grid>
                         
                         <Label Content="Post-Processing AA:" Margin="0,5,0,0"/>
-                        <ComboBox x:Name="CmbAa">
+                        <ComboBox x:Name="CmbAa" ToolTip="Reduces jagged edges using FXAA.">
                             <ComboBoxItem Content="None" Tag=""/>
                             <ComboBoxItem Content="FXAA" Tag="fxaa"/>
                             <ComboBoxItem Content="FXAA Extreme" Tag="fxaa_extreme"/>
                         </ComboBox>
 
                         <Label Content="Scaling &amp; Sharpening:" Margin="0,5,0,0"/>
-                        <ComboBox x:Name="CmbScaling">
+                        <ComboBox x:Name="CmbScaling" ToolTip="Upscaling method (FSR provides high-quality sharpening).">
                             <ComboBoxItem Content="FSR" Tag="fsr"/>
                             <ComboBoxItem Content="CAS" Tag="cas"/>
                             <ComboBoxItem Content="Bilinear" Tag="bilinear"/>
                         </ComboBox>
 
                         <Label Content="Readback Resolve (Fixes Graphics):" Margin="0,5,0,0"/>
-                        <ComboBox x:Name="CmbReadback">
+                        <ComboBox x:Name="CmbReadback" ToolTip="Fixes certain graphical glitches at the cost of performance.">
                             <ComboBoxItem Content="None (Fastest)" Tag="none"/>
                             <ComboBoxItem Content="Fast (Recommended)" Tag="fast"/>
                             <ComboBoxItem Content="Full (Slowest/Most Accurate)" Tag="full"/>
                         </ComboBox>
 
-                        <CheckBox x:Name="ChkGammaSrgb" Content="Gamma Render Target as sRGB (Color Fix)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkGammaSrgb" Content="Gamma Render Target as sRGB" Margin="0,5" ToolTip="Corrects colors in some games that appear too dark."/>
 
                     </StackPanel>
                 </GroupBox>
@@ -88,23 +88,23 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Audio Driver:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbApu" Grid.Column="1">
+                            <ComboBox x:Name="CmbApu" Grid.Column="1" ToolTip="The audio processing driver.">
                                 <ComboBoxItem Content="xaudio2"/>
                                 <ComboBoxItem Content="sdl"/>
                                 <ComboBoxItem Content="nop"/>
                                 <ComboBoxItem Content="any"/>
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkMute" Content="Mute Audio" Margin="0,5"/>
+                        <CheckBox x:Name="ChkMute" Content="Mute Audio" Margin="0,5" ToolTip="Mutes all audio output."/>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
                 <GroupBox Header="System &amp; Input" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkPatches" Content="Apply Game Patches" Margin="0,5"/>
-                        <CheckBox x:Name="ChkMountCache" Content="Mount Cache Partition (Required for some games)" Margin="0,5"/>
-                        <CheckBox x:Name="ChkVibration" Content="Enable Controller Vibration" Margin="0,5"/>
+                        <CheckBox x:Name="ChkPatches" Content="Apply Game Patches" Margin="0,5" ToolTip="Enables game-specific patches (patch files required)."/>
+                        <CheckBox x:Name="ChkMountCache" Content="Mount Cache Partition" Margin="0,5" ToolTip="Simulates an Xbox 360 hard drive cache (required for some games)."/>
+                        <CheckBox x:Name="ChkVibration" Content="Enable Controller Vibration" Margin="0,5" ToolTip="Enables controller vibration."/>
                         
                         <Grid Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
@@ -112,7 +112,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Input Driver (HID):" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbHid" Grid.Column="1">
+                            <ComboBox x:Name="CmbHid" Grid.Column="1" ToolTip="The input driver (xinput is standard for Xbox controllers).">
                                 <ComboBoxItem Content="xinput"/>
                                 <ComboBoxItem Content="sdl"/>
                                 <ComboBoxItem Content="winkey"/>
@@ -126,7 +126,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="User Language:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbLang" Grid.Column="1">
+                            <ComboBox x:Name="CmbLang" Grid.Column="1" ToolTip="The system language reported to the game.">
                                 <ComboBoxItem Content="English" Tag="1"/>
                                 <ComboBoxItem Content="Japanese" Tag="2"/>
                                 <ComboBoxItem Content="German" Tag="3"/>

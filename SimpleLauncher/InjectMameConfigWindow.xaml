@@ -23,7 +23,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Video Mode:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbVideo" Grid.Column="1">
+                            <ComboBox x:Name="CmbVideo" Grid.Column="1" ToolTip="Specifies the video technology used for rendering (e.g., d3d, opengl, bgfx).">
                                 <ComboBoxItem Content="auto"/>
                                 <ComboBoxItem Content="d3d"/>
                                 <ComboBoxItem Content="opengl"/>
@@ -37,7 +37,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="BGFX Backend:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbBgfxBackend" Grid.Column="1">
+                            <ComboBox x:Name="CmbBgfxBackend" Grid.Column="1" ToolTip="The rendering backend for BGFX (e.g., d3d11, vulkan).">
                                 <ComboBoxItem Content="auto"/>
                                 <ComboBoxItem Content="d3d11"/>
                                 <ComboBoxItem Content="vulkan"/>
@@ -50,24 +50,24 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="BGFX Shader:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbBgfxChains" Grid.Column="1" IsEditable="True">
+                            <ComboBox x:Name="CmbBgfxChains" Grid.Column="1" IsEditable="True" ToolTip="Post-processing shader chains (e.g., crt-geom).">
                                 <ComboBoxItem Content="default"/>
                                 <ComboBoxItem Content="crt-geom"/>
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkFilter" Content="Bilinear Filtering" Margin="0,5"/>
-                        <CheckBox x:Name="ChkWindow" Content="Run in Window" Margin="0,5"/>
-                        <CheckBox x:Name="ChkMaximize" Content="Maximize (Start maximized)" Margin="0,5"/>
-                        <CheckBox x:Name="ChkKeepAspect" Content="Enforce Aspect Ratio" Margin="0,5"/>
+                        <CheckBox x:Name="ChkFilter" Content="Bilinear Filtering" Margin="0,5" ToolTip="Applies bilinear filtering to smooth the image."/>
+                        <CheckBox x:Name="ChkWindow" Content="Run in Window" Margin="0,5" ToolTip="Runs MAME in a window instead of fullscreen."/>
+                        <CheckBox x:Name="ChkMaximize" Content="Maximize (Start maximized)" Margin="0,5" ToolTip="Starts the window maximized."/>
+                        <CheckBox x:Name="ChkKeepAspect" Content="Enforce Aspect Ratio" Margin="0,5" ToolTip="Maintains the original aspect ratio of the game."/>
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="Performance &amp; Advanced" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAutoframeskip" Content="Auto Frameskip" Margin="0,5"/>
-                        <CheckBox x:Name="ChkCheat" Content="Enable Cheats" Margin="0,5"/>
-                        <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5"/>
-                        <CheckBox x:Name="ChkNvramSave" Content="Save NVRAM (High Scores)" Margin="0,5"/>
+                        <CheckBox x:Name="ChkAutoframeskip" Content="Auto Frameskip" Margin="0,5" ToolTip="Automatically skips frames to maintain full speed."/>
+                        <CheckBox x:Name="ChkCheat" Content="Enable Cheats" Margin="0,5" ToolTip="Enables the internal MAME cheat system."/>
+                        <CheckBox x:Name="ChkRewind" Content="Enable Rewind" Margin="0,5" ToolTip="Enables the ability to rewind gameplay."/>
+                        <CheckBox x:Name="ChkNvramSave" Content="Save NVRAM (High Scores)" Margin="0,5" ToolTip="Saves non-volatile RAM (high scores, settings) on exit."/>
                     </StackPanel>
                 </GroupBox>
 
@@ -86,7 +86,7 @@
                 <!-- Input Section -->
                 <GroupBox Header="Input" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkJoystick" Content="Enable Joystick / Gamepad" Margin="0,5"/>
+                        <CheckBox x:Name="ChkJoystick" Content="Enable Joystick / Gamepad" Margin="0,5" ToolTip="Enables joystick and gamepad input."/>
                     </StackPanel>
                 </GroupBox>
 
