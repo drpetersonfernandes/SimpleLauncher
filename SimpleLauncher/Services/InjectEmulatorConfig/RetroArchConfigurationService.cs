@@ -17,8 +17,20 @@ public static class RetroArchConfigurationService
 
         var configPath = Path.Combine(emuDir, "retroarch.cfg");
 
+        // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))
-            throw new FileNotFoundException($"retroarch.cfg not found in {emuDir}");
+        {
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "retroarch.cfg");
+            if (File.Exists(samplePath))
+            {
+                File.Copy(samplePath, configPath);
+                DebugLogger.Log($"[RetroArchConfig] Created new retroarch.cfg from sample: {configPath}");
+            }
+            else
+            {
+                throw new FileNotFoundException($"retroarch.cfg not found in {emuDir} and sample not available at {samplePath}");
+            }
+        }
 
         DebugLogger.Log($"[RetroArchConfig] Injecting configuration into: {configPath}");
 

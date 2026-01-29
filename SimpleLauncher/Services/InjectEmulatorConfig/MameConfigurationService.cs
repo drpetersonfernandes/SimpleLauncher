@@ -17,8 +17,20 @@ public static class MameConfigurationService
 
         var configPath = Path.Combine(emuDir, "mame.ini");
 
+        // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))
-            throw new FileNotFoundException($"mame.ini not found in {emuDir}");
+        {
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "mame.ini");
+            if (File.Exists(samplePath))
+            {
+                File.Copy(samplePath, configPath);
+                DebugLogger.Log($"[MameConfig] Created new mame.ini from sample: {configPath}");
+            }
+            else
+            {
+                throw new FileNotFoundException($"mame.ini not found in {emuDir} and sample not available at {samplePath}");
+            }
+        }
 
         DebugLogger.Log($"[MameConfig] Injecting configuration into: {configPath}");
 

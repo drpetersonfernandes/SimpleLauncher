@@ -142,9 +142,18 @@ public partial class InjectRetroArchConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        InjectConfig(); // Attempt injection but do not show message box per requirements
-        ShouldRun = true;
-        Close();
+        var success = InjectConfig();
+        if (success)
+        {
+            ShouldRun = true;
+            Close();
+        }
+        else
+        {
+            MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged. Please check the emulator path and try again.",
+                "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            // Keep window open so user can retry or cancel
+        }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)

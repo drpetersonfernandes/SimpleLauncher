@@ -21,8 +21,9 @@ public static class XeniaConfigurationService
         foreach (var fileName in configFiles)
         {
             var configPath = Path.Combine(emuDir, fileName);
-            if (!File.Exists(configPath)) continue;
-
+            // The UpdateSingleConfigFile now handles creation from sample if missing.
+            // So we don't need to check File.Exists(configPath) here anymore,
+            // as it will attempt to create it if not found.
             if (UpdateSingleConfigFile(configPath, settings))
             {
                 processedCount++;
@@ -35,6 +36,23 @@ public static class XeniaConfigurationService
 
     private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManager settings)
     {
+        // Backup logic: Create from sample if missing
+        if (!File.Exists(configPath))
+        {
+            var fileName = Path.GetFileName(configPath);
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", fileName);
+            if (File.Exists(samplePath))
+            {
+                File.Copy(samplePath, configPath);
+                DebugLogger.Log($"[XeniaConfig] Created new {fileName} from sample: {configPath}");
+            }
+            else
+            {
+                DebugLogger.Log($"[XeniaConfig] Sample not found for {fileName}, skipping: {samplePath}");
+                return false;
+            }
+        }
+
         DebugLogger.Log($"[XeniaConfig] Injecting into: {Path.GetFileName(configPath)}");
 
         var tomlContent = File.ReadAllText(configPath);
@@ -51,8 +69,8 @@ public static class XeniaConfigurationService
         gpu["vsync"] = settings.XeniaVsync;
         gpu["draw_resolution_scale_x"] = settings.XeniaResScaleX;
         gpu["draw_resolution_scale_y"] = settings.XeniaResScaleY;
-        gpu["readback_resolve"] = settings.XeniaReadbackResolve; // New
-        gpu["gamma_render_target_as_srgb"] = settings.XeniaGammaSrgb; // New
+        gpu["readback_resolve"] = settings.XeniaReadbackResolve;
+        gpu["gamma_render_target_as_srgb"] = settings.XeniaGammaSrgb;
 
         // [Display]
         var display = GetOrCreateTable("Display");
@@ -63,7 +81,7 @@ public static class XeniaConfigurationService
         // [HID]
         var hid = GetOrCreateTable("HID");
         hid["hid"] = settings.XeniaHid;
-        hid["vibration"] = settings.XeniaVibration; // New
+        hid["vibration"] = settings.XeniaVibration;
 
         // [Kernel]
         var kernel = GetOrCreateTable("Kernel");
@@ -79,7 +97,7 @@ public static class XeniaConfigurationService
 
         // [Storage]
         var storage = GetOrCreateTable("Storage");
-        storage["mount_cache"] = settings.XeniaMountCache; // New
+        storage["mount_cache"] = settings.XeniaMountCache;
 
         // [XConfig]
         var xconfig = GetOrCreateTable("XConfig");
