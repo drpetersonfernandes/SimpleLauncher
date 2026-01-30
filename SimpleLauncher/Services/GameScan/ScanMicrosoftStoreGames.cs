@@ -953,7 +953,7 @@ internal static class ScanMicrosoftStoreGames
                     // Use try-catch for file operations
                     try
                     {
-                        await Task.Run(() => File.Copy(fullLogoPath, destPath, overwrite: true));
+                        await Task.Run(() => File.Copy(fullLogoPath, destPath, true));
                         return;
                     }
                     catch (Exception ex)
@@ -987,7 +987,7 @@ internal static class ScanMicrosoftStoreGames
                     {
                         try
                         {
-                            await Task.Run(() => File.Copy(p, destPath, overwrite: true));
+                            await Task.Run(() => File.Copy(p, destPath, true));
                             return;
                         }
                         catch (Exception ex)
@@ -1009,7 +1009,7 @@ internal static class ScanMicrosoftStoreGames
                 {
                     try
                     {
-                        await Task.Run(() => File.Copy(bestIcon, destPath, overwrite: true));
+                        await Task.Run(() => File.Copy(bestIcon, destPath, true));
                         return;
                     }
                     catch (Exception ex)
@@ -1026,7 +1026,7 @@ internal static class ScanMicrosoftStoreGames
                     {
                         try
                         {
-                            await Task.Run(() => File.Copy(largestPng, destPath, overwrite: true));
+                            await Task.Run(() => File.Copy(largestPng, destPath, true));
                             return;
                         }
                         catch (Exception ex)

@@ -3359,7 +3359,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void EnterYourRetroAchievementsUsername()
+    internal static void EnterYourRetroAchievementsUsername()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3372,7 +3372,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void EmulatorConfiguredSuccessfully()
+    internal static void EmulatorConfiguredSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3385,7 +3385,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToConfigureTheEmulator()
+    internal static void FailedToConfigureTheEmulator()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3398,7 +3398,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void AnErrorOccurredWhileConfiguringTheEmulator()
+    internal static void AnErrorOccurredWhileConfiguringTheEmulator()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3411,7 +3411,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToLoginToRetroAchievements()
+    internal static void FailedToLoginToRetroAchievements()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3424,7 +3424,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FileSystemXmlIsLockedMessageBox()
+    internal static void FileSystemXmlIsLockedMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3437,72 +3437,159 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedtoinjectMamEconfiguration()
+    internal static void FailedtoinjectMamEconfiguration()
     {
-        MessageBox.Show("Failed to inject MAME configuration. The error has been logged. Please check the emulator path and try again.",
-            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectMAMEconfiguration") ?? "Failed to inject MAME configuration. The error has been logged. Please check the emulator path and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
-    public static void MamEconfigurationinjectedsuccessfully()
+    internal static void MamEconfigurationinjectedsuccessfully()
     {
-        MessageBox.Show("MAME configuration injected successfully.", "Success",
-            MessageBoxButton.OK, MessageBoxImage.Information);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("MAMEconfigurationinjectedsuccessfully") ?? "MAME configuration injected successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
-    public static void FailedtoinjectMamEconfiguration2()
+    internal static void FailedtoinjectMamEconfiguration2()
     {
-        MessageBox.Show("Failed to inject MAME configuration. The error has been logged.",
-            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectMAMEconfigurationTheerror") ?? "Failed to inject MAME configuration. The error has been logged.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
-    public static void MamEemulatorpathnotfound()
+    internal static void MamEemulatorpathnotfound()
     {
-        MessageBox.Show("MAME emulator path not found. Please select 'mame.exe' or 'mame64.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("MAMEemulatorpathnotfoundPleaseselect") ?? "MAME emulator path not found. Please select 'mame.exe' or 'mame64.exe' to apply these settings.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorRequired") ?? "Emulator Required";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
-    public static void RetroArchemulatorpathnotfound()
+    internal static void RetroArchemulatorpathnotfound()
     {
-        MessageBox.Show("RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("RetroArchemulatorpathnotfoundPlease") ?? "RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorRequired") ?? "Emulator Required";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
-    public static void FailedtoinjectRetroArchconfiguration()
+    internal static void FailedtoinjectRetroArchconfiguration()
     {
-        MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged. Please check the emulator path and try again.",
-            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectRetroArchconfigurationTheerror") ?? "Failed to inject RetroArch configuration. The error has been logged. Please check the emulator path and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
-    public static void RetroArchconfigurationinjectedsuccessfully()
+    internal static void RetroArchconfigurationinjectedsuccessfully()
     {
-        MessageBox.Show("RetroArch configuration injected successfully.", "Success",
-            MessageBoxButton.OK, MessageBoxImage.Information);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("RetroArchconfigurationinjectedsuccessfully") ?? "RetroArch configuration injected successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
-    public static void FailedtoinjectRetroArchconfiguration2()
+    internal static void FailedtoinjectRetroArchconfiguration2()
     {
-        MessageBox.Show("Failed to inject RetroArch configuration. The error has been logged.",
-            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectRetroArchconfigurationTheerrorhas") ?? "Failed to inject RetroArch configuration. The error has been logged.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
-    public static void Xeniaemulatorpathnotfound()
+    internal static void Xeniaemulatorpathnotfound()
     {
-        MessageBox.Show("Xenia emulator path not found. Please select 'xenia.exe' or 'xenia_canary.exe' to apply these settings.", "Emulator Required", MessageBoxButton.OK, MessageBoxImage.Information);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Xeniaemulatorpathnotfound") ?? "Xenia emulator path not found. Please select 'xenia.exe' or 'xenia_canary.exe' to apply these settings.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorRequired") ?? "Emulator Required";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
-    public static void FailedtoinjectXeniaconfiguration()
+    internal static void FailedtoinjectXeniaconfiguration()
     {
-        MessageBox.Show("Failed to inject Xenia configuration. The error has been logged. Please check the emulator path and try again.",
-            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectXeniaconfigurationTheerror") ?? "Failed to inject Xenia configuration. The error has been logged. Please check the emulator path and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
-    public static void Xeniaconfigurationinjectedsuccessfully()
+    internal static void Xeniaconfigurationinjectedsuccessfully()
     {
-        MessageBox.Show("Xenia configuration injected successfully.", "Success",
-            MessageBoxButton.OK, MessageBoxImage.Information);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Xeniaconfigurationinjectedsuccessfully") ?? "Xenia configuration injected successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
-    public static void FailedtoinjectXeniaconfiguration2()
+    internal static void FailedtoinjectXeniaconfiguration2()
     {
-        MessageBox.Show("Failed to inject Xenia configuration. The error has been logged.",
-            "Injection Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectXeniaconfigurationTheerror") ?? "Failed to inject Xenia configuration. The error has been logged.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 }
