@@ -1238,4 +1238,16 @@ public partial class MainWindow
         };
         aresWindow.ShowDialog();
     }
+
+    private void ShowDaphneSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDaphneConfiguration") ?? "Opening Daphne configuration...", this);
+
+        var daphneWindow = new InjectDaphneConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        daphneWindow.ShowDialog();
+    }
 }

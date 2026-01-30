@@ -324,6 +324,32 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- DAPHNE CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                if (settings.DaphneShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var daphneWindow = new InjectDaphneConfigWindow(settings, null) { Owner = mainWindow };
+                        daphneWindow.ShowDialog();
+                        shouldRun = daphneWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // No file injection needed; arguments are built dynamically below.
+                }
+
+                if (!shouldRun) return; // User cancelled
+
+                var daphneArgs = DaphneConfigurationService.BuildArguments(settings);
+                _selectedEmulatorParameters = $"{_selectedEmulatorParameters} {daphneArgs}".Trim();
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {

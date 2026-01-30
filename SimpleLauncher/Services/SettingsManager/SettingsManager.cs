@@ -186,6 +186,16 @@ public class SettingsManager
     [Key(170)] public bool AresAutoSaveMemory { get; set; } = true;
     [Key(171)] public bool AresShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Daphne Global Configuration ---
+    [Key(180)] public bool DaphneFullscreen { get; set; }
+    [Key(181)] public int DaphneResX { get; set; } = 640;
+    [Key(182)] public int DaphneResY { get; set; } = 480;
+    [Key(183)] public bool DaphneDisableCrosshairs { get; set; }
+    [Key(184)] public bool DaphneBilinear { get; set; } = true;
+    [Key(185)] public bool DaphneEnableSound { get; set; } = true;
+    [Key(186)] public bool DaphneUseOverlays { get; set; } = true;
+    [Key(187)] public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -379,6 +389,16 @@ public class SettingsManager
         AresRunAhead = other.AresRunAhead;
         AresAutoSaveMemory = other.AresAutoSaveMemory;
         AresShowSettingsBeforeLaunch = other.AresShowSettingsBeforeLaunch;
+
+        // Daphne
+        DaphneFullscreen = other.DaphneFullscreen;
+        DaphneResX = other.DaphneResX;
+        DaphneResY = other.DaphneResY;
+        DaphneDisableCrosshairs = other.DaphneDisableCrosshairs;
+        DaphneBilinear = other.DaphneBilinear;
+        DaphneEnableSound = other.DaphneEnableSound;
+        DaphneUseOverlays = other.DaphneUseOverlays;
+        DaphneShowSettingsBeforeLaunch = other.DaphneShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -540,6 +560,16 @@ public class SettingsManager
             AresRunAhead = false;
             AresAutoSaveMemory = true;
             AresShowSettingsBeforeLaunch = true;
+
+            // Daphne Defaults
+            DaphneFullscreen = false;
+            DaphneResX = 640;
+            DaphneResY = 480;
+            DaphneDisableCrosshairs = false;
+            DaphneBilinear = true;
+            DaphneEnableSound = true;
+            DaphneUseOverlays = true;
+            DaphneShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -762,6 +792,16 @@ public class SettingsManager
         AresRunAhead = false;
         AresAutoSaveMemory = true;
         AresShowSettingsBeforeLaunch = true;
+
+        // Daphne Defaults
+        DaphneFullscreen = false;
+        DaphneResX = 640;
+        DaphneResY = 480;
+        DaphneDisableCrosshairs = false;
+        DaphneBilinear = true;
+        DaphneEnableSound = true;
+        DaphneUseOverlays = true;
+        DaphneShowSettingsBeforeLaunch = true;
 
         Save();
     }

@@ -1321,4 +1321,27 @@
     <system:String x:Key="AresSettings">Ares Settings</system:String>
     <system:String x:Key="OpeningAresConfiguration">Opening Ares configuration...</system:String>
 
+    <system:String x:Key="DaphneConfig_Title">Daphne Configuration</system:String>
+    <system:String x:Key="DaphneConfig_Video_Header">Video &amp; Display</system:String>
+    <system:String x:Key="DaphneConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
+    <system:String x:Key="DaphneConfig_Fullscreen_Tooltip">If checked, the game will launch in fullscreen mode.</system:String>
+    <system:String x:Key="DaphneConfig_Resolution_Label">Resolution:</system:String>
+    <system:String x:Key="DaphneConfig_Resolution_Tooltip">Set the windowed or fullscreen resolution.</system:String>
+    <system:String x:Key="DaphneConfig_Bilinear_Checkbox">Enable Bilinear Filtering</system:String>
+    <system:String x:Key="DaphneConfig_Bilinear_Tooltip">If checked, smooths the video. Uncheck for sharp, pixelated graphics.</system:String>
+    <system:String x:Key="DaphneConfig_Audio_Header">Audio</system:String>
+    <system:String x:Key="DaphneConfig_EnableSound_Checkbox">Enable Sound</system:String>
+    <system:String x:Key="DaphneConfig_EnableSound_Tooltip">Uncheck to mute all game audio.</system:String>
+    <system:String x:Key="DaphneConfig_Gameplay_Header">Gameplay</system:String>
+    <system:String x:Key="DaphneConfig_DisableCrosshairs_Checkbox">Disable Crosshairs</system:String>
+    <system:String x:Key="DaphneConfig_DisableCrosshairs_Tooltip">For shooting games, hides the mouse cursor/crosshair.</system:String>
+    <system:String x:Key="DaphneConfig_UseOverlays_Checkbox">Use Score Overlays</system:String>
+    <system:String x:Key="DaphneConfig_UseOverlays_Tooltip">Enable or disable the on-screen score and credit displays.</system:String>
+    <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="DaphneConfig_Save_Button">Save</system:String>
+    <system:String x:Key="DaphneConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="DaphneConfig_Cancel_Button">Cancel</system:String>
+    <system:String x:Key="DaphneSettings">Daphne Settings</system:String>
+    <system:String x:Key="OpeningDaphneConfiguration">Opening Daphne configuration...</system:String>
+
 </ResourceDictionary>
