@@ -1003,26 +1003,6 @@
     <system:String x:Key="MameConfig_Run_Button">Run MAME</system:String>
     <system:String x:Key="MameConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="RetroArchConfig_Title">RetroArch Configuration</system:String>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <system:String x:Key="RetroArchConfig_Video_Header">Video</system:String>
     <system:String x:Key="RetroArchConfig_VideoDriver_Label">Video Driver:</system:String>
     <system:String x:Key="RetroArchConfig_VideoDriver_Tooltip">The driver used for video output (vulkan is recommended for modern GPUs).</system:String>
@@ -1069,24 +1049,6 @@
     <system:String x:Key="RetroArchConfig_MenuDriver_Glui_Tooltip">Mobile-friendly interface</system:String>
     <system:String x:Key="RetroArchConfig_AdvancedSettings_Checkbox">Show Advanced Settings</system:String>
     <system:String x:Key="RetroArchConfig_AdvancedSettings_Tooltip">Shows more complex options in the RetroArch menu.</system:String>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    XXXX
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">RetroAchievements</system:String>
     <system:String x:Key="RetroArchConfig_CredentialsManaged_Text">Credentials are managed in the 'RetroAchievements Settings' window.</system:String>
     <system:String x:Key="RetroArchConfig_EnableCheevos_Checkbox">Enable RetroAchievements</system:String>
@@ -1135,6 +1097,12 @@
     <system:String x:Key="XeniaConfig_Hid_Label">Input Driver (HID):</system:String>
     <system:String x:Key="XeniaConfig_Hid_Tooltip">The input driver (xinput is standard for Xbox controllers).</system:String>
     <system:String x:Key="XeniaConfig_UserLanguage_Label">User Language:</system:String>
+    
+    
+    
+    
+    
+    xxxxxxxxxxxxxxx
     <system:String x:Key="XeniaConfig_UserLanguage_Tooltip">The system language reported to the game.</system:String>
     <system:String x:Key="XeniaConfig_ShowBeforeLaunch_Checkbox">Open this window before launching an Xbox 360 game</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">Save</system:String>
