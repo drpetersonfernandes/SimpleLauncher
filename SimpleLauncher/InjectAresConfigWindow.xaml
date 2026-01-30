@@ -1,0 +1,111 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectAresConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource AresConfig_Title}"
+                      Height="700" Width="700"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="{DynamicResource AresConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource AresConfig_VideoDriver_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbVideoDriver" Grid.Column="1" ToolTip="{DynamicResource AresConfig_VideoDriver_Tooltip}">
+                                <ComboBoxItem Content="OpenGL 3.2"/>
+                                <ComboBoxItem Content="Vulkan"/>
+                                <ComboBoxItem Content="Direct3D 11"/>
+                                <ComboBoxItem Content="Direct3D 12"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkExclusive" Content="{DynamicResource AresConfig_Exclusive_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Exclusive_Tooltip}"/>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource AresConfig_Shader_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbShader" Grid.Column="1" IsEditable="True" ToolTip="{DynamicResource AresConfig_Shader_Tooltip}">
+                                <ComboBoxItem Content="None"/>
+                                <ComboBoxItem Content="Blur"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource AresConfig_Multiplier_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbMultiplier" Grid.Column="1" ToolTip="{DynamicResource AresConfig_Multiplier_Tooltip}">
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource AresConfig_AspectCorrection_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbAspectCorrection" Grid.Column="1" ToolTip="{DynamicResource AresConfig_AspectCorrection_Tooltip}">
+                                <ComboBoxItem Content="Standard"/>
+                                <ComboBoxItem Content="Center"/>
+                                <ComboBoxItem Content="Scale"/>
+                                <ComboBoxItem Content="Stretch"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource AresConfig_Audio_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkMute" Content="{DynamicResource AresConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Mute_Tooltip}"/>
+                        <Label Content="{DynamicResource AresConfig_Volume_Label}" VerticalAlignment="Center"/>
+                        <Slider x:Name="SldVolume" Minimum="0.0" Maximum="2.0" IsSnapToTickEnabled="True" TickFrequency="0.1" ToolTip="{DynamicResource AresConfig_Volume_Tooltip}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- General Section -->
+                <GroupBox Header="{DynamicResource AresConfig_General_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkFastBoot" Content="{DynamicResource AresConfig_FastBoot_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_FastBoot_Tooltip}"/>
+                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource AresConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Rewind_Tooltip}"/>
+                        <CheckBox x:Name="ChkRunAhead" Content="{DynamicResource AresConfig_RunAhead_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_RunAhead_Tooltip}"/>
+                        <CheckBox x:Name="ChkAutoSaveMemory" Content="{DynamicResource AresConfig_AutoSaveMemory_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_AutoSaveMemory_Tooltip}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="{DynamicResource AresConfig_ShowBeforeLaunch_Checkbox}" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource AresConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="{DynamicResource AresConfig_Run_Button}" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="{DynamicResource AresConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

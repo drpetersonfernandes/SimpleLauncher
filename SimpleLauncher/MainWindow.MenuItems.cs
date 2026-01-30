@@ -1226,4 +1226,16 @@ public partial class MainWindow
         };
         segaModel2Window.ShowDialog();
     }
+
+    private void ShowAresSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAresConfiguration") ?? "Opening Ares configuration...", this);
+
+        var aresWindow = new InjectAresConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        aresWindow.ShowDialog();
+    }
 }

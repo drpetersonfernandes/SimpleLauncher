@@ -172,6 +172,20 @@ public class SettingsManager
     [Key(151)] public bool SegaModel2UseRawInput { get; set; }
     [Key(152)] public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Ares Global Configuration ---
+    [Key(160)] public string AresVideoDriver { get; set; } = "OpenGL 3.2";
+    [Key(161)] public bool AresExclusive { get; set; } // Fullscreen
+    [Key(162)] public string AresShader { get; set; } = "None";
+    [Key(163)] public int AresMultiplier { get; set; } = 2;
+    [Key(164)] public string AresAspectCorrection { get; set; } = "Standard";
+    [Key(165)] public bool AresMute { get; set; }
+    [Key(166)] public double AresVolume { get; set; } = 1.0;
+    [Key(167)] public bool AresFastBoot { get; set; }
+    [Key(168)] public bool AresRewind { get; set; }
+    [Key(169)] public bool AresRunAhead { get; set; }
+    [Key(170)] public bool AresAutoSaveMemory { get; set; } = true;
+    [Key(171)] public bool AresShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -351,6 +365,20 @@ public class SettingsManager
         SegaModel2HoldGears = other.SegaModel2HoldGears;
         SegaModel2UseRawInput = other.SegaModel2UseRawInput;
         SegaModel2ShowSettingsBeforeLaunch = other.SegaModel2ShowSettingsBeforeLaunch;
+
+        // Ares
+        AresVideoDriver = other.AresVideoDriver;
+        AresExclusive = other.AresExclusive;
+        AresShader = other.AresShader;
+        AresMultiplier = other.AresMultiplier;
+        AresAspectCorrection = other.AresAspectCorrection;
+        AresMute = other.AresMute;
+        AresVolume = other.AresVolume;
+        AresFastBoot = other.AresFastBoot;
+        AresRewind = other.AresRewind;
+        AresRunAhead = other.AresRunAhead;
+        AresAutoSaveMemory = other.AresAutoSaveMemory;
+        AresShowSettingsBeforeLaunch = other.AresShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -498,6 +526,20 @@ public class SettingsManager
             SegaModel2HoldGears = false;
             SegaModel2UseRawInput = false;
             SegaModel2ShowSettingsBeforeLaunch = true;
+
+            // Ares Defaults
+            AresVideoDriver = "OpenGL 3.2";
+            AresExclusive = false;
+            AresShader = "None";
+            AresMultiplier = 2;
+            AresAspectCorrection = "Standard";
+            AresMute = false;
+            AresVolume = 1.0;
+            AresFastBoot = false;
+            AresRewind = false;
+            AresRunAhead = false;
+            AresAutoSaveMemory = true;
+            AresShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -706,6 +748,20 @@ public class SettingsManager
         SegaModel2HoldGears = false;
         SegaModel2UseRawInput = false;
         SegaModel2ShowSettingsBeforeLaunch = true;
+
+        // Ares Defaults
+        AresVideoDriver = "OpenGL 3.2";
+        AresExclusive = false;
+        AresShader = "None";
+        AresMultiplier = 2;
+        AresAspectCorrection = "Standard";
+        AresMute = false;
+        AresVolume = 1.0;
+        AresFastBoot = false;
+        AresRewind = false;
+        AresRunAhead = false;
+        AresAutoSaveMemory = true;
+        AresShowSettingsBeforeLaunch = true;
 
         Save();
     }
