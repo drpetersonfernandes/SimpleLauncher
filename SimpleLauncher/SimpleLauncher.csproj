@@ -754,16 +754,16 @@
     <None Update="Services\EasyMode\Samples\easymode.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="samples\mame.ini">
+    <None Update="samples\MAME\mame.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="samples\retroarch.cfg">
+    <None Update="samples\Retroarch\retroarch.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="samples\xenia-canary.config.toml">
+    <None Update="samples\Xenia\xenia-canary.config.toml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="samples\xenia.config.toml">
+    <None Update="samples\Xenia\xenia.config.toml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
