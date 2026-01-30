@@ -107,24 +107,25 @@ public partial class RetroAchievementsSettingsWindow
         try
         {
             var username = UsernameTextBox.Text.Trim();
+            // ReSharper disable once UnusedVariable
             var apiKey = ApiKeyPasswordBox.Password;
             var password = RaPasswordPasswordBox.Password;
 
-            // 1. Check if all required fields are filled.
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(password))
+            // 1. Ensure user entered credentials before attempting injection
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBoxLibrary.EnterYourRetroAchievementsUsername();
+                MessageBox.Show((string)Application.Current.TryFindResource("EnterUsernamePassword") ?? "Please enter your RetroAchievements username and password first.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             // 2. Save the current settings before proceeding.
             SaveSettings();
 
-            // 3. Get Session Token if needed (RetroArch uses password, others use token)
+            // 3. Ensure session token is generated for emulators that require it
             var token = _settings.RaToken;
             if (emulatorName != "RetroArch")
             {
-                if (string.IsNullOrEmpty(token))
+                if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RaStatusLoggingIn") ?? "Logging in to RetroAchievements...", Application.Current.MainWindow as MainWindow);
                     var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();

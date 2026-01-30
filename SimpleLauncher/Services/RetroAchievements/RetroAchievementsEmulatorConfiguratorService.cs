@@ -18,7 +18,8 @@ internal static class RetroAchievementsEmulatorConfiguratorService
     /// </summary>
     private static bool RestoreConfigFromSample(string emulatorFolderName, string targetConfigPath)
     {
-        if (File.Exists(targetConfigPath)) return true;
+        // Treat missing or 0-byte files as candidates for restoration
+        if (File.Exists(targetConfigPath) && new FileInfo(targetConfigPath).Length > 0) return true;
 
         var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples",
             emulatorFolderName.ToLowerInvariant(), Path.GetFileName(targetConfigPath));
@@ -76,7 +77,10 @@ internal static class RetroAchievementsEmulatorConfiguratorService
     public static bool ConfigurePcsx2(string exePath, string username, string token)
     {
         var exeDir = Path.GetDirectoryName(exePath);
-        var configDir = exeDir != null && Directory.Exists(Path.Combine(exeDir, "inis")) ? Path.Combine(exeDir, "inis") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PCSX2", "inis");
+        var configDir = exeDir != null && Directory.Exists(Path.Combine(exeDir, "inis"))
+            ? Path.Combine(exeDir, "inis")
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PCSX2", "inis");
+
         var configPath = Path.Combine(configDir, "PCSX2.ini");
 
         // Restore from sample if missing
@@ -174,7 +178,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // 1. Update the main INI file
             var settingsToUpdate = new Dictionary<string, string>
             {
-                { "AchievementsEnable", "True" },
+                { "AchievementsEnable", "True" }, // PPSSPP uses TitleCase
                 { "AchievementsChallengeMode", "True" },
                 { "AchievementsUserName", username }
             };
@@ -210,8 +214,8 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         else
         {
-            // %APPDATA%/Roaming
-            configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Dolphin Emulator", "Config");
+            // Standard Dolphin user path is in Documents
+            configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Dolphin Emulator", "Config");
         }
 
         var configPath = Path.Combine(configDir, "RetroAchievements.ini");
@@ -236,7 +240,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
 
         var settingsToUpdate = new Dictionary<string, string>
         {
-            { "ChallengeIndicatorsEnabled", "True" },
+            { "ChallengeIndicatorsEnabled", "True" }, // Dolphin uses TitleCase
             { "DiscordPresenceEnabled", "False" },
             { "Enabled", "True" },
             { "EncoreEnabled", "False" },
@@ -276,7 +280,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
 
             var settingsToUpdate = new Dictionary<string, string>
             {
-                { "Enabled", "yes" },
+                { "Enabled", "yes" }, // Flycast uses yes/no
                 { "HardcoreMode", "yes" },
                 { "Token", token },
                 { "UserName", username }
