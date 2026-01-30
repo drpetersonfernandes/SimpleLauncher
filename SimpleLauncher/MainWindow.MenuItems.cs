@@ -1262,4 +1262,16 @@ public partial class MainWindow
         };
         blastemWindow.ShowDialog();
     }
+
+    private void ShowMesenSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningMesenConfiguration") ?? "Opening Mesen configuration...", this);
+
+        var mesenWindow = new InjectMesenConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        mesenWindow.ShowDialog();
+    }
 }

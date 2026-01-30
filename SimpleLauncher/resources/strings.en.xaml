@@ -1369,4 +1369,35 @@
     <system:String x:Key="BlastemConfig_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="BlastemConfig_Cancel_Button">Cancel</system:String>
 
+    <sys:String x:Key="MesenConfig_Title">Mesen Configuration</sys:String>
+    <sys:String x:Key="MesenConfig_Video_Header">Video</sys:String>
+    <sys:String x:Key="MesenConfig_Fullscreen_Checkbox">Run in Fullscreen</sys:String>
+    <sys:String x:Key="MesenConfig_Fullscreen_Tooltip">If checked, the emulator will start in fullscreen mode.</sys:String>
+    <sys:String x:Key="MesenConfig_Vsync_Checkbox">Enable V-Sync</sys:String>
+    <sys:String x:Key="MesenConfig_Vsync_Tooltip">Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing.</sys:String>
+    <sys:String x:Key="MesenConfig_AspectRatio_Label">Aspect Ratio</sys:String>
+    <sys:String x:Key="MesenConfig_AspectRatio_Tooltip">Determines the display aspect ratio of the game.</sys:String>
+    <sys:String x:Key="MesenConfig_Bilinear_Checkbox">Enable Bilinear Filtering</sys:String>
+    <sys:String x:Key="MesenConfig_Bilinear_Tooltip">Smooths the image, which can reduce pixelation.</sys:String>
+    <sys:String x:Key="MesenConfig_VideoFilter_Label">Video Filter</sys:String>
+    <sys:String x:Key="MesenConfig_VideoFilter_Tooltip">Applies a visual filter to the game output (e.g., NTSC).</sys:String>
+    <sys:String x:Key="MesenConfig_Audio_Header">Audio</sys:String>
+    <sys:String x:Key="MesenConfig_EnableAudio_Checkbox">Enable Audio</sys:String>
+    <sys:String x:Key="MesenConfig_EnableAudio_Tooltip">Enables or disables all sound output.</sys:String>
+    <sys:String x:Key="MesenConfig_MasterVolume_Label">Master Volume</sys:String>
+    <sys:String x:Key="MesenConfig_MasterVolume_Tooltip">Adjusts the overall sound volume.</sys:String>
+    <sys:String x:Key="MesenConfig_Performance_Header">Performance &amp; Features</sys:String>
+    <sys:String x:Key="MesenConfig_Rewind_Checkbox">Enable Rewind</sys:String>
+    <sys:String x:Key="MesenConfig_Rewind_Tooltip">Allows you to rewind gameplay. May impact performance.</sys:String>
+    <sys:String x:Key="MesenConfig_RunAhead_Label">Run-Ahead Frames</sys:String>
+    <sys:String x:Key="MesenConfig_RunAhead_Tooltip">Reduces input lag by running frames ahead and rolling back. Use with caution (0-8).</sys:String>
+    <sys:String x:Key="MesenConfig_PauseInBackground_Checkbox">Pause When in Background</sys:String>
+    <sys:String x:Key="MesenConfig_PauseInBackground_Tooltip">Pauses the emulation when the window is not in focus.</sys:String>
+    <sys:String x:Key="MesenConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</sys:String>
+    <sys:String x:Key="MesenConfig_Save_Button">Save</sys:String>
+    <sys:String x:Key="MesenConfig_Run_Button">Run</sys:String>
+    <sys:String x:Key="MesenConfig_Cancel_Button">Cancel</sys:String>
+    <sys:String x:Key="OpeningMesenConfiguration">Opening Mesen configuration...</sys:String>
+    <sys:String x:Key="MesenSettings">Mesen Settings</sys:String>
+
 </ResourceDictionary>

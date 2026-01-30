@@ -206,6 +206,19 @@ public class SettingsManager
     [Key(206)] public string BlastemSyncSource { get; set; } = "audio";
     [Key(207)] public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Mesen Global Configuration ---
+    [Key(220)] public bool MesenFullscreen { get; set; }
+    [Key(221)] public bool MesenVsync { get; set; }
+    [Key(222)] public string MesenAspectRatio { get; set; } = "NoStretching";
+    [Key(223)] public bool MesenBilinear { get; set; }
+    [Key(224)] public string MesenVideoFilter { get; set; } = "None";
+    [Key(225)] public bool MesenEnableAudio { get; set; } = true;
+    [Key(226)] public int MesenMasterVolume { get; set; } = 100;
+    [Key(227)] public bool MesenRewind { get; set; }
+    [Key(228)] public int MesenRunAhead { get; set; }
+    [Key(229)] public bool MesenPauseInBackground { get; set; }
+    [Key(230)] public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -419,6 +432,19 @@ public class SettingsManager
         BlastemAudioRate = other.BlastemAudioRate;
         BlastemSyncSource = other.BlastemSyncSource;
         BlastemShowSettingsBeforeLaunch = other.BlastemShowSettingsBeforeLaunch;
+
+        // Mesen
+        MesenFullscreen = other.MesenFullscreen;
+        MesenVsync = other.MesenVsync;
+        MesenAspectRatio = other.MesenAspectRatio;
+        MesenBilinear = other.MesenBilinear;
+        MesenVideoFilter = other.MesenVideoFilter;
+        MesenEnableAudio = other.MesenEnableAudio;
+        MesenMasterVolume = other.MesenMasterVolume;
+        MesenRewind = other.MesenRewind;
+        MesenRunAhead = other.MesenRunAhead;
+        MesenPauseInBackground = other.MesenPauseInBackground;
+        MesenShowSettingsBeforeLaunch = other.MesenShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -600,6 +626,19 @@ public class SettingsManager
             BlastemAudioRate = 48000;
             BlastemSyncSource = "audio";
             BlastemShowSettingsBeforeLaunch = true;
+
+            // Mesen Defaults
+            MesenFullscreen = false;
+            MesenVsync = false;
+            MesenAspectRatio = "NoStretching";
+            MesenBilinear = false;
+            MesenVideoFilter = "None";
+            MesenEnableAudio = true;
+            MesenMasterVolume = 100;
+            MesenRewind = false;
+            MesenRunAhead = 0;
+            MesenPauseInBackground = false;
+            MesenShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -842,6 +881,19 @@ public class SettingsManager
         BlastemAudioRate = 48000;
         BlastemSyncSource = "audio";
         BlastemShowSettingsBeforeLaunch = true;
+
+        // Mesen Defaults
+        MesenFullscreen = false;
+        MesenVsync = false;
+        MesenAspectRatio = "NoStretching";
+        MesenBilinear = false;
+        MesenVideoFilter = "None";
+        MesenEnableAudio = true;
+        MesenMasterVolume = 100;
+        MesenRewind = false;
+        MesenRunAhead = 0;
+        MesenPauseInBackground = false;
+        MesenShowSettingsBeforeLaunch = true;
 
         Save();
     }

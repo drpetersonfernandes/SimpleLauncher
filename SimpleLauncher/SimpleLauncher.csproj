@@ -799,6 +799,9 @@
     <None Update="samples\Ares\settings.bml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="samples\Mesen\settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -988,6 +991,8 @@
     <Resource Include="images\ares.png" />
     <None Remove="images\blastem.png" />
     <Resource Include="images\blastem.png" />
+    <None Remove="images\mesen.png" />
+    <Resource Include="images\mesen.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">
