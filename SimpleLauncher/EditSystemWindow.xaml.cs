@@ -631,7 +631,8 @@ internal partial class EditSystemWindow
 
     private void AddFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        var openFolderDialog = new OpenFolderDialog { Title = "Select an additional system folder" };
+        var title = (string)Application.Current.TryFindResource("SelectAdditionalSystemFolder") ?? "Select an additional system folder";
+        var openFolderDialog = new OpenFolderDialog { Title = title };
         if (openFolderDialog.ShowDialog() == true)
         {
             AdditionalFoldersListBox.Items.Add(openFolderDialog.FolderName);

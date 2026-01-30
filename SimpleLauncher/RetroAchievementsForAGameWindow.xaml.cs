@@ -135,7 +135,18 @@ public partial class RetroAchievementsForAGameWindow
                 TruePointsEarnedValue.Text = $"{progress.PointsEarnedHardcore:N0}";
 
                 // Update highest award info
-                HighestAwardKindText.Text = string.IsNullOrWhiteSpace(progress.HighestAwardKind) ? (string)Application.Current.TryFindResource("RaStatusNone") ?? "None" : CapitalizeFirstLetter(progress.HighestAwardKind);
+                string awardKindDisplay;
+                switch (progress.HighestAwardKind?.ToLowerInvariant())
+                {
+                    case "mastered":
+                        awardKindDisplay = (string)Application.Current.TryFindResource("RaAwardMastered") ?? "Mastered";
+                        break;
+                    default:
+                        awardKindDisplay = string.IsNullOrWhiteSpace(progress.HighestAwardKind) ? (string)Application.Current.TryFindResource("RaStatusNone") ?? "None" : CapitalizeFirstLetter(progress.HighestAwardKind);
+                        break;
+                }
+
+                HighestAwardKindText.Text = awardKindDisplay;
 
                 // Set Highest Award Icon (using existing trophy.png from ContextMenu.cs)
                 if (progress.HighestAwardKind?.Equals("mastered", StringComparison.OrdinalIgnoreCase) == true)

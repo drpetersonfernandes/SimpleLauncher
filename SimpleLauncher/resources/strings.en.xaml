@@ -1201,6 +1201,68 @@
     <system:String x:Key="CouldNotLaunchShortcut">Could not launch the game shortcut. The protocol handler may not be installed. Please ensure the game launcher (Steam, GOG Galaxy, etc.) is installed.</system:String>
     <system:String x:Key="RestrictedFoldersLogHeader">The following folders were skipped due to access restrictions:</system:String>
     <system:String x:Key="NoDefaultEmulator">No Default Emulator</system:String>
+    <system:String x:Key="NoSystemSelected">No system selected</system:String>
+    <system:String x:Key="PaginationDisplayingFiles0To">Displaying files 0 to</system:String>
+    <system:String x:Key="PaginationOutOf">out of</system:String>
+    <system:String x:Key="PaginationTotal">total</system:String>
+    <system:String x:Key="PaginationDisplayingFiles">Displaying files</system:String>
+    <system:String x:Key="PaginationTo">to</system:String>
+    <system:String x:Key="EssentialsHeader">Essentials</system:String>
+    <system:String x:Key="ImagePacksOptionalHeader">Image Packs (Optional)</system:String>
+    <system:String x:Key="LoadingConfiguration">Loading configuration...</system:String>
+    <system:String x:Key="ComponentEmulator">Emulator</system:String>
+    <system:String x:Key="ComponentCore">Core</system:String>
+    <system:String x:Key="ComponentImagePack1">Image Pack 1</system:String>
+    <system:String x:Key="ComponentImagePack2">Image Pack 2</system:String>
+    <system:String x:Key="ComponentImagePack3">Image Pack 3</system:String>
+    <system:String x:Key="ComponentImagePack4">Image Pack 4</system:String>
+    <system:String x:Key="ComponentImagePack5">Image Pack 5</system:String>
+    <system:String x:Key="AddingSystemToConfiguration">Adding system to configuration...</system:String>
+    <system:String x:Key="CreatingSystemFolders">Creating system folders...</system:String>
+    <system:String x:Key="RaStatusUnknown">Unknown</system:String>
+    <system:String x:Key="RaStatusNotApplicable">N/A</system:String>
+    <system:String x:Key="RaAwardMastered">Mastered</system:String>
+    <system:String x:Key="RaStatusNone">None</system:String>
+    <system:String x:Key="RaFallbackUnknownGame">Unknown Game</system:String>
+    <system:String x:Key="RaFallbackUnknownConsole">Unknown Console</system:String>
+    <system:String x:Key="EmulatorIntegration">Emulator Integration</system:String>
 
+<!-- GlobalStatsWindow.xaml.cs -->
+<system:String x:Key="TotalSystems">Total Number of Systems:</system:String>
+<system:String x:Key="TotalEmulators">Total Number of Emulators:</system:String>
+<system:String x:Key="TotalGames">Total Number of Games:</system:String>
+<system:String x:Key="TotalImages">Total Number of Matched Images:</system:String>
+<system:String x:Key="TotalSystemsWithMissingImages">Total Systems with Missing Images:</system:String>
+<system:String x:Key="ApplicationFolder">Application Folder:</system:String>
+<system:String x:Key="TotalDiskSize">Disk Size of all Games:</system:String>
+<system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
+<system:String x:Key="SystemSpecificStatsHeader">System-Specific Stats</system:String>
+
+<!-- GlobalSearchWindow.xaml -->
+<system:String x:Key="SearchOptions">Search Options</system:String>
+
+<!-- EditSystemWindow.xaml -->
+<system:String x:Key="AdditionalSystemFoldersOptional">Additional System Folders (Optional)</system:String>
+
+<!-- EditSystemWindow.xaml.cs -->
+<system:String x:Key="SelectAdditionalSystemFolder">Select an additional system folder</system:String>
+
+<!-- SupportOptionWindow.xaml -->
+<system:String x:Key="AskAIPhindcom">Ask AI (Phind.com)</system:String>
+<system:String x:Key="AskAIPerplexityai">Ask AI (Perplexity.ai)</system:String>
+<system:String x:Key="AskAIYoucom">Ask AI (You.com)</system:String>
+<system:String x:Key="ContactDeveloper">Contact Developer</system:String>
+
+<!-- ImageViewerWindow.xaml -->
+<system:String x:Key="ImageViewerTitle">Image Viewer</system:String>
+
+<!-- GetListOfFiles.cs -->
+<system:String x:Key="RestrictedFoldersSkipped">Some folders were skipped due to access restrictions. Check the log for details.</system:String>
+
+<!-- UpdateChecker.cs -->
+<system:String x:Key="UpdateLog_Starting">Starting update process...</system:String>
+<system:String x:Key="UpdateLog_AttemptingDownload">Attempting to download and update the updater from URL: {0}</system:String>
+<system:String x:Key="UpdateLog_ExtractingUpdater">Extracting updater to '{0}'...</system:String>
+<system:String x:Key="UpdateLog_LaunchingUpdater">Launching newly updated Updater.exe...</system:String>
 
 </ResourceDictionary>
