@@ -350,6 +350,34 @@ public class GameLauncher
                 _selectedEmulatorParameters = $"{_selectedEmulatorParameters} {daphneArgs}".Trim();
             }
 
+            // --- BLASTEM CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Blastem", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.BlastemShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var blastemWindow = new InjectBlastemConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        blastemWindow.ShowDialog();
+                        shouldRun = blastemWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into default.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        BlastemConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {

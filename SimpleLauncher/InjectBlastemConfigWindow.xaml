@@ -1,0 +1,101 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectBlastemConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource BlastemConfig_Title}"
+                      Height="600" Width="700"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="{DynamicResource BlastemConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource BlastemConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Fullscreen_Tooltip}"/>
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource BlastemConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Vsync_Tooltip}"/>
+                        <CheckBox x:Name="ChkScanlines" Content="{DynamicResource BlastemConfig_Scanlines_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Scanlines_Tooltip}"/>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource BlastemConfig_Aspect_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbAspect" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_Aspect_Tooltip}">
+                                <ComboBoxItem Content="4:3"/>
+                                <ComboBoxItem Content="16:9"/>
+                                <ComboBoxItem Content="stretch"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource BlastemConfig_Scaling_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbScaling" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_Scaling_Tooltip}">
+                                <ComboBoxItem Content="linear"/>
+                                <ComboBoxItem Content="nearest"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource BlastemConfig_Audio_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource BlastemConfig_AudioRate_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbAudioRate" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_AudioRate_Tooltip}">
+                                <ComboBoxItem Content="48000"/>
+                                <ComboBoxItem Content="44100"/>
+                                <ComboBoxItem Content="22050"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- System Section -->
+                <GroupBox Header="{DynamicResource BlastemConfig_System_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource BlastemConfig_SyncSource_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbSyncSource" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_SyncSource_Tooltip}">
+                                <ComboBoxItem Content="audio"/>
+                                <ComboBoxItem Content="video"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="{DynamicResource BlastemConfig_ShowBeforeLaunch_Checkbox}" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource BlastemConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="{DynamicResource BlastemConfig_Run_Button}" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="{DynamicResource BlastemConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

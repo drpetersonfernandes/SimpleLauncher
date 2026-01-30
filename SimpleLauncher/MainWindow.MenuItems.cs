@@ -1250,4 +1250,16 @@ public partial class MainWindow
         };
         daphneWindow.ShowDialog();
     }
+
+    private void ShowBlastemSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningBlastemConfiguration") ?? "Opening Blastem configuration...", this);
+
+        var blastemWindow = new InjectBlastemConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        blastemWindow.ShowDialog();
+    }
 }

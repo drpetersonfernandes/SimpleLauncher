@@ -980,6 +980,8 @@
     <Resource Include="images\daphne.png" />
     <None Remove="images\ares.png" />
     <Resource Include="images\ares.png" />
+    <None Remove="images\blastem.png" />
+    <Resource Include="images\blastem.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">

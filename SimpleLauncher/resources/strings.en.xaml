@@ -1344,4 +1344,29 @@
     <system:String x:Key="DaphneSettings">Daphne Settings</system:String>
     <system:String x:Key="OpeningDaphneConfiguration">Opening Daphne configuration...</system:String>
 
+    <system:String x:Key="BlastemSettings">Blastem Settings</system:String>
+    <system:String x:Key="OpeningBlastemConfiguration">Opening Blastem configuration...</system:String>
+    <system:String x:Key="BlastemConfig_Title">Blastem Configuration</system:String>
+    <system:String x:Key="BlastemConfig_Video_Header">Video Display</system:String>
+    <system:String x:Key="BlastemConfig_Audio_Header">Audio</system:String>
+    <system:String x:Key="BlastemConfig_System_Header">System</system:String>
+    <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
+    <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Toggles between windowed and fullscreen mode.</system:String>
+    <system:String x:Key="BlastemConfig_Vsync_Checkbox">Enable V-Sync</system:String>
+    <system:String x:Key="BlastemConfig_Vsync_Tooltip">Synchronize framerate with monitor refresh rate to prevent screen tearing.</system:String>
+    <system:String x:Key="BlastemConfig_Scanlines_Checkbox">Enable Scanlines</system:String>
+    <system:String x:Key="BlastemConfig_Scanlines_Tooltip">Simulates the look of a CRT screen by adding horizontal lines.</system:String>
+    <system:String x:Key="BlastemConfig_Aspect_Label">Aspect Ratio:</system:String>
+    <system:String x:Key="BlastemConfig_Aspect_Tooltip">Sets the display aspect ratio. 'stretch' will fill the window.</system:String>
+    <system:String x:Key="BlastemConfig_Scaling_Label">Scaling Filter:</system:String>
+    <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' provides smooth scaling (bilinear filtering). 'nearest' provides sharp, blocky scaling (nearest neighbor).</system:String>
+    <system:String x:Key="BlastemConfig_AudioRate_Label">Audio Sample Rate:</system:String>
+    <system:String x:Key="BlastemConfig_AudioRate_Tooltip">Sets the output audio sample rate in Hz. Higher values provide better quality.</system:String>
+    <system:String x:Key="BlastemConfig_SyncSource_Label">Sync Source:</system:String>
+    <system:String x:Key="BlastemConfig_SyncSource_Tooltip">'video' provides the smoothest experience when refresh rates match. 'audio' provides lower audio latency.</system:String>
+    <system:String x:Key="BlastemConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="BlastemConfig_Save_Button">Save</system:String>
+    <system:String x:Key="BlastemConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="BlastemConfig_Cancel_Button">Cancel</system:String>
+
 </ResourceDictionary>

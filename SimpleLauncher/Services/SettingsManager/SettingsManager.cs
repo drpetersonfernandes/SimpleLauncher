@@ -196,6 +196,16 @@ public class SettingsManager
     [Key(186)] public bool DaphneUseOverlays { get; set; } = true;
     [Key(187)] public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Blastem Global Configuration ---
+    [Key(200)] public bool BlastemFullscreen { get; set; }
+    [Key(201)] public bool BlastemVsync { get; set; }
+    [Key(202)] public string BlastemAspect { get; set; } = "4:3";
+    [Key(203)] public string BlastemScaling { get; set; } = "linear";
+    [Key(204)] public bool BlastemScanlines { get; set; }
+    [Key(205)] public int BlastemAudioRate { get; set; } = 48000;
+    [Key(206)] public string BlastemSyncSource { get; set; } = "audio";
+    [Key(207)] public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -399,6 +409,16 @@ public class SettingsManager
         DaphneEnableSound = other.DaphneEnableSound;
         DaphneUseOverlays = other.DaphneUseOverlays;
         DaphneShowSettingsBeforeLaunch = other.DaphneShowSettingsBeforeLaunch;
+
+        // Blastem
+        BlastemFullscreen = other.BlastemFullscreen;
+        BlastemVsync = other.BlastemVsync;
+        BlastemAspect = other.BlastemAspect;
+        BlastemScaling = other.BlastemScaling;
+        BlastemScanlines = other.BlastemScanlines;
+        BlastemAudioRate = other.BlastemAudioRate;
+        BlastemSyncSource = other.BlastemSyncSource;
+        BlastemShowSettingsBeforeLaunch = other.BlastemShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -570,6 +590,16 @@ public class SettingsManager
             DaphneEnableSound = true;
             DaphneUseOverlays = true;
             DaphneShowSettingsBeforeLaunch = true;
+
+            // Blastem Defaults
+            BlastemFullscreen = false;
+            BlastemVsync = false;
+            BlastemAspect = "4:3";
+            BlastemScaling = "linear";
+            BlastemScanlines = false;
+            BlastemAudioRate = 48000;
+            BlastemSyncSource = "audio";
+            BlastemShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -802,6 +832,16 @@ public class SettingsManager
         DaphneEnableSound = true;
         DaphneUseOverlays = true;
         DaphneShowSettingsBeforeLaunch = true;
+
+        // Blastem Defaults
+        BlastemFullscreen = false;
+        BlastemVsync = false;
+        BlastemAspect = "4:3";
+        BlastemScaling = "linear";
+        BlastemScanlines = false;
+        BlastemAudioRate = 48000;
+        BlastemSyncSource = "audio";
+        BlastemShowSettingsBeforeLaunch = true;
 
         Save();
     }
