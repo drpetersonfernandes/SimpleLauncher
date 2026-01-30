@@ -1097,12 +1097,6 @@
     <system:String x:Key="XeniaConfig_Hid_Label">Input Driver (HID):</system:String>
     <system:String x:Key="XeniaConfig_Hid_Tooltip">The input driver (xinput is standard for Xbox controllers).</system:String>
     <system:String x:Key="XeniaConfig_UserLanguage_Label">User Language:</system:String>
-    
-    
-    
-    
-    
-    xxxxxxxxxxxxxxx
     <system:String x:Key="XeniaConfig_UserLanguage_Tooltip">The system language reported to the game.</system:String>
     <system:String x:Key="XeniaConfig_ShowBeforeLaunch_Checkbox">Open this window before launching an Xbox 360 game</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">Save</system:String>
@@ -1152,6 +1146,11 @@
     <system:String x:Key="RaErrorLoadingUserProfile">An error occurred while loading user profile.</system:String>
     <system:String x:Key="RaInfoCheckConnection">Please try again or check your internet connection.</system:String>
     <system:String x:Key="RaErrorFailedToLoadUnlocks">Failed to load unlocks. Please check your RetroAchievements credentials or try again later.</system:String>
+    
+    
+    
+    
+    
     <system:String x:Key="RaInfoNoUnlocksFound">No unlocks found for the selected date range.</system:String>
     <system:String x:Key="RaErrorLoadingUnlocks">An error occurred while loading unlocks. Please try again.</system:String>
     <system:String x:Key="RaErrorFailedToLoadUserProgress">Failed to load user completion progress.</system:String>
