@@ -1214,4 +1214,16 @@ public partial class MainWindow
         };
         mednafenWindow.ShowDialog();
     }
+
+    private void ShowSegaModel2Settings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSegaModel2Configuration") ?? "Opening SEGA Model 2 configuration...", this);
+
+        var segaModel2Window = new InjectSegaModel2ConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        segaModel2Window.ShowDialog();
+    }
 }

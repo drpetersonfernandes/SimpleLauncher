@@ -790,6 +790,9 @@
     <None Update="samples\Supermodel\Supermodel.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="samples\SEGA Model 2\EMULATOR.INI">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

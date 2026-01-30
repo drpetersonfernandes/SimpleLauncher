@@ -157,6 +157,21 @@ public class SettingsManager
     [Key(129)] public bool MednafenRewind { get; set; }
     [Key(130)] public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- SEGA Model 2 Global Configuration ---
+    [Key(140)] public int SegaModel2ResX { get; set; } = 640;
+    [Key(141)] public int SegaModel2ResY { get; set; } = 480;
+    [Key(142)] public int SegaModel2WideScreen { get; set; } // 0=4:3, 1=16:9, 2=16:10
+    [Key(143)] public bool SegaModel2Bilinear { get; set; } = true;
+    [Key(144)] public bool SegaModel2Trilinear { get; set; }
+    [Key(145)] public bool SegaModel2FilterTilemaps { get; set; }
+    [Key(146)] public bool SegaModel2DrawCross { get; set; } = true;
+    [Key(147)] public int SegaModel2Fsaa { get; set; }
+    [Key(148)] public bool SegaModel2XInput { get; set; }
+    [Key(149)] public bool SegaModel2EnableFf { get; set; }
+    [Key(150)] public bool SegaModel2HoldGears { get; set; }
+    [Key(151)] public bool SegaModel2UseRawInput { get; set; }
+    [Key(152)] public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -321,6 +336,21 @@ public class SettingsManager
         MednafenCheats = other.MednafenCheats;
         MednafenRewind = other.MednafenRewind;
         MednafenShowSettingsBeforeLaunch = other.MednafenShowSettingsBeforeLaunch;
+
+        // Sega Model 2
+        SegaModel2ResX = other.SegaModel2ResX;
+        SegaModel2ResY = other.SegaModel2ResY;
+        SegaModel2WideScreen = other.SegaModel2WideScreen;
+        SegaModel2Bilinear = other.SegaModel2Bilinear;
+        SegaModel2Trilinear = other.SegaModel2Trilinear;
+        SegaModel2FilterTilemaps = other.SegaModel2FilterTilemaps;
+        SegaModel2DrawCross = other.SegaModel2DrawCross;
+        SegaModel2Fsaa = other.SegaModel2Fsaa;
+        SegaModel2XInput = other.SegaModel2XInput;
+        SegaModel2EnableFf = other.SegaModel2EnableFf;
+        SegaModel2HoldGears = other.SegaModel2HoldGears;
+        SegaModel2UseRawInput = other.SegaModel2UseRawInput;
+        SegaModel2ShowSettingsBeforeLaunch = other.SegaModel2ShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -453,6 +483,21 @@ public class SettingsManager
             MednafenCheats = true;
             MednafenRewind = false;
             MednafenShowSettingsBeforeLaunch = true;
+
+            // Sega Model 2 (set defaults during migration)
+            SegaModel2ResX = 640;
+            SegaModel2ResY = 480;
+            SegaModel2WideScreen = 0;
+            SegaModel2Bilinear = true;
+            SegaModel2Trilinear = false;
+            SegaModel2FilterTilemaps = false;
+            SegaModel2DrawCross = true;
+            SegaModel2Fsaa = 0;
+            SegaModel2XInput = false;
+            SegaModel2EnableFf = false;
+            SegaModel2HoldGears = false;
+            SegaModel2UseRawInput = false;
+            SegaModel2ShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -646,6 +691,21 @@ public class SettingsManager
         MednafenCheats = true;
         MednafenRewind = false;
         MednafenShowSettingsBeforeLaunch = true;
+
+        // Sega Model 2 Defaults
+        SegaModel2ResX = 640;
+        SegaModel2ResY = 480;
+        SegaModel2WideScreen = 0;
+        SegaModel2Bilinear = true;
+        SegaModel2Trilinear = false;
+        SegaModel2FilterTilemaps = false;
+        SegaModel2DrawCross = true;
+        SegaModel2Fsaa = 0;
+        SegaModel2XInput = false;
+        SegaModel2EnableFf = false;
+        SegaModel2HoldGears = false;
+        SegaModel2UseRawInput = false;
+        SegaModel2ShowSettingsBeforeLaunch = true;
 
         Save();
     }

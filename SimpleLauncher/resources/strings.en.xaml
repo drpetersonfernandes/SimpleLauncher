@@ -1257,5 +1257,37 @@
 <sys:String x:Key="OpeningMednafenConfiguration">Opening Mednafen configuration...</sys:String>
 <sys:String x:Key="MednafenSettings">Mednafen Settings</sys:String>
 
+<!-- InjectSegaModel2ConfigWindow -->
+<system:String x:Key="SegaModel2Config_Title">SEGA Model 2 Configuration</system:String>
+<system:String x:Key="SegaModel2Settings">SEGA Model 2 Settings</system:String>
+<system:String x:Key="OpeningSegaModel2Configuration">Opening SEGA Model 2 configuration...</system:String>
+<system:String x:Key="SegaModel2Config_Renderer_Header">Renderer</system:String>
+<system:String x:Key="SegaModel2Config_Input_Header">Input</system:String>
+<system:String x:Key="SegaModel2Config_Resolution_Label">Fullscreen Resolution:</system:String>
+<system:String x:Key="SegaModel2Config_Resolution_Tooltip">Sets the width and height for fullscreen mode.</system:String>
+<system:String x:Key="SegaModel2Config_Widescreen_Label">Widescreen (Windowed):</system:String>
+<system:String x:Key="SegaModel2Config_Widescreen_Tooltip">Sets the aspect ratio for windowed mode.</system:String>
+<system:String x:Key="SegaModel2Config_Bilinear_Checkbox">Bilinear Filtering</system:String>
+<system:String x:Key="SegaModel2Config_Bilinear_Tooltip">Enables bilinear filtering of textures.</system:String>
+<system:String x:Key="SegaModel2Config_Trilinear_Checkbox">Trilinear Filtering</system:String>
+<system:String x:Key="SegaModel2Config_Trilinear_Tooltip">Enables mipmap usage and trilinear filtering. Doesn't work with all games.</system:String>
+<system:String x:Key="SegaModel2Config_FilterTilemaps_Checkbox">Filter Tilemaps</system:String>
+<system:String x:Key="SegaModel2Config_FilterTilemaps_Tooltip">Enables bilinear filtering on tilemaps. Can cause some artifacts.</system:String>
+<system:String x:Key="SegaModel2Config_DrawCross_Checkbox">Show Crosshair</system:String>
+<system:String x:Key="SegaModel2Config_DrawCross_Tooltip">Shows a crosshair in gun games.</system:String>
+<system:String x:Key="SegaModel2Config_FSAA_Label">Fullscreen Anti-Aliasing (FSAA):</system:String>
+<system:String x:Key="SegaModel2Config_FSAA_Tooltip">Enables full screen antialiasing in Direct3D. Requires restart of the emulator.</system:String>
+<system:String x:Key="SegaModel2Config_XInput_Checkbox">Enable XInput</system:String>
+<system:String x:Key="SegaModel2Config_XInput_Tooltip">Enable support for Xbox 360 compatible devices.</system:String>
+<system:String x:Key="SegaModel2Config_EnableFF_Checkbox">Enable Force Feedback</system:String>
+<system:String x:Key="SegaModel2Config_EnableFF_Tooltip">Enables Force Feedback effects for supported controllers.</system:String>
+<system:String x:Key="SegaModel2Config_HoldGears_Checkbox">Hold Gears</system:String>
+<system:String x:Key="SegaModel2Config_HoldGears_Tooltip">When enabled, gear shifts in driving games return to Neutral when the key is released.</system:String>
+<system:String x:Key="SegaModel2Config_UseRawInput_Checkbox">Use RawInput for Mouse</system:String>
+<system:String x:Key="SegaModel2Config_UseRawInput_Tooltip">Allows using two mice simultaneously by reading mouse input through RawInput.</system:String>
+<system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+<system:String x:Key="SegaModel2Config_Save_Button">Save</system:String>
+<system:String x:Key="SegaModel2Config_Run_Button">Save &amp; Run</system:String>
+<system:String x:Key="SegaModel2Config_Cancel_Button">Cancel</system:String>
 
 </ResourceDictionary>

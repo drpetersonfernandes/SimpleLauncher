@@ -271,6 +271,31 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- SEGA MODEL 2 CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.SegaModel2ShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var segaModel2Window = new InjectSegaModel2ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        segaModel2Window.ShowDialog();
+                        shouldRun = segaModel2Window.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into EMULATOR.INI since window was skipped
+                    SegaModel2ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {
