@@ -3432,7 +3432,7 @@ internal static class MessageBoxLibrary
         static void ShowMessage()
         {
             var message1 = (string)Application.Current.TryFindResource("Thefilesystemxmlislocked") ?? "The file 'system.xml' is locked or inaccessible by another process.";
-            var message2 = (string)Application.Current.TryFindResource("error") ?? "Error";
+            var message2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
