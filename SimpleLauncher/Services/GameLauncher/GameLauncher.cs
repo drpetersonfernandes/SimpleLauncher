@@ -215,6 +215,34 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- SUPERMODEL CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Supermodel", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("Supermodel.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.SupermodelShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var supermodelWindow = new InjectSupermodelConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        supermodelWindow.ShowDialog();
+                        shouldRun = supermodelWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into Supermodel.ini since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        SupermodelConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {

@@ -1190,4 +1190,16 @@ public partial class MainWindow
         };
         raWindow.ShowDialog();
     }
+
+    private void ShowSupermodelSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupermodelConfiguration") ?? "Opening Supermodel configuration...", this);
+
+        var supermodelWindow = new InjectSupermodelConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        supermodelWindow.ShowDialog();
+    }
 }

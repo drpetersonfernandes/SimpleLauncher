@@ -127,6 +127,23 @@ public class SettingsManager
     [Key(82)] public bool RetroArchShowAdvancedSettings { get; set; } = true;
     [Key(83)] public bool RetroArchDiscordAllow { get; set; }
 
+    // --- Supermodel Global Configuration ---
+    [Key(100)] public bool SupermodelNew3DEngine { get; set; } = true;
+    [Key(101)] public bool SupermodelQuadRendering { get; set; }
+    [Key(102)] public bool SupermodelFullscreen { get; set; } = true;
+    [Key(103)] public int SupermodelResX { get; set; } = 1920;
+    [Key(104)] public int SupermodelResY { get; set; } = 1080;
+    [Key(105)] public bool SupermodelWideScreen { get; set; } = true;
+    [Key(106)] public bool SupermodelStretch { get; set; }
+    [Key(107)] public bool SupermodelVsync { get; set; } = true;
+    [Key(108)] public bool SupermodelThrottle { get; set; } = true;
+    [Key(109)] public int SupermodelMusicVolume { get; set; } = 100;
+    [Key(110)] public int SupermodelSoundVolume { get; set; } = 100;
+    [Key(111)] public string SupermodelInputSystem { get; set; } = "xinput";
+    [Key(112)] public bool SupermodelMultiThreaded { get; set; } = true;
+    [Key(113)] public int SupermodelPowerPcFrequency { get; set; } = 50;
+    [Key(114)] public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -261,6 +278,23 @@ public class SettingsManager
         RetroArchRunAhead = other.RetroArchRunAhead;
         RetroArchShowAdvancedSettings = other.RetroArchShowAdvancedSettings;
         RetroArchDiscordAllow = other.RetroArchDiscordAllow;
+
+        // Supermodel
+        SupermodelNew3DEngine = other.SupermodelNew3DEngine;
+        SupermodelQuadRendering = other.SupermodelQuadRendering;
+        SupermodelFullscreen = other.SupermodelFullscreen;
+        SupermodelResX = other.SupermodelResX;
+        SupermodelResY = other.SupermodelResY;
+        SupermodelWideScreen = other.SupermodelWideScreen;
+        SupermodelStretch = other.SupermodelStretch;
+        SupermodelVsync = other.SupermodelVsync;
+        SupermodelThrottle = other.SupermodelThrottle;
+        SupermodelMusicVolume = other.SupermodelMusicVolume;
+        SupermodelSoundVolume = other.SupermodelSoundVolume;
+        SupermodelInputSystem = other.SupermodelInputSystem;
+        SupermodelMultiThreaded = other.SupermodelMultiThreaded;
+        SupermodelPowerPcFrequency = other.SupermodelPowerPcFrequency;
+        SupermodelShowSettingsBeforeLaunch = other.SupermodelShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -363,6 +397,23 @@ public class SettingsManager
             RetroArchRunAhead = bool.TryParse(settings.Element("RetroArchRunAhead")?.Value, out var rara) && rara;
             RetroArchShowAdvancedSettings = !bool.TryParse(settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas) || rasas;
             RetroArchDiscordAllow = bool.TryParse(settings.Element("RetroArchDiscordAllow")?.Value, out var rada) && rada;
+
+            // Supermodel (set defaults during migration)
+            SupermodelNew3DEngine = true;
+            SupermodelQuadRendering = false;
+            SupermodelFullscreen = true;
+            SupermodelResX = 1920;
+            SupermodelResY = 1080;
+            SupermodelWideScreen = true;
+            SupermodelStretch = false;
+            SupermodelVsync = true;
+            SupermodelThrottle = true;
+            SupermodelMusicVolume = 100;
+            SupermodelSoundVolume = 100;
+            SupermodelInputSystem = "xinput";
+            SupermodelMultiThreaded = true;
+            SupermodelPowerPcFrequency = 50;
+            SupermodelShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -526,6 +577,23 @@ public class SettingsManager
         RetroArchRunAhead = false;
         RetroArchShowAdvancedSettings = true;
         RetroArchDiscordAllow = false;
+
+        // Supermodel Defaults
+        SupermodelNew3DEngine = true;
+        SupermodelQuadRendering = false;
+        SupermodelFullscreen = true;
+        SupermodelResX = 1920;
+        SupermodelResY = 1080;
+        SupermodelWideScreen = true;
+        SupermodelStretch = false;
+        SupermodelVsync = true;
+        SupermodelThrottle = true;
+        SupermodelMusicVolume = 100;
+        SupermodelSoundVolume = 100;
+        SupermodelInputSystem = "xinput";
+        SupermodelMultiThreaded = true;
+        SupermodelPowerPcFrequency = 50;
+        SupermodelShowSettingsBeforeLaunch = true;
 
         Save();
     }

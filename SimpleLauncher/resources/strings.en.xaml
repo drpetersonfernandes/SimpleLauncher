@@ -1183,4 +1183,45 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+
+
+    <system:String x:Key="SupermodelConfig_Title">Supermodel Configuration</system:String>
+    <system:String x:Key="SupermodelConfig_Video_Header">Video &amp; Graphics</system:String>
+    <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
+    <system:String x:Key="SupermodelConfig_System_Header">System &amp; Performance</system:String>
+    <system:String x:Key="SupermodelConfig_New3DEngine_Checkbox">Use New 3D Engine</system:String>
+    <system:String x:Key="SupermodelConfig_New3DEngine_Tooltip">Enables the modern, more accurate 3D engine. Highly recommended.</system:String>
+    <system:String x:Key="SupermodelConfig_QuadRendering_Checkbox">Quad Rendering</system:String>
+    <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">Improves accuracy for some GPUs, especially for transparent polygons. May impact performance.</system:String>
+    <system:String x:Key="SupermodelConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
+    <system:String x:Key="SupermodelConfig_Fullscreen_Tooltip">Starts the emulator in fullscreen mode.</system:String>
+    <system:String x:Key="SupermodelConfig_Vsync_Checkbox">Enable V-Sync</system:String>
+    <system:String x:Key="SupermodelConfig_Vsync_Tooltip">Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing.</system:String>
+    <system:String x:Key="SupermodelConfig_Widescreen_Checkbox">Force Wide Screen (16:9)</system:String>
+    <system:String x:Key="SupermodelConfig_Widescreen_Tooltip">Forces a 16:9 aspect ratio, which may stretch the image if the game was originally 4:3.</system:String>
+    <system:String x:Key="SupermodelConfig_Stretch_Checkbox">Stretch to Fill Screen</system:String>
+    <system:String x:Key="SupermodelConfig_Stretch_Tooltip">Stretches the image to fill your entire screen, ignoring the original aspect ratio.</system:String>
+    <system:String x:Key="SupermodelConfig_Resolution_Label">Resolution (Width x Height):</system:String>
+    <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Sets the internal rendering resolution of the game.</system:String>
+    <system:String x:Key="SupermodelConfig_MusicVolume_Label">Music Volume:</system:String>
+    <system:String x:Key="SupermodelConfig_MusicVolume_Tooltip">Adjusts the volume of in-game music (0-100).</system:String>
+    <system:String x:Key="SupermodelConfig_SoundVolume_Label">Sound Effects Volume:</system:String>
+    <system:String x:Key="SupermodelConfig_SoundVolume_Tooltip">Adjusts the volume of sound effects (0-100).</system:String>
+    <system:String x:Key="SupermodelConfig_Throttle_Checkbox">Throttle Emulation Speed</system:String>
+    <system:String x:Key="SupermodelConfig_Throttle_Tooltip">Limits the emulation speed to the original hardware's speed (60 FPS). Disable for benchmarking.</system:String>
+    <system:String x:Key="SupermodelConfig_MultiThreaded_Checkbox">Enable Multi-Threading</system:String>
+    <system:String x:Key="SupermodelConfig_MultiThreaded_Tooltip">Uses multiple CPU cores for a significant performance boost. Highly recommended.</system:String>
+    <system:String x:Key="SupermodelConfig_InputSystem_Label">Input System:</system:String>
+    <system:String x:Key="SupermodelConfig_InputSystem_Tooltip">Selects the input API. XInput is for modern Xbox controllers. DInput is for older gamepads.</system:String>
+    <system:String x:Key="SupermodelConfig_PpcFrequency_Label">PowerPC Frequency (MHz):</system:String>
+    <system:String x:Key="SupermodelConfig_PpcFrequency_Tooltip">Adjusts the emulated CPU speed. Higher values can smooth out performance drops in demanding games.</system:String>
+    <system:String x:Key="SupermodelConfig_PpcFrequency_50_Tooltip">50 MHz: Original hardware speed. Most compatible.</system:String>
+    <system:String x:Key="SupermodelConfig_PpcFrequency_100_Tooltip">100 MHz: Overclocked. Can improve frame rates but may cause issues in some games.</system:String>
+    <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="SupermodelConfig_Save_Button">Save</system:String>
+    <system:String x:Key="SupermodelConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="SupermodelConfig_Cancel_Button">Cancel</system:String>
+    <system:String x:Key="SupermodelSettings">Supermodel Settings</system:String>
+    <system:String x:Key="OpeningSupermodelConfiguration">Opening Supermodel configuration...</system:String>
+
 </ResourceDictionary>

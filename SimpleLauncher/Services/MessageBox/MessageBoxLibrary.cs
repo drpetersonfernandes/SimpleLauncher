@@ -3592,4 +3592,9 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+
+    public static void ShowCustomMessage(string failedToSaveSupermodelConfigurationPleaseCheckFilePermissions, string saveFailed)
+    {
+        throw new NotImplementedException();
+    }
 }
