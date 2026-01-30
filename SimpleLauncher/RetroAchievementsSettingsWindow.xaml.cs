@@ -126,7 +126,7 @@ public partial class RetroAchievementsSettingsWindow
             {
                 if (string.IsNullOrEmpty(token))
                 {
-                    UpdateStatusBar.UpdateContent("Logging in to RetroAchievements...", Application.Current.MainWindow as MainWindow);
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RaStatusLoggingIn") ?? "Logging in to RetroAchievements...", Application.Current.MainWindow as MainWindow);
                     var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
                     token = await raService.GetSessionTokenAsync(username, password);
 

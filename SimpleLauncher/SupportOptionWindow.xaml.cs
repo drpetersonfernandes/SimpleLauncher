@@ -34,12 +34,12 @@ public partial class SupportOptionWindow
         // Set fallback text if resources are missing
         if (Title is null or "SupportOptions")
         {
-            Title = "Support Options";
+            Title = (string)Application.Current.TryFindResource("SupportOptions") ?? "Support Options";
         }
 
         if (BtnContactDeveloper.Content == null)
         {
-            BtnContactDeveloper.Content = "Contact Developer (Report Bug)";
+            BtnContactDeveloper.Content = (string)Application.Current.TryFindResource("ContactDeveloperReportBug") ?? "Contact Developer (Report Bug)";
         }
 
         if (BtnCancel.Content == null)

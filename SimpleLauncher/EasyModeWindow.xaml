@@ -90,7 +90,7 @@
                     <controls:MetroHeader Header="{DynamicResource Install}" Margin="0,0,0,10" />
 
                     <!-- Essential Components -->
-                    <GroupBox Header="Essentials" Margin="0,0,0,15">
+                    <GroupBox Header="{DynamicResource EssentialsHeader}" Margin="0,0,0,15">
                         <UniformGrid Columns="2" Rows="1" Margin="5">
                             <Button x:Name="DownloadEmulatorButton"
                                     Content="{DynamicResource DownloadEmulator}"
@@ -111,7 +111,7 @@
                     </GroupBox>
 
                     <!-- Optional Image Packs -->
-                    <GroupBox Header="Image Packs (Optional)" Margin="0,0,0,15">
+                    <GroupBox Header="{DynamicResource ImagePacksOptionalHeader}" Margin="0,0,0,15">
                         <StackPanel Margin="5">
                             <UniformGrid Columns="2">
                                 <Button x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"

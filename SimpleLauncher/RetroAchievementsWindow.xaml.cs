@@ -21,9 +21,6 @@ public partial class RetroAchievementsWindow
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
-    // Define a constant for the unauthorized message to avoid repetition
-    private const string UnauthorizedMessage = "RetroAchievements credentials invalid. Please check your username and API key in settings.";
-
     public RetroAchievementsWindow()
     {
         InitializeComponent();
@@ -96,12 +93,12 @@ public partial class RetroAchievementsWindow
     {
         return permissions switch
         {
-            0 => "Unregistered",
-            1 => "Registered",
-            2 => "Junior Developer",
-            3 => "Developer",
-            4 => "Admin",
-            _ => $"Unknown ({permissions})"
+            0 => (string)Application.Current.TryFindResource("RaPermissionUnregistered") ?? "Unregistered",
+            1 => (string)Application.Current.TryFindResource("RaPermissionRegistered") ?? "Registered",
+            2 => (string)Application.Current.TryFindResource("RaPermissionJuniorDeveloper") ?? "Junior Developer",
+            3 => (string)Application.Current.TryFindResource("RaPermissionDeveloper") ?? "Developer",
+            4 => (string)Application.Current.TryFindResource("RaPermissionAdmin") ?? "Admin",
+            _ => $"{(string)Application.Current.TryFindResource("RaStatusUnknown") ?? "Unknown"} ({permissions})"
         };
     }
 
@@ -143,8 +140,8 @@ public partial class RetroAchievementsWindow
         if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
         {
             NoProfileOverlay.Visibility = Visibility.Visible;
-            NoProfileMainMessage.Text = "RetroAchievements username or API key is not set.";
-            NoProfileSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+            NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorCredentialsNotSetShort") ?? "RetroAchievements username or API key is not set.";
+            NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
             LoadingOverlay.Visibility = Visibility.Collapsed;
             return;
         }
@@ -182,15 +179,16 @@ public partial class RetroAchievementsWindow
                 }
 
                 UserProfileUser.Text = userProfile.User;
-                UserProfileMotto.Text = string.IsNullOrWhiteSpace(userProfile.Motto) ? "No motto set" : userProfile.Motto;
+                UserProfileMotto.Text = string.IsNullOrWhiteSpace(userProfile.Motto) ? (string)Application.Current.TryFindResource("RaInfoNoMotto") ?? "No motto set" : userProfile.Motto;
 
                 // Current activity
                 UserProfileRichPresence.Text = string.IsNullOrWhiteSpace(userProfile.RichPresenceMsg)
-                    ? "Not currently playing"
+                    ? (string)Application.Current.TryFindResource("RaInfoNotCurrentlyPlaying") ?? "Not currently playing"
                     : userProfile.RichPresenceMsg;
 
                 // Statistics
-                RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? "N/A" : $"#{userProfile.Rank}";
+                var rankFormat = (string)Application.Current.TryFindResource("RaInfoRankFormat") ?? "#{0}";
+                RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : string.Format(rankFormat, userProfile.Rank);
                 PointsValue.Text = userProfile.TotalPoints.ToString("N0", CultureInfo.InvariantCulture);
                 TruePointsValue.Text = userProfile.TotalTruePoints.ToString("N0", CultureInfo.InvariantCulture);
 
@@ -201,17 +199,18 @@ public partial class RetroAchievementsWindow
                 }
                 else
                 {
-                    UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince) ? "Unknown" : userProfile.MemberSince;
+                    UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince) ? (string)Application.Current.TryFindResource("RaStatusUnknown") ?? "Unknown" : userProfile.MemberSince;
                 }
 
                 // Additional details
                 UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
-                UserProfileContributions.Text = $"{userProfile.ContribCount} contributions ({userProfile.ContribYield:N0} points)";
+                var contributionsFormat = (string)Application.Current.TryFindResource("RaInfoContributionsFormat") ?? "{0} contributions ({1:N0} points)";
+                UserProfileContributions.Text = string.Format(contributionsFormat, userProfile.ContribCount, userProfile.ContribYield);
                 UserProfileSoftcorePoints.Text = userProfile.TotalSoftcorePoints.ToString("N0", CultureInfo.InvariantCulture);
                 UserProfilePermissions.Text = GetPermissionDescription(userProfile.Permissions);
-                UserProfileStatus.Text = userProfile.Untracked == 1 ? "Untracked" : "Tracked";
-                UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? "N/A" : userProfile.Uuid;
-                UserProfileWallActive.Text = userProfile.UserWallActive ? "Yes" : "No";
+                UserProfileStatus.Text = userProfile.Untracked == 1 ? (string)Application.Current.TryFindResource("RaStatusUntracked") ?? "Untracked" : (string)Application.Current.TryFindResource("RaStatusTracked") ?? "Tracked";
+                UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : userProfile.Uuid;
+                UserProfileWallActive.Text = userProfile.UserWallActive ? (string)Application.Current.TryFindResource("RaGenericYes") ?? "Yes" : (string)Application.Current.TryFindResource("RaGenericNo") ?? "No";
 
                 switch (recentlyPlayedGames)
                 {
@@ -240,22 +239,22 @@ public partial class RetroAchievementsWindow
                 // If userProfile is null, something went wrong with the main profile fetch
                 NoProfileOverlay.Visibility = Visibility.Visible;
                 // Update messages for general API failure
-                NoProfileMainMessage.Text = "Failed to load user profile.";
-                NoProfileSubMessage.Text = "Please check your RetroAchievements credentials or try again later.";
+                NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorFailedToLoadUserProfile") ?? "Failed to load user profile.";
+                NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckCredentials") ?? "Please check your RetroAchievements credentials or try again later.";
             }
         }
         catch (RaUnauthorizedException)
         {
             NoProfileOverlay.Visibility = Visibility.Visible;
-            NoProfileMainMessage.Text = UnauthorizedMessage;
-            NoProfileSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+            NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorUnauthorized") ?? "RetroAchievements credentials invalid. Please check your username and API key in settings.";
+            NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
         }
         catch (Exception ex)
         {
             NoProfileOverlay.Visibility = Visibility.Visible;
             // Update messages for exception
-            NoProfileMainMessage.Text = "An error occurred while loading user profile.";
-            NoProfileSubMessage.Text = "Please try again or check your internet connection.";
+            NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProfile") ?? "An error occurred while loading user profile.";
+            NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
         finally
@@ -279,7 +278,7 @@ public partial class RetroAchievementsWindow
         {
             // Display specific message for missing credentials
             NoUnlocksOverlay.Visibility = Visibility.Visible;
-            NoUnlocksMessage.Text = "RetroAchievements username or API key is not set. Configure in settings.";
+            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorCredentialsNotSet") ?? "RetroAchievements username or API key is not set. Configure in settings.";
             LoadingOverlay.Visibility = Visibility.Collapsed;
             FetchUnlocksButton.IsEnabled = true; // Re-enable button
             return;
@@ -321,14 +320,14 @@ public partial class RetroAchievementsWindow
                 NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay if no data
                 // If unlocks is null, it indicates an API failure (since credentials were provided)
                 NoUnlocksMessage.Text = unlocks == null
-                    ? "Failed to load unlocks. Please check your RetroAchievements credentials or try again later."
-                    : "No unlocks found for the selected date range.";
+                    ? (string)Application.Current.TryFindResource("RaErrorFailedToLoadUnlocks") ?? "Failed to load unlocks. Please check your RetroAchievements credentials or try again later."
+                    : (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range.";
             }
         }
         catch (RaUnauthorizedException)
         {
             NoUnlocksOverlay.Visibility = Visibility.Visible;
-            NoUnlocksMessage.Text = UnauthorizedMessage;
+            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorUnauthorized") ?? "RetroAchievements credentials invalid. Please check your username and API key in settings.";
         }
         catch (Exception ex)
         {
@@ -336,7 +335,7 @@ public partial class RetroAchievementsWindow
             TotalUnlocksInRangeText.Text = "0";
             TotalPointsEarnedInRangeText.Text = "0";
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
-            NoUnlocksMessage.Text = "An error occurred while loading unlocks. Please try again.";
+            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUnlocks") ?? "An error occurred while loading unlocks. Please try again.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
@@ -382,7 +381,7 @@ public partial class RetroAchievementsWindow
             TotalUnlocksInRangeText.Text = "0";
             TotalPointsEarnedInRangeText.Text = "0";
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay when cleared
-            NoUnlocksMessage.Text = "No unlocks found for the selected date range."; // Reset message
+            NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range."; // Reset message
             // Notify user
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...", Owner as MainWindow);
             await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
@@ -406,8 +405,8 @@ public partial class RetroAchievementsWindow
         if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
         {
             NoUserProgressOverlay.Visibility = Visibility.Visible;
-            NoUserProgressMainMessage.Text = "RetroAchievements username or API key is not set.";
-            NoUserProgressSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+            NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorCredentialsNotSetShort") ?? "RetroAchievements username or API key is not set.";
+            NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
             LoadingOverlay.Visibility = Visibility.Collapsed;
             return;
         }
@@ -428,27 +427,27 @@ public partial class RetroAchievementsWindow
                 // If userProgressList is null, it indicates an API failure (since credentials were provided)
                 if (userProgressList == null)
                 {
-                    NoUserProgressMainMessage.Text = "Failed to load user completion progress.";
-                    NoUserProgressSubMessage.Text = "Please check your RetroAchievements credentials or try again later.";
+                    NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorFailedToLoadUserProgress") ?? "Failed to load user completion progress.";
+                    NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckCredentials") ?? "Please check your RetroAchievements credentials or try again later.";
                 }
                 else // userProgressList is not null but empty
                 {
-                    NoUserProgressMainMessage.Text = "No user completion progress found.";
-                    NoUserProgressSubMessage.Text = "This could be because you haven't played any games yet.";
+                    NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUserProgressFound") ?? "No user completion progress found.";
+                    NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUserProgressSubMessage") ?? "This could be because you haven't played any games yet.";
                 }
             }
         }
         catch (RaUnauthorizedException)
         {
             NoUserProgressOverlay.Visibility = Visibility.Visible;
-            NoUserProgressMainMessage.Text = UnauthorizedMessage;
-            NoUserProgressSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+            NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorUnauthorized") ?? "RetroAchievements credentials invalid. Please check your username and API key in settings.";
+            NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoConfigureCredentials") ?? "Please configure your credentials in the RetroAchievements settings.";
         }
         catch (Exception ex)
         {
             NoUserProgressOverlay.Visibility = Visibility.Visible;
-            NoUserProgressMainMessage.Text = "An error occurred while loading user completion progress.";
-            NoUserProgressSubMessage.Text = "Please try again or check your internet connection.";
+            NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProgress") ?? "An error occurred while loading user completion progress.";
+            NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
         }

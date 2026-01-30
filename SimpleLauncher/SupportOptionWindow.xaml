@@ -46,26 +46,26 @@
                 Content="{DynamicResource AskAIPhindcom}" 
                 Height="35" 
                 Margin="0,0,0,10" 
-                Click="BtnAskPhind_Click"
-                ToolTip="Search for a solution using Phind (Developer focused AI)."/>
+                Click="BtnAskPhind_Click" 
+                ToolTip="{DynamicResource ToolTipSearchPhind}"/>
         
         <!-- Ask Perplexity AI Button -->
         <Button Grid.Row="3" 
                 Name="BtnAskPerplexity"
                 Content="{DynamicResource AskAIPerplexityai}" 
                 Height="35" 
-                Margin="0,0,0,10" 
-                Click="BtnAskPerplexity_Click"
-                ToolTip="Search for a solution using Perplexity AI."/>
+                Margin="0,0,0,10"
+                Click="BtnAskPerplexity_Click" 
+                ToolTip="{DynamicResource ToolTipSearchPerplexity}"/>
 
         <!-- Ask You.com AI Button -->
         <Button Grid.Row="4" 
                 Name="BtnAskYou"
                 Content="{DynamicResource AskAIYoucom}" 
                 Height="35" 
-                Margin="0,0,0,10" 
-                Click="BtnAskYou_Click"
-                ToolTip="Search for a solution using You.com AI."/>
+                Margin="0,0,0,10"
+                Click="BtnAskYou_Click" 
+                ToolTip="{DynamicResource ToolTipSearchYouCom}"/>
         
         <!-- Contact Developer Button -->
         <Button Grid.Row="5" 
@@ -73,8 +73,8 @@
                 Content="{DynamicResource ContactDeveloper}" 
                 Height="35" 
                 Margin="0,0,0,10" 
-                Click="BtnContactDeveloper_Click"
-                ToolTip="Open the bug report form to send logs to the developer."/>
+                Click="BtnContactDeveloper_Click" 
+                ToolTip="{DynamicResource ToolTipContactDeveloper}"/>
 
         <!-- Cancel Button -->
         <Button Grid.Row="6" 

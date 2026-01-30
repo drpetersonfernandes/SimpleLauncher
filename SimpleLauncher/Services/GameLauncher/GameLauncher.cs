@@ -433,12 +433,13 @@ public class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
+        var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
         DebugLogger.Log("RunBatchFileAsync:\n\n");
         DebugLogger.Log($"Command: {psi.FileName} {psi.Arguments}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
-        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} launched");
-        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} launched", mainWindow);
+        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} {launched}");
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} {launched}", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -561,9 +562,10 @@ public class GameLauncher
     private async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // Common UI updates.
+        var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
         var fileName = Path.GetFileName(resolvedFilePath);
-        TrayIconManager.ShowTrayMessage($"{fileName} launched");
-        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} launched", mainWindow);
+        TrayIconManager.ShowTrayMessage($"{fileName} {launched}");
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} {launched}", mainWindow);
 
         try
         {
@@ -660,7 +662,8 @@ public class GameLauncher
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    MessageBoxLibrary.ShowCustomMessageBox("There was a Win32Exception.", "Launch Error", _logPath);
+                    var launchErrorTitle = (string)Application.Current.TryFindResource("LaunchErrorTitle") ?? "Launch Error";
+                    MessageBoxLibrary.ShowCustomMessageBox("There was a Win32Exception.", launchErrorTitle, _logPath);
                 }
             }
         }
@@ -682,14 +685,16 @@ public class GameLauncher
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
+                var launchErrorTitle = (string)Application.Current.TryFindResource("LaunchErrorTitle") ?? "Launch Error";
+                var couldNotLaunchShortcut = (string)Application.Current.TryFindResource("CouldNotLaunchShortcut") ?? "Could not launch the game shortcut. The protocol handler may not be installed. Please ensure the game launcher (Steam, GOG Galaxy, etc.) is installed.";
                 var userMessage = ex switch
                 {
                     FileNotFoundException => $"Shortcut file not found: {Path.GetFileName(resolvedFilePath)}.",
                     InvalidOperationException when ex.Message.Contains("Protocol handler for", StringComparison.OrdinalIgnoreCase) => ex.Message,
-                    _ => "Could not launch the game shortcut. The protocol handler may not be installed. Please ensure the game launcher (Steam, GOG Galaxy, etc.) is installed."
+                    _ => couldNotLaunchShortcut
                 };
 
-                MessageBoxLibrary.ShowCustomMessageBox(userMessage, "Launch Error", _logPath);
+                MessageBoxLibrary.ShowCustomMessageBox(userMessage, launchErrorTitle, _logPath);
             }
         }
     }
@@ -724,12 +729,13 @@ public class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
+        var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
         DebugLogger.Log("LaunchExecutableAsync:\n\n");
         DebugLogger.Log($"Executable File: {psi.FileName}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
-        TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
-        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
+        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(psi.FileName)} {launched}");
+        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{Path.GetFileName(psi.FileName)} {launched}", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
