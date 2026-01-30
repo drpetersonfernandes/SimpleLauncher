@@ -606,21 +606,21 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Inject Emulator Config">
+                <MenuItem Header="{DynamicResource InjectEmulatorConfig}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/inject.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="MAME Settings" Click="ShowMameSettings_Click">
+                    <MenuItem Header="{DynamicResource MameSettings}" Click="ShowMameSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/mame.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="RetroArch Settings" Click="ShowRetroArchSettings_Click">
+                    <MenuItem Header="{DynamicResource RetroArchSettings}" Click="ShowRetroArchSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/retroarch.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Xenia Settings" Click="ShowXeniaSettings_Click">
+                    <MenuItem Header="{DynamicResource XeniaSettings}" Click="ShowXeniaSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/xenia.png" Width="16" Height="16" />
                         </MenuItem.Icon>

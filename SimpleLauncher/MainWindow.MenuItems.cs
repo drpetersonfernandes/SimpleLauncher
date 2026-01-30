@@ -1158,7 +1158,7 @@ public partial class MainWindow
     private void ShowXeniaSettings_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening Xenia configuration...", this);
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningXeniaConfiguration") ?? "Opening Xenia configuration...", this);
 
         var xeniaWindow = new InjectXeniaConfigWindow(_settings, null, false)
         {
@@ -1170,7 +1170,7 @@ public partial class MainWindow
     private void ShowMameSettings_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening MAME configuration...", this);
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningMameConfiguration") ?? "Opening MAME configuration...", this);
 
         var mameWindow = new InjectMameConfigWindow(_settings, null, null, false)
         {
@@ -1182,7 +1182,7 @@ public partial class MainWindow
     private void ShowRetroArchSettings_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening RetroArch configuration...", this);
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroArchConfiguration") ?? "Opening RetroArch configuration...", this);
 
         var raWindow = new InjectRetroArchConfigWindow(_settings, null, false)
         {

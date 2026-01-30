@@ -2,7 +2,7 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      Title="Xenia Configuration"
+                      Title="{DynamicResource XeniaConfig_Title}"
                       Height="850" Width="700"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
@@ -15,25 +15,25 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- GPU Section -->
-                <GroupBox Header="Graphics (GPU)" Margin="0,0,0,10">
+                <GroupBox Header="{DynamicResource XeniaConfig_Gpu_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Graphics API:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbGpu" Grid.Column="1" ToolTip="The graphics API used for rendering (d3d12 is standard).">
+                            <Label Content="{DynamicResource XeniaConfig_GpuApi_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbGpu" Grid.Column="1" ToolTip="{DynamicResource XeniaConfig_GpuApi_Tooltip}">
                                 <ComboBoxItem Content="d3d12"/>
                                 <ComboBoxItem Content="vulkan"/>
                                 <ComboBoxItem Content="null"/>
                             </ComboBox>
                         </Grid>
                         
-                        <CheckBox x:Name="ChkVsync" Content="VSync" Margin="0,5" ToolTip="Synchronizes frame rate to prevent screen tearing."/>
-                        <CheckBox x:Name="ChkFullscreen" Content="Fullscreen" Margin="0,5" ToolTip="Starts Xenia in fullscreen mode."/>
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource XeniaConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_Vsync_Tooltip}"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource XeniaConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_Fullscreen_Tooltip}"/>
 
-                        <Label Content="Resolution Scale (X / Y):" Margin="0,5,0,0" ToolTip="Internal rendering resolution scale (1=720p, 2=1440p)."/>
+                        <Label Content="{DynamicResource XeniaConfig_ResolutionScale_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource XeniaConfig_ResolutionScale_Tooltip}"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -53,66 +53,66 @@
                             </ComboBox>
                         </Grid>
                         
-                        <Label Content="Post-Processing AA:" Margin="0,5,0,0"/>
-                        <ComboBox x:Name="CmbAa" ToolTip="Reduces jagged edges using FXAA.">
+                        <Label Content="{DynamicResource XeniaConfig_PostProcessingAa_Label}" Margin="0,5,0,0"/>
+                        <ComboBox x:Name="CmbAa" ToolTip="{DynamicResource XeniaConfig_PostProcessingAa_Tooltip}">
                             <ComboBoxItem Content="None" Tag=""/>
                             <ComboBoxItem Content="FXAA" Tag="fxaa"/>
                             <ComboBoxItem Content="FXAA Extreme" Tag="fxaa_extreme"/>
                         </ComboBox>
 
-                        <Label Content="Scaling &amp; Sharpening:" Margin="0,5,0,0"/>
-                        <ComboBox x:Name="CmbScaling" ToolTip="Upscaling method (FSR provides high-quality sharpening).">
+                        <Label Content="{DynamicResource XeniaConfig_ScalingSharpening_Label}" Margin="0,5,0,0"/>
+                        <ComboBox x:Name="CmbScaling" ToolTip="{DynamicResource XeniaConfig_ScalingSharpening_Tooltip}">
                             <ComboBoxItem Content="FSR" Tag="fsr"/>
                             <ComboBoxItem Content="CAS" Tag="cas"/>
                             <ComboBoxItem Content="Bilinear" Tag="bilinear"/>
                         </ComboBox>
 
-                        <Label Content="Readback Resolve (Fixes Graphics):" Margin="0,5,0,0"/>
-                        <ComboBox x:Name="CmbReadback" ToolTip="Fixes certain graphical glitches at the cost of performance.">
-                            <ComboBoxItem Content="None (Fastest)" Tag="none"/>
-                            <ComboBoxItem Content="Fast (Recommended)" Tag="fast"/>
-                            <ComboBoxItem Content="Full (Slowest/Most Accurate)" Tag="full"/>
+                        <Label Content="{DynamicResource XeniaConfig_ReadbackResolve_Label}" Margin="0,5,0,0"/>
+                        <ComboBox x:Name="CmbReadback" ToolTip="{DynamicResource XeniaConfig_ReadbackResolve_Tooltip}">
+                            <ComboBoxItem Content="{DynamicResource XeniaConfig_ReadbackResolve_None}" Tag="none"/>
+                            <ComboBoxItem Content="{DynamicResource XeniaConfig_ReadbackResolve_Fast}" Tag="fast"/>
+                            <ComboBoxItem Content="{DynamicResource XeniaConfig_ReadbackResolve_Full}" Tag="full"/>
                         </ComboBox>
 
-                        <CheckBox x:Name="ChkGammaSrgb" Content="Gamma Render Target as sRGB" Margin="0,5" ToolTip="Corrects colors in some games that appear too dark."/>
+                        <CheckBox x:Name="ChkGammaSrgb" Content="{DynamicResource XeniaConfig_GammaSrgb_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_GammaSrgb_Tooltip}"/>
 
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio (APU)" Margin="0,0,0,10">
+                <GroupBox Header="{DynamicResource XeniaConfig_Apu_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Audio Driver:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbApu" Grid.Column="1" ToolTip="The audio processing driver.">
+                            <Label Content="{DynamicResource XeniaConfig_AudioDriver_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbApu" Grid.Column="1" ToolTip="{DynamicResource XeniaConfig_AudioDriver_Tooltip}">
                                 <ComboBoxItem Content="xaudio2"/>
                                 <ComboBoxItem Content="sdl"/>
                                 <ComboBoxItem Content="nop"/>
                                 <ComboBoxItem Content="any"/>
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkMute" Content="Mute Audio" Margin="0,5" ToolTip="Mutes all audio output."/>
+                        <CheckBox x:Name="ChkMute" Content="{DynamicResource XeniaConfig_MuteAudio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_MuteAudio_Tooltip}"/>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
-                <GroupBox Header="System &amp; Input" Margin="0,0,0,10">
+                <GroupBox Header="{DynamicResource XeniaConfig_SystemInput_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkPatches" Content="Apply Game Patches" Margin="0,5" ToolTip="Enables game-specific patches (patch files required)."/>
-                        <CheckBox x:Name="ChkMountCache" Content="Mount Cache Partition" Margin="0,5" ToolTip="Simulates an Xbox 360 hard drive cache (required for some games)."/>
-                        <CheckBox x:Name="ChkVibration" Content="Enable Controller Vibration" Margin="0,5" ToolTip="Enables controller vibration."/>
+                        <CheckBox x:Name="ChkPatches" Content="{DynamicResource XeniaConfig_ApplyPatches_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_ApplyPatches_Tooltip}"/>
+                        <CheckBox x:Name="ChkMountCache" Content="{DynamicResource XeniaConfig_MountCache_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_MountCache_Tooltip}"/>
+                        <CheckBox x:Name="ChkVibration" Content="{DynamicResource XeniaConfig_Vibration_Checkbox}" Margin="0,5" ToolTip="{DynamicResource XeniaConfig_Vibration_Tooltip}"/>
                         
                         <Grid Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Input Driver (HID):" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbHid" Grid.Column="1" ToolTip="The input driver (xinput is standard for Xbox controllers).">
+                            <Label Content="{DynamicResource XeniaConfig_Hid_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbHid" Grid.Column="1" ToolTip="{DynamicResource XeniaConfig_Hid_Tooltip}">
                                 <ComboBoxItem Content="xinput"/>
                                 <ComboBoxItem Content="sdl"/>
                                 <ComboBoxItem Content="winkey"/>
@@ -125,8 +125,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="User Language:" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbLang" Grid.Column="1" ToolTip="The system language reported to the game.">
+                            <Label Content="{DynamicResource XeniaConfig_UserLanguage_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbLang" Grid.Column="1" ToolTip="{DynamicResource XeniaConfig_UserLanguage_Tooltip}">
                                 <ComboBoxItem Content="English" Tag="1"/>
                                 <ComboBoxItem Content="Japanese" Tag="2"/>
                                 <ComboBoxItem Content="German" Tag="3"/>
@@ -141,20 +141,20 @@
                     </StackPanel>
                 </GroupBox>
                 <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="Open this window before launching an Xbox 360 game" 
+                          Content="{DynamicResource XeniaConfig_ShowBeforeLaunch_Checkbox}" 
                           Margin="5,10,0,10" />
             </StackPanel>
         </ScrollViewer>
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="BtnSave" Content="Save" Width="100" Height="35" Margin="0,0,10,0"
+            <Button x:Name="BtnSave" Content="{DynamicResource XeniaConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
                     Style="{DynamicResource MahApps.Styles.Button.Square}" 
                     Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="Run Xenia" Width="120" Height="35" 
+            <Button x:Name="BtnRun" Content="{DynamicResource XeniaConfig_Run_Button}" Width="120" Height="35" 
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
                     Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="Cancel" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+            <Button Content="{DynamicResource XeniaConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
         </StackPanel>
     </Grid>
 </controls:MetroWindow>
