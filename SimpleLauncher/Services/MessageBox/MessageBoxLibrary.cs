@@ -3561,7 +3561,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectXeniaconfigurationTheerror") ?? "Failed to inject Xenia configuration. The error has been logged. Please check the emulator path and try again.";
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectXeniaconfigurationTheerrorPleasecheck") ?? "Failed to inject Xenia configuration. The error has been logged. Please check the emulator path and try again.";
             var message2 = (string)Application.Current.TryFindResource("InjectionError") ?? "Injection Error";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
