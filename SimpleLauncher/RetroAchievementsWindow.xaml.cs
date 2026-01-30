@@ -188,7 +188,7 @@ public partial class RetroAchievementsWindow
 
                 // Statistics
                 var rankFormat = (string)Application.Current.TryFindResource("RaInfoRankFormat") ?? "#{0}";
-                RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : string.Format(rankFormat, userProfile.Rank);
+                RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A" : string.Format(CultureInfo.InvariantCulture, rankFormat, userProfile.Rank);
                 PointsValue.Text = userProfile.TotalPoints.ToString("N0", CultureInfo.InvariantCulture);
                 TruePointsValue.Text = userProfile.TotalTruePoints.ToString("N0", CultureInfo.InvariantCulture);
 
@@ -205,7 +205,7 @@ public partial class RetroAchievementsWindow
                 // Additional details
                 UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
                 var contributionsFormat = (string)Application.Current.TryFindResource("RaInfoContributionsFormat") ?? "{0} contributions ({1:N0} points)";
-                UserProfileContributions.Text = string.Format(contributionsFormat, userProfile.ContribCount, userProfile.ContribYield);
+                UserProfileContributions.Text = string.Format(CultureInfo.InvariantCulture, contributionsFormat, userProfile.ContribCount, userProfile.ContribYield);
                 UserProfileSoftcorePoints.Text = userProfile.TotalSoftcorePoints.ToString("N0", CultureInfo.InvariantCulture);
                 UserProfilePermissions.Text = GetPermissionDescription(userProfile.Permissions);
                 UserProfileStatus.Text = userProfile.Untracked == 1 ? (string)Application.Current.TryFindResource("RaStatusUntracked") ?? "Untracked" : (string)Application.Current.TryFindResource("RaStatusTracked") ?? "Tracked";
