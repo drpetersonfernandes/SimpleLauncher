@@ -144,6 +144,19 @@ public class SettingsManager
     [Key(113)] public int SupermodelPowerPcFrequency { get; set; } = 50;
     [Key(114)] public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Mednafen Global Configuration ---
+    [Key(120)] public string MednafenVideoDriver { get; set; } = "opengl";
+    [Key(121)] public bool MednafenFullscreen { get; set; }
+    [Key(122)] public bool MednafenVsync { get; set; } = true;
+    [Key(123)] public string MednafenStretch { get; set; } = "aspect";
+    [Key(124)] public bool MednafenBilinear { get; set; }
+    [Key(125)] public int MednafenScanlines { get; set; }
+    [Key(126)] public string MednafenShader { get; set; } = "none";
+    [Key(127)] public int MednafenVolume { get; set; } = 100;
+    [Key(128)] public bool MednafenCheats { get; set; } = true;
+    [Key(129)] public bool MednafenRewind { get; set; }
+    [Key(130)] public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -295,6 +308,19 @@ public class SettingsManager
         SupermodelMultiThreaded = other.SupermodelMultiThreaded;
         SupermodelPowerPcFrequency = other.SupermodelPowerPcFrequency;
         SupermodelShowSettingsBeforeLaunch = other.SupermodelShowSettingsBeforeLaunch;
+
+        // Mednafen
+        MednafenVideoDriver = other.MednafenVideoDriver;
+        MednafenFullscreen = other.MednafenFullscreen;
+        MednafenVsync = other.MednafenVsync;
+        MednafenStretch = other.MednafenStretch;
+        MednafenBilinear = other.MednafenBilinear;
+        MednafenScanlines = other.MednafenScanlines;
+        MednafenShader = other.MednafenShader;
+        MednafenVolume = other.MednafenVolume;
+        MednafenCheats = other.MednafenCheats;
+        MednafenRewind = other.MednafenRewind;
+        MednafenShowSettingsBeforeLaunch = other.MednafenShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -414,6 +440,19 @@ public class SettingsManager
             SupermodelMultiThreaded = true;
             SupermodelPowerPcFrequency = 50;
             SupermodelShowSettingsBeforeLaunch = true;
+
+            // Mednafen (set defaults during migration)
+            MednafenVideoDriver = "opengl";
+            MednafenFullscreen = false;
+            MednafenVsync = true;
+            MednafenStretch = "aspect";
+            MednafenBilinear = false;
+            MednafenScanlines = 0;
+            MednafenShader = "none";
+            MednafenVolume = 100;
+            MednafenCheats = true;
+            MednafenRewind = false;
+            MednafenShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -594,6 +633,19 @@ public class SettingsManager
         SupermodelMultiThreaded = true;
         SupermodelPowerPcFrequency = 50;
         SupermodelShowSettingsBeforeLaunch = true;
+
+        // Mednafen Defaults
+        MednafenVideoDriver = "opengl";
+        MednafenFullscreen = false;
+        MednafenVsync = true;
+        MednafenStretch = "aspect";
+        MednafenBilinear = false;
+        MednafenScanlines = 0;
+        MednafenShader = "none";
+        MednafenVolume = 100;
+        MednafenCheats = true;
+        MednafenRewind = false;
+        MednafenShowSettingsBeforeLaunch = true;
 
         Save();
     }

@@ -243,6 +243,34 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- MEDNAFEN CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.MednafenShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var mednafenWindow = new InjectMednafenConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        mednafenWindow.ShowDialog();
+                        shouldRun = mednafenWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into mednafen.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        MednafenConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {

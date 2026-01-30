@@ -1202,4 +1202,16 @@ public partial class MainWindow
         };
         supermodelWindow.ShowDialog();
     }
+
+    private void ShowMednafenSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningMednafenConfiguration") ?? "Opening Mednafen configuration...", this);
+
+        var mednafenWindow = new InjectMednafenConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        mednafenWindow.ShowDialog();
+    }
 }

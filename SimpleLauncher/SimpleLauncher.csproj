@@ -969,6 +969,10 @@
     <Resource Include="images\retroarch.png" />
     <None Remove="images\xenia.png" />
     <Resource Include="images\xenia.png" />
+    <None Remove="images\mednafen.png" />
+    <Resource Include="images\mednafen.png" />
+    <None Remove="images\supermodel.png" />
+    <Resource Include="images\supermodel.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">
