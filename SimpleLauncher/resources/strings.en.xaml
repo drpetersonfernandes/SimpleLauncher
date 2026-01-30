@@ -1146,11 +1146,6 @@
     <system:String x:Key="RaErrorLoadingUserProfile">An error occurred while loading user profile.</system:String>
     <system:String x:Key="RaInfoCheckConnection">Please try again or check your internet connection.</system:String>
     <system:String x:Key="RaErrorFailedToLoadUnlocks">Failed to load unlocks. Please check your RetroAchievements credentials or try again later.</system:String>
-    
-    
-    
-    
-    
     <system:String x:Key="RaInfoNoUnlocksFound">No unlocks found for the selected date range.</system:String>
     <system:String x:Key="RaErrorLoadingUnlocks">An error occurred while loading unlocks. Please try again.</system:String>
     <system:String x:Key="RaErrorFailedToLoadUserProgress">Failed to load user completion progress.</system:String>
