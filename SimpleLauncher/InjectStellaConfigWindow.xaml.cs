@@ -77,7 +77,7 @@ public partial class InjectStellaConfigWindow
         _settings.StellaVsync = ChkVsync.IsChecked ?? true;
         _settings.StellaCorrectAspect = ChkCorrectAspect.IsChecked ?? true;
         _settings.StellaVideoDriver = CmbVideoDriver.Text;
-        _settings.StellaTvFilter = int.Parse((GetSelectedTag(CmbTvFilter)), CultureInfo.InvariantCulture);
+        _settings.StellaTvFilter = int.Parse(GetSelectedTag(CmbTvFilter), CultureInfo.InvariantCulture);
         _settings.StellaScanlines = (int)SldScanlines.Value;
         _settings.StellaAudioEnabled = ChkAudioEnabled.IsChecked ?? true;
         _settings.StellaAudioVolume = (int)SldAudioVolume.Value;

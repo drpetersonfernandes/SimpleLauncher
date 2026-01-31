@@ -333,7 +333,7 @@ public class GameLauncher
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var daphneWindow = new InjectDaphneConfigWindow(settings, null) { Owner = mainWindow };
+                        var daphneWindow = new InjectDaphneConfigWindow(settings) { Owner = mainWindow };
                         daphneWindow.ShowDialog();
                         shouldRun = daphneWindow.ShouldRun;
                     });

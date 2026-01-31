@@ -10,7 +10,7 @@ public partial class InjectDaphneConfigWindow
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
 
-    public InjectDaphneConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
+    public InjectDaphneConfigWindow(SettingsManager settings, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
