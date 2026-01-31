@@ -1310,4 +1310,16 @@ public partial class MainWindow
         };
         flycastWindow.ShowDialog();
     }
+
+    private void ShowStellaSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningStellaConfiguration") ?? "Opening Stella configuration...", this);
+
+        var stellaWindow = new InjectStellaConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        stellaWindow.ShowDialog();
+    }
 }

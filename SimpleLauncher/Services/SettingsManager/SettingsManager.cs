@@ -257,6 +257,19 @@ public class SettingsManager
     [Key(283)] public bool FlycastMaximized { get; set; }
     [Key(284)] public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Stella Global Configuration ---
+    [Key(300)] public bool StellaFullscreen { get; set; }
+    [Key(301)] public bool StellaVsync { get; set; } = true;
+    [Key(302)] public string StellaVideoDriver { get; set; } = "direct3d";
+    [Key(303)] public bool StellaCorrectAspect { get; set; } = true;
+    [Key(304)] public int StellaTvFilter { get; set; }
+    [Key(305)] public int StellaScanlines { get; set; }
+    [Key(306)] public bool StellaAudioEnabled { get; set; } = true;
+    [Key(307)] public int StellaAudioVolume { get; set; } = 80;
+    [Key(308)] public bool StellaTimeMachine { get; set; } = true;
+    [Key(309)] public bool StellaConfirmExit { get; set; }
+    [Key(310)] public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -521,6 +534,19 @@ public class SettingsManager
         FlycastHeight = other.FlycastHeight;
         FlycastMaximized = other.FlycastMaximized;
         FlycastShowSettingsBeforeLaunch = other.FlycastShowSettingsBeforeLaunch;
+
+        // Stella
+        StellaFullscreen = other.StellaFullscreen;
+        StellaVsync = other.StellaVsync;
+        StellaVideoDriver = other.StellaVideoDriver;
+        StellaCorrectAspect = other.StellaCorrectAspect;
+        StellaTvFilter = other.StellaTvFilter;
+        StellaScanlines = other.StellaScanlines;
+        StellaAudioEnabled = other.StellaAudioEnabled;
+        StellaAudioVolume = other.StellaAudioVolume;
+        StellaTimeMachine = other.StellaTimeMachine;
+        StellaConfirmExit = other.StellaConfirmExit;
+        StellaShowSettingsBeforeLaunch = other.StellaShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -753,6 +779,19 @@ public class SettingsManager
             FlycastHeight = 480;
             FlycastMaximized = false;
             FlycastShowSettingsBeforeLaunch = true;
+
+            // Stella Defaults
+            StellaFullscreen = false;
+            StellaVsync = true;
+            StellaVideoDriver = "direct3d";
+            StellaCorrectAspect = true;
+            StellaTvFilter = 0;
+            StellaScanlines = 0;
+            StellaAudioEnabled = true;
+            StellaAudioVolume = 80;
+            StellaTimeMachine = true;
+            StellaConfirmExit = false;
+            StellaShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -1046,6 +1085,19 @@ public class SettingsManager
         FlycastHeight = 480;
         FlycastMaximized = false;
         FlycastShowSettingsBeforeLaunch = true;
+
+        // Stella Defaults
+        StellaFullscreen = false;
+        StellaVsync = true;
+        StellaVideoDriver = "direct3d";
+        StellaCorrectAspect = true;
+        StellaTvFilter = 0;
+        StellaScanlines = 0;
+        StellaAudioEnabled = true;
+        StellaAudioVolume = 80;
+        StellaTimeMachine = true;
+        StellaConfirmExit = false;
+        StellaShowSettingsBeforeLaunch = true;
 
         Save();
     }

@@ -805,6 +805,9 @@
     <None Update="samples\RPCS3\config.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="samples\Stella\stella.sqlite3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -1002,6 +1005,8 @@
     <Resource Include="images\rpcs3.png" />
     <None Remove="images\flycast.png" />
     <Resource Include="images\flycast.png" />
+    <None Remove="images\stella.png" />
+    <Resource Include="images\stella.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">
@@ -1283,6 +1288,7 @@
     <Page Remove="walkthrough\**" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="samples\Stella\" />
     <Folder Include="Services\GlobalSearch\" />
   </ItemGroup>
 </Project>

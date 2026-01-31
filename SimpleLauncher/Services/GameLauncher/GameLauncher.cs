@@ -490,6 +490,34 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- STELLA CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Stella", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("stella.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.StellaShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var stellaWindow = new InjectStellaConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        stellaWindow.ShowDialog();
+                        shouldRun = stellaWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into stella.sqlite3 since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        StellaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {
