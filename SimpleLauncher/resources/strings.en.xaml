@@ -1473,5 +1473,19 @@
     <system:String x:Key="RPCS3Config_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="RPCS3Config_Cancel_Button">Cancel</system:String>
 
+    <sys:String x:Key="FlycastConfig_Title">Flycast Configuration</sys:String>
+    <sys:String x:Key="FlycastConfig_Video_Header">Video Settings</sys:String>
+    <sys:String x:Key="FlycastConfig_Fullscreen_Checkbox">Run in Fullscreen</sys:String>
+    <sys:String x:Key="FlycastConfig_Fullscreen_Tooltip">If checked, the emulator will start in fullscreen mode.</sys:String>
+    <sys:String x:Key="FlycastConfig_Maximized_Checkbox">Start Maximized</sys:String>
+    <sys:String x:Key="FlycastConfig_Maximized_Tooltip">If checked, the emulator window will start maximized (borderless windowed).</sys:String>
+    <sys:String x:Key="FlycastConfig_Resolution_Label">Window Resolution (Width x Height)</sys:String>
+    <sys:String x:Key="FlycastConfig_Resolution_Tooltip">Sets the resolution of the emulator window when not in fullscreen mode.</sys:String>
+    <sys:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</sys:String>
+    <sys:String x:Key="FlycastConfig_Save_Button">Save</sys:String>
+    <sys:String x:Key="FlycastConfig_Run_Button">Save &amp; Run</sys:String>
+    <sys:String x:Key="FlycastConfig_Cancel_Button">Cancel</sys:String>
+    <sys:String x:Key="OpeningFlycastConfiguration">Opening Flycast configuration...</sys:String>
+    <sys:String x:Key="FlycastSettings">Flycast Settings</sys:String>
 
 </ResourceDictionary>

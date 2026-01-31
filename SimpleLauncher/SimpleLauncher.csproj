@@ -1000,6 +1000,8 @@
     <Resource Include="images\duckstation.png" />
     <None Remove="images\rpcs3.png" />
     <Resource Include="images\rpcs3.png" />
+    <None Remove="images\flycast.png" />
+    <Resource Include="images\flycast.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">

@@ -250,6 +250,13 @@ public class SettingsManager
     [Key(270)] public bool Rpcs3StartFullscreen { get; set; }
     [Key(271)] public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Flycast Global Configuration ---
+    [Key(280)] public bool FlycastFullscreen { get; set; }
+    [Key(281)] public int FlycastWidth { get; set; } = 640;
+    [Key(282)] public int FlycastHeight { get; set; } = 480;
+    [Key(283)] public bool FlycastMaximized { get; set; }
+    [Key(284)] public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -507,6 +514,13 @@ public class SettingsManager
         Rpcs3AudioBuffering = other.Rpcs3AudioBuffering;
         Rpcs3StartFullscreen = other.Rpcs3StartFullscreen;
         Rpcs3ShowSettingsBeforeLaunch = other.Rpcs3ShowSettingsBeforeLaunch;
+
+        // Flycast
+        FlycastFullscreen = other.FlycastFullscreen;
+        FlycastWidth = other.FlycastWidth;
+        FlycastHeight = other.FlycastHeight;
+        FlycastMaximized = other.FlycastMaximized;
+        FlycastShowSettingsBeforeLaunch = other.FlycastShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -732,6 +746,13 @@ public class SettingsManager
             Rpcs3AudioBuffering = true;
             Rpcs3StartFullscreen = false;
             Rpcs3ShowSettingsBeforeLaunch = true;
+
+            // Flycast Defaults
+            FlycastFullscreen = false;
+            FlycastWidth = 640;
+            FlycastHeight = 480;
+            FlycastMaximized = false;
+            FlycastShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -1018,6 +1039,13 @@ public class SettingsManager
         Rpcs3AudioBuffering = true;
         Rpcs3StartFullscreen = false;
         Rpcs3ShowSettingsBeforeLaunch = true;
+
+        // Flycast Defaults
+        FlycastFullscreen = false;
+        FlycastWidth = 640;
+        FlycastHeight = 480;
+        FlycastMaximized = false;
+        FlycastShowSettingsBeforeLaunch = true;
 
         Save();
     }

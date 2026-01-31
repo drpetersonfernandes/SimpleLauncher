@@ -462,6 +462,34 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- FLYCAST CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.FlycastShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var flycastWindow = new InjectFlycastConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        flycastWindow.ShowDialog();
+                        shouldRun = flycastWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into emu.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        FlycastConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {

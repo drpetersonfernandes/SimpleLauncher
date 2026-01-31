@@ -1,0 +1,54 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectFlycastConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource FlycastConfig_Title}"
+                      Height="450" Width="700"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="{DynamicResource FlycastConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource FlycastConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource FlycastConfig_Fullscreen_Tooltip}"/>
+                        <CheckBox x:Name="ChkMaximized" Content="{DynamicResource FlycastConfig_Maximized_Checkbox}" Margin="0,5" ToolTip="{DynamicResource FlycastConfig_Maximized_Tooltip}"/>
+                        
+                        <Label Content="{DynamicResource FlycastConfig_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource FlycastConfig_Resolution_Tooltip}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="640" Maximum="7680" Interval="1"/>
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0"/>
+                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="480" Maximum="4320" Interval="1"/>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="{DynamicResource FlycastConfig_ShowBeforeLaunch_Checkbox}" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource FlycastConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="{DynamicResource FlycastConfig_Run_Button}" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="{DynamicResource FlycastConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

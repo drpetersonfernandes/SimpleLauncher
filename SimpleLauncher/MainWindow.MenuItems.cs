@@ -1298,4 +1298,16 @@ public partial class MainWindow
         };
         rpcs3Window.ShowDialog();
     }
+
+    private void ShowFlycastSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFlycastConfiguration") ?? "Opening Flycast configuration...", this);
+
+        var flycastWindow = new InjectFlycastConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        flycastWindow.ShowDialog();
+    }
 }
