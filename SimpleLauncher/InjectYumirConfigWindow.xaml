@@ -1,0 +1,79 @@
+<!-- File: SimpleLauncher\InjectYumirConfigWindow.xaml -->
+<controls:MetroWindow x:Class="SimpleLauncher.InjectYumirConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource YumirConfig_Title}"
+                      Height="650" Width="700"
+                      ResizeMode="CanResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Video Section -->
+                <GroupBox Header="{DynamicResource YumirConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource YumirConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_Fullscreen_Tooltip}"/>
+                        <CheckBox x:Name="ChkForceAspect" Content="{DynamicResource YumirConfig_ForceAspect_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_ForceAspect_Tooltip}"/>
+                        <CheckBox x:Name="ChkReduceLatency" Content="{DynamicResource YumirConfig_ReduceLatency_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_ReduceLatency_Tooltip}"/>
+                        
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource YumirConfig_ForcedAspect_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbForcedAspect" Grid.Column="1" ToolTip="{DynamicResource YumirConfig_ForcedAspect_Tooltip}">
+                                <ComboBoxItem Content="16:9 (1.77)" Tag="1.7777777777777777"/>
+                                <ComboBoxItem Content="4:3 (1.33)" Tag="1.3333333333333333"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource YumirConfig_Audio_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkMute" Content="{DynamicResource YumirConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_Mute_Tooltip}"/>
+                        <Label Content="{DynamicResource YumirConfig_Volume_Label}" VerticalAlignment="Center"/>
+                        <Slider x:Name="SldVolume" Minimum="0.0" Maximum="1.0" IsSnapToTickEnabled="True" TickFrequency="0.05" ToolTip="{DynamicResource YumirConfig_Volume_Tooltip}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- System Section -->
+                <GroupBox Header="{DynamicResource YumirConfig_System_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkAutoRegion" Content="{DynamicResource YumirConfig_AutoRegion_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_AutoRegion_Tooltip}"/>
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource YumirConfig_VideoStandard_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbVideoStandard" Grid.Column="1" ToolTip="{DynamicResource YumirConfig_VideoStandard_Tooltip}">
+                                <ComboBoxItem Content="PAL"/>
+                                <ComboBoxItem Content="NTSC"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkPauseUnfocused" Content="{DynamicResource YumirConfig_PauseUnfocused_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_PauseUnfocused_Tooltip}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="{DynamicResource YumirConfig_ShowBeforeLaunch_Checkbox}" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource YumirConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0" Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="{DynamicResource YumirConfig_Run_Button}" Width="120" Height="35" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="{DynamicResource YumirConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

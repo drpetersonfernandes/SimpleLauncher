@@ -615,6 +615,11 @@
                             <Image Source="pack://application:,,,/images/ares.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Azahar Settings" Click="ShowAzaharSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/inject.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="{DynamicResource BlastemSettings}" Click="ShowBlastemSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/blastem.png" Width="16" Height="16" />
@@ -660,6 +665,11 @@
                             <Image Source="pack://application:,,,/images/mesen.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="PCSX2 Settings" Click="ShowPcsx2Settings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/pcsx2.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="{DynamicResource RetroArchSettings}" Click="ShowRetroArchSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/retroarch.png" Width="16" Height="16" />
@@ -688,6 +698,11 @@
                     <MenuItem Header="{DynamicResource XeniaSettings}" Click="ShowXeniaSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/xenia.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Yumir Settings" Click="ShowYumirSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/inject.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>

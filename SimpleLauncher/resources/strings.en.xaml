@@ -1487,7 +1487,7 @@
     <system:String x:Key="FlycastConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="OpeningFlycastConfiguration">Opening Flycast configuration...</system:String>
     <system:String x:Key="FlycastSettings">Flycast Settings</system:String>
-    
+
     <system:String x:Key="StellaConfig_Title">Stella Configuration</system:String>
     <system:String x:Key="StellaConfig_Video_Header">Video</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
@@ -1566,5 +1566,85 @@
     <system:String x:Key="CemuConfig_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="CemuConfig_Cancel_Button">Cancel</system:String>
 
+    <system:String x:Key="Pcsx2Config_Title">PCSX2 Configuration Injector</system:String>
+    <system:String x:Key="Pcsx2Config_Video_Header">Video &amp; Graphics</system:String>
+    <system:String x:Key="Pcsx2Config_Renderer_Label">Renderer:</system:String>
+    <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Select the graphics API. Vulkan is recommended for most modern GPUs.</system:String>
+    <system:String x:Key="Pcsx2Config_Upscale_Label">Internal Resolution:</system:String>
+    <system:String x:Key="Pcsx2Config_Upscale_Tooltip">Higher values increase clarity but require more GPU power.</system:String>
+    <system:String x:Key="Pcsx2Config_Aspect_Label">Aspect Ratio:</system:String>
+    <system:String x:Key="Pcsx2Config_Aspect_Tooltip">Choose between standard 4:3 or widescreen 16:9.</system:String>
+    <system:String x:Key="Pcsx2Config_Vsync_Checkbox">Enable VSync</system:String>
+    <system:String x:Key="Pcsx2Config_Vsync_Tooltip">Prevents screen tearing but may add slight input lag.</system:String>
+    <system:String x:Key="Pcsx2Config_WidescreenPatches_Checkbox">Enable Widescreen Patches</system:String>
+    <system:String x:Key="Pcsx2Config_WidescreenPatches_Tooltip">Forces games to render in 16:9 if a patch is available.</system:String>
+    <system:String x:Key="Pcsx2Config_General_Header">General Settings</system:String>
+    <system:String x:Key="Pcsx2Config_Fullscreen_Checkbox">Start in Fullscreen</system:String>
+    <system:String x:Key="Pcsx2Config_Fullscreen_Tooltip">Launches the emulator in fullscreen mode automatically.</system:String>
+    <system:String x:Key="Pcsx2Config_Cheats_Checkbox">Enable Cheats</system:String>
+    <system:String x:Key="Pcsx2Config_Cheats_Tooltip">Enables loading of .pnach cheat files.</system:String>
+    <system:String x:Key="Pcsx2Config_Volume_Label">Master Volume:</system:String>
+    <system:String x:Key="Pcsx2Config_Volume_Tooltip">Adjust the overall output volume of the emulator.</system:String>
+    <system:String x:Key="Pcsx2Config_Achievements_Header">RetroAchievements</system:String>
+    <system:String x:Key="Pcsx2Config_AchEnabled_Checkbox">Enable Achievements</system:String>
+    <system:String x:Key="Pcsx2Config_AchEnabled_Tooltip">Connect to RetroAchievements.org to track progress.</system:String>
+    <system:String x:Key="Pcsx2Config_AchHardcore_Checkbox">Hardcore Mode</system:String>
+    <system:String x:Key="Pcsx2Config_AchHardcore_Tooltip">Disables save states and cheats for a real challenge and double points.</system:String>
+    <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">Show this window before launching PCSX2</system:String>
+    <system:String x:Key="Pcsx2Config_Save_Button">Save</system:String>
+    <system:String x:Key="Pcsx2Config_Run_Button">Inject &amp; Run</system:String>
+    <system:String x:Key="Pcsx2Config_Cancel_Button">Cancel</system:String>
+
+    <system:String x:Key="AzaharConfig_Title">Azahar Configuration</system:String>
+    <system:String x:Key="AzaharConfig_Video_Header">Video &amp; Renderer</system:String>
+    <system:String x:Key="AzaharConfig_GraphicsApi_Label">Graphics API:</system:String>
+    <system:String x:Key="AzaharConfig_GraphicsApi_Tooltip">Choose between OpenGL (Legacy) or Vulkan (Modern/Faster).</system:String>
+    <system:String x:Key="AzaharConfig_Resolution_Label">Resolution Factor:</system:String>
+    <system:String x:Key="AzaharConfig_Resolution_Tooltip">Internal resolution multiplier. Higher values look better but require more GPU power.</system:String>
+    <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Start in Fullscreen</system:String>
+    <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Automatically switch to fullscreen mode when a game starts.</system:String>
+    <system:String x:Key="AzaharConfig_Vsync_Checkbox">Enable VSync</system:String>
+    <system:String x:Key="AzaharConfig_Vsync_Tooltip">Synchronizes frame rate with monitor refresh rate to prevent screen tearing.</system:String>
+    <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Use Async Shader Compilation</system:String>
+    <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Reduces stuttering during gameplay by compiling shaders in the background.</system:String>
+    <system:String x:Key="AzaharConfig_System_Header">System Settings</system:String>
+    <system:String x:Key="AzaharConfig_New3DS_Checkbox">Emulate New 3DS</system:String>
+    <system:String x:Key="AzaharConfig_New3DS_Tooltip">Enables New 3DS specific features and higher CPU clock for compatible games.</system:String>
+    <system:String x:Key="AzaharConfig_Layout_Label">Screen Layout:</system:String>
+    <system:String x:Key="AzaharConfig_Layout_Tooltip">How the top and bottom screens are arranged in the window.</system:String>
+    <system:String x:Key="AzaharConfig_Audio_Header">Audio</system:String>
+    <system:String x:Key="AzaharConfig_Volume_Label">Master Volume:</system:String>
+    <system:String x:Key="AzaharConfig_Volume_Tooltip">Adjust the overall output volume of the emulator.</system:String>
+    <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="AzaharConfig_Save_Button">Save</system:String>
+    <system:String x:Key="AzaharConfig_Run_Button">Inject &amp; Run</system:String>
+    <system:String x:Key="AzaharConfig_Cancel_Button">Cancel</system:String>
+
+    <system:String x:Key="YumirConfig_Title">Yumir (Ymir) Configuration</system:String>
+    <system:String x:Key="YumirConfig_Video_Header">Video Settings</system:String>
+    <system:String x:Key="YumirConfig_Audio_Header">Audio Settings</system:String>
+    <system:String x:Key="YumirConfig_System_Header">System &amp; Emulation</system:String>
+    <system:String x:Key="YumirConfig_Fullscreen_Checkbox">Full Screen</system:String>
+    <system:String x:Key="YumirConfig_Fullscreen_Tooltip">Toggle between windowed and full screen mode.</system:String>
+    <system:String x:Key="YumirConfig_ForceAspect_Checkbox">Force Aspect Ratio</system:String>
+    <system:String x:Key="YumirConfig_ForceAspect_Tooltip">Forces the emulator to use the specified aspect ratio instead of the game native one.</system:String>
+    <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Reduce Latency</system:String>
+    <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Attempts to minimize input lag at the cost of some performance.</system:String>
+    <system:String x:Key="YumirConfig_ForcedAspect_Label">Aspect Ratio Value:</system:String>
+    <system:String x:Key="YumirConfig_ForcedAspect_Tooltip">Select the numerical aspect ratio to force (e.g., 1.77 for 16:9).</system:String>
+    <system:String x:Key="YumirConfig_Mute_Checkbox">Mute Audio</system:String>
+    <system:String x:Key="YumirConfig_Mute_Tooltip">Disable all sound output.</system:String>
+    <system:String x:Key="YumirConfig_Volume_Label">Volume Level:</system:String>
+    <system:String x:Key="YumirConfig_Volume_Tooltip">Adjust the master volume (0.0 to 1.0).</system:String>
+    <system:String x:Key="YumirConfig_AutoRegion_Checkbox">Auto Detect Region</system:String>
+    <system:String x:Key="YumirConfig_AutoRegion_Tooltip">Automatically detect the game region (Japan, USA, Europe).</system:String>
+    <system:String x:Key="YumirConfig_VideoStandard_Label">Video Standard:</system:String>
+    <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Choose between PAL (50Hz) or NTSC (60Hz) timing.</system:String>
+    <system:String x:Key="YumirConfig_PauseUnfocused_Checkbox">Pause when Unfocused</system:String>
+    <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Automatically pause emulation when the emulator window loses focus.</system:String>
+    <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Show these settings every time before launching a game</system:String>
+    <system:String x:Key="YumirConfig_Save_Button">Save</system:String>
+    <system:String x:Key="YumirConfig_Run_Button">Inject &amp; Run</system:String>
+    <system:String x:Key="YumirConfig_Cancel_Button">Cancel</system:String>
 
 </ResourceDictionary>

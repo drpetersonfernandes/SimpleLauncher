@@ -377,6 +377,84 @@ public class GameLauncher
                 if (!shouldRun) return;
             }
 
+            // --- PCSX2 CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("pcsx2.exe", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("pcsx2-qt.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.Pcsx2ShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var pcsx2Window = new InjectPcsx2ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        pcsx2Window.ShowDialog();
+                        shouldRun = pcsx2Window.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                        Pcsx2ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+
+                if (!shouldRun) return;
+            }
+
+            // --- YUMIR CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
+                selectedEmulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.YumirShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var yumirWindow = new InjectYumirConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        yumirWindow.ShowDialog();
+                        shouldRun = yumirWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                        YumirConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+
+                if (!shouldRun) return;
+            }
+
+            // --- AZAHAR CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("azahar.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.AzaharShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var azaharWindow = new InjectAzaharConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        azaharWindow.ShowDialog();
+                        shouldRun = azaharWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        AzaharConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return;
+            }
 
             // --- DOLPHIN CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||

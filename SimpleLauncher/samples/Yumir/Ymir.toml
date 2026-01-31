@@ -1,0 +1,356 @@
+ConfigVersion = 3
+
+[Audio]
+InterpolationMode = 'Linear'
+MidiInputPortId = ''
+MidiInputPortType = 'None'
+MidiOutputPortId = ''
+MidiOutputPortType = 'None'
+Mute = false
+StepGranularity = 0
+ThreadedSCSP = false
+Volume = 0.80000001192092896
+
+[CDBlock]
+OverrideROM = false
+ROMPath = ''
+ReadSpeed = 2
+UseLLE = false
+
+[Cartridge]
+AutoLoadGameCarts = true
+Type = 'None'
+
+    [Cartridge.BackupRAM]
+    Capacity = '32Mbit'
+    ImagePath = ''
+
+    [Cartridge.DRAM]
+    Capacity = '32Mbit'
+
+    [Cartridge.ROM]
+    ImagePath = ''
+
+[GUI]
+FrameRateOSDPosition = 'TopRight'
+OverrideUIScale = false
+RememberWindowGeometry = true
+ShowFrameRateOSD = false
+ShowMessages = true
+ShowSpeedIndicatorForAllSpeeds = false
+UIScale = 1.0
+
+[General]
+AltSpeedFactor = 0.5
+BoostEmuThreadPriority = true
+BoostProcessPriority = true
+CheckForUpdates = true
+EnableRewindBuffer = false
+IncludeNightlyBuilds = true
+MainSpeedFactor = 1.0
+PauseWhenUnfocused = false
+PreloadDiscImagesToRAM = false
+RememberLastLoadedDisc = false
+RewindCompressionLevel = 12
+ScreenshotScale = 2
+UseAltSpeed = false
+
+    [General.PathOverrides]
+    BackupMemory = ''
+    CDBlockROMImages = ''
+    Dumps = ''
+    ExportedBackups = ''
+    IPLROMImages = ''
+    PersistentState = ''
+    ROMCartImages = ''
+    SaveStates = ''
+    Screenshots = ''
+
+[Hotkeys]
+DecreaseSpeed = [ 'Ctrl+Comma' ]
+DecreaseSpeedLarge = [ 'Ctrl+Shift+Comma' ]
+DecreaseVolume = [ 'Ctrl+MinusUnderscore' ]
+DumpMemory = [ 'Ctrl+F11' ]
+EjectDisc = [ 'Ctrl+W' ]
+ExitApp = []
+ForwardFrameStep = [ 'RightBracket' ]
+HardReset = [ 'Ctrl+R' ]
+IncreaseSpeed = [ 'Ctrl+Period' ]
+IncreaseSpeedLarge = [ 'Ctrl+Shift+Period' ]
+IncreaseVolume = [ 'Ctrl+EqualsPlus' ]
+LoadDisc = [ 'Ctrl+O' ]
+NextFrameRateOSDPosition = [ 'Ctrl+F1' ]
+OpenCloseTray = [ 'Ctrl+T' ]
+OpenSettings = [ 'F10' ]
+PauseResume = [ 'Pause', 'Spacebar' ]
+PreviousFrameRateOSDPosition = [ 'Ctrl+Shift+F1' ]
+ResetButton = [ 'Shift+R' ]
+ResetSpeed = [ 'Ctrl+Slash' ]
+ReverseFrameStep = [ 'LeftBracket' ]
+Rewind = [ 'Backspace' ]
+RotateScreenClockwise = [ 'Ctrl+Apostrophe' ]
+RotateScreenCounterclockwise = [ 'Ctrl+Shift+Apostrophe' ]
+SoftReset = [ 'Ctrl+Shift+R' ]
+TakeScreenshot = [ 'F12' ]
+ToggleAlternateSpeed = [ 'Shift+Slash' ]
+ToggleDebugTrace = [ 'F11' ]
+ToggleFrameRateOSD = [ 'Shift+F1' ]
+ToggleFullScreen = [ 'Alt+Return' ]
+ToggleMute = [ 'Ctrl+M' ]
+ToggleRewindBuffer = [ 'F8' ]
+ToggleWindowedVideoOutput = [ 'F9' ]
+TurboSpeed = [ 'Tab' ]
+TurboSpeedHold = [ 'GraveAccent' ]
+
+    [Hotkeys.SaveStates]
+    LoadState1 = [ 'Ctrl+Alpha1' ]
+    LoadState10 = [ 'Ctrl+Alpha0' ]
+    LoadState2 = [ 'Ctrl+Alpha2' ]
+    LoadState3 = [ 'Ctrl+Alpha3' ]
+    LoadState4 = [ 'Ctrl+Alpha4' ]
+    LoadState5 = [ 'Ctrl+Alpha5' ]
+    LoadState6 = [ 'Ctrl+Alpha6' ]
+    LoadState7 = [ 'Ctrl+Alpha7' ]
+    LoadState8 = [ 'Ctrl+Alpha8' ]
+    LoadState9 = [ 'Ctrl+Alpha9' ]
+    QuickLoadState = [ 'F3' ]
+    QuickSaveState = [ 'F2' ]
+    SaveState1 = [ 'Shift+Alpha1' ]
+    SaveState10 = [ 'Shift+Alpha0' ]
+    SaveState2 = [ 'Shift+Alpha2' ]
+    SaveState3 = [ 'Shift+Alpha3' ]
+    SaveState4 = [ 'Shift+Alpha4' ]
+    SaveState5 = [ 'Shift+Alpha5' ]
+    SaveState6 = [ 'Shift+Alpha6' ]
+    SaveState7 = [ 'Shift+Alpha7' ]
+    SaveState8 = [ 'Shift+Alpha8' ]
+    SaveState9 = [ 'Shift+Alpha9' ]
+    SelectState1 = [ 'Alpha1' ]
+    SelectState10 = [ 'Alpha0' ]
+    SelectState2 = [ 'Alpha2' ]
+    SelectState3 = [ 'Alpha3' ]
+    SelectState4 = [ 'Alpha4' ]
+    SelectState5 = [ 'Alpha5' ]
+    SelectState6 = [ 'Alpha6' ]
+    SelectState7 = [ 'Alpha7' ]
+    SelectState8 = [ 'Alpha8' ]
+    SelectState9 = [ 'Alpha9' ]
+
+[Input]
+GamepadAnalogToDigitalSensitivity = 0.20000000298023224
+GamepadLSDeadzone = 0.15000000596046448
+GamepadRSDeadzone = 0.15000000596046448
+
+    [Input.Port1]
+    PeripheralType = 'ControlPad'
+
+        [Input.Port1.AnalogPad.Binds]
+        A = [ 'J', 'GamepadX@0' ]
+        AnalogL = [ 'GamepadLeftTrigger@0' ]
+        AnalogR = [ 'GamepadRightTrigger@0' ]
+        AnalogStick = [ 'GamepadLeftStick@0' ]
+        B = [ 'K', 'GamepadA@0' ]
+        C = [ 'L', 'GamepadB@0' ]
+        DPad = [ 'GamepadDPad@0' ]
+        Down = [ 'S' ]
+        L = [ 'Q' ]
+        Left = [ 'A' ]
+        R = [ 'E' ]
+        Right = [ 'D' ]
+        Start = [ 'F', 'G', 'H', 'GamepadStart@0' ]
+        SwitchMode = [ 'Ctrl+B', 'GamepadLeftThumb@0' ]
+        Up = [ 'W' ]
+        X = [ 'U', 'GamepadLeftBumper@0' ]
+        Y = [ 'I', 'GamepadY@0' ]
+        Z = [ 'O', 'GamepadRightBumper@0' ]
+
+        [Input.Port1.ArcadeRacer]
+        Sensitivity = 0.5
+
+            [Input.Port1.ArcadeRacer.Binds]
+            A = [ 'J', 'GamepadX@0' ]
+            B = [ 'K', 'GamepadA@0' ]
+            C = [ 'L', 'GamepadB@0' ]
+            Down = [ 'W', 'GamepadDpadUp@0', 'GamepadLeftTriggerButton@0' ]
+            Start = [ 'F', 'G', 'H', 'GamepadStart@0' ]
+            Up = [ 'S', 'GamepadDpadDown@0', 'GamepadRightTriggerButton@0' ]
+            Wheel = [ 'GamepadLeftStickX@0' ]
+            WheelLeft = [ 'A' ]
+            WheelRight = [ 'D' ]
+            X = [ 'U', 'GamepadLeftBumper@0' ]
+            Y = [ 'I', 'GamepadY@0' ]
+            Z = [ 'O', 'GamepadRightBumper@0' ]
+
+        [Input.Port1.ControlPad.Binds]
+        A = [ 'J', 'GamepadX@0' ]
+        B = [ 'K', 'GamepadA@0' ]
+        C = [ 'L', 'GamepadB@0' ]
+        DPad = [ 'GamepadDPad@0', 'GamepadLeftStick@0' ]
+        Down = [ 'S' ]
+        L = [ 'Q', 'GamepadLeftTriggerButton@0' ]
+        Left = [ 'A' ]
+        R = [ 'E', 'GamepadRightTriggerButton@0' ]
+        Right = [ 'D' ]
+        Start = [ 'F', 'G', 'H', 'GamepadStart@0' ]
+        Up = [ 'W' ]
+        X = [ 'U', 'GamepadLeftBumper@0' ]
+        Y = [ 'I', 'GamepadY@0' ]
+        Z = [ 'O', 'GamepadRightBumper@0' ]
+
+        [Input.Port1.MissionStick.Binds]
+        A = [ 'X', 'GamepadX@0' ]
+        B = [ 'C', 'GamepadA@0' ]
+        C = [ 'V', 'GamepadB@0' ]
+        L = [ 'Q', 'GamepadLeftThumb@0' ]
+        MainDown = [ 'S' ]
+        MainLeft = [ 'A' ]
+        MainRight = [ 'D' ]
+        MainStick = [ 'GamepadLeftStick@0', 'GamepadDPad@0' ]
+        MainThrottle = [ 'GamepadLeftTrigger@0' ]
+        MainThrottleDown = [ 'F' ]
+        MainThrottleMax = [ 'Shift+R' ]
+        MainThrottleMin = [ 'Shift+F' ]
+        MainThrottleUp = [ 'R' ]
+        MainUp = [ 'W' ]
+        R = [ 'E', 'GamepadRightThumb@0' ]
+        Start = [ 'G', 'GamepadStart@0' ]
+        SubDown = [ 'K' ]
+        SubLeft = [ 'J' ]
+        SubRight = [ 'L' ]
+        SubStick = [ 'GamepadRightStick@0' ]
+        SubThrottle = [ 'GamepadRightTrigger@0' ]
+        SubThrottleDown = [ 'H' ]
+        SubThrottleMax = [ 'Shift+Y' ]
+        SubThrottleMin = [ 'Shift+H' ]
+        SubThrottleUp = [ 'Y' ]
+        SubUp = [ 'I' ]
+        SwitchMode = [ 'Ctrl+B', 'GamepadBack@0' ]
+        X = [ 'B', 'GamepadLeftBumper@0' ]
+        Y = [ 'N', 'GamepadY@0' ]
+        Z = [ 'M', 'GamepadRightBumper@0' ]
+
+    [Input.Port2]
+    PeripheralType = 'None'
+
+        [Input.Port2.AnalogPad.Binds]
+        A = [ 'KeyPad1', 'GamepadX@1' ]
+        AnalogL = [ 'GamepadLeftTrigger@1' ]
+        AnalogR = [ 'GamepadRightTrigger@1' ]
+        AnalogStick = [ 'GamepadLeftStick@1' ]
+        B = [ 'KeyPad2', 'GamepadA@1' ]
+        C = [ 'KeyPad3', 'GamepadB@1' ]
+        DPad = [ 'GamepadDPad@1', 'GamepadLeftStick@1' ]
+        Down = [ 'Down', 'End' ]
+        L = [ 'KeyPad7', 'Insert' ]
+        Left = [ 'Left', 'Delete' ]
+        R = [ 'KeyPad9', 'PageUp' ]
+        Right = [ 'Right', 'PageDown' ]
+        Start = [ 'KeyPadEnter', 'GamepadStart@1' ]
+        SwitchMode = [ 'KeyPadAdd', 'GamepadLeftThumb@1' ]
+        Up = [ 'Up', 'Home' ]
+        X = [ 'KeyPad4', 'GamepadLeftBumper@1' ]
+        Y = [ 'KeyPad5', 'GamepadY@1' ]
+        Z = [ 'KeyPad6', 'GamepadRightBumper@1' ]
+
+        [Input.Port2.ArcadeRacer]
+        Sensitivity = 0.5
+
+            [Input.Port2.ArcadeRacer.Binds]
+            A = [ 'KeyPad1', 'GamepadX@1' ]
+            B = [ 'KeyPad2', 'GamepadA@1' ]
+            C = [ 'KeyPad3', 'GamepadB@1' ]
+            Down = [ 'Up', 'Home', 'GamepadDpadUp@1', 'GamepadLeftTriggerButton@1' ]
+            Start = [ 'KeyPadEnter', 'GamepadStart@1' ]
+            Up = [ 'Down', 'End', 'GamepadDpadDown@1', 'GamepadRightTriggerButton@1' ]
+            Wheel = [ 'GamepadLeftStickX@1' ]
+            WheelLeft = [ 'Left', 'Delete' ]
+            WheelRight = [ 'Right', 'PageDown' ]
+            X = [ 'KeyPad4', 'GamepadLeftBumper@1' ]
+            Y = [ 'KeyPad5', 'GamepadY@1' ]
+            Z = [ 'KeyPad6', 'GamepadRightBumper@1' ]
+
+        [Input.Port2.ControlPad.Binds]
+        A = [ 'KeyPad1', 'GamepadX@1' ]
+        B = [ 'KeyPad2', 'GamepadA@1' ]
+        C = [ 'KeyPad3', 'GamepadB@1' ]
+        DPad = [ 'GamepadDPad@1', 'GamepadLeftStick@1' ]
+        Down = [ 'Down', 'End' ]
+        L = [ 'KeyPad7', 'Insert', 'GamepadLeftTriggerButton@1' ]
+        Left = [ 'Left', 'Delete' ]
+        R = [ 'KeyPad9', 'PageUp', 'GamepadRightTriggerButton@1' ]
+        Right = [ 'Right', 'PageDown' ]
+        Start = [ 'KeyPadEnter', 'GamepadStart@1' ]
+        Up = [ 'Up', 'Home' ]
+        X = [ 'KeyPad4', 'GamepadLeftBumper@1' ]
+        Y = [ 'KeyPad5', 'GamepadY@1' ]
+        Z = [ 'KeyPad6', 'GamepadRightBumper@1' ]
+
+        [Input.Port2.MissionStick.Binds]
+        A = [ 'GamepadX@1' ]
+        B = [ 'GamepadA@1' ]
+        C = [ 'GamepadB@1' ]
+        L = [ 'GamepadLeftThumb@1' ]
+        MainDown = []
+        MainLeft = []
+        MainRight = []
+        MainStick = [ 'GamepadLeftStick@1', 'GamepadDPad@1' ]
+        MainThrottle = [ 'GamepadLeftTrigger@1' ]
+        MainThrottleDown = []
+        MainThrottleMax = []
+        MainThrottleMin = []
+        MainThrottleUp = []
+        MainUp = []
+        R = [ 'GamepadRightThumb@1' ]
+        Start = [ 'GamepadStart@1' ]
+        SubDown = []
+        SubLeft = []
+        SubRight = []
+        SubStick = [ 'GamepadRightStick@1' ]
+        SubThrottle = [ 'GamepadRightTrigger@1' ]
+        SubThrottleDown = []
+        SubThrottleMax = []
+        SubThrottleMin = []
+        SubThrottleUp = []
+        SubUp = []
+        SwitchMode = [ 'GamepadBack@1' ]
+        X = [ 'GamepadLeftBumper@1' ]
+        Y = [ 'GamepadY@1' ]
+        Z = [ 'GamepadRightBumper@1' ]
+
+[System]
+AutoDetectRegion = true
+EmulateSH2Cache = false
+InternalBackupRAMImagePath = 'bup-int.bin'
+InternalBackupRAMPerGame = false
+PreferredRegionOrder = [ 'NorthAmerica', 'Japan' ]
+VideoStandard = 'PAL'
+
+    [System.IPL]
+    Override = true
+    Path = '..\..\saturn_bios.bin'
+    Variant = 'Saturn'
+
+    [System.RTC]
+    Mode = 'Host'
+
+        [System.RTC.Virtual]
+        HardResetStrategy = 'Preserve'
+        HardResetTimestamp = 757393200
+
+[Video]
+AutoResizeWindow = false
+Deinterlace = false
+DisplayVideoOutputInWindow = false
+DoubleClickToFullScreen = false
+ForceAspectRatio = false
+ForceIntegerScaling = false
+ForcedAspect = 1.7777777777777777
+FullScreen = false
+IncludeVDP1InRenderThread = false
+ReduceLatency = true
+Rotation = 'Normal'
+SyncInWindowedMode = true
+ThreadedDeinterlacer = true
+ThreadedVDP = true
+TransparentMeshes = false
+UseFullRefreshRateWithVideoSync = false

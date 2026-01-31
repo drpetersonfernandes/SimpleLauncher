@@ -1342,4 +1342,32 @@ public partial class MainWindow
         var cemuWindow = new InjectCemuConfigWindow(_settings, null, false) { Owner = this };
         cemuWindow.ShowDialog();
     }
+
+    private void ShowPcsx2Settings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent("Opening PCSX2 configuration...", this);
+        var pcsx2Window = new InjectPcsx2ConfigWindow(_settings, null, false) { Owner = this };
+        pcsx2Window.ShowDialog();
+    }
+
+    private void ShowAzaharSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent("Opening Azahar configuration...", this);
+
+        var azaharWindow = new InjectAzaharConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        azaharWindow.ShowDialog();
+    }
+
+    private void ShowYumirSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent("Opening Yumir configuration...", this);
+        var yumirWindow = new InjectYumirConfigWindow(_settings, null, false) { Owner = this };
+        yumirWindow.ShowDialog();
+    }
 }

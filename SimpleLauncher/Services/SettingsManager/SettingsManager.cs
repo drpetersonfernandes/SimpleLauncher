@@ -62,7 +62,7 @@ public class SettingsManager
     [Key(28)] public bool Emulator5Expanded { get; set; }
     [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
-    // --- Xenia Global Configuration ---
+    // --- Xenia
     [Key(31)] public string XeniaGpu { get; set; } = "d3d12"; // d3d12, vulkan, null
     [Key(32)] public bool XeniaVsync { get; set; } = true;
     [Key(33)] public int XeniaResScaleX { get; set; } = 1;
@@ -78,13 +78,7 @@ public class SettingsManager
     [Key(43)] public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
     [Key(44)] public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Xenia Advanced Configuration ---
-    [Key(84)] public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
-    [Key(85)] public bool XeniaGammaSrgb { get; set; }
-    [Key(86)] public bool XeniaVibration { get; set; } = true;
-    [Key(87)] public bool XeniaMountCache { get; set; } = true;
-
-    // --- MAME Global Configuration ---
+    // --- MAME
     [Key(45)] public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
     [Key(46)] public bool MameWindow { get; set; }
     [Key(47)] public bool MameMaximize { get; set; } = true;
@@ -126,6 +120,12 @@ public class SettingsManager
     [Key(81)] public bool RetroArchRunAhead { get; set; }
     [Key(82)] public bool RetroArchShowAdvancedSettings { get; set; } = true;
     [Key(83)] public bool RetroArchDiscordAllow { get; set; }
+
+    // --- Xenia Advanced Configuration ---
+    [Key(84)] public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
+    [Key(85)] public bool XeniaGammaSrgb { get; set; }
+    [Key(86)] public bool XeniaVibration { get; set; } = true;
+    [Key(87)] public bool XeniaMountCache { get; set; } = true;
 
     // --- Supermodel Global Configuration ---
     [Key(100)] public bool SupermodelNew3DEngine { get; set; } = true;
@@ -286,6 +286,42 @@ public class SettingsManager
     [Key(345)] public int CemuConsoleLanguage { get; set; } = 1; // 1=English
     [Key(346)] public bool CemuDiscordPresence { get; set; } = true;
     [Key(347)] public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
+
+    // --- PCSX2 Global Configuration ---
+    [Key(360)] public bool Pcsx2StartFullscreen { get; set; } = true;
+    [Key(361)] public string Pcsx2AspectRatio { get; set; } = "16:9"; // 4:3, 16:9, Stretch
+    [Key(362)] public int Pcsx2Renderer { get; set; } = 14; // 14=Vulkan, 13=D3D12, 12=D3D11, 15=OpenGL, 11=Software
+    [Key(363)] public int Pcsx2UpscaleMultiplier { get; set; } = 2; // 1 (Native) to 8
+    [Key(364)] public int Pcsx2Vsync { get; set; } // 0=Off, 1=On
+    [Key(365)] public bool Pcsx2EnableCheats { get; set; }
+    [Key(366)] public bool Pcsx2EnableWidescreenPatches { get; set; }
+    [Key(367)] public int Pcsx2Volume { get; set; } = 100;
+    [Key(368)] public bool Pcsx2AchievementsEnabled { get; set; }
+    [Key(369)] public bool Pcsx2AchievementsHardcore { get; set; } = true;
+    [Key(370)] public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
+
+    // --- Azahar
+    [Key(380)] public int AzaharGraphicsApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    [Key(381)] public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
+    [Key(382)] public bool AzaharUseVsync { get; set; } = true;
+    [Key(383)] public bool AzaharAsyncShaderCompilation { get; set; } = true;
+    [Key(384)] public bool AzaharFullscreen { get; set; } = true;
+    [Key(385)] public int AzaharVolume { get; set; } = 100;
+    [Key(386)] public bool AzaharIsNew3ds { get; set; } = true;
+    [Key(387)] public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
+    [Key(388)] public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
+
+    // --- Yumir
+    [Key(400)] public bool YumirFullscreen { get; set; }
+    [Key(401)] public double YumirVolume { get; set; } = 0.8;
+    [Key(402)] public bool YumirMute { get; set; }
+    [Key(403)] public string YumirVideoStandard { get; set; } = "PAL"; // PAL, NTSC
+    [Key(404)] public bool YumirAutoDetectRegion { get; set; } = true;
+    [Key(405)] public bool YumirPauseWhenUnfocused { get; set; }
+    [Key(406)] public double YumirForcedAspect { get; set; } = 1.7777777777777777;
+    [Key(407)] public bool YumirForceAspectRatio { get; set; }
+    [Key(408)] public bool YumirReduceLatency { get; set; } = true;
+    [Key(409)] public bool YumirShowSettingsBeforeLaunch { get; set; } = true;
 
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
@@ -581,6 +617,41 @@ public class SettingsManager
         CemuConsoleLanguage = 1;
         CemuDiscordPresence = true;
         CemuShowSettingsBeforeLaunch = true;
+
+        // PCSX2
+        Pcsx2StartFullscreen = other.Pcsx2StartFullscreen;
+        Pcsx2AspectRatio = other.Pcsx2AspectRatio;
+        Pcsx2Renderer = other.Pcsx2Renderer;
+        Pcsx2UpscaleMultiplier = other.Pcsx2UpscaleMultiplier;
+        Pcsx2Vsync = other.Pcsx2Vsync;
+        Pcsx2EnableCheats = other.Pcsx2EnableCheats;
+        Pcsx2EnableWidescreenPatches = other.Pcsx2EnableWidescreenPatches;
+        Pcsx2Volume = other.Pcsx2Volume;
+        Pcsx2AchievementsEnabled = other.Pcsx2AchievementsEnabled;
+        Pcsx2AchievementsHardcore = other.Pcsx2AchievementsHardcore;
+        Pcsx2ShowSettingsBeforeLaunch = other.Pcsx2ShowSettingsBeforeLaunch;
+
+        // Azahar
+        AzaharGraphicsApi = 1;
+        AzaharResolutionFactor = 1;
+        AzaharUseVsync = true;
+        AzaharAsyncShaderCompilation = true;
+        AzaharFullscreen = true;
+        AzaharVolume = 100;
+        AzaharIsNew3ds = true;
+        AzaharLayoutOption = 0;
+        AzaharShowSettingsBeforeLaunch = true;
+
+        YumirFullscreen = false;
+        YumirVolume = 0.8;
+        YumirMute = false;
+        YumirVideoStandard = "PAL";
+        YumirAutoDetectRegion = true;
+        YumirPauseWhenUnfocused = false;
+        YumirForcedAspect = 1.7777777777777777;
+        YumirForceAspectRatio = false;
+        YumirReduceLatency = true;
+        YumirShowSettingsBeforeLaunch = true;
     }
 
     private bool MigrateFromXml()
@@ -843,6 +914,41 @@ public class SettingsManager
             CemuConsoleLanguage = 1;
             CemuDiscordPresence = true;
             CemuShowSettingsBeforeLaunch = true;
+
+            // PCSX2
+            Pcsx2StartFullscreen = true;
+            Pcsx2AspectRatio = "16:9";
+            Pcsx2Renderer = 14;
+            Pcsx2UpscaleMultiplier = 2;
+            Pcsx2Vsync = 0;
+            Pcsx2EnableCheats = false;
+            Pcsx2EnableWidescreenPatches = false;
+            Pcsx2Volume = 100;
+            Pcsx2AchievementsEnabled = false;
+            Pcsx2AchievementsHardcore = true;
+            Pcsx2ShowSettingsBeforeLaunch = true;
+
+            // Azahar
+            AzaharGraphicsApi = 1;
+            AzaharResolutionFactor = 1;
+            AzaharUseVsync = true;
+            AzaharAsyncShaderCompilation = true;
+            AzaharFullscreen = true;
+            AzaharVolume = 100;
+            AzaharIsNew3ds = true;
+            AzaharLayoutOption = 0;
+            AzaharShowSettingsBeforeLaunch = true;
+
+            YumirFullscreen = false;
+            YumirVolume = 0.8;
+            YumirMute = false;
+            YumirVideoStandard = "PAL";
+            YumirAutoDetectRegion = true;
+            YumirPauseWhenUnfocused = false;
+            YumirForcedAspect = 1.7777777777777777;
+            YumirForceAspectRatio = false;
+            YumirReduceLatency = true;
+            YumirShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -1166,6 +1272,41 @@ public class SettingsManager
         CemuConsoleLanguage = 1;
         CemuDiscordPresence = true;
         CemuShowSettingsBeforeLaunch = true;
+
+        // PCSX2
+        Pcsx2StartFullscreen = true;
+        Pcsx2AspectRatio = "16:9";
+        Pcsx2Renderer = 14;
+        Pcsx2UpscaleMultiplier = 2;
+        Pcsx2Vsync = 0;
+        Pcsx2EnableCheats = false;
+        Pcsx2EnableWidescreenPatches = false;
+        Pcsx2Volume = 100;
+        Pcsx2AchievementsEnabled = false;
+        Pcsx2AchievementsHardcore = true;
+        Pcsx2ShowSettingsBeforeLaunch = true;
+
+        // Azahar
+        AzaharGraphicsApi = 1;
+        AzaharResolutionFactor = 1;
+        AzaharUseVsync = true;
+        AzaharAsyncShaderCompilation = true;
+        AzaharFullscreen = true;
+        AzaharVolume = 100;
+        AzaharIsNew3ds = true;
+        AzaharLayoutOption = 0;
+        AzaharShowSettingsBeforeLaunch = true;
+
+        YumirFullscreen = false;
+        YumirVolume = 0.8;
+        YumirMute = false;
+        YumirVideoStandard = "PAL";
+        YumirAutoDetectRegion = true;
+        YumirPauseWhenUnfocused = false;
+        YumirForcedAspect = 1.7777777777777777;
+        YumirForceAspectRatio = false;
+        YumirReduceLatency = true;
+        YumirShowSettingsBeforeLaunch = true;
 
         Save();
     }

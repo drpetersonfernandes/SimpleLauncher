@@ -814,6 +814,12 @@
     <None Update="samples\Dolphin\Dolphin.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="samples\Azahar\qt-config.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="samples\Yumir\Ymir.toml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -1015,6 +1021,12 @@
     <Resource Include="images\stella.png" />
     <None Remove="images\cemu.png" />
     <Resource Include="images\cemu.png" />
+    <None Remove="images\azahar.png" />
+    <Resource Include="images\azahar.png" />
+    <None Remove="images\pcsx2.png" />
+    <Resource Include="images\pcsx2.png" />
+    <None Remove="images\yumir.png" />
+    <Resource Include="images\yumir.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">
