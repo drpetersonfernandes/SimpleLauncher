@@ -620,9 +620,19 @@
                             <Image Source="pack://application:,,,/images/blastem.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="Cemu Settings" Click="ShowCemuSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/cemu.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="{DynamicResource DaphneSettings}" Click="ShowDaphneSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/daphne.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource DolphinSettings}" Click="ShowDolphinSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/dolphin.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource DuckStationSettings}" Click="ShowDuckStationSettings_Click">

@@ -1322,4 +1322,24 @@ public partial class MainWindow
         };
         stellaWindow.ShowDialog();
     }
+
+    private void ShowDolphinSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDolphinConfiguration") ?? "Opening Dolphin configuration...", this);
+
+        var dolphinWindow = new InjectDolphinConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        dolphinWindow.ShowDialog();
+    }
+
+    private void ShowCemuSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent("Opening Cemu configuration...", this);
+        var cemuWindow = new InjectCemuConfigWindow(_settings, null, false) { Owner = this };
+        cemuWindow.ShowDialog();
+    }
 }

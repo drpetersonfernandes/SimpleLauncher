@@ -1523,5 +1523,48 @@
     <system:String x:Key="StellaSettings">Stella Settings</system:String>
     <system:String x:Key="OpeningStellaConfiguration">Opening Stella configuration...</system:String>
 
+    <system:String x:Key="DolphinConfig_Title">Dolphin Configuration</system:String>
+    <system:String x:Key="DolphinConfig_Core_Header">Core &amp; Graphics</system:String>
+    <system:String x:Key="DolphinConfig_GfxBackend_Label">Graphics Backend:</system:String>
+    <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Select the graphics API. Vulkan is generally recommended for modern GPUs.</system:String>
+    <system:String x:Key="DolphinConfig_DspThread_Checkbox">Enable DSP Thread</system:String>
+    <system:String x:Key="DolphinConfig_DspThread_Tooltip">Runs DSP emulation on a separate thread. Improves performance on most multi-core CPUs.</system:String>
+    <system:String x:Key="DolphinConfig_Wiimote_Header">Wiimote Settings</system:String>
+    <system:String x:Key="DolphinConfig_WiimoteContinuousScanning_Checkbox">Continuous Scanning</system:String>
+    <system:String x:Key="DolphinConfig_WiimoteContinuousScanning_Tooltip">Continuously look for real Wiimotes to connect via Bluetooth.</system:String>
+    <system:String x:Key="DolphinConfig_WiimoteEnableSpeaker_Checkbox">Enable Wiimote Speaker</system:String>
+    <system:String x:Key="DolphinConfig_WiimoteEnableSpeaker_Tooltip">Enables sound output through the physical Wiimote controller speaker.</system:String>
+    <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">Show these settings before launching Dolphin</system:String>
+    <system:String x:Key="DolphinConfig_Save_Button">Save</system:String>
+    <system:String x:Key="DolphinConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="DolphinConfig_Cancel_Button">Cancel</system:String>
+    <system:String x:Key="DolphinSettings">Dolphin Settings</system:String>
+    <system:String x:Key="OpeningDolphinConfiguration">Opening Dolphin configuration...</system:String>
+
+    <system:String x:Key="CemuConfig_Title">Cemu Configuration Injection</system:String>
+    <system:String x:Key="CemuConfig_Video_Header">Video &amp; Graphics</system:String>
+    <system:String x:Key="CemuConfig_Fullscreen_Checkbox">Start in Fullscreen</system:String>
+    <system:String x:Key="CemuConfig_Fullscreen_Tooltip">Automatically switch to fullscreen mode when a game starts.</system:String>
+    <system:String x:Key="CemuConfig_Api_Label">Graphics API:</system:String>
+    <system:String x:Key="CemuConfig_Api_Tooltip">Vulkan is generally recommended for better performance on modern hardware.</system:String>
+    <system:String x:Key="CemuConfig_Vsync_Label">VSync:</system:String>
+    <system:String x:Key="CemuConfig_Vsync_Tooltip">Synchronizes frame rate with monitor refresh rate to prevent screen tearing.</system:String>
+    <system:String x:Key="CemuConfig_Vsync_Off">Off</system:String>
+    <system:String x:Key="CemuConfig_Vsync_On">On</system:String>
+    <system:String x:Key="CemuConfig_AsyncCompile_Checkbox">Async Shader Compilation</system:String>
+    <system:String x:Key="CemuConfig_AsyncCompile_Tooltip">Reduces stuttering by compiling shaders in the background.</system:String>
+    <system:String x:Key="CemuConfig_Audio_Header">Audio Settings</system:String>
+    <system:String x:Key="CemuConfig_Volume_Label">TV Volume:</system:String>
+    <system:String x:Key="CemuConfig_Volume_Tooltip">Adjust the master volume level for the emulated TV output.</system:String>
+    <system:String x:Key="CemuConfig_General_Header">General &amp; System</system:String>
+    <system:String x:Key="CemuConfig_Discord_Checkbox">Enable Discord Rich Presence</system:String>
+    <system:String x:Key="CemuConfig_Discord_Tooltip">Show the current game you are playing on your Discord profile.</system:String>
+    <system:String x:Key="CemuConfig_Language_Label">Console Language:</system:String>
+    <system:String x:Key="CemuConfig_Language_Tooltip">Sets the system language of the emulated Wii U console.</system:String>
+    <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="CemuConfig_Save_Button">Save</system:String>
+    <system:String x:Key="CemuConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="CemuConfig_Cancel_Button">Cancel</system:String>
+
 
 </ResourceDictionary>

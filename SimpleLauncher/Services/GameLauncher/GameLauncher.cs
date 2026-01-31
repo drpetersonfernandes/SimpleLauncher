@@ -350,6 +350,62 @@ public class GameLauncher
                 _selectedEmulatorParameters = $"{_selectedEmulatorParameters} {daphneArgs}".Trim();
             }
 
+            // --- CEMU CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.CemuShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var cemuWindow = new InjectCemuConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        cemuWindow.ShowDialog();
+                        shouldRun = cemuWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        CemuConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return;
+            }
+
+
+            // --- DOLPHIN CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.DolphinShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var dolphinWindow = new InjectDolphinConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        dolphinWindow.ShowDialog();
+                        shouldRun = dolphinWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into Dolphin.ini since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        DolphinConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             // --- BLASTEM CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Blastem", StringComparison.OrdinalIgnoreCase) ||
                 _selectedEmulatorManager.EmulatorLocation.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase))

@@ -1007,6 +1007,8 @@
     <Resource Include="images\flycast.png" />
     <None Remove="images\stella.png" />
     <Resource Include="images\stella.png" />
+    <None Remove="images\cemu.png" />
+    <Resource Include="images\cemu.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">

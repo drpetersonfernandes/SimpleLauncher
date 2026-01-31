@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+    <logflag>0</logflag>
+    <advanced_ppc_logging>false</advanced_ppc_logging>
+    <mlc_path>D:/Emulators/Cemu/mlc01</mlc_path>
+    <permanent_storage>true</permanent_storage>
+    <language>0</language>
+    <use_discord_presence>true</use_discord_presence>
+    <fullscreen_menubar>false</fullscreen_menubar>
+    <feral_gamemode>false</feral_gamemode>
+    <check_update>true</check_update>
+    <receive_untested_updates>true</receive_untested_updates>
+    <save_screenshot>true</save_screenshot>
+    <vk_warning>false</vk_warning>
+    <gp_download>true</gp_download>
+    <macos_disclaimer>false</macos_disclaimer>
+    <fullscreen>false</fullscreen>
+    <proxy_server></proxy_server>
+    <disable_screensaver>true</disable_screensaver>
+    <play_boot_sound>false</play_boot_sound>
+    <console_language>1</console_language>
+    <window_position>
+        <x>-1</x>
+        <y>-1</y>
+    </window_position>
+    <window_size>
+        <x>-1</x>
+        <y>-1</y>
+    </window_size>
+    <window_maximized>false</window_maximized>
+    <open_pad>false</open_pad>
+    <pad_position>
+        <x>-1</x>
+        <y>-1</y>
+    </pad_position>
+    <pad_size>
+        <x>-1</x>
+        <y>-1</y>
+    </pad_size>
+    <pad_maximized>false</pad_maximized>
+    <show_icon_column>true</show_icon_column>
+    <GameList>
+        <style>0</style>
+        <order>[0, 1, 2, 3, 4, 5, 6, 7, 8]</order>
+        <name_width>655</name_width>
+        <version_width>4294967293</version_width>
+        <dlc_width>4294967293</dlc_width>
+        <game_time_width>231</game_time_width>
+        <game_started_width>202</game_started_width>
+        <region_width>80</region_width>
+        <title_id>500</title_id>
+    </GameList>
+    <RecentLaunchFiles>
+        <Entry>G:/Nintendo WiiU/Super Smash Bros for Wii U (USA).wua</Entry>
+        <Entry>G:/Nintendo WiiU/Super Mario Maker (USA).wua</Entry>
+        <Entry>G:/Nintendo WiiU/Disney DuckTales - Remastered (USA).wua</Entry>
+        <Entry>G:/Nintendo WiiU/Bayonetta 2 (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/The Peanuts Movie Snoopy's Grand Adventure (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Mario vs. Donkey Kong - Minna de Mini Land (Japan).wua</Entry>
+        <Entry>H:/Download/WiiU/Mario vs. Donkey Kong - Minna de Mini Land (Japan)/WUP-P-WAFJ/data</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Xenoblade Chronicles X (EUR).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/The Smurfs 2 (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Tekken Tag Tournament 2 Wii U Edition (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Super Smash Bros for Wii U (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Super Mario Maker (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Star Fox Zero (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Star Fox Guard (USA).wua</Entry>
+        <Entry>H:/Nintendo WiiU Roms/Sonic &amp; All-Stars Racing Transformed (USA).wua</Entry>
+    </RecentLaunchFiles>
+    <RecentNFCFiles/>
+    <GamePaths>
+        <Entry>G:\Nintendo WiiU</Entry>
+    </GamePaths>
+    <GameCache>
+        <Entry>
+            <title_id>1407375153505792</title_id>
+            <name>BAYONETTA 2</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Bayonetta 2 (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153266432</title_id>
+            <name>Donkey Kong Country - Tropical Freeze</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>2</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Donkey Kong Country - Tropical Freeze (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153205248</title_id>
+            <name>DuckTales: Remastered</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\DuckTales - Remastered (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153551360</title_id>
+            <name>Hyrule Warriors</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Hyrule Warriors (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153976320</title_id>
+            <name>M &amp; S at the Rio 2016 - Olympic Games</name>
+            <custom_name></custom_name>
+            <region>4</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Mario &amp; Sonic at the Rio 2016 Olympic Games (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153088256</title_id>
+            <name>Mario &amp; Sonic at the Sochi 2014 - Olympic Winter Games</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Mario &amp; Sonic at the Sochi 2014 Olympic Winter Games (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153097728</title_id>
+            <name>MARIO KART 8</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>1</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Mario Kart 8 (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375154127360</title_id>
+            <name>Minecraft: Story Mode</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Minecraft - Story Mode The Complete Adventure (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153919232</title_id>
+            <name>Minecraft: Wii U Edition</name>
+            <custom_name></custom_name>
+            <region>4</region>
+            <version>1</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Minecraft - Wii U Edition (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153308416</title_id>
+            <name>New SUPER LUIGI U</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\New Super Luigi U (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153044736</title_id>
+            <name>New SUPER MARIO BROS. U</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\New Super Mario Bros. U (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153346560</title_id>
+            <name>New SUPER MARIO BROS. U +  - New SUPER LUIGI U</name>
+            <custom_name></custom_name>
+            <region>4</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\New Super Mario Bros. U And New Super Luigi U (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153115904</title_id>
+            <name>The Smurfs™ 2</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Smurfs 2, The (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153759232</title_id>
+            <name>Star Fox Zero</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>16</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Star Fox Zero (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153323008</title_id>
+            <name>SUPER MARIO 3D WORLD</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>1</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Super Mario 3D World (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153319680</title_id>
+            <name>Super Smash Bros. - for Wii U</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>16</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Super Smash Bros. for Wii U (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153102848</title_id>
+            <name>TEKKEN TAG TOURNAMENT 2 - Wii U EDITION</name>
+            <custom_name></custom_name>
+            <region>2</region>
+            <version>16</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Tekken Tag Tournament 2 - Wii U Edition (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153843200</title_id>
+            <name>Xenoblade Chronicles X</name>
+            <custom_name></custom_name>
+            <region>4</region>
+            <version>0</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Xenoblade Chronicles X (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+        <Entry>
+            <title_id>1407375153581568</title_id>
+            <name>Yoshi's Woolly World</name>
+            <custom_name></custom_name>
+            <region>4</region>
+            <version>1</version>
+            <dlc_version>-1</dlc_version>
+            <path>H:\WiiU Roms\Yoshi's Woolly World (USA).wux</path>
+            <time_played>0</time_played>
+            <last_played>0</last_played>
+            <favorite>false</favorite>
+        </Entry>
+    </GameCache>
+    <GraphicPack>
+        <Entry filename="graphicPacks/downloadedGraphicPacks/SkylandersSwapForce/Workarounds/PortalStabilityFix/rules.txt"/>
+    </GraphicPack>
+    <Graphic>
+        <api>1</api>
+        <device>d272a3cb0e0af32524f760ebebbaf332</device>
+        <VSync>0</VSync>
+        <GX2DrawdoneSync>true</GX2DrawdoneSync>
+        <UpscaleFilter>0</UpscaleFilter>
+        <DownscaleFilter>0</DownscaleFilter>
+        <FullscreenScaling>0</FullscreenScaling>
+        <AsyncCompile>false</AsyncCompile>
+        <vkAccurateBarriers>true</vkAccurateBarriers>
+        <Overlay>
+            <Position>0</Position>
+            <TextColor>4294967295</TextColor>
+            <TextScale>100</TextScale>
+            <FPS>true</FPS>
+            <DrawCalls>false</DrawCalls>
+            <CPUUsage>false</CPUUsage>
+            <CPUPerCoreUsage>false</CPUPerCoreUsage>
+            <RAMUsage>false</RAMUsage>
+            <VRAMUsage>false</VRAMUsage>
+            <Debug>false</Debug>
+        </Overlay>
+        <Notification>
+            <Position>1</Position>
+            <TextColor>4294967295</TextColor>
+            <TextScale>100</TextScale>
+            <ControllerProfiles>true</ControllerProfiles>
+            <ControllerBattery>false</ControllerBattery>
+            <ShaderCompiling>true</ShaderCompiling>
+            <FriendService>true</FriendService>
+        </Notification>
+    </Graphic>
+    <Audio>
+        <api>0</api>
+        <delay>2</delay>
+        <TVChannels>1</TVChannels>
+        <PadChannels>1</PadChannels>
+        <InputChannels>0</InputChannels>
+        <TVVolume>50</TVVolume>
+        <PadVolume>0</PadVolume>
+        <InputVolume>20</InputVolume>
+        <TVDevice>default</TVDevice>
+        <PadDevice></PadDevice>
+        <InputDevice></InputDevice>
+    </Audio>
+    <Account>
+        <PersistentId>2147483649</PersistentId>
+        <OnlineEnabled>true</OnlineEnabled>
+        <ActiveService>0</ActiveService>
+    </Account>
+    <AccountService/>
+    <Debug>
+        <CrashDumpWindows>0</CrashDumpWindows>
+        <GDBPort>1337</GDBPort>
+    </Debug>
+    <Input>
+        <DSUC host="127.0.0.1" port="26760"/>
+    </Input>
+    <EmulatedUsbDevices>
+        <EmulateSkylanderPortal>false</EmulateSkylanderPortal>
+        <EmulateInfinityBase>false</EmulateInfinityBase>
+        <EmulateDimensionsToypad>false</EmulateDimensionsToypad>
+    </EmulatedUsbDevices>
+</content>

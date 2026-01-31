@@ -270,6 +270,23 @@ public class SettingsManager
     [Key(309)] public bool StellaConfirmExit { get; set; }
     [Key(310)] public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- Dolphin Global Configuration ---
+    [Key(320)] public string DolphinGfxBackend { get; set; } = "Vulkan";
+    [Key(321)] public bool DolphinDspThread { get; set; } = true;
+    [Key(322)] public bool DolphinWiimoteContinuousScanning { get; set; } = true;
+    [Key(323)] public bool DolphinWiimoteEnableSpeaker { get; set; } = true;
+    [Key(324)] public bool DolphinShowSettingsBeforeLaunch { get; set; } = true;
+
+    // --- Cemu Global Configuration ---
+    [Key(340)] public bool CemuFullscreen { get; set; }
+    [Key(341)] public int CemuGraphicApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    [Key(342)] public int CemuVsync { get; set; } = 1; // 0=Off, 1=On
+    [Key(343)] public bool CemuAsyncCompile { get; set; } = true;
+    [Key(344)] public int CemuTvVolume { get; set; } = 50;
+    [Key(345)] public int CemuConsoleLanguage { get; set; } = 1; // 1=English
+    [Key(346)] public bool CemuDiscordPresence { get; set; } = true;
+    [Key(347)] public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -547,6 +564,23 @@ public class SettingsManager
         StellaTimeMachine = other.StellaTimeMachine;
         StellaConfirmExit = other.StellaConfirmExit;
         StellaShowSettingsBeforeLaunch = other.StellaShowSettingsBeforeLaunch;
+
+        // Dolphin
+        DolphinGfxBackend = other.DolphinGfxBackend;
+        DolphinDspThread = other.DolphinDspThread;
+        DolphinWiimoteContinuousScanning = other.DolphinWiimoteContinuousScanning;
+        DolphinWiimoteEnableSpeaker = other.DolphinWiimoteEnableSpeaker;
+        DolphinShowSettingsBeforeLaunch = other.DolphinShowSettingsBeforeLaunch;
+
+        // Cemu
+        CemuFullscreen = false;
+        CemuGraphicApi = 1;
+        CemuVsync = 1;
+        CemuAsyncCompile = true;
+        CemuTvVolume = 50;
+        CemuConsoleLanguage = 1;
+        CemuDiscordPresence = true;
+        CemuShowSettingsBeforeLaunch = true;
     }
 
     private bool MigrateFromXml()
@@ -792,6 +826,23 @@ public class SettingsManager
             StellaTimeMachine = true;
             StellaConfirmExit = false;
             StellaShowSettingsBeforeLaunch = true;
+
+            // Dolphin Defaults
+            DolphinGfxBackend = "Vulkan";
+            DolphinDspThread = true;
+            DolphinWiimoteContinuousScanning = true;
+            DolphinWiimoteEnableSpeaker = true;
+            DolphinShowSettingsBeforeLaunch = true;
+
+            // Cemu
+            CemuFullscreen = false;
+            CemuGraphicApi = 1;
+            CemuVsync = 1;
+            CemuAsyncCompile = true;
+            CemuTvVolume = 50;
+            CemuConsoleLanguage = 1;
+            CemuDiscordPresence = true;
+            CemuShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -1098,6 +1149,23 @@ public class SettingsManager
         StellaTimeMachine = true;
         StellaConfirmExit = false;
         StellaShowSettingsBeforeLaunch = true;
+
+        // Dolphin Defaults
+        DolphinGfxBackend = "Vulkan";
+        DolphinDspThread = true;
+        DolphinWiimoteContinuousScanning = true;
+        DolphinWiimoteEnableSpeaker = true;
+        DolphinShowSettingsBeforeLaunch = true;
+
+        // Cemu
+        CemuFullscreen = false;
+        CemuGraphicApi = 1;
+        CemuVsync = 1;
+        CemuAsyncCompile = true;
+        CemuTvVolume = 50;
+        CemuConsoleLanguage = 1;
+        CemuDiscordPresence = true;
+        CemuShowSettingsBeforeLaunch = true;
 
         Save();
     }
