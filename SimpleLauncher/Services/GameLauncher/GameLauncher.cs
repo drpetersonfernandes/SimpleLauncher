@@ -434,6 +434,34 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- RPCS3 CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
+                _selectedEmulatorManager.EmulatorLocation.Contains("rpcs3.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.Rpcs3ShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var rpcs3Window = new InjectRpcs3ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        rpcs3Window.ShowDialog();
+                        shouldRun = rpcs3Window.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into config.yml since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        Rpcs3ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {

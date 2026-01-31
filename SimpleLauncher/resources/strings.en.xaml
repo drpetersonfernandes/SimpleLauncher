@@ -1439,5 +1439,39 @@
     <system:String x:Key="DuckStationSettings">DuckStation Settings</system:String>
     <system:String x:Key="OpeningDuckStationConfiguration">Opening DuckStation configuration...</system:String>
 
+    <system:String x:Key="RPCS3Settings">RPCS3 Settings</system:String>
+    <system:String x:Key="OpeningRPCS3Configuration">Opening RPCS3 configuration...</system:String>
+    <system:String x:Key="RPCS3Config_Title">RPCS3 Configuration</system:String>
+    <system:String x:Key="RPCS3Config_Video_Header">Video Settings</system:String>
+    <system:String x:Key="RPCS3Config_Core_Header">Core Settings</system:String>
+    <system:String x:Key="RPCS3Config_Audio_Header">Audio Settings</system:String>
+    <system:String x:Key="RPCS3Config_Misc_Header">Miscellaneous</system:String>
+    <system:String x:Key="RPCS3Config_Renderer_Label">Renderer:</system:String>
+    <system:String x:Key="RPCS3Config_Renderer_Tooltip">Select the graphics API. Vulkan is recommended for most hardware.</system:String>
+    <system:String x:Key="RPCS3Config_Resolution_Label">Resolution:</system:String>
+    <system:String x:Key="RPCS3Config_Resolution_Tooltip">Set the output resolution of the emulator window.</system:String>
+    <system:String x:Key="RPCS3Config_AspectRatio_Label">Aspect Ratio:</system:String>
+    <system:String x:Key="RPCS3Config_AspectRatio_Tooltip">Set the display aspect ratio.</system:String>
+    <system:String x:Key="RPCS3Config_Vsync_Checkbox">Enable VSync</system:String>
+    <system:String x:Key="RPCS3Config_Vsync_Tooltip">Synchronize framerate with your monitor's refresh rate to prevent screen tearing.</system:String>
+    <system:String x:Key="RPCS3Config_ResolutionScale_Label">Resolution Scale:</system:String>
+    <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Upscale the internal resolution for sharper graphics. 100% is native 720p.</system:String>
+    <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Anisotropic Filter:</system:String>
+    <system:String x:Key="RPCS3Config_AnisotropicFilter_Tooltip">Improves texture quality on surfaces viewed at an angle. 0 is disabled.</system:String>
+    <system:String x:Key="RPCS3Config_PpuDecoder_Label">PPU Decoder:</system:String>
+    <system:String x:Key="RPCS3Config_PpuDecoder_Tooltip">Selects the decoder for the PPU. Recompiler (LLVM) offers the best performance.</system:String>
+    <system:String x:Key="RPCS3Config_SpuDecoder_Label">SPU Decoder:</system:String>
+    <system:String x:Key="RPCS3Config_SpuDecoder_Tooltip">Selects the decoder for the SPU. Recompiler (LLVM) offers the best performance.</system:String>
+    <system:String x:Key="RPCS3Config_AudioRenderer_Label">Audio Renderer:</system:String>
+    <system:String x:Key="RPCS3Config_AudioRenderer_Tooltip">Select the audio backend. Cubeb is generally recommended.</system:String>
+    <system:String x:Key="RPCS3Config_AudioBuffering_Checkbox">Enable Audio Buffering</system:String>
+    <system:String x:Key="RPCS3Config_AudioBuffering_Tooltip">Helps prevent audio stuttering at the cost of a small amount of latency.</system:String>
+    <system:String x:Key="RPCS3Config_StartFullscreen_Checkbox">Start Games in Fullscreen</system:String>
+    <system:String x:Key="RPCS3Config_StartFullscreen_Tooltip">If checked, games will automatically launch in fullscreen mode.</system:String>
+    <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="RPCS3Config_Save_Button">Save</system:String>
+    <system:String x:Key="RPCS3Config_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="RPCS3Config_Cancel_Button">Cancel</system:String>
+
 
 </ResourceDictionary>

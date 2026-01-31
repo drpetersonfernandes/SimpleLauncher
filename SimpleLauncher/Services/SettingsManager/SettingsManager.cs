@@ -236,6 +236,20 @@ public class SettingsManager
     [Key(253)] public bool DuckStationOutputMuted { get; set; }
     [Key(254)] public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- RPCS3 Global Configuration ---
+    [Key(260)] public string Rpcs3Renderer { get; set; } = "Vulkan";
+    [Key(261)] public string Rpcs3Resolution { get; set; } = "1280x720";
+    [Key(262)] public string Rpcs3AspectRatio { get; set; } = "16:9";
+    [Key(263)] public bool Rpcs3Vsync { get; set; }
+    [Key(264)] public int Rpcs3ResolutionScale { get; set; } = 100;
+    [Key(265)] public int Rpcs3AnisotropicFilter { get; set; }
+    [Key(266)] public string Rpcs3PpuDecoder { get; set; } = "Recompiler (LLVM)";
+    [Key(267)] public string Rpcs3SpuDecoder { get; set; } = "Recompiler (LLVM)";
+    [Key(268)] public string Rpcs3AudioRenderer { get; set; } = "Cubeb";
+    [Key(269)] public bool Rpcs3AudioBuffering { get; set; } = true;
+    [Key(270)] public bool Rpcs3StartFullscreen { get; set; }
+    [Key(271)] public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -479,6 +493,20 @@ public class SettingsManager
         DuckStationOutputVolume = other.DuckStationOutputVolume;
         DuckStationOutputMuted = other.DuckStationOutputMuted;
         DuckStationShowSettingsBeforeLaunch = other.DuckStationShowSettingsBeforeLaunch;
+
+        // RPCS3
+        Rpcs3Renderer = other.Rpcs3Renderer;
+        Rpcs3Resolution = other.Rpcs3Resolution;
+        Rpcs3AspectRatio = other.Rpcs3AspectRatio;
+        Rpcs3Vsync = other.Rpcs3Vsync;
+        Rpcs3ResolutionScale = other.Rpcs3ResolutionScale;
+        Rpcs3AnisotropicFilter = other.Rpcs3AnisotropicFilter;
+        Rpcs3PpuDecoder = other.Rpcs3PpuDecoder;
+        Rpcs3SpuDecoder = other.Rpcs3SpuDecoder;
+        Rpcs3AudioRenderer = other.Rpcs3AudioRenderer;
+        Rpcs3AudioBuffering = other.Rpcs3AudioBuffering;
+        Rpcs3StartFullscreen = other.Rpcs3StartFullscreen;
+        Rpcs3ShowSettingsBeforeLaunch = other.Rpcs3ShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -690,6 +718,20 @@ public class SettingsManager
             DuckStationOutputVolume = 100;
             DuckStationOutputMuted = false;
             DuckStationShowSettingsBeforeLaunch = true;
+
+            // RPCS3 Defaults
+            Rpcs3Renderer = "Vulkan";
+            Rpcs3Resolution = "1280x720";
+            Rpcs3AspectRatio = "16:9";
+            Rpcs3Vsync = false;
+            Rpcs3ResolutionScale = 100;
+            Rpcs3AnisotropicFilter = 0;
+            Rpcs3PpuDecoder = "Recompiler (LLVM)";
+            Rpcs3SpuDecoder = "Recompiler (LLVM)";
+            Rpcs3AudioRenderer = "Cubeb";
+            Rpcs3AudioBuffering = true;
+            Rpcs3StartFullscreen = false;
+            Rpcs3ShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -962,6 +1004,20 @@ public class SettingsManager
         DuckStationOutputVolume = 100;
         DuckStationOutputMuted = false;
         DuckStationShowSettingsBeforeLaunch = true;
+
+        // RPCS3 Defaults
+        Rpcs3Renderer = "Vulkan";
+        Rpcs3Resolution = "1280x720";
+        Rpcs3AspectRatio = "16:9";
+        Rpcs3Vsync = false;
+        Rpcs3ResolutionScale = 100;
+        Rpcs3AnisotropicFilter = 0;
+        Rpcs3PpuDecoder = "Recompiler (LLVM)";
+        Rpcs3SpuDecoder = "Recompiler (LLVM)";
+        Rpcs3AudioRenderer = "Cubeb";
+        Rpcs3AudioBuffering = true;
+        Rpcs3StartFullscreen = false;
+        Rpcs3ShowSettingsBeforeLaunch = true;
 
         Save();
     }

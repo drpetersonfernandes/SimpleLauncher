@@ -1286,4 +1286,16 @@ public partial class MainWindow
         };
         duckstationWindow.ShowDialog();
     }
+
+    private void ShowRPCS3Settings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRPCS3Configuration") ?? "Opening RPCS3 configuration...", this);
+
+        var rpcs3Window = new InjectRpcs3ConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        rpcs3Window.ShowDialog();
+    }
 }
