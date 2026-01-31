@@ -10,7 +10,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class BlastemConfigurationService
 {
-    private static readonly char[] Separator = new[] { ' ', '\t' };
+    private static readonly char[] Separator = [' ', '\t'];
 
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
     {

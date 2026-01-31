@@ -17,7 +17,7 @@ public static class MednafenConfigurationService
         "pcfx", "psx", "sms", "snes", "snes_faust", "ss", "vb", "wswan"
     ];
 
-    private static readonly char[] Separator = new[] { ' ' };
+    private static readonly char[] Separator = [' '];
 
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
     {

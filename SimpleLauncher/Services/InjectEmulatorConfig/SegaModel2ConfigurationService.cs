@@ -105,7 +105,7 @@ public static class SegaModel2ConfigurationService
 
             if (rendererUpdates.Count > 0)
             {
-                var rendererIndex = lines.FindIndex(l => l.Trim().Equals("[Renderer]", StringComparison.OrdinalIgnoreCase));
+                var rendererIndex = lines.FindIndex(static l => l.Trim().Equals("[Renderer]", StringComparison.OrdinalIgnoreCase));
                 if (rendererIndex != -1)
                 {
                     var insertIndex = rendererIndex + 1;
@@ -123,7 +123,7 @@ public static class SegaModel2ConfigurationService
 
             if (inputUpdates.Count > 0)
             {
-                var inputIndex = lines.FindIndex(l => l.Trim().Equals("[Input]", StringComparison.OrdinalIgnoreCase));
+                var inputIndex = lines.FindIndex(static l => l.Trim().Equals("[Input]", StringComparison.OrdinalIgnoreCase));
                 if (inputIndex != -1)
                 {
                     var insertIndex = inputIndex + 1;
