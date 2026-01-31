@@ -4,7 +4,7 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource SupermodelConfig_Title}"
                       Height="750" Width="700"
-                      ResizeMode="NoResize"
+                      ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
