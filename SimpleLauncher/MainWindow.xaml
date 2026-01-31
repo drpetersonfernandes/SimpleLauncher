@@ -625,6 +625,11 @@
                             <Image Source="pack://application:,,,/images/daphne.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="{DynamicResource DuckStationSettings}" Click="ShowDuckStationSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/duckstation.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header="{DynamicResource MameSettings}" Click="ShowMameSettings_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/mame.png" Width="16" Height="16" />

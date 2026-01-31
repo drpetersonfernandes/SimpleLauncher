@@ -993,6 +993,8 @@
     <Resource Include="images\blastem.png" />
     <None Remove="images\mesen.png" />
     <Resource Include="images\mesen.png" />
+    <None Remove="images\duckstation.png" />
+    <Resource Include="images\duckstation.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">

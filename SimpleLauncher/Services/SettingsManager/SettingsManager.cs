@@ -219,6 +219,23 @@ public class SettingsManager
     [Key(229)] public bool MesenPauseInBackground { get; set; }
     [Key(230)] public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
 
+    // --- DuckStation Global Configuration ---
+    [Key(240)] public bool DuckStationStartFullscreen { get; set; }
+    [Key(241)] public bool DuckStationPauseOnFocusLoss { get; set; } = true;
+    [Key(242)] public bool DuckStationSaveStateOnExit { get; set; } = true;
+    [Key(243)] public bool DuckStationRewindEnable { get; set; }
+    [Key(244)] public int DuckStationRunaheadFrameCount { get; set; }
+    [Key(245)] public string DuckStationRenderer { get; set; } = "Automatic";
+    [Key(246)] public int DuckStationResolutionScale { get; set; } = 2;
+    [Key(247)] public string DuckStationTextureFilter { get; set; } = "Nearest";
+    [Key(248)] public bool DuckStationWidescreenHack { get; set; }
+    [Key(249)] public bool DuckStationPgxpEnable { get; set; }
+    [Key(250)] public string DuckStationAspectRatio { get; set; } = "16:9";
+    [Key(251)] public bool DuckStationVsync { get; set; }
+    [Key(252)] public int DuckStationOutputVolume { get; set; } = 100;
+    [Key(253)] public bool DuckStationOutputMuted { get; set; }
+    [Key(254)] public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
+
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
     [IgnoreMember] private const string DefaultNotificationSoundFileName = "click.mp3";
@@ -445,6 +462,23 @@ public class SettingsManager
         MesenRunAhead = other.MesenRunAhead;
         MesenPauseInBackground = other.MesenPauseInBackground;
         MesenShowSettingsBeforeLaunch = other.MesenShowSettingsBeforeLaunch;
+
+        // DuckStation
+        DuckStationStartFullscreen = other.DuckStationStartFullscreen;
+        DuckStationPauseOnFocusLoss = other.DuckStationPauseOnFocusLoss;
+        DuckStationSaveStateOnExit = other.DuckStationSaveStateOnExit;
+        DuckStationRewindEnable = other.DuckStationRewindEnable;
+        DuckStationRunaheadFrameCount = other.DuckStationRunaheadFrameCount;
+        DuckStationRenderer = other.DuckStationRenderer;
+        DuckStationResolutionScale = other.DuckStationResolutionScale;
+        DuckStationTextureFilter = other.DuckStationTextureFilter;
+        DuckStationWidescreenHack = other.DuckStationWidescreenHack;
+        DuckStationPgxpEnable = other.DuckStationPgxpEnable;
+        DuckStationAspectRatio = other.DuckStationAspectRatio;
+        DuckStationVsync = other.DuckStationVsync;
+        DuckStationOutputVolume = other.DuckStationOutputVolume;
+        DuckStationOutputMuted = other.DuckStationOutputMuted;
+        DuckStationShowSettingsBeforeLaunch = other.DuckStationShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -639,6 +673,23 @@ public class SettingsManager
             MesenRunAhead = 0;
             MesenPauseInBackground = false;
             MesenShowSettingsBeforeLaunch = true;
+
+            // DuckStation Defaults
+            DuckStationStartFullscreen = false;
+            DuckStationPauseOnFocusLoss = true;
+            DuckStationSaveStateOnExit = true;
+            DuckStationRewindEnable = false;
+            DuckStationRunaheadFrameCount = 0;
+            DuckStationRenderer = "Automatic";
+            DuckStationResolutionScale = 2;
+            DuckStationTextureFilter = "Nearest";
+            DuckStationWidescreenHack = false;
+            DuckStationPgxpEnable = false;
+            DuckStationAspectRatio = "16:9";
+            DuckStationVsync = false;
+            DuckStationOutputVolume = 100;
+            DuckStationOutputMuted = false;
+            DuckStationShowSettingsBeforeLaunch = true;
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
@@ -894,6 +945,23 @@ public class SettingsManager
         MesenRunAhead = 0;
         MesenPauseInBackground = false;
         MesenShowSettingsBeforeLaunch = true;
+
+        // DuckStation Defaults
+        DuckStationStartFullscreen = false;
+        DuckStationPauseOnFocusLoss = true;
+        DuckStationSaveStateOnExit = true;
+        DuckStationRewindEnable = false;
+        DuckStationRunaheadFrameCount = 0;
+        DuckStationRenderer = "Automatic";
+        DuckStationResolutionScale = 2;
+        DuckStationTextureFilter = "Nearest";
+        DuckStationWidescreenHack = false;
+        DuckStationPgxpEnable = false;
+        DuckStationAspectRatio = "16:9";
+        DuckStationVsync = false;
+        DuckStationOutputVolume = 100;
+        DuckStationOutputMuted = false;
+        DuckStationShowSettingsBeforeLaunch = true;
 
         Save();
     }

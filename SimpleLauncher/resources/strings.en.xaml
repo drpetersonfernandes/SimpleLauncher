@@ -1400,4 +1400,44 @@
     <system:String x:Key="OpeningMesenConfiguration">Opening Mesen configuration...</system:String>
     <system:String x:Key="MesenSettings">Mesen Settings</system:String>
 
+    <system:String x:Key="DuckStationConfig_Title">DuckStation Configuration</system:String>
+    <system:String x:Key="DuckStationConfig_General_Header">General Settings</system:String>
+    <system:String x:Key="DuckStationConfig_Video_Header">Video &amp; GPU Settings</system:String>
+    <system:String x:Key="DuckStationConfig_Audio_Header">Audio Settings</system:String>
+    <system:String x:Key="DuckStationConfig_Save_Button">Save</system:String>
+    <system:String x:Key="DuckStationConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="DuckStationConfig_Cancel_Button">Cancel</system:String>
+    <system:String x:Key="DuckStationConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="DuckStationConfig_Fullscreen_Checkbox">Start in Fullscreen</system:String>
+    <system:String x:Key="DuckStationConfig_Fullscreen_Tooltip">If checked, the game will start in fullscreen mode.</system:String>
+    <system:String x:Key="DuckStationConfig_PauseOnFocusLoss_Checkbox">Pause When Focus is Lost</system:String>
+    <system:String x:Key="DuckStationConfig_PauseOnFocusLoss_Tooltip">If checked, the emulation will pause when the window is not active.</system:String>
+    <system:String x:Key="DuckStationConfig_SaveStateOnExit_Checkbox">Save State On Exit</system:String>
+    <system:String x:Key="DuckStationConfig_SaveStateOnExit_Tooltip">If checked, a save state will be automatically created when you close the game.</system:String>
+    <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">Enable Rewind</system:String>
+    <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Enables the ability to rewind gameplay. May impact performance.</system:String>
+    <system:String x:Key="DuckStationConfig_Runahead_Label">Runahead Frames</system:String>
+    <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Reduces input latency by running emulation ahead and rolling back. Use with caution, requires a powerful CPU.</system:String>
+    <system:String x:Key="DuckStationConfig_Renderer_Label">Renderer</system:String>
+    <system:String x:Key="DuckStationConfig_Renderer_Tooltip">Select the graphics API to use. 'Automatic' is recommended. Vulkan or D3D12 may offer better performance.</system:String>
+    <system:String x:Key="DuckStationConfig_ResolutionScale_Label">Internal Resolution Scale</system:String>
+    <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">Increases the internal rendering resolution for sharper graphics. 1x is native resolution.</system:String>
+    <system:String x:Key="DuckStationConfig_TextureFilter_Label">Texture Filtering</system:String>
+    <system:String x:Key="DuckStationConfig_TextureFilter_Tooltip">'Nearest' provides a sharp, pixelated look. 'Bilinear' smooths textures.</system:String>
+    <system:String x:Key="DuckStationConfig_AspectRatio_Label">Aspect Ratio</system:String>
+    <system:String x:Key="DuckStationConfig_AspectRatio_Tooltip">Sets the display aspect ratio for the game.</system:String>
+    <system:String x:Key="DuckStationConfig_WidescreenHack_Checkbox">Enable Widescreen Hack</system:String>
+    <system:String x:Key="DuckStationConfig_WidescreenHack_Tooltip">Attempts to render games in 16:9 widescreen. May cause visual glitches.</system:String>
+    <system:String x:Key="DuckStationConfig_PgxpEnable_Checkbox">Enable PGXP Geometry Correction</system:String>
+    <system:String x:Key="DuckStationConfig_PgxpEnable_Tooltip">Fixes wobbly polygons and other 3D rendering issues common on the original PlayStation.</system:String>
+    <system:String x:Key="DuckStationConfig_Vsync_Checkbox">Enable VSync</system:String>
+    <system:String x:Key="DuckStationConfig_Vsync_Tooltip">Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing.</system:String>
+    <system:String x:Key="DuckStationConfig_Mute_Checkbox">Mute Audio</system:String>
+    <system:String x:Key="DuckStationConfig_Mute_Tooltip">If checked, all audio from the emulator will be muted.</system:String>
+    <system:String x:Key="DuckStationConfig_Volume_Label">Master Volume</system:String>
+    <system:String x:Key="DuckStationConfig_Volume_Tooltip">Adjusts the master audio volume.</system:String>
+    <system:String x:Key="DuckStationSettings">DuckStation Settings</system:String>
+    <system:String x:Key="OpeningDuckStationConfiguration">Opening DuckStation configuration...</system:String>
+
+
 </ResourceDictionary>

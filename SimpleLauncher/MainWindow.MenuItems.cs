@@ -1274,4 +1274,16 @@ public partial class MainWindow
         };
         mesenWindow.ShowDialog();
     }
+
+    private void ShowDuckStationSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDuckStationConfiguration") ?? "Opening DuckStation configuration...", this);
+
+        var duckstationWindow = new InjectDuckStationConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        duckstationWindow.ShowDialog();
+    }
 }

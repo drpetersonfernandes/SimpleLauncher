@@ -1,0 +1,118 @@
+<controls:MetroWindow x:Class="SimpleLauncher.InjectDuckStationConfigWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      Title="{DynamicResource DuckStationConfig_Title}"
+                      Height="800" Width="700"
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- General Section -->
+                <GroupBox Header="{DynamicResource DuckStationConfig_General_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource DuckStationConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_Fullscreen_Tooltip}"/>
+                        <CheckBox x:Name="ChkPauseOnFocusLoss" Content="{DynamicResource DuckStationConfig_PauseOnFocusLoss_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_PauseOnFocusLoss_Tooltip}"/>
+                        <CheckBox x:Name="ChkSaveStateOnExit" Content="{DynamicResource DuckStationConfig_SaveStateOnExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_SaveStateOnExit_Tooltip}"/>
+                        <CheckBox x:Name="ChkRewindEnable" Content="{DynamicResource DuckStationConfig_RewindEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_RewindEnable_Tooltip}"/>
+                        <Label Content="{DynamicResource DuckStationConfig_Runahead_Label}" VerticalAlignment="Center" ToolTip="{DynamicResource DuckStationConfig_Runahead_Tooltip}"/>
+                        <Slider x:Name="SldRunahead" Minimum="0" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Video/GPU Section -->
+                <GroupBox Header="{DynamicResource DuckStationConfig_Video_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource DuckStationConfig_Renderer_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbRenderer" Grid.Column="1" ToolTip="{DynamicResource DuckStationConfig_Renderer_Tooltip}">
+                                <ComboBoxItem Content="Automatic"/>
+                                <ComboBoxItem Content="Vulkan"/>
+                                <ComboBoxItem Content="D3D12"/>
+                                <ComboBoxItem Content="D3D11"/>
+                                <ComboBoxItem Content="OpenGL"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource DuckStationConfig_ResolutionScale_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbResolutionScale" Grid.Column="1" ToolTip="{DynamicResource DuckStationConfig_ResolutionScale_Tooltip}">
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="6"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="8"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource DuckStationConfig_TextureFilter_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbTextureFilter" Grid.Column="1" ToolTip="{DynamicResource DuckStationConfig_TextureFilter_Tooltip}">
+                                <ComboBoxItem Content="Nearest"/>
+                                <ComboBoxItem Content="Bilinear"/>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource DuckStationConfig_AspectRatio_Label}" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="CmbAspectRatio" Grid.Column="1" ToolTip="{DynamicResource DuckStationConfig_AspectRatio_Tooltip}">
+                                <ComboBoxItem Content="Auto (Game Native)"/>
+                                <ComboBoxItem Content="4:3"/>
+                                <ComboBoxItem Content="16:9"/>
+                            </ComboBox>
+                        </Grid>
+                        <CheckBox x:Name="ChkWidescreenHack" Content="{DynamicResource DuckStationConfig_WidescreenHack_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_WidescreenHack_Tooltip}"/>
+                        <CheckBox x:Name="ChkPgxpEnable" Content="{DynamicResource DuckStationConfig_PgxpEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_PgxpEnable_Tooltip}"/>
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource DuckStationConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_Vsync_Tooltip}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Audio Section -->
+                <GroupBox Header="{DynamicResource DuckStationConfig_Audio_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <CheckBox x:Name="ChkMute" Content="{DynamicResource DuckStationConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_Mute_Tooltip}"/>
+                        <Label Content="{DynamicResource DuckStationConfig_Volume_Label}" VerticalAlignment="Center" ToolTip="{DynamicResource DuckStationConfig_Volume_Tooltip}"/>
+                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <CheckBox x:Name="ChkShowBeforeLaunch" 
+                          Content="{DynamicResource DuckStationConfig_ShowBeforeLaunch_Checkbox}" 
+                          Margin="5,10,0,10" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="BtnSave" Content="{DynamicResource DuckStationConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
+                    Click="BtnSave_Click"/>
+            <Button x:Name="BtnRun" Content="{DynamicResource DuckStationConfig_Run_Button}" Width="120" Height="35" 
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
+                    Click="BtnRun_Click" IsDefault="True"/>
+            <Button Content="{DynamicResource DuckStationConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>
