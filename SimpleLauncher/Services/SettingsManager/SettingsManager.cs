@@ -29,298 +29,299 @@ public class SettingsManager
     [IgnoreMember] private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
 
     // Application Settings
-    public int ThumbnailSize { get; set; }
-    public int GamesPerPage { get; set; }
-    public string ShowGames { get; set; }
-    public string ViewMode { get; set; }
-    public bool EnableGamePadNavigation { get; set; }
-    public string VideoUrl { get; set; }
-    public string InfoUrl { get; set; }
-    public string BaseTheme { get; set; }
-    public string AccentColor { get; set; }
-    public string Language { get; set; }
-    public float DeadZoneX { get; set; }
-    public float DeadZoneY { get; set; }
-    public string ButtonAspectRatio { get; set; }
-    public bool EnableFuzzyMatching { get; set; }
-    public double FuzzyMatchingThreshold { get; set; }
+    [Key(0)] public int ThumbnailSize { get; set; }
+    [Key(1)] public int GamesPerPage { get; set; }
+    [Key(2)] public string ShowGames { get; set; }
+    [Key(3)] public string ViewMode { get; set; }
+    [Key(4)] public bool EnableGamePadNavigation { get; set; }
+    [Key(5)] public string VideoUrl { get; set; }
+    [Key(6)] public string InfoUrl { get; set; }
+    [Key(7)] public string BaseTheme { get; set; }
+    [Key(8)] public string AccentColor { get; set; }
+    [Key(9)] public string Language { get; set; }
+    [Key(10)] public float DeadZoneX { get; set; }
+    [Key(11)] public float DeadZoneY { get; set; }
+    [Key(12)] public string ButtonAspectRatio { get; set; }
+    [Key(13)] public bool EnableFuzzyMatching { get; set; }
+    [Key(14)] public double FuzzyMatchingThreshold { get; set; }
     [IgnoreMember] public const float DefaultDeadZoneX = 0.05f;
     [IgnoreMember] public const float DefaultDeadZoneY = 0.02f;
-    public bool EnableNotificationSound { get; set; }
-    public string CustomNotificationSoundFile { get; set; }
-    public string RaUsername { get; set; }
-    public string RaApiKey { get; set; }
-    public string RaPassword { get; set; }
-    public string RaToken { get; set; }
-    public bool OverlayRetroAchievementButton { get; set; }
-    public bool OverlayOpenVideoButton { get; set; }
-    public bool OverlayOpenInfoButton { get; set; }
-    public bool AdditionalSystemFoldersExpanded { get; set; }
-    public bool Emulator1Expanded { get; set; }
-    public bool Emulator2Expanded { get; set; }
-    public bool Emulator3Expanded { get; set; }
-    public bool Emulator4Expanded { get; set; }
-    public bool Emulator5Expanded { get; set; }
-    public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
+    [Key(15)] public bool EnableNotificationSound { get; set; }
+    [Key(16)] public string CustomNotificationSoundFile { get; set; }
+    [Key(17)] public string RaUsername { get; set; }
+    [Key(18)] public string RaApiKey { get; set; }
+    [Key(19)] public string RaPassword { get; set; }
+    [Key(30)] public string RaToken { get; set; }
+    [Key(20)] public bool OverlayRetroAchievementButton { get; set; }
+    [Key(21)] public bool OverlayOpenVideoButton { get; set; }
+    [Key(22)] public bool OverlayOpenInfoButton { get; set; }
+    [Key(23)] public bool AdditionalSystemFoldersExpanded { get; set; }
+    [Key(24)] public bool Emulator1Expanded { get; set; }
+    [Key(25)] public bool Emulator2Expanded { get; set; }
+    [Key(26)] public bool Emulator3Expanded { get; set; }
+    [Key(27)] public bool Emulator4Expanded { get; set; }
+    [Key(28)] public bool Emulator5Expanded { get; set; }
+    [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
     // Ares
-    public string AresVideoDriver { get; set; } = "OpenGL 3.2";
-    public bool AresExclusive { get; set; } // Fullscreen
-    public string AresShader { get; set; } = "None";
-    public int AresMultiplier { get; set; } = 2;
-    public string AresAspectCorrection { get; set; } = "Standard";
-    public bool AresMute { get; set; }
-    public double AresVolume { get; set; } = 1.0;
-    public bool AresFastBoot { get; set; }
-    public bool AresRewind { get; set; }
-    public bool AresRunAhead { get; set; }
-    public bool AresAutoSaveMemory { get; set; } = true;
-    public bool AresShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(100)] public string AresVideoDriver { get; set; } = "OpenGL 3.2";
+    [Key(101)] public bool AresExclusive { get; set; } // Fullscreen
+    [Key(102)] public string AresShader { get; set; } = "None";
+    [Key(103)] public int AresMultiplier { get; set; } = 2;
+    [Key(104)] public string AresAspectCorrection { get; set; } = "Standard";
+    [Key(105)] public bool AresMute { get; set; }
+    [Key(106)] public double AresVolume { get; set; } = 1.0;
+    [Key(107)] public bool AresFastBoot { get; set; }
+    [Key(108)] public bool AresRewind { get; set; }
+    [Key(109)] public bool AresRunAhead { get; set; }
+    [Key(110)] public bool AresAutoSaveMemory { get; set; } = true;
+    [Key(111)] public bool AresShowSettingsBeforeLaunch { get; set; } = true;
 
     // Azahar
-    public int AzaharGraphicsApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
-    public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
-    public bool AzaharUseVsync { get; set; } = true;
-    public bool AzaharAsyncShaderCompilation { get; set; } = true;
-    public bool AzaharFullscreen { get; set; } = true;
-    public int AzaharVolume { get; set; } = 100;
-    public bool AzaharIsNew3ds { get; set; } = true;
-    public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
-    public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(200)] public int AzaharGraphicsApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    [Key(201)] public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
+    [Key(202)] public bool AzaharUseVsync { get; set; } = true;
+    [Key(203)] public bool AzaharAsyncShaderCompilation { get; set; } = true;
+    [Key(204)] public bool AzaharFullscreen { get; set; } = true;
+    [Key(205)] public int AzaharVolume { get; set; } = 100;
+    [Key(206)] public bool AzaharIsNew3ds { get; set; } = true;
+    [Key(207)] public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
+    [Key(208)] public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
 
     // Blastem
-    public bool BlastemFullscreen { get; set; }
-    public bool BlastemVsync { get; set; }
-    public string BlastemAspect { get; set; } = "4:3";
-    public string BlastemScaling { get; set; } = "linear";
-    public bool BlastemScanlines { get; set; }
-    public int BlastemAudioRate { get; set; } = 48000;
-    public string BlastemSyncSource { get; set; } = "audio";
-    public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(300)] public bool BlastemFullscreen { get; set; }
+    [Key(301)] public bool BlastemVsync { get; set; }
+    [Key(302)] public string BlastemAspect { get; set; } = "4:3";
+    [Key(303)] public string BlastemScaling { get; set; } = "linear";
+    [Key(304)] public bool BlastemScanlines { get; set; }
+    [Key(305)] public int BlastemAudioRate { get; set; } = 48000;
+    [Key(306)] public string BlastemSyncSource { get; set; } = "audio";
+    [Key(307)] public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
 
     // Cemu
-    public bool CemuFullscreen { get; set; }
-    public int CemuGraphicApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
-    public int CemuVsync { get; set; } = 1; // 0=Off, 1=On
-    public bool CemuAsyncCompile { get; set; } = true;
-    public int CemuTvVolume { get; set; } = 50;
-    public int CemuConsoleLanguage { get; set; } = 1; // 1=English
-    public bool CemuDiscordPresence { get; set; } = true;
-    public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(400)] public bool CemuFullscreen { get; set; }
+    [Key(401)] public int CemuGraphicApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    [Key(402)] public int CemuVsync { get; set; } = 1; // 0=Off, 1=On
+    [Key(403)] public bool CemuAsyncCompile { get; set; } = true;
+    [Key(404)] public int CemuTvVolume { get; set; } = 50;
+    [Key(405)] public int CemuConsoleLanguage { get; set; } = 1; // 1=English
+    [Key(406)] public bool CemuDiscordPresence { get; set; } = true;
+    [Key(407)] public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
 
     // Daphne
-    public bool DaphneFullscreen { get; set; }
-    public int DaphneResX { get; set; } = 640;
-    public int DaphneResY { get; set; } = 480;
-    public bool DaphneDisableCrosshairs { get; set; }
-    public bool DaphneBilinear { get; set; } = true;
-    public bool DaphneEnableSound { get; set; } = true;
-    public bool DaphneUseOverlays { get; set; } = true;
-    public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(500)] public bool DaphneFullscreen { get; set; }
+    [Key(501)] public int DaphneResX { get; set; } = 640;
+    [Key(502)] public int DaphneResY { get; set; } = 480;
+    [Key(503)] public bool DaphneDisableCrosshairs { get; set; }
+    [Key(504)] public bool DaphneBilinear { get; set; } = true;
+    [Key(505)] public bool DaphneEnableSound { get; set; } = true;
+    [Key(506)] public bool DaphneUseOverlays { get; set; } = true;
+    [Key(507)] public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
 
     // Dolphin
-    public string DolphinGfxBackend { get; set; } = "Vulkan";
-    public bool DolphinDspThread { get; set; } = true;
-    public bool DolphinWiimoteContinuousScanning { get; set; } = true;
-    public bool DolphinWiimoteEnableSpeaker { get; set; } = true;
-    public bool DolphinShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(600)] public string DolphinGfxBackend { get; set; } = "Vulkan";
+    [Key(601)] public bool DolphinDspThread { get; set; } = true;
+    [Key(602)] public bool DolphinWiimoteContinuousScanning { get; set; } = true;
+    [Key(603)] public bool DolphinWiimoteEnableSpeaker { get; set; } = true;
+    [Key(604)] public bool DolphinShowSettingsBeforeLaunch { get; set; } = true;
 
     // DuckStation
-    public bool DuckStationStartFullscreen { get; set; }
-    public bool DuckStationPauseOnFocusLoss { get; set; } = true;
-    public bool DuckStationSaveStateOnExit { get; set; } = true;
-    public bool DuckStationRewindEnable { get; set; }
-    public int DuckStationRunaheadFrameCount { get; set; }
-    public string DuckStationRenderer { get; set; } = "Automatic";
-    public int DuckStationResolutionScale { get; set; } = 2;
-    public string DuckStationTextureFilter { get; set; } = "Nearest";
-    public bool DuckStationWidescreenHack { get; set; }
-    public bool DuckStationPgxpEnable { get; set; }
-    public string DuckStationAspectRatio { get; set; } = "16:9";
-    public bool DuckStationVsync { get; set; }
-    public int DuckStationOutputVolume { get; set; } = 100;
-    public bool DuckStationOutputMuted { get; set; }
-    public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(700)] public bool DuckStationStartFullscreen { get; set; }
+    [Key(701)] public bool DuckStationPauseOnFocusLoss { get; set; } = true;
+    [Key(702)] public bool DuckStationSaveStateOnExit { get; set; } = true;
+    [Key(703)] public bool DuckStationRewindEnable { get; set; }
+    [Key(704)] public int DuckStationRunaheadFrameCount { get; set; }
+    [Key(705)] public string DuckStationRenderer { get; set; } = "Automatic";
+    [Key(706)] public int DuckStationResolutionScale { get; set; } = 2;
+    [Key(707)] public string DuckStationTextureFilter { get; set; } = "Nearest";
+    [Key(708)] public bool DuckStationWidescreenHack { get; set; }
+    [Key(709)] public bool DuckStationPgxpEnable { get; set; }
+    [Key(710)] public string DuckStationAspectRatio { get; set; } = "16:9";
+    [Key(711)] public bool DuckStationVsync { get; set; }
+    [Key(712)] public int DuckStationOutputVolume { get; set; } = 100;
+    [Key(713)] public bool DuckStationOutputMuted { get; set; }
+    [Key(714)] public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
 
     // Flycast
-    public bool FlycastFullscreen { get; set; }
-    public int FlycastWidth { get; set; } = 640;
-    public int FlycastHeight { get; set; } = 480;
-    public bool FlycastMaximized { get; set; }
-    public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(800)] public bool FlycastFullscreen { get; set; }
+    [Key(801)] public int FlycastWidth { get; set; } = 640;
+    [Key(802)] public int FlycastHeight { get; set; } = 480;
+    [Key(803)] public bool FlycastMaximized { get; set; }
+    [Key(804)] public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
 
     // MAME
-    public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
-    public bool MameWindow { get; set; }
-    public bool MameMaximize { get; set; } = true;
-    public bool MameKeepAspect { get; set; } = true;
-    public bool MameSkipGameInfo { get; set; } = true;
-    public bool MameAutosave { get; set; }
-    public bool MameConfirmQuit { get; set; }
-    public bool MameJoystick { get; set; } = true;
-    public bool MameShowSettingsBeforeLaunch { get; set; } = true;
-    public bool MameAutoframeskip { get; set; }
-    public string MameBgfxBackend { get; set; } = "auto";
-    public string MameBgfxScreenChains { get; set; } = "default";
-    public bool MameFilter { get; set; } = true;
-    public bool MameCheat { get; set; }
-    public bool MameRewind { get; set; }
-    public bool MameNvramSave { get; set; } = true;
+// MAME
+    [Key(900)] public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
+    [Key(901)] public bool MameWindow { get; set; }
+    [Key(902)] public bool MameMaximize { get; set; } = true;
+    [Key(903)] public bool MameKeepAspect { get; set; } = true;
+    [Key(904)] public bool MameSkipGameInfo { get; set; } = true;
+    [Key(905)] public bool MameAutosave { get; set; }
+    [Key(906)] public bool MameConfirmQuit { get; set; }
+    [Key(907)] public bool MameJoystick { get; set; } = true;
+    [Key(908)] public bool MameShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(909)] public bool MameAutoframeskip { get; set; }
+    [Key(910)] public string MameBgfxBackend { get; set; } = "auto";
+    [Key(911)] public string MameBgfxScreenChains { get; set; } = "default";
+    [Key(912)] public bool MameFilter { get; set; } = true;
+    [Key(913)] public bool MameCheat { get; set; }
+    [Key(914)] public bool MameRewind { get; set; }
+    [Key(915)] public bool MameNvramSave { get; set; } = true;
 
     // Mednafen
-    public string MednafenVideoDriver { get; set; } = "opengl";
-    public bool MednafenFullscreen { get; set; }
-    public bool MednafenVsync { get; set; } = true;
-    public string MednafenStretch { get; set; } = "aspect";
-    public bool MednafenBilinear { get; set; }
-    public int MednafenScanlines { get; set; }
-    public string MednafenShader { get; set; } = "none";
-    public int MednafenVolume { get; set; } = 100;
-    public bool MednafenCheats { get; set; } = true;
-    public bool MednafenRewind { get; set; }
-    public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1000)] public string MednafenVideoDriver { get; set; } = "opengl";
+    [Key(1001)] public bool MednafenFullscreen { get; set; }
+    [Key(1002)] public bool MednafenVsync { get; set; } = true;
+    [Key(1003)] public string MednafenStretch { get; set; } = "aspect";
+    [Key(1004)] public bool MednafenBilinear { get; set; }
+    [Key(1005)] public int MednafenScanlines { get; set; }
+    [Key(1006)] public string MednafenShader { get; set; } = "none";
+    [Key(1007)] public int MednafenVolume { get; set; } = 100;
+    [Key(1008)] public bool MednafenCheats { get; set; } = true;
+    [Key(1009)] public bool MednafenRewind { get; set; }
+    [Key(1010)] public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
 
     // Mesen
-    public bool MesenFullscreen { get; set; }
-    public bool MesenVsync { get; set; }
-    public string MesenAspectRatio { get; set; } = "NoStretching";
-    public bool MesenBilinear { get; set; }
-    public string MesenVideoFilter { get; set; } = "None";
-    public bool MesenEnableAudio { get; set; } = true;
-    public int MesenMasterVolume { get; set; } = 100;
-    public bool MesenRewind { get; set; }
-    public int MesenRunAhead { get; set; }
-    public bool MesenPauseInBackground { get; set; }
-    public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1100)] public bool MesenFullscreen { get; set; }
+    [Key(1101)] public bool MesenVsync { get; set; }
+    [Key(1102)] public string MesenAspectRatio { get; set; } = "NoStretching";
+    [Key(1103)] public bool MesenBilinear { get; set; }
+    [Key(1104)] public string MesenVideoFilter { get; set; } = "None";
+    [Key(1105)] public bool MesenEnableAudio { get; set; } = true;
+    [Key(1106)] public int MesenMasterVolume { get; set; } = 100;
+    [Key(1107)] public bool MesenRewind { get; set; }
+    [Key(1108)] public int MesenRunAhead { get; set; }
+    [Key(1109)] public bool MesenPauseInBackground { get; set; }
+    [Key(1110)] public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
 
     // PCSX2
-    public bool Pcsx2StartFullscreen { get; set; } = true;
-    public string Pcsx2AspectRatio { get; set; } = "16:9"; // 4:3, 16:9, Stretch
-    public int Pcsx2Renderer { get; set; } = 14; // 14=Vulkan, 13=D3D12, 12=D3D11, 15=OpenGL, 11=Software
-    public int Pcsx2UpscaleMultiplier { get; set; } = 2; // 1 (Native) to 8
-    public int Pcsx2Vsync { get; set; } // 0=Off, 1=On
-    public bool Pcsx2EnableCheats { get; set; }
-    public bool Pcsx2EnableWidescreenPatches { get; set; }
-    public int Pcsx2Volume { get; set; } = 100;
-    public bool Pcsx2AchievementsEnabled { get; set; }
-    public bool Pcsx2AchievementsHardcore { get; set; } = true;
-    public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1200)] public bool Pcsx2StartFullscreen { get; set; } = true;
+    [Key(1201)] public string Pcsx2AspectRatio { get; set; } = "16:9"; // 4:3, 16:9, Stretch
+    [Key(1202)] public int Pcsx2Renderer { get; set; } = 14; // 14=Vulkan, 13=D3D12, 12=D3D11, 15=OpenGL, 11=Software
+    [Key(1203)] public int Pcsx2UpscaleMultiplier { get; set; } = 2; // 1 (Native) to 8
+    [Key(1204)] public int Pcsx2Vsync { get; set; } // 0=Off, 1=On
+    [Key(1205)] public bool Pcsx2EnableCheats { get; set; }
+    [Key(1206)] public bool Pcsx2EnableWidescreenPatches { get; set; }
+    [Key(1207)] public int Pcsx2Volume { get; set; } = 100;
+    [Key(1208)] public bool Pcsx2AchievementsEnabled { get; set; }
+    [Key(1209)] public bool Pcsx2AchievementsHardcore { get; set; } = true;
+    [Key(1210)] public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
 
     // RetroArch
-    public bool RetroArchCheevosEnable { get; set; }
-    public bool RetroArchCheevosHardcore { get; set; }
-    public bool RetroArchFullscreen { get; set; }
-    public bool RetroArchVsync { get; set; } = true;
-    public string RetroArchVideoDriver { get; set; } = "gl";
-    public bool RetroArchAudioEnable { get; set; } = true;
-    public bool RetroArchAudioMute { get; set; }
-    public string RetroArchMenuDriver { get; set; } = "ozone";
-    public bool RetroArchPauseNonActive { get; set; } = true;
-    public bool RetroArchSaveOnExit { get; set; } = true;
-    public bool RetroArchAutoSaveState { get; set; }
-    public bool RetroArchAutoLoadState { get; set; }
-    public bool RetroArchRewind { get; set; }
-    public bool RetroArchThreadedVideo { get; set; }
-    public bool RetroArchBilinear { get; set; }
-    public bool RetroArchShowSettingsBeforeLaunch { get; set; } = true;
-    public string RetroArchAspectRatioIndex { get; set; } = "22"; // 22 = Core Provided
-    public bool RetroArchScaleInteger { get; set; }
-    public bool RetroArchShaderEnable { get; set; } = true;
-    public bool RetroArchHardSync { get; set; }
-    public bool RetroArchRunAhead { get; set; }
-    public bool RetroArchShowAdvancedSettings { get; set; } = true;
-    public bool RetroArchDiscordAllow { get; set; }
+    [Key(1300)] public bool RetroArchCheevosEnable { get; set; }
+    [Key(1301)] public bool RetroArchCheevosHardcore { get; set; }
+    [Key(1302)] public bool RetroArchFullscreen { get; set; }
+    [Key(1303)] public bool RetroArchVsync { get; set; } = true;
+    [Key(1304)] public string RetroArchVideoDriver { get; set; } = "gl";
+    [Key(1305)] public bool RetroArchAudioEnable { get; set; } = true;
+    [Key(1306)] public bool RetroArchAudioMute { get; set; }
+    [Key(1307)] public string RetroArchMenuDriver { get; set; } = "ozone";
+    [Key(1308)] public bool RetroArchPauseNonActive { get; set; } = true;
+    [Key(1309)] public bool RetroArchSaveOnExit { get; set; } = true;
+    [Key(1310)] public bool RetroArchAutoSaveState { get; set; }
+    [Key(1311)] public bool RetroArchAutoLoadState { get; set; }
+    [Key(1312)] public bool RetroArchRewind { get; set; }
+    [Key(1313)] public bool RetroArchThreadedVideo { get; set; }
+    [Key(1314)] public bool RetroArchBilinear { get; set; }
+    [Key(1315)] public bool RetroArchShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1316)] public string RetroArchAspectRatioIndex { get; set; } = "22"; // 22 = Core Provided
+    [Key(1317)] public bool RetroArchScaleInteger { get; set; }
+    [Key(1318)] public bool RetroArchShaderEnable { get; set; } = true;
+    [Key(1319)] public bool RetroArchHardSync { get; set; }
+    [Key(1320)] public bool RetroArchRunAhead { get; set; }
+    [Key(1321)] public bool RetroArchShowAdvancedSettings { get; set; } = true;
+    [Key(1322)] public bool RetroArchDiscordAllow { get; set; }
 
     // RPCS3
-    public string Rpcs3Renderer { get; set; } = "Vulkan";
-    public string Rpcs3Resolution { get; set; } = "1280x720";
-    public string Rpcs3AspectRatio { get; set; } = "16:9";
-    public bool Rpcs3Vsync { get; set; }
-    public int Rpcs3ResolutionScale { get; set; } = 100;
-    public int Rpcs3AnisotropicFilter { get; set; }
-    public string Rpcs3PpuDecoder { get; set; } = "Recompiler (LLVM)";
-    public string Rpcs3SpuDecoder { get; set; } = "Recompiler (LLVM)";
-    public string Rpcs3AudioRenderer { get; set; } = "Cubeb";
-    public bool Rpcs3AudioBuffering { get; set; } = true;
-    public bool Rpcs3StartFullscreen { get; set; }
-    public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1400)] public string Rpcs3Renderer { get; set; } = "Vulkan";
+    [Key(1401)] public string Rpcs3Resolution { get; set; } = "1280x720";
+    [Key(1402)] public string Rpcs3AspectRatio { get; set; } = "16:9";
+    [Key(1403)] public bool Rpcs3Vsync { get; set; }
+    [Key(1404)] public int Rpcs3ResolutionScale { get; set; } = 100;
+    [Key(1405)] public int Rpcs3AnisotropicFilter { get; set; }
+    [Key(1406)] public string Rpcs3PpuDecoder { get; set; } = "Recompiler (LLVM)";
+    [Key(1407)] public string Rpcs3SpuDecoder { get; set; } = "Recompiler (LLVM)";
+    [Key(1408)] public string Rpcs3AudioRenderer { get; set; } = "Cubeb";
+    [Key(1409)] public bool Rpcs3AudioBuffering { get; set; } = true;
+    [Key(1410)] public bool Rpcs3StartFullscreen { get; set; }
+    [Key(1411)] public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
 
     // SEGA Model 2
-    public int SegaModel2ResX { get; set; } = 640;
-    public int SegaModel2ResY { get; set; } = 480;
-    public int SegaModel2WideScreen { get; set; } // 0=4:3, 1=16:9, 2=16:10
-    public bool SegaModel2Bilinear { get; set; } = true;
-    public bool SegaModel2Trilinear { get; set; }
-    public bool SegaModel2FilterTilemaps { get; set; }
-    public bool SegaModel2DrawCross { get; set; } = true;
-    public int SegaModel2Fsaa { get; set; }
-    public bool SegaModel2XInput { get; set; }
-    public bool SegaModel2EnableFf { get; set; }
-    public bool SegaModel2HoldGears { get; set; }
-    public bool SegaModel2UseRawInput { get; set; }
-    public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1500)] public int SegaModel2ResX { get; set; } = 640;
+    [Key(1501)] public int SegaModel2ResY { get; set; } = 480;
+    [Key(1502)] public int SegaModel2WideScreen { get; set; } // 0=4:3, 1=16:9, 2=16:10
+    [Key(1503)] public bool SegaModel2Bilinear { get; set; } = true;
+    [Key(1504)] public bool SegaModel2Trilinear { get; set; }
+    [Key(1505)] public bool SegaModel2FilterTilemaps { get; set; }
+    [Key(1506)] public bool SegaModel2DrawCross { get; set; } = true;
+    [Key(1507)] public int SegaModel2Fsaa { get; set; }
+    [Key(1508)] public bool SegaModel2XInput { get; set; }
+    [Key(1509)] public bool SegaModel2EnableFf { get; set; }
+    [Key(1510)] public bool SegaModel2HoldGears { get; set; }
+    [Key(1511)] public bool SegaModel2UseRawInput { get; set; }
+    [Key(1512)] public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
 
     // Stella
-    public bool StellaFullscreen { get; set; }
-    public bool StellaVsync { get; set; } = true;
-    public string StellaVideoDriver { get; set; } = "direct3d";
-    public bool StellaCorrectAspect { get; set; } = true;
-    public int StellaTvFilter { get; set; }
-    public int StellaScanlines { get; set; }
-    public bool StellaAudioEnabled { get; set; } = true;
-    public int StellaAudioVolume { get; set; } = 80;
-    public bool StellaTimeMachine { get; set; } = true;
-    public bool StellaConfirmExit { get; set; }
-    public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1600)] public bool StellaFullscreen { get; set; }
+    [Key(1601)] public bool StellaVsync { get; set; } = true;
+    [Key(1602)] public string StellaVideoDriver { get; set; } = "direct3d";
+    [Key(1603)] public bool StellaCorrectAspect { get; set; } = true;
+    [Key(1604)] public int StellaTvFilter { get; set; }
+    [Key(1605)] public int StellaScanlines { get; set; }
+    [Key(1606)] public bool StellaAudioEnabled { get; set; } = true;
+    [Key(1607)] public int StellaAudioVolume { get; set; } = 80;
+    [Key(1608)] public bool StellaTimeMachine { get; set; } = true;
+    [Key(1609)] public bool StellaConfirmExit { get; set; }
+    [Key(1610)] public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
 
     // Supermodel
-    public bool SupermodelNew3DEngine { get; set; } = true;
-    public bool SupermodelQuadRendering { get; set; }
-    public bool SupermodelFullscreen { get; set; } = true;
-    public int SupermodelResX { get; set; } = 1920;
-    public int SupermodelResY { get; set; } = 1080;
-    public bool SupermodelWideScreen { get; set; } = true;
-    public bool SupermodelStretch { get; set; }
-    public bool SupermodelVsync { get; set; } = true;
-    public bool SupermodelThrottle { get; set; } = true;
-    public int SupermodelMusicVolume { get; set; } = 100;
-    public int SupermodelSoundVolume { get; set; } = 100;
-    public string SupermodelInputSystem { get; set; } = "xinput";
-    public bool SupermodelMultiThreaded { get; set; } = true;
-    public int SupermodelPowerPcFrequency { get; set; } = 50;
-    public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1700)] public bool SupermodelNew3DEngine { get; set; } = true;
+    [Key(1701)] public bool SupermodelQuadRendering { get; set; }
+    [Key(1702)] public bool SupermodelFullscreen { get; set; } = true;
+    [Key(1703)] public int SupermodelResX { get; set; } = 1920;
+    [Key(1704)] public int SupermodelResY { get; set; } = 1080;
+    [Key(1705)] public bool SupermodelWideScreen { get; set; } = true;
+    [Key(1706)] public bool SupermodelStretch { get; set; }
+    [Key(1707)] public bool SupermodelVsync { get; set; } = true;
+    [Key(1708)] public bool SupermodelThrottle { get; set; } = true;
+    [Key(1709)] public int SupermodelMusicVolume { get; set; } = 100;
+    [Key(1710)] public int SupermodelSoundVolume { get; set; } = 100;
+    [Key(1711)] public string SupermodelInputSystem { get; set; } = "xinput";
+    [Key(1712)] public bool SupermodelMultiThreaded { get; set; } = true;
+    [Key(1713)] public int SupermodelPowerPcFrequency { get; set; } = 50;
+    [Key(1714)] public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
 
     // Xenia
-    public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
-    public bool XeniaGammaSrgb { get; set; }
-    public bool XeniaVibration { get; set; } = true;
-    public bool XeniaMountCache { get; set; } = true;
-    public string XeniaGpu { get; set; } = "d3d12"; // d3d12, vulkan, null
-    public bool XeniaVsync { get; set; } = true;
-    public int XeniaResScaleX { get; set; } = 1;
-    public int XeniaResScaleY { get; set; } = 1;
-    public bool XeniaFullscreen { get; set; }
-    public string XeniaApu { get; set; } = "xaudio2"; // xaudio2, sdl, nop, any
-    public bool XeniaMute { get; set; }
-    public string XeniaAa { get; set; } = ""; // "", fxaa, fxaa_extreme
-    public string XeniaScaling { get; set; } = "fsr"; // fsr, cas, bilinear
-    public bool XeniaApplyPatches { get; set; } = true;
-    public bool XeniaDiscordPresence { get; set; } = true;
-    public int XeniaUserLanguage { get; set; } = 1; // 1=English
-    public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
-    public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1800)] public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
+    [Key(1801)] public bool XeniaGammaSrgb { get; set; }
+    [Key(1802)] public bool XeniaVibration { get; set; } = true;
+    [Key(1803)] public bool XeniaMountCache { get; set; } = true;
+    [Key(1804)] public string XeniaGpu { get; set; } = "d3d12"; // d3d12, vulkan, null
+    [Key(1805)] public bool XeniaVsync { get; set; } = true;
+    [Key(1806)] public int XeniaResScaleX { get; set; } = 1;
+    [Key(1807)] public int XeniaResScaleY { get; set; } = 1;
+    [Key(1808)] public bool XeniaFullscreen { get; set; }
+    [Key(1809)] public string XeniaApu { get; set; } = "xaudio2"; // xaudio2, sdl, nop, any
+    [Key(1810)] public bool XeniaMute { get; set; }
+    [Key(1811)] public string XeniaAa { get; set; } = ""; // "", fxaa, fxaa_extreme
+    [Key(1812)] public string XeniaScaling { get; set; } = "fsr"; // fsr, cas, bilinear
+    [Key(1813)] public bool XeniaApplyPatches { get; set; } = true;
+    [Key(1814)] public bool XeniaDiscordPresence { get; set; } = true;
+    [Key(1815)] public int XeniaUserLanguage { get; set; } = 1; // 1=English
+    [Key(1816)] public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
+    [Key(1817)] public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
 
     // Yumir
-    public bool YumirFullscreen { get; set; }
-    public double YumirVolume { get; set; } = 0.8;
-    public bool YumirMute { get; set; }
-    public string YumirVideoStandard { get; set; } = "PAL"; // PAL, NTSC
-    public bool YumirAutoDetectRegion { get; set; } = true;
-    public bool YumirPauseWhenUnfocused { get; set; }
-    public double YumirForcedAspect { get; set; } = 1.7777777777777777;
-    public bool YumirForceAspectRatio { get; set; }
-    public bool YumirReduceLatency { get; set; } = true;
-    public bool YumirShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(1900)] public bool YumirFullscreen { get; set; }
+    [Key(1901)] public double YumirVolume { get; set; } = 0.8;
+    [Key(1902)] public bool YumirMute { get; set; }
+    [Key(1903)] public string YumirVideoStandard { get; set; } = "PAL"; // PAL, NTSC
+    [Key(1904)] public bool YumirAutoDetectRegion { get; set; } = true;
+    [Key(1905)] public bool YumirPauseWhenUnfocused { get; set; }
+    [Key(1906)] public double YumirForcedAspect { get; set; } = 1.7777777777777777;
+    [Key(1907)] public bool YumirForceAspectRatio { get; set; }
+    [Key(1908)] public bool YumirReduceLatency { get; set; } = true;
+    [Key(1909)] public bool YumirShowSettingsBeforeLaunch { get; set; } = true;
 
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
