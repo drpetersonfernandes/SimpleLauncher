@@ -570,7 +570,8 @@ internal static class MessageBoxLibrary
         {
             var anerroroccurredwhilelaunchingtheselectedtool = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
             var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
+                                                          "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = System.Windows.MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool}\n\n" +
@@ -1320,7 +1321,8 @@ internal static class MessageBoxLibrary
         {
             var downloadedfileislocked = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
             var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
+                                                          "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
             var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?"; // New line
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
@@ -2638,7 +2640,8 @@ internal static class MessageBoxLibrary
         {
             var title = (string)Application.Current.TryFindResource("SecurityWarning") ?? "Security Warning";
             var pathManipulationDetected = (string)Application.Current.TryFindResource("PathManipulationDetected") ?? "Potential Path Manipulation Detected";
-            var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ?? "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.";
+            var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ??
+                                     "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.";
             var archivePathMessage = (string)Application.Current.TryFindResource("ArchivePathMessage") ?? "Archive file:";
             var actionTaken = (string)Application.Current.TryFindResource("ActionTaken") ?? "For your security, the extraction process has been properly handle and the issue has been logged.";
             var reportedToDeveloper = (string)Application.Current.TryFindResource("ReportedToDeveloper") ?? "This security issue has been reported to the developer team.";
@@ -2901,7 +2904,8 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var noDefaultBrowserConfiguredMessage = (string)Application.Current.TryFindResource("NoDefaultBrowserConfiguredMessage") ?? "Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.";
+            var noDefaultBrowserConfiguredMessage = (string)Application.Current.TryFindResource("NoDefaultBrowserConfiguredMessage") ??
+                                                    "Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show(noDefaultBrowserConfiguredMessage, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -2913,7 +2917,8 @@ internal static class MessageBoxLibrary
 
         static MessageBoxResult ShowMessage()
         {
-            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage") ?? "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
+            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage") ??
+                                 "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
             var proceedQuestion = (string)Application.Current.TryFindResource("AreYouSureYouWantToProceed") ?? "Are you sure you want to proceed?";
             var warningTitle = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             return System.Windows.MessageBox.Show($"{warningMessage}\n\n{proceedQuestion}", warningTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -2937,7 +2942,8 @@ internal static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(static () =>
         {
-            var message = (string)Application.Current.TryFindResource("GroupByFolderMameWarningMessage") ?? "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?";
+            var message = (string)Application.Current.TryFindResource("GroupByFolderMameWarningMessage") ??
+                          "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?";
             var title = (string)Application.Current.TryFindResource("ConfigurationWarning") ?? "Configuration Warning";
             return System.Windows.MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
         });
@@ -3070,7 +3076,8 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var simpleLauncherdoesnotsupportthecurrentprocessorarchitecture = (string)Application.Current.TryFindResource("SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture") ?? "'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.";
+            var simpleLauncherdoesnotsupportthecurrentprocessorarchitecture = (string)Application.Current.TryFindResource("SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture") ??
+                                                                              "'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.";
             var unsupportedArchitecture = (string)Application.Current.TryFindResource("UnsupportedArchitecture") ?? "Unsupported Architecture";
             System.Windows.MessageBox.Show(simpleLauncherdoesnotsupportthecurrentprocessorarchitecture, unsupportedArchitecture, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -3888,6 +3895,201 @@ internal static class MessageBoxLibrary
         {
             var message1 = (string)Application.Current.TryFindResource("FailedToInjectBlastemConfiguration") ?? "Failed to inject Blastem configuration. Please check file permissions and try again.";
             var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void BlastemConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("BlastemConfigurationSavedSuccessfully") ?? "Blastem configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToSaveSegaModel2Configuration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveSEGAModel2Configuration") ?? "Failed to save SEGA Model 2 configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToSaveBlastemConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveBlastemConfiguration") ?? "Failed to save Blastem configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void Rpcs3EmulatorNotFoundPleaseLocate()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("RPCS3emulatornotfoundPleaselocate") ?? "RPCS3 emulator not found. Please locate rpcs3.exe.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectRpcs3Configuration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToInjectRPCS3Configuration") ?? "Failed to inject RPCS3 configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void Rpcs3ConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("RPCS3ConfigurationSavedSuccessfully") ?? "RPCS3 configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToSaveRpcs3Configuration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtosaveRPCS3configurationPleasecheck") ?? "Failed to save RPCS3 configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void StellaEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("StellaemulatornotfoundPleaselocate") ?? "Stella emulator not found. Please locate stella.exe.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectStellaConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectStellaconfiguration") ?? "Failed to inject Stella configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void SupermodelEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("SupermodelEmulatorNotFound") ?? "Supermodel emulator not found. Please locate 'Supermodel.exe'.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void StellaConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("StellaConfigurationSavedSuccessfully") ?? "Stella configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToInjectSupermodelConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectSupermodelconfiguration") ?? "Failed to inject Supermodel configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToSaveStellaConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveStellaConfiguration") ?? "Failed to save Stella configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("Save Failed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void SupermodelConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Supermodelconfigurationsavedsuccessfully") ?? "Supermodel configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToSaveSupermodelConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveSupermodelConfiguration") ?? "Failed to save Supermodel configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

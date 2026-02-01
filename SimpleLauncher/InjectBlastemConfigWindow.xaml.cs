@@ -118,11 +118,11 @@ public partial class InjectBlastemConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Blastem configuration saved successfully.", "Success");
+            MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Blastem configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveBlastemConfiguration();
         }
 
         Close();

@@ -67,7 +67,7 @@ public partial class InjectSupermodelConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Supermodel emulator not found. Please locate Supermodel.exe.", "Emulator Not Found");
+        MessageBoxLibrary.SupermodelEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Supermodel Executable|Supermodel.exe|All Executables|*.exe",
@@ -100,7 +100,7 @@ public partial class InjectSupermodelConfigWindow
         _settings.SupermodelThrottle = ChkThrottle.IsChecked ?? true;
         _settings.SupermodelMultiThreaded = ChkMultiThreaded.IsChecked ?? true;
         _settings.SupermodelInputSystem = CmbInputSystem.Text;
-        _settings.SupermodelPowerPcFrequency = int.Parse(CmbPpcFrequency.Text);
+        _settings.SupermodelPowerPcFrequency = int.Parse(CmbPpcFrequency.Text, CultureInfo.InvariantCulture);
 
         _settings.SupermodelShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
@@ -135,7 +135,7 @@ public partial class InjectSupermodelConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Supermodel configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectSupermodelConfiguration();
         }
     }
 
@@ -144,11 +144,11 @@ public partial class InjectSupermodelConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Supermodel configuration saved successfully.", "Success");
+            MessageBoxLibrary.SupermodelConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Supermodel configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveSupermodelConfiguration();
         }
 
         Close();

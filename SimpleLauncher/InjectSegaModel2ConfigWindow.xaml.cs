@@ -141,7 +141,7 @@ public partial class InjectSegaModel2ConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save SEGA Model 2 configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveSegaModel2Configuration();
         }
 
         Close();

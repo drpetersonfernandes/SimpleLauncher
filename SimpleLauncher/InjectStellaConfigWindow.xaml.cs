@@ -58,7 +58,7 @@ public partial class InjectStellaConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Stella emulator not found. Please locate stella.exe.", "Emulator Not Found");
+        MessageBoxLibrary.StellaEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Stella Executable|stella.exe|All Executables|*.exe",
@@ -116,7 +116,7 @@ public partial class InjectStellaConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Stella configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectStellaConfiguration();
         }
     }
 
@@ -125,11 +125,11 @@ public partial class InjectStellaConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Stella configuration saved successfully.", "Success");
+            MessageBoxLibrary.StellaConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Stella configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveStellaConfiguration();
         }
 
         Close();

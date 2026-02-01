@@ -65,7 +65,7 @@ public partial class InjectRpcs3ConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("RPCS3 emulator not found. Please locate rpcs3.exe.", "Emulator Not Found");
+        MessageBoxLibrary.Rpcs3EmulatorNotFoundPleaseLocate();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RPCS3 Executable|rpcs3.exe|All Executables|*.exe",
@@ -131,7 +131,7 @@ public partial class InjectRpcs3ConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject RPCS3 configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectRpcs3Configuration();
         }
     }
 
@@ -140,11 +140,11 @@ public partial class InjectRpcs3ConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("RPCS3 configuration saved successfully.", "Success");
+            MessageBoxLibrary.Rpcs3ConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save RPCS3 configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveRpcs3Configuration();
         }
 
         Close();
