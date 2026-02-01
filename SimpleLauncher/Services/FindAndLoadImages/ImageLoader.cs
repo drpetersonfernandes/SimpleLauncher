@@ -68,7 +68,7 @@ public static class ImageLoader
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            System.Windows.Application.Current.Dispatcher.Invoke(MessageBoxLibrary.DefaultImageNotFoundMessageBox);
+            MessageBoxLibrary.DefaultImageNotFoundMessageBox();
 
             // Return null and true (indicating the default attempt failed)
             return (null, true);
