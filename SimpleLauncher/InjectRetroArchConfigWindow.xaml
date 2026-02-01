@@ -95,6 +95,17 @@
                     </StackPanel>
                 </GroupBox>
 
+                <!-- Paths -->
+                <GroupBox Header="{DynamicResource RetroArchConfig_Paths_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="{DynamicResource RetroArchConfig_Paths_Warning}" TextWrapping="Wrap" FontStyle="Italic" Margin="0,0,0,5" Foreground="OrangeRed" />
+                        <CheckBox x:Name="ChkOverrideSystem" Content="{DynamicResource RetroArchConfig_OverrideSystem_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_OverrideSystem_Tooltip}" />
+                        <CheckBox x:Name="ChkOverrideSave" Content="{DynamicResource RetroArchConfig_OverrideSave_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_OverrideSave_Tooltip}" />
+                        <CheckBox x:Name="ChkOverrideState" Content="{DynamicResource RetroArchConfig_OverrideState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_OverrideState_Tooltip}" />
+                        <CheckBox x:Name="ChkOverrideScreenshot" Content="{DynamicResource RetroArchConfig_OverrideScreenshot_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_OverrideScreenshot_Tooltip}" />
+                    </StackPanel>
+                </GroupBox>
+
                 <!-- RetroAchievements -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_RetroAchievements_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">

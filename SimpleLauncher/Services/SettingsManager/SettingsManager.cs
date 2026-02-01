@@ -231,6 +231,10 @@ public class SettingsManager
     [Key(1320)] public bool RetroArchRunAhead { get; set; }
     [Key(1321)] public bool RetroArchShowAdvancedSettings { get; set; } = true;
     [Key(1322)] public bool RetroArchDiscordAllow { get; set; }
+    [Key(1323)] public bool RetroArchOverrideSystemDir { get; set; }
+    [Key(1324)] public bool RetroArchOverrideSaveDir { get; set; }
+    [Key(1325)] public bool RetroArchOverrideStateDir { get; set; }
+    [Key(1326)] public bool RetroArchOverrideScreenshotDir { get; set; }
 
     // RPCS3
     [Key(1400)] public string Rpcs3Renderer { get; set; } = "Vulkan";
@@ -563,6 +567,10 @@ public class SettingsManager
         RetroArchRunAhead = other.RetroArchRunAhead;
         RetroArchShowAdvancedSettings = other.RetroArchShowAdvancedSettings;
         RetroArchDiscordAllow = other.RetroArchDiscordAllow;
+        RetroArchOverrideSystemDir = other.RetroArchOverrideSystemDir;
+        RetroArchOverrideSaveDir = other.RetroArchOverrideSaveDir;
+        RetroArchOverrideStateDir = other.RetroArchOverrideStateDir;
+        RetroArchOverrideScreenshotDir = other.RetroArchOverrideScreenshotDir;
 
         // RPCS3
         Rpcs3Renderer = other.Rpcs3Renderer;
@@ -862,6 +870,10 @@ public class SettingsManager
             RetroArchRunAhead = bool.TryParse(settings.Element("RetroArchRunAhead")?.Value, out var rara) && rara;
             RetroArchShowAdvancedSettings = !bool.TryParse(settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas) || rasas;
             RetroArchDiscordAllow = bool.TryParse(settings.Element("RetroArchDiscordAllow")?.Value, out var rada) && rada;
+            RetroArchOverrideSystemDir = false; // Default to false for existing users
+            RetroArchOverrideSaveDir = false;
+            RetroArchOverrideStateDir = false;
+            RetroArchOverrideScreenshotDir = false;
 
             // RPCS3
             Rpcs3Renderer = "Vulkan";
@@ -1281,6 +1293,10 @@ public class SettingsManager
         RetroArchRunAhead = false;
         RetroArchShowAdvancedSettings = true;
         RetroArchDiscordAllow = false;
+        RetroArchOverrideSystemDir = false;
+        RetroArchOverrideSaveDir = false;
+        RetroArchOverrideStateDir = false;
+        RetroArchOverrideScreenshotDir = false;
 
         // Xenia
         XeniaGpu = "d3d12";

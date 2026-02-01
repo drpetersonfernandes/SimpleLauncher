@@ -89,6 +89,31 @@ public static class RetroArchConfigurationService
             { "cheevos_hardcore_mode_enable", BoolQuote(settings.RetroArchCheevosHardcore) }
         };
 
+        // --- Directories (Conditional Portability) ---
+        if (settings.RetroArchOverrideSystemDir)
+        {
+            Directory.CreateDirectory(Path.Combine(baseDir, "bios"));
+            updates.Add("system_directory", Quote(Path.Combine(baseDir, "bios").Replace("\\", "/")));
+        }
+
+        if (settings.RetroArchOverrideSaveDir)
+        {
+            Directory.CreateDirectory(Path.Combine(baseDir, "saves"));
+            updates.Add("savefile_directory", Quote(Path.Combine(baseDir, "saves").Replace("\\", "/")));
+        }
+
+        if (settings.RetroArchOverrideStateDir)
+        {
+            Directory.CreateDirectory(Path.Combine(baseDir, "states"));
+            updates.Add("savestate_directory", Quote(Path.Combine(baseDir, "states").Replace("\\", "/")));
+        }
+
+        if (settings.RetroArchOverrideScreenshotDir)
+        {
+            Directory.CreateDirectory(Path.Combine(baseDir, "screenshots"));
+            updates.Add("screenshot_directory", Quote(Path.Combine(baseDir, "screenshots").Replace("\\", "/")));
+        }
+
         // Read and Update
         var lines = File.ReadAllLines(configPath).ToList();
         var keysFound = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

@@ -58,6 +58,10 @@ public partial class InjectRetroArchConfigWindow
         ChkCheevosEnable.IsChecked = _settings.RetroArchCheevosEnable;
         ChkCheevosHardcore.IsChecked = _settings.RetroArchCheevosHardcore;
         ChkDiscordAllow.IsChecked = _settings.RetroArchDiscordAllow;
+        ChkOverrideSystem.IsChecked = _settings.RetroArchOverrideSystemDir;
+        ChkOverrideSave.IsChecked = _settings.RetroArchOverrideSaveDir;
+        ChkOverrideState.IsChecked = _settings.RetroArchOverrideStateDir;
+        ChkOverrideScreenshot.IsChecked = _settings.RetroArchOverrideScreenshotDir;
 
         ChkShowBeforeLaunch.IsChecked = _settings.RetroArchShowSettingsBeforeLaunch;
 
@@ -116,6 +120,10 @@ public partial class InjectRetroArchConfigWindow
         _settings.RetroArchCheevosEnable = ChkCheevosEnable.IsChecked ?? false;
         _settings.RetroArchCheevosHardcore = ChkCheevosHardcore.IsChecked ?? false;
         _settings.RetroArchDiscordAllow = ChkDiscordAllow.IsChecked ?? false;
+        _settings.RetroArchOverrideSystemDir = ChkOverrideSystem.IsChecked ?? false;
+        _settings.RetroArchOverrideSaveDir = ChkOverrideSave.IsChecked ?? false;
+        _settings.RetroArchOverrideStateDir = ChkOverrideState.IsChecked ?? false;
+        _settings.RetroArchOverrideScreenshotDir = ChkOverrideScreenshot.IsChecked ?? false;
 
         _settings.RetroArchShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
