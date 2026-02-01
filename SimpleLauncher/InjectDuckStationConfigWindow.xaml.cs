@@ -91,7 +91,18 @@ public partial class InjectDuckStationConfigWindow
 
         // Video/GPU
         _settings.DuckStationRenderer = CmbRenderer.Text;
-        _settings.DuckStationResolutionScale = int.Parse(CmbResolutionScale.Text);
+
+        // Use Tag property instead of Text to handle descriptive content like "2x (720p)"
+        var selectedItem = CmbResolutionScale.SelectedItem as System.Windows.Controls.ComboBoxItem;
+        if (selectedItem?.Tag != null && int.TryParse(selectedItem.Tag.ToString(), out var scale))
+        {
+            _settings.DuckStationResolutionScale = scale;
+        }
+        else
+        {
+            _settings.DuckStationResolutionScale = 1; // Default fallback
+        }
+
         _settings.DuckStationTextureFilter = CmbTextureFilter.Text;
         _settings.DuckStationAspectRatio = CmbAspectRatio.Text;
         _settings.DuckStationWidescreenHack = ChkWidescreenHack.IsChecked ?? false;

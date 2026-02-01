@@ -61,7 +61,9 @@ public static class AresConfigurationService
             var line = lines[i];
             var trimmedLine = line.TrimStart();
 
-            var key = updates.Keys.FirstOrDefault(k => trimmedLine.StartsWith(k, StringComparison.OrdinalIgnoreCase));
+            var lineParts = trimmedLine.Split(':', 2);
+            var lineKey = lineParts.Length > 0 ? lineParts[0] + ":" : "";
+            var key = updates.Keys.FirstOrDefault(k => k.Equals(lineKey, StringComparison.OrdinalIgnoreCase));
 
             if (key != null)
             {
