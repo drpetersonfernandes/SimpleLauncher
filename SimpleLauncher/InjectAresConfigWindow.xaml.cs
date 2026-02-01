@@ -58,7 +58,8 @@ public partial class InjectAresConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Ares emulator not found. Please locate ares.exe.", "Emulator Not Found");
+        MessageBoxLibrary.Aresemulatornotfound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Ares Executable|ares.exe|All Executables|*.exe",
@@ -76,7 +77,7 @@ public partial class InjectAresConfigWindow
         _settings.AresVideoDriver = CmbVideoDriver.Text;
         _settings.AresExclusive = ChkExclusive.IsChecked ?? false;
         _settings.AresShader = CmbShader.Text;
-        _settings.AresMultiplier = int.Parse(CmbMultiplier.Text);
+        _settings.AresMultiplier = int.Parse(CmbMultiplier.Text, CultureInfo.InvariantCulture);
         _settings.AresAspectCorrection = CmbAspectCorrection.Text;
         _settings.AresMute = ChkMute.IsChecked ?? false;
         _settings.AresVolume = SldVolume.Value;
@@ -117,7 +118,7 @@ public partial class InjectAresConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Ares configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedtoinjectAresconfiguration();
         }
     }
 
@@ -126,11 +127,11 @@ public partial class InjectAresConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Ares configuration saved successfully.", "Success");
+            MessageBoxLibrary.AresConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Ares configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveAresConfiguration();
         }
 
         Close();

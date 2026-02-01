@@ -3593,11 +3593,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void ShowCustomMessage(string failedToSaveSupermodelConfigurationPleaseCheckFilePermissions, string saveFailed)
-    {
-        // TODO
-    }
-
     public static void EnterUsernamePassword()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
@@ -3609,5 +3604,296 @@ internal static class MessageBoxLibrary
             var message2 = (string)Application.Current.TryFindResource("MissingInformation") ?? "Missing Information";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+    }
+
+    public static void Aresemulatornotfound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Aresemulatornotfound") ?? "Ares emulator not found. Please locate ares.exe.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void Daphnesettingssavedsuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Daphnesettingssavedsuccessfully") ?? "Daphne settings saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void Pcsx2Settingssaved()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("PCSX2settingssaved") ?? "PCSX2 settings saved.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void SettingsSaved()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("SettingsSaved") ?? "Settings saved.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void Cemuemulatornotfound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Cemuemulatornotfound") ?? "Cemu emulator not found. Please locate Cemu.exe.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedtoinjectAresconfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectAresconfiguration") ?? "Failed to inject Ares configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void CemuConfigurationSaved()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("CemuConfigurationSaved") ?? "Cemu configuration saved.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FlycastEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Flycastemulatornotfound") ?? "Flycast emulator not found. Please locate flycast.exe.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void AresConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("AresConfigurationSavedSuccessfully") ?? "Ares configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToSaveAresConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveAresConfiguration") ?? "Failed to save Ares configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectFlycastConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToInjectFlycastConfiguration") ?? "Failed to inject Flycast configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FlycastConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FlycastConfigurationSavedSuccessfully") ?? "Flycast configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void DolphinEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("DolphinEmulatorNotFound") ?? "Dolphin emulator not found. Please locate Dolphin.exe.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToSaveFlycastConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveFlycastConfiguration") ?? "Failed to save Flycast configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectDolphinConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToInjectDolphinConfiguration") ?? "Failed to inject Dolphin configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void DolphinConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("DolphinConfigurationSavedSuccessfully") ?? "Dolphin configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void FailedToSaveDolphinConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveDolphinConfiguration") ?? "Failed to save Dolphin configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void SegaModel2EmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("SEGAModel2EmulatorNotFound") ?? "SEGA Model 2 emulator not found. Please locate 'emulator.exe'.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectSegaModel2Configuration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToInjectSEGAModel2Configuration") ?? "Failed to inject SEGA Model 2 configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void SegaModel2ConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("SEGAModel2ConfigurationSavedSuccessfully") ?? "SEGA Model 2 configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void BlastemEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("BlastememulatornotfoundPleaselocate") ?? "Blastem emulator not found. Please locate 'blastem.exe'.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectBlastemConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToInjectBlastemConfiguration") ?? "Failed to inject Blastem configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void ShowCustomMessage(string failedToSaveSupermodelConfigurationPleaseCheckFilePermissions, string saveFailed)
+    {
+        // TODO
     }
 }

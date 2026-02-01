@@ -50,7 +50,7 @@ public partial class InjectFlycastConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Flycast emulator not found. Please locate flycast.exe.", "Emulator Not Found");
+        MessageBoxLibrary.FlycastEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Flycast Executable|flycast.exe|All Executables|*.exe",
@@ -102,7 +102,7 @@ public partial class InjectFlycastConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Flycast configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectFlycastConfiguration();
         }
     }
 
@@ -111,11 +111,11 @@ public partial class InjectFlycastConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Flycast configuration saved successfully.", "Success");
+            MessageBoxLibrary.FlycastConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Flycast configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveFlycastConfiguration();
         }
 
         Close();

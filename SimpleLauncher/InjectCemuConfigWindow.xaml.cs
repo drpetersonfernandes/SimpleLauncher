@@ -52,7 +52,7 @@ public partial class InjectCemuConfigWindow
     {
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
-        MessageBoxLibrary.ShowCustomMessage("Cemu emulator not found. Please locate Cemu.exe.", "Emulator Not Found");
+        MessageBoxLibrary.Cemuemulatornotfound();
         var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Cemu Executable|Cemu.exe|All Executables|*.exe" };
         if (dialog.ShowDialog() != true) return null;
 
@@ -103,7 +103,11 @@ public partial class InjectCemuConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig()) MessageBoxLibrary.ShowCustomMessage("Cemu configuration saved.", "Success");
+        if (InjectConfig())
+        {
+            MessageBoxLibrary.CemuConfigurationSaved();
+        }
+
         Close();
     }
 

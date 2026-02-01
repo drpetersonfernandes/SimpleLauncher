@@ -104,7 +104,11 @@ public partial class InjectPcsx2ConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig()) MessageBoxLibrary.ShowCustomMessage("PCSX2 settings saved.", "Success");
+        if (InjectConfig())
+        {
+            MessageBoxLibrary.Pcsx2Settingssaved();
+        }
+
         Close();
     }
 

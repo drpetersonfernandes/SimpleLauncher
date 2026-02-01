@@ -83,9 +83,6 @@ public static class XeniaConfigurationService
         hid["hid"] = settings.XeniaHid;
         hid["vibration"] = settings.XeniaVibration;
 
-        // [Kernel]
-        var kernel = GetOrCreateTable("Kernel");
-
         // [General]
         var general = GetOrCreateTable("General");
         general["discord"] = settings.XeniaDiscordPresence;

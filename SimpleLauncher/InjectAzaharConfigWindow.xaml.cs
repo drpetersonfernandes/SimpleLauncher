@@ -97,7 +97,11 @@ public partial class InjectAzaharConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig()) MessageBoxLibrary.ShowCustomMessage("Settings saved.", "Success");
+        if (InjectConfig())
+        {
+            MessageBoxLibrary.SettingsSaved();
+        }
+
         Close();
     }
 

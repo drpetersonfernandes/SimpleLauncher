@@ -54,7 +54,7 @@ public partial class InjectBlastemConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Blastem emulator not found. Please locate blastem.exe.", "Emulator Not Found");
+        MessageBoxLibrary.BlastemEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Blastem Executable|blastem.exe|All Executables|*.exe",
@@ -74,7 +74,7 @@ public partial class InjectBlastemConfigWindow
         _settings.BlastemScanlines = ChkScanlines.IsChecked ?? false;
         _settings.BlastemAspect = CmbAspect.Text;
         _settings.BlastemScaling = CmbScaling.Text;
-        _settings.BlastemAudioRate = int.Parse(CmbAudioRate.Text);
+        _settings.BlastemAudioRate = int.Parse(CmbAudioRate.Text, CultureInfo.InvariantCulture);
         _settings.BlastemSyncSource = CmbSyncSource.Text;
         _settings.BlastemShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
@@ -109,7 +109,7 @@ public partial class InjectBlastemConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Blastem configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectBlastemConfiguration();
         }
     }
 

@@ -64,7 +64,7 @@ public partial class InjectSegaModel2ConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("SEGA Model 2 emulator not found. Please locate emulator.exe.", "Emulator Not Found");
+        MessageBoxLibrary.SegaModel2EmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "SEGA Model 2 Executable|emulator.exe|All Executables|*.exe",
@@ -128,7 +128,7 @@ public partial class InjectSegaModel2ConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject SEGA Model 2 configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectSegaModel2Configuration();
         }
     }
 
@@ -137,7 +137,7 @@ public partial class InjectSegaModel2ConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("SEGA Model 2 configuration saved successfully.", "Success");
+            MessageBoxLibrary.SegaModel2ConfigurationSavedSuccessfully();
         }
         else
         {

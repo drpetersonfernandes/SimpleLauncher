@@ -50,7 +50,7 @@ public partial class InjectDolphinConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Dolphin emulator not found. Please locate Dolphin.exe.", "Emulator Not Found");
+        MessageBoxLibrary.DolphinEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Dolphin Executable|Dolphin.exe|All Executables|*.exe",
@@ -102,7 +102,7 @@ public partial class InjectDolphinConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Dolphin configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectDolphinConfiguration();
         }
     }
 
@@ -111,11 +111,11 @@ public partial class InjectDolphinConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Dolphin configuration saved successfully.", "Success");
+            MessageBoxLibrary.DolphinConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Dolphin configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveDolphinConfiguration();
         }
 
         Close();
