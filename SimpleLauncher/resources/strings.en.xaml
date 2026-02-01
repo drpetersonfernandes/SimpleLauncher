@@ -815,6 +815,17 @@
     <system:String x:Key="RetroArchconfigurationinjectedsuccessfully">RetroArch configuration injected successfully.</system:String>
     <system:String x:Key="RetroArchemulatorpathnotfoundPlease">RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch Settings</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Header">Path Configuration &amp; Portability</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">Note: Enabling these options will force RetroArch to use the Launcher's internal folders. This is recommended for keeping your setup portable.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Use Launcher's BIOS folder</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Redirects RetroArch to look for firmware and BIOS files in the 'bios' folder within the Launcher directory.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Use Launcher's Saves folder</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Redirects RetroArch to store in-game save files (.srm) in the 'saves' folder within the Launcher directory.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Use Launcher's States folder</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Redirects RetroArch to store save states in the 'states' folder within the Launcher directory.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Use Launcher's Screenshots folder</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Redirects RetroArch to store screenshots in the 'screenshots' folder within the Launcher directory.</system:String>    
+    
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Reverting gamepad dead zone settings...</system:String>
     <system:String x:Key="RevertingLinkSettings">Reverting link settings...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
@@ -1223,7 +1234,6 @@
     <system:String x:Key="SupermodelConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="SupermodelSettings">Supermodel Settings</system:String>
     <system:String x:Key="OpeningSupermodelConfiguration">Opening Supermodel configuration...</system:String>
-
     <system:String x:Key="MednafenConfig_Title">Mednafen Configuration</system:String>
     <system:String x:Key="MednafenConfig_Video_Header">Video</system:String>
     <system:String x:Key="MednafenConfig_VideoDriver_Label">Video Driver:</system:String>
@@ -1255,7 +1265,6 @@
     <system:String x:Key="MednafenConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="OpeningMednafenConfiguration">Opening Mednafen configuration...</system:String>
     <system:String x:Key="MednafenSettings">Mednafen Settings</system:String>
-
     <system:String x:Key="SegaModel2Config_Title">SEGA Model 2 Configuration</system:String>
     <system:String x:Key="SegaModel2Settings">SEGA Model 2 Settings</system:String>
     <system:String x:Key="OpeningSegaModel2Configuration">Opening SEGA Model 2 configuration...</system:String>
@@ -1287,7 +1296,6 @@
     <system:String x:Key="SegaModel2Config_Save_Button">Save</system:String>
     <system:String x:Key="SegaModel2Config_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="SegaModel2Config_Cancel_Button">Cancel</system:String>
-
     <system:String x:Key="AresConfig_Title">Ares Configuration</system:String>
     <system:String x:Key="AresConfig_Video_Header">Video</system:String>
     <system:String x:Key="AresConfig_VideoDriver_Label">Video Driver:</system:String>
@@ -1320,7 +1328,6 @@
     <system:String x:Key="AresConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="AresSettings">Ares Settings</system:String>
     <system:String x:Key="OpeningAresConfiguration">Opening Ares configuration...</system:String>
-
     <system:String x:Key="DaphneConfig_Title">Daphne Configuration</system:String>
     <system:String x:Key="DaphneConfig_Video_Header">Video &amp; Display</system:String>
     <system:String x:Key="DaphneConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
@@ -1343,7 +1350,6 @@
     <system:String x:Key="DaphneConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="DaphneSettings">Daphne Settings</system:String>
     <system:String x:Key="OpeningDaphneConfiguration">Opening Daphne configuration...</system:String>
-
     <system:String x:Key="BlastemSettings">Blastem Settings</system:String>
     <system:String x:Key="OpeningBlastemConfiguration">Opening Blastem configuration...</system:String>
     <system:String x:Key="BlastemConfig_Title">Blastem Configuration</system:String>
@@ -1368,7 +1374,6 @@
     <system:String x:Key="BlastemConfig_Save_Button">Save</system:String>
     <system:String x:Key="BlastemConfig_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="BlastemConfig_Cancel_Button">Cancel</system:String>
-
     <system:String x:Key="MesenConfig_Title">Mesen Configuration</system:String>
     <system:String x:Key="MesenConfig_Video_Header">Video</system:String>
     <system:String x:Key="MesenConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
@@ -1399,7 +1404,6 @@
     <system:String x:Key="MesenConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="OpeningMesenConfiguration">Opening Mesen configuration...</system:String>
     <system:String x:Key="MesenSettings">Mesen Settings</system:String>
-
     <system:String x:Key="DuckStationConfig_Title">DuckStation Configuration</system:String>
     <system:String x:Key="DuckStationConfig_General_Header">General Settings</system:String>
     <system:String x:Key="DuckStationConfig_Video_Header">Video &amp; GPU Settings</system:String>
@@ -1438,7 +1442,6 @@
     <system:String x:Key="DuckStationConfig_Volume_Tooltip">Adjusts the master audio volume.</system:String>
     <system:String x:Key="DuckStationSettings">DuckStation Settings</system:String>
     <system:String x:Key="OpeningDuckStationConfiguration">Opening DuckStation configuration...</system:String>
-
     <system:String x:Key="RPCS3Settings">RPCS3 Settings</system:String>
     <system:String x:Key="OpeningRPCS3Configuration">Opening RPCS3 configuration...</system:String>
     <system:String x:Key="RPCS3Config_Title">RPCS3 Configuration</system:String>
@@ -1472,7 +1475,6 @@
     <system:String x:Key="RPCS3Config_Save_Button">Save</system:String>
     <system:String x:Key="RPCS3Config_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="RPCS3Config_Cancel_Button">Cancel</system:String>
-
     <system:String x:Key="FlycastConfig_Title">Flycast Configuration</system:String>
     <system:String x:Key="FlycastConfig_Video_Header">Video Settings</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
@@ -1487,7 +1489,6 @@
     <system:String x:Key="FlycastConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="OpeningFlycastConfiguration">Opening Flycast configuration...</system:String>
     <system:String x:Key="FlycastSettings">Flycast Settings</system:String>
-
     <system:String x:Key="StellaConfig_Title">Stella Configuration</system:String>
     <system:String x:Key="StellaConfig_Video_Header">Video</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
@@ -1522,7 +1523,6 @@
     <system:String x:Key="StellaConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="StellaSettings">Stella Settings</system:String>
     <system:String x:Key="OpeningStellaConfiguration">Opening Stella configuration...</system:String>
-
     <system:String x:Key="DolphinConfig_Title">Dolphin Configuration</system:String>
     <system:String x:Key="DolphinConfig_Core_Header">Core &amp; Graphics</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Graphics Backend:</system:String>
@@ -1540,7 +1540,6 @@
     <system:String x:Key="DolphinConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="DolphinSettings">Dolphin Settings</system:String>
     <system:String x:Key="OpeningDolphinConfiguration">Opening Dolphin configuration...</system:String>
-
     <system:String x:Key="CemuConfig_Title">Cemu Configuration Injection</system:String>
     <system:String x:Key="CemuConfig_Video_Header">Video &amp; Graphics</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Checkbox">Start in Fullscreen</system:String>
@@ -1565,7 +1564,6 @@
     <system:String x:Key="CemuConfig_Save_Button">Save</system:String>
     <system:String x:Key="CemuConfig_Run_Button">Save &amp; Run</system:String>
     <system:String x:Key="CemuConfig_Cancel_Button">Cancel</system:String>
-
     <system:String x:Key="Pcsx2Config_Title">PCSX2 Configuration Injector</system:String>
     <system:String x:Key="Pcsx2Config_Video_Header">Video &amp; Graphics</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Renderer:</system:String>
@@ -1594,7 +1592,6 @@
     <system:String x:Key="Pcsx2Config_Save_Button">Save</system:String>
     <system:String x:Key="Pcsx2Config_Run_Button">Inject &amp; Run</system:String>
     <system:String x:Key="Pcsx2Config_Cancel_Button">Cancel</system:String>
-
     <system:String x:Key="AzaharConfig_Title">Azahar Configuration</system:String>
     <system:String x:Key="AzaharConfig_Video_Header">Video &amp; Renderer</system:String>
     <system:String x:Key="AzaharConfig_GraphicsApi_Label">Graphics API:</system:String>
@@ -1619,7 +1616,6 @@
     <system:String x:Key="AzaharConfig_Save_Button">Save</system:String>
     <system:String x:Key="AzaharConfig_Run_Button">Inject &amp; Run</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Cancel</system:String>
-
     <system:String x:Key="YumirConfig_Title">Yumir (Ymir) Configuration</system:String>
     <system:String x:Key="YumirConfig_Video_Header">Video Settings</system:String>
     <system:String x:Key="YumirConfig_Audio_Header">Audio Settings</system:String>
@@ -1646,5 +1642,9 @@
     <system:String x:Key="YumirConfig_Save_Button">Save</system:String>
     <system:String x:Key="YumirConfig_Run_Button">Inject &amp; Run</system:String>
     <system:String x:Key="YumirConfig_Cancel_Button">Cancel</system:String>
-
+    <system:String x:Key="EnterUsernamePassword">Please enter your RetroAchievements username and password first.</system:String>
+    <system:String x:Key="MissingInformation">Missing Information</system:String>    
+    
+    
+    
 </ResourceDictionary>

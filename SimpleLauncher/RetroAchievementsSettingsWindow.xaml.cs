@@ -114,7 +114,7 @@ public partial class RetroAchievementsSettingsWindow
             // 1. Ensure user entered credentials before attempting injection
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show((string)Application.Current.TryFindResource("EnterUsernamePassword") ?? "Please enter your RetroAchievements username and password first.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBoxLibrary.EnterUsernamePassword();
                 return;
             }
 

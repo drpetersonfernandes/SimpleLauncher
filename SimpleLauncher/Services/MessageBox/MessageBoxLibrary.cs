@@ -3597,4 +3597,17 @@ internal static class MessageBoxLibrary
     {
         // TODO
     }
+
+    public static void EnterUsernamePassword()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("EnterUsernamePassword") ?? "Please enter your RetroAchievements username and password first.";
+            var message2 = (string)Application.Current.TryFindResource("MissingInformation") ?? "Missing Information";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
 }
