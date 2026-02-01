@@ -28,300 +28,299 @@ public class SettingsManager
 
     [IgnoreMember] private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
 
-    [Key(0)] public int ThumbnailSize { get; set; }
-    [Key(1)] public int GamesPerPage { get; set; }
-    [Key(2)] public string ShowGames { get; set; }
-    [Key(3)] public string ViewMode { get; set; }
-    [Key(4)] public bool EnableGamePadNavigation { get; set; }
-    [Key(5)] public string VideoUrl { get; set; }
-    [Key(6)] public string InfoUrl { get; set; }
-    [Key(7)] public string BaseTheme { get; set; }
-    [Key(8)] public string AccentColor { get; set; }
-    [Key(9)] public string Language { get; set; }
-    [Key(10)] public float DeadZoneX { get; set; }
-    [Key(11)] public float DeadZoneY { get; set; }
-    [Key(12)] public string ButtonAspectRatio { get; set; }
-    [Key(13)] public bool EnableFuzzyMatching { get; set; }
-    [Key(14)] public double FuzzyMatchingThreshold { get; set; }
+    // Application Settings
+    public int ThumbnailSize { get; set; }
+    public int GamesPerPage { get; set; }
+    public string ShowGames { get; set; }
+    public string ViewMode { get; set; }
+    public bool EnableGamePadNavigation { get; set; }
+    public string VideoUrl { get; set; }
+    public string InfoUrl { get; set; }
+    public string BaseTheme { get; set; }
+    public string AccentColor { get; set; }
+    public string Language { get; set; }
+    public float DeadZoneX { get; set; }
+    public float DeadZoneY { get; set; }
+    public string ButtonAspectRatio { get; set; }
+    public bool EnableFuzzyMatching { get; set; }
+    public double FuzzyMatchingThreshold { get; set; }
     [IgnoreMember] public const float DefaultDeadZoneX = 0.05f;
     [IgnoreMember] public const float DefaultDeadZoneY = 0.02f;
-    [Key(15)] public bool EnableNotificationSound { get; set; }
-    [Key(16)] public string CustomNotificationSoundFile { get; set; }
-    [Key(17)] public string RaUsername { get; set; }
-    [Key(18)] public string RaApiKey { get; set; }
-    [Key(19)] public string RaPassword { get; set; }
-    [Key(30)] public string RaToken { get; set; }
-    [Key(20)] public bool OverlayRetroAchievementButton { get; set; }
-    [Key(21)] public bool OverlayOpenVideoButton { get; set; }
-    [Key(22)] public bool OverlayOpenInfoButton { get; set; }
-    [Key(23)] public bool AdditionalSystemFoldersExpanded { get; set; }
-    [Key(24)] public bool Emulator1Expanded { get; set; }
-    [Key(25)] public bool Emulator2Expanded { get; set; }
-    [Key(26)] public bool Emulator3Expanded { get; set; }
-    [Key(27)] public bool Emulator4Expanded { get; set; }
-    [Key(28)] public bool Emulator5Expanded { get; set; }
-    [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
+    public bool EnableNotificationSound { get; set; }
+    public string CustomNotificationSoundFile { get; set; }
+    public string RaUsername { get; set; }
+    public string RaApiKey { get; set; }
+    public string RaPassword { get; set; }
+    public string RaToken { get; set; }
+    public bool OverlayRetroAchievementButton { get; set; }
+    public bool OverlayOpenVideoButton { get; set; }
+    public bool OverlayOpenInfoButton { get; set; }
+    public bool AdditionalSystemFoldersExpanded { get; set; }
+    public bool Emulator1Expanded { get; set; }
+    public bool Emulator2Expanded { get; set; }
+    public bool Emulator3Expanded { get; set; }
+    public bool Emulator4Expanded { get; set; }
+    public bool Emulator5Expanded { get; set; }
+    public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
-    // --- Xenia
-    [Key(31)] public string XeniaGpu { get; set; } = "d3d12"; // d3d12, vulkan, null
-    [Key(32)] public bool XeniaVsync { get; set; } = true;
-    [Key(33)] public int XeniaResScaleX { get; set; } = 1;
-    [Key(34)] public int XeniaResScaleY { get; set; } = 1;
-    [Key(35)] public bool XeniaFullscreen { get; set; }
-    [Key(36)] public string XeniaApu { get; set; } = "xaudio2"; // xaudio2, sdl, nop, any
-    [Key(37)] public bool XeniaMute { get; set; }
-    [Key(38)] public string XeniaAa { get; set; } = ""; // "", fxaa, fxaa_extreme
-    [Key(39)] public string XeniaScaling { get; set; } = "fsr"; // fsr, cas, bilinear
-    [Key(40)] public bool XeniaApplyPatches { get; set; } = true;
-    [Key(41)] public bool XeniaDiscordPresence { get; set; } = true;
-    [Key(42)] public int XeniaUserLanguage { get; set; } = 1; // 1=English
-    [Key(43)] public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
-    [Key(44)] public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
+    // Ares
+    public string AresVideoDriver { get; set; } = "OpenGL 3.2";
+    public bool AresExclusive { get; set; } // Fullscreen
+    public string AresShader { get; set; } = "None";
+    public int AresMultiplier { get; set; } = 2;
+    public string AresAspectCorrection { get; set; } = "Standard";
+    public bool AresMute { get; set; }
+    public double AresVolume { get; set; } = 1.0;
+    public bool AresFastBoot { get; set; }
+    public bool AresRewind { get; set; }
+    public bool AresRunAhead { get; set; }
+    public bool AresAutoSaveMemory { get; set; } = true;
+    public bool AresShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- MAME
-    [Key(45)] public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
-    [Key(46)] public bool MameWindow { get; set; }
-    [Key(47)] public bool MameMaximize { get; set; } = true;
-    [Key(48)] public bool MameKeepAspect { get; set; } = true;
-    [Key(49)] public bool MameSkipGameInfo { get; set; } = true;
-    [Key(50)] public bool MameAutosave { get; set; }
-    [Key(51)] public bool MameConfirmQuit { get; set; }
-    [Key(52)] public bool MameJoystick { get; set; } = true;
-    [Key(53)] public bool MameShowSettingsBeforeLaunch { get; set; } = true;
-    [Key(70)] public bool MameAutoframeskip { get; set; }
-    [Key(71)] public string MameBgfxBackend { get; set; } = "auto";
-    [Key(72)] public string MameBgfxScreenChains { get; set; } = "default";
-    [Key(73)] public bool MameFilter { get; set; } = true;
-    [Key(74)] public bool MameCheat { get; set; }
-    [Key(75)] public bool MameRewind { get; set; }
-    [Key(76)] public bool MameNvramSave { get; set; } = true;
+    // Azahar
+    public int AzaharGraphicsApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
+    public bool AzaharUseVsync { get; set; } = true;
+    public bool AzaharAsyncShaderCompilation { get; set; } = true;
+    public bool AzaharFullscreen { get; set; } = true;
+    public int AzaharVolume { get; set; } = 100;
+    public bool AzaharIsNew3ds { get; set; } = true;
+    public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
+    public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- RetroArch Global Configuration ---
-    [Key(54)] public bool RetroArchCheevosEnable { get; set; }
-    [Key(55)] public bool RetroArchCheevosHardcore { get; set; }
-    [Key(56)] public bool RetroArchFullscreen { get; set; }
-    [Key(57)] public bool RetroArchVsync { get; set; } = true;
-    [Key(58)] public string RetroArchVideoDriver { get; set; } = "gl";
-    [Key(59)] public bool RetroArchAudioEnable { get; set; } = true;
-    [Key(60)] public bool RetroArchAudioMute { get; set; }
-    [Key(61)] public string RetroArchMenuDriver { get; set; } = "ozone";
-    [Key(62)] public bool RetroArchPauseNonActive { get; set; } = true;
-    [Key(63)] public bool RetroArchSaveOnExit { get; set; } = true;
-    [Key(64)] public bool RetroArchAutoSaveState { get; set; }
-    [Key(65)] public bool RetroArchAutoLoadState { get; set; }
-    [Key(66)] public bool RetroArchRewind { get; set; }
-    [Key(67)] public bool RetroArchThreadedVideo { get; set; }
-    [Key(68)] public bool RetroArchBilinear { get; set; }
-    [Key(69)] public bool RetroArchShowSettingsBeforeLaunch { get; set; } = true;
-    [Key(77)] public string RetroArchAspectRatioIndex { get; set; } = "22"; // 22 = Core Provided
-    [Key(78)] public bool RetroArchScaleInteger { get; set; }
-    [Key(79)] public bool RetroArchShaderEnable { get; set; } = true;
-    [Key(80)] public bool RetroArchHardSync { get; set; }
-    [Key(81)] public bool RetroArchRunAhead { get; set; }
-    [Key(82)] public bool RetroArchShowAdvancedSettings { get; set; } = true;
-    [Key(83)] public bool RetroArchDiscordAllow { get; set; }
+    // Blastem
+    public bool BlastemFullscreen { get; set; }
+    public bool BlastemVsync { get; set; }
+    public string BlastemAspect { get; set; } = "4:3";
+    public string BlastemScaling { get; set; } = "linear";
+    public bool BlastemScanlines { get; set; }
+    public int BlastemAudioRate { get; set; } = 48000;
+    public string BlastemSyncSource { get; set; } = "audio";
+    public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Xenia Advanced Configuration ---
-    [Key(84)] public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
-    [Key(85)] public bool XeniaGammaSrgb { get; set; }
-    [Key(86)] public bool XeniaVibration { get; set; } = true;
-    [Key(87)] public bool XeniaMountCache { get; set; } = true;
+    // Cemu
+    public bool CemuFullscreen { get; set; }
+    public int CemuGraphicApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    public int CemuVsync { get; set; } = 1; // 0=Off, 1=On
+    public bool CemuAsyncCompile { get; set; } = true;
+    public int CemuTvVolume { get; set; } = 50;
+    public int CemuConsoleLanguage { get; set; } = 1; // 1=English
+    public bool CemuDiscordPresence { get; set; } = true;
+    public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Supermodel Global Configuration ---
-    [Key(100)] public bool SupermodelNew3DEngine { get; set; } = true;
-    [Key(101)] public bool SupermodelQuadRendering { get; set; }
-    [Key(102)] public bool SupermodelFullscreen { get; set; } = true;
-    [Key(103)] public int SupermodelResX { get; set; } = 1920;
-    [Key(104)] public int SupermodelResY { get; set; } = 1080;
-    [Key(105)] public bool SupermodelWideScreen { get; set; } = true;
-    [Key(106)] public bool SupermodelStretch { get; set; }
-    [Key(107)] public bool SupermodelVsync { get; set; } = true;
-    [Key(108)] public bool SupermodelThrottle { get; set; } = true;
-    [Key(109)] public int SupermodelMusicVolume { get; set; } = 100;
-    [Key(110)] public int SupermodelSoundVolume { get; set; } = 100;
-    [Key(111)] public string SupermodelInputSystem { get; set; } = "xinput";
-    [Key(112)] public bool SupermodelMultiThreaded { get; set; } = true;
-    [Key(113)] public int SupermodelPowerPcFrequency { get; set; } = 50;
-    [Key(114)] public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
+    // Daphne
+    public bool DaphneFullscreen { get; set; }
+    public int DaphneResX { get; set; } = 640;
+    public int DaphneResY { get; set; } = 480;
+    public bool DaphneDisableCrosshairs { get; set; }
+    public bool DaphneBilinear { get; set; } = true;
+    public bool DaphneEnableSound { get; set; } = true;
+    public bool DaphneUseOverlays { get; set; } = true;
+    public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Mednafen Global Configuration ---
-    [Key(120)] public string MednafenVideoDriver { get; set; } = "opengl";
-    [Key(121)] public bool MednafenFullscreen { get; set; }
-    [Key(122)] public bool MednafenVsync { get; set; } = true;
-    [Key(123)] public string MednafenStretch { get; set; } = "aspect";
-    [Key(124)] public bool MednafenBilinear { get; set; }
-    [Key(125)] public int MednafenScanlines { get; set; }
-    [Key(126)] public string MednafenShader { get; set; } = "none";
-    [Key(127)] public int MednafenVolume { get; set; } = 100;
-    [Key(128)] public bool MednafenCheats { get; set; } = true;
-    [Key(129)] public bool MednafenRewind { get; set; }
-    [Key(130)] public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
+    // Dolphin
+    public string DolphinGfxBackend { get; set; } = "Vulkan";
+    public bool DolphinDspThread { get; set; } = true;
+    public bool DolphinWiimoteContinuousScanning { get; set; } = true;
+    public bool DolphinWiimoteEnableSpeaker { get; set; } = true;
+    public bool DolphinShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- SEGA Model 2 Global Configuration ---
-    [Key(140)] public int SegaModel2ResX { get; set; } = 640;
-    [Key(141)] public int SegaModel2ResY { get; set; } = 480;
-    [Key(142)] public int SegaModel2WideScreen { get; set; } // 0=4:3, 1=16:9, 2=16:10
-    [Key(143)] public bool SegaModel2Bilinear { get; set; } = true;
-    [Key(144)] public bool SegaModel2Trilinear { get; set; }
-    [Key(145)] public bool SegaModel2FilterTilemaps { get; set; }
-    [Key(146)] public bool SegaModel2DrawCross { get; set; } = true;
-    [Key(147)] public int SegaModel2Fsaa { get; set; }
-    [Key(148)] public bool SegaModel2XInput { get; set; }
-    [Key(149)] public bool SegaModel2EnableFf { get; set; }
-    [Key(150)] public bool SegaModel2HoldGears { get; set; }
-    [Key(151)] public bool SegaModel2UseRawInput { get; set; }
-    [Key(152)] public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
+    // DuckStation
+    public bool DuckStationStartFullscreen { get; set; }
+    public bool DuckStationPauseOnFocusLoss { get; set; } = true;
+    public bool DuckStationSaveStateOnExit { get; set; } = true;
+    public bool DuckStationRewindEnable { get; set; }
+    public int DuckStationRunaheadFrameCount { get; set; }
+    public string DuckStationRenderer { get; set; } = "Automatic";
+    public int DuckStationResolutionScale { get; set; } = 2;
+    public string DuckStationTextureFilter { get; set; } = "Nearest";
+    public bool DuckStationWidescreenHack { get; set; }
+    public bool DuckStationPgxpEnable { get; set; }
+    public string DuckStationAspectRatio { get; set; } = "16:9";
+    public bool DuckStationVsync { get; set; }
+    public int DuckStationOutputVolume { get; set; } = 100;
+    public bool DuckStationOutputMuted { get; set; }
+    public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Ares Global Configuration ---
-    [Key(160)] public string AresVideoDriver { get; set; } = "OpenGL 3.2";
-    [Key(161)] public bool AresExclusive { get; set; } // Fullscreen
-    [Key(162)] public string AresShader { get; set; } = "None";
-    [Key(163)] public int AresMultiplier { get; set; } = 2;
-    [Key(164)] public string AresAspectCorrection { get; set; } = "Standard";
-    [Key(165)] public bool AresMute { get; set; }
-    [Key(166)] public double AresVolume { get; set; } = 1.0;
-    [Key(167)] public bool AresFastBoot { get; set; }
-    [Key(168)] public bool AresRewind { get; set; }
-    [Key(169)] public bool AresRunAhead { get; set; }
-    [Key(170)] public bool AresAutoSaveMemory { get; set; } = true;
-    [Key(171)] public bool AresShowSettingsBeforeLaunch { get; set; } = true;
+    // Flycast
+    public bool FlycastFullscreen { get; set; }
+    public int FlycastWidth { get; set; } = 640;
+    public int FlycastHeight { get; set; } = 480;
+    public bool FlycastMaximized { get; set; }
+    public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Daphne Global Configuration ---
-    [Key(180)] public bool DaphneFullscreen { get; set; }
-    [Key(181)] public int DaphneResX { get; set; } = 640;
-    [Key(182)] public int DaphneResY { get; set; } = 480;
-    [Key(183)] public bool DaphneDisableCrosshairs { get; set; }
-    [Key(184)] public bool DaphneBilinear { get; set; } = true;
-    [Key(185)] public bool DaphneEnableSound { get; set; } = true;
-    [Key(186)] public bool DaphneUseOverlays { get; set; } = true;
-    [Key(187)] public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
+    // MAME
+    public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
+    public bool MameWindow { get; set; }
+    public bool MameMaximize { get; set; } = true;
+    public bool MameKeepAspect { get; set; } = true;
+    public bool MameSkipGameInfo { get; set; } = true;
+    public bool MameAutosave { get; set; }
+    public bool MameConfirmQuit { get; set; }
+    public bool MameJoystick { get; set; } = true;
+    public bool MameShowSettingsBeforeLaunch { get; set; } = true;
+    public bool MameAutoframeskip { get; set; }
+    public string MameBgfxBackend { get; set; } = "auto";
+    public string MameBgfxScreenChains { get; set; } = "default";
+    public bool MameFilter { get; set; } = true;
+    public bool MameCheat { get; set; }
+    public bool MameRewind { get; set; }
+    public bool MameNvramSave { get; set; } = true;
 
-    // --- Blastem Global Configuration ---
-    [Key(200)] public bool BlastemFullscreen { get; set; }
-    [Key(201)] public bool BlastemVsync { get; set; }
-    [Key(202)] public string BlastemAspect { get; set; } = "4:3";
-    [Key(203)] public string BlastemScaling { get; set; } = "linear";
-    [Key(204)] public bool BlastemScanlines { get; set; }
-    [Key(205)] public int BlastemAudioRate { get; set; } = 48000;
-    [Key(206)] public string BlastemSyncSource { get; set; } = "audio";
-    [Key(207)] public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
+    // Mednafen
+    public string MednafenVideoDriver { get; set; } = "opengl";
+    public bool MednafenFullscreen { get; set; }
+    public bool MednafenVsync { get; set; } = true;
+    public string MednafenStretch { get; set; } = "aspect";
+    public bool MednafenBilinear { get; set; }
+    public int MednafenScanlines { get; set; }
+    public string MednafenShader { get; set; } = "none";
+    public int MednafenVolume { get; set; } = 100;
+    public bool MednafenCheats { get; set; } = true;
+    public bool MednafenRewind { get; set; }
+    public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Mesen Global Configuration ---
-    [Key(220)] public bool MesenFullscreen { get; set; }
-    [Key(221)] public bool MesenVsync { get; set; }
-    [Key(222)] public string MesenAspectRatio { get; set; } = "NoStretching";
-    [Key(223)] public bool MesenBilinear { get; set; }
-    [Key(224)] public string MesenVideoFilter { get; set; } = "None";
-    [Key(225)] public bool MesenEnableAudio { get; set; } = true;
-    [Key(226)] public int MesenMasterVolume { get; set; } = 100;
-    [Key(227)] public bool MesenRewind { get; set; }
-    [Key(228)] public int MesenRunAhead { get; set; }
-    [Key(229)] public bool MesenPauseInBackground { get; set; }
-    [Key(230)] public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
+    // Mesen
+    public bool MesenFullscreen { get; set; }
+    public bool MesenVsync { get; set; }
+    public string MesenAspectRatio { get; set; } = "NoStretching";
+    public bool MesenBilinear { get; set; }
+    public string MesenVideoFilter { get; set; } = "None";
+    public bool MesenEnableAudio { get; set; } = true;
+    public int MesenMasterVolume { get; set; } = 100;
+    public bool MesenRewind { get; set; }
+    public int MesenRunAhead { get; set; }
+    public bool MesenPauseInBackground { get; set; }
+    public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- DuckStation Global Configuration ---
-    [Key(240)] public bool DuckStationStartFullscreen { get; set; }
-    [Key(241)] public bool DuckStationPauseOnFocusLoss { get; set; } = true;
-    [Key(242)] public bool DuckStationSaveStateOnExit { get; set; } = true;
-    [Key(243)] public bool DuckStationRewindEnable { get; set; }
-    [Key(244)] public int DuckStationRunaheadFrameCount { get; set; }
-    [Key(245)] public string DuckStationRenderer { get; set; } = "Automatic";
-    [Key(246)] public int DuckStationResolutionScale { get; set; } = 2;
-    [Key(247)] public string DuckStationTextureFilter { get; set; } = "Nearest";
-    [Key(248)] public bool DuckStationWidescreenHack { get; set; }
-    [Key(249)] public bool DuckStationPgxpEnable { get; set; }
-    [Key(250)] public string DuckStationAspectRatio { get; set; } = "16:9";
-    [Key(251)] public bool DuckStationVsync { get; set; }
-    [Key(252)] public int DuckStationOutputVolume { get; set; } = 100;
-    [Key(253)] public bool DuckStationOutputMuted { get; set; }
-    [Key(254)] public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
+    // PCSX2
+    public bool Pcsx2StartFullscreen { get; set; } = true;
+    public string Pcsx2AspectRatio { get; set; } = "16:9"; // 4:3, 16:9, Stretch
+    public int Pcsx2Renderer { get; set; } = 14; // 14=Vulkan, 13=D3D12, 12=D3D11, 15=OpenGL, 11=Software
+    public int Pcsx2UpscaleMultiplier { get; set; } = 2; // 1 (Native) to 8
+    public int Pcsx2Vsync { get; set; } // 0=Off, 1=On
+    public bool Pcsx2EnableCheats { get; set; }
+    public bool Pcsx2EnableWidescreenPatches { get; set; }
+    public int Pcsx2Volume { get; set; } = 100;
+    public bool Pcsx2AchievementsEnabled { get; set; }
+    public bool Pcsx2AchievementsHardcore { get; set; } = true;
+    public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- RPCS3 Global Configuration ---
-    [Key(260)] public string Rpcs3Renderer { get; set; } = "Vulkan";
-    [Key(261)] public string Rpcs3Resolution { get; set; } = "1280x720";
-    [Key(262)] public string Rpcs3AspectRatio { get; set; } = "16:9";
-    [Key(263)] public bool Rpcs3Vsync { get; set; }
-    [Key(264)] public int Rpcs3ResolutionScale { get; set; } = 100;
-    [Key(265)] public int Rpcs3AnisotropicFilter { get; set; }
-    [Key(266)] public string Rpcs3PpuDecoder { get; set; } = "Recompiler (LLVM)";
-    [Key(267)] public string Rpcs3SpuDecoder { get; set; } = "Recompiler (LLVM)";
-    [Key(268)] public string Rpcs3AudioRenderer { get; set; } = "Cubeb";
-    [Key(269)] public bool Rpcs3AudioBuffering { get; set; } = true;
-    [Key(270)] public bool Rpcs3StartFullscreen { get; set; }
-    [Key(271)] public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
+    // RetroArch
+    public bool RetroArchCheevosEnable { get; set; }
+    public bool RetroArchCheevosHardcore { get; set; }
+    public bool RetroArchFullscreen { get; set; }
+    public bool RetroArchVsync { get; set; } = true;
+    public string RetroArchVideoDriver { get; set; } = "gl";
+    public bool RetroArchAudioEnable { get; set; } = true;
+    public bool RetroArchAudioMute { get; set; }
+    public string RetroArchMenuDriver { get; set; } = "ozone";
+    public bool RetroArchPauseNonActive { get; set; } = true;
+    public bool RetroArchSaveOnExit { get; set; } = true;
+    public bool RetroArchAutoSaveState { get; set; }
+    public bool RetroArchAutoLoadState { get; set; }
+    public bool RetroArchRewind { get; set; }
+    public bool RetroArchThreadedVideo { get; set; }
+    public bool RetroArchBilinear { get; set; }
+    public bool RetroArchShowSettingsBeforeLaunch { get; set; } = true;
+    public string RetroArchAspectRatioIndex { get; set; } = "22"; // 22 = Core Provided
+    public bool RetroArchScaleInteger { get; set; }
+    public bool RetroArchShaderEnable { get; set; } = true;
+    public bool RetroArchHardSync { get; set; }
+    public bool RetroArchRunAhead { get; set; }
+    public bool RetroArchShowAdvancedSettings { get; set; } = true;
+    public bool RetroArchDiscordAllow { get; set; }
 
-    // --- Flycast Global Configuration ---
-    [Key(280)] public bool FlycastFullscreen { get; set; }
-    [Key(281)] public int FlycastWidth { get; set; } = 640;
-    [Key(282)] public int FlycastHeight { get; set; } = 480;
-    [Key(283)] public bool FlycastMaximized { get; set; }
-    [Key(284)] public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
+    // RPCS3
+    public string Rpcs3Renderer { get; set; } = "Vulkan";
+    public string Rpcs3Resolution { get; set; } = "1280x720";
+    public string Rpcs3AspectRatio { get; set; } = "16:9";
+    public bool Rpcs3Vsync { get; set; }
+    public int Rpcs3ResolutionScale { get; set; } = 100;
+    public int Rpcs3AnisotropicFilter { get; set; }
+    public string Rpcs3PpuDecoder { get; set; } = "Recompiler (LLVM)";
+    public string Rpcs3SpuDecoder { get; set; } = "Recompiler (LLVM)";
+    public string Rpcs3AudioRenderer { get; set; } = "Cubeb";
+    public bool Rpcs3AudioBuffering { get; set; } = true;
+    public bool Rpcs3StartFullscreen { get; set; }
+    public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Stella Global Configuration ---
-    [Key(300)] public bool StellaFullscreen { get; set; }
-    [Key(301)] public bool StellaVsync { get; set; } = true;
-    [Key(302)] public string StellaVideoDriver { get; set; } = "direct3d";
-    [Key(303)] public bool StellaCorrectAspect { get; set; } = true;
-    [Key(304)] public int StellaTvFilter { get; set; }
-    [Key(305)] public int StellaScanlines { get; set; }
-    [Key(306)] public bool StellaAudioEnabled { get; set; } = true;
-    [Key(307)] public int StellaAudioVolume { get; set; } = 80;
-    [Key(308)] public bool StellaTimeMachine { get; set; } = true;
-    [Key(309)] public bool StellaConfirmExit { get; set; }
-    [Key(310)] public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
+    // SEGA Model 2
+    public int SegaModel2ResX { get; set; } = 640;
+    public int SegaModel2ResY { get; set; } = 480;
+    public int SegaModel2WideScreen { get; set; } // 0=4:3, 1=16:9, 2=16:10
+    public bool SegaModel2Bilinear { get; set; } = true;
+    public bool SegaModel2Trilinear { get; set; }
+    public bool SegaModel2FilterTilemaps { get; set; }
+    public bool SegaModel2DrawCross { get; set; } = true;
+    public int SegaModel2Fsaa { get; set; }
+    public bool SegaModel2XInput { get; set; }
+    public bool SegaModel2EnableFf { get; set; }
+    public bool SegaModel2HoldGears { get; set; }
+    public bool SegaModel2UseRawInput { get; set; }
+    public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Dolphin Global Configuration ---
-    [Key(320)] public string DolphinGfxBackend { get; set; } = "Vulkan";
-    [Key(321)] public bool DolphinDspThread { get; set; } = true;
-    [Key(322)] public bool DolphinWiimoteContinuousScanning { get; set; } = true;
-    [Key(323)] public bool DolphinWiimoteEnableSpeaker { get; set; } = true;
-    [Key(324)] public bool DolphinShowSettingsBeforeLaunch { get; set; } = true;
+    // Stella
+    public bool StellaFullscreen { get; set; }
+    public bool StellaVsync { get; set; } = true;
+    public string StellaVideoDriver { get; set; } = "direct3d";
+    public bool StellaCorrectAspect { get; set; } = true;
+    public int StellaTvFilter { get; set; }
+    public int StellaScanlines { get; set; }
+    public bool StellaAudioEnabled { get; set; } = true;
+    public int StellaAudioVolume { get; set; } = 80;
+    public bool StellaTimeMachine { get; set; } = true;
+    public bool StellaConfirmExit { get; set; }
+    public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Cemu Global Configuration ---
-    [Key(340)] public bool CemuFullscreen { get; set; }
-    [Key(341)] public int CemuGraphicApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
-    [Key(342)] public int CemuVsync { get; set; } = 1; // 0=Off, 1=On
-    [Key(343)] public bool CemuAsyncCompile { get; set; } = true;
-    [Key(344)] public int CemuTvVolume { get; set; } = 50;
-    [Key(345)] public int CemuConsoleLanguage { get; set; } = 1; // 1=English
-    [Key(346)] public bool CemuDiscordPresence { get; set; } = true;
-    [Key(347)] public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
+    // Supermodel
+    public bool SupermodelNew3DEngine { get; set; } = true;
+    public bool SupermodelQuadRendering { get; set; }
+    public bool SupermodelFullscreen { get; set; } = true;
+    public int SupermodelResX { get; set; } = 1920;
+    public int SupermodelResY { get; set; } = 1080;
+    public bool SupermodelWideScreen { get; set; } = true;
+    public bool SupermodelStretch { get; set; }
+    public bool SupermodelVsync { get; set; } = true;
+    public bool SupermodelThrottle { get; set; } = true;
+    public int SupermodelMusicVolume { get; set; } = 100;
+    public int SupermodelSoundVolume { get; set; } = 100;
+    public string SupermodelInputSystem { get; set; } = "xinput";
+    public bool SupermodelMultiThreaded { get; set; } = true;
+    public int SupermodelPowerPcFrequency { get; set; } = 50;
+    public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- PCSX2 Global Configuration ---
-    [Key(360)] public bool Pcsx2StartFullscreen { get; set; } = true;
-    [Key(361)] public string Pcsx2AspectRatio { get; set; } = "16:9"; // 4:3, 16:9, Stretch
-    [Key(362)] public int Pcsx2Renderer { get; set; } = 14; // 14=Vulkan, 13=D3D12, 12=D3D11, 15=OpenGL, 11=Software
-    [Key(363)] public int Pcsx2UpscaleMultiplier { get; set; } = 2; // 1 (Native) to 8
-    [Key(364)] public int Pcsx2Vsync { get; set; } // 0=Off, 1=On
-    [Key(365)] public bool Pcsx2EnableCheats { get; set; }
-    [Key(366)] public bool Pcsx2EnableWidescreenPatches { get; set; }
-    [Key(367)] public int Pcsx2Volume { get; set; } = 100;
-    [Key(368)] public bool Pcsx2AchievementsEnabled { get; set; }
-    [Key(369)] public bool Pcsx2AchievementsHardcore { get; set; } = true;
-    [Key(370)] public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
+    // Xenia
+    public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
+    public bool XeniaGammaSrgb { get; set; }
+    public bool XeniaVibration { get; set; } = true;
+    public bool XeniaMountCache { get; set; } = true;
+    public string XeniaGpu { get; set; } = "d3d12"; // d3d12, vulkan, null
+    public bool XeniaVsync { get; set; } = true;
+    public int XeniaResScaleX { get; set; } = 1;
+    public int XeniaResScaleY { get; set; } = 1;
+    public bool XeniaFullscreen { get; set; }
+    public string XeniaApu { get; set; } = "xaudio2"; // xaudio2, sdl, nop, any
+    public bool XeniaMute { get; set; }
+    public string XeniaAa { get; set; } = ""; // "", fxaa, fxaa_extreme
+    public string XeniaScaling { get; set; } = "fsr"; // fsr, cas, bilinear
+    public bool XeniaApplyPatches { get; set; } = true;
+    public bool XeniaDiscordPresence { get; set; } = true;
+    public int XeniaUserLanguage { get; set; } = 1; // 1=English
+    public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
+    public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
 
-    // --- Azahar
-    [Key(380)] public int AzaharGraphicsApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
-    [Key(381)] public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
-    [Key(382)] public bool AzaharUseVsync { get; set; } = true;
-    [Key(383)] public bool AzaharAsyncShaderCompilation { get; set; } = true;
-    [Key(384)] public bool AzaharFullscreen { get; set; } = true;
-    [Key(385)] public int AzaharVolume { get; set; } = 100;
-    [Key(386)] public bool AzaharIsNew3ds { get; set; } = true;
-    [Key(387)] public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
-    [Key(388)] public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
-
-    // --- Yumir
-    [Key(400)] public bool YumirFullscreen { get; set; }
-    [Key(401)] public double YumirVolume { get; set; } = 0.8;
-    [Key(402)] public bool YumirMute { get; set; }
-    [Key(403)] public string YumirVideoStandard { get; set; } = "PAL"; // PAL, NTSC
-    [Key(404)] public bool YumirAutoDetectRegion { get; set; } = true;
-    [Key(405)] public bool YumirPauseWhenUnfocused { get; set; }
-    [Key(406)] public double YumirForcedAspect { get; set; } = 1.7777777777777777;
-    [Key(407)] public bool YumirForceAspectRatio { get; set; }
-    [Key(408)] public bool YumirReduceLatency { get; set; } = true;
-    [Key(409)] public bool YumirShowSettingsBeforeLaunch { get; set; } = true;
+    // Yumir
+    public bool YumirFullscreen { get; set; }
+    public double YumirVolume { get; set; } = 0.8;
+    public bool YumirMute { get; set; }
+    public string YumirVideoStandard { get; set; } = "PAL"; // PAL, NTSC
+    public bool YumirAutoDetectRegion { get; set; } = true;
+    public bool YumirPauseWhenUnfocused { get; set; }
+    public double YumirForcedAspect { get; set; } = 1.7777777777777777;
+    public bool YumirForceAspectRatio { get; set; }
+    public bool YumirReduceLatency { get; set; } = true;
+    public bool YumirShowSettingsBeforeLaunch { get; set; } = true;
 
     [IgnoreMember] private const string DefaultSettingsFilePath = "settings.dat";
     [IgnoreMember] private const string OldSettingsFilePath = "settings.xml";
@@ -363,6 +362,7 @@ public class SettingsManager
 
     private void CopyFrom(SettingsManager other)
     {
+        // Application Settings
         ThumbnailSize = other.ThumbnailSize;
         GamesPerPage = other.GamesPerPage;
         ShowGames = other.ShowGames;
@@ -395,25 +395,91 @@ public class SettingsManager
         Emulator5Expanded = other.Emulator5Expanded;
         SystemPlayTimes = other.SystemPlayTimes ?? [];
 
-        // Xenia
-        XeniaGpu = other.XeniaGpu;
-        XeniaVsync = other.XeniaVsync;
-        XeniaResScaleX = other.XeniaResScaleX;
-        XeniaResScaleY = other.XeniaResScaleY;
-        XeniaFullscreen = other.XeniaFullscreen;
-        XeniaApu = other.XeniaApu;
-        XeniaMute = other.XeniaMute;
-        XeniaAa = other.XeniaAa;
-        XeniaScaling = other.XeniaScaling;
-        XeniaApplyPatches = other.XeniaApplyPatches;
-        XeniaDiscordPresence = other.XeniaDiscordPresence;
-        XeniaUserLanguage = other.XeniaUserLanguage;
-        XeniaHid = other.XeniaHid;
-        XeniaShowSettingsBeforeLaunch = other.XeniaShowSettingsBeforeLaunch;
-        XeniaReadbackResolve = other.XeniaReadbackResolve;
-        XeniaGammaSrgb = other.XeniaGammaSrgb;
-        XeniaVibration = other.XeniaVibration;
-        XeniaMountCache = other.XeniaMountCache;
+        // Ares
+        AresVideoDriver = other.AresVideoDriver;
+        AresExclusive = other.AresExclusive;
+        AresShader = other.AresShader;
+        AresMultiplier = other.AresMultiplier;
+        AresAspectCorrection = other.AresAspectCorrection;
+        AresMute = other.AresMute;
+        AresVolume = other.AresVolume;
+        AresFastBoot = other.AresFastBoot;
+        AresRewind = other.AresRewind;
+        AresRunAhead = other.AresRunAhead;
+        AresAutoSaveMemory = other.AresAutoSaveMemory;
+        AresShowSettingsBeforeLaunch = other.AresShowSettingsBeforeLaunch;
+
+        // Azahar
+        AzaharGraphicsApi = other.AzaharGraphicsApi;
+        AzaharResolutionFactor = other.AzaharResolutionFactor;
+        AzaharUseVsync = other.AzaharUseVsync;
+        AzaharAsyncShaderCompilation = other.AzaharAsyncShaderCompilation;
+        AzaharFullscreen = other.AzaharFullscreen;
+        AzaharVolume = other.AzaharVolume;
+        AzaharIsNew3ds = other.AzaharIsNew3ds;
+        AzaharLayoutOption = other.AzaharLayoutOption;
+        AzaharShowSettingsBeforeLaunch = other.AzaharShowSettingsBeforeLaunch;
+
+        // Blastem
+        BlastemFullscreen = other.BlastemFullscreen;
+        BlastemVsync = other.BlastemVsync;
+        BlastemAspect = other.BlastemAspect;
+        BlastemScaling = other.BlastemScaling;
+        BlastemScanlines = other.BlastemScanlines;
+        BlastemAudioRate = other.BlastemAudioRate;
+        BlastemSyncSource = other.BlastemSyncSource;
+        BlastemShowSettingsBeforeLaunch = other.BlastemShowSettingsBeforeLaunch;
+
+        // Cemu
+        CemuFullscreen = other.CemuFullscreen;
+        CemuGraphicApi = other.CemuGraphicApi;
+        CemuVsync = other.CemuVsync;
+        CemuAsyncCompile = other.CemuAsyncCompile;
+        CemuTvVolume = other.CemuTvVolume;
+        CemuConsoleLanguage = other.CemuConsoleLanguage;
+        CemuDiscordPresence = other.CemuDiscordPresence;
+        CemuShowSettingsBeforeLaunch = other.CemuShowSettingsBeforeLaunch;
+
+        // Daphne
+        DaphneFullscreen = other.DaphneFullscreen;
+        DaphneResX = other.DaphneResX;
+        DaphneResY = other.DaphneResY;
+        DaphneDisableCrosshairs = other.DaphneDisableCrosshairs;
+        DaphneBilinear = other.DaphneBilinear;
+        DaphneEnableSound = other.DaphneEnableSound;
+        DaphneUseOverlays = other.DaphneUseOverlays;
+        DaphneShowSettingsBeforeLaunch = other.DaphneShowSettingsBeforeLaunch;
+
+        // Dolphin
+        DolphinGfxBackend = other.DolphinGfxBackend;
+        DolphinDspThread = other.DolphinDspThread;
+        DolphinWiimoteContinuousScanning = other.DolphinWiimoteContinuousScanning;
+        DolphinWiimoteEnableSpeaker = other.DolphinWiimoteEnableSpeaker;
+        DolphinShowSettingsBeforeLaunch = other.DolphinShowSettingsBeforeLaunch;
+
+        // DuckStation
+        DuckStationStartFullscreen = other.DuckStationStartFullscreen;
+        DuckStationPauseOnFocusLoss = other.DuckStationPauseOnFocusLoss;
+        DuckStationSaveStateOnExit = other.DuckStationSaveStateOnExit;
+        DuckStationRewindEnable = other.DuckStationRewindEnable;
+        DuckStationRunaheadFrameCount = other.DuckStationRunaheadFrameCount;
+        DuckStationRenderer = other.DuckStationRenderer;
+        DuckStationResolutionScale = other.DuckStationResolutionScale;
+        DuckStationTextureFilter = other.DuckStationTextureFilter;
+        DuckStationWidescreenHack = other.DuckStationWidescreenHack;
+        DuckStationPgxpEnable = other.DuckStationPgxpEnable;
+        DuckStationAspectRatio = other.DuckStationAspectRatio;
+        DuckStationVsync = other.DuckStationVsync;
+        DuckStationOutputVolume = other.DuckStationOutputVolume;
+        DuckStationOutputMuted = other.DuckStationOutputMuted;
+        DuckStationShowSettingsBeforeLaunch = other.DuckStationShowSettingsBeforeLaunch;
+
+        // Flycast
+        FlycastFullscreen = other.FlycastFullscreen;
+        FlycastWidth = other.FlycastWidth;
+        FlycastHeight = other.FlycastHeight;
+        FlycastMaximized = other.FlycastMaximized;
+        FlycastShowSettingsBeforeLaunch = other.FlycastShowSettingsBeforeLaunch;
 
         // MAME
         MameVideo = other.MameVideo;
@@ -432,6 +498,45 @@ public class SettingsManager
         MameCheat = other.MameCheat;
         MameRewind = other.MameRewind;
         MameNvramSave = other.MameNvramSave;
+
+        // Mednafen
+        MednafenVideoDriver = other.MednafenVideoDriver;
+        MednafenFullscreen = other.MednafenFullscreen;
+        MednafenVsync = other.MednafenVsync;
+        MednafenStretch = other.MednafenStretch;
+        MednafenBilinear = other.MednafenBilinear;
+        MednafenScanlines = other.MednafenScanlines;
+        MednafenShader = other.MednafenShader;
+        MednafenVolume = other.MednafenVolume;
+        MednafenCheats = other.MednafenCheats;
+        MednafenRewind = other.MednafenRewind;
+        MednafenShowSettingsBeforeLaunch = other.MednafenShowSettingsBeforeLaunch;
+
+        // Mesen
+        MesenFullscreen = other.MesenFullscreen;
+        MesenVsync = other.MesenVsync;
+        MesenAspectRatio = other.MesenAspectRatio;
+        MesenBilinear = other.MesenBilinear;
+        MesenVideoFilter = other.MesenVideoFilter;
+        MesenEnableAudio = other.MesenEnableAudio;
+        MesenMasterVolume = other.MesenMasterVolume;
+        MesenRewind = other.MesenRewind;
+        MesenRunAhead = other.MesenRunAhead;
+        MesenPauseInBackground = other.MesenPauseInBackground;
+        MesenShowSettingsBeforeLaunch = other.MesenShowSettingsBeforeLaunch;
+
+        // PCSX2
+        Pcsx2StartFullscreen = other.Pcsx2StartFullscreen;
+        Pcsx2AspectRatio = other.Pcsx2AspectRatio;
+        Pcsx2Renderer = other.Pcsx2Renderer;
+        Pcsx2UpscaleMultiplier = other.Pcsx2UpscaleMultiplier;
+        Pcsx2Vsync = other.Pcsx2Vsync;
+        Pcsx2EnableCheats = other.Pcsx2EnableCheats;
+        Pcsx2EnableWidescreenPatches = other.Pcsx2EnableWidescreenPatches;
+        Pcsx2Volume = other.Pcsx2Volume;
+        Pcsx2AchievementsEnabled = other.Pcsx2AchievementsEnabled;
+        Pcsx2AchievementsHardcore = other.Pcsx2AchievementsHardcore;
+        Pcsx2ShowSettingsBeforeLaunch = other.Pcsx2ShowSettingsBeforeLaunch;
 
         // RetroArch
         RetroArchCheevosEnable = other.RetroArchCheevosEnable;
@@ -458,6 +563,48 @@ public class SettingsManager
         RetroArchShowAdvancedSettings = other.RetroArchShowAdvancedSettings;
         RetroArchDiscordAllow = other.RetroArchDiscordAllow;
 
+        // RPCS3
+        Rpcs3Renderer = other.Rpcs3Renderer;
+        Rpcs3Resolution = other.Rpcs3Resolution;
+        Rpcs3AspectRatio = other.Rpcs3AspectRatio;
+        Rpcs3Vsync = other.Rpcs3Vsync;
+        Rpcs3ResolutionScale = other.Rpcs3ResolutionScale;
+        Rpcs3AnisotropicFilter = other.Rpcs3AnisotropicFilter;
+        Rpcs3PpuDecoder = other.Rpcs3PpuDecoder;
+        Rpcs3SpuDecoder = other.Rpcs3SpuDecoder;
+        Rpcs3AudioRenderer = other.Rpcs3AudioRenderer;
+        Rpcs3AudioBuffering = other.Rpcs3AudioBuffering;
+        Rpcs3StartFullscreen = other.Rpcs3StartFullscreen;
+        Rpcs3ShowSettingsBeforeLaunch = other.Rpcs3ShowSettingsBeforeLaunch;
+
+        // Sega Model 2
+        SegaModel2ResX = other.SegaModel2ResX;
+        SegaModel2ResY = other.SegaModel2ResY;
+        SegaModel2WideScreen = other.SegaModel2WideScreen;
+        SegaModel2Bilinear = other.SegaModel2Bilinear;
+        SegaModel2Trilinear = other.SegaModel2Trilinear;
+        SegaModel2FilterTilemaps = other.SegaModel2FilterTilemaps;
+        SegaModel2DrawCross = other.SegaModel2DrawCross;
+        SegaModel2Fsaa = other.SegaModel2Fsaa;
+        SegaModel2XInput = other.SegaModel2XInput;
+        SegaModel2EnableFf = other.SegaModel2EnableFf;
+        SegaModel2HoldGears = other.SegaModel2HoldGears;
+        SegaModel2UseRawInput = other.SegaModel2UseRawInput;
+        SegaModel2ShowSettingsBeforeLaunch = other.SegaModel2ShowSettingsBeforeLaunch;
+
+        // Stella
+        StellaFullscreen = other.StellaFullscreen;
+        StellaVsync = other.StellaVsync;
+        StellaVideoDriver = other.StellaVideoDriver;
+        StellaCorrectAspect = other.StellaCorrectAspect;
+        StellaTvFilter = other.StellaTvFilter;
+        StellaScanlines = other.StellaScanlines;
+        StellaAudioEnabled = other.StellaAudioEnabled;
+        StellaAudioVolume = other.StellaAudioVolume;
+        StellaTimeMachine = other.StellaTimeMachine;
+        StellaConfirmExit = other.StellaConfirmExit;
+        StellaShowSettingsBeforeLaunch = other.StellaShowSettingsBeforeLaunch;
+
         // Supermodel
         SupermodelNew3DEngine = other.SupermodelNew3DEngine;
         SupermodelQuadRendering = other.SupermodelQuadRendering;
@@ -475,183 +622,37 @@ public class SettingsManager
         SupermodelPowerPcFrequency = other.SupermodelPowerPcFrequency;
         SupermodelShowSettingsBeforeLaunch = other.SupermodelShowSettingsBeforeLaunch;
 
-        // Mednafen
-        MednafenVideoDriver = other.MednafenVideoDriver;
-        MednafenFullscreen = other.MednafenFullscreen;
-        MednafenVsync = other.MednafenVsync;
-        MednafenStretch = other.MednafenStretch;
-        MednafenBilinear = other.MednafenBilinear;
-        MednafenScanlines = other.MednafenScanlines;
-        MednafenShader = other.MednafenShader;
-        MednafenVolume = other.MednafenVolume;
-        MednafenCheats = other.MednafenCheats;
-        MednafenRewind = other.MednafenRewind;
-        MednafenShowSettingsBeforeLaunch = other.MednafenShowSettingsBeforeLaunch;
+        // Xenia
+        XeniaGpu = other.XeniaGpu;
+        XeniaVsync = other.XeniaVsync;
+        XeniaResScaleX = other.XeniaResScaleX;
+        XeniaResScaleY = other.XeniaResScaleY;
+        XeniaFullscreen = other.XeniaFullscreen;
+        XeniaApu = other.XeniaApu;
+        XeniaMute = other.XeniaMute;
+        XeniaAa = other.XeniaAa;
+        XeniaScaling = other.XeniaScaling;
+        XeniaApplyPatches = other.XeniaApplyPatches;
+        XeniaDiscordPresence = other.XeniaDiscordPresence;
+        XeniaUserLanguage = other.XeniaUserLanguage;
+        XeniaHid = other.XeniaHid;
+        XeniaShowSettingsBeforeLaunch = other.XeniaShowSettingsBeforeLaunch;
+        XeniaReadbackResolve = other.XeniaReadbackResolve;
+        XeniaGammaSrgb = other.XeniaGammaSrgb;
+        XeniaVibration = other.XeniaVibration;
+        XeniaMountCache = other.XeniaMountCache;
 
-        // Sega Model 2
-        SegaModel2ResX = other.SegaModel2ResX;
-        SegaModel2ResY = other.SegaModel2ResY;
-        SegaModel2WideScreen = other.SegaModel2WideScreen;
-        SegaModel2Bilinear = other.SegaModel2Bilinear;
-        SegaModel2Trilinear = other.SegaModel2Trilinear;
-        SegaModel2FilterTilemaps = other.SegaModel2FilterTilemaps;
-        SegaModel2DrawCross = other.SegaModel2DrawCross;
-        SegaModel2Fsaa = other.SegaModel2Fsaa;
-        SegaModel2XInput = other.SegaModel2XInput;
-        SegaModel2EnableFf = other.SegaModel2EnableFf;
-        SegaModel2HoldGears = other.SegaModel2HoldGears;
-        SegaModel2UseRawInput = other.SegaModel2UseRawInput;
-        SegaModel2ShowSettingsBeforeLaunch = other.SegaModel2ShowSettingsBeforeLaunch;
-
-        // Ares
-        AresVideoDriver = other.AresVideoDriver;
-        AresExclusive = other.AresExclusive;
-        AresShader = other.AresShader;
-        AresMultiplier = other.AresMultiplier;
-        AresAspectCorrection = other.AresAspectCorrection;
-        AresMute = other.AresMute;
-        AresVolume = other.AresVolume;
-        AresFastBoot = other.AresFastBoot;
-        AresRewind = other.AresRewind;
-        AresRunAhead = other.AresRunAhead;
-        AresAutoSaveMemory = other.AresAutoSaveMemory;
-        AresShowSettingsBeforeLaunch = other.AresShowSettingsBeforeLaunch;
-
-        // Daphne
-        DaphneFullscreen = other.DaphneFullscreen;
-        DaphneResX = other.DaphneResX;
-        DaphneResY = other.DaphneResY;
-        DaphneDisableCrosshairs = other.DaphneDisableCrosshairs;
-        DaphneBilinear = other.DaphneBilinear;
-        DaphneEnableSound = other.DaphneEnableSound;
-        DaphneUseOverlays = other.DaphneUseOverlays;
-        DaphneShowSettingsBeforeLaunch = other.DaphneShowSettingsBeforeLaunch;
-
-        // Blastem
-        BlastemFullscreen = other.BlastemFullscreen;
-        BlastemVsync = other.BlastemVsync;
-        BlastemAspect = other.BlastemAspect;
-        BlastemScaling = other.BlastemScaling;
-        BlastemScanlines = other.BlastemScanlines;
-        BlastemAudioRate = other.BlastemAudioRate;
-        BlastemSyncSource = other.BlastemSyncSource;
-        BlastemShowSettingsBeforeLaunch = other.BlastemShowSettingsBeforeLaunch;
-
-        // Mesen
-        MesenFullscreen = other.MesenFullscreen;
-        MesenVsync = other.MesenVsync;
-        MesenAspectRatio = other.MesenAspectRatio;
-        MesenBilinear = other.MesenBilinear;
-        MesenVideoFilter = other.MesenVideoFilter;
-        MesenEnableAudio = other.MesenEnableAudio;
-        MesenMasterVolume = other.MesenMasterVolume;
-        MesenRewind = other.MesenRewind;
-        MesenRunAhead = other.MesenRunAhead;
-        MesenPauseInBackground = other.MesenPauseInBackground;
-        MesenShowSettingsBeforeLaunch = other.MesenShowSettingsBeforeLaunch;
-
-        // DuckStation
-        DuckStationStartFullscreen = other.DuckStationStartFullscreen;
-        DuckStationPauseOnFocusLoss = other.DuckStationPauseOnFocusLoss;
-        DuckStationSaveStateOnExit = other.DuckStationSaveStateOnExit;
-        DuckStationRewindEnable = other.DuckStationRewindEnable;
-        DuckStationRunaheadFrameCount = other.DuckStationRunaheadFrameCount;
-        DuckStationRenderer = other.DuckStationRenderer;
-        DuckStationResolutionScale = other.DuckStationResolutionScale;
-        DuckStationTextureFilter = other.DuckStationTextureFilter;
-        DuckStationWidescreenHack = other.DuckStationWidescreenHack;
-        DuckStationPgxpEnable = other.DuckStationPgxpEnable;
-        DuckStationAspectRatio = other.DuckStationAspectRatio;
-        DuckStationVsync = other.DuckStationVsync;
-        DuckStationOutputVolume = other.DuckStationOutputVolume;
-        DuckStationOutputMuted = other.DuckStationOutputMuted;
-        DuckStationShowSettingsBeforeLaunch = other.DuckStationShowSettingsBeforeLaunch;
-
-        // RPCS3
-        Rpcs3Renderer = other.Rpcs3Renderer;
-        Rpcs3Resolution = other.Rpcs3Resolution;
-        Rpcs3AspectRatio = other.Rpcs3AspectRatio;
-        Rpcs3Vsync = other.Rpcs3Vsync;
-        Rpcs3ResolutionScale = other.Rpcs3ResolutionScale;
-        Rpcs3AnisotropicFilter = other.Rpcs3AnisotropicFilter;
-        Rpcs3PpuDecoder = other.Rpcs3PpuDecoder;
-        Rpcs3SpuDecoder = other.Rpcs3SpuDecoder;
-        Rpcs3AudioRenderer = other.Rpcs3AudioRenderer;
-        Rpcs3AudioBuffering = other.Rpcs3AudioBuffering;
-        Rpcs3StartFullscreen = other.Rpcs3StartFullscreen;
-        Rpcs3ShowSettingsBeforeLaunch = other.Rpcs3ShowSettingsBeforeLaunch;
-
-        // Flycast
-        FlycastFullscreen = other.FlycastFullscreen;
-        FlycastWidth = other.FlycastWidth;
-        FlycastHeight = other.FlycastHeight;
-        FlycastMaximized = other.FlycastMaximized;
-        FlycastShowSettingsBeforeLaunch = other.FlycastShowSettingsBeforeLaunch;
-
-        // Stella
-        StellaFullscreen = other.StellaFullscreen;
-        StellaVsync = other.StellaVsync;
-        StellaVideoDriver = other.StellaVideoDriver;
-        StellaCorrectAspect = other.StellaCorrectAspect;
-        StellaTvFilter = other.StellaTvFilter;
-        StellaScanlines = other.StellaScanlines;
-        StellaAudioEnabled = other.StellaAudioEnabled;
-        StellaAudioVolume = other.StellaAudioVolume;
-        StellaTimeMachine = other.StellaTimeMachine;
-        StellaConfirmExit = other.StellaConfirmExit;
-        StellaShowSettingsBeforeLaunch = other.StellaShowSettingsBeforeLaunch;
-
-        // Dolphin
-        DolphinGfxBackend = other.DolphinGfxBackend;
-        DolphinDspThread = other.DolphinDspThread;
-        DolphinWiimoteContinuousScanning = other.DolphinWiimoteContinuousScanning;
-        DolphinWiimoteEnableSpeaker = other.DolphinWiimoteEnableSpeaker;
-        DolphinShowSettingsBeforeLaunch = other.DolphinShowSettingsBeforeLaunch;
-
-        // Cemu
-        CemuFullscreen = false;
-        CemuGraphicApi = 1;
-        CemuVsync = 1;
-        CemuAsyncCompile = true;
-        CemuTvVolume = 50;
-        CemuConsoleLanguage = 1;
-        CemuDiscordPresence = true;
-        CemuShowSettingsBeforeLaunch = true;
-
-        // PCSX2
-        Pcsx2StartFullscreen = other.Pcsx2StartFullscreen;
-        Pcsx2AspectRatio = other.Pcsx2AspectRatio;
-        Pcsx2Renderer = other.Pcsx2Renderer;
-        Pcsx2UpscaleMultiplier = other.Pcsx2UpscaleMultiplier;
-        Pcsx2Vsync = other.Pcsx2Vsync;
-        Pcsx2EnableCheats = other.Pcsx2EnableCheats;
-        Pcsx2EnableWidescreenPatches = other.Pcsx2EnableWidescreenPatches;
-        Pcsx2Volume = other.Pcsx2Volume;
-        Pcsx2AchievementsEnabled = other.Pcsx2AchievementsEnabled;
-        Pcsx2AchievementsHardcore = other.Pcsx2AchievementsHardcore;
-        Pcsx2ShowSettingsBeforeLaunch = other.Pcsx2ShowSettingsBeforeLaunch;
-
-        // Azahar
-        AzaharGraphicsApi = 1;
-        AzaharResolutionFactor = 1;
-        AzaharUseVsync = true;
-        AzaharAsyncShaderCompilation = true;
-        AzaharFullscreen = true;
-        AzaharVolume = 100;
-        AzaharIsNew3ds = true;
-        AzaharLayoutOption = 0;
-        AzaharShowSettingsBeforeLaunch = true;
-
-        YumirFullscreen = false;
-        YumirVolume = 0.8;
-        YumirMute = false;
-        YumirVideoStandard = "PAL";
-        YumirAutoDetectRegion = true;
-        YumirPauseWhenUnfocused = false;
-        YumirForcedAspect = 1.7777777777777777;
-        YumirForceAspectRatio = false;
-        YumirReduceLatency = true;
-        YumirShowSettingsBeforeLaunch = true;
+        // Yumir
+        YumirFullscreen = other.YumirFullscreen;
+        YumirVolume = other.YumirVolume;
+        YumirMute = other.YumirMute;
+        YumirVideoStandard = other.YumirVideoStandard;
+        YumirAutoDetectRegion = other.YumirAutoDetectRegion;
+        YumirPauseWhenUnfocused = other.YumirPauseWhenUnfocused;
+        YumirForcedAspect = other.YumirForcedAspect;
+        YumirForceAspectRatio = other.YumirForceAspectRatio;
+        YumirReduceLatency = other.YumirReduceLatency;
+        YumirShowSettingsBeforeLaunch = other.YumirShowSettingsBeforeLaunch;
     }
 
     private bool MigrateFromXml()
@@ -667,6 +668,7 @@ public class SettingsManager
                 settings = XElement.Load(reader);
             }
 
+            // Application Settings
             ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
             ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
@@ -692,25 +694,91 @@ public class SettingsManager
             OverlayOpenVideoButton = !bool.TryParse(settings.Element("OverlayOpenVideoButton")?.Value, out var ovb) || ovb;
             OverlayOpenInfoButton = bool.TryParse(settings.Element("OverlayOpenInfoButton")?.Value, out var oib) && oib;
 
-            // Xenia
-            XeniaGpu = settings.Element("XeniaGpu")?.Value ?? "d3d12";
-            XeniaVsync = !bool.TryParse(settings.Element("XeniaVsync")?.Value, out var xv) || xv;
-            XeniaResScaleX = int.TryParse(settings.Element("XeniaResScaleX")?.Value, out var xrsx) ? xrsx : 1;
-            XeniaResScaleY = int.TryParse(settings.Element("XeniaResScaleY")?.Value, out var xrsy) ? xrsy : 1;
-            XeniaFullscreen = bool.TryParse(settings.Element("XeniaFullscreen")?.Value, out var xf) && xf;
-            XeniaApu = settings.Element("XeniaApu")?.Value ?? "xaudio2";
-            XeniaMute = bool.TryParse(settings.Element("XeniaMute")?.Value, out var xm) && xm;
-            XeniaAa = settings.Element("XeniaAa")?.Value ?? "";
-            XeniaScaling = settings.Element("XeniaScaling")?.Value ?? "fsr";
-            XeniaApplyPatches = !bool.TryParse(settings.Element("XeniaApplyPatches")?.Value, out var xap) || xap;
-            XeniaDiscordPresence = !bool.TryParse(settings.Element("XeniaDiscordPresence")?.Value, out var xdp) || xdp;
-            XeniaUserLanguage = int.TryParse(settings.Element("XeniaUserLanguage")?.Value, out var xul) ? xul : 1;
-            XeniaHid = settings.Element("XeniaHid")?.Value ?? "xinput";
-            XeniaShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xss) || xss;
-            XeniaReadbackResolve = "none";
-            XeniaGammaSrgb = false;
-            XeniaVibration = true;
-            XeniaMountCache = true;
+            // Ares
+            AresVideoDriver = "OpenGL 3.2";
+            AresExclusive = false;
+            AresShader = "None";
+            AresMultiplier = 2;
+            AresAspectCorrection = "Standard";
+            AresMute = false;
+            AresVolume = 1.0;
+            AresFastBoot = false;
+            AresRewind = false;
+            AresRunAhead = false;
+            AresAutoSaveMemory = true;
+            AresShowSettingsBeforeLaunch = true;
+
+            // Azahar
+            AzaharGraphicsApi = 1;
+            AzaharResolutionFactor = 1;
+            AzaharUseVsync = true;
+            AzaharAsyncShaderCompilation = true;
+            AzaharFullscreen = true;
+            AzaharVolume = 100;
+            AzaharIsNew3ds = true;
+            AzaharLayoutOption = 0;
+            AzaharShowSettingsBeforeLaunch = true;
+
+            // Blastem
+            BlastemFullscreen = false;
+            BlastemVsync = false;
+            BlastemAspect = "4:3";
+            BlastemScaling = "linear";
+            BlastemScanlines = false;
+            BlastemAudioRate = 48000;
+            BlastemSyncSource = "audio";
+            BlastemShowSettingsBeforeLaunch = true;
+
+            // Cemu
+            CemuFullscreen = false;
+            CemuGraphicApi = 1;
+            CemuVsync = 1;
+            CemuAsyncCompile = true;
+            CemuTvVolume = 50;
+            CemuConsoleLanguage = 1;
+            CemuDiscordPresence = true;
+            CemuShowSettingsBeforeLaunch = true;
+
+            // Daphne
+            DaphneFullscreen = false;
+            DaphneResX = 640;
+            DaphneResY = 480;
+            DaphneDisableCrosshairs = false;
+            DaphneBilinear = true;
+            DaphneEnableSound = true;
+            DaphneUseOverlays = true;
+            DaphneShowSettingsBeforeLaunch = true;
+
+            // Dolphin
+            DolphinGfxBackend = "Vulkan";
+            DolphinDspThread = true;
+            DolphinWiimoteContinuousScanning = true;
+            DolphinWiimoteEnableSpeaker = true;
+            DolphinShowSettingsBeforeLaunch = true;
+
+            // DuckStation
+            DuckStationStartFullscreen = false;
+            DuckStationPauseOnFocusLoss = true;
+            DuckStationSaveStateOnExit = true;
+            DuckStationRewindEnable = false;
+            DuckStationRunaheadFrameCount = 0;
+            DuckStationRenderer = "Automatic";
+            DuckStationResolutionScale = 2;
+            DuckStationTextureFilter = "Nearest";
+            DuckStationWidescreenHack = false;
+            DuckStationPgxpEnable = false;
+            DuckStationAspectRatio = "16:9";
+            DuckStationVsync = false;
+            DuckStationOutputVolume = 100;
+            DuckStationOutputMuted = false;
+            DuckStationShowSettingsBeforeLaunch = true;
+
+            // Flycast
+            FlycastFullscreen = false;
+            FlycastWidth = 640;
+            FlycastHeight = 480;
+            FlycastMaximized = false;
+            FlycastShowSettingsBeforeLaunch = true;
 
             // MAME
             MameVideo = settings.Element("MameVideo")?.Value ?? "auto";
@@ -729,6 +797,45 @@ public class SettingsManager
             MameCheat = bool.TryParse(settings.Element("MameCheat")?.Value, out var mc) && mc;
             MameRewind = bool.TryParse(settings.Element("MameRewind")?.Value, out var mr) && mr;
             MameNvramSave = !bool.TryParse(settings.Element("MameNvramSave")?.Value, out var mns) || mns;
+
+            // Mednafen
+            MednafenVideoDriver = "opengl";
+            MednafenFullscreen = false;
+            MednafenVsync = true;
+            MednafenStretch = "aspect";
+            MednafenBilinear = false;
+            MednafenScanlines = 0;
+            MednafenShader = "none";
+            MednafenVolume = 100;
+            MednafenCheats = true;
+            MednafenRewind = false;
+            MednafenShowSettingsBeforeLaunch = true;
+
+            // Mesen
+            MesenFullscreen = false;
+            MesenVsync = false;
+            MesenAspectRatio = "NoStretching";
+            MesenBilinear = false;
+            MesenVideoFilter = "None";
+            MesenEnableAudio = true;
+            MesenMasterVolume = 100;
+            MesenRewind = false;
+            MesenRunAhead = 0;
+            MesenPauseInBackground = false;
+            MesenShowSettingsBeforeLaunch = true;
+
+            // PCSX2
+            Pcsx2StartFullscreen = true;
+            Pcsx2AspectRatio = "16:9";
+            Pcsx2Renderer = 14;
+            Pcsx2UpscaleMultiplier = 2;
+            Pcsx2Vsync = 0;
+            Pcsx2EnableCheats = false;
+            Pcsx2EnableWidescreenPatches = false;
+            Pcsx2Volume = 100;
+            Pcsx2AchievementsEnabled = false;
+            Pcsx2AchievementsHardcore = true;
+            Pcsx2ShowSettingsBeforeLaunch = true;
 
             // RetroArch
             RetroArchCheevosEnable = bool.TryParse(settings.Element("RetroArchCheevosEnable")?.Value, out var race) && race;
@@ -755,7 +862,49 @@ public class SettingsManager
             RetroArchShowAdvancedSettings = !bool.TryParse(settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas) || rasas;
             RetroArchDiscordAllow = bool.TryParse(settings.Element("RetroArchDiscordAllow")?.Value, out var rada) && rada;
 
-            // Supermodel (set defaults during migration)
+            // RPCS3
+            Rpcs3Renderer = "Vulkan";
+            Rpcs3Resolution = "1280x720";
+            Rpcs3AspectRatio = "16:9";
+            Rpcs3Vsync = false;
+            Rpcs3ResolutionScale = 100;
+            Rpcs3AnisotropicFilter = 0;
+            Rpcs3PpuDecoder = "Recompiler (LLVM)";
+            Rpcs3SpuDecoder = "Recompiler (LLVM)";
+            Rpcs3AudioRenderer = "Cubeb";
+            Rpcs3AudioBuffering = true;
+            Rpcs3StartFullscreen = false;
+            Rpcs3ShowSettingsBeforeLaunch = true;
+
+            // Sega Model 2
+            SegaModel2ResX = 640;
+            SegaModel2ResY = 480;
+            SegaModel2WideScreen = 0;
+            SegaModel2Bilinear = true;
+            SegaModel2Trilinear = false;
+            SegaModel2FilterTilemaps = false;
+            SegaModel2DrawCross = true;
+            SegaModel2Fsaa = 0;
+            SegaModel2XInput = false;
+            SegaModel2EnableFf = false;
+            SegaModel2HoldGears = false;
+            SegaModel2UseRawInput = false;
+            SegaModel2ShowSettingsBeforeLaunch = true;
+
+            // Stella
+            StellaFullscreen = false;
+            StellaVsync = true;
+            StellaVideoDriver = "direct3d";
+            StellaCorrectAspect = true;
+            StellaTvFilter = 0;
+            StellaScanlines = 0;
+            StellaAudioEnabled = true;
+            StellaAudioVolume = 80;
+            StellaTimeMachine = true;
+            StellaConfirmExit = false;
+            StellaShowSettingsBeforeLaunch = true;
+
+            // Supermodel
             SupermodelNew3DEngine = true;
             SupermodelQuadRendering = false;
             SupermodelFullscreen = true;
@@ -772,173 +921,27 @@ public class SettingsManager
             SupermodelPowerPcFrequency = 50;
             SupermodelShowSettingsBeforeLaunch = true;
 
-            // Mednafen (set defaults during migration)
-            MednafenVideoDriver = "opengl";
-            MednafenFullscreen = false;
-            MednafenVsync = true;
-            MednafenStretch = "aspect";
-            MednafenBilinear = false;
-            MednafenScanlines = 0;
-            MednafenShader = "none";
-            MednafenVolume = 100;
-            MednafenCheats = true;
-            MednafenRewind = false;
-            MednafenShowSettingsBeforeLaunch = true;
+            // Xenia
+            XeniaGpu = settings.Element("XeniaGpu")?.Value ?? "d3d12";
+            XeniaVsync = !bool.TryParse(settings.Element("XeniaVsync")?.Value, out var xv) || xv;
+            XeniaResScaleX = int.TryParse(settings.Element("XeniaResScaleX")?.Value, out var xrsx) ? xrsx : 1;
+            XeniaResScaleY = int.TryParse(settings.Element("XeniaResScaleY")?.Value, out var xrsy) ? xrsy : 1;
+            XeniaFullscreen = bool.TryParse(settings.Element("XeniaFullscreen")?.Value, out var xf) && xf;
+            XeniaApu = settings.Element("XeniaApu")?.Value ?? "xaudio2";
+            XeniaMute = bool.TryParse(settings.Element("XeniaMute")?.Value, out var xm) && xm;
+            XeniaAa = settings.Element("XeniaAa")?.Value ?? "";
+            XeniaScaling = settings.Element("XeniaScaling")?.Value ?? "fsr";
+            XeniaApplyPatches = !bool.TryParse(settings.Element("XeniaApplyPatches")?.Value, out var xap) || xap;
+            XeniaDiscordPresence = !bool.TryParse(settings.Element("XeniaDiscordPresence")?.Value, out var xdp) || xdp;
+            XeniaUserLanguage = int.TryParse(settings.Element("XeniaUserLanguage")?.Value, out var xul) ? xul : 1;
+            XeniaHid = settings.Element("XeniaHid")?.Value ?? "xinput";
+            XeniaShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xss) || xss;
+            XeniaReadbackResolve = "none";
+            XeniaGammaSrgb = false;
+            XeniaVibration = true;
+            XeniaMountCache = true;
 
-            // Sega Model 2 (set defaults during migration)
-            SegaModel2ResX = 640;
-            SegaModel2ResY = 480;
-            SegaModel2WideScreen = 0;
-            SegaModel2Bilinear = true;
-            SegaModel2Trilinear = false;
-            SegaModel2FilterTilemaps = false;
-            SegaModel2DrawCross = true;
-            SegaModel2Fsaa = 0;
-            SegaModel2XInput = false;
-            SegaModel2EnableFf = false;
-            SegaModel2HoldGears = false;
-            SegaModel2UseRawInput = false;
-            SegaModel2ShowSettingsBeforeLaunch = true;
-
-            // Ares Defaults
-            AresVideoDriver = "OpenGL 3.2";
-            AresExclusive = false;
-            AresShader = "None";
-            AresMultiplier = 2;
-            AresAspectCorrection = "Standard";
-            AresMute = false;
-            AresVolume = 1.0;
-            AresFastBoot = false;
-            AresRewind = false;
-            AresRunAhead = false;
-            AresAutoSaveMemory = true;
-            AresShowSettingsBeforeLaunch = true;
-
-            // Daphne Defaults
-            DaphneFullscreen = false;
-            DaphneResX = 640;
-            DaphneResY = 480;
-            DaphneDisableCrosshairs = false;
-            DaphneBilinear = true;
-            DaphneEnableSound = true;
-            DaphneUseOverlays = true;
-            DaphneShowSettingsBeforeLaunch = true;
-
-            // Blastem Defaults
-            BlastemFullscreen = false;
-            BlastemVsync = false;
-            BlastemAspect = "4:3";
-            BlastemScaling = "linear";
-            BlastemScanlines = false;
-            BlastemAudioRate = 48000;
-            BlastemSyncSource = "audio";
-            BlastemShowSettingsBeforeLaunch = true;
-
-            // Mesen Defaults
-            MesenFullscreen = false;
-            MesenVsync = false;
-            MesenAspectRatio = "NoStretching";
-            MesenBilinear = false;
-            MesenVideoFilter = "None";
-            MesenEnableAudio = true;
-            MesenMasterVolume = 100;
-            MesenRewind = false;
-            MesenRunAhead = 0;
-            MesenPauseInBackground = false;
-            MesenShowSettingsBeforeLaunch = true;
-
-            // DuckStation Defaults
-            DuckStationStartFullscreen = false;
-            DuckStationPauseOnFocusLoss = true;
-            DuckStationSaveStateOnExit = true;
-            DuckStationRewindEnable = false;
-            DuckStationRunaheadFrameCount = 0;
-            DuckStationRenderer = "Automatic";
-            DuckStationResolutionScale = 2;
-            DuckStationTextureFilter = "Nearest";
-            DuckStationWidescreenHack = false;
-            DuckStationPgxpEnable = false;
-            DuckStationAspectRatio = "16:9";
-            DuckStationVsync = false;
-            DuckStationOutputVolume = 100;
-            DuckStationOutputMuted = false;
-            DuckStationShowSettingsBeforeLaunch = true;
-
-            // RPCS3 Defaults
-            Rpcs3Renderer = "Vulkan";
-            Rpcs3Resolution = "1280x720";
-            Rpcs3AspectRatio = "16:9";
-            Rpcs3Vsync = false;
-            Rpcs3ResolutionScale = 100;
-            Rpcs3AnisotropicFilter = 0;
-            Rpcs3PpuDecoder = "Recompiler (LLVM)";
-            Rpcs3SpuDecoder = "Recompiler (LLVM)";
-            Rpcs3AudioRenderer = "Cubeb";
-            Rpcs3AudioBuffering = true;
-            Rpcs3StartFullscreen = false;
-            Rpcs3ShowSettingsBeforeLaunch = true;
-
-            // Flycast Defaults
-            FlycastFullscreen = false;
-            FlycastWidth = 640;
-            FlycastHeight = 480;
-            FlycastMaximized = false;
-            FlycastShowSettingsBeforeLaunch = true;
-
-            // Stella Defaults
-            StellaFullscreen = false;
-            StellaVsync = true;
-            StellaVideoDriver = "direct3d";
-            StellaCorrectAspect = true;
-            StellaTvFilter = 0;
-            StellaScanlines = 0;
-            StellaAudioEnabled = true;
-            StellaAudioVolume = 80;
-            StellaTimeMachine = true;
-            StellaConfirmExit = false;
-            StellaShowSettingsBeforeLaunch = true;
-
-            // Dolphin Defaults
-            DolphinGfxBackend = "Vulkan";
-            DolphinDspThread = true;
-            DolphinWiimoteContinuousScanning = true;
-            DolphinWiimoteEnableSpeaker = true;
-            DolphinShowSettingsBeforeLaunch = true;
-
-            // Cemu
-            CemuFullscreen = false;
-            CemuGraphicApi = 1;
-            CemuVsync = 1;
-            CemuAsyncCompile = true;
-            CemuTvVolume = 50;
-            CemuConsoleLanguage = 1;
-            CemuDiscordPresence = true;
-            CemuShowSettingsBeforeLaunch = true;
-
-            // PCSX2
-            Pcsx2StartFullscreen = true;
-            Pcsx2AspectRatio = "16:9";
-            Pcsx2Renderer = 14;
-            Pcsx2UpscaleMultiplier = 2;
-            Pcsx2Vsync = 0;
-            Pcsx2EnableCheats = false;
-            Pcsx2EnableWidescreenPatches = false;
-            Pcsx2Volume = 100;
-            Pcsx2AchievementsEnabled = false;
-            Pcsx2AchievementsHardcore = true;
-            Pcsx2ShowSettingsBeforeLaunch = true;
-
-            // Azahar
-            AzaharGraphicsApi = 1;
-            AzaharResolutionFactor = 1;
-            AzaharUseVsync = true;
-            AzaharAsyncShaderCompilation = true;
-            AzaharFullscreen = true;
-            AzaharVolume = 100;
-            AzaharIsNew3ds = true;
-            AzaharLayoutOption = 0;
-            AzaharShowSettingsBeforeLaunch = true;
-
+            // Yumir
             YumirFullscreen = false;
             YumirVolume = 0.8;
             YumirMute = false;
@@ -1022,6 +1025,7 @@ public class SettingsManager
 
     private void SetDefaultsAndSave()
     {
+        // Application Settings
         ThumbnailSize = 250;
         GamesPerPage = 200;
         ShowGames = "ShowAll";
@@ -1050,27 +1054,93 @@ public class SettingsManager
         Emulator5Expanded = true;
         SystemPlayTimes = [];
 
-        // Xenia Defaults
-        XeniaGpu = "d3d12";
-        XeniaVsync = true;
-        XeniaResScaleX = 1;
-        XeniaResScaleY = 1;
-        XeniaFullscreen = false;
-        XeniaApu = "xaudio2";
-        XeniaMute = false;
-        XeniaAa = "";
-        XeniaScaling = "fsr";
-        XeniaApplyPatches = true;
-        XeniaDiscordPresence = true;
-        XeniaUserLanguage = 1;
-        XeniaHid = "xinput";
-        XeniaShowSettingsBeforeLaunch = true;
-        XeniaReadbackResolve = "none";
-        XeniaGammaSrgb = false;
-        XeniaVibration = true;
-        XeniaMountCache = true;
+        // Ares
+        AresVideoDriver = "OpenGL 3.2";
+        AresExclusive = false;
+        AresShader = "None";
+        AresMultiplier = 2;
+        AresAspectCorrection = "Standard";
+        AresMute = false;
+        AresVolume = 1.0;
+        AresFastBoot = false;
+        AresRewind = false;
+        AresRunAhead = false;
+        AresAutoSaveMemory = true;
+        AresShowSettingsBeforeLaunch = true;
 
-        // MAME Defaults
+        // Azahar
+        AzaharGraphicsApi = 1;
+        AzaharResolutionFactor = 1;
+        AzaharUseVsync = true;
+        AzaharAsyncShaderCompilation = true;
+        AzaharFullscreen = true;
+        AzaharVolume = 100;
+        AzaharIsNew3ds = true;
+        AzaharLayoutOption = 0;
+        AzaharShowSettingsBeforeLaunch = true;
+
+        // Blastem
+        BlastemFullscreen = false;
+        BlastemVsync = false;
+        BlastemAspect = "4:3";
+        BlastemScaling = "linear";
+        BlastemScanlines = false;
+        BlastemAudioRate = 48000;
+        BlastemSyncSource = "audio";
+        BlastemShowSettingsBeforeLaunch = true;
+
+        // Cemu
+        CemuFullscreen = false;
+        CemuGraphicApi = 1;
+        CemuVsync = 1;
+        CemuAsyncCompile = true;
+        CemuTvVolume = 50;
+        CemuConsoleLanguage = 1;
+        CemuDiscordPresence = true;
+        CemuShowSettingsBeforeLaunch = true;
+
+        // Daphne
+        DaphneFullscreen = false;
+        DaphneResX = 640;
+        DaphneResY = 480;
+        DaphneDisableCrosshairs = false;
+        DaphneBilinear = true;
+        DaphneEnableSound = true;
+        DaphneUseOverlays = true;
+        DaphneShowSettingsBeforeLaunch = true;
+
+        // Dolphin
+        DolphinGfxBackend = "Vulkan";
+        DolphinDspThread = true;
+        DolphinWiimoteContinuousScanning = true;
+        DolphinWiimoteEnableSpeaker = true;
+        DolphinShowSettingsBeforeLaunch = true;
+
+        // DuckStation
+        DuckStationStartFullscreen = false;
+        DuckStationPauseOnFocusLoss = true;
+        DuckStationSaveStateOnExit = true;
+        DuckStationRewindEnable = false;
+        DuckStationRunaheadFrameCount = 0;
+        DuckStationRenderer = "Automatic";
+        DuckStationResolutionScale = 2;
+        DuckStationTextureFilter = "Nearest";
+        DuckStationWidescreenHack = false;
+        DuckStationPgxpEnable = false;
+        DuckStationAspectRatio = "16:9";
+        DuckStationVsync = false;
+        DuckStationOutputVolume = 100;
+        DuckStationOutputMuted = false;
+        DuckStationShowSettingsBeforeLaunch = true;
+
+        // Flycast
+        FlycastFullscreen = false;
+        FlycastWidth = 640;
+        FlycastHeight = 480;
+        FlycastMaximized = false;
+        FlycastShowSettingsBeforeLaunch = true;
+
+        // MAME
         MameVideo = "auto";
         MameWindow = false;
         MameMaximize = true;
@@ -1088,7 +1158,105 @@ public class SettingsManager
         MameRewind = false;
         MameNvramSave = true;
 
-        // RetroArch Defaults
+        // Mednafen
+        MednafenVideoDriver = "opengl";
+        MednafenFullscreen = false;
+        MednafenVsync = true;
+        MednafenStretch = "aspect";
+        MednafenBilinear = false;
+        MednafenScanlines = 0;
+        MednafenShader = "none";
+        MednafenVolume = 100;
+        MednafenCheats = true;
+        MednafenRewind = false;
+        MednafenShowSettingsBeforeLaunch = true;
+
+        // Mesen
+        MesenFullscreen = false;
+        MesenVsync = false;
+        MesenAspectRatio = "NoStretching";
+        MesenBilinear = false;
+        MesenVideoFilter = "None";
+        MesenEnableAudio = true;
+        MesenMasterVolume = 100;
+        MesenRewind = false;
+        MesenRunAhead = 0;
+        MesenPauseInBackground = false;
+        MesenShowSettingsBeforeLaunch = true;
+
+        // PCSX2
+        Pcsx2StartFullscreen = true;
+        Pcsx2AspectRatio = "16:9";
+        Pcsx2Renderer = 14;
+        Pcsx2UpscaleMultiplier = 2;
+        Pcsx2Vsync = 0;
+        Pcsx2EnableCheats = false;
+        Pcsx2EnableWidescreenPatches = false;
+        Pcsx2Volume = 100;
+        Pcsx2AchievementsEnabled = false;
+        Pcsx2AchievementsHardcore = true;
+        Pcsx2ShowSettingsBeforeLaunch = true;
+
+        // RPCS3
+        Rpcs3Renderer = "Vulkan";
+        Rpcs3Resolution = "1280x720";
+        Rpcs3AspectRatio = "16:9";
+        Rpcs3Vsync = false;
+        Rpcs3ResolutionScale = 100;
+        Rpcs3AnisotropicFilter = 0;
+        Rpcs3PpuDecoder = "Recompiler (LLVM)";
+        Rpcs3SpuDecoder = "Recompiler (LLVM)";
+        Rpcs3AudioRenderer = "Cubeb";
+        Rpcs3AudioBuffering = true;
+        Rpcs3StartFullscreen = false;
+        Rpcs3ShowSettingsBeforeLaunch = true;
+
+        // Sega Model 2
+        SegaModel2ResX = 640;
+        SegaModel2ResY = 480;
+        SegaModel2WideScreen = 0;
+        SegaModel2Bilinear = true;
+        SegaModel2Trilinear = false;
+        SegaModel2FilterTilemaps = false;
+        SegaModel2DrawCross = true;
+        SegaModel2Fsaa = 0;
+        SegaModel2XInput = false;
+        SegaModel2EnableFf = false;
+        SegaModel2HoldGears = false;
+        SegaModel2UseRawInput = false;
+        SegaModel2ShowSettingsBeforeLaunch = true;
+
+        // Stella
+        StellaFullscreen = false;
+        StellaVsync = true;
+        StellaVideoDriver = "direct3d";
+        StellaCorrectAspect = true;
+        StellaTvFilter = 0;
+        StellaScanlines = 0;
+        StellaAudioEnabled = true;
+        StellaAudioVolume = 80;
+        StellaTimeMachine = true;
+        StellaConfirmExit = false;
+        StellaShowSettingsBeforeLaunch = true;
+
+        // Supermodel
+        SupermodelNew3DEngine = true;
+        SupermodelQuadRendering = false;
+        SupermodelFullscreen = true;
+        SupermodelResX = 1920;
+        SupermodelResY = 1080;
+        SupermodelWideScreen = true;
+        SupermodelStretch = false;
+        SupermodelVsync = true;
+        SupermodelThrottle = true;
+        SupermodelMusicVolume = 100;
+        SupermodelSoundVolume = 100;
+        SupermodelInputSystem = "xinput";
+        SupermodelMultiThreaded = true;
+        SupermodelPowerPcFrequency = 50;
+        SupermodelShowSettingsBeforeLaunch = true;
+
+        // RetroArch
         RetroArchCheevosEnable = false;
         RetroArchCheevosHardcore = false;
         RetroArchFullscreen = false;
@@ -1113,190 +1281,27 @@ public class SettingsManager
         RetroArchShowAdvancedSettings = true;
         RetroArchDiscordAllow = false;
 
-        // Supermodel Defaults
-        SupermodelNew3DEngine = true;
-        SupermodelQuadRendering = false;
-        SupermodelFullscreen = true;
-        SupermodelResX = 1920;
-        SupermodelResY = 1080;
-        SupermodelWideScreen = true;
-        SupermodelStretch = false;
-        SupermodelVsync = true;
-        SupermodelThrottle = true;
-        SupermodelMusicVolume = 100;
-        SupermodelSoundVolume = 100;
-        SupermodelInputSystem = "xinput";
-        SupermodelMultiThreaded = true;
-        SupermodelPowerPcFrequency = 50;
-        SupermodelShowSettingsBeforeLaunch = true;
+        // Xenia
+        XeniaGpu = "d3d12";
+        XeniaVsync = true;
+        XeniaResScaleX = 1;
+        XeniaResScaleY = 1;
+        XeniaFullscreen = false;
+        XeniaApu = "xaudio2";
+        XeniaMute = false;
+        XeniaAa = "";
+        XeniaScaling = "fsr";
+        XeniaApplyPatches = true;
+        XeniaDiscordPresence = true;
+        XeniaUserLanguage = 1;
+        XeniaHid = "xinput";
+        XeniaShowSettingsBeforeLaunch = true;
+        XeniaReadbackResolve = "none";
+        XeniaGammaSrgb = false;
+        XeniaVibration = true;
+        XeniaMountCache = true;
 
-        // Mednafen Defaults
-        MednafenVideoDriver = "opengl";
-        MednafenFullscreen = false;
-        MednafenVsync = true;
-        MednafenStretch = "aspect";
-        MednafenBilinear = false;
-        MednafenScanlines = 0;
-        MednafenShader = "none";
-        MednafenVolume = 100;
-        MednafenCheats = true;
-        MednafenRewind = false;
-        MednafenShowSettingsBeforeLaunch = true;
-
-        // Sega Model 2 Defaults
-        SegaModel2ResX = 640;
-        SegaModel2ResY = 480;
-        SegaModel2WideScreen = 0;
-        SegaModel2Bilinear = true;
-        SegaModel2Trilinear = false;
-        SegaModel2FilterTilemaps = false;
-        SegaModel2DrawCross = true;
-        SegaModel2Fsaa = 0;
-        SegaModel2XInput = false;
-        SegaModel2EnableFf = false;
-        SegaModel2HoldGears = false;
-        SegaModel2UseRawInput = false;
-        SegaModel2ShowSettingsBeforeLaunch = true;
-
-        // Ares Defaults
-        AresVideoDriver = "OpenGL 3.2";
-        AresExclusive = false;
-        AresShader = "None";
-        AresMultiplier = 2;
-        AresAspectCorrection = "Standard";
-        AresMute = false;
-        AresVolume = 1.0;
-        AresFastBoot = false;
-        AresRewind = false;
-        AresRunAhead = false;
-        AresAutoSaveMemory = true;
-        AresShowSettingsBeforeLaunch = true;
-
-        // Daphne Defaults
-        DaphneFullscreen = false;
-        DaphneResX = 640;
-        DaphneResY = 480;
-        DaphneDisableCrosshairs = false;
-        DaphneBilinear = true;
-        DaphneEnableSound = true;
-        DaphneUseOverlays = true;
-        DaphneShowSettingsBeforeLaunch = true;
-
-        // Blastem Defaults
-        BlastemFullscreen = false;
-        BlastemVsync = false;
-        BlastemAspect = "4:3";
-        BlastemScaling = "linear";
-        BlastemScanlines = false;
-        BlastemAudioRate = 48000;
-        BlastemSyncSource = "audio";
-        BlastemShowSettingsBeforeLaunch = true;
-
-        // Mesen Defaults
-        MesenFullscreen = false;
-        MesenVsync = false;
-        MesenAspectRatio = "NoStretching";
-        MesenBilinear = false;
-        MesenVideoFilter = "None";
-        MesenEnableAudio = true;
-        MesenMasterVolume = 100;
-        MesenRewind = false;
-        MesenRunAhead = 0;
-        MesenPauseInBackground = false;
-        MesenShowSettingsBeforeLaunch = true;
-
-        // DuckStation Defaults
-        DuckStationStartFullscreen = false;
-        DuckStationPauseOnFocusLoss = true;
-        DuckStationSaveStateOnExit = true;
-        DuckStationRewindEnable = false;
-        DuckStationRunaheadFrameCount = 0;
-        DuckStationRenderer = "Automatic";
-        DuckStationResolutionScale = 2;
-        DuckStationTextureFilter = "Nearest";
-        DuckStationWidescreenHack = false;
-        DuckStationPgxpEnable = false;
-        DuckStationAspectRatio = "16:9";
-        DuckStationVsync = false;
-        DuckStationOutputVolume = 100;
-        DuckStationOutputMuted = false;
-        DuckStationShowSettingsBeforeLaunch = true;
-
-        // RPCS3 Defaults
-        Rpcs3Renderer = "Vulkan";
-        Rpcs3Resolution = "1280x720";
-        Rpcs3AspectRatio = "16:9";
-        Rpcs3Vsync = false;
-        Rpcs3ResolutionScale = 100;
-        Rpcs3AnisotropicFilter = 0;
-        Rpcs3PpuDecoder = "Recompiler (LLVM)";
-        Rpcs3SpuDecoder = "Recompiler (LLVM)";
-        Rpcs3AudioRenderer = "Cubeb";
-        Rpcs3AudioBuffering = true;
-        Rpcs3StartFullscreen = false;
-        Rpcs3ShowSettingsBeforeLaunch = true;
-
-        // Flycast Defaults
-        FlycastFullscreen = false;
-        FlycastWidth = 640;
-        FlycastHeight = 480;
-        FlycastMaximized = false;
-        FlycastShowSettingsBeforeLaunch = true;
-
-        // Stella Defaults
-        StellaFullscreen = false;
-        StellaVsync = true;
-        StellaVideoDriver = "direct3d";
-        StellaCorrectAspect = true;
-        StellaTvFilter = 0;
-        StellaScanlines = 0;
-        StellaAudioEnabled = true;
-        StellaAudioVolume = 80;
-        StellaTimeMachine = true;
-        StellaConfirmExit = false;
-        StellaShowSettingsBeforeLaunch = true;
-
-        // Dolphin Defaults
-        DolphinGfxBackend = "Vulkan";
-        DolphinDspThread = true;
-        DolphinWiimoteContinuousScanning = true;
-        DolphinWiimoteEnableSpeaker = true;
-        DolphinShowSettingsBeforeLaunch = true;
-
-        // Cemu
-        CemuFullscreen = false;
-        CemuGraphicApi = 1;
-        CemuVsync = 1;
-        CemuAsyncCompile = true;
-        CemuTvVolume = 50;
-        CemuConsoleLanguage = 1;
-        CemuDiscordPresence = true;
-        CemuShowSettingsBeforeLaunch = true;
-
-        // PCSX2
-        Pcsx2StartFullscreen = true;
-        Pcsx2AspectRatio = "16:9";
-        Pcsx2Renderer = 14;
-        Pcsx2UpscaleMultiplier = 2;
-        Pcsx2Vsync = 0;
-        Pcsx2EnableCheats = false;
-        Pcsx2EnableWidescreenPatches = false;
-        Pcsx2Volume = 100;
-        Pcsx2AchievementsEnabled = false;
-        Pcsx2AchievementsHardcore = true;
-        Pcsx2ShowSettingsBeforeLaunch = true;
-
-        // Azahar
-        AzaharGraphicsApi = 1;
-        AzaharResolutionFactor = 1;
-        AzaharUseVsync = true;
-        AzaharAsyncShaderCompilation = true;
-        AzaharFullscreen = true;
-        AzaharVolume = 100;
-        AzaharIsNew3ds = true;
-        AzaharLayoutOption = 0;
-        AzaharShowSettingsBeforeLaunch = true;
-
+        // Yumir
         YumirFullscreen = false;
         YumirVolume = 0.8;
         YumirMute = false;
