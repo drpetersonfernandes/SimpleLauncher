@@ -824,8 +824,8 @@
     <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Use Launcher's States folder</system:String>
     <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Redirects RetroArch to store save states in the 'states' folder within the Launcher directory.</system:String>
     <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Use Launcher's Screenshots folder</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Redirects RetroArch to store screenshots in the 'screenshots' folder within the Launcher directory.</system:String>    
-    
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Redirects RetroArch to store screenshots in the 'screenshots' folder within the Launcher directory.</system:String>
+
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Reverting gamepad dead zone settings...</system:String>
     <system:String x:Key="RevertingLinkSettings">Reverting link settings...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
@@ -1643,8 +1643,7 @@
     <system:String x:Key="YumirConfig_Run_Button">Inject &amp; Run</system:String>
     <system:String x:Key="YumirConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="EnterUsernamePassword">Please enter your RetroAchievements username and password first.</system:String>
-    <system:String x:Key="MissingInformation">Missing Information</system:String>    
-    
-    
-    
+    <system:String x:Key="MissingInformation">Missing Information</system:String>
+
+
 </ResourceDictionary>
