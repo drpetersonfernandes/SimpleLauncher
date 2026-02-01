@@ -84,7 +84,7 @@ public static class DolphinConfigurationService
                 currentUpdates = dspUpdates;
             }
 
-            if (currentUpdates != null && currentUpdates.TryGetValue(key, out var newValue))
+            if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
                 var newLine = $"{key} = {newValue}";
                 if (lines[i] != newLine)
@@ -93,6 +93,17 @@ public static class DolphinConfigurationService
                     modified = true;
                 }
             }
+        }
+
+        // Add missing keys/sections
+        if (coreUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[Core]", coreUpdates, ref modified);
+        }
+
+        if (dspUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[DSP]", dspUpdates, ref modified);
         }
 
         if (modified)
@@ -104,5 +115,24 @@ public static class DolphinConfigurationService
         {
             DebugLogger.Log("[DolphinConfig] No changes needed.");
         }
+    }
+
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    {
+        var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
+        if (sectionIndex == -1)
+        {
+            lines.Add("");
+            lines.Add(sectionName);
+            sectionIndex = lines.Count - 1;
+        }
+
+        var insertIndex = sectionIndex + 1;
+        foreach (var kvp in updates)
+        {
+            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
+        }
+
+        modified = true;
     }
 }

@@ -20,7 +20,7 @@ public static class RetroArchConfigurationService
         // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))
         {
-            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "retroarch.cfg");
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Retroarch", "retroarch.cfg");
             if (File.Exists(samplePath))
             {
                 File.Copy(samplePath, configPath);

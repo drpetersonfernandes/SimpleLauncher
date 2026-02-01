@@ -97,7 +97,7 @@ public static class Pcsx2ConfigurationService
                 _ => null
             };
 
-            if (currentUpdates != null && currentUpdates.TryGetValue(key, out var newValue))
+            if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
                 var newLine = $"{key} = {newValue}";
                 if (lines[i] != newLine)
@@ -108,10 +108,55 @@ public static class Pcsx2ConfigurationService
             }
         }
 
+        // Add missing keys/sections
+        if (uiUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[UI]", uiUpdates, ref modified);
+        }
+
+        if (emuCoreUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[EmuCore]", emuCoreUpdates, ref modified);
+        }
+
+        if (gsUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[EmuCore/GS]", gsUpdates, ref modified);
+        }
+
+        if (audioUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[SPU2/Mixing]", audioUpdates, ref modified);
+        }
+
+        if (achUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[Achievements]", achUpdates, ref modified);
+        }
+
         if (modified)
         {
             File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
             DebugLogger.Log("[PCSX2Config] Injection successful.");
         }
+    }
+
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    {
+        var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
+        if (sectionIndex == -1)
+        {
+            lines.Add("");
+            lines.Add(sectionName);
+            sectionIndex = lines.Count - 1;
+        }
+
+        var insertIndex = sectionIndex + 1;
+        foreach (var kvp in updates)
+        {
+            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
+        }
+
+        modified = true;
     }
 }

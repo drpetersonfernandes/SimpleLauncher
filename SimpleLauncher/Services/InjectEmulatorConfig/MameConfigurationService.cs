@@ -20,7 +20,7 @@ public static class MameConfigurationService
         // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))
         {
-            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "mame.ini");
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "MAME", "mame.ini");
             if (File.Exists(samplePath))
             {
                 File.Copy(samplePath, configPath);
@@ -80,14 +80,19 @@ public static class MameConfigurationService
             // Handle rompath specifically to append/inject the system folder
             else if (key.Equals("rompath", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(systemRomPath))
             {
-                // Get current value (everything after the key)
-                var currentPaths = parts.Length > 1 ? line.Substring(key.Length).Trim() : "";
+                var currentPathsStr = parts.Length > 1 ? line.Substring(key.Length).Trim() : "";
 
-                // Check if our system path is already in there
-                if (!currentPaths.Contains(systemRomPath, StringComparison.OrdinalIgnoreCase))
+                // Resolve paths relative to the emulator directory to get full paths for comparison
+                var existingPaths = currentPathsStr.Split(';', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(p => Path.GetFullPath(p.Trim(), emuDir).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+                var newFullPath = Path.GetFullPath(systemRomPath.Trim(), emuDir).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+                if (!existingPaths.Contains(newFullPath))
                 {
-                    // Append the new path. MAME uses semicolon for separation on Windows.
-                    var newPaths = string.IsNullOrEmpty(currentPaths) ? systemRomPath : $"{currentPaths};{systemRomPath}";
+                    // Append the original, unresolved path to preserve user's format (e.g., relative paths)
+                    var newPaths = string.IsNullOrEmpty(currentPathsStr) ? systemRomPath : $"{currentPathsStr};{systemRomPath}";
                     lines[i] = $"{key,-25} {newPaths}";
                     modified = true;
                 }
@@ -108,7 +113,7 @@ public static class MameConfigurationService
         // If we modified the file, write it back
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, Encoding.UTF8);
+            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
             DebugLogger.Log("[MameConfig] Injection successful.");
         }
     }

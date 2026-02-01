@@ -103,7 +103,7 @@ public static class DuckStationConfigurationService
                 currentUpdates = audioUpdates;
             }
 
-            if (currentUpdates != null && currentUpdates.TryGetValue(key, out var newValue))
+            if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
                 var newLine = $"{key} = {newValue}";
                 if (lines[i] != newLine)
@@ -112,6 +112,27 @@ public static class DuckStationConfigurationService
                     modified = true;
                 }
             }
+        }
+
+        // Add missing keys/sections
+        if (mainUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[Main]", mainUpdates, ref modified);
+        }
+
+        if (gpuUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[GPU]", gpuUpdates, ref modified);
+        }
+
+        if (displayUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[Display]", displayUpdates, ref modified);
+        }
+
+        if (audioUpdates.Count > 0)
+        {
+            ApplyUpdatesToSection(lines, "[Audio]", audioUpdates, ref modified);
         }
 
         if (modified)
@@ -123,5 +144,24 @@ public static class DuckStationConfigurationService
         {
             DebugLogger.Log("[DuckStationConfig] No changes needed.");
         }
+    }
+
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    {
+        var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
+        if (sectionIndex == -1)
+        {
+            lines.Add("");
+            lines.Add(sectionName);
+            sectionIndex = lines.Count - 1;
+        }
+
+        var insertIndex = sectionIndex + 1;
+        foreach (var kvp in updates)
+        {
+            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
+        }
+
+        modified = true;
     }
 }
