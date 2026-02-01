@@ -1027,6 +1027,8 @@
     <Resource Include="images\pcsx2.png" />
     <None Remove="images\yumir.png" />
     <Resource Include="images\yumir.png" />
+    <None Remove="images\dolphin.png" />
+    <Resource Include="images\dolphin.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">
