@@ -35,7 +35,7 @@ public partial class InjectPcsx2ConfigWindow
         SelectComboByTag(CmbRenderer, _settings.Pcsx2Renderer.ToString(CultureInfo.InvariantCulture));
         SelectComboByTag(CmbUpscale, _settings.Pcsx2UpscaleMultiplier.ToString(CultureInfo.InvariantCulture));
         CmbAspect.Text = _settings.Pcsx2AspectRatio;
-        ChkVsync.IsChecked = _settings.Pcsx2Vsync == 1;
+        ChkVsync.IsChecked = _settings.Pcsx2Vsync;
         ChkWidescreenPatches.IsChecked = _settings.Pcsx2EnableWidescreenPatches;
         ChkFullscreen.IsChecked = _settings.Pcsx2StartFullscreen;
         ChkCheats.IsChecked = _settings.Pcsx2EnableCheats;
@@ -56,7 +56,7 @@ public partial class InjectPcsx2ConfigWindow
         _settings.Pcsx2Renderer = int.Parse(GetSelectedTag(CmbRenderer), CultureInfo.InvariantCulture);
         _settings.Pcsx2UpscaleMultiplier = int.Parse(GetSelectedTag(CmbUpscale), CultureInfo.InvariantCulture);
         _settings.Pcsx2AspectRatio = CmbAspect.Text;
-        _settings.Pcsx2Vsync = ChkVsync.IsChecked == true ? 1 : 0;
+        _settings.Pcsx2Vsync = ChkVsync.IsChecked ?? false;
         _settings.Pcsx2EnableWidescreenPatches = ChkWidescreenPatches.IsChecked == true;
         _settings.Pcsx2StartFullscreen = ChkFullscreen.IsChecked == true;
         _settings.Pcsx2EnableCheats = ChkCheats.IsChecked == true;

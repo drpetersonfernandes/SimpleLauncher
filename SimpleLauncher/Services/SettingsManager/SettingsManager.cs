@@ -199,7 +199,7 @@ public class SettingsManager
     [Key(1201)] public string Pcsx2AspectRatio { get; set; } = "16:9"; // 4:3, 16:9, Stretch
     [Key(1202)] public int Pcsx2Renderer { get; set; } = 14; // 14=Vulkan, 13=D3D12, 12=D3D11, 15=OpenGL, 11=Software
     [Key(1203)] public int Pcsx2UpscaleMultiplier { get; set; } = 2; // 1 (Native) to 8
-    [Key(1204)] public int Pcsx2Vsync { get; set; } // 0=Off, 1=On
+    [Key(1204)] public bool Pcsx2Vsync { get; set; } // false=Off, true=On
     [Key(1205)] public bool Pcsx2EnableCheats { get; set; }
     [Key(1206)] public bool Pcsx2EnableWidescreenPatches { get; set; }
     [Key(1207)] public int Pcsx2Volume { get; set; } = 100;
@@ -838,7 +838,7 @@ public class SettingsManager
             Pcsx2AspectRatio = "16:9";
             Pcsx2Renderer = 14;
             Pcsx2UpscaleMultiplier = 2;
-            Pcsx2Vsync = 0;
+            Pcsx2Vsync = false;
             Pcsx2EnableCheats = false;
             Pcsx2EnableWidescreenPatches = false;
             Pcsx2Volume = 100;
@@ -949,7 +949,6 @@ public class SettingsManager
             XeniaUserLanguage = int.TryParse(settings.Element("XeniaUserLanguage")?.Value, out var xul) ? xul : 1;
             XeniaHid = settings.Element("XeniaHid")?.Value ?? "xinput";
             XeniaShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xss) || xss;
-            XeniaReadbackResolve = "none";
             XeniaGammaSrgb = false;
             XeniaVibration = true;
             XeniaMountCache = true;
@@ -1202,7 +1201,7 @@ public class SettingsManager
         Pcsx2AspectRatio = "16:9";
         Pcsx2Renderer = 14;
         Pcsx2UpscaleMultiplier = 2;
-        Pcsx2Vsync = 0;
+        Pcsx2Vsync = false;
         Pcsx2EnableCheats = false;
         Pcsx2EnableWidescreenPatches = false;
         Pcsx2Volume = 100;
@@ -1313,7 +1312,6 @@ public class SettingsManager
         XeniaUserLanguage = 1;
         XeniaHid = "xinput";
         XeniaShowSettingsBeforeLaunch = true;
-        XeniaReadbackResolve = "none";
         XeniaGammaSrgb = false;
         XeniaVibration = true;
         XeniaMountCache = true;

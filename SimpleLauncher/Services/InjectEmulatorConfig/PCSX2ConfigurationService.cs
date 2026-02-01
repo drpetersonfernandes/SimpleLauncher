@@ -54,7 +54,7 @@ public static class Pcsx2ConfigurationService
             { "Renderer", settings.Pcsx2Renderer.ToString(CultureInfo.InvariantCulture) },
             { "upscale_multiplier", settings.Pcsx2UpscaleMultiplier.ToString(CultureInfo.InvariantCulture) },
             { "AspectRatio", settings.Pcsx2AspectRatio },
-            { "VsyncEnable", settings.Pcsx2Vsync.ToString(CultureInfo.InvariantCulture) }
+            { "VsyncEnable", settings.Pcsx2Vsync.ToString().ToLowerInvariant() }
         };
 
         var audioUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
