@@ -622,6 +622,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _isLoadingGames = isLoading;
         IsLoadingGames = isLoading;
 
+        // Direct visibility update to ensure the overlay appears/disappears instantly
+        // bypassing potential binding delays during heavy UI thread activity.
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
         // Disable/Enable main interaction controls
         SystemComboBox.IsEnabled = !isLoading;
         EmulatorComboBox.IsEnabled = !isLoading;
@@ -638,7 +642,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Disable/Enable Letter/Number/Favorites/Lucky buttons via FilterMenu helper
         _topLetterNumberMenu.SetButtonsEnabled(!isLoading);
 
-        // Disable/Enable pagination buttons (UpdatePaginationButtons already checks _isGameListLoading)
+        // Disable/Enable pagination buttons
         UpdatePaginationButtons();
 
         // Update loading message
