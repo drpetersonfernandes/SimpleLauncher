@@ -30,13 +30,14 @@ public partial class InjectMednafenConfigWindow
 
     private void LoadSettings()
     {
-        CmbVideoDriver.Text = _settings.MednafenVideoDriver;
+        SelectItemByTag(CmbVideoDriver, _settings.MednafenVideoDriver);
+        SelectItemByTag(CmbStretch, _settings.MednafenStretch);
+        SelectItemByTag(CmbShader, _settings.MednafenShader);
+
         ChkFullscreen.IsChecked = _settings.MednafenFullscreen;
         ChkVsync.IsChecked = _settings.MednafenVsync;
-        CmbStretch.Text = _settings.MednafenStretch;
         ChkBilinear.IsChecked = _settings.MednafenBilinear;
         SldScanlines.Value = _settings.MednafenScanlines;
-        CmbShader.Text = _settings.MednafenShader;
         SldVolume.Value = _settings.MednafenVolume;
         ChkCheats.IsChecked = _settings.MednafenCheats;
         ChkRewind.IsChecked = _settings.MednafenRewind;
@@ -47,6 +48,20 @@ public partial class InjectMednafenConfigWindow
         {
             BtnSave.IsDefault = true;
         }
+    }
+
+    private static void SelectItemByTag(System.Windows.Controls.ComboBox comboBox, string tagValue)
+    {
+        foreach (System.Windows.Controls.ComboBoxItem item in comboBox.Items)
+        {
+            if (item.Tag?.ToString() == tagValue)
+            {
+                comboBox.SelectedItem = item;
+                return;
+            }
+        }
+
+        comboBox.SelectedIndex = 0; // Fallback
     }
 
     private string EnsureEmulatorPath()
@@ -71,13 +86,14 @@ public partial class InjectMednafenConfigWindow
 
     private void SaveSettings()
     {
-        _settings.MednafenVideoDriver = CmbVideoDriver.Text;
+        _settings.MednafenVideoDriver = (CmbVideoDriver.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "opengl";
+        _settings.MednafenStretch = (CmbStretch.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "aspect";
+        _settings.MednafenShader = (CmbShader.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "none";
+
         _settings.MednafenFullscreen = ChkFullscreen.IsChecked ?? false;
         _settings.MednafenVsync = ChkVsync.IsChecked ?? true;
-        _settings.MednafenStretch = CmbStretch.Text;
         _settings.MednafenBilinear = ChkBilinear.IsChecked ?? false;
         _settings.MednafenScanlines = (int)SldScanlines.Value;
-        _settings.MednafenShader = CmbShader.Text;
         _settings.MednafenVolume = (int)SldVolume.Value;
         _settings.MednafenCheats = ChkCheats.IsChecked ?? true;
         _settings.MednafenRewind = ChkRewind.IsChecked ?? false;
