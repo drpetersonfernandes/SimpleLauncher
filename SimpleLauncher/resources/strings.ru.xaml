@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">Конфигурация путей и портативность</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">Примечание: Включение этих опций заставит RetroArch использовать внутренние папки Лаунчера. Это рекомендуется для сохранения портативности вашей установки.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Использовать папку BIOS Лаунчера</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Перенаправляет RetroArch для поиска файлов прошивки и BIOS в папке 'bios' внутри каталога Лаунчера.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Использовать папку сохранений Лаунчера</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Перенаправляет RetroArch для хранения файлов сохранений игр (.srm) в папке 'saves' внутри каталога Лаунчера.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Использовать папку состояний Лаунчера</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Перенаправляет RetroArch для хранения состояний сохранения в папке 'states' внутри каталога Лаунчера.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Использовать папку скриншотов Лаунчера</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Перенаправляет RetroArch для хранения скриншотов в папке 'screenshots' внутри каталога Лаунчера.</system:String>
+
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>

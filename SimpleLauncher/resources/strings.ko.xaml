@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">경로 구성 및 휴대성</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">참고: 이 옵션을 활성화하면 RetroArch가 런처의 내부 폴더를 사용하도록 강제됩니다. 이는 설정을 휴대 가능하게 유지하는 데 권장됩니다.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">런처의 BIOS 폴더 사용</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">RetroArch가 런처 디렉토리 내의 'bios' 폴더에서 펌웨어 및 BIOS 파일을 찾도록 리디렉션합니다.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">런처의 저장 폴더 사용</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">RetroArch가 런처 디렉토리 내의 'saves' 폴더에 게임 내 저장 파일(.srm)을 저장하도록 리디렉션합니다.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">런처의 상태 폴더 사용</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">RetroArch가 런처 디렉토리 내의 'states' 폴더에 저장 상태를 저장하도록 리디렉션합니다.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">런처의 스크린샷 폴더 사용</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">RetroArch가 런처 디렉토리 내의 'screenshots' 폴더에 스크린샷을 저장하도록 리디렉션합니다.</system:String>
+
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
     <system:String x:Key="1000games">1000 게임</system:String>

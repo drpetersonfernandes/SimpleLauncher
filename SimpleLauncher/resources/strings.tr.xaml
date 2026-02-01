@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">Yol Yapılandırması ve Taşınabilirlik</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">Not: Bu seçeneklerin etkinleştirilmesi, RetroArch'ı Başlatıcı'nın dahili klasörlerini kullanmaya zorlayacaktır. Kurulumunuzu taşınabilir tutmak için bu önerilir.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Başlatıcı'nın BIOS klasörünü kullan</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">RetroArch'ı, Başlatıcı dizini içindeki 'bios' klasöründe firmware ve BIOS dosyalarını aramaya yönlendirir.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Başlatıcı'nın Kayıtlar klasörünü kullan</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">RetroArch'ı, oyun içi kayıt dosyalarını (.srm) Başlatıcı dizini içindeki 'saves' klasöründe depolamaya yönlendirir.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Başlatıcı'nın Durumlar klasörünü kullan</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">RetroArch'ı, kayıt durumlarını Başlatıcı dizini içindeki 'states' klasöründe depolamaya yönlendirir.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Başlatıcı'nın Ekran Görüntüleri klasörünü kullan</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">RetroArch'ı, ekran görüntülerini Başlatıcı dizini içindeki 'screenshots' klasöründe depolamaya yönlendirir.</system:String>
+
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>

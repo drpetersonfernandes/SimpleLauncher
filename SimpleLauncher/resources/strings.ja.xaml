@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">パス設定とポータビリティ</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">注意：これらのオプションを有効にすると、RetroArchはランチャーの内部フォルダーを使用するよう強制されます。これは、セットアップをポータブルに保つために推奨されます。</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">ランチャーのBIOSフォルダーを使用</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">RetroArchがランチャーディレクトリ内の「bios」フォルダーでファームウェアおよびBIOSファイルを検索するようにリダイレクトします。</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">ランチャーのセーブフォルダーを使用</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">RetroArchがランチャーディレクトリ内の「saves」フォルダーにゲーム内セーブファイル（.srm）を保存するようにリダイレクトします。</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">ランチャーのステートフォルダーを使用</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">RetroArchがランチャーディレクトリ内の「states」フォルダーにセーブステートを保存するようにリダイレクトします。</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">ランチャーのスクリーンショットフォルダーを使用</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">RetroArchがランチャーディレクトリ内の「screenshots」フォルダーにスクリーンショットを保存するようにリダイレクトします。</system:String>
+
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>

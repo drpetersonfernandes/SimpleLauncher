@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">Configuración de Rutas y Portabilidad</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">Nota: Habilitar estas opciones forzará a RetroArch a usar las carpetas internas del Lanzador. Esto se recomienda para mantener su configuración portátil.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Usar la carpeta BIOS del Lanzador</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Redirige RetroArch para buscar archivos de firmware y BIOS en la carpeta 'bios' dentro del directorio del Lanzador.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Usar la carpeta de Guardados del Lanzador</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Redirige RetroArch para almacenar archivos de guardado del juego (.srm) en la carpeta 'saves' dentro del directorio del Lanzador.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Usar la carpeta de Estados del Lanzador</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Redirige RetroArch para almacenar estados de guardado en la carpeta 'states' dentro del directorio del Lanzador.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Usar la carpeta de Capturas de Pantalla del Lanzador</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Redirige RetroArch para almacenar capturas de pantalla en la carpeta 'screenshots' dentro del directorio del Lanzador.</system:String>
+
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
     <system:String x:Key="1000games">1000 juegos</system:String>

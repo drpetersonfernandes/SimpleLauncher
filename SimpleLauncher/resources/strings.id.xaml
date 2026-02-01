@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">Konfigurasi Jalur &amp; Portabilitas</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">Catatan: Mengaktifkan opsi ini akan memaksa RetroArch untuk menggunakan folder internal Launcher. Ini direkomendasikan untuk menjaga pengaturan Anda tetap portabel.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Gunakan folder BIOS Launcher</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Mengarahkan RetroArch untuk mencari file firmware dan BIOS di folder 'bios' dalam direktori Launcher.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Gunakan folder Simpan Launcher</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Mengarahkan RetroArch untuk menyimpan file simpan dalam game (.srm) di folder 'saves' dalam direktori Launcher.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Gunakan folder Status Launcher</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Mengarahkan RetroArch untuk menyimpan status simpan di folder 'states' dalam direktori Launcher.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Gunakan folder Tangkapan Layar Launcher</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Mengarahkan RetroArch untuk menyimpan tangkapan layar di folder 'screenshots' dalam direktori Launcher.</system:String>
+
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>

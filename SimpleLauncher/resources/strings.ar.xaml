@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">تكوين المسار وقابلية النقل</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">ملاحظة: سيؤدي تمكين هذه الخيارات إلى إجبار RetroArch على استخدام المجلدات الداخلية للمشغل. يوصى بذلك للحفاظ على إعداداتك قابلة للنقل.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">استخدام مجلد BIOS الخاص بالمشغل</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">يعيد توجيه RetroArch للبحث عن ملفات البرامج الثابتة وBIOS في مجلد 'bios' داخل دليل المشغل.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">استخدام مجلد الحفظ الخاص بالمشغل</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">يعيد توجيه RetroArch لتخزين ملفات الحفظ داخل اللعبة (.srm) في مجلد 'saves' داخل دليل المشغل.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">استخدام مجلد الحالات الخاص بالمشغل</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">يعيد توجيه RetroArch لتخزين حالات الحفظ في مجلد 'states' داخل دليل المشغل.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">استخدام مجلد لقطات الشاشة الخاص بالمشغل</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">يعيد توجيه RetroArch لتخزين لقطات الشاشة في مجلد 'screenshots' داخل دليل المشغل.</system:String>
+
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>

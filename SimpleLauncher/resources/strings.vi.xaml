@@ -1,6 +1,18 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="RetroArchConfig_Paths_Header">Cấu hình đường dẫn &amp; Tính di động</system:String>
+    <system:String x:Key="RetroArchConfig_Paths_Warning">Lưu ý: Việc bật các tùy chọn này sẽ buộc RetroArch sử dụng các thư mục nội bộ của Trình khởi chạy. Điều này được khuyến nghị để giữ cho thiết lập của bạn có tính di động.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Sử dụng thư mục BIOS của Trình khởi chạy</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Chuyển hướng RetroArch tìm kiếm các tệp firmware và BIOS trong thư mục 'bios' bên trong thư mục Trình khởi chạy.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Sử dụng thư mục Lưu của Trình khởi chạy</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Chuyển hướng RetroArch lưu trữ các tệp lưu trong trò chơi (.srm) trong thư mục 'saves' bên trong thư mục Trình khởi chạy.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Sử dụng thư mục Trạng thái của Trình khởi chạy</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Chuyển hướng RetroArch lưu trữ các trạng thái lưu trong thư mục 'states' bên trong thư mục Trình khởi chạy.</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Sử dụng thư mục Ảnh chụp màn hình của Trình khởi chạy</system:String>
+    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Chuyển hướng RetroArch lưu trữ ảnh chụp màn hình trong thư mục 'screenshots' bên trong thư mục Trình khởi chạy.</system:String>
+
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
