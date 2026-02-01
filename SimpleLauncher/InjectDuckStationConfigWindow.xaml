@@ -50,14 +50,14 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource DuckStationConfig_ResolutionScale_Label}" VerticalAlignment="Center"/>
                             <ComboBox x:Name="CmbResolutionScale" Grid.Column="1" ToolTip="{DynamicResource DuckStationConfig_ResolutionScale_Tooltip}">
-                                <ComboBoxItem Content="1"/>
-                                <ComboBoxItem Content="2"/>
-                                <ComboBoxItem Content="3"/>
-                                <ComboBoxItem Content="4"/>
-                                <ComboBoxItem Content="5"/>
-                                <ComboBoxItem Content="6"/>
-                                <ComboBoxItem Content="7"/>
-                                <ComboBoxItem Content="8"/>
+                                <ComboBoxItem Content="1" Tag="1"/>
+                                <ComboBoxItem Content="2" Tag="2"/>
+                                <ComboBoxItem Content="3" Tag="3"/>
+                                <ComboBoxItem Content="4" Tag="4"/>
+                                <ComboBoxItem Content="5" Tag="5"/>
+                                <ComboBoxItem Content="6" Tag="6"/>
+                                <ComboBoxItem Content="7" Tag="7"/>
+                                <ComboBoxItem Content="8" Tag="8"/>
                             </ComboBox>
                         </Grid>
                         <Grid Margin="0,5,0,5">

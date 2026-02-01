@@ -98,12 +98,14 @@ public static class DolphinConfigurationService
         // Add missing keys/sections
         if (coreUpdates.Count > 0)
         {
-            ApplyUpdatesToSection(lines, "[Core]", coreUpdates, ref modified);
+            ApplyUpdatesToSection(lines, "[Core]", coreUpdates);
+            modified = true;
         }
 
         if (dspUpdates.Count > 0)
         {
-            ApplyUpdatesToSection(lines, "[DSP]", dspUpdates, ref modified);
+            ApplyUpdatesToSection(lines, "[DSP]", dspUpdates);
+            modified = true;
         }
 
         if (modified)
@@ -117,7 +119,7 @@ public static class DolphinConfigurationService
         }
     }
 
-    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates)
     {
         var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
         if (sectionIndex == -1)
@@ -132,7 +134,5 @@ public static class DolphinConfigurationService
         {
             lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
         }
-
-        modified = true;
     }
 }

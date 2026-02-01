@@ -23,7 +23,7 @@
                             <Label Content="{DynamicResource AzaharConfig_GraphicsApi_Label}" VerticalAlignment="Center"/>
                             <ComboBox x:Name="CmbGraphicsApi" Grid.Column="1" ToolTip="{DynamicResource AzaharConfig_GraphicsApi_Tooltip}">
                                 <ComboBoxItem Content="OpenGL" Tag="0"/>
-                                <ComboBoxItem Content="Vulkan" Tag="1"/>
+                                <ComboBoxItem Content="Vulkan" Tag="2"/>
                             </ComboBox>
                         </Grid>
 

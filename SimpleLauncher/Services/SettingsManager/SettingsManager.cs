@@ -78,7 +78,7 @@ public class SettingsManager
     [Key(111)] public bool AresShowSettingsBeforeLaunch { get; set; } = true;
 
     // Azahar
-    [Key(200)] public int AzaharGraphicsApi { get; set; } = 1; // 0=OpenGL, 1=Vulkan
+    [Key(200)] public int AzaharGraphicsApi { get; set; } = 2; // 0=OpenGL, 2=Vulkan
     [Key(201)] public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
     [Key(202)] public bool AzaharUseVsync { get; set; } = true;
     [Key(203)] public bool AzaharAsyncShaderCompilation { get; set; } = true;

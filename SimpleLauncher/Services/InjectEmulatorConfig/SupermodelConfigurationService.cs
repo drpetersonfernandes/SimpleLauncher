@@ -56,7 +56,7 @@ public static class SupermodelConfigurationService
             { "Throttle", settings.SupermodelThrottle ? "1" : "0" },
             { "MusicVolume", settings.SupermodelMusicVolume.ToString(CultureInfo.InvariantCulture) },
             { "SoundVolume", settings.SupermodelSoundVolume.ToString(CultureInfo.InvariantCulture) },
-            { "InputSystem", $"\"{settings.SupermodelInputSystem}\"" },
+            { "InputSystem", settings.SupermodelInputSystem }, // Simple values don't need quotes in Supermodel INI
             { "MultiThreaded", settings.SupermodelMultiThreaded ? "1" : "0" },
             { "PowerPCFrequency", settings.SupermodelPowerPcFrequency.ToString(CultureInfo.InvariantCulture) }
         };

@@ -46,8 +46,18 @@ public static class MesenConfigurationService
             // [Video]
             var video = GetOrCreateObject(root, "Video");
             video["UseExclusiveFullscreen"] = settings.MesenFullscreen;
+
+            // Map UI aspect ratio values to Mesen enum values
+            var aspectRatio = settings.MesenAspectRatio switch
+            {
+                "4:3" => "Standard",
+                "16:9" => "Widescreen",
+                "Auto" => "Auto",
+                "NoStretching" => "NoStretching",
+                _ => settings.MesenAspectRatio
+            };
+            video["AspectRatio"] = aspectRatio;
             video["VerticalSync"] = settings.MesenVsync;
-            video["AspectRatio"] = settings.MesenAspectRatio;
             video["UseBilinearInterpolation"] = settings.MesenBilinear;
             video["VideoFilter"] = settings.MesenVideoFilter;
 

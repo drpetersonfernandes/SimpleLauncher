@@ -117,22 +117,26 @@ public static class DuckStationConfigurationService
         // Add missing keys/sections
         if (mainUpdates.Count > 0)
         {
-            ApplyUpdatesToSection(lines, "[Main]", mainUpdates, ref modified);
+            ApplyUpdatesToSection(lines, "[Main]", mainUpdates, out var sectionModified);
+            modified |= sectionModified;
         }
 
         if (gpuUpdates.Count > 0)
         {
-            ApplyUpdatesToSection(lines, "[GPU]", gpuUpdates, ref modified);
+            ApplyUpdatesToSection(lines, "[GPU]", gpuUpdates, out var sectionModified);
+            modified |= sectionModified;
         }
 
         if (displayUpdates.Count > 0)
         {
-            ApplyUpdatesToSection(lines, "[Display]", displayUpdates, ref modified);
+            ApplyUpdatesToSection(lines, "[Display]", displayUpdates, out var sectionModified);
+            modified |= sectionModified;
         }
 
         if (audioUpdates.Count > 0)
         {
-            ApplyUpdatesToSection(lines, "[Audio]", audioUpdates, ref modified);
+            ApplyUpdatesToSection(lines, "[Audio]", audioUpdates, out var sectionModified);
+            modified |= sectionModified;
         }
 
         if (modified)
@@ -146,7 +150,7 @@ public static class DuckStationConfigurationService
         }
     }
 
-    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, out bool modified)
     {
         var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
         if (sectionIndex == -1)

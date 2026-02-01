@@ -144,6 +144,7 @@ public static class Pcsx2ConfigurationService
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
     {
         var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
+
         if (sectionIndex == -1)
         {
             lines.Add("");
@@ -157,6 +158,9 @@ public static class Pcsx2ConfigurationService
             lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
         }
 
-        modified = true;
+        if (updates.Count > 0)
+        {
+            modified = true;
+        }
     }
 }

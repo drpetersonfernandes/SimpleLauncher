@@ -85,11 +85,11 @@ public static class XeniaConfigurationService
 
         // [Kernel]
         var kernel = GetOrCreateTable("Kernel");
-        kernel["apply_patches"] = settings.XeniaApplyPatches;
 
         // [General]
         var general = GetOrCreateTable("General");
         general["discord"] = settings.XeniaDiscordPresence;
+        general["apply_patches"] = settings.XeniaApplyPatches;
 
         // [Logging]
         var logging = GetOrCreateTable("Logging");
