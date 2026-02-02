@@ -223,12 +223,10 @@ public static partial class HelpUser
             { "WiiU", NintendoWiiUDetails },
             { "Nintendo WiiWare", NintendoWiiWareDetails },
             { "WiiWare", NintendoWiiWareDetails },
-
             { "Nintendo Virtual Boy", NintendoVirtualBoyDetails },
             { "Nintendo VirtualBoy", NintendoVirtualBoyDetails },
             { "Virtual Boy", NintendoVirtualBoyDetails },
             { "VirtualBoy", NintendoVirtualBoyDetails },
-
             { "Panasonic 3DO", Panasonic3DoDetails },
             { "Panasonic3DO", Panasonic3DoDetails },
             { "3DO", Panasonic3DoDetails },
@@ -324,7 +322,16 @@ public static partial class HelpUser
             { "Vita", SonyPlayStationVitaDetails },
             { "Sony PSP", SonyPspDetails },
             { "PlayStation Portable", SonyPspDetails },
-            { "PSP", SonyPspDetails }
+            { "PSP", SonyPspDetails },
+
+            { "Super A'Can", SuperAcanDetails },
+            { "Super ACan", SuperAcanDetails },
+            { "Super-A'Can", SuperAcanDetails },
+            { "Super-ACan", SuperAcanDetails },
+            { "SuperA'Can", SuperAcanDetails },
+            { "SuperACan", SuperAcanDetails },
+            { "A'Can", SuperAcanDetails },
+            { "ACan", SuperAcanDetails }
         };
 
         // Check if a response exists for the given system name
@@ -729,6 +736,11 @@ public static partial class HelpUser
     private static string SonyPspDetails()
     {
         return GetSystemDetails("Sony PSP");
+    }
+
+    private static string SuperAcanDetails()
+    {
+        return GetSystemDetails("Super Acan");
     }
 
     private static string GetSystemDetails(string systemName)
