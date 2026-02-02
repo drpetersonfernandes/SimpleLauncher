@@ -56,7 +56,7 @@ public static class SupermodelConfigurationService
             { "Throttle", settings.SupermodelThrottle ? "1" : "0" },
             { "MusicVolume", settings.SupermodelMusicVolume.ToString(CultureInfo.InvariantCulture) },
             { "SoundVolume", settings.SupermodelSoundVolume.ToString(CultureInfo.InvariantCulture) },
-            { "InputSystem", settings.SupermodelInputSystem }, // Simple values don't need quotes in Supermodel INI
+            { "InputSystem", GetValidInputSystem(settings.SupermodelInputSystem) },
             { "MultiThreaded", settings.SupermodelMultiThreaded ? "1" : "0" },
             { "PowerPCFrequency", settings.SupermodelPowerPcFrequency.ToString(CultureInfo.InvariantCulture) }
         };
@@ -127,5 +127,19 @@ public static class SupermodelConfigurationService
 
         File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
         DebugLogger.Log("[SupermodelConfig] Injection successful.");
+    }
+
+    /// <summary>
+    /// Validates and returns a valid InputSystem value.
+    /// Defaults to "xinput" if the provided value is null, empty, or invalid.
+    /// </summary>
+    private static string GetValidInputSystem(string inputSystem)
+    {
+        // Valid Supermodel input systems: xinput, dinput, rawinput
+        if (string.IsNullOrWhiteSpace(inputSystem))
+            return "xinput";
+
+        var normalized = inputSystem.Trim().ToLowerInvariant();
+        return normalized is "xinput" or "dinput" or "rawinput" ? normalized : "xinput";
     }
 }

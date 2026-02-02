@@ -290,7 +290,26 @@ public class SettingsManager
     [Key(1708)] public bool SupermodelThrottle { get; set; } = true;
     [Key(1709)] public int SupermodelMusicVolume { get; set; } = 100;
     [Key(1710)] public int SupermodelSoundVolume { get; set; } = 100;
-    [Key(1711)] public string SupermodelInputSystem { get; set; } = "xinput";
+
+    [Key(1711)]
+    [field: IgnoreMember]
+    public string SupermodelInputSystem
+    {
+        get;
+        set
+        {
+            // Validate and normalize the input system value
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                field = "xinput";
+                return;
+            }
+
+            var normalized = value.Trim().ToLowerInvariant();
+            field = normalized is "xinput" or "dinput" or "rawinput" ? normalized : "xinput";
+        }
+    } = "xinput";
+
     [Key(1712)] public bool SupermodelMultiThreaded { get; set; } = true;
     [Key(1713)] public int SupermodelPowerPcFrequency { get; set; } = 50;
     [Key(1714)] public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
