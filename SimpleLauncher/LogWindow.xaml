@@ -29,8 +29,10 @@
                  FontSize="12" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Content="{DynamicResource ClearLog}" Margin="5,0" Click="ClearLogButton_Click" />
-            <Button Content="{DynamicResource CopyLog}" Margin="5,0" Click="CopyLogButton_Click" />
+            <Button Content="{DynamicResource ClearLog}" Margin="5,0" Click="ClearLogButton_Click"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" />
+            <Button Content="{DynamicResource CopyLog}" Margin="5,0" Click="CopyLogButton_Click"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" />
         </StackPanel>
     </Grid>
 </mah:MetroWindow>

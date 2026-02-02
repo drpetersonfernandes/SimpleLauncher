@@ -102,6 +102,7 @@
                 <!-- Add New System -->
                 <Button
                     Grid.Column="0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
                     Margin="10"
                     Padding="10"
                     HorizontalAlignment="Center"
@@ -112,6 +113,7 @@
                 <!-- Save New System -->
                 <Button
                     x:Name="SaveSystemButton"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                     Grid.Column="1"
                     Margin="10"
                     Padding="10"
@@ -123,6 +125,7 @@
                 <!-- Delete System -->
                 <Button
                     x:Name="DeleteSystemButton"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
                     Grid.Column="2"
                     Margin="10"
                     Padding="10"
@@ -132,16 +135,16 @@
                     Content="{DynamicResource DeleteSelectedSystem}" />
 
                 <Button
-                    Margin="0,0,10,0"
+                    Margin="0,0,25,0"
                     Grid.Column="3"
-                    Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                    Style="{StaticResource NavImageButton3DStyle}"
                     Click="HelpLink_Click"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top"
+                    Width="80"
+                    Height="80">
                     <Image
-                        Grid.Column="3"
                         Source="images/help-desk.png"
-                        Margin="10,10,30,10"
                         Width="60"
                         Height="60"
                         HorizontalAlignment="Center"
@@ -428,17 +431,19 @@
                                 Grid.Column="1"
                                 IsReadOnly="True"
                                 IsEnabled="False" />
-                            <Button
-                                Margin="0"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Click="HelpLink_Click"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
-                                       VerticalAlignment="Top" />
-                            </Button>
+                            <!-- <Button -->
+                            <!--     Margin="0" -->
+                            <!--     Grid.Row="2" -->
+                            <!--     Grid.Column="2" -->
+                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                            <!--     Width="30" -->
+                            <!--     Height="30" -->
+                            <!--     Click="HelpLink_Click" -->
+                            <!--     HorizontalAlignment="Left" -->
+                            <!--     VerticalAlignment="Top"> -->
+                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                            <!--            VerticalAlignment="Top" /> -->
+                            <!-- </Button> -->
                             <Label
                                 Margin="10,0,10,10"
                                 Grid.Row="3"
@@ -523,17 +528,19 @@
                                 Grid.Column="1"
                                 IsReadOnly="True"
                                 IsEnabled="False" />
-                            <Button
-                                Margin="0"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Click="HelpLink_Click"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
-                                       VerticalAlignment="Top" />
-                            </Button>
+                            <!-- <Button -->
+                            <!--     Margin="0" -->
+                            <!--     Grid.Row="2" -->
+                            <!--     Grid.Column="2" -->
+                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                            <!--     Width="30" -->
+                            <!--     Height="30" -->
+                            <!--     Click="HelpLink_Click" -->
+                            <!--     HorizontalAlignment="Left" -->
+                            <!--     VerticalAlignment="Top"> -->
+                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                            <!--            VerticalAlignment="Top" /> -->
+                            <!-- </Button> -->
                             <Label
                                 Margin="10,0,10,10"
                                 Grid.Row="3"
@@ -617,17 +624,19 @@
                                 Grid.Column="1"
                                 IsReadOnly="True"
                                 IsEnabled="False" />
-                            <Button
-                                Margin="0"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Click="HelpLink_Click"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
-                                       VerticalAlignment="Top" />
-                            </Button>
+                            <!-- <Button -->
+                            <!--     Margin="0" -->
+                            <!--     Grid.Row="2" -->
+                            <!--     Grid.Column="2" -->
+                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                            <!--     Width="30" -->
+                            <!--     Height="30" -->
+                            <!--     Click="HelpLink_Click" -->
+                            <!--     HorizontalAlignment="Left" -->
+                            <!--     VerticalAlignment="Top"> -->
+                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                            <!--            VerticalAlignment="Top" /> -->
+                            <!-- </Button> -->
                             <Label
                                 Margin="10,0,10,10"
                                 Grid.Row="3"
@@ -711,17 +720,19 @@
                                 Grid.Column="1"
                                 IsReadOnly="True"
                                 IsEnabled="False" />
-                            <Button
-                                Margin="0"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Click="HelpLink_Click"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
-                                       VerticalAlignment="Top" />
-                            </Button>
+                            <!-- <Button -->
+                            <!--     Margin="0" -->
+                            <!--     Grid.Row="2" -->
+                            <!--     Grid.Column="2" -->
+                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                            <!--     Width="30" -->
+                            <!--     Height="30" -->
+                            <!--     Click="HelpLink_Click" -->
+                            <!--     HorizontalAlignment="Left" -->
+                            <!--     VerticalAlignment="Top"> -->
+                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                            <!--            VerticalAlignment="Top" /> -->
+                            <!-- </Button> -->
                             <Label
                                 Margin="10,0,10,10"
                                 Grid.Row="3"
@@ -805,17 +816,19 @@
                                 Grid.Column="1"
                                 IsReadOnly="True"
                                 IsEnabled="False" />
-                            <Button
-                                Margin="0"
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                                Click="HelpLink_Click"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
-                                <Image Source="images/help.png" Height="20" HorizontalAlignment="Left"
-                                       VerticalAlignment="Top" />
-                            </Button>
+                            <!-- <Button -->
+                            <!--     Margin="0" -->
+                            <!--     Grid.Row="2" -->
+                            <!--     Grid.Column="2" -->
+                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                            <!--     Width="30" -->
+                            <!--     Height="30" -->
+                            <!--     Click="HelpLink_Click" -->
+                            <!--     HorizontalAlignment="Left" -->
+                            <!--     VerticalAlignment="Top"> -->
+                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                            <!--            VerticalAlignment="Top" /> -->
+                            <!-- </Button> -->
                             <Label
                                 Margin="10,0,10,10"
                                 Grid.Row="3"

@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow x:Class="SimpleLauncher.PlayHistoryWindow"
+<controls:MetroWindow x:Class="SimpleLauncher.PlayHistoryWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -69,20 +69,27 @@
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
                         Padding="5"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
                         Padding="5"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                         Padding="5"
+                        IsDefault="True"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource SortByDate}" Click="SortByDate_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="5"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource SortByPlayTime}" Click="SortByTotalPlayTime_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="5"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource SortByTimesPlayed}" Click="SortByTimesPlayed_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="5" />
             </StackPanel>
             <DataGrid Name="PlayHistoryDataGrid"

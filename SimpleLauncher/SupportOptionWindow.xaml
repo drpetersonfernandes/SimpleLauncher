@@ -42,6 +42,7 @@
 
         <!-- Ask Phind AI Button -->
         <Button Grid.Row="2" 
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Name="BtnAskPhind"
                 Content="{DynamicResource AskAIPhindcom}" 
                 Height="35" 
@@ -51,6 +52,7 @@
         
         <!-- Ask Perplexity AI Button -->
         <Button Grid.Row="3" 
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Name="BtnAskPerplexity"
                 Content="{DynamicResource AskAIPerplexityai}" 
                 Height="35" 
@@ -60,6 +62,7 @@
 
         <!-- Ask You.com AI Button -->
         <Button Grid.Row="4" 
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Name="BtnAskYou"
                 Content="{DynamicResource AskAIYoucom}" 
                 Height="35" 
@@ -69,6 +72,7 @@
         
         <!-- Contact Developer Button -->
         <Button Grid.Row="5" 
+                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                 Name="BtnContactDeveloper"
                 Content="{DynamicResource ContactDeveloper}" 
                 Height="35" 
@@ -78,6 +82,7 @@
 
         <!-- Cancel Button -->
         <Button Grid.Row="6" 
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Name="BtnCancel"
                 Content="{DynamicResource Cancel}" 
                 Height="35" 

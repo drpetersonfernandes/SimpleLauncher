@@ -41,6 +41,7 @@
                  VerticalAlignment="Center"/>
         <Button x:Name="ChooseSoundFileButton"
                 Grid.Row="1" Grid.Column="2"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Content="{DynamicResource ChooseFile}"
                 Click="ChooseSoundFileButton_Click"
                 VerticalAlignment="Center"
@@ -48,6 +49,7 @@
 
         <Button x:Name="PlayCurrentSoundButton"
                 Grid.Row="2" Grid.Column="1"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Content="{DynamicResource PlayCurrentSound}"
                 Click="PlayCurrentSoundButton_Click"
                 Margin="5,10,5,0"
@@ -56,6 +58,7 @@
 
         <Button x:Name="ResetToDefaultButton"
                 Grid.Row="3" Grid.Column="1"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Content="{DynamicResource ResetToDefault}"
                 Click="ResetToDefaultButton_Click"
                 Margin="5,10,5,0"
@@ -66,11 +69,13 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button x:Name="SaveButton"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                     Content="{DynamicResource Save}"
                     Click="SaveButton_Click"
                     IsDefault="True"
                     Width="100" Margin="0,0,10,0"/>
             <Button x:Name="CancelButton"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
                     Content="{DynamicResource Cancel}"
                     IsCancel="True"
                     Width="100"/>

@@ -46,9 +46,13 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Button
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    IsDefault="True"
                     Click="SendSupportRequestClickAsync"
                     Content="{DynamicResource SendSupportRequest}" />
                 <Button
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    IsCancel="True"
                     Margin="10,0,0,0"
                     Click="CloseButton_Click"
                     Content="{DynamicResource Close}" />

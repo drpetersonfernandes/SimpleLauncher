@@ -133,6 +133,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <!-- Save Button -->
                 <Button
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                     Margin="0,20,5,10"
                     Padding="10"
                     Click="SaveDeadZoneButton_Click"
@@ -140,6 +141,7 @@
 
                 <!-- Revert Button -->
                 <Button
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
                     Margin="5,20,0,10"
                     Padding="10"
                     Click="RevertDeadZoneButton_Click"

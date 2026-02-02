@@ -83,15 +83,18 @@
 
             <!-- Save Button -->
             <Button
+                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                 Grid.Column="0"
                 Margin="10"
                 Padding="10"
                 HorizontalAlignment="Right"
+                IsDefault="True"
                 Click="SaveLinksButton_Click"
                 Content="{DynamicResource SaveorUpdateLinks}" />
 
             <!-- Revert Button -->
             <Button
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Grid.Column="1"
                 Margin="10"
                 Padding="10"

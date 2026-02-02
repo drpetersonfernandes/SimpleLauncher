@@ -69,10 +69,13 @@
                    Content="{DynamicResource ListofFavorites}" />
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromFavorites}" Click="RemoveFavoriteButton_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="5"
                         Margin="0,0,10,0" />
                 <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
-                        Padding="5" />
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                        Padding="5"
+                        IsDefault="True" />
             </StackPanel>
             <DataGrid Name="FavoritesDataGrid"
                       CanUserAddRows="False"

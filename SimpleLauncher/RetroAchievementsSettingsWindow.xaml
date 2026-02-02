@@ -46,20 +46,22 @@
         <!-- Emulator Integration Section -->
         <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource EmulatorIntegration}" Margin="0,20,0,10">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Margin="5"/>
-                <Button Content="Dolphin" Click="ConfigureDolphin_Click" Margin="5"/>
-                <Button Content="DuckStation" Click="ConfigureDuckStation_Click" Margin="5"/>
-                <Button Content="Flycast" Click="ConfigureFlycast_Click" Margin="5"/>
-                <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Margin="5"/>
-                <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Margin="5"/>
-                <Button Content="RetroArch" Click="ConfigureRetroArch_Click" Margin="5"/>
+                <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
+                <Button Content="Dolphin" Click="ConfigureDolphin_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
+                <Button Content="DuckStation" Click="ConfigureDuckStation_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
+                <Button Content="Flycast" Click="ConfigureFlycast_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
+                <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
+                <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
+                <Button Content="RetroArch" Click="ConfigureRetroArch_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5"/>
             </WrapPanel>
         </GroupBox>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="{DynamicResource Save}" Click="SaveButton_Click" IsDefault="True" Width="80" Margin="0,0,10,0"/>
-            <Button Content="{DynamicResource Cancel}" IsCancel="True" Width="80"/>
+            <Button Content="{DynamicResource Save}" Click="SaveButton_Click"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" IsDefault="True" Width="80" Margin="0,0,10,0"/>
+            <Button Content="{DynamicResource Cancel}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" Width="80"/>
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

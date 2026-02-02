@@ -14,6 +14,76 @@
             <!-- Converters -->
             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 
+            <!-- Reusable ControlTemplate for Image Buttons with 3D Effect -->
+            <ControlTemplate x:Key="ImageButton3DEffectTemplate" TargetType="Button">
+                <Border x:Name="ButtonBorder"
+                        Background="{DynamicResource MahApps.Brushes.Gray10}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="8">
+                    <Border.Effect>
+                        <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}"
+                                          Direction="315"
+                                          ShadowDepth="3"
+                                          Opacity="0.5"
+                                          BlurRadius="4" />
+                    </Border.Effect>
+                    <ContentPresenter x:Name="ButtonContentPresenter"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="Background"
+                                Value="{DynamicResource MahApps.Brushes.Accent3}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}"
+                                                  Direction="315"
+                                                  ShadowDepth="4"
+                                                  Opacity="0.7"
+                                                  BlurRadius="6" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="Background"
+                                Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black"
+                                                  Direction="315"
+                                                  ShadowDepth="1"
+                                                  Opacity="0.8"
+                                                  BlurRadius="2" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform X="1" Y="1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <!-- Style applying the 3D template to image-only buttons -->
+            <Style x:Key="NavImageButton3DStyle" TargetType="Button">
+                <Setter Property="Template" Value="{StaticResource ImageButton3DEffectTemplate}" />
+                <Setter Property="Width" Value="45" />
+                <Setter Property="Height" Value="45" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,5,2,5" />
+            </Style>
+
             <!-- Placeholder text color for light and dark themes -->
             <SolidColorBrush x:Key="PlaceholderTextBrushLight" Color="Gray" />
             <SolidColorBrush x:Key="PlaceholderTextBrushDark" Color="LightGray" />

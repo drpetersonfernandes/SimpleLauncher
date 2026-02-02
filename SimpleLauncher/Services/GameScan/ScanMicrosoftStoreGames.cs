@@ -9,7 +9,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SanitizeInputString;
 using SimpleLauncher.SharedModels;
 
@@ -794,10 +793,10 @@ internal static class ScanMicrosoftStoreGames
 
             if (process.ExitCode != 0 && !string.IsNullOrWhiteSpace(errorOutput))
             {
-                // Check for execution policy restrictions
+                // Check for execution policy restrictions - skip silently if restricted
                 if (IsExecutionPolicyRestricted(errorOutput))
                 {
-                    MessageBoxLibrary.PowerShellExecutionPolicyRestrictions();
+                    DebugLogger.Log("[ScanMicrosoftStoreGames] PowerShell execution policy restrictions detected. Skipping Microsoft Store games scan.");
                     return;
                 }
 

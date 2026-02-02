@@ -170,8 +170,8 @@ public class GameScannerService
 
             if (apiResponse is { Success: true, ImageUrl: not null } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
             {
-                using var imageClient = httpClientFactory.CreateClient(); // Use a general client for external URL
-                var imageBytes = await imageClient.GetByteArrayAsync(apiResponse.ImageUrl);
+                // HttpClient supports absolute URLs directly, even when BaseAddress is configured
+                var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
                 await File.WriteAllBytesAsync(destinationPath, imageBytes);
                 DebugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
                 return true;
