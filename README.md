@@ -99,6 +99,6 @@ Simple Launcher is translated into **17 languages**:
 
 ## 📜 License
 
-This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE.txt) file for details.
 
 *Simple Launcher is an emulator frontend and does not provide ROMs, ISOs, or BIOS files.*
