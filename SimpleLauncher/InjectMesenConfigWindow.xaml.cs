@@ -56,7 +56,7 @@ public partial class InjectMesenConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Mesen emulator not found. Please locate Mesen.exe.", "Emulator Not Found");
+        MessageBoxLibrary.MesenEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Mesen Executable|Mesen.exe|All Executables|*.exe",
@@ -114,7 +114,7 @@ public partial class InjectMesenConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Mesen configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectMesenConfiguration();
         }
     }
 

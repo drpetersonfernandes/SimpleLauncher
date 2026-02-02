@@ -71,7 +71,7 @@ public partial class InjectMednafenConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("Mednafen emulator not found. Please locate mednafen.exe.", "Emulator Not Found");
+        MessageBoxLibrary.MednafenEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Mednafen Executable|mednafen.exe|All Executables|*.exe",
@@ -130,7 +130,7 @@ public partial class InjectMednafenConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject Mednafen configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectMednafenConfiguration();
         }
     }
 

@@ -3620,7 +3620,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("Aresemulatornotfound") ?? "Ares emulator not found. Please locate ares.exe.";
+            var message1 = (string)Application.Current.TryFindResource("Aresemulatornotfound") ?? "Ares emulator not found. Please locate 'ares.exe'.";
             var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -3672,7 +3672,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("Cemuemulatornotfound") ?? "Cemu emulator not found. Please locate Cemu.exe.";
+            var message1 = (string)Application.Current.TryFindResource("Cemuemulatornotfound") ?? "Cemu emulator not found. Please locate 'Cemu.exe'.";
             var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -3711,7 +3711,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("Flycastemulatornotfound") ?? "Flycast emulator not found. Please locate flycast.exe.";
+            var message1 = (string)Application.Current.TryFindResource("Flycastemulatornotfound") ?? "Flycast emulator not found. Please locate 'flycast.exe'.";
             var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -3776,7 +3776,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("DolphinEmulatorNotFound") ?? "Dolphin emulator not found. Please locate Dolphin.exe.";
+            var message1 = (string)Application.Current.TryFindResource("DolphinEmulatorNotFound") ?? "Dolphin emulator not found. Please locate 'Dolphin.exe'.";
             var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -3945,7 +3945,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("RPCS3emulatornotfoundPleaselocate") ?? "RPCS3 emulator not found. Please locate rpcs3.exe.";
+            var message1 = (string)Application.Current.TryFindResource("RPCS3emulatornotfoundPleaselocate") ?? "RPCS3 emulator not found. Please locate 'rpcs3.exe'.";
             var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -3997,7 +3997,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message1 = (string)Application.Current.TryFindResource("StellaemulatornotfoundPleaselocate") ?? "Stella emulator not found. Please locate stella.exe.";
+            var message1 = (string)Application.Current.TryFindResource("StellaemulatornotfoundPleaselocate") ?? "Stella emulator not found. Please locate 'stella.exe'.";
             var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -4097,5 +4097,57 @@ internal static class MessageBoxLibrary
     public static void ShowCustomMessage(string failedToSaveSupermodelConfigurationPleaseCheckFilePermissions, string saveFailed)
     {
         // TODO
+    }
+
+    public static void MednafenEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Mednafenemulatornotfound") ?? "Mednafen emulator not found. Please locate 'mednafen.exe'.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void MesenEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("Mesenemulatornotfound") ?? "Mesen emulator not found. Please locate 'Mesen.exe'.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectMednafenConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectMednafenconfiguration") ?? "Failed to inject Mednafen configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void FailedToInjectMesenConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedtoinjectMesenconfiguration") ?? "Failed to inject Mesen configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
