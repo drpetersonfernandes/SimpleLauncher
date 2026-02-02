@@ -227,6 +227,9 @@ public static partial class HelpUser
             { "Nintendo VirtualBoy", NintendoVirtualBoyDetails },
             { "Virtual Boy", NintendoVirtualBoyDetails },
             { "VirtualBoy", NintendoVirtualBoyDetails },
+            { "Virtual-Boy", NintendoVirtualBoyDetails },
+            { "V-Boy", NintendoVirtualBoyDetails },
+            { "VBoy", NintendoVirtualBoyDetails },
             { "Panasonic 3DO", Panasonic3DoDetails },
             { "Panasonic3DO", Panasonic3DoDetails },
             { "3DO", Panasonic3DoDetails },
@@ -323,7 +326,6 @@ public static partial class HelpUser
             { "Sony PSP", SonyPspDetails },
             { "PlayStation Portable", SonyPspDetails },
             { "PSP", SonyPspDetails },
-
             { "Super A'Can", SuperAcanDetails },
             { "Super ACan", SuperAcanDetails },
             { "Super-A'Can", SuperAcanDetails },

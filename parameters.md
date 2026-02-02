@@ -2786,6 +2786,19 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Retroarch mednafen_vb_libretro<br>
+**Emulator Path (Example):** C:\Emulators\Retroarch\Retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_vb_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_vb_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_vb/).<br>
+Core may require BIOS files or system files to work properly.
+
 ## Nintendo Wii
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
