@@ -51,67 +51,67 @@ public static class RetroArchConfigurationService
         var updates = new Dictionary<string, string>
         {
             // --- Video ---
-            { "video_fullscreen", BoolQuote(settings.RetroArchFullscreen) },
-            { "video_vsync", BoolQuote(settings.RetroArchVsync) },
-            { "video_driver", Quote(settings.RetroArchVideoDriver) },
-            { "video_threaded", BoolQuote(settings.RetroArchThreadedVideo) },
-            { "video_smooth", BoolQuote(settings.RetroArchBilinear) },
-            { "video_aspect_ratio_index", Quote(settings.RetroArchAspectRatioIndex) },
-            { "video_scale_integer", BoolQuote(settings.RetroArchScaleInteger) },
-            { "video_shader_enable", BoolQuote(settings.RetroArchShaderEnable) },
-            { "video_hard_sync", BoolQuote(settings.RetroArchHardSync) },
+            { "video_fullscreen", FormatBool(settings.RetroArchFullscreen) },
+            { "video_vsync", FormatBool(settings.RetroArchVsync) },
+            { "video_driver", FormatString(settings.RetroArchVideoDriver) },
+            { "video_threaded", FormatBool(settings.RetroArchThreadedVideo) },
+            { "video_smooth", FormatBool(settings.RetroArchBilinear) },
+            { "video_aspect_ratio_index", FormatString(settings.RetroArchAspectRatioIndex) },
+            { "video_scale_integer", FormatBool(settings.RetroArchScaleInteger) },
+            { "video_shader_enable", FormatBool(settings.RetroArchShaderEnable) },
+            { "video_hard_sync", FormatBool(settings.RetroArchHardSync) },
 
             // --- Audio ---
-            { "audio_enable", BoolQuote(settings.RetroArchAudioEnable) },
-            { "audio_mute_enable", BoolQuote(settings.RetroArchAudioMute) },
+            { "audio_enable", FormatBool(settings.RetroArchAudioEnable) },
+            { "audio_mute_enable", FormatBool(settings.RetroArchAudioMute) },
 
             // --- Directories (Portability) ---
-            { "system_directory", Quote(biosDir.Replace("\\", "/")) },
-            { "savefile_directory", Quote(savesDir.Replace("\\", "/")) },
-            { "savestate_directory", Quote(statesDir.Replace("\\", "/")) },
-            { "screenshot_directory", Quote(screenshotsDir.Replace("\\", "/")) },
+            { "system_directory", FormatPath(biosDir) },
+            { "savefile_directory", FormatPath(savesDir) },
+            { "savestate_directory", FormatPath(statesDir) },
+            { "screenshot_directory", FormatPath(screenshotsDir) },
 
             // --- Automation / Misc ---
-            { "pause_nonactive", BoolQuote(settings.RetroArchPauseNonActive) },
-            { "config_save_on_exit", BoolQuote(settings.RetroArchSaveOnExit) },
-            { "savestate_auto_save", BoolQuote(settings.RetroArchAutoSaveState) },
-            { "savestate_auto_load", BoolQuote(settings.RetroArchAutoLoadState) },
-            { "rewind_enable", BoolQuote(settings.RetroArchRewind) },
-            { "run_ahead_enabled", BoolQuote(settings.RetroArchRunAhead) },
-            { "discord_allow", BoolQuote(settings.RetroArchDiscordAllow) },
+            { "pause_nonactive", FormatBool(settings.RetroArchPauseNonActive) },
+            { "config_save_on_exit", FormatBool(settings.RetroArchSaveOnExit) },
+            { "savestate_auto_save", FormatBool(settings.RetroArchAutoSaveState) },
+            { "savestate_auto_load", FormatBool(settings.RetroArchAutoLoadState) },
+            { "rewind_enable", FormatBool(settings.RetroArchRewind) },
+            { "run_ahead_enabled", FormatBool(settings.RetroArchRunAhead) },
+            { "discord_allow", FormatBool(settings.RetroArchDiscordAllow) },
 
             // --- UI ---
-            { "menu_driver", Quote(settings.RetroArchMenuDriver) },
-            { "menu_show_advanced_settings", BoolQuote(settings.RetroArchShowAdvancedSettings) },
+            { "menu_driver", FormatString(settings.RetroArchMenuDriver) },
+            { "menu_show_advanced_settings", FormatBool(settings.RetroArchShowAdvancedSettings) },
 
             // --- RetroAchievements ---
-            { "cheevos_enable", BoolQuote(settings.RetroArchCheevosEnable) },
-            { "cheevos_hardcore_mode_enable", BoolQuote(settings.RetroArchCheevosHardcore) }
+            { "cheevos_enable", FormatBool(settings.RetroArchCheevosEnable) },
+            { "cheevos_hardcore_mode_enable", FormatBool(settings.RetroArchCheevosHardcore) }
         };
 
         // --- Directories (Conditional Portability) ---
         if (settings.RetroArchOverrideSystemDir)
         {
             Directory.CreateDirectory(Path.Combine(baseDir, "bios"));
-            updates.Add("system_directory", Quote(Path.Combine(baseDir, "bios").Replace("\\", "/")));
+            updates.Add("system_directory", FormatPath(Path.Combine(baseDir, "bios")));
         }
 
         if (settings.RetroArchOverrideSaveDir)
         {
             Directory.CreateDirectory(Path.Combine(baseDir, "saves"));
-            updates.Add("savefile_directory", Quote(Path.Combine(baseDir, "saves").Replace("\\", "/")));
+            updates.Add("savefile_directory", FormatPath(Path.Combine(baseDir, "saves")));
         }
 
         if (settings.RetroArchOverrideStateDir)
         {
             Directory.CreateDirectory(Path.Combine(baseDir, "states"));
-            updates.Add("savestate_directory", Quote(Path.Combine(baseDir, "states").Replace("\\", "/")));
+            updates.Add("savestate_directory", FormatPath(Path.Combine(baseDir, "states")));
         }
 
         if (settings.RetroArchOverrideScreenshotDir)
         {
             Directory.CreateDirectory(Path.Combine(baseDir, "screenshots"));
-            updates.Add("screenshot_directory", Quote(Path.Combine(baseDir, "screenshots").Replace("\\", "/")));
+            updates.Add("screenshot_directory", FormatPath(Path.Combine(baseDir, "screenshots")));
         }
 
         // Read and Update
@@ -149,15 +149,37 @@ public static class RetroArchConfigurationService
         DebugLogger.Log("[RetroArchConfig] Injection successful.");
         return;
 
-        // BUG FIX: RetroArch requires values to be wrapped in double quotes
-        static string Quote(string val)
+        // Helper methods to properly format values for RetroArch config
+        // RetroArch requires string values to be wrapped in double quotes
+        // These methods prevent double-quoting by stripping existing quotes first
+
+        static string FormatString(string val)
         {
+            if (string.IsNullOrEmpty(val))
+                return "\"\"";
+
+            // Strip existing surrounding quotes to prevent double-quoting
+            val = val.Trim();
+            if (val.Length >= 2 && val.StartsWith('"') && val.EndsWith('"'))
+            {
+                val = val.Substring(1, val.Length - 2);
+            }
+
+            // Escape any internal quotes and wrap in quotes
+            val = val.Replace("\"", "\\\"");
             return $"\"{val}\"";
         }
 
-        static string BoolQuote(bool val)
+        static string FormatBool(bool val)
         {
-            return Quote(val ? "true" : "false");
+            // Booleans in RetroArch are quoted strings: "true" or "false"
+            return val ? "\"true\"" : "\"false\"";
+        }
+
+        static string FormatPath(string path)
+        {
+            // Normalize path separators and format as string
+            return FormatString(path.Replace("\\", "/"));
         }
     }
 }
