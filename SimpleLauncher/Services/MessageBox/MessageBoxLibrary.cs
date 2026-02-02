@@ -3600,7 +3600,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void EnterUsernamePassword()
+    internal static void EnterUsernamePassword()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3613,7 +3613,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Aresemulatornotfound()
+    internal static void Aresemulatornotfound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3626,7 +3626,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Daphnesettingssavedsuccessfully()
+    internal static void Daphnesettingssavedsuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3639,7 +3639,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Pcsx2Settingssaved()
+    internal static void Pcsx2Settingssaved()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3652,7 +3652,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void SettingsSaved()
+    internal static void SettingsSaved()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3665,7 +3665,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Cemuemulatornotfound()
+    internal static void Cemuemulatornotfound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3678,7 +3678,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedtoinjectAresconfiguration()
+    internal static void FailedtoinjectAresconfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3691,7 +3691,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void CemuConfigurationSaved()
+    internal static void CemuConfigurationSaved()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3704,7 +3704,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FlycastEmulatorNotFound()
+    internal static void FlycastEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3717,7 +3717,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void AresConfigurationSavedSuccessfully()
+    internal static void AresConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3730,7 +3730,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveAresConfiguration()
+    internal static void FailedToSaveAresConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3743,7 +3743,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectFlycastConfiguration()
+    internal static void FailedToInjectFlycastConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3756,7 +3756,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FlycastConfigurationSavedSuccessfully()
+    internal static void FlycastConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3769,7 +3769,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void DolphinEmulatorNotFound()
+    internal static void DolphinEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3782,7 +3782,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveFlycastConfiguration()
+    internal static void FailedToSaveFlycastConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3795,7 +3795,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectDolphinConfiguration()
+    internal static void FailedToInjectDolphinConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3808,7 +3808,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void DolphinConfigurationSavedSuccessfully()
+    internal static void DolphinConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3821,7 +3821,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveDolphinConfiguration()
+    internal static void FailedToSaveDolphinConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3834,7 +3834,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void SegaModel2EmulatorNotFound()
+    internal static void SegaModel2EmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3847,7 +3847,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectSegaModel2Configuration()
+    internal static void FailedToInjectSegaModel2Configuration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3860,7 +3860,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void SegaModel2ConfigurationSavedSuccessfully()
+    internal static void SegaModel2ConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3873,7 +3873,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void BlastemEmulatorNotFound()
+    internal static void BlastemEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3886,7 +3886,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectBlastemConfiguration()
+    internal static void FailedToInjectBlastemConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3899,7 +3899,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void BlastemConfigurationSavedSuccessfully()
+    internal static void BlastemConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3912,7 +3912,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveSegaModel2Configuration()
+    internal static void FailedToSaveSegaModel2Configuration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3925,7 +3925,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveBlastemConfiguration()
+    internal static void FailedToSaveBlastemConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3938,7 +3938,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Rpcs3EmulatorNotFoundPleaseLocate()
+    internal static void Rpcs3EmulatorNotFoundPleaseLocate()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3951,7 +3951,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectRpcs3Configuration()
+    internal static void FailedToInjectRpcs3Configuration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3964,7 +3964,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Rpcs3ConfigurationSavedSuccessfully()
+    internal static void Rpcs3ConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3977,7 +3977,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveRpcs3Configuration()
+    internal static void FailedToSaveRpcs3Configuration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3990,7 +3990,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void StellaEmulatorNotFound()
+    internal static void StellaEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4003,7 +4003,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectStellaConfiguration()
+    internal static void FailedToInjectStellaConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4016,7 +4016,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void SupermodelEmulatorNotFound()
+    internal static void SupermodelEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4029,7 +4029,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void StellaConfigurationSavedSuccessfully()
+    internal static void StellaConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4042,7 +4042,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectSupermodelConfiguration()
+    internal static void FailedToInjectSupermodelConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4055,7 +4055,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveStellaConfiguration()
+    internal static void FailedToSaveStellaConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4068,7 +4068,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void SupermodelConfigurationSavedSuccessfully()
+    internal static void SupermodelConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4081,7 +4081,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToSaveSupermodelConfiguration()
+    internal static void FailedToSaveSupermodelConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4094,12 +4094,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void ShowCustomMessage(string failedToSaveSupermodelConfigurationPleaseCheckFilePermissions, string saveFailed)
-    {
-        // TODO
-    }
-
-    public static void MednafenEmulatorNotFound()
+    internal static void MednafenEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4112,7 +4107,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void MesenEmulatorNotFound()
+    internal static void MesenEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4125,7 +4120,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectMednafenConfiguration()
+    internal static void FailedToInjectMednafenConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4138,7 +4133,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectMesenConfiguration()
+    internal static void FailedToInjectMesenConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4148,6 +4143,110 @@ internal static class MessageBoxLibrary
             var message1 = (string)Application.Current.TryFindResource("FailedtoinjectMesenconfiguration") ?? "Failed to inject Mesen configuration. Please check file permissions and try again.";
             var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void DuckStationEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("DuckStationemulatornotfound") ?? "DuckStation emulator not found. Please locate the DuckStation executable.";
+            var message2 = (string)Application.Current.TryFindResource("EmulatorNotFound") ?? "Emulator Not Found";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void MednafenConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("MednafenConfigurationSavedSuccessfully") ?? "Mednafen configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static void FailedToSaveMednafenConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveMednafenConfiguration") ?? "Failed to save Mednafen configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void FailedToInjectDuckStationConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToInjectDuckStationConfiguration") ?? "Failed to inject DuckStation configuration. Please check file permissions and try again.";
+            var message2 = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void DuckStationConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("DuckStationConfigurationSavedSuccessfully") ?? "DuckStation configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static void FailedToSaveMesenConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveMesenConfiguration") ?? "Failed to save Mesen configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void FailedToSaveDuckStationConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveDuckStationConfiguration") ?? "Failed to save DuckStation configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void MesenConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("MesenConfigurationSavedSuccessfully") ?? "Mesen configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

@@ -123,11 +123,11 @@ public partial class InjectMesenConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Mesen configuration saved successfully.", "Success");
+            MessageBoxLibrary.MesenConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Mesen configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveMesenConfiguration();
         }
 
         Close();

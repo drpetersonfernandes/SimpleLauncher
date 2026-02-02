@@ -67,7 +67,7 @@ public partial class InjectDuckStationConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ShowCustomMessage("DuckStation emulator not found. Please locate the DuckStation executable.", "Emulator Not Found");
+        MessageBoxLibrary.DuckStationEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "DuckStation Executable|duckstation-*.exe|All Executables|*.exe",
@@ -146,7 +146,7 @@ public partial class InjectDuckStationConfigWindow
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to inject DuckStation configuration. Please check file permissions and try again.", "Injection Failed");
+            MessageBoxLibrary.FailedToInjectDuckStationConfiguration();
         }
     }
 
@@ -155,11 +155,11 @@ public partial class InjectDuckStationConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("DuckStation configuration saved successfully.", "Success");
+            MessageBoxLibrary.DuckStationConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save DuckStation configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveDuckStationConfiguration();
         }
 
         Close();

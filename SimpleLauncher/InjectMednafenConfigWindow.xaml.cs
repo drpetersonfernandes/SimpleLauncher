@@ -139,11 +139,11 @@ public partial class InjectMednafenConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.ShowCustomMessage("Mednafen configuration saved successfully.", "Success");
+            MessageBoxLibrary.MednafenConfigurationSavedSuccessfully();
         }
         else
         {
-            MessageBoxLibrary.ShowCustomMessage("Failed to save Mednafen configuration. Please check file permissions.", "Save Failed");
+            MessageBoxLibrary.FailedToSaveMednafenConfiguration();
         }
 
         Close();
