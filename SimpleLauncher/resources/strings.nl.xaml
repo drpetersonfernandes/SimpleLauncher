@@ -2,16 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="RetroArchConfig_Paths_Header">Padconfiguratie &amp; Portabiliteit</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">Opmerking: Het inschakelen van deze opties dwingt RetroArch om de interne mappen van de Launcher te gebruiken. Dit wordt aanbevolen om uw setup draagbaar te houden.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">BIOS-map van de Launcher gebruiken</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Leidt RetroArch om om firmware- en BIOS-bestanden te zoeken in de 'bios'-map binnen de Launcher-directory.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Opslagmap van de Launcher gebruiken</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Leidt RetroArch om om in-game opslagbestanden (.srm) op te slaan in de 'saves'-map binnen de Launcher-directory.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Statusmap van de Launcher gebruiken</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Leidt RetroArch om om opslagstaten op te slaan in de 'states'-map binnen de Launcher-directory.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Screenshot-map van de Launcher gebruiken</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Leidt RetroArch om om screenshots op te slaan in de 'screenshots'-map binnen de Launcher-directory.</system:String>
 
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
@@ -79,7 +69,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">Spelzichtbaarheidsfilter wordt toegepast...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">Spelzichtbaarheidsinstellingen worden toegepast...</system:String>
     <system:String x:Key="AppNotAvailableForArch">Deze applicatie is niet beschikbaar voor {0}</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">Deze applicatie is niet beschikbaar voor win-arm64</system:String>
     <system:String x:Key="ArchivePathMessage">Archiefbestand:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Weet u zeker dat u de omslagafbeelding van wilt verwijderen?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Weet je zeker dat je dit bestand wilt verwijderen?</system:String>

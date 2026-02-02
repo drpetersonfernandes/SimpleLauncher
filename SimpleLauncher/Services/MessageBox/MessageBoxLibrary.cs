@@ -4063,7 +4063,7 @@ internal static class MessageBoxLibrary
         static void ShowMessage()
         {
             var message1 = (string)Application.Current.TryFindResource("FailedToSaveStellaConfiguration") ?? "Failed to save Stella configuration. Please check file permissions.";
-            var message2 = (string)Application.Current.TryFindResource("Save Failed") ?? "Save Failed";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

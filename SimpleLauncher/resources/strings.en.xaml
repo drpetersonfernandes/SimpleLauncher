@@ -67,7 +67,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">Applying game visibility filter...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">Applying game visibility settings...</system:String>
     <system:String x:Key="AppNotAvailableForArch">This application is not available for {0}</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">This application is not available for win-arm64</system:String>
     <system:String x:Key="ArchivePathMessage">Archive file:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Are you sure you want to delete the cover image of</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Are you sure you want to delete the file</system:String>
@@ -815,16 +814,6 @@
     <system:String x:Key="RetroArchconfigurationinjectedsuccessfully">RetroArch configuration injected successfully.</system:String>
     <system:String x:Key="RetroArchemulatorpathnotfoundPlease">RetroArch emulator path not found. Please select 'retroarch.exe' to apply these settings.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch Settings</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Header">Path Configuration &amp; Portability</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">Note: Enabling these options will force RetroArch to use the Launcher's internal folders. This is recommended for keeping your setup portable.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Use Launcher's BIOS folder</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Redirects RetroArch to look for firmware and BIOS files in the 'bios' folder within the Launcher directory.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Use Launcher's Saves folder</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Redirects RetroArch to store in-game save files (.srm) in the 'saves' folder within the Launcher directory.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Use Launcher's States folder</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Redirects RetroArch to store save states in the 'states' folder within the Launcher directory.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Use Launcher's Screenshots folder</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Redirects RetroArch to store screenshots in the 'screenshots' folder within the Launcher directory.</system:String>
 
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Reverting gamepad dead zone settings...</system:String>
     <system:String x:Key="RevertingLinkSettings">Reverting link settings...</system:String>
@@ -1644,6 +1633,59 @@
     <system:String x:Key="YumirConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="EnterUsernamePassword">Please enter your RetroAchievements username and password first.</system:String>
     <system:String x:Key="MissingInformation">Missing Information</system:String>
+
+    <system:String x:Key="Aresemulatornotfound">Ares emulator not found. Please locate 'ares.exe'.</system:String>
+    <system:String x:Key="EmulatorNotFound">Emulator Not Found</system:String>
+    <system:String x:Key="Daphnesettingssavedsuccessfully">Daphne settings saved successfully.</system:String>
+    <system:String x:Key="PCSX2settingssaved">PCSX2 settings saved.</system:String>
+    <system:String x:Key="SettingsSaved">Settings saved.</system:String>
+    <system:String x:Key="Cemuemulatornotfound">Cemu emulator not found. Please locate 'Cemu.exe'.</system:String>
+    <system:String x:Key="FailedtoinjectAresconfiguration">Failed to inject Ares configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="InjectionFailed">Injection Failed</system:String>
+    <system:String x:Key="CemuConfigurationSaved">Cemu configuration saved.</system:String>
+    <system:String x:Key="Flycastemulatornotfound">Flycast emulator not found. Please locate 'flycast.exe'.</system:String>
+    <system:String x:Key="AresConfigurationSavedSuccessfully">Ares configuration saved successfully.</system:String>
+    <system:String x:Key="FailedToSaveAresConfiguration">Failed to save Ares configuration. Please check file permissions.</system:String>
+    <system:String x:Key="SaveFailed">Save Failed</system:String>
+    <system:String x:Key="FailedToInjectFlycastConfiguration">Failed to inject Flycast configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="FlycastConfigurationSavedSuccessfully">Flycast configuration saved successfully.</system:String>
+    <system:String x:Key="DolphinEmulatorNotFound">Dolphin emulator not found. Please locate 'Dolphin.exe'.</system:String>
+    <system:String x:Key="FailedToSaveFlycastConfiguration">Failed to save Flycast configuration. Please check file permissions.</system:String>
+    <system:String x:Key="FailedToInjectDolphinConfiguration">Failed to inject Dolphin configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin configuration saved successfully.</system:String>
+    <system:String x:Key="FailedToSaveDolphinConfiguration">Failed to save Dolphin configuration. Please check file permissions.</system:String>
+    <system:String x:Key="SEGAModel2EmulatorNotFound">SEGA Model 2 emulator not found. Please locate 'emulator.exe'.</system:String>
+    <system:String x:Key="FailedToInjectSEGAModel2Configuration">Failed to inject SEGA Model 2 configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="SEGAModel2ConfigurationSavedSuccessfully">SEGA Model 2 configuration saved successfully.</system:String>
+    <system:String x:Key="BlastememulatornotfoundPleaselocate">Blastem emulator not found. Please locate 'blastem.exe'.</system:String>
+    <system:String x:Key="FailedToInjectBlastemConfiguration">Failed to inject Blastem configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem configuration saved successfully.</system:String>
+    <system:String x:Key="FailedToSaveSEGAModel2Configuration">Failed to save SEGA Model 2 configuration. Please check file permissions.</system:String>
+    <system:String x:Key="FailedToSaveBlastemConfiguration">Failed to save Blastem configuration. Please check file permissions.</system:String>
+    <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 emulator not found. Please locate 'rpcs3.exe'.</system:String>
+    <system:String x:Key="FailedToInjectRPCS3Configuration">Failed to inject RPCS3 configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 configuration saved successfully.</system:String>
+    <system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">Failed to save RPCS3 configuration. Please check file permissions.</system:String>
+    <system:String x:Key="StellaemulatornotfoundPleaselocate">Stella emulator not found. Please locate 'stella.exe'.</system:String>
+    <system:String x:Key="FailedtoinjectStellaconfiguration">Failed to inject Stella configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="SupermodelEmulatorNotFound">Supermodel emulator not found. Please locate 'Supermodel.exe'.</system:String>
+    <system:String x:Key="StellaConfigurationSavedSuccessfully">Stella configuration saved successfully.</system:String>
+    <system:String x:Key="FailedtoinjectSupermodelconfiguration">Failed to inject Supermodel configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="FailedToSaveStellaConfiguration">Failed to save Stella configuration. Please check file permissions.</system:String>
+    <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel configuration saved successfully.</system:String>
+    <system:String x:Key="FailedToSaveSupermodelConfiguration">Failed to save Supermodel configuration. Please check file permissions.</system:String>
+    <system:String x:Key="Mednafenemulatornotfound">Mednafen emulator not found. Please locate 'mednafen.exe'.</system:String>
+    <system:String x:Key="Mesenemulatornotfound">Mesen emulator not found. Please locate 'Mesen.exe'.</system:String>
+    <system:String x:Key="FailedtoinjectMednafenconfiguration">Failed to inject Mednafen configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="FailedtoinjectMesenconfiguration">Failed to inject Mesen configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="DuckStationemulatornotfound">DuckStation emulator not found. Please locate the DuckStation executable.</system:String>
+    <system:String x:Key="MednafenConfigurationSavedSuccessfully">Mednafen configuration saved successfully.</system:String>
+    <system:String x:Key="FailedToSaveMednafenConfiguration">Failed to save Mednafen configuration. Please check file permissions.</system:String>
+    <system:String x:Key="FailedToInjectDuckStationConfiguration">Failed to inject DuckStation configuration. Please check file permissions and try again.</system:String>
+    <system:String x:Key="DuckStationConfigurationSavedSuccessfully">DuckStation configuration saved successfully.</system:String>
+    <system:String x:Key="FailedToSaveMesenConfiguration">Failed to save Mesen configuration. Please check file permissions.</system:String>
+    <system:String x:Key="FailedToSaveDuckStationConfiguration">Failed to save DuckStation configuration. Please check file permissions.</system:String>
+    <system:String x:Key="MesenConfigurationSavedSuccessfully">Mesen configuration saved successfully.</system:String>
 
 
 </ResourceDictionary>

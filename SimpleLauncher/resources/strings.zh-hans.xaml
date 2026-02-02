@@ -2,16 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="RetroArchConfig_Paths_Header">路径配置与便携性</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">注意：启用这些选项将强制RetroArch使用启动器的内部文件夹。建议这样做以保持您的设置便携。</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">使用启动器的BIOS文件夹</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">将RetroArch重定向到启动器目录内的“bios”文件夹中查找固件和BIOS文件。</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">使用启动器的保存文件夹</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">将RetroArch重定向到启动器目录内的“saves”文件夹中存储游戏内保存文件（.srm）。</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">使用启动器的状态文件夹</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">将RetroArch重定向到启动器目录内的“states”文件夹中存储保存状态。</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">使用启动器的截图文件夹</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">将RetroArch重定向到启动器目录内的“screenshots”文件夹中存储截图。</system:String>
 
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
@@ -79,7 +69,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">正在应用游戏可见性筛选器...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">正在应用游戏可见性设置...</system:String>
     <system:String x:Key="AppNotAvailableForArch">此应用程序不适用于 {0}</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">此应用程序不适用于 win-arm64</system:String>
     <system:String x:Key="ArchivePathMessage">存档文件：</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">您确定要删除的封面图像吗？</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">确定要删除此文件吗？</system:String>

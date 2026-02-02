@@ -1,16 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="RetroArchConfig_Paths_Header">পথ কনফিগারেশন এবং পোর্টেবিলিটি</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">দ্রষ্টব্য: এই বিকল্পগুলি সক্ষম করলে RetroArch লঞ্চারের অভ্যন্তরীণ ফোল্ডারগুলি ব্যবহার করতে বাধ্য হবে। আপনার সেটআপ পোর্টেবল রাখার জন্য এটি সুপারিশ করা হয়।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">লঞ্চারের BIOS ফোল্ডার ব্যবহার করুন</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">RetroArch কে লঞ্চার ডিরেক্টরির মধ্যে 'bios' ফোল্ডারে ফার্মওয়্যার এবং BIOS ফাইল খুঁজতে নির্দেশ করে।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">লঞ্চারের সেভ ফোল্ডার ব্যবহার করুন</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">RetroArch কে লঞ্চার ডিরেক্টরির মধ্যে 'saves' ফোল্ডারে ইন-গেম সেভ ফাইল (.srm) সংরক্ষণ করতে নির্দেশ করে।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">লঞ্চারের স্টেট ফোল্ডার ব্যবহার করুন</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">RetroArch কে লঞ্চার ডিরেক্টরির মধ্যে 'states' ফোল্ডারে সেভ স্টেট সংরক্ষণ করতে নির্দেশ করে।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">লঞ্চারের স্ক্রিনশট ফোল্ডার ব্যবহার করুন</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">RetroArch কে লঞ্চার ডিরেক্টরির মধ্যে 'screenshots' ফোল্ডারে স্ক্রিনশট সংরক্ষণ করতে নির্দেশ করে।</system:String>
 
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
@@ -78,7 +68,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">গেম দৃশ্যমানতা ফিল্টার প্রয়োগ করা হচ্ছে...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">গেম দৃশ্যমানতা সেটিংস প্রয়োগ করা হচ্ছে...</system:String>
     <system:String x:Key="AppNotAvailableForArch">এই অ্যাপ্লিকেশনটি {0} এর জন্য উপলব্ধ নয়</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">এই অ্যাপ্লিকেশনটি win-arm64 এর জন্য উপলব্ধ নয়</system:String>
     <system:String x:Key="ArchivePathMessage">আর্কাইভ ফাইল:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">আপনি কি নিশ্চিত যে আপনি এর কভার চিত্র মুছতে চান?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">আপনি কি নিশ্চিত যে আপনি ফাইল মুছতে চান?</system:String>

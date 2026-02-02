@@ -2,16 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="RetroArchConfig_Paths_Header">Configuração de Caminhos e Portabilidade</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">Nota: Habilitar estas opções forçará o RetroArch a usar as pastas internas do Launcher. Isso é recomendado para manter sua configuração portátil.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">Usar a pasta BIOS do Launcher</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Redireciona o RetroArch para procurar arquivos de firmware e BIOS na pasta 'bios' dentro do diretório do Launcher.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Usar a pasta de Saves do Launcher</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Redireciona o RetroArch para armazenar arquivos de save de jogo (.srm) na pasta 'saves' dentro do diretório do Launcher.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Usar a pasta de Estados do Launcher</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Redireciona o RetroArch para armazenar estados de save na pasta 'states' dentro do diretório do Launcher.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Usar a pasta de Capturas de Tela do Launcher</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Redireciona o RetroArch para armazenar capturas de tela na pasta 'screenshots' dentro do diretório do Launcher.</system:String>
 
     <system:String x:Key="1000000games">Todos os jogos</system:String>
     <system:String x:Key="10000games">10000 jogos</system:String>
@@ -79,7 +69,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">Aplicando filtro de visibilidade de jogo...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">Aplicando configurações de visibilidade de jogo...</system:String>
     <system:String x:Key="AppNotAvailableForArch">Este aplicativo não está disponível para {0}</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">Este aplicativo não está disponível para win-arm64</system:String>
     <system:String x:Key="ArchivePathMessage">Arquivo compactado:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Tem certeza de que deseja excluir a imagem da capa de</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Tem certeza de que deseja excluir o arquivo?</system:String>

@@ -2,16 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="RetroArchConfig_Paths_Header">راستے کی ترتیب اور پورٹیبلٹی</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">نوٹ: ان اختیارات کو فعال کرنے سے RetroArch لانچر کے اندرونی فولڈرز کو استعمال کرنے پر مجبور ہو جائے گا۔ یہ آپ کے سیٹ اپ کو پورٹیبل رکھنے کے لیے تجویز کیا جاتا ہے۔</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">لانچر کا BIOS فولڈر استعمال کریں</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">RetroArch کو لانچر ڈائریکٹری کے اندر 'bios' فولڈر میں فرم ویئر اور BIOS فائلوں کو تلاش کرنے کے لیے ری ڈائریکٹ کرتا ہے۔</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">لانچر کا سیو فولڈر استعمال کریں</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">RetroArch کو لانچر ڈائریکٹری کے اندر 'saves' فولڈر میں ان-گیم سیو فائلیں (.srm) ذخیرہ کرنے کے لیے ری ڈائریکٹ کرتا ہے۔</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">لانچر کا اسٹیٹ فولڈر استعمال کریں</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">RetroArch کو لانچر ڈائریکٹری کے اندر 'states' فولڈر میں سیو اسٹیٹس ذخیرہ کرنے کے لیے ری ڈائریکٹ کرتا ہے۔</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">لانچر کا اسکرین شاٹس فولڈر استعمال کریں</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">RetroArch کو لانچر ڈائریکٹری کے اندر 'screenshots' فولڈر میں اسکرین شاٹس ذخیرہ کرنے کے لیے ری ڈائریکٹ کرتا ہے۔</system:String>
 
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
@@ -79,7 +69,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">گیم کی مرئیت کا فلٹر لاگو کر رہا ہے...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">گیم کی مرئیت کی ترتیبات لاگو کر رہا ہے...</system:String>
     <system:String x:Key="AppNotAvailableForArch">یہ ایپلیکیشن {0} کے لیے دستیاب نہیں ہے۔</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">یہ ایپلیکیشن win-arm64 کے لیے دستیاب نہیں ہے۔</system:String>
     <system:String x:Key="ArchivePathMessage">آرکائیو فائل:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">کیا آپ واقعی کی کور امیج کو حذف کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">کیا آپ واقعی فائل حذف کرنا چاہتے ہیں؟</system:String>

@@ -2,16 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="RetroArchConfig_Paths_Header">Pfadkonfiguration &amp; Portabilität</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">Hinweis: Das Aktivieren dieser Optionen zwingt RetroArch dazu, die internen Ordner des Launchers zu verwenden. Dies wird empfohlen, um Ihr Setup portabel zu halten.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">BIOS-Ordner des Launchers verwenden</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">Leitet RetroArch um, um Firmware- und BIOS-Dateien im Ordner 'bios' innerhalb des Launcher-Verzeichnisses zu suchen.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">Speicherordner des Launchers verwenden</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">Leitet RetroArch um, um Spielstände (.srm) im Ordner 'saves' innerhalb des Launcher-Verzeichnisses zu speichern.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">Zustandsordner des Launchers verwenden</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">Leitet RetroArch um, um Speicherzustände im Ordner 'states' innerhalb des Launcher-Verzeichnisses zu speichern.</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">Screenshot-Ordner des Launchers verwenden</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">Leitet RetroArch um, um Screenshots im Ordner 'screenshots' innerhalb des Launcher-Verzeichnisses zu speichern.</system:String>
 
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
@@ -79,7 +69,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">Sichtbarkeitsfilter für Spiele wird angewendet...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">Sichtbarkeitseinstellungen für Spiele werden angewendet...</system:String>
     <system:String x:Key="AppNotAvailableForArch">Diese Anwendung ist für {0} nicht verfügbar</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">Diese Anwendung ist für win-arm64 nicht verfügbar</system:String>
     <system:String x:Key="ArchivePathMessage">Archivdatei:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Möchten Sie das Titelbild von wirklich löschen?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Möchten Sie die Datei wirklich löschen?</system:String>

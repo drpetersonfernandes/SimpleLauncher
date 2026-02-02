@@ -2,16 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="RetroArchConfig_Paths_Header">पथ कॉन्फ़िगरेशन और पोर्टेबिलिटी</system:String>
-    <system:String x:Key="RetroArchConfig_Paths_Warning">नोट: इन विकल्पों को सक्षम करने से RetroArch को लॉन्चर के आंतरिक फ़ोल्डरों का उपयोग करने के लिए मजबूर किया जाएगा। यह आपके सेटअप को पोर्टेबल रखने के लिए अनुशंसित है।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Checkbox">लॉन्चर के BIOS फ़ोल्डर का उपयोग करें</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSystem_Tooltip">RetroArch को लॉन्चर डायरेक्टरी के भीतर 'bios' फ़ोल्डर में फ़र्मवेयर और BIOS फ़ाइलों को खोजने के लिए रीडायरेक्ट करता है।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Checkbox">लॉन्चर के सेव फ़ोल्डर का उपयोग करें</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideSave_Tooltip">RetroArch को लॉन्चर डायरेक्टरी के भीतर 'saves' फ़ोल्डर में इन-गेम सेव फ़ाइलें (.srm) संग्रहीत करने के लिए रीडायरेक्ट करता है।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Checkbox">लॉन्चर के स्टेट फ़ोल्डर का उपयोग करें</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideState_Tooltip">RetroArch को लॉन्चर डायरेक्टरी के भीतर 'states' फ़ोल्डर में सेव स्टेट्स संग्रहीत करने के लिए रीडायरेक्ट करता है।</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Checkbox">लॉन्चर के स्क्रीनशॉट फ़ोल्डर का उपयोग करें</system:String>
-    <system:String x:Key="RetroArchConfig_OverrideScreenshot_Tooltip">RetroArch को लॉन्चर डायरेक्टरी के भीतर 'screenshots' फ़ोल्डर में स्क्रीनशॉट संग्रहीत करने के लिए रीडायरेक्ट करता है।</system:String>
 
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
@@ -79,7 +69,6 @@
     <system:String x:Key="ApplyingGameVisibilityFilter">गेम विज़िबिलिटी फ़िल्टर लागू कर रहा है...</system:String>
     <system:String x:Key="ApplyingGameVisibilitySettings">गेम विज़िबिलिटी सेटिंग्स लागू कर रहा है...</system:String>
     <system:String x:Key="AppNotAvailableForArch">यह एप्लिकेशन {0} के लिए उपलब्ध नहीं है</system:String>
-    <system:String x:Key="AppNotAvailableForArm64">यह एप्लिकेशन win-arm64 के लिए उपलब्ध नहीं है</system:String>
     <system:String x:Key="ArchivePathMessage">संग्रह फ़ाइल:</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">क्या आप वाकई की कवर इमेज हटाना चाहते हैं?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">क्या आप वाकई इस फ़ाइल को हटाना चाहते हैं?</system:String>
