@@ -3444,7 +3444,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectMamEconfiguration()
+    internal static void FailedToInjectMameConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3483,7 +3483,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MamEemulatorpathnotfound()
+    internal static void MameEmulatorPathNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;

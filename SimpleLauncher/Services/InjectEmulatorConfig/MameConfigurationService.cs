@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
-public static class MameConfigurationService
+public static partial class MameConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, string systemRomPath = null)
     {
@@ -60,40 +61,55 @@ public static class MameConfigurationService
 
         for (var i = 0; i < lines.Count; i++)
         {
-            var line = lines[i].Trim();
-            if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#')) continue;
+            var line = lines[i];
+            var trimmedLine = line.TrimStart();
+            if (string.IsNullOrWhiteSpace(line) || trimmedLine.StartsWith('#')) continue;
 
             // MAME INI format: key <whitespace> value
-            var parts = line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length < 1) continue;
+            var match = MyRegex().Match(trimmedLine);
+            if (!match.Success) continue;
 
-            var key = parts[0];
+            var key = match.Groups[1].Value;
+            var whitespaceBetween = match.Groups[2].Value;
+            var trailingPart = match.Groups[4].Value; // Includes any trailing comment
 
             // Handle standard settings
             if (updates.TryGetValue(key, out var newValue))
             {
-                // Reconstruct line preserving key, adding spacing, and new value
-                lines[i] = $"{key,-25} {newValue}";
+                // Preserve leading whitespace and trailing comments
+                var leadingWhitespace = line.TakeWhile(char.IsWhiteSpace).ToArray();
+                lines[i] = new string(leadingWhitespace) + key + whitespaceBetween + newValue + trailingPart;
                 keysFound.Add(key);
                 modified = true;
             }
             // Handle rompath specifically to append/inject the system folder
             else if (key.Equals("rompath", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(systemRomPath))
             {
-                var currentPathsStr = parts.Length > 1 ? line.Substring(key.Length).Trim() : "";
-
-                // Resolve paths relative to the emulator directory to get full paths for comparison
-                var existingPaths = currentPathsStr.Split(';', StringSplitOptions.RemoveEmptyEntries)
-                    .Select(p => Path.GetFullPath(p.Trim(), emuDir).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))
+                // Get full paths of existing entries for comparison
+                var existingPaths = SplitRomPath(trimmedLine.Substring(key.Length).Trim())
+                    .Select(p => NormalizePath(GetFullPathSafe(p, emuDir)))
+                    .Where(static p => !string.IsNullOrEmpty(p))
                     .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-                var newFullPath = Path.GetFullPath(systemRomPath.Trim(), emuDir).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                var newFullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir));
 
-                if (!existingPaths.Contains(newFullPath))
+                if (!string.IsNullOrEmpty(newFullPath) && !existingPaths.Contains(newFullPath))
                 {
-                    // Append the original, unresolved path to preserve user's format (e.g., relative paths)
-                    var newPaths = string.IsNullOrEmpty(currentPathsStr) ? systemRomPath : $"{currentPathsStr};{systemRomPath}";
-                    lines[i] = $"{key,-25} {newPaths}";
+                    // Quote the new path if it contains semicolons or spaces
+                    var pathToAdd = systemRomPath.Trim();
+                    if (pathToAdd.Contains(';') || pathToAdd.Contains(' '))
+                    {
+                        pathToAdd = $"\"{pathToAdd}\"";
+                    }
+
+                    // Reconstruct the value preserving the original format where possible
+                    var currentRomPathValue = trimmedLine.Substring(key.Length).Trim();
+                    var newRomPathValue = string.IsNullOrEmpty(currentRomPathValue)
+                        ? pathToAdd
+                        : $"{currentRomPathValue};{pathToAdd}";
+
+                    var leadingWhitespace = line.TakeWhile(char.IsWhiteSpace).ToArray();
+                    lines[i] = new string(leadingWhitespace) + key + whitespaceBetween + newRomPathValue + trailingPart;
                     modified = true;
                 }
 
@@ -101,20 +117,121 @@ public static class MameConfigurationService
             }
         }
 
+        // Add missing keys at the end
         foreach (var kvp in updates)
         {
             if (!keysFound.Contains(kvp.Key))
             {
-                lines.Add($"{kvp.Key,-25} {kvp.Value}");
+                lines.Add($"{kvp.Key} {kvp.Value}");
                 modified = true;
             }
         }
 
-        // If we modified the file, write it back
+        // Atomic write to prevent corruption during concurrent access
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[MameConfig] Injection successful.");
+            var tempPath = configPath + ".tmp";
+            try
+            {
+                File.WriteAllLines(tempPath, lines, new UTF8Encoding(false));
+                File.Move(tempPath, configPath, true);
+                DebugLogger.Log("[MameConfig] Injection successful.");
+            }
+            catch
+            {
+                // Clean up temp file if it exists
+                if (File.Exists(tempPath))
+                {
+                    try
+                    {
+                        File.Delete(tempPath);
+                    }
+                    catch
+                    {
+                        /* Ignore cleanup errors */
+                    }
+                }
+
+                throw;
+            }
         }
     }
+
+    /// <summary>
+    /// Splits ROM path respecting quoted strings. MAME uses semicolons as separators
+    /// but paths containing semicolons or spaces should be quoted.
+    /// </summary>
+    private static List<string> SplitRomPath(string value)
+    {
+        var result = new List<string>();
+        var current = new StringBuilder();
+        var inQuotes = false;
+
+        foreach (var c in value)
+        {
+            switch (c)
+            {
+                case '"':
+                    inQuotes = !inQuotes;
+                    // Don't include quotes in the path string
+                    break;
+                case ';' when !inQuotes:
+                {
+                    var part = current.ToString().Trim();
+                    if (!string.IsNullOrEmpty(part))
+                        result.Add(part);
+                    current.Clear();
+                    break;
+                }
+                default:
+                    current.Append(c);
+                    break;
+            }
+        }
+
+        var lastPart = current.ToString().Trim();
+        if (!string.IsNullOrEmpty(lastPart))
+            result.Add(lastPart);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Normalizes path for comparison (trims trailing separators).
+    /// Assumes Path.GetFullPath has already been called to resolve relative paths.
+    /// </summary>
+    private static string NormalizePath(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+            return string.Empty;
+
+        return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+    }
+
+    /// <summary>
+    /// Safely gets full path, returning null if the path is invalid.
+    /// </summary>
+    private static string GetFullPathSafe(string path, string basePath)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return null;
+
+            // Remove quotes if present
+            path = path.Trim().Trim('"');
+
+            if (string.IsNullOrWhiteSpace(path))
+                return null;
+
+            return Path.GetFullPath(path, basePath);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    [GeneratedRegex(@"^(\S+)(\s+)(\S+)(.*)$")]
+    private static partial Regex MyRegex();
 }

@@ -29,38 +29,38 @@ public class SettingsManager
     [IgnoreMember] private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
 
     // Application Settings
-    [Key(0)] public int ThumbnailSize { get; set; }
-    [Key(1)] public int GamesPerPage { get; set; }
-    [Key(2)] public string ShowGames { get; set; }
-    [Key(3)] public string ViewMode { get; set; }
+    [Key(0)] public int ThumbnailSize { get; set; } = 250;
+    [Key(1)] public int GamesPerPage { get; set; } = 200;
+    [Key(2)] public string ShowGames { get; set; } = "ShowAll";
+    [Key(3)] public string ViewMode { get; set; } = "GridView";
     [Key(4)] public bool EnableGamePadNavigation { get; set; }
-    [Key(5)] public string VideoUrl { get; set; }
-    [Key(6)] public string InfoUrl { get; set; }
-    [Key(7)] public string BaseTheme { get; set; }
-    [Key(8)] public string AccentColor { get; set; }
-    [Key(9)] public string Language { get; set; }
-    [Key(10)] public float DeadZoneX { get; set; }
-    [Key(11)] public float DeadZoneY { get; set; }
-    [Key(12)] public string ButtonAspectRatio { get; set; }
-    [Key(13)] public bool EnableFuzzyMatching { get; set; }
-    [Key(14)] public double FuzzyMatchingThreshold { get; set; }
+    [Key(5)] public string VideoUrl { get; set; } = App.Configuration?["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
+    [Key(6)] public string InfoUrl { get; set; } = App.Configuration?["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
+    [Key(7)] public string BaseTheme { get; set; } = "Light";
+    [Key(8)] public string AccentColor { get; set; } = "Blue";
+    [Key(9)] public string Language { get; set; } = "en";
+    [Key(10)] public float DeadZoneX { get; set; } = DefaultDeadZoneX;
+    [Key(11)] public float DeadZoneY { get; set; } = DefaultDeadZoneY;
+    [Key(12)] public string ButtonAspectRatio { get; set; } = "Square";
+    [Key(13)] public bool EnableFuzzyMatching { get; set; } = true;
+    [Key(14)] public double FuzzyMatchingThreshold { get; set; } = 0.80;
     [IgnoreMember] public const float DefaultDeadZoneX = 0.05f;
     [IgnoreMember] public const float DefaultDeadZoneY = 0.02f;
-    [Key(15)] public bool EnableNotificationSound { get; set; }
-    [Key(16)] public string CustomNotificationSoundFile { get; set; }
-    [Key(17)] public string RaUsername { get; set; }
-    [Key(18)] public string RaApiKey { get; set; }
-    [Key(19)] public string RaPassword { get; set; }
-    [Key(30)] public string RaToken { get; set; }
+    [Key(15)] public bool EnableNotificationSound { get; set; } = true;
+    [Key(16)] public string CustomNotificationSoundFile { get; set; } = DefaultNotificationSoundFileName;
+    [Key(17)] public string RaUsername { get; set; } = string.Empty;
+    [Key(18)] public string RaApiKey { get; set; } = string.Empty;
+    [Key(19)] public string RaPassword { get; set; } = string.Empty;
+    [Key(30)] public string RaToken { get; set; } = string.Empty;
     [Key(20)] public bool OverlayRetroAchievementButton { get; set; }
-    [Key(21)] public bool OverlayOpenVideoButton { get; set; }
+    [Key(21)] public bool OverlayOpenVideoButton { get; set; } = true;
     [Key(22)] public bool OverlayOpenInfoButton { get; set; }
-    [Key(23)] public bool AdditionalSystemFoldersExpanded { get; set; }
-    [Key(24)] public bool Emulator1Expanded { get; set; }
-    [Key(25)] public bool Emulator2Expanded { get; set; }
-    [Key(26)] public bool Emulator3Expanded { get; set; }
-    [Key(27)] public bool Emulator4Expanded { get; set; }
-    [Key(28)] public bool Emulator5Expanded { get; set; }
+    [Key(23)] public bool AdditionalSystemFoldersExpanded { get; set; } = true;
+    [Key(24)] public bool Emulator1Expanded { get; set; } = true;
+    [Key(25)] public bool Emulator2Expanded { get; set; } = true;
+    [Key(26)] public bool Emulator3Expanded { get; set; } = true;
+    [Key(27)] public bool Emulator4Expanded { get; set; } = true;
+    [Key(28)] public bool Emulator5Expanded { get; set; } = true;
     [Key(29)] public List<SystemPlayTime> SystemPlayTimes { get; set; } = [];
 
     // Ares
@@ -78,7 +78,7 @@ public class SettingsManager
     [Key(111)] public bool AresShowSettingsBeforeLaunch { get; set; } = true;
 
     // Azahar
-    [Key(200)] public int AzaharGraphicsApi { get; set; } = 2; // 0=OpenGL, 2=Vulkan
+    [Key(200)] public int AzaharGraphicsApi { get; set; } = 1; // 1=Vulkan
     [Key(201)] public int AzaharResolutionFactor { get; set; } = 1; // 0=Auto, 1=1x, 2=2x...
     [Key(202)] public bool AzaharUseVsync { get; set; } = true;
     [Key(203)] public bool AzaharAsyncShaderCompilation { get; set; } = true;
@@ -150,7 +150,6 @@ public class SettingsManager
     [Key(804)] public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
 
     // MAME
-// MAME
     [Key(900)] public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
     [Key(901)] public bool MameWindow { get; set; }
     [Key(902)] public bool MameMaximize { get; set; } = true;
@@ -333,36 +332,30 @@ public class SettingsManager
 
     public void Load()
     {
-        // 1. Try loading from MessagePack (.dat)
-        if (File.Exists(_filePath))
+        lock (_saveLock)
         {
-            try
+            if (File.Exists(_filePath))
             {
-                var bytes = File.ReadAllBytes(_filePath);
-                var loaded = MessagePackSerializer.Deserialize<SettingsManager>(bytes);
-                CopyFrom(loaded);
-                return;
-            }
-            catch (Exception ex)
-            {
-                if (App.ServiceProvider != null)
+                try
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading settings.dat. Attempting fallback.");
+                    var bytes = File.ReadAllBytes(_filePath);
+                    var loaded = MessagePackSerializer.Deserialize<SettingsManager>(bytes);
+                    CopyFrom(loaded);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading settings.dat. Attempting fallback.");
                 }
             }
-        }
 
-        // 2. Fallback: Try migrating from old XML (.xml)
-        if (File.Exists(_xmlFilePath))
-        {
-            if (MigrateFromXml())
+            if (File.Exists(_xmlFilePath))
             {
-                return;
+                if (MigrateFromXml()) return;
             }
-        }
 
-        // 3. If nothing exists or migration failed, set defaults
-        SetDefaultsAndSave();
+            SetDefaultsAndSave();
+        }
     }
 
     private void CopyFrom(SettingsManager other)
@@ -677,297 +670,298 @@ public class SettingsManager
                 settings = XElement.Load(reader);
             }
 
+            // Reset to defaults first so any missing XML values remain at default
+            ResetToDefaults();
+
             // Application Settings
             ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
             ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
             ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
-            EnableGamePadNavigation = !bool.TryParse(settings.Element("EnableGamePadNavigation")?.Value, out var gp) || gp;
-            VideoUrl = settings.Element("VideoUrl")?.Value ?? App.Configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
-            InfoUrl = settings.Element("InfoUrl")?.Value ?? App.Configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
-            BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
-            AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
-            Language = settings.Element("Language")?.Value ?? "en";
+            if (bool.TryParse(settings.Element("EnableGamePadNavigation")?.Value, out var gp))
+            {
+                EnableGamePadNavigation = gp;
+            }
+
+            VideoUrl = settings.Element("VideoUrl")?.Value ?? VideoUrl;
+            InfoUrl = settings.Element("InfoUrl")?.Value ?? InfoUrl;
+            BaseTheme = settings.Element("BaseTheme")?.Value ?? BaseTheme;
+            AccentColor = settings.Element("AccentColor")?.Value ?? AccentColor;
+            Language = settings.Element("Language")?.Value ?? Language;
             ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
-            RaUsername = settings.Element("RA_Username")?.Value ?? string.Empty;
-            RaApiKey = settings.Element("RA_ApiKey")?.Value ?? string.Empty;
-            RaPassword = settings.Element("RA_Password")?.Value ?? string.Empty;
-            RaToken = settings.Element("RA_Token")?.Value ?? string.Empty; // Migrate token if it existed in XML (unlikely but safe)
-            DeadZoneX = float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx) ? dzx : DefaultDeadZoneX;
-            DeadZoneY = float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy) ? dzy : DefaultDeadZoneY;
-            EnableFuzzyMatching = !bool.TryParse(settings.Element("EnableFuzzyMatching")?.Value, out var fm) || fm;
-            FuzzyMatchingThreshold = double.TryParse(settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt) ? fmt : 0.80;
-            EnableNotificationSound = !bool.TryParse(settings.Element("EnableNotificationSound")?.Value, out var ens) || ens;
-            CustomNotificationSoundFile = settings.Element("CustomNotificationSoundFile")?.Value ?? DefaultNotificationSoundFileName;
-            OverlayRetroAchievementButton = bool.TryParse(settings.Element("OverlayRetroAchievementButton")?.Value, out var ora) && ora;
-            OverlayOpenVideoButton = !bool.TryParse(settings.Element("OverlayOpenVideoButton")?.Value, out var ovb) || ovb;
-            OverlayOpenInfoButton = bool.TryParse(settings.Element("OverlayOpenInfoButton")?.Value, out var oib) && oib;
+            RaUsername = settings.Element("RA_Username")?.Value ?? RaUsername;
+            RaApiKey = settings.Element("RA_ApiKey")?.Value ?? RaApiKey;
+            RaPassword = settings.Element("RA_Password")?.Value ?? RaPassword;
+            RaToken = settings.Element("RA_Token")?.Value ?? RaToken;
+            if (float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx))
+            {
+                DeadZoneX = dzx;
+            }
 
-            // Ares
-            AresVideoDriver = "OpenGL 3.2";
-            AresExclusive = false;
-            AresShader = "None";
-            AresMultiplier = 2;
-            AresAspectCorrection = "Standard";
-            AresMute = false;
-            AresVolume = 1.0;
-            AresFastBoot = false;
-            AresRewind = false;
-            AresRunAhead = false;
-            AresAutoSaveMemory = true;
-            AresShowSettingsBeforeLaunch = true;
+            if (float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy))
+            {
+                DeadZoneY = dzy;
+            }
 
-            // Azahar
-            AzaharGraphicsApi = 1;
-            AzaharResolutionFactor = 1;
-            AzaharUseVsync = true;
-            AzaharAsyncShaderCompilation = true;
-            AzaharFullscreen = true;
-            AzaharVolume = 100;
-            AzaharIsNew3ds = true;
-            AzaharLayoutOption = 0;
-            AzaharShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("EnableFuzzyMatching")?.Value, out var fm))
+            {
+                EnableFuzzyMatching = fm;
+            }
 
-            // Blastem
-            BlastemFullscreen = false;
-            BlastemVsync = false;
-            BlastemAspect = "4:3";
-            BlastemScaling = "linear";
-            BlastemScanlines = false;
-            BlastemAudioRate = 48000;
-            BlastemSyncSource = "audio";
-            BlastemShowSettingsBeforeLaunch = true;
+            if (double.TryParse(settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
+            {
+                FuzzyMatchingThreshold = fmt;
+            }
 
-            // Cemu
-            CemuFullscreen = false;
-            CemuGraphicApi = 1;
-            CemuVsync = 1;
-            CemuAsyncCompile = true;
-            CemuTvVolume = 50;
-            CemuConsoleLanguage = 1;
-            CemuDiscordPresence = true;
-            CemuShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("EnableNotificationSound")?.Value, out var ens))
+            {
+                EnableNotificationSound = ens;
+            }
 
-            // Daphne
-            DaphneFullscreen = false;
-            DaphneResX = 640;
-            DaphneResY = 480;
-            DaphneDisableCrosshairs = false;
-            DaphneBilinear = true;
-            DaphneEnableSound = true;
-            DaphneUseOverlays = true;
-            DaphneShowSettingsBeforeLaunch = true;
+            CustomNotificationSoundFile = settings.Element("CustomNotificationSoundFile")?.Value ?? CustomNotificationSoundFile;
+            if (bool.TryParse(settings.Element("OverlayRetroAchievementButton")?.Value, out var ora))
+            {
+                OverlayRetroAchievementButton = ora;
+            }
 
-            // Dolphin
-            DolphinGfxBackend = "Vulkan";
-            DolphinDspThread = true;
-            DolphinWiimoteContinuousScanning = true;
-            DolphinWiimoteEnableSpeaker = true;
-            DolphinShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("OverlayOpenVideoButton")?.Value, out var ovb))
+            {
+                OverlayOpenVideoButton = ovb;
+            }
 
-            // DuckStation
-            DuckStationStartFullscreen = false;
-            DuckStationPauseOnFocusLoss = true;
-            DuckStationSaveStateOnExit = true;
-            DuckStationRewindEnable = false;
-            DuckStationRunaheadFrameCount = 0;
-            DuckStationRenderer = "Automatic";
-            DuckStationResolutionScale = 2;
-            DuckStationTextureFilter = "Nearest";
-            DuckStationWidescreenHack = false;
-            DuckStationPgxpEnable = false;
-            DuckStationAspectRatio = "16:9";
-            DuckStationVsync = false;
-            DuckStationOutputVolume = 100;
-            DuckStationOutputMuted = false;
-            DuckStationShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("OverlayOpenInfoButton")?.Value, out var oib))
+            {
+                OverlayOpenInfoButton = oib;
+            }
 
-            // Flycast
-            FlycastFullscreen = false;
-            FlycastWidth = 640;
-            FlycastHeight = 480;
-            FlycastMaximized = false;
-            FlycastShowSettingsBeforeLaunch = true;
+            // MAME (Only migrate what was previously in XML)
+            MameVideo = settings.Element("MameVideo")?.Value ?? MameVideo;
+            if (bool.TryParse(settings.Element("MameWindow")?.Value, out var mw))
+            {
+                MameWindow = mw;
+            }
 
-            // MAME
-            MameVideo = settings.Element("MameVideo")?.Value ?? "auto";
-            MameWindow = bool.TryParse(settings.Element("MameWindow")?.Value, out var mw) && mw;
-            MameMaximize = !bool.TryParse(settings.Element("MameMaximize")?.Value, out var mm) || mm;
-            MameKeepAspect = !bool.TryParse(settings.Element("MameKeepAspect")?.Value, out var mka) || mka;
-            MameSkipGameInfo = !bool.TryParse(settings.Element("MameSkipGameInfo")?.Value, out var msgi) || msgi;
-            MameAutosave = bool.TryParse(settings.Element("MameAutosave")?.Value, out var mas) && mas;
-            MameConfirmQuit = bool.TryParse(settings.Element("MameConfirmQuit")?.Value, out var mcq) && mcq;
-            MameJoystick = !bool.TryParse(settings.Element("MameJoystick")?.Value, out var mj) || mj;
-            MameShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("MameShowSettingsBeforeLaunch")?.Value, out var mss) || mss;
-            MameAutoframeskip = bool.TryParse(settings.Element("MameAutoframeskip")?.Value, out var mafs) && mafs;
-            MameBgfxBackend = settings.Element("MameBgfxBackend")?.Value ?? "auto";
-            MameBgfxScreenChains = settings.Element("MameBgfxScreenChains")?.Value ?? "default";
-            MameFilter = !bool.TryParse(settings.Element("MameFilter")?.Value, out var mf) || mf;
-            MameCheat = bool.TryParse(settings.Element("MameCheat")?.Value, out var mc) && mc;
-            MameRewind = bool.TryParse(settings.Element("MameRewind")?.Value, out var mr) && mr;
-            MameNvramSave = !bool.TryParse(settings.Element("MameNvramSave")?.Value, out var mns) || mns;
+            if (bool.TryParse(settings.Element("MameMaximize")?.Value, out var mm))
+            {
+                MameMaximize = mm;
+            }
 
-            // Mednafen
-            MednafenVideoDriver = "opengl";
-            MednafenFullscreen = false;
-            MednafenVsync = true;
-            MednafenStretch = "aspect";
-            MednafenBilinear = false;
-            MednafenScanlines = 0;
-            MednafenShader = "none";
-            MednafenVolume = 100;
-            MednafenCheats = true;
-            MednafenRewind = false;
-            MednafenShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("MameKeepAspect")?.Value, out var mka))
+            {
+                MameKeepAspect = mka;
+            }
 
-            // Mesen
-            MesenFullscreen = false;
-            MesenVsync = false;
-            MesenAspectRatio = "NoStretching";
-            MesenBilinear = false;
-            MesenVideoFilter = "None";
-            MesenEnableAudio = true;
-            MesenMasterVolume = 100;
-            MesenRewind = false;
-            MesenRunAhead = 0;
-            MesenPauseInBackground = false;
-            MesenShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("MameSkipGameInfo")?.Value, out var msgi))
+            {
+                MameSkipGameInfo = msgi;
+            }
 
-            // PCSX2
-            Pcsx2StartFullscreen = true;
-            Pcsx2AspectRatio = "16:9";
-            Pcsx2Renderer = 14;
-            Pcsx2UpscaleMultiplier = 2;
-            Pcsx2Vsync = false;
-            Pcsx2EnableCheats = false;
-            Pcsx2EnableWidescreenPatches = false;
-            Pcsx2Volume = 100;
-            Pcsx2AchievementsEnabled = false;
-            Pcsx2AchievementsHardcore = true;
-            Pcsx2ShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("MameAutosave")?.Value, out var mas))
+            {
+                MameAutosave = mas;
+            }
+
+            if (bool.TryParse(settings.Element("MameConfirmQuit")?.Value, out var mcq))
+            {
+                MameConfirmQuit = mcq;
+            }
+
+            if (bool.TryParse(settings.Element("MameJoystick")?.Value, out var mj))
+            {
+                MameJoystick = mj;
+            }
+
+            if (bool.TryParse(settings.Element("MameShowSettingsBeforeLaunch")?.Value, out var mss))
+            {
+                MameShowSettingsBeforeLaunch = mss;
+            }
+
+            if (bool.TryParse(settings.Element("MameAutoframeskip")?.Value, out var mafs))
+            {
+                MameAutoframeskip = mafs;
+            }
+
+            MameBgfxBackend = settings.Element("MameBgfxBackend")?.Value ?? MameBgfxBackend;
+            MameBgfxScreenChains = settings.Element("MameBgfxScreenChains")?.Value ?? MameBgfxScreenChains;
+            if (bool.TryParse(settings.Element("MameFilter")?.Value, out var mf))
+            {
+                MameFilter = mf;
+            }
+
+            if (bool.TryParse(settings.Element("MameCheat")?.Value, out var mc))
+            {
+                MameCheat = mc;
+            }
+
+            if (bool.TryParse(settings.Element("MameRewind")?.Value, out var mr))
+            {
+                MameRewind = mr;
+            }
+
+            if (bool.TryParse(settings.Element("MameNvramSave")?.Value, out var mns))
+            {
+                MameNvramSave = mns;
+            }
 
             // RetroArch
-            RetroArchCheevosEnable = bool.TryParse(settings.Element("RetroArchCheevosEnable")?.Value, out var race) && race;
-            RetroArchCheevosHardcore = bool.TryParse(settings.Element("RetroArchCheevosHardcore")?.Value, out var rach) && rach;
-            RetroArchFullscreen = bool.TryParse(settings.Element("RetroArchFullscreen")?.Value, out var raf) && raf;
-            RetroArchVsync = !bool.TryParse(settings.Element("RetroArchVsync")?.Value, out var rav) || rav;
-            RetroArchVideoDriver = settings.Element("RetroArchVideoDriver")?.Value ?? "gl";
-            RetroArchAudioEnable = !bool.TryParse(settings.Element("RetroArchAudioEnable")?.Value, out var raae) || raae;
-            RetroArchAudioMute = bool.TryParse(settings.Element("RetroArchAudioMute")?.Value, out var raam) && raam;
-            RetroArchMenuDriver = settings.Element("RetroArchMenuDriver")?.Value ?? "ozone";
-            RetroArchPauseNonActive = !bool.TryParse(settings.Element("RetroArchPauseNonActive")?.Value, out var rapna) || rapna;
-            RetroArchSaveOnExit = !bool.TryParse(settings.Element("RetroArchSaveOnExit")?.Value, out var rasoe) || rasoe;
-            RetroArchAutoSaveState = bool.TryParse(settings.Element("RetroArchAutoSaveState")?.Value, out var raass) && raass;
-            RetroArchAutoLoadState = bool.TryParse(settings.Element("RetroArchAutoLoadState")?.Value, out var raals) && raals;
-            RetroArchRewind = bool.TryParse(settings.Element("RetroArchRewind")?.Value, out var rar) && rar;
-            RetroArchThreadedVideo = bool.TryParse(settings.Element("RetroArchThreadedVideo")?.Value, out var ratv) && ratv;
-            RetroArchBilinear = bool.TryParse(settings.Element("RetroArchBilinear")?.Value, out var rab) && rab;
-            RetroArchShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("RetroArchShowSettingsBeforeLaunch")?.Value, out var rass) || rass;
-            RetroArchAspectRatioIndex = settings.Element("RetroArchAspectRatioIndex")?.Value ?? "22";
-            RetroArchScaleInteger = bool.TryParse(settings.Element("RetroArchScaleInteger")?.Value, out var rasi) && rasi;
-            RetroArchShaderEnable = !bool.TryParse(settings.Element("RetroArchShaderEnable")?.Value, out var rase) || rase;
-            RetroArchHardSync = bool.TryParse(settings.Element("RetroArchHardSync")?.Value, out var rahs) && rahs;
-            RetroArchRunAhead = bool.TryParse(settings.Element("RetroArchRunAhead")?.Value, out var rara) && rara;
-            RetroArchShowAdvancedSettings = !bool.TryParse(settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas) || rasas;
-            RetroArchDiscordAllow = bool.TryParse(settings.Element("RetroArchDiscordAllow")?.Value, out var rada) && rada;
-            RetroArchOverrideSystemDir = false; // Default to false for existing users
-            RetroArchOverrideSaveDir = false;
-            RetroArchOverrideStateDir = false;
-            RetroArchOverrideScreenshotDir = false;
+            if (bool.TryParse(settings.Element("RetroArchCheevosEnable")?.Value, out var race))
+            {
+                RetroArchCheevosEnable = race;
+            }
 
-            // RPCS3
-            Rpcs3Renderer = "Vulkan";
-            Rpcs3Resolution = "1280x720";
-            Rpcs3AspectRatio = "16:9";
-            Rpcs3Vsync = false;
-            Rpcs3ResolutionScale = 100;
-            Rpcs3AnisotropicFilter = 0;
-            Rpcs3PpuDecoder = "Recompiler (LLVM)";
-            Rpcs3SpuDecoder = "Recompiler (LLVM)";
-            Rpcs3AudioRenderer = "Cubeb";
-            Rpcs3AudioBuffering = true;
-            Rpcs3StartFullscreen = false;
-            Rpcs3ShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("RetroArchCheevosHardcore")?.Value, out var rach))
+            {
+                RetroArchCheevosHardcore = rach;
+            }
 
-            // Sega Model 2
-            SegaModel2ResX = 640;
-            SegaModel2ResY = 480;
-            SegaModel2WideScreen = 0;
-            SegaModel2Bilinear = true;
-            SegaModel2Trilinear = false;
-            SegaModel2FilterTilemaps = false;
-            SegaModel2DrawCross = true;
-            SegaModel2Fsaa = 0;
-            SegaModel2XInput = false;
-            SegaModel2EnableFf = false;
-            SegaModel2HoldGears = false;
-            SegaModel2UseRawInput = false;
-            SegaModel2ShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("RetroArchFullscreen")?.Value, out var raf))
+            {
+                RetroArchFullscreen = raf;
+            }
 
-            // Stella
-            StellaFullscreen = false;
-            StellaVsync = true;
-            StellaVideoDriver = "direct3d";
-            StellaCorrectAspect = true;
-            StellaTvFilter = 0;
-            StellaScanlines = 0;
-            StellaAudioEnabled = true;
-            StellaAudioVolume = 80;
-            StellaTimeMachine = true;
-            StellaConfirmExit = false;
-            StellaShowSettingsBeforeLaunch = true;
+            if (bool.TryParse(settings.Element("RetroArchVsync")?.Value, out var rav))
+            {
+                RetroArchVsync = rav;
+            }
 
-            // Supermodel
-            SupermodelNew3DEngine = true;
-            SupermodelQuadRendering = false;
-            SupermodelFullscreen = true;
-            SupermodelResX = 1920;
-            SupermodelResY = 1080;
-            SupermodelWideScreen = true;
-            SupermodelStretch = false;
-            SupermodelVsync = true;
-            SupermodelThrottle = true;
-            SupermodelMusicVolume = 100;
-            SupermodelSoundVolume = 100;
-            SupermodelInputSystem = "xinput";
-            SupermodelMultiThreaded = true;
-            SupermodelPowerPcFrequency = 50;
-            SupermodelShowSettingsBeforeLaunch = true;
+            RetroArchVideoDriver = settings.Element("RetroArchVideoDriver")?.Value ?? RetroArchVideoDriver;
+            if (bool.TryParse(settings.Element("RetroArchAudioEnable")?.Value, out var raae))
+            {
+                RetroArchAudioEnable = raae;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchAudioMute")?.Value, out var raam))
+            {
+                RetroArchAudioMute = raam;
+            }
+
+            RetroArchMenuDriver = settings.Element("RetroArchMenuDriver")?.Value ?? RetroArchMenuDriver;
+            if (bool.TryParse(settings.Element("RetroArchPauseNonActive")?.Value, out var rapna))
+            {
+                RetroArchPauseNonActive = rapna;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchSaveOnExit")?.Value, out var rasoe))
+            {
+                RetroArchSaveOnExit = rasoe;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchAutoSaveState")?.Value, out var raass))
+            {
+                RetroArchAutoSaveState = raass;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchAutoLoadState")?.Value, out var raals))
+            {
+                RetroArchAutoLoadState = raals;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchRewind")?.Value, out var rar))
+            {
+                RetroArchRewind = rar;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchThreadedVideo")?.Value, out var ratv))
+            {
+                RetroArchThreadedVideo = ratv;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchBilinear")?.Value, out var rab))
+            {
+                RetroArchBilinear = rab;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchShowSettingsBeforeLaunch")?.Value, out var rass))
+            {
+                RetroArchShowSettingsBeforeLaunch = rass;
+            }
+
+            RetroArchAspectRatioIndex = settings.Element("RetroArchAspectRatioIndex")?.Value ?? RetroArchAspectRatioIndex;
+            if (bool.TryParse(settings.Element("RetroArchScaleInteger")?.Value, out var rasi))
+            {
+                RetroArchScaleInteger = rasi;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchShaderEnable")?.Value, out var rase))
+            {
+                RetroArchShaderEnable = rase;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchHardSync")?.Value, out var rahs))
+            {
+                RetroArchHardSync = rahs;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchRunAhead")?.Value, out var rara))
+            {
+                RetroArchRunAhead = rara;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas))
+            {
+                RetroArchShowAdvancedSettings = rasas;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchDiscordAllow")?.Value, out var rada))
+            {
+                RetroArchDiscordAllow = rada;
+            }
 
             // Xenia
-            XeniaGpu = settings.Element("XeniaGpu")?.Value ?? "d3d12";
-            XeniaVsync = !bool.TryParse(settings.Element("XeniaVsync")?.Value, out var xv) || xv;
-            XeniaResScaleX = int.TryParse(settings.Element("XeniaResScaleX")?.Value, out var xrsx) ? xrsx : 1;
-            XeniaResScaleY = int.TryParse(settings.Element("XeniaResScaleY")?.Value, out var xrsy) ? xrsy : 1;
-            XeniaFullscreen = bool.TryParse(settings.Element("XeniaFullscreen")?.Value, out var xf) && xf;
-            XeniaApu = settings.Element("XeniaApu")?.Value ?? "xaudio2";
-            XeniaMute = bool.TryParse(settings.Element("XeniaMute")?.Value, out var xm) && xm;
-            XeniaAa = settings.Element("XeniaAa")?.Value ?? "";
-            XeniaScaling = settings.Element("XeniaScaling")?.Value ?? "fsr";
-            XeniaApplyPatches = !bool.TryParse(settings.Element("XeniaApplyPatches")?.Value, out var xap) || xap;
-            XeniaDiscordPresence = !bool.TryParse(settings.Element("XeniaDiscordPresence")?.Value, out var xdp) || xdp;
-            XeniaUserLanguage = int.TryParse(settings.Element("XeniaUserLanguage")?.Value, out var xul) ? xul : 1;
-            XeniaHid = settings.Element("XeniaHid")?.Value ?? "xinput";
-            XeniaShowSettingsBeforeLaunch = !bool.TryParse(settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xss) || xss;
-            XeniaGammaSrgb = false;
-            XeniaVibration = true;
-            XeniaMountCache = true;
+            XeniaGpu = settings.Element("XeniaGpu")?.Value ?? XeniaGpu;
+            if (bool.TryParse(settings.Element("XeniaVsync")?.Value, out var xv))
+            {
+                XeniaVsync = xv;
+            }
 
-            // Yumir
-            YumirFullscreen = false;
-            YumirVolume = 0.8;
-            YumirMute = false;
-            YumirVideoStandard = "PAL";
-            YumirAutoDetectRegion = true;
-            YumirPauseWhenUnfocused = false;
-            YumirForcedAspect = 1.7777777777777777;
-            YumirForceAspectRatio = false;
-            YumirReduceLatency = true;
-            YumirShowSettingsBeforeLaunch = true;
+            if (int.TryParse(settings.Element("XeniaResScaleX")?.Value, out var xrsx))
+            {
+                XeniaResScaleX = xrsx;
+            }
+
+            if (int.TryParse(settings.Element("XeniaResScaleY")?.Value, out var xrsy))
+            {
+                XeniaResScaleY = xrsy;
+            }
+
+            if (bool.TryParse(settings.Element("XeniaFullscreen")?.Value, out var xf))
+            {
+                XeniaFullscreen = xf;
+            }
+
+            XeniaApu = settings.Element("XeniaApu")?.Value ?? XeniaApu;
+            if (bool.TryParse(settings.Element("XeniaMute")?.Value, out var xm))
+            {
+                XeniaMute = xm;
+            }
+
+            XeniaAa = settings.Element("XeniaAa")?.Value ?? XeniaAa;
+            XeniaScaling = settings.Element("XeniaScaling")?.Value ?? XeniaScaling;
+            if (bool.TryParse(settings.Element("XeniaApplyPatches")?.Value, out var xap))
+            {
+                XeniaApplyPatches = xap;
+            }
+
+            if (bool.TryParse(settings.Element("XeniaDiscordPresence")?.Value, out var xdp))
+            {
+                XeniaDiscordPresence = xdp;
+            }
+
+            if (int.TryParse(settings.Element("XeniaUserLanguage")?.Value, out var xul))
+            {
+                XeniaUserLanguage = xul;
+            }
+
+            XeniaHid = settings.Element("XeniaHid")?.Value ?? XeniaHid;
+            if (bool.TryParse(settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xss))
+            {
+                XeniaShowSettingsBeforeLaunch = xss;
+            }
 
             var playTimes = settings.Element("SystemPlayTimes");
             if (playTimes != null)
             {
+                SystemPlayTimes.Clear();
                 foreach (var pt in playTimes.Elements("SystemPlayTime"))
                 {
                     SystemPlayTimes.Add(new SystemPlayTime
@@ -978,16 +972,14 @@ public class SettingsManager
                 }
             }
 
-            Save(); // Save to .dat
-
-            // Delete old file
+            Save();
             File.Delete(_xmlFilePath);
             DebugLogger.Log("Migration successful. settings.xml deleted.");
             return true;
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to migrate settings from XML.");
+            App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to migrate settings from XML.");
             return false;
         }
     }
@@ -1005,7 +997,7 @@ public class SettingsManager
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.dat");
+                App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.dat");
             }
         }
     }
@@ -1035,299 +1027,14 @@ public class SettingsManager
         return _validButtonAspectRatio.Contains(value) ? value : "Square";
     }
 
+    public void ResetToDefaults()
+    {
+        CopyFrom(new SettingsManager());
+    }
+
     private void SetDefaultsAndSave()
     {
-        // Application Settings
-        ThumbnailSize = 250;
-        GamesPerPage = 200;
-        ShowGames = "ShowAll";
-        ViewMode = "GridView";
-        EnableGamePadNavigation = false;
-        VideoUrl = App.Configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
-        InfoUrl = App.Configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
-        BaseTheme = "Light";
-        AccentColor = "Blue";
-        Language = "en";
-        DeadZoneX = DefaultDeadZoneX;
-        DeadZoneY = DefaultDeadZoneY;
-        ButtonAspectRatio = "Square";
-        EnableFuzzyMatching = true;
-        FuzzyMatchingThreshold = 0.80;
-        EnableNotificationSound = true;
-        CustomNotificationSoundFile = DefaultNotificationSoundFileName;
-        OverlayRetroAchievementButton = false;
-        OverlayOpenVideoButton = true;
-        OverlayOpenInfoButton = false;
-        AdditionalSystemFoldersExpanded = true;
-        Emulator1Expanded = true;
-        Emulator2Expanded = true;
-        Emulator3Expanded = true;
-        Emulator4Expanded = true;
-        Emulator5Expanded = true;
-        SystemPlayTimes = [];
-
-        // Ares
-        AresVideoDriver = "OpenGL 3.2";
-        AresExclusive = false;
-        AresShader = "None";
-        AresMultiplier = 2;
-        AresAspectCorrection = "Standard";
-        AresMute = false;
-        AresVolume = 1.0;
-        AresFastBoot = false;
-        AresRewind = false;
-        AresRunAhead = false;
-        AresAutoSaveMemory = true;
-        AresShowSettingsBeforeLaunch = true;
-
-        // Azahar
-        AzaharGraphicsApi = 1;
-        AzaharResolutionFactor = 1;
-        AzaharUseVsync = true;
-        AzaharAsyncShaderCompilation = true;
-        AzaharFullscreen = true;
-        AzaharVolume = 100;
-        AzaharIsNew3ds = true;
-        AzaharLayoutOption = 0;
-        AzaharShowSettingsBeforeLaunch = true;
-
-        // Blastem
-        BlastemFullscreen = false;
-        BlastemVsync = false;
-        BlastemAspect = "4:3";
-        BlastemScaling = "linear";
-        BlastemScanlines = false;
-        BlastemAudioRate = 48000;
-        BlastemSyncSource = "audio";
-        BlastemShowSettingsBeforeLaunch = true;
-
-        // Cemu
-        CemuFullscreen = false;
-        CemuGraphicApi = 1;
-        CemuVsync = 1;
-        CemuAsyncCompile = true;
-        CemuTvVolume = 50;
-        CemuConsoleLanguage = 1;
-        CemuDiscordPresence = true;
-        CemuShowSettingsBeforeLaunch = true;
-
-        // Daphne
-        DaphneFullscreen = false;
-        DaphneResX = 640;
-        DaphneResY = 480;
-        DaphneDisableCrosshairs = false;
-        DaphneBilinear = true;
-        DaphneEnableSound = true;
-        DaphneUseOverlays = true;
-        DaphneShowSettingsBeforeLaunch = true;
-
-        // Dolphin
-        DolphinGfxBackend = "Vulkan";
-        DolphinDspThread = true;
-        DolphinWiimoteContinuousScanning = true;
-        DolphinWiimoteEnableSpeaker = true;
-        DolphinShowSettingsBeforeLaunch = true;
-
-        // DuckStation
-        DuckStationStartFullscreen = false;
-        DuckStationPauseOnFocusLoss = true;
-        DuckStationSaveStateOnExit = true;
-        DuckStationRewindEnable = false;
-        DuckStationRunaheadFrameCount = 0;
-        DuckStationRenderer = "Automatic";
-        DuckStationResolutionScale = 2;
-        DuckStationTextureFilter = "Nearest";
-        DuckStationWidescreenHack = false;
-        DuckStationPgxpEnable = false;
-        DuckStationAspectRatio = "16:9";
-        DuckStationVsync = false;
-        DuckStationOutputVolume = 100;
-        DuckStationOutputMuted = false;
-        DuckStationShowSettingsBeforeLaunch = true;
-
-        // Flycast
-        FlycastFullscreen = false;
-        FlycastWidth = 640;
-        FlycastHeight = 480;
-        FlycastMaximized = false;
-        FlycastShowSettingsBeforeLaunch = true;
-
-        // MAME
-        MameVideo = "auto";
-        MameWindow = false;
-        MameMaximize = true;
-        MameKeepAspect = true;
-        MameSkipGameInfo = true;
-        MameAutosave = false;
-        MameConfirmQuit = false;
-        MameJoystick = true;
-        MameShowSettingsBeforeLaunch = true;
-        MameAutoframeskip = false;
-        MameBgfxBackend = "auto";
-        MameBgfxScreenChains = "default";
-        MameFilter = true;
-        MameCheat = false;
-        MameRewind = false;
-        MameNvramSave = true;
-
-        // Mednafen
-        MednafenVideoDriver = "opengl";
-        MednafenFullscreen = false;
-        MednafenVsync = true;
-        MednafenStretch = "aspect";
-        MednafenBilinear = false;
-        MednafenScanlines = 0;
-        MednafenShader = "none";
-        MednafenVolume = 100;
-        MednafenCheats = true;
-        MednafenRewind = false;
-        MednafenShowSettingsBeforeLaunch = true;
-
-        // Mesen
-        MesenFullscreen = false;
-        MesenVsync = false;
-        MesenAspectRatio = "NoStretching";
-        MesenBilinear = false;
-        MesenVideoFilter = "None";
-        MesenEnableAudio = true;
-        MesenMasterVolume = 100;
-        MesenRewind = false;
-        MesenRunAhead = 0;
-        MesenPauseInBackground = false;
-        MesenShowSettingsBeforeLaunch = true;
-
-        // PCSX2
-        Pcsx2StartFullscreen = true;
-        Pcsx2AspectRatio = "16:9";
-        Pcsx2Renderer = 14;
-        Pcsx2UpscaleMultiplier = 2;
-        Pcsx2Vsync = false;
-        Pcsx2EnableCheats = false;
-        Pcsx2EnableWidescreenPatches = false;
-        Pcsx2Volume = 100;
-        Pcsx2AchievementsEnabled = false;
-        Pcsx2AchievementsHardcore = true;
-        Pcsx2ShowSettingsBeforeLaunch = true;
-
-        // RPCS3
-        Rpcs3Renderer = "Vulkan";
-        Rpcs3Resolution = "1280x720";
-        Rpcs3AspectRatio = "16:9";
-        Rpcs3Vsync = false;
-        Rpcs3ResolutionScale = 100;
-        Rpcs3AnisotropicFilter = 0;
-        Rpcs3PpuDecoder = "Recompiler (LLVM)";
-        Rpcs3SpuDecoder = "Recompiler (LLVM)";
-        Rpcs3AudioRenderer = "Cubeb";
-        Rpcs3AudioBuffering = true;
-        Rpcs3StartFullscreen = false;
-        Rpcs3ShowSettingsBeforeLaunch = true;
-
-        // Sega Model 2
-        SegaModel2ResX = 640;
-        SegaModel2ResY = 480;
-        SegaModel2WideScreen = 0;
-        SegaModel2Bilinear = true;
-        SegaModel2Trilinear = false;
-        SegaModel2FilterTilemaps = false;
-        SegaModel2DrawCross = true;
-        SegaModel2Fsaa = 0;
-        SegaModel2XInput = false;
-        SegaModel2EnableFf = false;
-        SegaModel2HoldGears = false;
-        SegaModel2UseRawInput = false;
-        SegaModel2ShowSettingsBeforeLaunch = true;
-
-        // Stella
-        StellaFullscreen = false;
-        StellaVsync = true;
-        StellaVideoDriver = "direct3d";
-        StellaCorrectAspect = true;
-        StellaTvFilter = 0;
-        StellaScanlines = 0;
-        StellaAudioEnabled = true;
-        StellaAudioVolume = 80;
-        StellaTimeMachine = true;
-        StellaConfirmExit = false;
-        StellaShowSettingsBeforeLaunch = true;
-
-        // Supermodel
-        SupermodelNew3DEngine = true;
-        SupermodelQuadRendering = false;
-        SupermodelFullscreen = true;
-        SupermodelResX = 1920;
-        SupermodelResY = 1080;
-        SupermodelWideScreen = true;
-        SupermodelStretch = false;
-        SupermodelVsync = true;
-        SupermodelThrottle = true;
-        SupermodelMusicVolume = 100;
-        SupermodelSoundVolume = 100;
-        SupermodelInputSystem = "xinput";
-        SupermodelMultiThreaded = true;
-        SupermodelPowerPcFrequency = 50;
-        SupermodelShowSettingsBeforeLaunch = true;
-
-        // RetroArch
-        RetroArchCheevosEnable = false;
-        RetroArchCheevosHardcore = false;
-        RetroArchFullscreen = false;
-        RetroArchVsync = true;
-        RetroArchVideoDriver = "gl";
-        RetroArchAudioEnable = true;
-        RetroArchAudioMute = false;
-        RetroArchMenuDriver = "ozone";
-        RetroArchPauseNonActive = true;
-        RetroArchSaveOnExit = true;
-        RetroArchAutoSaveState = false;
-        RetroArchAutoLoadState = false;
-        RetroArchRewind = false;
-        RetroArchThreadedVideo = false;
-        RetroArchBilinear = false;
-        RetroArchShowSettingsBeforeLaunch = true;
-        RetroArchAspectRatioIndex = "22";
-        RetroArchScaleInteger = false;
-        RetroArchShaderEnable = true;
-        RetroArchHardSync = false;
-        RetroArchRunAhead = false;
-        RetroArchShowAdvancedSettings = true;
-        RetroArchDiscordAllow = false;
-        RetroArchOverrideSystemDir = false;
-        RetroArchOverrideSaveDir = false;
-        RetroArchOverrideStateDir = false;
-        RetroArchOverrideScreenshotDir = false;
-
-        // Xenia
-        XeniaGpu = "d3d12";
-        XeniaVsync = true;
-        XeniaResScaleX = 1;
-        XeniaResScaleY = 1;
-        XeniaFullscreen = false;
-        XeniaApu = "xaudio2";
-        XeniaMute = false;
-        XeniaAa = "";
-        XeniaScaling = "fsr";
-        XeniaApplyPatches = true;
-        XeniaDiscordPresence = true;
-        XeniaUserLanguage = 1;
-        XeniaHid = "xinput";
-        XeniaShowSettingsBeforeLaunch = true;
-        XeniaGammaSrgb = false;
-        XeniaVibration = true;
-        XeniaMountCache = true;
-
-        // Yumir
-        YumirFullscreen = false;
-        YumirVolume = 0.8;
-        YumirMute = false;
-        YumirVideoStandard = "PAL";
-        YumirAutoDetectRegion = true;
-        YumirPauseWhenUnfocused = false;
-        YumirForcedAspect = 1.7777777777777777;
-        YumirForceAspectRatio = false;
-        YumirReduceLatency = true;
-        YumirShowSettingsBeforeLaunch = true;
-
+        ResetToDefaults();
         Save();
     }
 

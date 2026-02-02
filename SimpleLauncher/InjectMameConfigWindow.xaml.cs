@@ -65,7 +65,7 @@ public partial class InjectMameConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.MamEemulatorpathnotfound();
+        MessageBoxLibrary.MameEmulatorPathNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "MAME Executable|mame*.exe|All Executables|*.exe",
@@ -129,7 +129,7 @@ public partial class InjectMameConfigWindow
         }
         else
         {
-            MessageBoxLibrary.FailedtoinjectMamEconfiguration();
+            MessageBoxLibrary.FailedToInjectMameConfiguration();
             // Keep window open so user can retry or cancel
         }
     }
