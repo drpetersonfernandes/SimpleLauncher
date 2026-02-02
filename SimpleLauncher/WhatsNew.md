@@ -1,25 +1,37 @@
 # Release 4.10
-*2026-01-21*
+*2026-02-02*
 ---
 
-### 1. RetroAchievements (RA) Enhancements
--   **Expanded Emulator Support:** Implemented auto-configuration logic for **PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, and BizHawk**. Logic will inject login information into those emulators automatically.
--   **Hashing Support:**
-    *   Fix for **GameCube hashing**.
-    *   Fix Retroachievements hash calculation for multiple systems.
+# 🚀 SimpleLauncher v4.10 Release Notes
 
-### 2. Settings & Infrastructure
--   **MessagePack Migration:** Migrated the settings system from XML (`settings.xml`) to MessagePack (`settings.dat`) for better performance. It includes a migration path to convert old XML settings automatically.
--   **Play History Refactor:** Changed how play history is tracked, moving from simple filenames to **full absolute paths**. A migration utility is included to update existing records.
+We are excited to announce the release of **SimpleLauncher 4.10**! This update focus on deep emulator integration, improved performance through a modernized settings engine, and expanded support for RetroAchievements.
 
-### 3. UI & Performance
--   **Thread Safety:** Offloaded system configuration validation to background threads to prevent the UI from freezing.
--   **UI Responsiveness:** Adjusted loading overlays with slight delays to ensure the "Loading" spinner renders correctly before heavy operations begin.
--   **Simplified Info:** Removed game and image count logic from the system information display to improve loading speed.
+## 🎮 Deep Emulator Integration & Injection
+The headline feature of v4.10 is the new **Emulator Configuration Injection** service. You can now manage and inject settings directly into over 20 popular emulators (including Ares, Dolphin, DuckStation, Flycast, RPCS3, and more) via the new "Inject Emulator Config" menu.
+*   **Xenia Integration:** Our new injection service for **Xenia** provides functionality similar to the popular **Xenia Manager** tool, allowing you to manage configuration tweaks and settings directly within SimpleLauncher before you launch your games.
+*   **Pre-launch Dialogs:** Many emulators now feature custom settings dialogs to ensure your experience is optimized before the game even starts.
 
-### 4. Error Handling & Maintenance
--   **Async Operations:** Switched several file operations (like icon copying in the MS Store scan) to asynchronous methods.
--   **Robustness:** Improved error handling in the `ImageLoader` for unsupported formats and refined null-exception logging.
+## 🏆 RetroAchievements (RA) Overhaul
+We’ve made RetroAchievements more seamless than ever:
+*   **Auto-Configuration:** SimpleLauncher can now automatically inject your RA login credentials into **PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, and BizHawk**.
+*   **Improved Hashing:** Fixed issues with GameCube hashing and RVZ-to-ISO conversion to ensure your achievements track correctly.
+*   **Expanded Support:** Added support for Nintendo DSi and Virtual Boy system aliases.
+
+## ⚡ Performance & Infrastructure
+*   **MessagePack Migration:** We have moved our settings system to **MessagePack** (`settings.dat`). This results in significantly faster load times and better performance. *Note: Your old settings will be automatically migrated upon first launch.*
+*   **ARM64 Support:** Tools BatchConvertIsoToXIso, BatchConvertToCHD, SimpleXIsoDrive now fully support ARM64 architecture.
+*   **Play History Refactor:** Play history now tracks **absolute file paths** rather than just filenames, preventing conflicts between different versions of the same game. An automatic migration utility is included.
+*   **Threaded Loading:** System configuration validation has been moved to background threads, eliminating UI "freezing" during startup.
+
+## 🎨 UI & UX Enhancements
+*   **Smoother Interface:** Improved the "Loading" overlays and status bars to be more responsive and flicker-free.
+*   **Cleaned Up Info:** Streamlined the system info display to prioritize speed and clarity.
+
+## 🛠️ Bug Fixes & Reliability
+*   **Long Path Support:** Improved support for very long file paths (`\\?\`) to prevent errors in deep directory structures.
+*   **Enhanced Stability:** Improved thread safety for game lists and added more robust error handling for locked system files.
+*   **File Handling:** Improved ZIP entry validation and UTF-8 encoding support.
+*   **MS Store Scan:** Expanded the exclusion list to keep your library clean of "non-game" apps.
 
 # Release 4.9.1
 *2026-01-18*
