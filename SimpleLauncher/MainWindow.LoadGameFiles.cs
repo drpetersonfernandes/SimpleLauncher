@@ -157,17 +157,48 @@ public partial class MainWindow
 
             switch (searchQuery2)
             {
-                case "FAVORITES" or "RANDOM_SELECTION":
+                case "FAVORITES":
+                    // Build favorites list on-demand
+                    var favoriteGames = GetFavoriteGamesForSelectedSystem(_favoritesManager);
+
                     await _allGamesLock.WaitAsync(token);
                     try
                     {
-                        if (_currentSearchResults != null && _currentSearchResults.Count != 0)
+                        _currentSearchResults = favoriteGames.ToList();
+                        allFiles = _currentSearchResults;
+                    }
+                    finally
+                    {
+                        _allGamesLock.Release();
+                    }
+
+                    if (allFiles.Count == 0)
+                    {
+                        await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoFavoriteFoundMessageBox());
+                    }
+
+                    break;
+
+                case "RANDOM_SELECTION":
+                    // Ensure cache is populated for random selection
+                    await EnsureAllGamesCachePopulatedAsync(selectedManager, token);
+
+                    await _allGamesLock.WaitAsync(token);
+                    try
+                    {
+                        if (_allGamesForCurrentSystem.Count == 0)
                         {
-                            allFiles = new List<string>(_currentSearchResults);
+                            allFiles = [];
+                            await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox());
                         }
                         else
                         {
-                            allFiles = [];
+                            // Randomly select one game
+                            var random = new Random();
+                            var randomIndex = random.Next(0, _allGamesForCurrentSystem.Count);
+                            var selectedGame = _allGamesForCurrentSystem[randomIndex];
+                            _currentSearchResults = [selectedGame];
+                            allFiles = _currentSearchResults;
                         }
                     }
                     finally
@@ -176,6 +207,7 @@ public partial class MainWindow
                     }
 
                     break;
+
                 default: // This branch handles initial load, letter filter, and text search
                 {
                     // If no specific filter (letter or search query), and _allGamesForCurrentSystem is already populated for this system,
@@ -278,6 +310,46 @@ public partial class MainWindow
             }
 
             return allFiles;
+        }
+
+        async Task EnsureAllGamesCachePopulatedAsync(SystemManager selectedManager, CancellationToken token)
+        {
+            await _allGamesLock.WaitAsync(token);
+            try
+            {
+                if (_allGamesForCurrentSystem?.Count > 0 && _selectedSystem == selectedManager.SystemName)
+                {
+                    DebugLogger.Log($"[EnsureAllGamesCachePopulatedAsync] Using cached list for '{selectedManager.SystemName}'. Count: {_allGamesForCurrentSystem.Count}");
+                    return;
+                }
+
+                DebugLogger.Log($"[EnsureAllGamesCachePopulatedAsync] Populating from disk for '{selectedManager.SystemName}'.");
+                var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (var folder in selectedManager.SystemFolders)
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
+                        !Directory.Exists(resolvedSystemFolderPath) ||
+                        selectedManager.FileFormatsToSearch == null) continue;
+
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
+                    foreach (var file in filesInFolder)
+                    {
+                        uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                    }
+                }
+
+                _allGamesForCurrentSystem = uniqueFiles.Values.ToList();
+                _selectedSystem = selectedManager.SystemName;
+                DebugLogger.Log($"[EnsureAllGamesCachePopulatedAsync] Populated {_allGamesForCurrentSystem.Count} games.");
+            }
+            finally
+            {
+                _allGamesLock.Release();
+            }
         }
 
         List<string> ProcessListOfAllFilesWithMachineDescription(SystemManager selectedManager, List<string> allFiles)
