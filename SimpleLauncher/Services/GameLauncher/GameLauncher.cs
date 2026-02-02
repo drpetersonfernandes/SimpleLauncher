@@ -1141,13 +1141,9 @@ public class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = resolvedFilePath,
-            Arguments = "", // No arguments for direct executable launch unless specified
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            // CreateNoWindow = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8
+            Arguments = "",
+            UseShellExecute = false, // Keep false to be able to read ExitCode
+            CreateNoWindow = false // Let the app show its own window
         };
 
         try
@@ -1160,10 +1156,8 @@ public class GameLauncher
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for executable file: '{resolvedFilePath}'. Using default.");
-
-            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
+            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
 
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
@@ -1177,19 +1171,6 @@ public class GameLauncher
         using var process = new Process();
         process.StartInfo = psi;
 
-        StringBuilder output = new();
-        StringBuilder error = new();
-
-        process.OutputDataReceived += (_, args) =>
-        {
-            if (!string.IsNullOrEmpty(args.Data)) output.AppendLine(args.Data);
-        };
-
-        process.ErrorDataReceived += (_, args) =>
-        {
-            if (!string.IsNullOrEmpty(args.Data)) error.AppendLine(args.Data);
-        };
-
         try
         {
             var processStarted = process.Start();
@@ -1198,31 +1179,25 @@ public class GameLauncher
                 throw new InvalidOperationException("Failed to start the executable process.");
             }
 
-            if (!process.HasExited)
-            {
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                await process.WaitForExitAsync();
-            }
+            await process.WaitForExitAsync();
 
-            if (process.ExitCode != 0)
+            // Only check for critical failures (crashes, not normal exit codes like 1)
+            if (process.ExitCode < 0) // Negative exit codes typically indicate system-level failures
             {
-                // Notify developer
-                var errorDetail = $"Executable process exited with non-zero code.\n" +
+                var errorDetail = $"Executable process exited with system error code.\n" +
                                   $"Executable file: {psi.FileName}\n" +
-                                  $"Exit code {process.ExitCode}";
+                                  $"Exit code: {process.ExitCode}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
                 var contextMessage = $"{errorDetail}\n{userNotified}";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    // Notify user
                     MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
                 }
             }
         }
-        catch (Win32Exception ex) // Catch Win32Exception specifically
+        catch (Win32Exception ex)
         {
             if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
             {
@@ -1231,7 +1206,6 @@ public class GameLauncher
             }
             else
             {
-                // Existing error handling for other Win32Exceptions
                 string exitCodeInfo;
                 try
                 {
@@ -1258,7 +1232,6 @@ public class GameLauncher
         }
         catch (Exception ex)
         {
-            // Notify developer
             string exitCodeInfo;
             try
             {
@@ -1279,7 +1252,6 @@ public class GameLauncher
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
             }
         }
