@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Services.DownloadService.Models;
+namespace SimpleLauncher.Services.DownloadService;
 
 public static class FormatFileSize
 {
