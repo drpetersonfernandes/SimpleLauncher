@@ -204,14 +204,21 @@ public class LaunchTools : ILaunchTools
     public void BatchConvertToChd()
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
-        if (architecture == Architecture.Arm64)
+        var executableName = architecture switch
         {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArm64") ?? "This application is not available for win-arm64";
-            MessageBoxLibrary.LaunchToolInformation(msg);
+            Architecture.X64 => "BatchConvertToCHD.exe",
+            Architecture.Arm64 => "BatchConvertToCHD_arm64.exe",
+            _ => null
+        };
+
+        if (executableName == null)
+        {
+            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
+            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", executableName);
         LaunchExternalTool(toolPath);
     }
 
