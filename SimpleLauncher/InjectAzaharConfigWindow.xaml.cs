@@ -42,6 +42,7 @@ public partial class InjectAzaharConfigWindow
         ChkNew3Ds.IsChecked = _settings.AzaharIsNew3ds;
         SldVolume.Value = _settings.AzaharVolume;
         ChkShowBeforeLaunch.IsChecked = _settings.AzaharShowSettingsBeforeLaunch;
+        ChkAudioStretching.IsChecked = _settings.AzaharEnableAudioStretching;
 
         BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
     }
@@ -57,6 +58,7 @@ public partial class InjectAzaharConfigWindow
         _settings.AzaharIsNew3ds = ChkNew3Ds.IsChecked ?? true;
         _settings.AzaharVolume = (int)SldVolume.Value;
         _settings.AzaharShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
+        _settings.AzaharEnableAudioStretching = ChkAudioStretching.IsChecked ?? true;
         _settings.Save();
     }
 

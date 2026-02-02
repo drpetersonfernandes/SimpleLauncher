@@ -71,6 +71,7 @@
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource AzaharConfig_Volume_Label}" VerticalAlignment="Center"/>
                         <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource AzaharConfig_Volume_Tooltip}"/>
+                        <CheckBox x:Name="ChkAudioStretching" Content="{DynamicResource AzaharConfig_AudioStretching_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AudioStretching_Tooltip}" IsChecked="True"/>
                     </StackPanel>
                 </GroupBox>
 

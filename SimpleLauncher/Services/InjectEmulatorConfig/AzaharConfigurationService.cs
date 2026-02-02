@@ -39,20 +39,21 @@ public static class AzaharConfigurationService
             {
                 { "graphics_api", settings.AzaharGraphicsApi.ToString(CultureInfo.InvariantCulture) },
                 { "resolution_factor", settings.AzaharResolutionFactor.ToString(CultureInfo.InvariantCulture) },
-                { "use_vsync_new", settings.AzaharUseVsync.ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) },
-                { "async_shader_compilation", settings.AzaharAsyncShaderCompilation.ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) }
+                { "use_vsync_new", BoolToString(settings.AzaharUseVsync) },
+                { "async_shader_compilation", BoolToString(settings.AzaharAsyncShaderCompilation) }
             },
             ["UI"] = new()
             {
-                { "fullscreen", settings.AzaharFullscreen.ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) }
+                { "fullscreen", BoolToString(settings.AzaharFullscreen) }
             },
             ["Audio"] = new()
             {
-                { "volume", (settings.AzaharVolume / 100.0).ToString("F2", CultureInfo.InvariantCulture) }
+                { "volume", (settings.AzaharVolume / 100.0).ToString("F2", CultureInfo.InvariantCulture) },
+                { "enable_audio_stretching", BoolToString(settings.AzaharEnableAudioStretching) }
             },
             ["System"] = new()
             {
-                { "is_new_3ds", settings.AzaharIsNew3ds.ToString(CultureInfo.InvariantCulture).ToLower(CultureInfo.InvariantCulture) }
+                { "is_new_3ds", BoolToString(settings.AzaharIsNew3ds) }
             },
             ["Layout"] = new()
             {
@@ -62,7 +63,11 @@ public static class AzaharConfigurationService
 
         var lines = File.ReadAllLines(configPath).ToList();
         var modified = false;
+        var keysProcessed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         string currentSection = null;
+
+        // Track which keys need their \default counterpart updated
+        var defaultKeyUpdates = new Dictionary<string, bool>(); // key -> isDefault
 
         for (var i = 0; i < lines.Count; i++)
         {
@@ -73,31 +78,93 @@ public static class AzaharConfigurationService
                 continue;
             }
 
-            if (currentSection != null && updates.TryGetValue(currentSection, out var sectionUpdates))
+            if (currentSection == null) continue;
+
+            var parts = line.Split('=', 2);
+            if (parts.Length < 2) continue;
+
+            var key = parts[0].Trim();
+
+            // Handle \default keys
+            if (key.EndsWith("\\default", StringComparison.OrdinalIgnoreCase))
             {
-                var parts = line.Split('=', 2);
-                if (parts.Length < 2) continue;
+                var baseKey = key.Substring(0, key.Length - 8); // Remove "\default"
 
-                var key = parts[0].Trim();
-
-                // Check if this is a standard key or a \default key
-                var baseKey = key.EndsWith("\\default", StringComparison.Ordinal) ? key.Replace("\\default", "") : key;
-
-                if (sectionUpdates.TryGetValue(baseKey, out var newValue))
+                if (updates.TryGetValue(currentSection, out var sectionUpdateList) &&
+                    sectionUpdateList.ContainsKey(baseKey))
                 {
-                    string newLine;
-                    if (key.EndsWith("\\default", StringComparison.Ordinal))
-                    {
-                        newLine = $"{key}=false"; // We are providing a custom value, so default is false
-                    }
-                    else
-                    {
-                        newLine = $"{key}={newValue}";
-                    }
-
+                    // We're providing a custom value, so default should be false
+                    var newLine = $"{key}=false";
                     if (lines[i] != newLine)
                     {
                         lines[i] = newLine;
+                        modified = true;
+                    }
+
+                    defaultKeyUpdates[baseKey] = false;
+                }
+
+                continue;
+            }
+
+            // Handle regular value keys
+            if (updates.TryGetValue(currentSection, out var sectionUpdateList2) &&
+                sectionUpdateList2.TryGetValue(key, out var newValue))
+            {
+                var newLine = $"{key}={newValue}";
+                if (lines[i] != newLine)
+                {
+                    lines[i] = newLine;
+                    modified = true;
+                }
+
+                keysProcessed.Add($"{currentSection}:{key}");
+            }
+        }
+
+        // Second pass: Add missing \default=false lines for keys we updated
+        // and add missing keys entirely
+        foreach (var (sectionName, sectionDict) in updates)
+        {
+            foreach (var (key, value) in sectionDict)
+            {
+                var fullKey = $"{sectionName}:{key}";
+
+                // Find section in lines
+                var sectionIndex = lines.FindIndex(l =>
+                    l.Trim().Equals($"[{sectionName}]", StringComparison.OrdinalIgnoreCase));
+                if (sectionIndex == -1) continue;
+
+                // Check if we processed this key
+                if (!keysProcessed.Contains(fullKey))
+                {
+                    // Need to add the key and its \default line
+                    var insertIndex = sectionIndex + 1;
+                    while (insertIndex < lines.Count &&
+                           !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
+                           !lines[insertIndex].Trim().StartsWith('['))
+                    {
+                        insertIndex++;
+                    }
+
+                    // Insert value line first, then \default line
+                    lines.Insert(insertIndex, $"{key}={value}");
+                    lines.Insert(insertIndex + 1, $"{key}\\default=false");
+                    modified = true;
+                }
+                else if (!defaultKeyUpdates.ContainsKey(key))
+                {
+                    // Key existed but we didn't see a \default line, add one
+                    var keyIndex = lines.FindIndex(sectionIndex, l =>
+                    {
+                        var trimmed = l.Trim();
+                        return trimmed.StartsWith($"{key}=", StringComparison.OrdinalIgnoreCase) &&
+                               !trimmed.Contains("\\default");
+                    });
+
+                    if (keyIndex != -1)
+                    {
+                        lines.Insert(keyIndex + 1, $"{key}\\default=false");
                         modified = true;
                     }
                 }
@@ -109,5 +176,10 @@ public static class AzaharConfigurationService
             File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
             DebugLogger.Log("[AzaharConfig] Injection successful.");
         }
+    }
+
+    private static string BoolToString(bool value)
+    {
+        return value ? "true" : "false";
     }
 }

@@ -87,6 +87,7 @@ public class SettingsManager
     [Key(206)] public bool AzaharIsNew3ds { get; set; } = true;
     [Key(207)] public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
     [Key(208)] public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
+    [Key(209)] public bool AzaharEnableAudioStretching { get; set; } = true;
 
     // Blastem
     [Key(300)] public bool BlastemFullscreen { get; set; }
