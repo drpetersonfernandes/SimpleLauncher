@@ -437,6 +437,7 @@ public class SettingsManager
         AzaharIsNew3ds = other.AzaharIsNew3ds;
         AzaharLayoutOption = other.AzaharLayoutOption;
         AzaharShowSettingsBeforeLaunch = other.AzaharShowSettingsBeforeLaunch;
+        AzaharEnableAudioStretching = other.AzaharEnableAudioStretching;
 
         // Blastem
         BlastemFullscreen = other.BlastemFullscreen;
