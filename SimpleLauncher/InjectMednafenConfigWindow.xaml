@@ -60,15 +60,15 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MednafenConfig_Shader_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource MednafenConfig_Shader_Label}" VerticalAlignment="Center" />
                             <!-- Shaders -->
                             <ComboBox x:Name="CmbShader" Grid.Column="1" ToolTip="{DynamicResource MednafenConfig_Shader_Tooltip}">
-                                <ComboBoxItem Content="None" Tag="none"/>
-                                <ComboBoxItem Content="Auto IP" Tag="autoip"/>
-                                <ComboBoxItem Content="Auto IP Sharper" Tag="autoipsharper"/>
-                                <ComboBoxItem Content="Scale 2x" Tag="scale2x"/>
-                                <ComboBoxItem Content="SNES NTSC" Tag="snes_ntsc"/>
-                                <ComboBoxItem Content="Scanlines" Tag="scanlines"/>
+                                <ComboBoxItem Content="None" Tag="none" />
+                                <ComboBoxItem Content="Auto IP (Shader)" Tag="ip" />
+                                <ComboBoxItem Content="Auto IP Sharper (Shader)" Tag="ipsharper" />
+                                <ComboBoxItem Content="Scale 2x (Scaler)" Tag="scale2x" />
+                                <ComboBoxItem Content="SNES NTSC (Scaler)" Tag="snes_ntsc" />
+                                <ComboBoxItem Content="Scanlines (Goat Shader)" Tag="goat" />
                             </ComboBox>
                         </Grid>
                     </StackPanel>

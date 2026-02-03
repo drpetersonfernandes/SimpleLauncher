@@ -62,6 +62,7 @@ public static class MednafenConfigurationService
             updates[$"{prefix}.videoip"] = settings.MednafenBilinear ? "1" : "0";
             updates[$"{prefix}.scanlines"] = settings.MednafenScanlines.ToString(CultureInfo.InvariantCulture);
             updates[$"{prefix}.shader"] = settings.MednafenShader;
+            updates[$"{prefix}.special"] = settings.MednafenSpecial;
         }
 
         var lines = File.ReadAllLines(configPath).ToList();

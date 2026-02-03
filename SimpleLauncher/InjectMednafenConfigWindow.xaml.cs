@@ -33,7 +33,14 @@ public partial class InjectMednafenConfigWindow
     {
         SelectItemByTag(CmbVideoDriver, _settings.MednafenVideoDriver);
         SelectItemByTag(CmbStretch, _settings.MednafenStretch);
-        SelectItemByTag(CmbShader, _settings.MednafenShader);
+
+        // Logic to load the correct item in the Shader/Scaler ComboBox
+        if (!string.IsNullOrEmpty(_settings.MednafenSpecial) && _settings.MednafenSpecial != "none")
+        {
+            SelectItemByTag(CmbShader, _settings.MednafenSpecial);
+        }
+        else
+            SelectItemByTag(CmbShader, _settings.MednafenShader);
 
         ChkFullscreen.IsChecked = _settings.MednafenFullscreen;
         ChkVsync.IsChecked = _settings.MednafenVsync;
@@ -89,7 +96,19 @@ public partial class InjectMednafenConfigWindow
     {
         _settings.MednafenVideoDriver = (CmbVideoDriver.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "opengl";
         _settings.MednafenStretch = (CmbStretch.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "aspect";
-        _settings.MednafenShader = (CmbShader.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "none";
+
+        // Logic to split Shader vs Special Scaler
+        var selectedShaderTag = (CmbShader.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag?.ToString() ?? "none";
+        if (selectedShaderTag is "scale2x" or "snes_ntsc")
+        {
+            _settings.MednafenSpecial = selectedShaderTag;
+            _settings.MednafenShader = "none";
+        }
+        else
+        {
+            _settings.MednafenSpecial = "none";
+            _settings.MednafenShader = selectedShaderTag;
+        }
 
         _settings.MednafenFullscreen = ChkFullscreen.IsChecked ?? false;
         _settings.MednafenVsync = ChkVsync.IsChecked ?? true;

@@ -168,6 +168,7 @@ public class SettingsManager
     public bool MednafenBilinear { get; set; }
     public int MednafenScanlines { get; set; }
     public string MednafenShader { get; set; } = "none";
+    public string MednafenSpecial { get; set; } = "none";
     public int MednafenVolume { get; set; } = 100;
     public bool MednafenCheats { get; set; } = true;
     public bool MednafenRewind { get; set; }
@@ -494,6 +495,7 @@ public class SettingsManager
         MednafenBilinear = other.MednafenBilinear;
         MednafenScanlines = other.MednafenScanlines;
         MednafenShader = other.MednafenShader;
+        MednafenSpecial = other.MednafenSpecial;
         MednafenVolume = other.MednafenVolume;
         MednafenCheats = other.MednafenCheats;
         MednafenRewind = other.MednafenRewind;
@@ -1172,6 +1174,7 @@ public class SettingsManager
         }
 
         MednafenShader = mednafen?.Element("Shader")?.Value ?? settings.Element("MednafenShader")?.Value ?? MednafenShader;
+        MednafenSpecial = mednafen?.Element("Special")?.Value ?? settings.Element("MednafenSpecial")?.Value ?? MednafenSpecial;
         if (int.TryParse(mednafen?.Element("Volume")?.Value ?? settings.Element("MednafenVolume")?.Value, out var mevo))
         {
             MednafenVolume = mevo;
@@ -1955,6 +1958,7 @@ public class SettingsManager
                         new XElement("Bilinear", MednafenBilinear),
                         new XElement("Scanlines", MednafenScanlines),
                         new XElement("Shader", MednafenShader),
+                        new XElement("Special", MednafenSpecial),
                         new XElement("Volume", MednafenVolume),
                         new XElement("Cheats", MednafenCheats),
                         new XElement("Rewind", MednafenRewind),
