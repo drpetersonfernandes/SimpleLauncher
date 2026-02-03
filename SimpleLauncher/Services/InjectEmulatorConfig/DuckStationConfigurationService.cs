@@ -152,15 +152,36 @@ public static class DuckStationConfigurationService
 
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, out bool modified)
     {
+        if (updates.Count == 0)
+        {
+            modified = false;
+            return;
+        }
+
         var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
         if (sectionIndex == -1)
         {
-            lines.Add("");
+            if (lines.Count > 0 && !string.IsNullOrWhiteSpace(lines[^1]))
+                lines.Add("");
             lines.Add(sectionName);
             sectionIndex = lines.Count - 1;
         }
 
+        // Find the end of this section (start of next section or end of file)
         var insertIndex = sectionIndex + 1;
+        for (var i = insertIndex; i < lines.Count; i++)
+        {
+            var line = lines[i].Trim();
+            if (line.StartsWith('[') && line.EndsWith(']'))
+            {
+                // Found next section, insert before it
+                insertIndex = i;
+                break;
+            }
+
+            insertIndex = i + 1;
+        }
+
         foreach (var kvp in updates)
         {
             lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");

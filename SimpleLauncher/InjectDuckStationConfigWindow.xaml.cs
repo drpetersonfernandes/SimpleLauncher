@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls; // Added for ComboBox and ComboBoxItem
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -38,11 +39,11 @@ public partial class InjectDuckStationConfigWindow
         ChkRewindEnable.IsChecked = _settings.DuckStationRewindEnable;
         SldRunahead.Value = _settings.DuckStationRunaheadFrameCount;
 
-        // Video/GPU
-        CmbRenderer.Text = _settings.DuckStationRenderer;
-        CmbResolutionScale.Text = _settings.DuckStationResolutionScale.ToString(CultureInfo.InvariantCulture);
-        CmbTextureFilter.Text = _settings.DuckStationTextureFilter;
-        CmbAspectRatio.Text = _settings.DuckStationAspectRatio;
+        // Video/GPU - Select by matching content to ensure SelectedItem is set
+        SelectComboBoxItemByContent(CmbRenderer, _settings.DuckStationRenderer);
+        SelectComboBoxItemByContent(CmbResolutionScale, _settings.DuckStationResolutionScale.ToString(CultureInfo.InvariantCulture));
+        SelectComboBoxItemByContent(CmbTextureFilter, _settings.DuckStationTextureFilter);
+        SelectComboBoxItemByContent(CmbAspectRatio, _settings.DuckStationAspectRatio);
         ChkWidescreenHack.IsChecked = _settings.DuckStationWidescreenHack;
         ChkPgxpEnable.IsChecked = _settings.DuckStationPgxpEnable;
         ChkVsync.IsChecked = _settings.DuckStationVsync;
@@ -58,6 +59,23 @@ public partial class InjectDuckStationConfigWindow
         {
             BtnSave.IsDefault = true;
         }
+
+        return;
+
+        static void SelectComboBoxItemByContent(ComboBox comboBox, string content)
+        {
+            foreach (ComboBoxItem item in comboBox.Items)
+            {
+                if (item.Content?.ToString() == content)
+                {
+                    comboBox.SelectedItem = item;
+                    return;
+                }
+            }
+
+            // Fallback: set text (may result in null SelectedItem)
+            comboBox.Text = content;
+        }
     }
 
     private string EnsureEmulatorPath()
@@ -70,7 +88,7 @@ public partial class InjectDuckStationConfigWindow
         MessageBoxLibrary.DuckStationEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Filter = "DuckStation Executable|duckstation-*.exe|All Executables|*.exe",
+            Filter = "DuckStation Executable|duckstation*.exe|All Executables|*.exe",
             Title = "Select DuckStation Emulator"
         };
 
@@ -90,21 +108,29 @@ public partial class InjectDuckStationConfigWindow
         _settings.DuckStationRunaheadFrameCount = (int)SldRunahead.Value;
 
         // Video/GPU
-        _settings.DuckStationRenderer = CmbRenderer.Text;
+        _settings.DuckStationRenderer = CmbRenderer.SelectedItem is ComboBoxItem rendererItem
+            ? rendererItem.Content?.ToString() ?? "Automatic"
+            : "Automatic";
 
         // Use Tag property instead of Text to handle descriptive content like "2x (720p)"
-        var selectedItem = CmbResolutionScale.SelectedItem as System.Windows.Controls.ComboBoxItem;
+        var selectedItem = CmbResolutionScale.SelectedItem as ComboBoxItem;
         if (selectedItem?.Tag != null && int.TryParse(selectedItem.Tag.ToString(), out var scale))
         {
             _settings.DuckStationResolutionScale = scale;
         }
         else
         {
-            _settings.DuckStationResolutionScale = 1; // Default fallback
+            _settings.DuckStationResolutionScale = 2; // Default fallback
         }
 
-        _settings.DuckStationTextureFilter = CmbTextureFilter.Text;
-        _settings.DuckStationAspectRatio = CmbAspectRatio.Text;
+        _settings.DuckStationTextureFilter = CmbTextureFilter.SelectedItem is ComboBoxItem filterItem
+            ? filterItem.Content?.ToString() ?? "Nearest"
+            : "Nearest";
+
+        _settings.DuckStationAspectRatio = CmbAspectRatio.SelectedItem is ComboBoxItem aspectItem
+            ? aspectItem.Content?.ToString() ?? "16:9"
+            : "16:9";
+
         _settings.DuckStationWidescreenHack = ChkWidescreenHack.IsChecked ?? false;
         _settings.DuckStationPgxpEnable = ChkPgxpEnable.IsChecked ?? false;
         _settings.DuckStationVsync = ChkVsync.IsChecked ?? false;
