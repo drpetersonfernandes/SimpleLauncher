@@ -48,7 +48,7 @@ public static partial class BlastemConfigurationService
             { "sync_source", settings.BlastemSyncSource }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        var lines = File.ReadAllLines(configPath, new UTF8Encoding(false)).ToList();
         var modified = false;
 
         // Map configuration keys to their expected parent blocks for scope validation
@@ -63,8 +63,8 @@ public static partial class BlastemConfigurationService
             { "sync_source", "system" }
         };
 
-        var braceDepth = 0;
-        var currentBlock = "";
+        // Use a stack to properly track nested block scopes
+        var blockStack = new Stack<string>();
 
         for (var i = 0; i < lines.Count; i++)
         {
@@ -74,26 +74,20 @@ public static partial class BlastemConfigurationService
             switch (trimmedLine)
             {
                 // Track block scope for hierarchical config format
-                case "{":
-                    braceDepth++;
-                    continue;
                 case "}":
-                {
-                    braceDepth--;
-                    if (braceDepth == 0)
+                    if (blockStack.Count > 0)
                     {
-                        currentBlock = "";
+                        blockStack.Pop();
                     }
 
                     continue;
-                }
             }
 
             // Detect block start (e.g., "video {")
             if (trimmedLine.EndsWith('{') && !trimmedLine.StartsWith('#'))
             {
-                braceDepth++;
-                currentBlock = trimmedLine.Substring(0, trimmedLine.Length - 1).Trim();
+                var blockName = trimmedLine.Substring(0, trimmedLine.Length - 1).Trim();
+                blockStack.Push(blockName);
                 continue;
             }
 
@@ -106,6 +100,7 @@ public static partial class BlastemConfigurationService
             if (!updates.TryGetValue(key, out var newValue)) continue;
 
             // Validate scope: only update keys when inside their expected block
+            var currentBlock = blockStack.Count > 0 ? blockStack.Peek() : "";
             if (keyBlocks.TryGetValue(key, out var expectedBlock) && currentBlock != expectedBlock)
                 continue; // Key found in wrong scope (e.g., comment or user custom section), skip it
 

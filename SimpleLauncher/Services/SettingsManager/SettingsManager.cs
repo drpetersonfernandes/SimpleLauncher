@@ -380,6 +380,8 @@ public class SettingsManager
 
     private void CopyFrom(SettingsManager other)
     {
+        ArgumentNullException.ThrowIfNull(other);
+
         // Application Settings
         ThumbnailSize = other.ThumbnailSize;
         GamesPerPage = other.GamesPerPage;
