@@ -12,6 +12,11 @@ public static partial class MameConfigurationService
 {
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, string systemRomPath = null)
     {
+        if (string.IsNullOrWhiteSpace(emulatorPath))
+            throw new ArgumentException(@"Emulator path cannot be null or empty.", nameof(emulatorPath));
+
+        ArgumentNullException.ThrowIfNull(settings);
+
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
             throw new InvalidOperationException("Emulator directory is null or empty.");
@@ -66,7 +71,7 @@ public static partial class MameConfigurationService
             if (string.IsNullOrWhiteSpace(line) || trimmedLine.StartsWith('#')) continue;
 
             // MAME INI format: key <whitespace> value
-            var match = MyRegex().Match(trimmedLine);
+            var match = IniLineRegex().Match(trimmedLine);
             if (!match.Success) continue;
 
             var key = match.Groups[1].Value;
@@ -232,6 +237,6 @@ public static partial class MameConfigurationService
         }
     }
 
-    [GeneratedRegex(@"^(\S+)(\s+)(\S+)(.*)$")]
-    private static partial Regex MyRegex();
+    [GeneratedRegex(@"^(\S+)(\s+)(\S*)(.*)$")]
+    private static partial Regex IniLineRegex();
 }
