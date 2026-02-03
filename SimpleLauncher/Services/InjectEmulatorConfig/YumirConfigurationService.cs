@@ -40,7 +40,6 @@ public static class YumirConfigurationService
         video["FullScreen"] = settings.YumirFullscreen;
         video["ForceAspectRatio"] = settings.YumirForceAspectRatio;
         video["ForcedAspect"] = settings.YumirForcedAspect;
-        video["ForceAspectRatio"] = settings.YumirForceAspectRatio;
         video["ReduceLatency"] = settings.YumirReduceLatency;
 
         // [Audio]
