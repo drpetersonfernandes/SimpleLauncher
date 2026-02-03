@@ -87,7 +87,7 @@ public partial class InjectDolphinConfigWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Dolphin configuration injection failed for path: {path}");
+            _ = _logErrors.LogErrorAsync(ex, $"Dolphin configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -112,12 +112,12 @@ public partial class InjectDolphinConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.DolphinConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveDolphinConfiguration();
+            // Don't close on failure so user can retry or fix the issue
         }
-
-        Close();
     }
 }
