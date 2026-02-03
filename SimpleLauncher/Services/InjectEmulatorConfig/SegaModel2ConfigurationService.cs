@@ -102,7 +102,7 @@ public static class SegaModel2ConfigurationService
         if (rendererUpdates.Count > 0 || inputUpdates.Count > 0)
         {
             modified = true;
-
+            // Try to add to existing sections
             if (rendererUpdates.Count > 0)
             {
                 var rendererIndex = lines.FindIndex(static l => l.Trim().Equals("[Renderer]", StringComparison.OrdinalIgnoreCase));
@@ -117,6 +117,15 @@ public static class SegaModel2ConfigurationService
                     foreach (var kvp in rendererUpdates)
                     {
                         lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
+                    }
+                }
+                else
+                {
+                    // Section doesn't exist, add it at the end
+                    lines.Add("[Renderer]");
+                    foreach (var kvp in rendererUpdates)
+                    {
+                        lines.Add($"{kvp.Key}={kvp.Value}");
                     }
                 }
             }
@@ -135,6 +144,15 @@ public static class SegaModel2ConfigurationService
                     foreach (var kvp in inputUpdates)
                     {
                         lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
+                    }
+                }
+                else
+                {
+                    // Section doesn't exist, add it at the end
+                    lines.Add("[Input]");
+                    foreach (var kvp in inputUpdates)
+                    {
+                        lines.Add($"{kvp.Key}={kvp.Value}");
                     }
                 }
             }

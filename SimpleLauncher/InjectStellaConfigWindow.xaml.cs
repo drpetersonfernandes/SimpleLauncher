@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
@@ -137,7 +138,7 @@ public partial class InjectStellaConfigWindow
 
     private static void SelectComboByTag(ComboBox cmb, string tagValue)
     {
-        foreach (ComboBoxItem item in cmb.Items)
+        foreach (var item in cmb.Items.OfType<ComboBoxItem>())
         {
             if (item.Tag?.ToString() == tagValue)
             {
