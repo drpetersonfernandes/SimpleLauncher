@@ -34,19 +34,6 @@ public static class RetroArchConfigurationService
 
         DebugLogger.Log($"[RetroArchConfig] Injecting configuration into: {configPath}");
 
-        // Define base directories for portability (relative to Simple Launcher)
-        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var biosDir = Path.Combine(baseDir, "bios");
-        var savesDir = Path.Combine(baseDir, "saves");
-        var statesDir = Path.Combine(baseDir, "states");
-        var screenshotsDir = Path.Combine(baseDir, "screenshots");
-
-        // Ensure directories exist
-        Directory.CreateDirectory(biosDir);
-        Directory.CreateDirectory(savesDir);
-        Directory.CreateDirectory(statesDir);
-        Directory.CreateDirectory(screenshotsDir);
-
         // Prepare settings dictionary
         var updates = new Dictionary<string, string>
         {
@@ -65,12 +52,6 @@ public static class RetroArchConfigurationService
             { "audio_enable", FormatBool(settings.RetroArchAudioEnable) },
             { "audio_mute_enable", FormatBool(settings.RetroArchAudioMute) },
 
-            // --- Directories (Portability) ---
-            { "system_directory", FormatPath(biosDir) },
-            { "savefile_directory", FormatPath(savesDir) },
-            { "savestate_directory", FormatPath(statesDir) },
-            { "screenshot_directory", FormatPath(screenshotsDir) },
-
             // --- Automation / Misc ---
             { "pause_nonactive", FormatBool(settings.RetroArchPauseNonActive) },
             { "config_save_on_exit", FormatBool(settings.RetroArchSaveOnExit) },
@@ -88,27 +69,6 @@ public static class RetroArchConfigurationService
             { "cheevos_enable", FormatBool(settings.RetroArchCheevosEnable) },
             { "cheevos_hardcore_mode_enable", FormatBool(settings.RetroArchCheevosHardcore) }
         };
-
-        // --- Directories (Conditional Portability) ---
-        if (settings.RetroArchOverrideSystemDir)
-        {
-            updates.Add("system_directory", FormatPath(Path.Combine(baseDir, "bios")));
-        }
-
-        if (settings.RetroArchOverrideSaveDir)
-        {
-            updates.Add("savefile_directory", FormatPath(Path.Combine(baseDir, "saves")));
-        }
-
-        if (settings.RetroArchOverrideStateDir)
-        {
-            updates.Add("savestate_directory", FormatPath(Path.Combine(baseDir, "states")));
-        }
-
-        if (settings.RetroArchOverrideScreenshotDir)
-        {
-            updates.Add("screenshot_directory", FormatPath(Path.Combine(baseDir, "screenshots")));
-        }
 
         // Read and Update
         var lines = File.ReadAllLines(configPath).ToList();
@@ -170,12 +130,6 @@ public static class RetroArchConfigurationService
         {
             // Booleans in RetroArch are quoted strings: "true" or "false"
             return val ? "\"true\"" : "\"false\"";
-        }
-
-        static string FormatPath(string path)
-        {
-            // Normalize path separators and format as string
-            return FormatString(path.Replace("\\", "/"));
         }
     }
 }

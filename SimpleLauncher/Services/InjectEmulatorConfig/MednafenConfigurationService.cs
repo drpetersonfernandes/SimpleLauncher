@@ -17,7 +17,7 @@ public static class MednafenConfigurationService
         "pcfx", "psx", "sms", "snes", "snes_faust", "ss", "vb", "wswan"
     ];
 
-    private static readonly char[] Separator = [' '];
+    private static readonly char[] Separator = [' ', '\t'];
 
     public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
     {
@@ -50,6 +50,7 @@ public static class MednafenConfigurationService
             { "video.driver", settings.MednafenVideoDriver },
             { "video.fs", settings.MednafenFullscreen ? "1" : "0" },
             { "video.glvsync", settings.MednafenVsync ? "1" : "0" },
+            { "video.blit_timesync", settings.MednafenVsync ? "1" : "0" },
             { "sound.volume", settings.MednafenVolume.ToString(CultureInfo.InvariantCulture) },
             { "cheats", settings.MednafenCheats ? "1" : "0" },
             { "state_rewind", settings.MednafenRewind ? "1" : "0" }

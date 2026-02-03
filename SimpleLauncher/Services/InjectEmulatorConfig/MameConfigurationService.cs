@@ -132,6 +132,19 @@ public static partial class MameConfigurationService
             }
         }
 
+        // Add missing rompath key if not present in the original file
+        if (!keysFound.Contains("rompath") && !string.IsNullOrEmpty(systemRomPath))
+        {
+            var pathToAdd = systemRomPath.Trim();
+            if (pathToAdd.Contains(';') || pathToAdd.Contains(' '))
+            {
+                pathToAdd = $"\"{pathToAdd}\"";
+            }
+
+            lines.Add($"rompath {pathToAdd}");
+            modified = true;
+        }
+
         // Atomic write to prevent corruption during concurrent access
         if (modified)
         {

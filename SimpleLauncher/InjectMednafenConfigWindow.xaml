@@ -78,7 +78,7 @@
                 <GroupBox Header="{DynamicResource MednafenConfig_Sound_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource MednafenConfig_Volume_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldVolume" Minimum="0" Maximum="200" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Volume_Tooltip}"/>
+                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Volume_Tooltip}"/>
                     </StackPanel>
                 </GroupBox>
 

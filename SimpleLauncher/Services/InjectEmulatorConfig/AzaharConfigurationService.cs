@@ -63,110 +63,81 @@ public static class AzaharConfigurationService
 
         var lines = File.ReadAllLines(configPath).ToList();
         var modified = false;
-        var keysProcessed = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        string currentSection = null;
 
-        // Track which keys need their \default counterpart updated
-        var defaultKeyUpdates = new Dictionary<string, bool>(); // key -> isDefault
-
-        for (var i = 0; i < lines.Count; i++)
+        foreach (var (sectionName, dictionary) in updates)
         {
-            var line = lines[i].Trim();
-            if (line.StartsWith('[') && line.EndsWith(']'))
+            var sectionHeader = $"[{sectionName}]";
+
+            // 1. Find or Create Section
+            var sectionStartIndex = lines.FindIndex(l => l.Trim().Equals(sectionHeader, StringComparison.OrdinalIgnoreCase));
+            if (sectionStartIndex == -1)
             {
-                currentSection = line.Substring(1, line.Length - 2);
-                continue;
+                if (lines.Count > 0 && !string.IsNullOrWhiteSpace(lines[^1])) lines.Add("");
+                lines.Add(sectionHeader);
+                sectionStartIndex = lines.Count - 1;
+                modified = true;
             }
 
-            if (currentSection == null) continue;
-
-            var parts = line.Split('=', 2);
-            if (parts.Length < 2) continue;
-
-            var key = parts[0].Trim();
-
-            // Handle \default keys
-            if (key.EndsWith("\\default", StringComparison.OrdinalIgnoreCase))
+            // 2. Determine Section Range
+            var sectionEndIndex = lines.FindIndex(sectionStartIndex + 1, static l => l.Trim().StartsWith('['));
+            if (sectionEndIndex == -1)
             {
-                var baseKey = key.Substring(0, key.Length - 8); // Remove "\default"
+                sectionEndIndex = lines.Count;
+            }
 
-                if (updates.TryGetValue(currentSection, out var sectionUpdateList) &&
-                    sectionUpdateList.ContainsKey(baseKey))
+            foreach (var (key, value) in dictionary)
+            {
+                var defaultKey = $"{key}\\default";
+                var keyIndex = -1;
+                var defaultKeyIndex = -1;
+
+                // 3. Search for existing keys within this section only
+                for (var i = sectionStartIndex + 1; i < sectionEndIndex; i++)
                 {
-                    // We're providing a custom value, so default should be false
-                    var newLine = $"{key}=false";
-                    if (lines[i] != newLine)
+                    var trimmed = lines[i].Trim();
+                    if (trimmed.StartsWith($"{key}=", StringComparison.OrdinalIgnoreCase))
                     {
-                        lines[i] = newLine;
-                        modified = true;
+                        keyIndex = i;
                     }
-
-                    defaultKeyUpdates[baseKey] = false;
+                    else if (trimmed.StartsWith($"{defaultKey}=", StringComparison.OrdinalIgnoreCase))
+                    {
+                        defaultKeyIndex = i;
+                    }
                 }
 
-                continue;
-            }
-
-            // Handle regular value keys
-            if (updates.TryGetValue(currentSection, out var sectionUpdateList2) &&
-                sectionUpdateList2.TryGetValue(key, out var newValue))
-            {
-                var newLine = $"{key}={newValue}";
-                if (lines[i] != newLine)
+                // 4. Update or Insert Main Key
+                var keyLine = $"{key}={value}";
+                if (keyIndex != -1)
                 {
-                    lines[i] = newLine;
+                    if (lines[keyIndex] != keyLine)
+                    {
+                        lines[keyIndex] = keyLine;
+                        modified = true;
+                    }
+                }
+                else
+                {
+                    lines.Insert(sectionEndIndex, keyLine);
+                    keyIndex = sectionEndIndex;
+                    sectionEndIndex++;
                     modified = true;
                 }
 
-                keysProcessed.Add($"{currentSection}:{key}");
-            }
-        }
-
-        // Second pass: Add missing \default=false lines for keys we updated
-        // and add missing keys entirely
-        foreach (var (sectionName, sectionDict) in updates)
-        {
-            foreach (var (key, value) in sectionDict)
-            {
-                var fullKey = $"{sectionName}:{key}";
-
-                // Find section in lines
-                var sectionIndex = lines.FindIndex(l =>
-                    l.Trim().Equals($"[{sectionName}]", StringComparison.OrdinalIgnoreCase));
-                if (sectionIndex == -1) continue;
-
-                // Check if we processed this key
-                if (!keysProcessed.Contains(fullKey))
+                // 5. Update or Insert \default Key (always false when injected)
+                var defaultLine = $"{defaultKey}=false";
+                if (defaultKeyIndex != -1)
                 {
-                    // Need to add the key and its \default line
-                    var insertIndex = sectionIndex + 1;
-                    while (insertIndex < lines.Count &&
-                           !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
-                           !lines[insertIndex].Trim().StartsWith('['))
+                    if (lines[defaultKeyIndex] != defaultLine)
                     {
-                        insertIndex++;
-                    }
-
-                    // Insert value line first, then \default line
-                    lines.Insert(insertIndex, $"{key}={value}");
-                    lines.Insert(insertIndex + 1, $"{key}\\default=false");
-                    modified = true;
-                }
-                else if (!defaultKeyUpdates.ContainsKey(key))
-                {
-                    // Key existed but we didn't see a \default line, add one
-                    var keyIndex = lines.FindIndex(sectionIndex, l =>
-                    {
-                        var trimmed = l.Trim();
-                        return trimmed.StartsWith($"{key}=", StringComparison.OrdinalIgnoreCase) &&
-                               !trimmed.Contains("\\default");
-                    });
-
-                    if (keyIndex != -1)
-                    {
-                        lines.Insert(keyIndex + 1, $"{key}\\default=false");
+                        lines[defaultKeyIndex] = defaultLine;
                         modified = true;
                     }
+                }
+                else
+                {
+                    lines.Insert(keyIndex + 1, defaultLine);
+                    sectionEndIndex++;
+                    modified = true;
                 }
             }
         }
