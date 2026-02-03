@@ -291,7 +291,6 @@ public class SettingsManager
     [Key(1709)] public int SupermodelMusicVolume { get; set; } = 100;
     [Key(1710)] public int SupermodelSoundVolume { get; set; } = 100;
 
-    [IgnoreMember]
     [field: Key(1711)]
     public string SupermodelInputSystem
     {

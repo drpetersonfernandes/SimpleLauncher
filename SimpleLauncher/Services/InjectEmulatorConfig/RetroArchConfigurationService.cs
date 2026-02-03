@@ -92,25 +92,21 @@ public static class RetroArchConfigurationService
         // --- Directories (Conditional Portability) ---
         if (settings.RetroArchOverrideSystemDir)
         {
-            Directory.CreateDirectory(Path.Combine(baseDir, "bios"));
             updates.Add("system_directory", FormatPath(Path.Combine(baseDir, "bios")));
         }
 
         if (settings.RetroArchOverrideSaveDir)
         {
-            Directory.CreateDirectory(Path.Combine(baseDir, "saves"));
             updates.Add("savefile_directory", FormatPath(Path.Combine(baseDir, "saves")));
         }
 
         if (settings.RetroArchOverrideStateDir)
         {
-            Directory.CreateDirectory(Path.Combine(baseDir, "states"));
             updates.Add("savestate_directory", FormatPath(Path.Combine(baseDir, "states")));
         }
 
         if (settings.RetroArchOverrideScreenshotDir)
         {
-            Directory.CreateDirectory(Path.Combine(baseDir, "screenshots"));
             updates.Add("screenshot_directory", FormatPath(Path.Combine(baseDir, "screenshots")));
         }
 

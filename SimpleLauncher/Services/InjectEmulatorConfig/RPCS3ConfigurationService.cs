@@ -64,10 +64,21 @@ public static class Rpcs3ConfigurationService
         // Helper to navigate and set values
         void SetValue(string section, string key, object value)
         {
-            if (yamlObject.TryGetValue(section, out var sectionObj) && sectionObj is Dictionary<object, object> sectionDict)
+            if (!yamlObject.TryGetValue(section, out var sectionObj))
             {
-                sectionDict[key] = value;
+                // Create section if it doesn't exist
+                sectionObj = new Dictionary<object, object>();
+                yamlObject[section] = sectionObj;
             }
+
+            if (sectionObj is not Dictionary<object, object> sectionDict)
+            {
+                // Replace non-dictionary value with a dictionary
+                sectionDict = new Dictionary<object, object>();
+                yamlObject[section] = sectionDict;
+            }
+
+            sectionDict[key] = value;
         }
     }
 }
