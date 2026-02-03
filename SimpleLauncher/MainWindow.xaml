@@ -827,13 +827,13 @@
                         AutomationProperties.Name="{DynamicResource Restart}">
                         <Image Source="pack://application:,,,/images/refresh.png" Width="27" Height="27" />
                     </Button>
-                    <Button
-                        Style="{StaticResource NavImageButton3DStyle}"
-                        ToolTip="{DynamicResource ToggleLightDarkMode}"
-                        Click="NavToggleLightDarkMode_Click"
-                        AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}">
-                        <Image Source="pack://application:,,,/images/darkmode.png" Width="27" Height="27" />
-                    </Button>
+                    <!-- <Button -->
+                    <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                    <!--     ToolTip="{DynamicResource ToggleLightDarkMode}" -->
+                    <!--     Click="NavToggleLightDarkMode_Click" -->
+                    <!--     AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}"> -->
+                    <!--     <Image Source="pack://application:,,,/images/darkmode.png" Width="27" Height="27" /> -->
+                    <!-- </Button> -->
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource Favorites}"

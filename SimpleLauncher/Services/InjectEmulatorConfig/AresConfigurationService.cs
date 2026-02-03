@@ -43,7 +43,7 @@ public static class AresConfigurationService
                 { "Exclusive:", settings.AresExclusive.ToString().ToLowerInvariant() },
                 { "Shader:", settings.AresShader },
                 { "Multiplier:", settings.AresMultiplier.ToString(CultureInfo.InvariantCulture) },
-                { "AspectCorrectionMode:", settings.AresAspectCorrection }
+                { "Output:", settings.AresAspectCorrection }
             },
             ["Audio"] = new(StringComparer.OrdinalIgnoreCase)
             {

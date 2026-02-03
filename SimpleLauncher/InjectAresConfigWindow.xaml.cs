@@ -125,15 +125,15 @@ public partial class InjectAresConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
-        {
-            MessageBoxLibrary.AresConfigurationSavedSuccessfully();
-        }
-        else
+        if (!InjectConfig())
         {
             MessageBoxLibrary.FailedToSaveAresConfiguration();
+            return; // Don't close on failure
         }
 
+        MessageBoxLibrary.AresConfigurationSavedSuccessfully();
+        // Only close on success, and only if not in launcher mode (otherwise Run button handles it)
+        // Actually, in non-launcher mode, we should close on success
         Close();
     }
 }
