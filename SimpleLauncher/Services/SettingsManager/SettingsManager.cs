@@ -650,1176 +650,1120 @@ public class SettingsManager
     {
         ArgumentNullException.ThrowIfNull(settings);
 
-        // Application Settings
+        // Application Settings Fallback Logic
         var app = settings.Element("Application");
-        if (app != null)
+        ThumbnailSize = ValidateThumbnailSize(app?.Element("ThumbnailSize")?.Value ?? settings.Element("ThumbnailSize")?.Value);
+        GamesPerPage = ValidateGamesPerPage(app?.Element("GamesPerPage")?.Value ?? settings.Element("GamesPerPage")?.Value);
+        ShowGames = ValidateShowGames(app?.Element("ShowGames")?.Value ?? settings.Element("ShowGames")?.Value);
+        ViewMode = ValidateViewMode(app?.Element("ViewMode")?.Value ?? settings.Element("ViewMode")?.Value);
+
+        if (bool.TryParse(app?.Element("EnableGamePadNavigation")?.Value ?? settings.Element("EnableGamePadNavigation")?.Value, out var gp))
         {
-            ThumbnailSize = ValidateThumbnailSize(app.Element("ThumbnailSize")?.Value);
-            GamesPerPage = ValidateGamesPerPage(app.Element("GamesPerPage")?.Value);
-            ShowGames = ValidateShowGames(app.Element("ShowGames")?.Value);
-            ViewMode = ValidateViewMode(app.Element("ViewMode")?.Value);
-            if (bool.TryParse(app.Element("EnableGamePadNavigation")?.Value, out var gp))
-            {
-                EnableGamePadNavigation = gp;
-            }
-
-            VideoUrl = app.Element("VideoUrl")?.Value ?? VideoUrl;
-            InfoUrl = app.Element("InfoUrl")?.Value ?? InfoUrl;
-            BaseTheme = app.Element("BaseTheme")?.Value ?? BaseTheme;
-            AccentColor = app.Element("AccentColor")?.Value ?? AccentColor;
-            Language = app.Element("Language")?.Value ?? Language;
-            ButtonAspectRatio = ValidateButtonAspectRatio(app.Element("ButtonAspectRatio")?.Value);
-            RaUsername = app.Element("RaUsername")?.Value ?? RaUsername;
-            RaApiKey = app.Element("RaApiKey")?.Value ?? RaApiKey;
-            RaPassword = app.Element("RaPassword")?.Value ?? RaPassword;
-            RaToken = app.Element("RaToken")?.Value ?? RaToken;
-            if (float.TryParse(app.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx))
-            {
-                DeadZoneX = dzx;
-            }
-
-            if (float.TryParse(app.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy))
-            {
-                DeadZoneY = dzy;
-            }
-
-            if (bool.TryParse(app.Element("EnableFuzzyMatching")?.Value, out var fm))
-            {
-                EnableFuzzyMatching = fm;
-            }
-
-            if (double.TryParse(app.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
-            {
-                FuzzyMatchingThreshold = fmt;
-            }
-
-            if (bool.TryParse(app.Element("EnableNotificationSound")?.Value, out var ens))
-            {
-                EnableNotificationSound = ens;
-            }
-
-            CustomNotificationSoundFile = app.Element("CustomNotificationSoundFile")?.Value ?? CustomNotificationSoundFile;
-            if (bool.TryParse(app.Element("OverlayRetroAchievementButton")?.Value, out var ora))
-            {
-                OverlayRetroAchievementButton = ora;
-            }
-
-            if (bool.TryParse(app.Element("OverlayOpenVideoButton")?.Value, out var ovb))
-            {
-                OverlayOpenVideoButton = ovb;
-            }
-
-            if (bool.TryParse(app.Element("OverlayOpenInfoButton")?.Value, out var oib))
-            {
-                OverlayOpenInfoButton = oib;
-            }
-
-            if (bool.TryParse(app.Element("AdditionalSystemFoldersExpanded")?.Value, out var asfe))
-            {
-                AdditionalSystemFoldersExpanded = asfe;
-            }
-
-            if (bool.TryParse(app.Element("Emulator1Expanded")?.Value, out var e1E))
-            {
-                Emulator1Expanded = e1E;
-            }
-
-            if (bool.TryParse(app.Element("Emulator2Expanded")?.Value, out var e2E))
-            {
-                Emulator2Expanded = e2E;
-            }
-
-            if (bool.TryParse(app.Element("Emulator3Expanded")?.Value, out var e3E))
-            {
-                Emulator3Expanded = e3E;
-            }
-
-            if (bool.TryParse(app.Element("Emulator4Expanded")?.Value, out var e4E))
-            {
-                Emulator4Expanded = e4E;
-            }
-
-            if (bool.TryParse(app.Element("Emulator5Expanded")?.Value, out var e5E))
-            {
-                Emulator5Expanded = e5E;
-            }
+            EnableGamePadNavigation = gp;
         }
 
-        // Ares
+        VideoUrl = app?.Element("VideoUrl")?.Value ?? settings.Element("VideoUrl")?.Value ?? VideoUrl;
+        InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
+        BaseTheme = app?.Element("BaseTheme")?.Value ?? settings.Element("BaseTheme")?.Value ?? BaseTheme;
+        AccentColor = app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor;
+        Language = app?.Element("Language")?.Value ?? settings.Element("Language")?.Value ?? Language;
+        ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value);
+
+        // RetroAchievements mapping (Old used RA_Username, New uses RaUsername)
+        RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
+        RaApiKey = app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey;
+        RaPassword = app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword;
+        RaToken = app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken;
+
+        if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx))
+        {
+            DeadZoneX = dzx;
+        }
+
+        if (float.TryParse(app?.Element("DeadZoneY")?.Value ?? settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy))
+        {
+            DeadZoneY = dzy;
+        }
+
+        if (bool.TryParse(app?.Element("EnableFuzzyMatching")?.Value ?? settings.Element("EnableFuzzyMatching")?.Value, out var fm))
+        {
+            EnableFuzzyMatching = fm;
+        }
+
+        if (double.TryParse(app?.Element("FuzzyMatchingThreshold")?.Value ?? settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
+        {
+            FuzzyMatchingThreshold = fmt;
+        }
+
+        if (bool.TryParse(app?.Element("EnableNotificationSound")?.Value ?? settings.Element("EnableNotificationSound")?.Value, out var ens))
+        {
+            EnableNotificationSound = ens;
+        }
+
+        CustomNotificationSoundFile = app?.Element("CustomNotificationSoundFile")?.Value ?? settings.Element("CustomNotificationSoundFile")?.Value ?? CustomNotificationSoundFile;
+        if (bool.TryParse(app?.Element("OverlayRetroAchievementButton")?.Value ?? settings.Element("OverlayRetroAchievementButton")?.Value, out var ora))
+        {
+            OverlayRetroAchievementButton = ora;
+        }
+
+        if (bool.TryParse(app?.Element("OverlayOpenVideoButton")?.Value ?? settings.Element("OverlayOpenVideoButton")?.Value, out var ovb))
+        {
+            OverlayOpenVideoButton = ovb;
+        }
+
+        if (bool.TryParse(app?.Element("OverlayOpenInfoButton")?.Value ?? settings.Element("OverlayOpenInfoButton")?.Value, out var oib))
+        {
+            OverlayOpenInfoButton = oib;
+        }
+
+        if (bool.TryParse(app?.Element("AdditionalSystemFoldersExpanded")?.Value ?? settings.Element("AdditionalSystemFoldersExpanded")?.Value, out var asfe))
+        {
+            AdditionalSystemFoldersExpanded = asfe;
+        }
+
+        if (bool.TryParse(app?.Element("Emulator1Expanded")?.Value ?? settings.Element("Emulator1Expanded")?.Value, out var e1E))
+        {
+            Emulator1Expanded = e1E;
+        }
+
+        if (bool.TryParse(app?.Element("Emulator2Expanded")?.Value ?? settings.Element("Emulator2Expanded")?.Value, out var e2E))
+        {
+            Emulator2Expanded = e2E;
+        }
+
+        if (bool.TryParse(app?.Element("Emulator3Expanded")?.Value ?? settings.Element("Emulator3Expanded")?.Value, out var e3E))
+        {
+            Emulator3Expanded = e3E;
+        }
+
+        if (bool.TryParse(app?.Element("Emulator4Expanded")?.Value ?? settings.Element("Emulator4Expanded")?.Value, out var e4E))
+        {
+            Emulator4Expanded = e4E;
+        }
+
+        if (bool.TryParse(app?.Element("Emulator5Expanded")?.Value ?? settings.Element("Emulator5Expanded")?.Value, out var e5E))
+        {
+            Emulator5Expanded = e5E;
+        }
+
+        // Ares Fallback
         var ares = settings.Element("Ares");
-        if (ares != null)
+        AresVideoDriver = ares?.Element("VideoDriver")?.Value ?? settings.Element("AresVideoDriver")?.Value ?? AresVideoDriver;
+        if (bool.TryParse(ares?.Element("Exclusive")?.Value ?? settings.Element("AresExclusive")?.Value, out var ae))
         {
-            AresVideoDriver = ares.Element("VideoDriver")?.Value ?? AresVideoDriver;
-            if (bool.TryParse(ares.Element("Exclusive")?.Value, out var ae))
-            {
-                AresExclusive = ae;
-            }
-
-            AresShader = ares.Element("Shader")?.Value ?? AresShader;
-            if (int.TryParse(ares.Element("Multiplier")?.Value, out var am))
-            {
-                AresMultiplier = am;
-            }
-
-            AresAspectCorrection = ares.Element("AspectCorrection")?.Value ?? AresAspectCorrection;
-            if (bool.TryParse(ares.Element("Mute")?.Value, out var amu))
-            {
-                AresMute = amu;
-            }
-
-            if (double.TryParse(ares.Element("Volume")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var av))
-            {
-                AresVolume = av;
-            }
-
-            if (bool.TryParse(ares.Element("FastBoot")?.Value, out var afb))
-            {
-                AresFastBoot = afb;
-            }
-
-            if (bool.TryParse(ares.Element("Rewind")?.Value, out var ar))
-            {
-                AresRewind = ar;
-            }
-
-            if (bool.TryParse(ares.Element("RunAhead")?.Value, out var ara))
-            {
-                AresRunAhead = ara;
-            }
-
-            if (bool.TryParse(ares.Element("AutoSaveMemory")?.Value, out var asm))
-            {
-                AresAutoSaveMemory = asm;
-            }
-
-            if (bool.TryParse(ares.Element("ShowSettingsBeforeLaunch")?.Value, out var assbl))
-            {
-                AresShowSettingsBeforeLaunch = assbl;
-            }
+            AresExclusive = ae;
         }
 
-        // Azahar
+        AresShader = ares?.Element("Shader")?.Value ?? settings.Element("AresShader")?.Value ?? AresShader;
+        if (int.TryParse(ares?.Element("Multiplier")?.Value ?? settings.Element("AresMultiplier")?.Value, out var am))
+        {
+            AresMultiplier = am;
+        }
+
+        AresAspectCorrection = ares?.Element("AspectCorrection")?.Value ?? settings.Element("AresAspectCorrection")?.Value ?? AresAspectCorrection;
+        if (bool.TryParse(ares?.Element("Mute")?.Value ?? settings.Element("AresMute")?.Value, out var amu))
+        {
+            AresMute = amu;
+        }
+
+        if (double.TryParse(ares?.Element("Volume")?.Value ?? settings.Element("AresVolume")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var av))
+        {
+            AresVolume = av;
+        }
+
+        if (bool.TryParse(ares?.Element("FastBoot")?.Value ?? settings.Element("AresFastBoot")?.Value, out var afb))
+        {
+            AresFastBoot = afb;
+        }
+
+        if (bool.TryParse(ares?.Element("Rewind")?.Value ?? settings.Element("AresRewind")?.Value, out var ar))
+        {
+            AresRewind = ar;
+        }
+
+        if (bool.TryParse(ares?.Element("RunAhead")?.Value ?? settings.Element("AresRunAhead")?.Value, out var ara))
+        {
+            AresRunAhead = ara;
+        }
+
+        if (bool.TryParse(ares?.Element("AutoSaveMemory")?.Value ?? settings.Element("AresAutoSaveMemory")?.Value, out var asm))
+        {
+            AresAutoSaveMemory = asm;
+        }
+
+        if (bool.TryParse(ares?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("AresShowSettingsBeforeLaunch")?.Value, out var assbl))
+        {
+            AresShowSettingsBeforeLaunch = assbl;
+        }
+
+        // Azahar Fallback
         var azahar = settings.Element("Azahar");
-        if (azahar != null)
+        if (int.TryParse(azahar?.Element("GraphicsApi")?.Value ?? settings.Element("AzaharGraphicsApi")?.Value, out var aga))
         {
-            if (int.TryParse(azahar.Element("GraphicsApi")?.Value, out var aga))
-            {
-                AzaharGraphicsApi = aga;
-            }
-
-            if (int.TryParse(azahar.Element("ResolutionFactor")?.Value, out var arf))
-            {
-                AzaharResolutionFactor = arf;
-            }
-
-            if (bool.TryParse(azahar.Element("UseVsync")?.Value, out var auv))
-            {
-                AzaharUseVsync = auv;
-            }
-
-            if (bool.TryParse(azahar.Element("AsyncShaderCompilation")?.Value, out var aasc))
-            {
-                AzaharAsyncShaderCompilation = aasc;
-            }
-
-            if (bool.TryParse(azahar.Element("Fullscreen")?.Value, out var af))
-            {
-                AzaharFullscreen = af;
-            }
-
-            if (int.TryParse(azahar.Element("Volume")?.Value, out var avol))
-            {
-                AzaharVolume = avol;
-            }
-
-            if (bool.TryParse(azahar.Element("IsNew3ds")?.Value, out var ain))
-            {
-                AzaharIsNew3ds = ain;
-            }
-
-            if (int.TryParse(azahar.Element("LayoutOption")?.Value, out var alo))
-            {
-                AzaharLayoutOption = alo;
-            }
-
-            if (bool.TryParse(azahar.Element("ShowSettingsBeforeLaunch")?.Value, out var asbl))
-            {
-                AzaharShowSettingsBeforeLaunch = asbl;
-            }
-
-            if (bool.TryParse(azahar.Element("EnableAudioStretching")?.Value, out var aeas))
-            {
-                AzaharEnableAudioStretching = aeas;
-            }
+            AzaharGraphicsApi = aga;
         }
 
-        // Blastem
+        if (int.TryParse(azahar?.Element("ResolutionFactor")?.Value ?? settings.Element("AzaharResolutionFactor")?.Value, out var arf))
+        {
+            AzaharResolutionFactor = arf;
+        }
+
+        if (bool.TryParse(azahar?.Element("UseVsync")?.Value ?? settings.Element("AzaharUseVsync")?.Value, out var auv))
+        {
+            AzaharUseVsync = auv;
+        }
+
+        if (bool.TryParse(azahar?.Element("AsyncShaderCompilation")?.Value ?? settings.Element("AzaharAsyncShaderCompilation")?.Value, out var aasc))
+        {
+            AzaharAsyncShaderCompilation = aasc;
+        }
+
+        if (bool.TryParse(azahar?.Element("Fullscreen")?.Value ?? settings.Element("AzaharFullscreen")?.Value, out var af))
+        {
+            AzaharFullscreen = af;
+        }
+
+        if (int.TryParse(azahar?.Element("Volume")?.Value ?? settings.Element("AzaharVolume")?.Value, out var avol))
+        {
+            AzaharVolume = avol;
+        }
+
+        if (bool.TryParse(azahar?.Element("IsNew3ds")?.Value ?? settings.Element("AzaharIsNew3ds")?.Value, out var ain))
+        {
+            AzaharIsNew3ds = ain;
+        }
+
+        if (int.TryParse(azahar?.Element("LayoutOption")?.Value ?? settings.Element("AzaharLayoutOption")?.Value, out var alo))
+        {
+            AzaharLayoutOption = alo;
+        }
+
+        if (bool.TryParse(azahar?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("AzaharShowSettingsBeforeLaunch")?.Value, out var asbl))
+        {
+            AzaharShowSettingsBeforeLaunch = asbl;
+        }
+
+        if (bool.TryParse(azahar?.Element("EnableAudioStretching")?.Value ?? settings.Element("AzaharEnableAudioStretching")?.Value, out var aeas))
+        {
+            AzaharEnableAudioStretching = aeas;
+        }
+
+        // Blastem Fallback
         var blastem = settings.Element("Blastem");
-        if (blastem != null)
+        if (bool.TryParse(blastem?.Element("Fullscreen")?.Value ?? settings.Element("BlastemFullscreen")?.Value, out var bf))
         {
-            if (bool.TryParse(blastem.Element("Fullscreen")?.Value, out var bf))
-            {
-                BlastemFullscreen = bf;
-            }
-
-            if (bool.TryParse(blastem.Element("Vsync")?.Value, out var bv))
-            {
-                BlastemVsync = bv;
-            }
-
-            BlastemAspect = blastem.Element("Aspect")?.Value ?? BlastemAspect;
-            BlastemScaling = blastem.Element("Scaling")?.Value ?? BlastemScaling;
-            if (bool.TryParse(blastem.Element("Scanlines")?.Value, out var bs))
-            {
-                BlastemScanlines = bs;
-            }
-
-            if (int.TryParse(blastem.Element("AudioRate")?.Value, out var bar))
-            {
-                BlastemAudioRate = bar;
-            }
-
-            BlastemSyncSource = blastem.Element("SyncSource")?.Value ?? BlastemSyncSource;
-            if (bool.TryParse(blastem.Element("ShowSettingsBeforeLaunch")?.Value, out var bssbl))
-            {
-                BlastemShowSettingsBeforeLaunch = bssbl;
-            }
+            BlastemFullscreen = bf;
         }
 
-        // Cemu
+        if (bool.TryParse(blastem?.Element("Vsync")?.Value ?? settings.Element("BlastemVsync")?.Value, out var bv))
+        {
+            BlastemVsync = bv;
+        }
+
+        BlastemAspect = blastem?.Element("Aspect")?.Value ?? settings.Element("BlastemAspect")?.Value ?? BlastemAspect;
+        BlastemScaling = blastem?.Element("Scaling")?.Value ?? settings.Element("BlastemScaling")?.Value ?? BlastemScaling;
+        if (bool.TryParse(blastem?.Element("Scanlines")?.Value ?? settings.Element("BlastemScanlines")?.Value, out var bs))
+        {
+            BlastemScanlines = bs;
+        }
+
+        if (int.TryParse(blastem?.Element("AudioRate")?.Value ?? settings.Element("BlastemAudioRate")?.Value, out var bar))
+        {
+            BlastemAudioRate = bar;
+        }
+
+        BlastemSyncSource = blastem?.Element("SyncSource")?.Value ?? settings.Element("BlastemSyncSource")?.Value ?? BlastemSyncSource;
+        if (bool.TryParse(blastem?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("BlastemShowSettingsBeforeLaunch")?.Value, out var bssbl))
+        {
+            BlastemShowSettingsBeforeLaunch = bssbl;
+        }
+
+        // Cemu Fallback
         var cemu = settings.Element("Cemu");
-        if (cemu != null)
+        if (bool.TryParse(cemu?.Element("Fullscreen")?.Value ?? settings.Element("CemuFullscreen")?.Value, out var cf))
         {
-            if (bool.TryParse(cemu.Element("Fullscreen")?.Value, out var cf))
-            {
-                CemuFullscreen = cf;
-            }
-
-            if (int.TryParse(cemu.Element("GraphicApi")?.Value, out var cga))
-            {
-                CemuGraphicApi = cga;
-            }
-
-            if (int.TryParse(cemu.Element("Vsync")?.Value, out var cv))
-            {
-                CemuVsync = cv;
-            }
-
-            if (bool.TryParse(cemu.Element("AsyncCompile")?.Value, out var cac))
-            {
-                CemuAsyncCompile = cac;
-            }
-
-            if (int.TryParse(cemu.Element("TvVolume")?.Value, out var ctv))
-            {
-                CemuTvVolume = ctv;
-            }
-
-            if (int.TryParse(cemu.Element("ConsoleLanguage")?.Value, out var ccl))
-            {
-                CemuConsoleLanguage = ccl;
-            }
-
-            if (bool.TryParse(cemu.Element("DiscordPresence")?.Value, out var cdp))
-            {
-                CemuDiscordPresence = cdp;
-            }
-
-            if (bool.TryParse(cemu.Element("ShowSettingsBeforeLaunch")?.Value, out var cssbl))
-            {
-                CemuShowSettingsBeforeLaunch = cssbl;
-            }
+            CemuFullscreen = cf;
         }
 
-        // Daphne
+        if (int.TryParse(cemu?.Element("GraphicApi")?.Value ?? settings.Element("CemuGraphicApi")?.Value, out var cga))
+        {
+            CemuGraphicApi = cga;
+        }
+
+        if (int.TryParse(cemu?.Element("Vsync")?.Value ?? settings.Element("CemuVsync")?.Value, out var cv))
+        {
+            CemuVsync = cv;
+        }
+
+        if (bool.TryParse(cemu?.Element("AsyncCompile")?.Value ?? settings.Element("CemuAsyncCompile")?.Value, out var cac))
+        {
+            CemuAsyncCompile = cac;
+        }
+
+        if (int.TryParse(cemu?.Element("TvVolume")?.Value ?? settings.Element("CemuTvVolume")?.Value, out var ctv))
+        {
+            CemuTvVolume = ctv;
+        }
+
+        if (int.TryParse(cemu?.Element("ConsoleLanguage")?.Value ?? settings.Element("CemuConsoleLanguage")?.Value, out var ccl))
+        {
+            CemuConsoleLanguage = ccl;
+        }
+
+        if (bool.TryParse(cemu?.Element("DiscordPresence")?.Value ?? settings.Element("CemuDiscordPresence")?.Value, out var cdp))
+        {
+            CemuDiscordPresence = cdp;
+        }
+
+        if (bool.TryParse(cemu?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("CemuShowSettingsBeforeLaunch")?.Value, out var cssbl))
+        {
+            CemuShowSettingsBeforeLaunch = cssbl;
+        }
+
+        // Daphne Fallback
         var daphne = settings.Element("Daphne");
-        if (daphne != null)
+        if (bool.TryParse(daphne?.Element("Fullscreen")?.Value ?? settings.Element("DaphneFullscreen")?.Value, out var df))
         {
-            if (bool.TryParse(daphne.Element("Fullscreen")?.Value, out var df))
-            {
-                DaphneFullscreen = df;
-            }
-
-            if (int.TryParse(daphne.Element("ResX")?.Value, out var drx))
-            {
-                DaphneResX = drx;
-            }
-
-            if (int.TryParse(daphne.Element("ResY")?.Value, out var dry))
-            {
-                DaphneResY = dry;
-            }
-
-            if (bool.TryParse(daphne.Element("DisableCrosshairs")?.Value, out var ddc))
-            {
-                DaphneDisableCrosshairs = ddc;
-            }
-
-            if (bool.TryParse(daphne.Element("Bilinear")?.Value, out var db))
-            {
-                DaphneBilinear = db;
-            }
-
-            if (bool.TryParse(daphne.Element("EnableSound")?.Value, out var des))
-            {
-                DaphneEnableSound = des;
-            }
-
-            if (bool.TryParse(daphne.Element("UseOverlays")?.Value, out var duo))
-            {
-                DaphneUseOverlays = duo;
-            }
-
-            if (bool.TryParse(daphne.Element("ShowSettingsBeforeLaunch")?.Value, out var dssbl))
-            {
-                DaphneShowSettingsBeforeLaunch = dssbl;
-            }
+            DaphneFullscreen = df;
         }
 
-        // Dolphin
+        if (int.TryParse(daphne?.Element("ResX")?.Value ?? settings.Element("DaphneResX")?.Value, out var drx))
+        {
+            DaphneResX = drx;
+        }
+
+        if (int.TryParse(daphne?.Element("ResY")?.Value ?? settings.Element("DaphneResY")?.Value, out var dry))
+        {
+            DaphneResY = dry;
+        }
+
+        if (bool.TryParse(daphne?.Element("DisableCrosshairs")?.Value ?? settings.Element("DaphneDisableCrosshairs")?.Value, out var ddc))
+        {
+            DaphneDisableCrosshairs = ddc;
+        }
+
+        if (bool.TryParse(daphne?.Element("Bilinear")?.Value ?? settings.Element("DaphneBilinear")?.Value, out var db))
+        {
+            DaphneBilinear = db;
+        }
+
+        if (bool.TryParse(daphne?.Element("EnableSound")?.Value ?? settings.Element("DaphneEnableSound")?.Value, out var des))
+        {
+            DaphneEnableSound = des;
+        }
+
+        if (bool.TryParse(daphne?.Element("UseOverlays")?.Value ?? settings.Element("DaphneUseOverlays")?.Value, out var duo))
+        {
+            DaphneUseOverlays = duo;
+        }
+
+        if (bool.TryParse(daphne?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("DaphneShowSettingsBeforeLaunch")?.Value, out var dssbl))
+        {
+            DaphneShowSettingsBeforeLaunch = dssbl;
+        }
+
+        // Dolphin Fallback
         var dolphin = settings.Element("Dolphin");
-        if (dolphin != null)
+        DolphinGfxBackend = dolphin?.Element("GfxBackend")?.Value ?? settings.Element("DolphinGfxBackend")?.Value ?? DolphinGfxBackend;
+        if (bool.TryParse(dolphin?.Element("DspThread")?.Value ?? settings.Element("DolphinDspThread")?.Value, out var ddt))
         {
-            DolphinGfxBackend = dolphin.Element("GfxBackend")?.Value ?? DolphinGfxBackend;
-            if (bool.TryParse(dolphin.Element("DspThread")?.Value, out var ddt))
-            {
-                DolphinDspThread = ddt;
-            }
-
-            if (bool.TryParse(dolphin.Element("WiimoteContinuousScanning")?.Value, out var dwcs))
-            {
-                DolphinWiimoteContinuousScanning = dwcs;
-            }
-
-            if (bool.TryParse(dolphin.Element("WiimoteEnableSpeaker")?.Value, out var dwes))
-            {
-                DolphinWiimoteEnableSpeaker = dwes;
-            }
-
-            if (bool.TryParse(dolphin.Element("ShowSettingsBeforeLaunch")?.Value, out var dssbl2))
-            {
-                DolphinShowSettingsBeforeLaunch = dssbl2;
-            }
+            DolphinDspThread = ddt;
         }
 
-        // DuckStation
+        if (bool.TryParse(dolphin?.Element("WiimoteContinuousScanning")?.Value ?? settings.Element("DolphinWiimoteContinuousScanning")?.Value, out var dwcs))
+        {
+            DolphinWiimoteContinuousScanning = dwcs;
+        }
+
+        if (bool.TryParse(dolphin?.Element("WiimoteEnableSpeaker")?.Value ?? settings.Element("DolphinWiimoteEnableSpeaker")?.Value, out var dwes))
+        {
+            DolphinWiimoteEnableSpeaker = dwes;
+        }
+
+        if (bool.TryParse(dolphin?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("DolphinShowSettingsBeforeLaunch")?.Value, out var dssbl2))
+        {
+            DolphinShowSettingsBeforeLaunch = dssbl2;
+        }
+
+        // DuckStation Fallback
         var duckstation = settings.Element("DuckStation");
-        if (duckstation != null)
+        if (bool.TryParse(duckstation?.Element("StartFullscreen")?.Value ?? settings.Element("DuckStationStartFullscreen")?.Value, out var dssf))
         {
-            if (bool.TryParse(duckstation.Element("StartFullscreen")?.Value, out var dssf))
-            {
-                DuckStationStartFullscreen = dssf;
-            }
-
-            if (bool.TryParse(duckstation.Element("PauseOnFocusLoss")?.Value, out var dpofl))
-            {
-                DuckStationPauseOnFocusLoss = dpofl;
-            }
-
-            if (bool.TryParse(duckstation.Element("SaveStateOnExit")?.Value, out var dssoe))
-            {
-                DuckStationSaveStateOnExit = dssoe;
-            }
-
-            if (bool.TryParse(duckstation.Element("RewindEnable")?.Value, out var dre))
-            {
-                DuckStationRewindEnable = dre;
-            }
-
-            if (int.TryParse(duckstation.Element("RunaheadFrameCount")?.Value, out var drfc))
-            {
-                DuckStationRunaheadFrameCount = drfc;
-            }
-
-            DuckStationRenderer = duckstation.Element("Renderer")?.Value ?? DuckStationRenderer;
-            if (int.TryParse(duckstation.Element("ResolutionScale")?.Value, out var drs))
-            {
-                DuckStationResolutionScale = drs;
-            }
-
-            DuckStationTextureFilter = duckstation.Element("TextureFilter")?.Value ?? DuckStationTextureFilter;
-            if (bool.TryParse(duckstation.Element("WidescreenHack")?.Value, out var dwh))
-            {
-                DuckStationWidescreenHack = dwh;
-            }
-
-            if (bool.TryParse(duckstation.Element("PgxpEnable")?.Value, out var dpe))
-            {
-                DuckStationPgxpEnable = dpe;
-            }
-
-            DuckStationAspectRatio = duckstation.Element("AspectRatio")?.Value ?? DuckStationAspectRatio;
-            if (bool.TryParse(duckstation.Element("Vsync")?.Value, out var dsv))
-            {
-                DuckStationVsync = dsv;
-            }
-
-            if (int.TryParse(duckstation.Element("OutputVolume")?.Value, out var dov))
-            {
-                DuckStationOutputVolume = dov;
-            }
-
-            if (bool.TryParse(duckstation.Element("OutputMuted")?.Value, out var dom))
-            {
-                DuckStationOutputMuted = dom;
-            }
-
-            if (bool.TryParse(duckstation.Element("ShowSettingsBeforeLaunch")?.Value, out var dssbl3))
-            {
-                DuckStationShowSettingsBeforeLaunch = dssbl3;
-            }
+            DuckStationStartFullscreen = dssf;
         }
 
-        // Flycast
+        if (bool.TryParse(duckstation?.Element("PauseOnFocusLoss")?.Value ?? settings.Element("DuckStationPauseOnFocusLoss")?.Value, out var dpofl))
+        {
+            DuckStationPauseOnFocusLoss = dpofl;
+        }
+
+        if (bool.TryParse(duckstation?.Element("SaveStateOnExit")?.Value ?? settings.Element("DuckStationSaveStateOnExit")?.Value, out var dssoe))
+        {
+            DuckStationSaveStateOnExit = dssoe;
+        }
+
+        if (bool.TryParse(duckstation?.Element("RewindEnable")?.Value ?? settings.Element("DuckStationRewindEnable")?.Value, out var dre))
+        {
+            DuckStationRewindEnable = dre;
+        }
+
+        if (int.TryParse(duckstation?.Element("RunaheadFrameCount")?.Value ?? settings.Element("DuckStationRunaheadFrameCount")?.Value, out var drfc))
+        {
+            DuckStationRunaheadFrameCount = drfc;
+        }
+
+        DuckStationRenderer = duckstation?.Element("Renderer")?.Value ?? settings.Element("DuckStationRenderer")?.Value ?? DuckStationRenderer;
+        if (int.TryParse(duckstation?.Element("ResolutionScale")?.Value ?? settings.Element("DuckStationResolutionScale")?.Value, out var drs))
+        {
+            DuckStationResolutionScale = drs;
+        }
+
+        DuckStationTextureFilter = duckstation?.Element("TextureFilter")?.Value ?? settings.Element("DuckStationTextureFilter")?.Value ?? DuckStationTextureFilter;
+        if (bool.TryParse(duckstation?.Element("WidescreenHack")?.Value ?? settings.Element("DuckStationWidescreenHack")?.Value, out var dwh))
+        {
+            DuckStationWidescreenHack = dwh;
+        }
+
+        if (bool.TryParse(duckstation?.Element("PgxpEnable")?.Value ?? settings.Element("DuckStationPgxpEnable")?.Value, out var dpe))
+        {
+            DuckStationPgxpEnable = dpe;
+        }
+
+        DuckStationAspectRatio = duckstation?.Element("AspectRatio")?.Value ?? settings.Element("DuckStationAspectRatio")?.Value ?? DuckStationAspectRatio;
+        if (bool.TryParse(duckstation?.Element("Vsync")?.Value ?? settings.Element("DuckStationVsync")?.Value, out var dsv))
+        {
+            DuckStationVsync = dsv;
+        }
+
+        if (int.TryParse(duckstation?.Element("OutputVolume")?.Value ?? settings.Element("DuckStationOutputVolume")?.Value, out var dov))
+        {
+            DuckStationOutputVolume = dov;
+        }
+
+        if (bool.TryParse(duckstation?.Element("OutputMuted")?.Value ?? settings.Element("DuckStationOutputMuted")?.Value, out var dom))
+        {
+            DuckStationOutputMuted = dom;
+        }
+
+        if (bool.TryParse(duckstation?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("DuckStationShowSettingsBeforeLaunch")?.Value, out var dssbl3))
+        {
+            DuckStationShowSettingsBeforeLaunch = dssbl3;
+        }
+
+        // Flycast Fallback
         var flycast = settings.Element("Flycast");
-        if (flycast != null)
+        if (bool.TryParse(flycast?.Element("Fullscreen")?.Value ?? settings.Element("FlycastFullscreen")?.Value, out var ff))
         {
-            if (bool.TryParse(flycast.Element("Fullscreen")?.Value, out var ff))
-            {
-                FlycastFullscreen = ff;
-            }
-
-            if (int.TryParse(flycast.Element("Width")?.Value, out var fw))
-            {
-                FlycastWidth = fw;
-            }
-
-            if (int.TryParse(flycast.Element("Height")?.Value, out var fh))
-            {
-                FlycastHeight = fh;
-            }
-
-            if (bool.TryParse(flycast.Element("Maximized")?.Value, out var flycastMaximized))
-            {
-                FlycastMaximized = flycastMaximized;
-            }
-
-            if (bool.TryParse(flycast.Element("ShowSettingsBeforeLaunch")?.Value, out var fssbl))
-            {
-                FlycastShowSettingsBeforeLaunch = fssbl;
-            }
+            FlycastFullscreen = ff;
         }
 
-        // MAME
+        if (int.TryParse(flycast?.Element("Width")?.Value ?? settings.Element("FlycastWidth")?.Value, out var fw))
+        {
+            FlycastWidth = fw;
+        }
+
+        if (int.TryParse(flycast?.Element("Height")?.Value ?? settings.Element("FlycastHeight")?.Value, out var fh))
+        {
+            FlycastHeight = fh;
+        }
+
+        if (bool.TryParse(flycast?.Element("Maximized")?.Value ?? settings.Element("FlycastMaximized")?.Value, out var flycastMaximized))
+        {
+            FlycastMaximized = flycastMaximized;
+        }
+
+        if (bool.TryParse(flycast?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("FlycastShowSettingsBeforeLaunch")?.Value, out var fssbl))
+        {
+            FlycastShowSettingsBeforeLaunch = fssbl;
+        }
+
+        // MAME Fallback
         var mame = settings.Element("Mame");
-        if (mame != null)
+        MameVideo = mame?.Element("Video")?.Value ?? settings.Element("MameVideo")?.Value ?? MameVideo;
+        if (bool.TryParse(mame?.Element("Window")?.Value ?? settings.Element("MameWindow")?.Value, out var mw))
         {
-            MameVideo = mame.Element("Video")?.Value ?? MameVideo;
-            if (bool.TryParse(mame.Element("Window")?.Value, out var mw))
-            {
-                MameWindow = mw;
-            }
-
-            if (bool.TryParse(mame.Element("Maximize")?.Value, out var mm))
-            {
-                MameMaximize = mm;
-            }
-
-            if (bool.TryParse(mame.Element("KeepAspect")?.Value, out var mka))
-            {
-                MameKeepAspect = mka;
-            }
-
-            if (bool.TryParse(mame.Element("SkipGameInfo")?.Value, out var msgi))
-            {
-                MameSkipGameInfo = msgi;
-            }
-
-            if (bool.TryParse(mame.Element("Autosave")?.Value, out var mas))
-            {
-                MameAutosave = mas;
-            }
-
-            if (bool.TryParse(mame.Element("ConfirmQuit")?.Value, out var mcq))
-            {
-                MameConfirmQuit = mcq;
-            }
-
-            if (bool.TryParse(mame.Element("Joystick")?.Value, out var mj))
-            {
-                MameJoystick = mj;
-            }
-
-            if (bool.TryParse(mame.Element("ShowSettingsBeforeLaunch")?.Value, out var mssbl))
-            {
-                MameShowSettingsBeforeLaunch = mssbl;
-            }
-
-            if (bool.TryParse(mame.Element("Autoframeskip")?.Value, out var maf))
-            {
-                MameAutoframeskip = maf;
-            }
-
-            MameBgfxBackend = mame.Element("BgfxBackend")?.Value ?? MameBgfxBackend;
-            MameBgfxScreenChains = mame.Element("BgfxScreenChains")?.Value ?? MameBgfxScreenChains;
-            if (bool.TryParse(mame.Element("Filter")?.Value, out var mf))
-            {
-                MameFilter = mf;
-            }
-
-            if (bool.TryParse(mame.Element("Cheat")?.Value, out var mc))
-            {
-                MameCheat = mc;
-            }
-
-            if (bool.TryParse(mame.Element("Rewind")?.Value, out var mr))
-            {
-                MameRewind = mr;
-            }
-
-            if (bool.TryParse(mame.Element("NvramSave")?.Value, out var mns))
-            {
-                MameNvramSave = mns;
-            }
+            MameWindow = mw;
         }
 
-        // Mednafen
+        if (bool.TryParse(mame?.Element("Maximize")?.Value ?? settings.Element("MameMaximize")?.Value, out var mm))
+        {
+            MameMaximize = mm;
+        }
+
+        if (bool.TryParse(mame?.Element("KeepAspect")?.Value ?? settings.Element("MameKeepAspect")?.Value, out var mka))
+        {
+            MameKeepAspect = mka;
+        }
+
+        if (bool.TryParse(mame?.Element("SkipGameInfo")?.Value ?? settings.Element("MameSkipGameInfo")?.Value, out var msgi))
+        {
+            MameSkipGameInfo = msgi;
+        }
+
+        if (bool.TryParse(mame?.Element("Autosave")?.Value ?? settings.Element("MameAutosave")?.Value, out var mas))
+        {
+            MameAutosave = mas;
+        }
+
+        if (bool.TryParse(mame?.Element("ConfirmQuit")?.Value ?? settings.Element("MameConfirmQuit")?.Value, out var mcq))
+        {
+            MameConfirmQuit = mcq;
+        }
+
+        if (bool.TryParse(mame?.Element("Joystick")?.Value ?? settings.Element("MameJoystick")?.Value, out var mj))
+        {
+            MameJoystick = mj;
+        }
+
+        if (bool.TryParse(mame?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("MameShowSettingsBeforeLaunch")?.Value, out var mssbl))
+        {
+            MameShowSettingsBeforeLaunch = mssbl;
+        }
+
+        if (bool.TryParse(mame?.Element("Autoframeskip")?.Value ?? settings.Element("MameAutoframeskip")?.Value, out var maf))
+        {
+            MameAutoframeskip = maf;
+        }
+
+        MameBgfxBackend = mame?.Element("BgfxBackend")?.Value ?? settings.Element("MameBgfxBackend")?.Value ?? MameBgfxBackend;
+        MameBgfxScreenChains = mame?.Element("BgfxScreenChains")?.Value ?? settings.Element("MameBgfxScreenChains")?.Value ?? MameBgfxScreenChains;
+        if (bool.TryParse(mame?.Element("Filter")?.Value ?? settings.Element("MameFilter")?.Value, out var mf))
+        {
+            MameFilter = mf;
+        }
+
+        if (bool.TryParse(mame?.Element("Cheat")?.Value ?? settings.Element("MameCheat")?.Value, out var mc))
+        {
+            MameCheat = mc;
+        }
+
+        if (bool.TryParse(mame?.Element("Rewind")?.Value ?? settings.Element("MameRewind")?.Value, out var mr))
+        {
+            MameRewind = mr;
+        }
+
+        if (bool.TryParse(mame?.Element("NvramSave")?.Value ?? settings.Element("MameNvramSave")?.Value, out var mns))
+        {
+            MameNvramSave = mns;
+        }
+
+        // Mednafen Fallback
         var mednafen = settings.Element("Mednafen");
-        if (mednafen != null)
+        MednafenVideoDriver = mednafen?.Element("VideoDriver")?.Value ?? settings.Element("MednafenVideoDriver")?.Value ?? MednafenVideoDriver;
+        if (bool.TryParse(mednafen?.Element("Fullscreen")?.Value ?? settings.Element("MednafenFullscreen")?.Value, out var mef))
         {
-            MednafenVideoDriver = mednafen.Element("VideoDriver")?.Value ?? MednafenVideoDriver;
-            if (bool.TryParse(mednafen.Element("Fullscreen")?.Value, out var mef))
-            {
-                MednafenFullscreen = mef;
-            }
-
-            if (bool.TryParse(mednafen.Element("Vsync")?.Value, out var mev))
-            {
-                MednafenVsync = mev;
-            }
-
-            MednafenStretch = mednafen.Element("Stretch")?.Value ?? MednafenStretch;
-            if (bool.TryParse(mednafen.Element("Bilinear")?.Value, out var meb))
-            {
-                MednafenBilinear = meb;
-            }
-
-            if (int.TryParse(mednafen.Element("Scanlines")?.Value, out var mes))
-            {
-                MednafenScanlines = mes;
-            }
-
-            MednafenShader = mednafen.Element("Shader")?.Value ?? MednafenShader;
-            if (int.TryParse(mednafen.Element("Volume")?.Value, out var mevo))
-            {
-                MednafenVolume = mevo;
-            }
-
-            if (bool.TryParse(mednafen.Element("Cheats")?.Value, out var mec))
-            {
-                MednafenCheats = mec;
-            }
-
-            if (bool.TryParse(mednafen.Element("Rewind")?.Value, out var mer))
-            {
-                MednafenRewind = mer;
-            }
-
-            if (bool.TryParse(mednafen.Element("ShowSettingsBeforeLaunch")?.Value, out var messbl))
-            {
-                MednafenShowSettingsBeforeLaunch = messbl;
-            }
+            MednafenFullscreen = mef;
         }
 
-        // Mesen
+        if (bool.TryParse(mednafen?.Element("Vsync")?.Value ?? settings.Element("MednafenVsync")?.Value, out var mev))
+        {
+            MednafenVsync = mev;
+        }
+
+        MednafenStretch = mednafen?.Element("Stretch")?.Value ?? settings.Element("MednafenStretch")?.Value ?? MednafenStretch;
+        if (bool.TryParse(mednafen?.Element("Bilinear")?.Value ?? settings.Element("MednafenBilinear")?.Value, out var meb))
+        {
+            MednafenBilinear = meb;
+        }
+
+        if (int.TryParse(mednafen?.Element("Scanlines")?.Value ?? settings.Element("MednafenScanlines")?.Value, out var mes))
+        {
+            MednafenScanlines = mes;
+        }
+
+        MednafenShader = mednafen?.Element("Shader")?.Value ?? settings.Element("MednafenShader")?.Value ?? MednafenShader;
+        if (int.TryParse(mednafen?.Element("Volume")?.Value ?? settings.Element("MednafenVolume")?.Value, out var mevo))
+        {
+            MednafenVolume = mevo;
+        }
+
+        if (bool.TryParse(mednafen?.Element("Cheats")?.Value ?? settings.Element("MednafenCheats")?.Value, out var mec))
+        {
+            MednafenCheats = mec;
+        }
+
+        if (bool.TryParse(mednafen?.Element("Rewind")?.Value ?? settings.Element("MednafenRewind")?.Value, out var mer))
+        {
+            MednafenRewind = mer;
+        }
+
+        if (bool.TryParse(mednafen?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("MednafenShowSettingsBeforeLaunch")?.Value, out var messbl))
+        {
+            MednafenShowSettingsBeforeLaunch = messbl;
+        }
+
+        // Mesen Fallback
         var mesen = settings.Element("Mesen");
-        if (mesen != null)
+        if (bool.TryParse(mesen?.Element("Fullscreen")?.Value ?? settings.Element("MesenFullscreen")?.Value, out var msnf))
         {
-            if (bool.TryParse(mesen.Element("Fullscreen")?.Value, out var msnf))
-            {
-                MesenFullscreen = msnf;
-            }
-
-            if (bool.TryParse(mesen.Element("Vsync")?.Value, out var msnv))
-            {
-                MesenVsync = msnv;
-            }
-
-            MesenAspectRatio = mesen.Element("AspectRatio")?.Value ?? MesenAspectRatio;
-            if (bool.TryParse(mesen.Element("Bilinear")?.Value, out var msnb))
-            {
-                MesenBilinear = msnb;
-            }
-
-            MesenVideoFilter = mesen.Element("VideoFilter")?.Value ?? MesenVideoFilter;
-            if (bool.TryParse(mesen.Element("EnableAudio")?.Value, out var msnbea))
-            {
-                MesenEnableAudio = msnbea;
-            }
-
-            if (int.TryParse(mesen.Element("MasterVolume")?.Value, out var msnmv))
-            {
-                MesenMasterVolume = msnmv;
-            }
-
-            if (bool.TryParse(mesen.Element("Rewind")?.Value, out var msnr))
-            {
-                MesenRewind = msnr;
-            }
-
-            if (int.TryParse(mesen.Element("RunAhead")?.Value, out var msnra))
-            {
-                MesenRunAhead = msnra;
-            }
-
-            if (bool.TryParse(mesen.Element("PauseInBackground")?.Value, out var msnpib))
-            {
-                MesenPauseInBackground = msnpib;
-            }
-
-            if (bool.TryParse(mesen.Element("ShowSettingsBeforeLaunch")?.Value, out var msnssbl))
-            {
-                MesenShowSettingsBeforeLaunch = msnssbl;
-            }
+            MesenFullscreen = msnf;
         }
 
-        // PCSX2
+        if (bool.TryParse(mesen?.Element("Vsync")?.Value ?? settings.Element("MesenVsync")?.Value, out var msnv))
+        {
+            MesenVsync = msnv;
+        }
+
+        MesenAspectRatio = mesen?.Element("AspectRatio")?.Value ?? settings.Element("MesenAspectRatio")?.Value ?? MesenAspectRatio;
+        if (bool.TryParse(mesen?.Element("Bilinear")?.Value ?? settings.Element("MesenBilinear")?.Value, out var msnb))
+        {
+            MesenBilinear = msnb;
+        }
+
+        MesenVideoFilter = mesen?.Element("VideoFilter")?.Value ?? settings.Element("MesenVideoFilter")?.Value ?? MesenVideoFilter;
+        if (bool.TryParse(mesen?.Element("EnableAudio")?.Value ?? settings.Element("MesenEnableAudio")?.Value, out var msnbea))
+        {
+            MesenEnableAudio = msnbea;
+        }
+
+        if (int.TryParse(mesen?.Element("MasterVolume")?.Value ?? settings.Element("MesenMasterVolume")?.Value, out var msnmv))
+        {
+            MesenMasterVolume = msnmv;
+        }
+
+        if (bool.TryParse(mesen?.Element("Rewind")?.Value ?? settings.Element("MesenRewind")?.Value, out var msnr))
+        {
+            MesenRewind = msnr;
+        }
+
+        if (int.TryParse(mesen?.Element("RunAhead")?.Value ?? settings.Element("MesenRunAhead")?.Value, out var msnra))
+        {
+            MesenRunAhead = msnra;
+        }
+
+        if (bool.TryParse(mesen?.Element("PauseInBackground")?.Value ?? settings.Element("MesenPauseInBackground")?.Value, out var msnpib))
+        {
+            MesenPauseInBackground = msnpib;
+        }
+
+        if (bool.TryParse(mesen?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("MesenShowSettingsBeforeLaunch")?.Value, out var msnssbl))
+        {
+            MesenShowSettingsBeforeLaunch = msnssbl;
+        }
+
+        // PCSX2 Fallback
         var pcsx2 = settings.Element("Pcsx2");
-        if (pcsx2 != null)
+        if (bool.TryParse(pcsx2?.Element("StartFullscreen")?.Value ?? settings.Element("Pcsx2StartFullscreen")?.Value, out var psf))
         {
-            if (bool.TryParse(pcsx2.Element("StartFullscreen")?.Value, out var psf))
-            {
-                Pcsx2StartFullscreen = psf;
-            }
-
-            Pcsx2AspectRatio = pcsx2.Element("AspectRatio")?.Value ?? Pcsx2AspectRatio;
-            if (int.TryParse(pcsx2.Element("Renderer")?.Value, out var pr))
-            {
-                Pcsx2Renderer = pr;
-            }
-
-            if (int.TryParse(pcsx2.Element("UpscaleMultiplier")?.Value, out var pum))
-            {
-                Pcsx2UpscaleMultiplier = pum;
-            }
-
-            if (bool.TryParse(pcsx2.Element("Vsync")?.Value, out var pv))
-            {
-                Pcsx2Vsync = pv;
-            }
-
-            if (bool.TryParse(pcsx2.Element("EnableCheats")?.Value, out var pec))
-            {
-                Pcsx2EnableCheats = pec;
-            }
-
-            if (bool.TryParse(pcsx2.Element("EnableWidescreenPatches")?.Value, out var pewp))
-            {
-                Pcsx2EnableWidescreenPatches = pewp;
-            }
-
-            if (int.TryParse(pcsx2.Element("Volume")?.Value, out var pvol))
-            {
-                Pcsx2Volume = pvol;
-            }
-
-            if (bool.TryParse(pcsx2.Element("AchievementsEnabled")?.Value, out var pae))
-            {
-                Pcsx2AchievementsEnabled = pae;
-            }
-
-            if (bool.TryParse(pcsx2.Element("AchievementsHardcore")?.Value, out var pah))
-            {
-                Pcsx2AchievementsHardcore = pah;
-            }
-
-            if (bool.TryParse(pcsx2.Element("ShowSettingsBeforeLaunch")?.Value, out var pssbl))
-            {
-                Pcsx2ShowSettingsBeforeLaunch = pssbl;
-            }
+            Pcsx2StartFullscreen = psf;
         }
 
-        // RetroArch
+        Pcsx2AspectRatio = pcsx2?.Element("AspectRatio")?.Value ?? settings.Element("Pcsx2AspectRatio")?.Value ?? Pcsx2AspectRatio;
+        if (int.TryParse(pcsx2?.Element("Renderer")?.Value ?? settings.Element("Pcsx2Renderer")?.Value, out var pr))
+        {
+            Pcsx2Renderer = pr;
+        }
+
+        if (int.TryParse(pcsx2?.Element("UpscaleMultiplier")?.Value ?? settings.Element("Pcsx2UpscaleMultiplier")?.Value, out var pum))
+        {
+            Pcsx2UpscaleMultiplier = pum;
+        }
+
+        if (bool.TryParse(pcsx2?.Element("Vsync")?.Value ?? settings.Element("Pcsx2Vsync")?.Value, out var pv))
+        {
+            Pcsx2Vsync = pv;
+        }
+
+        if (bool.TryParse(pcsx2?.Element("EnableCheats")?.Value ?? settings.Element("Pcsx2EnableCheats")?.Value, out var pec))
+        {
+            Pcsx2EnableCheats = pec;
+        }
+
+        if (bool.TryParse(pcsx2?.Element("EnableWidescreenPatches")?.Value ?? settings.Element("Pcsx2EnableWidescreenPatches")?.Value, out var pewp))
+        {
+            Pcsx2EnableWidescreenPatches = pewp;
+        }
+
+        if (int.TryParse(pcsx2?.Element("Volume")?.Value ?? settings.Element("Pcsx2Volume")?.Value, out var pvol))
+        {
+            Pcsx2Volume = pvol;
+        }
+
+        if (bool.TryParse(pcsx2?.Element("AchievementsEnabled")?.Value ?? settings.Element("Pcsx2AchievementsEnabled")?.Value, out var pae))
+        {
+            Pcsx2AchievementsEnabled = pae;
+        }
+
+        if (bool.TryParse(pcsx2?.Element("AchievementsHardcore")?.Value ?? settings.Element("Pcsx2AchievementsHardcore")?.Value, out var pah))
+        {
+            Pcsx2AchievementsHardcore = pah;
+        }
+
+        if (bool.TryParse(pcsx2?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("Pcsx2ShowSettingsBeforeLaunch")?.Value, out var pssbl))
+        {
+            Pcsx2ShowSettingsBeforeLaunch = pssbl;
+        }
+
+        // RetroArch Fallback
         var retroarch = settings.Element("RetroArch");
-        if (retroarch != null)
+        if (bool.TryParse(retroarch?.Element("CheevosEnable")?.Value ?? settings.Element("RetroArchCheevosEnable")?.Value, out var race))
         {
-            if (bool.TryParse(retroarch.Element("CheevosEnable")?.Value, out var race))
-            {
-                RetroArchCheevosEnable = race;
-            }
-
-            if (bool.TryParse(retroarch.Element("CheevosHardcore")?.Value, out var rach))
-            {
-                RetroArchCheevosHardcore = rach;
-            }
-
-            if (bool.TryParse(retroarch.Element("Fullscreen")?.Value, out var raf))
-            {
-                RetroArchFullscreen = raf;
-            }
-
-            if (bool.TryParse(retroarch.Element("Vsync")?.Value, out var rav))
-            {
-                RetroArchVsync = rav;
-            }
-
-            RetroArchVideoDriver = retroarch.Element("VideoDriver")?.Value ?? RetroArchVideoDriver;
-            if (bool.TryParse(retroarch.Element("AudioEnable")?.Value, out var raae))
-            {
-                RetroArchAudioEnable = raae;
-            }
-
-            if (bool.TryParse(retroarch.Element("AudioMute")?.Value, out var raam))
-            {
-                RetroArchAudioMute = raam;
-            }
-
-            RetroArchMenuDriver = retroarch.Element("MenuDriver")?.Value ?? RetroArchMenuDriver;
-            if (bool.TryParse(retroarch.Element("PauseNonActive")?.Value, out var rapna))
-            {
-                RetroArchPauseNonActive = rapna;
-            }
-
-            if (bool.TryParse(retroarch.Element("SaveOnExit")?.Value, out var rasoe))
-            {
-                RetroArchSaveOnExit = rasoe;
-            }
-
-            if (bool.TryParse(retroarch.Element("AutoSaveState")?.Value, out var raass))
-            {
-                RetroArchAutoSaveState = raass;
-            }
-
-            if (bool.TryParse(retroarch.Element("AutoLoadState")?.Value, out var raals))
-            {
-                RetroArchAutoLoadState = raals;
-            }
-
-            if (bool.TryParse(retroarch.Element("Rewind")?.Value, out var rar))
-            {
-                RetroArchRewind = rar;
-            }
-
-            if (bool.TryParse(retroarch.Element("ThreadedVideo")?.Value, out var ratv))
-            {
-                RetroArchThreadedVideo = ratv;
-            }
-
-            if (bool.TryParse(retroarch.Element("Bilinear")?.Value, out var rab))
-            {
-                RetroArchBilinear = rab;
-            }
-
-            if (bool.TryParse(retroarch.Element("ShowSettingsBeforeLaunch")?.Value, out var rassbl))
-            {
-                RetroArchShowSettingsBeforeLaunch = rassbl;
-            }
-
-            RetroArchAspectRatioIndex = retroarch.Element("AspectRatioIndex")?.Value ?? RetroArchAspectRatioIndex;
-            if (bool.TryParse(retroarch.Element("ScaleInteger")?.Value, out var rasi))
-            {
-                RetroArchScaleInteger = rasi;
-            }
-
-            if (bool.TryParse(retroarch.Element("ShaderEnable")?.Value, out var rase))
-            {
-                RetroArchShaderEnable = rase;
-            }
-
-            if (bool.TryParse(retroarch.Element("HardSync")?.Value, out var rahs))
-            {
-                RetroArchHardSync = rahs;
-            }
-
-            if (bool.TryParse(retroarch.Element("RunAhead")?.Value, out var rara))
-            {
-                RetroArchRunAhead = rara;
-            }
-
-            if (bool.TryParse(retroarch.Element("ShowAdvancedSettings")?.Value, out var rasas))
-            {
-                RetroArchShowAdvancedSettings = rasas;
-            }
-
-            if (bool.TryParse(retroarch.Element("DiscordAllow")?.Value, out var rada))
-            {
-                RetroArchDiscordAllow = rada;
-            }
-
-            if (bool.TryParse(retroarch.Element("OverrideSystemDir")?.Value, out var raosd))
-            {
-                RetroArchOverrideSystemDir = raosd;
-            }
-
-            if (bool.TryParse(retroarch.Element("OverrideSaveDir")?.Value, out var raovsd))
-            {
-                RetroArchOverrideSaveDir = raovsd;
-            }
-
-            if (bool.TryParse(retroarch.Element("OverrideStateDir")?.Value, out var raovstd))
-            {
-                RetroArchOverrideStateDir = raovstd;
-            }
-
-            if (bool.TryParse(retroarch.Element("OverrideScreenshotDir")?.Value, out var raovscd))
-            {
-                RetroArchOverrideScreenshotDir = raovscd;
-            }
+            RetroArchCheevosEnable = race;
         }
 
-        // RPCS3
+        if (bool.TryParse(retroarch?.Element("CheevosHardcore")?.Value ?? settings.Element("RetroArchCheevosHardcore")?.Value, out var rach))
+        {
+            RetroArchCheevosHardcore = rach;
+        }
+
+        if (bool.TryParse(retroarch?.Element("Fullscreen")?.Value ?? settings.Element("RetroArchFullscreen")?.Value, out var raf))
+        {
+            RetroArchFullscreen = raf;
+        }
+
+        if (bool.TryParse(retroarch?.Element("Vsync")?.Value ?? settings.Element("RetroArchVsync")?.Value, out var rav))
+        {
+            RetroArchVsync = rav;
+        }
+
+        RetroArchVideoDriver = retroarch?.Element("VideoDriver")?.Value ?? settings.Element("RetroArchVideoDriver")?.Value ?? RetroArchVideoDriver;
+        if (bool.TryParse(retroarch?.Element("AudioEnable")?.Value ?? settings.Element("RetroArchAudioEnable")?.Value, out var raae))
+        {
+            RetroArchAudioEnable = raae;
+        }
+
+        if (bool.TryParse(retroarch?.Element("AudioMute")?.Value ?? settings.Element("RetroArchAudioMute")?.Value, out var raam))
+        {
+            RetroArchAudioMute = raam;
+        }
+
+        RetroArchMenuDriver = retroarch?.Element("MenuDriver")?.Value ?? settings.Element("RetroArchMenuDriver")?.Value ?? RetroArchMenuDriver;
+        if (bool.TryParse(retroarch?.Element("PauseNonActive")?.Value ?? settings.Element("RetroArchPauseNonActive")?.Value, out var rapna))
+        {
+            RetroArchPauseNonActive = rapna;
+        }
+
+        if (bool.TryParse(retroarch?.Element("SaveOnExit")?.Value ?? settings.Element("RetroArchSaveOnExit")?.Value, out var rasoe))
+        {
+            RetroArchSaveOnExit = rasoe;
+        }
+
+        if (bool.TryParse(retroarch?.Element("AutoSaveState")?.Value ?? settings.Element("RetroArchAutoSaveState")?.Value, out var raass))
+        {
+            RetroArchAutoSaveState = raass;
+        }
+
+        if (bool.TryParse(retroarch?.Element("AutoLoadState")?.Value ?? settings.Element("RetroArchAutoLoadState")?.Value, out var raals))
+        {
+            RetroArchAutoLoadState = raals;
+        }
+
+        if (bool.TryParse(retroarch?.Element("Rewind")?.Value ?? settings.Element("RetroArchRewind")?.Value, out var rar))
+        {
+            RetroArchRewind = rar;
+        }
+
+        if (bool.TryParse(retroarch?.Element("ThreadedVideo")?.Value ?? settings.Element("RetroArchThreadedVideo")?.Value, out var ratv))
+        {
+            RetroArchThreadedVideo = ratv;
+        }
+
+        if (bool.TryParse(retroarch?.Element("Bilinear")?.Value ?? settings.Element("RetroArchBilinear")?.Value, out var rab))
+        {
+            RetroArchBilinear = rab;
+        }
+
+        if (bool.TryParse(retroarch?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("RetroArchShowSettingsBeforeLaunch")?.Value, out var rassbl))
+        {
+            RetroArchShowSettingsBeforeLaunch = rassbl;
+        }
+
+        RetroArchAspectRatioIndex = retroarch?.Element("AspectRatioIndex")?.Value ?? settings.Element("RetroArchAspectRatioIndex")?.Value ?? RetroArchAspectRatioIndex;
+        if (bool.TryParse(retroarch?.Element("ScaleInteger")?.Value ?? settings.Element("RetroArchScaleInteger")?.Value, out var rasi))
+        {
+            RetroArchScaleInteger = rasi;
+        }
+
+        if (bool.TryParse(retroarch?.Element("ShaderEnable")?.Value ?? settings.Element("RetroArchShaderEnable")?.Value, out var rase))
+        {
+            RetroArchShaderEnable = rase;
+        }
+
+        if (bool.TryParse(retroarch?.Element("HardSync")?.Value ?? settings.Element("RetroArchHardSync")?.Value, out var rahs))
+        {
+            RetroArchHardSync = rahs;
+        }
+
+        if (bool.TryParse(retroarch?.Element("RunAhead")?.Value ?? settings.Element("RetroArchRunAhead")?.Value, out var rara))
+        {
+            RetroArchRunAhead = rara;
+        }
+
+        if (bool.TryParse(retroarch?.Element("ShowAdvancedSettings")?.Value ?? settings.Element("RetroArchShowAdvancedSettings")?.Value, out var rasas))
+        {
+            RetroArchShowAdvancedSettings = rasas;
+        }
+
+        if (bool.TryParse(retroarch?.Element("DiscordAllow")?.Value ?? settings.Element("RetroArchDiscordAllow")?.Value, out var rada))
+        {
+            RetroArchDiscordAllow = rada;
+        }
+
+        if (bool.TryParse(retroarch?.Element("OverrideSystemDir")?.Value ?? settings.Element("RetroArchOverrideSystemDir")?.Value, out var raosd))
+        {
+            RetroArchOverrideSystemDir = raosd;
+        }
+
+        if (bool.TryParse(retroarch?.Element("OverrideSaveDir")?.Value ?? settings.Element("RetroArchOverrideSaveDir")?.Value, out var raovsd))
+        {
+            RetroArchOverrideSaveDir = raovsd;
+        }
+
+        if (bool.TryParse(retroarch?.Element("OverrideStateDir")?.Value ?? settings.Element("RetroArchOverrideStateDir")?.Value, out var raovstd))
+        {
+            RetroArchOverrideStateDir = raovstd;
+        }
+
+        if (bool.TryParse(retroarch?.Element("OverrideScreenshotDir")?.Value ?? settings.Element("RetroArchOverrideScreenshotDir")?.Value, out var raovscd))
+        {
+            RetroArchOverrideScreenshotDir = raovscd;
+        }
+
+        // RPCS3 Fallback
         var rpcs3 = settings.Element("Rpcs3");
-        if (rpcs3 != null)
+        Rpcs3Renderer = rpcs3?.Element("Renderer")?.Value ?? settings.Element("Rpcs3Renderer")?.Value ?? Rpcs3Renderer;
+        Rpcs3Resolution = rpcs3?.Element("Resolution")?.Value ?? settings.Element("Rpcs3Resolution")?.Value ?? Rpcs3Resolution;
+        Rpcs3AspectRatio = rpcs3?.Element("AspectRatio")?.Value ?? settings.Element("Rpcs3AspectRatio")?.Value ?? Rpcs3AspectRatio;
+        if (bool.TryParse(rpcs3?.Element("Vsync")?.Value ?? settings.Element("Rpcs3Vsync")?.Value, out var rv))
         {
-            Rpcs3Renderer = rpcs3.Element("Renderer")?.Value ?? Rpcs3Renderer;
-            Rpcs3Resolution = rpcs3.Element("Resolution")?.Value ?? Rpcs3Resolution;
-            Rpcs3AspectRatio = rpcs3.Element("AspectRatio")?.Value ?? Rpcs3AspectRatio;
-            if (bool.TryParse(rpcs3.Element("Vsync")?.Value, out var rv))
-            {
-                Rpcs3Vsync = rv;
-            }
-
-            if (int.TryParse(rpcs3.Element("ResolutionScale")?.Value, out var rrs))
-            {
-                Rpcs3ResolutionScale = rrs;
-            }
-
-            if (int.TryParse(rpcs3.Element("AnisotropicFilter")?.Value, out var raf2))
-            {
-                Rpcs3AnisotropicFilter = raf2;
-            }
-
-            Rpcs3PpuDecoder = rpcs3.Element("PpuDecoder")?.Value ?? Rpcs3PpuDecoder;
-            Rpcs3SpuDecoder = rpcs3.Element("SpuDecoder")?.Value ?? Rpcs3SpuDecoder;
-            Rpcs3AudioRenderer = rpcs3.Element("AudioRenderer")?.Value ?? Rpcs3AudioRenderer;
-            if (bool.TryParse(rpcs3.Element("AudioBuffering")?.Value, out var rabuf))
-            {
-                Rpcs3AudioBuffering = rabuf;
-            }
-
-            if (bool.TryParse(rpcs3.Element("StartFullscreen")?.Value, out var rsf))
-            {
-                Rpcs3StartFullscreen = rsf;
-            }
-
-            if (bool.TryParse(rpcs3.Element("ShowSettingsBeforeLaunch")?.Value, out var rssbl))
-            {
-                Rpcs3ShowSettingsBeforeLaunch = rssbl;
-            }
+            Rpcs3Vsync = rv;
         }
 
-        // Sega Model 2
+        if (int.TryParse(rpcs3?.Element("ResolutionScale")?.Value ?? settings.Element("Rpcs3ResolutionScale")?.Value, out var rrs))
+        {
+            Rpcs3ResolutionScale = rrs;
+        }
+
+        if (int.TryParse(rpcs3?.Element("AnisotropicFilter")?.Value ?? settings.Element("Rpcs3AnisotropicFilter")?.Value, out var raf2))
+        {
+            Rpcs3AnisotropicFilter = raf2;
+        }
+
+        Rpcs3PpuDecoder = rpcs3?.Element("PpuDecoder")?.Value ?? settings.Element("Rpcs3PpuDecoder")?.Value ?? Rpcs3PpuDecoder;
+        Rpcs3SpuDecoder = rpcs3?.Element("SpuDecoder")?.Value ?? settings.Element("Rpcs3SpuDecoder")?.Value ?? Rpcs3SpuDecoder;
+        Rpcs3AudioRenderer = rpcs3?.Element("AudioRenderer")?.Value ?? settings.Element("Rpcs3AudioRenderer")?.Value ?? Rpcs3AudioRenderer;
+        if (bool.TryParse(rpcs3?.Element("AudioBuffering")?.Value ?? settings.Element("Rpcs3AudioBuffering")?.Value, out var rabuf))
+        {
+            Rpcs3AudioBuffering = rabuf;
+        }
+
+        if (bool.TryParse(rpcs3?.Element("StartFullscreen")?.Value ?? settings.Element("Rpcs3StartFullscreen")?.Value, out var rsf))
+        {
+            Rpcs3StartFullscreen = rsf;
+        }
+
+        if (bool.TryParse(rpcs3?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("Rpcs3ShowSettingsBeforeLaunch")?.Value, out var rssbl))
+        {
+            Rpcs3ShowSettingsBeforeLaunch = rssbl;
+        }
+
+        // Sega Model 2 Fallback
         var sm2 = settings.Element("SegaModel2");
-        if (sm2 != null)
+        if (int.TryParse(sm2?.Element("ResX")?.Value ?? settings.Element("SegaModel2ResX")?.Value, out var sm2Rx))
         {
-            if (int.TryParse(sm2.Element("ResX")?.Value, out var sm2Rx))
-            {
-                SegaModel2ResX = sm2Rx;
-            }
-
-            if (int.TryParse(sm2.Element("ResY")?.Value, out var sm2Ry))
-            {
-                SegaModel2ResY = sm2Ry;
-            }
-
-            if (int.TryParse(sm2.Element("WideScreen")?.Value, out var sm2Ws))
-            {
-                SegaModel2WideScreen = sm2Ws;
-            }
-
-            if (bool.TryParse(sm2.Element("Bilinear")?.Value, out var sm2B))
-            {
-                SegaModel2Bilinear = sm2B;
-            }
-
-            if (bool.TryParse(sm2.Element("Trilinear")?.Value, out var sm2T))
-            {
-                SegaModel2Trilinear = sm2T;
-            }
-
-            if (bool.TryParse(sm2.Element("FilterTilemaps")?.Value, out var sm2Ft))
-            {
-                SegaModel2FilterTilemaps = sm2Ft;
-            }
-
-            if (bool.TryParse(sm2.Element("DrawCross")?.Value, out var sm2dc))
-            {
-                SegaModel2DrawCross = sm2dc;
-            }
-
-            if (int.TryParse(sm2.Element("Fsaa")?.Value, out var sm2Fsaa))
-            {
-                SegaModel2Fsaa = sm2Fsaa;
-            }
-
-            if (bool.TryParse(sm2.Element("XInput")?.Value, out var sm2Xi))
-            {
-                SegaModel2XInput = sm2Xi;
-            }
-
-            if (bool.TryParse(sm2.Element("EnableFf")?.Value, out var sm2Eff))
-            {
-                SegaModel2EnableFf = sm2Eff;
-            }
-
-            if (bool.TryParse(sm2.Element("HoldGears")?.Value, out var sm2Hg))
-            {
-                SegaModel2HoldGears = sm2Hg;
-            }
-
-            if (bool.TryParse(sm2.Element("UseRawInput")?.Value, out var sm2Uri))
-            {
-                SegaModel2UseRawInput = sm2Uri;
-            }
-
-            if (bool.TryParse(sm2.Element("ShowSettingsBeforeLaunch")?.Value, out var sm2Ssbl))
-            {
-                SegaModel2ShowSettingsBeforeLaunch = sm2Ssbl;
-            }
+            SegaModel2ResX = sm2Rx;
         }
 
-        // Stella
+        if (int.TryParse(sm2?.Element("ResY")?.Value ?? settings.Element("SegaModel2ResY")?.Value, out var sm2Ry))
+        {
+            SegaModel2ResY = sm2Ry;
+        }
+
+        if (int.TryParse(sm2?.Element("WideScreen")?.Value ?? settings.Element("SegaModel2WideScreen")?.Value, out var sm2Ws))
+        {
+            SegaModel2WideScreen = sm2Ws;
+        }
+
+        if (bool.TryParse(sm2?.Element("Bilinear")?.Value ?? settings.Element("SegaModel2Bilinear")?.Value, out var sm2B))
+        {
+            SegaModel2Bilinear = sm2B;
+        }
+
+        if (bool.TryParse(sm2?.Element("Trilinear")?.Value ?? settings.Element("SegaModel2Trilinear")?.Value, out var sm2T))
+        {
+            SegaModel2Trilinear = sm2T;
+        }
+
+        if (bool.TryParse(sm2?.Element("FilterTilemaps")?.Value ?? settings.Element("SegaModel2FilterTilemaps")?.Value, out var sm2Ft))
+        {
+            SegaModel2FilterTilemaps = sm2Ft;
+        }
+
+        if (bool.TryParse(sm2?.Element("DrawCross")?.Value ?? settings.Element("SegaModel2DrawCross")?.Value, out var sm2dc))
+        {
+            SegaModel2DrawCross = sm2dc;
+        }
+
+        if (int.TryParse(sm2?.Element("Fsaa")?.Value ?? settings.Element("SegaModel2Fsaa")?.Value, out var sm2Fsaa))
+        {
+            SegaModel2Fsaa = sm2Fsaa;
+        }
+
+        if (bool.TryParse(sm2?.Element("XInput")?.Value ?? settings.Element("SegaModel2XInput")?.Value, out var sm2Xi))
+        {
+            SegaModel2XInput = sm2Xi;
+        }
+
+        if (bool.TryParse(sm2?.Element("EnableFf")?.Value ?? settings.Element("SegaModel2EnableFf")?.Value, out var sm2Eff))
+        {
+            SegaModel2EnableFf = sm2Eff;
+        }
+
+        if (bool.TryParse(sm2?.Element("HoldGears")?.Value ?? settings.Element("SegaModel2HoldGears")?.Value, out var sm2Hg))
+        {
+            SegaModel2HoldGears = sm2Hg;
+        }
+
+        if (bool.TryParse(sm2?.Element("UseRawInput")?.Value ?? settings.Element("SegaModel2UseRawInput")?.Value, out var sm2Uri))
+        {
+            SegaModel2UseRawInput = sm2Uri;
+        }
+
+        if (bool.TryParse(sm2?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("SegaModel2ShowSettingsBeforeLaunch")?.Value, out var sm2Ssbl))
+        {
+            SegaModel2ShowSettingsBeforeLaunch = sm2Ssbl;
+        }
+
+        // Stella Fallback
         var stella = settings.Element("Stella");
-        if (stella != null)
+        if (bool.TryParse(stella?.Element("Fullscreen")?.Value ?? settings.Element("StellaFullscreen")?.Value, out var stf))
         {
-            if (bool.TryParse(stella.Element("Fullscreen")?.Value, out var stf))
-            {
-                StellaFullscreen = stf;
-            }
-
-            if (bool.TryParse(stella.Element("Vsync")?.Value, out var stv))
-            {
-                StellaVsync = stv;
-            }
-
-            StellaVideoDriver = stella.Element("VideoDriver")?.Value ?? StellaVideoDriver;
-            if (bool.TryParse(stella.Element("CorrectAspect")?.Value, out var stca))
-            {
-                StellaCorrectAspect = stca;
-            }
-
-            if (int.TryParse(stella.Element("TvFilter")?.Value, out var sttf))
-            {
-                StellaTvFilter = sttf;
-            }
-
-            if (int.TryParse(stella.Element("Scanlines")?.Value, out var sts))
-            {
-                StellaScanlines = sts;
-            }
-
-            if (bool.TryParse(stella.Element("AudioEnabled")?.Value, out var stae))
-            {
-                StellaAudioEnabled = stae;
-            }
-
-            if (int.TryParse(stella.Element("AudioVolume")?.Value, out var stav))
-            {
-                StellaAudioVolume = stav;
-            }
-
-            if (bool.TryParse(stella.Element("TimeMachine")?.Value, out var stm))
-            {
-                StellaTimeMachine = stm;
-            }
-
-            if (bool.TryParse(stella.Element("ConfirmExit")?.Value, out var stce))
-            {
-                StellaConfirmExit = stce;
-            }
-
-            if (bool.TryParse(stella.Element("ShowSettingsBeforeLaunch")?.Value, out var stssbl))
-            {
-                StellaShowSettingsBeforeLaunch = stssbl;
-            }
+            StellaFullscreen = stf;
         }
 
-        // Supermodel
+        if (bool.TryParse(stella?.Element("Vsync")?.Value ?? settings.Element("StellaVsync")?.Value, out var stv))
+        {
+            StellaVsync = stv;
+        }
+
+        StellaVideoDriver = stella?.Element("VideoDriver")?.Value ?? settings.Element("StellaVideoDriver")?.Value ?? StellaVideoDriver;
+        if (bool.TryParse(stella?.Element("CorrectAspect")?.Value ?? settings.Element("StellaCorrectAspect")?.Value, out var stca))
+        {
+            StellaCorrectAspect = stca;
+        }
+
+        if (int.TryParse(stella?.Element("TvFilter")?.Value ?? settings.Element("StellaTvFilter")?.Value, out var sttf))
+        {
+            StellaTvFilter = sttf;
+        }
+
+        if (int.TryParse(stella?.Element("Scanlines")?.Value ?? settings.Element("StellaScanlines")?.Value, out var sts))
+        {
+            StellaScanlines = sts;
+        }
+
+        if (bool.TryParse(stella?.Element("AudioEnabled")?.Value ?? settings.Element("StellaAudioEnabled")?.Value, out var stae))
+        {
+            StellaAudioEnabled = stae;
+        }
+
+        if (int.TryParse(stella?.Element("AudioVolume")?.Value ?? settings.Element("StellaAudioVolume")?.Value, out var stav))
+        {
+            StellaAudioVolume = stav;
+        }
+
+        if (bool.TryParse(stella?.Element("TimeMachine")?.Value ?? settings.Element("StellaTimeMachine")?.Value, out var stm))
+        {
+            StellaTimeMachine = stm;
+        }
+
+        if (bool.TryParse(stella?.Element("ConfirmExit")?.Value ?? settings.Element("StellaConfirmExit")?.Value, out var stce))
+        {
+            StellaConfirmExit = stce;
+        }
+
+        if (bool.TryParse(stella?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("StellaShowSettingsBeforeLaunch")?.Value, out var stssbl))
+        {
+            StellaShowSettingsBeforeLaunch = stssbl;
+        }
+
+        // Supermodel Fallback
         var supermodel = settings.Element("Supermodel");
-        if (supermodel != null)
+        if (bool.TryParse(supermodel?.Element("New3DEngine")?.Value ?? settings.Element("SupermodelNew3DEngine")?.Value, out var smn3E))
         {
-            if (bool.TryParse(supermodel.Element("New3DEngine")?.Value, out var smn3E))
-            {
-                SupermodelNew3DEngine = smn3E;
-            }
-
-            if (bool.TryParse(supermodel.Element("QuadRendering")?.Value, out var smqr))
-            {
-                SupermodelQuadRendering = smqr;
-            }
-
-            if (bool.TryParse(supermodel.Element("Fullscreen")?.Value, out var smfs))
-            {
-                SupermodelFullscreen = smfs;
-            }
-
-            if (int.TryParse(supermodel.Element("ResX")?.Value, out var smrx))
-            {
-                SupermodelResX = smrx;
-            }
-
-            if (int.TryParse(supermodel.Element("ResY")?.Value, out var smry))
-            {
-                SupermodelResY = smry;
-            }
-
-            if (bool.TryParse(supermodel.Element("WideScreen")?.Value, out var smws))
-            {
-                SupermodelWideScreen = smws;
-            }
-
-            if (bool.TryParse(supermodel.Element("Stretch")?.Value, out var smst))
-            {
-                SupermodelStretch = smst;
-            }
-
-            if (bool.TryParse(supermodel.Element("Vsync")?.Value, out var smvs))
-            {
-                SupermodelVsync = smvs;
-            }
-
-            if (bool.TryParse(supermodel.Element("Throttle")?.Value, out var smth))
-            {
-                SupermodelThrottle = smth;
-            }
-
-            if (int.TryParse(supermodel.Element("MusicVolume")?.Value, out var smmv))
-            {
-                SupermodelMusicVolume = smmv;
-            }
-
-            if (int.TryParse(supermodel.Element("SoundVolume")?.Value, out var ssv))
-            {
-                SupermodelSoundVolume = ssv;
-            }
-
-            SupermodelInputSystem = ValidateSupermodelInputSystem(supermodel.Element("InputSystem")?.Value);
-            if (bool.TryParse(supermodel.Element("MultiThreaded")?.Value, out var smmt))
-            {
-                SupermodelMultiThreaded = smmt;
-            }
-
-            if (int.TryParse(supermodel.Element("PowerPcFrequency")?.Value, out var smppf))
-            {
-                SupermodelPowerPcFrequency = smppf;
-            }
-
-            if (bool.TryParse(supermodel.Element("ShowSettingsBeforeLaunch")?.Value, out var smssbl))
-            {
-                SupermodelShowSettingsBeforeLaunch = smssbl;
-            }
+            SupermodelNew3DEngine = smn3E;
         }
 
-        // Xenia
+        if (bool.TryParse(supermodel?.Element("QuadRendering")?.Value ?? settings.Element("SupermodelQuadRendering")?.Value, out var smqr))
+        {
+            SupermodelQuadRendering = smqr;
+        }
+
+        if (bool.TryParse(supermodel?.Element("Fullscreen")?.Value ?? settings.Element("SupermodelFullscreen")?.Value, out var smfs))
+        {
+            SupermodelFullscreen = smfs;
+        }
+
+        if (int.TryParse(supermodel?.Element("ResX")?.Value ?? settings.Element("SupermodelResX")?.Value, out var smrx))
+        {
+            SupermodelResX = smrx;
+        }
+
+        if (int.TryParse(supermodel?.Element("ResY")?.Value ?? settings.Element("SupermodelResY")?.Value, out var smry))
+        {
+            SupermodelResY = smry;
+        }
+
+        if (bool.TryParse(supermodel?.Element("WideScreen")?.Value ?? settings.Element("SupermodelWideScreen")?.Value, out var smws))
+        {
+            SupermodelWideScreen = smws;
+        }
+
+        if (bool.TryParse(supermodel?.Element("Stretch")?.Value ?? settings.Element("SupermodelStretch")?.Value, out var smst))
+        {
+            SupermodelStretch = smst;
+        }
+
+        if (bool.TryParse(supermodel?.Element("Vsync")?.Value ?? settings.Element("SupermodelVsync")?.Value, out var smvs))
+        {
+            SupermodelVsync = smvs;
+        }
+
+        if (bool.TryParse(supermodel?.Element("Throttle")?.Value ?? settings.Element("SupermodelThrottle")?.Value, out var smth))
+        {
+            SupermodelThrottle = smth;
+        }
+
+        if (int.TryParse(supermodel?.Element("MusicVolume")?.Value ?? settings.Element("SupermodelMusicVolume")?.Value, out var smmv))
+        {
+            SupermodelMusicVolume = smmv;
+        }
+
+        if (int.TryParse(supermodel?.Element("SoundVolume")?.Value ?? settings.Element("SupermodelSoundVolume")?.Value, out var ssv))
+        {
+            SupermodelSoundVolume = ssv;
+        }
+
+        SupermodelInputSystem = ValidateSupermodelInputSystem(supermodel?.Element("InputSystem")?.Value ?? settings.Element("SupermodelInputSystem")?.Value);
+        if (bool.TryParse(supermodel?.Element("MultiThreaded")?.Value ?? settings.Element("SupermodelMultiThreaded")?.Value, out var smmt))
+        {
+            SupermodelMultiThreaded = smmt;
+        }
+
+        if (int.TryParse(supermodel?.Element("PowerPcFrequency")?.Value ?? settings.Element("SupermodelPowerPcFrequency")?.Value, out var smppf))
+        {
+            SupermodelPowerPcFrequency = smppf;
+        }
+
+        if (bool.TryParse(supermodel?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("SupermodelShowSettingsBeforeLaunch")?.Value, out var smssbl))
+        {
+            SupermodelShowSettingsBeforeLaunch = smssbl;
+        }
+
+        // Xenia Fallback
         var xenia = settings.Element("Xenia");
-        if (xenia != null)
+        XeniaReadbackResolve = xenia?.Element("ReadbackResolve")?.Value ?? settings.Element("XeniaReadbackResolve")?.Value ?? XeniaReadbackResolve;
+        if (bool.TryParse(xenia?.Element("GammaSrgb")?.Value ?? settings.Element("XeniaGammaSrgb")?.Value, out var xgs))
         {
-            XeniaReadbackResolve = xenia.Element("ReadbackResolve")?.Value ?? XeniaReadbackResolve;
-            if (bool.TryParse(xenia.Element("GammaSrgb")?.Value, out var xgs))
-            {
-                XeniaGammaSrgb = xgs;
-            }
-
-            if (bool.TryParse(xenia.Element("Vibration")?.Value, out var xvib))
-            {
-                XeniaVibration = xvib;
-            }
-
-            if (bool.TryParse(xenia.Element("MountCache")?.Value, out var xmc))
-            {
-                XeniaMountCache = xmc;
-            }
-
-            XeniaGpu = xenia.Element("Gpu")?.Value ?? XeniaGpu;
-            if (bool.TryParse(xenia.Element("Vsync")?.Value, out var xvs))
-            {
-                XeniaVsync = xvs;
-            }
-
-            if (int.TryParse(xenia.Element("ResScaleX")?.Value, out var xrsx))
-            {
-                XeniaResScaleX = xrsx;
-            }
-
-            if (int.TryParse(xenia.Element("ResScaleY")?.Value, out var xrsy))
-            {
-                XeniaResScaleY = xrsy;
-            }
-
-            if (bool.TryParse(xenia.Element("Fullscreen")?.Value, out var xfs))
-            {
-                XeniaFullscreen = xfs;
-            }
-
-            XeniaApu = xenia.Element("Apu")?.Value ?? XeniaApu;
-            if (bool.TryParse(xenia.Element("Mute")?.Value, out var xmu))
-            {
-                XeniaMute = xmu;
-            }
-
-            XeniaAa = xenia.Element("Aa")?.Value ?? XeniaAa;
-            XeniaScaling = xenia.Element("Scaling")?.Value ?? XeniaScaling;
-            if (bool.TryParse(xenia.Element("ApplyPatches")?.Value, out var xap))
-            {
-                XeniaApplyPatches = xap;
-            }
-
-            if (bool.TryParse(xenia.Element("DiscordPresence")?.Value, out var xdp))
-            {
-                XeniaDiscordPresence = xdp;
-            }
-
-            if (int.TryParse(xenia.Element("UserLanguage")?.Value, out var xul))
-            {
-                XeniaUserLanguage = xul;
-            }
-
-            XeniaHid = xenia.Element("Hid")?.Value ?? XeniaHid;
-            if (bool.TryParse(xenia.Element("ShowSettingsBeforeLaunch")?.Value, out var xssbl))
-            {
-                XeniaShowSettingsBeforeLaunch = xssbl;
-            }
+            XeniaGammaSrgb = xgs;
         }
 
-        // Yumir
-        var yumir = settings.Element("Yumir");
-        if (yumir != null)
+        if (bool.TryParse(xenia?.Element("Vibration")?.Value ?? settings.Element("XeniaVibration")?.Value, out var xvib))
         {
-            if (bool.TryParse(yumir.Element("Fullscreen")?.Value, out var yf))
-            {
-                YumirFullscreen = yf;
-            }
+            XeniaVibration = xvib;
+        }
 
-            if (double.TryParse(yumir.Element("Volume")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var yv))
-            {
-                YumirVolume = yv;
-            }
+        if (bool.TryParse(xenia?.Element("MountCache")?.Value ?? settings.Element("XeniaMountCache")?.Value, out var xmc))
+        {
+            XeniaMountCache = xmc;
+        }
 
-            if (bool.TryParse(yumir.Element("Mute")?.Value, out var ym))
-            {
-                YumirMute = ym;
-            }
+        XeniaGpu = xenia?.Element("Gpu")?.Value ?? settings.Element("XeniaGpu")?.Value ?? XeniaGpu;
+        if (bool.TryParse(xenia?.Element("Vsync")?.Value ?? settings.Element("XeniaVsync")?.Value, out var xvs))
+        {
+            XeniaVsync = xvs;
+        }
 
-            YumirVideoStandard = yumir.Element("VideoStandard")?.Value ?? YumirVideoStandard;
-            if (bool.TryParse(yumir.Element("AutoDetectRegion")?.Value, out var yadr))
-            {
-                YumirAutoDetectRegion = yadr;
-            }
+        if (int.TryParse(xenia?.Element("ResScaleX")?.Value ?? settings.Element("XeniaResScaleX")?.Value, out var xrsx))
+        {
+            XeniaResScaleX = xrsx;
+        }
 
-            if (bool.TryParse(yumir.Element("PauseWhenUnfocused")?.Value, out var ypwu))
-            {
-                YumirPauseWhenUnfocused = ypwu;
-            }
+        if (int.TryParse(xenia?.Element("ResScaleY")?.Value ?? settings.Element("XeniaResScaleY")?.Value, out var xrsy))
+        {
+            XeniaResScaleY = xrsy;
+        }
 
-            if (double.TryParse(yumir.Element("ForcedAspect")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var yfa))
-            {
-                YumirForcedAspect = yfa;
-            }
+        if (bool.TryParse(xenia?.Element("Fullscreen")?.Value ?? settings.Element("XeniaFullscreen")?.Value, out var xfs))
+        {
+            XeniaFullscreen = xfs;
+        }
 
-            if (bool.TryParse(yumir.Element("ForceAspectRatio")?.Value, out var yfar))
-            {
-                YumirForceAspectRatio = yfar;
-            }
+        XeniaApu = xenia?.Element("Apu")?.Value ?? settings.Element("XeniaApu")?.Value ?? XeniaApu;
+        if (bool.TryParse(xenia?.Element("Mute")?.Value ?? settings.Element("XeniaMute")?.Value, out var xmu))
+        {
+            XeniaMute = xmu;
+        }
 
-            if (bool.TryParse(yumir.Element("ReduceLatency")?.Value, out var yrl))
-            {
-                YumirReduceLatency = yrl;
-            }
+        XeniaAa = xenia?.Element("Aa")?.Value ?? settings.Element("XeniaAa")?.Value ?? XeniaAa;
+        XeniaScaling = xenia?.Element("Scaling")?.Value ?? settings.Element("XeniaScaling")?.Value ?? XeniaScaling;
+        if (bool.TryParse(xenia?.Element("ApplyPatches")?.Value ?? settings.Element("XeniaApplyPatches")?.Value, out var xap))
+        {
+            XeniaApplyPatches = xap;
+        }
 
-            if (bool.TryParse(yumir.Element("ShowSettingsBeforeLaunch")?.Value, out var yssbl))
-            {
-                YumirShowSettingsBeforeLaunch = yssbl;
-            }
+        if (bool.TryParse(xenia?.Element("DiscordPresence")?.Value ?? settings.Element("XeniaDiscordPresence")?.Value, out var xdp))
+        {
+            XeniaDiscordPresence = xdp;
+        }
+
+        if (int.TryParse(xenia?.Element("UserLanguage")?.Value ?? settings.Element("XeniaUserLanguage")?.Value, out var xul))
+        {
+            XeniaUserLanguage = xul;
+        }
+
+        XeniaHid = xenia?.Element("Hid")?.Value ?? settings.Element("XeniaHid")?.Value ?? XeniaHid;
+        if (bool.TryParse(xenia?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("XeniaShowSettingsBeforeLaunch")?.Value, out var xssbl))
+        {
+            XeniaShowSettingsBeforeLaunch = xssbl;
+        }
+
+        // Yumir Fallback
+        var yumir = settings.Element("Yumir");
+        if (bool.TryParse(yumir?.Element("Fullscreen")?.Value ?? settings.Element("YumirFullscreen")?.Value, out var yf))
+        {
+            YumirFullscreen = yf;
+        }
+
+        if (double.TryParse(yumir?.Element("Volume")?.Value ?? settings.Element("YumirVolume")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var yv))
+        {
+            YumirVolume = yv;
+        }
+
+        if (bool.TryParse(yumir?.Element("Mute")?.Value ?? settings.Element("YumirMute")?.Value, out var ym))
+        {
+            YumirMute = ym;
+        }
+
+        YumirVideoStandard = yumir?.Element("VideoStandard")?.Value ?? settings.Element("YumirVideoStandard")?.Value ?? YumirVideoStandard;
+        if (bool.TryParse(yumir?.Element("AutoDetectRegion")?.Value ?? settings.Element("YumirAutoDetectRegion")?.Value, out var yadr))
+        {
+            YumirAutoDetectRegion = yadr;
+        }
+
+        if (bool.TryParse(yumir?.Element("PauseWhenUnfocused")?.Value ?? settings.Element("YumirPauseWhenUnfocused")?.Value, out var ypwu))
+        {
+            YumirPauseWhenUnfocused = ypwu;
+        }
+
+        if (double.TryParse(yumir?.Element("ForcedAspect")?.Value ?? settings.Element("YumirForcedAspect")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var yfa))
+        {
+            YumirForcedAspect = yfa;
+        }
+
+        if (bool.TryParse(yumir?.Element("ForceAspectRatio")?.Value ?? settings.Element("YumirForceAspectRatio")?.Value, out var yfar))
+        {
+            YumirForceAspectRatio = yfar;
+        }
+
+        if (bool.TryParse(yumir?.Element("ReduceLatency")?.Value ?? settings.Element("YumirReduceLatency")?.Value, out var yrl))
+        {
+            YumirReduceLatency = yrl;
+        }
+
+        if (bool.TryParse(yumir?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("YumirShowSettingsBeforeLaunch")?.Value, out var yssbl))
+        {
+            YumirShowSettingsBeforeLaunch = yssbl;
         }
 
         // SystemPlayTimes
