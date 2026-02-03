@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -12,6 +13,8 @@ public static class DaphneConfigurationService
     /// <returns>A string containing command-line arguments.</returns>
     public static string BuildArguments(SettingsManager.SettingsManager settings)
     {
+        ArgumentNullException.ThrowIfNull(settings);
+
         var sb = new StringBuilder();
 
         if (settings.DaphneFullscreen)
@@ -19,12 +22,13 @@ public static class DaphneConfigurationService
             sb.Append(" -fullscreen");
         }
 
-        if (settings.DaphneResX > 0)
+        // Validate against XAML-defined ranges (640-7680 for X, 480-4320 for Y)
+        if (settings.DaphneResX is >= 640 and <= 7680)
         {
             sb.Append(CultureInfo.InvariantCulture, $" -x {settings.DaphneResX}");
         }
 
-        if (settings.DaphneResY > 0)
+        if (settings.DaphneResY is >= 480 and <= 4320)
         {
             sb.Append(CultureInfo.InvariantCulture, $" -y {settings.DaphneResY}");
         }

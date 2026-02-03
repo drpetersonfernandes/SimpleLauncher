@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
@@ -12,11 +13,13 @@ public partial class InjectDaphneConfigWindow
 
     public InjectDaphneConfigWindow(SettingsManager settings, bool isLauncherMode = true)
     {
+        ArgumentNullException.ThrowIfNull(settings);
+
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _settings = settings;
         _isLauncherMode = isLauncherMode;
-        // emulatorPath is not used here as we don't write to a file, but kept for constructor consistency.
+        // Note: Unlike other config windows, we don't need emulatorPath since Daphne uses command-line arguments instead of file injection.
         LoadSettings();
     }
 
