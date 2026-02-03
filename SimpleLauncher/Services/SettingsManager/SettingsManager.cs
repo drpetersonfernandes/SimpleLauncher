@@ -930,6 +930,26 @@ public class SettingsManager
                 RetroArchDiscordAllow = rada;
             }
 
+            if (bool.TryParse(settings.Element("RetroArchOverrideSystemDir")?.Value, out var raosd))
+            {
+                RetroArchOverrideSystemDir = raosd;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchOverrideSaveDir")?.Value, out var raovsd))
+            {
+                RetroArchOverrideSaveDir = raovsd;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchOverrideStateDir")?.Value, out var raovstd))
+            {
+                RetroArchOverrideStateDir = raovstd;
+            }
+
+            if (bool.TryParse(settings.Element("RetroArchOverrideScreenshotDir")?.Value, out var raovscd))
+            {
+                RetroArchOverrideScreenshotDir = raovscd;
+            }
+
             // Xenia
             XeniaGpu = settings.Element("XeniaGpu")?.Value ?? XeniaGpu;
             if (bool.TryParse(settings.Element("XeniaVsync")?.Value, out var xv))

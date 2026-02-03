@@ -217,7 +217,7 @@ public class GameLauncher
 
             // --- SUPERMODEL CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Supermodel", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("Supermodel.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Supermodel.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -245,7 +245,7 @@ public class GameLauncher
 
             // --- MEDNAFEN CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -273,7 +273,7 @@ public class GameLauncher
 
             // --- SEGA MODEL 2 CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -298,7 +298,7 @@ public class GameLauncher
 
             // --- ARES CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Ares", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("ares.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("ares.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -325,8 +325,8 @@ public class GameLauncher
             }
 
             // --- DAPHNE CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase))
+            if (_selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) ||
+                                                                      _selectedEmulatorManager.EmulatorLocation.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase)))
             {
                 var shouldRun = false;
                 if (settings.DaphneShowSettingsBeforeLaunch)
@@ -352,7 +352,7 @@ public class GameLauncher
 
             // --- CEMU CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -379,8 +379,8 @@ public class GameLauncher
 
             // --- PCSX2 CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("pcsx2.exe", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("pcsx2-qt.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("pcsx2.exe", StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("pcsx2-qt.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -406,7 +406,7 @@ public class GameLauncher
             // --- YUMIR CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
                 selectedEmulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -431,7 +431,7 @@ public class GameLauncher
 
             // --- AZAHAR CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("azahar.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("azahar.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -458,7 +458,7 @@ public class GameLauncher
 
             // --- DOLPHIN CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -486,7 +486,7 @@ public class GameLauncher
 
             // --- BLASTEM CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Blastem", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -514,7 +514,7 @@ public class GameLauncher
 
             // --- MESEN CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -542,7 +542,7 @@ public class GameLauncher
 
             // --- DUCKSTATION CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("DuckStation", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("duckstation", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -570,7 +570,7 @@ public class GameLauncher
 
             // --- RPCS3 CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("rpcs3.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("rpcs3.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -598,7 +598,7 @@ public class GameLauncher
 
             // --- FLYCAST CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
@@ -626,7 +626,7 @@ public class GameLauncher
 
             // --- STELLA CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Stella", StringComparison.OrdinalIgnoreCase) ||
-                _selectedEmulatorManager.EmulatorLocation.Contains("stella.exe", StringComparison.OrdinalIgnoreCase))
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("stella.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);

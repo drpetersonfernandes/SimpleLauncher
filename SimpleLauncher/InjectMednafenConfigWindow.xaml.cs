@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -102,7 +103,7 @@ public partial class InjectMednafenConfigWindow
         _settings.Save();
     }
 
-    private bool InjectConfig()
+    private async Task<bool> InjectConfigAsync()
     {
         var path = EnsureEmulatorPath();
         if (string.IsNullOrEmpty(path))
@@ -115,37 +116,51 @@ public partial class InjectMednafenConfigWindow
         }
         catch (Exception ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Mednafen configuration injection failed for path: {path}");
+            await _logErrors.LogErrorAsync(ex, $"Mednafen configuration injection failed for path: {path}");
             return false;
         }
     }
 
-    private void BtnRun_Click(object sender, RoutedEventArgs e)
+    private async void BtnRun_Click(object sender, RoutedEventArgs e)
     {
-        SaveSettings();
-        if (InjectConfig())
+        try
         {
-            ShouldRun = true;
-            Close();
+            SaveSettings();
+            if (await InjectConfigAsync())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                MessageBoxLibrary.FailedToInjectMednafenConfiguration();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            MessageBoxLibrary.FailedToInjectMednafenConfiguration();
+            _ = _logErrors.LogErrorAsync(ex, "Error in the BtnRun_Click method.");
         }
     }
 
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
+    private async void BtnSave_Click(object sender, RoutedEventArgs e)
     {
-        SaveSettings();
-        if (InjectConfig())
+        try
         {
-            MessageBoxLibrary.MednafenConfigurationSavedSuccessfully();
-        }
-        else
-        {
-            MessageBoxLibrary.FailedToSaveMednafenConfiguration();
-        }
+            SaveSettings();
+            if (await InjectConfigAsync())
+            {
+                MessageBoxLibrary.MednafenConfigurationSavedSuccessfully();
+            }
+            else
+            {
+                MessageBoxLibrary.FailedToSaveMednafenConfiguration();
+            }
 
-        Close();
+            Close();
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the BtnSave_Click method.");
+        }
     }
 }
