@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -37,8 +36,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex,
-                $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
             return false;
         }
     }
@@ -54,8 +52,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("retroarch", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                    $"RetroArch config not found and no sample available at {configPath}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"RetroArch config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -86,8 +83,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         // Restore from sample if missing
         if (!RestoreConfigFromSample("pcsx2", configPath))
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                $"PCSX2 config not found and no sample available at {configPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"PCSX2 config not found and no sample available at {configPath}");
             return false;
         }
 
@@ -115,19 +111,17 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("duckstation", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                    $"DuckStation config not found and no sample available at {configPath}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"DuckStation config not found and no sample available at {configPath}");
                 return false;
             }
 
             // Encrypt the token using DuckStation's logic
-            var encryptedToken = EncryptDuckStationToken(token, username, isPortable);
+            var encryptedToken = EncryptDuckStationToken.EncryptDuckStationTokenMethod(token, username, isPortable);
 
             // Validate encryption succeeded
             if (string.IsNullOrEmpty(encryptedToken))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                    "Failed to encrypt DuckStation token - cannot configure emulator");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Failed to encrypt DuckStation token - cannot configure emulator");
                 return false;
             }
 
@@ -170,8 +164,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("ppsspp", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                    $"PPSSPP config not found and no sample available at {configPath}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"PPSSPP config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -272,8 +265,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
                 // Try restoring to appdata if portable failed
                 if (!RestoreConfigFromSample("flycast", configPath))
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                        "Flycast config not found and no sample available");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Flycast config not found and no sample available");
                     return false;
                 }
             }
@@ -303,8 +295,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("bizhawk", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null,
-                    $"BizHawk config not found and no sample available at {configPath}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"BizHawk config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -455,85 +446,6 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to update INI file: {filePath}");
             return false;
-        }
-    }
-
-    // --- DuckStation Encryption Helpers ---
-
-    private static string EncryptDuckStationToken(string token, string username, bool isPortable)
-    {
-        if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(username)) return string.Empty;
-
-        try
-        {
-            var key = GetDuckStationEncryptionKey(username, isPortable);
-
-            using var aes = Aes.Create();
-            aes.KeySize = 128;
-            aes.BlockSize = 128;
-            aes.Mode = CipherMode.CBC;
-            aes.Padding = PaddingMode.Zeros; // DuckStation uses zero padding (aligns to block size with 0s)
-
-            // Key is first 16 bytes, IV is last 16 bytes of the 32-byte derived key
-            var aesKey = new byte[16];
-            var aesIv = new byte[16];
-            Array.Copy(key, 0, aesKey, 0, 16);
-            Array.Copy(key, 16, aesIv, 0, 16);
-
-            aes.Key = aesKey;
-            aes.IV = aesIv;
-
-            var tokenBytes = Encoding.UTF8.GetBytes(token);
-
-            using var encryptor = aes.CreateEncryptor();
-            var encryptedBytes = encryptor.TransformFinalBlock(tokenBytes, 0, tokenBytes.Length);
-
-            return Convert.ToBase64String(encryptedBytes);
-        }
-        catch (Exception ex)
-        {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to encrypt DuckStation token.");
-            return string.Empty;
-        }
-    }
-
-    private static byte[] GetDuckStationEncryptionKey(string username, bool isPortable)
-    {
-        var inputBytes = new List<byte>();
-
-        // Only use machine key if not portable and on Windows
-        if (!isPortable && System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
-        {
-            var machineGuid = GetWindowsMachineGuid();
-            if (!string.IsNullOrEmpty(machineGuid))
-            {
-                inputBytes.AddRange(Encoding.UTF8.GetBytes(machineGuid));
-            }
-        }
-
-        inputBytes.AddRange(Encoding.UTF8.GetBytes(username));
-
-        var key = SHA256.HashData(inputBytes.ToArray());
-
-        // Extra rounds (100)
-        for (var i = 0; i < 100; i++)
-        {
-            key = SHA256.HashData(key);
-        }
-
-        return key;
-    }
-
-    private static string GetWindowsMachineGuid()
-    {
-        try
-        {
-            using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Cryptography");
-            return key?.GetValue("MachineGuid") as string;
-        }
-        catch
-        {
-            return null;
         }
     }
 }
