@@ -38,6 +38,7 @@ public static class YumirConfigurationService
         // [Video]
         var video = GetOrCreateTable(model, "Video");
         video["FullScreen"] = settings.YumirFullscreen;
+        video["ForceAspectRatio"] = settings.YumirForceAspectRatio;
         video["ForcedAspect"] = settings.YumirForcedAspect;
         video["ForceAspectRatio"] = settings.YumirForceAspectRatio;
         video["ReduceLatency"] = settings.YumirReduceLatency;

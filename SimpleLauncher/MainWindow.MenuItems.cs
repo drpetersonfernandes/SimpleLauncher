@@ -863,27 +863,27 @@ public partial class MainWindow
         ResetUiAsync();
     }
 
-    private void NavToggleLightDarkMode_Click(object sender, RoutedEventArgs e)
-    {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingBaseTheme") ?? "Changing Base Theme...", this);
-        _playSoundEffects.PlayNotificationSound();
-
-        var baseTheme = _settings.BaseTheme;
-        var currentAccent = _settings.AccentColor;
-
-        if (baseTheme == "Light")
-        {
-            baseTheme = "Dark";
-        }
-        else
-        {
-            baseTheme = "Light";
-        }
-
-        App.ChangeTheme(baseTheme, currentAccent);
-        UncheckBaseThemes();
-        SetCheckedTheme(baseTheme, currentAccent);
-    }
+    // private void NavToggleLightDarkMode_Click(object sender, RoutedEventArgs e)
+    // {
+    //     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingBaseTheme") ?? "Changing Base Theme...", this);
+    //     _playSoundEffects.PlayNotificationSound();
+    //
+    //     var baseTheme = _settings.BaseTheme;
+    //     var currentAccent = _settings.AccentColor;
+    //
+    //     if (baseTheme == "Light")
+    //     {
+    //         baseTheme = "Dark";
+    //     }
+    //     else
+    //     {
+    //         baseTheme = "Light";
+    //     }
+    //
+    //     App.ChangeTheme(baseTheme, currentAccent);
+    //     UncheckBaseThemes();
+    //     SetCheckedTheme(baseTheme, currentAccent);
+    // }
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher;
@@ -106,7 +107,13 @@ public partial class InjectYumirConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        InjectConfig();
+        if (!InjectConfig())
+        {
+            MessageBoxLibrary.FailedToInjectYumirConfiguration();
+            return;
+        }
+
+        MessageBoxLibrary.YumirConfigurationSavedSuccessfully();
         Close();
     }
 }

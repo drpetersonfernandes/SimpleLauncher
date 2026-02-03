@@ -4249,4 +4249,30 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    public static void FailedToInjectYumirConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveYumirConfiguration") ?? "Failed to save Yumir configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void YumirConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("YumirConfigurationSavedSuccessfully") ?? "Yumir configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
 }
