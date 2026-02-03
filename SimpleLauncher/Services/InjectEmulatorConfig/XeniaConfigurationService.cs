@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;
@@ -43,8 +44,17 @@ public static class XeniaConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", fileName);
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[XeniaConfig] Created new {fileName} from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[XeniaConfig] Trying to create new {fileName} from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[XeniaConfig] Failed to create {fileName} from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[XeniaConfig] Failed to create {fileName} from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -102,9 +112,18 @@ public static class XeniaConfigurationService
 
         // Write back
         var updatedToml = Toml.FromModel(model);
-        File.WriteAllText(configPath, updatedToml);
-        DebugLogger.Log($"[XeniaConfig] Successfully updated {Path.GetFileName(configPath)}");
-        return true;
+        try
+        {
+            File.WriteAllText(configPath, updatedToml);
+            DebugLogger.Log("[XeniaConfig] Trying to inject configuration changes.");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[XeniaConfig] Failed to inject configuration changes: {ex.Message}");
+            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[XeniaConfig] Failed to inject configuration changes: {ex.Message}");
+            throw;
+        }
 
         // Helper to get or create a table (section)
         TomlTable GetOrCreateTable(string key)

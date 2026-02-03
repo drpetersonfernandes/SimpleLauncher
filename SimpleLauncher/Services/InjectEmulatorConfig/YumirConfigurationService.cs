@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;
@@ -21,8 +22,17 @@ public static class YumirConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Yumir", "Ymir.toml");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[YumirConfig] Created new Ymir.toml from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[YumirConfig] Trying to create new Ymir.toml from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -57,8 +67,17 @@ public static class YumirConfigurationService
         general["PauseWhenUnfocused"] = settings.YumirPauseWhenUnfocused;
 
         var updatedToml = Toml.FromModel(model);
-        File.WriteAllText(configPath, updatedToml);
-        DebugLogger.Log("[YumirConfig] Injection successful.");
+        try
+        {
+            File.WriteAllText(configPath, updatedToml);
+            DebugLogger.Log("[YumirConfig] Trying to inject configuration changes.");
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
+            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
+            throw;
+        }
     }
 
     private static TomlTable GetOrCreateTable(TomlTable model, string key)

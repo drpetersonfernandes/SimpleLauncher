@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -23,8 +24,17 @@ public static class DuckStationConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "DuckStation", "settings.ini");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[DuckStationConfig] Created new settings.ini from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[DuckStationConfig] Trying to created new settings.ini from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -141,8 +151,17 @@ public static class DuckStationConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[DuckStationConfig] Injection successful.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[DuckStationConfig] Trying to inject configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
         }
         else
         {

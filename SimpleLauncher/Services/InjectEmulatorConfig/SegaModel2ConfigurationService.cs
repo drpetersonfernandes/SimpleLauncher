@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -23,8 +24,17 @@ public static class SegaModel2ConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "SEGA Model 2", "EMULATOR.INI");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[SegaModel2Config] Created new EMULATOR.INI from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[SegaModel2Config] Trying to create new EMULATOR.INI from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -160,8 +170,17 @@ public static class SegaModel2ConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[SegaModel2Config] Injection successful.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[SegaModel2Config] Trying to inject configuration changes.");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
         }
         else
         {

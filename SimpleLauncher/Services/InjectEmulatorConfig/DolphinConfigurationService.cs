@@ -64,13 +64,12 @@ public static class DolphinConfigurationService
                 {
                     if (configDir != null) Directory.CreateDirectory(configDir);
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[DolphinConfig] Created new Dolphin.ini from sample: {configPath}");
+                    DebugLogger.Log($"[DolphinConfig] Trying to creat new Dolphin.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
                     var contextMessage = $"Failed to create Dolphin.ini from sample at {samplePath}";
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
                     throw;
                 }
             }
@@ -151,8 +150,17 @@ public static class DolphinConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[DolphinConfig] Injection successful.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[DolphinConfig] Trying to inject configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
         }
         else
         {

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -23,8 +24,17 @@ public static class AresConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Ares", "settings.bml");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[AresConfig] Created new settings.bml from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[AresConfig] Trying to create new settings.bml from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -106,8 +116,17 @@ public static class AresConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[AresConfig] Injection successful.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[AresConfig] Trying to inject configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[AresConfig] Failed to inject configuration changes: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AresConfig] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
         }
         else
         {

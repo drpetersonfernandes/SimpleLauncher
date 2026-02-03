@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -28,9 +29,18 @@ public static class Pcsx2ConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "PCSX2", "PCSX2.ini");
             if (File.Exists(samplePath))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for PCSX2.ini"));
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for PCSX2.ini"));
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[PCSX2Config] Trying to created new PCSX2.ini from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -136,8 +146,17 @@ public static class Pcsx2ConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[PCSX2Config] Injection successful.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[PCSX2Config] Trying to inject configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
         }
     }
 

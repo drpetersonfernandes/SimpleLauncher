@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -22,8 +23,17 @@ public static class MesenConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Mesen", "settings.json");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[MesenConfig] Created new settings.json from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[MesenConfig] Trying to creat new settings.json from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -83,6 +93,7 @@ public static class MesenConfigurationService
         catch (Exception ex)
         {
             DebugLogger.Log($"[MesenConfig] Error injecting settings: {ex.Message}");
+            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MesenConfig] Error injecting settings: {ex.Message}");
             throw; // Re-throw to be caught by the caller
         }
     }

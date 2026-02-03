@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -26,8 +27,17 @@ public static partial class BlastemConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Blastem", "default.cfg");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[BlastemConfig] Created new default.cfg from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[BlastemConfig] Trying to create new default.cfg from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -120,8 +130,17 @@ public static partial class BlastemConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[BlastemConfig] Injection successful.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[BlastemConfig] Trying to inject configuration changes..");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
+                throw;
+            }
         }
         else
         {

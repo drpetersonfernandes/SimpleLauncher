@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -21,8 +22,17 @@ public static class CemuConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Cemu", "settings.xml");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[CemuConfig] Created new settings.xml from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[CemuConfig] Trying to creat new settings.xml from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {

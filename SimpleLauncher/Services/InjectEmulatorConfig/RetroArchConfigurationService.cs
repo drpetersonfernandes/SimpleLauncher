@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -23,8 +24,17 @@ public static class RetroArchConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Retroarch", "retroarch.cfg");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[RetroArchConfig] Created new retroarch.cfg from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[RetroArchConfig] Trying to created new retroarch.cfg from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -101,14 +111,23 @@ public static class RetroArchConfigurationService
             }
         }
 
-        File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-        DebugLogger.Log("[RetroArchConfig] Injection successful.");
+        try
+        {
+            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+            DebugLogger.Log("[RetroArchConfig] Trying to inject configuration changes..");
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[RetroArchConfig] Failed to inject configuration changes: {ex.Message}");
+            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[RetroArchConfig] Failed to inject configuration changes: {ex.Message}");
+            throw;
+        }
+
         return;
 
         // Helper methods to properly format values for RetroArch config
         // RetroArch requires string values to be wrapped in double quotes
         // These methods prevent double-quoting by stripping existing quotes first
-
         static string FormatString(string val)
         {
             if (string.IsNullOrEmpty(val))

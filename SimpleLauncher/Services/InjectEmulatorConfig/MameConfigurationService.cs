@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -29,8 +30,17 @@ public static partial class MameConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "MAME", "mame.ini");
             if (File.Exists(samplePath))
             {
-                File.Copy(samplePath, configPath);
-                DebugLogger.Log($"[MameConfig] Created new mame.ini from sample: {configPath}");
+                try
+                {
+                    File.Copy(samplePath, configPath);
+                    DebugLogger.Log($"[MameConfig] Trying to created new mame.ini from sample: {configPath}");
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
+                    throw;
+                }
             }
             else
             {
@@ -153,9 +163,9 @@ public static partial class MameConfigurationService
             {
                 File.WriteAllLines(tempPath, lines, new UTF8Encoding(false));
                 File.Move(tempPath, configPath, true);
-                DebugLogger.Log("[MameConfig] Injection successful.");
+                DebugLogger.Log("[MameConfig] Trying to inject configuration changes.");
             }
-            catch
+            catch (Exception ex)
             {
                 // Clean up temp file if it exists
                 if (File.Exists(tempPath))
@@ -170,6 +180,8 @@ public static partial class MameConfigurationService
                     }
                 }
 
+                DebugLogger.Log("[MameConfig] Failed to inject configuration changes.");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, "[MameConfig] Failed to inject configuration changes.");
                 throw;
             }
         }

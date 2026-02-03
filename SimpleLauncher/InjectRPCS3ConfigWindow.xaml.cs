@@ -85,8 +85,8 @@ public partial class InjectRpcs3ConfigWindow
         _settings.Rpcs3Resolution = CmbResolution.Text;
         _settings.Rpcs3AspectRatio = CmbAspectRatio.Text;
         _settings.Rpcs3Vsync = ChkVsync.IsChecked ?? false;
-        _settings.Rpcs3ResolutionScale = int.Parse(CmbResolutionScale.Text);
-        _settings.Rpcs3AnisotropicFilter = int.Parse(CmbAnisotropicFilter.Text);
+        _settings.Rpcs3ResolutionScale = int.Parse(CmbResolutionScale.Text, CultureInfo.InvariantCulture);
+        _settings.Rpcs3AnisotropicFilter = int.Parse(CmbAnisotropicFilter.Text, CultureInfo.InvariantCulture);
 
         // Core
         _settings.Rpcs3PpuDecoder = CmbPpuDecoder.Text;
