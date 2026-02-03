@@ -37,6 +37,23 @@ public partial class InjectCemuConfigWindow
         SelectComboByTag(CmbVsync, _settings.CemuVsync.ToString(CultureInfo.InvariantCulture));
         ChkAsyncCompile.IsChecked = _settings.CemuAsyncCompile;
         SldVolume.Value = _settings.CemuTvVolume;
+
+        // Ensure ComboBoxes have a valid selection
+        if (CmbApi.SelectedItem == null && CmbApi.Items.Count > 0)
+        {
+            CmbApi.SelectedIndex = 1; // Default to Vulkan (index 1, Tag="1")
+        }
+
+        if (CmbVsync.SelectedItem == null && CmbVsync.Items.Count > 0)
+        {
+            CmbVsync.SelectedIndex = 1; // Default to On (index 1, Tag="1")
+        }
+
+        if (CmbLanguage.SelectedItem == null && CmbLanguage.Items.Count > 0)
+        {
+            CmbLanguage.SelectedIndex = 1; // Default to English (index 1, Tag="1")
+        }
+
         ChkDiscord.IsChecked = _settings.CemuDiscordPresence;
         SelectComboByTag(CmbLanguage, _settings.CemuConsoleLanguage.ToString(CultureInfo.InvariantCulture));
         ChkShowBeforeLaunch.IsChecked = _settings.CemuShowSettingsBeforeLaunch;
@@ -65,7 +82,7 @@ public partial class InjectCemuConfigWindow
         _settings.CemuFullscreen = ChkFullscreen.IsChecked ?? false;
         _settings.CemuGraphicApi = int.Parse(GetSelectedTag(CmbApi), CultureInfo.InvariantCulture);
         _settings.CemuVsync = int.Parse(GetSelectedTag(CmbVsync), CultureInfo.InvariantCulture);
-        _settings.CemuAsyncCompile = ChkAsyncCompile.IsChecked ?? true;
+        _settings.CemuAsyncCompile = ChkAsyncCompile.IsChecked ?? false; // Match XAML default (unchecked)
         _settings.CemuTvVolume = (int)SldVolume.Value;
         _settings.CemuDiscordPresence = ChkDiscord.IsChecked ?? true;
         _settings.CemuConsoleLanguage = int.Parse(GetSelectedTag(CmbLanguage), CultureInfo.InvariantCulture);
@@ -103,12 +120,14 @@ public partial class InjectCemuConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        var injected = InjectConfig();
+        if (injected)
         {
             MessageBoxLibrary.CemuConfigurationSaved();
+            ShouldRun = false; // Explicitly set for clarity
+            Close();
         }
-
-        Close();
+        // If injection failed, don't close - let user see error or retry
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tag)
@@ -123,6 +142,10 @@ public partial class InjectCemuConfigWindow
 
     private static string GetSelectedTag(ComboBox cmb)
     {
-        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "0";
+        var tag = (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString();
+        if (string.IsNullOrEmpty(tag))
+            throw new InvalidOperationException($"No valid selection in ComboBox '{cmb.Name}'. Please select a value.");
+
+        return tag;
     }
 }

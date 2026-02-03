@@ -54,7 +54,16 @@ public static class CemuConfigurationService
             var audio = GetOrCreateElement(content, "Audio");
             SetOrUpdateElement(audio, "TVVolume", settings.CemuTvVolume.ToString(CultureInfo.InvariantCulture));
 
-            doc.Save(configPath);
+            // Preserve original formatting by using XmlWriter
+            var writerSettings = new System.Xml.XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "    ",
+                Encoding = System.Text.Encoding.UTF8
+            };
+            using var writer = System.Xml.XmlWriter.Create(configPath, writerSettings);
+            doc.Save(writer);
+
             DebugLogger.Log("[CemuConfig] Injection successful.");
         }
         catch (Exception ex)
