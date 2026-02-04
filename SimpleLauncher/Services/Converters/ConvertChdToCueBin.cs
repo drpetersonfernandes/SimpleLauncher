@@ -10,6 +10,8 @@ namespace SimpleLauncher.Services.Converters;
 
 public static class ConvertChdToCueBin
 {
+    private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+
     /// <summary>
     /// Converts a CHD file to a temporary Cue/Bin using chdman.exe.
     /// </summary>
@@ -30,7 +32,7 @@ public static class ConvertChdToCueBin
             var chdmanDir = Path.GetDirectoryName(chdmanPath);
 
             // Create a unique temp path for the .cue file
-            var tempCuePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.cue");
+            var tempCuePath = Path.Combine(TempFolder, $"{Guid.NewGuid()}.cue");
 
             // chdman extractcd -i "input.chd" -o "output.cue"
             // This will also create the .bin file automatically in the same temp folder.

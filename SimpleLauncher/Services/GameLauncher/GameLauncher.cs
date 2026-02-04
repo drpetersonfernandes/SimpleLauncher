@@ -128,174 +128,6 @@ public class GameLauncher
 
             _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
-            // --- XENIA CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
-                selectedEmulatorName.Contains("Xenia Canary", StringComparison.OrdinalIgnoreCase) ||
-                selectedEmulatorName.Contains("XeniaCanary", StringComparison.OrdinalIgnoreCase) ||
-                filePath.Contains("xenia.exe", StringComparison.OrdinalIgnoreCase) ||
-                filePath.Contains("xenia_canary.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                var shouldRun = false;
-                if (settings.XeniaShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var xeniaWindow = new InjectXeniaConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        xeniaWindow.ShowDialog();
-                        shouldRun = xeniaWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject the settings into the Xenia config file since window was skipped
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        XeniaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
-                }
-
-                if (!shouldRun) return; // User cancelled the launch
-            }
-
-            // --- MAME CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
-                filePath.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
-                filePath.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase) ||
-                selectedSystemName.Contains("MAME", StringComparison.OrdinalIgnoreCase))
-            {
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
-                var shouldRun = false;
-                if (settings.MameShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var mameWindow = new InjectMameConfigWindow(settings, resolvedEmulatorExePath, resolvedSystemFolderPath) { Owner = mainWindow };
-                        mameWindow.ShowDialog();
-                        shouldRun = mameWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject settings into mame.ini since window was skipped
-                    MameConfigurationService.InjectSettings(resolvedEmulatorExePath, settings, resolvedSystemFolderPath);
-                }
-
-                if (!shouldRun) return; // User cancelled
-            }
-
-            // --- RETROARCH CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
-                filePath.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.RetroArchShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var raWindow = new InjectRetroArchConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        raWindow.ShowDialog();
-                        shouldRun = raWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject settings into retroarch.cfg since window was skipped
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
-                }
-
-                if (!shouldRun) return; // User cancelled
-            }
-
-            // --- SUPERMODEL CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Supermodel", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("Supermodel.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.SupermodelShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var supermodelWindow = new InjectSupermodelConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        supermodelWindow.ShowDialog();
-                        shouldRun = supermodelWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject settings into Supermodel.ini since window was skipped
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        SupermodelConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
-                }
-
-                if (!shouldRun) return; // User cancelled
-            }
-
-            // --- MEDNAFEN CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.MednafenShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var mednafenWindow = new InjectMednafenConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        mednafenWindow.ShowDialog();
-                        shouldRun = mednafenWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject settings into mednafen.cfg since window was skipped
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        MednafenConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
-                }
-
-                if (!shouldRun) return; // User cancelled
-            }
-
-            // --- SEGA MODEL 2 CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.SegaModel2ShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var segaModel2Window = new InjectSegaModel2ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        segaModel2Window.ShowDialog();
-                        shouldRun = segaModel2Window.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject settings into EMULATOR.INI since window was skipped
-                    SegaModel2ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                }
-
-                if (!shouldRun) return; // User cancelled
-            }
-
             // --- ARES CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Ares", StringComparison.OrdinalIgnoreCase) ||
                 (_selectedEmulatorManager.EmulatorLocation?.Contains("ares.exe", StringComparison.OrdinalIgnoreCase) ?? false))
@@ -324,111 +156,6 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
-            // --- DAPHNE CONFIGURATION INTERCEPTION ---
-            if (_selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) ||
-                                                                      _selectedEmulatorManager.EmulatorLocation.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase)))
-            {
-                var shouldRun = false;
-                if (settings.DaphneShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var daphneWindow = new InjectDaphneConfigWindow(settings) { Owner = mainWindow };
-                        daphneWindow.ShowDialog();
-                        shouldRun = daphneWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // No file injection needed; arguments are built dynamically below.
-                }
-
-                if (!shouldRun) return; // User cancelled
-
-                var daphneArgs = DaphneConfigurationService.BuildArguments(settings);
-                _selectedEmulatorParameters = $"{_selectedEmulatorParameters} {daphneArgs}".Trim();
-            }
-
-            // --- CEMU CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.CemuShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var cemuWindow = new InjectCemuConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        cemuWindow.ShowDialog();
-                        shouldRun = cemuWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        CemuConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
-                }
-
-                if (!shouldRun) return;
-            }
-
-            // --- PCSX2 CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("pcsx2.exe", StringComparison.OrdinalIgnoreCase) ?? false) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("pcsx2-qt.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.Pcsx2ShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var pcsx2Window = new InjectPcsx2ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        pcsx2Window.ShowDialog();
-                        shouldRun = pcsx2Window.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                        Pcsx2ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                }
-
-                if (!shouldRun) return;
-            }
-
-            // --- YUMIR CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
-                selectedEmulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.YumirShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var yumirWindow = new InjectYumirConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        yumirWindow.ShowDialog();
-                        shouldRun = yumirWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                        YumirConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                }
-
-                if (!shouldRun) return;
-            }
-
             // --- AZAHAR CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) ||
                 (_selectedEmulatorManager.EmulatorLocation?.Contains("azahar.exe", StringComparison.OrdinalIgnoreCase) ?? false))
@@ -454,34 +181,6 @@ public class GameLauncher
                 }
 
                 if (!shouldRun) return;
-            }
-
-            // --- DOLPHIN CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase) ?? false))
-            {
-                var shouldRun = false;
-                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.DolphinShowSettingsBeforeLaunch)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        var dolphinWindow = new InjectDolphinConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        dolphinWindow.ShowDialog();
-                        shouldRun = dolphinWindow.ShouldRun;
-                    });
-                }
-                else
-                {
-                    shouldRun = true;
-                    // Inject settings into Dolphin.ini since window was skipped
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        DolphinConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
-                }
-
-                if (!shouldRun) return; // User cancelled
             }
 
             // --- BLASTEM CONFIGURATION INTERCEPTION ---
@@ -512,28 +211,81 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
-            // --- MESEN CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            // --- CEMU CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.MesenShowSettingsBeforeLaunch)
+                if (settings.CemuShowSettingsBeforeLaunch)
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var mesenWindow = new InjectMesenConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        mesenWindow.ShowDialog();
-                        shouldRun = mesenWindow.ShouldRun;
+                        var cemuWindow = new InjectCemuConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        cemuWindow.ShowDialog();
+                        shouldRun = cemuWindow.ShouldRun;
                     });
                 }
                 else
                 {
                     shouldRun = true;
-                    // Inject settings into settings.json since window was skipped
                     if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
                     {
-                        MesenConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                        CemuConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return;
+            }
+
+            // --- DAPHNE CONFIGURATION INTERCEPTION ---
+            if (_selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) ||
+                                                                      _selectedEmulatorManager.EmulatorLocation.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase)))
+            {
+                var shouldRun = false;
+                if (settings.DaphneShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var daphneWindow = new InjectDaphneConfigWindow(settings) { Owner = mainWindow };
+                        daphneWindow.ShowDialog();
+                        shouldRun = daphneWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // No file injection needed; arguments are built dynamically below.
+                }
+
+                if (!shouldRun) return; // User cancelled
+
+                var daphneArgs = DaphneConfigurationService.BuildArguments(settings);
+                _selectedEmulatorParameters = $"{_selectedEmulatorParameters} {daphneArgs}".Trim();
+            }
+
+            // --- DOLPHIN CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.DolphinShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var dolphinWindow = new InjectDolphinConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        dolphinWindow.ShowDialog();
+                        shouldRun = dolphinWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into Dolphin.ini since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        DolphinConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
                     }
                 }
 
@@ -568,6 +320,172 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- FLYCAST CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.FlycastShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var flycastWindow = new InjectFlycastConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        flycastWindow.ShowDialog();
+                        shouldRun = flycastWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into emu.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        FlycastConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
+            // --- MAME CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase) ||
+                selectedSystemName.Contains("MAME", StringComparison.OrdinalIgnoreCase))
+            {
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
+                var shouldRun = false;
+                if (settings.MameShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var mameWindow = new InjectMameConfigWindow(settings, resolvedEmulatorExePath, resolvedSystemFolderPath) { Owner = mainWindow };
+                        mameWindow.ShowDialog();
+                        shouldRun = mameWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into mame.ini since window was skipped
+                    MameConfigurationService.InjectSettings(resolvedEmulatorExePath, settings, resolvedSystemFolderPath);
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
+            // --- MEDNAFEN CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.MednafenShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var mednafenWindow = new InjectMednafenConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        mednafenWindow.ShowDialog();
+                        shouldRun = mednafenWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into mednafen.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        MednafenConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
+            // --- MESEN CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.MesenShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var mesenWindow = new InjectMesenConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        mesenWindow.ShowDialog();
+                        shouldRun = mesenWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into settings.json since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        MesenConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
+            // --- PCSX2 CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("pcsx2.exe", StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("pcsx2-qt.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.Pcsx2ShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var pcsx2Window = new InjectPcsx2ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        pcsx2Window.ShowDialog();
+                        shouldRun = pcsx2Window.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                        Pcsx2ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+
+                if (!shouldRun) return;
+            }
+
+            // --- RETROARCH CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.RetroArchShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var raWindow = new InjectRetroArchConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        raWindow.ShowDialog();
+                        shouldRun = raWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into retroarch.cfg since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        RetroArchConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
             // --- RPCS3 CONFIGURATION INTERCEPTION ---
             if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
                 (_selectedEmulatorManager.EmulatorLocation?.Contains("rpcs3.exe", StringComparison.OrdinalIgnoreCase) ?? false))
@@ -596,29 +514,26 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
-            // --- FLYCAST CONFIGURATION INTERCEPTION ---
-            if (selectedEmulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
-                (_selectedEmulatorManager.EmulatorLocation?.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            // --- SEGA MODEL 2 CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase) ?? false))
             {
                 var shouldRun = false;
                 var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
-                if (settings.FlycastShowSettingsBeforeLaunch)
+                if (settings.SegaModel2ShowSettingsBeforeLaunch)
                 {
                     await Application.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        var flycastWindow = new InjectFlycastConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
-                        flycastWindow.ShowDialog();
-                        shouldRun = flycastWindow.ShouldRun;
+                        var segaModel2Window = new InjectSegaModel2ConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        segaModel2Window.ShowDialog();
+                        shouldRun = segaModel2Window.ShouldRun;
                     });
                 }
                 else
                 {
                     shouldRun = true;
-                    // Inject settings into emu.cfg since window was skipped
-                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                    {
-                        FlycastConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
-                    }
+                    // Inject settings into EMULATOR.INI since window was skipped
+                    SegaModel2ConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
                 }
 
                 if (!shouldRun) return; // User cancelled
@@ -652,6 +567,91 @@ public class GameLauncher
                 if (!shouldRun) return; // User cancelled
             }
 
+            // --- SUPERMODEL CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Supermodel", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("Supermodel.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.SupermodelShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var supermodelWindow = new InjectSupermodelConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        supermodelWindow.ShowDialog();
+                        shouldRun = supermodelWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject settings into Supermodel.ini since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        SupermodelConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled
+            }
+
+            // --- XENIA CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
+                selectedEmulatorName.Contains("Xenia Canary", StringComparison.OrdinalIgnoreCase) ||
+                selectedEmulatorName.Contains("XeniaCanary", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("xenia.exe", StringComparison.OrdinalIgnoreCase) ||
+                filePath.Contains("xenia_canary.exe", StringComparison.OrdinalIgnoreCase))
+            {
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                var shouldRun = false;
+                if (settings.XeniaShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var xeniaWindow = new InjectXeniaConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        xeniaWindow.ShowDialog();
+                        shouldRun = xeniaWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    // Inject the settings into the Xenia config file since window was skipped
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                    {
+                        XeniaConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                    }
+                }
+
+                if (!shouldRun) return; // User cancelled the launch
+            }
+
+            // --- YUMIR CONFIGURATION INTERCEPTION ---
+            if (selectedEmulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
+                selectedEmulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
+                (_selectedEmulatorManager.EmulatorLocation?.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase) ?? false))
+            {
+                var shouldRun = false;
+                var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(_selectedEmulatorManager.EmulatorLocation);
+                if (settings.YumirShowSettingsBeforeLaunch)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        var yumirWindow = new InjectYumirConfigWindow(settings, resolvedEmulatorExePath) { Owner = mainWindow };
+                        yumirWindow.ShowDialog();
+                        shouldRun = yumirWindow.ShouldRun;
+                    });
+                }
+                else
+                {
+                    shouldRun = true;
+                    if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
+                        YumirConfigurationService.InjectSettings(resolvedEmulatorExePath, settings);
+                }
+
+                if (!shouldRun) return;
+            }
+
             var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {
@@ -680,7 +680,26 @@ public class GameLauncher
                     }
                 }
 
-                // Specific handling for Cxbx-Reloaded
+                // --- 4DO INTERCEPTION ---
+                // 4DO + CHD --->>> Convert CHD to CUE/BIN --->>> Launch CUE file
+                else if ((selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+                          filePath.Contains("4do.exe", StringComparison.OrdinalIgnoreCase))
+                         && Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase))
+                {
+                    DebugLogger.Log("4DO with CHD call detected. Attempting to convert CHD to CUE/BIN, then launch CUE/BIN");
+                    DebugLogger.Log($"CHD path: {resolvedFilePath}");
+                    var cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
+                    DebugLogger.Log($"CHD conversion completed. CUE/BIN path: {cuePath}");
+                    if (cuePath != null)
+                    {
+                        DebugLogger.Log($"Launching CUE/BIN: {cuePath}");
+                        await LaunchRegularEmulatorAsync(cuePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
+                        DebugLogger.Log("4DO with CHD call completed successfully");
+                    }
+                }
+
+                // --- Cxbx-Reloaded INTERCEPTION ---
+                // Cxbx + iso --->>> Mount ISO --->>> Load default.xbe
                 if (selectedEmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                     Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
                 {
@@ -700,7 +719,16 @@ public class GameLauncher
                     }
                 }
 
-                // Specific handling for ScummVM games with ZIP files
+                // --- RPCS3 INTERCEPTION ---
+                // RPCS3 + ZIP --->>> Mount ZIP --->>> Find EBOOT.BIN --->>> Launch RPCS3
+                else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
+                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, _logPath, this);
+                }
+
+                // --- ScummVM INTERCEPTION ---
+                // ScummVM + zip --->>> Mount ZIP --->>> Launch ScummVM
                 else if ((selectedSystemName.Contains("ScummVM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm-VM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
@@ -708,14 +736,8 @@ public class GameLauncher
                     await MountZipFiles.MountZipFileAndLoadWithScummVmAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, _logPath);
                 }
 
-                // Specific handling for RPCS3 with ZIP files
-                else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
-                {
-                    DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, _logPath, this);
-                }
-
-                // Specific handling for XBLA games with ZIP files
+                // --- Xenia INTERCEPTION ---
+                // Xenia + XBLA + ZIP --->>> Mount ZIP --->>> Find game file --->>> Launch Xenia
                 else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
