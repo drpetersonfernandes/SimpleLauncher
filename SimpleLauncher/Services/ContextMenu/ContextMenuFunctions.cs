@@ -340,7 +340,7 @@ internal static class ContextMenuFunctions
             UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch);
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, null);
 
             UpdateStatusBar.UpdateStatusBar.UpdateContent("Calculating the hash of the selected game", mainWindow);
 

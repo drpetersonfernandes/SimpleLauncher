@@ -10,12 +10,13 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 
-public partial class SupportWindow
+public partial class SupportWindow : ILoadingState
 {
     private static IHttpClientFactory _httpClientFactory;
     private static string ApiKey { get; set; }
@@ -32,6 +33,22 @@ public partial class SupportWindow
         DataContext = this;
         GameLauncher = gameLauncher;
         LoadConfiguration();
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+            // Ensure the main content area is disabled to prevent Tab-key navigation
+            MainContentGrid?.IsEnabled = !isLoading;
+
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
     }
 
     // Constructor overload to receive exception and context message

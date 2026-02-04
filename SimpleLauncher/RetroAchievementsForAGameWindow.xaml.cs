@@ -262,11 +262,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
-        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-        if (isLoading)
+        Dispatcher.Invoke(() =>
         {
-            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-        }
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
     }
 
     private static string FormatDateString(string dateString)

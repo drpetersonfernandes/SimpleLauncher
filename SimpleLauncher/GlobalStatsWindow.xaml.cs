@@ -443,6 +443,18 @@ internal partial class GlobalStatsWindow : IDisposable
         }
     }
 
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
+    }
+
     public void Dispose()
     {
         _cancellationTokenSource?.Dispose();

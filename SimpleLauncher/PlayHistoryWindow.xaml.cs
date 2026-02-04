@@ -755,7 +755,7 @@ public partial class PlayHistoryWindow : ILoadingState
         LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
         if (isLoading)
         {
-            LoadingMessage.Text = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         }
     }
 }

@@ -18,13 +18,14 @@ using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
-internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
+internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILoadingState
 {
     private EasyModeManager _manager;
 
@@ -222,6 +223,22 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+            // Ensure the main content area is disabled to prevent Tab-key navigation
+            MainContentGrid?.IsEnabled = !isLoading;
+
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
     }
 
     public EasyModeWindow()

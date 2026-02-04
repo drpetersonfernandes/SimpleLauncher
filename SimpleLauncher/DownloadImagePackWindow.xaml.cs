@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.EasyMode;
@@ -20,7 +21,7 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
-internal partial class DownloadImagePackWindow : IDisposable, System.ComponentModel.INotifyPropertyChanged
+internal partial class DownloadImagePackWindow : IDisposable, System.ComponentModel.INotifyPropertyChanged, ILoadingState
 {
     private EasyModeManager _manager;
     private readonly DownloadManager _downloadManager;
@@ -66,6 +67,22 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
         // Set up event handlers
         Closed += CloseWindowRoutineAsync;
         Loaded += DownloadImagePackWindowLoadedAsync;
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+            // Ensure the main content area is disabled to prevent Tab-key navigation
+            MainContentGrid?.IsEnabled = !isLoading;
+
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
     }
 
     private async void DownloadImagePackWindowLoadedAsync(object sender, RoutedEventArgs e)

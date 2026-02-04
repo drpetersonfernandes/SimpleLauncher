@@ -1140,10 +1140,6 @@
                     </Grid>
                 </Grid>
 
-                <!-- Loading Overlay -->
-                <ContentControl x:Name="LoadingOverlay" 
-                                Template="{StaticResource LoadingOverlayTemplate}" 
-                                Visibility="Collapsed" />
             </Grid>
         </Grid>
 
@@ -1214,5 +1210,13 @@
 
         </Grid>
 
+        <!-- Loading Overlay -->
+        <ContentControl x:Name="LoadingOverlay"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.ColumnSpan="2"
+                        Panel.ZIndex="9999"
+                        Template="{StaticResource LoadingOverlayTemplate}"
+                        Visibility="Collapsed" />
     </Grid>
 </controls:MetroWindow>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.RetroAchievements.Models;
 
 namespace SimpleLauncher.Services.RetroAchievements;
@@ -173,14 +174,18 @@ internal static class RetroAchievementsHasherTool
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="systemName">The RetroAchievements-normalized system name.</param>
     /// <param name="fileFormatsToLaunch">A list of file extensions that can be launched for this system, used for extraction.</param>
+    /// <param name="loadingState"></param>
     /// <returns>A <see cref="RaHashResult"/> containing the calculated hash and the path to any temporary extraction directory, or null if hashing fails or the system is not supported.</returns>
     [SuppressMessage("ReSharper", "RedundantEmptySwitchSection")]
-    public static async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch)
+    public static async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch, ILoadingState loadingState)
     {
         string tempExtractionPath = null;
         string hash = null;
         var isExtractionSuccessful = true; // Assume success initially
         string extractionErrorMessage = null;
+
+        // Report loading state if provided
+        loadingState?.SetLoadingState(true, "Calculating game hash...");
 
         if (!File.Exists(filePath))
         {
@@ -381,7 +386,11 @@ internal static class RetroAchievementsHasherTool
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
             DebugLogger.Log($"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
-            return new RaHashResult(null, tempExtractionPath, false, $"Error during hash calculation: {ex.Message}"); // Return null hash, but keep temp path for cleanup
+            return new RaHashResult(null, tempExtractionPath, false, $"Error during hash calculation: {ex.Message}");
+        }
+        finally
+        {
+            loadingState?.SetLoadingState(false);
         }
 
         return new RaHashResult(hash, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);

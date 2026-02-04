@@ -22,7 +22,7 @@
         </StackPanel>
 
         <!-- 2. Main Content -->
-        <Grid Grid.Row="1" Margin="20,10,20,10"
+        <Grid x:Name="MainContentGrid" Grid.Row="1" Margin="20,10,20,10"
               IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
