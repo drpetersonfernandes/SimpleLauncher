@@ -101,25 +101,28 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            
+
             <!-- Global Loading Overlay Template -->
             <ControlTemplate x:Key="LoadingOverlayTemplate" TargetType="ContentControl">
                 <Grid Background="#7F000000">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <mah:ProgressRing IsActive="True" 
-                                               Width="60" 
-                                               Height="60" 
-                                               Foreground="{DynamicResource MahApps.Brushes.Accent}" />
-                        <TextBlock Text="{TemplateBinding Content}" 
-                                   Foreground="White" 
-                                   Margin="0,10,0,0" 
-                                   FontSize="16" 
-                                   HorizontalAlignment="Center" 
-                                   TextWrapping="Wrap"/>
+                        <mah:ProgressRing IsActive="True"
+                                          Width="60"
+                                          Height="60"
+                                          Foreground="{DynamicResource MahApps.Brushes.Accent}" />
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   Foreground="White"
+                                   Margin="0,10,0,0"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap" />
+                        <!-- Slot for optional additional content (e.g., Cancel button) -->
+                        <ContentPresenter Content="{TemplateBinding Tag}"
+                                          Margin="0,10,0,0" />
                     </StackPanel>
                 </Grid>
             </ControlTemplate>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

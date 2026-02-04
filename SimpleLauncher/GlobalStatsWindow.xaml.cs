@@ -17,10 +17,11 @@ using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
-
+using SimpleLauncher.Services.LoadingInterface;
+  
 namespace SimpleLauncher;
 
-internal partial class GlobalStatsWindow : IDisposable
+internal partial class GlobalStatsWindow : IDisposable, ILoadingState
 {
     private readonly List<SystemManager> _systemManagers;
     private GlobalStatsData _globalStats;
@@ -51,9 +52,12 @@ internal partial class GlobalStatsWindow : IDisposable
             try
             {
                 StartButton.Visibility = Visibility.Collapsed;
-                ProgressBar.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
-                await Task.Yield(); // Allow UI to render the progress bar
+                SetLoadingState(true, (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing please wait...");
+                // Inject CancelButton into the overlay
+                LoadingOverlay.Tag = CancelButton;
+                CancelButton.Visibility = Visibility.Visible;
+                await Task.Yield(); // Allow UI to render
 
                 await ProcessGlobalStatsAsync(_cancellationTokenSource.Token);
             }
@@ -122,7 +126,9 @@ internal partial class GlobalStatsWindow : IDisposable
 
                 GlobalInfoTextBlock.Text = explanation + "\n\n" + statsText;
 
-                ProgressBar.Visibility = Visibility.Collapsed;
+                SetLoadingState(false);
+                LoadingOverlay.Tag = null;
+                CancelButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             });
 
@@ -167,12 +173,12 @@ internal partial class GlobalStatsWindow : IDisposable
 
     private void ResetUiAfterProcessing()
     {
-        ProgressBar.Visibility = Visibility.Collapsed;
+        SetLoadingState(false);
+        LoadingOverlay.Tag = null;
+        CancelButton.Visibility = Visibility.Collapsed;
+
         StartButton.Visibility = Visibility.Visible;
         SaveButton.Visibility = Visibility.Collapsed;
-
-        // Reset the cancel button and progress ring visibility
-        LoadingOverlay.Visibility = Visibility.Collapsed;
 
         SystemStatsDataGrid.ItemsSource = null;
 
@@ -407,8 +413,10 @@ internal partial class GlobalStatsWindow : IDisposable
             {
                 _cancellationTokenSource.Cancel();
 
-                LoadingOverlay.Content = (string)Application.Current.TryFindResource("CancellingPleasewait") ?? "Cancelling...";
-                LoadingOverlay.Visibility = Visibility.Visible;
+                // Update message and hide Cancel button to prevent double-click
+                SetLoadingState(true, (string)Application.Current.TryFindResource("CancellingPleasewait") ?? "Cancelling...");
+                CancelButton.Visibility = Visibility.Collapsed;
+                LoadingOverlay.Tag = null;
             }
         }
         catch (Exception ex)
@@ -436,8 +444,9 @@ internal partial class GlobalStatsWindow : IDisposable
                 {
                     _cancellationTokenSource.Cancel();
 
-                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("CancellingPleasewait") ?? "Cancelling...";
-                    LoadingOverlay.Visibility = Visibility.Visible;
+                    SetLoadingState(true, (string)Application.Current.TryFindResource("CancellingPleasewait") ?? "Cancelling...");
+                    CancelButton.Visibility = Visibility.Collapsed;
+                    LoadingOverlay.Tag = null;
                 }
             }
         }
@@ -451,6 +460,11 @@ internal partial class GlobalStatsWindow : IDisposable
             if (isLoading)
             {
                 LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+            else
+            {
+                // Clear tag when hiding to prevent stale references
+                LoadingOverlay.Tag = null;
             }
         });
     }

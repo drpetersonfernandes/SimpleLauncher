@@ -14,7 +14,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -32,23 +31,7 @@
                     Content="{DynamicResource StartProcess}" />
         </StackPanel>
 
-        <!-- Progress Area -->
-        <Grid Grid.Row="2">
-            <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10" Visibility="Collapsed">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="{DynamicResource Processingpleasewait}" HorizontalAlignment="Center" Margin="20" />
-                    <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
-                    <Button x:Name="CancelButton"
-                            Margin="10"
-                            HorizontalAlignment="Center"
-                            Width="110"
-                            Click="CancelButton_Click"
-                            Content="{DynamicResource Cancel}" />
-                </StackPanel>
-            </Border>
-        </Grid>
-
-        <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       Margin="10">
             <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                       GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray"
@@ -68,7 +51,7 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameColumnHeader}" Binding="{Binding SystemName}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource RomCountColumnHeader}" Binding="{Binding NumberOfFiles}" Width="Auto" />
                     <DataGridTextColumn Header="{DynamicResource MatchedImageCountColumnHeader}" Binding="{Binding NumberOfImages}" Width="Auto" />
                 </DataGrid.Columns>
@@ -76,7 +59,7 @@
         </ScrollViewer>
 
         <StackPanel
-            Grid.Row="4"
+            Grid.Row="3"
             Margin="10,10,10,20"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
@@ -88,10 +71,19 @@
                 Visibility="Collapsed" />
         </StackPanel>
 
+        <!-- Cancel Button (host for overlay, initially hidden) -->
+        <Button Grid.Row="0" x:Name="CancelButton"
+                Margin="10"
+                HorizontalAlignment="Center"
+                Width="110"
+                Click="CancelButton_Click"
+                Content="{DynamicResource Cancel}"
+                Visibility="Collapsed" />
+
         <!-- Loading Overlay -->
         <ContentControl x:Name="LoadingOverlay" 
                         Template="{StaticResource LoadingOverlayTemplate}" 
                         Visibility="Collapsed" 
-                        Grid.Row="0" Grid.RowSpan="5" />
+                        Grid.Row="0" Grid.RowSpan="4" />
     </Grid>
 </controls:MetroWindow>

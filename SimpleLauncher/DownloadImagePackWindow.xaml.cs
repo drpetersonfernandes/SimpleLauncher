@@ -99,14 +99,12 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
 
     private async Task InitializeManagerAsync()
     {
-        LoadingOverlay.Visibility = Visibility.Visible;
-        var loadingConfiguration = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
-        LoadingOverlay.Content = loadingConfiguration;
+        SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...");
         await Task.Yield(); // Allow UI to render the loading overlay
 
         _manager = await EasyModeManager.LoadAsync();
 
-        LoadingOverlay.Visibility = Visibility.Collapsed;
+        SetLoadingState(false);
 
         if (_manager is not { Systems.Count: > 0 })
         {

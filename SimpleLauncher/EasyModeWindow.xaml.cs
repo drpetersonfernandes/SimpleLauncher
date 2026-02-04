@@ -272,13 +272,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
     private async Task InitializeManagerAsync()
     {
-        LoadingOverlay.Visibility = Visibility.Visible;
-        LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
+        SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...");
         await Task.Yield(); // Allow UI to render the loading overlay
 
         _manager = await EasyModeManager.LoadAsync();
 
-        LoadingOverlay.Visibility = Visibility.Collapsed;
+        SetLoadingState(false);
 
         if (_manager is not { Systems.Count: > 0 })
         {
