@@ -451,8 +451,8 @@ This emulator requires a BIOS file to run.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -lynx<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -580,8 +580,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -wswan<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -1579,8 +1579,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -pce<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -1710,8 +1710,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -pcfx<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -1749,8 +1749,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -pce<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2249,8 +2249,8 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -gb<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2318,8 +2318,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -gba<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2530,8 +2530,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -nes<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2686,8 +2686,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -snes<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2878,8 +2878,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -vb<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -3282,8 +3282,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -gg<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -3384,8 +3384,8 @@ This emulator is available for Windows-x64.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -md<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -3638,8 +3638,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -sms<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -3815,8 +3815,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -ss<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -4229,8 +4229,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -ngp<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -4381,8 +4381,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** -psx<br>
-**Fullscreen Parameter:** -video.fs [1]<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
