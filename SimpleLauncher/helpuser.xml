@@ -570,6 +570,37 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
         </SystemHelper>
     </System>
     <System>
+        <SystemName>Atomiswave</SystemName>
+        <SystemHelper>
+            <![CDATA[
+## Atomiswave
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
+**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+
+**System Folder (Example):** C:\Atomiswave<br>
+**Is the system MAME-based?** false<br>
+**Extension to Search in the System Folder:** chd, iso, zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+]]>
+        </SystemHelper>
+    </System>
+    <System>
         <SystemName>Bandai WonderSwan</SystemName>
         <SystemHelper>
             <![CDATA[
@@ -3238,6 +3269,18 @@ Core may require BIOS files or system files to work properly.
 
 .
 
+**Emulator Name:** 4DO<br>
+**Emulator Path (Example):** C:\Emulators\4DO\4DO.exe<br>
+**Emulator Parameters:** --StartFullScreen -StartLoadFile<br>
+**Fullscreen Parameter:** --StartFullScreen<br>
+
+This emulator is available for Windows-x64.<br>
+This emulator require a BIOS file to work.
+This emulator can load CUE/BIN or ISO natively.
+'Simple Launcher' has build in logic to convert CHD files to CUE/BIN, in case user use CHD files.
+
+.
+
 **Emulator Name:** Retroarch opera<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\opera_libretro.dll" -f<br>
@@ -3614,6 +3657,14 @@ The list of command-line arguments available for this emulator can be found on [
 
 .
 
+**Emulator Name:** Blastem<br>
+**Emulator Path (Example):** C:\Emulators\Blastem\blastem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis" megadriv<br>
@@ -3918,6 +3969,68 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
+]]>
+        </SystemHelper>
+    </System>
+    <System>
+        <SystemName>Sega Naomi</SystemName>
+        <SystemHelper>
+            <![CDATA[
+## Sega Naomi
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
+**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+
+**System Folder (Example):** C:\Sega Naomi<br>
+**Is the system MAME-based?** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, iso, zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+]]>
+        </SystemHelper>
+    </System>
+    <System>
+        <SystemName>Sega Naomi 2</SystemName>
+        <SystemHelper>
+            <![CDATA[
+## Sega Naomi 2
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
+**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+
+**System Folder (Example):** C:\Sega Naomi2<br>
+**Is the system MAME-based?** false (may be true if you are using a MAME compatible ROM set)<br>
+**Extension to Search in the System Folder:** chd, iso, zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
 ]]>
         </SystemHelper>
     </System>

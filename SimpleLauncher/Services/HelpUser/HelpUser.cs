@@ -99,6 +99,7 @@ public static partial class HelpUser
             { "Lynx", AtariLynxDetails },
             { "Atari ST", AtariStDetails },
             { "AtariST", AtariStDetails },
+            { "Atomiswave", AtomiswaveDetails },
             { "Bandai WonderSwan", BandaiWonderSwanDetails },
             { "Bandai Wonder Swan", BandaiWonderSwanDetails },
             { "WonderSwan", BandaiWonderSwanDetails },
@@ -267,6 +268,12 @@ public static partial class HelpUser
             { "Sega Model 3", SegaModel3Details },
             { "Model 3", SegaModel3Details },
             { "Model3", SegaModel3Details },
+            { "Sega Naomi", SegaNaomiDetails },
+            { "SegaNaomi", SegaNaomiDetails },
+            { "Naomi", SegaNaomiDetails },
+            { "Sega Naomi2", SegaNaomi2Details },
+            { "SegaNaomi2", SegaNaomi2Details },
+            { "Naomi2", SegaNaomi2Details },
             { "Sega Saturn", SegaSaturnDetails },
             { "Saturn", SegaSaturnDetails },
             { "Sega SC-3000", SegaSc3000Details },
@@ -403,6 +410,11 @@ public static partial class HelpUser
     private static string AtariStDetails()
     {
         return GetSystemDetails("Atari ST");
+    }
+
+    private static string AtomiswaveDetails()
+    {
+        return GetSystemDetails("Atomiswave");
     }
 
     private static string BandaiWonderSwanDetails()
@@ -663,6 +675,16 @@ public static partial class HelpUser
     private static string SegaModel3Details()
     {
         return GetSystemDetails("Sega Model 3");
+    }
+
+    private static string SegaNaomiDetails()
+    {
+        return GetSystemDetails("Sega Naomi");
+    }
+
+    private static string SegaNaomi2Details()
+    {
+        return GetSystemDetails("Sega Naomi 2");
     }
 
     private static string SegaSaturnDetails()
