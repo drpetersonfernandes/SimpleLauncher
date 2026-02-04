@@ -503,28 +503,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _isLoadingGames = isLoading;
         IsLoadingGames = isLoading;
 
-        // Direct visibility update to ensure the overlay appears/disappears instantly
-        // bypassing potential binding delays during heavy UI thread activity.
+        // Direct visibility update for the overlay
         LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
 
-        // Disable/Enable main interaction controls
-        SystemComboBox.IsEnabled = !isLoading;
-        EmulatorComboBox.IsEnabled = !isLoading;
-        SearchTextBox.IsEnabled = !isLoading;
-        SearchButton.IsEnabled = !isLoading;
-        SelectedSystemFavoriteButton.IsEnabled = !isLoading;
-        RandomLuckGameButton.IsEnabled = !isLoading;
-        SortOrderToggleButton.IsEnabled = !isLoading;
-        ToggleViewMode.IsEnabled = !isLoading;
-        ToggleButtonAspectRatio.IsEnabled = !isLoading;
-        ZoomInButton.IsEnabled = !isLoading;
-        ZoomOutButton.IsEnabled = !isLoading;
-
-        // Disable/Enable Letter/Number/Favorites/Lucky buttons via FilterMenu helper
-        _topLetterNumberMenu.SetButtonsEnabled(!isLoading);
-
-        // Disable/Enable pagination buttons
-        UpdatePaginationButtons();
+        // Robust UI Blocking: Disable the entire content container
+        // This automatically handles all buttons, combos, and textboxes inside
+        MainContentGrid.IsEnabled = !isLoading;
 
         // Update loading message
         if (isLoading)
