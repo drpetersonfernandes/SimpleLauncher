@@ -447,6 +447,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator requires a BIOS file to run.
 
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -lynx<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
 ## Atari ST
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -569,9 +579,9 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 .
 
 **Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -wswan<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -1568,9 +1578,9 @@ Core may require BIOS files or system files to work properly.
 .
 
 **Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -pce<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -1696,6 +1706,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -pcfx<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
 ## NEC SuperGrafx
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1728,9 +1748,9 @@ Core may require BIOS files or system files to work properly.
 .
 
 **Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -pce<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2225,6 +2245,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -gb<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
 ## Nintendo Game Boy Advance
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2283,6 +2313,16 @@ This emulator is available for Windows-x64 and Windows-arm64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator requires a BIOS file to work properly.
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -gba<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
 
@@ -2489,9 +2529,9 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 .
 
 **Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -nes<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -2641,6 +2681,16 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -snes<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
 
@@ -2823,6 +2873,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_vb/).<br>
 Core may require BIOS files or system files to work properly.
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -vb<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Nintendo Wii
 
@@ -3218,6 +3278,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -gg<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
 ## Sega Genesis / Mega Drive
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -3309,6 +3379,16 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -md<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
 
@@ -3556,6 +3636,16 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 
 .
 
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -sms<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Master System" sms<br>
@@ -3724,9 +3814,9 @@ Core may require BIOS files or system files to work properly.
 .
 
 **Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -ss<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -4138,9 +4228,9 @@ Core may require BIOS files or system files to work properly.
 .
 
 **Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -ngp<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
@@ -4285,6 +4375,17 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_psx/).<br>
 Core may require BIOS files or system files to work properly.
+
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** -psx<br>
+**Fullscreen Parameter:** -video.fs [1]<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
 
