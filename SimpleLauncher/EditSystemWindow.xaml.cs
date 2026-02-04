@@ -12,6 +12,7 @@ using Microsoft.Win32;
 using SimpleLauncher.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -21,7 +22,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace SimpleLauncher;
 
-internal partial class EditSystemWindow
+internal partial class EditSystemWindow : ILoadingState
 {
     private XDocument _xmlDoc;
     private const string XmlFilePath = "system.xml";
@@ -46,6 +47,19 @@ internal partial class EditSystemWindow
 
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            MainContentGrid.IsEnabled = !isLoading;
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
     }
 
     private void ApplyExpanderSettings()

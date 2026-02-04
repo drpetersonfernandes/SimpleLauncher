@@ -500,21 +500,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
+        // Update the internal flags used by pagination/search logic
         _isLoadingGames = isLoading;
-        IsLoadingGames = isLoading;
+        IsLoadingGames = isLoading; // Notifies UI via PropertyChanged
 
-        // Direct visibility update for the overlay
-        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-
-        // Robust UI Blocking: Disable the entire content container
-        // This automatically handles all buttons, combos, and textboxes inside
-        MainContentGrid.IsEnabled = !isLoading;
-
-        // Update loading message
-        if (isLoading)
+        // Visual Updates
+        Dispatcher.Invoke(() =>
         {
-            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-        }
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+            // Disable the entire content area to prevent clicks/hotkeys during load
+            MainContentGrid.IsEnabled = !isLoading;
+
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
     }
 
     private void SaveApplicationSettings()

@@ -49,138 +49,28 @@
     </Window.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid x:Name="MainContentGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!-- Left Column -->
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
+            <!-- Left Column -->
+            <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- System Name -->
-                <Label
-                    Margin="10,20,10,10"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Content="{DynamicResource Chooseasystem}" />
-                <ComboBox
-                    x:Name="SystemNameDropdown"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="0,20,10,10"
-                    HorizontalAlignment="Stretch"
-                    SelectionChanged="SystemNameDropdown_SelectionChanged" />
-            </Grid>
-
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
 
-                <!-- Add New System -->
-                <Button
-                    Grid.Column="0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    Margin="10"
-                    Padding="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="AddSystemButton_Click"
-                    Content="{DynamicResource AddNewSystem}" />
-
-                <!-- Save New System -->
-                <Button
-                    x:Name="SaveSystemButton"
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    Grid.Column="1"
-                    Margin="10"
-                    Padding="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="SaveSystemButtonClickAsync"
-                    Content="{DynamicResource SaveorUpdateSystem}" />
-
-                <!-- Delete System -->
-                <Button
-                    x:Name="DeleteSystemButton"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    Grid.Column="2"
-                    Margin="10"
-                    Padding="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Click="DeleteSystemButton_Click"
-                    Content="{DynamicResource DeleteSelectedSystem}" />
-
-                <Button
-                    Margin="0,0,25,0"
-                    Grid.Column="3"
-                    Style="{StaticResource NavImageButton3DStyle}"
-                    Click="HelpLink_Click"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="80"
-                    Height="80">
-                    <Image
-                        Source="images/help-desk.png"
-                        Width="60"
-                        Height="60"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
-                </Button>
-
-            </Grid>
-
-            <ScrollViewer
-                Grid.Row="2"
-                Grid.Column="0"
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Auto"
-                Margin="0,0,10,0">
-
-                <Grid>
+                <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <!-- System Name -->
@@ -189,712 +79,830 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Content="{DynamicResource SystemNameRequired}">
-                    </Label>
-                    <TextBox
-                        Margin="0,20,10,10"
-                        x:Name="SystemNameTextBox"
+                        Content="{DynamicResource Chooseasystem}" />
+                    <ComboBox
+                        x:Name="SystemNameDropdown"
                         Grid.Row="0"
                         Grid.Column="1"
+                        Margin="0,20,10,10"
                         HorizontalAlignment="Stretch"
-                        IsReadOnly="True"
-                        IsEnabled="False"
-                        LostFocus="SystemNameTextBox_LostFocus" />
+                        SelectionChanged="SystemNameDropdown_SelectionChanged" />
+                </Grid>
 
-                    <!-- System Folder -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource SystemFolderRequired}">
-                    </Label>
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="SystemFolderTextBox"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Add New System -->
                     <Button
-                        x:Name="ChooseSystemFolderButton"
-                        Margin="0,0,10,10"
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Click="ChooseSystemFolder"
-                        Content="{DynamicResource SetSystemFolder}"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-
-                    <!-- Additional System Folders -->
-                    <Expander x:Name="AdditionalFoldersExpander" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False" />
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5" Click="AddFolderButton_Click" IsEnabled="False" />
-                                <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" />
-                            </StackPanel>
-                        </Grid>
-                    </Expander>
-
-                    <!-- System Image Folder -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="3"
                         Grid.Column="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
+                        Margin="10"
+                        Padding="10"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Content="{DynamicResource SystemImageFolderOptional}">
-                    </Label>
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="SystemImageFolderTextBox"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
+                        Click="AddSystemButton_Click"
+                        Content="{DynamicResource AddNewSystem}" />
+
+                    <!-- Save New System -->
                     <Button
-                        Margin="0,0,10,10"
-                        x:Name="ChooseSystemImageFolderButton"
-                        Grid.Row="3"
+                        x:Name="SaveSystemButton"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                        Grid.Column="1"
+                        Margin="10"
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="SaveSystemButtonClickAsync"
+                        Content="{DynamicResource SaveorUpdateSystem}" />
+
+                    <!-- Delete System -->
+                    <Button
+                        x:Name="DeleteSystemButton"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Grid.Column="2"
-                        Click="ChooseSystemImageFolder"
-                        Content="{DynamicResource SetSystemImageFolder}"
-                        IsEnabled="False"
-                        HorizontalAlignment="Left" />
-
-                    <!-- Is the system MAME-based? -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="4"
-                        Grid.Column="0"
+                        Margin="10"
+                        Padding="10"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Content="{DynamicResource IsthesystemMAMEbased}" />
-                    <ComboBox
-                        Margin="0,0,10,10"
-                        x:Name="SystemIsMameComboBox"
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False">
-                        <ComboBoxItem>true</ComboBoxItem>
-                        <ComboBoxItem>false</ComboBoxItem>
-                    </ComboBox>
+                        Click="DeleteSystemButton_Click"
+                        Content="{DynamicResource DeleteSelectedSystem}" />
 
-                    <!-- Format To Search Inside System Folder -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource ExtensiontoSearchintheSystemFolderRequired}">
-                    </Label>
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="FormatToSearchTextBox"
-                        Grid.Row="5"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="0,0,10,10"
-                        Grid.Row="5"
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource Useacommatoaddmultipleextensions}">
-                    </Label>
-
-                    <!-- Extract File Before Launch -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="6"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource ExtractFileBeforeLaunch}" />
-                    <ComboBox
-                        Margin="0,0,10,10"
-                        x:Name="ExtractFileBeforeLaunchComboBox"
-                        Grid.Row="6"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False">
-                        <ComboBoxItem>true</ComboBoxItem>
-                        <ComboBoxItem>false</ComboBoxItem>
-                    </ComboBox>
-
-                    <!-- Format To Launch After Extraction -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="7"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}">
-                    </Label>
-                    <TextBox
-                        Margin="0,0,10,10"
-                        x:Name="FormatToLaunchTextBox"
-                        Grid.Row="7"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False" />
-                    <Label
-                        Margin="0,0,10,10"
-                        Grid.Row="7"
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource Useacommatoaddmultipleextensions}">
-                    </Label>
-                    
-                    <!-- Group Files by Folder -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="8"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="{DynamicResource GroupFilesbyFolder}">
-                    </Label>
-                    <ComboBox
-                        Margin="0,0,10,10"
-                        x:Name="GroupByFolderComboBox"
-                        Grid.Row="8"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False">
-                        <ComboBoxItem>false</ComboBoxItem>
-                        <ComboBoxItem>true</ComboBoxItem>
-                    </ComboBox>
-
-                    <!-- Emulator 1 -->
-                    <Expander x:Name="Emulator1Expander" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Margin="10"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator1NameRequired}">
-                            </Label>
-                            <TextBox
-                                Margin="0,10,10,10"
-                                x:Name="Emulator1NameTextBox"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator1Path}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator1PathTextBox"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False"
-                                HorizontalAlignment="Stretch" />
-                            <Button
-                                Margin="0,0,10,10"
-                                x:Name="ChooseEmulator1PathButton"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Click="ChooseEmulator1Path"
-                                Content="{DynamicResource SetEmulator1Path}"
-                                IsEnabled="False"
-                                HorizontalAlignment="Left" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator1Parameters}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator1ParametersTextBox"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <!-- <Button -->
-                            <!--     Margin="0" -->
-                            <!--     Grid.Row="2" -->
-                            <!--     Grid.Column="2" -->
-                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                            <!--     Width="30" -->
-                            <!--     Height="30" -->
-                            <!--     Click="HelpLink_Click" -->
-                            <!--     HorizontalAlignment="Left" -->
-                            <!--     VerticalAlignment="Top"> -->
-                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                            <!--            VerticalAlignment="Top" /> -->
-                            <!-- </Button> -->
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-                            <ComboBox
-                                Margin="0,0,10,10"
-                                x:Name="ReceiveANotificationOnEmulatorError1"
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False">
-                                <ComboBoxItem>true</ComboBoxItem>
-                                <ComboBoxItem>false</ComboBoxItem>
-                            </ComboBox>
-
-                        </Grid>
-                    </Expander>
-
-                    <!-- Emulator 2 -->
-                    <Expander x:Name="Emulator2Expander" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Margin="10"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator2NameMaybeRequired}">
-                            </Label>
-                            <TextBox
-                                Margin="0,10,10,10"
-                                x:Name="Emulator2NameTextBox"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator2Path}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator2PathTextBox"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False"
-                                HorizontalAlignment="Stretch" />
-                            <Button
-                                Margin="0,0,10,10"
-                                x:Name="ChooseEmulator2PathButton"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Click="ChooseEmulator2Path"
-                                Content="{DynamicResource SetEmulator2Path}"
-                                IsEnabled="False"
-                                HorizontalAlignment="Left" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator2Parameters}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator2ParametersTextBox"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <!-- <Button -->
-                            <!--     Margin="0" -->
-                            <!--     Grid.Row="2" -->
-                            <!--     Grid.Column="2" -->
-                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                            <!--     Width="30" -->
-                            <!--     Height="30" -->
-                            <!--     Click="HelpLink_Click" -->
-                            <!--     HorizontalAlignment="Left" -->
-                            <!--     VerticalAlignment="Top"> -->
-                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                            <!--            VerticalAlignment="Top" /> -->
-                            <!-- </Button> -->
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-                            <ComboBox
-                                Margin="0,0,10,10"
-                                x:Name="ReceiveANotificationOnEmulatorError2"
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False">
-                                <ComboBoxItem>true</ComboBoxItem>
-                                <ComboBoxItem>false</ComboBoxItem>
-                            </ComboBox>
-                        </Grid>
-                    </Expander>
-
-                    <!-- Emulator 3 -->
-                    <Expander x:Name="Emulator3Expander" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Margin="10"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator3NameMaybeRequired}">
-                            </Label>
-                            <TextBox
-                                Margin="0,10,10,10"
-                                x:Name="Emulator3NameTextBox"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator3Path}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator3PathTextBox"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False"
-                                HorizontalAlignment="Stretch" />
-                            <Button
-                                Margin="0,0,10,10"
-                                x:Name="ChooseEmulator3PathButton"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Click="ChooseEmulator3Path"
-                                Content="{DynamicResource SetEmulator3Path}"
-                                IsEnabled="False"
-                                HorizontalAlignment="Left" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator3Parameters}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator3ParametersTextBox"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <!-- <Button -->
-                            <!--     Margin="0" -->
-                            <!--     Grid.Row="2" -->
-                            <!--     Grid.Column="2" -->
-                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                            <!--     Width="30" -->
-                            <!--     Height="30" -->
-                            <!--     Click="HelpLink_Click" -->
-                            <!--     HorizontalAlignment="Left" -->
-                            <!--     VerticalAlignment="Top"> -->
-                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                            <!--            VerticalAlignment="Top" /> -->
-                            <!-- </Button> -->
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-                            <ComboBox
-                                Margin="0,0,10,10"
-                                x:Name="ReceiveANotificationOnEmulatorError3"
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False">
-                                <ComboBoxItem>true</ComboBoxItem>
-                                <ComboBoxItem>false</ComboBoxItem>
-                            </ComboBox>
-                        </Grid>
-                    </Expander>
-
-                    <!-- Emulator 4 -->
-                    <Expander x:Name="Emulator4Expander" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Margin="10"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator4NameMaybeRequired}">
-                            </Label>
-                            <TextBox
-                                Margin="0,10,10,10"
-                                x:Name="Emulator4NameTextBox"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator4Path}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator4PathTextBox"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False"
-                                HorizontalAlignment="Stretch" />
-                            <Button
-                                Margin="0,0,10,10"
-                                x:Name="ChooseEmulator4PathButton"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Click="ChooseEmulator4Path"
-                                Content="{DynamicResource SetEmulator4Path}"
-                                IsEnabled="False"
-                                HorizontalAlignment="Left" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator4Parameters}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator4ParametersTextBox"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <!-- <Button -->
-                            <!--     Margin="0" -->
-                            <!--     Grid.Row="2" -->
-                            <!--     Grid.Column="2" -->
-                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                            <!--     Width="30" -->
-                            <!--     Height="30" -->
-                            <!--     Click="HelpLink_Click" -->
-                            <!--     HorizontalAlignment="Left" -->
-                            <!--     VerticalAlignment="Top"> -->
-                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                            <!--            VerticalAlignment="Top" /> -->
-                            <!-- </Button> -->
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-                            <ComboBox
-                                Margin="0,0,10,10"
-                                x:Name="ReceiveANotificationOnEmulatorError4"
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False">
-                                <ComboBoxItem>true</ComboBoxItem>
-                                <ComboBoxItem>false</ComboBoxItem>
-                            </ComboBox>
-                        </Grid>
-                    </Expander>
-
-                    <!-- Emulator 5 -->
-                    <Expander x:Name="Emulator5Expander" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label
-                                Margin="10"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator5NameMaybeRequired}">
-                            </Label>
-                            <TextBox
-                                Margin="0,10,10,10"
-                                x:Name="Emulator5NameTextBox"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator5Path}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator5PathTextBox"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False"
-                                HorizontalAlignment="Stretch" />
-                            <Button
-                                Margin="0,0,10,10"
-                                x:Name="ChooseEmulator5PathButton"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Click="ChooseEmulator5Path"
-                                Content="{DynamicResource SetEmulator5Path}"
-                                IsEnabled="False"
-                                HorizontalAlignment="Left" />
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator5Parameters}" />
-                            <TextBox
-                                Margin="0,0,10,10"
-                                x:Name="Emulator5ParametersTextBox"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False" />
-                            <!-- <Button -->
-                            <!--     Margin="0" -->
-                            <!--     Grid.Row="2" -->
-                            <!--     Grid.Column="2" -->
-                            <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                            <!--     Width="30" -->
-                            <!--     Height="30" -->
-                            <!--     Click="HelpLink_Click" -->
-                            <!--     HorizontalAlignment="Left" -->
-                            <!--     VerticalAlignment="Top"> -->
-                            <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                            <!--            VerticalAlignment="Top" /> -->
-                            <!-- </Button> -->
-                            <Label
-                                Margin="10,0,10,10"
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-                            <ComboBox
-                                Margin="0,0,10,10"
-                                x:Name="ReceiveANotificationOnEmulatorError5"
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                IsReadOnly="True"
-                                IsEnabled="False">
-                                <ComboBoxItem>true</ComboBoxItem>
-                                <ComboBoxItem>false</ComboBoxItem>
-                            </ComboBox>
-                        </Grid>
-                    </Expander>
+                    <Button
+                        Margin="0,0,25,0"
+                        Grid.Column="3"
+                        Style="{StaticResource NavImageButton3DStyle}"
+                        Click="HelpLink_Click"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="80"
+                        Height="80">
+                        <Image
+                            Source="images/help-desk.png"
+                            Width="60"
+                            Height="60"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </Button>
 
                 </Grid>
-            </ScrollViewer>
-        </Grid>
 
-        <!-- GridSplitter between columns 0 and 2 -->
-        <GridSplitter Grid.Column="1"
-                      Background="Gray"
-                      ResizeDirection="Columns"
-                      Style="{StaticResource EnhancedGridSplitterStyle}"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Stretch"
-                      ShowsPreview="True"
-                      ResizeBehavior="PreviousAndNext"
-                      Cursor="SizeWE" />
-
-        <!-- Right column -->
-        <Grid Grid.Column="2" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label
-                Margin="10"
-                Grid.Row="0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontWeight="Bold"
-                Content="{DynamicResource DeveloperSuggestion}" />
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <RichTextBox
-                    x:Name="HelpUserTextBlock"
-                    Margin="0,0,10,10"
-                    VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch"
-                    IsReadOnly="True"
-                    IsDocumentEnabled="True"
+                <ScrollViewer
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Padding="0"
-                    Focusable="True">
-                    <FlowDocument>
-                        <Paragraph />
-                    </FlowDocument>
-                </RichTextBox>
-            </ScrollViewer>
-        </Grid>
+                    Margin="0,0,10,0">
 
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- System Name -->
+                        <Label
+                            Margin="10,20,10,10"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource SystemNameRequired}">
+                        </Label>
+                        <TextBox
+                            Margin="0,20,10,10"
+                            x:Name="SystemNameTextBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            LostFocus="SystemNameTextBox_LostFocus" />
+
+                        <!-- System Folder -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource SystemFolderRequired}">
+                        </Label>
+                        <TextBox
+                            Margin="0,0,10,10"
+                            x:Name="SystemFolderTextBox"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False" />
+                        <Button
+                            x:Name="ChooseSystemFolderButton"
+                            Margin="0,0,10,10"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Click="ChooseSystemFolder"
+                            Content="{DynamicResource SetSystemFolder}"
+                            IsEnabled="False"
+                            HorizontalAlignment="Left" />
+
+                        <!-- Additional System Folders -->
+                        <Expander x:Name="AdditionalFoldersExpander" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5" Click="AddFolderButton_Click" IsEnabled="False" />
+                                    <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" />
+                                </StackPanel>
+                            </Grid>
+                        </Expander>
+
+                        <!-- System Image Folder -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource SystemImageFolderOptional}">
+                        </Label>
+                        <TextBox
+                            Margin="0,0,10,10"
+                            x:Name="SystemImageFolderTextBox"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False" />
+                        <Button
+                            Margin="0,0,10,10"
+                            x:Name="ChooseSystemImageFolderButton"
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Click="ChooseSystemImageFolder"
+                            Content="{DynamicResource SetSystemImageFolder}"
+                            IsEnabled="False"
+                            HorizontalAlignment="Left" />
+
+                        <!-- Is the system MAME-based? -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource IsthesystemMAMEbased}" />
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="SystemIsMameComboBox"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False">
+                            <ComboBoxItem>true</ComboBoxItem>
+                            <ComboBoxItem>false</ComboBoxItem>
+                        </ComboBox>
+
+                        <!-- Format To Search Inside System Folder -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource ExtensiontoSearchintheSystemFolderRequired}">
+                        </Label>
+                        <TextBox
+                            Margin="0,0,10,10"
+                            x:Name="FormatToSearchTextBox"
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False" />
+                        <Label
+                            Margin="0,0,10,10"
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource Useacommatoaddmultipleextensions}">
+                        </Label>
+
+                        <!-- Extract File Before Launch -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource ExtractFileBeforeLaunch}" />
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="ExtractFileBeforeLaunchComboBox"
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False">
+                            <ComboBoxItem>true</ComboBoxItem>
+                            <ComboBoxItem>false</ComboBoxItem>
+                        </ComboBox>
+
+                        <!-- Format To Launch After Extraction -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="7"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}">
+                        </Label>
+                        <TextBox
+                            Margin="0,0,10,10"
+                            x:Name="FormatToLaunchTextBox"
+                            Grid.Row="7"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False" />
+                        <Label
+                            Margin="0,0,10,10"
+                            Grid.Row="7"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource Useacommatoaddmultipleextensions}">
+                        </Label>
+
+                        <!-- Group Files by Folder -->
+                        <Label
+                            Margin="10,0,10,10"
+                            Grid.Row="8"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="{DynamicResource GroupFilesbyFolder}">
+                        </Label>
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="GroupByFolderComboBox"
+                            Grid.Row="8"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False">
+                            <ComboBoxItem>false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+
+                        <!-- Emulator 1 -->
+                        <Expander x:Name="Emulator1Expander" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Margin="10"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator1NameRequired}">
+                                </Label>
+                                <TextBox
+                                    Margin="0,10,10,10"
+                                    x:Name="Emulator1NameTextBox"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator1Path}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator1PathTextBox"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Stretch" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator1PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator1Path"
+                                    Content="{DynamicResource SetEmulator1Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator1Parameters}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator1ParametersTextBox"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <!-- <Button -->
+                                <!--     Margin="0" -->
+                                <!--     Grid.Row="2" -->
+                                <!--     Grid.Column="2" -->
+                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                                <!--     Width="30" -->
+                                <!--     Height="30" -->
+                                <!--     Click="HelpLink_Click" -->
+                                <!--     HorizontalAlignment="Left" -->
+                                <!--     VerticalAlignment="Top"> -->
+                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                                <!--            VerticalAlignment="Top" /> -->
+                                <!-- </Button> -->
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError1"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
+
+                            </Grid>
+                        </Expander>
+
+                        <!-- Emulator 2 -->
+                        <Expander x:Name="Emulator2Expander" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Margin="10"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator2NameMaybeRequired}">
+                                </Label>
+                                <TextBox
+                                    Margin="0,10,10,10"
+                                    x:Name="Emulator2NameTextBox"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator2Path}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator2PathTextBox"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Stretch" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator2PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator2Path"
+                                    Content="{DynamicResource SetEmulator2Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator2Parameters}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator2ParametersTextBox"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <!-- <Button -->
+                                <!--     Margin="0" -->
+                                <!--     Grid.Row="2" -->
+                                <!--     Grid.Column="2" -->
+                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                                <!--     Width="30" -->
+                                <!--     Height="30" -->
+                                <!--     Click="HelpLink_Click" -->
+                                <!--     HorizontalAlignment="Left" -->
+                                <!--     VerticalAlignment="Top"> -->
+                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                                <!--            VerticalAlignment="Top" /> -->
+                                <!-- </Button> -->
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError2"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </Expander>
+
+                        <!-- Emulator 3 -->
+                        <Expander x:Name="Emulator3Expander" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Margin="10"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator3NameMaybeRequired}">
+                                </Label>
+                                <TextBox
+                                    Margin="0,10,10,10"
+                                    x:Name="Emulator3NameTextBox"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator3Path}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator3PathTextBox"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Stretch" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator3PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator3Path"
+                                    Content="{DynamicResource SetEmulator3Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator3Parameters}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator3ParametersTextBox"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <!-- <Button -->
+                                <!--     Margin="0" -->
+                                <!--     Grid.Row="2" -->
+                                <!--     Grid.Column="2" -->
+                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                                <!--     Width="30" -->
+                                <!--     Height="30" -->
+                                <!--     Click="HelpLink_Click" -->
+                                <!--     HorizontalAlignment="Left" -->
+                                <!--     VerticalAlignment="Top"> -->
+                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                                <!--            VerticalAlignment="Top" /> -->
+                                <!-- </Button> -->
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError3"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </Expander>
+
+                        <!-- Emulator 4 -->
+                        <Expander x:Name="Emulator4Expander" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Margin="10"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator4NameMaybeRequired}">
+                                </Label>
+                                <TextBox
+                                    Margin="0,10,10,10"
+                                    x:Name="Emulator4NameTextBox"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator4Path}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator4PathTextBox"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Stretch" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator4PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator4Path"
+                                    Content="{DynamicResource SetEmulator4Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator4Parameters}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator4ParametersTextBox"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <!-- <Button -->
+                                <!--     Margin="0" -->
+                                <!--     Grid.Row="2" -->
+                                <!--     Grid.Column="2" -->
+                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                                <!--     Width="30" -->
+                                <!--     Height="30" -->
+                                <!--     Click="HelpLink_Click" -->
+                                <!--     HorizontalAlignment="Left" -->
+                                <!--     VerticalAlignment="Top"> -->
+                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                                <!--            VerticalAlignment="Top" /> -->
+                                <!-- </Button> -->
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError4"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </Expander>
+
+                        <!-- Emulator 5 -->
+                        <Expander x:Name="Emulator5Expander" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Margin="10"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator5NameMaybeRequired}">
+                                </Label>
+                                <TextBox
+                                    Margin="0,10,10,10"
+                                    x:Name="Emulator5NameTextBox"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator5Path}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator5PathTextBox"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Stretch" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator5PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator5Path"
+                                    Content="{DynamicResource SetEmulator5Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left" />
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource Emulator5Parameters}" />
+                                <TextBox
+                                    Margin="0,0,10,10"
+                                    x:Name="Emulator5ParametersTextBox"
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False" />
+                                <!-- <Button -->
+                                <!--     Margin="0" -->
+                                <!--     Grid.Row="2" -->
+                                <!--     Grid.Column="2" -->
+                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
+                                <!--     Width="30" -->
+                                <!--     Height="30" -->
+                                <!--     Click="HelpLink_Click" -->
+                                <!--     HorizontalAlignment="Left" -->
+                                <!--     VerticalAlignment="Top"> -->
+                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
+                                <!--            VerticalAlignment="Top" /> -->
+                                <!-- </Button> -->
+                                <Label
+                                    Margin="10,0,10,10"
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError5"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                        </Expander>
+
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- GridSplitter between columns 0 and 2 -->
+            <GridSplitter Grid.Column="1"
+                          Background="Gray"
+                          ResizeDirection="Columns"
+                          Style="{StaticResource EnhancedGridSplitterStyle}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch"
+                          ShowsPreview="True"
+                          ResizeBehavior="PreviousAndNext"
+                          Cursor="SizeWE" />
+
+            <!-- Right column -->
+            <Grid Grid.Column="2" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label
+                    Margin="10"
+                    Grid.Row="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontWeight="Bold"
+                    Content="{DynamicResource DeveloperSuggestion}" />
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <RichTextBox
+                        x:Name="HelpUserTextBlock"
+                        Margin="0,0,10,10"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        IsReadOnly="True"
+                        IsDocumentEnabled="True"
+                        VerticalScrollBarVisibility="Auto"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="0"
+                        Focusable="True">
+                        <FlowDocument>
+                            <Paragraph />
+                        </FlowDocument>
+                    </RichTextBox>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        
+        <!-- Global Loading Overlay -->
+        <ContentControl x:Name="LoadingOverlay" 
+                        Template="{StaticResource LoadingOverlayTemplate}" 
+                        Visibility="Collapsed" 
+                        Grid.ColumnSpan="3" />
+        
     </Grid>
 </controls:MetroWindow>

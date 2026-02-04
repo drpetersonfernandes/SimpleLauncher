@@ -711,7 +711,7 @@ public class GameLauncher
                             (loadingStateProvider as Window)?.Dispatcher.Invoke(() => loadingStateProvider.SetLoadingState(true, launchingMsg));
 
                             // Launch the converted file
-                            await LaunchRegularEmulatorAsync(cuePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
+                            await LaunchRegularEmulatorAsync(cuePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this, loadingStateProvider);
                         }
                         finally
                         {
@@ -754,7 +754,7 @@ public class GameLauncher
                     {
                         DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
                         // Launch default.xbe
-                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
+                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this, loadingStateProvider);
                         DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
                     }
                     else
@@ -805,7 +805,7 @@ public class GameLauncher
                             await LaunchExecutableAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                             break;
                         default:
-                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
+                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this, loadingStateProvider);
                             break;
                     }
                 }
@@ -1333,7 +1333,8 @@ public class GameLauncher
         SystemManager.SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GameLauncher gameLauncher)
+        GameLauncher gameLauncher,
+        ILoadingState loadingStateProvider)
     {
         var isDirectory = Directory.Exists(resolvedFilePath);
 
@@ -1381,7 +1382,7 @@ public class GameLauncher
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
                 var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ?? "Extracting file... Please wait.";
-                mainWindow.Dispatcher.Invoke(() => mainWindow.SetLoadingState(true, extractingMsg));
+                loadingStateProvider.SetLoadingState(true, extractingMsg);
                 UpdateStatusBar.UpdateStatusBar.UpdateContent(extractingMsg, mainWindow);
 
                 // Use the extraction service from the DI container
@@ -1396,7 +1397,7 @@ public class GameLauncher
                 tempExtractionPath = extractedTempDirPath;
 
                 var launchingMsg = (string)Application.Current.TryFindResource("Launching") ?? "Launching...";
-                mainWindow.Dispatcher.Invoke(() => mainWindow.SetLoadingState(true, launchingMsg));
+                loadingStateProvider.SetLoadingState(true, launchingMsg);
             }
         }
 
