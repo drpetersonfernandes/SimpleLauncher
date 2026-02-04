@@ -256,8 +256,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     private async Task InitializeManagerAsync()
     {
         LoadingOverlay.Visibility = Visibility.Visible;
-        var loadingConfiguration = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
-        LoadingMessage.Text = loadingConfiguration;
+        LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
         await Task.Yield(); // Allow UI to render the loading overlay
 
         _manager = await EasyModeManager.LoadAsync();
@@ -619,7 +618,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             {
                 var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
                 DownloadStatus = $"{extracting} {componentName}...";
-                LoadingMessage.Text = $"{extracting} {componentName}...";
+                LoadingOverlay.Content = $"{extracting} {componentName}...";
                 LoadingOverlay.Visibility = Visibility.Visible;
                 await Task.Yield(); // Allow UI to render the loading overlay
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
@@ -840,7 +839,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                     AddSystemButton.IsEnabled = false;
 
                     // Show overlay
-                    LoadingMessage.Text = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
                     LoadingOverlay.Visibility = Visibility.Visible;
                     await Task.Yield(); // Allow UI to render the loading overlay
 
@@ -848,7 +847,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                     await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
 
                     // --- If XML update succeeds, continue with folder creation and UI updates ---
-                    LoadingMessage.Text = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
+                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
 
                     // Resolve paths before passing to folder creation
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);

@@ -172,7 +172,7 @@ internal partial class GlobalStatsWindow : IDisposable
         SaveButton.Visibility = Visibility.Collapsed;
 
         // Reset the cancel button and progress ring visibility
-        GlobalCancellingOverlay.Visibility = Visibility.Collapsed;
+        LoadingOverlay.Visibility = Visibility.Collapsed;
 
         SystemStatsDataGrid.ItemsSource = null;
 
@@ -406,7 +406,9 @@ internal partial class GlobalStatsWindow : IDisposable
             if (_cancellationTokenSource is { IsCancellationRequested: false })
             {
                 _cancellationTokenSource.Cancel();
-                GlobalCancellingOverlay.Visibility = Visibility.Visible;
+
+                LoadingOverlay.Content = (string)Application.Current.TryFindResource("CancellingPleasewait") ?? "Cancelling...";
+                LoadingOverlay.Visibility = Visibility.Visible;
             }
         }
         catch (Exception ex)
@@ -434,8 +436,8 @@ internal partial class GlobalStatsWindow : IDisposable
                 {
                     _cancellationTokenSource.Cancel();
 
-                    // Show cancelling UI
-                    GlobalCancellingOverlay.Visibility = Visibility.Visible;
+                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("CancellingPleasewait") ?? "Cancelling...";
+                    LoadingOverlay.Visibility = Visibility.Visible;
                 }
             }
         }

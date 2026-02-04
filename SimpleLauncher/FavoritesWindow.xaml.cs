@@ -73,7 +73,7 @@ internal partial class FavoritesWindow
         try
         {
             LoadingOverlay.Visibility = Visibility.Visible;
-            LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...";
+            LoadingOverlay.Content = (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...";
             await Task.Yield();
 
             // ✅ CAPTURE on UI thread before background work

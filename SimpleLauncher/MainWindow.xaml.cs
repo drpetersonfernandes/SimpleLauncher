@@ -527,7 +527,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Update loading message
         if (isLoading)
         {
-            LoadingMessage.Text = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         }
     }
 

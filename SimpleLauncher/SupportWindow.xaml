@@ -8,6 +8,13 @@
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
     <Grid> <!-- Root Grid to hold content and overlay -->
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid x:Name="MainContentGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -60,13 +67,9 @@
         </Grid>
 
         <!-- Overlay for Progress Ring -->
-        <Grid x:Name="ProgressOverlay" Background="{DynamicResource MahApps.Brushes.Overlay}" Visibility="Collapsed">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <controls:ProgressRing Width="60" Height="60" IsActive="True" Foreground="{DynamicResource MahApps.Brushes.Accent}"/>
-                <TextBlock Margin="0,15,0,0" FontSize="16"
-                           Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                           Text="{DynamicResource SendingMessagePleaseWait}" />
-            </StackPanel>
-        </Grid>
+        <ContentControl x:Name="LoadingOverlay" 
+                        Template="{StaticResource LoadingOverlayTemplate}" 
+                        Visibility="Collapsed" 
+                        Grid.Row="0" Grid.RowSpan="5" />
     </Grid>
 </controls:MetroWindow>

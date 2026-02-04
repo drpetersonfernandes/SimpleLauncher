@@ -160,7 +160,10 @@ public partial class SupportWindow
             if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return; // Check if it's still empty after pre-filling
 
             MainContentGrid.IsEnabled = false;
-            ProgressOverlay.Visibility = Visibility.Visible;
+
+            LoadingOverlay.Content = (string)Application.Current.TryFindResource("SendingMessagePleaseWait") ?? "Sending message... Please wait.";
+            LoadingOverlay.Visibility = Visibility.Visible;
+
             await Task.Yield(); // Allow UI to render the progress overlay
 
             try
@@ -184,7 +187,7 @@ public partial class SupportWindow
             }
             finally
             {
-                ProgressOverlay.Visibility = Visibility.Collapsed;
+                LoadingOverlay.Visibility = Visibility.Collapsed;
                 MainContentGrid.IsEnabled = true;
             }
         }

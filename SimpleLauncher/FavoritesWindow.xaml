@@ -51,6 +51,11 @@
     <!-- Main container Grid that holds both the content and overlay -->
     <Grid>
         <!-- Main content Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -134,11 +139,9 @@
         </Grid>
 
         <!-- Loading Overlay -->
-        <Grid x:Name="LoadingOverlay" Background="#7F000000" Visibility="Collapsed">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <controls:ProgressRing IsActive="True" Width="60" Height="60" />
-                <TextBlock x:Name="LoadingMessage" Text="{DynamicResource LoadingFavorites}" Foreground="White" Margin="0,10,0,0" FontSize="16" />
-            </StackPanel>
-        </Grid>
+        <ContentControl x:Name="LoadingOverlay" 
+                        Template="{StaticResource LoadingOverlayTemplate}" 
+                        Visibility="Collapsed" 
+                        Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" />
     </Grid>
 </controls:MetroWindow>

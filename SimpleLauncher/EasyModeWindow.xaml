@@ -206,13 +206,11 @@
             </Grid>
         </Border>
 
-        <!-- Loading Overlay (Unchanged) -->
-        <Grid x:Name="LoadingOverlay" Grid.Row="0" Grid.RowSpan="3" Background="#7F000000" Visibility="Collapsed">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <controls:ProgressRing IsActive="True" Width="60" Height="60" />
-                <TextBlock x:Name="LoadingMessage" Text="{DynamicResource ProcessingEllipsis}" Foreground="White" Margin="0,10,0,0" FontSize="16" />
-            </StackPanel>
-        </Grid>
+        <!-- Loading Overlay -->
+        <ContentControl x:Name="LoadingOverlay" 
+                        Template="{StaticResource LoadingOverlayTemplate}" 
+                        Visibility="Collapsed"
+                        Grid.Row="0" Grid.RowSpan="3" />
     </Grid>
 
 </controls:MetroWindow>

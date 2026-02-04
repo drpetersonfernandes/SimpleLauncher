@@ -88,23 +88,10 @@
                 Visibility="Collapsed" />
         </StackPanel>
 
-        <!-- Full-window overlay for the "Cancelling" message -->
-        <Border x:Name="GlobalCancellingOverlay"
-                Grid.Row="0"
-                Grid.RowSpan="5"
-                Background="{DynamicResource MahApps.Brushes.Overlay}"
-                Visibility="Collapsed">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <controls:ProgressRing IsActive="True"
-                                       Width="50"
-                                       Height="50"
-                                       Foreground="{DynamicResource MahApps.Brushes.Accent}" />
-                <TextBlock Text="{DynamicResource CancellingPleasewait}"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                           Margin="0,20,0,0" />
-            </StackPanel>
-        </Border>
+        <!-- Loading Overlay -->
+        <ContentControl x:Name="LoadingOverlay" 
+                        Template="{StaticResource LoadingOverlayTemplate}" 
+                        Visibility="Collapsed" 
+                        Grid.Row="0" Grid.RowSpan="5" />
     </Grid>
 </controls:MetroWindow>

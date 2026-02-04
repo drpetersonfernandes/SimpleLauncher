@@ -114,8 +114,10 @@ internal partial class GlobalSearchWindow : IDisposable
             LaunchButton.IsEnabled = false;
             PreviewImage.Source = null;
 
+            LoadingOverlay.Content = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching...";
             LoadingOverlay.Visibility = Visibility.Visible;
             NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
+
             await Task.Yield();
 
             try

@@ -133,7 +133,9 @@ public partial class RetroAchievementsWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...", Owner as MainWindow);
 
+        LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
+
         NoProfileOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
         UserProfileRecentlyPlayed.ItemsSource = null; // Clear previous data
 
@@ -267,7 +269,9 @@ public partial class RetroAchievementsWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...", Owner as MainWindow);
 
+        LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
+
         FetchUnlocksButton.IsEnabled = false; // Disable button during fetch
         NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
         UnlocksDataGrid.ItemsSource = null; // Clear previous data
@@ -398,7 +402,9 @@ public partial class RetroAchievementsWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...", Owner as MainWindow);
 
+        LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         LoadingOverlay.Visibility = Visibility.Visible;
+
         NoUserProgressOverlay.Visibility = Visibility.Collapsed;
         UserProgressDataGrid.ItemsSource = null; // Clear previous data
 

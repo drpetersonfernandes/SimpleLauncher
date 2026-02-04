@@ -84,7 +84,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
     {
         LoadingOverlay.Visibility = Visibility.Visible;
         var loadingConfiguration = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
-        LoadingMessage.Text = loadingConfiguration;
+        LoadingOverlay.Content = loadingConfiguration;
         await Task.Yield(); // Allow UI to render the loading overlay
 
         _manager = await EasyModeManager.LoadAsync();
@@ -295,7 +295,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
                 if (_disposed) return; // Check before UI update
 
                 UpdateStatus($"{extracting} {componentName}...");
-                LoadingMessage.Text = $"{extracting} {componentName}...";
+                LoadingOverlay.Content = $"{extracting} {componentName}...";
                 LoadingOverlay.Visibility = Visibility.Visible;
                 await Task.Yield(); // Allow UI to render the loading overlay
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
