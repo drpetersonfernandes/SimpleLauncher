@@ -17,6 +17,8 @@ using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GameLauncher.Handlers;
+using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.LaunchTools;
@@ -101,6 +103,33 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<GameScannerService>();
         serviceCollection.AddTransient<MainWindow>();
+
+        // Handlers
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, AresConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, AzaharConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, BlastemConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, CemuConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, DaphneConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, DolphinConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, DuckStationConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, FlycastConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, MameConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, MednafenConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, MesenConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, Pcsx2ConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, RetroArchConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, Rpcs3ConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, SegaModel2ConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, StellaConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, SupermodelConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, XeniaConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, YumirConfigHandler>();
+
+        // Strategies
+        serviceCollection.AddSingleton<ILaunchStrategy, ChdToCueStrategy>();
+        serviceCollection.AddSingleton<ILaunchStrategy, XisoMountStrategy>();
+        serviceCollection.AddSingleton<ILaunchStrategy, ZipMountStrategy>();
+        serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 

@@ -1,0 +1,54 @@
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.MessageBox;
+
+namespace SimpleLauncher.Services.GameLauncher.Strategies;
+
+public class ChdToCueStrategy : ILaunchStrategy
+{
+    public int Priority => 10;
+
+    public bool IsMatch(LaunchContext context)
+    {
+        return (context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) || context.FilePath.Contains("4do.exe", StringComparison.OrdinalIgnoreCase))
+               && Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
+    {
+        var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
+        context.LoadingState.SetLoadingState(true, convertingMsg);
+
+        var cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(context.ResolvedFilePath);
+        if (cuePath == null)
+        {
+            context.LoadingState.SetLoadingState(false);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(GetLogPath.Path());
+            return;
+        }
+
+        try
+        {
+            await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, launcher, context.LoadingState);
+        }
+        finally
+        {
+            // CLEANUP: Delete the temporary .cue and .bin files
+            try
+            {
+                var binPath = Path.ChangeExtension(cuePath, ".bin");
+                if (File.Exists(cuePath)) File.Delete(cuePath);
+                if (File.Exists(binPath)) File.Delete(binPath);
+                DebugLogger.Log($"Cleaned up temporary CHD conversion files: {cuePath}");
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+            }
+        }
+    }
+}
