@@ -34,6 +34,8 @@ public partial class MainWindow
                 CancelAndRecreateToken();
 
                 _currentPage--;
+
+                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
                 _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
@@ -51,9 +53,15 @@ public partial class MainWindow
                 // Notify user
                 MessageBoxLibrary.NavigationButtonErrorMessageBox();
             }
+            finally
+            {
+                SetUiLoadingState(false);
+            }
         }
         catch (Exception ex)
         {
+            SetUiLoadingState(false);
+
             // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the PrevPageButtonClickAsync method.");
         }
@@ -78,6 +86,8 @@ public partial class MainWindow
                 CancelAndRecreateToken();
 
                 _currentPage++;
+
+                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
                 _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
@@ -85,7 +95,6 @@ public partial class MainWindow
 
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...", this);
             }
-
             catch (Exception ex)
             {
                 // Notify developer
@@ -95,9 +104,15 @@ public partial class MainWindow
                 // Notify user
                 MessageBoxLibrary.NavigationButtonErrorMessageBox();
             }
+            finally
+            {
+                SetUiLoadingState(false);
+            }
         }
         catch (Exception ex)
         {
+            SetUiLoadingState(false);
+
             // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the NextPageButtonClickAsync method.");
         }

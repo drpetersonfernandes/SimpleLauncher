@@ -337,6 +337,10 @@ internal static class ContextMenuFunctions
             // Set loading indicator
             mainWindow.SetUiLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
+            var preparingRaMsg = (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Calculating Game Hash... Please wait.";
+            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true, preparingRaMsg));
+            UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
+
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
             var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch);
 
@@ -434,7 +438,7 @@ internal static class ContextMenuFunctions
         finally
         {
             // Ensure loading indicator is hidden
-            mainWindow.SetUiLoadingState(false);
+            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(false));
 
             // --- Remove temporary extraction folder ---
             if (!string.IsNullOrEmpty(tempExtractionPath))

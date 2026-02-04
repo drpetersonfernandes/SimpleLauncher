@@ -40,7 +40,13 @@ public class GameLauncher
         _stats = stats ?? throw new ArgumentNullException(nameof(stats));
     }
 
-    internal async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
+    internal async Task HandleButtonClickAsync(string filePath,
+        string selectedEmulatorName,
+        string selectedSystemName,
+        SystemManager.SystemManager selectedSystemManager,
+        SettingsManager.SettingsManager settings,
+        MainWindow mainWindow,
+        GamePadController gamePadController)
     {
         try
         {
@@ -660,6 +666,7 @@ public class GameLauncher
 
             var startTime = DateTime.Now;
             mainWindow.IsLoadingGames = true;
+            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true));
 
             try
             {
@@ -686,12 +693,20 @@ public class GameLauncher
                          && Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log("4DO with CHD call detected. Converting...");
+
+                    var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD to CUE/BIN... Please wait.";
+                    mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true, convertingMsg));
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent(convertingMsg, mainWindow);
+
                     var cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
 
                     if (cuePath != null)
                     {
                         try
                         {
+                            var launchingMsg = (string)Application.Current.TryFindResource("Launching") ?? "Launching...";
+                            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true, launchingMsg));
+
                             // Launch the converted file
                             await LaunchRegularEmulatorAsync(cuePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
                         }
@@ -709,12 +724,16 @@ public class GameLauncher
                             {
                                 DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
                             }
+
+                            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(false));
                         }
 
                         return; // Important: Exit HandleButtonClickAsync here so it doesn't fall through to default launch
                     }
                     else
                     {
+                        mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(false));
+
                         // Notify user if conversion failed
                         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
                         return;
@@ -825,6 +844,7 @@ public class GameLauncher
             finally
             {
                 mainWindow.IsLoadingGames = false;
+                mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(false));
                 if (wasGamePadControllerRunning)
                 {
                     gamePadController.Start();
@@ -841,6 +861,9 @@ public class GameLauncher
         }
         catch (Exception e)
         {
+            mainWindow.IsLoadingGames = false;
+            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(false));
+
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(e, "Unhandled error in GameLauncher's main launch block.");
         }
 
@@ -1356,6 +1379,10 @@ public class GameLauncher
             var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
+                var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ?? "Extracting file... Please wait.";
+                mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true, extractingMsg));
+                UpdateStatusBar.UpdateStatusBar.UpdateContent(extractingMsg, mainWindow);
+
                 // Use the extraction service from the DI container
                 var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
 
@@ -1366,6 +1393,9 @@ public class GameLauncher
 
                 // Always store the temp directory path for cleanup, even if no game file was found within it
                 tempExtractionPath = extractedTempDirPath;
+
+                var launchingMsg = (string)Application.Current.TryFindResource("Launching") ?? "Launching...";
+                mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true, launchingMsg));
             }
         }
 

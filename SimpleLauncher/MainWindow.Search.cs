@@ -51,6 +51,8 @@ public partial class MainWindow
     private async Task ExecuteSearchAsync()
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
+        var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
+        SetUiLoadingState(true, searchingMsg);
 
         CancelAndRecreateToken();
         ResetPaginationButtons();
@@ -95,9 +97,12 @@ public partial class MainWindow
             // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
             // and _currentFilter (which is null here). It will also manage the loading indicator.
             await LoadGameFilesAsync(null, searchQuery, _cancellationSource.Token);
+            SetUiLoadingState(false);
         }
         catch (Exception ex)
         {
+            SetUiLoadingState(false);
+
             // Notify developer
             const string contextMessage = "Error during search execution.";
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
