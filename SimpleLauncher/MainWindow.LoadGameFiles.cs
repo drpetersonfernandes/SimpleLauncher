@@ -19,7 +19,7 @@ public partial class MainWindow
     internal async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
-        Dispatcher.Invoke(() => SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
+        Dispatcher.Invoke(() => SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
         await SetUiBeforeLoadGameFilesAsync();
 
         try
@@ -145,7 +145,7 @@ public partial class MainWindow
             // If cancelled, a newer task has taken over and will manage the state.
             if (cancellationToken == _cancellationSource.Token)
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
+                Dispatcher.Invoke(() => SetLoadingState(false));
             }
         }
 

@@ -38,7 +38,9 @@ using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;
 
-public partial class MainWindow : INotifyPropertyChanged, IDisposable
+using ILoadingState = Services.LoadingInterface.ILoadingState;
+
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState
 {
     private CancellationTokenSource _cancellationSource = new();
     private bool _isUiUpdating;
@@ -253,7 +255,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
                     // This is the first run. Let's scan for Windows games automatically.
-                    SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
+                    SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
                     try
                     {
                         await _gameScannerService.ScanForStoreGamesAsync();
@@ -271,7 +273,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     }
                     finally
                     {
-                        SetUiLoadingState(false);
+                        SetLoadingState(false);
                     }
 
                     // After the scan, check again if any systems exist.
@@ -496,7 +498,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    internal void SetUiLoadingState(bool isLoading, string message = null)
+    public void SetLoadingState(bool isLoading, string message = null)
     {
         _isLoadingGames = isLoading;
         IsLoadingGames = isLoading;

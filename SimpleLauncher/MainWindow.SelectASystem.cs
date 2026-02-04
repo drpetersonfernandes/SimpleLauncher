@@ -37,7 +37,7 @@ public partial class MainWindow
                     return;
                 }
 
-                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
+                SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
                 await Task.Delay(100); // Give the UI thread time to render the loading overlay
                 _isUiUpdating = true; // Set after UI is frozen
                 try
@@ -141,7 +141,7 @@ public partial class MainWindow
                 }
                 finally
                 {
-                    SetUiLoadingState(false);
+                    SetLoadingState(false);
                     _isUiUpdating = false;
                 }
             }

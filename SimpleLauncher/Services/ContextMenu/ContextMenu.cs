@@ -68,7 +68,7 @@ public static class ContextMenu
                     return; // The finally block will still execute
                 }
 
-                await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.GamePadController);
+                await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.GamePadController, context.LoadingStateProvider);
 
                 // Notify user
                 UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingGame") ?? "Launching game...", context.MainWindow);
@@ -204,7 +204,7 @@ public static class ContextMenu
             try
             {
                 context.PlaySoundEffects.PlayNotificationSound();
-                await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects);
+                await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects, context.LoadingStateProvider);
             }
             catch (Exception ex)
             {
@@ -452,7 +452,7 @@ public static class ContextMenu
                     selectedEmulatorName = null;
                 }
 
-                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncher, context.PlaySoundEffects);
+                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncher, context.PlaySoundEffects, context.LoadingStateProvider);
             }
             catch (Exception ex)
             {

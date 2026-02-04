@@ -17,7 +17,9 @@ using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 
-public partial class RetroAchievementsForAGameWindow
+using ILoadingState = Services.LoadingInterface.ILoadingState;
+
+public partial class RetroAchievementsForAGameWindow : ILoadingState
 {
     private readonly int _gameId;
     private readonly string _gameTitleForDisplay;
@@ -255,6 +257,15 @@ public partial class RetroAchievementsForAGameWindow
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             DebugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             MessageBoxLibrary.ErrorMessageBox();
+        }
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+        if (isLoading)
+        {
+            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         }
     }
 

@@ -27,7 +27,9 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
-public partial class PlayHistoryWindow
+using ILoadingState = Services.LoadingInterface.ILoadingState;
+
+public partial class PlayHistoryWindow : ILoadingState
 {
     private CancellationTokenSource _cancellationTokenSource;
     private const string TimeFormat = "HH:mm:ss";
@@ -68,8 +70,7 @@ public partial class PlayHistoryWindow
     {
         try
         {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...";
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...");
             await Task.Yield(); // Allow the UI to render the loading overlay
 
             try
@@ -96,7 +97,7 @@ public partial class PlayHistoryWindow
             }
             finally
             {
-                LoadingOverlay.Visibility = Visibility.Collapsed;
+                SetLoadingState(false);
             }
         }
         catch (Exception ex)
@@ -330,7 +331,8 @@ public partial class PlayHistoryWindow
                 _gamePadController,
                 null,
                 _gameLauncher,
-                _playSoundEffects
+                _playSoundEffects,
+                this
             );
 
             var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -351,7 +353,7 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private async Task LaunchGameFromHistoryAsync(string fileName, string selectedSystemName)
+    private async Task LaunchGameFromHistoryAsync(string fileName, string selectedSystemName, ILoadingState loadingStateProvider)
     {
         var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
         if (selectedSystemManager == null)
@@ -404,7 +406,7 @@ public partial class PlayHistoryWindow
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
-        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingStateProvider);
 
         RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }
@@ -486,7 +488,7 @@ public partial class PlayHistoryWindow
             }
 
             _playSoundEffects.PlayNotificationSound();
-            await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
+            await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
         }
         catch (Exception ex)
         {
@@ -557,7 +559,7 @@ public partial class PlayHistoryWindow
             }
             case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
                 _playSoundEffects.PlayNotificationSound();
-                _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
+                _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
                 e.Handled = true; // Prevent DataGrid from moving selection to next row
                 break;
             case Key.Enter:
@@ -686,7 +688,7 @@ public partial class PlayHistoryWindow
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
                 _playSoundEffects.PlayNotificationSound();
-                await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
+                await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName, this);
             }
             else
             {
@@ -746,5 +748,14 @@ public partial class PlayHistoryWindow
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = null;
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+        if (isLoading)
+        {
+            LoadingMessage.Text = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+        }
     }
 }

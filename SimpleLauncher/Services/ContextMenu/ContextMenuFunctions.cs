@@ -17,6 +17,7 @@ using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadAppSettings;
+using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
@@ -251,7 +252,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
+    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider)
     {
         string tempExtractionPath = null;
         try
@@ -334,11 +335,8 @@ internal static class ContextMenuFunctions
                 return;
             }
 
-            // Set loading indicator
-            mainWindow.SetUiLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
-
             var preparingRaMsg = (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Calculating Game Hash... Please wait.";
-            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(true, preparingRaMsg));
+            (loadingStateProvider as Window)?.Dispatcher.Invoke(() => loadingStateProvider.SetLoadingState(true, preparingRaMsg));
             UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
@@ -438,7 +436,7 @@ internal static class ContextMenuFunctions
         finally
         {
             // Ensure loading indicator is hidden
-            mainWindow.Dispatcher.Invoke(() => mainWindow.SetUiLoadingState(false));
+            (loadingStateProvider as Window)?.Dispatcher.Invoke(() => loadingStateProvider.SetLoadingState(false));
 
             // --- Remove temporary extraction folder ---
             if (!string.IsNullOrEmpty(tempExtractionPath))
@@ -746,7 +744,7 @@ internal static class ContextMenuFunctions
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
-    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
+    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider)
     {
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", mainWindow);
         try
@@ -785,7 +783,7 @@ internal static class ContextMenuFunctions
             DebugLogger.Log($"[Screenshot] Initial window count: {initialCount}");
 
             // Launch game
-            _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController);
+            _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController, loadingStateProvider);
 
             // Minimum wait time to process startup)
             await Task.Delay(2000);

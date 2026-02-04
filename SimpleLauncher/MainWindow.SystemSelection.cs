@@ -136,7 +136,7 @@ public partial class MainWindow
                         return;
                     }
 
-                    SetUiLoadingState(true);
+                    SetLoadingState(true);
                     await Task.Delay(100, token);
 
                     TopSystemSelection.Visibility = Visibility.Visible;
@@ -149,7 +149,7 @@ public partial class MainWindow
             catch (OperationCanceledException)
             {
                 // Handle cancellation if needed, e.g., reset UI state
-                SetUiLoadingState(false);
+                SetLoadingState(false);
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.", this);
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ public partial class MainWindow
             }
             finally
             {
-                SetUiLoadingState(false);
+                SetLoadingState(false);
             }
         }
         catch (Exception ex)

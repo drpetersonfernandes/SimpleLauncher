@@ -25,7 +25,9 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
-internal partial class FavoritesWindow
+using ILoadingState = Services.LoadingInterface.ILoadingState;
+
+internal partial class FavoritesWindow : ILoadingState
 {
     private static readonly string LogPath = GetLogPath.Path();
     private readonly FavoritesManager _favoritesManager;
@@ -72,8 +74,7 @@ internal partial class FavoritesWindow
     {
         try
         {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            LoadingOverlay.Content = (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...";
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...");
             await Task.Yield();
 
             // ✅ CAPTURE on UI thread before background work
@@ -106,7 +107,7 @@ internal partial class FavoritesWindow
             }
             finally
             {
-                LoadingOverlay.Visibility = Visibility.Collapsed;
+                SetLoadingState(false);
             }
         }
         catch (Exception ex)
@@ -323,7 +324,8 @@ internal partial class FavoritesWindow
                 _gamePadController,
                 OnRemovedCallback,
                 _gameLauncher,
-                _playSoundEffects
+                _playSoundEffects,
+                this
             );
 
             var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -348,7 +350,7 @@ internal partial class FavoritesWindow
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
                 _playSoundEffects.PlayNotificationSound();
-                await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
+                await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName, this);
             }
             else
             {
@@ -367,7 +369,7 @@ internal partial class FavoritesWindow
         }
     }
 
-    private async Task LaunchGameFromFavoriteAsync(string fileName, string selectedSystemName)
+    private async Task LaunchGameFromFavoriteAsync(string fileName, string selectedSystemName, ILoadingState loadingStateProvider)
     {
         try
         {
@@ -418,7 +420,7 @@ internal partial class FavoritesWindow
             }
 
             var selectedEmulatorName = emulatorManager.EmulatorName;
-            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingStateProvider);
         }
         catch (Exception ex)
         {
@@ -451,7 +453,7 @@ internal partial class FavoritesWindow
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
             _playSoundEffects.PlayNotificationSound();
-            await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
+            await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName, this);
         }
         catch (Exception ex)
         {
@@ -516,7 +518,7 @@ internal partial class FavoritesWindow
                     if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                     {
                         _playSoundEffects.PlayNotificationSound();
-                        _ = LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
+                        _ = LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName, this);
                     }
 
                     break;
@@ -528,6 +530,15 @@ internal partial class FavoritesWindow
             // Notify developer
             const string contextMessage = "Error handling key press in FavoritesDataGrid.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+        }
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+        if (isLoading)
+        {
+            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         }
     }
 }

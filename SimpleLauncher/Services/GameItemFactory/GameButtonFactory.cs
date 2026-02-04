@@ -269,7 +269,8 @@ internal class GameButtonFactory(
             _gamePadController,
             null,
             _gameLauncher,
-            _playSoundEffects
+            _playSoundEffects,
+            _mainWindow
         );
 
         const double overlayButtonWidth = 22;
@@ -309,11 +310,11 @@ internal class GameButtonFactory(
                     e.Handled = true;
 
                     _playSoundEffects.PlayNotificationSound();
-                    context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
+                    context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects, context.LoadingStateProvider);
                     }
                     catch (Exception ex)
                     {
@@ -325,7 +326,7 @@ internal class GameButtonFactory(
                     }
                     finally
                     {
-                        context.MainWindow?.SetUiLoadingState(false);
+                        context.MainWindow?.SetLoadingState(false);
                     }
                 }
                 catch (Exception ex)
@@ -372,7 +373,7 @@ internal class GameButtonFactory(
 
                     _playSoundEffects.PlayNotificationSound();
 
-                    context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
+                    context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
                         ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, mainWindow);
@@ -387,7 +388,7 @@ internal class GameButtonFactory(
                     }
                     finally
                     {
-                        context.MainWindow?.SetUiLoadingState(false);
+                        context.MainWindow?.SetLoadingState(false);
                     }
                 }
                 catch (Exception ex)
@@ -434,7 +435,7 @@ internal class GameButtonFactory(
 
                     _playSoundEffects.PlayNotificationSound();
 
-                    context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
+                    context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
                         ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, mainWindow);
@@ -449,7 +450,7 @@ internal class GameButtonFactory(
                     }
                     finally
                     {
-                        context.MainWindow?.SetUiLoadingState(false);
+                        context.MainWindow?.SetLoadingState(false);
                     }
                 }
                 catch (Exception ex)
@@ -568,7 +569,7 @@ internal class GameButtonFactory(
                 try
                 {
                     _playSoundEffects.PlayNotificationSound();
-                    await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+                    await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, _mainWindow);
                 }
                 finally
                 {

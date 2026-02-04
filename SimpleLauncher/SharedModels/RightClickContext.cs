@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.PlaySound;
+using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
 namespace SimpleLauncher.SharedModels;
 
@@ -25,7 +26,8 @@ public class RightClickContext(
     GamePadController gamePadController,
     Action onFavoriteRemoved = null,
     Services.GameLauncher.GameLauncher gameLauncher = null,
-    PlaySoundEffects playSoundEffects = null)
+    PlaySoundEffects playSoundEffects = null,
+    ILoadingState loadingStateProvider = null)
 {
     public string FilePath { get; } = filePath;
     public string FileNameWithExtension { get; } = fileNameWithExtension;
@@ -45,4 +47,5 @@ public class RightClickContext(
     public Action OnFavoriteRemoved { get; } = onFavoriteRemoved;
     public Services.GameLauncher.GameLauncher GameLauncher { get; } = gameLauncher;
     public PlaySoundEffects PlaySoundEffects { get; } = playSoundEffects;
+    public ILoadingState LoadingStateProvider { get; } = loadingStateProvider ?? mainWindow;
 }

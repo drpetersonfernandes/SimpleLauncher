@@ -121,7 +121,7 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            SetUiLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
+            SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
             await Task.Yield(); // Allow UI to update before starting the scan
             try
             {
@@ -136,7 +136,7 @@ public partial class MainWindow
             }
             finally
             {
-                SetUiLoadingState(false);
+                SetLoadingState(false);
             }
         }
         catch (Exception ex)

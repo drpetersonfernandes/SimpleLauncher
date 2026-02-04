@@ -26,7 +26,9 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
-internal partial class GlobalSearchWindow : IDisposable
+using ILoadingState = Services.LoadingInterface.ILoadingState;
+
+internal partial class GlobalSearchWindow : IDisposable, ILoadingState
 {
     private CancellationTokenSource _cancellationTokenSource;
     private static readonly string LogPath = GetLogPath.Path();
@@ -114,8 +116,7 @@ internal partial class GlobalSearchWindow : IDisposable
             LaunchButton.IsEnabled = false;
             PreviewImage.Source = null;
 
-            LoadingOverlay.Content = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching...";
-            LoadingOverlay.Visibility = Visibility.Visible;
+            SetLoadingState(true, (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching...");
             NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
 
             await Task.Yield();
@@ -161,7 +162,7 @@ internal partial class GlobalSearchWindow : IDisposable
                 // (prevents flickering if multiple searches are queued)
                 if (!_cancellationTokenSource.IsCancellationRequested)
                 {
-                    LoadingOverlay.Visibility = Visibility.Collapsed;
+                    SetLoadingState(false);
                 }
             }
         }
@@ -347,7 +348,7 @@ internal partial class GlobalSearchWindow : IDisposable
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
-    private async void LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager)
+    private async void LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager, ILoadingState loadingState)
     {
         try
         {
@@ -374,7 +375,8 @@ internal partial class GlobalSearchWindow : IDisposable
                 return;
             }
 
-            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+            // FIX: Use the 'loadingState' parameter instead of 'this'
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingState);
         }
         catch (Exception ex)
         {
@@ -394,7 +396,7 @@ internal partial class GlobalSearchWindow : IDisposable
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 _playSoundEffects.PlayNotificationSound();
-                LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
+                LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager, this);
             }
             else
             {
@@ -485,7 +487,8 @@ internal partial class GlobalSearchWindow : IDisposable
                 _gamePadController,
                 null,
                 _gameLauncher,
-                _playSoundEffects
+                _playSoundEffects,
+                this
             );
 
             var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -514,7 +517,7 @@ internal partial class GlobalSearchWindow : IDisposable
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
             _playSoundEffects.PlayNotificationSound();
-            LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
+            LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager, this);
         }
         catch (Exception ex)
         {
@@ -600,5 +603,14 @@ internal partial class GlobalSearchWindow : IDisposable
     public void Dispose()
     {
         _cancellationTokenSource?.Dispose();
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+        if (isLoading)
+        {
+            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+        }
     }
 }
