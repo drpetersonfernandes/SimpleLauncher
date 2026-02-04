@@ -30,6 +30,7 @@ public static class ConvertChdToCueBin
             }
 
             var chdmanDir = Path.GetDirectoryName(chdmanPath);
+            Directory.CreateDirectory(TempFolder);
 
             // Create a unique temp path for the .cue file
             var tempCuePath = Path.Combine(TempFolder, $"{Guid.NewGuid()}.cue");

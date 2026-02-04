@@ -681,20 +681,43 @@ public class GameLauncher
                 }
 
                 // --- 4DO INTERCEPTION ---
-                // 4DO + CHD --->>> Convert CHD to CUE/BIN --->>> Launch CUE file
                 else if ((selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
                           filePath.Contains("4do.exe", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase))
                 {
-                    DebugLogger.Log("4DO with CHD call detected. Attempting to convert CHD to CUE/BIN, then launch CUE/BIN");
-                    DebugLogger.Log($"CHD path: {resolvedFilePath}");
+                    DebugLogger.Log("4DO with CHD call detected. Converting...");
                     var cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
-                    DebugLogger.Log($"CHD conversion completed. CUE/BIN path: {cuePath}");
+
                     if (cuePath != null)
                     {
-                        DebugLogger.Log($"Launching CUE/BIN: {cuePath}");
-                        await LaunchRegularEmulatorAsync(cuePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
-                        DebugLogger.Log("4DO with CHD call completed successfully");
+                        try
+                        {
+                            // Launch the converted file
+                            await LaunchRegularEmulatorAsync(cuePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, this);
+                        }
+                        finally
+                        {
+                            // CLEANUP: Delete the temporary .cue and .bin files
+                            try
+                            {
+                                var binPath = Path.ChangeExtension(cuePath, ".bin");
+                                if (File.Exists(cuePath)) File.Delete(cuePath);
+                                if (File.Exists(binPath)) File.Delete(binPath);
+                                DebugLogger.Log($"Cleaned up temporary CHD conversion files: {cuePath}");
+                            }
+                            catch (Exception ex)
+                            {
+                                DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+                            }
+                        }
+
+                        return; // Important: Exit HandleButtonClickAsync here so it doesn't fall through to default launch
+                    }
+                    else
+                    {
+                        // Notify user if conversion failed
+                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                        return;
                     }
                 }
 
@@ -1310,10 +1333,13 @@ public class GameLauncher
         // Check if the file to launch is a mounted ZIP file, which will not be extracted
         var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase);
 
+        // Check if it's a file we just converted to temp
+        var isTempConvertedFile = resolvedFilePath.Contains(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), StringComparison.OrdinalIgnoreCase);
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
 
-        if (selectedSystemManager.ExtractFileBeforeLaunch && !isDirectory && !isMountedXbe && !isMountedZip)
+        if (selectedSystemManager.ExtractFileBeforeLaunch && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
             if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
             {
@@ -1322,21 +1348,25 @@ public class GameLauncher
                 await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
                 DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
-                // Notify user specifically for launching context
-                MessageBoxLibrary.NullFileExtensionMessageBox(); // This is the correct place for this warning.
-                return; // Abort launch due to incomplete configuration for launching
+                // Notify user
+                MessageBoxLibrary.NullFileExtensionMessageBox();
+                return; // Abort
             }
 
-            // Use the extraction service from the DI container
-            var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
-
-            if (!string.IsNullOrEmpty(extractedGameFilePath))
+            var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
+            if (fileExtension is ".zip" or ".rar" or ".7z")
             {
-                resolvedFilePath = extractedGameFilePath;
-            }
+                // Use the extraction service from the DI container
+                var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
 
-            // Always store the temp directory path for cleanup, even if no game file was found within it
-            tempExtractionPath = extractedTempDirPath;
+                if (!string.IsNullOrEmpty(extractedGameFilePath))
+                {
+                    resolvedFilePath = extractedGameFilePath;
+                }
+
+                // Always store the temp directory path for cleanup, even if no game file was found within it
+                tempExtractionPath = extractedTempDirPath;
+            }
         }
 
         if (string.IsNullOrEmpty(resolvedFilePath))
