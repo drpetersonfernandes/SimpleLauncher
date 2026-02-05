@@ -144,7 +144,8 @@ internal partial class GlobalStatsWindow : IDisposable
                 // Update UI overlay text to show current system
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
-                    BusyServiceOverlay.Content = $"{processingText}: {systemManager.SystemName}";
+                    BusyServiceOverlay.Content = $"{processingText}\n\n" +
+                                                 $"{systemManager.SystemName}";
                 });
 
                 var allRomFiles = new List<string>();
