@@ -44,15 +44,15 @@ public static class RaineConfigurationService
 
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)
         {
-            ["Display"] = new()
+            ["Display"] = new(StringComparer.OrdinalIgnoreCase)
             {
                 { "fullscreen", settings.RaineFullscreen ? "1" : "0" },
                 { "screen_x", settings.RaineResX.ToString(CultureInfo.InvariantCulture) },
                 { "screen_y", settings.RaineResY.ToString(CultureInfo.InvariantCulture) },
                 { "fix_aspect_ratio", settings.RaineFixAspectRatio ? "1" : "0" },
-                { "ogl_dbuf", settings.RaineVsync ? "2" : "0" } // 2 is usually double buffered/vsync
+                { "ogl_dbuf", settings.RaineVsync ? "2" : "0" }
             },
-            ["Sound"] = new()
+            ["Sound"] = new(StringComparer.OrdinalIgnoreCase)
             {
                 { "driver", settings.RaineSoundDriver },
                 { "sample_rate", settings.RaineSampleRate.ToString(CultureInfo.InvariantCulture) }
@@ -65,23 +65,27 @@ public static class RaineConfigurationService
 
         for (var i = 0; i < lines.Count; i++)
         {
-            var line = lines[i].Trim();
-            if (line.StartsWith('[') && line.EndsWith(']'))
+            var line = lines[i];
+            var trimmedLine = line.Trim(); // Trim once for logic checks
+            if (string.IsNullOrWhiteSpace(trimmedLine)) continue;
+
+            // Robust section header detection
+            if (trimmedLine.StartsWith('[') && trimmedLine.EndsWith(']'))
             {
-                currentSection = line.Substring(1, line.Length - 2);
+                currentSection = trimmedLine.Trim('[', ']').Trim();
                 continue;
             }
 
             if (currentSection != null && updates.TryGetValue(currentSection, out var sectionUpdates))
             {
-                var parts = line.Split('=', 2);
+                var parts = trimmedLine.Split('=', 2);
                 if (parts.Length == 2)
                 {
                     var key = parts[0].Trim();
                     if (sectionUpdates.TryGetValue(key, out var newValue))
                     {
                         var newLine = $"{key} = {newValue}";
-                        if (lines[i] != newLine)
+                        if (lines[i].Trim() != newLine) // Compare trimmed to avoid false positives on indentation
                         {
                             lines[i] = newLine;
                             modified = true;

@@ -4275,4 +4275,17 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    public static void RaineSettingsSavedAndInjected()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("RaineSettingsSavedAndInjectedSuccessfully") ?? "Raine configuration has been successfully injected.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
 }

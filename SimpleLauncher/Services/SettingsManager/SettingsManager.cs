@@ -1335,7 +1335,7 @@ public class SettingsManager
         }
 
         RaineSoundDriver = raine?.Element("SoundDriver")?.Value ?? settings.Element("RaineSoundDriver")?.Value ?? "directsound";
-        if (int.TryParse(raine?.Element("SampleRate")?.Value ?? settings.Element("RaineSampleRate")?.Value, out var rsr))
+        if (int.TryParse(raine?.Element("SampleRate")?.Value ?? settings.Element("RaineSampleRate")?.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var rsr))
         {
             RaineSampleRate = rsr;
         }

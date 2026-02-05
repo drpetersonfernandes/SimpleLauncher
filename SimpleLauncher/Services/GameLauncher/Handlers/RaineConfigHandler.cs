@@ -17,7 +17,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
-        var shouldRun = true;
+        var shouldRun = true; // Default to true for direct injection path
 
         if (context.Settings.RaineShowSettingsBeforeLaunch)
         {
@@ -25,7 +25,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
             {
                 var win = new InjectRaineConfigWindow(context.Settings, resolvedExe) { Owner = context.MainWindow };
                 win.ShowDialog();
-                shouldRun = win.ShouldRun;
+                shouldRun = win.ShouldRun; // Capture the actual user intent
             });
         }
         else if (File.Exists(resolvedExe))
