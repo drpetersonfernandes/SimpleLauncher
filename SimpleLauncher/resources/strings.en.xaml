@@ -1698,8 +1698,6 @@
     <system:String x:Key="RaineConfig_AudioDriver">Sound Driver:</system:String>
     <system:String x:Key="RaineConfig_SampleRate">Sample Rate (Hz):</system:String>
     <system:String x:Key="RaineConfig_ShowBeforeLaunch">Show this window before launching Raine</system:String>
-    <system:String x:Key="Cancel">Cancel</system:String>
-    <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Run">Run</system:String>
     <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine configuration has been successfully injected.</system:String>
     
