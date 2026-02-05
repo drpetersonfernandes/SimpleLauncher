@@ -47,6 +47,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private bool _isUiUpdating;
     private bool _wasControllerRunningBeforeDeactivation;
 
+    // Track disposal
+    private bool _isDisposed;
+
     // DispatcherTimer for the status bar timer
     internal DispatcherTimer StatusBarTimer { get; set; }
 

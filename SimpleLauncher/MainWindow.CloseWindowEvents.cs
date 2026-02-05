@@ -21,28 +21,47 @@ public partial class MainWindow
 
     public void Dispose()
     {
-        // Dispose tray icon resources
-        _trayIconManager?.Dispose();
+        // Prevent double disposal
+        if (_isDisposed)
+            return;
 
-        // Clean up collections
-        GameListItems?.Clear();
-        _allGamesLock.Wait();
         try
         {
-            _currentSearchResults?.Clear();
+            // Dispose tray icon resources
+            _trayIconManager?.Dispose();
+
+            // Clean up collections
+            GameListItems?.Clear();
+            _allGamesLock.Wait();
+            try
+            {
+                _currentSearchResults?.Clear();
+            }
+            finally
+            {
+                _allGamesLock.Release();
+            }
+
+            _systemManagers?.Clear();
+            _allGamesForCurrentSystem?.Clear();
+
+            // Safely cancel and dispose the cancellation token source
+            // Cancel() throws ObjectDisposedException if already disposed, so we catch it
+            try
+            {
+                _cancellationSource?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+                // Already cancelled/disposed, ignore
+            }
+
+            _cancellationSource?.Dispose();
         }
         finally
         {
-            _allGamesLock.Release();
+            _isDisposed = true;
+            GC.SuppressFinalize(this);
         }
-
-        _systemManagers?.Clear();
-        _allGamesForCurrentSystem?.Clear();
-
-        _cancellationSource?.Cancel();
-        _cancellationSource?.Dispose();
-
-        // Tell GC not to call the finalizer since we've already cleaned up
-        GC.SuppressFinalize(this);
     }
 }

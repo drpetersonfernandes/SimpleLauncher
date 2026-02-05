@@ -13,7 +13,7 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("StartingGlobalSearch") ?? "Starting global search...", this);
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...", this);
             _playSoundEffects.PlayNotificationSound();
             await ExecuteSearchAsync();
         }
@@ -54,61 +54,72 @@ public partial class MainWindow
         var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
         SetLoadingState(true, searchingMsg);
 
-        CancelAndRecreateToken();
-        ResetPaginationButtons();
-
-        await _allGamesLock.WaitAsync(_cancellationSource.Token);
         try
         {
-            _currentSearchResults.Clear(); // Clear previous search results
+            CancelAndRecreateToken();
+            ResetPaginationButtons();
+
+            await _allGamesLock.WaitAsync(_cancellationSource.Token);
+            try
+            {
+                _currentSearchResults.Clear(); // Clear previous search results
+            }
+            finally
+            {
+                _allGamesLock.Release();
+            }
+
+            var searchQuery = SearchTextBox.Text.Trim();
+            _activeSearchQueryOrMode = searchQuery; // Set active search mode to the text query
+
+            if (SystemComboBox.SelectedItem == null)
+            {
+                // Notify user
+                MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
+                SetLoadingState(false);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                // Notify user
+                MessageBoxLibrary.EnterSearchQueryMessageBox();
+                // If search query is empty, we might want to revert to "All" games for the system
+                // or do nothing. Current behavior is to show a message and return.
+                // If we want to show "All", then _activeSearchQueryOrMode should be null.
+                // For now, stick to the message.
+                SetLoadingState(false);
+
+                return;
+            }
+
+            // Call DeselectLetter to clear any selected letter filter UI
+            _topLetterNumberMenu.DeselectLetter();
+            _currentFilter = null; // Clear active letter filter
+
+            try
+            {
+                // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
+                // and _currentFilter (which is null here). It will also manage the loading indicator.
+                await LoadGameFilesAsync(null, searchQuery, _cancellationSource.Token);
+                SetLoadingState(false);
+            }
+            catch (Exception ex)
+            {
+                SetLoadingState(false);
+
+                // Notify developer
+                const string contextMessage = "Error during search execution.";
+                _ = _logErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
+            }
         }
         finally
         {
-            _allGamesLock.Release();
-        }
-
-        var searchQuery = SearchTextBox.Text.Trim();
-        _activeSearchQueryOrMode = searchQuery; // Set active search mode to the text query
-
-        if (SystemComboBox.SelectedItem == null)
-        {
-            // Notify user
-            MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
-            return;
-        }
-
-        if (string.IsNullOrEmpty(searchQuery))
-        {
-            // Notify user
-            MessageBoxLibrary.EnterSearchQueryMessageBox();
-            // If search query is empty, we might want to revert to "All" games for the system
-            // or do nothing. Current behavior is to show a message and return.
-            // If we want to show "All", then _activeSearchQueryOrMode should be null.
-            // For now, stick to the message.
-            return;
-        }
-
-        // Call DeselectLetter to clear any selected letter filter UI
-        _topLetterNumberMenu.DeselectLetter();
-        _currentFilter = null; // Clear active letter filter
-
-        try
-        {
-            // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
-            // and _currentFilter (which is null here). It will also manage the loading indicator.
-            await LoadGameFilesAsync(null, searchQuery, _cancellationSource.Token);
             SetLoadingState(false);
-        }
-        catch (Exception ex)
-        {
-            SetLoadingState(false);
-
-            // Notify developer
-            const string contextMessage = "Error during search execution.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
         }
     }
 }

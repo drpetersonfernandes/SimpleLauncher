@@ -180,7 +180,8 @@ public partial class MainWindow
 
                     if (allFiles.Count == 0)
                     {
-                        await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoFavoriteFoundMessageBox());
+                        // await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoFavoriteFoundMessageBox());
+                        // ignore
                     }
 
                     break;
@@ -216,7 +217,7 @@ public partial class MainWindow
                         {
                             _currentSearchResults = [];
                             allFiles = [];
-                            await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                            // await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
                             break;
                         }
 
@@ -241,6 +242,12 @@ public partial class MainWindow
 
                         allFiles = _currentSearchResults;
                     }
+                    catch (Exception ex)
+                    {
+                        allFiles = [];
+                        DebugLogger.Log($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                        _ = _logErrors.LogErrorAsync(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                    }
                     finally
                     {
                         _allGamesLock.Release();
@@ -248,7 +255,7 @@ public partial class MainWindow
 
                     if (allFiles.Count == 0)
                     {
-                        await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                        // ignore
                     }
 
                     break;
@@ -263,7 +270,8 @@ public partial class MainWindow
                         if (_allGamesForCurrentSystem.Count == 0)
                         {
                             allFiles = [];
-                            await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox());
+                            // await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox());
+                            // ignore
                         }
                         else
                         {
