@@ -126,8 +126,16 @@ public static class RaineConfigurationService
 
         if (modified)
         {
-            File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[RaineConfig] Configuration injected.");
+            try
+            {
+                File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
+                DebugLogger.Log("[RaineConfig] Configuration injected.");
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, "Failed to inject Raine configuration.");
+                throw;
+            }
         }
     }
 }
