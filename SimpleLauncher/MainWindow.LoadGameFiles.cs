@@ -196,10 +196,29 @@ public partial class MainWindow
                     await _allGamesLock.WaitAsync(token);
                     try
                     {
+                        // 1. Handle null service or manager
+                        if (_retroAchievementsService?.RaManager?.AllGames == null)
+                        {
+                            _currentSearchResults = [];
+                            allFiles = [];
+                            await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                            break;
+                        }
+
                         // Filter RA database by the current system ID to speed up matching
                         var raGamesForSystem = _retroAchievementsService.RaManager.AllGames
                             .Where(g => g.ConsoleId == systemId)
                             .ToList();
+
+                        // 2. Handle case where system has no achievements in the database
+                        // or no local games are found to match against
+                        if (raGamesForSystem.Count == 0 || _allGamesForCurrentSystem == null || _allGamesForCurrentSystem.Count == 0)
+                        {
+                            _currentSearchResults = [];
+                            allFiles = [];
+                            await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                            break;
+                        }
 
                         // Match filenames against RA Titles using Jaro-Winkler Fuzzy Matching
                         _currentSearchResults = _allGamesForCurrentSystem.Where(filePath =>

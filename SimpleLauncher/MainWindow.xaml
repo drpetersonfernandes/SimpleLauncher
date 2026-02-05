@@ -932,7 +932,8 @@
                                     Grid.Column="0"
                                     Grid.ColumnSpan="6"
                                     Margin="0,5,0,0"
-                                    Orientation="Horizontal">
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Stretch">
                             <!-- Buttons for LetterNumberMenu will be added here programmatically -->
                         </StackPanel>
                         <Label
