@@ -4288,4 +4288,17 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    public static void RaineExecutableNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("RaineConfig_PathNotFound") ?? "Raine executable not found. Please select it.";
+            var message2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

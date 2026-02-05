@@ -16,13 +16,18 @@ public static class RaineConfigurationService
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
 
-        // Raine uses raine32_sdl.cfg or raine64_sdl.cfg. We check for the one matching the sample provided.
+        // Raine uses raine32_sdl.cfg or raine64_sdl.cfg.
         var configPath = Path.Combine(emuDir, "raine32_sdl.cfg");
         if (!File.Exists(configPath))
         {
-            configPath = Path.Combine(emuDir, "raine64_sdl.cfg");
+            var altPath = Path.Combine(emuDir, "raine64_sdl.cfg");
+            if (File.Exists(altPath))
+            {
+                configPath = altPath;
+            }
         }
 
+        // If config is missing, copy from sample
         if (!File.Exists(configPath))
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Raine", "raine32_sdl.cfg");
@@ -31,7 +36,7 @@ public static class RaineConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[RaineConfig] Created config from sample: {configPath}");
+                    DebugLogger.Log($"[RaineConfig] Created new config from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -39,7 +44,7 @@ public static class RaineConfigurationService
                     throw;
                 }
             }
-            else throw new FileNotFoundException("Raine config not found and sample is missing.");
+            else throw new FileNotFoundException("Raine configuration file not found and sample is missing.", samplePath);
         }
 
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)

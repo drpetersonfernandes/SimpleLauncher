@@ -1700,5 +1700,7 @@
     <system:String x:Key="RaineConfig_ShowBeforeLaunch">Show this window before launching Raine</system:String>
     <system:String x:Key="Run">Run</system:String>
     <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine configuration has been successfully injected.</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Raine emulator executable not found. Please locate it manually.</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Select Raine Emulator Executable</system:String>
     
 </ResourceDictionary>

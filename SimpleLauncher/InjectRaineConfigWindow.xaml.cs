@@ -16,7 +16,7 @@ public partial class InjectRaineConfigWindow
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
-    private readonly string _emulatorPath;
+    private string _emulatorPath; // Removed readonly to allow selection
     private readonly ILogErrors _logErrors;
 
     public InjectRaineConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
@@ -35,6 +35,28 @@ public partial class InjectRaineConfigWindow
         }
 
         LoadSettings();
+    }
+
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        // Use a localized message if possible, or generic
+        MessageBoxLibrary.RaineExecutableNotFound();
+
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Raine Executable|raine*.exe|All Executables|*.exe",
+            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectExeTitle") ?? "Select Raine Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
     }
 
     private void LoadSettings()
@@ -56,8 +78,6 @@ public partial class InjectRaineConfigWindow
         _settings.RaineVsync = ChkVsync.IsChecked ?? true;
         _settings.RaineResX = (int)(NumResX.Value ?? 640);
         _settings.RaineResY = (int)(NumResY.Value ?? 480);
-
-        // Use the Text property safely or map from selection
         _settings.RaineSoundDriver = (CmbAudioDriver.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "directsound";
 
         if (CmbSampleRate.SelectedItem is ComboBoxItem selectedRate &&
@@ -72,17 +92,17 @@ public partial class InjectRaineConfigWindow
 
     private bool InjectConfig()
     {
-        if (string.IsNullOrEmpty(_emulatorPath) || !File.Exists(_emulatorPath))
-            return false;
+        var path = EnsureEmulatorPath();
+        if (string.IsNullOrEmpty(path)) return false;
 
         try
         {
-            RaineConfigurationService.InjectSettings(_emulatorPath, _settings);
+            RaineConfigurationService.InjectSettings(path, _settings);
             return true;
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Raine injection failed.");
+            _ = _logErrors.LogErrorAsync(ex, $"Raine configuration injection failed for path: {path}");
             return false;
         }
     }
@@ -95,10 +115,6 @@ public partial class InjectRaineConfigWindow
             ShouldRun = true;
             Close();
         }
-        else
-        {
-            MessageBoxLibrary.ErrorMessageBox();
-        }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -106,7 +122,6 @@ public partial class InjectRaineConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            // Ensure this method exists in your MessageBoxLibrary or use a generic one
             if (!_isLauncherMode)
                 MessageBoxLibrary.RaineSettingsSavedAndInjected();
         }
