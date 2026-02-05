@@ -185,6 +185,55 @@ public partial class MainWindow
 
                     break;
 
+                case "RETRO_ACHIEVEMENTS":
+                    // Ensure cache is populated
+                    await EnsureAllGamesCachePopulatedAsync(selectedManager, token);
+
+                    var systemId = Services.RetroAchievements.RetroAchievementsSystemMatcher.GetSystemId(selectedManager.SystemName);
+                    // Use the threshold from settings (e.g., 0.8)
+                    var threshold = _settings.FuzzyMatchingThreshold;
+
+                    await _allGamesLock.WaitAsync(token);
+                    try
+                    {
+                        // Filter RA database by the current system ID to speed up matching
+                        var raGamesForSystem = _retroAchievementsService.RaManager.AllGames
+                            .Where(g => g.ConsoleId == systemId)
+                            .ToList();
+
+                        // Match filenames against RA Titles using Jaro-Winkler Fuzzy Matching
+                        _currentSearchResults = _allGamesForCurrentSystem.Where(filePath =>
+                        {
+                            var fileName = Path.GetFileNameWithoutExtension(filePath).ToLowerInvariant();
+
+                            return raGamesForSystem.Any(ra =>
+                            {
+                                var raTitle = ra.Title.ToLowerInvariant();
+
+                                // 1. Fast Check: Direct containment (handles "Game Name (USA)" vs "Game Name")
+                                if (fileName.Contains(raTitle) || raTitle.Contains(fileName))
+                                    return true;
+
+                                // 2. Fuzzy Check: Jaro-Winkler Similarity
+                                var similarity = Services.FindAndLoadImages.FindCoverImage.CalculateJaroWinklerSimilarity(fileName, raTitle);
+                                return similarity >= threshold;
+                            });
+                        }).ToList();
+
+                        allFiles = _currentSearchResults;
+                    }
+                    finally
+                    {
+                        _allGamesLock.Release();
+                    }
+
+                    if (allFiles.Count == 0)
+                    {
+                        await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                    }
+
+                    break;
+
                 case "RANDOM_SELECTION":
                     // Ensure cache is populated for random selection
                     await EnsureAllGamesCachePopulatedAsync(selectedManager, token);

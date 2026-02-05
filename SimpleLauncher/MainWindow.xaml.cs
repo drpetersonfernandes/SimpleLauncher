@@ -24,6 +24,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
@@ -134,6 +135,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly Dictionary<string, string> _mameLookup;
     private string _selectedImageFolder;
     private List<string> _selectedRomFolders;
+    private readonly RetroAchievementsService _retroAchievementsService;
 
     private string _activeSearchQueryOrMode;
     private string _mameSortOrder = "FileName";
@@ -152,7 +154,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly ILogErrors _logErrors;
     private readonly GameScannerService _gameScannerService;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools, Stats stats, ILogErrors logErrors, GameScannerService gameScannerService)
+    public MainWindow(
+        SettingsManager settings,
+        FavoritesManager favoritesManager,
+        PlayHistoryManager playHistoryManager,
+        UpdateChecker updateChecker,
+        GamePadController gamePadController,
+        GameLauncher gameLauncher,
+        PlaySoundEffects playSoundEffects,
+        ILaunchTools launchTools,
+        Stats stats,
+        ILogErrors logErrors,
+        GameScannerService gameScannerService,
+        RetroAchievementsService retroAchievementsService)
     {
         InitializeComponent();
 
@@ -167,6 +181,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameScannerService = gameScannerService ?? throw new ArgumentNullException(nameof(gameScannerService));
         _stats = stats ?? throw new ArgumentNullException(nameof(stats));
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _retroAchievementsService = retroAchievementsService ?? throw new ArgumentNullException(nameof(retroAchievementsService));
 
         // DataContext set to the MainWindow instance
         DataContext = this;

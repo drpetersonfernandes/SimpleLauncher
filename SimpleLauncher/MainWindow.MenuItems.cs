@@ -940,11 +940,24 @@ public partial class MainWindow
         }
     }
 
-    private void NavShowGamesWithRetroAchievementsButtonClickAsync(object sender, RoutedEventArgs e)
+    private async void NavShowGamesWithRetroAchievementsButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            // TODO
+            if (_isLoadingGames)
+            {
+                CancelAndRecreateToken();
+            }
+
+            _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FilteringRetroAchievements") ?? "Filtering games with achievements...", this);
+
+            _topLetterNumberMenu.DeselectLetter();
+            SearchTextBox.Text = "";
+            _currentFilter = null;
+            _activeSearchQueryOrMode = "RETRO_ACHIEVEMENTS";
+
+            await LoadGameFilesAsync(null, "RETRO_ACHIEVEMENTS", _cancellationSource.Token);
         }
         catch (Exception ex)
         {
