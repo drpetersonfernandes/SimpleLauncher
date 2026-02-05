@@ -17,15 +17,7 @@ public static class RaineConfigurationService
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
 
         // Raine uses raine32_sdl.cfg or raine64_sdl.cfg.
-        var configPath = Path.Combine(emuDir, "raine32_sdl.cfg");
-        if (!File.Exists(configPath))
-        {
-            var altPath = Path.Combine(emuDir, "raine64_sdl.cfg");
-            if (File.Exists(altPath))
-            {
-                configPath = altPath;
-            }
-        }
+        var configPath = Path.Combine(emuDir, "config", "raine32_sdl.cfg");
 
         // If config is missing, copy from sample
         if (!File.Exists(configPath))
