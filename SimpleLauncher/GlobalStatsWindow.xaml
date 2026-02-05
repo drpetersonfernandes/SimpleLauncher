@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -31,7 +32,7 @@
                     Content="{DynamicResource StartProcess}" />
         </StackPanel>
 
-        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+        <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       Margin="10">
             <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                       GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray"
@@ -39,11 +40,9 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
-                            <!-- Trigger when NumberOfFiles and NumberOfImages match -->
                             <DataTrigger Binding="{Binding AreFilesAndImagesEqual}" Value="True">
                                 <Setter Property="Background" Value="LightGreen" />
                             </DataTrigger>
-                            <!-- Trigger when NumberOfFiles and NumberOfImages do not match -->
                             <DataTrigger Binding="{Binding AreFilesAndImagesEqual}" Value="False">
                                 <Setter Property="Background" Value="LightCoral" />
                             </DataTrigger>
@@ -51,7 +50,7 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource SystemNameColumnHeader}" Binding="{Binding SystemName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource RomCountColumnHeader}" Binding="{Binding NumberOfFiles}" Width="Auto" />
                     <DataGridTextColumn Header="{DynamicResource MatchedImageCountColumnHeader}" Binding="{Binding NumberOfImages}" Width="Auto" />
                 </DataGrid.Columns>
@@ -59,7 +58,7 @@
         </ScrollViewer>
 
         <StackPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Margin="10,10,10,20"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
@@ -71,19 +70,24 @@
                 Visibility="Collapsed" />
         </StackPanel>
 
-        <!-- Cancel Button (host for overlay, initially hidden) -->
-        <Button Grid.Row="0" x:Name="CancelButton"
-                Margin="10"
-                HorizontalAlignment="Center"
-                Width="110"
-                Click="CancelButton_Click"
-                Content="{DynamicResource Cancel}"
-                Visibility="Collapsed" />
+        <!-- BUSY OVERLAY -->
+        <ContentControl x:Name="BusyServiceOverlay"
+                        Grid.Row="0"
+                        Grid.RowSpan="5"
+                        Panel.ZIndex="100"
+                        Template="{StaticResource LoadingOverlayTemplate}"
+                        Visibility="Collapsed"
+                        Content="{DynamicResource Processingpleasewait}" />
 
-        <!-- Loading Overlay -->
-        <ContentControl x:Name="LoadingOverlay" 
-                        Template="{StaticResource LoadingOverlayTemplate}" 
-                        Visibility="Collapsed" 
-                        Grid.Row="0" Grid.RowSpan="4" />
+        <!-- CANCEL BUTTON OVERLAY -->
+        <Grid Grid.Row="0" Grid.RowSpan="5" Panel.ZIndex="101" x:Name="CancelOverlayContainer" Visibility="Collapsed">
+            <Button x:Name="CancelButton"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0,120,0,0"
+                    Width="110"
+                    Click="CancelButton_Click"
+                    Content="{DynamicResource Cancel}" />
+        </Grid>
     </Grid>
 </controls:MetroWindow>
