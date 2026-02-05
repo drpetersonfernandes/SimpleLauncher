@@ -940,6 +940,19 @@ public partial class MainWindow
         }
     }
 
+    private void NavShowGamesWithRetroAchievementsButtonClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // TODO
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
+        }
+    }
+
     private async void NavZoomInButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try

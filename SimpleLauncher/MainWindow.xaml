@@ -924,6 +924,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
                         <StackPanel x:Name="LetterNumberMenu"
@@ -1014,7 +1015,23 @@
                             AutomationProperties.Name="{DynamicResource FeelingLucky}">
                             <Image Source="pack://application:,,,/images/dice.png" Width="27" Height="27" />
                         </Button>
-                        <Button x:Name="SortOrderToggleButton" Style="{StaticResource NavImageButton3DStyle}" Grid.Row="1" Grid.RowSpan="2" Grid.Column="5" ToolTip="{DynamicResource SortByFileNameTooltip}" Click="SortOrderToggleButtonClickAsync" Margin="10,10,2,0"
+                        <Button
+                            Grid.Row="1"
+                            Grid.RowSpan="2"
+                            Grid.Column="5"
+                            x:Name="RetroAchievementsGameButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
+                            ToolTip="{DynamicResource ShowGamesWithRetroAchievements}"
+                            Click="NavShowGamesWithRetroAchievementsButtonClickAsync"
+                            Margin="10,10,2,0"
+                            AutomationProperties.Name="{DynamicResource ShowGamesWithRetroAchievements}">
+                            <Image Source="pack://application:,,,/images/trophy.png" Width="27" Height="27" />
+                        </Button>
+                        <Button x:Name="SortOrderToggleButton" Style="{StaticResource NavImageButton3DStyle}"
+                                Grid.Row="1"
+                                Grid.RowSpan="2"
+                                Grid.Column="6"
+                                ToolTip="{DynamicResource SortByFileNameTooltip}" Click="SortOrderToggleButtonClickAsync" Margin="10,10,2,0"
                                 Visibility="Collapsed" AutomationProperties.Name="{DynamicResource SortByFileNameTooltip}">
                             <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" />
                         </Button>

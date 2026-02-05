@@ -84,7 +84,7 @@
             <Button x:Name="CancelButton"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Margin="0,120,0,0"
+                    Margin="0,170,0,0"
                     Width="110"
                     Click="CancelButton_Click"
                     Content="{DynamicResource Cancel}" />

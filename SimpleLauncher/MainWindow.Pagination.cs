@@ -1,7 +1,6 @@
 using System;
 using System.Windows;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -21,7 +20,10 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames) return;
+            if (_isLoadingGames)
+            {
+                return;
+            }
 
             if (_currentPage <= 1)
             {
@@ -29,41 +31,25 @@ public partial class MainWindow
                 return;
             }
 
-            try
-            {
-                CancelAndRecreateToken();
+            CancelAndRecreateToken();
+            _currentPage--;
 
-                _currentPage--;
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
+            _playSoundEffects.PlayNotificationSound();
 
-                SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
-                _playSoundEffects.PlayNotificationSound();
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingPreviousPage") ?? "Loading previous page...", this);
-            }
-
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string errorMessage = "Previous page button error.";
-                _ = _logErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.NavigationButtonErrorMessageBox();
-            }
-            finally
-            {
-                SetLoadingState(false);
-            }
+            var (sl, sq) = GetLoadGameFilesParams();
+            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
             SetLoadingState(false);
 
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the PrevPageButtonClickAsync method.");
+            const string errorMessage = "Previous page button error.";
+            _ = _logErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.NavigationButtonErrorMessageBox();
         }
     }
 
@@ -71,43 +57,26 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames) return;
+            if (_isLoadingGames)
+            {
+                return;
+            }
 
             var totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
-
             if (_currentPage >= totalPages)
             {
                 // If already on the last page, no action needed
                 return;
             }
 
-            try
-            {
-                CancelAndRecreateToken();
+            CancelAndRecreateToken();
+            _currentPage++;
 
-                _currentPage++;
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
+            _playSoundEffects.PlayNotificationSound();
 
-                SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
-                _playSoundEffects.PlayNotificationSound();
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...", this);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string errorMessage = "Next page button error.";
-                _ = _logErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.NavigationButtonErrorMessageBox();
-            }
-            finally
-            {
-                SetLoadingState(false);
-            }
+            var (sl, sq) = GetLoadGameFilesParams();
+            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
         {
@@ -115,21 +84,15 @@ public partial class MainWindow
 
             // Notify developer
             _ = _logErrors.LogErrorAsync(ex, "Error in the NextPageButtonClickAsync method.");
+
+            // Notify user
+            MessageBoxLibrary.NavigationButtonErrorMessageBox();
         }
     }
 
     private void UpdatePaginationButtons()
     {
-        // Only enable if not currently loading
-        if (!_isLoadingGames)
-        {
-            _prevPageButton.IsEnabled = _currentPage > 1;
-            _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
-        }
-        else
-        {
-            _prevPageButton.IsEnabled = false;
-            _nextPageButton.IsEnabled = false;
-        }
+        _prevPageButton.IsEnabled = _currentPage > 1;
+        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
     }
 }

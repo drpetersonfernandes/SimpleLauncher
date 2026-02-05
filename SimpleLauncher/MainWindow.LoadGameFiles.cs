@@ -19,7 +19,13 @@ public partial class MainWindow
     internal async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
-        Dispatcher.Invoke(() => SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
+
+        // Only set generic message if not already loading a specific action
+        if (!_isLoadingGames)
+        {
+            Dispatcher.Invoke(() => SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
+        }
+
         await SetUiBeforeLoadGameFilesAsync();
 
         try

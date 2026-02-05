@@ -136,6 +136,7 @@ internal partial class GlobalStatsWindow : IDisposable
             var results = new List<SystemStatsData>();
             var imageExtensions = GetImageExtensions.GetExtensions();
             var processingText = (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing";
+            var processingText2 = (string)Application.Current.TryFindResource("ProcessingSystem") ?? "Processing system";
 
             foreach (var systemManager in _systemManagers)
             {
@@ -144,8 +145,8 @@ internal partial class GlobalStatsWindow : IDisposable
                 // Update UI overlay text to show current system
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
-                    BusyServiceOverlay.Content = $"{processingText}\n\n" +
-                                                 $"{systemManager.SystemName}";
+                    BusyServiceOverlay.Content = $"{processingText}\n" +
+                                                 $"{processingText2} {systemManager.SystemName}";
                 });
 
                 var allRomFiles = new List<string>();
