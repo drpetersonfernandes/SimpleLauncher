@@ -181,6 +181,13 @@ public class GameLauncher
         try
         {
             context.MainWindow.PlayHistoryManager.AddOrUpdatePlayHistoryItem(context.ResolvedFilePath, context.SystemName, playTime);
+
+            var systemPlayTime = context.Settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == context.SystemName);
+            if (systemPlayTime != null)
+            {
+                context.MainWindow.PlayTime = systemPlayTime.PlayTime;
+            }
+
             context.MainWindow.RefreshGameListAfterPlay(context.ResolvedFilePath, context.SystemName);
         }
         catch (Exception ex)
