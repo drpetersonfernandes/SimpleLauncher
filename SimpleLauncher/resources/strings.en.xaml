@@ -1701,17 +1701,6 @@
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Run">Run</system:String>
-    
-    <system:String x:Key="RaineConfig_Title">Raine Configuration</system:String>
-    <system:String x:Key="RaineConfig_Video_Header">Video Settings</system:String>
-    <system:String x:Key="RaineConfig_Audio_Header">Audio Settings</system:String>
-    <system:String x:Key="RaineConfig_Fullscreen">Fullscreen Mode</system:String>
-    <system:String x:Key="RaineConfig_FixAspect">Fix Aspect Ratio (4:3)</system:String>
-    <system:String x:Key="RaineConfig_Vsync">Enable VSync (Double Buffering)</system:String>
-    <system:String x:Key="RaineConfig_Resolution">Internal Resolution:</system:String>
-    <system:String x:Key="RaineConfig_AudioDriver">Audio Driver:</system:String>
-    <system:String x:Key="RaineConfig_SampleRate">Sample Rate (Hz):</system:String>
-    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Show settings before launching Raine</system:String>
     <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine configuration has been successfully injected.</system:String>
     
 </ResourceDictionary>
