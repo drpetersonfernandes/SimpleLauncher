@@ -1,0 +1,15 @@
+<mah:MetroWindow x:Class="SimpleLauncher.SystemSelectionWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 Title="Select RetroAchievements System" Height="200" Width="400"
+                 WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="We couldn't automatically identify the system for this game." TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <TextBlock Text="Please select the correct system:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ComboBox x:Name="SystemComboBox" Margin="0,0,0,20" />
+            <Button Content="Confirm Selection" Click="Confirm_Click" IsDefault="True" />
+        </StackPanel>
+    </Grid>
+</mah:MetroWindow>

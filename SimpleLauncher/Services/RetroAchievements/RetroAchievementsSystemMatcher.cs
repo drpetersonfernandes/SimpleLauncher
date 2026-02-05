@@ -179,6 +179,16 @@ public static class RetroAchievementsSystemMatcher
         return normalizedInput;
     }
 
+    public static bool IsOfficialSystemName(string systemName)
+    {
+        return SystemMappings.ContainsKey(systemName.ToLowerInvariant());
+    }
+
+    public static List<string> GetSupportedSystemNames()
+    {
+        return SystemMappings.Keys.OrderBy(static s => s).ToList();
+    }
+
     /// <summary>
     /// Gets the RetroAchievements Console ID for a given system name.
     /// </summary>
@@ -188,6 +198,23 @@ public static class RetroAchievementsSystemMatcher
     {
         var bestMatch = GetBestMatchSystemName(inputSystemName);
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
+    }
+
+    public static string GetExactAliasMatch(string inputSystemName)
+    {
+        if (string.IsNullOrWhiteSpace(inputSystemName)) return null;
+
+        var normalizedInput = inputSystemName.Trim().ToLowerInvariant();
+
+        foreach (var kvp in SystemMappings)
+        {
+            if (kvp.Value.Aliases.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
+            {
+                return kvp.Key; // Found 100% match
+            }
+        }
+
+        return null; // No exact match
     }
 
     /// <summary>

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
@@ -167,18 +167,36 @@ internal static class RetroAchievementsHasherTool
         }
     }
 
-    /// <summary>
-    /// Calculates the RetroAchievements hash for a given game file based on its system and file type.
-    /// Handles extraction of compressed files and delegates to appropriate hashing methods.
-    /// </summary>
-    /// <param name="filePath">The full path to the game file.</param>
-    /// <param name="systemName">The RetroAchievements-normalized system name.</param>
-    /// <param name="fileFormatsToLaunch">A list of file extensions that can be launched for this system, used for extraction.</param>
-    /// <param name="loadingState"></param>
-    /// <returns>A <see cref="RaHashResult"/> containing the calculated hash and the path to any temporary extraction directory, or null if hashing fails or the system is not supported.</returns>
-    [SuppressMessage("ReSharper", "RedundantEmptySwitchSection")]
     public static async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, List<string> fileFormatsToLaunch, ILoadingState loadingState)
     {
+        // 1. Try to get a 100% certain match
+        var confirmedSystem = RetroAchievementsSystemMatcher.GetExactAliasMatch(systemName);
+
+        // 2. If not 100% certain, ask the user
+        if (confirmedSystem == null)
+        {
+            // Get a "guess" to pre-select in the ComboBox
+            var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName);
+
+            // Run UI on Dispatcher
+            var userSelectedSystem = await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                var win = new SystemSelectionWindow(guess) { Owner = Application.Current.MainWindow };
+                return win.ShowDialog() == true ? win.SelectedSystem : null;
+            });
+
+            if (string.IsNullOrEmpty(userSelectedSystem))
+            {
+                return new RaHashResult(null, null, false, "System selection cancelled by user.");
+            }
+
+            systemName = userSelectedSystem;
+        }
+        else
+        {
+            systemName = confirmedSystem;
+        }
+
         string tempExtractionPath = null;
         string hash = null;
         var isExtractionSuccessful = true; // Assume success initially
