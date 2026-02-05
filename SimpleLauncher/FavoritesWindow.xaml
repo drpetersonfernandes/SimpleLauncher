@@ -50,12 +50,6 @@
 
     <!-- Main container Grid that holds both the content and overlay -->
     <Grid>
-        <!-- Main content Grid -->
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -142,6 +136,6 @@
         <ContentControl x:Name="LoadingOverlay" 
                         Template="{StaticResource LoadingOverlayTemplate}" 
                         Visibility="Collapsed" 
-                        Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" />
+                        Grid.Row="0" Grid.ColumnSpan="3" />
     </Grid>
 </controls:MetroWindow>

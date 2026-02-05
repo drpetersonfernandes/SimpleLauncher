@@ -48,12 +48,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -188,6 +182,6 @@
         <ContentControl x:Name="LoadingOverlay" 
                         Template="{StaticResource LoadingOverlayTemplate}" 
                         Visibility="Collapsed" 
-                        Grid.Row="0" Grid.RowSpan="4" Grid.ColumnSpan="3" />
+                        Grid.Row="0" Grid.ColumnSpan="3" />
     </Grid>
 </controls:MetroWindow>

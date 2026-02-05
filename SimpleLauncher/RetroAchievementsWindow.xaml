@@ -12,10 +12,6 @@
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
         <TabControl Margin="10,0,10,10" SelectionChanged="TabControl_SelectionChanged"
                     controls:TabControlHelper.Underlined="TabPanel" x:Name="TabControl">
 
@@ -323,6 +319,6 @@
         <ContentControl x:Name="LoadingOverlay" 
                         Template="{StaticResource LoadingOverlayTemplate}" 
                         Visibility="Collapsed" 
-                        Grid.Row="0" Grid.RowSpan="2" />
+                        Grid.Row="0" />
     </Grid>
 </controls:MetroWindow>

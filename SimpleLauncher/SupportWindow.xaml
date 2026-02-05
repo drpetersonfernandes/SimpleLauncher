@@ -7,14 +7,7 @@
                       Height="450"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
-    <Grid> <!-- Root Grid to hold content and overlay -->
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <Grid>
         <Grid x:Name="MainContentGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -70,6 +63,6 @@
         <ContentControl x:Name="LoadingOverlay" 
                         Template="{StaticResource LoadingOverlayTemplate}" 
                         Visibility="Collapsed" 
-                        Grid.Row="0" Grid.RowSpan="5" />
+                        Grid.Row="0" />
     </Grid>
 </controls:MetroWindow>

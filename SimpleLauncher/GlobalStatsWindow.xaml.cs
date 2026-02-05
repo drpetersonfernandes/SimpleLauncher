@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -54,6 +55,13 @@ internal partial class GlobalStatsWindow : IDisposable, ILoadingState
                 StartButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
                 SetLoadingState(true, (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing please wait...");
+
+                // Remove from current parent before assigning to overlay (to avoid visual tree conflict)
+                if (CancelButton.Parent is Panel parentPanel)
+                {
+                    parentPanel.Children.Remove(CancelButton);
+                }
+
                 // Inject CancelButton into the overlay
                 LoadingOverlay.Tag = CancelButton;
                 CancelButton.Visibility = Visibility.Visible;
@@ -100,6 +108,16 @@ internal partial class GlobalStatsWindow : IDisposable, ILoadingState
         }
     }
 
+    private void ReturnCancelButtonToGrid()
+    {
+        // Return CancelButton to the Grid if it was detached from the visual tree
+        if (CancelButton.Parent == null && LoadingOverlay.Parent is Panel parentPanel)
+        {
+            parentPanel.Children.Add(CancelButton);
+            Grid.SetRow(CancelButton, 0);
+        }
+    }
+
     private async Task ProcessGlobalStatsAsync(CancellationToken cancellationToken)
     {
         try
@@ -128,6 +146,10 @@ internal partial class GlobalStatsWindow : IDisposable, ILoadingState
 
                 SetLoadingState(false);
                 LoadingOverlay.Tag = null;
+
+                // Return CancelButton to its original container
+                ReturnCancelButtonToGrid();
+
                 CancelButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Visible;
             });
@@ -175,6 +197,10 @@ internal partial class GlobalStatsWindow : IDisposable, ILoadingState
     {
         SetLoadingState(false);
         LoadingOverlay.Tag = null;
+
+        // Return CancelButton to its original container
+        ReturnCancelButtonToGrid();
+
         CancelButton.Visibility = Visibility.Collapsed;
 
         StartButton.Visibility = Visibility.Visible;
