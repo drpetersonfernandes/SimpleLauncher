@@ -75,27 +75,30 @@ public class GameLauncher
 
         try
         {
-            // 2. Validation
-            if (!await ValidateContextAsync(context)) return;
-
-            // 3. Resolve Emulator Manager
+            // 2. Resolve Emulator Manager
             context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase));
             if (context.EmulatorManager == null)
             {
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                // Add logging here for developer context
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Could not find EmulatorManager for emulator '{context.EmulatorName}' in system '{context.SystemName}'.");
                 return;
             }
 
+            // 3. Perform Validation
+            if (!await ValidateContextAsync(context)) return;
+
+            // 4. Set Parameters
             context.Parameters = context.EmulatorManager.EmulatorParameters;
 
-            // 4. Run Configuration Handlers (Interceptors)
+            // 5. Run Configuration Handlers (Interceptors)
             var handler = _configHandlers.FirstOrDefault(h => h.IsMatch(context.EmulatorName, context.EmulatorManager.EmulatorLocation));
             if (handler != null)
             {
                 if (!await handler.HandleConfigurationAsync(context)) return;
             }
 
-            // 5. Pre-launch UI/State
+            // 6. Pre-launch UI/State
             var wasGamePadRunning = gamePadController.IsRunning;
             if (wasGamePadRunning) gamePadController.Stop();
 
@@ -104,13 +107,13 @@ public class GameLauncher
 
             try
             {
-                // 6. Execute Strategy
+                // 7. Execute Strategy
                 var strategy = _launchStrategies.First(s => s.IsMatch(context));
                 await strategy.ExecuteAsync(context, this);
             }
             finally
             {
-                // 7. Post-launch Cleanup & Stats
+                // 8. Post-launch Cleanup & Stats
                 context.LoadingState.SetLoadingState(false);
                 if (wasGamePadRunning) gamePadController.Start();
 
