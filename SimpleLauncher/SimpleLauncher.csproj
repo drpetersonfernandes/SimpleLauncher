@@ -890,6 +890,8 @@
     <Resource Include="images\pcsx2.png" />
     <Resource Include="images\yumir.png" />
     <Resource Include="images\dolphin.png" />
+    <None Remove="images\raine.png" />
+    <Resource Include="images\raine.png" />
   </ItemGroup>
   <ItemGroup>
     <None Update="images\default.png">

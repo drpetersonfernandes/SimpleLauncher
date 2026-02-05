@@ -1682,4 +1682,20 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <sys:String x:Key="SelectRetroAchievementsSystemTitle">Select RetroAchievements System</sys:String>
+    <sys:String x:Key="SystemSelectionMessage">We couldn't automatically identify the system for this game.</sys:String>
+    <sys:String x:Key="SystemSelectionPrompt">Please select the correct system:</sys:String>
+    <sys:String x:Key="ConfirmSelectionButton">Confirm Selection</sys:String>
+    <system:String x:Key="RaineConfig_Title">Raine Configuration</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Video Settings</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Audio Settings</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Fullscreen</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Fix Aspect Ratio</system:String>
+    <system:String x:Key="RaineConfig_Vsync">Enable VSync (Double Buffering)</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Resolution (Width x Height):</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Sound Driver:</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Sample Rate (Hz):</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Show this window before launching Raine</system:String>
+
 </ResourceDictionary>

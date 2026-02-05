@@ -124,6 +124,16 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mame_2010/).<br>
 Core may require BIOS files or system files to work properly.
 
+.
+
+**Emulator Name:** Raine<br>
+**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
+**Emulator Parameters:** -fs 1 -g<br>
+**Fullscreen Parameter:** -fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.
+
 ## Atari 2600
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -4141,6 +4151,16 @@ You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasured
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
+.
+
+**Emulator Name:** Raine<br>
+**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
+**Emulator Parameters:** -fs 1 -g<br>
+**Fullscreen Parameter:** -fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.
+
 ## SNK Neo Geo CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -4182,6 +4202,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
+
+.
+
+**Emulator Name:** Raine<br>
+**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
+**Emulator Parameters:** -fs 1 -g<br>
+**Fullscreen Parameter:** -fs 1<br>
+
+This emulator is available for Windows-x64.
 
 ## SNK Neo Geo Pocket
 

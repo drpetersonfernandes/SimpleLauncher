@@ -1396,4 +1396,12 @@ public partial class MainWindow
         var yumirWindow = new InjectYumirConfigWindow(_settings, null, false) { Owner = this };
         yumirWindow.ShowDialog();
     }
+
+    private void ShowRaineSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent("Opening Raine configuration...", this);
+        var raineWindow = new InjectRaineConfigWindow(_settings, null, false) { Owner = this };
+        raineWindow.ShowDialog();
+    }
 }

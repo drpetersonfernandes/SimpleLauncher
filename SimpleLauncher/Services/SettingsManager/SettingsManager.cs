@@ -200,6 +200,16 @@ public class SettingsManager
     public bool Pcsx2AchievementsHardcore { get; set; } = true;
     public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
 
+    // Raine
+    public bool RaineFullscreen { get; set; }
+    public int RaineResX { get; set; } = 640;
+    public int RaineResY { get; set; } = 480;
+    public bool RaineFixAspectRatio { get; set; } = true;
+    public bool RaineVsync { get; set; } = true;
+    public string RaineSoundDriver { get; set; } = "directsound";
+    public int RaineSampleRate { get; set; } = 44100;
+    public bool RaineShowSettingsBeforeLaunch { get; set; } = true;
+
     // RetroArch
     public bool RetroArchCheevosEnable { get; set; }
     public bool RetroArchCheevosHardcore { get; set; }
@@ -1297,6 +1307,44 @@ public class SettingsManager
             Pcsx2ShowSettingsBeforeLaunch = pssbl;
         }
 
+        // Raine
+        var raine = settings.Element("Raine");
+        if (bool.TryParse(raine?.Element("Fullscreen")?.Value ?? settings.Element("RaineFullscreen")?.Value, out var rf))
+        {
+            RaineFullscreen = rf;
+        }
+
+        if (int.TryParse(raine?.Element("ResX")?.Value ?? settings.Element("RaineResX")?.Value, out var rrx))
+        {
+            RaineResX = rrx;
+        }
+
+        if (int.TryParse(raine?.Element("ResY")?.Value ?? settings.Element("RaineResY")?.Value, out var rry))
+        {
+            RaineResY = rry;
+        }
+
+        if (bool.TryParse(raine?.Element("FixAspectRatio")?.Value ?? settings.Element("RaineFixAspectRatio")?.Value, out var rfar))
+        {
+            RaineFixAspectRatio = rfar;
+        }
+
+        if (bool.TryParse(raine?.Element("Vsync")?.Value ?? settings.Element("RaineVsync")?.Value, out var raineVsync))
+        {
+            RaineVsync = raineVsync;
+        }
+
+        RaineSoundDriver = raine?.Element("SoundDriver")?.Value ?? settings.Element("RaineSoundDriver")?.Value ?? "directsound";
+        if (int.TryParse(raine?.Element("SampleRate")?.Value ?? settings.Element("RaineSampleRate")?.Value, out var rsr))
+        {
+            RaineSampleRate = rsr;
+        }
+
+        if (bool.TryParse(raine?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("RaineShowSettingsBeforeLaunch")?.Value, out var raineShowSettingsBeforeLaunch))
+        {
+            RaineShowSettingsBeforeLaunch = raineShowSettingsBeforeLaunch;
+        }
+
         // RetroArch Fallback
         var retroarch = settings.Element("RetroArch");
         if (bool.TryParse(retroarch?.Element("CheevosEnable")?.Value ?? settings.Element("RetroArchCheevosEnable")?.Value, out var race))
@@ -1993,6 +2041,18 @@ public class SettingsManager
                         new XElement("AchievementsEnabled", Pcsx2AchievementsEnabled),
                         new XElement("AchievementsHardcore", Pcsx2AchievementsHardcore),
                         new XElement("ShowSettingsBeforeLaunch", Pcsx2ShowSettingsBeforeLaunch)
+                    ),
+
+                    // Raine
+                    new XElement("Raine",
+                        new XElement("Fullscreen", RaineFullscreen),
+                        new XElement("ResX", RaineResX),
+                        new XElement("ResY", RaineResY),
+                        new XElement("FixAspectRatio", RaineFixAspectRatio),
+                        new XElement("Vsync", RaineVsync),
+                        new XElement("SoundDriver", RaineSoundDriver),
+                        new XElement("SampleRate", RaineSampleRate),
+                        new XElement("ShowSettingsBeforeLaunch", RaineShowSettingsBeforeLaunch)
                     ),
 
                     // RetroArch

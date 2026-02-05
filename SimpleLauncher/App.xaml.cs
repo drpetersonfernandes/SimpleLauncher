@@ -117,6 +117,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IEmulatorConfigHandler, MednafenConfigHandler>();
         serviceCollection.AddSingleton<IEmulatorConfigHandler, MesenConfigHandler>();
         serviceCollection.AddSingleton<IEmulatorConfigHandler, Pcsx2ConfigHandler>();
+        serviceCollection.AddSingleton<IEmulatorConfigHandler, RaineConfigHandler>();
         serviceCollection.AddSingleton<IEmulatorConfigHandler, RetroArchConfigHandler>();
         serviceCollection.AddSingleton<IEmulatorConfigHandler, Rpcs3ConfigHandler>();
         serviceCollection.AddSingleton<IEmulatorConfigHandler, SegaModel2ConfigHandler>();
