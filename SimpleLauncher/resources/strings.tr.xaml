@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Genel Arama</system:String>
     <system:String x:Key="GlobalStats">Genel İstatistikler</system:String>
     <system:String x:Key="GlobalStatsExplanation">Bu pencere, toplam sistemler, emülatörler, oyunlar ve eşleşen görüntüler dahil olmak üzere oyun kütüphaneniz hakkında kapsamlı istatistikler hesaplar. Analizi başlatmak için 'İşlemi Başlat' düğmesine tıklayın.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Küresel İstatistik Raporu</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher'a yönetici izinleri verin ve tekrar deneyin.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'a yönetici erişimi verin ve tekrar deneyin.</system:String>
     <system:String x:Key="Green">Yeşil</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Oyunlar yükleniyor...</system:String>
     <system:String x:Key="LoadingHistory">Geçmiş yükleniyor...</system:String>
     <system:String x:Key="LoadingNextPage">Sonraki sayfa yükleniyor...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Önceki sayfa yükleniyor...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM geçmişi yükleniyor...</system:String>
     <system:String x:Key="LoadingSystem">Sistem yükleniyor...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Kullanıcı tamamlama ilerlemesi yükleniyor...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Kılavuz bulunamadı</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Sorunu düzeltmek için lütfen 'Simple Launcher'ı manuel olarak yeniden yükleyin.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Eşleşen Görüntü Sayısı</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Eşleşen Resim Sayısı:</system:String>
     <system:String x:Key="Mauve">Eflatun</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Belki internet bağlantınızda bir sorun vardır ya da GitHub sunucusu çevrim dışıdır.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Bilinear Enterpolasyon</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
     <system:String x:Key="PreviewImageLabel">Önizleme Resmi</system:String>
     <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
-    <system:String x:Key="ProcessingEllipsis">İşleniyor...</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">İşlem hala devam ediyor. İptal edip kapatmak ister misiniz?</system:String>
     <system:String x:Key="ProfileID">Profil Kimliği (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Bağlantı ayarları geri alınıyor...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
     <system:String x:Key="RomCountColumnHeader">ROM veya ISO Sayısı</system:String>
-    <system:String x:Key="RomCountLabel">ROM veya ISO Sayısı:</system:String>
     <system:String x:Key="RomHistory">ROM Geçmişi</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM geçmişi bulunamadı</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Anizotropik Filtre:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Oynatma geçmişi sıralanıyor...</system:String>
     <system:String x:Key="SoundConfiguration">Ses Yapılandırması</system:String>
     <system:String x:Key="Square">Kare</system:String>
-    <system:String x:Key="StartingGlobalSearch">Global arama başlatılıyor...</system:String>
     <system:String x:Key="StartProcess">İşlemi Başlat</system:String>
     <system:String x:Key="Status">Durum:</system:String>
     <system:String x:Key="Steel">Çelik</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">Sistem yüklemesi iptal edildi.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">‘Sistem Adı’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
     <system:String x:Key="SystemNameHeader">Sistem Adı</system:String>
-    <system:String x:Key="SystemNameLabel">Sistem Adı:</system:String>
     <system:String x:Key="SystemNameRequired">Sistem adı (zorunlu)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistem başarıyla kaydedildi.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">Sisteme Özgü İstatistikler</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' bozuk veya açılamıyor.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml', uygulama klasöründe bulunamadı.</system:String>
     <system:String x:Key="TakeScreenshot">Ekran Görüntüsü Al</system:String>

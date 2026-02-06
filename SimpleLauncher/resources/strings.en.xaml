@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Global Search</system:String>
     <system:String x:Key="GlobalStats">Global Stats</system:String>
     <system:String x:Key="GlobalStatsExplanation">This window calculates comprehensive statistics about your game library, including total systems, emulators, games, and matched images. Click 'Start Process' to begin the analysis.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Grant 'Simple Launcher' administrative access and try again.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Grant 'Simple Launcher' administrative access and try again.</system:String>
     <system:String x:Key="Green">Green</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Loading Games...</system:String>
     <system:String x:Key="LoadingHistory">Loading history...</system:String>
     <system:String x:Key="LoadingNextPage">Loading next page...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Loading previous page...</system:String>
     <system:String x:Key="LoadingROMHistory">Loading ROM history...</system:String>
     <system:String x:Key="LoadingSystem">Loading system...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Loading user completion progress...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Manual not found</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Please reinstall 'Simple Launcher' manually to fix the issue.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Number of Matched Images</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Number of Matched Images:</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Maybe there is a problem with your internet access or the GitHub server is offline.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Bilinear Interpolation</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Preview Image</system:String>
     <system:String x:Key="PreviewImageLabel">Preview Image</system:String>
     <system:String x:Key="PreviousPage">Previous Page</system:String>
-    <system:String x:Key="ProcessingEllipsis">Processing...</system:String>
     <system:String x:Key="Processingpleasewait">Processing, please wait...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Processing is still running. Do you want to cancel and close?</system:String>
     <system:String x:Key="ProfileID">Profile ID (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Reverting link settings...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
     <system:String x:Key="RomCountColumnHeader">Number of ROMs or ISOs</system:String>
-    <system:String x:Key="RomCountLabel">Number of ROMs or ISOs:</system:String>
     <system:String x:Key="RomHistory">Rom History</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM History not found</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Anisotropic Filter:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Sorting play history...</system:String>
     <system:String x:Key="SoundConfiguration">Sound Configuration</system:String>
     <system:String x:Key="Square">Square</system:String>
-    <system:String x:Key="StartingGlobalSearch">Starting global search...</system:String>
     <system:String x:Key="StartProcess">Start Process</system:String>
     <system:String x:Key="Status">Status:</system:String>
     <system:String x:Key="Steel">Steel</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">System load cancelled.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'System Name' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemNameHeader">System Name</system:String>
-    <system:String x:Key="SystemNameLabel">System Name:</system:String>
     <system:String x:Key="SystemNameRequired">System Name (Required)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">System saved successfully.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">System-Specific Stats</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is corrupted or could not be opened.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' not found inside the application folder.</system:String>
     <system:String x:Key="TakeScreenshot">Take Screenshot</system:String>
@@ -1702,5 +1694,26 @@
     <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine configuration has been successfully injected.</system:String>
     <system:String x:Key="RaineConfig_PathNotFound">Raine emulator executable not found. Please locate it manually.</system:String>
     <system:String x:Key="RaineConfig_SelectExeTitle">Select Raine Emulator Executable</system:String>
+    
+    <system:String x:Key="ProcessingSystem">Processing system</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Enable Audio Stretching</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Enable audio stretching to prevent audio crackling.</system:String>
+    <system:String x:Key="RaineConfig_General_Header">General</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">Show FPS</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Frame Skip</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD Section</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Music Volume</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">SFX Volume</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Mute SFX</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Mute Music</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Filtering games with achievements...</system:String>
+    <system:String x:Key="LoadingPrevPage">Loading previous page...</system:String>
+    <system:String x:Key="Searching">Searching...</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Filter games that are probably compatible with RetroAchievements</system:String>
+    <system:String x:Key="Launching">Launching...</system:String>
+    <system:String x:Key="ConvertingChdToCue">Converting CHD...</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Failed to save Yumir configuration.</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir configuration saved successfully.</system:String>
     
 </ResourceDictionary>

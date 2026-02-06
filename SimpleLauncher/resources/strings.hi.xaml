@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">वैश्विक खोज</system:String>
     <system:String x:Key="GlobalStats">वैश्विक सांख्यिकी</system:String>
     <system:String x:Key="GlobalStatsExplanation">यह विंडो आपकी गेम लाइब्रेरी के बारे में व्यापक आंकड़े गणना करती है, जिसमें कुल सिस्टम, एमुलेटर, गेम और मिलान की गई छवियां शामिल हैं। विश्लेषण शुरू करने के लिए 'प्रक्रिया प्रारंभ करें' पर क्लिक करें।</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">वैश्विक आँकड़े रिपोर्ट</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' को प्रशासनिक अनुमतियाँ दें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' को प्रशासनिक पहुंच प्रदान करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="Green">हरा</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">गेम लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingHistory">इतिहास लोड हो रहा है...</system:String>
     <system:String x:Key="LoadingNextPage">अगला पृष्ठ लोड कर रहा है...</system:String>
-    <system:String x:Key="LoadingPreviousPage">पिछला पृष्ठ लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM हिस्ट्री लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingSystem">सिस्टम लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">उपयोगकर्ता पूर्णता प्रगति लोड कर रहा है...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">मैन्युअल नहीं मिला।</system:String>
     <system:String x:Key="ManualReinstallSuggestion">समस्या को ठीक करने के लिए कृपया 'Simple Launcher' को मैन्युअल रूप से फिर से स्थापित करें।</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">मिलान की गई छवियों की संख्या</system:String>
-    <system:String x:Key="MatchedImageCountLabel">मिलान की गई छवियों की संख्या:</system:String>
     <system:String x:Key="Mauve">मॉव</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">शायद आपके इंटरनेट कनेक्शन में कोई समस्या है या GitHub सर्वर ऑफ़लाइन है।</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">द्विरेखीय इंटरपोलेशन</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">पूर्वावलोकन छवि</system:String>
     <system:String x:Key="PreviewImageLabel">पूर्वावलोकन छवि</system:String>
     <system:String x:Key="PreviousPage">पिछला पृष्ठ</system:String>
-    <system:String x:Key="ProcessingEllipsis">प्रसंस्करण हो रहा है...</system:String>
     <system:String x:Key="Processingpleasewait">प्रोसेसिंग हो रही है, कृपया प्रतीक्षा करें...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">प्रसंस्करण अभी भी चल रहा है। क्या आप रद्द करके बंद करना चाहते हैं?</system:String>
     <system:String x:Key="ProfileID">प्रोफ़ाइल आईडी (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">लिंक सेटिंग्स वापस कर रहा है...</system:String>
     <system:String x:Key="ReverttoDefaultValues">डिफ़ॉल्ट मानों पर पुनर्स्थापित करें</system:String>
     <system:String x:Key="RomCountColumnHeader">ROMs या ISOs की संख्या</system:String>
-    <system:String x:Key="RomCountLabel">ROMs या ISOs की संख्या:</system:String>
     <system:String x:Key="RomHistory">रोम इतिहास</system:String>
     <system:String x:Key="ROMHistorynotfound">रोम इतिहास नहीं मिला</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">एनिसोट्रोपिक फ़िल्टर:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">प्ले हिस्ट्री सॉर्ट कर रहा है...</system:String>
     <system:String x:Key="SoundConfiguration">ध्वनि कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="Square">वर्ग</system:String>
-    <system:String x:Key="StartingGlobalSearch">ग्लोबल सर्च शुरू कर रहा है...</system:String>
     <system:String x:Key="StartProcess">प्रक्रिया प्रारंभ करें</system:String>
     <system:String x:Key="Status">स्थिति:</system:String>
     <system:String x:Key="Steel">स्टील</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">सिस्टम लोड रद्द कर दिया गया।</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'सिस्टम का नाम' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
     <system:String x:Key="SystemNameHeader">सिस्टम का नाम</system:String>
-    <system:String x:Key="SystemNameLabel">सिस्टम का नाम:</system:String>
     <system:String x:Key="SystemNameRequired">सिस्टम का नाम (आवश्यक)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">सिस्टम सफलतापूर्वक सहेजा गया।</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">सिस्टम-विशिष्ट आँकड़े</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' या तो भ्रष्ट है या इसे खोला नहीं जा सकता।</system:String>
     <system:String x:Key="systemxmlnotfound">ऐप्लिकेशन फ़ोल्डर के अंदर 'system.xml' नहीं मिला।</system:String>
     <system:String x:Key="TakeScreenshot">स्क्रीनशॉट लें</system:String>

@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">عالمی تلاش</system:String>
     <system:String x:Key="GlobalStats">عالمی اعدادوشمار</system:String>
     <system:String x:Key="GlobalStatsExplanation">یہ ونڈو آپ کی گیم لائبریری کے بارے میں جامع اعدادوشمار کا حساب لگاتی ہے، بشمول کل سسٹمز، ایمولیٹرز، گیمز، اور مماثل تصاویر۔ تجزیہ شروع کرنے کے لیے 'عمل شروع کریں' پر کلک کریں۔</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">عالمی اعدادوشمار کی رپورٹ</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' کو انتظامی اجازت دیں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' کو منتظم کی رسائی دیں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="Green">سبز</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">گیمز لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingHistory">تاریخ لوڈ ہو رہی ہے...</system:String>
     <system:String x:Key="LoadingNextPage">اگلا صفحہ لوڈ کر رہا ہے...</system:String>
-    <system:String x:Key="LoadingPreviousPage">پچھلا صفحہ لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM ہسٹری لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingSystem">سسٹم لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">یوزر کی تکمیل کی پیشرفت لوڈ کر رہا ہے...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">ہینڈولنگ نہیں ملی</system:String>
     <system:String x:Key="ManualReinstallSuggestion">مسئلہ کو ٹھیک کرنے کے لیے براہ کرم 'Simple Launcher' کو دستی طور پر دوبارہ انسٹال کریں۔</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">ملتی جلتی تصاویر کی تعداد</system:String>
-    <system:String x:Key="MatchedImageCountLabel">ملتی جلتی تصاویر کی تعداد:</system:String>
     <system:String x:Key="Mauve">مالوے</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ممکن ہے آپ کے انٹرنیٹ کنیکشن میں مسئلہ ہو یا GitHub سرور آف لائن ہو۔</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">بائی لینیئر انٹرپولیشن</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">پیش منظر امیج</system:String>
     <system:String x:Key="PreviewImageLabel">پیش نظارہ تصویر</system:String>
     <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
-    <system:String x:Key="ProcessingEllipsis">پروسیس ہو رہا ہے...</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">پروسیسنگ ابھی بھی چل رہی ہے۔ کیا آپ منسوخ کر کے بند کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="ProfileID">پروفائل ID (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">لنک کی ترتیبات واپس لے رہا ہے...</system:String>
     <system:String x:Key="ReverttoDefaultValues">ڈیفالٹ ویلیوز پر واپس جائیں</system:String>
     <system:String x:Key="RomCountColumnHeader">ROMs یا ISOs کی تعداد</system:String>
-    <system:String x:Key="RomCountLabel">ROMs یا ISOs کی تعداد:</system:String>
     <system:String x:Key="RomHistory">ROM کی تاریخ</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM کی تاریخ نہیں ملی</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">اینیسوٹروپک فلٹر:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">پلے ہسٹری ترتیب دے رہا ہے...</system:String>
     <system:String x:Key="SoundConfiguration">آواز کی ترتیب</system:String>
     <system:String x:Key="Square">مربع</system:String>
-    <system:String x:Key="StartingGlobalSearch">گلوبل سرچ شروع کر رہا ہے...</system:String>
     <system:String x:Key="StartProcess">عمل شروع کریں</system:String>
     <system:String x:Key="Status">حالت:</system:String>
     <system:String x:Key="Steel">اسٹیل</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">سسٹم لوڈ منسوخ کر دیا گیا۔</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">سسٹم کا نام خالی نہیں ہو سکتا۔</system:String>
     <system:String x:Key="SystemNameHeader">سسٹم کا نام</system:String>
-    <system:String x:Key="SystemNameLabel">سسٹم کا نام:</system:String>
     <system:String x:Key="SystemNameRequired">سسٹم کا نام (ضروری)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">سسٹم کامیابی سے محفوظ ہو گیا۔</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">سسٹم کے مخصوص اعدادوشمار</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' فائل خراب یا قابل رسائی نہیں ہے۔</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' ایپلیکیشن فولڈر میں نہیں مل سکا۔</system:String>
     <system:String x:Key="TakeScreenshot">اسکرین شاٹ لیں</system:String>

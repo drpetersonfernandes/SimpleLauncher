@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Pencarian Global</system:String>
     <system:String x:Key="GlobalStats">Statistik Global</system:String>
     <system:String x:Key="GlobalStatsExplanation">Jendela ini menghitung statistik komprehensif tentang perpustakaan game Anda, termasuk total sistem, emulator, game, dan gambar yang cocok. Klik 'Mulai Proses' untuk memulai analisis.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Laporan Statistik Global</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Berikan keizinan pentadbir kepada 'Simple Launcher' dan cuba lagi.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Berikan akses administratif ke 'Simple Launcher' dan coba lagi.</system:String>
     <system:String x:Key="Green">Hijau</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Memuat Game...</system:String>
     <system:String x:Key="LoadingHistory">Memuat riwayat...</system:String>
     <system:String x:Key="LoadingNextPage">Memuat halaman berikutnya...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Memuat halaman sebelumnya...</system:String>
     <system:String x:Key="LoadingROMHistory">Memuat Riwayat ROM...</system:String>
     <system:String x:Key="LoadingSystem">Memuat sistem...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Memuat progres penyelesaian pengguna...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Panduan tidak ditemukan.</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Harap instal ulang 'Simple Launcher' secara manual untuk memperbaiki masalah.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Jumlah Gambar yang Cocok</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Jumlah Gambar yang Cocok:</system:String>
     <system:String x:Key="Mauve">Ungu Muda</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Mungkin ada masalah dengan koneksi internet Anda atau server GitHub sedang offline.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Interpolasi Bilinear</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Pratinjau Gambar</system:String>
     <system:String x:Key="PreviewImageLabel">Gambar Pratinjau</system:String>
     <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
-    <system:String x:Key="ProcessingEllipsis">Memproses...</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Pemrosesan masih berjalan. Apakah Anda ingin membatalkan dan menutup?</system:String>
     <system:String x:Key="ProfileID">ID Profil (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Mengembalikan pengaturan tautan...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Kembalikan ke Nilai Default</system:String>
     <system:String x:Key="RomCountColumnHeader">Jumlah ROM atau ISO</system:String>
-    <system:String x:Key="RomCountLabel">Jumlah ROM atau ISO:</system:String>
     <system:String x:Key="RomHistory">Riwayat ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Riwayat ROM tidak ditemukan</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Filter Anisotropik:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Mengurutkan riwayat putar...</system:String>
     <system:String x:Key="SoundConfiguration">Konfigurasi Suara</system:String>
     <system:String x:Key="Square">Persegi</system:String>
-    <system:String x:Key="StartingGlobalSearch">Memulai pencarian global...</system:String>
     <system:String x:Key="StartProcess">Mulai Proses</system:String>
     <system:String x:Key="Status">Status:</system:String>
     <system:String x:Key="Steel">Biru Baja</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">Pemuatan sistem dibatalkan.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">"Nama Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>
     <system:String x:Key="SystemNameHeader">Nama Sistem</system:String>
-    <system:String x:Key="SystemNameLabel">Nama Sistem:</system:String>
     <system:String x:Key="SystemNameRequired">Nama Sistem (Wajib)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistem berhasil disimpan.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">Statistik Spesifik Sistem</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' rusak atau tidak dapat dibuka.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="TakeScreenshot">Ambil Tangkapan Layar</system:String>

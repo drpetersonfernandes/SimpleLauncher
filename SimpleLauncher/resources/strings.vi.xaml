@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Tìm kiếm toàn cầu</system:String>
     <system:String x:Key="GlobalStats">Thống kê toàn cầu</system:String>
     <system:String x:Key="GlobalStatsExplanation">Cửa sổ này tính toán số liệu thống kê toàn diện về thư viện trò chơi của bạn, bao gồm tổng số hệ thống, trình giả lập, trò chơi và hình ảnh khớp. Nhấp vào 'Bắt đầu quá trình' để bắt đầu phân tích.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Báo cáo thống kê toàn cầu</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Hãy cấp quyền quản trị cho 'Simple Launcher' và thử lại.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Cấp quyền quản trị viên cho 'Simple Launcher' và thử lại.</system:String>
     <system:String x:Key="Green">Xanh lá</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Đang tải trò chơi...</system:String>
     <system:String x:Key="LoadingHistory">Đang tải lịch sử...</system:String>
     <system:String x:Key="LoadingNextPage">Đang tải trang tiếp theo...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Đang tải trang trước...</system:String>
     <system:String x:Key="LoadingROMHistory">Đang tải lịch sử ROM...</system:String>
     <system:String x:Key="LoadingSystem">Đang tải hệ thống...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Đang tải tiến độ hoàn thành của người dùng...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Không tìm thấy hướng dẫn</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Vui lòng cài đặt lại 'Simple Launcher' theo cách thủ công để khắc phục sự cố.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Số lượng hình ảnh khớp</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Số lượng hình ảnh khớp:</system:String>
     <system:String x:Key="Mauve">Hồng nhạt</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Có thể có vấn đề với kết nối internet của bạn hoặc máy chủ GitHub đang ngoại tuyến.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Nội suy song tuyến</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Xem trước hình ảnh</system:String>
     <system:String x:Key="PreviewImageLabel">Hình ảnh Xem trước</system:String>
     <system:String x:Key="PreviousPage">Trang trước</system:String>
-    <system:String x:Key="ProcessingEllipsis">Đang xử lý...</system:String>
     <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Quá trình xử lý vẫn đang chạy. Bạn có muốn hủy và đóng không?</system:String>
     <system:String x:Key="ProfileID">ID Hồ sơ (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Đang hoàn tác cài đặt liên kết...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
     <system:String x:Key="RomCountColumnHeader">Số lượng ROM hoặc ISO</system:String>
-    <system:String x:Key="RomCountLabel">Số lượng ROM hoặc ISO:</system:String>
     <system:String x:Key="RomHistory">Lịch Sử ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Không tìm thấy lịch sử ROM</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Lọc dị hướng:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Đang sắp xếp lịch sử chơi...</system:String>
     <system:String x:Key="SoundConfiguration">Cấu hình âm thanh</system:String>
     <system:String x:Key="Square">Hình vuông</system:String>
-    <system:String x:Key="StartingGlobalSearch">Đang bắt đầu tìm kiếm toàn cầu...</system:String>
     <system:String x:Key="StartProcess">Bắt đầu quá trình</system:String>
     <system:String x:Key="Status">Trạng thái:</system:String>
     <system:String x:Key="Steel">Thép</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">Tải hệ thống đã bị hủy.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">"Tên hệ thống" không được để trống hoặc chỉ chứa khoảng trắng.</system:String>
     <system:String x:Key="SystemNameHeader">Tên hệ thống</system:String>
-    <system:String x:Key="SystemNameLabel">Tên hệ thống:</system:String>
     <system:String x:Key="SystemNameRequired">Tên hệ thống (bắt buộc)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Hệ thống đã được lưu thành công.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">Thống kê cụ thể theo hệ thống</system:String>
     <system:String x:Key="systemxmliscorrupted">Tệp 'system.xml' bị hỏng hoặc không thể mở được.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' không tìm thấy trong thư mục ứng dụng.</system:String>
     <system:String x:Key="TakeScreenshot">Chụp ảnh màn hình</system:String>

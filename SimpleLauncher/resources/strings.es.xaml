@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Búsqueda global</system:String>
     <system:String x:Key="GlobalStats">Estadísticas globales</system:String>
     <system:String x:Key="GlobalStatsExplanation">Esta ventana calcula estadísticas completas sobre su biblioteca de juegos, incluyendo el total de sistemas, emuladores, juegos e imágenes coincidentes. Haga clic en 'Iniciar proceso' para comenzar el análisis.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Informe de estadísticas globales</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Otorgue permisos administrativos a 'Simple Launcher' e intente de nuevo.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Concede acceso administrativo a 'Simple Launcher' e inténtalo nuevamente.</system:String>
     <system:String x:Key="Green">Verde</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Cargando juegos...</system:String>
     <system:String x:Key="LoadingHistory">Cargando historial...</system:String>
     <system:String x:Key="LoadingNextPage">Cargando página siguiente...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Cargando página anterior...</system:String>
     <system:String x:Key="LoadingROMHistory">Cargando historial de ROM...</system:String>
     <system:String x:Key="LoadingSystem">Cargando sistema...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Cargando progreso de finalización del usuario...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Manual no encontrado.</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Por favor, reinstale 'Simple Launcher' manualmente para solucionar el problema.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Número de imágenes coincidentes</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Número de imágenes coincidentes:</system:String>
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Tal vez haya un problema con tu conexión a internet o el servidor de GitHub esté fuera de servicio.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Interpolación Bilineal</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Vista previa de la imagen</system:String>
     <system:String x:Key="PreviewImageLabel">Imagen de vista previa</system:String>
     <system:String x:Key="PreviousPage">Página anterior</system:String>
-    <system:String x:Key="ProcessingEllipsis">Procesando...</system:String>
     <system:String x:Key="Processingpleasewait">Procesando, por favor espera...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">El procesamiento sigue en curso. ¿Desea cancelar y cerrar?</system:String>
     <system:String x:Key="ProfileID">ID de perfil (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Revirtiendo configuración de enlaces...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restablecer a valores predeterminados</system:String>
     <system:String x:Key="RomCountColumnHeader">Número de ROMs o ISOs</system:String>
-    <system:String x:Key="RomCountLabel">Número de ROMs o ISOs:</system:String>
     <system:String x:Key="RomHistory">Historial de ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Historial de ROM no encontrado</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Filtro Anisotrópico:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Ordenando historial de juego...</system:String>
     <system:String x:Key="SoundConfiguration">Configuración de sonido</system:String>
     <system:String x:Key="Square">Cuadrado</system:String>
-    <system:String x:Key="StartingGlobalSearch">Iniciando búsqueda global...</system:String>
     <system:String x:Key="StartProcess">Iniciar proceso</system:String>
     <system:String x:Key="Status">Estado:</system:String>
     <system:String x:Key="Steel">Acero</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">Carga del sistema cancelada.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">El 'Nombre del sistema' no puede estar vacío ni contener solo espacios.</system:String>
     <system:String x:Key="SystemNameHeader">Nombre del sistema</system:String>
-    <system:String x:Key="SystemNameLabel">Nombre del sistema:</system:String>
     <system:String x:Key="SystemNameRequired">Nombre del sistema (obligatorio)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistema guardado con éxito.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">Estadísticas específicas del sistema</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' está dañado o no se pudo abrir.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' no se encontró en la carpeta de la aplicación.</system:String>
     <system:String x:Key="TakeScreenshot">Tomar captura de pantalla</system:String>

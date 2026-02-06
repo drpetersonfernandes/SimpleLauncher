@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">グローバル検索</system:String>
     <system:String x:Key="GlobalStats">グローバル統計</system:String>
     <system:String x:Key="GlobalStatsExplanation">このウィンドウは、合計システム、エミュレーター、ゲーム、一致した画像を含む、ゲームライブラリに関する包括的な統計を計算します。「プロセス開始」をクリックして分析を開始してください。</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">グローバル統計レポート</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">『Simple Launcher』に管理者権限を付与し、再試行してください。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' に管理者権限を付与して、再試行してください。</system:String>
     <system:String x:Key="Green">緑</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">ゲームを読み込んでいます...</system:String>
     <system:String x:Key="LoadingHistory">履歴を読み込み中...</system:String>
     <system:String x:Key="LoadingNextPage">次のページを読み込んでいます...</system:String>
-    <system:String x:Key="LoadingPreviousPage">前のページを読み込んでいます...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM履歴を読み込んでいます...</system:String>
     <system:String x:Key="LoadingSystem">システムを読み込んでいます...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">ユーザーの完了進捗状況を読み込んでいます...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">マニュアルが見つかりませんでした。</system:String>
     <system:String x:Key="ManualReinstallSuggestion">問題を修正するには、'Simple Launcher' を手動で再インストールしてください。</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">一致した画像の数</system:String>
-    <system:String x:Key="MatchedImageCountLabel">一致した画像の数:</system:String>
     <system:String x:Key="Mauve">モーヴ</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">インターネット接続に問題があるか、GitHub サーバーがオフラインになっている可能性があります。</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">バイリニア補間</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">プレビュー画像</system:String>
     <system:String x:Key="PreviewImageLabel">プレビュー画像</system:String>
     <system:String x:Key="PreviousPage">前のページ</system:String>
-    <system:String x:Key="ProcessingEllipsis">処理中...</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">処理はまだ実行中です。キャンセルして閉じますか？</system:String>
     <system:String x:Key="ProfileID">プロフィールID (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">リンク設定を元に戻しています...</system:String>
     <system:String x:Key="ReverttoDefaultValues">デフォルト値に戻す</system:String>
     <system:String x:Key="RomCountColumnHeader">ROMまたはISOの数</system:String>
-    <system:String x:Key="RomCountLabel">ROMまたはISOの数:</system:String>
     <system:String x:Key="RomHistory">ROM履歴</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM履歴が見つかりませんでした</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">異方性フィルター:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">プレイ履歴をソート中...</system:String>
     <system:String x:Key="SoundConfiguration">サウンド設定</system:String>
     <system:String x:Key="Square">正方形</system:String>
-    <system:String x:Key="StartingGlobalSearch">グローバル検索を開始しています...</system:String>
     <system:String x:Key="StartProcess">プロセス開始</system:String>
     <system:String x:Key="Status">ステータス:</system:String>
     <system:String x:Key="Steel">スチール</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">システム読み込みがキャンセルされました。</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">「システム名」は空白やスペースのみであってはいけません。</system:String>
     <system:String x:Key="SystemNameHeader">システム名</system:String>
-    <system:String x:Key="SystemNameLabel">システム名:</system:String>
     <system:String x:Key="SystemNameRequired">システム名（必須）</system:String>
     <system:String x:Key="Systemsavedsuccessfully">システムが正常に保存されました。</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">システム固有の統計</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' が破損しているか、開けません。</system:String>
     <system:String x:Key="systemxmlnotfound">アプリケーションフォルダー内に 'system.xml' が見つかりません。</system:String>
     <system:String x:Key="TakeScreenshot">スクリーンショットを撮る</system:String>

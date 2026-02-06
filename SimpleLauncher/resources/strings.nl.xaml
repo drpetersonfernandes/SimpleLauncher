@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Globaal zoeken</system:String>
     <system:String x:Key="GlobalStats">Globale statistieken</system:String>
     <system:String x:Key="GlobalStatsExplanation">Dit venster berekent uitgebreide statistieken over uw gamebibliotheek, inclusief het totale aantal systemen, emulators, games en overeenkomende afbeeldingen. Klik op 'Proces starten' om de analyse te beginnen.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Globaal statistiekenrapport</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
     <system:String x:Key="Green">Groen</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Spellen laden...</system:String>
     <system:String x:Key="LoadingHistory">Geschiedenis laden...</system:String>
     <system:String x:Key="LoadingNextPage">Volgende pagina laden...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Vorige pagina laden...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM-geschiedenis laden...</system:String>
     <system:String x:Key="LoadingSystem">Systeem laden...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Gebruikersvoltooiingsvoortgang laden...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Handleiding niet gevonden</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Aantal overeenkomende afbeeldingen</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Aantal overeenkomende afbeeldingen:</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Bilineaire Interpolatie</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
     <system:String x:Key="PreviewImageLabel">Voorbeeld Afbeelding</system:String>
     <system:String x:Key="PreviousPage">Vorige pagina</system:String>
-    <system:String x:Key="ProcessingEllipsis">Verwerken...</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">De verwerking is nog bezig. Wilt u annuleren en sluiten?</system:String>
     <system:String x:Key="ProfileID">Profiel-ID (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Linkinstellingen herstellen...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
     <system:String x:Key="RomCountColumnHeader">Aantal ROMs of ISO's</system:String>
-    <system:String x:Key="RomCountLabel">Aantal ROM's of ISO's:</system:String>
     <system:String x:Key="RomHistory">ROM-geschiedenis</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM-geschiedenis niet gevonden</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Anisotropische Filtering:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Speelgeschiedenis sorteren...</system:String>
     <system:String x:Key="SoundConfiguration">Geluidsconfiguratie</system:String>
     <system:String x:Key="Square">Vierkant</system:String>
-    <system:String x:Key="StartingGlobalSearch">Globale zoekopdracht starten...</system:String>
     <system:String x:Key="StartProcess">Proces starten</system:String>
     <system:String x:Key="Status">Status:</system:String>
     <system:String x:Key="Steel">Staal</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">Systeemladen geannuleerd.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">De 'Systeemnaam' mag niet leeg zijn of alleen spaties bevatten.</system:String>
     <system:String x:Key="SystemNameHeader">Systeemnaam</system:String>
-    <system:String x:Key="SystemNameLabel">Systeemnaam:</system:String>
     <system:String x:Key="SystemNameRequired">Systeemnaam (verplicht)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Systeem succesvol opgeslagen.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">Systeemspecifieke statistieken</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is beschadigd of kan niet worden geopend.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' kan niet worden gevonden in de applicatiemap.</system:String>
     <system:String x:Key="TakeScreenshot">Schermafbeelding maken</system:String>

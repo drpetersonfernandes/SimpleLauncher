@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">بحث شامل</system:String>
     <system:String x:Key="GlobalStats">الإحصائيات العامة</system:String>
     <system:String x:Key="GlobalStatsExplanation">تحسب هذه النافذة إحصائيات شاملة حول مكتبة الألعاب الخاصة بك، بما في ذلك إجمالي الأنظمة والمحاكيات والألعاب والصور المتطابقة. انقر على 'بدء العملية' لبدء التحليل.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">تقرير الإحصائيات العالمية</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">امنح 'Simple Launcher' صلاحيات المسؤول وحاول مرة أخرى.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">امنح 'Simple Launcher' صلاحيات إدارية وحاول مرة أخرى.</system:String>
     <system:String x:Key="Green">أخضر</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">تحميل الألعاب...</system:String>
     <system:String x:Key="LoadingHistory">جارٍ تحميل السجل...</system:String>
     <system:String x:Key="LoadingNextPage">تحميل الصفحة التالية...</system:String>
-    <system:String x:Key="LoadingPreviousPage">تحميل الصفحة السابقة...</system:String>
     <system:String x:Key="LoadingROMHistory">تحميل سجل ROM...</system:String>
     <system:String x:Key="LoadingSystem">تحميل النظام...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">تحميل تقدم إنجاز المستخدم...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">لم يتم العثور على الدليل.</system:String>
     <system:String x:Key="ManualReinstallSuggestion">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">عدد الصور المطابقة</system:String>
-    <system:String x:Key="MatchedImageCountLabel">عدد الصور المطابقة:</system:String>
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">استيفاء ثنائي الخط (Bilinear Interpolation)</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
     <system:String x:Key="PreviewImageLabel">صورة معاينة</system:String>
     <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
-    <system:String x:Key="ProcessingEllipsis">جارٍ المعالجة...</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">المعالجة لا تزال قيد التشغيل. هل تريد الإلغاء والإغلاق؟</system:String>
     <system:String x:Key="ProfileID">معرف الملف الشخصي (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">التراجع عن إعدادات الروابط...</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
     <system:String x:Key="RomCountColumnHeader">عدد ملفات ROM أو ISO</system:String>
-    <system:String x:Key="RomCountLabel">عدد ملفات ROMs أو ISOs:</system:String>
     <system:String x:Key="RomHistory">تاريخ روم</system:String>
     <system:String x:Key="ROMHistorynotfound">لم يتم العثور على تاريخ روم</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">تصفية متباينة الخواص (Anisotropic Filter):</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">فرز سجل اللعب...</system:String>
     <system:String x:Key="SoundConfiguration">إعدادات الصوت</system:String>
     <system:String x:Key="Square">مربع</system:String>
-    <system:String x:Key="StartingGlobalSearch">بدء البحث العام...</system:String>
     <system:String x:Key="StartProcess">بدء العملية</system:String>
     <system:String x:Key="Status">الحالة:</system:String>
     <system:String x:Key="Steel">فولاذي</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">تم إلغاء تحميل النظام.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'اسم النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
     <system:String x:Key="SystemNameHeader">اسم النظام</system:String>
-    <system:String x:Key="SystemNameLabel">اسم النظام:</system:String>
     <system:String x:Key="SystemNameRequired">اسم النظام (مطلوب)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">تم حفظ النظام بنجاح.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">إحصائيات خاصة بالنظام</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' تالف أو لا يمكن فتحه.</system:String>
     <system:String x:Key="systemxmlnotfound">لم يتم العثور على "system.xml" داخل مجلد التطبيق.</system:String>
     <system:String x:Key="TakeScreenshot">التقاط لقطة شاشة</system:String>

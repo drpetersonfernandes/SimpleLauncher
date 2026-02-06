@@ -576,7 +576,6 @@
     <system:String x:Key="GlobalSearch">Глобальный поиск</system:String>
     <system:String x:Key="GlobalStats">Глобальная статистика</system:String>
     <system:String x:Key="GlobalStatsExplanation">Это окно рассчитывает исчерпывающую статистику о вашей игровой библиотеке, включая общее количество систем, эмуляторов, игр и совпадающих изображений. Нажмите 'Начать процесс', чтобы начать анализ.</system:String>
-    <system:String x:Key="GlobalStatsReportTitle">Отчет о глобальной статистике</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Предоставьте 'Simple Launcher' права администратора и попробуйте снова.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Предоставьте программе 'Simple Launcher' права администратора и попробуйте снова.</system:String>
     <system:String x:Key="Green">Зеленый</system:String>
@@ -688,7 +687,6 @@
     <system:String x:Key="LoadingGames">Загрузка игр...</system:String>
     <system:String x:Key="LoadingHistory">Загрузка истории...</system:String>
     <system:String x:Key="LoadingNextPage">Загрузка следующей страницы...</system:String>
-    <system:String x:Key="LoadingPreviousPage">Загрузка предыдущей страницы...</system:String>
     <system:String x:Key="LoadingROMHistory">Загрузка истории ROM-ов...</system:String>
     <system:String x:Key="LoadingSystem">Загрузка системы...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Загрузка прогресса завершения пользователя...</system:String>
@@ -747,7 +745,6 @@
     <system:String x:Key="Manualnotfound">Руководство не найдено</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Пожалуйста, переустановите 'Simple Launcher' вручную, чтобы устранить проблему.</system:String>
     <system:String x:Key="MatchedImageCountColumnHeader">Количество совпадающих изображений</system:String>
-    <system:String x:Key="MatchedImageCountLabel">Количество совпавших изображений:</system:String>
     <system:String x:Key="Mauve">Лавандовый</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Возможно, возникли проблемы с вашим интернет-соединением, либо сервер GitHub недоступен.</system:String>
     <system:String x:Key="MednafenConfig_Bilinear_Checkbox">Билинейная интерполяция</system:String>
@@ -990,7 +987,6 @@
     <system:String x:Key="PreviewImage">Предпросмотр изображения</system:String>
     <system:String x:Key="PreviewImageLabel">Изображение предварительного просмотра</system:String>
     <system:String x:Key="PreviousPage">Предыдущая страница</system:String>
-    <system:String x:Key="ProcessingEllipsis">Обработка...</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Обработка все еще выполняется. Вы хотите отменить и закрыть?</system:String>
     <system:String x:Key="ProfileID">ID профиля (ULID):</system:String>
@@ -1150,7 +1146,6 @@
     <system:String x:Key="RevertingLinkSettings">Отмена настроек ссылок...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
     <system:String x:Key="RomCountColumnHeader">Количество ROM или ISO</system:String>
-    <system:String x:Key="RomCountLabel">Количество ROM'ов или ISO:</system:String>
     <system:String x:Key="RomHistory">История ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">История ROM не найдена</system:String>
     <system:String x:Key="RPCS3Config_AnisotropicFilter_Label">Анизотропная фильтрация:</system:String>
@@ -1315,7 +1310,6 @@
     <system:String x:Key="SortingPlayHistory">Сортировка истории игр...</system:String>
     <system:String x:Key="SoundConfiguration">Настройка звука</system:String>
     <system:String x:Key="Square">Квадрат</system:String>
-    <system:String x:Key="StartingGlobalSearch">Запуск глобального поиска...</system:String>
     <system:String x:Key="StartProcess">Начать процесс</system:String>
     <system:String x:Key="Status">Статус:</system:String>
     <system:String x:Key="Steel">Стальной</system:String>
@@ -1415,10 +1409,8 @@
     <system:String x:Key="SystemLoadCancelled">Загрузка системы отменена.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">Имя системы не может быть пустым или содержать только пробелы.</system:String>
     <system:String x:Key="SystemNameHeader">Название системы</system:String>
-    <system:String x:Key="SystemNameLabel">Название системы:</system:String>
     <system:String x:Key="SystemNameRequired">Название системы (обязательно)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Система успешно сохранена.</system:String>
-    <system:String x:Key="SystemSpecificStatsHeader">Статистика по системам</system:String>
     <system:String x:Key="systemxmliscorrupted">Файл 'system.xml' поврежден или не может быть открыт.</system:String>
     <system:String x:Key="systemxmlnotfound">Файл 'system.xml' не найден в папке приложения.</system:String>
     <system:String x:Key="TakeScreenshot">Сделать скриншот</system:String>
