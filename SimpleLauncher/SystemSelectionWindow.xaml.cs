@@ -27,4 +27,9 @@ public partial class SystemSelectionWindow
             DialogResult = true; // This automatically closes the window
         }
     }
+
+    private void Cancel_Click(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
+    }
 }

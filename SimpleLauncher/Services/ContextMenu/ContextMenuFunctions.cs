@@ -342,6 +342,12 @@ internal static class ContextMenuFunctions
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
             var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, null);
 
+            if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
+            {
+                DebugLogger.Log("[RA Service] User cancelled RetroAchievements hashing.");
+                return;
+            }
+
             UpdateStatusBar.UpdateStatusBar.UpdateContent("Calculating the hash of the selected game", mainWindow);
 
             var hash = raHashResult.Hash;
