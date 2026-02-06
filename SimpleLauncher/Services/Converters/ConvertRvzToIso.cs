@@ -50,6 +50,9 @@ public static class ConvertRvzToIso
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
+            DebugLogger.Log($"[ConvertRvzToIso] Running DolphinTool with args: {args}");
+            DebugLogger.Log("[ConvertRvzToIso] Converting from RVZ to ISO.");
+
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
             {
@@ -82,6 +85,7 @@ public static class ConvertRvzToIso
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
+                DebugLogger.Log("[ConvertRvzToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
@@ -90,6 +94,7 @@ public static class ConvertRvzToIso
         }
         catch (Exception ex)
         {
+            DebugLogger.LogException(ex, "[ConvertRvzToIso] Error converting RVZ to ISO.");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertRvzToIso] Error converting RVZ to ISO.");
             return null;
         }

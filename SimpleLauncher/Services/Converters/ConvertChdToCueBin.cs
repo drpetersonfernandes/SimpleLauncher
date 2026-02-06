@@ -56,6 +56,9 @@ public static class ConvertChdToCueBin
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
+            DebugLogger.Log($"[ConvertChdToCueBin] Running chdman with args: {args}");
+            DebugLogger.Log("[ConvertChdToCueBin] Converting from CHD to CUE/BIN.");
+
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
             {
@@ -89,6 +92,7 @@ public static class ConvertChdToCueBin
 
             if (process.ExitCode == 0 && File.Exists(tempCuePath))
             {
+                DebugLogger.Log("[ConvertChdToCueBin] Conversion successful.");
                 return tempCuePath;
             }
 
@@ -97,6 +101,7 @@ public static class ConvertChdToCueBin
         }
         catch (Exception ex)
         {
+            DebugLogger.LogException(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             return null;
         }

@@ -50,6 +50,9 @@ public static class ConvertChdToIso
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
+            DebugLogger.Log($"[ConvertChdToIso] Running chdman with args: {args}");
+            DebugLogger.Log("[ConvertChdToIso] Converting from CHD to ISO.");
+
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
             {
@@ -82,6 +85,7 @@ public static class ConvertChdToIso
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
+                DebugLogger.Log("[ConvertChdToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
@@ -90,6 +94,7 @@ public static class ConvertChdToIso
         }
         catch (Exception ex)
         {
+            DebugLogger.LogException(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             return null;
         }
