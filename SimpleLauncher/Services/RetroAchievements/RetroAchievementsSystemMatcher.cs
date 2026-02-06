@@ -196,7 +196,9 @@ public static class RetroAchievementsSystemMatcher
     /// <returns>The console ID, or -1 if not found.</returns>
     public static int GetSystemId(string inputSystemName)
     {
+        DebugLogger.Log($"[GetSystemId] Looking up system ID for '{inputSystemName}'");
         var bestMatch = GetBestMatchSystemName(inputSystemName);
+        DebugLogger.Log($"[GetSystemId] Best match: '{bestMatch}'");
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
 

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.Converters;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.LoadingInterface;
@@ -176,7 +177,9 @@ internal static class RetroAchievementsHasherTool
         if (confirmedSystem == null)
         {
             // Get a "guess" to pre-select in the ComboBox
+            DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
             var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName);
+            DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
 
             // Run UI on Dispatcher
             var userSelectedSystem = await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -184,9 +187,11 @@ internal static class RetroAchievementsHasherTool
                 var win = new SystemSelectionWindow(guess) { Owner = Application.Current.MainWindow };
                 return win.ShowDialog() == true ? win.SelectedSystem : null;
             });
+            DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
 
             if (string.IsNullOrEmpty(userSelectedSystem))
             {
+                DebugLogger.Log("[GetGameHashForRetroAchievementsAsync] User did not choose a system. Returning null.");
                 return new RaHashResult(null, null, false, "System selection cancelled by user.");
             }
 
@@ -331,7 +336,7 @@ internal static class RetroAchievementsHasherTool
                         if (Path.GetExtension(fileToProcess).Equals(".rvz", StringComparison.OrdinalIgnoreCase))
                         {
                             DebugLogger.Log($"[RA Hasher Tool] RVZ detected. Converting to ISO for hashing: {fileToProcess}");
-                            tempIsoPath = await Converters.ConvertRvzToIso.ConvertRvzToIsoAsync(fileToProcess);
+                            tempIsoPath = await ConvertRvzToIso.ConvertRvzToIsoAsync(fileToProcess);
                             if (!string.IsNullOrEmpty(tempIsoPath))
                             {
                                 fileToProcess = tempIsoPath;
