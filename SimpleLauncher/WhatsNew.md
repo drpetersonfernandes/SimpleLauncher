@@ -1,37 +1,55 @@
-# Release 4.10
-*2026-02-02*
+# Release 5.0
+*2026-02-06*
 ---
+The update represents a major architectural overhaul, focusing on modularity, expanded emulator support, enhanced RetroAchievements integration, and a more robust user experience.
 
-# 🚀 SimpleLauncher v4.10 Release Notes
+### 1. Major Architectural Refactoring
+The codebase has transitioned toward a more maintainable, decoupled architecture using Dependency Injection (DI) and standardized interfaces:
+*   **Game Launching Engine:** The `GameLauncher` has been refactored from a monolithic conditional block to a strategy-based pattern.
+    *   **`IEmulatorConfigHandler`:** Encapsulates emulator-specific configuration logic and UI injection.
+    *   **`ILaunchStrategy`:** Handles various launch scenarios (e.g., mounting ISOs, extracting ZIPs, or converting CHD files) based on a priority system.
+    *   **`LaunchContext`:** A new data container used to pass state between handlers and strategies.
+*   **Loading State Management:** A new `ILoadingState` interface and `LoadingOverlayTemplate` standardize how the UI handles long-running tasks. This ensures consistent UI blocking and progress feedback across all major windows (MainWindow, Favorites, Search, etc.).
+*   **Settings Infrastructure:** The application has reverted its settings storage from MessagePack (`settings.dat`) back to a more accessible XML format (`settings.xml`), with property defaults now initialized directly within the `SettingsManager`.
 
-We are excited to announce the release of **SimpleLauncher 4.10**! This update focus on deep emulator integration, improved performance through a modernized settings engine, and expanded support for RetroAchievements.
+### 2. Expanded Emulator Support & Configuration
+The patch significantly broadens the launcher's reach and the depth of its configuration capabilities:
+*   **New Emulator Integrations:**
+    *   **Raine:** Full integration including a dedicated configuration handler and a new `InjectRaineConfigWindow` for NeoGeo CD settings.
+    *   **New Systems:** Added support for Sega Naomi, Sega Naomi 2, and Atomiswave.
+*   **Enhanced Configuration Services:** Services for MAME, Azahar, DuckStation, PCSX2, RPCS3, and others were refactored for robustness.
+    *   **Regex-Based Parsing:** Improved INI/YAML handling to preserve file structures, comments, and whitespace.
+    *   **Atomic Writes:** Implementation of temporary file writing before overwriting configs to prevent data corruption.
+    *   **Path Normalization:** Improved handling of ROM paths, including automatic injection of missing system paths.
+*   **Localization Expansion:** A massive expansion of localization strings (primarily for Chinese) covering nearly every configurable setting for over a dozen emulators (Cemu, Dolphin, Mednafen, Mesen, Stella, Supermodel, etc.).
 
-## 🎮 Deep Emulator Integration & Injection
-The headline feature of v4.10 is the new **Emulator Configuration Injection** service. You can now manage and inject settings directly into over 20 popular emulators (including Ares, Dolphin, DuckStation, Flycast, RPCS3, and more) via the new "Inject Emulator Config" menu.
-*   **Xenia Integration:** Our new injection service for **Xenia** provides functionality similar to the popular **Xenia Manager** tool, allowing you to manage configuration tweaks and settings directly within SimpleLauncher before you launch your games.
-*   **Pre-launch Dialogs:** Many emulators now feature custom settings dialogs to ensure your experience is optimized before the game even starts.
+### 3. RetroAchievements (RA) Enhancements
+RetroAchievements functionality has been deeply integrated into the core workflow:
+*   **Auto-Configuration:** The launcher can now automatically inject RA login credentials into PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, BizHawk, and RetroArch.
+*   **Manual System Identification:** A new `SystemSelectionWindow` allows users to manually resolve system ambiguities when auto-detection fails during hashing.
+*   **Advanced Filtering:** Added a dedicated RA game filter in the `MainWindow` using Jaro-Winkler fuzzy matching to correlate local files with RA-supported titles.
+*   **Security:** Introduced `EncryptDuckStationToken` to handle DuckStation’s specific API token encryption requirements.
 
-## 🏆 RetroAchievements (RA) Overhaul
-We’ve made RetroAchievements more seamless than ever:
-*   **Auto-Configuration:** SimpleLauncher can now automatically inject your RA login credentials into **PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, and BizHawk**.
-*   **Improved Hashing:** Fixed issues with GameCube hashing and RVZ-to-ISO conversion to ensure your achievements track correctly.
-*   **Expanded Support:** Added support for Nintendo DSi and Virtual Boy system aliases.
+### 4. File Conversion & Tooling
+The launcher now includes built-in utilities to handle modern compressed disc formats:
+*   **Static Conversion Utilities:** New reusable services for `CHD-to-Cue/Bin`, `CHD-to-ISO`, and `RVZ-to-ISO` conversions using tools like `chdman` and `DolphinTool`.
+*   **ARM64 Support:** Added platform-specific executables and updated logic for the `BatchConvertToCHD` tool to support ARM64 architecture.
+*   **Improved Hashing:** Fixed specific issues related to GameCube hashing and temporary file cleanup during the conversion process.
 
-## ⚡ Performance & Infrastructure
-*   **MessagePack Migration:** We have moved our settings system to **MessagePack** (`settings.dat`). This results in significantly faster load times and better performance. *Note: Your old settings will be automatically migrated upon first launch.*
-*   **ARM64 Support:** Tools BatchConvertIsoToXIso, BatchConvertToCHD, SimpleXIsoDrive now fully support ARM64 architecture.
-*   **Play History Refactor:** Play history now tracks **absolute file paths** rather than just filenames, preventing conflicts between different versions of the same game. An automatic migration utility is included.
-*   **Threaded Loading:** System configuration validation has been moved to background threads, eliminating UI "freezing" during startup.
+### 5. UI/UX Refinements
+*   **Visual Consistency:** Applied MahApps "Square" and "Accent" styles to buttons across the application and standardized grid layouts.
+*   **Streamlined Interface:**
+    *   The "Toggle Light/Dark Mode" and several redundant status bar labels (e.g., RomCount, MatchedImageCount) were removed for a cleaner look.
+    *   The `GlobalStatsWindow` was refactored to process systems sequentially to prevent HDD thrashing, providing real-time UI updates during the process.
+*   **Error Feedback:** Replaced generic message boxes with a localized `MessageBoxLibrary` providing specific feedback for emulator-specific failures.
 
-## 🎨 UI & UX Enhancements
-*   **Smoother Interface:** Improved the "Loading" overlays and status bars to be more responsive and flicker-free.
-*   **Cleaned Up Info:** Streamlined the system info display to prioritize speed and clarity.
-
-## 🛠️ Bug Fixes & Reliability
-*   **Long Path Support:** Improved support for very long file paths (`\\?\`) to prevent errors in deep directory structures.
-*   **Enhanced Stability:** Improved thread safety for game lists and added more robust error handling for locked system files.
-*   **File Handling:** Improved ZIP entry validation and UTF-8 encoding support.
-*   **MS Store Scan:** Expanded the exclusion list to keep your library clean of "non-game" apps.
+### 6. Robustness, Logging, and Maintenance
+*   **Centralized Error Logging:** Integrated `ILogErrors` across all file-heavy services to ensure exceptions are caught, logged, and properly propagated.
+*   **Code Quality:**
+    *   Modernized code using `async/await` for UI windows to prevent freezing.
+    *   Added null-conditional checks and `ArgumentNullException.ThrowIfNull` for better defensive programming.
+    *   Improved resource management to prevent `ObjectDisposedException` during application shutdown.
+*   **Documentation:** Comprehensive updates to `README.md`, `WhatsNew.md`, and `parameters.md` to reflect the v4.10 release, including new emulator parameters and the removal of the "Group Files by Folder" feature.
 
 # Release 4.9.1
 *2026-01-18*
