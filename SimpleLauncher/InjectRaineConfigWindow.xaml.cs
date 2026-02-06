@@ -16,15 +16,19 @@ public partial class InjectRaineConfigWindow
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
-    private string _emulatorPath; // Removed readonly to allow selection
+    private string _emulatorPath;
+    private readonly string _gameFilePath;
+    private readonly string _systemRomPath;
     private readonly ILogErrors _logErrors;
 
-    public InjectRaineConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
+    public InjectRaineConfigWindow(SettingsManager settings, string emulatorPath = null, string gameFilePath = null, string systemRomPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _settings = settings;
         _emulatorPath = emulatorPath;
+        _gameFilePath = gameFilePath;
+        _systemRomPath = systemRomPath;
         _isLauncherMode = isLauncherMode;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
 
@@ -69,6 +73,13 @@ public partial class InjectRaineConfigWindow
         CmbAudioDriver.Text = _settings.RaineSoundDriver;
         CmbSampleRate.Text = _settings.RaineSampleRate.ToString(CultureInfo.InvariantCulture);
         ChkShowBeforeLaunch.IsChecked = _settings.RaineShowSettingsBeforeLaunch;
+        ChkShowFps.IsChecked = _settings.RaineShowFps;
+        CmbFrameSkip.SelectedIndex = Math.Clamp(_settings.RaineFrameSkip, 0, 5);
+        TxtNeoCdBios.Text = _settings.RaineNeoCdBios ?? string.Empty;
+        NumMusicVolume.Value = _settings.RaineMusicVolume;
+        NumSfxVolume.Value = _settings.RaineSfxVolume;
+        ChkMuteSfx.IsChecked = _settings.RaineMuteSfx;
+        ChkMuteMusic.IsChecked = _settings.RaineMuteMusic;
     }
 
     private void SaveSettings()
@@ -87,6 +98,13 @@ public partial class InjectRaineConfigWindow
         }
 
         _settings.RaineShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
+        _settings.RaineShowFps = ChkShowFps.IsChecked ?? false;
+        _settings.RaineFrameSkip = CmbFrameSkip.SelectedIndex;
+        _settings.RaineNeoCdBios = TxtNeoCdBios.Text;
+        _settings.RaineMusicVolume = (int)(NumMusicVolume.Value ?? 60);
+        _settings.RaineSfxVolume = (int)(NumSfxVolume.Value ?? 60);
+        _settings.RaineMuteSfx = ChkMuteSfx.IsChecked ?? false;
+        _settings.RaineMuteMusic = ChkMuteMusic.IsChecked ?? false;
         _settings.Save();
     }
 
@@ -97,7 +115,8 @@ public partial class InjectRaineConfigWindow
 
         try
         {
-            RaineConfigurationService.InjectSettings(path, _settings);
+            // Pass the stored paths to the service
+            RaineConfigurationService.InjectSettings(path, _settings, _gameFilePath, _systemRomPath);
             return true;
         }
         catch (Exception ex)

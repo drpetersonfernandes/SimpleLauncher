@@ -209,6 +209,13 @@ public class SettingsManager
     public string RaineSoundDriver { get; set; } = "directsound";
     public int RaineSampleRate { get; set; } = 44100;
     public bool RaineShowSettingsBeforeLaunch { get; set; } = true;
+    public bool RaineShowFps { get; set; }
+    public int RaineFrameSkip { get; set; }
+    public string RaineNeoCdBios { get; set; } = string.Empty;
+    public int RaineMusicVolume { get; set; } = 60;
+    public int RaineSfxVolume { get; set; } = 60;
+    public bool RaineMuteSfx { get; set; }
+    public bool RaineMuteMusic { get; set; }
 
     // RetroArch
     public bool RetroArchCheevosEnable { get; set; }
@@ -1345,6 +1352,37 @@ public class SettingsManager
             RaineShowSettingsBeforeLaunch = raineShowSettingsBeforeLaunch;
         }
 
+        if (bool.TryParse(raine?.Element("ShowFps")?.Value ?? settings.Element("RaineShowFps")?.Value, out var rfp))
+        {
+            RaineShowFps = rfp;
+        }
+
+        if (int.TryParse(raine?.Element("FrameSkip")?.Value ?? settings.Element("RaineFrameSkip")?.Value, out var rfs))
+        {
+            RaineFrameSkip = rfs;
+        }
+
+        RaineNeoCdBios = raine?.Element("NeoCdBios")?.Value ?? settings.Element("RaineNeoCdBios")?.Value ?? string.Empty;
+        if (int.TryParse(raine?.Element("MusicVolume")?.Value ?? settings.Element("RaineMusicVolume")?.Value, out var rmu))
+        {
+            RaineMusicVolume = rmu;
+        }
+
+        if (int.TryParse(raine?.Element("SfxVolume")?.Value ?? settings.Element("RaineSfxVolume")?.Value, out var rsfx))
+        {
+            RaineSfxVolume = rsfx;
+        }
+
+        if (bool.TryParse(raine?.Element("MuteSfx")?.Value ?? settings.Element("RaineMuteSfx")?.Value, out var rms))
+        {
+            RaineMuteSfx = rms;
+        }
+
+        if (bool.TryParse(raine?.Element("MuteMusic")?.Value ?? settings.Element("RaineMuteMusic")?.Value, out var rmm))
+        {
+            RaineMuteMusic = rmm;
+        }
+
         // RetroArch Fallback
         var retroarch = settings.Element("RetroArch");
         if (bool.TryParse(retroarch?.Element("CheevosEnable")?.Value ?? settings.Element("RetroArchCheevosEnable")?.Value, out var race))
@@ -2052,7 +2090,14 @@ public class SettingsManager
                         new XElement("Vsync", RaineVsync),
                         new XElement("SoundDriver", RaineSoundDriver),
                         new XElement("SampleRate", RaineSampleRate),
-                        new XElement("ShowSettingsBeforeLaunch", RaineShowSettingsBeforeLaunch)
+                        new XElement("ShowSettingsBeforeLaunch", RaineShowSettingsBeforeLaunch),
+                        new XElement("ShowFps", RaineShowFps),
+                        new XElement("FrameSkip", RaineFrameSkip),
+                        new XElement("NeoCdBios", RaineNeoCdBios),
+                        new XElement("MusicVolume", RaineMusicVolume),
+                        new XElement("SfxVolume", RaineSfxVolume),
+                        new XElement("MuteSfx", RaineMuteSfx),
+                        new XElement("MuteMusic", RaineMuteMusic)
                     ),
 
                     // RetroArch

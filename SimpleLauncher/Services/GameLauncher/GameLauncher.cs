@@ -768,27 +768,26 @@ public class GameLauncher
 
         string arguments;
 
-        // Handling MAME Related Games
+        // Handling MAME and Raine Arcade Related Games
         // Will load the filename without the extension
-        if (selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase))
+        var isMame = selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
+                     selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase);
+        var isRaine = selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+                      selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase);
+
+        // Detect NeoGeo CD based on extension
+        var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
+        var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
+
+        if (isMame || (isRaine && !isNeoGeoCd))
         {
-            string mameRomName;
-            if (isDirectory)
-            {
-                mameRomName = Path.GetFileName(resolvedFilePath);
-            }
-            else
-            {
-                mameRomName = Path.GetFileNameWithoutExtension(resolvedFilePath);
-            }
-
-            DebugLogger.Log($"MAME call detected. Attempting to launch: {mameRomName}");
-
-            arguments = $"{resolvedParameters} \"{mameRomName}\"";
+            var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"Stripped path call detected (MAME/Raine Arcade). Launching: {romName}");
+            arguments = $"{resolvedParameters} \"{romName}\"";
         }
-        else // General call - Provide full filepath
+        else
         {
+            // General call or Raine NeoGeo CD - Provide full filepath
             arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
         }
 

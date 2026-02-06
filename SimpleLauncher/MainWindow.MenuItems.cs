@@ -1401,7 +1401,7 @@ public partial class MainWindow
     {
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent("Opening Raine configuration...", this);
-        var raineWindow = new InjectRaineConfigWindow(_settings, null, false) { Owner = this };
+        var raineWindow = new InjectRaineConfigWindow(_settings, null, null, null, false) { Owner = this };
         raineWindow.ShowDialog();
     }
 }
