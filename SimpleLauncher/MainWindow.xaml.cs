@@ -817,7 +817,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            if (_isLoadingGames) return;
+            if (_isLoadingGames)
+            {
+                return;
+            }
 
             _playSoundEffects.PlayNotificationSound();
             _mameSortOrder = _mameSortOrder == "FileName" ? "MachineDescription" : "FileName";
@@ -835,7 +838,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void UpdateSortOrderButtonUi()
     {
-        if (SortOrderToggleButton == null) return;
+        if (SortOrderToggleButton == null)
+        {
+            return;
+        }
 
         if (_mameSortOrder == "FileName")
         {
