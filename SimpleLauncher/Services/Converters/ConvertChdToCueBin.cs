@@ -2,6 +2,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -14,6 +16,7 @@ public static class ConvertChdToCueBin
 
     /// <summary>
     /// Converts a CHD file to a temporary Cue/Bin using chdman.exe.
+    /// Returns the path to the generated CUE file, or null if conversion failed.
     /// </summary>
     public static async Task<string> ConvertChdToCueBinAsync(string chdPath)
     {
@@ -43,8 +46,8 @@ public static class ConvertChdToCueBin
             {
                 FileName = chdmanPath,
                 Arguments = args,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
+                RedirectStandardOutput = false, // Not needed, prevents deadlock
+                RedirectStandardError = true, // We want errors for logging
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 WorkingDirectory = chdmanDir
@@ -52,17 +55,44 @@ public static class ConvertChdToCueBin
 
             using var process = new Process();
             process.StartInfo = processStartInfo;
-            process.Start();
 
-            await process.WaitForExitAsync();
+            var errorBuilder = new StringBuilder();
+            process.ErrorDataReceived += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                    errorBuilder.AppendLine(e.Data);
+            };
+
+            process.Start();
+            process.BeginErrorReadLine();
+
+            // Add 5-minute timeout to prevent hanging forever
+            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+            try
+            {
+                await process.WaitForExitAsync(timeoutCts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                DebugLogger.Log("[ConvertChdToCueBin] Conversion timed out after 5 minutes. Killing process.");
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    /* ignore */
+                }
+
+                return null;
+            }
 
             if (process.ExitCode == 0 && File.Exists(tempCuePath))
             {
                 return tempCuePath;
             }
 
-            var error = await process.StandardError.ReadToEndAsync();
-            DebugLogger.Log($"[ConvertChdToCueBin] chdman failed. ExitCode: {process.ExitCode}. Error: {error}");
+            DebugLogger.Log($"[ConvertChdToCueBin] chdman failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)

@@ -128,7 +128,7 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Raine<br>
 **Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
-**Emulator Parameters:** -fs 1 -g<br>
+**Emulator Parameters:** <br>
 **Fullscreen Parameter:** -fs 1<br>
 
 This emulator is available for Windows-x64.<br>
@@ -4155,7 +4155,7 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** Raine<br>
 **Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
-**Emulator Parameters:** -fs 1 -g<br>
+**Emulator Parameters:** <br>
 **Fullscreen Parameter:** -fs 1<br>
 
 This emulator is available for Windows-x64.<br>
@@ -4207,10 +4207,12 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **Emulator Name:** Raine<br>
 **Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
-**Emulator Parameters:** -fs 1 -g<br>
+**Emulator Parameters:** <br>
 **Fullscreen Parameter:** -fs 1<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+Raine can load CUE/BIN or ISO files.<br>
+If you try to load a CHD file 'Simple Launcher' will automatic convert it to CUE/BIN before launching. 
 
 ## SNK Neo Geo Pocket
 

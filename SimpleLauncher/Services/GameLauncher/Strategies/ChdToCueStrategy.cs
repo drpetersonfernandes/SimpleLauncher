@@ -14,8 +14,16 @@ public class ChdToCueStrategy : ILaunchStrategy
 
     public bool IsMatch(LaunchContext context)
     {
-        return (context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) || context.FilePath.Contains("4do.exe", StringComparison.OrdinalIgnoreCase))
-               && Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
+        var isChd = Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
+        if (!isChd) return false;
+
+        var is4do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+                    (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        var isRaine = context.EmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+                      (context.EmulatorManager?.EmulatorLocation?.Contains("raine", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        return is4do || isRaine;
     }
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)

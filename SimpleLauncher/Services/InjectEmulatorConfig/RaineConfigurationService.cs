@@ -50,7 +50,7 @@ public static class RaineConfigurationService
 
         // Determine if we are in NeoGeo CD mode
         var ext = !string.IsNullOrEmpty(gameFilePath) ? Path.GetExtension(gameFilePath).ToLowerInvariant() : "";
-        var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
+        var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin" or ".chd";
         var gameDir = !string.IsNullOrEmpty(gameFilePath) ? Path.GetDirectoryName(gameFilePath) : null;
 
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)
