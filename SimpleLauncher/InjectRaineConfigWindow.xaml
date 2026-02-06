@@ -52,7 +52,7 @@
                         </ComboBox>
                     </StackPanel>
                 </GroupBox>
- 
+
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource RaineConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
@@ -73,16 +73,37 @@
                 <GroupBox Header="{DynamicResource RaineConfig_NeoCd_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource RaineConfig_NeoCdBios}" />
-                        <TextBox x:Name="TxtNeoCdBios" Margin="0,0,0,10" />
-                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtNeoCdBios" Grid.Column="0" Margin="0,0,5,10" />
+                            <Button x:Name="BtnSelectNeoCdBios" Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10" Click="BtnSelectNeoCdBios_Click" />
+                        </Grid>
+
                         <Label Content="{DynamicResource RaineConfig_MusicVolume}" />
                         <controls:NumericUpDown x:Name="NumMusicVolume" Minimum="0" Maximum="200" Interval="1" Value="60" Margin="0,0,0,5" />
-                        
+
                         <Label Content="{DynamicResource RaineConfig_SfxVolume}" />
                         <controls:NumericUpDown x:Name="NumSfxVolume" Minimum="0" Maximum="200" Interval="1" Value="60" Margin="0,0,0,5" />
-                        
+
                         <CheckBox x:Name="ChkMuteSfx" Content="{DynamicResource RaineConfig_MuteSfx}" Margin="0,5" />
                         <CheckBox x:Name="ChkMuteMusic" Content="{DynamicResource RaineConfig_MuteMusic}" Margin="0,5" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="{DynamicResource RaineConfig_Directories_Header}" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <Label Content="{DynamicResource RaineConfig_RomDirectory}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtRaineRomDirectory" Grid.Column="0" Margin="0,0,5,0" />
+                            <Button x:Name="BtnSelectRaineRomDirectory" Grid.Column="1" Content="..." Width="30" Height="25" Click="BtnSelectRaineRomDirectory_Click" />
+                        </Grid>
                     </StackPanel>
                 </GroupBox>
 

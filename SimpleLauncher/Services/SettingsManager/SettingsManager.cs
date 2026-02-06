@@ -216,6 +216,7 @@ public class SettingsManager
     public int RaineSfxVolume { get; set; } = 60;
     public bool RaineMuteSfx { get; set; }
     public bool RaineMuteMusic { get; set; }
+    public string RaineRomDirectory { get; set; } = string.Empty;
 
     // RetroArch
     public bool RetroArchCheevosEnable { get; set; }
@@ -543,6 +544,24 @@ public class SettingsManager
         Pcsx2AchievementsEnabled = other.Pcsx2AchievementsEnabled;
         Pcsx2AchievementsHardcore = other.Pcsx2AchievementsHardcore;
         Pcsx2ShowSettingsBeforeLaunch = other.Pcsx2ShowSettingsBeforeLaunch;
+
+        // Raine
+        RaineFullscreen = other.RaineFullscreen;
+        RaineResX = other.RaineResX;
+        RaineResY = other.RaineResY;
+        RaineFixAspectRatio = other.RaineFixAspectRatio;
+        RaineVsync = other.RaineVsync;
+        RaineSoundDriver = other.RaineSoundDriver;
+        RaineSampleRate = other.RaineSampleRate;
+        RaineShowSettingsBeforeLaunch = other.RaineShowSettingsBeforeLaunch;
+        RaineShowFps = other.RaineShowFps;
+        RaineFrameSkip = other.RaineFrameSkip;
+        RaineNeoCdBios = other.RaineNeoCdBios;
+        RaineMusicVolume = other.RaineMusicVolume;
+        RaineSfxVolume = other.RaineSfxVolume;
+        RaineMuteSfx = other.RaineMuteSfx;
+        RaineMuteMusic = other.RaineMuteMusic;
+        RaineRomDirectory = other.RaineRomDirectory;
 
         // RetroArch
         RetroArchCheevosEnable = other.RetroArchCheevosEnable;
@@ -1383,6 +1402,8 @@ public class SettingsManager
             RaineMuteMusic = rmm;
         }
 
+        RaineRomDirectory = raine?.Element("RomDirectory")?.Value ?? settings.Element("RaineRomDirectory")?.Value ?? RaineRomDirectory;
+
         // RetroArch Fallback
         var retroarch = settings.Element("RetroArch");
         if (bool.TryParse(retroarch?.Element("CheevosEnable")?.Value ?? settings.Element("RetroArchCheevosEnable")?.Value, out var race))
@@ -2097,7 +2118,8 @@ public class SettingsManager
                         new XElement("MusicVolume", RaineMusicVolume),
                         new XElement("SfxVolume", RaineSfxVolume),
                         new XElement("MuteSfx", RaineMuteSfx),
-                        new XElement("MuteMusic", RaineMuteMusic)
+                        new XElement("MuteMusic", RaineMuteMusic),
+                        new XElement("RomDirectory", RaineRomDirectory)
                     ),
 
                     // RetroArch

@@ -1716,4 +1716,9 @@
     <system:String x:Key="FailedToSaveYumirConfiguration">Failed to save Yumir configuration.</system:String>
     <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir configuration saved successfully.</system:String>
     
+    <system:String x:Key="RaineConfig_Directories_Header">Directories</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROM Directory</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Select NeoGeo CD BIOS File</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Select Raine ROM Directory</system:String>
+    
 </ResourceDictionary>

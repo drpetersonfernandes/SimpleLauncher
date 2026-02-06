@@ -24,7 +24,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {
-                // Pass the game path and system folder to the window
+                // Pass the game path, system folder, and RaineRomDirectory to the window
                 var win = new InjectRaineConfigWindow(context.Settings, resolvedExe, context.ResolvedFilePath, resolvedSystemFolder)
                 {
                     Owner = context.MainWindow
@@ -35,7 +35,8 @@ public class RaineConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, context.ResolvedFilePath, resolvedSystemFolder);
+            // Pass the RaineRomDirectory to the service
+            RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, context.ResolvedFilePath, resolvedSystemFolder, context.Settings.RaineRomDirectory);
         }
 
         return shouldRun;

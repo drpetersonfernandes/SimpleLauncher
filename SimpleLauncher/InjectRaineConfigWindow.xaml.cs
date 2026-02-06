@@ -80,6 +80,7 @@ public partial class InjectRaineConfigWindow
         NumSfxVolume.Value = _settings.RaineSfxVolume;
         ChkMuteSfx.IsChecked = _settings.RaineMuteSfx;
         ChkMuteMusic.IsChecked = _settings.RaineMuteMusic;
+        TxtRaineRomDirectory.Text = _settings.RaineRomDirectory ?? string.Empty;
     }
 
     private void SaveSettings()
@@ -105,6 +106,7 @@ public partial class InjectRaineConfigWindow
         _settings.RaineSfxVolume = (int)(NumSfxVolume.Value ?? 60);
         _settings.RaineMuteSfx = ChkMuteSfx.IsChecked ?? false;
         _settings.RaineMuteMusic = ChkMuteMusic.IsChecked ?? false;
+        _settings.RaineRomDirectory = TxtRaineRomDirectory.Text;
         _settings.Save();
     }
 
@@ -116,7 +118,7 @@ public partial class InjectRaineConfigWindow
         try
         {
             // Pass the stored paths to the service
-            RaineConfigurationService.InjectSettings(path, _settings, _gameFilePath, _systemRomPath);
+            RaineConfigurationService.InjectSettings(path, _settings, _gameFilePath, _systemRomPath, _settings.RaineRomDirectory);
             return true;
         }
         catch (Exception ex)
@@ -146,5 +148,77 @@ public partial class InjectRaineConfigWindow
         }
 
         Close();
+    }
+
+    private void BtnSelectNeoCdBios_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "NeoGeo CD BIOS (neocd.bin)|neocd.bin|All Files (*.*)|*.*",
+            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectNeoCdBios") ?? "Select NeoGeo CD BIOS File"
+        };
+
+        if (!string.IsNullOrEmpty(TxtNeoCdBios.Text) && File.Exists(TxtNeoCdBios.Text))
+        {
+            dialog.InitialDirectory = Path.GetDirectoryName(TxtNeoCdBios.Text);
+            dialog.FileName = Path.GetFileName(TxtNeoCdBios.Text);
+        }
+        else if (!string.IsNullOrEmpty(_emulatorPath))
+        {
+            // Try to suggest a path relative to the emulator
+            var emuDir = Path.GetDirectoryName(_emulatorPath);
+            if (emuDir != null)
+            {
+                var biosPath = Path.Combine(emuDir, "bios", "neocd.bin"); // Common bios location
+                if (File.Exists(biosPath))
+                {
+                    dialog.InitialDirectory = Path.GetDirectoryName(biosPath);
+                    dialog.FileName = Path.GetFileName(biosPath);
+                }
+                else if (Directory.Exists(emuDir))
+                {
+                    dialog.InitialDirectory = emuDir;
+                }
+            }
+        }
+
+        if (dialog.ShowDialog() == true)
+        {
+            TxtNeoCdBios.Text = dialog.FileName;
+        }
+    }
+
+    private void BtnSelectRaineRomDirectory_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new Microsoft.Win32.OpenFolderDialog
+        {
+            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectRomDirectory") ?? "Select Raine ROM Directory"
+        };
+
+        if (!string.IsNullOrEmpty(TxtRaineRomDirectory.Text) && Directory.Exists(TxtRaineRomDirectory.Text))
+        {
+            dialog.InitialDirectory = TxtRaineRomDirectory.Text;
+        }
+        else if (!string.IsNullOrEmpty(_systemRomPath) && Directory.Exists(_systemRomPath))
+        {
+            dialog.InitialDirectory = _systemRomPath;
+        }
+        else if (!string.IsNullOrEmpty(_emulatorPath))
+        {
+            var emuDir = Path.GetDirectoryName(_emulatorPath);
+            if (emuDir != null && Directory.Exists(Path.Combine(emuDir, "roms")))
+            {
+                dialog.InitialDirectory = Path.Combine(emuDir, "roms");
+            }
+            else if (Directory.Exists(emuDir))
+            {
+                dialog.InitialDirectory = emuDir;
+            }
+        }
+
+        if (dialog.ShowDialog() == true)
+        {
+            TxtRaineRomDirectory.Text = dialog.FolderName;
+        }
     }
 }

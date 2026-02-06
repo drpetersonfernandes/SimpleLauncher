@@ -15,7 +15,8 @@ public static class RaineConfigurationService
         string emulatorPath,
         SettingsManager.SettingsManager settings,
         string gameFilePath = null,
-        string systemRomPath = null)
+        string systemRomPath = null,
+        string raineCustomRomDirectory = null)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -76,15 +77,25 @@ public static class RaineConfigurationService
             ["neocd"] = new(StringComparer.OrdinalIgnoreCase)
         };
 
-        // Inject
-        // Inject rom_dir_0 (Arcade)
-        if (!isNeoGeoCd && !string.IsNullOrEmpty(gameDir))
+        // Inject rom_dir_0
+        // Priority: 1. Custom RaineRomDirectory from settings, 2. Game directory (if arcade), 3. System PrimarySystemFolder
+        string effectiveRomDir = null;
+        if (!string.IsNullOrEmpty(raineCustomRomDirectory) && Directory.Exists(raineCustomRomDirectory))
         {
-            updates["Directories"]["rom_dir_0"] = gameDir.EndsWith(Path.DirectorySeparatorChar) ? gameDir : gameDir + Path.DirectorySeparatorChar;
+            effectiveRomDir = raineCustomRomDirectory;
+        }
+        else if (!isNeoGeoCd && !string.IsNullOrEmpty(gameDir))
+        {
+            effectiveRomDir = gameDir;
         }
         else if (!string.IsNullOrEmpty(systemRomPath))
         {
-            updates["Directories"]["rom_dir_0"] = systemRomPath.EndsWith(Path.DirectorySeparatorChar) ? systemRomPath : systemRomPath + Path.DirectorySeparatorChar;
+            effectiveRomDir = systemRomPath;
+        }
+
+        if (!string.IsNullOrEmpty(effectiveRomDir))
+        {
+            updates["Directories"]["rom_dir_0"] = effectiveRomDir.EndsWith(Path.DirectorySeparatorChar) ? effectiveRomDir : effectiveRomDir + Path.DirectorySeparatorChar;
         }
 
         // Inject NeoGeo CD specific settings
