@@ -89,7 +89,7 @@ public class LogErrorsService : ILogErrors
         var osVersion = RuntimeInformation.OSDescription;
         var architecture = RuntimeInformation.OSArchitecture.ToString();
         var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
-        var windowsVersion = GetWindowsVersion.GetVersion();
+        var windowsVersion = GetMicrosoftWindowsVersion.GetVersion();
 
         // Write error Message
         var errorMessage =
@@ -194,7 +194,7 @@ public class LogErrorsService : ILogErrors
         var osVersion = RuntimeInformation.OSDescription;
         var architecture = RuntimeInformation.OSArchitecture.ToString();
         var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
-        var windowsVersion = GetWindowsVersion.GetVersion();
+        var windowsVersion = GetMicrosoftWindowsVersion.GetVersion();
 
         var errorMessage =
             $"Date: {DateTime.Now}\n" +

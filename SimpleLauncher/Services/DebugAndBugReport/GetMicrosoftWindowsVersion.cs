@@ -2,7 +2,7 @@ using System;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
-public static class GetWindowsVersion
+public static class GetMicrosoftWindowsVersion
 {
     public static string GetVersion()
     {

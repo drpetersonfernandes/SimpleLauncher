@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
-public static class CleanFolder
+public static class CleanTempFolder
 {
     /// <summary>
     /// Cleans up the specified temporary directory by removing all its contents and the directory itself.
