@@ -233,7 +233,6 @@
     <system:String x:Key="Console">主机：</system:String>
     <system:String x:Key="ConsoleID">主机ID：</system:String>
     <system:String x:Key="ContactDeveloper">联系开发者</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">联系开发者 (报告错误)</system:String>
     <system:String x:Key="Contributions">贡献：</system:String>
     <system:String x:Key="CopyError">复制错误</system:String>
     <system:String x:Key="CopyLog">复制日志</system:String>

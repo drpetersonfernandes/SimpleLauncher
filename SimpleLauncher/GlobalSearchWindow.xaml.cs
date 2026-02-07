@@ -116,7 +116,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             LaunchButton.IsEnabled = false;
             PreviewImage.Source = null;
 
-            SetLoadingState(true, (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching...");
+            SetLoadingState(true, (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.");
             NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
 
             await Task.Yield();

@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Máy chơi game:</system:String>
     <system:String x:Key="ConsoleID">ID máy chơi game:</system:String>
     <system:String x:Key="ContactDeveloper">Liên hệ nhà phát triển</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Liên hệ nhà phát triển (Báo cáo lỗi)</system:String>
     <system:String x:Key="Contributions">Đóng góp:</system:String>
     <system:String x:Key="CopyError">Lỗi sao chép</system:String>
     <system:String x:Key="CopyLog">Sao chép nhật ký</system:String>

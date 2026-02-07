@@ -233,7 +233,6 @@
     <system:String x:Key="Console">콘솔:</system:String>
     <system:String x:Key="ConsoleID">콘솔 ID:</system:String>
     <system:String x:Key="ContactDeveloper">개발자에게 문의</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">개발자에게 문의 (버그 보고)</system:String>
     <system:String x:Key="Contributions">기여:</system:String>
     <system:String x:Key="CopyError">복사 오류</system:String>
     <system:String x:Key="CopyLog">로그 복사</system:String>

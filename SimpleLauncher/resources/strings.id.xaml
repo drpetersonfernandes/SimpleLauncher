@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Konsol:</system:String>
     <system:String x:Key="ConsoleID">ID Konsol:</system:String>
     <system:String x:Key="ContactDeveloper">Hubungi Pengembang</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Hubungi Pengembang (Laporkan Bug)</system:String>
     <system:String x:Key="Contributions">Kontribusi:</system:String>
     <system:String x:Key="CopyError">Kesalahan Salin</system:String>
     <system:String x:Key="CopyLog">Salin Log</system:String>

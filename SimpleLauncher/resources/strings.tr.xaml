@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Konsol:</system:String>
     <system:String x:Key="ConsoleID">Konsol Kimliği:</system:String>
     <system:String x:Key="ContactDeveloper">Geliştiriciyle İletişime Geçin</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Geliştiriciyle İletişime Geçin (Hata Bildir)</system:String>
     <system:String x:Key="Contributions">Katkılar:</system:String>
     <system:String x:Key="CopyError">Kopyalama Hatası</system:String>
     <system:String x:Key="CopyLog">Günlüğü Kopyala</system:String>

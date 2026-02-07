@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Консоль:</system:String>
     <system:String x:Key="ConsoleID">ID консоли:</system:String>
     <system:String x:Key="ContactDeveloper">Связаться с разработчиком</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Связаться с разработчиком (сообщить об ошибке)</system:String>
     <system:String x:Key="Contributions">Вклады:</system:String>
     <system:String x:Key="CopyError">Ошибка копирования</system:String>
     <system:String x:Key="CopyLog">Копировать лог</system:String>

@@ -233,7 +233,6 @@
     <system:String x:Key="Console">कंसोल:</system:String>
     <system:String x:Key="ConsoleID">कंसोल आईडी:</system:String>
     <system:String x:Key="ContactDeveloper">डेवलपर से संपर्क करें</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">डेवलपर से संपर्क करें (बग रिपोर्ट करें)</system:String>
     <system:String x:Key="Contributions">योगदान:</system:String>
     <system:String x:Key="CopyError">कॉपी त्रुटि</system:String>
     <system:String x:Key="CopyLog">लॉग कॉपी करें</system:String>

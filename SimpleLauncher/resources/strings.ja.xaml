@@ -233,7 +233,6 @@
     <system:String x:Key="Console">コンソール:</system:String>
     <system:String x:Key="ConsoleID">コンソールID:</system:String>
     <system:String x:Key="ContactDeveloper">開発者に連絡</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">開発者に連絡 (バグ報告)</system:String>
     <system:String x:Key="Contributions">貢献:</system:String>
     <system:String x:Key="CopyError">コピーエラー</system:String>
     <system:String x:Key="CopyLog">ログをコピー</system:String>

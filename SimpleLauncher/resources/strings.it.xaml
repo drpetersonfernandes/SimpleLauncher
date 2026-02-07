@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Console:</system:String>
     <system:String x:Key="ConsoleID">ID Console:</system:String>
     <system:String x:Key="ContactDeveloper">Contatta lo sviluppatore</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Contatta lo sviluppatore (Segnala bug)</system:String>
     <system:String x:Key="Contributions">Contributi:</system:String>
     <system:String x:Key="CopyError">Errore di copia</system:String>
     <system:String x:Key="CopyLog">Copia log</system:String>

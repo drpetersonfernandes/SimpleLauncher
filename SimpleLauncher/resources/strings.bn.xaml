@@ -233,7 +233,6 @@
     <system:String x:Key="Console">কনসোল:</system:String>
     <system:String x:Key="ConsoleID">কনসোল আইডি:</system:String>
     <system:String x:Key="ContactDeveloper">ডেভেলপারের সাথে যোগাযোগ করুন</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">ডেভেলপারের সাথে যোগাযোগ করুন (বাগ রিপোর্ট করুন)</system:String>
     <system:String x:Key="Contributions">অবদান:</system:String>
     <system:String x:Key="CopyError">কপি ত্রুটি</system:String>
     <system:String x:Key="CopyLog">লগ কপি করুন</system:String>

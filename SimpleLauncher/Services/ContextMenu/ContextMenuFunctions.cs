@@ -335,7 +335,7 @@ internal static class ContextMenuFunctions
                 return;
             }
 
-            var preparingRaMsg = (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Calculating Game Hash... Please wait.";
+            var preparingRaMsg = (string)Application.Current.TryFindResource("CalculatingGameHash") ?? "Calculating Game Hash... Please wait.";
             (loadingStateProvider as Window)?.Dispatcher.Invoke(() => loadingStateProvider.SetLoadingState(true, preparingRaMsg));
             UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
 

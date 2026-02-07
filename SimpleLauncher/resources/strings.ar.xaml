@@ -233,7 +233,6 @@
     <system:String x:Key="Console">الجهاز:</system:String>
     <system:String x:Key="ConsoleID">معرف الجهاز:</system:String>
     <system:String x:Key="ContactDeveloper">الاتصال بالمطور</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">الاتصال بالمطور (الإبلاغ عن خطأ)</system:String>
     <system:String x:Key="Contributions">المساهمات:</system:String>
     <system:String x:Key="CopyError">خطأ في النسخ</system:String>
     <system:String x:Key="CopyLog">نسخ السجل</system:String>

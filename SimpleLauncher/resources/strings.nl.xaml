@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Console:</system:String>
     <system:String x:Key="ConsoleID">Console ID:</system:String>
     <system:String x:Key="ContactDeveloper">Contact opnemen met ontwikkelaar</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Contact opnemen met ontwikkelaar (Bug melden)</system:String>
     <system:String x:Key="Contributions">Bijdragen:</system:String>
     <system:String x:Key="CopyError">Kopieerfout</system:String>
     <system:String x:Key="CopyLog">Logboek kopiëren</system:String>

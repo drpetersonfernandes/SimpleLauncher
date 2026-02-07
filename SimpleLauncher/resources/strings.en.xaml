@@ -233,7 +233,6 @@
     <system:String x:Key="Console">Console:</system:String>
     <system:String x:Key="ConsoleID">Console ID:</system:String>
     <system:String x:Key="ContactDeveloper">Contact Developer (Report Bug)</system:String>
-    <system:String x:Key="ContactDeveloperReportBug">Contact Developer (Report Bug)</system:String>
     <system:String x:Key="Contributions">Contributions:</system:String>
     <system:String x:Key="CopyError">Copy Error</system:String>
     <system:String x:Key="CopyLog">Copy Log</system:String>
@@ -1679,7 +1678,6 @@
     <system:String x:Key="SystemSelectionMessage">We couldn't automatically identify the system for this game.</system:String>
     <system:String x:Key="SystemSelectionPrompt">Please select the correct system:</system:String>
     <system:String x:Key="ConfirmSelectionButton">Confirm Selection</system:String>
-    
     <system:String x:Key="RaineConfig_Title">Raine Configuration</system:String>
     <system:String x:Key="RaineConfig_Video_Header">Video Settings</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">Audio Settings</system:String>
@@ -1694,7 +1692,6 @@
     <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine configuration has been successfully injected.</system:String>
     <system:String x:Key="RaineConfig_PathNotFound">Raine emulator executable not found. Please locate it manually.</system:String>
     <system:String x:Key="RaineConfig_SelectExeTitle">Select Raine Emulator Executable</system:String>
-    
     <system:String x:Key="ProcessingSystem">Processing system</system:String>
     <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Enable Audio Stretching</system:String>
     <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Enable audio stretching to prevent audio crackling.</system:String>
@@ -1715,10 +1712,10 @@
     <system:String x:Key="ConvertingChdToCue">Converting CHD...</system:String>
     <system:String x:Key="FailedToSaveYumirConfiguration">Failed to save Yumir configuration.</system:String>
     <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir configuration saved successfully.</system:String>
-    
     <system:String x:Key="RaineConfig_Directories_Header">Directories</system:String>
     <system:String x:Key="RaineConfig_RomDirectory">ROM Directory</system:String>
     <system:String x:Key="RaineConfig_SelectNeoCdBios">Select NeoGeo CD BIOS File</system:String>
     <system:String x:Key="RaineConfig_SelectRomDirectory">Select Raine ROM Directory</system:String>
+    <system:String x:Key="CalculatingGameHash">Calculating Game Hash... Please wait.</system:String>
     
 </ResourceDictionary>
