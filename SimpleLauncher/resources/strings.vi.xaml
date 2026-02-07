@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Sử dụng Biên dịch Shader không đồng bộ</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Giảm hiện tượng giật hình trong quá trình chơi bằng cách biên dịch shader trong nền.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Âm thanh</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Bật kéo giãn âm thanh</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Bật kéo giãn âm thanh để ngăn tiếng rè.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Hủy</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Bắt đầu ở chế độ Toàn màn hình</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Tự động chuyển sang chế độ toàn màn hình khi trò chơi bắt đầu.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Nhưng tôi đã tìm thấy một tệp sao lưu.</system:String>
     <system:String x:Key="Cabinet">Tủ</system:String>
     <system:String x:Key="Cabinetnotfound">Không tìm thấy tủ</system:String>
+    <system:String x:Key="CalculatingGameHash">Đang tính toán mã Hash của trò chơi... Vui lòng đợi.</system:String>
     <system:String x:Key="Cancel">Hủy</system:String>
     <system:String x:Key="CancelButtonText">Hủy</system:String>
     <system:String x:Key="Cancelingdownload">Đang hủy tải xuống...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">Xác nhận</system:String>
     <system:String x:Key="ConfirmClose">Xác nhận đóng</system:String>
     <system:String x:Key="ConfirmDeletion">Xác nhận việc xóa</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Xác nhận lựa chọn</system:String>
     <system:String x:Key="Console">Máy chơi game:</system:String>
     <system:String x:Key="ConsoleID">ID máy chơi game:</system:String>
     <system:String x:Key="ContactDeveloper">Liên hệ nhà phát triển</system:String>
     <system:String x:Key="Contributions">Đóng góp:</system:String>
+    <system:String x:Key="ConvertingChdToCue">Đang chuyển đổi CHD...</system:String>
     <system:String x:Key="CopyError">Lỗi sao chép</system:String>
     <system:String x:Key="CopyLog">Sao chép nhật ký</system:String>
     <system:String x:Key="Core">Lõi</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Lưu cấu hình Supermodel thất bại. Vui lòng kiểm tra quyền truy cập tệp.</system:String>
     <system:String x:Key="FailedToSaveSystem">Không thể lưu cấu hình hệ thống.</system:String>
     <system:String x:Key="Failedtosavethereport">Không thể lưu báo cáo.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Lưu cấu hình Yumir thất bại.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Không thể khởi động Simple Launcher. Đã xảy ra lỗi khi kiểm tra các phiên bản hiện có.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Không thể khởi động trình giả lập hoặc trình giả lập không đóng đúng cách.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Không thể chuyển đổi trạng thái của bộ điều khiển trò chơi.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">Lọc theo Tất cả</system:String>
     <system:String x:Key="FilterByLetter">Lọc theo Chữ cái</system:String>
     <system:String x:Key="FilterByNumber">Lọc theo Số</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Đang lọc các trò chơi có thành tích...</system:String>
     <system:String x:Key="FindYourApiKeyHere">Tìm Khóa API của bạn tại đây</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">Hủy</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Chạy ở chế độ Toàn màn hình</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">đã khởi chạy với</system:String>
     <system:String x:Key="LaunchErrorTitle">Lỗi khởi chạy</system:String>
     <system:String x:Key="LaunchGame">Khởi động trò chơi</system:String>
+    <system:String x:Key="Launching">Đang khởi chạy...</system:String>
     <system:String x:Key="LaunchingGame">Đang khởi chạy trò chơi...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Đang khởi chạy trò chơi từ lịch sử...</system:String>
     <system:String x:Key="LaunchingTool">Đang khởi chạy công cụ...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">Đang tải trò chơi...</system:String>
     <system:String x:Key="LoadingHistory">Đang tải lịch sử...</system:String>
     <system:String x:Key="LoadingNextPage">Đang tải trang tiếp theo...</system:String>
+    <system:String x:Key="LoadingPrevPage">Đang tải trang trước...</system:String>
     <system:String x:Key="LoadingROMHistory">Đang tải lịch sử ROM...</system:String>
     <system:String x:Key="LoadingSystem">Đang tải hệ thống...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Đang tải tiến độ hoàn thành của người dùng...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">Trang trước</system:String>
     <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Quá trình xử lý vẫn đang chạy. Bạn có muốn hủy và đóng không?</system:String>
+    <system:String x:Key="ProcessingSystem">Đang xử lý hệ thống</system:String>
     <system:String x:Key="ProfileID">ID Hồ sơ (ULID):</system:String>
     <system:String x:Key="Publisher">Nhà xuất bản:</system:String>
     <system:String x:Key="Purple">Tím</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">Trò chơi không xác định</system:String>
     <system:String x:Key="RaGenericNo">Không</system:String>
     <system:String x:Key="RaGenericYes">Có</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Cài đặt Âm thanh</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Trình điều khiển âm thanh:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Thư mục</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Cố định tỷ lệ khung hình</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Bỏ qua khung hình</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Toàn màn hình</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Chung</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Âm lượng nhạc</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Tắt tiếng nhạc</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Tắt tiếng hiệu ứng</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">Phần NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Không tìm thấy tệp thực thi của trình giả lập Raine. Vui lòng chọn thủ công.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Độ phân giải (Rộng x Cao):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">Thư mục ROM</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Tốc độ lấy mẫu (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Chọn tệp thực thi trình giả lập Raine</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Chọn tệp NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Chọn thư mục Raine ROM</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">Âm lượng hiệu ứng (SFX)</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Hiển thị cửa sổ này trước khi chạy Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">Hiển thị FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">Cấu hình Raine</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Cài đặt Video</system:String>
+    <system:String x:Key="RaineConfig_Vsync">Bật VSync (Đệm đôi)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Cấu hình Raine đã được nạp thành công.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} yêu cầu phát triển đang hoạt động</system:String>
     <system:String x:Key="RaInfoCheckConnection">Vui lòng thử lại hoặc kiểm tra kết nối internet của bạn.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Vui lòng kiểm tra thông tin đăng nhập RetroAchievements của bạn hoặc thử lại sau.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Đã lưu cấu hình RPCS3 thành công.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Không tìm thấy trình giả lập RPCS3. Vui lòng xác định vị trí 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Cài đặt RPCS3</system:String>
+    <system:String x:Key="Run">Chạy</system:String>
     <system:String x:Key="Save">Lưu</system:String>
     <system:String x:Key="SaveDeadZone">Lưu</system:String>
     <system:String x:Key="SaveFailed">Lưu thất bại</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">Điểm:</system:String>
     <system:String x:Key="Search">Tìm Kiếm</system:String>
     <system:String x:Key="SearchFor">Tìm kiếm</system:String>
+    <system:String x:Key="Searching">Đang tìm kiếm...</system:String>
     <system:String x:Key="Searchingpleasewait">Đang tìm kiếm, vui lòng đợi...</system:String>
     <system:String x:Key="SearchOptions">Tùy chọn tìm kiếm</system:String>
     <system:String x:Key="SearchRecursively">Tìm kiếm đệ quy</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Chọn ComboBox Trình giả lập</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Chọn tệp âm thanh thông báo</system:String>
+        <system:String x:Key="SelectRetroAchievementsSystemTitle">Chọn hệ máy RetroAchievements</system:String>
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Chọn hệ thống {config.SystemName}</system:String>
     <system:String x:Key="SelectSystemComboBox">Chọn ComboBox Hệ thống</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Đã lưu cài đặt thành công.</system:String>
     <system:String x:Key="ShowAllGames">Hiển thị tất cả trò chơi</system:String>
     <system:String x:Key="ShowGames">Hiển thị trò chơi</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Lọc các trò chơi có thể tương thích với RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Chỉ hiển thị trò chơi không có bìa</system:String>
     <system:String x:Key="Sienna">Nâu đất</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">Tên hệ thống</system:String>
     <system:String x:Key="SystemNameRequired">Tên hệ thống (bắt buộc)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Hệ thống đã được lưu thành công.</system:String>
+    <system:String x:Key="SystemSelectionMessage">Chúng tôi không thể tự động nhận diện hệ máy cho trò chơi này.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Vui lòng chọn hệ máy chính xác:</system:String>
     <system:String x:Key="systemxmliscorrupted">Tệp 'system.xml' bị hỏng hoặc không thể mở được.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' không tìm thấy trong thư mục ứng dụng.</system:String>
     <system:String x:Key="TakeScreenshot">Chụp ảnh màn hình</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Chọn giữa thời gian PAL (50Hz) hoặc NTSC (60Hz).</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Mức âm lượng:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Điều chỉnh âm lượng tổng (0.0 đến 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Đã lưu cấu hình Yumir thành công.</system:String>
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomingIn">Đang phóng to...</system:String>

@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">غیر مطابقت پذیر شیڈر کمپائلیشن استعمال کریں</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">پس منظر میں شیڈرز کو کمپائل کرکے گیم پلے کے دوران ہکلانے کو کم کرتا ہے۔</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">آڈیو</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">آڈیو اسٹریچنگ فعال کریں</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">آڈیو میں خرخراہٹ روکنے کے لیے آڈیو اسٹریچنگ فعال کریں۔</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">منسوخ کریں</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">فل سکرین میں شروع کریں</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">جب کوئی گیم شروع ہو تو خود بخود فل سکرین موڈ پر سوئچ کریں۔</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">لیکن مجھے ایک بیک اپ فائل ملی۔</system:String>
     <system:String x:Key="Cabinet">کابینہ</system:String>
     <system:String x:Key="Cabinetnotfound">کابینہ نہیں ملی</system:String>
+    <system:String x:Key="CalculatingGameHash">گیم ہیش کا حساب لگایا جا رہا ہے... براہ کرم انتظار کریں۔</system:String>
     <system:String x:Key="Cancel">منسوخ کریں</system:String>
     <system:String x:Key="CancelButtonText">منسوخ کریں</system:String>
     <system:String x:Key="Cancelingdownload">ڈاؤن لوڈ منسوخ کر رہے ہیں...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">تصدیق</system:String>
     <system:String x:Key="ConfirmClose">بند کرنے کی تصدیق کریں</system:String>
     <system:String x:Key="ConfirmDeletion">حذف کرنے کی تصدیق کریں</system:String>
+    <system:String x:Key="ConfirmSelectionButton">انتخاب کی تصدیق کریں</system:String>
     <system:String x:Key="Console">کنسول:</system:String>
     <system:String x:Key="ConsoleID">کنسول آئی ڈی:</system:String>
     <system:String x:Key="ContactDeveloper">ڈویلپر سے رابطہ کریں</system:String>
     <system:String x:Key="Contributions">شراکتیں:</system:String>
+    <system:String x:Key="ConvertingChdToCue">CHD تبدیل ہو رہا ہے...</system:String>
     <system:String x:Key="CopyError">کاپی کی خرابی</system:String>
     <system:String x:Key="CopyLog">لاگ کاپی کریں</system:String>
     <system:String x:Key="Core">کور</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Supermodel کنفیگریشن محفوظ کرنے میں ناکام۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
     <system:String x:Key="FailedToSaveSystem">سسٹم کی تشکیل محفوظ کرنے میں ناکامی۔</system:String>
     <system:String x:Key="Failedtosavethereport">رپورٹ کو محفوظ کرنے میں ناکامی۔</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Yumir کنفیگریشن محفوظ کرنے میں ناکامی۔</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher شروع کرنے میں ناکامی۔ موجودہ مثالوں کو چیک کرنے کے دوران ایک خرابی ہوئی۔</system:String>
     <system:String x:Key="Failedtostarttheemulator">ایمولیٹر شروع کرنے میں ناکام یا متوقع طور پر بند نہیں ہوا۔</system:String>
     <system:String x:Key="Failedtotogglegamepad">گیم پیڈ کو ٹوگل کرنے میں ناکامی ہوئی۔</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">سب کے لحاظ سے فلٹر کریں</system:String>
     <system:String x:Key="FilterByLetter">حرف کے لحاظ سے فلٹر کریں</system:String>
     <system:String x:Key="FilterByNumber">نمبر کے لحاظ سے فلٹر کریں</system:String>
+    <system:String x:Key="FilteringRetroAchievements">اچیومنٹس والی گیمز فلٹر ہو رہی ہیں...</system:String>
     <system:String x:Key="FindYourApiKeyHere">اپنی API کلید یہاں تلاش کریں</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">منسوخ کریں</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">فل سکرین میں چلائیں</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">کے ساتھ لانچ کیا گیا</system:String>
     <system:String x:Key="LaunchErrorTitle">لانچ کی خرابی</system:String>
     <system:String x:Key="LaunchGame">گیم شروع کریں</system:String>
+    <system:String x:Key="Launching">لانچ ہو رہا ہے...</system:String>
     <system:String x:Key="LaunchingGame">گیم لانچ کر رہا ہے...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">ہسٹری سے گیم لانچ کر رہا ہے...</system:String>
     <system:String x:Key="LaunchingTool">ٹول لانچ کر رہا ہے...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">گیمز لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingHistory">تاریخ لوڈ ہو رہی ہے...</system:String>
     <system:String x:Key="LoadingNextPage">اگلا صفحہ لوڈ کر رہا ہے...</system:String>
+    <system:String x:Key="LoadingPrevPage">پچھلا صفحہ لوڈ ہو رہا ہے...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM ہسٹری لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingSystem">سسٹم لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">یوزر کی تکمیل کی پیشرفت لوڈ کر رہا ہے...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">پروسیسنگ ابھی بھی چل رہی ہے۔ کیا آپ منسوخ کر کے بند کرنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="ProcessingSystem">سسٹم پر کارروائی جاری ہے</system:String>
     <system:String x:Key="ProfileID">پروفائل ID (ULID):</system:String>
     <system:String x:Key="Publisher">پبلشر:</system:String>
     <system:String x:Key="Purple">جامنی</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">نامعلوم گیم</system:String>
     <system:String x:Key="RaGenericNo">نہیں</system:String>
     <system:String x:Key="RaGenericYes">ہاں</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">آڈیو سیٹنگز</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">ساؤنڈ ڈرائیور:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">ڈائریکٹریز</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">ایسپیکٹ ریشو درست کریں</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">فریم اسکیپ</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">فل اسکرین</system:String>
+    <system:String x:Key="RaineConfig_General_Header">جنرل</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">میوزک والیم</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">میوزک میوٹ کریں</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">SFX میوٹ کریں</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD سیکشن</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Raine ایمولیٹر فائل نہیں ملی۔ براہ کرم اسے مینوئل طریقے سے تلاش کریں۔</system:String>
+    <system:String x:Key="RaineConfig_Resolution">ریزولوشن (چوڑائی x اونچائی):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROM ڈائریکٹری</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">سیمپل ریٹ (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Raine ایمولیٹر فائل منتخب کریں</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">NeoGeo CD BIOS فائل منتخب کریں</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Raine ROM ڈائریکٹری منتخب کریں</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">SFX والیم</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Raine شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">FPS دکھائیں</system:String>
+    <system:String x:Key="RaineConfig_Title">Raine کنفیگریشن</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">ویڈیو سیٹنگز</system:String>
+    <system:String x:Key="RaineConfig_Vsync">VSync فعال کریں (ڈبل بفرنگ)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine کنفیگریشن کامیابی سے انجیکٹ کر دی گئی ہے۔</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} فعال ترقیاتی دعویٰ</system:String>
     <system:String x:Key="RaInfoCheckConnection">براہ کرم دوبارہ کوشش کریں یا اپنا انٹرنیٹ کنکشن چیک کریں۔</system:String>
     <system:String x:Key="RaInfoCheckCredentials">براہ کرم اپنی RetroAchievements کی اسناد چیک کریں یا بعد میں دوبارہ کوشش کریں۔</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 ایمولیٹر نہیں ملا۔ براہ کرم 'rpcs3.exe' تلاش کریں۔</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 سیٹنگز</system:String>
+    <system:String x:Key="Run">چلائیں</system:String>
     <system:String x:Key="Save">محفوظ کریں</system:String>
     <system:String x:Key="SaveDeadZone">محفوظ کریں</system:String>
     <system:String x:Key="SaveFailed">محفوظ کرنا ناکام رہا</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">سکور:</system:String>
     <system:String x:Key="Search">تلاش کریں</system:String>
     <system:String x:Key="SearchFor">تلاش کریں</system:String>
+    <system:String x:Key="Searching">تلاش جاری ہے...</system:String>
     <system:String x:Key="Searchingpleasewait">تلاش ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="SearchOptions">تلاش کے اختیارات</system:String>
     <system:String x:Key="SearchRecursively">تکراری طور پر تلاش کریں</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">ایمولیٹر 5 منتخب کریں۔</system:String>
     <system:String x:Key="SelectEmulatorComboBox">ایمولیٹر کامبو باکس منتخب کریں</system:String>
     <system:String x:Key="SelectNotificationSoundFile">اطلاع کی آواز کی فائل منتخب کریں</system:String>
+        <system:String x:Key="SelectRetroAchievementsSystemTitle">RetroAchievements سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystem">سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystemComboBox">سسٹم کامبو باکس منتخب کریں</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">ترتیبات کامیابی سے محفوظ ہو گئیں۔</system:String>
     <system:String x:Key="ShowAllGames">تمام کھیل دکھائیں</system:String>
     <system:String x:Key="ShowGames">کھیل دکھائیں</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">ان گیمز کو فلٹر کریں جو غالباً RetroAchievements کے ساتھ مطابقت رکھتی ہیں</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">صرف کور والے کھیل دکھائیں</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">صرف بغیر کور والے کھیل دکھائیں</system:String>
     <system:String x:Key="Sienna">سیانا</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">سسٹم کا نام</system:String>
     <system:String x:Key="SystemNameRequired">سسٹم کا نام (ضروری)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">سسٹم کامیابی سے محفوظ ہو گیا۔</system:String>
+    <system:String x:Key="SystemSelectionMessage">ہم اس گیم کے لیے سسٹم کی خودکار شناخت نہیں کر سکے۔</system:String>
+    <system:String x:Key="SystemSelectionPrompt">براہ کرم درست سسٹم منتخب کریں:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' فائل خراب یا قابل رسائی نہیں ہے۔</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' ایپلیکیشن فولڈر میں نہیں مل سکا۔</system:String>
     <system:String x:Key="TakeScreenshot">اسکرین شاٹ لیں</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">PAL (50Hz) یا NTSC (60Hz) ٹائمنگ کے درمیان انتخاب کریں۔</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">والیوم لیول:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">ماسٹر والیوم ایڈجسٹ کریں (0.0 سے 1.0)۔</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir کنفیگریشن کامیابی سے محفوظ کر لی گئی۔</system:String>
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomingIn">زوم ان کر رہا ہے...</system:String>

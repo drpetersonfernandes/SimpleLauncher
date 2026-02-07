@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Asynchrone Shader Compilatie Gebruiken</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Vermindert haperingen tijdens gameplay door shaders op de achtergrond te compileren.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Audio</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Audio Stretching inschakelen</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Schakel audio stretching in om kraken van het geluid te voorkomen.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Annuleren</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Starten in Volledig Scherm</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Automatisch overschakelen naar volledig scherm modus wanneer een spel start.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
+    <system:String x:Key="CalculatingGameHash">Game Hash berekenen... Even geduld.</system:String>
     <system:String x:Key="Cancel">Annuleren</system:String>
     <system:String x:Key="CancelButtonText">Annuleer</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="ConfirmClose">Sluiten bevestigen</system:String>
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Bevestig Selectie</system:String>
     <system:String x:Key="Console">Console:</system:String>
     <system:String x:Key="ConsoleID">Console ID:</system:String>
     <system:String x:Key="ContactDeveloper">Contact opnemen met ontwikkelaar</system:String>
     <system:String x:Key="Contributions">Bijdragen:</system:String>
+    <system:String x:Key="ConvertingChdToCue">CHD converteren...</system:String>
     <system:String x:Key="CopyError">Kopieerfout</system:String>
     <system:String x:Key="CopyLog">Logboek kopiëren</system:String>
     <system:String x:Key="Core">Core</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Opslaan van Supermodel-configuratie mislukt. Controleer de bestandsrechten.</system:String>
     <system:String x:Key="FailedToSaveSystem">Systeemconfiguratie kan niet worden opgeslagen.</system:String>
     <system:String x:Key="Failedtosavethereport">Het rapport opslaan is mislukt.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Laden van Yumir-configuratie mislukt.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Het starten van 'Simple Launcher' is mislukt. Er trad een fout op bij het controleren van bestaande instanties.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Het starten van de emulator is mislukt of het is niet correct gestopt.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Het schakelen van de gamepad is mislukt.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">Filteren op alles</system:String>
     <system:String x:Key="FilterByLetter">Filteren op letter</system:String>
     <system:String x:Key="FilterByNumber">Filteren op nummer</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Spellen met achievements filteren...</system:String>
     <system:String x:Key="FindYourApiKeyHere">Vind hier uw API-sleutel</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">Annuleren</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Draaien in Volledig Scherm</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">gestart met</system:String>
     <system:String x:Key="LaunchErrorTitle">Opstartfout</system:String>
     <system:String x:Key="LaunchGame">Spel starten</system:String>
+    <system:String x:Key="Launching">Starten...</system:String>
     <system:String x:Key="LaunchingGame">Spel wordt gestart...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Spel vanuit geschiedenis starten...</system:String>
     <system:String x:Key="LaunchingTool">Tool wordt gestart...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">Spellen laden...</system:String>
     <system:String x:Key="LoadingHistory">Geschiedenis laden...</system:String>
     <system:String x:Key="LoadingNextPage">Volgende pagina laden...</system:String>
+    <system:String x:Key="LoadingPrevPage">Vorige pagina laden...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM-geschiedenis laden...</system:String>
     <system:String x:Key="LoadingSystem">Systeem laden...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Gebruikersvoltooiingsvoortgang laden...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">Vorige pagina</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">De verwerking is nog bezig. Wilt u annuleren en sluiten?</system:String>
+    <system:String x:Key="ProcessingSystem">Systeem verwerken</system:String>
     <system:String x:Key="ProfileID">Profiel-ID (ULID):</system:String>
     <system:String x:Key="Publisher">Uitgever:</system:String>
     <system:String x:Key="Purple">Paars</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">Onbekend spel</system:String>
     <system:String x:Key="RaGenericNo">Nee</system:String>
     <system:String x:Key="RaGenericYes">Ja</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Audio-instellingen</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Geluidsstuurprogramma:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Mappen</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Beeldverhouding corrigeren</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Frame Skip</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Volledig scherm</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Algemeen</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Muziekvolume</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Muziek dempen</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">SFX dempen</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD Sectie</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Raine-emulator uitvoerbaar bestand niet gevonden. Zoek het handmatig.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Resolutie (Breedte x Hoogte):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROM-map</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Samplefrequentie (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Selecteer Raine-emulator uitvoerbaar bestand</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Selecteer NeoGeo CD BIOS-bestand</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Selecteer Raine ROM-map</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">SFX-volume</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Toon dit venster voor het starten van Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">FPS tonen</system:String>
+    <system:String x:Key="RaineConfig_Title">Raine Configuratie</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Video-instellingen</system:String>
+    <system:String x:Key="RaineConfig_Vsync">VSync inschakelen (Double Buffering)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine-configuratie is succesvol toegepast.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} actieve ontwikkelingsclaim(s)</system:String>
     <system:String x:Key="RaInfoCheckConnection">Probeer het opnieuw of controleer uw internetverbinding.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Controleer uw RetroAchievements-inloggegevens of probeer het later opnieuw.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3-emulator niet gevonden. Zoek 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 Instellingen</system:String>
+    <system:String x:Key="Run">Uitvoeren</system:String>
     <system:String x:Key="Save">Opslaan</system:String>
     <system:String x:Key="SaveDeadZone">Opslaan</system:String>
     <system:String x:Key="SaveFailed">Opslaan mislukt</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">Score:</system:String>
     <system:String x:Key="Search">Zoeken</system:String>
     <system:String x:Key="SearchFor">Zoeken naar</system:String>
+    <system:String x:Key="Searching">Zoeken...</system:String>
     <system:String x:Key="Searchingpleasewait">Bezig met zoeken, een moment geduld...</system:String>
     <system:String x:Key="SearchOptions">Zoekopties</system:String>
     <system:String x:Key="SearchRecursively">Recursief zoeken</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Selecteer Emulator ComboBox</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Meldingsgeluidsbestand selecteren</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">Selecteer RetroAchievements-systeem</system:String>
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Selecteer {config.SystemName} systeem</system:String>
     <system:String x:Key="SelectSystemComboBox">Selecteer Systeem ComboBox</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Instellingen succesvol opgeslagen.</system:String>
     <system:String x:Key="ShowAllGames">Alle spellen weergeven</system:String>
     <system:String x:Key="ShowGames">Spellen weergeven</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Filter spellen die waarschijnlijk compatibel zijn met RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Alleen spellen zonder omslag weergeven</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">Systeemnaam</system:String>
     <system:String x:Key="SystemNameRequired">Systeemnaam (verplicht)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Systeem succesvol opgeslagen.</system:String>
+    <system:String x:Key="SystemSelectionMessage">We konden het systeem voor dit spel niet automatisch identificeren.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Selecteer het juiste systeem:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' is beschadigd of kan niet worden geopend.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' kan niet worden gevonden in de applicatiemap.</system:String>
     <system:String x:Key="TakeScreenshot">Schermafbeelding maken</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Kies tussen PAL (50Hz) of NTSC (60Hz) timing.</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Volume Niveau:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Pas het master volume aan (0.0 tot 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomingIn">Inzoomen...</system:String>

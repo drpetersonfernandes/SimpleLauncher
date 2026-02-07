@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Gunakan Kompilasi Shader Asinkron</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Mengurangi stuttering selama gameplay dengan mengompilasi shader di latar belakang.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Audio</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Aktifkan Audio Stretching</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Aktifkan audio stretching untuk mencegah suara pecah.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Batal</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Mulai dalam Layar Penuh</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Secara otomatis beralih ke mode layar penuh saat game dimulai.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Namun, saya menemukan file cadangan.</system:String>
     <system:String x:Key="Cabinet">Kabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Kabinet tidak ditemukan</system:String>
+    <system:String x:Key="CalculatingGameHash">Menghitung Hash Game... Mohon tunggu.</system:String>
     <system:String x:Key="Cancel">Batal</system:String>
     <system:String x:Key="CancelButtonText">Batal</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
     <system:String x:Key="ConfirmClose">Konfirmasi Tutup</system:String>
     <system:String x:Key="ConfirmDeletion">Konfirmasi Penghapusan</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Konfirmasi Pilihan</system:String>
     <system:String x:Key="Console">Konsol:</system:String>
     <system:String x:Key="ConsoleID">ID Konsol:</system:String>
     <system:String x:Key="ContactDeveloper">Hubungi Pengembang</system:String>
     <system:String x:Key="Contributions">Kontribusi:</system:String>
+    <system:String x:Key="ConvertingChdToCue">Mengonversi CHD...</system:String>
     <system:String x:Key="CopyError">Kesalahan Salin</system:String>
     <system:String x:Key="CopyLog">Salin Log</system:String>
     <system:String x:Key="Core">Inti</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Gagal menyimpan konfigurasi Supermodel. Harap periksa izin file.</system:String>
     <system:String x:Key="FailedToSaveSystem">Gagal menyimpan konfigurasi sistem.</system:String>
     <system:String x:Key="Failedtosavethereport">Gagal menyimpan laporan.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Gagal menyimpan konfigurasi Yumir.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Gagal memulai Simple Launcher. Terjadi kesalahan saat memeriksa instansi yang ada.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Gagal memulai emulator atau emulator tidak keluar seperti yang diharapkan.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Gagal mengalihkan gamepad.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">Filter berdasarkan Semua</system:String>
     <system:String x:Key="FilterByLetter">Filter berdasarkan Huruf</system:String>
     <system:String x:Key="FilterByNumber">Filter berdasarkan Nomor</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Memfilter game dengan achievement...</system:String>
     <system:String x:Key="FindYourApiKeyHere">Temukan Kunci API Anda di Sini</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">Batal</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Jalankan dalam Layar Penuh</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">diluncurkan dengan</system:String>
     <system:String x:Key="LaunchErrorTitle">Kesalahan Peluncuran</system:String>
     <system:String x:Key="LaunchGame">Luncurkan Game</system:String>
+    <system:String x:Key="Launching">Meluncurkan...</system:String>
     <system:String x:Key="LaunchingGame">Meluncurkan game...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Meluncurkan game dari riwayat...</system:String>
     <system:String x:Key="LaunchingTool">Meluncurkan alat...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">Memuat Game...</system:String>
     <system:String x:Key="LoadingHistory">Memuat riwayat...</system:String>
     <system:String x:Key="LoadingNextPage">Memuat halaman berikutnya...</system:String>
+    <system:String x:Key="LoadingPrevPage">Memuat halaman sebelumnya...</system:String>
     <system:String x:Key="LoadingROMHistory">Memuat Riwayat ROM...</system:String>
     <system:String x:Key="LoadingSystem">Memuat sistem...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Memuat progres penyelesaian pengguna...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Pemrosesan masih berjalan. Apakah Anda ingin membatalkan dan menutup?</system:String>
+    <system:String x:Key="ProcessingSystem">Memproses sistem</system:String>
     <system:String x:Key="ProfileID">ID Profil (ULID):</system:String>
     <system:String x:Key="Publisher">Penerbit:</system:String>
     <system:String x:Key="Purple">Ungu</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">Game Tidak Dikenal</system:String>
     <system:String x:Key="RaGenericNo">Tidak</system:String>
     <system:String x:Key="RaGenericYes">Ya</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Pengaturan Audio</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Driver Suara:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Direktori</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Perbaiki Rasio Aspek</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Frame Skip</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Layar Penuh</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Umum</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Volume Musik</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Bisukan Musik</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Bisukan SFX</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">Bagian NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">BIOS NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Executable emulator Raine tidak ditemukan. Silakan cari secara manual.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Resolusi (Lebar x Tinggi):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">Direktori ROM</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Sample Rate (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Pilih Executable Emulator Raine</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Pilih File BIOS NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Pilih Direktori ROM Raine</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">Volume SFX</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Tampilkan jendela ini sebelum menjalankan Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">Tampilkan FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">Konfigurasi Raine</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Pengaturan Video</system:String>
+    <system:String x:Key="RaineConfig_Vsync">Aktifkan VSync (Double Buffering)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Konfigurasi Raine telah berhasil disuntikkan.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} klaim pengembangan aktif</system:String>
     <system:String x:Key="RaInfoCheckConnection">Silakan coba lagi atau periksa koneksi internet Anda.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Harap periksa kredensial RetroAchievements Anda atau coba lagi nanti.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Konfigurasi RPCS3 berhasil disimpan.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Emulator RPCS3 tidak ditemukan. Harap temukan 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Pengaturan RPCS3</system:String>
+    <system:String x:Key="Run">Jalankan</system:String>
     <system:String x:Key="Save">Simpan</system:String>
     <system:String x:Key="SaveDeadZone">Simpan</system:String>
     <system:String x:Key="SaveFailed">Penyimpanan Gagal</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">Skor:</system:String>
     <system:String x:Key="Search">Cari</system:String>
     <system:String x:Key="SearchFor">Cari Untuk</system:String>
+    <system:String x:Key="Searching">Mencari...</system:String>
     <system:String x:Key="Searchingpleasewait">Sedang mencari, harap tunggu...</system:String>
     <system:String x:Key="SearchOptions">Opsi Pencarian</system:String>
     <system:String x:Key="SearchRecursively">Cari Secara Rekursif</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">Pilih Emulator 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Pilih ComboBox Emulator</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Pilih file suara notifikasi</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">Pilih Sistem RetroAchievements</system:String>
     <system:String x:Key="SelectSystem">Pilih Sistem</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Pilih sistem {config.SystemName}</system:String>
     <system:String x:Key="SelectSystemComboBox">Pilih ComboBox Sistem</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Pengaturan berhasil disimpan.</system:String>
     <system:String x:Key="ShowAllGames">Tampilkan Semua Permainan</system:String>
     <system:String x:Key="ShowGames">Tampilkan Permainan</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Filter game yang mungkin kompatibel dengan RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Tampilkan Hanya Permainan dengan Sampul</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Tampilkan Hanya Permainan Tanpa Sampul</system:String>
     <system:String x:Key="Sienna">Coklat Tua</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">Nama Sistem</system:String>
     <system:String x:Key="SystemNameRequired">Nama Sistem (Wajib)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistem berhasil disimpan.</system:String>
+    <system:String x:Key="SystemSelectionMessage">Kami tidak dapat mengidentifikasi sistem untuk game ini secara otomatis.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Silakan pilih sistem yang benar:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' rusak atau tidak dapat dibuka.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="TakeScreenshot">Ambil Tangkapan Layar</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Pilih antara waktu PAL (50Hz) atau NTSC (60Hz).</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Tingkat Volume:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Menyesuaikan volume utama (0.0 hingga 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Konfigurasi Yumir berhasil disimpan.</system:String>
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomingIn">Memperbesar...</system:String>

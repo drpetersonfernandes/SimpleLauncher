@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">অ্যাসিনক্রোনাস শেডার কম্পাইলেশন ব্যবহার করুন</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">গেমপ্লে চলাকালীন স্টাটারিং হ্রাস করে ব্যাকগ্রাউন্ডে শেডার কম্পাইল করে।</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">অডিও</system:String>
+<system:String x:Key="AzaharConfig_AudioStretching_Checkbox">অডিও স্ট্রেচিং সক্ষম করুন</system:String>
+<system:String x:Key="AzaharConfig_AudioStretching_Tooltip">অডিও ক্র্যাকলিং প্রতিরোধ করতে অডিও স্ট্রেচিং সক্ষম করুন।</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">বাতিল করুন</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">ফুলস্ক্রিনে শুরু করুন</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">একটি গেম শুরু হলে স্বয়ংক্রিয়ভাবে ফুলস্ক্রিন মোডে স্যুইচ করুন।</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
+<system:String x:Key="CalculatingGameHash">গেম হ্যাশ গণনা করা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন।</system:String>
     <system:String x:Key="Cancel">বাতিল করুন</system:String>
     <system:String x:Key="CancelButtonText">বাতিল করুন</system:String>
     <system:String x:Key="Cancelingdownload">ডাউনলোড বাতিল করা হচ্ছে...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">নিশ্চিতকরণ</system:String>
     <system:String x:Key="ConfirmClose">বন্ধ করার নিশ্চিত করুন</system:String>
     <system:String x:Key="ConfirmDeletion">মোছার নিশ্চয়তা দিন</system:String>
+<system:String x:Key="ConfirmSelectionButton">নির্বাচন নিশ্চিত করুন</system:String>
     <system:String x:Key="Console">কনসোল:</system:String>
     <system:String x:Key="ConsoleID">কনসোল আইডি:</system:String>
     <system:String x:Key="ContactDeveloper">ডেভেলপারের সাথে যোগাযোগ করুন</system:String>
     <system:String x:Key="Contributions">অবদান:</system:String>
+<system:String x:Key="ConvertingChdToCue">CHD রূপান্তর করা হচ্ছে...</system:String>
     <system:String x:Key="CopyError">কপি ত্রুটি</system:String>
     <system:String x:Key="CopyLog">লগ কপি করুন</system:String>
     <system:String x:Key="Core">কোর</system:String>
@@ -508,6 +513,7 @@
 <system:String x:Key="FailedToSaveSupermodelConfiguration">Supermodel কনফিগারেশন সংরক্ষণ করতে ব্যর্থ হয়েছে। অনুগ্রহ করে ফাইল পারমিশন পরীক্ষা করুন।</system:String>
     <system:String x:Key="FailedToSaveSystem">সিস্টেম কনফিগারেশন সংরক্ষণ করতে ব্যর্থ।</system:String>
     <system:String x:Key="Failedtosavethereport">রিপোর্ট সংরক্ষণ করতে ব্যর্থ হয়েছে।</system:String>
+<system:String x:Key="FailedToSaveYumirConfiguration">ইউমির কনফিগারেশন সংরক্ষণ করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher চালু করতে ব্যর্থ। বিদ্যমান ইনস্ট্যান্সের জন্য চেক করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Failedtostarttheemulator">এমুলেটর চালু করতে ব্যর্থ হয়েছে অথবা প্রত্যাশিতভাবে বন্ধ হয়নি।</system:String>
     <system:String x:Key="Failedtotogglegamepad">গেমপ্যাড পরিবর্তন করতে ব্যর্থ হয়েছে।</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">সবকিছু অনুসারে ফিল্টার করুন</system:String>
     <system:String x:Key="FilterByLetter">অক্ষর অনুসারে ফিল্টার করুন</system:String>
     <system:String x:Key="FilterByNumber">সংখ্যা অনুসারে ফিল্টার করুন</system:String>
+<system:String x:Key="FilteringRetroAchievements">অ্যাচিভমেন্ট সহ গেম ফিল্টার করা হচ্ছে...</system:String>
     <system:String x:Key="FindYourApiKeyHere">আপনার API কী এখানে খুঁজুন</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">বাতিল করুন</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">ফুলস্ক্রিনে চালান</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">দিয়ে চালু হয়েছে</system:String>
     <system:String x:Key="LaunchErrorTitle">লঞ্চ ত্রুটি</system:String>
     <system:String x:Key="LaunchGame">গেম চালু করুন</system:String>
+<system:String x:Key="Launching">চালু করা হচ্ছে...</system:String>
     <system:String x:Key="LaunchingGame">গেম চালু হচ্ছে...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">হিস্টরি থেকে গেম চালু করা হচ্ছে...</system:String>
     <system:String x:Key="LaunchingTool">টুল চালু হচ্ছে...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">গেম লোড করা হচ্ছে...</system:String>
     <system:String x:Key="LoadingHistory">ইতিহাস লোড হচ্ছে...</system:String>
     <system:String x:Key="LoadingNextPage">পরবর্তী পৃষ্ঠা লোড করা হচ্ছে...</system:String>
+<system:String x:Key="LoadingPrevPage">পূর্ববর্তী পৃষ্ঠা লোড করা হচ্ছে...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM হিস্টরি লোড করা হচ্ছে...</system:String>
     <system:String x:Key="LoadingSystem">সিস্টেম লোড করা হচ্ছে...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">ব্যবহারকারীর সম্পন্ন করার অগ্রগতি লোড করা হচ্ছে...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">পূর্ববর্তী পাতা</system:String>
     <system:String x:Key="Processingpleasewait">প্রসেসিং, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">প্রসেসিং এখনও চলছে। আপনি কি বাতিল করে বন্ধ করতে চান?</system:String>
+<system:String x:Key="ProcessingSystem">সিস্টেম প্রসেস করা হচ্ছে</system:String>
     <system:String x:Key="ProfileID">প্রোফাইল আইডি (ULID):</system:String>
     <system:String x:Key="Publisher">পাবলিশার:</system:String>
     <system:String x:Key="Purple">বেগুনি</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">অজানা গেম</system:String>
     <system:String x:Key="RaGenericNo">না</system:String>
     <system:String x:Key="RaGenericYes">হ্যাঁ</system:String>
+<system:String x:Key="RaineConfig_Audio_Header">অডিও সেটিংস</system:String>
+<system:String x:Key="RaineConfig_AudioDriver">সাউন্ড ড্রাইভার:</system:String>
+<system:String x:Key="RaineConfig_Directories_Header">ডিরেক্টরি</system:String>
+<system:String x:Key="RaineConfig_FixAspect">আস্পেক্ট রেশিও ঠিক করুন</system:String>
+<system:String x:Key="RaineConfig_FrameSkip">ফ্রেম স্কিপ</system:String>
+<system:String x:Key="RaineConfig_Fullscreen">ফুলস্ক্রিন</system:String>
+<system:String x:Key="RaineConfig_General_Header">সাধারণ</system:String>
+<system:String x:Key="RaineConfig_MusicVolume">মিউজিক ভলিউম</system:String>
+<system:String x:Key="RaineConfig_MuteMusic">মিউজিক মিউট করুন</system:String>
+<system:String x:Key="RaineConfig_MuteSfx">SFX মিউট করুন</system:String>
+<system:String x:Key="RaineConfig_NeoCd_Header">নিওজিও সিডি বিভাগ</system:String>
+<system:String x:Key="RaineConfig_NeoCdBios">নিওজিও সিডি বায়োস</system:String>
+<system:String x:Key="RaineConfig_PathNotFound">রাইন এমুলেটর এক্সিকিউটেবল পাওয়া যায়নি। অনুগ্রহ করে ম্যানুয়ালি এটি সনাক্ত করুন।</system:String>
+<system:String x:Key="RaineConfig_Resolution">রেজোলিউশন (প্রস্থ x উচ্চতা):</system:String>
+<system:String x:Key="RaineConfig_RomDirectory">রম ডিরেক্টরি</system:String>
+<system:String x:Key="RaineConfig_SampleRate">স্যাম্পল রেট (Hz):</system:String>
+<system:String x:Key="RaineConfig_SelectExeTitle">রাইন এমুলেটর এক্সিকিউটেবল নির্বাচন করুন</system:String>
+<system:String x:Key="RaineConfig_SelectNeoCdBios">নিওজিও সিডি বায়োস ফাইল নির্বাচন করুন</system:String>
+<system:String x:Key="RaineConfig_SelectRomDirectory">রাইন রম ডিরেক্টরি নির্বাচন করুন</system:String>
+<system:String x:Key="RaineConfig_SfxVolume">SFX ভলিউম</system:String>
+<system:String x:Key="RaineConfig_ShowBeforeLaunch">রাইন চালু করার আগে এই উইন্ডোটি দেখান</system:String>
+<system:String x:Key="RaineConfig_ShowFps">FPS দেখান</system:String>
+<system:String x:Key="RaineConfig_Title">রাইন কনফিগারেশন</system:String>
+<system:String x:Key="RaineConfig_Video_Header">ভিডিও সেটিংস</system:String>
+<system:String x:Key="RaineConfig_Vsync">ভি-সিঙ্ক সক্ষম করুন (ডাবল বাফারিং)</system:String>
+<system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">রাইন কনফিগারেশন সফলভাবে ইনজেক্ট করা হয়েছে।</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} সক্রিয় ডেভেলপমেন্ট দাবি</system:String>
     <system:String x:Key="RaInfoCheckConnection">অনুগ্রহ করে আবার চেষ্টা করুন অথবা আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।</system:String>
     <system:String x:Key="RaInfoCheckCredentials">অনুগ্রহ করে আপনার RetroAchievements শংসাপত্র পরীক্ষা করুন অথবা পরে আবার চেষ্টা করুন।</system:String>
@@ -1181,6 +1217,7 @@
 <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
 <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 এমুলেটর খুঁজে পাওয়া যায়নি। অনুগ্রহ করে 'rpcs3.exe' সনাক্ত করুন।</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 সেটিংস</system:String>
+<system:String x:Key="Run">চালান</system:String>
     <system:String x:Key="Save">সংরক্ষণ করুন</system:String>
     <system:String x:Key="SaveDeadZone">সংরক্ষণ করুন</system:String>
 <system:String x:Key="SaveFailed">সংরক্ষণ ব্যর্থ হয়েছে</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">স্কোর:</system:String>
     <system:String x:Key="Search">অনুসন্ধান</system:String>
     <system:String x:Key="SearchFor">খুঁজুন</system:String>
+<system:String x:Key="Searching">অনুসন্ধান করা হচ্ছে...</system:String>
     <system:String x:Key="Searchingpleasewait">অনুসন্ধান প্রগ্রেস...</system:String>
     <system:String x:Key="SearchOptions">অনুসন্ধান বিকল্প</system:String>
     <system:String x:Key="SearchRecursively">পুনরাবৃত্তিমূলকভাবে অনুসন্ধান করুন</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">ইমুলেটর ৫ নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectEmulatorComboBox">ইমুলেটর কম্বোবক্স চয়ন করুন</system:String>
     <system:String x:Key="SelectNotificationSoundFile">বিজ্ঞপ্তি শব্দ ফাইল নির্বাচন করুন</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">রেট্রোঅ্যাচিভমেন্টস সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="SelectSystem">সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">চয়ন করুন {config.SystemName} সিস্টেম</system:String>
     <system:String x:Key="SelectSystemComboBox">সিস্টেম কম্বোবক্স চয়ন করুন</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">সেটিংস সফলভাবে সংরক্ষিত হয়েছে।</system:String>
     <system:String x:Key="ShowAllGames">সব গেম দেখান</system:String>
     <system:String x:Key="ShowGames">গেমগুলি দেখান</system:String>
+<system:String x:Key="ShowGamesWithRetroAchievements">রেট্রোঅ্যাচিভমেন্টস-এর সাথে সম্ভবত সামঞ্জস্যপূর্ণ গেমগুলি ফিল্টার করুন</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">শুধুমাত্র প্রচ্ছদ সহ গেম দেখান</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">শুধুমাত্র প্রচ্ছদ ছাড়া গেম দেখান</system:String>
     <system:String x:Key="Sienna">গাঢ় তামাটে</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">সিস্টেমের নাম</system:String>
     <system:String x:Key="SystemNameRequired">সিস্টেমের নাম (প্রয়োজনীয়)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">সিস্টেম সফলভাবে সংরক্ষিত হয়েছে।</system:String>
+<system:String x:Key="SystemSelectionMessage">আমরা এই গেমটির জন্য স্বয়ংক্রিয়ভাবে সিস্টেম সনাক্ত করতে পারিনি।</system:String>
+<system:String x:Key="SystemSelectionPrompt">সঠিক সিস্টেম নির্বাচন করুন:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' ক্ষতিগ্রস্ত বা খোলা যায়নি।</system:String>
     <system:String x:Key="systemxmlnotfound">অ্যাপ্লিকেশন ফোল্ডারের ভেতর 'system.xml' পাওয়া যায়নি।</system:String>
     <system:String x:Key="TakeScreenshot">স্ক্রিনশট নিন</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">PAL (50Hz) বা NTSC (60Hz) টাইমিং এর মধ্যে বেছে নিন।</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">ভলিউম স্তর:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">মাস্টার ভলিউম সামঞ্জস্য করুন (0.0 থেকে 1.0)।</system:String>
+<system:String x:Key="YumirConfigurationSavedSuccessfully">ইউমির কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomingIn">জুম ইন করা হচ্ছে...</system:String>

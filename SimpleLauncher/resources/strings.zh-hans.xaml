@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">使用异步着色器编译</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">通过在后台编译着色器来减少游戏过程中的卡顿。</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">音频</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">启用音频拉伸</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">启用音频拉伸以防止音频爆音。</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">取消</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">全屏启动</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">游戏启动时自动切换到全屏模式。</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">但我找到了一个备份文件。</system:String>
     <system:String x:Key="Cabinet">机柜</system:String>
     <system:String x:Key="Cabinetnotfound">未找到机柜</system:String>
+    <system:String x:Key="CalculatingGameHash">正在计算游戏哈希值... 请稍候。</system:String>
     <system:String x:Key="Cancel">取消</system:String>
     <system:String x:Key="CancelButtonText">取消</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下载...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">确认</system:String>
     <system:String x:Key="ConfirmClose">确认关闭</system:String>
     <system:String x:Key="ConfirmDeletion">确认删除</system:String>
+    <system:String x:Key="ConfirmSelectionButton">确认选择</system:String>
     <system:String x:Key="Console">主机：</system:String>
     <system:String x:Key="ConsoleID">主机ID：</system:String>
     <system:String x:Key="ContactDeveloper">联系开发者</system:String>
     <system:String x:Key="Contributions">贡献：</system:String>
+    <system:String x:Key="ConvertingChdToCue">正在转换 CHD...</system:String>
     <system:String x:Key="CopyError">复制错误</system:String>
     <system:String x:Key="CopyLog">复制日志</system:String>
     <system:String x:Key="Core">核心</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">保存 Supermodel 配置失败。请检查文件权限。</system:String>
     <system:String x:Key="FailedToSaveSystem">保存系统配置失败。</system:String>
     <system:String x:Key="Failedtosavethereport">报告保存失败。</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">保存 Yumir 配置失败。</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">启动Simple Launcher失败。检查现有实例时发生错误。</system:String>
     <system:String x:Key="Failedtostarttheemulator">模拟器启动失败或无法正确结束运行。</system:String>
     <system:String x:Key="Failedtotogglegamepad">切换游戏手柄状态失败。</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">按全部筛选</system:String>
     <system:String x:Key="FilterByLetter">按字母筛选</system:String>
     <system:String x:Key="FilterByNumber">按数字筛选</system:String>
+    <system:String x:Key="FilteringRetroAchievements">正在过滤带成就的游戏...</system:String>
     <system:String x:Key="FindYourApiKeyHere">在此处查找您的API密钥</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">取消</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">全屏运行</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">启动方式：</system:String>
     <system:String x:Key="LaunchErrorTitle">启动错误</system:String>
     <system:String x:Key="LaunchGame">启动游戏</system:String>
+    <system:String x:Key="Launching">正在启动...</system:String>
     <system:String x:Key="LaunchingGame">正在启动游戏...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">正在从历史记录启动游戏...</system:String>
     <system:String x:Key="LaunchingTool">正在启动工具...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">正在加载游戏...</system:String>
     <system:String x:Key="LoadingHistory">正在加载历史记录...</system:String>
     <system:String x:Key="LoadingNextPage">正在加载下一页...</system:String>
+    <system:String x:Key="LoadingPrevPage">正在加载上一页...</system:String>
     <system:String x:Key="LoadingROMHistory">正在加载ROM历史记录...</system:String>
     <system:String x:Key="LoadingSystem">正在加载系统...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">正在加载用户完成进度...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">上一页</system:String>
     <system:String x:Key="Processingpleasewait">正在处理，请稍候...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">处理仍在运行。您要取消并关闭吗？</system:String>
+    <system:String x:Key="ProcessingSystem">正在处理系统</system:String>
     <system:String x:Key="ProfileID">个人资料 ID (ULID):</system:String>
     <system:String x:Key="Publisher">发行商：</system:String>
     <system:String x:Key="Purple">紫色</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">未知游戏</system:String>
     <system:String x:Key="RaGenericNo">否</system:String>
     <system:String x:Key="RaGenericYes">是</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">音频设置</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">音频驱动：</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">目录</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">固定宽高比</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">跳帧</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">全屏</system:String>
+    <system:String x:Key="RaineConfig_General_Header">常规</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">音乐音量</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">音乐静音</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">音效静音</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD 部分</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">未找到 Raine 模拟器可执行文件。请手动定位。</system:String>
+    <system:String x:Key="RaineConfig_Resolution">分辨率 (宽 x 高)：</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROM 目录</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">采样率 (Hz)：</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">选择 Raine 模拟器可执行文件</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">选择 NeoGeo CD BIOS 文件</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">选择 Raine ROM 目录</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">音效音量</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">启动 Raine 前显示此窗口</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">显示 FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">Raine 配置</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">视频设置</system:String>
+    <system:String x:Key="RaineConfig_Vsync">启用垂直同步 (双重缓冲)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine 配置已成功注入。</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} 个活跃开发声明</system:String>
     <system:String x:Key="RaInfoCheckConnection">请重试或检查您的互联网连接。</system:String>
     <system:String x:Key="RaInfoCheckCredentials">请检查您的 RetroAchievements 凭据或稍后重试。</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 配置保存成功。</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">未找到 RPCS3 模拟器。请定位 'rpcs3.exe'。</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 设置</system:String>
+    <system:String x:Key="Run">运行</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="SaveDeadZone">保存</system:String>
     <system:String x:Key="SaveFailed">保存失败</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">分数：</system:String>
     <system:String x:Key="Search">搜索</system:String>
     <system:String x:Key="SearchFor">搜索</system:String>
+    <system:String x:Key="Searching">正在搜索...</system:String>
     <system:String x:Key="Searchingpleasewait">正在搜索，请稍候...</system:String>
     <system:String x:Key="SearchOptions">搜索选项</system:String>
     <system:String x:Key="SearchRecursively">递归搜索</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">选择模拟器 5。</system:String>
     <system:String x:Key="SelectEmulatorComboBox">选择模拟器组合框</system:String>
     <system:String x:Key="SelectNotificationSoundFile">选择通知声音文件</system:String>
+        <system:String x:Key="SelectRetroAchievementsSystemTitle">选择 RetroAchievements 系统</system:String>
     <system:String x:Key="SelectSystem">选择系统</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">选择 {config.SystemName} 系统</system:String>
     <system:String x:Key="SelectSystemComboBox">选择系统组合框</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">设置已成功保存。</system:String>
     <system:String x:Key="ShowAllGames">显示所有游戏</system:String>
     <system:String x:Key="ShowGames">显示游戏</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">过滤可能兼容 RetroAchievements 的游戏</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">仅显示有封面的游戏</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">仅显示无封面的游戏</system:String>
     <system:String x:Key="Sienna">赭石色</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">系统名称</system:String>
     <system:String x:Key="SystemNameRequired">系统名称（必填）</system:String>
     <system:String x:Key="Systemsavedsuccessfully">系统已成功保存。</system:String>
+    <system:String x:Key="SystemSelectionMessage">无法自动识别此游戏的系统。</system:String>
+    <system:String x:Key="SystemSelectionPrompt">请选择正确的系统：</system:String>
     <system:String x:Key="systemxmliscorrupted">文件“system.xml”已损坏或无法打开。</system:String>
     <system:String x:Key="systemxmlnotfound">未在应用程序文件夹中找到 'system.xml'。</system:String>
     <system:String x:Key="TakeScreenshot">截屏</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">选择 PAL (50Hz) 或 NTSC (60Hz) 时序。</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">音量级别:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">调整主音量 (0.0 到 1.0)。</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir 配置保存成功。</system:String>
     <system:String x:Key="ZipSlipExplanation">在存档文件中检测到名为"Zip Slip"的安全漏洞。这是一种路径遍历漏洞，可能允许攻击者在预期解压目录之外写入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomingIn">正在放大...</system:String>

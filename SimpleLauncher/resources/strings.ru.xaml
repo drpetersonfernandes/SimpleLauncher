@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Использовать асинхронную компиляцию шейдеров</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Уменьшает заикания во время игры, компилируя шейдеры в фоновом режиме.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Аудио</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Включить растягивание звука</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Включите растягивание звука, чтобы предотвратить потрескивание.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Отмена</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Запускать в полноэкранном режиме</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Автоматически переключаться в полноэкранный режим при запуске игры.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Но я нашёл резервную копию файла.</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
+    <system:String x:Key="CalculatingGameHash">Вычисление хеша игры... Пожалуйста, подождите.</system:String>
     <system:String x:Key="Cancel">Отмена</system:String>
     <system:String x:Key="CancelButtonText">Отмена</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">Подтверждение</system:String>
     <system:String x:Key="ConfirmClose">Подтвердить закрытие</system:String>
     <system:String x:Key="ConfirmDeletion">Подтвердите удаление</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Подтвердить выбор</system:String>
     <system:String x:Key="Console">Консоль:</system:String>
     <system:String x:Key="ConsoleID">ID консоли:</system:String>
     <system:String x:Key="ContactDeveloper">Связаться с разработчиком</system:String>
     <system:String x:Key="Contributions">Вклады:</system:String>
+    <system:String x:Key="ConvertingChdToCue">Преобразование CHD...</system:String>
     <system:String x:Key="CopyError">Ошибка копирования</system:String>
     <system:String x:Key="CopyLog">Копировать лог</system:String>
     <system:String x:Key="Core">Ядро</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Не удалось сохранить конфигурацию Supermodel. Проверьте права доступа к файлу.</system:String>
     <system:String x:Key="FailedToSaveSystem">Не удалось сохранить конфигурацию системы.</system:String>
     <system:String x:Key="Failedtosavethereport">Не удалось сохранить отчет.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Не удалось сохранить конфигурацию Yumir.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Не удалось запустить Simple Launcher. Произошла ошибка при проверке существующих экземпляров.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Не удалось запустить эмулятор или он не завершился согласно ожиданиям.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Не удалось переключить состояние геймпада.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">Фильтровать по всем</system:String>
     <system:String x:Key="FilterByLetter">Фильтровать по букве</system:String>
     <system:String x:Key="FilterByNumber">Фильтровать по номеру</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Фильтрация игр с достижениями...</system:String>
     <system:String x:Key="FindYourApiKeyHere">Найдите свой ключ API здесь</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">Отмена</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Запустить в полноэкранном режиме</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">запущено с помощью</system:String>
     <system:String x:Key="LaunchErrorTitle">Ошибка запуска</system:String>
     <system:String x:Key="LaunchGame">Запустить игру</system:String>
+    <system:String x:Key="Launching">Запуск...</system:String>
     <system:String x:Key="LaunchingGame">Запуск игры...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Запуск игры из истории...</system:String>
     <system:String x:Key="LaunchingTool">Запуск инструмента...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">Загрузка игр...</system:String>
     <system:String x:Key="LoadingHistory">Загрузка истории...</system:String>
     <system:String x:Key="LoadingNextPage">Загрузка следующей страницы...</system:String>
+    <system:String x:Key="LoadingPrevPage">Загрузка предыдущей страницы...</system:String>
     <system:String x:Key="LoadingROMHistory">Загрузка истории ROM-ов...</system:String>
     <system:String x:Key="LoadingSystem">Загрузка системы...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Загрузка прогресса завершения пользователя...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">Предыдущая страница</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Обработка все еще выполняется. Вы хотите отменить и закрыть?</system:String>
+    <system:String x:Key="ProcessingSystem">Обработка системы</system:String>
     <system:String x:Key="ProfileID">ID профиля (ULID):</system:String>
     <system:String x:Key="Publisher">Издатель:</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">Неизвестная игра</system:String>
     <system:String x:Key="RaGenericNo">Нет</system:String>
     <system:String x:Key="RaGenericYes">Да</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Настройки звука</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Звуковой драйвер:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Директории</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Исправить соотношение сторон</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Пропуск кадров</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Полноэкранный режим</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Общие</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Громкость музыки</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Выключить музыку</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Выключить звуковые эффекты</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">Раздел NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">BIOS NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Исполняемый файл эмулятора Raine не найден. Пожалуйста, укажите его вручную.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Разрешение (Ширина x Высота):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">Директория ROM</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Частота дискретизации (Гц):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Выберите исполняемый файл Raine</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Выберите файл BIOS NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Выберите директорию ROM для Raine</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">Громкость звуковых эффектов</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Показывать это окно перед запуском Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">Показать FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">Конфигурация Raine</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Настройки видео</system:String>
+    <system:String x:Key="RaineConfig_Vsync">Включить VSync (двойная буферизация)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Конфигурация Raine успешно внедрена.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} активных заявок на разработку</system:String>
     <system:String x:Key="RaInfoCheckConnection">Пожалуйста, попробуйте еще раз или проверьте подключение к интернету.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Пожалуйста, проверьте свои учетные данные RetroAchievements или повторите попытку позже.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Конфигурация RPCS3 успешно сохранена.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Эмулятор RPCS3 не найден. Пожалуйста, найдите 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Настройки RPCS3</system:String>
+    <system:String x:Key="Run">Запуск</system:String>
     <system:String x:Key="Save">Сохранить</system:String>
     <system:String x:Key="SaveDeadZone">Сохранить</system:String>
     <system:String x:Key="SaveFailed">Ошибка сохранения</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">Счет:</system:String>
     <system:String x:Key="Search">Поиск</system:String>
     <system:String x:Key="SearchFor">Искать</system:String>
+    <system:String x:Key="Searching">Поиск...</system:String>
     <system:String x:Key="Searchingpleasewait">Поиск в процессе, пожалуйста, подождите...</system:String>
     <system:String x:Key="SearchOptions">Параметры поиска</system:String>
     <system:String x:Key="SearchRecursively">Искать рекурсивно</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">Выберите Эмулятор 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Выбрать выпадающий список эмулятора</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Выбрать файл звука уведомления</system:String>
+        <system:String x:Key="SelectRetroAchievementsSystemTitle">Выберите систему RetroAchievements</system:String>
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Выбрать систему {config.SystemName}</system:String>
     <system:String x:Key="SelectSystemComboBox">Выбрать выпадающий список системы</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Настройки успешно сохранены.</system:String>
     <system:String x:Key="ShowAllGames">Показать все игры</system:String>
     <system:String x:Key="ShowGames">Показать игры</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Фильтровать игры, совместимые с RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Показать только игры без обложки</system:String>
     <system:String x:Key="Sienna">Охра</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">Название системы</system:String>
     <system:String x:Key="SystemNameRequired">Название системы (обязательно)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Система успешно сохранена.</system:String>
+    <system:String x:Key="SystemSelectionMessage">Не удалось автоматически определить систему для этой игры.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Пожалуйста, выберите нужную систему:</system:String>
     <system:String x:Key="systemxmliscorrupted">Файл 'system.xml' поврежден или не может быть открыт.</system:String>
     <system:String x:Key="systemxmlnotfound">Файл 'system.xml' не найден в папке приложения.</system:String>
     <system:String x:Key="TakeScreenshot">Сделать скриншот</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Выберите между PAL (50 Гц) или NTSC (60 Гц) синхронизацией.</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Уровень громкости:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Регулирует общую громкость (от 0.0 до 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Конфигурация Yumir успешно сохранена.</system:String>
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomingIn">Приближение...</system:String>

@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">非同期シェーダーコンパイルを使用</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">バックグラウンドでシェーダーをコンパイルすることで、ゲームプレイ中の途切れを減らします。</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">オーディオ</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">オーディオストレッチングを有効にする</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">オーディオのノイズを防ぐためにオーディオストレッチングを有効にします。</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">キャンセル</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">フルスクリーンで起動</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">ゲーム開始時に自動的にフルスクリーンモードに切り替えます。</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">しかし、バックアップファイルが見つかりました。</system:String>
     <system:String x:Key="Cabinet">キャビネット</system:String>
     <system:String x:Key="Cabinetnotfound">キャビネットが見つかりません</system:String>
+    <system:String x:Key="CalculatingGameHash">ゲームハッシュを計算中... お待ちください。</system:String>
     <system:String x:Key="Cancel">キャンセル</system:String>
     <system:String x:Key="CancelButtonText">キャンセル</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="ConfirmClose">閉じるを確認</system:String>
     <system:String x:Key="ConfirmDeletion">削除を確認</system:String>
+    <system:String x:Key="ConfirmSelectionButton">選択を確定</system:String>
     <system:String x:Key="Console">コンソール:</system:String>
     <system:String x:Key="ConsoleID">コンソールID:</system:String>
     <system:String x:Key="ContactDeveloper">開発者に連絡</system:String>
     <system:String x:Key="Contributions">貢献:</system:String>
+    <system:String x:Key="ConvertingChdToCue">CHDを変換中...</system:String>
     <system:String x:Key="CopyError">コピーエラー</system:String>
     <system:String x:Key="CopyLog">ログをコピー</system:String>
     <system:String x:Key="Core">コア</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Supermodelの設定の保存に失敗しました。ファイルのアクセス権限を確認してください。</system:String>
     <system:String x:Key="FailedToSaveSystem">システム設定の保存に失敗しました。</system:String>
     <system:String x:Key="Failedtosavethereport">レポートの保存に失敗しました。</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Yumir設定の保存に失敗しました。</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcherの起動に失敗しました。既存のインスタンスの確認中にエラーが発生しました。</system:String>
     <system:String x:Key="Failedtostarttheemulator">エミュレーターの開始に失敗した、または予期されるように終了しませんでした。</system:String>
     <system:String x:Key="Failedtotogglegamepad">ゲームパッドの切り替えに失敗しました。</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">すべてでフィルター</system:String>
     <system:String x:Key="FilterByLetter">文字でフィルター</system:String>
     <system:String x:Key="FilterByNumber">数字でフィルター</system:String>
+    <system:String x:Key="FilteringRetroAchievements">実績対応ゲームをフィルタリング中...</system:String>
     <system:String x:Key="FindYourApiKeyHere">こちらでAPIキーを見つけてください</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">キャンセル</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">フルスクリーンで実行</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">で起動しました</system:String>
     <system:String x:Key="LaunchErrorTitle">起動エラー</system:String>
     <system:String x:Key="LaunchGame">ゲームを起動</system:String>
+    <system:String x:Key="Launching">起動中...</system:String>
     <system:String x:Key="LaunchingGame">ゲームを起動中...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">履歴からゲームを起動中...</system:String>
     <system:String x:Key="LaunchingTool">ツールを起動中...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">ゲームを読み込んでいます...</system:String>
     <system:String x:Key="LoadingHistory">履歴を読み込み中...</system:String>
     <system:String x:Key="LoadingNextPage">次のページを読み込んでいます...</system:String>
+    <system:String x:Key="LoadingPrevPage">前のページを読み込み中...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM履歴を読み込んでいます...</system:String>
     <system:String x:Key="LoadingSystem">システムを読み込んでいます...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">ユーザーの完了進捗状況を読み込んでいます...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">前のページ</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">処理はまだ実行中です。キャンセルして閉じますか？</system:String>
+    <system:String x:Key="ProcessingSystem">システムを処理中</system:String>
     <system:String x:Key="ProfileID">プロフィールID (ULID):</system:String>
     <system:String x:Key="Publisher">パブリッシャー:</system:String>
     <system:String x:Key="Purple">紫</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">不明なゲーム</system:String>
     <system:String x:Key="RaGenericNo">いいえ</system:String>
     <system:String x:Key="RaGenericYes">はい</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">オーディオ設定</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">サウンドドライバー:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">ディレクトリ</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">アスペクト比を固定</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">フレームスキップ</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">フルスクリーン</system:String>
+    <system:String x:Key="RaineConfig_General_Header">全般</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">音楽の音量</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">音楽をミュート</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">効果音をミュート</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD セクション</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Raineエミュレータの実行ファイルが見つかりません。手動で場所を指定してください。</system:String>
+    <system:String x:Key="RaineConfig_Resolution">解像度 (幅 x 高さ):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROMディレクトリ</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">サンプルレート (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Raineエミュレータの実行ファイルを選択</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">NeoGeo CD BIOSファイルを選択</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Raine ROMディレクトリを選択</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">効果音の音量</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Raineを起動する前にこのウィンドウを表示する</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">FPSを表示</system:String>
+    <system:String x:Key="RaineConfig_Title">Raine 設定</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">ビデオ設定</system:String>
+    <system:String x:Key="RaineConfig_Vsync">VSyncを有効にする (ダブルバッファリング)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raineの設定が正常に反映されました。</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0}件のアクティブな開発クレーム</system:String>
     <system:String x:Key="RaInfoCheckConnection">もう一度お試しいただくか、インターネット接続を確認してください。</system:String>
     <system:String x:Key="RaInfoCheckCredentials">RetroAchievementsの認証情報を確認するか、後でもう一度お試しください。</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3の設定が正常に保存されました。</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3エミュレータが見つかりません。'rpcs3.exe'の場所を指定してください。</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3設定</system:String>
+    <system:String x:Key="Run">実行</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="SaveDeadZone">保存</system:String>
     <system:String x:Key="SaveFailed">保存失敗</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">スコア:</system:String>
     <system:String x:Key="Search">検索</system:String>
     <system:String x:Key="SearchFor">検索</system:String>
+    <system:String x:Key="Searching">検索中...</system:String>
     <system:String x:Key="Searchingpleasewait">検索中です。お待ちください...</system:String>
     <system:String x:Key="SearchOptions">検索オプション</system:String>
     <system:String x:Key="SearchRecursively">再帰的に検索</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">エミュレーター 5 を選択してください。</system:String>
     <system:String x:Key="SelectEmulatorComboBox">エミュレーター コンボボックスを選択</system:String>
     <system:String x:Key="SelectNotificationSoundFile">通知音ファイルを選択</system:String>
+        <system:String x:Key="SelectRetroAchievementsSystemTitle">RetroAchievements システムの選択</system:String>
     <system:String x:Key="SelectSystem">システムを選択</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} システムを選択</system:String>
     <system:String x:Key="SelectSystemComboBox">システム コンボボックスを選択</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">設定が正常に保存されました。</system:String>
     <system:String x:Key="ShowAllGames">すべてのゲームを表示</system:String>
     <system:String x:Key="ShowGames">ゲームを表示</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">RetroAchievementsに対応している可能性のあるゲームを表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">カバーなしのゲームのみ表示</system:String>
     <system:String x:Key="Sienna">シエナ</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">システム名</system:String>
     <system:String x:Key="SystemNameRequired">システム名（必須）</system:String>
     <system:String x:Key="Systemsavedsuccessfully">システムが正常に保存されました。</system:String>
+    <system:String x:Key="SystemSelectionMessage">このゲームのシステムを自動的に特定できませんでした。</system:String>
+    <system:String x:Key="SystemSelectionPrompt">正しいシステムを選択してください：</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' が破損しているか、開けません。</system:String>
     <system:String x:Key="systemxmlnotfound">アプリケーションフォルダー内に 'system.xml' が見つかりません。</system:String>
     <system:String x:Key="TakeScreenshot">スクリーンショットを撮る</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">PAL (50Hz) またはNTSC (60Hz) のタイミングから選択します。</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">音量レベル:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">マスター音量を調整します (0.0～1.0)。</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir設定が正常に保存されました。</system:String>
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomingIn">ズームインしています...</system:String>

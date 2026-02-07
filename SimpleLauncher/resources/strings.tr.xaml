@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Eşzamansız Gölgelendirici Derlemesi Kullan</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Gölgelendiricileri arka planda derleyerek oyun sırasında takılmayı azaltır.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Ses</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Ses Esnetmeyi Etkinleştir</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Ses cızırtısını önlemek için ses esnetmeyi etkinleştirin.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">İptal</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Tam Ekranda Başlat</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Bir oyun başladığında otomatik olarak tam ekran moduna geç.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
+    <system:String x:Key="CalculatingGameHash">Oyun Hash değeri hesaplanıyor... Lütfen bekleyin.</system:String>
     <system:String x:Key="Cancel">İptal</system:String>
     <system:String x:Key="CancelButtonText">İptal</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="ConfirmClose">Kapatmayı Onayla</system:String>
     <system:String x:Key="ConfirmDeletion">Silme İşlemini Onayla</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Seçimi Onayla</system:String>
     <system:String x:Key="Console">Konsol:</system:String>
     <system:String x:Key="ConsoleID">Konsol Kimliği:</system:String>
     <system:String x:Key="ContactDeveloper">Geliştiriciyle İletişime Geçin</system:String>
     <system:String x:Key="Contributions">Katkılar:</system:String>
+    <system:String x:Key="ConvertingChdToCue">CHD dönüştürülüyor...</system:String>
     <system:String x:Key="CopyError">Kopyalama Hatası</system:String>
     <system:String x:Key="CopyLog">Günlüğü Kopyala</system:String>
     <system:String x:Key="Core">Çekirdek</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Supermodel yapılandırması kaydedilemedi. Lütfen dosya izinlerini kontrol edin.</system:String>
     <system:String x:Key="FailedToSaveSystem">Sistem yapılandırması kaydedilemedi.</system:String>
     <system:String x:Key="Failedtosavethereport">Rapor kaydedilemedi.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Yumir yapılandırması kaydedilemedi.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher başlatılamadı. Mevcut örnekler kontrol edilirken hata oluştu.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Emülatör başlatılamadı veya beklenildiği gibi sonlandırılamadı.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Gamepad değiştirme işlemi başarısız oldu.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">Tümüne Göre Filtrele</system:String>
     <system:String x:Key="FilterByLetter">Harfe Göre Filtrele</system:String>
     <system:String x:Key="FilterByNumber">Numaraya Göre Filtrele</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Başarımlı oyunlar filtreleniyor...</system:String>
     <system:String x:Key="FindYourApiKeyHere">API Anahtarınızı Buradan Bulun</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">İptal</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Tam Ekranda Çalıştır</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">ile başlatıldı</system:String>
     <system:String x:Key="LaunchErrorTitle">Başlatma Hatası</system:String>
     <system:String x:Key="LaunchGame">Oyunu Başlat</system:String>
+    <system:String x:Key="Launching">Başlatılıyor...</system:String>
     <system:String x:Key="LaunchingGame">Oyun başlatılıyor...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Geçmişten oyun başlatılıyor...</system:String>
     <system:String x:Key="LaunchingTool">Araç başlatılıyor...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">Oyunlar yükleniyor...</system:String>
     <system:String x:Key="LoadingHistory">Geçmiş yükleniyor...</system:String>
     <system:String x:Key="LoadingNextPage">Sonraki sayfa yükleniyor...</system:String>
+    <system:String x:Key="LoadingPrevPage">Önceki sayfa yükleniyor...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM geçmişi yükleniyor...</system:String>
     <system:String x:Key="LoadingSystem">Sistem yükleniyor...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Kullanıcı tamamlama ilerlemesi yükleniyor...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">İşlem hala devam ediyor. İptal edip kapatmak ister misiniz?</system:String>
+    <system:String x:Key="ProcessingSystem">Sistem işleniyor</system:String>
     <system:String x:Key="ProfileID">Profil Kimliği (ULID):</system:String>
     <system:String x:Key="Publisher">Yayıncı:</system:String>
     <system:String x:Key="Purple">Mor</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">Bilinmeyen Oyun</system:String>
     <system:String x:Key="RaGenericNo">Hayır</system:String>
     <system:String x:Key="RaGenericYes">Evet</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Ses Ayarları</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Ses Sürücüsü:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Dizinler</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">En-Boy Oranını Sabitle</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Kare Atlama</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Tam Ekran</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Genel</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Müzik Ses Seviyesi</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Müziği Sustur</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Efektleri Sustur</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD Bölümü</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Raine emülatör dosyası bulunamadı. Lütfen manuel olarak konumlandırın.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Çözünürlük (Genişlik x Yükseklik):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROM Dizini</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Örnekleme Hızı (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Raine Emülatör Dosyasını Seçin</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">NeoGeo CD BIOS Dosyasını Seçin</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Raine ROM Dizinini Seçin</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">Efekt Ses Seviyesi</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Raine'i başlatmadan önce bu pencereyi göster</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">FPS'yi Göster</system:String>
+    <system:String x:Key="RaineConfig_Title">Raine Yapılandırması</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Video Ayarları</system:String>
+    <system:String x:Key="RaineConfig_Vsync">VSync Etkinleştir (Çift Tamponlama)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine yapılandırması başarıyla enjekte edildi.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} aktif geliştirme talebi</system:String>
     <system:String x:Key="RaInfoCheckConnection">Lütfen tekrar deneyin veya internet bağlantınızı kontrol edin.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Lütfen RetroAchievements kimlik bilgilerinizi kontrol edin veya daha sonra tekrar deneyin.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 emülatörü bulunamadı. Lütfen 'rpcs3.exe' dosyasını bulun.</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 Ayarları</system:String>
+    <system:String x:Key="Run">Çalıştır</system:String>
     <system:String x:Key="Save">Kaydet</system:String>
     <system:String x:Key="SaveDeadZone">Kaydet</system:String>
     <system:String x:Key="SaveFailed">Kaydetme Başarısız</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">Puan:</system:String>
     <system:String x:Key="Search">Ara</system:String>
     <system:String x:Key="SearchFor">Ara</system:String>
+    <system:String x:Key="Searching">Aranıyor...</system:String>
     <system:String x:Key="Searchingpleasewait">Aranıyor, lütfen bekleyin...</system:String>
     <system:String x:Key="SearchOptions">Arama Seçenekleri</system:String>
     <system:String x:Key="SearchRecursively">Özyinelemeli Ara</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Emülatör ComboBox'ını Seçin</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Bildirim ses dosyasını seçin</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">RetroAchievements Sistemini Seçin</system:String>
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} sistemini seçin</system:String>
     <system:String x:Key="SelectSystemComboBox">Sistem ComboBox'ını Seçin</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Ayarlar başarıyla kaydedildi.</system:String>
     <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
     <system:String x:Key="ShowGames">Oyunları Göster</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">RetroAchievements ile uyumlu olabilecek oyunları filtrele</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Yalnızca Kapaksız Oyunları Göster</system:String>
     <system:String x:Key="Sienna">Kiremit</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">Sistem Adı</system:String>
     <system:String x:Key="SystemNameRequired">Sistem adı (zorunlu)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistem başarıyla kaydedildi.</system:String>
+    <system:String x:Key="SystemSelectionMessage">Bu oyun için sistem otomatik olarak tanımlanamadı.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Lütfen doğru sistemi seçin:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' bozuk veya açılamıyor.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml', uygulama klasöründe bulunamadı.</system:String>
     <system:String x:Key="TakeScreenshot">Ekran Görüntüsü Al</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">PAL (50Hz) veya NTSC (60Hz) zamanlaması arasında seçim yapın.</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Ses Seviyesi:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Ana ses seviyesini ayarlar (0.0 ila 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomingIn">Yakınlaştırılıyor...</system:String>

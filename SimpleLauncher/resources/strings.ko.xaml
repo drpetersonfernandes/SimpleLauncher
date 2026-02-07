@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">비동기 셰이더 컴파일 사용</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">백그라운드에서 셰이더를 컴파일하여 게임 플레이 중 끊김 현상을 줄입니다.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">오디오</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">오디오 스트레칭 활성화</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">오디오 끊김 현상을 방지하기 위해 오디오 스트레칭을 활성화합니다.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">취소</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">전체 화면으로 시작</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">게임 시작 시 자동으로 전체 화면 모드로 전환합니다.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">백업 파일을 발견했습니다.</system:String>
     <system:String x:Key="Cabinet">캐비닛</system:String>
     <system:String x:Key="Cabinetnotfound">캐비닛을 찾을 수 없습니다</system:String>
+    <system:String x:Key="CalculatingGameHash">게임 해시 계산 중... 잠시만 기다려 주십시오.</system:String>
     <system:String x:Key="Cancel">취소</system:String>
     <system:String x:Key="CancelButtonText">취소</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="ConfirmClose">닫기 확인</system:String>
     <system:String x:Key="ConfirmDeletion">삭제 확인</system:String>
+    <system:String x:Key="ConfirmSelectionButton">선택 확인</system:String>
     <system:String x:Key="Console">콘솔:</system:String>
     <system:String x:Key="ConsoleID">콘솔 ID:</system:String>
     <system:String x:Key="ContactDeveloper">개발자에게 문의</system:String>
     <system:String x:Key="Contributions">기여:</system:String>
+    <system:String x:Key="ConvertingChdToCue">CHD 변환 중...</system:String>
     <system:String x:Key="CopyError">복사 오류</system:String>
     <system:String x:Key="CopyLog">로그 복사</system:String>
     <system:String x:Key="Core">코어</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Supermodel 설정을 저장하지 못했습니다. 파일 권한을 확인하십시오.</system:String>
     <system:String x:Key="FailedToSaveSystem">시스템 구성을 저장하지 못했습니다.</system:String>
     <system:String x:Key="Failedtosavethereport">보고서를 저장하지 못했습니다.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Yumir 설정을 저장하지 못했습니다.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher 시작 실패. 기존 인스턴스 확인 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Failedtostarttheemulator">에뮬레이터를 시작하지 못했거나 예상대로 종료되지 않았습니다.</system:String>
     <system:String x:Key="Failedtotogglegamepad">게임패드 전환에 실패했습니다.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">모두로 필터링</system:String>
     <system:String x:Key="FilterByLetter">문자로 필터링</system:String>
     <system:String x:Key="FilterByNumber">숫자로 필터링</system:String>
+    <system:String x:Key="FilteringRetroAchievements">도전 과제 지원 게임 필터링 중...</system:String>
     <system:String x:Key="FindYourApiKeyHere">여기에서 API 키를 찾으세요</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">취소</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">전체 화면으로 실행</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">으로 실행됨</system:String>
     <system:String x:Key="LaunchErrorTitle">실행 오류</system:String>
     <system:String x:Key="LaunchGame">게임 시작</system:String>
+    <system:String x:Key="Launching">실행 중...</system:String>
     <system:String x:Key="LaunchingGame">게임 실행 중...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">기록에서 게임 실행 중...</system:String>
     <system:String x:Key="LaunchingTool">도구 실행 중...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">게임 불러오는 중...</system:String>
     <system:String x:Key="LoadingHistory">기록 로드 중...</system:String>
     <system:String x:Key="LoadingNextPage">다음 페이지 불러오는 중...</system:String>
+    <system:String x:Key="LoadingPrevPage">이전 페이지 로딩 중...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM 기록 불러오는 중...</system:String>
     <system:String x:Key="LoadingSystem">시스템 불러오는 중...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">사용자 완료 진행률 불러오는 중...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">이전 페이지</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">처리가 아직 실행 중입니다. 취소하고 닫으시겠습니까?</system:String>
+    <system:String x:Key="ProcessingSystem">시스템 처리 중</system:String>
     <system:String x:Key="ProfileID">프로필 ID (ULID):</system:String>
     <system:String x:Key="Publisher">배급사:</system:String>
     <system:String x:Key="Purple">보라</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">알 수 없는 게임</system:String>
     <system:String x:Key="RaGenericNo">아니요</system:String>
     <system:String x:Key="RaGenericYes">예</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">오디오 설정</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">사운드 드라이버:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">디렉토리</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">종횡비 고정</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">프레임 스킵</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">전체 화면</system:String>
+    <system:String x:Key="RaineConfig_General_Header">일반</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">음악 볼륨</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">음악 음소거</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">효과음 음소거</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">NeoGeo CD 섹션</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">NeoGeo CD BIOS</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Raine 에뮬레이터 실행 파일을 찾을 수 없습니다. 수동으로 찾아주세요.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">해상도 (너비 x 높이):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">ROM 디렉토리</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">샘플 레이트 (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Raine 에뮬레이터 실행 파일 선택</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">NeoGeo CD BIOS 파일 선택</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Raine ROM 디렉토리 선택</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">효과음 볼륨</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Raine을 실행하기 전에 이 창 표시</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">FPS 표시</system:String>
+    <system:String x:Key="RaineConfig_Title">Raine 설정</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">비디오 설정</system:String>
+    <system:String x:Key="RaineConfig_Vsync">VSync 활성화 (이중 버퍼링)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">Raine 설정이 성공적으로 주입되었습니다.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0}개의 활성 개발 클레임</system:String>
     <system:String x:Key="RaInfoCheckConnection">다시 시도하거나 인터넷 연결을 확인하십시오.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">RetroAchievements 자격 증명을 확인하거나 나중에 다시 시도하십시오.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 에뮬레이터를 찾을 수 없습니다. 'rpcs3.exe'를 찾아주세요.</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 설정</system:String>
+    <system:String x:Key="Run">실행</system:String>
     <system:String x:Key="Save">저장</system:String>
     <system:String x:Key="SaveDeadZone">저장</system:String>
     <system:String x:Key="SaveFailed">저장 실패</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">점수:</system:String>
     <system:String x:Key="Search">검색</system:String>
     <system:String x:Key="SearchFor">검색 대상</system:String>
+    <system:String x:Key="Searching">검색 중...</system:String>
     <system:String x:Key="Searchingpleasewait">검색 중입니다. 잠시만 기다려주세요...</system:String>
     <system:String x:Key="SearchOptions">검색 옵션</system:String>
     <system:String x:Key="SearchRecursively">재귀적으로 검색</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">에뮬레이터 콤보박스 선택</system:String>
     <system:String x:Key="SelectNotificationSoundFile">알림 소리 파일 선택</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">RetroAchievements 시스템 선택</system:String>
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} 시스템 선택</system:String>
     <system:String x:Key="SelectSystemComboBox">시스템 콤보박스 선택</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="ShowAllGames">모든 게임 보기</system:String>
     <system:String x:Key="ShowGames">게임 보기</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">RetroAchievements와 호환 가능성이 높은 게임 필터링</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">커버 없는 게임만 보기</system:String>
     <system:String x:Key="Sienna">시에나</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">시스템 이름</system:String>
     <system:String x:Key="SystemNameRequired">시스템 이름 (필수)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">시스템이 성공적으로 저장되었습니다.</system:String>
+    <system:String x:Key="SystemSelectionMessage">이 게임의 시스템을 자동으로 식별할 수 없습니다.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">올바른 시스템을 선택해 주세요:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml'이 손상되었거나 열 수 없습니다.</system:String>
     <system:String x:Key="systemxmlnotfound">애플리케이션 폴더 내에 'system.xml'을 찾을 수 없습니다.</system:String>
     <system:String x:Key="TakeScreenshot">스크린샷 찍기</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">PAL (50Hz) 또는 NTSC (60Hz) 타이밍 중에서 선택합니다.</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">볼륨 레벨:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">마스터 볼륨을 조절합니다 (0.0 ~ 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Yumir 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="ZipSlipExplanation">아카이브 파일에서 'Zip Slip'이라는 보안 취약점이 감지되었습니다. 이는 공격자가 의도된 추출 디렉토리 외부에 파일을 쓸 수 있게 하는 경로 순회 취약점입니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomingIn">확대 중...</system:String>

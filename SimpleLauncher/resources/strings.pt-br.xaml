@@ -117,6 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Usar Compilação Assíncrona de Shaders</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Reduz a gagueira durante a jogabilidade compilando shaders em segundo plano.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Áudio</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Habilitar Audio Stretching</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Habilita o alongamento de áudio para evitar estalos no som.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Cancelar</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Iniciar em Tela Cheia</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Muda automaticamente para o modo de tela cheia quando um jogo inicia.</system:String>
@@ -170,6 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Mas encontrei um arquivo de backup.</system:String>
     <system:String x:Key="Cabinet">Arcade</system:String>
     <system:String x:Key="Cabinetnotfound">Arcade não encontrado</system:String>
+    <system:String x:Key="CalculatingGameHash">Calculando Hash do Jogo... Por favor, aguarde.</system:String>
     <system:String x:Key="Cancel">Cancelar</system:String>
     <system:String x:Key="CancelButtonText">Cancelar</system:String>
     <system:String x:Key="Cancelingdownload">Cancelando download...</system:String>
@@ -230,10 +233,12 @@
     <system:String x:Key="Confirmation">Confirmação</system:String>
     <system:String x:Key="ConfirmClose">Confirmar Fechar</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmar Exclusão</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Confirmar Seleção</system:String>
     <system:String x:Key="Console">Console:</system:String>
     <system:String x:Key="ConsoleID">ID do Console:</system:String>
     <system:String x:Key="ContactDeveloper">Contatar Desenvolvedor</system:String>
     <system:String x:Key="Contributions">Contribuições:</system:String>
+    <system:String x:Key="ConvertingChdToCue">Convertendo CHD...</system:String>
     <system:String x:Key="CopyError">Erro de Cópia</system:String>
     <system:String x:Key="CopyLog">Copiar Log</system:String>
     <system:String x:Key="Core">Core</system:String>
@@ -508,6 +513,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Falha ao salvar a configuração do Supermodel. Verifique as permissões do arquivo.</system:String>
     <system:String x:Key="FailedToSaveSystem">Falha ao salvar a configuração do sistema.</system:String>
     <system:String x:Key="Failedtosavethereport">Falha ao salvar o relatório.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Falha ao salvar a configuração do Yumir.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Falha ao iniciar o Simple Launcher. Ocorreu um erro ao verificar instâncias existentes.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Falha ao iniciar o emulador ou ele não foi encerrado conforme o esperado.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Falha ao alternar o estado do gamepad.</system:String>
@@ -531,6 +537,7 @@
     <system:String x:Key="FilterByAll">Filtrar por Todos</system:String>
     <system:String x:Key="FilterByLetter">Filtrar por Letra</system:String>
     <system:String x:Key="FilterByNumber">Filtrar por Número</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Filtrando jogos com conquistas...</system:String>
     <system:String x:Key="FindYourApiKeyHere">Encontre sua Chave de API aqui</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">Cancelar</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Executar em Tela Cheia</system:String>
@@ -666,6 +673,7 @@
     <system:String x:Key="launchedwith">iniciado com</system:String>
     <system:String x:Key="LaunchErrorTitle">Erro de Lançamento</system:String>
     <system:String x:Key="LaunchGame">Iniciar Jogo</system:String>
+    <system:String x:Key="Launching">Iniciando...</system:String>
     <system:String x:Key="LaunchingGame">Iniciando jogo...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Iniciando jogo do histórico...</system:String>
     <system:String x:Key="LaunchingTool">Iniciando ferramenta...</system:String>
@@ -686,6 +694,7 @@
     <system:String x:Key="LoadingGames">Carregando Jogos...</system:String>
     <system:String x:Key="LoadingHistory">Carregando histórico...</system:String>
     <system:String x:Key="LoadingNextPage">Carregando próxima página...</system:String>
+    <system:String x:Key="LoadingPrevPage">Carregando página anterior...</system:String>
     <system:String x:Key="LoadingROMHistory">Carregando histórico de ROMs...</system:String>
     <system:String x:Key="LoadingSystem">Carregando sistema...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Carregando progresso de conclusão do usuário...</system:String>
@@ -988,6 +997,7 @@
     <system:String x:Key="PreviousPage">Página anterior</system:String>
     <system:String x:Key="Processingpleasewait">Processando, por favor aguarde...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">O processamento ainda está em execução. Deseja cancelar e fechar?</system:String>
+    <system:String x:Key="ProcessingSystem">Processando sistema</system:String>
     <system:String x:Key="ProfileID">ID do Perfil (ULID):</system:String>
     <system:String x:Key="Publisher">Editora:</system:String>
     <system:String x:Key="Purple">Roxo</system:String>
@@ -1017,6 +1027,32 @@
     <system:String x:Key="RaFallbackUnknownGame">Jogo Desconhecido</system:String>
     <system:String x:Key="RaGenericNo">Não</system:String>
     <system:String x:Key="RaGenericYes">Sim</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Configurações de Áudio</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Driver de Som:</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Diretórios</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Corrigir Proporção de Tela</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Pular Quadros (Frame Skip)</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Tela Cheia</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Geral</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Volume da Música</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Mudar Música para Mudo</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Mudar SFX para Mudo</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">Seção NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">BIOS do NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">Executável do emulador Raine não encontrado. Por favor, localize-o manualmente.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Resolução (Largura x Altura):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">Diretório de ROMs</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Taxa de Amostragem (Hz):</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Selecionar Executável do Emulador Raine</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Selecionar Arquivo de BIOS do NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Selecionar Diretório de ROMs do Raine</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">Volume de SFX</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Mostrar esta janela antes de iniciar o Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">Mostrar FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">Configuração do Raine</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Configurações de Vídeo</system:String>
+    <system:String x:Key="RaineConfig_Vsync">Habilitar VSync (Double Buffering)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">A configuração do Raine foi injetada com sucesso.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} reivindicação(ões) de desenvolvimento ativa(s)</system:String>
     <system:String x:Key="RaInfoCheckConnection">Por favor, tente novamente ou verifique sua conexão com a internet.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Por favor, verifique suas credenciais do RetroAchievements ou tente novamente mais tarde.</system:String>
@@ -1181,6 +1217,7 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Configuração do RPCS3 salva com sucesso.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Emulador RPCS3 não encontrado. Por favor, localize 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Configurações do RPCS3</system:String>
+    <system:String x:Key="Run">Executar</system:String>
     <system:String x:Key="Save">Salvar</system:String>
     <system:String x:Key="SaveDeadZone">Salvar</system:String>
     <system:String x:Key="SaveFailed">Falha ao Salvar</system:String>
@@ -1199,6 +1236,7 @@
     <system:String x:Key="Score">Pontuação:</system:String>
     <system:String x:Key="Search">Pesquisar</system:String>
     <system:String x:Key="SearchFor">Buscar Por</system:String>
+    <system:String x:Key="Searching">Pesquisando...</system:String>
     <system:String x:Key="Searchingpleasewait">Procurando, aguarde...</system:String>
     <system:String x:Key="SearchOptions">Opções de Busca</system:String>
     <system:String x:Key="SearchRecursively">Buscar Recursivamente</system:String>
@@ -1252,6 +1290,7 @@
     <system:String x:Key="SelectEmulator5">Selecione o Emulador 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Selecionar ComboBox do Emulador</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Selecionar arquivo de som de notificação</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">Selecionar Sistema RetroAchievements</system:String>
     <system:String x:Key="SelectSystem">Selecionar Sistema</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Selecionar sistema {config.SystemName}</system:String>
     <system:String x:Key="SelectSystemComboBox">Selecionar ComboBox do Sistema</system:String>
@@ -1280,6 +1319,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Configurações salvas com sucesso.</system:String>
     <system:String x:Key="ShowAllGames">Exibir Todos os Jogos</system:String>
     <system:String x:Key="ShowGames">Exibir Jogos</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Filtrar jogos que provavelmente são compatíveis com RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Exibir Apenas Jogos com Capa</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Exibir Apenas Jogos sem Capa</system:String>
     <system:String x:Key="Sienna">Siena</system:String>
@@ -1410,6 +1450,8 @@
     <system:String x:Key="SystemNameHeader">Nome do Sistema</system:String>
     <system:String x:Key="SystemNameRequired">Nome do sistema (obrigatório)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Sistema salvo com sucesso.</system:String>
+    <system:String x:Key="SystemSelectionMessage">Não foi possível identificar automaticamente o sistema para este jogo.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Por favor, selecione o sistema correto:</system:String>
     <system:String x:Key="systemxmliscorrupted">O arquivo 'system.xml' está corrompido ou não pode ser aberto.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' não encontrada na pasta do aplicativo.</system:String>
     <system:String x:Key="TakeScreenshot">Capturar Tela</system:String>
@@ -1668,6 +1710,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Escolha entre temporização PAL (50Hz) ou NTSC (60Hz).</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Nível de Volume:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Ajusta o volume mestre (0.0 a 1.0).</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Configuração do Yumir salva com sucesso.</system:String>
     <system:String x:Key="ZipSlipExplanation">Uma vulnerabilidade de segurança chamada 'Zip Slip' foi detectada no arquivo compactado. Esta é uma vulnerabilidade de travessia de caminho que poderia permitir a um atacante escrever arquivos fora do diretório de extração pretendido.</system:String>
     <system:String x:Key="ZoomIn">Aumentar zoom</system:String>
     <system:String x:Key="ZoomingIn">Ampliando...</system:String>
