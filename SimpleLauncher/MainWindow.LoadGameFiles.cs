@@ -159,7 +159,7 @@ public partial class MainWindow
 
         async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager selectedManager, string startLetter2, string searchQuery2, CancellationToken token)
         {
-            List<string> allFiles;
+            var allFiles = new List<string>();
 
             switch (searchQuery2)
             {
@@ -293,61 +293,58 @@ public partial class MainWindow
                 default: // This branch handles initial load, letter filter, and text search
                 {
                     // If no specific filter (letter or search query), and _allGamesForCurrentSystem is already populated for this system,
-                    // use it directly. Otherwise, perform a full disk scan.
-                    // The _selectedSystem field ensures _allGamesForCurrentSystem is for the *currently active* system.
-                    await _allGamesLock.WaitAsync(token); // Acquire lock before accessing _allGamesForCurrentSystem
+                    // use it directly. Otherwise, perform a full disk scan. The _selectedSystem field ensures the cache is for the *currently active* system.
+                    var useCache = false;
+                    await _allGamesLock.WaitAsync(token);
                     try
                     {
                         if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2) &&
                             _allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 &&
                             _selectedSystem == selectedManager.SystemName)
                         {
-                            allFiles = new List<string>(_allGamesForCurrentSystem); // READ
-                            DebugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached _allGamesForCurrentSystem for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
-                        }
-                        else
-                        {
-                            // If _allGamesForCurrentSystem is not suitable or not yet populated, perform a full disk scan.
-                            // This part is outside the lock because it involves I/O and doesn't modify _allGamesForCurrentSystem yet.
-                            // The lock is acquired only when _allGamesForCurrentSystem is read or written.
-                            _allGamesLock.Release(); // Temporarily release lock for disk scan
-
-                            try
-                            {
-                                var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                                foreach (var folder in selectedManager.SystemFolders)
-                                {
-                                    token.ThrowIfCancellationRequested();
-
-                                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
-
-                                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
-                                    foreach (var file in filesInFolder)
-                                    {
-                                        uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                                    }
-                                }
-
-                                allFiles = uniqueFiles.Values.ToList(); // This is the full list from disk for the system
-                            }
-                            finally
-                            {
-                                await _allGamesLock.WaitAsync(token); // Re-acquire lock before potentially writing to _allGamesForCurrentSystem
-                            }
-
-                            // If no specific filter (letter or search query), this is the "all games" list.
-                            // Cache it for future "Feeling Lucky" calls and direct "All" view loads.
-                            if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2))
-                            {
-                                _allGamesForCurrentSystem = new List<string>(allFiles); // WRITE
-                                DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated _allGamesForCurrentSystem for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
-                            }
+                            allFiles = new List<string>(_allGamesForCurrentSystem);
+                            useCache = true;
+                            DebugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                         }
                     }
                     finally
                     {
-                        _allGamesLock.Release(); // Ensure lock is released
+                        _allGamesLock.Release();
+                    }
+
+                    if (!useCache)
+                    {
+                        // Disk scan happens here, completely outside the lock.
+                        var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var folder in selectedManager.SystemFolders)
+                        {
+                            token.ThrowIfCancellationRequested();
+                            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
+                            foreach (var file in filesInFolder)
+                            {
+                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                            }
+                        }
+
+                        allFiles = uniqueFiles.Values.ToList();
+
+                        // If this is an initial load (no filters), update the cache.
+                        if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2))
+                        {
+                            await _allGamesLock.WaitAsync(token);
+                            try
+                            {
+                                _allGamesForCurrentSystem = new List<string>(allFiles);
+                                DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                            }
+                            finally
+                            {
+                                _allGamesLock.Release();
+                            }
+                        }
                     }
 
                     // ... filtering by startLetter ...

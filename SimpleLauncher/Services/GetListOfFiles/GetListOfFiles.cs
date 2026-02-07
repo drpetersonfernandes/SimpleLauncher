@@ -53,6 +53,11 @@ public abstract class GetListOfFiles
 
                 return foundFiles; // Return the full list of found files
             }
+            catch (OperationCanceledException)
+            {
+                DebugLogger.Log($"[GetFilesAsync] Search was canceled for directory: {directoryPath}");
+                throw; // Re-throw the exception so the caller knows the operation was canceled.
+            }
             catch (Exception ex)
             {
                 // Notify developer
