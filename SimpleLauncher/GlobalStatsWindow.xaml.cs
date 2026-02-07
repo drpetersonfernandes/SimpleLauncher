@@ -81,6 +81,12 @@ internal partial class GlobalStatsWindow : IDisposable
                 _isProcessing = false;
                 _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = null;
+
+                // Close window if user requested it during processing
+                if (_forceClose)
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(Close);
+                }
             }
         }
         catch (Exception ex)
@@ -287,8 +293,14 @@ internal partial class GlobalStatsWindow : IDisposable
     {
         lock (_processingLock)
         {
-            if (!_isProcessing) return;
+            if (!_isProcessing)
+            {
+                // Not processing, allow normal close
+                Dispose();
+                return;
+            }
 
+            // Processing is active - ask user to confirm
             e.Cancel = true;
             if (MessageBoxLibrary.DoYouWantToCancelAndClose() == MessageBoxResult.Yes)
             {
