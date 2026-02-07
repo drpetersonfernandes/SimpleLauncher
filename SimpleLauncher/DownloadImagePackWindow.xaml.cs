@@ -17,6 +17,8 @@ using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -24,6 +26,8 @@ namespace SimpleLauncher;
 
 internal partial class DownloadImagePackWindow : IDisposable, System.ComponentModel.INotifyPropertyChanged, ILoadingState
 {
+    private readonly PlaySoundEffects _playSoundEffects;
+
     private EasyModeManager _manager;
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
@@ -69,7 +73,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
     // hold dynamic image pack buttons
     private ObservableCollection<ImagePackDownloadItem> ImagePacksToDisplay { get; }
 
-    internal DownloadImagePackWindow()
+    internal DownloadImagePackWindow(PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -77,12 +81,13 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
 
         // Get the DownloadManager from the service provider
         _downloadManager = App.ServiceProvider.GetRequiredService<DownloadManager>();
-
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         // Initialize the new collection
-        ImagePacksToDisplay = new ObservableCollection<ImagePackDownloadItem>();
+        ImagePacksToDisplay = [];
         ImagePacksItemsControl.ItemsSource = ImagePacksToDisplay; // Bind ItemsControl to the collection
+
+        _playSoundEffects = playSoundEffects;
 
         // Set up event handlers
         Closed += CloseWindowRoutineAsync;
@@ -223,6 +228,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return; // Another operation in progress
 
@@ -476,7 +482,6 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
         );
     }
 
-
     private void UpdateStatus(string message)
     {
         if (_disposed) return; // Check before UI update
@@ -486,6 +491,8 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
+        _playSoundEffects.PlayNotificationSound();
+
         if (_disposed) return; // Early exit if window is already disposed
 
         _downloadManager.CancelDownload();
@@ -516,6 +523,8 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
+
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
             e.Handled = true;
         }
@@ -571,5 +580,23 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
     ~DownloadImagePackWindow()
     {
         Dispose(false);
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+
+        // Cancel any active download
+        _downloadManager?.CancelDownload();
+
+        // Reset local state flags
+        IsOperationInProgress = false;
+
+        // Hide overlay and re-enable UI
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+        MainContentGrid?.IsEnabled = true;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }
