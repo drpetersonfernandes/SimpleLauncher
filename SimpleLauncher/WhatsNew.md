@@ -1,55 +1,19 @@
-# Release 5.0
-*2026-02-06*
+# Release 5.0.0
+*2026-02-07*
 ---
-The update represents a major architectural overhaul, focusing on modularity, expanded emulator support, enhanced RetroAchievements integration, and a more robust user experience.
 
-### 1. Major Architectural Refactoring
-The codebase has transitioned toward a more maintainable, decoupled architecture using Dependency Injection (DI) and standardized interfaces:
-*   **Game Launching Engine:** The `GameLauncher` has been refactored from a monolithic conditional block to a strategy-based pattern.
-    *   **`IEmulatorConfigHandler`:** Encapsulates emulator-specific configuration logic and UI injection.
-    *   **`ILaunchStrategy`:** Handles various launch scenarios (e.g., mounting ISOs, extracting ZIPs, or converting CHD files) based on a priority system.
-    *   **`LaunchContext`:** A new data container used to pass state between handlers and strategies.
-*   **Loading State Management:** A new `ILoadingState` interface and `LoadingOverlayTemplate` standardize how the UI handles long-running tasks. This ensures consistent UI blocking and progress feedback across all major windows (MainWindow, Favorites, Search, etc.).
-*   **Settings Infrastructure:** The application has reverted its settings storage from MessagePack (`settings.dat`) back to a more accessible XML format (`settings.xml`), with property defaults now initialized directly within the `SettingsManager`.
-
-### 2. Expanded Emulator Support & Configuration
-The patch significantly broadens the launcher's reach and the depth of its configuration capabilities:
-*   **New Emulator Integrations:**
-    *   **Raine:** Full integration including a dedicated configuration handler and a new `InjectRaineConfigWindow` for NeoGeo CD settings.
-    *   **New Systems:** Added support for Sega Naomi, Sega Naomi 2, and Atomiswave.
-*   **Enhanced Configuration Services:** Services for MAME, Azahar, DuckStation, PCSX2, RPCS3, and others were refactored for robustness.
-    *   **Regex-Based Parsing:** Improved INI/YAML handling to preserve file structures, comments, and whitespace.
-    *   **Atomic Writes:** Implementation of temporary file writing before overwriting configs to prevent data corruption.
-    *   **Path Normalization:** Improved handling of ROM paths, including automatic injection of missing system paths.
-*   **Localization Expansion:** A massive expansion of localization strings (primarily for Chinese) covering nearly every configurable setting for over a dozen emulators (Cemu, Dolphin, Mednafen, Mesen, Stella, Supermodel, etc.).
-
-### 3. RetroAchievements (RA) Enhancements
-RetroAchievements functionality has been deeply integrated into the core workflow:
-*   **Auto-Configuration:** The launcher can now automatically inject RA login credentials into PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, BizHawk, and RetroArch.
-*   **Manual System Identification:** A new `SystemSelectionWindow` allows users to manually resolve system ambiguities when auto-detection fails during hashing.
-*   **Advanced Filtering:** Added a dedicated RA game filter in the `MainWindow` using Jaro-Winkler fuzzy matching to correlate local files with RA-supported titles.
-*   **Security:** Introduced `EncryptDuckStationToken` to handle DuckStation’s specific API token encryption requirements.
-
-### 4. File Conversion & Tooling
-The launcher now includes built-in utilities to handle modern compressed disc formats:
-*   **Static Conversion Utilities:** New reusable services for `CHD-to-Cue/Bin`, `CHD-to-ISO`, and `RVZ-to-ISO` conversions using tools like `chdman` and `DolphinTool`.
-*   **ARM64 Support:** Added platform-specific executables and updated logic for the `BatchConvertToCHD` tool to support ARM64 architecture.
-*   **Improved Hashing:** Fixed specific issues related to GameCube hashing and temporary file cleanup during the conversion process.
-
-### 5. UI/UX Refinements
-*   **Visual Consistency:** Applied MahApps "Square" and "Accent" styles to buttons across the application and standardized grid layouts.
-*   **Streamlined Interface:**
-    *   The "Toggle Light/Dark Mode" and several redundant status bar labels (e.g., RomCount, MatchedImageCount) were removed for a cleaner look.
-    *   The `GlobalStatsWindow` was refactored to process systems sequentially to prevent HDD thrashing, providing real-time UI updates during the process.
-*   **Error Feedback:** Replaced generic message boxes with a localized `MessageBoxLibrary` providing specific feedback for emulator-specific failures.
-
-### 6. Robustness, Logging, and Maintenance
-*   **Centralized Error Logging:** Integrated `ILogErrors` across all file-heavy services to ensure exceptions are caught, logged, and properly propagated.
-*   **Code Quality:**
-    *   Modernized code using `async/await` for UI windows to prevent freezing.
-    *   Added null-conditional checks and `ArgumentNullException.ThrowIfNull` for better defensive programming.
-    *   Improved resource management to prevent `ObjectDisposedException` during application shutdown.
-*   **Documentation:** Comprehensive updates to `README.md`, `WhatsNew.md`, and `parameters.md` to reflect the v4.10 release, including new emulator parameters and the removal of the "Group Files by Folder" feature.
+- **Refactored GameLauncher Architecture**: Replaced the monolithic conditional structure with a flexible, strategy-based pattern that dramatically improves extensibility for new emulators and platforms.
+    - Created emulator-specific configuration handlers (e.g., `AresConfigHandler`, `XeniaConfigHandler`, `RaineConfigHandler`) that manage pre-launch configuration dialogs and dynamically modify emulator settings files.
+    - Implemented launch strategy pattern (e.g., `ChdToCueStrategy`, `XisoMountStrategy`, `ZipMountStrategy`, `DefaultLaunchStrategy`) to handle diverse launch scenarios—including ISO mounting, archive extraction, format conversion, and direct execution—with clean, maintainable code.
+    - Integrated format conversion services for CHD-to-CUE/BIN, CHD-to-ISO, and RVZ-to-ISO transformations, expanding compatibility across emulators. For example, it can convert a CHD file to CUE/BIN if the emulator does not support CHD.
+- **Improved Loading State Management**: Unified UI busy-state handling throughout the application to provide consistent blocking behavior and progress feedback across all major windows (MainWindow, Favorites, Search, etc.).
+- **Configuration Injection Service**: Built a centralized service that programmatically injects settings into emulator configuration files.
+    - Supports 20+ emulators: Ares, Azahar, Blastem, Cemu, Daphne, Dolphin, DuckStation, Flycast, MAME, Mednafen, Mesen, PCSX2, Raine, RetroArch, RPCS3, Sega Model 2, Stella, Supermodel, Xenia, and Yumir.
+    - Xenia integration mirrors Xenia Manager's internal configuration injection functionality.
+- **Enhanced RetroAchievements Integration**:
+    - Automatically injects RetroAchievements credentials into PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, BizHawk, and RetroArch.
+    - Added RetroAchievements filter in `MainWindow` to quickly identify and display supported titles.
+    - Refined game hashing algorithms across multiple systems for accurate achievement tracking.
 
 # Release 4.9.1
 *2026-01-18*
