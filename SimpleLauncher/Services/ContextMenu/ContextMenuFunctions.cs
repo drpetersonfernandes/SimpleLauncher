@@ -326,7 +326,7 @@ internal static class ContextMenuFunctions
                 {
                     playSoundEffects.PlayNotificationSound();
                     UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                    var retroAchievementsWindow = new RetroAchievementsWindow();
+                    var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
                     retroAchievementsWindow.Show();
                 }
 
@@ -366,7 +366,7 @@ internal static class ContextMenuFunctions
                     {
                         playSoundEffects.PlayNotificationSound();
                         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow();
+                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
                         retroAchievementsWindow.Show();
                     }
 
@@ -385,7 +385,7 @@ internal static class ContextMenuFunctions
                     {
                         playSoundEffects.PlayNotificationSound();
                         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow();
+                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
                         retroAchievementsWindow.Show();
                     }
 
@@ -427,7 +427,7 @@ internal static class ContextMenuFunctions
                 {
                     playSoundEffects.PlayNotificationSound();
                     UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                    var retroAchievementsWindow = new RetroAchievementsWindow();
+                    var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
                     retroAchievementsWindow.Show();
                 }
             }

@@ -14,15 +14,18 @@ using SimpleLauncher.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.LoadingInterface;
+using SimpleLauncher.Services.PlaySound;
 
 namespace SimpleLauncher;
 
 public partial class RetroAchievementsWindow : ILoadingState
 {
+    private readonly PlaySoundEffects _playSoundEffects;
+
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
-    public RetroAchievementsWindow()
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -30,6 +33,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         _settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
         _raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
+        _playSoundEffects = playSoundEffects;
 
         Loaded += RetroAchievementsWindow_Loaded;
     }
@@ -46,14 +50,17 @@ public partial class RetroAchievementsWindow : ILoadingState
             switch (tag)
             {
                 case "MyProfile":
+                    _playSoundEffects.PlayNotificationSound();
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...", Owner as MainWindow);
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
+                    _playSoundEffects.PlayNotificationSound();
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...", Owner as MainWindow);
                     _ = LoadUnlocksByDateAsync();
                     break;
                 case "UserProgress":
+                    _playSoundEffects.PlayNotificationSound();
                     UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...", Owner as MainWindow);
                     _ = LoadUserProgressAsync();
                     break;
@@ -68,10 +75,11 @@ public partial class RetroAchievementsWindow : ILoadingState
         _ = LoadUserProfileAsync();
     }
 
-    private static void OpenUrlInBrowser(string url)
+    private void OpenUrlInBrowser(string url)
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
         }
         catch (Exception ex)
@@ -109,6 +117,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         {
             Owner = this
         };
+        _playSoundEffects.PlayNotificationSound();
         settingsWindow.ShowDialog();
 
         // Reload current tab using Tag instead of Header
@@ -118,12 +127,15 @@ public partial class RetroAchievementsWindow : ILoadingState
             switch (tag)
             {
                 case "MyProfile":
+                    _playSoundEffects.PlayNotificationSound();
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
+                    _playSoundEffects.PlayNotificationSound();
                     _ = LoadUnlocksByDateAsync();
                     break;
                 case "UserProgress":
+                    _playSoundEffects.PlayNotificationSound();
                     _ = LoadUserProgressAsync();
                     break;
             }
@@ -383,8 +395,10 @@ public partial class RetroAchievementsWindow : ILoadingState
             TotalPointsEarnedInRangeText.Text = "0";
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay when cleared
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaInfoNoUnlocksFound") ?? "No unlocks found for the selected date range."; // Reset message
+
             // Notify user
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...", Owner as MainWindow);
+
             await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
         }
         catch (Exception ex)
@@ -468,5 +482,14 @@ public partial class RetroAchievementsWindow : ILoadingState
                 LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
             }
         });
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in RetroAchievements Window.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

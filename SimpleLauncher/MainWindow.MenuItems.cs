@@ -705,7 +705,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", this);
 
-        var retroAchievementsWindow = new RetroAchievementsWindow
+        var retroAchievementsWindow = new RetroAchievementsWindow(_playSoundEffects)
         {
             Owner = this
         };
