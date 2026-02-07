@@ -538,6 +538,29 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         });
     }
 
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        // 1. Play a sound to confirm interaction
+        _playSoundEffects?.PlayNotificationSound();
+
+        // 2. Force the loading flags to false
+        _isLoadingGames = false;
+        IsLoadingGames = false;
+
+        // 3. Cancel any active background operations (scans, file loading, etc.)
+        CancelAndRecreateToken();
+
+        // 4. Hide the overlay visually
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+        MainContentGrid.IsEnabled = true;
+
+        // 5. Reset the UI to the "Start" state (System Selection)
+        ResetUiAsync();
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", this);
+    }
+
     private void SaveApplicationSettings()
     {
         // Save application's current state
