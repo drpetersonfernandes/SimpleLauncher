@@ -17,6 +17,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -36,8 +37,8 @@ internal partial class EditSystemWindow : ILoadingState
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+        _settings = settings;
+        _playSoundEffects = playSoundEffects;
 
         ApplyExpanderSettings();
 
@@ -270,6 +271,7 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
+        _playSoundEffects.PlayNotificationSound();
         _originalSystemName = null;
 
         EnableFields();
@@ -545,6 +547,8 @@ internal partial class EditSystemWindow : ILoadingState
                 {
                     systemNode.Remove();
                     _xmlDoc.Save(XmlFilePath);
+
+                    _playSoundEffects.PlayNotificationSound();
                 }
                 else
                 {
@@ -604,6 +608,7 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
+        _playSoundEffects.PlayNotificationSound();
         var searchUrl = App.Configuration["WikiParametersUrl"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
         try
         {
@@ -612,7 +617,6 @@ internal partial class EditSystemWindow : ILoadingState
                 FileName = searchUrl,
                 UseShellExecute = true
             });
-            _playSoundEffects.PlayNotificationSound();
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
         {
@@ -659,5 +663,16 @@ internal partial class EditSystemWindow : ILoadingState
         {
             AdditionalFoldersListBox.Items.Remove(AdditionalFoldersListBox.SelectedItem);
         }
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        // Hide overlay and re-enable UI
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+        MainContentGrid?.IsEnabled = true;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

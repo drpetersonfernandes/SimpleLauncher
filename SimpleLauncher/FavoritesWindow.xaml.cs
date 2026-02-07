@@ -19,6 +19,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
@@ -31,7 +32,7 @@ internal partial class FavoritesWindow : ILoadingState
 {
     private static readonly string LogPath = GetLogPath.Path();
     private readonly FavoritesManager _favoritesManager;
-    private readonly ObservableCollection<Favorite> _favoriteList = new();
+    private readonly ObservableCollection<Favorite> _favoriteList = [];
     private readonly SettingsManager _settings;
     private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
@@ -540,5 +541,14 @@ internal partial class FavoritesWindow : ILoadingState
         {
             LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
         }
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in FavoritesWindow.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

@@ -20,6 +20,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
@@ -88,10 +89,11 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             // Cancel the previous source before disposing to stop running tasks
             if (_cancellationTokenSource != null)
             {
-                _cancellationTokenSource.Cancel();
+                await _cancellationTokenSource.CancelAsync();
                 _cancellationTokenSource.Dispose();
             }
 
@@ -118,7 +120,6 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
 
             SetLoadingState(true, (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.");
             NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
-
             await Task.Yield();
 
             try
@@ -375,7 +376,6 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 return;
             }
 
-            // FIX: Use the 'loadingState' parameter instead of 'this'
             await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingState);
         }
         catch (Exception ex)
@@ -615,5 +615,17 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
             }
         });
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        // Cancel the background search task
+        _cancellationTokenSource?.Cancel();
+
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in GlobalSearchWindow.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }
