@@ -18,13 +18,16 @@ namespace SimpleLauncher.Services.DownloadService;
 /// </summary>
 public class DownloadManager : IDisposable
 {
-    internal bool IsFileLockedDuringDownload { get; private set; }
-
     // Events
     /// <summary>
     /// Event raised when download progress changes.
     /// </summary>
     public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
+
+    // Volatile backing fields for thread-safe state access across async/thread boundaries
+    private volatile bool _isDownloadCompleted;
+    private volatile bool _isUserCancellation;
+    private volatile bool _isFileLockedDuringDownload;
 
     // Constants
     private const int RetryMaxAttempts = 3;
@@ -72,12 +75,20 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Gets a value indicating whether the download was completed successfully.
     /// </summary>
-    internal bool IsDownloadCompleted { get; private set; }
+    internal bool IsDownloadCompleted
+    {
+        get => _isDownloadCompleted;
+        private set => _isDownloadCompleted = value;
+    }
 
     /// <summary>
     /// Gets a value indicating whether the download was canceled by the user.
     /// </summary>
-    internal bool IsUserCancellation { get; private set; }
+    internal bool IsUserCancellation
+    {
+        get => _isUserCancellation;
+        private set => _isUserCancellation = value;
+    }
 
     /// <summary>
     /// Gets the temporary folder used for downloads.
@@ -90,11 +101,21 @@ public class DownloadManager : IDisposable
     /// </summary>
     internal void CancelDownload()
     {
+        if (_disposed)
+            return;
+
         lock (_lock)
         {
             IsUserCancellation = true;
             _cancellationTokenSource?.Cancel();
         }
+    }
+
+    // Existing property moved to use backing field for write access
+    internal bool IsFileLockedDuringDownload
+    {
+        get => _isFileLockedDuringDownload;
+        private set => _isFileLockedDuringDownload = value;
     }
 
     private void ResetCancellationToken()
