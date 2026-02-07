@@ -45,6 +45,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 {
     private CancellationTokenSource _cancellationSource = new();
     private bool _isUiUpdating;
+    private bool _isResortOperation;
     private bool _wasControllerRunningBeforeDeactivation;
 
     // Track disposal
@@ -822,12 +823,22 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 return;
             }
 
+            CancelAndRecreateToken();
+
             _playSoundEffects.PlayNotificationSound();
             _mameSortOrder = _mameSortOrder == "FileName" ? "MachineDescription" : "FileName";
             UpdateSortOrderButtonUi();
 
-            var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq);
+            _isResortOperation = true; // Set flag before loading
+            try
+            {
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            }
+            finally
+            {
+                _isResortOperation = false; // Reset flag after loading
+            }
         }
         catch (Exception ex)
         {

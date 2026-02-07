@@ -210,6 +210,29 @@ public partial class MainWindow
 
         async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager selectedManager, string startLetter2, string searchQuery2, CancellationToken token)
         {
+            if (_isResortOperation)
+            {
+                await _allGamesLock.WaitAsync(token);
+                try
+                {
+                    // If a search or filter is active, _currentSearchResults holds the full (unpaginated) list.
+                    // Otherwise, the full list is in _allGamesForCurrentSystem.
+                    var sourceList = !string.IsNullOrEmpty(_activeSearchQueryOrMode) || !string.IsNullOrEmpty(_currentFilter)
+                        ? _currentSearchResults
+                        : _allGamesForCurrentSystem;
+
+                    if (sourceList != null)
+                    {
+                        DebugLogger.Log($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
+                        return [..sourceList];
+                    }
+                }
+                finally
+                {
+                    _allGamesLock.Release();
+                }
+            }
+
             var allFiles = new List<string>();
 
             switch (searchQuery2)
@@ -402,6 +425,16 @@ public partial class MainWindow
                     if (!string.IsNullOrWhiteSpace(startLetter2))
                     {
                         allFiles = await FilterFilesAsync(allFiles, startLetter2);
+                        // After filtering by letter, store the results so they can be re-sorted.
+                        await _allGamesLock.WaitAsync(token);
+                        try
+                        {
+                            _currentSearchResults = new List<string>(allFiles);
+                        }
+                        finally
+                        {
+                            _allGamesLock.Release();
+                        }
                     }
 
                     // ... filtering by searchQuery ...
