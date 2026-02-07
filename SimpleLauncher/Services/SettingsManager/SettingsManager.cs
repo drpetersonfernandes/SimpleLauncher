@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -10,10 +11,11 @@ using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.SettingsManager;
 
-public class SettingsManager
+public class SettingsManager : IDisposable
 {
     private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
-    private readonly object _saveLock = new();
+    private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
+
     private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
@@ -343,7 +345,8 @@ public class SettingsManager
 
     public void Load()
     {
-        lock (_saveLock)
+        _settingsLock.EnterWriteLock();
+        try
         {
             if (File.Exists(_filePath))
             {
@@ -360,6 +363,10 @@ public class SettingsManager
             }
 
             SetDefaultsAndSave();
+        }
+        finally
+        {
+            _settingsLock.ExitWriteLock();
         }
     }
 
@@ -398,7 +405,11 @@ public class SettingsManager
         Emulator3Expanded = other.Emulator3Expanded;
         Emulator4Expanded = other.Emulator4Expanded;
         Emulator5Expanded = other.Emulator5Expanded;
-        SystemPlayTimes = other.SystemPlayTimes ?? [];
+
+        // Deep copy of SystemPlayTimes to ensure snapshot isolation
+        SystemPlayTimes = other.SystemPlayTimes?
+            .Select(static pt => new SystemPlayTime { SystemName = pt.SystemName, PlayTime = pt.PlayTime })
+            .ToList() ?? [];
 
         // Ares
         AresVideoDriver = other.AresVideoDriver;
@@ -1894,386 +1905,401 @@ public class SettingsManager
 
     public void Save()
     {
-        lock (_saveLock)
+        // 1. Capture consistent snapshot under read lock
+        SettingsManager snapshot;
+        _settingsLock.EnterReadLock();
+        try
         {
-            try
-            {
-                var root = new XElement("Settings",
-                    // Application Settings
-                    new XElement("Application",
-                        new XElement("ThumbnailSize", ThumbnailSize),
-                        new XElement("GamesPerPage", GamesPerPage),
-                        new XElement("ShowGames", ShowGames),
-                        new XElement("ViewMode", ViewMode),
-                        new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
-                        new XElement("VideoUrl", VideoUrl),
-                        new XElement("InfoUrl", InfoUrl),
-                        new XElement("BaseTheme", BaseTheme),
-                        new XElement("AccentColor", AccentColor),
-                        new XElement("Language", Language),
-                        new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
-                        new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
-                        new XElement("ButtonAspectRatio", ButtonAspectRatio),
-                        new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
-                        new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
-                        new XElement("EnableNotificationSound", EnableNotificationSound),
-                        new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
-                        new XElement("RaUsername", RaUsername),
-                        new XElement("RaApiKey", RaApiKey),
-                        new XElement("RaPassword", RaPassword),
-                        new XElement("RaToken", RaToken),
-                        new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
-                        new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
-                        new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
-                        new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
-                        new XElement("Emulator1Expanded", Emulator1Expanded),
-                        new XElement("Emulator2Expanded", Emulator2Expanded),
-                        new XElement("Emulator3Expanded", Emulator3Expanded),
-                        new XElement("Emulator4Expanded", Emulator4Expanded),
-                        new XElement("Emulator5Expanded", Emulator5Expanded)
-                    ),
-
-                    // Ares
-                    new XElement("Ares",
-                        new XElement("VideoDriver", AresVideoDriver),
-                        new XElement("Exclusive", AresExclusive),
-                        new XElement("Shader", AresShader),
-                        new XElement("Multiplier", AresMultiplier),
-                        new XElement("AspectCorrection", AresAspectCorrection),
-                        new XElement("Mute", AresMute),
-                        new XElement("Volume", AresVolume.ToString(CultureInfo.InvariantCulture)),
-                        new XElement("FastBoot", AresFastBoot),
-                        new XElement("Rewind", AresRewind),
-                        new XElement("RunAhead", AresRunAhead),
-                        new XElement("AutoSaveMemory", AresAutoSaveMemory),
-                        new XElement("ShowSettingsBeforeLaunch", AresShowSettingsBeforeLaunch)
-                    ),
-
-                    // Azahar
-                    new XElement("Azahar",
-                        new XElement("GraphicsApi", AzaharGraphicsApi),
-                        new XElement("ResolutionFactor", AzaharResolutionFactor),
-                        new XElement("UseVsync", AzaharUseVsync),
-                        new XElement("AsyncShaderCompilation", AzaharAsyncShaderCompilation),
-                        new XElement("Fullscreen", AzaharFullscreen),
-                        new XElement("Volume", AzaharVolume),
-                        new XElement("IsNew3ds", AzaharIsNew3ds),
-                        new XElement("LayoutOption", AzaharLayoutOption),
-                        new XElement("ShowSettingsBeforeLaunch", AzaharShowSettingsBeforeLaunch),
-                        new XElement("EnableAudioStretching", AzaharEnableAudioStretching)
-                    ),
-
-                    // Blastem
-                    new XElement("Blastem",
-                        new XElement("Fullscreen", BlastemFullscreen),
-                        new XElement("Vsync", BlastemVsync),
-                        new XElement("Aspect", BlastemAspect),
-                        new XElement("Scaling", BlastemScaling),
-                        new XElement("Scanlines", BlastemScanlines),
-                        new XElement("AudioRate", BlastemAudioRate),
-                        new XElement("SyncSource", BlastemSyncSource),
-                        new XElement("ShowSettingsBeforeLaunch", BlastemShowSettingsBeforeLaunch)
-                    ),
-
-                    // Cemu
-                    new XElement("Cemu",
-                        new XElement("Fullscreen", CemuFullscreen),
-                        new XElement("GraphicApi", CemuGraphicApi),
-                        new XElement("Vsync", CemuVsync),
-                        new XElement("AsyncCompile", CemuAsyncCompile),
-                        new XElement("TvVolume", CemuTvVolume),
-                        new XElement("ConsoleLanguage", CemuConsoleLanguage),
-                        new XElement("DiscordPresence", CemuDiscordPresence),
-                        new XElement("ShowSettingsBeforeLaunch", CemuShowSettingsBeforeLaunch)
-                    ),
-
-                    // Daphne
-                    new XElement("Daphne",
-                        new XElement("Fullscreen", DaphneFullscreen),
-                        new XElement("ResX", DaphneResX),
-                        new XElement("ResY", DaphneResY),
-                        new XElement("DisableCrosshairs", DaphneDisableCrosshairs),
-                        new XElement("Bilinear", DaphneBilinear),
-                        new XElement("EnableSound", DaphneEnableSound),
-                        new XElement("UseOverlays", DaphneUseOverlays),
-                        new XElement("ShowSettingsBeforeLaunch", DaphneShowSettingsBeforeLaunch)
-                    ),
-
-                    // Dolphin
-                    new XElement("Dolphin",
-                        new XElement("GfxBackend", DolphinGfxBackend),
-                        new XElement("DspThread", DolphinDspThread),
-                        new XElement("WiimoteContinuousScanning", DolphinWiimoteContinuousScanning),
-                        new XElement("WiimoteEnableSpeaker", DolphinWiimoteEnableSpeaker),
-                        new XElement("ShowSettingsBeforeLaunch", DolphinShowSettingsBeforeLaunch)
-                    ),
-
-                    // DuckStation
-                    new XElement("DuckStation",
-                        new XElement("StartFullscreen", DuckStationStartFullscreen),
-                        new XElement("PauseOnFocusLoss", DuckStationPauseOnFocusLoss),
-                        new XElement("SaveStateOnExit", DuckStationSaveStateOnExit),
-                        new XElement("RewindEnable", DuckStationRewindEnable),
-                        new XElement("RunaheadFrameCount", DuckStationRunaheadFrameCount),
-                        new XElement("Renderer", DuckStationRenderer),
-                        new XElement("ResolutionScale", DuckStationResolutionScale),
-                        new XElement("TextureFilter", DuckStationTextureFilter),
-                        new XElement("WidescreenHack", DuckStationWidescreenHack),
-                        new XElement("PgxpEnable", DuckStationPgxpEnable),
-                        new XElement("AspectRatio", DuckStationAspectRatio),
-                        new XElement("Vsync", DuckStationVsync),
-                        new XElement("OutputVolume", DuckStationOutputVolume),
-                        new XElement("OutputMuted", DuckStationOutputMuted),
-                        new XElement("ShowSettingsBeforeLaunch", DuckStationShowSettingsBeforeLaunch)
-                    ),
-
-                    // Flycast
-                    new XElement("Flycast",
-                        new XElement("Fullscreen", FlycastFullscreen),
-                        new XElement("Width", FlycastWidth),
-                        new XElement("Height", FlycastHeight),
-                        new XElement("Maximized", FlycastMaximized),
-                        new XElement("ShowSettingsBeforeLaunch", FlycastShowSettingsBeforeLaunch)
-                    ),
-
-                    // MAME
-                    new XElement("Mame",
-                        new XElement("Video", MameVideo),
-                        new XElement("Window", MameWindow),
-                        new XElement("Maximize", MameMaximize),
-                        new XElement("KeepAspect", MameKeepAspect),
-                        new XElement("SkipGameInfo", MameSkipGameInfo),
-                        new XElement("Autosave", MameAutosave),
-                        new XElement("ConfirmQuit", MameConfirmQuit),
-                        new XElement("Joystick", MameJoystick),
-                        new XElement("ShowSettingsBeforeLaunch", MameShowSettingsBeforeLaunch),
-                        new XElement("Autoframeskip", MameAutoframeskip),
-                        new XElement("BgfxBackend", MameBgfxBackend),
-                        new XElement("BgfxScreenChains", MameBgfxScreenChains),
-                        new XElement("Filter", MameFilter),
-                        new XElement("Cheat", MameCheat),
-                        new XElement("Rewind", MameRewind),
-                        new XElement("NvramSave", MameNvramSave)
-                    ),
-
-                    // Mednafen
-                    new XElement("Mednafen",
-                        new XElement("VideoDriver", MednafenVideoDriver),
-                        new XElement("Fullscreen", MednafenFullscreen),
-                        new XElement("Vsync", MednafenVsync),
-                        new XElement("Stretch", MednafenStretch),
-                        new XElement("Bilinear", MednafenBilinear),
-                        new XElement("Scanlines", MednafenScanlines),
-                        new XElement("Shader", MednafenShader),
-                        new XElement("Special", MednafenSpecial),
-                        new XElement("Volume", MednafenVolume),
-                        new XElement("Cheats", MednafenCheats),
-                        new XElement("Rewind", MednafenRewind),
-                        new XElement("ShowSettingsBeforeLaunch", MednafenShowSettingsBeforeLaunch)
-                    ),
-
-                    // Mesen
-                    new XElement("Mesen",
-                        new XElement("Fullscreen", MesenFullscreen),
-                        new XElement("Vsync", MesenVsync),
-                        new XElement("AspectRatio", MesenAspectRatio),
-                        new XElement("Bilinear", MesenBilinear),
-                        new XElement("VideoFilter", MesenVideoFilter),
-                        new XElement("EnableAudio", MesenEnableAudio),
-                        new XElement("MasterVolume", MesenMasterVolume),
-                        new XElement("Rewind", MesenRewind),
-                        new XElement("RunAhead", MesenRunAhead),
-                        new XElement("PauseInBackground", MesenPauseInBackground),
-                        new XElement("ShowSettingsBeforeLaunch", MesenShowSettingsBeforeLaunch)
-                    ),
-
-                    // PCSX2
-                    new XElement("Pcsx2",
-                        new XElement("StartFullscreen", Pcsx2StartFullscreen),
-                        new XElement("AspectRatio", Pcsx2AspectRatio),
-                        new XElement("Renderer", Pcsx2Renderer),
-                        new XElement("UpscaleMultiplier", Pcsx2UpscaleMultiplier),
-                        new XElement("Vsync", Pcsx2Vsync),
-                        new XElement("EnableCheats", Pcsx2EnableCheats),
-                        new XElement("EnableWidescreenPatches", Pcsx2EnableWidescreenPatches),
-                        new XElement("Volume", Pcsx2Volume),
-                        new XElement("AchievementsEnabled", Pcsx2AchievementsEnabled),
-                        new XElement("AchievementsHardcore", Pcsx2AchievementsHardcore),
-                        new XElement("ShowSettingsBeforeLaunch", Pcsx2ShowSettingsBeforeLaunch)
-                    ),
-
-                    // Raine
-                    new XElement("Raine",
-                        new XElement("Fullscreen", RaineFullscreen),
-                        new XElement("ResX", RaineResX),
-                        new XElement("ResY", RaineResY),
-                        new XElement("FixAspectRatio", RaineFixAspectRatio),
-                        new XElement("Vsync", RaineVsync),
-                        new XElement("SoundDriver", RaineSoundDriver),
-                        new XElement("SampleRate", RaineSampleRate),
-                        new XElement("ShowSettingsBeforeLaunch", RaineShowSettingsBeforeLaunch),
-                        new XElement("ShowFps", RaineShowFps),
-                        new XElement("FrameSkip", RaineFrameSkip),
-                        new XElement("NeoCdBios", RaineNeoCdBios),
-                        new XElement("MusicVolume", RaineMusicVolume),
-                        new XElement("SfxVolume", RaineSfxVolume),
-                        new XElement("MuteSfx", RaineMuteSfx),
-                        new XElement("MuteMusic", RaineMuteMusic),
-                        new XElement("RomDirectory", RaineRomDirectory)
-                    ),
-
-                    // RetroArch
-                    new XElement("RetroArch",
-                        new XElement("CheevosEnable", RetroArchCheevosEnable),
-                        new XElement("CheevosHardcore", RetroArchCheevosHardcore),
-                        new XElement("Fullscreen", RetroArchFullscreen),
-                        new XElement("Vsync", RetroArchVsync),
-                        new XElement("VideoDriver", RetroArchVideoDriver),
-                        new XElement("AudioEnable", RetroArchAudioEnable),
-                        new XElement("AudioMute", RetroArchAudioMute),
-                        new XElement("MenuDriver", RetroArchMenuDriver),
-                        new XElement("PauseNonActive", RetroArchPauseNonActive),
-                        new XElement("SaveOnExit", RetroArchSaveOnExit),
-                        new XElement("AutoSaveState", RetroArchAutoSaveState),
-                        new XElement("AutoLoadState", RetroArchAutoLoadState),
-                        new XElement("Rewind", RetroArchRewind),
-                        new XElement("ThreadedVideo", RetroArchThreadedVideo),
-                        new XElement("Bilinear", RetroArchBilinear),
-                        new XElement("ShowSettingsBeforeLaunch", RetroArchShowSettingsBeforeLaunch),
-                        new XElement("AspectRatioIndex", RetroArchAspectRatioIndex),
-                        new XElement("ScaleInteger", RetroArchScaleInteger),
-                        new XElement("ShaderEnable", RetroArchShaderEnable),
-                        new XElement("HardSync", RetroArchHardSync),
-                        new XElement("RunAhead", RetroArchRunAhead),
-                        new XElement("ShowAdvancedSettings", RetroArchShowAdvancedSettings),
-                        new XElement("DiscordAllow", RetroArchDiscordAllow),
-                        new XElement("OverrideSystemDir", RetroArchOverrideSystemDir),
-                        new XElement("OverrideSaveDir", RetroArchOverrideSaveDir),
-                        new XElement("OverrideStateDir", RetroArchOverrideStateDir),
-                        new XElement("OverrideScreenshotDir", RetroArchOverrideScreenshotDir)
-                    ),
-
-                    // RPCS3
-                    new XElement("Rpcs3",
-                        new XElement("Renderer", Rpcs3Renderer),
-                        new XElement("Resolution", Rpcs3Resolution),
-                        new XElement("AspectRatio", Rpcs3AspectRatio),
-                        new XElement("Vsync", Rpcs3Vsync),
-                        new XElement("ResolutionScale", Rpcs3ResolutionScale),
-                        new XElement("AnisotropicFilter", Rpcs3AnisotropicFilter),
-                        new XElement("PpuDecoder", Rpcs3PpuDecoder),
-                        new XElement("SpuDecoder", Rpcs3SpuDecoder),
-                        new XElement("AudioRenderer", Rpcs3AudioRenderer),
-                        new XElement("AudioBuffering", Rpcs3AudioBuffering),
-                        new XElement("StartFullscreen", Rpcs3StartFullscreen),
-                        new XElement("ShowSettingsBeforeLaunch", Rpcs3ShowSettingsBeforeLaunch)
-                    ),
-
-                    // SEGA Model 2
-                    new XElement("SegaModel2",
-                        new XElement("ResX", SegaModel2ResX),
-                        new XElement("ResY", SegaModel2ResY),
-                        new XElement("WideScreen", SegaModel2WideScreen),
-                        new XElement("Bilinear", SegaModel2Bilinear),
-                        new XElement("Trilinear", SegaModel2Trilinear),
-                        new XElement("FilterTilemaps", SegaModel2FilterTilemaps),
-                        new XElement("DrawCross", SegaModel2DrawCross),
-                        new XElement("Fsaa", SegaModel2Fsaa),
-                        new XElement("XInput", SegaModel2XInput),
-                        new XElement("EnableFf", SegaModel2EnableFf),
-                        new XElement("HoldGears", SegaModel2HoldGears),
-                        new XElement("UseRawInput", SegaModel2UseRawInput),
-                        new XElement("ShowSettingsBeforeLaunch", SegaModel2ShowSettingsBeforeLaunch)
-                    ),
-
-                    // Stella
-                    new XElement("Stella",
-                        new XElement("Fullscreen", StellaFullscreen),
-                        new XElement("Vsync", StellaVsync),
-                        new XElement("VideoDriver", StellaVideoDriver),
-                        new XElement("CorrectAspect", StellaCorrectAspect),
-                        new XElement("TvFilter", StellaTvFilter),
-                        new XElement("Scanlines", StellaScanlines),
-                        new XElement("AudioEnabled", StellaAudioEnabled),
-                        new XElement("AudioVolume", StellaAudioVolume),
-                        new XElement("TimeMachine", StellaTimeMachine),
-                        new XElement("ConfirmExit", StellaConfirmExit),
-                        new XElement("ShowSettingsBeforeLaunch", StellaShowSettingsBeforeLaunch)
-                    ),
-
-                    // Supermodel
-                    new XElement("Supermodel",
-                        new XElement("New3DEngine", SupermodelNew3DEngine),
-                        new XElement("QuadRendering", SupermodelQuadRendering),
-                        new XElement("Fullscreen", SupermodelFullscreen),
-                        new XElement("ResX", SupermodelResX),
-                        new XElement("ResY", SupermodelResY),
-                        new XElement("WideScreen", SupermodelWideScreen),
-                        new XElement("Stretch", SupermodelStretch),
-                        new XElement("Vsync", SupermodelVsync),
-                        new XElement("Throttle", SupermodelThrottle),
-                        new XElement("MusicVolume", SupermodelMusicVolume),
-                        new XElement("SoundVolume", SupermodelSoundVolume),
-                        new XElement("InputSystem", SupermodelInputSystem),
-                        new XElement("MultiThreaded", SupermodelMultiThreaded),
-                        new XElement("PowerPcFrequency", SupermodelPowerPcFrequency),
-                        new XElement("ShowSettingsBeforeLaunch", SupermodelShowSettingsBeforeLaunch)
-                    ),
-
-                    // Xenia
-                    new XElement("Xenia",
-                        new XElement("ReadbackResolve", XeniaReadbackResolve),
-                        new XElement("GammaSrgb", XeniaGammaSrgb),
-                        new XElement("Vibration", XeniaVibration),
-                        new XElement("MountCache", XeniaMountCache),
-                        new XElement("Gpu", XeniaGpu),
-                        new XElement("Vsync", XeniaVsync),
-                        new XElement("ResScaleX", XeniaResScaleX),
-                        new XElement("ResScaleY", XeniaResScaleY),
-                        new XElement("Fullscreen", XeniaFullscreen),
-                        new XElement("Apu", XeniaApu),
-                        new XElement("Mute", XeniaMute),
-                        new XElement("Aa", XeniaAa),
-                        new XElement("Scaling", XeniaScaling),
-                        new XElement("ApplyPatches", XeniaApplyPatches),
-                        new XElement("DiscordPresence", XeniaDiscordPresence),
-                        new XElement("UserLanguage", XeniaUserLanguage),
-                        new XElement("Hid", XeniaHid),
-                        new XElement("ShowSettingsBeforeLaunch", XeniaShowSettingsBeforeLaunch)
-                    ),
-
-                    // Yumir
-                    new XElement("Yumir",
-                        new XElement("Fullscreen", YumirFullscreen),
-                        new XElement("Volume", YumirVolume.ToString(CultureInfo.InvariantCulture)),
-                        new XElement("Mute", YumirMute),
-                        new XElement("VideoStandard", YumirVideoStandard),
-                        new XElement("AutoDetectRegion", YumirAutoDetectRegion),
-                        new XElement("PauseWhenUnfocused", YumirPauseWhenUnfocused),
-                        new XElement("ForcedAspect", YumirForcedAspect.ToString(CultureInfo.InvariantCulture)),
-                        new XElement("ForceAspectRatio", YumirForceAspectRatio),
-                        new XElement("ReduceLatency", YumirReduceLatency),
-                        new XElement("ShowSettingsBeforeLaunch", YumirShowSettingsBeforeLaunch)
-                    ),
-
-                    // SystemPlayTimes
-                    new XElement("SystemPlayTimes",
-                        SystemPlayTimes.Select(static pt =>
-                            new XElement("SystemPlayTime",
-                                new XElement("SystemName", pt.SystemName),
-                                new XElement("PlayTime", pt.PlayTime)
-                            )
-                        )
-                    )
-                );
-
-                root.Save(_filePath);
-            }
-            catch (Exception ex)
-            {
-                App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.xml");
-            }
+            snapshot = new SettingsManager();
+            snapshot.CopyFrom(this);
         }
+        finally
+        {
+            _settingsLock.ExitReadLock();
+        }
+
+        // 2. Perform serialization and I/O outside the lock
+        try
+        {
+            var root = BuildXElement(snapshot);
+            root.Save(_filePath);
+        }
+        catch (Exception ex)
+        {
+            App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.xml");
+        }
+    }
+
+    private static XElement BuildXElement(SettingsManager s)
+    {
+        return new XElement("Settings",
+            // Application Settings
+            new XElement("Application",
+                new XElement("ThumbnailSize", s.ThumbnailSize),
+                new XElement("GamesPerPage", s.GamesPerPage),
+                new XElement("ShowGames", s.ShowGames),
+                new XElement("ViewMode", s.ViewMode),
+                new XElement("EnableGamePadNavigation", s.EnableGamePadNavigation),
+                new XElement("VideoUrl", s.VideoUrl),
+                new XElement("InfoUrl", s.InfoUrl),
+                new XElement("BaseTheme", s.BaseTheme),
+                new XElement("AccentColor", s.AccentColor),
+                new XElement("Language", s.Language),
+                new XElement("DeadZoneX", s.DeadZoneX.ToString(CultureInfo.InvariantCulture)),
+                new XElement("DeadZoneY", s.DeadZoneY.ToString(CultureInfo.InvariantCulture)),
+                new XElement("ButtonAspectRatio", s.ButtonAspectRatio),
+                new XElement("EnableFuzzyMatching", s.EnableFuzzyMatching),
+                new XElement("FuzzyMatchingThreshold", s.FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
+                new XElement("EnableNotificationSound", s.EnableNotificationSound),
+                new XElement("CustomNotificationSoundFile", s.CustomNotificationSoundFile),
+                new XElement("RaUsername", s.RaUsername),
+                new XElement("RaApiKey", s.RaApiKey),
+                new XElement("RaPassword", s.RaPassword),
+                new XElement("RaToken", s.RaToken),
+                new XElement("OverlayRetroAchievementButton", s.OverlayRetroAchievementButton),
+                new XElement("OverlayOpenVideoButton", s.OverlayOpenVideoButton),
+                new XElement("OverlayOpenInfoButton", s.OverlayOpenInfoButton),
+                new XElement("AdditionalSystemFoldersExpanded", s.AdditionalSystemFoldersExpanded),
+                new XElement("Emulator1Expanded", s.Emulator1Expanded),
+                new XElement("Emulator2Expanded", s.Emulator2Expanded),
+                new XElement("Emulator3Expanded", s.Emulator3Expanded),
+                new XElement("Emulator4Expanded", s.Emulator4Expanded),
+                new XElement("Emulator5Expanded", s.Emulator5Expanded)
+            ),
+
+            // Ares
+            new XElement("Ares",
+                new XElement("VideoDriver", s.AresVideoDriver),
+                new XElement("Exclusive", s.AresExclusive),
+                new XElement("Shader", s.AresShader),
+                new XElement("Multiplier", s.AresMultiplier),
+                new XElement("AspectCorrection", s.AresAspectCorrection),
+                new XElement("Mute", s.AresMute),
+                new XElement("Volume", s.AresVolume.ToString(CultureInfo.InvariantCulture)),
+                new XElement("FastBoot", s.AresFastBoot),
+                new XElement("Rewind", s.AresRewind),
+                new XElement("RunAhead", s.AresRunAhead),
+                new XElement("AutoSaveMemory", s.AresAutoSaveMemory),
+                new XElement("ShowSettingsBeforeLaunch", s.AresShowSettingsBeforeLaunch)
+            ),
+
+            // Azahar
+            new XElement("Azahar",
+                new XElement("GraphicsApi", s.AzaharGraphicsApi),
+                new XElement("ResolutionFactor", s.AzaharResolutionFactor),
+                new XElement("UseVsync", s.AzaharUseVsync),
+                new XElement("AsyncShaderCompilation", s.AzaharAsyncShaderCompilation),
+                new XElement("Fullscreen", s.AzaharFullscreen),
+                new XElement("Volume", s.AzaharVolume),
+                new XElement("IsNew3ds", s.AzaharIsNew3ds),
+                new XElement("LayoutOption", s.AzaharLayoutOption),
+                new XElement("ShowSettingsBeforeLaunch", s.AzaharShowSettingsBeforeLaunch),
+                new XElement("EnableAudioStretching", s.AzaharEnableAudioStretching)
+            ),
+
+            // Blastem
+            new XElement("Blastem",
+                new XElement("Fullscreen", s.BlastemFullscreen),
+                new XElement("Vsync", s.BlastemVsync),
+                new XElement("Aspect", s.BlastemAspect),
+                new XElement("Scaling", s.BlastemScaling),
+                new XElement("Scanlines", s.BlastemScanlines),
+                new XElement("AudioRate", s.BlastemAudioRate),
+                new XElement("SyncSource", s.BlastemSyncSource),
+                new XElement("ShowSettingsBeforeLaunch", s.BlastemShowSettingsBeforeLaunch)
+            ),
+
+            // Cemu
+            new XElement("Cemu",
+                new XElement("Fullscreen", s.CemuFullscreen),
+                new XElement("GraphicApi", s.CemuGraphicApi),
+                new XElement("Vsync", s.CemuVsync),
+                new XElement("AsyncCompile", s.CemuAsyncCompile),
+                new XElement("TvVolume", s.CemuTvVolume),
+                new XElement("ConsoleLanguage", s.CemuConsoleLanguage),
+                new XElement("DiscordPresence", s.CemuDiscordPresence),
+                new XElement("ShowSettingsBeforeLaunch", s.CemuShowSettingsBeforeLaunch)
+            ),
+
+            // Daphne
+            new XElement("Daphne",
+                new XElement("Fullscreen", s.DaphneFullscreen),
+                new XElement("ResX", s.DaphneResX),
+                new XElement("ResY", s.DaphneResY),
+                new XElement("DisableCrosshairs", s.DaphneDisableCrosshairs),
+                new XElement("Bilinear", s.DaphneBilinear),
+                new XElement("EnableSound", s.DaphneEnableSound),
+                new XElement("UseOverlays", s.DaphneUseOverlays),
+                new XElement("ShowSettingsBeforeLaunch", s.DaphneShowSettingsBeforeLaunch)
+            ),
+
+            // Dolphin
+            new XElement("Dolphin",
+                new XElement("GfxBackend", s.DolphinGfxBackend),
+                new XElement("DspThread", s.DolphinDspThread),
+                new XElement("WiimoteContinuousScanning", s.DolphinWiimoteContinuousScanning),
+                new XElement("WiimoteEnableSpeaker", s.DolphinWiimoteEnableSpeaker),
+                new XElement("ShowSettingsBeforeLaunch", s.DolphinShowSettingsBeforeLaunch)
+            ),
+
+            // DuckStation
+            new XElement("DuckStation",
+                new XElement("StartFullscreen", s.DuckStationStartFullscreen),
+                new XElement("PauseOnFocusLoss", s.DuckStationPauseOnFocusLoss),
+                new XElement("SaveStateOnExit", s.DuckStationSaveStateOnExit),
+                new XElement("RewindEnable", s.DuckStationRewindEnable),
+                new XElement("RunaheadFrameCount", s.DuckStationRunaheadFrameCount),
+                new XElement("Renderer", s.DuckStationRenderer),
+                new XElement("ResolutionScale", s.DuckStationResolutionScale),
+                new XElement("TextureFilter", s.DuckStationTextureFilter),
+                new XElement("WidescreenHack", s.DuckStationWidescreenHack),
+                new XElement("PgxpEnable", s.DuckStationPgxpEnable),
+                new XElement("AspectRatio", s.DuckStationAspectRatio),
+                new XElement("Vsync", s.DuckStationVsync),
+                new XElement("OutputVolume", s.DuckStationOutputVolume),
+                new XElement("OutputMuted", s.DuckStationOutputMuted),
+                new XElement("ShowSettingsBeforeLaunch", s.DuckStationShowSettingsBeforeLaunch)
+            ),
+
+            // Flycast
+            new XElement("Flycast",
+                new XElement("Fullscreen", s.FlycastFullscreen),
+                new XElement("Width", s.FlycastWidth),
+                new XElement("Height", s.FlycastHeight),
+                new XElement("Maximized", s.FlycastMaximized),
+                new XElement("ShowSettingsBeforeLaunch", s.FlycastShowSettingsBeforeLaunch)
+            ),
+
+            // MAME
+            new XElement("Mame",
+                new XElement("Video", s.MameVideo),
+                new XElement("Window", s.MameWindow),
+                new XElement("Maximize", s.MameMaximize),
+                new XElement("KeepAspect", s.MameKeepAspect),
+                new XElement("SkipGameInfo", s.MameSkipGameInfo),
+                new XElement("Autosave", s.MameAutosave),
+                new XElement("ConfirmQuit", s.MameConfirmQuit),
+                new XElement("Joystick", s.MameJoystick),
+                new XElement("ShowSettingsBeforeLaunch", s.MameShowSettingsBeforeLaunch),
+                new XElement("Autoframeskip", s.MameAutoframeskip),
+                new XElement("BgfxBackend", s.MameBgfxBackend),
+                new XElement("BgfxScreenChains", s.MameBgfxScreenChains),
+                new XElement("Filter", s.MameFilter),
+                new XElement("Cheat", s.MameCheat),
+                new XElement("Rewind", s.MameRewind),
+                new XElement("NvramSave", s.MameNvramSave)
+            ),
+
+            // Mednafen
+            new XElement("Mednafen",
+                new XElement("VideoDriver", s.MednafenVideoDriver),
+                new XElement("Fullscreen", s.MednafenFullscreen),
+                new XElement("Vsync", s.MednafenVsync),
+                new XElement("Stretch", s.MednafenStretch),
+                new XElement("Bilinear", s.MednafenBilinear),
+                new XElement("Scanlines", s.MednafenScanlines),
+                new XElement("Shader", s.MednafenShader),
+                new XElement("Special", s.MednafenSpecial),
+                new XElement("Volume", s.MednafenVolume),
+                new XElement("Cheats", s.MednafenCheats),
+                new XElement("Rewind", s.MednafenRewind),
+                new XElement("ShowSettingsBeforeLaunch", s.MednafenShowSettingsBeforeLaunch)
+            ),
+
+            // Mesen
+            new XElement("Mesen",
+                new XElement("Fullscreen", s.MesenFullscreen),
+                new XElement("Vsync", s.MesenVsync),
+                new XElement("AspectRatio", s.MesenAspectRatio),
+                new XElement("Bilinear", s.MesenBilinear),
+                new XElement("VideoFilter", s.MesenVideoFilter),
+                new XElement("EnableAudio", s.MesenEnableAudio),
+                new XElement("MasterVolume", s.MesenMasterVolume),
+                new XElement("Rewind", s.MesenRewind),
+                new XElement("RunAhead", s.MesenRunAhead),
+                new XElement("PauseInBackground", s.MesenPauseInBackground),
+                new XElement("ShowSettingsBeforeLaunch", s.MesenShowSettingsBeforeLaunch)
+            ),
+
+            // PCSX2
+            new XElement("Pcsx2",
+                new XElement("StartFullscreen", s.Pcsx2StartFullscreen),
+                new XElement("AspectRatio", s.Pcsx2AspectRatio),
+                new XElement("Renderer", s.Pcsx2Renderer),
+                new XElement("UpscaleMultiplier", s.Pcsx2UpscaleMultiplier),
+                new XElement("Vsync", s.Pcsx2Vsync),
+                new XElement("EnableCheats", s.Pcsx2EnableCheats),
+                new XElement("EnableWidescreenPatches", s.Pcsx2EnableWidescreenPatches),
+                new XElement("Volume", s.Pcsx2Volume),
+                new XElement("AchievementsEnabled", s.Pcsx2AchievementsEnabled),
+                new XElement("AchievementsHardcore", s.Pcsx2AchievementsHardcore),
+                new XElement("ShowSettingsBeforeLaunch", s.Pcsx2ShowSettingsBeforeLaunch)
+            ),
+
+            // Raine
+            new XElement("Raine",
+                new XElement("Fullscreen", s.RaineFullscreen),
+                new XElement("ResX", s.RaineResX),
+                new XElement("ResY", s.RaineResY),
+                new XElement("FixAspectRatio", s.RaineFixAspectRatio),
+                new XElement("Vsync", s.RaineVsync),
+                new XElement("SoundDriver", s.RaineSoundDriver),
+                new XElement("SampleRate", s.RaineSampleRate),
+                new XElement("ShowSettingsBeforeLaunch", s.RaineShowSettingsBeforeLaunch),
+                new XElement("ShowFps", s.RaineShowFps),
+                new XElement("FrameSkip", s.RaineFrameSkip),
+                new XElement("NeoCdBios", s.RaineNeoCdBios),
+                new XElement("MusicVolume", s.RaineMusicVolume),
+                new XElement("SfxVolume", s.RaineSfxVolume),
+                new XElement("MuteSfx", s.RaineMuteSfx),
+                new XElement("MuteMusic", s.RaineMuteMusic),
+                new XElement("RomDirectory", s.RaineRomDirectory)
+            ),
+
+            // RetroArch
+            new XElement("RetroArch",
+                new XElement("CheevosEnable", s.RetroArchCheevosEnable),
+                new XElement("CheevosHardcore", s.RetroArchCheevosHardcore),
+                new XElement("Fullscreen", s.RetroArchFullscreen),
+                new XElement("Vsync", s.RetroArchVsync),
+                new XElement("VideoDriver", s.RetroArchVideoDriver),
+                new XElement("AudioEnable", s.RetroArchAudioEnable),
+                new XElement("AudioMute", s.RetroArchAudioMute),
+                new XElement("MenuDriver", s.RetroArchMenuDriver),
+                new XElement("PauseNonActive", s.RetroArchPauseNonActive),
+                new XElement("SaveOnExit", s.RetroArchSaveOnExit),
+                new XElement("AutoSaveState", s.RetroArchAutoSaveState),
+                new XElement("AutoLoadState", s.RetroArchAutoLoadState),
+                new XElement("Rewind", s.RetroArchRewind),
+                new XElement("ThreadedVideo", s.RetroArchThreadedVideo),
+                new XElement("Bilinear", s.RetroArchBilinear),
+                new XElement("ShowSettingsBeforeLaunch", s.RetroArchShowSettingsBeforeLaunch),
+                new XElement("AspectRatioIndex", s.RetroArchAspectRatioIndex),
+                new XElement("ScaleInteger", s.RetroArchScaleInteger),
+                new XElement("ShaderEnable", s.RetroArchShaderEnable),
+                new XElement("HardSync", s.RetroArchHardSync),
+                new XElement("RunAhead", s.RetroArchRunAhead),
+                new XElement("ShowAdvancedSettings", s.RetroArchShowAdvancedSettings),
+                new XElement("DiscordAllow", s.RetroArchDiscordAllow),
+                new XElement("OverrideSystemDir", s.RetroArchOverrideSystemDir),
+                new XElement("OverrideSaveDir", s.RetroArchOverrideSaveDir),
+                new XElement("OverrideStateDir", s.RetroArchOverrideStateDir),
+                new XElement("OverrideScreenshotDir", s.RetroArchOverrideScreenshotDir)
+            ),
+
+            // RPCS3
+            new XElement("Rpcs3",
+                new XElement("Renderer", s.Rpcs3Renderer),
+                new XElement("Resolution", s.Rpcs3Resolution),
+                new XElement("AspectRatio", s.Rpcs3AspectRatio),
+                new XElement("Vsync", s.Rpcs3Vsync),
+                new XElement("ResolutionScale", s.Rpcs3ResolutionScale),
+                new XElement("AnisotropicFilter", s.Rpcs3AnisotropicFilter),
+                new XElement("PpuDecoder", s.Rpcs3PpuDecoder),
+                new XElement("SpuDecoder", s.Rpcs3SpuDecoder),
+                new XElement("AudioRenderer", s.Rpcs3AudioRenderer),
+                new XElement("AudioBuffering", s.Rpcs3AudioBuffering),
+                new XElement("StartFullscreen", s.Rpcs3StartFullscreen),
+                new XElement("ShowSettingsBeforeLaunch", s.Rpcs3ShowSettingsBeforeLaunch)
+            ),
+
+            // SEGA Model 2
+            new XElement("SegaModel2",
+                new XElement("ResX", s.SegaModel2ResX),
+                new XElement("ResY", s.SegaModel2ResY),
+                new XElement("WideScreen", s.SegaModel2WideScreen),
+                new XElement("Bilinear", s.SegaModel2Bilinear),
+                new XElement("Trilinear", s.SegaModel2Trilinear),
+                new XElement("FilterTilemaps", s.SegaModel2FilterTilemaps),
+                new XElement("DrawCross", s.SegaModel2DrawCross),
+                new XElement("Fsaa", s.SegaModel2Fsaa),
+                new XElement("XInput", s.SegaModel2XInput),
+                new XElement("EnableFf", s.SegaModel2EnableFf),
+                new XElement("HoldGears", s.SegaModel2HoldGears),
+                new XElement("UseRawInput", s.SegaModel2UseRawInput),
+                new XElement("ShowSettingsBeforeLaunch", s.SegaModel2ShowSettingsBeforeLaunch)
+            ),
+
+            // Stella
+            new XElement("Stella",
+                new XElement("Fullscreen", s.StellaFullscreen),
+                new XElement("Vsync", s.StellaVsync),
+                new XElement("VideoDriver", s.StellaVideoDriver),
+                new XElement("CorrectAspect", s.StellaCorrectAspect),
+                new XElement("TvFilter", s.StellaTvFilter),
+                new XElement("Scanlines", s.StellaScanlines),
+                new XElement("AudioEnabled", s.StellaAudioEnabled),
+                new XElement("AudioVolume", s.StellaAudioVolume),
+                new XElement("TimeMachine", s.StellaTimeMachine),
+                new XElement("ConfirmExit", s.StellaConfirmExit),
+                new XElement("ShowSettingsBeforeLaunch", s.StellaShowSettingsBeforeLaunch)
+            ),
+
+            // Supermodel
+            new XElement("Supermodel",
+                new XElement("New3DEngine", s.SupermodelNew3DEngine),
+                new XElement("QuadRendering", s.SupermodelQuadRendering),
+                new XElement("Fullscreen", s.SupermodelFullscreen),
+                new XElement("ResX", s.SupermodelResX),
+                new XElement("ResY", s.SupermodelResY),
+                new XElement("WideScreen", s.SupermodelWideScreen),
+                new XElement("Stretch", s.SupermodelStretch),
+                new XElement("Vsync", s.SupermodelVsync),
+                new XElement("Throttle", s.SupermodelThrottle),
+                new XElement("MusicVolume", s.SupermodelMusicVolume),
+                new XElement("SoundVolume", s.SupermodelSoundVolume),
+                new XElement("InputSystem", s.SupermodelInputSystem),
+                new XElement("MultiThreaded", s.SupermodelMultiThreaded),
+                new XElement("PowerPcFrequency", s.SupermodelPowerPcFrequency),
+                new XElement("ShowSettingsBeforeLaunch", s.SupermodelShowSettingsBeforeLaunch)
+            ),
+
+            // Xenia
+            new XElement("Xenia",
+                new XElement("ReadbackResolve", s.XeniaReadbackResolve),
+                new XElement("GammaSrgb", s.XeniaGammaSrgb),
+                new XElement("Vibration", s.XeniaVibration),
+                new XElement("MountCache", s.XeniaMountCache),
+                new XElement("Gpu", s.XeniaGpu),
+                new XElement("Vsync", s.XeniaVsync),
+                new XElement("ResScaleX", s.XeniaResScaleX),
+                new XElement("ResScaleY", s.XeniaResScaleY),
+                new XElement("Fullscreen", s.XeniaFullscreen),
+                new XElement("Apu", s.XeniaApu),
+                new XElement("Mute", s.XeniaMute),
+                new XElement("Aa", s.XeniaAa),
+                new XElement("Scaling", s.XeniaScaling),
+                new XElement("ApplyPatches", s.XeniaApplyPatches),
+                new XElement("DiscordPresence", s.XeniaDiscordPresence),
+                new XElement("UserLanguage", s.XeniaUserLanguage),
+                new XElement("Hid", s.XeniaHid),
+                new XElement("ShowSettingsBeforeLaunch", s.XeniaShowSettingsBeforeLaunch)
+            ),
+
+            // Yumir
+            new XElement("Yumir",
+                new XElement("Fullscreen", s.YumirFullscreen),
+                new XElement("Volume", s.YumirVolume.ToString(CultureInfo.InvariantCulture)),
+                new XElement("Mute", s.YumirMute),
+                new XElement("VideoStandard", s.YumirVideoStandard),
+                new XElement("AutoDetectRegion", s.YumirAutoDetectRegion),
+                new XElement("PauseWhenUnfocused", s.YumirPauseWhenUnfocused),
+                new XElement("ForcedAspect", s.YumirForcedAspect.ToString(CultureInfo.InvariantCulture)),
+                new XElement("ForceAspectRatio", s.YumirForceAspectRatio),
+                new XElement("ReduceLatency", s.YumirReduceLatency),
+                new XElement("ShowSettingsBeforeLaunch", s.YumirShowSettingsBeforeLaunch)
+            ),
+
+            // SystemPlayTimes
+            new XElement("SystemPlayTimes",
+                s.SystemPlayTimes.Select(static pt =>
+                    new XElement("SystemPlayTime",
+                        new XElement("SystemName", pt.SystemName),
+                        new XElement("PlayTime", pt.PlayTime)
+                    )
+                )
+            )
+        );
     }
 
     private int ValidateThumbnailSize(string value)
@@ -2325,7 +2351,8 @@ public class SettingsManager
     {
         if (string.IsNullOrWhiteSpace(systemName) || playTime == TimeSpan.Zero) return;
 
-        lock (_saveLock)
+        _settingsLock.EnterWriteLock();
+        try
         {
             var item = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
             if (item == null)
@@ -2339,5 +2366,16 @@ public class SettingsManager
                 item.PlayTime = (existing + playTime).ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
             }
         }
+        finally
+        {
+            _settingsLock.ExitWriteLock();
+        }
+    }
+
+    public void Dispose()
+    {
+        _settingsLock?.Dispose();
+
+        GC.SuppressFinalize(this);
     }
 }

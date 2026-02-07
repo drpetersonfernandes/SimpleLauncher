@@ -16,9 +16,9 @@ namespace SimpleLauncher.Services.GamePad;
 public class GamePadController : IDisposable
 {
     private readonly SemaphoreSlim _updateLock = new(1, 1);
-
-    // Add a lock object for synchronizing Start/Stop/Dispose operations
     private readonly Lock _stateLock = new();
+    private readonly Timer _timer;
+    private bool _isDisposed;
 
     // Add an Action for error logging
     internal Action<Exception, string> ErrorLogger { get; set; }
@@ -28,7 +28,6 @@ public class GamePadController : IDisposable
     // Normalize XInput values
     private const float MaxThumbValue = 32767.0f;
 
-    private readonly Timer _timer;
     private readonly Controller _xinputController;
     private Joystick _directInputController;
     private readonly IMouseSimulator _mouseSimulator;
@@ -43,9 +42,6 @@ public class GamePadController : IDisposable
     // For DirectInput
     private bool _wasCrossDown;
     private bool _wasCircleDown;
-
-    // To Dispose GamePad Instance
-    private bool _isDisposed;
 
     // DeadZone settings
     internal float DeadZoneX { get; set; } = 0.05f;
@@ -152,50 +148,74 @@ public class GamePadController : IDisposable
 
     public void Dispose()
     {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_isDisposed) return;
+
+        // Step 1: Signal disposal immediately so UpdateAsync exits quickly
+        // This must be inside a lock to ensure visibility across threads
         lock (_stateLock)
         {
-            try
-            {
-                if (_isDisposed) return;
-                // Signal that we are stopping and disposing.
-                IsRunning = false;
-                _isDisposed = true;
+            _isDisposed = true;
+            IsRunning = false;
+        }
 
-                // Stop the timer and wait for any running callback to complete.
-                // This is done outside the lock to prevent deadlocks.
-                // The UpdateAsync method will see IsRunning = false or _isDisposed = true and exit quickly.
-                using (var waitHandle = new ManualResetEvent(false))
+        if (disposing)
+        {
+            // Step 2: Dispose timer OUTSIDE the lock to prevent deadlock
+            // UpdateAsync needs _stateLock to check _isDisposed, so we must release it before waiting
+            DisposeTimerSafely();
+
+            // Step 3: Now safe to dispose other managed resources
+            lock (_stateLock)
+            {
+                try
                 {
-                    if (_timer?.Dispose(waitHandle) ?? false)
-                    {
-                        // Wait for the timer to signal that the final callback has completed.
-                        // A timeout is a safeguard against unforeseen issues.
-                        waitHandle.WaitOne(1000);
-                    }
+                    _directInputController?.Unacquire();
+                    _directInputController?.Dispose();
+                    _directInputController = null;
+
+                    _directInput?.Dispose();
+                    _directInput = null;
+
+                    // Fix resource leak: Dispose the semaphore
+                    _updateLock?.Dispose();
                 }
-
-                // At this point, the UpdateAsync() method is guaranteed to no longer be running.
-                // We can safely dispose of the remaining resources without a lock.
-                _directInputController?.Unacquire();
-                _directInputController?.Dispose();
-                _directInputController = null;
-
-                _directInput?.Dispose();
-                _directInput = null;
-
-                // Tell GC not to call the finalizer since we've already cleaned up
-                GC.SuppressFinalize(this);
+                catch (Exception ex)
+                {
+                    ErrorLogger?.Invoke(ex, "Error disposing DirectInput resources.");
+                }
             }
-            catch (Exception ex)
+        }
+    }
+
+    private void DisposeTimerSafely()
+    {
+        try
+        {
+            using var waitHandle = new ManualResetEvent(false);
+
+            // Stop new callbacks immediately
+            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+
+            // Attempt graceful shutdown with timeout
+            if (_timer?.Dispose(waitHandle) ?? false)
             {
-                // Notify developer
-                ErrorLogger?.Invoke(ex, $"Error in GamePadController Dispose method.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}");
-
-                // Notify user
-                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                // Use a generous timeout (2-3s) to account for slower systems
+                if (!waitHandle.WaitOne(TimeSpan.FromSeconds(2)))
+                {
+                    ErrorLogger?.Invoke(null,
+                        "GamePadController timer disposal timed out. A callback may be stuck.");
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ErrorLogger?.Invoke(ex, "Error disposing GamePadController timer.");
         }
     }
 
@@ -341,14 +361,16 @@ public class GamePadController : IDisposable
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not OperationCanceledException)
             {
-                // Notify developer
+                // Log but don't throw in async void
+                ErrorLogger?.Invoke(ex, "Update loop error");
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdateAsync");
             }
             finally
             {
-                _updateLock.Release();
+                // Always release, even if _isDisposed was set during execution
+                _updateLock?.Release();
             }
         }
         catch (Exception ex)

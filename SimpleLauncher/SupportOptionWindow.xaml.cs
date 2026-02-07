@@ -30,22 +30,6 @@ public partial class SupportOptionWindow
         _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
-
-        // Set fallback text if resources are missing
-        if (Title is null or "SupportOptions")
-        {
-            Title = (string)Application.Current.TryFindResource("SupportOptions") ?? "Support Options";
-        }
-
-        if (BtnContactDeveloper.Content == null)
-        {
-            BtnContactDeveloper.Content = (string)Application.Current.TryFindResource("ContactDeveloperReportBug") ?? "Contact Developer (Report Bug)";
-        }
-
-        if (BtnCancel.Content == null)
-        {
-            BtnCancel.Content = "Cancel";
-        }
     }
 
     private void BtnContactDeveloper_Click(object sender, RoutedEventArgs e)
