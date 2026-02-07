@@ -95,7 +95,7 @@
                             <Button x:Name="DownloadEmulatorButton"
                                     Content="{DynamicResource DownloadEmulator}"
                                     Click="DownloadEmulatorButtonClickAsync"
-                                    IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                    IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                     Height="40"
                                     Margin="5" />
@@ -103,7 +103,7 @@
                             <Button x:Name="DownloadCoreButton"
                                     Content="{DynamicResource DownloadCore}"
                                     Click="DownloadCoreButtonClickAsync"
-                                    IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                    IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                     Height="40"
                                     Margin="5" />
@@ -116,7 +116,7 @@
                             <UniformGrid Columns="2">
                                 <Button x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
                                         Click="DownloadImagePackButton1ClickAsync"
-                                        IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                         Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                         Height="40"
@@ -124,7 +124,7 @@
 
                                 <Button x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
                                         Click="DownloadImagePackButton2ClickAsync"
-                                        IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                         Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                         Height="40"
@@ -132,7 +132,7 @@
 
                                 <Button x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
                                         Click="DownloadImagePackButton3ClickAsync"
-                                        IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                         Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                         Height="40"
@@ -140,7 +140,7 @@
 
                                 <Button x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
                                         Click="DownloadImagePackButton4ClickAsync"
-                                        IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                         Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                         Height="40"
@@ -148,7 +148,7 @@
 
                                 <Button x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
                                         Click="DownloadImagePackButton5ClickAsync"
-                                        IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                        IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
                                         Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}"
                                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                         Height="40"

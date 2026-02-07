@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
+using System.Threading;
 using System.Xml;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
@@ -29,13 +30,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 {
     private EasyModeManager _manager;
 
+    // Track download states for all components
+    private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
+
     public bool IsEmulatorDownloaded
     {
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
             UpdateAddSystemButtonState();
@@ -47,8 +49,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
             UpdateAddSystemButtonState();
@@ -60,8 +60,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -72,8 +70,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -84,8 +80,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -96,8 +90,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -108,8 +100,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -120,8 +110,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -132,8 +120,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -144,8 +130,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -156,8 +140,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -168,8 +150,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
         }
@@ -180,8 +160,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         get;
         private set
         {
-            if (field == value) return;
-
             field = value;
             OnPropertyChanged();
             UpdateAddSystemButtonState();
@@ -190,35 +168,79 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
+
+    // Helper to get/set download state with notification
+    private DownloadButtonState GetDownloadState(string type)
+    {
+        return _downloadStates.GetValueOrDefault(type, DownloadButtonState.Idle);
+    }
+
+    private void SetDownloadState(string type, DownloadButtonState state)
+    {
+        _downloadStates[type] = state;
+        // Update legacy boolean properties for XAML binding
+        switch (type)
+        {
+            case EasyModeManager.DownloadType.Emulator:
+                IsEmulatorDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.Core:
+                IsCoreDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack1:
+                IsImagePack1Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack2:
+                IsImagePack2Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack3:
+                IsImagePack3Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack4:
+                IsImagePack4Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack5:
+                IsImagePack5Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+        }
+    }
+
     private string _currentDownloadType;
+
+    // Backing field for DownloadStatus property
+    private string _downloadStatus = string.Empty;
 
     private string DownloadStatus
     {
+        // ReSharper disable once UnusedMember.Local
+        get => _downloadStatus;
         set
         {
-            // The 'field' keyword is not valid here. It should be a backing field or auto-property.
-            // Assuming this was intended to be an auto-property, or a backing field was omitted.
-            // For now, I'll assume it's an auto-property and remove the 'field =' line.
-            // If there was a backing field, it would be '_downloadStatus = value;'.
-            // Given the context of other properties, it's likely an auto-property was intended here,
-            // or the diff didn't touch this part and it was already broken/intended to be fixed elsewhere.
-            // Since the diff doesn't touch this, I'll leave it as is, but note the 'field' keyword issue.
-            // If it were an auto-property, the setter would just be empty or call OnPropertyChanged.
-            // If it's meant to update a TextBlock, it needs to be a full property with a backing field.
-            // Let's make it a full property with a backing field to match the pattern.
-            // This part was not in the diff, so I will revert it to what it was, but it's an issue.
-            // Re-reading the original code, it was `field = value; DownloadStatusTextBlock.Text = value;`.
-            // This means it was trying to use a compiler-generated backing field for an auto-property,
-            // but also doing UI update. This is incorrect. It should be a full property with a backing field.
-            // However, since the diff *only* applies to the properties above, I will not change this.
-            // The diff does not touch this property, so I will leave it as it was in the original code.
-            // ReSharper disable once PropertyFieldKeywordIsNeverUsed
-            field = value;
+            _downloadStatus = value;
             DownloadStatusTextBlock.Text = value;
         }
-    } = string.Empty;
+    }
 
     public event PropertyChangedEventHandler PropertyChanged; // INotifyPropertyChanged implementation
+
+    // Thread-safe operation tracking
+    private int _operationInProgressFlag;
+
+    private bool TryStartOperation()
+    {
+        // Returns true if we successfully started (was 0, now 1)
+        if (Interlocked.CompareExchange(ref _operationInProgressFlag, 1, 0) != 0)
+            return false;
+
+        IsOperationInProgress = true;
+        return true;
+    }
+
+    private void EndOperation()
+    {
+        IsOperationInProgress = false;
+        Interlocked.Exchange(ref _operationInProgressFlag, 0);
+    }
 
     private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
@@ -354,13 +376,13 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             IsImagePack4Available = false;
             IsImagePack5Available = false;
 
-            IsEmulatorDownloaded = true;
-            IsCoreDownloaded = true;
-            IsImagePack1Downloaded = true;
-            IsImagePack2Downloaded = true;
-            IsImagePack3Downloaded = true;
-            IsImagePack4Downloaded = true;
-            IsImagePack5Downloaded = true;
+            SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Downloaded);
+            SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Downloaded);
 
             UpdateAddSystemButtonState();
             SystemFolderTextBox.Text = string.Empty;
@@ -387,12 +409,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         if (!string.IsNullOrEmpty(emulatorLocation))
         {
             var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(emulatorLocation);
-            IsEmulatorDownloaded = File.Exists(resolvedEmulatorPath);
+            SetDownloadState(EasyModeManager.DownloadType.Emulator, File.Exists(resolvedEmulatorPath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
         }
         else
         {
             // If no location is defined, it can't exist, so it needs to be downloaded.
-            IsEmulatorDownloaded = false;
+            SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Idle);
         }
 
         // Check if Core file already exists or is not needed.
@@ -401,20 +423,20 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         if (!string.IsNullOrEmpty(coreLocation))
         {
             var resolvedCorePath = PathHelper.ResolveRelativeToAppDirectory(coreLocation);
-            IsCoreDownloaded = File.Exists(resolvedCorePath);
+            SetDownloadState(EasyModeManager.DownloadType.Core, File.Exists(resolvedCorePath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
         }
         else
         {
             // If no location is defined, it's considered "ready" only if no download is offered.
-            IsCoreDownloaded = string.IsNullOrEmpty(coreDownloadLink);
+            SetDownloadState(EasyModeManager.DownloadType.Core, string.IsNullOrEmpty(coreDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
         }
 
         // Reset download status for image packs.
-        IsImagePack1Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
-        IsImagePack2Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
-        IsImagePack3Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
-        IsImagePack4Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
-        IsImagePack5Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack1, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack2, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack3, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack4, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack5, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
 
         // Resolve path for display in the textbox
         SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder);
@@ -426,12 +448,41 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.Emulator);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsEmulatorDownloaded)); // Force UI update for IsEnabled binding
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.Emulator);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsEmulatorDownloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButtonClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    // Only reset to Failed if still in Downloading state (not if successfully Downloaded)
+                    if (GetDownloadState(EasyModeManager.DownloadType.Emulator) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsEmulatorDownloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
-            if (_disposed) return;
-
+            Debug.WriteLine($"Error in DownloadEmulatorButtonClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButtonClickAsync.");
         }
     }
@@ -440,10 +491,40 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.Core);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsCoreDownloaded));
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.Core);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsCoreDownloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadCoreButtonClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    if (GetDownloadState(EasyModeManager.DownloadType.Core) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsCoreDownloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
+            Debug.WriteLine($"Error in DownloadCoreButtonClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadCoreButtonClickAsync.");
         }
     }
@@ -452,10 +533,40 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack1);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsImagePack1Downloaded));
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack1);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsImagePack1Downloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton1ClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    if (GetDownloadState(EasyModeManager.DownloadType.ImagePack1) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsImagePack1Downloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
+            Debug.WriteLine($"Error in DownloadImagePackButton1ClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton1ClickAsync.");
         }
     }
@@ -464,10 +575,40 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack2);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsImagePack2Downloaded));
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack2);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsImagePack2Downloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton2ClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    if (GetDownloadState(EasyModeManager.DownloadType.ImagePack2) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsImagePack2Downloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
+            Debug.WriteLine($"Error in DownloadImagePackButton2ClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton2ClickAsync.");
         }
     }
@@ -476,10 +617,40 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack3);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsImagePack3Downloaded));
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack3);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsImagePack3Downloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton3ClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    if (GetDownloadState(EasyModeManager.DownloadType.ImagePack3) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsImagePack3Downloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
+            Debug.WriteLine($"Error in DownloadImagePackButton3ClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton3ClickAsync.");
         }
     }
@@ -488,10 +659,40 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack4);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsImagePack4Downloaded));
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack4);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsImagePack4Downloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton4ClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    if (GetDownloadState(EasyModeManager.DownloadType.ImagePack4) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsImagePack4Downloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
+            Debug.WriteLine($"Error in DownloadImagePackButton4ClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton4ClickAsync.");
         }
     }
@@ -500,10 +701,40 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
-            await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack5);
+            if (_disposed) return;
+            if (!TryStartOperation()) return;
+
+            try
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Downloading);
+                OnPropertyChanged(nameof(IsImagePack5Downloaded));
+                await HandleDownloadAndExtractComponentAsync(EasyModeManager.DownloadType.ImagePack5);
+            }
+            catch (Exception ex)
+            {
+                SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Failed);
+                OnPropertyChanged(nameof(IsImagePack5Downloaded));
+                if (!_disposed)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton5ClickAsync.");
+                }
+            }
+            finally
+            {
+                if (!_disposed)
+                {
+                    // EndOperation is called by HandleDownloadAndExtractComponentAsync
+                    if (GetDownloadState(EasyModeManager.DownloadType.ImagePack5) == DownloadButtonState.Downloading)
+                    {
+                        SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Failed);
+                        OnPropertyChanged(nameof(IsImagePack5Downloaded));
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {
+            Debug.WriteLine($"Error in DownloadImagePackButton5ClickAsync: {ex}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton5ClickAsync.");
         }
     }
@@ -511,37 +742,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     // Helper method to reduce code duplication for downloads and extractions
     private async Task HandleDownloadAndExtractComponentAsync(string type)
     {
-        if (_disposed || IsOperationInProgress) return;
-
-        IsOperationInProgress = true;
+        if (_disposed) return;
 
         _currentDownloadType = type;
 
-        // Reset the downloaded state at the start to disable the button
-        switch (type)
-        {
-            case EasyModeManager.DownloadType.Emulator:
-                IsEmulatorDownloaded = false;
-                break;
-            case EasyModeManager.DownloadType.Core:
-                IsCoreDownloaded = false;
-                break;
-            case EasyModeManager.DownloadType.ImagePack1:
-                IsImagePack1Downloaded = false;
-                break;
-            case EasyModeManager.DownloadType.ImagePack2:
-                IsImagePack2Downloaded = false;
-                break;
-            case EasyModeManager.DownloadType.ImagePack3:
-                IsImagePack3Downloaded = false;
-                break;
-            case EasyModeManager.DownloadType.ImagePack4:
-                IsImagePack4Downloaded = false;
-                break;
-            case EasyModeManager.DownloadType.ImagePack5:
-                IsImagePack5Downloaded = false;
-                break;
-        }
+        // State already set by caller to Downloading
 
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return;
@@ -597,7 +802,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         if (string.IsNullOrEmpty(downloadUrl))
         {
             var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+            EndOperation();
             DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
+            SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
             return;
         }
 
@@ -606,9 +813,10 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
             DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
 
+            EndOperation();
             // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
-
+            SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
             return;
         }
 
@@ -643,6 +851,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
             if (success)
             {
+                EndOperation();
                 var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
                 DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
@@ -651,7 +860,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
                 StopDownloadButton.IsEnabled = false;
                 // Mark as successfully downloaded
-                MarkComponentAsDownloaded(type, true);
+                SetDownloadState(type, DownloadButtonState.Downloaded);
             }
             else // Download was not completed successfully (either cancelled, locked, or other failure)
             {
@@ -662,15 +871,21 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
                     var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
                     DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
+                    StopDownloadButton.IsEnabled = false;
+                    EndOperation();
+                    SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on cancel
                 }
                 else if (_downloadManager.IsFileLockedDuringDownload) // Specific check for file lock during download
                 {
                     await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                    EndOperation();
                 }
                 else if (_downloadManager.IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
                 {
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     DownloadStatus = $"{errorFailedtoextract} {componentName}.";
+                    EndOperation();
+                    SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on extraction failure
                     await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                 }
                 else // Generic download failure (not user cancelled, not file locked, not extraction failure)
@@ -678,12 +893,13 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ?? "Error during download";
                     DownloadStatus = $"{errorDuringDownload}: {componentName}.";
 
+                    EndOperation();
                     // Fallback to original behavior for download failures
                     await ShowDownloadErrorDialogAsync(type, selectedSystem);
+                    SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on download failure
                 }
 
                 StopDownloadButton.IsEnabled = false;
-                MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on failure/cancellation
             }
         }
         catch (Exception ex)
@@ -706,28 +922,31 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             // Check if the download failed due to a file lock
             if (_downloadManager.IsFileLockedDuringDownload)
             {
+                EndOperation();
                 await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
             }
 
             // If download was completed, the exception was likely during extraction.
             else if (_downloadManager.IsDownloadCompleted)
             {
+                EndOperation();
                 await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
             }
             else // Exception was during download
             {
+                EndOperation();
                 await ShowDownloadErrorDialogAsync(type, selectedSystem);
             }
 
             if (_disposed) return;
 
             StopDownloadButton.IsEnabled = false;
-            MarkComponentAsDownloaded(type, false); // Ensure not marked as downloaded on exception
+            SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on exception
+            EndOperation();
         }
         finally
         {
             _currentDownloadType = null;
-            IsOperationInProgress = false;
         }
     }
 
@@ -751,35 +970,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
 
         return Task.CompletedTask;
-    }
-
-    // Helper method to mark a component as downloaded (or not)
-    private void MarkComponentAsDownloaded(string type, bool isDownloaded)
-    {
-        switch (type)
-        {
-            case EasyModeManager.DownloadType.Emulator:
-                IsEmulatorDownloaded = isDownloaded;
-                break;
-            case EasyModeManager.DownloadType.Core:
-                IsCoreDownloaded = isDownloaded;
-                break;
-            case EasyModeManager.DownloadType.ImagePack1:
-                IsImagePack1Downloaded = isDownloaded;
-                break;
-            case EasyModeManager.DownloadType.ImagePack2:
-                IsImagePack2Downloaded = isDownloaded;
-                break;
-            case EasyModeManager.DownloadType.ImagePack3:
-                IsImagePack3Downloaded = isDownloaded;
-                break;
-            case EasyModeManager.DownloadType.ImagePack4:
-                IsImagePack4Downloaded = isDownloaded;
-                break;
-            case EasyModeManager.DownloadType.ImagePack5:
-                IsImagePack5Downloaded = isDownloaded;
-                break;
-        }
     }
 
     private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
@@ -806,6 +996,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
+        if (_disposed) return; // Early exit if window is already disposed
+
         _downloadManager.CancelDownload();
         StopDownloadButton.IsEnabled = false;
         DownloadProgressBar.Value = 0;
@@ -815,9 +1007,24 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
         if (_currentDownloadType != null)
         {
-            MarkComponentAsDownloaded(_currentDownloadType, false);
+            // Only re-enable if it was actually downloading
+            var currentState = GetDownloadState(_currentDownloadType);
+            if (currentState == DownloadButtonState.Downloading)
+            {
+                SetDownloadState(_currentDownloadType, DownloadButtonState.Failed);
+                // Force UI update for the specific button
+                var propertyName = GetBooleanPropertyNameForType(_currentDownloadType);
+                if (!string.IsNullOrEmpty(propertyName))
+                {
+                    OnPropertyChanged(propertyName);
+                }
+            }
+
             _currentDownloadType = null;
         }
+
+        // Always reset operation flag to re-enable UI
+        IsOperationInProgress = false;
     }
 
     private async void AddSystemButtonClickAsync(object sender, RoutedEventArgs e)
@@ -1131,6 +1338,21 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         AddSystemButton.IsEnabled = isEmulatorReady && isCoreReady && !IsOperationInProgress;
     }
 
+    // ReSharper disable once MemberCanBeMadeStatic.Local
+    private string GetBooleanPropertyNameForType(string type)
+    {
+        return type switch
+        {
+            EasyModeManager.DownloadType.Emulator => nameof(IsEmulatorDownloaded),
+            EasyModeManager.DownloadType.Core => nameof(IsCoreDownloaded),
+            EasyModeManager.DownloadType.ImagePack1 => nameof(IsImagePack1Downloaded),
+            EasyModeManager.DownloadType.ImagePack2 => nameof(IsImagePack2Downloaded),
+            EasyModeManager.DownloadType.ImagePack3 => nameof(IsImagePack3Downloaded),
+            EasyModeManager.DownloadType.ImagePack4 => nameof(IsImagePack4Downloaded),
+            EasyModeManager.DownloadType.ImagePack5 => nameof(IsImagePack5Downloaded),
+            _ => null
+        };
+    }
 
     private async void CloseWindowRoutineAsync(object sender, EventArgs e)
     {
