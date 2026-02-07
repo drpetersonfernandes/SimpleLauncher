@@ -47,15 +47,38 @@ public class MountXisoDrive : IAsyncDisposable
             return;
         }
 
+        var processExitedBeforeKill = false;
         try
         {
-            if (!_mountProcess.HasExited)
+            // Attempt to terminate the process without checking HasExited first.
+            // This avoids a race condition where the process exits between the check
+            // and the Kill() call. We handle the "already exited" case via catch blocks.
+            try
+            {
+                _mountProcess.Kill(true);
+                DebugLogger.Log($"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}).");
+            }
+            catch (InvalidOperationException)
+            {
+                // Thrown when the process has already exited before Kill() was invoked
+                processExitedBeforeKill = true;
+                DebugLogger.Log($"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before Kill could complete (race condition handled).");
+            }
+            catch (ArgumentException)
+            {
+                // Thrown when the process is not associated with a valid handle (already exited/disposed)
+                processExitedBeforeKill = true;
+                DebugLogger.Log(
+                    $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
+            }
+
+            // Only wait for exit if we actually sent a kill signal.
+            // If the process was already gone, we skip the wait logic.
+            if (!processExitedBeforeKill)
             {
                 DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] Unmounting by terminating SimpleXisoDrive (ID: {_mountProcessId}).");
-                _mountProcess.Kill(true);
-                DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}). Waiting for exit (up to 10s).");
+                    $"[MountXisoDrive.DisposeAsync] Waiting for mounting tool (ID: {_mountProcessId}) to exit (up to 10s).");
+
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
                 try
                 {
@@ -78,19 +101,6 @@ public class MountXisoDrive : IAsyncDisposable
                         $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                 }
             }
-            else
-            {
-                DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
-            }
-        }
-        catch (InvalidOperationException ioEx) when (ioEx.Message.Contains("process has already exited",
-                                                         StringComparison.OrdinalIgnoreCase) ||
-                                                     ioEx.Message.Contains("No process is associated",
-                                                         StringComparison.OrdinalIgnoreCase))
-        {
-            DebugLogger.Log(
-                $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited when DisposeAsync was called: {ioEx.Message}.");
         }
         catch (Exception termEx)
         {

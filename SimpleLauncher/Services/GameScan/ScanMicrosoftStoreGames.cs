@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -784,14 +785,45 @@ internal static class ScanMicrosoftStoreGames
                 StandardOutputEncoding = Encoding.UTF8
             };
 
-            using var process = Process.Start(startInfo);
-            if (process == null) return;
+            string output;
+            string errorOutput;
+            int exitCode;
 
-            var output = await process.StandardOutput.ReadToEndAsync();
-            var errorOutput = await process.StandardError.ReadToEndAsync();
-            await process.WaitForExitAsync();
+            try
+            {
+                // Add a 30-second timeout to prevent indefinite hangs on locked-down systems
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
 
-            if (process.ExitCode != 0 && !string.IsNullOrWhiteSpace(errorOutput))
+                using var process = Process.Start(startInfo);
+                if (process == null)
+                {
+                    DebugLogger.Log("[ScanMicrosoftStoreGames] PowerShell process returned null (likely blocked by policy). Skipping Microsoft Store scan.");
+                    return;
+                }
+
+                output = await process.StandardOutput.ReadToEndAsync(cts.Token);
+                errorOutput = await process.StandardError.ReadToEndAsync(cts.Token);
+                await process.WaitForExitAsync(cts.Token);
+                exitCode = process.ExitCode;
+            }
+            catch (OperationCanceledException)
+            {
+                DebugLogger.Log("[ScanMicrosoftStoreGames] PowerShell scan timed out after 30 seconds. Skipping Microsoft Store scan.");
+                return;
+            }
+            catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode is 5 or 2 or 126)
+            {
+                // 5 = Access Denied (AppLocker/WDAC), 2 = File Not Found, 126 = Module Not Found
+                DebugLogger.Log($"[ScanMicrosoftStoreGames] PowerShell blocked or unavailable (Win32 error {ex.NativeErrorCode}). Skipping Microsoft Store scan.");
+                return;
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[ScanMicrosoftStoreGames] Failed to execute PowerShell: {ex.Message}. Skipping Microsoft Store scan.");
+                return;
+            }
+
+            if (exitCode != 0 && !string.IsNullOrWhiteSpace(errorOutput))
             {
                 // Check for execution policy restrictions - skip silently if restricted
                 if (IsExecutionPolicyRestricted(errorOutput))

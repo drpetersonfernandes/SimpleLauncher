@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UpdateStatusBar;
+using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -103,19 +105,68 @@ public partial class MainWindow
             allFiles = SetPaginationOfListOfFiles(allFiles);
             cancellationToken.ThrowIfCancellationRequested();
 
-            foreach (var filePath in allFiles) // 'filePath' is already resolved here
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+            const int batchSize = 100;
 
-                if (_settings.ViewMode == "GridView") // GridView
+            if (_settings.ViewMode == "GridView")
+            {
+                var buttonBatch = new List<Button>(Math.Min(batchSize, allFiles.Count));
+
+                foreach (var filePath in allFiles)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager, this);
-                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
+                    buttonBatch.Add(gameButton);
+
+                    if (buttonBatch.Count >= batchSize)
+                    {
+                        GameFileGrid.Dispatcher.Invoke(() =>
+                        {
+                            foreach (var btn in buttonBatch)
+                                GameFileGrid.Children.Add(btn);
+                        });
+                        buttonBatch.Clear();
+                    }
                 }
-                else // ListView
+
+                if (buttonBatch.Count > 0)
                 {
+                    GameFileGrid.Dispatcher.Invoke(() =>
+                    {
+                        foreach (var btn in buttonBatch)
+                            GameFileGrid.Children.Add(btn);
+                    });
+                }
+            }
+            else // ListView
+            {
+                var itemBatch = new List<GameListViewItem>(Math.Min(batchSize, allFiles.Count));
+
+                foreach (var filePath in allFiles)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
-                    await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
+                    itemBatch.Add(gameListViewItem);
+
+                    if (itemBatch.Count >= batchSize)
+                    {
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            foreach (var item in itemBatch)
+                                GameListItems.Add(item);
+                        });
+                        itemBatch.Clear();
+                    }
+                }
+
+                if (itemBatch.Count > 0)
+                {
+                    await Dispatcher.InvokeAsync(() =>
+                    {
+                        foreach (var item in itemBatch)
+                            GameListItems.Add(item);
+                    });
                 }
             }
 
