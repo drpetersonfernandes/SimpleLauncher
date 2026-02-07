@@ -21,6 +21,8 @@ using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -28,6 +30,7 @@ namespace SimpleLauncher;
 
 internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILoadingState
 {
+    private readonly PlaySoundEffects _playSoundEffects;
     private EasyModeManager _manager;
 
     // Track download states for all components
@@ -263,10 +266,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         });
     }
 
-    public EasyModeWindow()
+    public EasyModeWindow(PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+
+        _playSoundEffects = playSoundEffects;
 
         // Set DataContext for XAML bindings to work
         DataContext = this;
@@ -448,6 +453,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -491,6 +497,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -533,6 +540,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -575,6 +583,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -617,6 +626,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -659,6 +669,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -701,6 +712,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (_disposed) return;
             if (!TryStartOperation()) return;
 
@@ -996,6 +1008,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
+        _playSoundEffects.PlayNotificationSound();
         if (_disposed) return; // Early exit if window is already disposed
 
         _downloadManager.CancelDownload();
@@ -1031,6 +1044,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             if (IsOperationInProgress) return;
 
             IsOperationInProgress = true;
@@ -1395,6 +1409,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         try
         {
+            _playSoundEffects.PlayNotificationSound();
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
             {
                 UseShellExecute = true
@@ -1419,5 +1434,18 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         _manager?.Dispose();
 
         _disposed = true;
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        _downloadManager?.CancelDownload();
+        IsOperationInProgress = false;
+
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+        MainContentGrid?.IsEnabled = true;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in EasyModeWindow.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

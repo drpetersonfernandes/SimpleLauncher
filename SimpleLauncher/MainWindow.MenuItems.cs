@@ -57,7 +57,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
 
-            EasyModeWindow editSystemEasyModeAddSystemWindow = new();
+            EasyModeWindow editSystemEasyModeAddSystemWindow = new(_playSoundEffects);
             editSystemEasyModeAddSystemWindow.Owner = this;
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
@@ -105,7 +105,7 @@ public partial class MainWindow
 
             ResetUiAsync();
 
-            DownloadImagePackWindow downloadImagePack = new();
+            DownloadImagePackWindow downloadImagePack = new(_playSoundEffects);
             downloadImagePack.Owner = this;
             downloadImagePack.ShowDialog();
         }
