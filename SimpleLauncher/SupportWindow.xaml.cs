@@ -21,6 +21,8 @@ public partial class SupportWindow : ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private static IHttpClientFactory _httpClientFactory;
+    private readonly ILogErrors _logErrors;
+
     private static string ApiKey { get; set; }
     private static string ApiBaseUrl { get; set; }
     public Exception OriginalException { get; set; }
@@ -36,6 +38,7 @@ public partial class SupportWindow : ILoadingState
         DataContext = this;
         GameLauncher = gameLauncher;
         _playSoundEffects = App.ServiceProvider.GetRequiredService<PlaySoundEffects>();
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
 
         LoadConfiguration();
     }
@@ -105,7 +108,7 @@ public partial class SupportWindow : ILoadingState
         SupportTextBox.Text = messageBuilder.ToString();
     }
 
-    private static void LoadConfiguration()
+    private void LoadConfiguration()
     {
         const string configFile = "appsettings.json";
         try
@@ -114,7 +117,7 @@ public partial class SupportWindow : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "File 'appsettings.json' is missing.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RequiredFileMissingMessageBox();
@@ -144,7 +147,7 @@ public partial class SupportWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was an error loading 'appsettings.json'.");
+            _ = _logErrors.LogErrorAsync(ex, "There was an error loading 'appsettings.json'.");
 
             // Notify user
             MessageBoxLibrary.ErrorLoadingAppSettingsMessageBox();
@@ -205,7 +208,7 @@ public partial class SupportWindow : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "Error in the SendSupportRequestClickAsync method.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                _ = _logErrors.LogErrorAsync(ex, contextMessage);
             }
             finally
             {
@@ -217,7 +220,7 @@ public partial class SupportWindow : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the SendSupportRequestClickAsync method.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -228,7 +231,7 @@ public partial class SupportWindow : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Email API base URL is not properly configured in 'appsettings.json'.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            _ = _logErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ApiKeyErrorMessageBox();
@@ -277,7 +280,7 @@ public partial class SupportWindow : ILoadingState
 
                     // Notify developer
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                    _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.SupportRequestSendErrorMessageBox();
@@ -288,7 +291,7 @@ public partial class SupportWindow : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error sending the Support Request.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SupportRequestSendErrorMessageBox();
