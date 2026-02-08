@@ -12,12 +12,14 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 
 public partial class SupportWindow : ILoadingState
 {
+    private readonly PlaySoundEffects _playSoundEffects;
     private static IHttpClientFactory _httpClientFactory;
     private static string ApiKey { get; set; }
     private static string ApiBaseUrl { get; set; }
@@ -29,9 +31,12 @@ public partial class SupportWindow : ILoadingState
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+
         _httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
         DataContext = this;
         GameLauncher = gameLauncher;
+        _playSoundEffects = App.ServiceProvider.GetRequiredService<PlaySoundEffects>();
+
         LoadConfiguration();
     }
 
@@ -68,7 +73,6 @@ public partial class SupportWindow : ILoadingState
         messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
         messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
         messageBuilder.AppendLine("------------------------------------------\n");
-
 
         if (!string.IsNullOrEmpty(contextMessage))
         {
@@ -192,6 +196,7 @@ public partial class SupportWindow : ILoadingState
                 fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Email: {emailText}");
                 fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}"); // Use the content of the textbox directly
 
+                _playSoundEffects.PlayNotificationSound();
                 await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
 
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...", Application.Current.MainWindow as MainWindow);
@@ -318,5 +323,15 @@ public partial class SupportWindow : ILoadingState
         MessageBoxLibrary.EnterSupportRequestMessageBox();
 
         return true;
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+        MainContentGrid?.IsEnabled = true;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in SupportWindow.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

@@ -27,7 +27,6 @@ namespace SimpleLauncher;
 internal partial class DownloadImagePackWindow : IDisposable, System.ComponentModel.INotifyPropertyChanged, ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
-
     private EasyModeManager _manager;
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
