@@ -137,16 +137,14 @@ public partial class InjectMameConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        var success = InjectConfig();
-        if (success)
+        if (InjectConfig())
         {
             MessageBoxLibrary.MamEconfigurationinjectedsuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedtoinjectMamEconfiguration2();
         }
-
-        Close();
     }
 }

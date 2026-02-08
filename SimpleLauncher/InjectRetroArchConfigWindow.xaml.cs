@@ -159,17 +159,15 @@ public partial class InjectRetroArchConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        var success = InjectConfig();
-        if (success)
+        if (InjectConfig())
         {
             MessageBoxLibrary.RetroArchconfigurationinjectedsuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedtoinjectRetroArchconfiguration2();
         }
-
-        Close();
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tagValue)

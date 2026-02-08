@@ -169,13 +169,12 @@ public partial class InjectMednafenConfigWindow
             if (await InjectConfigAsync())
             {
                 MessageBoxLibrary.MednafenConfigurationSavedSuccessfully();
+                Close();
             }
             else
             {
                 MessageBoxLibrary.FailedToSaveMednafenConfiguration();
             }
-
-            Close();
         }
         catch (Exception ex)
         {

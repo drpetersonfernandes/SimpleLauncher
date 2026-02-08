@@ -145,12 +145,11 @@ public partial class InjectSupermodelConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.SupermodelConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveSupermodelConfiguration();
         }
-
-        Close();
     }
 }

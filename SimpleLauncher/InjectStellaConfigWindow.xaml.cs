@@ -127,13 +127,12 @@ public partial class InjectStellaConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.StellaConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveStellaConfiguration();
         }
-
-        Close();
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tagValue)

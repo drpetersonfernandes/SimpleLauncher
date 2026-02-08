@@ -45,6 +45,10 @@ public partial class InjectAzaharConfigWindow
         ChkAudioStretching.IsChecked = _settings.AzaharEnableAudioStretching;
 
         BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
+        if (!_isLauncherMode)
+        {
+            BtnSave.IsDefault = true;
+        }
     }
 
     private void SaveSettings()
@@ -62,21 +66,33 @@ public partial class InjectAzaharConfigWindow
         _settings.Save();
     }
 
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Azahar Executable|azahar.exe|All Executables|*.exe",
+            Title = "Select Azahar Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
+    }
+
     private bool InjectConfig()
     {
-        if (string.IsNullOrEmpty(_emulatorPath) || !File.Exists(_emulatorPath))
-        {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Azahar Executable|azahar.exe|All Executables|*.exe" };
-            if (dialog.ShowDialog() == true)
-            {
-                _emulatorPath = dialog.FileName;
-            }
-            else return false;
-        }
+        var path = EnsureEmulatorPath();
+        if (string.IsNullOrEmpty(path)) return false;
 
         try
         {
-            AzaharConfigurationService.InjectSettings(_emulatorPath, _settings);
+            AzaharConfigurationService.InjectSettings(path, _settings);
             return true;
         }
         catch (Exception ex)
@@ -102,9 +118,8 @@ public partial class InjectAzaharConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.SettingsSaved();
+            Close();
         }
-
-        Close();
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tag)

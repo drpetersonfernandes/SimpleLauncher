@@ -95,7 +95,7 @@
             <Button x:Name="BtnRun" Content="{DynamicResource BlastemConfig_Run_Button}" Width="120" Height="35" 
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
                     Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource BlastemConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" IsCancel="True"/>
+            <Button Content="{DynamicResource BlastemConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

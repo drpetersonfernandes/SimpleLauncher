@@ -168,17 +168,15 @@ public partial class InjectXeniaConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        var success = InjectConfig();
-        if (success)
+        if (InjectConfig())
         {
             MessageBoxLibrary.Xeniaconfigurationinjectedsuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedtoinjectXeniaconfiguration2();
         }
-
-        Close();
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tagValue)

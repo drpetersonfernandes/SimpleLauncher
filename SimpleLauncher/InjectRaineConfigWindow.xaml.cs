@@ -145,9 +145,9 @@ public partial class InjectRaineConfigWindow
         {
             if (!_isLauncherMode)
                 MessageBoxLibrary.RaineSettingsSavedAndInjected();
-        }
 
-        Close();
+            Close();
+        }
     }
 
     private void BtnSelectNeoCdBios_Click(object sender, RoutedEventArgs e)

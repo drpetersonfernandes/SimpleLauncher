@@ -119,12 +119,11 @@ public partial class InjectBlastemConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveBlastemConfiguration();
         }
-
-        Close();
     }
 }

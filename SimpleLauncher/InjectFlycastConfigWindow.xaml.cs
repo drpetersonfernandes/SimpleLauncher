@@ -112,12 +112,11 @@ public partial class InjectFlycastConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.FlycastConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveFlycastConfiguration();
         }
-
-        Close();
     }
 }

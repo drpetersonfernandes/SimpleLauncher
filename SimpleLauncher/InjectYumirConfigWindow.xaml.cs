@@ -16,7 +16,7 @@ public partial class InjectYumirConfigWindow
     private readonly SettingsManager _settings;
     private readonly bool _isLauncherMode;
     public bool ShouldRun { get; private set; }
-    private readonly string _emulatorPath;
+    private string _emulatorPath;
     private readonly ILogErrors _logErrors;
 
     public InjectYumirConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
@@ -78,13 +78,35 @@ public partial class InjectYumirConfigWindow
         _settings.Save();
     }
 
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        MessageBoxLibrary.YumirEmulatorNotFound(); // Ensure this exists in MessageBoxLibrary
+
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Yumir Executable|ymir.exe|All Executables|*.exe",
+            Title = "Select Yumir Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
+    }
+
     private bool InjectConfig()
     {
-        if (string.IsNullOrEmpty(_emulatorPath) || !File.Exists(_emulatorPath)) return false;
+        var path = EnsureEmulatorPath();
+        if (string.IsNullOrEmpty(path)) return false;
 
         try
         {
-            YumirConfigurationService.InjectSettings(_emulatorPath, _settings);
+            YumirConfigurationService.InjectSettings(path, _settings);
             return true;
         }
         catch (Exception ex)

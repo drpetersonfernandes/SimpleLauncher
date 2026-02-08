@@ -182,12 +182,11 @@ public partial class InjectDuckStationConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.DuckStationConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveDuckStationConfiguration();
         }
-
-        Close();
     }
 }

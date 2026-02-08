@@ -124,12 +124,11 @@ public partial class InjectMesenConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.MesenConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveMesenConfiguration();
         }
-
-        Close();
     }
 }

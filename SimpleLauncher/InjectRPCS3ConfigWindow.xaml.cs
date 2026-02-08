@@ -141,12 +141,11 @@ public partial class InjectRpcs3ConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.Rpcs3ConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveRpcs3Configuration();
         }
-
-        Close();
     }
 }

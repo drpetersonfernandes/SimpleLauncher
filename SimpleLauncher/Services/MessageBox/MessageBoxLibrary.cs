@@ -4302,4 +4302,17 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void YumirEmulatorNotFound()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("YumirConfig_PathNotFound") ?? "Yumir executable not found. Please select it.";
+            var message2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

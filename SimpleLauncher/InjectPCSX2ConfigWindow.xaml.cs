@@ -67,21 +67,33 @@ public partial class InjectPcsx2ConfigWindow
         _settings.Save();
     }
 
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "PCSX2 Executable|pcsx2*.exe",
+            Title = "Select PCSX2 Emulator"
+        };
+
+        if (dialog.ShowDialog() != true) return null;
+
+        _emulatorPath = dialog.FileName;
+        return _emulatorPath;
+    }
+
     private bool InjectConfig()
     {
-        if (string.IsNullOrEmpty(_emulatorPath) || !File.Exists(_emulatorPath))
-        {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "PCSX2 Executable|pcsx2*.exe" };
-            if (dialog.ShowDialog() == true)
-            {
-                _emulatorPath = dialog.FileName;
-            }
-            else return false;
-        }
+        var path = EnsureEmulatorPath();
+        if (string.IsNullOrEmpty(path)) return false;
 
         try
         {
-            Pcsx2ConfigurationService.InjectSettings(_emulatorPath, _settings);
+            Pcsx2ConfigurationService.InjectSettings(path, _settings);
             return true;
         }
         catch (Exception ex)
@@ -107,9 +119,8 @@ public partial class InjectPcsx2ConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.Pcsx2Settingssaved();
+            Close();
         }
-
-        Close();
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tag)

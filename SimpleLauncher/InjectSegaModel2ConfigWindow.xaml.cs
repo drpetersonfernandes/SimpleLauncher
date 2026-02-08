@@ -139,13 +139,12 @@ public partial class InjectSegaModel2ConfigWindow
         if (InjectConfig())
         {
             MessageBoxLibrary.SegaModel2ConfigurationSavedSuccessfully();
+            Close();
         }
         else
         {
             MessageBoxLibrary.FailedToSaveSegaModel2Configuration();
         }
-
-        Close();
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tagValue)
