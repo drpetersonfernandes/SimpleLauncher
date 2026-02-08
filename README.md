@@ -10,11 +10,11 @@
 
 ## 📸 Screenshots
 
-**Main Window (Grid View)**
-![Main Window](screenshot.png)
-**Global Search**![Global Search](screenshot4.png)
-**List View & Preview**![List View](screenshot3.png)
-**Favorites Manager**![Favorites](screenshot5.png)
+**System Selection**![Main Window](screenshot.png)
+**List Of Games in Grid Mode**![Global Search](screenshot2.png)
+**List Of Games in List Mode**![List View](screenshot3.png)
+**RetroAchievements Window**![Favorites](screenshot4.png)
+**RetroAchievements Window**![Favorites](screenshot5.png)
 
 ## ✨ Key Features
 
