@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -9,13 +10,15 @@ namespace SimpleLauncher;
 public partial class SetLinksWindow
 {
     private readonly SettingsManager _settingsManager;
+    private readonly IConfiguration _configuration;
 
-    public SetLinksWindow(SettingsManager settingsManager)
+    public SetLinksWindow(SettingsManager settingsManager, IConfiguration configuration)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         // Load Config
+        _configuration = configuration;
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         LoadLinks();
     }
@@ -48,8 +51,8 @@ public partial class SetLinksWindow
 
     private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
     {
-        _settingsManager.VideoUrl = _settingsManager.VideoUrl = App.Configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
-        _settingsManager.InfoUrl = App.Configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
+        _settingsManager.VideoUrl = _settingsManager.VideoUrl = _configuration["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
+        _settingsManager.InfoUrl = _configuration["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
 
         VideoLinkTextBox.Text = _settingsManager.VideoUrl;
         InfoLinkTextBox.Text = _settingsManager.InfoUrl;

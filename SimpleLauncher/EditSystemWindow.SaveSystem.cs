@@ -361,7 +361,7 @@ internal partial class EditSystemWindow
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
-                CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder);
+                CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }

@@ -35,7 +35,7 @@ public class LogErrorsService : ILogErrors
 
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var errorLogPath = Path.Combine(baseDirectory, "error.log");
-        var userLogPath = _configuration["LogPath"];
+        var userLogPath = Path.Combine(baseDirectory, _configuration["LogPath"] ?? "error_user.log");
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
         version ??= "Unknown";
 
@@ -65,7 +65,7 @@ public class LogErrorsService : ILogErrors
 
             // Append the error message to the user-specific log
             var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
-            if (userLogPath != null) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
+            if (true) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
 
             // Attempt to send the error log content to the API only if enabled
             if (await SendLogToApiAsync(errorMessage))

@@ -9,10 +9,10 @@ namespace SimpleLauncher.Services.CreateFolders;
 
 public static class CreateDefaultSystemFolders
 {
-    public static void CreateFolders(string systemName, string systemFolder, string systemImageFolder)
+    public static void CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var additionalFolders = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("AdditionalFolders").Get<string[]>();
+        var additionalFolders = configuration.GetSection("AdditionalFolders").Get<string[]>();
         var resolvedSystemFolder = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(systemFolder);
         var resolvedSystemImageFolder = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
 

@@ -57,7 +57,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
 
-            EasyModeWindow editSystemEasyModeAddSystemWindow = new(_playSoundEffects);
+            EasyModeWindow editSystemEasyModeAddSystemWindow = new(_playSoundEffects, _configuration);
             editSystemEasyModeAddSystemWindow.Owner = this;
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
@@ -79,7 +79,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration)
             {
                 Owner = this
             };
@@ -201,7 +201,7 @@ public partial class MainWindow
 
     public void LoadOrReloadSystemManager()
     {
-        _systemManagers = SystemManager.LoadSystemManagers();
+        _systemManagers = SystemManager.LoadSystemManagers(_configuration);
         var sortedSystemNames = _systemManagers.Select(static manager => manager.SystemName).OrderBy(static name => name)
             .ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
@@ -221,7 +221,7 @@ public partial class MainWindow
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkSettings") ?? "Opening link settings...", this);
             _playSoundEffects.PlayNotificationSound();
 
-            SetLinksWindow setLinksWindow = new(_settings)
+            SetLinksWindow setLinksWindow = new(_settings, _configuration)
             {
                 Owner = this
             };

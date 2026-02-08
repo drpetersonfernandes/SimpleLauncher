@@ -25,28 +25,23 @@ public partial class SystemManager
     public List<string> FileFormatsToLaunch { get; private init; }
     public List<Emulator> Emulators { get; private init; }
     public bool GroupByFolder { get; private init; }
-    private static readonly string SystemXmlPath = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("SystemXmlPath").ToString();
-    private static readonly string LogPath = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString();
 
-    public static List<SystemManager> LoadSystemManagers()
+    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration)
     {
         lock (XmlLock)
         {
-            if (string.IsNullOrEmpty(SystemXmlPath))
-            {
-                throw new ArgumentNullException(nameof(SystemXmlPath), @"The path to the XML file cannot be null or empty.");
-            }
+            var systemXmlPath = configuration["SystemXmlPath"] ?? "system.xml";
 
             try
             {
-                if (!File.Exists(SystemXmlPath))
+                if (!File.Exists(systemXmlPath))
                 {
-                    var directoryPath = Path.GetDirectoryName(SystemXmlPath);
+                    var directoryPath = Path.GetDirectoryName(systemXmlPath);
                     var backupRestored = false;
 
                     if (directoryPath != null)
                     {
-                        backupRestored = RestoreBackupFile(directoryPath, backupRestored);
+                        backupRestored = RestoreBackupFile(directoryPath, backupRestored, systemXmlPath);
                     }
 
                     // If no backup was restored, create a new empty system.xml file
@@ -56,7 +51,7 @@ public partial class SystemManager
                         {
                             // Create a new XDocument with the root element
                             var emptyDoc = new XDocument(new XElement("SystemConfigs"));
-                            emptyDoc.Save(SystemXmlPath);
+                            emptyDoc.Save(systemXmlPath);
                             // No user notification needed for creating an expected empty file
                         }
                         catch (Exception createEx)
@@ -66,7 +61,7 @@ public partial class SystemManager
                             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(createEx, contextMessage);
 
                             // Notify user
-                            MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
+                            MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(configuration["LogPath"] ?? "error_user.log");
 
                             return []; // Return an empty list
                         }
@@ -85,7 +80,7 @@ public partial class SystemManager
                         XmlResolver = null
                     };
 
-                    using var reader = XmlReader.Create(SystemXmlPath, settings);
+                    using var reader = XmlReader.Create(systemXmlPath, settings);
                     doc = XDocument.Load(reader, LoadOptions.None);
                 }
                 catch (XmlException ex)
@@ -95,7 +90,7 @@ public partial class SystemManager
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
-                    MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(LogPath);
+                    MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(configuration["LogPath"] ?? "error_user.log");
 
                     return new List<SystemManager>(); // Return an empty list
                 }
@@ -181,7 +176,7 @@ public partial class SystemManager
                         Indent = true,
                         NewLineOnAttributes = false
                     };
-                    using var writer = XmlWriter.Create(SystemXmlPath, settings);
+                    using var writer = XmlWriter.Create(systemXmlPath, settings);
                     doc.Save(writer);
                 }
                 catch (Exception saveEx)
@@ -201,7 +196,7 @@ public partial class SystemManager
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
+                MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(configuration["LogPath"] ?? "error_user.log");
 
                 return new List<SystemManager>(); // Return an empty list
             }
@@ -329,7 +324,7 @@ public partial class SystemManager
             });
         }
 
-        bool RestoreBackupFile(string directoryPath, bool backupRestored)
+        bool RestoreBackupFile(string directoryPath, bool backupRestored, string systemXmlPath)
         {
             try
             {
@@ -347,7 +342,7 @@ public partial class SystemManager
                         try
                         {
                             // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
-                            if (mostRecentBackupFile != null) File.Copy(mostRecentBackupFile, SystemXmlPath, true);
+                            if (mostRecentBackupFile != null) File.Copy(mostRecentBackupFile, systemXmlPath, true);
 
                             backupRestored = true;
                         }

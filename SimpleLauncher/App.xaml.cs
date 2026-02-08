@@ -22,7 +22,6 @@ using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.LaunchTools;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.MountFiles;
 using SimpleLauncher.Services.PlayHistory;
@@ -78,11 +77,6 @@ public partial class App : IDisposable
 
         // Register IConfiguration
         serviceCollection.AddSingleton<IConfiguration>(Configuration);
-
-        // Register AppSettings Services
-        serviceCollection.AddSingleton<AdditionalFoldersService>();
-        serviceCollection.AddSingleton<ImageExtensionsService>();
-        serviceCollection.AddSingleton<LogPathService>();
 
         // Register IMemoryCache
         serviceCollection.AddMemoryCache();

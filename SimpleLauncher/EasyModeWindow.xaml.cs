@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
+using Microsoft.Extensions.Configuration;
 using System.Threading;
 using System.Xml;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private EasyModeManager _manager;
+    private readonly IConfiguration _configuration;
 
     // Track download states for all components
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new();
@@ -266,11 +268,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         });
     }
 
-    public EasyModeWindow(PlaySoundEffects playSoundEffects)
+    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
+        _configuration = configuration;
         _playSoundEffects = playSoundEffects;
 
         // Set DataContext for XAML bindings to work
@@ -1091,7 +1094,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
                     // Create System Folders using *resolved* paths
-                    CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                    CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration);
 
                     var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                     DownloadStatus = systemhasbeensuccessfullyadded;

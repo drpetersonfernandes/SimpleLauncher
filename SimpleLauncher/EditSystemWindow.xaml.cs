@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
+using Microsoft.Extensions.Configuration;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -31,12 +32,14 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private string _originalSystemName;
+    private readonly IConfiguration _configuration;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
+        _configuration = configuration;
         _settings = settings;
         _playSoundEffects = playSoundEffects;
 
