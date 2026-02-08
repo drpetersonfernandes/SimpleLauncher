@@ -8,11 +8,14 @@ using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.SharedModels;
+using Microsoft.Extensions.Configuration;
 
 namespace SimpleLauncher.Services.SettingsManager;
 
 public class SettingsManager : IDisposable
 {
+    private readonly IConfiguration _configuration;
+
     private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
 
@@ -28,8 +31,8 @@ public class SettingsManager : IDisposable
     public string ShowGames { get; set; } = "ShowAll";
     public string ViewMode { get; set; } = "GridView";
     public bool EnableGamePadNavigation { get; set; }
-    public string VideoUrl { get; set; } = App.Configuration?["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
-    public string InfoUrl { get; set; } = App.Configuration?["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
+    public string VideoUrl { get; set; }
+    public string InfoUrl { get; set; }
     public string BaseTheme { get; set; } = "Light";
     public string AccentColor { get; set; } = "Blue";
     public string Language { get; set; } = "en";
@@ -342,6 +345,15 @@ public class SettingsManager : IDisposable
 
     private const string DefaultSettingsFilePath = "settings.xml";
     private const string DefaultNotificationSoundFileName = "click.mp3";
+
+    public SettingsManager(IConfiguration configuration)
+    {
+        _configuration = configuration;
+
+        // Initialize properties that depend on configuration
+        VideoUrl = configuration?["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
+        InfoUrl = configuration?["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
+    }
 
     public void Load()
     {
@@ -1910,7 +1922,7 @@ public class SettingsManager : IDisposable
         _settingsLock.EnterReadLock();
         try
         {
-            snapshot = new SettingsManager();
+            snapshot = new SettingsManager(_configuration);
             snapshot.CopyFrom(this);
         }
         finally
@@ -2338,7 +2350,7 @@ public class SettingsManager : IDisposable
 
     public void ResetToDefaults()
     {
-        CopyFrom(new SettingsManager());
+        CopyFrom(new SettingsManager(_configuration));
     }
 
     private void SetDefaultsAndSave()

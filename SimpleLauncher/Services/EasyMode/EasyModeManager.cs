@@ -129,7 +129,8 @@ public class EasyModeManager : IDisposable
         try
         {
             // Get cache duration from configuration (default to 60 minutes)
-            var cacheDurationMinutes = App.Configuration.GetValue("EasyModeCacheDurationMinutes", DefaultCacheDurationMinutes);
+            var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
+            var cacheDurationMinutes = configuration.GetValue("EasyModeCacheDurationMinutes", DefaultCacheDurationMinutes);
 
             // Check if we have valid cached data
             if (_apiCache.Manager != null &&

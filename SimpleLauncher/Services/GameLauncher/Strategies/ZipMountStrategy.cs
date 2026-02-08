@@ -2,13 +2,19 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.MountFiles;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 public class ZipMountStrategy : ILaunchStrategy
 {
+    private readonly IConfiguration _configuration;
+
+    public ZipMountStrategy(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public int Priority => 30;
 
     public bool IsMatch(LaunchContext context)
@@ -23,7 +29,7 @@ public class ZipMountStrategy : ILaunchStrategy
 
     public Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
     {
-        var log = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString();
+        var log = _configuration["LogPath"];
         if (context.EmulatorName.Contains("RPCS3"))
             return MountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, log, launcher);
         else if (context.SystemName.Contains("Scumm"))

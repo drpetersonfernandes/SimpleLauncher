@@ -381,7 +381,7 @@ public partial class MainWindow
 
             var psi = new ProcessStartInfo
             {
-                FileName = App.Configuration["Urls:DonationPage"] ?? "https://www.purelogiccode.com/Donate",
+                FileName = _configuration["Urls:DonationPage"] ?? "https://www.purelogiccode.com/Donate",
                 UseShellExecute = true
             };
             Process.Start(psi);

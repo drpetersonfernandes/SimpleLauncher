@@ -36,7 +36,6 @@ namespace SimpleLauncher;
 public partial class App : IDisposable
 {
     public static IServiceProvider ServiceProvider { get; private set; }
-    public static IConfiguration Configuration { get; set; }
 
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
@@ -50,7 +49,7 @@ public partial class App : IDisposable
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json", false, true);
 
-        Configuration = builder.Build();
+        var configuration = builder.Build();
 
         var serviceCollection = new ServiceCollection();
         // Register IHttpClientFactory and named clients
@@ -63,29 +62,31 @@ public partial class App : IDisposable
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
         });
-        serviceCollection.AddHttpClient("GameImageClient", static client =>
+        serviceCollection.AddHttpClient("GameImageClient", client =>
         {
-            var apiUrl = Configuration.GetValue<string>("ApiSettings:GameImageUrl");
+            var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl");
             client.BaseAddress = new Uri(apiUrl ?? "https://simple-launcher-api.doutorpeterson.workers.dev/");
         });
-        serviceCollection.AddHttpClient("EasyModeClient", static client =>
+        serviceCollection.AddHttpClient("EasyModeClient", client =>
         {
             // Set the base address for the EasyMode configuration API
-            var easyModeUrl = Configuration.GetValue<string>("Urls:EasyModeApi");
+            var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi");
             client.BaseAddress = new Uri(easyModeUrl ?? "https://www.purelogiccode.com/simplelauncheradmin/");
         });
 
         // Register IConfiguration
-        serviceCollection.AddSingleton<IConfiguration>(Configuration);
+        serviceCollection.AddSingleton<IConfiguration>(configuration);
 
         // Register IMemoryCache
         serviceCollection.AddMemoryCache();
 
         // Register Managers as singletons
+        // Register Managers as singletons
         serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
-        serviceCollection.AddSingleton(static _ =>
+        serviceCollection.AddSingleton(static provider =>
         {
-            var sm = new SettingsManager();
+            var config = provider.GetRequiredService<IConfiguration>();
+            var sm = new SettingsManager(config);
             sm.Load();
             return sm;
         });
@@ -207,7 +208,7 @@ public partial class App : IDisposable
         ApplyLanguage(settingsManager.Language);
 
         // --- Initialize services that need configuration ---
-        MountZipFiles.Configure(Configuration);
+        MountZipFiles.Configure(configuration);
 
         // Manually create and show the MainWindow using DI
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();

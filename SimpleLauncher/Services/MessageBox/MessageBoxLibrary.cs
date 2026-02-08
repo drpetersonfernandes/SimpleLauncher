@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -1122,7 +1123,8 @@ internal static class MessageBoxLibrary
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                var downloadPageUrl = App.Configuration["Urls:GitHubReleases"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest";
+                var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
+                var downloadPageUrl = configuration["Urls:GitHubReleases"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest";
 
                 try
                 {

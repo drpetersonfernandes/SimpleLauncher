@@ -17,7 +17,7 @@ public partial class MainWindow
         // Initialize the status bar timer
         StatusBarTimer = new DispatcherTimer();
 
-        var statusBarTimeoutSeconds = App.Configuration.GetValue("StatusBarTimeoutSeconds", 3);
+        var statusBarTimeoutSeconds = _configuration.GetValue("StatusBarTimeoutSeconds", 3);
         StatusBarTimer.Interval = TimeSpan.FromSeconds(statusBarTimeoutSeconds);
 
         StatusBarTimer.Tick += (_, _) =>
