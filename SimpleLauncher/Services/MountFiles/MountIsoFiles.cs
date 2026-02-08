@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.MountFiles;
@@ -21,7 +20,6 @@ public static class MountIsoFiles
         SystemManager.SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GamePadController gamePadController,
         string logPath,
         GameLauncher.GameLauncher gameLauncher)
     {
