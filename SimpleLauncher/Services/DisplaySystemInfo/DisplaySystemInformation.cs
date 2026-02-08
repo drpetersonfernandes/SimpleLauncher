@@ -106,7 +106,7 @@ public static class DisplaySystemInformation
         //
         // if (!string.IsNullOrEmpty(resolvedImageFolderPath) && Directory.Exists(resolvedImageFolderPath))
         // {
-        //     var imageExtensions = GetImageExtensions.GetExtensions();
+        //     var imageExtensions = ImageExtensionsService.GetExtensions();
         //     var imageCount = await Task.Run(() => Directory.EnumerateFiles(resolvedImageFolderPath, "*.*").Count(file => imageExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))), cancellationToken);
         //     var imageCountTextBlock = new TextBlock();
         //     imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));

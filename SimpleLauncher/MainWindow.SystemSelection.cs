@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Automation;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.FindAndLoadImages;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -184,12 +184,12 @@ public partial class MainWindow
     }
 
     // Update method signature to accept SettingsManager
-    private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config, SettingsManager settings) // ADDED PARAMETER
+    private Task<string> GetSystemDisplayImagePathAsync(SystemManager config, SettingsManager settings) // ADDED PARAMETER
     {
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
         var systemName = config.SystemName;
-        var imageExtensions = GetImageExtensions.GetExtensions(); // Get supported extensions
+        var imageExtensions = _configuration.GetSection("ImageExtensions").Get<string[]>() ?? []; // Get supported extensions
 
         // 1. Check for system-specific image files (exact match)
         foreach (var ext in imageExtensions)

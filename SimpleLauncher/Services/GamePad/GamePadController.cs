@@ -1,12 +1,12 @@
 using System;
 using System.Threading;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
@@ -118,7 +118,7 @@ public class GamePadController : IDisposable
                                         $"Exception details: {ex.Message}");
 
                 // Notify user
-                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString()));
             }
         }
     }
@@ -141,7 +141,7 @@ public class GamePadController : IDisposable
                                         $"Exception details: {ex.Message}");
 
                 // Notify user
-                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString()));
             }
         }
     }
@@ -353,7 +353,7 @@ public class GamePadController : IDisposable
                                                     $"Exception details: {ex.Message}");
 
                             // Notify user
-                            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString()));
                         }
 
                         // Attempt reconnection as a recovery step

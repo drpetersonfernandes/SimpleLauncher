@@ -8,13 +8,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
@@ -30,7 +30,7 @@ using ILoadingState = Services.LoadingInterface.ILoadingState;
 
 internal partial class FavoritesWindow : ILoadingState
 {
-    private static readonly string LogPath = GetLogPath.Path();
+    private readonly IConfiguration _configuration;
     private readonly FavoritesManager _favoritesManager;
     private readonly ObservableCollection<Favorite> _favoriteList = [];
     private readonly SettingsManager _settings;
@@ -49,8 +49,8 @@ internal partial class FavoritesWindow : ILoadingState
         MainWindow mainWindow,
         GamePadController gamePadController,
         GameLauncher gameLauncher,
-        PlaySoundEffects playSoundEffects
-    )
+        PlaySoundEffects playSoundEffects,
+        IConfiguration configuration)
     {
         InitializeComponent();
 
@@ -62,6 +62,7 @@ internal partial class FavoritesWindow : ILoadingState
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+        _configuration = configuration;
 
         App.ApplyThemeToWindow(this);
 
@@ -293,7 +294,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -366,7 +367,7 @@ internal partial class FavoritesWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
         }
     }
 
@@ -382,7 +383,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -415,7 +416,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -432,7 +433,7 @@ internal partial class FavoritesWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
         }
     }
 
@@ -463,7 +464,7 @@ internal partial class FavoritesWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
         }
     }
 

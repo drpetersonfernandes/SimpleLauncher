@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -14,13 +14,13 @@ namespace SimpleLauncher.Services.LaunchTools;
 
 public class LaunchTools : ILaunchTools
 {
-    private readonly string _logPath = GetLogPath.Path();
     private readonly ILogErrors _logErrors;
+    private readonly IConfiguration _configuration;
 
-    // Inject ILogErrors via constructor
-    public LaunchTools(ILogErrors logErrors)
+    public LaunchTools(ILogErrors logErrors, IConfiguration configuration)
     {
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+        _logErrors = logErrors;
+        _configuration = configuration;
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class LaunchTools : ILaunchTools
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_configuration["LogPath"]);
         }
     }
 

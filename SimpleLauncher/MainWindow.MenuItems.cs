@@ -208,7 +208,7 @@ public partial class MainWindow
 
         // Re-instantiate factories with the updated _systemManagers list
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
@@ -365,7 +365,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        SupportWindow supportRequestWindow = new()
+        SupportWindow supportRequestWindow = new(_playSoundEffects, _httpClientFactory, _logErrors, null, null, _configuration)
         {
             Owner = this
         };
@@ -655,7 +655,10 @@ public partial class MainWindow
 
         ResetUiAsync();
 
-        var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
+        var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup,
+            _favoritesManager, _settings, this,
+            _gamePadController, _gameLauncher, _playSoundEffects,
+            _logErrors, _configuration);
         globalSearchWindow.Owner = this;
         globalSearchWindow.Show();
     }
@@ -665,7 +668,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        var globalStatsWindow = new GlobalStatsWindow(_systemManagers)
+        var globalStatsWindow = new GlobalStatsWindow(_systemManagers, _configuration)
         {
             Owner = this
         };
@@ -679,7 +682,7 @@ public partial class MainWindow
 
         ResetUiAsync();
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects)
+        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration)
         {
             Owner = this
         };
@@ -693,7 +696,9 @@ public partial class MainWindow
 
         ResetUiAsync();
 
-        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects)
+        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings,
+            _favoritesManager, PlayHistoryManager, this,
+            _gamePadController, _gameLauncher, _playSoundEffects, _configuration)
         {
             Owner = this
         };

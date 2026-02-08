@@ -2,8 +2,9 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -35,7 +36,7 @@ public class ChdToCueStrategy : ILaunchStrategy
         if (cuePath == null)
         {
             context.LoadingState.SetLoadingState(false);
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(GetLogPath.Path());
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString());
             return;
         }
 

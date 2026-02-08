@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ControlzEx.Theming;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
@@ -48,18 +50,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private bool _isResortOperation;
     private bool _wasControllerRunningBeforeDeactivation;
 
-    // Track disposal
     private bool _isDisposed;
-
-    // DispatcherTimer for the status bar timer
     internal DispatcherTimer StatusBarTimer { get; set; }
-
-    // Declare GameListItems
-    // Used in ListView Mode
     public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
-
-    // Declare System Name and PlayTime in the Statusbar
-    // _selectedSystem is the selected system from ComboBox
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
 
@@ -107,16 +100,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private void OnPropertyChanged(string propertyName) // Update UI on OnPropertyChanged
+    private void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-
-    // Define Tray Icon
-    private TrayIconManager _trayIconManager;
-
-    // Define PlayHistory
-    internal PlayHistoryManager PlayHistoryManager { get; }
 
     // Define Pagination Related Variables
     private int _currentPage = 1;
@@ -127,7 +114,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private Button _prevPageButton;
     private string _currentFilter;
 
-    // Define and Instantiate variables
+    private TrayIconManager _trayIconManager;
+    internal PlayHistoryManager PlayHistoryManager { get; }
+    private readonly IConfiguration _configuration;
+    private static IHttpClientFactory _httpClientFactory;
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu;
     private GameListFactory _gameListFactory;
@@ -147,7 +137,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     // All Games for Current System and Current Search
     private List<string> _allGamesForCurrentSystem = [];
     private List<string> _currentSearchResults = [];
-    private readonly SemaphoreSlim _allGamesLock = new(1, 1); // Semaphore for _allGamesForCurrentSystem
+    private readonly SemaphoreSlim _allGamesLock = new(1, 1);
 
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
@@ -170,24 +160,27 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Stats stats,
         ILogErrors logErrors,
         GameScannerService gameScannerService,
-        RetroAchievementsService retroAchievementsService)
+        RetroAchievementsService retroAchievementsService,
+        IConfiguration configuration,
+        IHttpClientFactory httpClientFactory)
     {
         InitializeComponent();
 
-        _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
-        _updateChecker = updateChecker ?? throw new ArgumentNullException(nameof(updateChecker));
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
-        PlayHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
-        _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
-        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-        _launchTools = launchTools ?? throw new ArgumentNullException(nameof(launchTools));
-        _gameScannerService = gameScannerService ?? throw new ArgumentNullException(nameof(gameScannerService));
-        _stats = stats ?? throw new ArgumentNullException(nameof(stats));
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-        _retroAchievementsService = retroAchievementsService ?? throw new ArgumentNullException(nameof(retroAchievementsService));
+        _gamePadController = gamePadController;
+        _updateChecker = updateChecker;
+        _settings = settings;
+        _favoritesManager = favoritesManager;
+        PlayHistoryManager = playHistoryManager;
+        _gameLauncher = gameLauncher;
+        _playSoundEffects = playSoundEffects;
+        _launchTools = launchTools;
+        _gameScannerService = gameScannerService;
+        _stats = stats;
+        _logErrors = logErrors;
+        _retroAchievementsService = retroAchievementsService;
+        _configuration = configuration;
+        _httpClientFactory = httpClientFactory;
 
-        // DataContext set to the MainWindow instance
         DataContext = this;
 
         // Load and Apply _settings
@@ -224,15 +217,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
         if (_gameFileGrid == null)
         {
-            // Notify developer
             _ = _logErrors.LogErrorAsync(null, "GameFileGrid not found");
         }
 
-        // Initialize _gameButtonFactory
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
-
-        // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
 
         // Migrate old play history records to full paths
         PlayHistoryManager.MigrateFilenamesToFullPaths(_systemManagers);
@@ -629,7 +618,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
         gameListViewFactory.HandleSelectionChangedAsync(selectedItem);
     }
 

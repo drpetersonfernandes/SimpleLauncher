@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.SystemManager;
@@ -15,8 +15,6 @@ namespace SimpleLauncher.Services.SystemManager;
 public partial class SystemManager
 {
     private static readonly object XmlLock = new();
-    private static readonly string LogPath = GetLogPath.Path();
-
     public string SystemName { get; private init; }
     public List<string> SystemFolders { get; private init; }
     public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
@@ -27,23 +25,23 @@ public partial class SystemManager
     public List<string> FileFormatsToLaunch { get; private init; }
     public List<Emulator> Emulators { get; private init; }
     public bool GroupByFolder { get; private init; }
-
-    private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+    private static readonly string SystemXmlPath = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("SystemXmlPath").ToString();
+    private static readonly string LogPath = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString();
 
     public static List<SystemManager> LoadSystemManagers()
     {
         lock (XmlLock)
         {
-            if (string.IsNullOrEmpty(XmlPath))
+            if (string.IsNullOrEmpty(SystemXmlPath))
             {
-                throw new ArgumentNullException(nameof(XmlPath), @"The path to the XML file cannot be null or empty.");
+                throw new ArgumentNullException(nameof(SystemXmlPath), @"The path to the XML file cannot be null or empty.");
             }
 
             try
             {
-                if (!File.Exists(XmlPath))
+                if (!File.Exists(SystemXmlPath))
                 {
-                    var directoryPath = Path.GetDirectoryName(XmlPath);
+                    var directoryPath = Path.GetDirectoryName(SystemXmlPath);
                     var backupRestored = false;
 
                     if (directoryPath != null)
@@ -58,7 +56,7 @@ public partial class SystemManager
                         {
                             // Create a new XDocument with the root element
                             var emptyDoc = new XDocument(new XElement("SystemConfigs"));
-                            emptyDoc.Save(XmlPath);
+                            emptyDoc.Save(SystemXmlPath);
                             // No user notification needed for creating an expected empty file
                         }
                         catch (Exception createEx)
@@ -70,7 +68,7 @@ public partial class SystemManager
                             // Notify user
                             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
 
-                            return new List<SystemManager>(); // Return an empty list
+                            return []; // Return an empty list
                         }
                     }
                 }
@@ -87,7 +85,7 @@ public partial class SystemManager
                         XmlResolver = null
                     };
 
-                    using var reader = XmlReader.Create(XmlPath, settings);
+                    using var reader = XmlReader.Create(SystemXmlPath, settings);
                     doc = XDocument.Load(reader, LoadOptions.None);
                 }
                 catch (XmlException ex)
@@ -183,7 +181,7 @@ public partial class SystemManager
                         Indent = true,
                         NewLineOnAttributes = false
                     };
-                    using var writer = XmlWriter.Create(XmlPath, settings);
+                    using var writer = XmlWriter.Create(SystemXmlPath, settings);
                     doc.Save(writer);
                 }
                 catch (Exception saveEx)
@@ -349,7 +347,7 @@ public partial class SystemManager
                         try
                         {
                             // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
-                            if (mostRecentBackupFile != null) File.Copy(mostRecentBackupFile, XmlPath, true);
+                            if (mostRecentBackupFile != null) File.Copy(mostRecentBackupFile, SystemXmlPath, true);
 
                             backupRestored = true;
                         }

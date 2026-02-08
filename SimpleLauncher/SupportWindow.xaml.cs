@@ -1,15 +1,12 @@
 using System;
 using System.Globalization;
-using System.IO;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
@@ -22,25 +19,68 @@ public partial class SupportWindow : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private static IHttpClientFactory _httpClientFactory;
     private readonly ILogErrors _logErrors;
+    private readonly Exception _exception;
+    private readonly string _contextMessage;
+    private readonly IConfiguration _configuration;
 
-    private static string ApiKey { get; set; }
-    private static string ApiBaseUrl { get; set; }
-    public Exception OriginalException { get; set; }
-    public string OriginalContextMessage { get; set; }
-    public GameLauncher GameLauncher { get; }
-
-    public SupportWindow(GameLauncher gameLauncher = null)
+    public SupportWindow(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, Exception exception, string contextMessage, IConfiguration configuration)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-        DataContext = this;
-        GameLauncher = gameLauncher;
-        _playSoundEffects = App.ServiceProvider.GetRequiredService<PlaySoundEffects>();
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _playSoundEffects = playSoundEffects;
+        _httpClientFactory = httpClientFactory;
+        _logErrors = logErrors;
+        _exception = exception;
+        _contextMessage = contextMessage;
+        _configuration = configuration;
 
-        LoadConfiguration();
+        MessageBuilder();
+    }
+
+    private void MessageBuilder()
+    {
+        var messageBuilder = new StringBuilder();
+        var applicationVersion = Services.GetApplicationVersion.GetApplicationVersion.GetVersion ?? "Unknown";
+
+        // Add a header to indicate this is an automatically generated report
+        messageBuilder.AppendLine("--- Automatically Generated Error Report ---");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Date: {DateTime.Now}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {applicationVersion}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion.VersionString}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
+        messageBuilder.AppendLine("------------------------------------------\n");
+
+        if (!string.IsNullOrEmpty(_contextMessage))
+        {
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Context Message: {_contextMessage}");
+            messageBuilder.AppendLine(); // Add a blank line for readability
+        }
+
+        if (_exception != null)
+        {
+            messageBuilder.AppendLine("--- Exception Details ---");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {_exception.GetType().FullName}");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {_exception.Message}");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {_exception.Source}");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{_exception.StackTrace}");
+
+            if (_exception.InnerException != null)
+            {
+                messageBuilder.AppendLine("\n--- Inner Exception ---");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {_exception.InnerException.GetType().FullName}");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {_exception.InnerException.Message}");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {_exception.InnerException.Source}");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{_exception.InnerException.StackTrace}");
+                messageBuilder.AppendLine("-----------------------");
+            }
+
+            messageBuilder.AppendLine("-----------------------");
+        }
+
+        // Set the text of the SupportTextBox
+        SupportTextBox.Text = messageBuilder.ToString();
     }
 
     public void SetLoadingState(bool isLoading, string message = null)
@@ -59,116 +99,9 @@ public partial class SupportWindow : ILoadingState
         });
     }
 
-    // Constructor overload to receive exception and context message
-    public SupportWindow(Exception ex, string contextMessage, GameLauncher gameLauncher) : this(gameLauncher) // Call the default constructor first
-    {
-        OriginalException = ex; // Store the exception object
-        OriginalContextMessage = contextMessage; // Store the context message
-
-        // Populate SupportTextBox with exception details and context message
-        var messageBuilder = new StringBuilder();
-
-        // Add a header to indicate this is an automatically generated report
-        messageBuilder.AppendLine("--- Automatically Generated Error Report ---");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Date: {DateTime.Now}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {ApplicationVersion}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion.VersionString}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
-        messageBuilder.AppendLine("------------------------------------------\n");
-
-        if (!string.IsNullOrEmpty(contextMessage))
-        {
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Context Message: {contextMessage}");
-            messageBuilder.AppendLine(); // Add a blank line for readability
-        }
-
-        if (ex != null)
-        {
-            messageBuilder.AppendLine("--- Exception Details ---");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {ex.GetType().FullName}");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {ex.Message}");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {ex.Source}");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{ex.StackTrace}");
-
-            if (ex.InnerException != null)
-            {
-                messageBuilder.AppendLine("\n--- Inner Exception ---");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {ex.InnerException.GetType().FullName}");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {ex.InnerException.Message}");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {ex.InnerException.Source}");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{ex.InnerException.StackTrace}");
-                messageBuilder.AppendLine("-----------------------");
-            }
-
-            messageBuilder.AppendLine("-----------------------");
-        }
-
-        // Set the text of the SupportTextBox
-        SupportTextBox.Text = messageBuilder.ToString();
-    }
-
-    private void LoadConfiguration()
-    {
-        const string configFile = "appsettings.json";
-        try
-        {
-            if (!File.Exists(configFile))
-            {
-                // Notify developer
-                const string contextMessage = "File 'appsettings.json' is missing.";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.RequiredFileMissingMessageBox();
-
-                return;
-            }
-
-            var configText = File.ReadAllText(configFile);
-            using var jsonDoc = JsonDocument.Parse(configText);
-            var root = jsonDoc.RootElement;
-
-            // Extract API Key with null check
-            if (root.TryGetProperty(nameof(ApiKey), out var apiKeyElement))
-            {
-                ApiKey = apiKeyElement.GetString();
-            }
-            else
-            {
-                throw new InvalidOperationException("ApiKey is missing in configuration");
-            }
-
-            // Extract API Base URL with default value
-            ApiBaseUrl = root.TryGetProperty("EmailApiBaseUrl", out var urlProp)
-                ? urlProp.GetString()
-                : "https://www.purelogiccode.com/customeremailservice";
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "There was an error loading 'appsettings.json'.");
-
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingAppSettingsMessageBox();
-        }
-    }
-
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
         Close();
-    }
-
-    private static string ApplicationVersion
-    {
-        get
-        {
-            // Removed localization strings for developer reports
-            const string versionPrefix = "Version:";
-            const string unknownVersion = "Unknown";
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            return versionPrefix + " " + (version?.ToString() ?? unknownVersion);
-        }
     }
 
     private async void SendSupportRequestClickAsync(object sender, RoutedEventArgs e)
@@ -226,14 +159,12 @@ public partial class SupportWindow : ILoadingState
 
     private async Task SendSupportRequestToApiAsync(string fullMessage)
     {
-        // Check if the API base URL is configured
-        if (string.IsNullOrEmpty(ApiBaseUrl))
-        {
-            // Notify developer
-            const string contextMessage = "Email API base URL is not properly configured in 'appsettings.json'.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+        var apiBaseUrl = _configuration["EmailApiBaseUrl"];
+        var apiKey = _configuration["ApiKey"];
 
-            // Notify user
+        // Check if the API base URL is configured
+        if (string.IsNullOrEmpty(apiBaseUrl))
+        {
             MessageBoxLibrary.ApiKeyErrorMessageBox();
             return;
         }
@@ -257,10 +188,10 @@ public partial class SupportWindow : ILoadingState
             var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
             if (httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
 
                 // Construct the full API URL
-                var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}";
+                var apiUrl = apiBaseUrl.TrimEnd('/');
 
                 using var response = await httpClient.PostAsync(apiUrl, jsonContent);
 

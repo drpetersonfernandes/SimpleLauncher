@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
@@ -31,10 +31,10 @@ using ILoadingState = Services.LoadingInterface.ILoadingState;
 
 public partial class PlayHistoryWindow : ILoadingState
 {
+    private readonly IConfiguration _configuration;
     private CancellationTokenSource _cancellationTokenSource;
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
-    private static readonly string LogPath = GetLogPath.Path();
     private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
     private readonly SettingsManager _settings;
@@ -46,7 +46,16 @@ public partial class PlayHistoryWindow : ILoadingState
     private readonly GameLauncher _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
 
-    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
+    public PlayHistoryWindow(List<SystemManager> systemManagers,
+        List<MameManager> machines,
+        SettingsManager settings,
+        FavoritesManager favoritesManager,
+        PlayHistoryManager playHistoryManager,
+        MainWindow mainWindow,
+        GamePadController gamePadController,
+        GameLauncher gameLauncher,
+        PlaySoundEffects playSoundEffects,
+        IConfiguration configuration)
     {
         InitializeComponent();
 
@@ -59,6 +68,7 @@ public partial class PlayHistoryWindow : ILoadingState
         _gamePadController = gamePadController;
         _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
+        _configuration = configuration;
 
         App.ApplyThemeToWindow(this);
         Closed += PlayHistoryWindow_Closed;
@@ -308,7 +318,7 @@ public partial class PlayHistoryWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -363,7 +373,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -393,7 +403,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -497,7 +507,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
         }
     }
 
@@ -704,7 +714,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
         }
     }
 

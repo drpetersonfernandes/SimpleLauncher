@@ -1,12 +1,12 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Net.Http;
 using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 
@@ -16,27 +16,29 @@ public partial class SupportOptionWindow
 {
     private readonly Exception _exception;
     private readonly string _contextMessage;
-    private readonly GameLauncher _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
+    private static IHttpClientFactory _httpClientFactory;
+    private readonly ILogErrors _logErrors;
 
-    public SupportOptionWindow(Exception ex, string contextMessage, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, IConfiguration configuration)
+    public SupportOptionWindow(Exception ex, string contextMessage, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         _exception = ex;
         _contextMessage = contextMessage;
-        _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
+        _httpClientFactory = httpClientFactory;
+        _logErrors = logErrors;
     }
 
     private void BtnContactDeveloper_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        var supportRequestWindow = new SupportWindow(_exception, _contextMessage, _gameLauncher);
+        var supportRequestWindow = new SupportWindow(_playSoundEffects, _httpClientFactory, _logErrors, _exception, _contextMessage, _configuration);
         supportRequestWindow.Show();
 
         Close();

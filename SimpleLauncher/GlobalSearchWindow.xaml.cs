@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GlobalSearch.Models;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
@@ -31,8 +31,8 @@ using ILoadingState = Services.LoadingInterface.ILoadingState;
 
 internal partial class GlobalSearchWindow : IDisposable, ILoadingState
 {
+    private readonly IConfiguration _configuration;
     private CancellationTokenSource _cancellationTokenSource;
-    private static readonly string LogPath = GetLogPath.Path();
     private readonly List<SystemManager> _systemManagers;
     private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;
@@ -55,8 +55,8 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
         GamePadController gamePadController,
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
-        ILogErrors logErrors
-    )
+        ILogErrors logErrors,
+        IConfiguration configuration)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -74,6 +74,8 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
         _searchResults = [];
+        _configuration = configuration;
+
         ResultsDataGrid.ItemsSource = _searchResults;
         NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
 
@@ -359,7 +361,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -371,7 +373,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] System manager not found for launching game from search.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -385,7 +387,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
         }
     }
 
@@ -410,7 +412,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
         }
     }
 
@@ -431,7 +433,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "SystemManager is null");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -442,7 +444,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "FilePath is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -453,7 +455,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "SystemName is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -464,7 +466,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "EmulatorManager is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
 
                 return;
             }
@@ -526,7 +528,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
         }
     }
 

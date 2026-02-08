@@ -5,14 +5,15 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.MountFiles;
@@ -27,7 +28,9 @@ public class GameLauncher
 {
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
-    private readonly string _logPath = GetLogPath.Path();
+    private readonly IConfiguration _configuration;
+    private static IHttpClientFactory _httpClientFactory;
+    private readonly ILogErrors _logErrors;
 
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
@@ -40,13 +43,19 @@ public class GameLauncher
         IEnumerable<ILaunchStrategy> launchStrategies,
         IExtractionService extraction,
         PlaySoundEffects sounds,
-        Stats stats)
+        Stats stats,
+        IConfiguration configuration,
+        IHttpClientFactory httpClientFactory,
+        ILogErrors logErrors)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
         _extractionService = extraction;
         _playSoundEffects = sounds;
         _stats = stats;
+        _configuration = configuration;
+        _httpClientFactory = httpClientFactory;
+        _logErrors = logErrors;
     }
 
     internal async Task HandleButtonClickAsync(string filePath,
@@ -79,7 +88,7 @@ public class GameLauncher
             context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase));
             if (context.EmulatorManager == null)
             {
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
                 // Add logging here for developer context
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Could not find EmulatorManager for emulator '{context.EmulatorName}' in system '{context.SystemName}'.");
                 return;
@@ -127,7 +136,7 @@ public class GameLauncher
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Launch Pipeline Failed");
-            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_configuration["LogPath"]);
         }
     }
 
@@ -139,14 +148,14 @@ public class GameLauncher
         {
             var msg = $"File not found: {context.ResolvedFilePath}";
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(msg), msg);
-            MessageBoxLibrary.FilePathIsInvalid(_logPath);
+            MessageBoxLibrary.FilePathIsInvalid(_configuration["LogPath"]);
             return false;
         }
 
         if (string.IsNullOrWhiteSpace(context.EmulatorName))
         {
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Emulator name is empty");
-            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_configuration["LogPath"]);
             return false;
         }
 
@@ -291,7 +300,7 @@ public class GameLauncher
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
                 }
             }
         }
@@ -326,7 +335,7 @@ public class GameLauncher
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
                 }
             }
         }
@@ -355,7 +364,7 @@ public class GameLauncher
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
             }
         }
     }
@@ -464,7 +473,7 @@ public class GameLauncher
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     var launchErrorTitle = (string)Application.Current.TryFindResource("LaunchErrorTitle") ?? "Launch Error";
-                    MessageBoxLibrary.ShowCustomMessageBox("There was a Win32Exception.", launchErrorTitle, _logPath);
+                    MessageBoxLibrary.ShowCustomMessageBox("There was a Win32Exception.", launchErrorTitle, _configuration["LogPath"]);
                 }
             }
         }
@@ -495,7 +504,7 @@ public class GameLauncher
                     _ => couldNotLaunchShortcut
                 };
 
-                MessageBoxLibrary.ShowCustomMessageBox(userMessage, launchErrorTitle, _logPath);
+                MessageBoxLibrary.ShowCustomMessageBox(userMessage, launchErrorTitle, _configuration["LogPath"]);
             }
         }
     }
@@ -557,7 +566,7 @@ public class GameLauncher
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
                 }
             }
         }
@@ -590,7 +599,7 @@ public class GameLauncher
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
                 }
             }
         }
@@ -616,7 +625,7 @@ public class GameLauncher
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_configuration["LogPath"]);
             }
         }
     }
@@ -641,7 +650,7 @@ public class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -704,7 +713,7 @@ public class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             // The finally block will handle cleanup of tempExtractionPath if it was set.
             return;
@@ -719,7 +728,7 @@ public class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -734,7 +743,7 @@ public class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -749,7 +758,7 @@ public class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -885,8 +894,9 @@ public class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                await MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
-                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                await MessageBoxLibrary.InvalidOperationExceptionMessageBox(_configuration["LogPath"]);
+
+                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
             }
         }
         catch (Win32Exception ex) // Catch Win32Exception specifically
@@ -926,8 +936,8 @@ public class GameLauncher
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     // Notify user
-                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-                    SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_configuration["LogPath"]);
+                    SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                 }
             }
         }
@@ -960,8 +970,8 @@ public class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
+                await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_configuration["LogPath"]);
+                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
             }
         }
         finally
@@ -1031,8 +1041,8 @@ public class GameLauncher
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             // Notify user
-            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-            SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(_configuration["LogPath"]);
+            SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
         }
     }
 

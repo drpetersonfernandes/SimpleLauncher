@@ -4,24 +4,15 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GetListOfFiles;
 
 public abstract class GetListOfFiles
 {
-    private static readonly string LogPath = GetLogPath.Path();
-
-    /// <summary>
-    /// Asynchronously retrieves a list of file paths from the specified directory that match the given file extensions.
-    /// </summary>
-    /// <param name="directoryPath">The path of the directory to search for files.</param>
-    /// <param name="fileExtensions">A list of file extensions to filter the search (e.g., "txt", "jpg").</param>
-    /// <param name="cancellationToken"></param>
-    /// <returns>A task representing the asynchronous operation. The task result contains a list of file paths that match the specified criteria.</returns>
     public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, CancellationToken cancellationToken = default)
     {
         return Task.Run(() =>
@@ -66,7 +57,7 @@ public abstract class GetListOfFiles
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(LogPath);
+                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString());
 
                 return new List<string>(); // Return an empty list
             }

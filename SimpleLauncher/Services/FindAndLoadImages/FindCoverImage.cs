@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.LoadAppSettings;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.FindAndLoadImages;
@@ -32,7 +32,7 @@ public static class FindCoverImage
     public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager.SystemManager systemManager, SettingsManager.SettingsManager settings)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
-        var imageExtensions = GetImageExtensions.GetExtensions();
+        var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("ImageExtensions").Get<string[]>();
 
         string systemImageFolder;
         if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
@@ -48,55 +48,58 @@ public static class FindCoverImage
         if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(@"\\?\" + systemImageFolder))
         {
             // 1. Check for the exact match first within the resolved folder
-            foreach (var ext in imageExtensions)
+            if (imageExtensions != null)
             {
-                var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
-                if (File.Exists(@"\\?\" + imagePath))
-                    return imagePath; // Return the found path (which is already resolved)
-            }
-
-            var enableFuzzyMatching = false;
-            var similarityThreshold = 0.8;
-
-            if (settings != null) // Use the passed settings instance
-            {
-                enableFuzzyMatching = settings.EnableFuzzyMatching;
-                similarityThreshold = settings.FuzzyMatchingThreshold;
-            }
-            else
-            {
-                // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
-            }
-
-            // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
-            if (enableFuzzyMatching)
-            {
-                var filesInImageFolder = Directory.EnumerateFiles(systemImageFolder)
-                    .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                    .ToList();
-
-                string bestMatchPath = null;
-                double highestSimilarity = 0;
-                var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
-
-                foreach (var filePathInFolder in filesInImageFolder)
+                foreach (var ext in imageExtensions)
                 {
-                    var fileWithoutExt = Path.GetFileNameWithoutExtension(filePathInFolder);
-                    if (string.IsNullOrEmpty(fileWithoutExt)) continue;
-
-                    var lowerFileName = fileWithoutExt.ToLowerInvariant();
-                    var similarity = CalculateJaroWinklerSimilarity(lowerRomName, lowerFileName);
-
-                    if (!(similarity > highestSimilarity)) continue;
-
-                    highestSimilarity = similarity;
-                    bestMatchPath = filePathInFolder; // This is already a resolved path
+                    var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
+                    if (File.Exists(@"\\?\" + imagePath))
+                        return imagePath; // Return the found path (which is already resolved)
                 }
 
-                if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
+                var enableFuzzyMatching = false;
+                var similarityThreshold = 0.8;
+
+                if (settings != null) // Use the passed settings instance
                 {
-                    return bestMatchPath; // Return the found resolved path
+                    enableFuzzyMatching = settings.EnableFuzzyMatching;
+                    similarityThreshold = settings.FuzzyMatchingThreshold;
+                }
+                else
+                {
+                    // Notify developer
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
+                }
+
+                // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
+                if (enableFuzzyMatching)
+                {
+                    var filesInImageFolder = Directory.EnumerateFiles(systemImageFolder)
+                        .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                        .ToList();
+
+                    string bestMatchPath = null;
+                    double highestSimilarity = 0;
+                    var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
+
+                    foreach (var filePathInFolder in filesInImageFolder)
+                    {
+                        var fileWithoutExt = Path.GetFileNameWithoutExtension(filePathInFolder);
+                        if (string.IsNullOrEmpty(fileWithoutExt)) continue;
+
+                        var lowerFileName = fileWithoutExt.ToLowerInvariant();
+                        var similarity = CalculateJaroWinklerSimilarity(lowerRomName, lowerFileName);
+
+                        if (!(similarity > highestSimilarity)) continue;
+
+                        highestSimilarity = similarity;
+                        bestMatchPath = filePathInFolder; // This is already a resolved path
+                    }
+
+                    if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
+                    {
+                        return bestMatchPath; // Return the found resolved path
+                    }
                 }
             }
         }

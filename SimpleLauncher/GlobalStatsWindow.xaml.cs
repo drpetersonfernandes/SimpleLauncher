@@ -6,12 +6,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GlobalStats.Models;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -21,6 +21,7 @@ namespace SimpleLauncher;
 
 internal partial class GlobalStatsWindow : IDisposable
 {
+    private readonly IConfiguration _configuration;
     private readonly List<SystemManager> _systemManagers;
     private GlobalStatsData _globalStats;
     private List<SystemStatsData> _systemStats;
@@ -29,10 +30,12 @@ internal partial class GlobalStatsWindow : IDisposable
     private readonly object _processingLock = new();
     private bool _isProcessing;
 
-    internal GlobalStatsWindow(List<SystemManager> systemManagers)
+    internal GlobalStatsWindow(List<SystemManager> systemManagers, IConfiguration configuration)
     {
         InitializeComponent();
         _systemManagers = systemManagers;
+        _configuration = configuration;
+
         App.ApplyThemeToWindow(this);
     }
 
@@ -140,7 +143,7 @@ internal partial class GlobalStatsWindow : IDisposable
         return Task.Run(async () =>
         {
             var results = new List<SystemStatsData>();
-            var imageExtensions = GetImageExtensions.GetExtensions();
+            var imageExtensions = _configuration.GetSection("ImageExtensions").Get<string[]>() ?? [];
             var processingText = (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing";
             var processingText2 = (string)Application.Current.TryFindResource("ProcessingSystem") ?? "Processing system";
 

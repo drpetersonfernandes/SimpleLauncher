@@ -1,7 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using SimpleLauncher.Services.LoadAppSettings;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.MountFiles;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -18,7 +19,7 @@ public class XisoMountStrategy : ILaunchStrategy
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
     {
-        await using var mountedDrive = await MountXisoFiles.MountAsync(context.ResolvedFilePath, GetLogPath.Path());
+        await using var mountedDrive = await MountXisoFiles.MountAsync(context.ResolvedFilePath, App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString());
         if (mountedDrive.IsMounted)
         {
             await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, launcher, context.LoadingState);

@@ -9,8 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.LoadAppSettings;
-using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
@@ -18,70 +16,26 @@ public class LogErrorsService : ILogErrors
 {
     private static readonly SemaphoreSlim LogFileLock = new(1, 1);
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly string _apiKey;
-    private readonly string _bugReportApiUrl;
-    private readonly bool _isApiLoggingEnabled;
+    private readonly IConfiguration _configuration;
 
     public LogErrorsService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
         _httpClientFactory = httpClientFactory;
-        (_apiKey, _bugReportApiUrl, _isApiLoggingEnabled) = LoadConfiguration(configuration);
-    }
-
-    private static (string ApiKey, string BugReportApiUrl, bool IsApiLoggingEnabled) LoadConfiguration(IConfiguration configuration)
-    {
-        try
-        {
-            // Read ApiKey
-            var apiKey = configuration.GetValue<string>("ApiKey");
-
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                // ApiKey is missing or empty, disable API logging and notify the user
-                // Notify user
-                MessageBoxLibrary.HandleApiConfigErrorMessageBox("API Key is missing or empty in 'appsettings.json'.");
-                return (null, null, false);
-            }
-
-            // Read BugReportApiUrl
-            var bugReportApiUrl = configuration.GetValue<string>("BugReportApiUrl");
-
-            // BugReportApiUrl is missing or empty, disable API logging and notify the user
-            if (string.IsNullOrEmpty(bugReportApiUrl))
-            {
-                // Notify user
-                MessageBoxLibrary.HandleApiConfigErrorMessageBox("Bug Report API URL is missing or empty in 'appsettings.json'.");
-                return (apiKey, null, false);
-            }
-
-            // If we reached here, the configuration is valid
-            return (apiKey, bugReportApiUrl, true);
-        }
-        catch (Exception ex)
-        {
-            // Catch any other errors during loading (e.g., invalid JSON format)
-            // Log this critical error locally, as API logging is disabled
-            WriteLocalErrorLog(ex, "Error loading API configuration from appsettings.json.");
-            DebugLogger.LogException(ex, "Error loading API configuration from appsettings.json.");
-
-            // Notify user
-            MessageBoxLibrary.HandleApiConfigErrorMessageBox($"Error loading API configuration: {ex.Message}");
-            return (null, null, false);
-        }
+        _configuration = configuration;
     }
 
     public async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
         if (ex == null)
         {
-            ex = new Exception("Exception is null.");
+            ex = new ArgumentNullException(nameof(ex), @"Exception parameter cannot be null.");
         }
 
         DebugLogger.LogException(ex, contextMessage);
 
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var errorLogPath = Path.Combine(baseDirectory, "error.log");
-        var userLogPath = GetLogPath.Path();
+        var userLogPath = _configuration["LogPath"];
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
         version ??= "Unknown";
 
@@ -111,10 +65,10 @@ public class LogErrorsService : ILogErrors
 
             // Append the error message to the user-specific log
             var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
-            await File.AppendAllTextAsync(userLogPath, userErrorMessage);
+            if (userLogPath != null) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
 
             // Attempt to send the error log content to the API only if enabled
-            if (_isApiLoggingEnabled && await SendLogToApiAsync(errorMessage))
+            if (await SendLogToApiAsync(errorMessage))
             {
                 // If the log was successfully sent, delete the general log file to clean up.
                 if (File.Exists(errorLogPath))
@@ -144,7 +98,7 @@ public class LogErrorsService : ILogErrors
     private async Task<bool> SendLogToApiAsync(string logContent)
     {
         // Check the flag again, just in case
-        if (!_isApiLoggingEnabled || string.IsNullOrEmpty(_apiKey))
+        if (string.IsNullOrEmpty(_configuration["ApiKey"]))
         {
             return false;
         }
@@ -154,7 +108,7 @@ public class LogErrorsService : ILogErrors
             var httpClient = _httpClientFactory?.CreateClient("LogErrorsClient");
             if (httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("X-API-KEY", _apiKey);
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", _configuration["ApiKey"]);
 
                 var payload = new
                 {
@@ -163,7 +117,7 @@ public class LogErrorsService : ILogErrors
                 };
 
                 var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-                using var response = await httpClient.PostAsync(_bugReportApiUrl, jsonContent);
+                using var response = await httpClient.PostAsync(_configuration["BugReportApiUrl"], jsonContent);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 

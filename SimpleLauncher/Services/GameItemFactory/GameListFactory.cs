@@ -5,12 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GamePad;
-using SimpleLauncher.Services.LoadAppSettings;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -30,7 +30,8 @@ public class GameListFactory(
     MainWindow mainWindow,
     GamePadController gamePadController,
     GameLauncher.GameLauncher gameLauncher,
-    PlaySoundEffects playSoundEffects)
+    PlaySoundEffects playSoundEffects,
+    IConfiguration configuration)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -43,6 +44,7 @@ public class GameListFactory(
     private readonly GamePadController _gamePadController = gamePadController;
     private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
+    private readonly IConfiguration _configuration = configuration;
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
     {
@@ -278,7 +280,7 @@ public class GameListFactory(
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "selectedItem is null.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -294,7 +296,7 @@ public class GameListFactory(
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] filepath is null or empty.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -305,7 +307,7 @@ public class GameListFactory(
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -316,7 +318,7 @@ public class GameListFactory(
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] selectedSystemName is null or empty.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
@@ -327,7 +329,7 @@ public class GameListFactory(
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[HandleDoubleClickAsync] selectedSystemManager is null.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
 
             return;
         }
