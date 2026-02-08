@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Xml;
-using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -18,98 +15,12 @@ namespace SimpleLauncher;
 
 internal partial class EditSystemWindow
 {
-    private async Task SaveSystemConfigurationAsync(
-        string systemNameText,
-        IEnumerable<string> systemFolders,
-        string systemImageFolderText,
-        bool systemIsMame,
-        IEnumerable<string> formatsToSearch,
-        bool extractFileBeforeLaunch,
-        bool groupByFolder,
-        IEnumerable<string> formatsToLaunch,
-        XElement emulatorsElement,
-        bool isUpdate,
-        string originalSystemName)
-    {
-        try
-        {
-            // Ensure the main XML document exists in memory
-            _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-
-            // Determine the system identifier for finding/adding the element
-            var systemIdentifier = isUpdate ? originalSystemName : systemNameText;
-
-            // Find the existing system element or prepare to add a new one
-            var existingSystem = _xmlDoc.Root?.Elements("SystemConfig")
-                .FirstOrDefault(el => el.Element("SystemName")?.Value == systemIdentifier);
-
-            if (existingSystem != null)
-            {
-                // Update the existing system
-                // If the name is changing, update it first
-                if (isUpdate && systemIdentifier != systemNameText)
-                {
-                    existingSystem.SetElementValue("SystemName", systemNameText);
-                }
-
-                // Update all other fields
-                // Pass the potentially modified strings from SaveSystemButtonClickAsync
-                UpdateXml(existingSystem, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, groupByFolder, formatsToLaunch, emulatorsElement);
-            }
-            else
-            {
-                // Create and add a new system element
-                // Pass the potentially modified strings from SaveSystemButtonClickAsync
-                var newSystem = AddToXml(systemNameText, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, groupByFolder, formatsToLaunch, emulatorsElement);
-                _xmlDoc.Root?.Add(newSystem); // Add to the root
-            }
-
-            // Sort the system configurations alphabetically by SystemName
-            var sortedSystems = _xmlDoc.Root?
-                .Elements("SystemConfig")
-                .OrderBy(static system => system.Element("SystemName")?.Value)
-                .ToList();
-
-            // Replace the existing unsorted systems with the sorted list
-            if (sortedSystems != null && _xmlDoc.Root != null)
-            {
-                _xmlDoc.Root.RemoveNodes();
-                _xmlDoc.Root.Add(sortedSystems);
-            }
-
-            // Save the sorted document asynchronously with proper formatting
-            await Task.Run(() =>
-            {
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    IndentChars = "  ", // Use 2 spaces for indentation
-                    NewLineHandling = NewLineHandling.Replace,
-                    Encoding = System.Text.Encoding.UTF8
-                };
-
-                using var writer = XmlWriter.Create(XmlFilePath, settings);
-                _xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
-                _xmlDoc.Save(writer);
-            });
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error saving system configuration to XML.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            // Rethrow the exception so the calling method can handle UI feedback
-            throw new InvalidOperationException("Failed to save system configuration.", ex);
-        }
-    }
-
     private async void SaveSystemButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
             // Trim input values
-            TrimInputValues(out var systemNameText, out var systemFolderText, out var systemImageFolderText,
+            TrimInputValues(out var systemNameText, out var systemFolderText, out var varSystemImageFolderText,
                 out var formatToSearchText, out var formatToLaunchText, out var emulator1NameText,
                 out var emulator2NameText, out var emulator3NameText, out var emulator4NameText,
                 out var emulator5NameText, out var emulator1LocationText, out var emulator2LocationText,
@@ -128,7 +39,7 @@ internal partial class EditSystemWindow
 
             // --- Apply %BASEFOLDER% prefix to relative paths before validation/saving ---
             allSystemFolders = allSystemFolders.Select(MaybeAddBaseFolderPrefix).ToList();
-            systemImageFolderText = MaybeAddBaseFolderPrefix(systemImageFolderText);
+            varSystemImageFolderText = MaybeAddBaseFolderPrefix(varSystemImageFolderText);
             emulator1LocationText = MaybeAddBaseFolderPrefix(emulator1LocationText);
             emulator2LocationText = MaybeAddBaseFolderPrefix(emulator2LocationText);
             emulator3LocationText = MaybeAddBaseFolderPrefix(emulator3LocationText);
@@ -143,7 +54,7 @@ internal partial class EditSystemWindow
                 AdditionalFoldersListBox.Items.Add(folder);
             }
 
-            SystemImageFolderTextBox.Text = systemImageFolderText;
+            SystemImageFolderTextBox.Text = varSystemImageFolderText;
             Emulator1PathTextBox.Text = emulator1LocationText;
             Emulator2PathTextBox.Text = emulator2LocationText;
             Emulator3PathTextBox.Text = emulator3LocationText;
@@ -153,7 +64,7 @@ internal partial class EditSystemWindow
             // Validate paths (now using potentially prefixed paths)
             // The ValidatePaths method itself doesn't need to understand %BASEFOLDER%
             // because CheckPath.IsValidPath can handle it.
-            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault(), systemImageFolderText, emulator1LocationText,
+            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault(), varSystemImageFolderText, emulator1LocationText,
                 emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText,
                 out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid,
                 out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid,
@@ -180,7 +91,7 @@ internal partial class EditSystemWindow
             }
 
             // Validate SystemImageFolder (uses the potentially prefixed value)
-            if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
+            if (ValidateSystemImageFolder(systemNameText, ref varSystemImageFolderText)) return;
 
             var systemIsMame =
                 (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()?.Equals("true",
@@ -292,7 +203,7 @@ internal partial class EditSystemWindow
             var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || item4.Content.ToString() == "true";
             var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || item5.Content.ToString() == "true";
 
-            var emulatorsElement = new XElement("Emulators");
+            var emulators = new List<Services.SystemManager.SystemManager.Emulator>();
             var emulatorNames = new HashSet<string>();
 
             // Add Emulator 1
@@ -304,8 +215,13 @@ internal partial class EditSystemWindow
                     return;
                 }
 
-                // Use the potentially prefixed location and original parameter text
-                AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText, receiveNotification1);
+                emulators.Add(new Services.SystemManager.SystemManager.Emulator
+                {
+                    EmulatorName = emulator1NameText,
+                    EmulatorLocation = emulator1LocationText,
+                    EmulatorParameters = emulator1ParametersText,
+                    ReceiveANotificationOnEmulatorError = receiveNotification1
+                });
             }
 
             string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
@@ -336,22 +252,37 @@ internal partial class EditSystemWindow
                     return;
                 }
 
-                // Use the potentially prefixed location and original parameter text
-                AddEmulatorToXml(emulatorsElement, currentEmulatorName, currentEmulatorLocation, currentEmulatorParameters, currentReceiveNotification);
+                emulators.Add(new Services.SystemManager.SystemManager.Emulator
+                {
+                    EmulatorName = currentEmulatorName,
+                    EmulatorLocation = currentEmulatorLocation,
+                    EmulatorParameters = currentEmulatorParameters,
+                    ReceiveANotificationOnEmulatorError = currentReceiveNotification
+                });
             }
 
             var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName == SystemNameDropdown.SelectedItem.ToString();
+            var originalSystemNameToUse = isUpdate ? _originalSystemName : systemNameText;
+
+            var systemToSave = new Services.SystemManager.SystemManager
+            {
+                SystemName = systemNameText,
+                SystemFolders = allSystemFolders,
+                SystemImageFolder = varSystemImageFolderText,
+                SystemIsMame = systemIsMame,
+                FileFormatsToSearch = formatsToSearch.ToList(),
+                ExtractFileBeforeLaunch = extractFileBeforeLaunch,
+                GroupByFolder = groupByFolder,
+                FileFormatsToLaunch = formatsToLaunch.ToList(),
+                Emulators = emulators
+            };
 
             try
             {
                 SaveSystemButton.IsEnabled = false;
+                await Services.SystemManager.SystemManager.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse);
 
-                await SaveSystemConfigurationAsync(systemNameText, allSystemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch,
-                    groupByFolder, // Pass potentially prefixed paths
-                    formatsToLaunch, emulatorsElement, isUpdate,
-                    _originalSystemName ?? systemNameText); // Pass systemNameText if _originalSystemName is null (new system)
-
-                PopulateSystemNamesDropdown();
+                await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;
                 LoadSystemDetails(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
 
@@ -360,7 +291,7 @@ internal partial class EditSystemWindow
 
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
-                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
+                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
                 CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
@@ -415,62 +346,5 @@ internal partial class EditSystemWindow
         // Handle cases like ".\roms" or "../images"
         var trimmedPath = path.TrimStart('.', '\\', '/');
         return Path.Combine("%BASEFOLDER%", trimmedPath);
-    }
-
-    private static void AddEmulatorToXml(XContainer emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
-    {
-        if (string.IsNullOrEmpty(name)) return;
-
-        var emulatorElement = new XElement("Emulator",
-            new XElement("EmulatorName", name),
-            new XElement("EmulatorLocation", location),
-            new XElement("EmulatorParameters", parameters),
-            new XElement("ReceiveANotificationOnEmulatorError", receiveNotification));
-        emulatorsElement.Add(emulatorElement);
-    }
-
-    private static XElement AddToXml(string systemNameText, IEnumerable<string> systemFolders, string systemImageFolderText,
-        bool systemIsMame, IEnumerable<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, IEnumerable<string> formatsToLaunch,
-        XElement emulatorsElement)
-    {
-        var newSystem = new XElement("SystemConfig",
-            new XElement("SystemName", systemNameText),
-            new XElement("SystemFolders", systemFolders.Select(static folder => new XElement("SystemFolder", folder))),
-            new XElement("SystemImageFolder", systemImageFolderText),
-            new XElement("SystemIsMAME", systemIsMame),
-            new XElement("FileFormatsToSearch", formatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
-            new XElement("GroupByFolder", groupByFolder),
-            new XElement("ExtractFileBeforeLaunch", extractFileBeforeLaunch),
-            new XElement("FileFormatsToLaunch", formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
-            emulatorsElement);
-        return newSystem;
-    }
-
-    private static void UpdateXml(XElement existingSystem, IEnumerable<string> systemFolders, string systemImageFolderText,
-        bool systemIsMame, IEnumerable<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, IEnumerable<string> formatsToLaunch,
-        XElement emulatorsElement)
-    {
-        // Remove the old single SystemFolder tag for backward compatibility
-        existingSystem.Element("SystemFolder")?.Remove();
-
-        // Use ReplaceNodes on SystemFolders for a clean update
-        var foldersElement = existingSystem.Element("SystemFolders");
-        if (foldersElement == null)
-        {
-            foldersElement = new XElement("SystemFolders");
-            // Add it after SystemName to maintain order
-            existingSystem.Element("SystemName")?.AddAfterSelf(foldersElement);
-        }
-
-        foldersElement.ReplaceNodes(systemFolders.Select(static folder => new XElement("SystemFolder", folder)));
-
-        existingSystem.SetElementValue("SystemImageFolder", systemImageFolderText);
-        existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
-        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(formatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
-        existingSystem.SetElementValue("GroupByFolder", groupByFolder);
-        existingSystem.SetElementValue("ExtractFileBeforeLaunch", extractFileBeforeLaunch);
-        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
-        existingSystem.Element("Emulators")?.Remove();
-        existingSystem.Add(emulatorsElement);
     }
 }

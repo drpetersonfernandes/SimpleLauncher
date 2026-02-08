@@ -1,13 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Xml;
 using Microsoft.Extensions.Configuration;
-using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Services.CheckApplicationControlPolicy;
@@ -18,6 +16,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -26,8 +25,7 @@ namespace SimpleLauncher;
 
 internal partial class EditSystemWindow : ILoadingState
 {
-    private XDocument _xmlDoc;
-    private const string XmlFilePath = "system.xml";
+    private List<SystemManager> _systems;
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
@@ -45,7 +43,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         ApplyExpanderSettings();
 
-        _ = LoadXmlAsync();
+        _ = LoadSystemsAsync();
 
         Closing += EditSystem_Closing;
 
@@ -76,47 +74,33 @@ internal partial class EditSystemWindow : ILoadingState
         Emulator5Expander.IsExpanded = _settings.Emulator5Expanded;
     }
 
-    private async Task LoadXmlAsync()
+    private async Task LoadSystemsAsync()
     {
         try
         {
-            var xmlDoc = await Task.Run(static () =>
-            {
-                if (!File.Exists(XmlFilePath))
-                {
-                    return null;
-                }
+            SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingsystems") ?? "Loading systems...");
+            var systems = await Task.Run(() => SystemManager.LoadSystemManagers(_configuration));
 
-                var settings = new XmlReaderSettings
-                {
-                    DtdProcessing = DtdProcessing.Prohibit,
-                    XmlResolver = null
-                };
-
-                using var reader = XmlReader.Create(XmlFilePath, settings);
-                return XDocument.Load(reader, LoadOptions.None);
-            });
-
-            if (xmlDoc == null)
+            if (systems == null)
             {
                 // Notify user on UI thread
-                Dispatcher.Invoke(static () =>
-                {
-                    MessageBoxLibrary.SystemXmlNotFoundMessageBox();
-                    QuitSimpleLauncher.SimpleQuitApplication();
-                });
+                MessageBoxLibrary.SystemXmlNotFoundMessageBox();
+                QuitSimpleLauncher.SimpleQuitApplication(); // Or just Close();
             }
             else
             {
-                _xmlDoc = xmlDoc;
-
+                _systems = systems;
                 PopulateSystemNamesDropdown();
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading XML file");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading systems into Edit window.");
+        }
+        finally
+        {
+            SetLoadingState(false);
         }
     }
 
@@ -519,63 +503,40 @@ internal partial class EditSystemWindow : ILoadingState
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
     }
 
-    private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
+    private async void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        HelpUserTextBlock.Document.Blocks.Clear();
-
-        if (SystemNameDropdown.SelectedItem == null)
+        try
         {
-            // Notify user
-            MessageBoxLibrary.SelectASystemToDeleteMessageBox();
+            HelpUserTextBlock.Document.Blocks.Clear();
 
-            return;
-        }
-
-        var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
-
-        if (_xmlDoc == null) return;
-
-        var systemNode = _xmlDoc.Descendants("SystemConfig")
-            .FirstOrDefault(element => element.Element("SystemName")?.Value == selectedSystemName);
-
-        if (systemNode != null)
-        {
-            //Ask user if he really wants to delete the system
-            DoYouWanToDeleteSystemMessageBox();
-
-            void DoYouWanToDeleteSystemMessageBox()
+            if (SystemNameDropdown.SelectedItem == null)
             {
-                var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-                if (result == MessageBoxResult.Yes)
-                {
-                    systemNode.Remove();
-                    _xmlDoc.Save(XmlFilePath);
-
-                    _playSoundEffects.PlayNotificationSound();
-                }
-                else
-                {
-                    return;
-                }
-
-                PopulateSystemNamesDropdown();
-
-                if (SystemNameDropdown.Items.Count == 0 || SystemNameDropdown.SelectedItem == null)
-                {
-                    ClearFieldsForNoSelection();
-                    DisableAllEditableFields();
-                    SaveSystemButton.IsEnabled = false;
-                    DeleteSystemButton.IsEnabled = false;
-                }
-
                 // Notify user
-                MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
+                MessageBoxLibrary.SelectASystemToDeleteMessageBox();
+                return;
             }
-        }
-        else
-        {
+
+            var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
+
+            var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
+            if (result != MessageBoxResult.Yes) return;
+
+            await SystemManager.DeleteSystemAsync(selectedSystemName);
+            _playSoundEffects.PlayNotificationSound();
+
+            await LoadSystemsAsync();
+            if (SystemNameDropdown.Items.Count == 0 || SystemNameDropdown.SelectedItem == null)
+            {
+                PopulateSystemNamesDropdown();
+            }
+
             // Notify user
-            MessageBoxLibrary.SystemNotFoundInTheXmlMessageBox();
+            MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"Error in method DeleteSystemButton_Click: {ex.Message}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method DeleteSystemButton_Click");
         }
     }
 

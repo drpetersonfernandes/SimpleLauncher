@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
@@ -17,11 +17,11 @@ internal partial class EditSystemWindow
 {
     private void PopulateSystemNamesDropdown()
     {
-        if (_xmlDoc == null) return;
+        if (_systems == null) return;
 
         var currentSelection = SystemNameDropdown.SelectedItem?.ToString();
-        SystemNameDropdown.ItemsSource = _xmlDoc.Descendants("SystemConfig")
-            .Select(static element => element.Element("SystemName")?.Value)
+        SystemNameDropdown.ItemsSource = _systems
+            .Select(static s => s.SystemName)
             .OrderBy(static name => name)
             .ToList();
 
@@ -73,69 +73,37 @@ internal partial class EditSystemWindow
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = true;
 
-        if (_xmlDoc == null)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
-
-            DisableAllEditableFields();
-            SaveSystemButton.IsEnabled = false;
-            DeleteSystemButton.IsEnabled = false;
-
-            return;
-        }
-
-        var selectedSystem = _xmlDoc.Descendants("SystemConfig").FirstOrDefault(x => x.Element("SystemName")?.Value == systemNameToLoad);
+        var selectedSystem = _systems.FirstOrDefault(x => x.SystemName == systemNameToLoad);
 
         if (selectedSystem != null)
         {
-            SystemNameTextBox.Text = selectedSystem.Element("SystemName")?.Value ?? string.Empty;
+            SystemNameTextBox.Text = selectedSystem.SystemName;
 
             // Load system folders
-            SystemFolderTextBox.Text = string.Empty;
+            SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? string.Empty;
             AdditionalFoldersListBox.Items.Clear();
-
-            var systemFoldersElement = selectedSystem.Element("SystemFolders");
-            if (systemFoldersElement != null)
+            foreach (var folder in selectedSystem.SystemFolders.Skip(1))
             {
-                var folders = systemFoldersElement.Elements("SystemFolder").Select(static f => f.Value).ToList();
-                if (folders.Count > 0)
-                {
-                    SystemFolderTextBox.Text = folders[0];
-                }
-
-                for (var i = 1; i < folders.Count; i++)
-                {
-                    AdditionalFoldersListBox.Items.Add(folders[i]);
-                }
-            }
-            else
-            {
-                // Backward compatibility for the old <SystemFolder> tag
-                SystemFolderTextBox.Text = selectedSystem.Element("SystemFolder")?.Value ?? string.Empty;
+                AdditionalFoldersListBox.Items.Add(folder);
             }
 
-            SystemImageFolderTextBox.Text = selectedSystem.Element("SystemImageFolder")?.Value ?? string.Empty;
+            SystemImageFolderTextBox.Text = selectedSystem.SystemImageFolder;
 
-            var systemIsMameValue = selectedSystem.Element("SystemIsMAME")?.Value == "true" ? "true" : "false";
+            var systemIsMameValue = selectedSystem.SystemIsMame ? "true" : "false";
             SystemIsMameComboBox.SelectedItem = SystemIsMameComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == systemIsMameValue);
 
-            var formatToSearchValues = selectedSystem.Element("FileFormatsToSearch")?.Elements("FormatToSearch")
-                .Select(static x => x.Value).ToArray();
-            FormatToSearchTextBox.Text = formatToSearchValues != null ? string.Join(", ", formatToSearchValues) : string.Empty;
+            FormatToSearchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToSearch);
 
-            var extractFileBeforeLaunchValue = selectedSystem.Element("ExtractFileBeforeLaunch")?.Value == "true" ? "true" : "false";
+            var extractFileBeforeLaunchValue = selectedSystem.ExtractFileBeforeLaunch ? "true" : "false";
             ExtractFileBeforeLaunchComboBox.SelectedItem = ExtractFileBeforeLaunchComboBox.Items.Cast<ComboBoxItem>()
                 .FirstOrDefault(item => item.Content.ToString() == extractFileBeforeLaunchValue);
 
-            var groupByFolderValue = selectedSystem.Element("GroupByFolder")?.Value == "true" ? "true" : "false";
+            var groupByFolderValue = selectedSystem.GroupByFolder ? "true" : "false";
             GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == groupByFolderValue);
 
-            var formatToLaunchValues = selectedSystem.Element("FileFormatsToLaunch")?.Elements("FormatToLaunch")
-                .Select(static x => x.Value).ToArray();
-            FormatToLaunchTextBox.Text = formatToLaunchValues != null ? string.Join(", ", formatToLaunchValues) : string.Empty;
+            FormatToLaunchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToLaunch);
 
-            var emulators = selectedSystem.Element("Emulators")?.Elements("Emulator").ToList();
+            var emulators = selectedSystem.Emulators;
             if (emulators != null)
             {
                 // Populate fields with saved strings (including %BASEFOLDER% for location)
@@ -180,18 +148,18 @@ internal partial class EditSystemWindow
         }
     }
 
-    private void PopulateEmulatorFields(XContainer emulatorElement, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
+    private static void PopulateEmulatorFields(SystemManager.Emulator emulator, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
     {
-        if (emulatorElement != null)
+        if (emulator != null)
         {
-            nameTextBox.Text = emulatorElement.Element("EmulatorName")?.Value ?? string.Empty;
+            nameTextBox.Text = emulator.EmulatorName ?? string.Empty;
             // Load the saved string directly into the UI, including %BASEFOLDER% if present
-            pathTextBox.Text = emulatorElement.Element("EmulatorLocation")?.Value ?? string.Empty;
-            paramsTextBox.Text = emulatorElement.Element("EmulatorParameters")?.Value ?? string.Empty;
+            pathTextBox.Text = emulator.EmulatorLocation ?? string.Empty;
+            paramsTextBox.Text = emulator.EmulatorParameters ?? string.Empty;
 
             if (!string.IsNullOrEmpty(nameTextBox.Text))
             {
-                var receiveNotificationValue = emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value == "false" ? "false" : "true";
+                var receiveNotificationValue = emulator.ReceiveANotificationOnEmulatorError ? "true" : "false";
                 notificationComboBox.SelectedItem = notificationComboBox.Items.Cast<ComboBoxItem>()
                     .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
             }
@@ -199,17 +167,6 @@ internal partial class EditSystemWindow
             {
                 notificationComboBox.SelectedItem = null; // Name is empty, clear notification
             }
-        }
-        else
-        {
-            // Fields are already cleared by ClearAllEmulatorFieldsInternal, but good to be explicit if this were standalone
-            nameTextBox.Clear();
-            MarkValid(nameTextBox);
-            pathTextBox.Clear();
-            MarkValid(pathTextBox);
-            paramsTextBox.Clear();
-            MarkValid(paramsTextBox);
-            notificationComboBox.SelectedItem = null;
         }
     }
 
