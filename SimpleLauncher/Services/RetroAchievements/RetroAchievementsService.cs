@@ -31,7 +31,7 @@ public class RetroAchievementsService
         _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
-        // Load URLs from appsettings.json with hardcoded fallbacks
+        // Load URLs from appsettings.json
         _apiBaseUrl = configuration["Urls:RetroAchievementsApi"] ?? "https://retroachievements.org/API/";
         _requestBaseUrl = configuration["Urls:RetroAchievementsRequest"] ?? "https://retroachievements.org/dorequest.php";
         _siteBaseUrl = configuration["Urls:RetroAchievementsSite"] ?? "https://retroachievements.org";
