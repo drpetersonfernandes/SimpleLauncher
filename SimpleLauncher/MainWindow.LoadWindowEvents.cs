@@ -64,7 +64,7 @@ public partial class MainWindow
         DebugLogger.Log("TrayIconManager was initialized.");
 
         // Check for required files
-        CheckForRequiredFiles.CheckFiles();
+        CheckForRequiredFiles.CheckFiles(_configuration);
         DebugLogger.Log("Required files were checked.");
 
         // Set initial checked state for overlay buttons

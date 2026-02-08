@@ -25,8 +25,9 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs"),
         Path.Combine(AppDirectory, "resources"),
         Path.Combine(AppDirectory, "de"),
+        Path.Combine(Path.GetTempPath(), "SimpleLauncher"),
         Path.Combine(Path.GetTempPath(), "SimpleZipDrive"),
-        Path.Combine(Path.GetTempPath(), "SimpleLauncher")
+        Path.Combine(Path.GetTempPath(), "SimpleXisoDrive")
     ];
 
     private static readonly string[] FilesToClean =
@@ -224,6 +225,13 @@ public static class CleanSimpleLauncherFolder
 
         CleanupArchitectureSpecificFiles();
         CleanupArchitectureSpecificFolders();
+    }
+
+    public static void CleanupTempFiles()
+    {
+        DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleLauncher"));
+        DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleZipDrive"));
+        DeleteDirectorySafely(Path.Combine(Path.GetTempPath(), "SimpleXisoDrive"));
     }
 
     private static void CleanupArchitectureSpecificFiles()
