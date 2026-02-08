@@ -364,11 +364,14 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
                 if (_disposed) return; // Check before UI update
 
                 UpdateStatus($"{extracting} {componentName}...");
+
                 LoadingOverlay.Content = $"{extracting} {componentName}...";
                 LoadingOverlay.Visibility = Visibility.Visible;
-                await Task.Yield(); // Allow UI to render the loading overlay
+                await Task.Yield();
+
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
                 LoadingOverlay.Visibility = Visibility.Collapsed;
+                await Task.Yield();
             }
 
             if (_disposed) return; // Check before final UI updates

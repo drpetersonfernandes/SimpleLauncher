@@ -120,8 +120,7 @@ public partial class SupportWindow : ILoadingState
 
             LoadingOverlay.Content = (string)Application.Current.TryFindResource("SendingMessagePleaseWait") ?? "Sending message... Please wait.";
             LoadingOverlay.Visibility = Visibility.Visible;
-
-            await Task.Yield(); // Allow UI to render the progress overlay
+            await Task.Yield();
 
             try
             {
@@ -147,6 +146,7 @@ public partial class SupportWindow : ILoadingState
             {
                 LoadingOverlay.Visibility = Visibility.Collapsed;
                 MainContentGrid.IsEnabled = true;
+                await Task.Yield();
             }
         }
         catch (Exception ex)

@@ -857,11 +857,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
                 DownloadStatus = $"{extracting} {componentName}...";
+
                 LoadingOverlay.Content = $"{extracting} {componentName}...";
                 LoadingOverlay.Visibility = Visibility.Visible;
-                await Task.Yield(); // Allow UI to render the loading overlay
+                await Task.Yield();
+
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
                 LoadingOverlay.Visibility = Visibility.Collapsed;
+                await Task.Yield();
             }
 
             if (success)
@@ -1081,13 +1084,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     // Show overlay
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
                     LoadingOverlay.Visibility = Visibility.Visible;
-                    await Task.Yield(); // Allow UI to render the loading overlay
+                    await Task.Yield();
 
                     // Update System.xml with the *unresolved* paths, as system.xml expects them.
                     await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
 
                     // --- If XML update succeeds, continue with folder creation and UI updates ---
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
+                    await Task.Yield();
 
                     // Resolve paths before passing to folder creation
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
@@ -1128,7 +1132,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 }
                 finally
                 {
-                    LoadingOverlay.Visibility = Visibility.Collapsed; // Hide overlay
+                    LoadingOverlay.Visibility = Visibility.Collapsed;
+                    await Task.Yield();
+
                     if (IsLoaded) // Check if the window is still loaded
                     {
                         AddSystemButton.IsEnabled = true;
