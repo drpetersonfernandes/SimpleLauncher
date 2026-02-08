@@ -32,7 +32,7 @@ public static class FindCoverImage
     public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager.SystemManager systemManager, SettingsManager.SettingsManager settings)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
-        var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("ImageExtensions").Get<string[]>();
+        var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
         string systemImageFolder;
         if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
@@ -48,7 +48,6 @@ public static class FindCoverImage
         if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(@"\\?\" + systemImageFolder))
         {
             // 1. Check for the exact match first within the resolved folder
-            if (imageExtensions != null)
             {
                 foreach (var ext in imageExtensions)
                 {
@@ -103,11 +102,6 @@ public static class FindCoverImage
                 }
             }
         }
-        // else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
-        // {
-        //     // Notify developer
-        //     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"FindCoverImagePath: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
-        // }
 
         // 3. Fallback to default images
         // Check the default system image path within the resolved system image folder first

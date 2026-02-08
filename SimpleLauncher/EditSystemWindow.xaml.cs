@@ -612,7 +612,7 @@ internal partial class EditSystemWindow : ILoadingState
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
-        var searchUrl = _configuration["WikiParametersUrl"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
+        var searchUrl = _configuration.GetValue<string>("WikiParametersUrl") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
         try
         {
             Process.Start(new ProcessStartInfo

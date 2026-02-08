@@ -29,23 +29,21 @@ public class Stats
         try
         {
             // Read ApiKey
-            _apiKey = configuration.GetValue<string>("ApiKey");
+            _apiKey = configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
             if (string.IsNullOrEmpty(_apiKey)) // ApiKey is missing or empty, disable API and log error locally
             {
                 _isApiEnabled = false;
 
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."),
-                    "Stats API Key missing.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
 
                 return;
             }
 
-            // Read StatsApiUrl
-            _statsApiUrl = configuration.GetValue<string>("StatsApiUrl");
+            _statsApiUrl = configuration.GetValue<string>("StatsApiUrl") ?? "https://www.purelogiccode.com/simplelauncher/stats/stats/";
 
-            if (string.IsNullOrEmpty(_statsApiUrl)) // StatsApiUrl is missing or empty, disable API and log error locally
+            if (string.IsNullOrEmpty(_statsApiUrl))
             {
                 _isApiEnabled = false;
 

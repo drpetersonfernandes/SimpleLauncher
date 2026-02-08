@@ -36,7 +36,7 @@ public class ChdToCueStrategy : ILaunchStrategy
         if (cuePath == null)
         {
             context.LoadingState.SetLoadingState(false);
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString());
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
             return;
         }
 

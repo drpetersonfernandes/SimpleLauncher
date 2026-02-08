@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -30,7 +31,7 @@ public partial class SystemManager
     {
         lock (XmlLock)
         {
-            var systemXmlPath = configuration["SystemXmlPath"] ?? "system.xml";
+            var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("SystemXmlPath") ?? "system.xml");
 
             try
             {
@@ -61,7 +62,7 @@ public partial class SystemManager
                             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(createEx, contextMessage);
 
                             // Notify user
-                            MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(configuration["LogPath"] ?? "error_user.log");
+                            MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                             return []; // Return an empty list
                         }
@@ -90,7 +91,7 @@ public partial class SystemManager
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
-                    MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(configuration["LogPath"] ?? "error_user.log");
+                    MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                     return new List<SystemManager>(); // Return an empty list
                 }
@@ -196,7 +197,7 @@ public partial class SystemManager
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(configuration["LogPath"] ?? "error_user.log");
+                MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
                 return new List<SystemManager>(); // Return an empty list
             }

@@ -64,15 +64,15 @@ public partial class App : IDisposable
         });
         serviceCollection.AddHttpClient("GameImageClient", client =>
         {
-            var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl");
-            client.BaseAddress = new Uri(apiUrl ?? "https://simple-launcher-api.doutorpeterson.workers.dev/");
+            var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl") ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
+            client.BaseAddress = new Uri(apiUrl);
         });
         serviceCollection.AddHttpClient("EasyModeClient", client =>
         {
             // Set the base address for the EasyMode configuration API
-            var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi");
-            client.BaseAddress = new Uri(easyModeUrl ?? "https://www.purelogiccode.com/simplelauncheradmin/");
-            if (easyModeUrl != null && !easyModeUrl.EndsWith('/'))
+            var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            client.BaseAddress = new Uri(easyModeUrl);
+            if (!easyModeUrl.EndsWith('/'))
             {
                 // ReSharper disable once RedundantAssignment
                 easyModeUrl += "/";

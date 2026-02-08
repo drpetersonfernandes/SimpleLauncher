@@ -29,7 +29,7 @@ public class ZipMountStrategy : ILaunchStrategy
 
     public Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
     {
-        var log = _configuration["LogPath"];
+        var log = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         if (context.EmulatorName.Contains("RPCS3"))
             return MountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, log, launcher);
         else if (context.SystemName.Contains("Scumm"))

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -381,7 +382,7 @@ public partial class MainWindow
 
             var psi = new ProcessStartInfo
             {
-                FileName = _configuration["Urls:DonationPage"] ?? "https://www.purelogiccode.com/Donate",
+                FileName = _configuration.GetValue<string>("Urls:DonationPage") ?? "https://www.purelogiccode.com/Donate/",
                 UseShellExecute = true
             };
             Process.Start(psi);

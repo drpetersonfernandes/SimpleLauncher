@@ -81,7 +81,7 @@ public class LaunchTools : ILaunchTools
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 

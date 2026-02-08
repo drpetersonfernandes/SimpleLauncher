@@ -361,7 +361,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -373,7 +373,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] System manager not found for launching game from search.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -387,7 +387,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -412,7 +412,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -433,7 +433,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "SystemManager is null");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -444,7 +444,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "FilePath is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -455,7 +455,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "SystemName is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -466,7 +466,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 _ = _logErrors.LogErrorAsync(null, "EmulatorManager is null.");
 
                 // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -528,7 +528,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 

@@ -351,8 +351,8 @@ public class SettingsManager : IDisposable
         _configuration = configuration;
 
         // Initialize properties that depend on configuration
-        VideoUrl = configuration?["Urls:YouTubeSearch"] ?? "https://www.youtube.com/results?search_query=";
-        InfoUrl = configuration?["Urls:IgdbSearch"] ?? "https://www.igdb.com/search?q=";
+        VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
+        InfoUrl = configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
     }
 
     public void Load()

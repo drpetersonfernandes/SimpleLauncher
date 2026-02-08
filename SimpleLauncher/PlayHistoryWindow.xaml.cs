@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
@@ -318,7 +319,7 @@ public partial class PlayHistoryWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -373,7 +374,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -403,7 +404,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -507,7 +508,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -714,7 +715,7 @@ public partial class PlayHistoryWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 

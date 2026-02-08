@@ -1123,8 +1123,7 @@ internal static class MessageBoxLibrary
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
-                var downloadPageUrl = configuration["Urls:GitHubReleases"] ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest";
+                var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:GitHubReleases") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
 
                 try
                 {

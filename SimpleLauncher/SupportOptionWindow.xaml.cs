@@ -46,17 +46,17 @@ public partial class SupportOptionWindow
 
     private void BtnAskPerplexity_Click(object sender, RoutedEventArgs e)
     {
-        LaunchAiSearch(_configuration["Urls:PerplexitySearch"] ?? "https://www.perplexity.ai/search?q=");
+        LaunchAiSearch(_configuration.GetValue<string>("Urls:PerplexitySearch") ?? "https://www.perplexity.ai/search?q=");
     }
 
     private void BtnAskPhind_Click(object sender, RoutedEventArgs e)
     {
-        LaunchAiSearch(_configuration["Urls:PhindSearch"] ?? "https://www.phind.com/search?q=");
+        LaunchAiSearch(_configuration.GetValue<string>("Urls:PhindSearch") ?? "https://www.phind.com/search?q=");
     }
 
     private void BtnAskYou_Click(object sender, RoutedEventArgs e)
     {
-        LaunchAiSearch(_configuration["Urls:YouSearch"] ?? "https://you.com/search?q=");
+        LaunchAiSearch(_configuration.GetValue<string>("Urls:YouSearch") ?? "https://you.com/search?q=");
     }
 
     private void LaunchAiSearch(string baseUrl)
@@ -94,7 +94,7 @@ public partial class SupportOptionWindow
         sb.Append("Provide me a very simple explanation of the problem and help me fix the parameters.");
 
         // Retrieve the URL from appsettings.json
-        var wikiParametersUrl = _configuration.GetValue<string>("WikiParametersUrl");
+        var wikiParametersUrl = _configuration.GetValue<string>("WikiParametersUrl") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
         if (!string.IsNullOrEmpty(wikiParametersUrl))
         {
             sb.Append(CultureInfo.InvariantCulture, $"'Simple Launcher' parameters reference can be found on {wikiParametersUrl}.");
@@ -102,8 +102,8 @@ public partial class SupportOptionWindow
         else
         {
             // Fallback to hardcoded URL if not found in config, or log an error
-            sb.Append(" 'Simple Launcher' parameters reference can be found on https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters.");
-            // Log this fallback as a warning if ILogErrors was available here
+            sb.Append(" 'Simple Launcher' parameters reference can be found on 'https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "WikiParametersUrl is null or empty in SupportOptionWindow.");
         }
 
         if (!string.IsNullOrWhiteSpace(_contextMessage))

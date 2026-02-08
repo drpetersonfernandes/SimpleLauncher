@@ -467,7 +467,7 @@ internal static class ContextMenuFunctions
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image...", mainWindow);
 
         // Image extensions to look for
-        var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("ImageExtensions").Get<string[]>();
+        var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
         // Try to find the image in the systemImageFolder directory first
         // Then search inside the globalImageDirectory
@@ -494,15 +494,14 @@ internal static class ContextMenuFunctions
                 return false;
             }
 
-            if (imageExtensions != null)
-                foreach (var extension in imageExtensions)
-                {
-                    var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                    if (!File.Exists(imagePath)) continue;
+            foreach (var extension in imageExtensions)
+            {
+                var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
+                if (!File.Exists(imagePath)) continue;
 
-                    foundPath = imagePath;
-                    return true;
-                }
+                foundPath = imagePath;
+                return true;
+            }
 
             return false;
         }
@@ -536,19 +535,18 @@ internal static class ContextMenuFunctions
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...", Application.Current.MainWindow as MainWindow);
         var gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
-        var gameplaySnapshotExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("ImageExtensions").Get<string[]>();
+        var gameplaySnapshotExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
-        if (gameplaySnapshotExtensions != null)
-            foreach (var extension in gameplaySnapshotExtensions)
-            {
-                var gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
-                if (!File.Exists(gameplaySnapshotPath)) continue;
+        foreach (var extension in gameplaySnapshotExtensions)
+        {
+            var gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(gameplaySnapshotPath)) continue;
 
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImagePath(gameplaySnapshotPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImagePath(gameplaySnapshotPath);
+            imageViewerWindow.Show();
+            return;
+        }
 
         // Notify user
         MessageBoxLibrary.ThereIsNoGameplaySnapshotMessageBox();
@@ -689,19 +687,18 @@ internal static class ContextMenuFunctions
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...", Application.Current.MainWindow as MainWindow);
         var cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
-        var cabinetExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("ImageExtensions").Get<string[]>();
+        var cabinetExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
-        if (cabinetExtensions != null)
-            foreach (var extension in cabinetExtensions)
-            {
-                var cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
-                if (!File.Exists(cabinetPath)) continue;
+        foreach (var extension in cabinetExtensions)
+        {
+            var cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(cabinetPath)) continue;
 
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImagePath(cabinetPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImagePath(cabinetPath);
+            imageViewerWindow.Show();
+            return;
+        }
 
         // Notify user
         MessageBoxLibrary.ThereIsNoCabinetMessageBox();
@@ -736,19 +733,18 @@ internal static class ContextMenuFunctions
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...", Application.Current.MainWindow as MainWindow);
         var pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
-        var pcbExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("ImageExtensions").Get<string[]>();
+        var pcbExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
-        if (pcbExtensions != null)
-            foreach (var extension in pcbExtensions)
-            {
-                var pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
-                if (!File.Exists(pcbPath)) continue;
+        foreach (var extension in pcbExtensions)
+        {
+            var pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
+            if (!File.Exists(pcbPath)) continue;
 
-                var imageViewerWindow = new ImageViewerWindow();
-                imageViewerWindow.LoadImagePath(pcbPath);
-                imageViewerWindow.Show();
-                return;
-            }
+            var imageViewerWindow = new ImageViewerWindow();
+            imageViewerWindow.LoadImagePath(pcbPath);
+            imageViewerWindow.Show();
+            return;
+        }
 
         // Notify user
         MessageBoxLibrary.ThereIsNoPcbMessageBox();

@@ -159,8 +159,8 @@ public partial class SupportWindow : ILoadingState
 
     private async Task SendSupportRequestToApiAsync(string fullMessage)
     {
-        var apiBaseUrl = _configuration["EmailApiBaseUrl"];
-        var apiKey = _configuration["ApiKey"];
+        var apiBaseUrl = _configuration.GetValue<string>("EmailApiBaseUrl") ?? "https://www.purelogiccode.com/customeremailservice/api/send-customer-email/";
+        var apiKey = _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
         // Check if the API base URL is configured
         if (string.IsNullOrEmpty(apiBaseUrl))

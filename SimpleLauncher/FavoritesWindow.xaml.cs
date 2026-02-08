@@ -294,7 +294,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -367,7 +367,7 @@ internal partial class FavoritesWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -383,7 +383,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -416,7 +416,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
 
                 return;
             }
@@ -433,7 +433,7 @@ internal partial class FavoritesWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 
@@ -464,7 +464,7 @@ internal partial class FavoritesWindow : ILoadingState
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_configuration["LogPath"]);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
     }
 

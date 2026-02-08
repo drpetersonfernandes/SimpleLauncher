@@ -33,11 +33,9 @@ public class LogErrorsService : ILogErrors
 
         DebugLogger.LogException(ex, contextMessage);
 
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var errorLogPath = Path.Combine(baseDirectory, "error.log");
-        var userLogPath = Path.Combine(baseDirectory, _configuration["LogPath"] ?? "error_user.log");
-        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
-        version ??= "Unknown";
+        var errorLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathForAdmin") ?? "error.log");
+        var userLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
 
         // Gather additional environment info
         var osVersion = RuntimeInformation.OSDescription;
@@ -98,7 +96,7 @@ public class LogErrorsService : ILogErrors
     private async Task<bool> SendLogToApiAsync(string logContent)
     {
         // Check the flag again, just in case
-        if (string.IsNullOrEmpty(_configuration["ApiKey"]))
+        if (string.IsNullOrEmpty(_configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e"))
         {
             return false;
         }
@@ -108,7 +106,7 @@ public class LogErrorsService : ILogErrors
             var httpClient = _httpClientFactory?.CreateClient("LogErrorsClient");
             if (httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("X-API-KEY", _configuration["ApiKey"]);
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e");
 
                 var payload = new
                 {
@@ -117,7 +115,7 @@ public class LogErrorsService : ILogErrors
                 };
 
                 var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-                using var response = await httpClient.PostAsync(_configuration["BugReportApiUrl"], jsonContent);
+                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 
@@ -140,10 +138,9 @@ public class LogErrorsService : ILogErrors
     /// <summary>
     /// Writes a critical error to a local log file when API logging is not available.
     /// </summary>
-    private static void WriteLocalErrorLog(Exception ex, string contextMessage)
+    private void WriteLocalErrorLog(Exception ex, string contextMessage)
     {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var criticalLogPath = Path.Combine(baseDirectory, "critical_error.log");
+        var criticalLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathCritical") ?? "critical_error.log");
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
         var osVersion = RuntimeInformation.OSDescription;
         var architecture = RuntimeInformation.OSArchitecture.ToString();

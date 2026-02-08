@@ -118,7 +118,10 @@ public class GamePadController : IDisposable
                                         $"Exception details: {ex.Message}");
 
                 // Notify user
-                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString()));
+                Application.Current.Dispatcher.Invoke(static () =>
+                {
+                    MessageBoxLibrary.GamePadErrorMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                });
             }
         }
     }
@@ -141,7 +144,10 @@ public class GamePadController : IDisposable
                                         $"Exception details: {ex.Message}");
 
                 // Notify user
-                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString()));
+                Application.Current.Dispatcher.Invoke(static () =>
+                {
+                    MessageBoxLibrary.GamePadErrorMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                });
             }
         }
     }
@@ -353,7 +359,10 @@ public class GamePadController : IDisposable
                                                     $"Exception details: {ex.Message}");
 
                             // Notify user
-                            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString()));
+                            Application.Current.Dispatcher.Invoke(static () =>
+                            {
+                                MessageBoxLibrary.GamePadErrorMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                            });
                         }
 
                         // Attempt reconnection as a recovery step

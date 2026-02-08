@@ -32,9 +32,9 @@ public class RetroAchievementsService
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
         // Load URLs from appsettings.json
-        _apiBaseUrl = configuration["Urls:RetroAchievementsApi"] ?? "https://retroachievements.org/API/";
-        _requestBaseUrl = configuration["Urls:RetroAchievementsRequest"] ?? "https://retroachievements.org/dorequest.php";
-        _siteBaseUrl = configuration["Urls:RetroAchievementsSite"] ?? "https://retroachievements.org";
+        _apiBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsApi") ?? "https://retroachievements.org/API/";
+        _requestBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsRequest") ?? "https://retroachievements.org/dorequest.php";
+        _siteBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsSite") ?? "https://retroachievements.org/";
     }
 
     /// <summary>

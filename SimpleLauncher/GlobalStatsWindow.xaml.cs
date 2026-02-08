@@ -143,7 +143,7 @@ internal partial class GlobalStatsWindow : IDisposable
         return Task.Run(async () =>
         {
             var results = new List<SystemStatsData>();
-            var imageExtensions = _configuration.GetSection("ImageExtensions").Get<string[]>() ?? Array.Empty<string>();
+            var imageExtensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
             var processingText = (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing";
             var processingText2 = (string)Application.Current.TryFindResource("ProcessingSystem") ?? "Processing system";
 

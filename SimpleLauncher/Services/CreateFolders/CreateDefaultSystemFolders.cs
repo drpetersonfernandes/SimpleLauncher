@@ -12,7 +12,10 @@ public static class CreateDefaultSystemFolders
     public static void CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var additionalFolders = configuration.GetSection("AdditionalFolders").Get<string[]>();
+        var additionalFolders = configuration.GetValue<string[]>("AdditionalFolders") ??
+        [
+            "roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"
+        ];
         var resolvedSystemFolder = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(systemFolder);
         var resolvedSystemImageFolder = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
 
@@ -50,25 +53,27 @@ public static class CreateDefaultSystemFolders
                 }
             }
 
-            if (additionalFolders != null)
-                foreach (var folder in additionalFolders)
+            foreach (var folder in additionalFolders)
+            {
+                var folderPath = Path.Combine(baseDirectory, folder, systemName);
+                if (Directory.Exists(folderPath))
                 {
-                    var folderPath = Path.Combine(baseDirectory, folder, systemName);
-                    if (Directory.Exists(folderPath)) continue;
-
-                    try
-                    {
-                        Directory.CreateDirectory(folderPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the {folder} folder.");
-
-                        // Notify user
-                        MessageBoxLibrary.FolderCreationFailedMessageBox();
-                    }
+                    continue;
                 }
+
+                try
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the {folder} folder.");
+
+                    // Notify user
+                    MessageBoxLibrary.FolderCreationFailedMessageBox();
+                }
+            }
         }
         catch (Exception ex)
         {

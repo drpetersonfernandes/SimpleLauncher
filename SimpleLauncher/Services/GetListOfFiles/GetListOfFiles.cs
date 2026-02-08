@@ -57,9 +57,9 @@ public abstract class GetListOfFiles
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(App.ServiceProvider.GetRequiredService<IConfiguration>().GetSection("LogPath").ToString());
+                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
-                return new List<string>(); // Return an empty list
+                return []; // Return an empty list
             }
         }, cancellationToken);
     }
