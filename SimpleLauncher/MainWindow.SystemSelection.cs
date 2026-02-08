@@ -189,7 +189,7 @@ public partial class MainWindow
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
         var systemName = config.SystemName;
-        var imageExtensions = _configuration.GetSection("ImageExtensions").Get<string[]>() ?? []; // Get supported extensions
+        var imageExtensions = _configuration.GetSection("ImageExtensions").Get<string[]>() ?? Array.Empty<string>();
 
         // 1. Check for system-specific image files (exact match)
         foreach (var ext in imageExtensions)

@@ -72,6 +72,11 @@ public partial class App : IDisposable
             // Set the base address for the EasyMode configuration API
             var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi");
             client.BaseAddress = new Uri(easyModeUrl ?? "https://www.purelogiccode.com/simplelauncheradmin/");
+            if (easyModeUrl != null && !easyModeUrl.EndsWith('/'))
+            {
+                // ReSharper disable once RedundantAssignment
+                easyModeUrl += "/";
+            }
         });
 
         // Register IConfiguration
