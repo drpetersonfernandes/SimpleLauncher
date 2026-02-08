@@ -5,11 +5,13 @@ using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.SystemManager;
 
@@ -153,7 +155,13 @@ public partial class SystemManager
                                 new XElement("EmulatorName", e.EmulatorName),
                                 new XElement("EmulatorLocation", e.EmulatorLocation),
                                 new XElement("EmulatorParameters", e.EmulatorParameters),
-                                new XElement("ReceiveANotificationOnEmulatorError", e.ReceiveANotificationOnEmulatorError)
+                                new XElement("ReceiveANotificationOnEmulatorError", e.ReceiveANotificationOnEmulatorError),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink) ? null : new XElement("ImagePackDownloadLink", e.ImagePackDownloadLink),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink2) ? null : new XElement("ImagePackDownloadLink2", e.ImagePackDownloadLink2),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink3) ? null : new XElement("ImagePackDownloadLink3", e.ImagePackDownloadLink3),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink4) ? null : new XElement("ImagePackDownloadLink4", e.ImagePackDownloadLink4),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink5) ? null : new XElement("ImagePackDownloadLink5", e.ImagePackDownloadLink5),
+                                string.IsNullOrEmpty(e.ImagePackDownloadExtractPath) ? null : new XElement("ImagePackDownloadExtractPath", e.ImagePackDownloadExtractPath)
                             )
                         ))
                     ));
@@ -307,7 +315,13 @@ public partial class SystemManager
                     EmulatorName = emulatorName,
                     EmulatorLocation = emulatorLocation, // Store the raw string
                     EmulatorParameters = emulatorParameters, // Store the raw string
-                    ReceiveANotificationOnEmulatorError = receiveNotification
+                    ReceiveANotificationOnEmulatorError = receiveNotification,
+                    ImagePackDownloadLink = emulatorElement.Element("ImagePackDownloadLink")?.Value ?? string.Empty,
+                    ImagePackDownloadLink2 = emulatorElement.Element("ImagePackDownloadLink2")?.Value ?? string.Empty,
+                    ImagePackDownloadLink3 = emulatorElement.Element("ImagePackDownloadLink3")?.Value ?? string.Empty,
+                    ImagePackDownloadLink4 = emulatorElement.Element("ImagePackDownloadLink4")?.Value ?? string.Empty,
+                    ImagePackDownloadLink5 = emulatorElement.Element("ImagePackDownloadLink5")?.Value ?? string.Empty,
+                    ImagePackDownloadExtractPath = emulatorElement.Element("ImagePackDownloadExtractPath")?.Value ?? string.Empty
                 });
             }
 
@@ -371,5 +385,147 @@ public partial class SystemManager
 
             return backupRestored;
         }
+    }
+
+    public static Task AddOrUpdateSystemFromEasyModeAsync(EasyModeSystemConfig selectedSystem, string systemFolder)
+    {
+        return Task.Run(() =>
+        {
+            lock (XmlLock)
+            {
+                var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
+                XDocument xmlDoc = null;
+
+                try
+                {
+                    if (File.Exists(systemXmlPath))
+                    {
+                        var xmlContent = File.ReadAllText(systemXmlPath);
+                        if (!string.IsNullOrWhiteSpace(xmlContent))
+                        {
+                            xmlDoc = XDocument.Parse(xmlContent);
+                            if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
+                            {
+                                xmlDoc = null;
+                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
+                            }
+                        }
+                    }
+                }
+                catch (XmlException ex)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
+                    xmlDoc = null;
+                }
+                catch (Exception ex)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error reading existing system.xml.");
+                    throw new IOException("Could not read the existing system configuration file.", ex);
+                }
+
+                xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
+
+                if (xmlDoc.Root != null)
+                {
+                    var existingSystem = xmlDoc.Root.Descendants("SystemConfig")
+                        .FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
+
+                    if (existingSystem != null)
+                    {
+                        UpdateSystemElement(existingSystem, selectedSystem, systemFolder);
+                    }
+                    else
+                    {
+                        var newSystemElement = CreateSystemElement(selectedSystem, systemFolder);
+                        xmlDoc.Root.Add(newSystemElement);
+                    }
+
+                    var sortedElements = xmlDoc.Root.Elements("SystemConfig")
+                        .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value, StringComparer.OrdinalIgnoreCase)
+                        .ToList();
+                    xmlDoc.Root.ReplaceNodes(sortedElements);
+                }
+
+                try
+                {
+                    var settings = new XmlWriterSettings
+                    {
+                        Indent = true,
+                        NewLineOnAttributes = false
+                    };
+                    using var writer = XmlWriter.Create(systemXmlPath, settings);
+                    xmlDoc.Save(writer);
+                }
+                catch (Exception saveEx)
+                {
+                    const string contextMessage = "Error saving 'system.xml' after adding/updating a system.";
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(saveEx, contextMessage);
+                    throw new InvalidOperationException("Could not save system configuration.", saveEx);
+                }
+            }
+        });
+    }
+
+    private static XElement CreateSystemElement(EasyModeSystemConfig selectedSystem, string systemFolder)
+    {
+        return new XElement("SystemConfig",
+            new XElement("SystemName", selectedSystem.SystemName),
+            new XElement("SystemFolders", new XElement("SystemFolder", systemFolder)),
+            new XElement("SystemImageFolder", selectedSystem.SystemImageFolder),
+            new XElement("SystemIsMAME", selectedSystem.SystemIsMame),
+            new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
+            new XElement("GroupByFolder", false), // Default to false for new EasyMode systems
+            new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch),
+            new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
+            new XElement("Emulators", CreateEmulatorElement(selectedSystem.Emulators.Emulator))
+        );
+    }
+
+    private static void UpdateSystemElement(XElement existingSystem, EasyModeSystemConfig selectedSystem, string systemFolder)
+    {
+        existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
+
+        var foldersElement = existingSystem.Element("SystemFolders");
+        if (foldersElement == null)
+        {
+            foldersElement = new XElement("SystemFolders");
+            existingSystem.Element("SystemName")?.AddAfterSelf(foldersElement);
+        }
+
+        foldersElement.ReplaceNodes(new XElement("SystemFolder", systemFolder));
+
+        existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder);
+        existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame);
+        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
+        existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch);
+        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
+
+        existingSystem.Element("Emulators")?.Remove();
+        existingSystem.Add(new XElement("Emulators", CreateEmulatorElement(selectedSystem.Emulators.Emulator)));
+    }
+
+    private static XElement CreateEmulatorElement(EasyMode.Models.EmulatorConfig emulatorConfig)
+    {
+        var emulatorElement = new XElement("Emulator",
+            new XElement("EmulatorName", emulatorConfig.EmulatorName),
+            new XElement("EmulatorLocation", emulatorConfig.EmulatorLocation),
+            new XElement("EmulatorParameters", emulatorConfig.EmulatorParameters),
+            new XElement("ReceiveANotificationOnEmulatorError", true) // Default to true for EasyMode systems
+        );
+
+        if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink))
+            emulatorElement.Add(new XElement("ImagePackDownloadLink", emulatorConfig.ImagePackDownloadLink));
+        if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink2))
+            emulatorElement.Add(new XElement("ImagePackDownloadLink2", emulatorConfig.ImagePackDownloadLink2));
+        if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink3))
+            emulatorElement.Add(new XElement("ImagePackDownloadLink3", emulatorConfig.ImagePackDownloadLink3));
+        if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink4))
+            emulatorElement.Add(new XElement("ImagePackDownloadLink4", emulatorConfig.ImagePackDownloadLink4));
+        if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink5))
+            emulatorElement.Add(new XElement("ImagePackDownloadLink5", emulatorConfig.ImagePackDownloadLink5));
+        if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadExtractPath))
+            emulatorElement.Add(new XElement("ImagePackDownloadExtractPath", emulatorConfig.ImagePackDownloadExtractPath));
+
+        return emulatorElement;
     }
 }

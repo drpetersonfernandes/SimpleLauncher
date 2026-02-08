@@ -5,17 +5,15 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Xml.Linq;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.Configuration;
 using System.Threading;
-using System.Xml;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
@@ -1073,8 +1071,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
                 var systemImageFolderRaw = selectedSystem.SystemImageFolder;
 
-                var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
-
                 // --- Start Async Operation ---
                 try
                 {
@@ -1086,10 +1082,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     LoadingOverlay.Visibility = Visibility.Visible;
                     await Task.Yield();
 
-                    // Update System.xml with the *unresolved* paths, as system.xml expects them.
-                    await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
-
-                    // --- If XML update succeeds, continue with folder creation and UI updates ---
+                    await Services.SystemManager.SystemManager.AddOrUpdateSystemFromEasyModeAsync(selectedSystem, systemFolderRaw);
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
                     await Task.Yield();
 
@@ -1155,184 +1148,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
         }
-    }
-
-    // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
-    private static async Task UpdateSystemXmlAsync(
-        string xmlPath,
-        EasyModeSystemConfig selectedSystem,
-        string systemFolder, // This should be the raw path with %BASEFOLDER%
-        string systemImageFolder) // This should be the raw path with %BASEFOLDER%
-    {
-        XDocument xmlDoc = null; // Initialize to null
-        try
-        {
-            // Attempt to load existing XML content asynchronously
-            if (File.Exists(xmlPath))
-            {
-                try
-                {
-                    var xmlContent = await File.ReadAllTextAsync(xmlPath);
-                    // Only parse if content is not empty to avoid errors with empty files
-                    if (!string.IsNullOrWhiteSpace(xmlContent))
-                    {
-                        xmlDoc = XDocument.Parse(xmlContent);
-                        // Check if the root element is valid
-                        if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
-                        {
-                            // If root is null or incorrect, treat as invalid and create new
-                            xmlDoc = null; // Reset xmlDoc to trigger creation below
-
-                            // Notify developer
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
-                        }
-                    }
-                }
-                catch (XmlException ex) // Catch specific XML parsing errors
-                {
-                    // Notify developer
-                    // Log the parsing error but proceed to create a new document
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
-
-                    xmlDoc = null; // Ensure we create a new one
-                }
-                catch (Exception ex) // Catch other file reading errors
-                {
-                    // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error reading existing system.xml.");
-
-                    throw new IOException("Could not read the existing system configuration file.", ex); // Rethrow as IO
-                }
-            }
-
-            // If xmlDoc is still null (file didn't exist, was empty, or had invalid root), create a new one
-            xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-
-            // --- Proceed with modification logic ---
-            if (xmlDoc.Root != null)
-            {
-                var systemManagers = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
-                var existingSystem = systemManagers.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
-                if (existingSystem != null)
-                {
-                    // Overwrite existing system (in memory)
-                    OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolder);
-                }
-                else
-                {
-                    // Create new system element (in memory)
-                    var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolder);
-                    xmlDoc.Root.Add(newSystemElement);
-                }
-            }
-
-            // Sort the elements (in memory)
-            if (xmlDoc.Root != null)
-            {
-                var sortedElements = xmlDoc.Root.Elements("SystemConfig")
-                    .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value)
-                    .ToList(); // Create a list of sorted elements
-                // Replace the nodes in the original document's root
-                xmlDoc.Root.ReplaceNodes(sortedElements);
-            }
-
-            // Save the updated and sorted XML document asynchronously with proper formatting
-            // Use SaveOptions.None for default indentation
-            await Task.Run(() =>
-            {
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    IndentChars = "  ", // Use 2 spaces for indentation
-                    NewLineHandling = NewLineHandling.Replace,
-                    Encoding = System.Text.Encoding.UTF8
-                };
-
-                using var writer = XmlWriter.Create(xmlPath, settings);
-                xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
-                xmlDoc.Save(writer);
-            });
-        }
-        catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
-        {
-            // Notify developer
-            const string contextMessage = "Error saving system.xml.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            throw new InvalidOperationException("Could not save system configuration.", ex);
-        }
-        catch (Exception ex) // Catch other potential errors
-        {
-            // Notify developer
-            const string contextMessage = "Unexpected error updating system.xml.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            throw new InvalidOperationException("An unexpected error occurred while updating system configuration.", ex);
-        }
-    }
-
-    // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
-    private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolder)
-    {
-        var newSystemElement = new XElement("SystemConfig",
-            new XElement("SystemName", selectedSystem.SystemName),
-            new XElement("SystemFolders", new XElement("SystemFolder", systemFolder)), // Only one folder from EasyMode
-            new XElement("SystemImageFolder", systemImageFolder),
-            new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
-            new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
-            new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
-            new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
-            new XElement("Emulators",
-                new XElement("Emulator",
-                    new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
-                    new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
-                    new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
-                    , new XElement("ImagePackDownloadLink", selectedSystem.Emulators.Emulator.ImagePackDownloadLink)
-                    , new XElement("ImagePackDownloadLink2", selectedSystem.Emulators.Emulator.ImagePackDownloadLink2)
-                    , new XElement("ImagePackDownloadLink3", selectedSystem.Emulators.Emulator.ImagePackDownloadLink3)
-                    , new XElement("ImagePackDownloadLink4", selectedSystem.Emulators.Emulator.ImagePackDownloadLink4)
-                    , new XElement("ImagePackDownloadLink5", selectedSystem.Emulators.Emulator.ImagePackDownloadLink5)
-                    , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
-                )
-            )
-        );
-        return newSystemElement;
-    }
-
-    // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
-    private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolder)
-    {
-        existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
-        // Update SystemFolders
-        var foldersElement = existingSystem.Element("SystemFolders");
-        if (foldersElement == null)
-        {
-            foldersElement = new XElement("SystemFolders");
-            // Add it after SystemName to maintain order
-            existingSystem.Element("SystemName")?.AddAfterSelf(foldersElement);
-        }
-
-        foldersElement.ReplaceNodes(new XElement("SystemFolder", systemFolder)); // Only one folder from EasyMode
-
-        existingSystem.SetElementValue("SystemImageFolder", systemImageFolder);
-        existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
-        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
-        existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
-        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
-        existingSystem.Element("Emulators")?.Remove();
-        existingSystem.Add(new XElement("Emulators",
-            new XElement("Emulator",
-                new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
-                new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
-                new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
-                , new XElement("ImagePackDownloadLink", selectedSystem.Emulators.Emulator.ImagePackDownloadLink)
-                , new XElement("ImagePackDownloadLink2", selectedSystem.Emulators.Emulator.ImagePackDownloadLink2)
-                , new XElement("ImagePackDownloadLink3", selectedSystem.Emulators.Emulator.ImagePackDownloadLink3)
-                , new XElement("ImagePackDownloadLink4", selectedSystem.Emulators.Emulator.ImagePackDownloadLink4)
-                , new XElement("ImagePackDownloadLink5", selectedSystem.Emulators.Emulator.ImagePackDownloadLink5)
-                , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
-            )
-        ));
     }
 
     private void UpdateAddSystemButtonState()
