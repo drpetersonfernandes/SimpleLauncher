@@ -1,28 +1,24 @@
 using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Windows;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Updater;
 
-internal sealed partial class UpdateForm : Form
+public partial class MainWindow
 {
-    private delegate void LogDelegate(string message);
-
-    // Configuration
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    // Arguments passed from the main application (e.g., PID)
     private readonly string[] _args;
-
-    // Use a single, static HttpClient instance for performance and resource management
     private static readonly HttpClient HttpClient = new();
 
-    // Gets the runtime identifier for the current process architecture (e.g., "win-x64", "win-arm64")
     private static string CurrentRuntimeIdentifier
     {
         get
@@ -31,47 +27,49 @@ internal sealed partial class UpdateForm : Form
             return arch switch
             {
                 Architecture.Arm64 => "win-arm64",
-                Architecture.X64 => "win-x64",
-                _ => "win-x64" // Fallback to x64 for any other architecture
+                _ => "win-x64"
             };
         }
     }
 
-    public UpdateForm(string[] args)
+    public MainWindow(string[] args)
     {
         InitializeComponent();
         _args = args;
 
-        // Set a user-agent for GitHub API requests
+        // Force UI to show on top and focused
+        Loaded += (_, _) =>
+        {
+            Activate();
+            Focus();
+            Topmost = false; // Release topmost after initial show so user can switch away if needed
+        };
+
         HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SimpleLauncher-Updater");
 
         var applicationVersion = GetApplicationVersion();
         Log($"Updater version: {applicationVersion}\n\n");
+
+        // Start update process async when window is loaded
+        Loaded += async (_, _) => await ExecuteUpdateAsync();
     }
 
     private static string GetApplicationVersion()
     {
         var version = Assembly.GetExecutingAssembly().GetName().Version;
-        return version != null ? version.ToString() : "Version not available";
+        return version?.ToString() ?? "Version not available";
     }
 
-    protected override async void OnLoad(EventArgs e)
+    private async Task ExecuteUpdateAsync()
     {
         try
         {
-            base.OnLoad(e);
-
-            // Ensure the form is visible and in the foreground
-            WindowState = FormWindowState.Normal;
-            Activate();
-
-            // Start the update process directly on the UI thread context
             await UpdateProcess();
         }
         catch (Exception ex)
         {
             Log($"An error occurred during update process: {ex.Message}");
-            Log("Please updated manually.");
+            Log("Please update manually.");
         }
     }
 
@@ -89,7 +87,7 @@ internal sealed partial class UpdateForm : Form
         try
         {
             // Wait for the main application to exit using its Process ID
-            WaitForMainAppToExit();
+            await WaitForMainAppToExit();
 
             // Fetch the latest release from GitHub
             Log("Fetching the latest release from GitHub...");
@@ -109,7 +107,8 @@ internal sealed partial class UpdateForm : Form
                 "Updater.dll",
                 "Updater.deps.json",
                 "Updater.runtimeconfig.json",
-                "ICSharpCode.SharpZipLib.dll" // Using SharpZipLib now
+                "ICSharpCode.SharpZipLib.dll",
+                "Updater.pdb" // In debug builds
             };
 
             // Extract the ZIP file
@@ -135,7 +134,14 @@ internal sealed partial class UpdateForm : Form
 
                     if (entry.IsDirectory) continue;
 
-                    await using var destinationFileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                    await using var destinationFileStream = new FileStream(
+                        destinationPath,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None,
+                        81920,
+                        true);
+
                     await zipInputStream.CopyToAsync(destinationFileStream);
 
                     Log($"Extracted: {entry.Name}");
@@ -143,7 +149,8 @@ internal sealed partial class UpdateForm : Form
             }
 
             Log("Update installed successfully.");
-            MessageBox.Show("Update installed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Update installed successfully.", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Information);
 
             RestartMainApplication();
             Close();
@@ -156,7 +163,7 @@ internal sealed partial class UpdateForm : Form
         }
     }
 
-    private void WaitForMainAppToExit()
+    private async Task WaitForMainAppToExit()
     {
         if (_args.Length > 0 && int.TryParse(_args[0], out var pid))
         {
@@ -164,7 +171,10 @@ internal sealed partial class UpdateForm : Form
             {
                 var mainAppProcess = Process.GetProcessById(pid);
                 Log($"Waiting for Simple Launcher (PID: {pid}) to exit...");
-                mainAppProcess.WaitForExit(10000); // Wait for up to 10 seconds
+
+                // Use Task.Run to prevent UI freeze during the synchronous WaitForExit
+                await Task.Run(() => mainAppProcess.WaitForExit(10000));
+
                 if (!mainAppProcess.HasExited)
                 {
                     Log("Warning: Simple Launcher did not exit in time. Update may fail.");
@@ -181,9 +191,8 @@ internal sealed partial class UpdateForm : Form
         }
         else
         {
-            // This is now a less likely fallback.
             Log("No PID provided by Simple Launcher. Waiting for 3 seconds (this is unreliable)...");
-            Thread.Sleep(3000);
+            await Task.Delay(3000); // Added await
         }
     }
 
@@ -193,7 +202,6 @@ internal sealed partial class UpdateForm : Form
 
         if (!response.IsSuccessStatusCode)
         {
-            // Throw an exception to be handled by the central catch block
             throw new HttpRequestException($"Failed to download the update file. Status Code: {response.StatusCode}");
         }
 
@@ -261,16 +269,17 @@ internal sealed partial class UpdateForm : Form
         catch (Exception ex)
         {
             Log($"Failed to restart the main application: {ex.Message}");
-            MessageBox.Show("Update complete, but failed to restart SimpleLauncher automatically. Please start it manually.", "Restart Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Update complete, but failed to restart SimpleLauncher automatically. Please start it manually.",
+                "Restart Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
     private void RedirectToDownloadPage(string message)
     {
-        if (IsDisposed) return;
+        if (!IsLoaded) return;
 
-        var result = MessageBox.Show(message, "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-        if (result == DialogResult.Yes)
+        var result = MessageBox.Show(message, "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+        if (result == MessageBoxResult.Yes)
         {
             const string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
             Process.Start(new ProcessStartInfo
@@ -285,15 +294,16 @@ internal sealed partial class UpdateForm : Form
 
     private void Log(string message)
     {
-        if (InvokeRequired)
+        if (!Dispatcher.CheckAccess())
         {
-            Invoke(new LogDelegate(Log), message);
+            Dispatcher.BeginInvoke(new Action(() => Log(message)));
             return;
         }
 
-        if (!IsDisposed && logTextBox.IsHandleCreated)
+        if (IsLoaded)
         {
-            logTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
+            LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
+            LogTextBox.ScrollToEnd();
         }
     }
 
