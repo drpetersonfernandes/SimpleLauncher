@@ -1,60 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="AresConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="CemuConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="MameConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="MesenConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="StellaConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="YumirConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="RedreamConfig_Title">Configuration de Redream</system:String>
-    <system:String x:Key="RedreamConfig_Video_Header">Vidéo</system:String>
-    <system:String x:Key="RedreamConfig_Cable_Label">Câble :</system:String>
-    <system:String x:Key="RedreamConfig_Cable_Tooltip">Type de câble vidéo.</system:String>
-    <system:String x:Key="RedreamConfig_Broadcast_Label">Diffusion :</system:String>
-    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">Standard de diffusion vidéo.</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Activer la V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchroniser la fréquence d'images avec le taux de rafraîchissement du moniteur.</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Activer le Frameskip</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Sauter des images pour maintenir la vitesse sur du matériel lent.</system:String>
-    <system:String x:Key="RedreamConfig_Aspect_Label">Format d'image :</system:String>
-    <system:String x:Key="RedreamConfig_Aspect_Tooltip">Format d'affichage de l'écran.</system:String>
-    <system:String x:Key="RedreamConfig_ResolutionScale_Label">Échelle de résolution :</system:String>
-    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Facteur d'échelle de résolution interne (ex: 2 pour 2x).</system:String>
-    <system:String x:Key="RedreamConfig_Renderer_Label">Moteur de rendu :</system:String>
-    <system:String x:Key="RedreamConfig_Renderer_Tooltip">Moteur de rendu graphique à utiliser.</system:String>
-    <system:String x:Key="RedreamConfig_FullscreenMode_Label">Mode plein écran :</system:String>
-    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Comment le jeu s'affiche en plein écran.</system:String>
-    <system:String x:Key="RedreamConfig_System_Header">Système</system:String>
-    <system:String x:Key="RedreamConfig_Language_Label">Langue :</system:String>
-    <system:String x:Key="RedreamConfig_Language_Tooltip">Langue du système.</system:String>
-    <system:String x:Key="RedreamConfig_Region_Label">Région :</system:String>
-    <system:String x:Key="RedreamConfig_Region_Tooltip">Région du système.</system:String>
-    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
-    <system:String x:Key="RedreamConfig_Save_Button">Enregistrer</system:String>
-    <system:String x:Key="RedreamConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="RedreamConfig_Cancel_Button">Annuler</system:String>
-    <system:String x:Key="ReDreamConfig_PathNotFound">Exécutable ReDream introuvable. Veuillez le sélectionner.</system:String>
-    <system:String x:Key="FailedToSaveReDreamConfiguration">Échec de l'enregistrement de la configuration ReDream. Veuillez vérifier les permissions du fichier.</system:String>
-    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">Configuration ReDream enregistrée avec succès.</system:String>
-    <system:String x:Key="Loadingsystems">Chargement des systèmes...</system:String>
-    <system:String x:Key="RaineConfig_Save_Button">Enregistrer</system:String>
-    <system:String x:Key="RaineConfig_Run_Button2">Enregistrer et lancer</system:String>
-    <system:String x:Key="RaineConfig_Cancel_Button">Annuler</system:String>
-    <system:String x:Key="YumirConfig_PathNotFound">Exécutable Yumir introuvable. Veuillez le sélectionner.</system:String>
+<?xml version="1.0" encoding="utf-8"?>
 
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
     <system:String x:Key="1000games">1000 jeux</system:String>
@@ -139,7 +85,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">Désactiver toute sortie audio.</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">Activer le rembobinage</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">Vous permet de rembobiner le jeu. Peut affecter les performances.</system:String>
-    
+    <system:String x:Key="AresConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="AresConfig_RunAhead_Checkbox">Activer le Run-Ahead</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">Réduit la latence d'entrée. Peut nécessiter un CPU puissant.</system:String>
     <system:String x:Key="AresConfig_Save_Button">Enregistrer</system:String>
@@ -171,8 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">Utiliser la compilation asynchrone des shaders</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">Réduit les saccades pendant le jeu en compilant les shaders en arrière-plan.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">Audio</system:String>
-<system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Activer l'étirement audio</system:String>
-<system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Activer l'étirement audio pour éviter les craquements audio.</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">Activer l'étirement audio</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">Activer l'étirement audio pour éviter les craquements audio.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">Annuler</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">Démarrer en plein écran</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">Passer automatiquement en mode plein écran lorsqu'un jeu démarre.</system:String>
@@ -184,7 +130,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">Active les fonctionnalités spécifiques à la New 3DS et une horloge CPU plus élevée pour les jeux compatibles.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">Facteur de résolution :</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">Multiplicateur de résolution interne. Des valeurs plus élevées sont plus belles mais nécessitent plus de puissance GPU.</system:String>
-    
+    <system:String x:Key="AzaharConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="AzaharConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="AzaharConfig_System_Header">Paramètres système</system:String>
@@ -203,7 +149,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">Annuler</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Exécuter en plein écran</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Bascule entre le mode fenêtré et le mode plein écran.</system:String>
-    
+    <system:String x:Key="BlastemConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="BlastemConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">Filtre de mise à l'échelle :</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' offre un lissage fluide (filtrage bilinéaire). 'nearest' offre un lissage net et pixélisé (plus proche voisin).</system:String>
@@ -226,7 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">Mais j'ai trouvé un fichier de sauvegarde.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet introuvable</system:String>
-<system:String x:Key="CalculatingGameHash">Calcul du hachage du jeu... Veuillez patienter.</system:String>
+    <system:String x:Key="CalculatingGameHash">Calcul du hachage du jeu... Veuillez patienter.</system:String>
     <system:String x:Key="Cancel">Annuler</system:String>
     <system:String x:Key="CancelButtonText">Annuler</system:String>
     <system:String x:Key="Cancelingdownload">Annulation du téléchargement...</system:String>
@@ -250,7 +196,7 @@
     <system:String x:Key="CemuConfig_General_Header">Général &amp; Système</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Langue de la console :</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Définit la langue du système de la console Wii U émulée.</system:String>
-    
+    <system:String x:Key="CemuConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="CemuConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="CemuConfig_Title">Injection de configuration Cemu</system:String>
@@ -287,12 +233,12 @@
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmClose">Confirmer la fermeture</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmer la suppression</system:String>
-<system:String x:Key="ConfirmSelectionButton">Confirmer la sélection</system:String>
+    <system:String x:Key="ConfirmSelectionButton">Confirmer la sélection</system:String>
     <system:String x:Key="Console">Console :</system:String>
     <system:String x:Key="ConsoleID">ID console :</system:String>
     <system:String x:Key="ContactDeveloper">Contacter le développeur</system:String>
     <system:String x:Key="Contributions">Contributions :</system:String>
-<system:String x:Key="ConvertingChdToCue">Conversion du CHD...</system:String>
+    <system:String x:Key="ConvertingChdToCue">Conversion du CHD...</system:String>
     <system:String x:Key="CopyError">Erreur de copie</system:String>
     <system:String x:Key="CopyLog">Copier le journal</system:String>
     <system:String x:Key="Core">Noyau</system:String>
@@ -323,7 +269,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">Gameplay</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">Résolution :</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">Définit la résolution en mode fenêtré ou plein écran.</system:String>
-    
+    <system:String x:Key="DaphneConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="DaphneConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="DaphneConfig_Title">Configuration Daphne</system:String>
@@ -359,7 +305,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Exécute l'émulation DSP sur un thread séparé. Améliore les performances sur la plupart des CPU multi-cœurs.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Backend graphique :</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Sélectionnez l'API graphique. Vulkan est généralement recommandé pour les GPU modernes.</system:String>
-    
+    <system:String x:Key="DolphinConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="DolphinConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">Afficher ces paramètres avant de lancer Dolphin</system:String>
     <system:String x:Key="DolphinConfig_Title">Configuration Dolphin</system:String>
@@ -424,7 +370,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">Augmente la résolution de rendu interne pour des graphiques plus nets. 1x est la résolution native.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">Activer le rembobinage</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Active la possibilité de rembobiner le jeu. Peut affecter les performances.</system:String>
-    
+    <system:String x:Key="DuckStationConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Label">Images Runahead</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Réduit la latence d'entrée en exécutant l'émulation à l'avance et en annulant. À utiliser avec prudence, nécessite un CPU puissant.</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">Enregistrer</system:String>
@@ -560,6 +506,7 @@
     <system:String x:Key="FailedToSaveFlycastConfiguration">Échec de l'enregistrement de la configuration Flycast. Veuillez vérifier les permissions de fichier.</system:String>
     <system:String x:Key="FailedToSaveMednafenConfiguration">Échec de l'enregistrement de la configuration Mednafen. Veuillez vérifier les permissions de fichier.</system:String>
     <system:String x:Key="FailedToSaveMesenConfiguration">Échec de l'enregistrement de la configuration Mesen. Veuillez vérifier les permissions de fichier.</system:String>
+    <system:String x:Key="FailedToSaveReDreamConfiguration">Échec de l'enregistrement de la configuration ReDream. Veuillez vérifier les permissions du fichier.</system:String>
     <system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">Échec de l'enregistrement de la configuration RPCS3. Veuillez vérifier les permissions de fichier.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Impossible d'enregistrer la capture d'écran.</system:String>
     <system:String x:Key="FailedToSaveSEGAModel2Configuration">Échec de l'enregistrement de la configuration SEGA Model 2. Veuillez vérifier les permissions de fichier.</system:String>
@@ -567,7 +514,7 @@
     <system:String x:Key="FailedToSaveSupermodelConfiguration">Échec de l'enregistrement de la configuration Supermodel. Veuillez vérifier les permissions de fichier.</system:String>
     <system:String x:Key="FailedToSaveSystem">Échec de la sauvegarde de la configuration système.</system:String>
     <system:String x:Key="Failedtosavethereport">Impossible d'enregistrer le rapport.</system:String>
-<system:String x:Key="FailedToSaveYumirConfiguration">Échec de l'enregistrement de la configuration de Yumir.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">Échec de l'enregistrement de la configuration de Yumir.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Échec du démarrage de Simple Launcher. Une erreur s'est produite lors de la vérification des instances existantes.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Impossible de démarrer l'émulateur ou il ne s'est pas arrêté comme prévu.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Échec du basculement du gamepad.</system:String>
@@ -591,7 +538,7 @@
     <system:String x:Key="FilterByAll">Filtrer par tout</system:String>
     <system:String x:Key="FilterByLetter">Filtrer par lettre</system:String>
     <system:String x:Key="FilterByNumber">Filtrer par nombre</system:String>
-<system:String x:Key="FilteringRetroAchievements">Filtrage des jeux avec des succès...</system:String>
+    <system:String x:Key="FilteringRetroAchievements">Filtrage des jeux avec des succès...</system:String>
     <system:String x:Key="FindYourApiKeyHere">Trouvez votre clé API ici</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">Annuler</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">Exécuter en plein écran</system:String>
@@ -600,7 +547,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">Si coché, la fenêtre de l'émulateur démarrera maximisée (fenêtré sans bordure).</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">Résolution de la fenêtre (Largeur x Hauteur)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">Définit la résolution de la fenêtre de l'émulateur lorsqu'il n'est pas en mode plein écran.</system:String>
-    
+    <system:String x:Key="FlycastConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="FlycastConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="FlycastConfig_Title">Configuration Flycast</system:String>
@@ -727,7 +674,7 @@
     <system:String x:Key="launchedwith">lancé avec</system:String>
     <system:String x:Key="LaunchErrorTitle">Erreur de lancement</system:String>
     <system:String x:Key="LaunchGame">Lancer le jeu</system:String>
-<system:String x:Key="Launching">Lancement...</system:String>
+    <system:String x:Key="Launching">Lancement...</system:String>
     <system:String x:Key="LaunchingGame">Lancement du jeu...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">Lancement du jeu depuis l'historique...</system:String>
     <system:String x:Key="LaunchingTool">Lancement de l'outil...</system:String>
@@ -748,9 +695,10 @@
     <system:String x:Key="LoadingGames">Chargement des jeux...</system:String>
     <system:String x:Key="LoadingHistory">Chargement de l'historique...</system:String>
     <system:String x:Key="LoadingNextPage">Chargement de la page suivante...</system:String>
-<system:String x:Key="LoadingPrevPage">Chargement de la page précédente...</system:String>
+    <system:String x:Key="LoadingPrevPage">Chargement de la page précédente...</system:String>
     <system:String x:Key="LoadingROMHistory">Chargement de l'historique des ROMs...</system:String>
     <system:String x:Key="LoadingSystem">Chargement du système...</system:String>
+    <system:String x:Key="Loadingsystems">Chargement des systèmes...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Chargement de la progression d'achèvement de l'utilisateur...</system:String>
     <system:String x:Key="LoadingUserProfile">Chargement du profil utilisateur...</system:String>
     <system:String x:Key="LoadingUserUnlocks">Chargement des déverrouillages utilisateur...</system:String>
@@ -785,7 +733,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">Maximiser (Démarrer maximisé)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">Démarre la fenêtre maximisée.</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">Performances et Avancé</system:String>
-    
+    <system:String x:Key="MameConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">Exécuter en fenêtre</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">Exécute MAME dans une fenêtre au lieu du plein écran.</system:String>
     <system:String x:Key="MameConfig_Save_Button">Enregistrer</system:String>
@@ -820,7 +768,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">Si coché, l'émulateur démarrera en mode plein écran.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">Activer le rembobinage</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">Vous permet de rembobiner le jeu. Peut être gourmand en performances.</system:String>
-    
+    <system:String x:Key="MednafenConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="MednafenConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">Opacité des scanlines :</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">Ajoute des lignes horizontales pour imiter un ancien écran CRT. 0 est désactivé, 100 est entièrement opaque.</system:String>
@@ -859,7 +807,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">Performance &amp; Fonctionnalités</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Activer le rembobinage</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Vous permet de rembobiner le jeu. Peut affecter les performances.</system:String>
-    
+    <system:String x:Key="MesenConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">Images Run-Ahead</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">Réduit le décalage d'entrée en exécutant les images à l'avance et en les annulant. À utiliser avec prudence (0-8).</system:String>
     <system:String x:Key="MesenConfig_Save_Button">Enregistrer</system:String>
@@ -991,7 +939,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">Paramètres généraux</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Rendu :</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Sélectionnez l'API graphique. Vulkan est recommandé pour la plupart des GPU modernes.</system:String>
-    
+    <system:String x:Key="Pcsx2Config_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="Pcsx2Config_Save_Button">Enregistrer</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer PCSX2</system:String>
     <system:String x:Key="Pcsx2Config_Title">Injecteur de configuration PCSX2</system:String>
@@ -1051,7 +999,7 @@
     <system:String x:Key="PreviousPage">Page précédente</system:String>
     <system:String x:Key="Processingpleasewait">Traitement en cours, veuillez patienter...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">Le traitement est toujours en cours. Voulez-vous annuler et fermer ?</system:String>
-<system:String x:Key="ProcessingSystem">Traitement du système</system:String>
+    <system:String x:Key="ProcessingSystem">Traitement du système</system:String>
     <system:String x:Key="ProfileID">ID de profil (ULID) :</system:String>
     <system:String x:Key="Publisher">Éditeur :</system:String>
     <system:String x:Key="Purple">Violet</system:String>
@@ -1081,32 +1029,35 @@
     <system:String x:Key="RaFallbackUnknownGame">Jeu inconnu</system:String>
     <system:String x:Key="RaGenericNo">Non</system:String>
     <system:String x:Key="RaGenericYes">Oui</system:String>
-<system:String x:Key="RaineConfig_Audio_Header">Paramètres audio</system:String>
-<system:String x:Key="RaineConfig_AudioDriver">Pilote audio :</system:String>
-<system:String x:Key="RaineConfig_Directories_Header">Répertoires</system:String>
-<system:String x:Key="RaineConfig_FixAspect">Corriger le rapport d'aspect</system:String>
-<system:String x:Key="RaineConfig_FrameSkip">Saut d'images</system:String>
-<system:String x:Key="RaineConfig_Fullscreen">Plein écran</system:String>
-<system:String x:Key="RaineConfig_General_Header">Général</system:String>
-<system:String x:Key="RaineConfig_MusicVolume">Volume de la musique</system:String>
-<system:String x:Key="RaineConfig_MuteMusic">Couper la musique</system:String>
-<system:String x:Key="RaineConfig_MuteSfx">Couper les effets sonores</system:String>
-<system:String x:Key="RaineConfig_NeoCd_Header">Section NeoGeo CD</system:String>
-<system:String x:Key="RaineConfig_NeoCdBios">BIOS NeoGeo CD</system:String>
-<system:String x:Key="RaineConfig_PathNotFound">L'exécutable de l'émulateur Raine est introuvable. Veuillez le localiser manuellement.</system:String>
-<system:String x:Key="RaineConfig_Resolution">Résolution (Largeur x Hauteur) :</system:String>
-<system:String x:Key="RaineConfig_RomDirectory">Répertoire ROM</system:String>
-<system:String x:Key="RaineConfig_SampleRate">Fréquence d'échantillonnage (Hz) :</system:String>
-<system:String x:Key="RaineConfig_SelectExeTitle">Sélectionner l'exécutable de l'émulateur Raine</system:String>
-<system:String x:Key="RaineConfig_SelectNeoCdBios">Sélectionner le fichier BIOS NeoGeo CD</system:String>
-<system:String x:Key="RaineConfig_SelectRomDirectory">Sélectionner le répertoire ROM de Raine</system:String>
-<system:String x:Key="RaineConfig_SfxVolume">Volume des effets sonores</system:String>
-<system:String x:Key="RaineConfig_ShowBeforeLaunch">Afficher cette fenêtre avant de lancer Raine</system:String>
-<system:String x:Key="RaineConfig_ShowFps">Afficher les FPS</system:String>
-<system:String x:Key="RaineConfig_Title">Configuration de Raine</system:String>
-<system:String x:Key="RaineConfig_Video_Header">Paramètres vidéo</system:String>
-<system:String x:Key="RaineConfig_Vsync">Activer VSync (Double tampon)</system:String>
-<system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">La configuration de Raine a été injectée avec succès.</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">Paramètres audio</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">Pilote audio :</system:String>
+    <system:String x:Key="RaineConfig_Cancel_Button">Annuler</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">Répertoires</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">Corriger le rapport d'aspect</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">Saut d'images</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">Plein écran</system:String>
+    <system:String x:Key="RaineConfig_General_Header">Général</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">Volume de la musique</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">Couper la musique</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">Couper les effets sonores</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">Section NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">BIOS NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">L'exécutable de l'émulateur Raine est introuvable. Veuillez le localiser manuellement.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">Résolution (Largeur x Hauteur) :</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">Répertoire ROM</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">Enregistrer et lancer</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">Fréquence d'échantillonnage (Hz) :</system:String>
+    <system:String x:Key="RaineConfig_Save_Button">Enregistrer</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">Sélectionner l'exécutable de l'émulateur Raine</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">Sélectionner le fichier BIOS NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">Sélectionner le répertoire ROM de Raine</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">Volume des effets sonores</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">Afficher cette fenêtre avant de lancer Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">Afficher les FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">Configuration de Raine</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">Paramètres vidéo</system:String>
+    <system:String x:Key="RaineConfig_Vsync">Activer VSync (Double tampon)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">La configuration de Raine a été injectée avec succès.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} réclamation(s) de développement active(s)</system:String>
     <system:String x:Key="RaInfoCheckConnection">Veuillez réessayer ou vérifier votre connexion internet.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">Veuillez vérifier vos identifiants RetroAchievements ou réessayer plus tard.</system:String>
@@ -1143,6 +1094,35 @@
     <system:String x:Key="receiveNotificationEmulatorError">Recevoir une notification en cas d'erreur de l'émulateur ?</system:String>
     <system:String x:Key="RecentlyPlayedGames">Jeux récemment joués :</system:String>
     <system:String x:Key="Red">Rouge</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Label">Format d'image :</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Tooltip">Format d'affichage de l'écran.</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Label">Diffusion :</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">Standard de diffusion vidéo.</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Label">Câble :</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Tooltip">Type de câble vidéo.</system:String>
+    <system:String x:Key="RedreamConfig_Cancel_Button">Annuler</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Activer le Frameskip</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Sauter des images pour maintenir la vitesse sur du matériel lent.</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Label">Mode plein écran :</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Comment le jeu s'affiche en plein écran.</system:String>
+    <system:String x:Key="RedreamConfig_Language_Label">Langue :</system:String>
+    <system:String x:Key="RedreamConfig_Language_Tooltip">Langue du système.</system:String>
+    <system:String x:Key="ReDreamConfig_PathNotFound">Exécutable ReDream introuvable. Veuillez le sélectionner.</system:String>
+    <system:String x:Key="RedreamConfig_Region_Label">Région :</system:String>
+    <system:String x:Key="RedreamConfig_Region_Tooltip">Région du système.</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Label">Moteur de rendu :</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Tooltip">Moteur de rendu graphique à utiliser.</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Label">Échelle de résolution :</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Facteur d'échelle de résolution interne (ex: 2 pour 2x).</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">Enregistrer et lancer</system:String>
+    <system:String x:Key="RedreamConfig_Save_Button">Enregistrer</system:String>
+    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
+    <system:String x:Key="RedreamConfig_System_Header">Système</system:String>
+    <system:String x:Key="RedreamConfig_Title">Configuration de Redream</system:String>
+    <system:String x:Key="RedreamConfig_Video_Header">Vidéo</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Activer la V-Sync</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchroniser la fréquence d'images avec le taux de rafraîchissement du moniteur.</system:String>
+    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">Configuration ReDream enregistrée avec succès.</system:String>
     <system:String x:Key="RefreshingGameList">Actualisation de la liste de jeux...</system:String>
     <system:String x:Key="ReinstallSuggestion">Cela pourrait empêcher certaines fonctionnalités (comme le rapport d'erreurs automatique) de fonctionner correctement. Souhaitez-vous réinstaller 'Simple Launcher' pour corriger cela ?</system:String>
     <system:String x:Key="Released">Sortie :</system:String>
@@ -1210,7 +1190,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">RetroAchievements</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">Activer le Rembobinage</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">Permet de rembobiner le jeu en temps réel.</system:String>
-    
+    <system:String x:Key="RetroArchConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">Run-Ahead</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">Réduit la latence d'entrée en prédisant les futures images (intensif en CPU).</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">Enregistrer</system:String>
@@ -1257,7 +1237,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">Définit la résolution de sortie de la fenêtre de l'émulateur.</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">Échelle de résolution :</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Augmente la résolution interne pour des graphiques plus nets. 100% est la résolution native 720p.</system:String>
-    
+    <system:String x:Key="RPCS3Config_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="RPCS3Config_Save_Button">Enregistrer</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">Décodeur SPU :</system:String>
@@ -1289,7 +1269,7 @@
     <system:String x:Key="Score">Score :</system:String>
     <system:String x:Key="Search">Rechercher</system:String>
     <system:String x:Key="SearchFor">Rechercher</system:String>
-<system:String x:Key="Searching">Recherche en cours...</system:String>
+    <system:String x:Key="Searching">Recherche en cours...</system:String>
     <system:String x:Key="Searchingpleasewait">Recherche en cours, veuillez patienter...</system:String>
     <system:String x:Key="SearchOptions">Options de recherche</system:String>
     <system:String x:Key="SearchRecursively">Rechercher récursivement</system:String>
@@ -1314,7 +1294,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">Rendu</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">Résolution plein écran :</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">Définit la largeur et la hauteur pour le mode plein écran.</system:String>
-    
+    <system:String x:Key="SegaModel2Config_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="SegaModel2Config_Save_Button">Enregistrer</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="SegaModel2Config_Title">Configuration SEGA Model 2</system:String>
@@ -1343,7 +1323,7 @@
     <system:String x:Key="SelectEmulator5">Sélectionnez l'émulateur 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Liste déroulante de l'émulateur</system:String>
     <system:String x:Key="SelectNotificationSoundFile">Sélectionner le fichier son de notification</system:String>
-<system:String x:Key="SelectRetroAchievementsSystemTitle">Sélectionner le système RetroAchievements</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">Sélectionner le système RetroAchievements</system:String>
     <system:String x:Key="SelectSystem">Sélectionner le système</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Sélectionner le système {config.SystemName}</system:String>
     <system:String x:Key="SelectSystemComboBox">Liste déroulante du système</system:String>
@@ -1372,7 +1352,7 @@
     <system:String x:Key="SettingsSavedSuccessfully">Paramètres enregistrés avec succès.</system:String>
     <system:String x:Key="ShowAllGames">Afficher tous les jeux</system:String>
     <system:String x:Key="ShowGames">Afficher les jeux</system:String>
-<system:String x:Key="ShowGamesWithRetroAchievements">Filtrer les jeux probablement compatibles avec RetroAchievements</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">Filtrer les jeux probablement compatibles avec RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Afficher uniquement les jeux avec couverture</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Afficher uniquement les jeux sans couverture</system:String>
     <system:String x:Key="Sienna">Terre de Sienne</system:String>
@@ -1418,7 +1398,7 @@
     <system:String x:Key="StellaConfig_Features_Header">Fonctionnalités</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Exécuter en plein écran</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">Si coché, l'émulateur démarrera en mode plein écran.</system:String>
-    
+    <system:String x:Key="StellaConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="StellaConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">Intensité des scanlines :</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">Ajuste la visibilité des scanlines simulées (0-100).</system:String>
@@ -1462,7 +1442,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">Améliore la précision pour certains GPU, en particulier pour les polygones transparents. Peut affecter les performances.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">Résolution (Largeur x Hauteur) :</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Définit la résolution de rendu interne du jeu.</system:String>
-    
+    <system:String x:Key="SupermodelConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="SupermodelConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">Volume des effets sonores :</system:String>
@@ -1472,7 +1452,7 @@
     <system:String x:Key="SupermodelConfig_System_Header">Système &amp; Performance</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Checkbox">Limiter la vitesse d'émulation</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Tooltip">Limite la vitesse d'émulation à la vitesse du matériel original (60 FPS). Désactiver pour le benchmarking.</system:String>
-        <system:String x:Key="SupermodelConfig_Title">Configuration Supermodel</system:String>
+    <system:String x:Key="SupermodelConfig_Title">Configuration Supermodel</system:String>
     <system:String x:Key="SupermodelConfig_Video_Header">Vidéo &amp; Graphiques</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Checkbox">Activer la V-Sync</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Tooltip">Synchronise la fréquence d'images avec le taux de rafraîchissement de votre moniteur pour éviter le déchirement d'écran.</system:String>
@@ -1503,8 +1483,8 @@
     <system:String x:Key="SystemNameHeader">Nom du système</system:String>
     <system:String x:Key="SystemNameRequired">Nom du système (obligatoire)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">Système enregistré avec succès.</system:String>
-<system:String x:Key="SystemSelectionMessage">Nous n'avons pas pu identifier automatiquement le système pour ce jeu.</system:String>
-<system:String x:Key="SystemSelectionPrompt">Veuillez sélectionner le système correct :</system:String>
+    <system:String x:Key="SystemSelectionMessage">Nous n'avons pas pu identifier automatiquement le système pour ce jeu.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">Veuillez sélectionner le système correct :</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' est corrompu ou n'a pas pu être ouvert.</system:String>
     <system:String x:Key="systemxmlnotfound">'system.xml' introuvable dans le dossier de l'application.</system:String>
     <system:String x:Key="TakeScreenshot">Prendre une capture d'écran</system:String>
@@ -1708,7 +1688,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">Corrige certains problèmes graphiques au détriment des performances.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">Échelle de résolution (X / Y) :</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">Échelle de résolution de rendu interne (1=720p, 2=1440p).</system:String>
-    
+    <system:String x:Key="XeniaConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">Mise à l'échelle et netteté :</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">Méthode de mise à l'échelle (FSR offre une netteté de haute qualité).</system:String>
@@ -1749,11 +1729,12 @@
     <system:String x:Key="YumirConfig_Fullscreen_Tooltip">Bascule entre le mode fenêtré et le mode plein écran.</system:String>
     <system:String x:Key="YumirConfig_Mute_Checkbox">Couper le son</system:String>
     <system:String x:Key="YumirConfig_Mute_Tooltip">Désactiver toute sortie sonore.</system:String>
+    <system:String x:Key="YumirConfig_PathNotFound">Exécutable Yumir introuvable. Veuillez le sélectionner.</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Checkbox">Mettre en pause lorsque la fenêtre n'est pas au premier plan</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Met automatiquement l'émulation en pause lorsque la fenêtre de l'émulateur perd le focus.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Réduire la latence</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Tente de minimiser le décalage d'entrée au détriment de certaines performances.</system:String>
-    
+    <system:String x:Key="YumirConfig_Run_Button2">Enregistrer et lancer</system:String>
     <system:String x:Key="YumirConfig_Save_Button">Enregistrer</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Afficher ces paramètres à chaque lancement d'un jeu</system:String>
     <system:String x:Key="YumirConfig_System_Header">Système &amp; Émulation</system:String>
@@ -1763,7 +1744,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Choisissez entre la synchronisation PAL (50Hz) ou NTSC (60Hz).</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">Niveau de volume :</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">Ajuste le volume principal (0.0 à 1.0).</system:String>
-<system:String x:Key="YumirConfigurationSavedSuccessfully">Configuration de Yumir enregistrée avec succès.</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">Configuration de Yumir enregistrée avec succès.</system:String>
     <system:String x:Key="ZipSlipExplanation">Une vulnérabilité de sécurité appelée 'Zip Slip' a été détectée dans le fichier d'archive. Il s'agit d'une vulnérabilité de traversée de chemin qui pourrait permettre à un attaquant d'écrire des fichiers en dehors du répertoire d'extraction prévu.</system:String>
     <system:String x:Key="ZoomIn">Zoomer</system:String>
     <system:String x:Key="ZoomingIn">Zoom avant...</system:String>

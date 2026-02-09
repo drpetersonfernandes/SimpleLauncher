@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
@@ -84,7 +85,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">모든 오디오 출력을 비활성화합니다.</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">되감기 활성화</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">게임 플레이를 되감을 수 있습니다. 성능에 영향을 줄 수 있습니다.</system:String>
-    
+    <system:String x:Key="AresConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="AresConfig_RunAhead_Checkbox">런어헤드 활성화</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">입력 지연을 줄입니다. 강력한 CPU가 필요할 수 있습니다.</system:String>
     <system:String x:Key="AresConfig_Save_Button">저장</system:String>
@@ -129,7 +130,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">New 3DS 특정 기능 및 호환 게임을 위한 더 높은 CPU 클럭을 활성화합니다.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">해상도 계수:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">내부 해상도 배율. 값이 높을수록 더 좋게 보이지만 더 많은 GPU 성능이 필요합니다.</system:String>
-    
+    <system:String x:Key="AzaharConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="AzaharConfig_Save_Button">저장</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="AzaharConfig_System_Header">시스템 설정</system:String>
@@ -148,7 +149,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">취소</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">전체 화면으로 실행</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">창 모드와 전체 화면 모드를 전환합니다.</system:String>
-    
+    <system:String x:Key="BlastemConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="BlastemConfig_Save_Button">저장</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">스케일링 필터:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear'는 부드러운 스케일링(바이리니어 필터링)을 제공합니다. 'nearest'는 선명하고 블록형 스케일링(최근접 이웃)을 제공합니다.</system:String>
@@ -195,7 +196,7 @@
     <system:String x:Key="CemuConfig_General_Header">일반 및 시스템</system:String>
     <system:String x:Key="CemuConfig_Language_Label">콘솔 언어:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">에뮬레이트된 Wii U 콘솔의 시스템 언어를 설정합니다.</system:String>
-    
+    <system:String x:Key="CemuConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="CemuConfig_Save_Button">저장</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="CemuConfig_Title">세무 설정 주입</system:String>
@@ -268,7 +269,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">게임 플레이</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">해상도:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">창 모드 또는 전체 화면 해상도를 설정합니다.</system:String>
-    
+    <system:String x:Key="DaphneConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="DaphneConfig_Save_Button">저장</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="DaphneConfig_Title">다프네 설정</system:String>
@@ -304,7 +305,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">DSP 에뮬레이션을 별도의 스레드에서 실행합니다. 대부분의 멀티 코어 CPU에서 성능을 향상시킵니다.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">그래픽스 백엔드:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">그래픽스 API를 선택합니다. Vulkan은 일반적으로 최신 GPU에 권장됩니다.</system:String>
-    
+    <system:String x:Key="DolphinConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="DolphinConfig_Save_Button">저장</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">돌핀을 시작하기 전에 이 설정 표시</system:String>
     <system:String x:Key="DolphinConfig_Title">돌핀 설정</system:String>
@@ -369,7 +370,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">더 선명한 그래픽을 위해 내부 렌더링 해상도를 높입니다. 1x는 기본 해상도입니다.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">되감기 활성화</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">게임 플레이를 되감을 수 있는 기능을 활성화합니다. 성능에 영향을 줄 수 있습니다.</system:String>
-    
+    <system:String x:Key="DuckStationConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Label">런어헤드 프레임</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">에뮬레이션을 미리 실행하고 되돌려 입력 지연을 줄입니다. 주의해서 사용하세요. 강력한 CPU가 필요합니다.</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">저장</system:String>
@@ -505,6 +506,7 @@
     <system:String x:Key="FailedToSaveFlycastConfiguration">Flycast 설정을 저장하지 못했습니다. 파일 권한을 확인하십시오.</system:String>
     <system:String x:Key="FailedToSaveMednafenConfiguration">Mednafen 설정을 저장하지 못했습니다. 파일 권한을 확인하십시오.</system:String>
     <system:String x:Key="FailedToSaveMesenConfiguration">Mesen 설정을 저장하지 못했습니다. 파일 권한을 확인하십시오.</system:String>
+    <system:String x:Key="FailedToSaveReDreamConfiguration">ReDream 설정을 저장하지 못했습니다. 파일 권한을 확인하세요.</system:String>
     <system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">RPCS3 설정을 저장하지 못했습니다. 파일 권한을 확인하십시오.</system:String>
     <system:String x:Key="Failedtosavescreenshot">스크린샷을 저장하지 못했습니다.</system:String>
     <system:String x:Key="FailedToSaveSEGAModel2Configuration">SEGA Model 2 설정을 저장하지 못했습니다. 파일 권한을 확인하십시오.</system:String>
@@ -545,7 +547,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">선택하면 에뮬레이터 창이 최대화된 상태로 시작됩니다 (테두리 없는 창 모드).</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">창 해상도 (너비 x 높이)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">전체 화면 모드가 아닐 때 에뮬레이터 창의 해상도를 설정합니다.</system:String>
-    
+    <system:String x:Key="FlycastConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="FlycastConfig_Save_Button">저장</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="FlycastConfig_Title">플라이캐스트 설정</system:String>
@@ -696,6 +698,7 @@
     <system:String x:Key="LoadingPrevPage">이전 페이지 로딩 중...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM 기록 불러오는 중...</system:String>
     <system:String x:Key="LoadingSystem">시스템 불러오는 중...</system:String>
+    <system:String x:Key="Loadingsystems">시스템 로딩 중...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">사용자 완료 진행률 불러오는 중...</system:String>
     <system:String x:Key="LoadingUserProfile">사용자 프로필 로드 중...</system:String>
     <system:String x:Key="LoadingUserUnlocks">사용자 잠금 해제 불러오는 중...</system:String>
@@ -730,7 +733,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">최대화 (최대화하여 시작)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">창을 최대화하여 시작합니다.</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">성능 및 고급</system:String>
-    
+    <system:String x:Key="MameConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">창에서 실행</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">전체 화면 대신 창에서 MAME를 실행합니다.</system:String>
     <system:String x:Key="MameConfig_Save_Button">저장</system:String>
@@ -765,7 +768,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">선택하면 에뮬레이터가 전체 화면 모드로 시작됩니다.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">되감기 활성화</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">게임 플레이를 되감을 수 있습니다. 성능 집약적일 수 있습니다.</system:String>
-    
+    <system:String x:Key="MednafenConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="MednafenConfig_Save_Button">저장</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">스캔라인 불투명도:</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">오래된 CRT 화면을 모방하기 위해 수평선을 추가합니다. 0은 꺼짐, 100은 완전히 불투명합니다.</system:String>
@@ -804,7 +807,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">성능 및 기능</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">되감기 활성화</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">게임 플레이를 되감을 수 있습니다. 성능에 영향을 줄 수 있습니다.</system:String>
-    
+    <system:String x:Key="MesenConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">런어헤드 프레임</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">프레임을 미리 실행하고 되돌려 입력 지연을 줄입니다. 주의해서 사용하세요 (0-8).</system:String>
     <system:String x:Key="MesenConfig_Save_Button">저장</system:String>
@@ -936,7 +939,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">일반 설정</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">렌더러:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">그래픽스 API를 선택합니다. Vulkan은 대부분의 최신 GPU에 권장됩니다.</system:String>
-    
+    <system:String x:Key="Pcsx2Config_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="Pcsx2Config_Save_Button">저장</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">PCSX2를 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="Pcsx2Config_Title">PCSX2 설정 인젝터</system:String>
@@ -1028,6 +1031,7 @@
     <system:String x:Key="RaGenericYes">예</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">오디오 설정</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">사운드 드라이버:</system:String>
+    <system:String x:Key="RaineConfig_Cancel_Button">취소</system:String>
     <system:String x:Key="RaineConfig_Directories_Header">디렉토리</system:String>
     <system:String x:Key="RaineConfig_FixAspect">종횡비 고정</system:String>
     <system:String x:Key="RaineConfig_FrameSkip">프레임 스킵</system:String>
@@ -1041,7 +1045,9 @@
     <system:String x:Key="RaineConfig_PathNotFound">Raine 에뮬레이터 실행 파일을 찾을 수 없습니다. 수동으로 찾아주세요.</system:String>
     <system:String x:Key="RaineConfig_Resolution">해상도 (너비 x 높이):</system:String>
     <system:String x:Key="RaineConfig_RomDirectory">ROM 디렉토리</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="RaineConfig_SampleRate">샘플 레이트 (Hz):</system:String>
+    <system:String x:Key="RaineConfig_Save_Button">저장</system:String>
     <system:String x:Key="RaineConfig_SelectExeTitle">Raine 에뮬레이터 실행 파일 선택</system:String>
     <system:String x:Key="RaineConfig_SelectNeoCdBios">NeoGeo CD BIOS 파일 선택</system:String>
     <system:String x:Key="RaineConfig_SelectRomDirectory">Raine ROM 디렉토리 선택</system:String>
@@ -1088,6 +1094,35 @@
     <system:String x:Key="receiveNotificationEmulatorError">에뮬레이터 오류 시 알림을 받으시겠습니까?</system:String>
     <system:String x:Key="RecentlyPlayedGames">최근 플레이한 게임:</system:String>
     <system:String x:Key="Red">빨강</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Label">화면 비율:</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Tooltip">화면 가로세로 비율.</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Label">방송 방식:</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">비디오 방송 표준.</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Label">케이블:</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Tooltip">비디오 케이블 유형.</system:String>
+    <system:String x:Key="RedreamConfig_Cancel_Button">취소</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">프레임 스킵 활성화</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">저사양 하드웨어에서 속도를 유지하기 위해 프레임을 건너뜁니다.</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Label">전체 화면 모드:</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">전체 화면에서 게임이 표시되는 방식.</system:String>
+    <system:String x:Key="RedreamConfig_Language_Label">언어:</system:String>
+    <system:String x:Key="RedreamConfig_Language_Tooltip">시스템 언어.</system:String>
+    <system:String x:Key="ReDreamConfig_PathNotFound">ReDream 실행 파일을 찾을 수 없습니다. 파일을 선택해 주세요.</system:String>
+    <system:String x:Key="RedreamConfig_Region_Label">지역:</system:String>
+    <system:String x:Key="RedreamConfig_Region_Tooltip">시스템 지역.</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Label">렌더러:</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Tooltip">사용할 그래픽 렌더러.</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Label">해상도 배율:</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">내부 해상도 스케일링 계수 (예: 2x의 경우 2).</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">저장 및 실행</system:String>
+    <system:String x:Key="RedreamConfig_Save_Button">저장</system:String>
+    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">게임 실행 전 이 창 표시</system:String>
+    <system:String x:Key="RedreamConfig_System_Header">시스템</system:String>
+    <system:String x:Key="RedreamConfig_Title">Redream 설정</system:String>
+    <system:String x:Key="RedreamConfig_Video_Header">비디오</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync 활성화</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Tooltip">프레임 속도를 모니터 재생률과 동기화합니다.</system:String>
+    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="RefreshingGameList">게임 목록 새로 고치는 중...</system:String>
     <system:String x:Key="ReinstallSuggestion">이로 인해 일부 기능(예: 자동 버그 보고)이 제대로 작동하지 않을 수 있습니다. 이 문제를 해결하기 위해 Simple Launcher를 다시 설치하시겠습니까?</system:String>
     <system:String x:Key="Released">출시:</system:String>
@@ -1155,7 +1190,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">레트로 업적</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">되감기 활성화</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">실시간으로 게임 플레이를 되감을 수 있습니다.</system:String>
-    
+    <system:String x:Key="RetroArchConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">런-어헤드</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">미래 프레임을 예측하여 입력 지연을 줄입니다 (CPU 집약적).</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">저장</system:String>
@@ -1202,7 +1237,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">에뮬레이터 창의 출력 해상도를 설정합니다.</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">해상도 스케일:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">더 선명한 그래픽을 위해 내부 해상도를 업스케일링합니다. 100%는 기본 720p입니다.</system:String>
-    
+    <system:String x:Key="RPCS3Config_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="RPCS3Config_Save_Button">저장</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">SPU 디코더:</system:String>
@@ -1259,7 +1294,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">렌더러</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">전체 화면 해상도:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">전체 화면 모드의 너비와 높이를 설정합니다.</system:String>
-    
+    <system:String x:Key="SegaModel2Config_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="SegaModel2Config_Save_Button">저장</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="SegaModel2Config_Title">세가 모델 2 설정</system:String>
@@ -1363,7 +1398,7 @@
     <system:String x:Key="StellaConfig_Features_Header">기능</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">전체 화면으로 실행</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">선택하면 에뮬레이터가 전체 화면 모드로 시작됩니다.</system:String>
-    
+    <system:String x:Key="StellaConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="StellaConfig_Save_Button">저장</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">스캔라인 강도:</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">시뮬레이션된 스캔라인의 가시성을 조절합니다 (0-100).</system:String>
@@ -1407,7 +1442,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">일부 GPU, 특히 투명 폴리곤의 정확도를 향상시킵니다. 성능에 영향을 줄 수 있습니다.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">해상도 (너비 x 높이):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">게임의 내부 렌더링 해상도를 설정합니다.</system:String>
-    
+    <system:String x:Key="SupermodelConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="SupermodelConfig_Save_Button">저장</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 이 창 표시</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">음향 효과 볼륨:</system:String>
@@ -1417,7 +1452,7 @@
     <system:String x:Key="SupermodelConfig_System_Header">시스템 및 성능</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Checkbox">에뮬레이션 속도 제한</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Tooltip">에뮬레이션 속도를 원본 하드웨어 속도(60 FPS)로 제한합니다. 벤치마킹 시 비활성화하세요.</system:String>
-        <system:String x:Key="SupermodelConfig_Title">슈퍼모델 설정</system:String>
+    <system:String x:Key="SupermodelConfig_Title">슈퍼모델 설정</system:String>
     <system:String x:Key="SupermodelConfig_Video_Header">비디오 및 그래픽</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Checkbox">V-Sync 활성화</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Tooltip">화면 찢어짐을 방지하기 위해 프레임 속도를 모니터의 재생률과 동기화합니다.</system:String>
@@ -1653,7 +1688,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">성능 저하를 감수하고 특정 그래픽 결함을 수정합니다.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">해상도 스케일 (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">내부 렌더링 해상도 스케일 (1=720p, 2=1440p).</system:String>
-    
+    <system:String x:Key="XeniaConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">저장</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">스케일링 및 선명화:</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">업스케일링 방법 (FSR은 고품질 선명화를 제공합니다).</system:String>
@@ -1694,11 +1729,12 @@
     <system:String x:Key="YumirConfig_Fullscreen_Tooltip">창 모드와 전체 화면 모드를 전환합니다.</system:String>
     <system:String x:Key="YumirConfig_Mute_Checkbox">오디오 음소거</system:String>
     <system:String x:Key="YumirConfig_Mute_Tooltip">모든 사운드 출력을 비활성화합니다.</system:String>
+    <system:String x:Key="YumirConfig_PathNotFound">Yumir 실행 파일을 찾을 수 없습니다. 파일을 선택해 주세요.</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Checkbox">포커스 해제 시 일시 정지</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">에뮬레이터 창이 포커스를 잃으면 에뮬레이션을 자동으로 일시 정지합니다.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">지연 시간 감소</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">약간의 성능 저하를 대가로 입력 지연을 최소화하려고 시도합니다.</system:String>
-    
+    <system:String x:Key="YumirConfig_Run_Button2">저장 및 실행</system:String>
     <system:String x:Key="YumirConfig_Save_Button">저장</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">게임을 시작하기 전에 항상 이 설정 표시</system:String>
     <system:String x:Key="YumirConfig_System_Header">시스템 및 에뮬레이션</system:String>

@@ -1,60 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="AresConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="CemuConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="MameConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="MesenConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="StellaConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="YumirConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="RedreamConfig_Title">تكوين Redream</system:String>
-    <system:String x:Key="RedreamConfig_Video_Header">الفيديو</system:String>
-    <system:String x:Key="RedreamConfig_Cable_Label">الكابل:</system:String>
-    <system:String x:Key="RedreamConfig_Cable_Tooltip">نوع كابل الفيديو.</system:String>
-    <system:String x:Key="RedreamConfig_Broadcast_Label">البث:</system:String>
-    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">معيار بث الفيديو.</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">تفعيل V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">مزامنة معدل الإطارات مع معدل تحديث الشاشة.</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">تفعيل تخطي الإطارات</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">تخطي الإطارات للحفاظ على السرعة على الأجهزة البطيئة.</system:String>
-    <system:String x:Key="RedreamConfig_Aspect_Label">نسبة العرض إلى الارتفاع:</system:String>
-    <system:String x:Key="RedreamConfig_Aspect_Tooltip">نسبة عرض الشاشة.</system:String>
-    <system:String x:Key="RedreamConfig_ResolutionScale_Label">مقياس الدقة:</system:String>
-    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">عامل قياس الدقة الداخلية (مثلاً 2 لـ 2x).</system:String>
-    <system:String x:Key="RedreamConfig_Renderer_Label">المصير (Renderer):</system:String>
-    <system:String x:Key="RedreamConfig_Renderer_Tooltip">برنامج عرض الرسومات المستخدم.</system:String>
-    <system:String x:Key="RedreamConfig_FullscreenMode_Label">وضع ملء الشاشة:</system:String>
-    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">كيفية عرض اللعبة في وضع ملء الشاشة.</system:String>
-    <system:String x:Key="RedreamConfig_System_Header">النظام</system:String>
-    <system:String x:Key="RedreamConfig_Language_Label">اللغة:</system:String>
-    <system:String x:Key="RedreamConfig_Language_Tooltip">لغة النظام.</system:String>
-    <system:String x:Key="RedreamConfig_Region_Label">المنطقة:</system:String>
-    <system:String x:Key="RedreamConfig_Region_Tooltip">منطقة النظام.</system:String>
-    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
-    <system:String x:Key="RedreamConfig_Save_Button">حفظ</system:String>
-    <system:String x:Key="RedreamConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="RedreamConfig_Cancel_Button">إلغاء</system:String>
-    <system:String x:Key="ReDreamConfig_PathNotFound">ملف ReDream التنفيذي غير موجود. يرجى تحديده.</system:String>
-    <system:String x:Key="FailedToSaveReDreamConfiguration">فشل حفظ تكوين ReDream. يرجى التحقق من أذونات الملف.</system:String>
-    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">تم حفظ تكوين ReDream بنجاح.</system:String>
-    <system:String x:Key="Loadingsystems">جاري تحميل الأنظمة...</system:String>
-    <system:String x:Key="RaineConfig_Save_Button">حفظ</system:String>
-    <system:String x:Key="RaineConfig_Run_Button2">حفظ وتشغيل</system:String>
-    <system:String x:Key="RaineConfig_Cancel_Button">إلغاء</system:String>
-    <system:String x:Key="YumirConfig_PathNotFound">ملف Yumir التنفيذي غير موجود. يرجى تحديده.</system:String>
+<?xml version="1.0" encoding="utf-8"?>
 
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -139,7 +85,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">تعطيل جميع مخرجات الصوت.</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">تمكين الإرجاع (Rewind)</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">يسمح لك بإرجاع اللعب. قد يؤثر على الأداء.</system:String>
-    
+    <system:String x:Key="AresConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="AresConfig_RunAhead_Checkbox">تمكين التقدم المسبق (Run-Ahead)</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">يقلل من زمن استجابة الإدخال. قد يتطلب وحدة معالجة مركزية قوية.</system:String>
     <system:String x:Key="AresConfig_Save_Button">حفظ</system:String>
@@ -152,8 +98,8 @@
     <system:String x:Key="AresConfig_VideoDriver_Tooltip">حدد واجهة برمجة تطبيقات الرسوميات المراد استخدامها للعرض.</system:String>
     <system:String x:Key="AresConfig_Volume_Label">مستوى الصوت:</system:String>
     <system:String x:Key="AresConfig_Volume_Tooltip">اضبط مستوى الصوت الرئيسي. 1.0 يعني 100%.</system:String>
-<system:String x:Key="AresConfigurationSavedSuccessfully">تم حفظ تكوين Ares بنجاح.</system:String>
-<system:String x:Key="Aresemulatornotfound">لم يتم العثور على محاكي Ares. يرجى تحديد موقع 'ares.exe'.</system:String>
+    <system:String x:Key="AresConfigurationSavedSuccessfully">تم حفظ تكوين Ares بنجاح.</system:String>
+    <system:String x:Key="Aresemulatornotfound">لم يتم العثور على محاكي Ares. يرجى تحديد موقع 'ares.exe'.</system:String>
     <system:String x:Key="AresSettings">إعدادات Ares</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">هل أنت متأكد أنك تريد حذف صورة الغلاف لـ</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">هل أنت متأكد من أنك تريد حذف الملف</system:String>
@@ -171,8 +117,8 @@
     <system:String x:Key="AzaharConfig_AsyncShader_Checkbox">استخدام تجميع المظللات غير المتزامن</system:String>
     <system:String x:Key="AzaharConfig_AsyncShader_Tooltip">يقلل من التقطيع أثناء اللعب عن طريق تجميع المظللات في الخلفية.</system:String>
     <system:String x:Key="AzaharConfig_Audio_Header">الصوت</system:String>
-<system:String x:Key="AzaharConfig_AudioStretching_Checkbox">تمكين تمديد الصوت</system:String>
-<system:String x:Key="AzaharConfig_AudioStretching_Tooltip">تمكين تمديد الصوت لمنع تشويش الصوت.</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Checkbox">تمكين تمديد الصوت</system:String>
+    <system:String x:Key="AzaharConfig_AudioStretching_Tooltip">تمكين تمديد الصوت لمنع تشويش الصوت.</system:String>
     <system:String x:Key="AzaharConfig_Cancel_Button">إلغاء</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Checkbox">البدء بوضع ملء الشاشة</system:String>
     <system:String x:Key="AzaharConfig_Fullscreen_Tooltip">التبديل تلقائيًا إلى وضع ملء الشاشة عند بدء اللعبة.</system:String>
@@ -184,7 +130,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">يمكّن ميزات New 3DS المحددة وسرعة معالج أعلى للألعاب المتوافقة.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">عامل الدقة:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">مضاعف الدقة الداخلية. القيم الأعلى تبدو أفضل ولكنها تتطلب المزيد من قوة وحدة معالجة الرسوميات.</system:String>
-    
+    <system:String x:Key="AzaharConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="AzaharConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="AzaharConfig_System_Header">إعدادات النظام</system:String>
@@ -203,7 +149,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">إلغاء</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">تشغيل بوضع ملء الشاشة</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">التبديل بين وضع النافذة ووضع ملء الشاشة.</system:String>
-    
+    <system:String x:Key="BlastemConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="BlastemConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">مرشح التحجيم:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">"linear" يوفر تحجيمًا سلسًا (تصفية ثنائية الخط). "nearest" يوفر تحجيمًا حادًا ومبكسلًا (أقرب جار).</system:String>
@@ -217,8 +163,8 @@
     <system:String x:Key="BlastemConfig_Video_Header">عرض الفيديو</system:String>
     <system:String x:Key="BlastemConfig_Vsync_Checkbox">تمكين المزامنة الرأسية (V-Sync)</system:String>
     <system:String x:Key="BlastemConfig_Vsync_Tooltip">مزامنة معدل الإطارات مع معدل تحديث الشاشة لمنع تمزق الشاشة.</system:String>
-<system:String x:Key="BlastemConfigurationSavedSuccessfully">تم حفظ تكوين Blastem بنجاح.</system:String>
-<system:String x:Key="BlastememulatornotfoundPleaselocate">لم يتم العثور على محاكي Blastem. يرجى تحديد موقع 'blastem.exe'.</system:String>
+    <system:String x:Key="BlastemConfigurationSavedSuccessfully">تم حفظ تكوين Blastem بنجاح.</system:String>
+    <system:String x:Key="BlastememulatornotfoundPleaselocate">لم يتم العثور على محاكي Blastem. يرجى تحديد موقع 'blastem.exe'.</system:String>
     <system:String x:Key="BlastemSettings">إعدادات Blastem</system:String>
     <system:String x:Key="Blue">أزرق</system:String>
     <system:String x:Key="BoxArt">غلاف اللعبة</system:String>
@@ -226,7 +172,7 @@
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
-<system:String x:Key="CalculatingGameHash">جارٍ حساب تجزئة اللعبة... الرجاء الانتظار.</system:String>
+    <system:String x:Key="CalculatingGameHash">جارٍ حساب تجزئة اللعبة... الرجاء الانتظار.</system:String>
     <system:String x:Key="Cancel">إلغاء</system:String>
     <system:String x:Key="CancelButtonText">إلغاء</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
@@ -250,7 +196,7 @@
     <system:String x:Key="CemuConfig_General_Header">عام ونظام</system:String>
     <system:String x:Key="CemuConfig_Language_Label">لغة وحدة التحكم:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">يحدد لغة نظام وحدة تحكم Wii U المحاكية.</system:String>
-    
+    <system:String x:Key="CemuConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="CemuConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="CemuConfig_Title">حقن إعدادات Cemu</system:String>
@@ -261,8 +207,8 @@
     <system:String x:Key="CemuConfig_Vsync_Off">إيقاف</system:String>
     <system:String x:Key="CemuConfig_Vsync_On">تشغيل</system:String>
     <system:String x:Key="CemuConfig_Vsync_Tooltip">يزامن معدل الإطارات مع معدل تحديث الشاشة لمنع تمزق الشاشة.</system:String>
-<system:String x:Key="CemuConfigurationSaved">تم حفظ تكوين Cemu.</system:String>
-<system:String x:Key="Cemuemulatornotfound">لم يتم العثور على محاكي Cemu. يرجى تحديد موقع 'Cemu.exe'.</system:String>
+    <system:String x:Key="CemuConfigurationSaved">تم حفظ تكوين Cemu.</system:String>
+    <system:String x:Key="Cemuemulatornotfound">لم يتم العثور على محاكي Cemu. يرجى تحديد موقع 'Cemu.exe'.</system:String>
     <system:String x:Key="ChangingBaseTheme">جاري تغيير السمة الأساسية...</system:String>
     <system:String x:Key="ChangingLanguage">تغيير اللغة...</system:String>
     <system:String x:Key="ChangingViewMode">تغيير وضع العرض...</system:String>
@@ -287,12 +233,12 @@
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="ConfirmClose">تأكيد الإغلاق</system:String>
     <system:String x:Key="ConfirmDeletion">تأكيد الحذف</system:String>
-<system:String x:Key="ConfirmSelectionButton">تأكيد التحديد</system:String>
+    <system:String x:Key="ConfirmSelectionButton">تأكيد التحديد</system:String>
     <system:String x:Key="Console">الجهاز:</system:String>
     <system:String x:Key="ConsoleID">معرف الجهاز:</system:String>
     <system:String x:Key="ContactDeveloper">الاتصال بالمطور</system:String>
     <system:String x:Key="Contributions">المساهمات:</system:String>
-<system:String x:Key="ConvertingChdToCue">تحويل CHD...</system:String>
+    <system:String x:Key="ConvertingChdToCue">تحويل CHD...</system:String>
     <system:String x:Key="CopyError">خطأ في النسخ</system:String>
     <system:String x:Key="CopyLog">نسخ السجل</system:String>
     <system:String x:Key="Core">النواة</system:String>
@@ -323,7 +269,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">اللعب</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">الدقة:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">اضبط دقة وضع النافذة أو ملء الشاشة.</system:String>
-    
+    <system:String x:Key="DaphneConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="DaphneConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="DaphneConfig_Title">إعدادات Daphne</system:String>
@@ -331,7 +277,7 @@
     <system:String x:Key="DaphneConfig_UseOverlays_Tooltip">تمكين أو تعطيل عرض النقاط والأرصدة على الشاشة.</system:String>
     <system:String x:Key="DaphneConfig_Video_Header">الفيديو والعرض</system:String>
     <system:String x:Key="DaphneSettings">إعدادات Daphne</system:String>
-<system:String x:Key="Daphnesettingssavedsuccessfully">تم حفظ إعدادات Daphne بنجاح.</system:String>
+    <system:String x:Key="Daphnesettingssavedsuccessfully">تم حفظ إعدادات Daphne بنجاح.</system:String>
     <system:String x:Key="Dark">داكن</system:String>
     <system:String x:Key="DeadZoneExplanationContent">المنطقة الميتة هي المنطقة المحيطة بمركز عصا التحكم في لوحة الألعاب الخاصة بك حيث لا يتم تسجيل أي حركة. هذا يمنع حركة المؤشر غير المرغوب فيها عندما لا تكون العصا متمركزة تمامًا بسبب التآكل أو تفاوتات التصنيع.</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">ما هي المنطقة الميتة؟</system:String>
@@ -359,7 +305,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">يشغل محاكاة DSP على خيط منفصل. يحسن الأداء على معظم وحدات المعالجة المركزية متعددة الأنوية.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">الواجهة الخلفية للرسومات:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">حدد واجهة برمجة تطبيقات الرسوميات. Vulkan موصى به بشكل عام لوحدات معالجة الرسوميات الحديثة.</system:String>
-    
+    <system:String x:Key="DolphinConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="DolphinConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">إظهار هذه الإعدادات قبل تشغيل Dolphin</system:String>
     <system:String x:Key="DolphinConfig_Title">إعدادات Dolphin</system:String>
@@ -368,8 +314,8 @@
     <system:String x:Key="DolphinConfig_WiimoteContinuousScanning_Tooltip">البحث باستمرار عن أجهزة Wiimote حقيقية للاتصال عبر البلوتوث.</system:String>
     <system:String x:Key="DolphinConfig_WiimoteEnableSpeaker_Checkbox">تمكين مكبر صوت Wiimote</system:String>
     <system:String x:Key="DolphinConfig_WiimoteEnableSpeaker_Tooltip">يمكّن إخراج الصوت عبر مكبر صوت وحدة تحكم Wiimote الفعلية.</system:String>
-<system:String x:Key="DolphinConfigurationSavedSuccessfully">تم حفظ تكوين Dolphin بنجاح.</system:String>
-<system:String x:Key="DolphinEmulatorNotFound">لم يتم العثور على محاكي Dolphin. يرجى تحديد موقع 'Dolphin.exe'.</system:String>
+    <system:String x:Key="DolphinConfigurationSavedSuccessfully">تم حفظ تكوين Dolphin بنجاح.</system:String>
+    <system:String x:Key="DolphinEmulatorNotFound">لم يتم العثور على محاكي Dolphin. يرجى تحديد موقع 'Dolphin.exe'.</system:String>
     <system:String x:Key="DolphinSettings">إعدادات Dolphin</system:String>
     <system:String x:Key="Donate">تبرع</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
@@ -424,7 +370,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">يزيد من دقة العرض الداخلية لرسومات أكثر وضوحًا. 1x هي الدقة الأصلية.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">تمكين الإرجاع (Rewind)</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">يمكّن القدرة على إرجاع اللعب. قد يؤثر على الأداء.</system:String>
-    
+    <system:String x:Key="DuckStationConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Label">إطارات التقدم المسبق (Runahead)</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">يقلل من زمن استجابة الإدخال عن طريق تشغيل المحاكاة مسبقًا والتراجع. استخدم بحذر، يتطلب وحدة معالجة مركزية قوية.</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">حفظ</system:String>
@@ -441,8 +387,8 @@
     <system:String x:Key="DuckStationConfig_Vsync_Tooltip">يزامن معدل الإطارات مع معدل تحديث شاشتك لمنع تمزق الشاشة.</system:String>
     <system:String x:Key="DuckStationConfig_WidescreenHack_Checkbox">تمكين اختراق الشاشة العريضة</system:String>
     <system:String x:Key="DuckStationConfig_WidescreenHack_Tooltip">يحاول عرض الألعاب بنسبة عرض إلى ارتفاع 16:9. قد يسبب خللاً بصريًا.</system:String>
-<system:String x:Key="DuckStationConfigurationSavedSuccessfully">تم حفظ تكوين DuckStation بنجاح.</system:String>
-<system:String x:Key="DuckStationemulatornotfound">لم يتم العثور على محاكي DuckStation. يرجى تحديد موقع الملف التنفيذي لـ DuckStation.</system:String>
+    <system:String x:Key="DuckStationConfigurationSavedSuccessfully">تم حفظ تكوين DuckStation بنجاح.</system:String>
+    <system:String x:Key="DuckStationemulatornotfound">لم يتم العثور على محاكي DuckStation. يرجى تحديد موقع الملف التنفيذي لـ DuckStation.</system:String>
     <system:String x:Key="DuckStationSettings">إعدادات DuckStation</system:String>
     <system:String x:Key="EasyMode">الوضع السهل</system:String>
     <system:String x:Key="EditLinks">تعديل الروابط</system:String>
@@ -481,7 +427,7 @@
     <system:String x:Key="EmulatorIntegration">تكامل المحاكي</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>
-<system:String x:Key="EmulatorNotFound">لم يتم العثور على المحاكي</system:String>
+    <system:String x:Key="EmulatorNotFound">لم يتم العثور على المحاكي</system:String>
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
     <system:String x:Key="EmulatorPath">مسار المحاكي</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">مسار المحاكي غير صالح لـ</system:String>
@@ -530,21 +476,21 @@
     <system:String x:Key="ExtractionFailedTitle">فشل الاستخراج</system:String>
     <system:String x:Key="Failedtoconfiguretheemulator">فشل في تكوين المحاكي. قد يكون ملف التكوين مفقودًا، أو في موقع غير متوقع، أو للقراءة فقط.</system:String>
     <system:String x:Key="Failedtocopylogcontent">فشل نسخ محتوى السجل.</system:String>
-<system:String x:Key="FailedtoinjectAresconfiguration">فشل حقن تكوين Ares. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedToInjectBlastemConfiguration">فشل حقن تكوين Blastem. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedToInjectDolphinConfiguration">فشل حقن تكوين Dolphin. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedToInjectDuckStationConfiguration">فشل حقن تكوين DuckStation. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedToInjectFlycastConfiguration">فشل حقن تكوين Flycast. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedtoinjectAresconfiguration">فشل حقن تكوين Ares. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedToInjectBlastemConfiguration">فشل حقن تكوين Blastem. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedToInjectDolphinConfiguration">فشل حقن تكوين Dolphin. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedToInjectDuckStationConfiguration">فشل حقن تكوين DuckStation. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedToInjectFlycastConfiguration">فشل حقن تكوين Flycast. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="FailedtoinjectMAMEconfiguration">فشل حقن تكوين MAME. تم تسجيل الخطأ. يرجى التحقق من مسار المحاكي والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="FailedtoinjectMAMEconfigurationTheerror">فشل حقن تكوين MAME. تم تسجيل الخطأ.</system:String>
-<system:String x:Key="FailedtoinjectMednafenconfiguration">فشل حقن تكوين Mednafen. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedtoinjectMesenconfiguration">فشل حقن تكوين Mesen. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedtoinjectMednafenconfiguration">فشل حقن تكوين Mednafen. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedtoinjectMesenconfiguration">فشل حقن تكوين Mesen. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="FailedtoinjectRetroArchconfigurationTheerror">فشل حقن تكوين RetroArch. تم تسجيل الخطأ. يرجى التحقق من مسار المحاكي والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="FailedtoinjectRetroArchconfigurationTheerrorhas">فشل حقن تكوين RetroArch. تم تسجيل الخطأ.</system:String>
-<system:String x:Key="FailedToInjectRPCS3Configuration">فشل حقن تكوين RPCS3. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedToInjectSEGAModel2Configuration">فشل حقن تكوين SEGA Model 2. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedtoinjectStellaconfiguration">فشل حقن تكوين Stella. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
-<system:String x:Key="FailedtoinjectSupermodelconfiguration">فشل حقن تكوين Supermodel. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedToInjectRPCS3Configuration">فشل حقن تكوين RPCS3. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedToInjectSEGAModel2Configuration">فشل حقن تكوين SEGA Model 2. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedtoinjectStellaconfiguration">فشل حقن تكوين Stella. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
+    <system:String x:Key="FailedtoinjectSupermodelconfiguration">فشل حقن تكوين Supermodel. يرجى التحقق من أذونات الملف والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="FailedtoinjectXeniaconfigurationTheerror">فشل حقن تكوين Xenia. تم تسجيل الخطأ.</system:String>
     <system:String x:Key="FailedtoinjectXeniaconfigurationTheerrorPleasecheck">فشل حقن تكوين Xenia. تم تسجيل الخطأ. يرجى التحقق من مسار المحاكي والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">فشل في تحميل موارد اللغة.</system:String>
@@ -553,21 +499,22 @@
     <system:String x:Key="Failedtoopenthemanual">فشل في فتح الدليل.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">فشل في فتح ملف الإرشادات.</system:String>
     <system:String x:Key="Failedtorestarttheapplication">فشل في إعادة تشغيل التطبيق.</system:String>
-<system:String x:Key="FailedToSaveAresConfiguration">فشل حفظ تكوين Ares. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveBlastemConfiguration">فشل حفظ تكوين Blastem. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveDolphinConfiguration">فشل حفظ تكوين Dolphin. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveDuckStationConfiguration">فشل حفظ تكوين DuckStation. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveFlycastConfiguration">فشل حفظ تكوين Flycast. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveMednafenConfiguration">فشل حفظ تكوين Mednafen. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveMesenConfiguration">فشل حفظ تكوين Mesen. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">فشل حفظ تكوين RPCS3. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveAresConfiguration">فشل حفظ تكوين Ares. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveBlastemConfiguration">فشل حفظ تكوين Blastem. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveDolphinConfiguration">فشل حفظ تكوين Dolphin. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveDuckStationConfiguration">فشل حفظ تكوين DuckStation. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveFlycastConfiguration">فشل حفظ تكوين Flycast. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveMednafenConfiguration">فشل حفظ تكوين Mednafen. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveMesenConfiguration">فشل حفظ تكوين Mesen. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveReDreamConfiguration">فشل حفظ تكوين ReDream. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">فشل حفظ تكوين RPCS3. يرجى التحقق من أذونات الملف.</system:String>
     <system:String x:Key="Failedtosavescreenshot">فشل في حفظ لقطة الشاشة.</system:String>
-<system:String x:Key="FailedToSaveSEGAModel2Configuration">فشل حفظ تكوين SEGA Model 2. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveStellaConfiguration">فشل حفظ تكوين Stella. يرجى التحقق من أذونات الملف.</system:String>
-<system:String x:Key="FailedToSaveSupermodelConfiguration">فشل حفظ تكوين Supermodel. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveSEGAModel2Configuration">فشل حفظ تكوين SEGA Model 2. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveStellaConfiguration">فشل حفظ تكوين Stella. يرجى التحقق من أذونات الملف.</system:String>
+    <system:String x:Key="FailedToSaveSupermodelConfiguration">فشل حفظ تكوين Supermodel. يرجى التحقق من أذونات الملف.</system:String>
     <system:String x:Key="FailedToSaveSystem">فشل في حفظ إعدادات النظام.</system:String>
     <system:String x:Key="Failedtosavethereport">فشل في حفظ التقرير.</system:String>
-<system:String x:Key="FailedToSaveYumirConfiguration">فشل حفظ إعدادات Yumir.</system:String>
+    <system:String x:Key="FailedToSaveYumirConfiguration">فشل حفظ إعدادات Yumir.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">فشل في تشغيل Simple Launcher. حدث خطأ أثناء التحقق من النسخ الحالية.</system:String>
     <system:String x:Key="Failedtostarttheemulator">فشل في تشغيل المحاكي أو لم يتم إنهاؤه كما هو متوقع.</system:String>
     <system:String x:Key="Failedtotogglegamepad">فشل في تبديل وضعية جهاز التحكم.</system:String>
@@ -591,7 +538,7 @@
     <system:String x:Key="FilterByAll">تصفية حسب الكل</system:String>
     <system:String x:Key="FilterByLetter">تصفية حسب الحرف</system:String>
     <system:String x:Key="FilterByNumber">تصفية حسب الرقم</system:String>
-<system:String x:Key="FilteringRetroAchievements">تصفية الألعاب ذات الإنجازات...</system:String>
+    <system:String x:Key="FilteringRetroAchievements">تصفية الألعاب ذات الإنجازات...</system:String>
     <system:String x:Key="FindYourApiKeyHere">ابحث عن مفتاح API الخاص بك هنا</system:String>
     <system:String x:Key="FlycastConfig_Cancel_Button">إلغاء</system:String>
     <system:String x:Key="FlycastConfig_Fullscreen_Checkbox">تشغيل بوضع ملء الشاشة</system:String>
@@ -600,13 +547,13 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">إذا تم تحديد هذا الخيار، ستبدأ نافذة المحاكي مكبرة (نافذة بلا حدود).</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">دقة النافذة (العرض × الارتفاع)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">يحدد دقة نافذة المحاكي عندما لا تكون في وضع ملء الشاشة.</system:String>
-    
+    <system:String x:Key="FlycastConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="FlycastConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="FlycastConfig_Title">إعدادات Flycast</system:String>
     <system:String x:Key="FlycastConfig_Video_Header">إعدادات الفيديو</system:String>
-<system:String x:Key="FlycastConfigurationSavedSuccessfully">تم حفظ تكوين Flycast بنجاح.</system:String>
-<system:String x:Key="Flycastemulatornotfound">لم يتم العثور على محاكي Flycast. يرجى تحديد موقع 'flycast.exe'.</system:String>
+    <system:String x:Key="FlycastConfigurationSavedSuccessfully">تم حفظ تكوين Flycast بنجاح.</system:String>
+    <system:String x:Key="Flycastemulatornotfound">لم يتم العثور على محاكي Flycast. يرجى تحديد موقع 'flycast.exe'.</system:String>
     <system:String x:Key="FlycastSettings">إعدادات Flycast</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>
@@ -704,7 +651,7 @@
     <system:String x:Key="InGame">داخل اللعبة</system:String>
     <system:String x:Key="InjectEmulatorConfig">حقن إعدادات المحاكي</system:String>
     <system:String x:Key="InjectionError">خطأ في الحقن</system:String>
-<system:String x:Key="InjectionFailed">فشل الحقن</system:String>
+    <system:String x:Key="InjectionFailed">فشل الحقن</system:String>
     <system:String x:Key="Install">تثبيت</system:String>
     <system:String x:Key="InstallImagePack">تثبيت حزمة الصور</system:String>
     <system:String x:Key="InSystem">في النظام</system:String>
@@ -727,7 +674,7 @@
     <system:String x:Key="launchedwith">تم الإطلاق باستخدام</system:String>
     <system:String x:Key="LaunchErrorTitle">خطأ في الإطلاق</system:String>
     <system:String x:Key="LaunchGame">تشغيل اللعبة</system:String>
-<system:String x:Key="Launching">جارٍ التشغيل...</system:String>
+    <system:String x:Key="Launching">جارٍ التشغيل...</system:String>
     <system:String x:Key="LaunchingGame">تشغيل اللعبة...</system:String>
     <system:String x:Key="LaunchingGameFromHistory">تشغيل اللعبة من السجل...</system:String>
     <system:String x:Key="LaunchingTool">تشغيل الأداة...</system:String>
@@ -748,9 +695,10 @@
     <system:String x:Key="LoadingGames">تحميل الألعاب...</system:String>
     <system:String x:Key="LoadingHistory">جارٍ تحميل السجل...</system:String>
     <system:String x:Key="LoadingNextPage">تحميل الصفحة التالية...</system:String>
-<system:String x:Key="LoadingPrevPage">تحميل الصفحة السابقة...</system:String>
+    <system:String x:Key="LoadingPrevPage">تحميل الصفحة السابقة...</system:String>
     <system:String x:Key="LoadingROMHistory">تحميل سجل ROM...</system:String>
     <system:String x:Key="LoadingSystem">تحميل النظام...</system:String>
+    <system:String x:Key="Loadingsystems">جاري تحميل الأنظمة...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">تحميل تقدم إنجاز المستخدم...</system:String>
     <system:String x:Key="LoadingUserProfile">جاري تحميل الملف الشخصي...</system:String>
     <system:String x:Key="LoadingUserUnlocks">تحميل فتحات المستخدم...</system:String>
@@ -785,7 +733,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">تكبير (بدء مكبرة)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">يبدأ النافذة مكبرة.</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">الأداء والمتقدمة</system:String>
-    
+    <system:String x:Key="MameConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">تشغيل في نافذة</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">تشغيل MAME في نافذة بدلاً من وضع ملء الشاشة.</system:String>
     <system:String x:Key="MameConfig_Save_Button">حفظ</system:String>
@@ -820,7 +768,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">إذا تم تحديد هذا الخيار، سيبدأ المحاكي في وضع ملء الشاشة.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">تمكين الإرجاع (Rewind)</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">يسمح لك بإرجاع اللعب. قد يكون مكثفًا للأداء.</system:String>
-    
+    <system:String x:Key="MednafenConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="MednafenConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">عتامة خطوط المسح (Scanlines):</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">يضيف خطوطًا أفقية لمحاكاة شاشة CRT قديمة. 0 يعني إيقاف التشغيل، 100 يعني عتامة كاملة.</system:String>
@@ -838,8 +786,8 @@
     <system:String x:Key="MednafenConfig_Volume_Tooltip">يضبط مستوى الصوت الرئيسي. 100 هو الافتراضي.</system:String>
     <system:String x:Key="MednafenConfig_Vsync_Checkbox">تمكين المزامنة الرأسية (VSync)</system:String>
     <system:String x:Key="MednafenConfig_Vsync_Tooltip">يزامن معدل الإطارات مع معدل تحديث شاشتك لمنع تمزق الشاشة. يتطلب مشغل 'opengl'.</system:String>
-<system:String x:Key="MednafenConfigurationSavedSuccessfully">تم حفظ تكوين Mednafen بنجاح.</system:String>
-<system:String x:Key="Mednafenemulatornotfound">لم يتم العثور على محاكي Mednafen. يرجى تحديد موقع 'mednafen.exe'.</system:String>
+    <system:String x:Key="MednafenConfigurationSavedSuccessfully">تم حفظ تكوين Mednafen بنجاح.</system:String>
+    <system:String x:Key="Mednafenemulatornotfound">لم يتم العثور على محاكي Mednafen. يرجى تحديد موقع 'mednafen.exe'.</system:String>
     <system:String x:Key="MednafenSettings">إعدادات Mednafen</system:String>
     <system:String x:Key="MemberSince">عضو منذ:</system:String>
     <system:String x:Key="MesenConfig_AspectRatio_Label">نسبة العرض إلى الارتفاع</system:String>
@@ -859,7 +807,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">الأداء والميزات</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">تمكين الإرجاع (Rewind)</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">يسمح لك بإرجاع اللعب. قد يؤثر على الأداء.</system:String>
-    
+    <system:String x:Key="MesenConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">إطارات التقدم المسبق (Run-Ahead)</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">يقلل من تأخر الإدخال عن طريق تشغيل الإطارات مسبقًا والتراجع. استخدم بحذر (0-8).</system:String>
     <system:String x:Key="MesenConfig_Save_Button">حفظ</system:String>
@@ -870,8 +818,8 @@
     <system:String x:Key="MesenConfig_VideoFilter_Tooltip">يطبق مرشحًا مرئيًا على إخراج اللعبة (مثل NTSC).</system:String>
     <system:String x:Key="MesenConfig_Vsync_Checkbox">تمكين المزامنة الرأسية (V-Sync)</system:String>
     <system:String x:Key="MesenConfig_Vsync_Tooltip">يزامن معدل الإطارات مع معدل تحديث شاشتك لمنع تمزق الشاشة.</system:String>
-<system:String x:Key="MesenConfigurationSavedSuccessfully">تم حفظ تكوين Mesen بنجاح.</system:String>
-<system:String x:Key="Mesenemulatornotfound">لم يتم العثور على محاكي Mesen. يرجى تحديد موقع 'Mesen.exe'.</system:String>
+    <system:String x:Key="MesenConfigurationSavedSuccessfully">تم حفظ تكوين Mesen بنجاح.</system:String>
+    <system:String x:Key="Mesenemulatornotfound">لم يتم العثور على محاكي Mesen. يرجى تحديد موقع 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">إعدادات Mesen</system:String>
     <system:String x:Key="MissingInformation">معلومات مفقودة</system:String>
     <system:String x:Key="MissingRequiredFiles">الملفات المطلوبة مفقودة</system:String>
@@ -991,7 +939,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">إعدادات عامة</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">العارض (Renderer):</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">حدد واجهة برمجة تطبيقات الرسوميات. Vulkan موصى به لمعظم وحدات معالجة الرسوميات الحديثة.</system:String>
-    
+    <system:String x:Key="Pcsx2Config_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="Pcsx2Config_Save_Button">حفظ</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل PCSX2</system:String>
     <system:String x:Key="Pcsx2Config_Title">حقن إعدادات PCSX2</system:String>
@@ -1004,7 +952,7 @@
     <system:String x:Key="Pcsx2Config_Vsync_Tooltip">يمنع تمزق الشاشة ولكنه قد يضيف تأخرًا طفيفًا في الإدخال.</system:String>
     <system:String x:Key="Pcsx2Config_WidescreenPatches_Checkbox">تمكين تصحيحات الشاشة العريضة</system:String>
     <system:String x:Key="Pcsx2Config_WidescreenPatches_Tooltip">يجبر الألعاب على العرض بنسبة 16:9 إذا كان التصحيح متاحًا.</system:String>
-<system:String x:Key="PCSX2settingssaved">تم حفظ إعدادات PCSX2.</system:String>
+    <system:String x:Key="PCSX2settingssaved">تم حفظ إعدادات PCSX2.</system:String>
     <system:String x:Key="Permissions">الصلاحيات:</system:String>
     <system:String x:Key="PickingARandomGame">اختيار لعبة عشوائية...</system:String>
     <system:String x:Key="Pink">وردي</system:String>
@@ -1051,7 +999,7 @@
     <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
     <system:String x:Key="ProcessingStillRunningMessage">المعالجة لا تزال قيد التشغيل. هل تريد الإلغاء والإغلاق؟</system:String>
-<system:String x:Key="ProcessingSystem">معالجة النظام</system:String>
+    <system:String x:Key="ProcessingSystem">معالجة النظام</system:String>
     <system:String x:Key="ProfileID">معرف الملف الشخصي (ULID):</system:String>
     <system:String x:Key="Publisher">الناشر:</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
@@ -1081,32 +1029,35 @@
     <system:String x:Key="RaFallbackUnknownGame">لعبة غير معروفة</system:String>
     <system:String x:Key="RaGenericNo">لا</system:String>
     <system:String x:Key="RaGenericYes">نعم</system:String>
-<system:String x:Key="RaineConfig_Audio_Header">إعدادات الصوت</system:String>
-<system:String x:Key="RaineConfig_AudioDriver">مشغل الصوت:</system:String>
-<system:String x:Key="RaineConfig_Directories_Header">الدلائل</system:String>
-<system:String x:Key="RaineConfig_FixAspect">تثبيت نسبة العرض إلى الارتفاع</system:String>
-<system:String x:Key="RaineConfig_FrameSkip">تخطي الإطارات</system:String>
-<system:String x:Key="RaineConfig_Fullscreen">ملء الشاشة</system:String>
-<system:String x:Key="RaineConfig_General_Header">عام</system:String>
-<system:String x:Key="RaineConfig_MusicVolume">مستوى صوت الموسيقى</system:String>
-<system:String x:Key="RaineConfig_MuteMusic">كتم الموسيقى</system:String>
-<system:String x:Key="RaineConfig_MuteSfx">كتم المؤثرات الصوتية</system:String>
-<system:String x:Key="RaineConfig_NeoCd_Header">قسم NeoGeo CD</system:String>
-<system:String x:Key="RaineConfig_NeoCdBios">BIOS لـ NeoGeo CD</system:String>
-<system:String x:Key="RaineConfig_PathNotFound">لم يتم العثور على ملف تشغيل محاكي Raine. الرجاء تحديد موقعه يدويًا.</system:String>
-<system:String x:Key="RaineConfig_Resolution">الدقة (العرض × الارتفاع):</system:String>
-<system:String x:Key="RaineConfig_RomDirectory">دليل ROM</system:String>
-<system:String x:Key="RaineConfig_SampleRate">معدل العينة (هرتز):</system:String>
-<system:String x:Key="RaineConfig_SelectExeTitle">تحديد ملف تشغيل محاكي Raine</system:String>
-<system:String x:Key="RaineConfig_SelectNeoCdBios">تحديد ملف BIOS لـ NeoGeo CD</system:String>
-<system:String x:Key="RaineConfig_SelectRomDirectory">تحديد دليل ROM لـ Raine</system:String>
-<system:String x:Key="RaineConfig_SfxVolume">مستوى صوت المؤثرات الصوتية</system:String>
-<system:String x:Key="RaineConfig_ShowBeforeLaunch">إظهار هذه النافذة قبل تشغيل Raine</system:String>
-<system:String x:Key="RaineConfig_ShowFps">إظهار FPS</system:String>
-<system:String x:Key="RaineConfig_Title">إعدادات Raine</system:String>
-<system:String x:Key="RaineConfig_Video_Header">إعدادات الفيديو</system:String>
-<system:String x:Key="RaineConfig_Vsync">تمكين VSync (المخزن المؤقت المزدوج)</system:String>
-<system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">تم حقن إعدادات Raine بنجاح.</system:String>
+    <system:String x:Key="RaineConfig_Audio_Header">إعدادات الصوت</system:String>
+    <system:String x:Key="RaineConfig_AudioDriver">مشغل الصوت:</system:String>
+    <system:String x:Key="RaineConfig_Cancel_Button">إلغاء</system:String>
+    <system:String x:Key="RaineConfig_Directories_Header">الدلائل</system:String>
+    <system:String x:Key="RaineConfig_FixAspect">تثبيت نسبة العرض إلى الارتفاع</system:String>
+    <system:String x:Key="RaineConfig_FrameSkip">تخطي الإطارات</system:String>
+    <system:String x:Key="RaineConfig_Fullscreen">ملء الشاشة</system:String>
+    <system:String x:Key="RaineConfig_General_Header">عام</system:String>
+    <system:String x:Key="RaineConfig_MusicVolume">مستوى صوت الموسيقى</system:String>
+    <system:String x:Key="RaineConfig_MuteMusic">كتم الموسيقى</system:String>
+    <system:String x:Key="RaineConfig_MuteSfx">كتم المؤثرات الصوتية</system:String>
+    <system:String x:Key="RaineConfig_NeoCd_Header">قسم NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_NeoCdBios">BIOS لـ NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_PathNotFound">لم يتم العثور على ملف تشغيل محاكي Raine. الرجاء تحديد موقعه يدويًا.</system:String>
+    <system:String x:Key="RaineConfig_Resolution">الدقة (العرض × الارتفاع):</system:String>
+    <system:String x:Key="RaineConfig_RomDirectory">دليل ROM</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">حفظ وتشغيل</system:String>
+    <system:String x:Key="RaineConfig_SampleRate">معدل العينة (هرتز):</system:String>
+    <system:String x:Key="RaineConfig_Save_Button">حفظ</system:String>
+    <system:String x:Key="RaineConfig_SelectExeTitle">تحديد ملف تشغيل محاكي Raine</system:String>
+    <system:String x:Key="RaineConfig_SelectNeoCdBios">تحديد ملف BIOS لـ NeoGeo CD</system:String>
+    <system:String x:Key="RaineConfig_SelectRomDirectory">تحديد دليل ROM لـ Raine</system:String>
+    <system:String x:Key="RaineConfig_SfxVolume">مستوى صوت المؤثرات الصوتية</system:String>
+    <system:String x:Key="RaineConfig_ShowBeforeLaunch">إظهار هذه النافذة قبل تشغيل Raine</system:String>
+    <system:String x:Key="RaineConfig_ShowFps">إظهار FPS</system:String>
+    <system:String x:Key="RaineConfig_Title">إعدادات Raine</system:String>
+    <system:String x:Key="RaineConfig_Video_Header">إعدادات الفيديو</system:String>
+    <system:String x:Key="RaineConfig_Vsync">تمكين VSync (المخزن المؤقت المزدوج)</system:String>
+    <system:String x:Key="RaineSettingsSavedAndInjectedSuccessfully">تم حقن إعدادات Raine بنجاح.</system:String>
     <system:String x:Key="RaInfoActiveClaimsCount">{0} مطالبة تطوير نشطة</system:String>
     <system:String x:Key="RaInfoCheckConnection">يرجى المحاولة مرة أخرى أو التحقق من اتصالك بالإنترنت.</system:String>
     <system:String x:Key="RaInfoCheckCredentials">يرجى التحقق من بيانات اعتماد RetroAchievements الخاصة بك أو المحاولة مرة أخرى لاحقًا.</system:String>
@@ -1143,6 +1094,35 @@
     <system:String x:Key="receiveNotificationEmulatorError">تلقي إشعار عند حدوث خطأ في المحاكي؟</system:String>
     <system:String x:Key="RecentlyPlayedGames">الألعاب التي تم لعبها مؤخرًا:</system:String>
     <system:String x:Key="Red">أحمر</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Label">نسبة العرض إلى الارتفاع:</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Tooltip">نسبة عرض الشاشة.</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Label">البث:</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">معيار بث الفيديو.</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Label">الكابل:</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Tooltip">نوع كابل الفيديو.</system:String>
+    <system:String x:Key="RedreamConfig_Cancel_Button">إلغاء</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">تفعيل تخطي الإطارات</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">تخطي الإطارات للحفاظ على السرعة على الأجهزة البطيئة.</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Label">وضع ملء الشاشة:</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">كيفية عرض اللعبة في وضع ملء الشاشة.</system:String>
+    <system:String x:Key="RedreamConfig_Language_Label">اللغة:</system:String>
+    <system:String x:Key="RedreamConfig_Language_Tooltip">لغة النظام.</system:String>
+    <system:String x:Key="ReDreamConfig_PathNotFound">ملف ReDream التنفيذي غير موجود. يرجى تحديده.</system:String>
+    <system:String x:Key="RedreamConfig_Region_Label">المنطقة:</system:String>
+    <system:String x:Key="RedreamConfig_Region_Tooltip">منطقة النظام.</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Label">المصير (Renderer):</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Tooltip">برنامج عرض الرسومات المستخدم.</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Label">مقياس الدقة:</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">عامل قياس الدقة الداخلية (مثلاً 2 لـ 2x).</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">حفظ وتشغيل</system:String>
+    <system:String x:Key="RedreamConfig_Save_Button">حفظ</system:String>
+    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
+    <system:String x:Key="RedreamConfig_System_Header">النظام</system:String>
+    <system:String x:Key="RedreamConfig_Title">تكوين Redream</system:String>
+    <system:String x:Key="RedreamConfig_Video_Header">الفيديو</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Checkbox">تفعيل V-Sync</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Tooltip">مزامنة معدل الإطارات مع معدل تحديث الشاشة.</system:String>
+    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">تم حفظ تكوين ReDream بنجاح.</system:String>
     <system:String x:Key="RefreshingGameList">تحديث قائمة الألعاب...</system:String>
     <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت 'Simple Launcher' لإصلاح هذا؟</system:String>
     <system:String x:Key="Released">تاريخ الإصدار:</system:String>
@@ -1210,7 +1190,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">إنجازات ريترو (RetroAchievements)</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">تمكين الترجيع</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">يسمح لك بترجيع اللعب في الوقت الفعلي.</system:String>
-    
+    <system:String x:Key="RetroArchConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">تشغيل مسبق</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">يقلل من تأخر الإدخال عن طريق التنبؤ بالإطارات المستقبلية (يستهلك الكثير من موارد وحدة المعالجة المركزية).</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">حفظ</system:String>
@@ -1257,7 +1237,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">اضبط دقة إخراج نافذة المحاكي.</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">مقياس الدقة:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">ترقية الدقة الداخلية لرسومات أكثر وضوحًا. 100% هي الدقة الأصلية 720p.</system:String>
-    
+    <system:String x:Key="RPCS3Config_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="RPCS3Config_Save_Button">حفظ</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">فك تشفير SPU:</system:String>
@@ -1268,12 +1248,12 @@
     <system:String x:Key="RPCS3Config_Video_Header">إعدادات الفيديو</system:String>
     <system:String x:Key="RPCS3Config_Vsync_Checkbox">تمكين المزامنة الرأسية (VSync)</system:String>
     <system:String x:Key="RPCS3Config_Vsync_Tooltip">مزامنة معدل الإطارات مع معدل تحديث شاشتك لمنع تمزق الشاشة.</system:String>
-<system:String x:Key="RPCS3ConfigurationSavedSuccessfully">تم حفظ تكوين RPCS3 بنجاح.</system:String>
-<system:String x:Key="RPCS3emulatornotfoundPleaselocate">لم يتم العثور على محاكي RPCS3. يرجى تحديد موقع 'rpcs3.exe'.</system:String>
+    <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">تم حفظ تكوين RPCS3 بنجاح.</system:String>
+    <system:String x:Key="RPCS3emulatornotfoundPleaselocate">لم يتم العثور على محاكي RPCS3. يرجى تحديد موقع 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">إعدادات RPCS3</system:String>
     <system:String x:Key="Save">حفظ</system:String>
     <system:String x:Key="SaveDeadZone">حفظ</system:String>
-<system:String x:Key="SaveFailed">فشل الحفظ</system:String>
+    <system:String x:Key="SaveFailed">فشل الحفظ</system:String>
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="SaveorUpdateSystem">حفظ أو تحديث النظام</system:String>
     <system:String x:Key="SaveReport">حفظ التقرير</system:String>
@@ -1289,7 +1269,7 @@
     <system:String x:Key="Score">النقاط:</system:String>
     <system:String x:Key="Search">بحث</system:String>
     <system:String x:Key="SearchFor">البحث عن</system:String>
-<system:String x:Key="Searching">جارٍ البحث...</system:String>
+    <system:String x:Key="Searching">جارٍ البحث...</system:String>
     <system:String x:Key="Searchingpleasewait">جارٍ البحث، يرجى الانتظار...</system:String>
     <system:String x:Key="SearchOptions">خيارات البحث</system:String>
     <system:String x:Key="SearchRecursively">البحث بشكل متكرر</system:String>
@@ -1314,7 +1294,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">العارض (Renderer)</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">دقة ملء الشاشة:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">يحدد العرض والارتفاع لوضع ملء الشاشة.</system:String>
-    
+    <system:String x:Key="SegaModel2Config_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="SegaModel2Config_Save_Button">حفظ</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="SegaModel2Config_Title">إعدادات SEGA Model 2</system:String>
@@ -1326,8 +1306,8 @@
     <system:String x:Key="SegaModel2Config_Widescreen_Tooltip">يحدد نسبة العرض إلى الارتفاع لوضع النافذة.</system:String>
     <system:String x:Key="SegaModel2Config_XInput_Checkbox">تمكين XInput</system:String>
     <system:String x:Key="SegaModel2Config_XInput_Tooltip">تمكين دعم أجهزة متوافقة مع Xbox 360.</system:String>
-<system:String x:Key="SEGAModel2ConfigurationSavedSuccessfully">تم حفظ تكوين SEGA Model 2 بنجاح.</system:String>
-<system:String x:Key="SEGAModel2EmulatorNotFound">لم يتم العثور على محاكي SEGA Model 2. يرجى تحديد موقع 'emulator.exe'.</system:String>
+    <system:String x:Key="SEGAModel2ConfigurationSavedSuccessfully">تم حفظ تكوين SEGA Model 2 بنجاح.</system:String>
+    <system:String x:Key="SEGAModel2EmulatorNotFound">لم يتم العثور على محاكي SEGA Model 2. يرجى تحديد موقع 'emulator.exe'.</system:String>
     <system:String x:Key="SegaModel2Settings">إعدادات SEGA Model 2</system:String>
     <system:String x:Key="SelectAdditionalSystemFolder">حدد مجلد نظام إضافي</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">يرجى تحديد عنصر من السجل لإزالته.</system:String>
@@ -1368,11 +1348,11 @@
     <system:String x:Key="SetThreshold">تعيين العتبة</system:String>
     <system:String x:Key="Settingittoohighmay">• قد يؤدي ضبطه على مستوى عالٍ جدًا إلى صعوبة الحركات الدقيقة</system:String>
     <system:String x:Key="Settingittoolowmay">• قد يؤدي ضبطه على مستوى منخفض جدًا إلى انجراف المؤشر عندما لا تلمس العصا</system:String>
-<system:String x:Key="SettingsSaved">تم حفظ الإعدادات.</system:String>
+    <system:String x:Key="SettingsSaved">تم حفظ الإعدادات.</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">تم حفظ الإعدادات بنجاح.</system:String>
     <system:String x:Key="ShowAllGames">عرض جميع الألعاب</system:String>
     <system:String x:Key="ShowGames">عرض الألعاب</system:String>
-<system:String x:Key="ShowGamesWithRetroAchievements">تصفية الألعاب التي من المحتمل أن تكون متوافقة مع RetroAchievements</system:String>
+    <system:String x:Key="ShowGamesWithRetroAchievements">تصفية الألعاب التي من المحتمل أن تكون متوافقة مع RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
@@ -1418,7 +1398,7 @@
     <system:String x:Key="StellaConfig_Features_Header">الميزات</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">تشغيل بوضع ملء الشاشة</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">إذا تم تحديد هذا الخيار، سيبدأ المحاكي في وضع ملء الشاشة.</system:String>
-    
+    <system:String x:Key="StellaConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="StellaConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">شدة خطوط المسح (Scanlines):</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">يضبط وضوح خطوط المسح المحاكية (0-100).</system:String>
@@ -1437,8 +1417,8 @@
     <system:String x:Key="StellaConfig_VideoDriver_Tooltip">يحدد واجهة برمجة تطبيقات الرسوميات المراد استخدامها للعرض. "direct3d" موصى به لنظام Windows.</system:String>
     <system:String x:Key="StellaConfig_Vsync_Checkbox">تمكين المزامنة الرأسية (V-Sync)</system:String>
     <system:String x:Key="StellaConfig_Vsync_Tooltip">مزامنة العرض مع معدل تحديث الشاشة لمنع تمزق الشاشة.</system:String>
-<system:String x:Key="StellaConfigurationSavedSuccessfully">تم حفظ تكوين Stella بنجاح.</system:String>
-<system:String x:Key="StellaemulatornotfoundPleaselocate">لم يتم العثور على محاكي Stella. يرجى تحديد موقع 'stella.exe'.</system:String>
+    <system:String x:Key="StellaConfigurationSavedSuccessfully">تم حفظ تكوين Stella بنجاح.</system:String>
+    <system:String x:Key="StellaemulatornotfoundPleaselocate">لم يتم العثور على محاكي Stella. يرجى تحديد موقع 'stella.exe'.</system:String>
     <system:String x:Key="StellaSettings">إعدادات Stella</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
@@ -1462,7 +1442,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">يحسن الدقة لبعض وحدات معالجة الرسوميات، خاصة للمضلعات الشفافة. قد يؤثر على الأداء.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">الدقة (العرض × الارتفاع):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">يحدد دقة العرض الداخلية للعبة.</system:String>
-    
+    <system:String x:Key="SupermodelConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="SupermodelConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">مستوى صوت المؤثرات الصوتية:</system:String>
@@ -1478,8 +1458,8 @@
     <system:String x:Key="SupermodelConfig_Vsync_Tooltip">يزامن معدل الإطارات مع معدل تحديث شاشتك لمنع تمزق الشاشة.</system:String>
     <system:String x:Key="SupermodelConfig_Widescreen_Checkbox">فرض الشاشة العريضة (16:9)</system:String>
     <system:String x:Key="SupermodelConfig_Widescreen_Tooltip">يفرض نسبة عرض إلى ارتفاع 16:9، مما قد يؤدي إلى تمدد الصورة إذا كانت اللعبة في الأصل 4:3.</system:String>
-<system:String x:Key="Supermodelconfigurationsavedsuccessfully">تم حفظ تكوين Supermodel بنجاح.</system:String>
-<system:String x:Key="SupermodelEmulatorNotFound">لم يتم العثور على محاكي Supermodel. يرجى تحديد موقع 'Supermodel.exe'.</system:String>
+    <system:String x:Key="Supermodelconfigurationsavedsuccessfully">تم حفظ تكوين Supermodel بنجاح.</system:String>
+    <system:String x:Key="SupermodelEmulatorNotFound">لم يتم العثور على محاكي Supermodel. يرجى تحديد موقع 'Supermodel.exe'.</system:String>
     <system:String x:Key="SupermodelSettings">إعدادات Supermodel</system:String>
     <system:String x:Key="SuperTaller">سوبر أطول</system:String>
     <system:String x:Key="SuperTaller2">أطول جدًا 2</system:String>
@@ -1503,8 +1483,8 @@
     <system:String x:Key="SystemNameHeader">اسم النظام</system:String>
     <system:String x:Key="SystemNameRequired">اسم النظام (مطلوب)</system:String>
     <system:String x:Key="Systemsavedsuccessfully">تم حفظ النظام بنجاح.</system:String>
-<system:String x:Key="SystemSelectionMessage">لم نتمكن من تحديد النظام لهذه اللعبة تلقائيًا.</system:String>
-<system:String x:Key="SystemSelectionPrompt">الرجاء تحديد النظام الصحيح:</system:String>
+    <system:String x:Key="SystemSelectionMessage">لم نتمكن من تحديد النظام لهذه اللعبة تلقائيًا.</system:String>
+    <system:String x:Key="SystemSelectionPrompt">الرجاء تحديد النظام الصحيح:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' تالف أو لا يمكن فتحه.</system:String>
     <system:String x:Key="systemxmlnotfound">لم يتم العثور على "system.xml" داخل مجلد التطبيق.</system:String>
     <system:String x:Key="TakeScreenshot">التقاط لقطة شاشة</system:String>
@@ -1708,7 +1688,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">يصلح بعض الأخطاء الرسومية على حساب الأداء.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">مقياس الدقة (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">مقياس دقة العرض الداخلي (1=720p، 2=1440p).</system:String>
-    
+    <system:String x:Key="XeniaConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">التحجيم والحدة (Scaling And Sharpening):</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">طريقة التحجيم (FSR توفر حدة عالية الجودة).</system:String>
@@ -1749,11 +1729,12 @@
     <system:String x:Key="YumirConfig_Fullscreen_Tooltip">التبديل بين وضع النافذة ووضع ملء الشاشة.</system:String>
     <system:String x:Key="YumirConfig_Mute_Checkbox">كتم الصوت</system:String>
     <system:String x:Key="YumirConfig_Mute_Tooltip">تعطيل جميع مخرجات الصوت.</system:String>
+    <system:String x:Key="YumirConfig_PathNotFound">ملف Yumir التنفيذي غير موجود. يرجى تحديده.</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Checkbox">إيقاف مؤقت عند فقدان التركيز</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">إيقاف المحاكاة مؤقتًا تلقائيًا عندما تفقد نافذة المحاكي التركيز.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">تقليل زمن الاستجابة</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">يحاول تقليل تأخر الإدخال على حساب بعض الأداء.</system:String>
-    
+    <system:String x:Key="YumirConfig_Run_Button2">حفظ وتشغيل</system:String>
     <system:String x:Key="YumirConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">إظهار هذه الإعدادات في كل مرة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="YumirConfig_System_Header">النظام والمحاكاة</system:String>
@@ -1763,7 +1744,7 @@
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">اختر بين توقيت PAL (50 هرتز) أو NTSC (60 هرتز).</system:String>
     <system:String x:Key="YumirConfig_Volume_Label">مستوى الصوت:</system:String>
     <system:String x:Key="YumirConfig_Volume_Tooltip">اضبط مستوى الصوت الرئيسي (0.0 إلى 1.0).</system:String>
-<system:String x:Key="YumirConfigurationSavedSuccessfully">تم حفظ إعدادات Yumir بنجاح.</system:String>
+    <system:String x:Key="YumirConfigurationSavedSuccessfully">تم حفظ إعدادات Yumir بنجاح.</system:String>
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomingIn">تكبير...</system:String>

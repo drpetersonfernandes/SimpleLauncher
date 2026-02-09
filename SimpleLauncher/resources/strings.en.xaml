@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
@@ -506,6 +508,7 @@
     <system:String x:Key="FailedToSaveFlycastConfiguration">Failed to save Flycast configuration. Please check file permissions.</system:String>
     <system:String x:Key="FailedToSaveMednafenConfiguration">Failed to save Mednafen configuration. Please check file permissions.</system:String>
     <system:String x:Key="FailedToSaveMesenConfiguration">Failed to save Mesen configuration. Please check file permissions.</system:String>
+    <system:String x:Key="FailedToSaveReDreamConfiguration">Failed to save ReDream configuration. Please check file permissions.</system:String>
     <system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">Failed to save RPCS3 configuration. Please check file permissions.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Failed to save screenshot.</system:String>
     <system:String x:Key="FailedToSaveSEGAModel2Configuration">Failed to save SEGA Model 2 configuration. Please check file permissions.</system:String>
@@ -697,6 +700,7 @@
     <system:String x:Key="LoadingPrevPage">Loading previous page...</system:String>
     <system:String x:Key="LoadingROMHistory">Loading ROM history...</system:String>
     <system:String x:Key="LoadingSystem">Loading system...</system:String>
+    <system:String x:Key="Loadingsystems">Loading systems...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">Loading user completion progress...</system:String>
     <system:String x:Key="LoadingUserProfile">Loading user profile...</system:String>
     <system:String x:Key="LoadingUserUnlocks">Loading user unlocks...</system:String>
@@ -1029,6 +1033,7 @@
     <system:String x:Key="RaGenericYes">Yes</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">Audio Settings</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Sound Driver:</system:String>
+    <system:String x:Key="RaineConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="RaineConfig_Directories_Header">Directories</system:String>
     <system:String x:Key="RaineConfig_FixAspect">Fix Aspect Ratio</system:String>
     <system:String x:Key="RaineConfig_FrameSkip">Frame Skip</system:String>
@@ -1042,7 +1047,9 @@
     <system:String x:Key="RaineConfig_PathNotFound">Raine emulator executable not found. Please locate it manually.</system:String>
     <system:String x:Key="RaineConfig_Resolution">Resolution (Width x Height):</system:String>
     <system:String x:Key="RaineConfig_RomDirectory">ROM Directory</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="RaineConfig_SampleRate">Sample Rate (Hz):</system:String>
+    <system:String x:Key="RaineConfig_Save_Button">Save</system:String>
     <system:String x:Key="RaineConfig_SelectExeTitle">Select Raine Emulator Executable</system:String>
     <system:String x:Key="RaineConfig_SelectNeoCdBios">Select NeoGeo CD BIOS File</system:String>
     <system:String x:Key="RaineConfig_SelectRomDirectory">Select Raine ROM Directory</system:String>
@@ -1089,6 +1096,35 @@
     <system:String x:Key="receiveNotificationEmulatorError">Receive a Notification on Emulator Error?</system:String>
     <system:String x:Key="RecentlyPlayedGames">Recently Played Games:</system:String>
     <system:String x:Key="Red">Red</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Label">Aspect Ratio:</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Tooltip">Screen aspect ratio.</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Label">Broadcast:</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">Video broadcast standard.</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Label">Cable:</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Tooltip">Video cable type.</system:String>
+    <system:String x:Key="RedreamConfig_Cancel_Button">Cancel</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Enable Frameskip</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Skip frames to maintain speed on slower hardware.</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Label">Fullscreen Mode:</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">How the game is displayed in fullscreen.</system:String>
+    <system:String x:Key="RedreamConfig_Language_Label">Language:</system:String>
+    <system:String x:Key="RedreamConfig_Language_Tooltip">System language.</system:String>
+    <system:String x:Key="ReDreamConfig_PathNotFound">ReDream executable not found. Please select it.</system:String>
+    <system:String x:Key="RedreamConfig_Region_Label">Region:</system:String>
+    <system:String x:Key="RedreamConfig_Region_Tooltip">System region.</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Label">Renderer:</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Tooltip">Graphics renderer to use.</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Label">Resolution Scale:</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Internal resolution scaling factor (e.g., 2 for 2x).</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">Save &amp; Run</system:String>
+    <system:String x:Key="RedreamConfig_Save_Button">Save</system:String>
+    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="RedreamConfig_System_Header">System</system:String>
+    <system:String x:Key="RedreamConfig_Title">Redream Configuration</system:String>
+    <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Enable V-Sync</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchronize frame rate with monitor refresh rate.</system:String>
+    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream configuration saved successfully.</system:String>
     <system:String x:Key="RefreshingGameList">Refreshing game list...</system:String>
     <system:String x:Key="ReinstallSuggestion">This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall 'Simple Launcher' to fix this?</system:String>
     <system:String x:Key="Released">Released:</system:String>
@@ -1695,6 +1731,7 @@
     <system:String x:Key="YumirConfig_Fullscreen_Tooltip">Toggle between windowed and full screen mode.</system:String>
     <system:String x:Key="YumirConfig_Mute_Checkbox">Mute Audio</system:String>
     <system:String x:Key="YumirConfig_Mute_Tooltip">Disable all sound output.</system:String>
+    <system:String x:Key="YumirConfig_PathNotFound">Yumir executable not found. Please select it.</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Checkbox">Pause when Unfocused</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Automatically pause emulation when the emulator window loses focus.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Reduce Latency</system:String>
@@ -1715,41 +1752,4 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
-    <system:String x:Key="RedreamConfig_Title">Redream Configuration</system:String>
-    <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Cable_Label">Cable:</system:String>
-    <system:String x:Key="RedreamConfig_Cable_Tooltip">Video cable type.</system:String>
-    <system:String x:Key="RedreamConfig_Broadcast_Label">Broadcast:</system:String>
-    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">Video broadcast standard.</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Enable V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchronize frame rate with monitor refresh rate.</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Enable Frameskip</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Skip frames to maintain speed on slower hardware.</system:String>
-    <system:String x:Key="RedreamConfig_Aspect_Label">Aspect Ratio:</system:String>
-    <system:String x:Key="RedreamConfig_Aspect_Tooltip">Screen aspect ratio.</system:String>
-    <system:String x:Key="RedreamConfig_ResolutionScale_Label">Resolution Scale:</system:String>
-    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Internal resolution scaling factor (e.g., 2 for 2x).</system:String>
-    <system:String x:Key="RedreamConfig_Renderer_Label">Renderer:</system:String>
-    <system:String x:Key="RedreamConfig_Renderer_Tooltip">Graphics renderer to use.</system:String>
-    <system:String x:Key="RedreamConfig_FullscreenMode_Label">Fullscreen Mode:</system:String>
-    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">How the game is displayed in fullscreen.</system:String>
-    <system:String x:Key="RedreamConfig_System_Header">System</system:String>
-    <system:String x:Key="RedreamConfig_Language_Label">Language:</system:String>
-    <system:String x:Key="RedreamConfig_Language_Tooltip">System language.</system:String>
-    <system:String x:Key="RedreamConfig_Region_Label">Region:</system:String>
-    <system:String x:Key="RedreamConfig_Region_Tooltip">System region.</system:String>
-    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
-    <system:String x:Key="RedreamConfig_Save_Button">Save</system:String>
-    <system:String x:Key="RedreamConfig_Run_Button2">Save &amp; Run</system:String>
-    <system:String x:Key="RedreamConfig_Cancel_Button">Cancel</system:String>
-    <system:String x:Key="ReDreamConfig_PathNotFound">ReDream executable not found. Please select it.</system:String>
-    <system:String x:Key="FailedToSaveReDreamConfiguration">Failed to save ReDream configuration. Please check file permissions.</system:String>
-    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream configuration saved successfully.</system:String>
-    <system:String x:Key="Loadingsystems">Loading systems...</system:String>
-    <system:String x:Key="RaineConfig_Save_Button">Save</system:String>
-    <system:String x:Key="RaineConfig_Run_Button2">Save &amp; Run</system:String>
-    <system:String x:Key="RaineConfig_Cancel_Button">Cancel</system:String>
-    <system:String x:Key="YumirConfig_PathNotFound">Yumir executable not found. Please select it.</system:String>
-    
 </ResourceDictionary>

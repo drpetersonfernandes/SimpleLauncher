@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
@@ -84,7 +85,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">تمام آڈیو آؤٹ پٹ کو غیر فعال کریں۔</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">ریوائنڈ فعال کریں</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">آپ کو گیم پلے کو ریوائنڈ کرنے کی اجازت دیتا ہے۔ کارکردگی پر اثر انداز ہو سکتا ہے۔</system:String>
-    
+    <system:String x:Key="AresConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="AresConfig_RunAhead_Checkbox">رن-ہیڈ فعال کریں</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">ان پٹ لیٹنسی کو کم کرتا ہے۔ ایک طاقتور CPU کی ضرورت ہو سکتی ہے۔</system:String>
     <system:String x:Key="AresConfig_Save_Button">محفوظ کریں</system:String>
@@ -129,7 +130,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">نئے 3DS کی مخصوص خصوصیات اور ہم آہنگ گیمز کے لیے زیادہ CPU کلاک کو فعال کرتا ہے۔</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">ریزولوشن فیکٹر:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">اندرونی ریزولوشن ملٹیپلائر۔ زیادہ قدریں بہتر لگتی ہیں لیکن زیادہ GPU پاور کی ضرورت ہوتی ہے۔</system:String>
-    
+    <system:String x:Key="AzaharConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="AzaharConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="AzaharConfig_System_Header">سسٹم سیٹنگز</system:String>
@@ -148,7 +149,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">منسوخ کریں</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">فل سکرین میں چلائیں</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">ونڈوڈ اور فل سکرین موڈ کے درمیان ٹوگل کرتا ہے۔</system:String>
-    
+    <system:String x:Key="BlastemConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="BlastemConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">سکیلنگ فلٹر:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' ہموار سکیلنگ (بائی لینیئر فلٹرنگ) فراہم کرتا ہے۔ 'nearest' تیز، بلاکی سکیلنگ (نیئرسٹ نیبر) فراہم کرتا ہے۔</system:String>
@@ -195,7 +196,7 @@
     <system:String x:Key="CemuConfig_General_Header">عمومی اور سسٹم</system:String>
     <system:String x:Key="CemuConfig_Language_Label">کنسول کی زبان:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">ایمولیٹڈ Wii U کنسول کی سسٹم زبان سیٹ کرتا ہے۔</system:String>
-    
+    <system:String x:Key="CemuConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="CemuConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="CemuConfig_Title">سیمو کنفیگریشن انجیکشن</system:String>
@@ -268,7 +269,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">گیم پلے</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">ریزولوشن:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">ونڈوڈ یا فل سکرین ریزولوشن سیٹ کریں۔</system:String>
-    
+    <system:String x:Key="DaphneConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="DaphneConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="DaphneConfig_Title">ڈیفنی کنفیگریشن</system:String>
@@ -304,7 +305,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">DSP ایمولیشن کو ایک الگ تھریڈ پر چلاتا ہے۔ زیادہ تر ملٹی کور CPUs پر کارکردگی کو بہتر بناتا ہے۔</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">گرافکس بیک اینڈ:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">گرافکس API منتخب کریں۔ Vulkan عام طور پر جدید GPUs کے لیے تجویز کیا جاتا ہے۔</system:String>
-    
+    <system:String x:Key="DolphinConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="DolphinConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">ڈولفن شروع کرنے سے پہلے یہ سیٹنگز دکھائیں</system:String>
     <system:String x:Key="DolphinConfig_Title">ڈولفن کنفیگریشن</system:String>
@@ -369,7 +370,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">تیز گرافکس کے لیے اندرونی رینڈرنگ ریزولوشن بڑھاتا ہے۔ 1x مقامی ریزولوشن ہے۔</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">ریوائنڈ فعال کریں</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">گیم پلے کو ریوائنڈ کرنے کی صلاحیت کو فعال کرتا ہے۔ کارکردگی پر اثر انداز ہو سکتا ہے۔</system:String>
-    
+    <system:String x:Key="DuckStationConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Label">رن-ہیڈ فریمز</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">ایمولیشن کو آگے چلا کر اور پیچھے ہٹا کر ان پٹ لیٹنسی کو کم کرتا ہے۔ احتیاط کے ساتھ استعمال کریں، ایک طاقتور CPU کی ضرورت ہے۔</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">محفوظ کریں</system:String>
@@ -505,6 +506,7 @@
     <system:String x:Key="FailedToSaveFlycastConfiguration">Flycast کنفیگریشن محفوظ کرنے میں ناکام۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
     <system:String x:Key="FailedToSaveMednafenConfiguration">Mednafen کنفیگریشن محفوظ کرنے میں ناکام۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
     <system:String x:Key="FailedToSaveMesenConfiguration">Mesen کنفیگریشن محفوظ کرنے میں ناکام۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
+    <system:String x:Key="FailedToSaveReDreamConfiguration">ReDream کنفیگریشن محفوظ کرنے میں ناکامی۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
     <system:String x:Key="FailedtosaveRPCS3configurationPleasecheck">RPCS3 کنفیگریشن محفوظ کرنے میں ناکام۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
     <system:String x:Key="Failedtosavescreenshot">سکرین شاٹ محفوظ کرنے میں ناکامی۔</system:String>
     <system:String x:Key="FailedToSaveSEGAModel2Configuration">SEGA Model 2 کنفیگریشن محفوظ کرنے میں ناکام۔ براہ کرم فائل کی اجازتیں چیک کریں۔</system:String>
@@ -545,7 +547,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">اگر منتخب کیا گیا تو، ایمولیٹر ونڈو زیادہ سے زیادہ (بارڈر لیس ونڈوڈ) شروع ہوگی۔</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">ونڈو ریزولوشن (چوڑائی x اونچائی)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">جب فل سکرین موڈ میں نہ ہو تو ایمولیٹر ونڈو کی ریزولوشن سیٹ کرتا ہے۔</system:String>
-    
+    <system:String x:Key="FlycastConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="FlycastConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="FlycastConfig_Title">فلائی کاسٹ کنفیگریشن</system:String>
@@ -696,6 +698,7 @@
     <system:String x:Key="LoadingPrevPage">پچھلا صفحہ لوڈ ہو رہا ہے...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM ہسٹری لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingSystem">سسٹم لوڈ کر رہا ہے...</system:String>
+    <system:String x:Key="Loadingsystems">سسٹم لوڈ ہو رہے ہیں...</system:String>
     <system:String x:Key="LoadingUserCompletionProgress">یوزر کی تکمیل کی پیشرفت لوڈ کر رہا ہے...</system:String>
     <system:String x:Key="LoadingUserProfile">صارف کا پروفائل لوڈ ہو رہا ہے...</system:String>
     <system:String x:Key="LoadingUserUnlocks">یوزر انلاکس لوڈ کر رہا ہے...</system:String>
@@ -730,7 +733,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">زیادہ سے زیادہ کریں (زیادہ سے زیادہ حالت میں شروع کریں)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">ونڈو کو زیادہ سے زیادہ حالت میں شروع کرتا ہے۔</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">کارکردگی اور ایڈوانسڈ</system:String>
-    
+    <system:String x:Key="MameConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">ونڈو میں چلائیں</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">MAME کو فل سکرین کے بجائے ایک ونڈو میں چلاتا ہے۔</system:String>
     <system:String x:Key="MameConfig_Save_Button">محفوظ کریں</system:String>
@@ -765,7 +768,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">اگر منتخب کیا گیا تو، ایمولیٹر فل سکرین موڈ میں شروع ہوگا۔</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">ریوائنڈ فعال کریں</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">آپ کو گیم پلے کو ریوائنڈ کرنے کی اجازت دیتا ہے۔ کارکردگی پر بھاری ہو سکتا ہے۔</system:String>
-    
+    <system:String x:Key="MednafenConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="MednafenConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">سکین لائنز کی دھندلاہٹ:</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">پرانی CRT سکرین کی نقل کرنے کے لیے افقی لائنیں شامل کرتا ہے۔ 0 بند ہے، 100 مکمل طور پر مبہم ہے۔</system:String>
@@ -804,7 +807,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">کارکردگی اور خصوصیات</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">ریوائنڈ فعال کریں</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">آپ کو گیم پلے کو ریوائنڈ کرنے کی اجازت دیتا ہے۔ کارکردگی پر اثر انداز ہو سکتا ہے۔</system:String>
-    
+    <system:String x:Key="MesenConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">رن-ہیڈ فریمز</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">فریمز کو آگے چلا کر اور پیچھے ہٹا کر ان پٹ لیگ کو کم کرتا ہے۔ احتیاط کے ساتھ استعمال کریں (0-8)۔</system:String>
     <system:String x:Key="MesenConfig_Save_Button">محفوظ کریں</system:String>
@@ -936,7 +939,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">عمومی سیٹنگز</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">رینڈرر:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">گرافکس API منتخب کریں۔ Vulkan زیادہ تر جدید GPUs کے لیے تجویز کیا جاتا ہے۔</system:String>
-    
+    <system:String x:Key="Pcsx2Config_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="Pcsx2Config_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">PCSX2 شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="Pcsx2Config_Title">PCSX2 کنفیگریشن انجیکٹر</system:String>
@@ -1028,6 +1031,7 @@
     <system:String x:Key="RaGenericYes">ہاں</system:String>
     <system:String x:Key="RaineConfig_Audio_Header">آڈیو سیٹنگز</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">ساؤنڈ ڈرائیور:</system:String>
+    <system:String x:Key="RaineConfig_Cancel_Button">منسوخ کریں</system:String>
     <system:String x:Key="RaineConfig_Directories_Header">ڈائریکٹریز</system:String>
     <system:String x:Key="RaineConfig_FixAspect">ایسپیکٹ ریشو درست کریں</system:String>
     <system:String x:Key="RaineConfig_FrameSkip">فریم اسکیپ</system:String>
@@ -1041,7 +1045,9 @@
     <system:String x:Key="RaineConfig_PathNotFound">Raine ایمولیٹر فائل نہیں ملی۔ براہ کرم اسے مینوئل طریقے سے تلاش کریں۔</system:String>
     <system:String x:Key="RaineConfig_Resolution">ریزولوشن (چوڑائی x اونچائی):</system:String>
     <system:String x:Key="RaineConfig_RomDirectory">ROM ڈائریکٹری</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="RaineConfig_SampleRate">سیمپل ریٹ (Hz):</system:String>
+    <system:String x:Key="RaineConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="RaineConfig_SelectExeTitle">Raine ایمولیٹر فائل منتخب کریں</system:String>
     <system:String x:Key="RaineConfig_SelectNeoCdBios">NeoGeo CD BIOS فائل منتخب کریں</system:String>
     <system:String x:Key="RaineConfig_SelectRomDirectory">Raine ROM ڈائریکٹری منتخب کریں</system:String>
@@ -1088,6 +1094,35 @@
     <system:String x:Key="receiveNotificationEmulatorError">ایمولیٹر کی خرابی پر نوٹیفکیشن حاصل کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="RecentlyPlayedGames">حال ہی میں کھیلے گئے گیمز:</system:String>
     <system:String x:Key="Red">لال</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Label">ایسپیکٹ ریشو:</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Tooltip">اسکرین کا ایسپیکٹ ریشو۔</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Label">براڈکاسٹ:</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">ویڈیو براڈکاسٹ اسٹینڈرڈ۔</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Label">کیبل:</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Tooltip">ویڈیو کیبل کی قسم۔</system:String>
+    <system:String x:Key="RedreamConfig_Cancel_Button">منسوخ کریں</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">فریم اسکیپ فعال کریں</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">سست ہارڈویئر پر رفتار برقرار رکھنے کے لیے فریم چھوڑیں۔</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Label">فل اسکرین موڈ:</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">گیم فل اسکرین میں کیسے دکھائی دے گی۔</system:String>
+    <system:String x:Key="RedreamConfig_Language_Label">زبان:</system:String>
+    <system:String x:Key="RedreamConfig_Language_Tooltip">سسٹم کی زبان۔</system:String>
+    <system:String x:Key="ReDreamConfig_PathNotFound">ReDream کی فائل نہیں ملی۔ براہ کرم اسے منتخب کریں۔</system:String>
+    <system:String x:Key="RedreamConfig_Region_Label">علاقہ:</system:String>
+    <system:String x:Key="RedreamConfig_Region_Tooltip">سسٹم کا علاقہ۔</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Label">رینڈرر:</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Tooltip">استعمال کرنے کے لیے گرافکس رینڈرر۔</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Label">ریزولوشن اسکیل:</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">اندرونی ریزولوشن اسکیلنگ فیکٹر (مثلاً 2x کے لیے 2)۔</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
+    <system:String x:Key="RedreamConfig_Save_Button">محفوظ کریں</system:String>
+    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
+    <system:String x:Key="RedreamConfig_System_Header">سسٹم</system:String>
+    <system:String x:Key="RedreamConfig_Title">Redream کنفیگریشن</system:String>
+    <system:String x:Key="RedreamConfig_Video_Header">ویڈیو</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync فعال کریں</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Tooltip">فریم ریٹ کو مانیٹر کے ریفریش ریٹ کے ساتھ ہم آہنگ کریں۔</system:String>
+    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="RefreshingGameList">گیم کی فہرست ریفریش کر رہا ہے...</system:String>
     <system:String x:Key="ReinstallSuggestion">یہ کچھ خصوصیات (جیسے خودکار بگ رپورٹنگ) کو صحیح طریقے سے کام کرنے سے روک سکتا ہے۔ کیا آپ اسے ٹھیک کرنے کے لیے 'Simple Launcher' کو دوبارہ انسٹال کرنا چاہیں گے؟</system:String>
     <system:String x:Key="Released">جاری کیا گیا:</system:String>
@@ -1155,7 +1190,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">ریٹرو اچیومنٹس</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">ریوائنڈ فعال کریں</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">آپ کو حقیقی وقت میں گیم پلے کو ریوائنڈ کرنے کی اجازت دیتا ہے۔</system:String>
-    
+    <system:String x:Key="RetroArchConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">رن-ا ہیڈ</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">مستقبل کے فریموں کی پیش گوئی کرکے ان پٹ لیگ کو کم کرتا ہے (CPU پر زیادہ بوجھ)۔</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">محفوظ کریں</system:String>
@@ -1202,7 +1237,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">ایمولیٹر ونڈو کی آؤٹ پٹ ریزولوشن سیٹ کریں۔</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">ریزولوشن سکیل:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">تیز گرافکس کے لیے اندرونی ریزولوشن کو اپ سکیل کریں۔ 100% مقامی 720p ہے۔</system:String>
-    
+    <system:String x:Key="RPCS3Config_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="RPCS3Config_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">SPU ڈیکوڈر:</system:String>
@@ -1259,7 +1294,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">رینڈرر</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">فل سکرین ریزولوشن:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">فل سکرین موڈ کے لیے چوڑائی اور اونچائی سیٹ کرتا ہے۔</system:String>
-    
+    <system:String x:Key="SegaModel2Config_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="SegaModel2Config_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="SegaModel2Config_Title">سیگا ماڈل 2 کنفیگریشن</system:String>
@@ -1288,7 +1323,7 @@
     <system:String x:Key="SelectEmulator5">ایمولیٹر 5 منتخب کریں۔</system:String>
     <system:String x:Key="SelectEmulatorComboBox">ایمولیٹر کامبو باکس منتخب کریں</system:String>
     <system:String x:Key="SelectNotificationSoundFile">اطلاع کی آواز کی فائل منتخب کریں</system:String>
-        <system:String x:Key="SelectRetroAchievementsSystemTitle">RetroAchievements سسٹم منتخب کریں</system:String>
+    <system:String x:Key="SelectRetroAchievementsSystemTitle">RetroAchievements سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystem">سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">{config.SystemName} سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelectSystemComboBox">سسٹم کامبو باکس منتخب کریں</system:String>
@@ -1363,7 +1398,7 @@
     <system:String x:Key="StellaConfig_Features_Header">خصوصیات</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">فل سکرین میں چلائیں</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">اگر منتخب کیا گیا تو، ایمولیٹر فل سکرین موڈ میں شروع ہوگا۔</system:String>
-    
+    <system:String x:Key="StellaConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="StellaConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">سکین لائنز کی شدت:</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">نقلی سکین لائنز کی مرئیت کو ایڈجسٹ کرتا ہے (0-100)۔</system:String>
@@ -1407,7 +1442,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">کچھ GPUs کے لیے درستگی کو بہتر بناتا ہے، خاص طور پر شفاف کثیر الاضلاع کے لیے۔ کارکردگی پر اثر انداز ہو سکتا ہے۔</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">ریزولوشن (چوڑائی x اونچائی):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">گیم کی اندرونی رینڈرنگ ریزولوشن سیٹ کرتا ہے۔</system:String>
-    
+    <system:String x:Key="SupermodelConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="SupermodelConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">گیم شروع کرنے سے پہلے یہ ونڈو دکھائیں</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">صوتی اثرات کا حجم:</system:String>
@@ -1653,7 +1688,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">کارکردگی کی قیمت پر کچھ گرافیکل خرابیوں کو ٹھیک کرتا ہے۔</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">ریزولوشن اسکیل (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">اندرونی ریندرنگ ریزولوشن اسکیل (1=720p، 2=1440p)۔</system:String>
-    
+    <system:String x:Key="XeniaConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">اسکیلنگ اور شارپننگ:</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">اپ اسکیلنگ کا طریقہ (FSR اعلیٰ معیار کی شارپننگ فراہم کرتا ہے)۔</system:String>
@@ -1694,11 +1729,12 @@
     <system:String x:Key="YumirConfig_Fullscreen_Tooltip">ونڈوڈ اور فل سکرین موڈ کے درمیان ٹوگل کریں۔</system:String>
     <system:String x:Key="YumirConfig_Mute_Checkbox">آڈیو خاموش کریں</system:String>
     <system:String x:Key="YumirConfig_Mute_Tooltip">تمام آواز آؤٹ پٹ کو غیر فعال کریں۔</system:String>
+    <system:String x:Key="YumirConfig_PathNotFound">Yumir کی فائل نہیں ملی۔ براہ کرم اسے منتخب کریں۔</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Checkbox">فوکس ختم ہونے پر روکیں</system:String>
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">جب ایمولیٹر ونڈو فوکس کھو دے تو خود بخود ایمولیشن کو روک دیں۔</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">لیٹنسی کم کریں</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">کچھ کارکردگی کی قیمت پر ان پٹ لیگ کو کم کرنے کی کوشش کرتا ہے۔</system:String>
-    
+    <system:String x:Key="YumirConfig_Run_Button2">محفوظ کریں اور چلائیں</system:String>
     <system:String x:Key="YumirConfig_Save_Button">محفوظ کریں</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">ہر بار گیم شروع کرنے سے پہلے یہ سیٹنگز دکھائیں</system:String>
     <system:String x:Key="YumirConfig_System_Header">سسٹم اور ایمولیشن</system:String>
