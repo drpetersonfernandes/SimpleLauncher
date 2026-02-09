@@ -27,7 +27,7 @@ public static class FlycastConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[FlycastConfig] Trying to created new emu.cfg from sample: {configPath}");
+                    DebugLogger.Log($"[FlycastConfig] Created new emu.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +119,7 @@ public static class FlycastConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[FlycastConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[FlycastConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

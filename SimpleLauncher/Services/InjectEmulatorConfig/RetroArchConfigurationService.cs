@@ -27,7 +27,7 @@ public static class RetroArchConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[RetroArchConfig] Trying to created new retroarch.cfg from sample: {configPath}");
+                    DebugLogger.Log($"[RetroArchConfig] Created new retroarch.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -114,7 +114,7 @@ public static class RetroArchConfigurationService
         try
         {
             File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[RetroArchConfig] Trying to inject configuration changes..");
+            DebugLogger.Log("[RetroArchConfig] Injected configuration changes..");
         }
         catch (Exception ex)
         {

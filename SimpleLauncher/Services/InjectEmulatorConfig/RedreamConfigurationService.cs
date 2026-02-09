@@ -27,7 +27,7 @@ public static class RedreamConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[RedreamConfig] Trying to create new redream.cfg from sample: {configPath}");
+                    DebugLogger.Log($"[RedreamConfig] Created new redream.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -99,7 +99,7 @@ public static class RedreamConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[RedreamConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[RedreamConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

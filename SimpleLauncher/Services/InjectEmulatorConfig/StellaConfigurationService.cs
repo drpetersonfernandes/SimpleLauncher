@@ -26,7 +26,7 @@ public static class StellaConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[StellaConfig] Trying to create new stella.sqlite3 from sample: {configPath}");
+                    DebugLogger.Log($"[StellaConfig] Created new stella.sqlite3 from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {

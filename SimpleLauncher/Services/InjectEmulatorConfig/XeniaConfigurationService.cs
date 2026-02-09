@@ -47,7 +47,7 @@ public static class XeniaConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[XeniaConfig] Trying to create new {fileName} from sample: {configPath}");
+                    DebugLogger.Log($"[XeniaConfig] Created new {fileName} from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -115,7 +115,7 @@ public static class XeniaConfigurationService
         try
         {
             File.WriteAllText(configPath, updatedToml);
-            DebugLogger.Log("[XeniaConfig] Trying to inject configuration changes.");
+            DebugLogger.Log("[XeniaConfig] Injected configuration changes.");
             return true;
         }
         catch (Exception ex)

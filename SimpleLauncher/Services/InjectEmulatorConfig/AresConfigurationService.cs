@@ -27,7 +27,7 @@ public static class AresConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[AresConfig] Trying to create new settings.bml from sample: {configPath}");
+                    DebugLogger.Log($"[AresConfig] Created new settings.bml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +119,7 @@ public static class AresConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[AresConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[AresConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

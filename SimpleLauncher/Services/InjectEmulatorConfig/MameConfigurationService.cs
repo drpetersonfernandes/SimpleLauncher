@@ -33,7 +33,7 @@ public static partial class MameConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[MameConfig] Trying to created new mame.ini from sample: {configPath}");
+                    DebugLogger.Log($"[MameConfig] Created new mame.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -163,7 +163,7 @@ public static partial class MameConfigurationService
             {
                 File.WriteAllLines(tempPath, lines, new UTF8Encoding(false));
                 File.Move(tempPath, configPath, true);
-                DebugLogger.Log("[MameConfig] Trying to inject configuration changes.");
+                DebugLogger.Log("[MameConfig] Injected configuration changes.");
             }
             catch (Exception ex)
             {

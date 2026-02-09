@@ -38,7 +38,7 @@ public static class SupermodelConfigurationService
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for Supermodel.ini"));
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[SupermodelConfig] Trying to create from sample: {configPath}");
+                    DebugLogger.Log($"[SupermodelConfig] Created Supermodel.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -138,7 +138,7 @@ public static class SupermodelConfigurationService
         try
         {
             File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-            DebugLogger.Log("[SupermodelConfig] Trying to inject configuration changes.");
+            DebugLogger.Log("[SupermodelConfig] Injected configuration changes.");
         }
         catch (Exception ex)
         {

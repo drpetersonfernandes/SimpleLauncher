@@ -30,7 +30,7 @@ public static partial class BlastemConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[BlastemConfig] Trying to create new default.cfg from sample: {configPath}");
+                    DebugLogger.Log($"[BlastemConfig] Created new default.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -133,7 +133,7 @@ public static partial class BlastemConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[BlastemConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[BlastemConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

@@ -25,7 +25,7 @@ public static class YumirConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[YumirConfig] Trying to create new Ymir.toml from sample: {configPath}");
+                    DebugLogger.Log($"[YumirConfig] Created new Ymir.toml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -70,7 +70,7 @@ public static class YumirConfigurationService
         try
         {
             File.WriteAllText(configPath, updatedToml);
-            DebugLogger.Log("[YumirConfig] Trying to inject configuration changes.");
+            DebugLogger.Log("[YumirConfig] Injected configuration changes.");
         }
         catch (Exception ex)
         {

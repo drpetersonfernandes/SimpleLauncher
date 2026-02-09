@@ -27,7 +27,7 @@ public static class SegaModel2ConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[SegaModel2Config] Trying to create new EMULATOR.INI from sample: {configPath}");
+                    DebugLogger.Log($"[SegaModel2Config] Created new EMULATOR.INI from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -173,7 +173,7 @@ public static class SegaModel2ConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[SegaModel2Config] Trying to inject configuration changes.");
+                DebugLogger.Log("[SegaModel2Config] Injected configuration changes.");
             }
             catch (Exception ex)
             {

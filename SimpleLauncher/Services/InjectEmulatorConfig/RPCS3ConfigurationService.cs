@@ -26,7 +26,7 @@ public static class Rpcs3ConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[RPCS3Config] Trying to create new config.yml from sample: {configPath}");
+                    DebugLogger.Log($"[RPCS3Config] Created new config.yml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {

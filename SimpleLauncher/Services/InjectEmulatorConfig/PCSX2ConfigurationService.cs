@@ -33,7 +33,7 @@ public static class Pcsx2ConfigurationService
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for PCSX2.ini"));
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[PCSX2Config] Trying to created new PCSX2.ini from sample: {configPath}");
+                    DebugLogger.Log($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -149,7 +149,7 @@ public static class Pcsx2ConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[PCSX2Config] Trying to inject configuration changes..");
+                DebugLogger.Log("[PCSX2Config] Injected configuration changes..");
             }
             catch (Exception ex)
             {

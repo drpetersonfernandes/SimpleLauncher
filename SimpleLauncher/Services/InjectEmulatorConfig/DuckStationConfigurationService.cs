@@ -27,7 +27,7 @@ public static class DuckStationConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[DuckStationConfig] Trying to created new settings.ini from sample: {configPath}");
+                    DebugLogger.Log($"[DuckStationConfig] Created new settings.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -154,7 +154,7 @@ public static class DuckStationConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[DuckStationConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[DuckStationConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

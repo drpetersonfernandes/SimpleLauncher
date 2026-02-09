@@ -28,7 +28,7 @@ public static class AzaharConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[AzaharConfig] Trying to create new qt-config.ini from sample: {configPath}");
+                    DebugLogger.Log($"[AzaharConfig] Created new qt-config.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -157,7 +157,7 @@ public static class AzaharConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[AzaharConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[AzaharConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

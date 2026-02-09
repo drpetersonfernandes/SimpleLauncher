@@ -25,7 +25,7 @@ public static class CemuConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[CemuConfig] Trying to creat new settings.xml from sample: {configPath}");
+                    DebugLogger.Log($"[CemuConfig] Created new settings.xml from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {

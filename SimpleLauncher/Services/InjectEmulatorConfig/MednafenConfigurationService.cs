@@ -36,7 +36,7 @@ public static class MednafenConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[MednafenConfig] Trying to create new mednafen.cfg from sample: {configPath}");
+                    DebugLogger.Log($"[MednafenConfig] Created new mednafen.cfg from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -117,7 +117,7 @@ public static class MednafenConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[MednafenConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[MednafenConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {

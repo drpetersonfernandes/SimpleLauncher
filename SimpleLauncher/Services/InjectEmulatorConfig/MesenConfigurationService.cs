@@ -26,7 +26,7 @@ public static class MesenConfigurationService
                 try
                 {
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[MesenConfig] Trying to creat new settings.json from sample: {configPath}");
+                    DebugLogger.Log($"[MesenConfig] Created new settings.json from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {

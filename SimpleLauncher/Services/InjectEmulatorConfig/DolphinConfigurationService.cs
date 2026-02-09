@@ -64,7 +64,7 @@ public static class DolphinConfigurationService
                 {
                     if (configDir != null) Directory.CreateDirectory(configDir);
                     File.Copy(samplePath, configPath);
-                    DebugLogger.Log($"[DolphinConfig] Trying to creat new Dolphin.ini from sample: {configPath}");
+                    DebugLogger.Log($"[DolphinConfig] Created new Dolphin.ini from sample: {configPath}");
                 }
                 catch (Exception ex)
                 {
@@ -153,7 +153,7 @@ public static class DolphinConfigurationService
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
-                DebugLogger.Log("[DolphinConfig] Trying to inject configuration changes..");
+                DebugLogger.Log("[DolphinConfig] Injected configuration changes..");
             }
             catch (Exception ex)
             {
