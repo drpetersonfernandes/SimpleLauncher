@@ -11,7 +11,7 @@ public class SearchResult : INotifyPropertyChanged
     public string FolderName { get; init; }
     public string FilePath { get; init; }
     public string SystemName { get; init; }
-    public SystemManager.SystemManager.Emulator EmulatorManager { get; init; }
+    public SystemManager.Emulator EmulatorManager { get; init; }
 
     public int Score // If the Score can be updated after display and is bound, it should also notify.
     {

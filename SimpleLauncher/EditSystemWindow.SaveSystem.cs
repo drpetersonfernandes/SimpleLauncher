@@ -203,7 +203,7 @@ internal partial class EditSystemWindow
             var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || item4.Content.ToString() == "true";
             var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || item5.Content.ToString() == "true";
 
-            var emulators = new List<Services.SystemManager.SystemManager.Emulator>();
+            var emulators = new List<Services.SystemManager.Emulator>();
             var emulatorNames = new HashSet<string>();
 
             // Add Emulator 1
@@ -215,7 +215,7 @@ internal partial class EditSystemWindow
                     return;
                 }
 
-                emulators.Add(new Services.SystemManager.SystemManager.Emulator
+                emulators.Add(new Services.SystemManager.Emulator
                 {
                     EmulatorName = emulator1NameText,
                     EmulatorLocation = emulator1LocationText,
@@ -252,7 +252,7 @@ internal partial class EditSystemWindow
                     return;
                 }
 
-                emulators.Add(new Services.SystemManager.SystemManager.Emulator
+                emulators.Add(new Services.SystemManager.Emulator
                 {
                     EmulatorName = currentEmulatorName,
                     EmulatorLocation = currentEmulatorLocation,

@@ -148,7 +148,7 @@ internal partial class EditSystemWindow
         }
     }
 
-    private static void PopulateEmulatorFields(SystemManager.Emulator emulator, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
+    private static void PopulateEmulatorFields(Emulator emulator, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
     {
         if (emulator != null)
         {

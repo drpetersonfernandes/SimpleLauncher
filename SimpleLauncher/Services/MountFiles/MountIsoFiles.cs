@@ -17,7 +17,7 @@ public static class MountIsoFiles
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.SystemManager.Emulator selectedEmulatorManager,
+        SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,

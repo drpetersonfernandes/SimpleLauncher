@@ -15,7 +15,7 @@ using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.SystemManager;
 
-public partial class SystemManager
+public class SystemManager
 {
     private static readonly object XmlLock = new();
     public string SystemName { get; init; }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.MountFiles;
 
@@ -116,7 +117,7 @@ internal static class MountZipFiles
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.SystemManager.Emulator selectedEmulatorManager,
+        Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
@@ -341,7 +342,7 @@ internal static class MountZipFiles
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.SystemManager.Emulator selectedEmulatorManager,
+        Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
@@ -599,7 +600,7 @@ internal static class MountZipFiles
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.SystemManager.Emulator selectedEmulatorManager,
+        Emulator selectedEmulatorManager,
         string selectedEmulatorParameters,
         string logPath)
     {

@@ -210,7 +210,7 @@ public class GameLauncher
         _ = _stats.CallApiAsync(context.EmulatorName);
     }
 
-    internal async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // On Windows, .bat files are not direct executables.
         // To redirect output (UseShellExecute = false), we must run cmd.exe /c "path_to_script.bat"
@@ -369,7 +369,7 @@ public class GameLauncher
         }
     }
 
-    internal async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // Common UI updates.
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
@@ -509,7 +509,7 @@ public class GameLauncher
         }
     }
 
-    internal async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -634,7 +634,7 @@ public class GameLauncher
         string resolvedFilePath,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.SystemManager.Emulator selectedEmulatorManager,
+        SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         GameLauncher gameLauncher,
@@ -995,7 +995,7 @@ public class GameLauncher
         }
     }
 
-    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.SystemManager.Emulator emulatorManager)
+    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         string contextMessage;
 

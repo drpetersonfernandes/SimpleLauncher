@@ -20,6 +20,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -351,7 +352,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
-    private async void LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager, ILoadingState loadingState)
+    private async void LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, Emulator selectedEmulatorManager, ILoadingState loadingState)
     {
         try
         {

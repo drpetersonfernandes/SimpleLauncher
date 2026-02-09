@@ -99,8 +99,8 @@ public class GameScannerService
                 FileFormatsToLaunch = [],
                 Emulators =
                 [
-                    // Fix 2: Use SystemManager.SystemManager.Emulator for the nested class
-                    new SystemManager.SystemManager.Emulator
+                    // Fix 2: Use SystemManager.Emulator for the nested class
+                    new SystemManager.Emulator
                     {
                         EmulatorName = "Direct Launch",
                         EmulatorLocation = "",
