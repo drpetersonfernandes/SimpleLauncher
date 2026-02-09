@@ -16,7 +16,7 @@ public static class CheckForRequiredFiles
         var requiredFiles = configuration.GetValue<string[]>("RequiredFiles") ??
         [
             "images\\default.png",
-            "images\\system\\default.png",
+            "images\\systems\\default.png",
             "audio\\click.mp3",
             "audio\\notification.mp3",
             "audio\\shutter.mp3",
