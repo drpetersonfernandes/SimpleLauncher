@@ -202,25 +202,33 @@ public partial class PlayHistoryWindow : ILoadingState
     {
         try
         {
-            // First, try to parse using current culture (most likely to succeed)
-            if (DateTime.TryParse($"{dateStr} {timeStr}", out var result))
+            // Try ISO 8601 format first (culture-invariant, unambiguous: yyyy-MM-dd HH:mm:ss)
+            if (DateTime.TryParseExact($"{dateStr} {timeStr}", "yyyy-MM-dd HH:mm:ss",
+                    InvariantCulture, DateTimeStyles.None, out var result))
             {
                 return result;
             }
 
-            // If that fails, try with invariant culture
-            if (DateTime.TryParse($"{dateStr} {timeStr}", InvariantCulture, DateTimeStyles.None, out result))
-            {
-                return result;
-            }
-
-            // As a fallback, try common formats
-            string[] dateFormats = ["MM/dd/yyyy", "dd/MM/yyyy", "yyyy-MM-dd", "dd-MM-yyyy", "d", "D"];
+            // Try explicit unambiguous formats using InvariantCulture only.
+            // We avoid current culture parsing to prevent incorrect interpretation
+            // when users switch OS region settings (e.g., US vs UK date formats).
+            string[] dateFormats =
+            [
+                "yyyy/MM/dd", "yyyy.MM.dd", "dd.MM.yyyy",
+                "MM/dd/yyyy", "dd/MM/yyyy", "dd-MM-yyyy",
+                "d", "D"
+            ];
             foreach (var df in dateFormats)
             {
                 if (!DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{df} {TimeFormat}", InvariantCulture, DateTimeStyles.None, out result)) continue;
 
+                return result;
+            }
+
+            // Fallback: Try with InvariantCulture (assumes US format for ambiguous dates)
+            if (DateTime.TryParse($"{dateStr} {timeStr}", InvariantCulture, DateTimeStyles.None, out result))
+            {
                 return result;
             }
 

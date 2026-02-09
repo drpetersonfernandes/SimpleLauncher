@@ -122,33 +122,40 @@ public class PlayHistoryManager
 
         try
         {
-            // Try parsing with various methods
-
-            // Try combined string with current culture
-            if (DateTime.TryParse($"{dateStr} {timeStr}", out var dateTime))
+            // Try ISO format first (the target format we want to ensure is handled correctly)
+            if (DateTime.TryParseExact($"{dateStr} {timeStr}", $"{IsoDateFormat} {IsoTimeFormat}",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTime))
             {
                 newDateStr = dateTime.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
                 newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
                 return true;
             }
 
-            // Try with invariant culture
+            // Try explicit unambiguous formats using InvariantCulture only.
+            // We avoid current culture parsing to prevent incorrect interpretation
+            // when users switch OS region settings (e.g., US MM/dd/yyyy vs UK dd/MM/yyyy).
+            // Note: For ambiguous dates like 01/02/2024, MM/dd/yyyy (US) will be attempted first.
+            string[] dateFormats =
+            [
+                "yyyy/MM/dd", "yyyy.MM.dd", "dd.MM.yyyy",
+                "MM/dd/yyyy", "dd/MM/yyyy", "d", "D"
+            ];
+            foreach (var df in dateFormats)
+            {
+                if (DateTime.TryParseExact($"{dateStr} {timeStr}",
+                        $"{df} {IsoTimeFormat}", CultureInfo.InvariantCulture,
+                        DateTimeStyles.None, out dateTime))
+                {
+                    newDateStr = dateTime.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
+                    newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
+                    return true;
+                }
+            }
+
+            // Fallback: Try with InvariantCulture (assumes US format for ambiguous dates like 01/02/2024 -> Jan 2)
             if (DateTime.TryParse($"{dateStr} {timeStr}",
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
             {
-                newDateStr = dateTime.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
-                newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
-                return true;
-            }
-
-            // Try with common formats
-            string[] dateFormats = ["MM/dd/yyyy", "dd/MM/yyyy", "yyyy-MM-dd", "d", "D", "yyyy.MM.dd", "dd.MM.yyyy"];
-            foreach (var df in dateFormats)
-            {
-                if (!DateTime.TryParseExact($"{dateStr} {timeStr}",
-                        $"{df} {IsoTimeFormat}", CultureInfo.InvariantCulture,
-                        DateTimeStyles.None, out dateTime)) continue;
-
                 newDateStr = dateTime.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
                 newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
                 return true;
