@@ -29,6 +29,39 @@ public partial class SystemManager
     public List<Emulator> Emulators { get; init; }
     public bool GroupByFolder { get; init; }
 
+    public static bool SystemExists(string systemName, IConfiguration configuration)
+    {
+        lock (XmlLock)
+        {
+            var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("SystemXmlPath") ?? "system.xml");
+            if (!File.Exists(systemXmlPath))
+            {
+                return false;
+            }
+
+            try
+            {
+                // Use settings to prevent DTD processing for security
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+                using var reader = XmlReader.Create(systemXmlPath, settings);
+                var doc = XDocument.Load(reader, LoadOptions.None);
+
+                return doc.Root?.Elements("SystemConfig")
+                    .Any(el => el.Element("SystemName")?.Value.Equals(systemName, StringComparison.OrdinalIgnoreCase) ?? false) ?? false;
+            }
+            catch (Exception ex) // Catch XmlException, IOException, etc.
+            {
+                // If file is corrupt or locked, we can't check.
+                DebugLogger.Log($"[SystemManager.SystemExists] Could not check system.xml: {ex.Message}");
+                return false;
+            }
+        }
+    }
+
     public static List<SystemManager> LoadSystemManagers(IConfiguration configuration)
     {
         lock (XmlLock)

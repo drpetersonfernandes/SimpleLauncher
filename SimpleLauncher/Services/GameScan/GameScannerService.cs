@@ -4,10 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
@@ -17,6 +15,7 @@ namespace SimpleLauncher.Services.GameScan;
 public class GameScannerService
 {
     private readonly ILogErrors _logErrors;
+    private readonly IConfiguration _configuration;
     private const string WindowsSystemName = "Microsoft Windows";
 
     internal static readonly HashSet<string> IgnoredGameNames = new(StringComparer.OrdinalIgnoreCase)
@@ -36,13 +35,13 @@ public class GameScannerService
 
     private readonly string _windowsRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
     private readonly string _windowsImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
-    private readonly string _systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
     internal bool WasNewSystemCreated { get; private set; }
 
     public GameScannerService(ILogErrors logErrors)
     {
         _logErrors = logErrors;
+        _configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
     }
 
     internal async Task ScanForStoreGamesAsync()
@@ -80,57 +79,41 @@ public class GameScannerService
     {
         try
         {
-            XDocument xmlDoc;
-            if (File.Exists(_systemXmlPath))
+            // Fix 1: Use SystemManager.SystemManager for the static method
+            if (SystemManager.SystemManager.SystemExists(WindowsSystemName, _configuration))
             {
-                var xmlContent = await File.ReadAllTextAsync(_systemXmlPath);
-                xmlDoc = string.IsNullOrWhiteSpace(xmlContent)
-                    ? new XDocument(new XElement("SystemConfigs"))
-                    : XDocument.Parse(xmlContent);
+                return false;
             }
-            else
-            {
-                xmlDoc = new XDocument(new XElement("SystemConfigs"));
-            }
-
-            var systemExists = xmlDoc.Root?.Elements("SystemConfig")
-                .Any(static el => el.Element("SystemName")?.Value.Equals(WindowsSystemName, StringComparison.OrdinalIgnoreCase) ?? false) ?? false;
-
-            if (systemExists) return false;
 
             DebugLogger.Log($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
 
-            var newSystemElement = new XElement("SystemConfig",
-                new XElement("SystemName", WindowsSystemName),
-                new XElement("SystemFolders", new XElement("SystemFolder", "%BASEFOLDER%\\roms\\Microsoft Windows")),
-                new XElement("SystemImageFolder", "%BASEFOLDER%\\images\\Microsoft Windows"),
-                new XElement("SystemIsMAME", "false"),
-                new XElement("FileFormatsToSearch",
-                    new XElement("FormatToSearch", "url"),
-                    new XElement("FormatToSearch", "lnk"),
-                    new XElement("FormatToSearch", "bat")
-                ),
-                new XElement("GroupByFolder", "false"),
-                new XElement("ExtractFileBeforeLaunch", "false"),
-                new XElement("FileFormatsToLaunch"),
-                new XElement("Emulators",
-                    new XElement("Emulator",
-                        new XElement("EmulatorName", "Direct Launch"),
-                        new XElement("EmulatorLocation", ""),
-                        new XElement("EmulatorParameters", ""),
-                        new XElement("ReceiveANotificationOnEmulatorError", "true")
-                    )
-                )
-            );
-
-            xmlDoc.Root?.Add(newSystemElement);
-
-            var settings = new XmlWriterSettings { Indent = true, Async = true };
-            await using (var writer = XmlWriter.Create(_systemXmlPath, settings))
+            var windowsSystem = new SystemManager.SystemManager
             {
-                await xmlDoc.SaveAsync(writer, CancellationToken.None);
-            }
+                SystemName = WindowsSystemName,
+                SystemFolders = ["%BASEFOLDER%\\roms\\Microsoft Windows"],
+                SystemImageFolder = "%BASEFOLDER%\\images\\Microsoft Windows",
+                SystemIsMame = false,
+                FileFormatsToSearch = ["url", "lnk", "bat"],
+                GroupByFolder = false,
+                ExtractFileBeforeLaunch = false,
+                FileFormatsToLaunch = [],
+                Emulators =
+                [
+                    // Fix 2: Use SystemManager.SystemManager.Emulator for the nested class
+                    new SystemManager.SystemManager.Emulator
+                    {
+                        EmulatorName = "Direct Launch",
+                        EmulatorLocation = "",
+                        EmulatorParameters = "",
+                        ReceiveANotificationOnEmulatorError = true
+                    }
+                ]
+            };
 
+            // Fix 3: Use SystemManager.SystemManager for the static method
+            await SystemManager.SystemManager.SaveSystemConfigurationAsync(windowsSystem);
+
+            // Create the necessary directories
             Directory.CreateDirectory(_windowsRomsPath);
             Directory.CreateDirectory(_windowsImagesPath);
 
