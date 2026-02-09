@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 कॉन्फ़िगरेशन सफलतापूर्वक सहेजा गया।</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 एमुलेटर नहीं मिला। कृपया 'rpcs3.exe' का पता लगाएँ।</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 सेटिंग्स</system:String>
-<system:String x:Key="Run">चलाएँ</system:String>
     <system:String x:Key="Save">सहेजें</system:String>
     <system:String x:Key="SaveDeadZone">सहेजें</system:String>
     <system:String x:Key="SaveFailed">सहेजने में विफल</system:String>

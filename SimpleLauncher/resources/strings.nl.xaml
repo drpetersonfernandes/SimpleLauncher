@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3-emulator niet gevonden. Zoek 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 Instellingen</system:String>
-    <system:String x:Key="Run">Uitvoeren</system:String>
     <system:String x:Key="Save">Opslaan</system:String>
     <system:String x:Key="SaveDeadZone">Opslaan</system:String>
     <system:String x:Key="SaveFailed">Opslaan mislukt</system:String>

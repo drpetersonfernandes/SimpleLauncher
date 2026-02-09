@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Đã lưu cấu hình RPCS3 thành công.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Không tìm thấy trình giả lập RPCS3. Vui lòng xác định vị trí 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Cài đặt RPCS3</system:String>
-    <system:String x:Key="Run">Chạy</system:String>
     <system:String x:Key="Save">Lưu</system:String>
     <system:String x:Key="SaveDeadZone">Lưu</system:String>
     <system:String x:Key="SaveFailed">Lưu thất bại</system:String>

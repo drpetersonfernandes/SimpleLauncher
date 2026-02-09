@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Конфигурация RPCS3 успешно сохранена.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Эмулятор RPCS3 не найден. Пожалуйста, найдите 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Настройки RPCS3</system:String>
-    <system:String x:Key="Run">Запуск</system:String>
     <system:String x:Key="Save">Сохранить</system:String>
     <system:String x:Key="SaveDeadZone">Сохранить</system:String>
     <system:String x:Key="SaveFailed">Ошибка сохранения</system:String>

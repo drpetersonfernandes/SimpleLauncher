@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Configuration RPCS3 enregistrée avec succès.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Émulateur RPCS3 introuvable. Veuillez localiser 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Paramètres RPCS3</system:String>
-<system:String x:Key="Run">Exécuter</system:String>
     <system:String x:Key="Save">Enregistrer</system:String>
     <system:String x:Key="SaveDeadZone">Enregistrer</system:String>
     <system:String x:Key="SaveFailed">Échec de l'enregistrement</system:String>

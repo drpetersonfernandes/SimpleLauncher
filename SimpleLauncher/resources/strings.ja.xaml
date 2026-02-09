@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3の設定が正常に保存されました。</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3エミュレータが見つかりません。'rpcs3.exe'の場所を指定してください。</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3設定</system:String>
-    <system:String x:Key="Run">実行</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="SaveDeadZone">保存</system:String>
     <system:String x:Key="SaveFailed">保存失敗</system:String>

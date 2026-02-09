@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 emülatörü bulunamadı. Lütfen 'rpcs3.exe' dosyasını bulun.</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 Ayarları</system:String>
-    <system:String x:Key="Run">Çalıştır</system:String>
     <system:String x:Key="Save">Kaydet</system:String>
     <system:String x:Key="SaveDeadZone">Kaydet</system:String>
     <system:String x:Key="SaveFailed">Kaydetme Başarısız</system:String>

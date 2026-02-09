@@ -1217,7 +1217,6 @@
 <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
 <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 এমুলেটর খুঁজে পাওয়া যায়নি। অনুগ্রহ করে 'rpcs3.exe' সনাক্ত করুন।</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 সেটিংস</system:String>
-<system:String x:Key="Run">চালান</system:String>
     <system:String x:Key="Save">সংরক্ষণ করুন</system:String>
     <system:String x:Key="SaveDeadZone">সংরক্ষণ করুন</system:String>
 <system:String x:Key="SaveFailed">সংরক্ষণ ব্যর্থ হয়েছে</system:String>

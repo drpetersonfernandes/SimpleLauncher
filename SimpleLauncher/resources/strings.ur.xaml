@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 ایمولیٹر نہیں ملا۔ براہ کرم 'rpcs3.exe' تلاش کریں۔</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 سیٹنگز</system:String>
-    <system:String x:Key="Run">چلائیں</system:String>
     <system:String x:Key="Save">محفوظ کریں</system:String>
     <system:String x:Key="SaveDeadZone">محفوظ کریں</system:String>
     <system:String x:Key="SaveFailed">محفوظ کرنا ناکام رہا</system:String>

@@ -101,7 +101,7 @@
             <Button x:Name="BtnSave" Content="{DynamicResource MednafenConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
                     Style="{DynamicResource MahApps.Styles.Button.Square}" 
                     Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource MednafenConfig_Run_Button}" Width="120" Height="35" 
+            <Button x:Name="BtnRun" Content="{DynamicResource MednafenConfig_Run_Button2}" Width="120" Height="35" 
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
                     Click="BtnRun_Click" IsDefault="True"/>
             <Button Content="{DynamicResource MednafenConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" 

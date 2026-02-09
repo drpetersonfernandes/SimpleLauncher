@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">RPCS3 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">RPCS3 에뮬레이터를 찾을 수 없습니다. 'rpcs3.exe'를 찾아주세요.</system:String>
     <system:String x:Key="RPCS3Settings">RPCS3 설정</system:String>
-    <system:String x:Key="Run">실행</system:String>
     <system:String x:Key="Save">저장</system:String>
     <system:String x:Key="SaveDeadZone">저장</system:String>
     <system:String x:Key="SaveFailed">저장 실패</system:String>

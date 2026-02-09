@@ -1217,7 +1217,6 @@
 <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">تم حفظ تكوين RPCS3 بنجاح.</system:String>
 <system:String x:Key="RPCS3emulatornotfoundPleaselocate">لم يتم العثور على محاكي RPCS3. يرجى تحديد موقع 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">إعدادات RPCS3</system:String>
-<system:String x:Key="Run">تشغيل</system:String>
     <system:String x:Key="Save">حفظ</system:String>
     <system:String x:Key="SaveDeadZone">حفظ</system:String>
 <system:String x:Key="SaveFailed">فشل الحفظ</system:String>

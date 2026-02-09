@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Konfigurasi RPCS3 berhasil disimpan.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Emulator RPCS3 tidak ditemukan. Harap temukan 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Pengaturan RPCS3</system:String>
-    <system:String x:Key="Run">Jalankan</system:String>
     <system:String x:Key="Save">Simpan</system:String>
     <system:String x:Key="SaveDeadZone">Simpan</system:String>
     <system:String x:Key="SaveFailed">Penyimpanan Gagal</system:String>

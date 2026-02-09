@@ -1217,7 +1217,6 @@
     <system:String x:Key="RPCS3ConfigurationSavedSuccessfully">Configuração do RPCS3 salva com sucesso.</system:String>
     <system:String x:Key="RPCS3emulatornotfoundPleaselocate">Emulador RPCS3 não encontrado. Por favor, localize 'rpcs3.exe'.</system:String>
     <system:String x:Key="RPCS3Settings">Configurações do RPCS3</system:String>
-    <system:String x:Key="Run">Executar</system:String>
     <system:String x:Key="Save">Salvar</system:String>
     <system:String x:Key="SaveDeadZone">Salvar</system:String>
     <system:String x:Key="SaveFailed">Falha ao Salvar</system:String>
