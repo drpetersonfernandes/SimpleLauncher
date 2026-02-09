@@ -101,13 +101,24 @@ public class DownloadManager : IDisposable
     /// </summary>
     internal void CancelDownload()
     {
-        if (_disposed)
-            return;
-
+        CancellationTokenSource cts;
         lock (_lock)
         {
+            if (_disposed)
+                return;
+
             IsUserCancellation = true;
-            _cancellationTokenSource?.Cancel();
+            cts = _cancellationTokenSource;
+        }
+
+        // Cancel outside the lock to prevent blocking and handle disposal races
+        try
+        {
+            cts?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Ignore - the CTS was already disposed
         }
     }
 
@@ -120,11 +131,25 @@ public class DownloadManager : IDisposable
 
     private void ResetCancellationToken()
     {
+        CancellationTokenSource oldCts;
         lock (_lock)
         {
-            _cancellationTokenSource?.Dispose();
+            ObjectDisposedException.ThrowIf(_disposed, nameof(DownloadManager));
+
+            oldCts = _cancellationTokenSource;
             _cancellationTokenSource = new CancellationTokenSource();
         }
+
+        // Dispose outside the lock to prevent deadlock and ObjectDisposedException races
+        try
+        {
+            oldCts?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+
+        oldCts?.Dispose();
     }
 
     /// <summary>
@@ -137,12 +162,6 @@ public class DownloadManager : IDisposable
     {
         // Reset the cancellation token source at the beginning of every download attempt.
         ResetCancellationToken();
-
-        CancellationToken token;
-        lock (_lock)
-        {
-            token = _cancellationTokenSource.Token;
-        }
 
         IsDownloadCompleted = false;
         IsUserCancellation = false;
@@ -186,6 +205,14 @@ public class DownloadManager : IDisposable
                     StatusMessage = GetResourceString("CannotCheckDiskSpace", "Cannot check available disk space. The path may be inaccessible or you may lack permissions.")
                 });
                 throw new IOException("Cannot check disk space for 'Simple Launcher' HDD. The path may be inaccessible or you may lack permissions.");
+        }
+
+        CancellationToken token;
+        lock (_lock)
+        {
+            ObjectDisposedException.ThrowIf(_disposed || _cancellationTokenSource == null, nameof(DownloadManager));
+
+            token = _cancellationTokenSource.Token;
         }
 
         var success = false;
@@ -457,14 +484,29 @@ public class DownloadManager : IDisposable
             return;
         }
 
+        CancellationTokenSource cts;
         lock (_lock)
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
+            if (_disposed)
+                return;
+
+            _disposed = true;
+            cts = _cancellationTokenSource;
             _cancellationTokenSource = null;
         }
 
-        _disposed = true;
+        // Cancel and dispose outside the lock to prevent deadlock
+        try
+        {
+            cts?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Ignore
+        }
+
+        cts?.Dispose();
+
         GC.SuppressFinalize(this);
     }
 }

@@ -205,10 +205,9 @@ public class GamePadController : IDisposable
         {
             using var waitHandle = new ManualResetEvent(false);
 
-            // Stop new callbacks immediately
-            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
-
-            // Attempt graceful shutdown with timeout
+            // Dispose(WaitHandle) already stops the timer;
+            // Only wait if Dispose returns true (meaning a callback was pending and needs to signal completion).
+            // If timer is null or already disposed, Dispose returns false and we skip WaitOne to prevent blocking.
             if (_timer?.Dispose(waitHandle) ?? false)
             {
                 // Use a generous timeout (2-3s) to account for slower systems
