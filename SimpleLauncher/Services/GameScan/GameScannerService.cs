@@ -110,7 +110,6 @@ public class GameScannerService
                 ]
             };
 
-            // Fix 3: Use SystemManager.SystemManager for the static method
             await SystemManager.SystemManager.SaveSystemConfigurationAsync(windowsSystem);
 
             // Create the necessary directories

@@ -128,7 +128,7 @@ public class SystemManager
                     // Notify user
                     MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
-                    return new List<SystemManager>(); // Return an empty list
+                    return []; // Return an empty list
                 }
                 catch (IOException ex)
                 {
@@ -139,7 +139,7 @@ public class SystemManager
                     // Notify user - File is locked, not corrupted
                     MessageBoxLibrary.FileSystemXmlIsLockedMessageBox();
 
-                    return new List<SystemManager>(); // Return an empty list
+                    return []; // Return an empty list
                 }
 
                 var systemManagers = new List<SystemManager>();
@@ -240,7 +240,7 @@ public class SystemManager
                 // Notify user
                 MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
-                return new List<SystemManager>(); // Return an empty list
+                return []; // Return an empty list
             }
         }
 
@@ -292,11 +292,11 @@ public class SystemManager
                     out var extractFileBeforeLaunch))
                 throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Extract File Before Launch'.");
 
-            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.Any(static f => f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
+            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.All(static f => f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
                                                                                                         f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
                                                                                                         f.Equals("rar", StringComparison.OrdinalIgnoreCase))))
             {
-                throw new InvalidOperationException($"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
+                throw new InvalidOperationException($"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must ONLY contain 'zip', '7z', or 'rar'.");
             }
 
             // Validate FileFormatsToLaunch
@@ -456,109 +456,124 @@ public class SystemManager
         };
     }
 
-    public static Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null)
     {
-        Task.Run(() =>
+        try
         {
-            lock (XmlLock)
+            await Task.Run(() =>
             {
-                var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
-                XDocument xmlDoc;
-                try
+                lock (XmlLock)
                 {
-                    if (File.Exists(systemXmlPath))
+                    var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
+                    XDocument xmlDoc;
+                    try
                     {
-                        var xmlContent = File.ReadAllText(systemXmlPath);
-                        xmlDoc = string.IsNullOrWhiteSpace(xmlContent) ? new XDocument(new XElement("SystemConfigs")) : XDocument.Parse(xmlContent);
-                        if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
+                        if (File.Exists(systemXmlPath))
+                        {
+                            var xmlContent = File.ReadAllText(systemXmlPath);
+                            xmlDoc = string.IsNullOrWhiteSpace(xmlContent) ? new XDocument(new XElement("SystemConfigs")) : XDocument.Parse(xmlContent);
+                            if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
+                            {
+                                xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                            }
+                        }
+                        else
                         {
                             xmlDoc = new XDocument(new XElement("SystemConfigs"));
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading/parsing system.xml for saving.");
+                        throw new InvalidOperationException("Failed to load system configuration for saving.", ex);
+                    }
+
+                    var root = xmlDoc.Root;
+                    var systemIdentifier = originalSystemName ?? systemConfig.SystemName;
+                    if (root != null)
+                    {
+                        var existingSystem = root.Elements("SystemConfig")
+                            .FirstOrDefault(el => el.Element("SystemName")?.Value == systemIdentifier);
+
+                        if (existingSystem != null)
+                        {
+                            UpdateSystemXElement(existingSystem, systemConfig);
+                        }
+                        else
+                        {
+                            root.Add(CreateSystemXElement(systemConfig));
+                        }
+                    }
+
+                    if (root != null)
+                    {
+                        var sortedSystems = root.Elements("SystemConfig")
+                            .OrderBy(static system => system.Element("SystemName")?.Value, StringComparer.OrdinalIgnoreCase)
+                            .ToList();
+                        root.RemoveNodes();
+                        root.Add(sortedSystems);
+                    }
+
+                    try
+                    {
+                        var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
+                        using var writer = XmlWriter.Create(systemXmlPath, settings);
+                        xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                        xmlDoc.Save(writer);
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system.xml.");
+                        throw new InvalidOperationException("Failed to save system configuration.", ex);
                     }
                 }
-                catch (Exception ex)
-                {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading/parsing system.xml for saving.");
-                    throw new InvalidOperationException("Failed to load system configuration for saving.", ex);
-                }
-
-                var root = xmlDoc.Root;
-                var systemIdentifier = originalSystemName ?? systemConfig.SystemName;
-                if (root != null)
-                {
-                    var existingSystem = root.Elements("SystemConfig")
-                        .FirstOrDefault(el => el.Element("SystemName")?.Value == systemIdentifier);
-
-                    if (existingSystem != null)
-                    {
-                        UpdateSystemXElement(existingSystem, systemConfig);
-                    }
-                    else
-                    {
-                        root.Add(CreateSystemXElement(systemConfig));
-                    }
-                }
-
-                if (root != null)
-                {
-                    var sortedSystems = root.Elements("SystemConfig")
-                        .OrderBy(static system => system.Element("SystemName")?.Value, StringComparer.OrdinalIgnoreCase)
-                        .ToList();
-                    root.RemoveNodes();
-                    root.Add(sortedSystems);
-                }
-
-                try
-                {
-                    var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
-                    using var writer = XmlWriter.Create(systemXmlPath, settings);
-                    xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
-                    xmlDoc.Save(writer);
-                }
-                catch (Exception ex)
-                {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system.xml.");
-                    throw new InvalidOperationException("Failed to save system configuration.", ex);
-                }
-            }
-        });
-        return Task.CompletedTask;
+            });
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"Error saving system configuration: {ex.Message}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system configuration.");
+        }
     }
 
-    public static Task DeleteSystemAsync(string systemNameToDelete)
+    public static async void DeleteSystemAsync(string systemNameToDelete)
     {
-        return Task.Run(() =>
+        try
         {
-            lock (XmlLock)
+            await Task.Run(() =>
             {
-                var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
-                if (!File.Exists(systemXmlPath)) return;
-
-                XDocument xmlDoc;
-                try
+                lock (XmlLock)
                 {
-                    xmlDoc = XDocument.Load(systemXmlPath);
-                }
-                catch (Exception ex)
-                {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
-                    throw new InvalidOperationException("Failed to load system configuration for deletion.", ex);
-                }
+                    var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
+                    if (!File.Exists(systemXmlPath)) return;
 
-                var systemNode = xmlDoc.Root?.Descendants("SystemConfig")
-                    .FirstOrDefault(element => element.Element("SystemName")?.Value == systemNameToDelete);
+                    XDocument xmlDoc;
+                    try
+                    {
+                        xmlDoc = XDocument.Load(systemXmlPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
+                        throw new InvalidOperationException("Failed to load system configuration for deletion.", ex);
+                    }
 
-                if (systemNode != null)
-                {
-                    systemNode.Remove();
-                    xmlDoc.Save(systemXmlPath);
+                    var systemNode = xmlDoc.Root?.Descendants("SystemConfig")
+                        .FirstOrDefault(element => element.Element("SystemName")?.Value == systemNameToDelete);
+
+                    if (systemNode != null)
+                    {
+                        systemNode.Remove();
+                        xmlDoc.Save(systemXmlPath);
+                    }
                 }
-            }
-        });
+            });
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error deleting system '{systemNameToDelete}'.");
+        }
     }
 
     private static XElement CreateSystemXElement(SystemManager config)

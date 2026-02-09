@@ -521,7 +521,7 @@ internal partial class EditSystemWindow : ILoadingState
             var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
             if (result != MessageBoxResult.Yes) return;
 
-            await SystemManager.DeleteSystemAsync(selectedSystemName);
+            SystemManager.DeleteSystemAsync(selectedSystemName);
             _playSoundEffects.PlayNotificationSound();
 
             await LoadSystemsAsync();
