@@ -50,6 +50,8 @@ public partial class MainWindow
 
     private async Task ExecuteSearchAsync()
     {
+        if (_isLoadingGames) return; // Prevent re-entrance even if UI fails
+
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
         var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
         SetLoadingState(true, searchingMsg);

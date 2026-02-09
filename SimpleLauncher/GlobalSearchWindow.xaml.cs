@@ -138,14 +138,21 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                     searchTerm, selectedSystem, searchFilename, searchMameDescription,
                     searchFolderName, searchRecursively), _cancellationTokenSource.Token);
 
-                _searchResults.Clear();
                 if (results?.Count > 0)
                 {
-                    _searchResults = new ObservableCollection<SearchResult>(results);
+                    // Detach ItemsSource to allow GC of old containers and avoid UI updates during population
+                    ResultsDataGrid.ItemsSource = null;
+                    _searchResults.Clear();
+
+                    foreach (var result in results)
+                        _searchResults.Add(result);
+
                     ResultsDataGrid.ItemsSource = _searchResults;
                 }
                 else
                 {
+                    ResultsDataGrid.ItemsSource = null;
+                    _searchResults.Clear();
                     NoResultsMessageOverlay.Visibility = Visibility.Visible;
                     PreviewImage.Source = null;
                 }
@@ -575,6 +582,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             _cancellationTokenSource?.Cancel();
 
             // Cleanup resources
+            ResultsDataGrid.ItemsSource = null;
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = null;
 
