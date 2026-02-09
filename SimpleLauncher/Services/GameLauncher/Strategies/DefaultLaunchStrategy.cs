@@ -34,7 +34,6 @@ public class DefaultLaunchStrategy : ILaunchStrategy
                     context.EmulatorManager,
                     context.Parameters,
                     context.MainWindow,
-                    launcher,
                     context.LoadingState);
         }
     }

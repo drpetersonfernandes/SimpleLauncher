@@ -42,7 +42,7 @@ public class ChdToCueStrategy : ILaunchStrategy
 
         try
         {
-            await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, launcher, context.LoadingState);
+            await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, context.LoadingState);
         }
         finally
         {

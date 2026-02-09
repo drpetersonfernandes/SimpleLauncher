@@ -31,12 +31,12 @@ public class GameLauncher
     private readonly IConfiguration _configuration;
     private static IHttpClientFactory _httpClientFactory;
     private readonly ILogErrors _logErrors;
-
-    private const int MemoryAccessViolation = -1073741819;
-    private const int DepViolation = -1073740791;
     private readonly IExtractionService _extractionService;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Stats _stats;
+
+    private const int MemoryAccessViolation = -1073741819;
+    private const int DepViolation = -1073740791;
 
     public GameLauncher(
         IEnumerable<IEmulatorConfigHandler> configHandlers,
@@ -637,7 +637,6 @@ public class GameLauncher
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GameLauncher gameLauncher,
         ILoadingState loadingStateProvider)
     {
         var isDirectory = Directory.Exists(resolvedFilePath);
@@ -1083,32 +1082,31 @@ public class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
-        if (selectedEmulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Kega", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
-            resolvedEmulatorExePath.Contains("Fusion.exe", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Project64", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Project 64", StringComparison.OrdinalIgnoreCase) ||
-            resolvedEmulatorExePath.Contains("Project64.exe", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Emulicious", StringComparison.OrdinalIgnoreCase) ||
-            resolvedEmulatorExePath.Contains("Emulicious.exe", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Speccy", StringComparison.OrdinalIgnoreCase) ||
-            resolvedEmulatorExePath.Contains("Speccy.exe", StringComparison.OrdinalIgnoreCase))
-        {
-            // Notify developer
-            var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
-                                 $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Calling parameters: {psi.Arguments}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+        var emulatorsToSkipErrorChecking = _configuration.GetValue<string[]>("EmulatorsToSkipErrorChecking") ??
+        [
+            "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe", "Project64", "Project 64", "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe"
+        ];
 
-            return true;
+        // Check if the emulator name or executable path matches any entry in the skip list
+        foreach (var emulatorToSkip in emulatorsToSkipErrorChecking)
+        {
+            if (selectedEmulatorName.Contains(emulatorToSkip, StringComparison.OrdinalIgnoreCase) ||
+                resolvedEmulatorExePath.Contains(emulatorToSkip, StringComparison.OrdinalIgnoreCase))
+            {
+                // Notify developer
+                var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
+                                     $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
+                                     $"Exit code: {process.ExitCode}\n" +
+                                     $"Emulator: {psi.FileName}\n" +
+                                     $"Calling parameters: {psi.Arguments}\n" +
+                                     $"Emulator output: {output}\n" +
+                                     $"Emulator error: {error}\n";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
+                return true;
+            }
         }
 
         return false;
