@@ -1,6 +1,5 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -85,7 +84,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">Nonaktifkan semua output audio.</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">Aktifkan Rewind</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">Memungkinkan Anda memutar ulang gameplay. Dapat memengaruhi performa.</system:String>
-    <system:String x:Key="AresConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="AresConfig_RunAhead_Checkbox">Aktifkan Run-Ahead</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">Mengurangi latensi input. Mungkin membutuhkan CPU yang kuat.</system:String>
     <system:String x:Key="AresConfig_Save_Button">Simpan</system:String>
@@ -130,7 +129,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">Mengaktifkan fitur khusus New 3DS dan clock CPU yang lebih tinggi untuk game yang kompatibel.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">Faktor Resolusi:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">Pengali resolusi internal. Nilai yang lebih tinggi terlihat lebih baik tetapi membutuhkan lebih banyak daya GPU.</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button">Suntik &amp; Jalankan</system:String>
+    
     <system:String x:Key="AzaharConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="AzaharConfig_System_Header">Pengaturan Sistem</system:String>
@@ -149,7 +148,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">Batal</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Jalankan dalam Layar Penuh</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Mengalihkan antara mode berjendela dan layar penuh.</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="BlastemConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">Filter Skala:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' memberikan penskalaan halus (penyaringan bilinear). 'nearest' memberikan penskalaan tajam, kotak-kotak (nearest neighbor).</system:String>
@@ -196,7 +195,7 @@
     <system:String x:Key="CemuConfig_General_Header">Umum &amp; Sistem</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Bahasa Konsol:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Mengatur bahasa sistem konsol Wii U yang diemulasikan.</system:String>
-    <system:String x:Key="CemuConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="CemuConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="CemuConfig_Title">Injeksi Konfigurasi Cemu</system:String>
@@ -269,7 +268,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">Gameplay</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">Resolusi:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">Atur resolusi berjendela atau layar penuh.</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="DaphneConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="DaphneConfig_Title">Konfigurasi Daphne</system:String>
@@ -305,7 +304,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Menjalankan emulasi DSP pada thread terpisah. Meningkatkan performa pada sebagian besar CPU multi-core.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Backend Grafis:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Pilih API grafis. Vulkan umumnya direkomendasikan untuk GPU modern.</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="DolphinConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">Tampilkan pengaturan ini sebelum meluncurkan Dolphin</system:String>
     <system:String x:Key="DolphinConfig_Title">Konfigurasi Dolphin</system:String>
@@ -370,7 +369,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">Meningkatkan resolusi rendering internal untuk grafis yang lebih tajam. 1x adalah resolusi asli.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">Aktifkan Rewind</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Mengaktifkan kemampuan untuk memutar ulang gameplay. Dapat memengaruhi performa.</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="DuckStationConfig_Runahead_Label">Bingkai Runahead</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Mengurangi latensi input dengan menjalankan emulasi di depan dan menggulir balik. Gunakan dengan hati-hati, membutuhkan CPU yang kuat.</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">Simpan</system:String>
@@ -546,7 +545,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">Jika dicentang, jendela emulator akan dimulai dalam keadaan dimaksimalkan (berjendela tanpa batas).</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">Resolusi Jendela (Lebar x Tinggi)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">Mengatur resolusi jendela emulator saat tidak dalam mode layar penuh.</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="FlycastConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="FlycastConfig_Title">Konfigurasi Flycast</system:String>
@@ -731,7 +730,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">Maksimalkan (Mulai dimaksimalkan)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">Memulai jendela dalam keadaan dimaksimalkan.</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">Performa dan Lanjutan</system:String>
-    <system:String x:Key="MameConfig_Run_Button">Jalankan MAME</system:String>
+    
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">Jalankan dalam Jendela</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">Menjalankan MAME dalam jendela alih-alih layar penuh.</system:String>
     <system:String x:Key="MameConfig_Save_Button">Simpan</system:String>
@@ -766,7 +765,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">Jika dicentang, emulator akan dimulai dalam mode layar penuh.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">Aktifkan Rewind</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">Memungkinkan Anda memutar ulang gameplay. Dapat memakan banyak performa.</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button">Jalankan</system:String>
+    
     <system:String x:Key="MednafenConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">Opasitas Scanline:</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">Menambahkan garis horizontal untuk meniru layar CRT lama. 0 berarti mati, 100 berarti sepenuhnya buram.</system:String>
@@ -805,7 +804,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">Performa &amp; Fitur</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Aktifkan Rewind</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Memungkinkan Anda memutar ulang gameplay. Dapat memengaruhi performa.</system:String>
-    <system:String x:Key="MesenConfig_Run_Button">Jalankan</system:String>
+    
     <system:String x:Key="MesenConfig_RunAhead_Label">Bingkai Run-Ahead</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">Mengurangi lag input dengan menjalankan bingkai di depan dan menggulir balik. Gunakan dengan hati-hati (0-8).</system:String>
     <system:String x:Key="MesenConfig_Save_Button">Simpan</system:String>
@@ -829,7 +828,7 @@
     <system:String x:Key="NewThresholdLabel">Ambang Batas Baru:</system:String>
     <system:String x:Key="NextPage">Halaman Berikutnya</system:String>
     <system:String x:Key="NoAchievementsFound">Tidak ada pencapaian ditemukan untuk game ini.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Sistem operasi Anda tidak memiliki peramban web default yang dikonfigurasi. Harap atur salah satu di Pengaturan Windows (Aplikasi > Aplikasi default) untuk membuka tautan web.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Sistem operasi Anda tidak memiliki peramban web default yang dikonfigurasi. Harap atur salah satu di Pengaturan Windows (Aplikasi &gt; Aplikasi default) untuk membuka tautan web.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Tidak ada detail yang tersedia untuk</system:String>
     <system:String x:Key="NoGameInfoAvailable">Informasi game lengkap tidak tersedia.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Tidak ada game yang ditemukan untuk dipilih secara acak. Silakan periksa pilihan sistem Anda.</system:String>
@@ -937,7 +936,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">Pengaturan Umum</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Renderer:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Pilih API grafis. Vulkan direkomendasikan untuk sebagian besar GPU modern.</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button">Suntik &amp; Jalankan</system:String>
+    
     <system:String x:Key="Pcsx2Config_Save_Button">Simpan</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan PCSX2</system:String>
     <system:String x:Key="Pcsx2Config_Title">Injektor Konfigurasi PCSX2</system:String>
@@ -1156,7 +1155,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">RetroAchievements</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">Aktifkan Mundur</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">Memungkinkan Anda memundurkan gameplay secara real-time.</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button">Jalankan RetroArch</system:String>
+    
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">Run-Ahead</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">Mengurangi lag input dengan memprediksi bingkai di masa mendatang (intensif CPU).</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">Simpan</system:String>
@@ -1203,7 +1202,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">Atur resolusi output jendela emulator.</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">Skala Resolusi:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Meningkatkan resolusi internal untuk grafis yang lebih tajam. 100% adalah 720p asli.</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="RPCS3Config_Save_Button">Simpan</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">Dekoder SPU:</system:String>
@@ -1260,7 +1259,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">Renderer</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">Resolusi Layar Penuh:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">Mengatur lebar dan tinggi untuk mode layar penuh.</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="SegaModel2Config_Save_Button">Simpan</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="SegaModel2Config_Title">Konfigurasi SEGA Model 2</system:String>
@@ -1364,7 +1363,7 @@
     <system:String x:Key="StellaConfig_Features_Header">Fitur</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Jalankan dalam Layar Penuh</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">Jika dicentang, emulator akan dimulai dalam mode layar penuh.</system:String>
-    <system:String x:Key="StellaConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="StellaConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">Intensitas Scanline:</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">Menyesuaikan visibilitas scanline yang disimulasikan (0-100).</system:String>
@@ -1408,7 +1407,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">Meningkatkan akurasi untuk beberapa GPU, terutama untuk poligon transparan. Dapat memengaruhi performa.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">Resolusi (Lebar x Tinggi):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Mengatur resolusi rendering internal game.</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button">Simpan &amp; Jalankan</system:String>
+    
     <system:String x:Key="SupermodelConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">Tampilkan jendela ini sebelum meluncurkan game</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">Volume Efek Suara:</system:String>
@@ -1654,7 +1653,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">Memperbaiki gangguan grafis tertentu dengan mengorbankan kinerja.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">Skala Resolusi (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">Skala resolusi rendering internal (1=720p, 2=1440p).</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button">Jalankan Xenia</system:String>
+    
     <system:String x:Key="XeniaConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">Penskalaan dan Penajaman:</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">Metode upscaling (FSR memberikan penajaman berkualitas tinggi).</system:String>
@@ -1699,7 +1698,7 @@
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Secara otomatis menjeda emulasi saat jendela emulator kehilangan fokus.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Kurangi Latensi</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Mencoba meminimalkan lag input dengan mengorbankan sedikit performa.</system:String>
-    <system:String x:Key="YumirConfig_Run_Button">Suntik &amp; Jalankan</system:String>
+    
     <system:String x:Key="YumirConfig_Save_Button">Simpan</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Tampilkan pengaturan ini setiap kali sebelum meluncurkan game</system:String>
     <system:String x:Key="YumirConfig_System_Header">Sistem &amp; Emulasi</system:String>

@@ -1,6 +1,5 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -85,7 +84,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">禁用所有音频输出。</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">启用倒带</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">允许您倒带游戏。可能会影响性能。</system:String>
-    <system:String x:Key="AresConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="AresConfig_RunAhead_Checkbox">启用提前运行</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">减少输入延迟。可能需要强大的 CPU。</system:String>
     <system:String x:Key="AresConfig_Save_Button">保存</system:String>
@@ -130,7 +129,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">为兼容游戏启用 New 3DS 特定功能和更高的 CPU 时钟。</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">分辨率因子:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">内部分辨率乘数。值越高看起来越好，但需要更多的 GPU 性能。</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button">注入并运行</system:String>
+    
     <system:String x:Key="AzaharConfig_Save_Button">保存</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="AzaharConfig_System_Header">系统设置</system:String>
@@ -149,7 +148,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">取消</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">全屏运行</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">在窗口模式和全屏模式之间切换。</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="BlastemConfig_Save_Button">保存</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">缩放滤镜:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">“linear”提供平滑缩放（双线性过滤）。“nearest”提供锐利、块状缩放（最近邻）。</system:String>
@@ -196,7 +195,7 @@
     <system:String x:Key="CemuConfig_General_Header">通用与系统</system:String>
     <system:String x:Key="CemuConfig_Language_Label">主机语言:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">设置模拟 Wii U 主机的系统语言。</system:String>
-    <system:String x:Key="CemuConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="CemuConfig_Save_Button">保存</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="CemuConfig_Title">Cemu 配置注入</system:String>
@@ -269,7 +268,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">游戏玩法</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">分辨率:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">设置窗口或全屏分辨率。</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="DaphneConfig_Save_Button">保存</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="DaphneConfig_Title">Daphne 配置</system:String>
@@ -305,7 +304,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">在单独的线程上运行 DSP 模拟。在大多数多核 CPU 上可提高性能。</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">图形后端:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">选择图形 API。Vulkan 通常推荐用于现代 GPU。</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="DolphinConfig_Save_Button">保存</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">在启动 Dolphin 前显示这些设置</system:String>
     <system:String x:Key="DolphinConfig_Title">Dolphin 配置</system:String>
@@ -370,7 +369,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">提高内部渲染分辨率以获得更清晰的图形。1x 为原生分辨率。</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">启用倒带</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">启用倒带游戏的能力。可能会影响性能。</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="DuckStationConfig_Runahead_Label">提前运行帧数</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">通过提前运行模拟并回滚来减少输入延迟。请谨慎使用，需要强大的 CPU。</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">保存</system:String>
@@ -546,7 +545,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">如果选中，模拟器窗口将最大化启动（无边框窗口）。</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">窗口分辨率 (宽 x 高)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">设置非全屏模式下模拟器窗口的分辨率。</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="FlycastConfig_Save_Button">保存</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="FlycastConfig_Title">Flycast 配置</system:String>
@@ -731,7 +730,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">最大化 (启动时最大化)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">启动时将窗口最大化。</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">性能和高级</system:String>
-    <system:String x:Key="MameConfig_Run_Button">运行MAME</system:String>
+    
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">在窗口中运行</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">在窗口而不是全屏模式下运行MAME。</system:String>
     <system:String x:Key="MameConfig_Save_Button">保存</system:String>
@@ -766,7 +765,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">如果选中，模拟器将以全屏模式启动。</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">启用倒带</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">允许您倒带游戏。可能会消耗大量性能。</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button">运行</system:String>
+    
     <system:String x:Key="MednafenConfig_Save_Button">保存</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">扫描线不透明度:</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">添加水平线以模仿旧式 CRT 屏幕。0 为关闭，100 为完全不透明。</system:String>
@@ -805,7 +804,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">性能与功能</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">启用倒带</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">允许您倒带游戏。可能会影响性能。</system:String>
-    <system:String x:Key="MesenConfig_Run_Button">运行</system:String>
+    
     <system:String x:Key="MesenConfig_RunAhead_Label">提前运行帧数</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">通过提前运行帧并回滚来减少输入延迟。请谨慎使用 (0-8)。</system:String>
     <system:String x:Key="MesenConfig_Save_Button">保存</system:String>
@@ -829,7 +828,7 @@
     <system:String x:Key="NewThresholdLabel">新阈值：</system:String>
     <system:String x:Key="NextPage">下一页</system:String>
     <system:String x:Key="NoAchievementsFound">此游戏未找到任何成就。</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">您的操作系统未配置默认网页浏览器。请在 Windows 设置 (应用 > 默认应用) 中设置一个以打开网页链接。</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">您的操作系统未配置默认网页浏览器。请在 Windows 设置 (应用 &gt; 默认应用) 中设置一个以打开网页链接。</system:String>
     <system:String x:Key="Nodetailsavailablefor">暂无可用详细信息</system:String>
     <system:String x:Key="NoGameInfoAvailable">无扩展游戏信息。</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">未找到可随机选择的游戏。请检查您的系统选择。</system:String>
@@ -937,7 +936,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">通用设置</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">渲染器:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">选择图形 API。Vulkan 推荐用于大多数现代 GPU。</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button">注入并运行</system:String>
+    
     <system:String x:Key="Pcsx2Config_Save_Button">保存</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">在启动 PCSX2 前显示此窗口</system:String>
     <system:String x:Key="Pcsx2Config_Title">PCSX2 配置注入器</system:String>
@@ -1156,7 +1155,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">RetroAchievements</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">启用倒带</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">允许您实时倒带游戏。</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button">运行 RetroArch</system:String>
+    
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">超前运行</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">通过预测未来帧来减少输入延迟（CPU密集型）。</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">保存</system:String>
@@ -1203,7 +1202,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">设置模拟器窗口的输出分辨率。</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">分辨率缩放:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">提高内部分辨率以获得更清晰的图形。100% 为原生 720p。</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="RPCS3Config_Save_Button">保存</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">SPU 解码器:</system:String>
@@ -1260,7 +1259,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">渲染器</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">全屏分辨率:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">设置全屏模式的宽度和高度。</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="SegaModel2Config_Save_Button">保存</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="SegaModel2Config_Title">SEGA Model 2 配置</system:String>
@@ -1364,7 +1363,7 @@
     <system:String x:Key="StellaConfig_Features_Header">功能</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">全屏运行</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">如果选中，模拟器将以全屏模式启动。</system:String>
-    <system:String x:Key="StellaConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="StellaConfig_Save_Button">保存</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">扫描线强度:</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">调整模拟扫描线的可见度 (0-100)。</system:String>
@@ -1408,7 +1407,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">提高某些 GPU 的精确度，特别是对于透明多边形。可能会影响性能。</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">分辨率 (宽 x 高):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">设置游戏的内部渲染分辨率。</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button">保存并运行</system:String>
+    
     <system:String x:Key="SupermodelConfig_Save_Button">保存</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">在启动游戏前显示此窗口</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">音效音量:</system:String>
@@ -1654,7 +1653,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">以牺牲性能为代价修复某些图形故障。</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">分辨率缩放 (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">内部渲染分辨率缩放 (1=720p, 2=1440p)。</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button">运行 Xenia</system:String>
+    
     <system:String x:Key="XeniaConfig_Save_Button">保存</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">缩放和锐化:</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">升频方法 (FSR 提供高质量锐化)。</system:String>
@@ -1699,7 +1698,7 @@
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">当模拟器窗口失去焦点时自动暂停模拟。</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">降低延迟</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">尝试最小化输入延迟，但会牺牲一些性能。</system:String>
-    <system:String x:Key="YumirConfig_Run_Button">注入并运行</system:String>
+    
     <system:String x:Key="YumirConfig_Save_Button">保存</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">每次启动游戏前显示这些设置</system:String>
     <system:String x:Key="YumirConfig_System_Header">系统与模拟</system:String>

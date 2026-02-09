@@ -1,6 +1,5 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -85,7 +84,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">Отключить весь аудиовыход.</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">Включить перемотку</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">Позволяет перематывать игровой процесс. Может повлиять на производительность.</system:String>
-    <system:String x:Key="AresConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="AresConfig_RunAhead_Checkbox">Включить Run-Ahead</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">Уменьшает задержку ввода. Может потребовать мощный ЦП.</system:String>
     <system:String x:Key="AresConfig_Save_Button">Сохранить</system:String>
@@ -130,7 +129,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">Включает функции, специфичные для New 3DS, и более высокую тактовую частоту ЦП для совместимых игр.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">Коэффициент разрешения:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">Множитель внутреннего разрешения. Более высокие значения выглядят лучше, но требуют больше мощности ГПУ.</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button">Внедрить и запустить</system:String>
+    
     <system:String x:Key="AzaharConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="AzaharConfig_System_Header">Системные настройки</system:String>
@@ -149,7 +148,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">Отмена</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Запустить в полноэкранном режиме</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Переключает между оконным и полноэкранным режимами.</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="BlastemConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">Фильтр масштабирования:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' (линейный) обеспечивает плавное масштабирование (билинейная фильтрация). 'nearest' (ближайший) обеспечивает резкое, блочное масштабирование (ближайший сосед).</system:String>
@@ -196,7 +195,7 @@
     <system:String x:Key="CemuConfig_General_Header">Общие и системные</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Язык консоли:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Устанавливает системный язык эмулируемой консоли Wii U.</system:String>
-    <system:String x:Key="CemuConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="CemuConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="CemuConfig_Title">Инъекция настроек Cemu</system:String>
@@ -269,7 +268,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">Игровой процесс</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">Разрешение:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">Установите разрешение в оконном или полноэкранном режиме.</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="DaphneConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="DaphneConfig_Title">Настройка Daphne</system:String>
@@ -305,7 +304,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Запускает эмуляцию DSP в отдельном потоке. Улучшает производительность на большинстве многоядерных ЦП.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Графический бэкенд:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Выберите графический API. Vulkan обычно рекомендуется для современных ГПУ.</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="DolphinConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">Показывать эти настройки перед запуском Dolphin</system:String>
     <system:String x:Key="DolphinConfig_Title">Настройка Dolphin</system:String>
@@ -370,7 +369,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">Увеличивает внутреннее разрешение рендеринга для более четкой графики. 1x — нативное разрешение.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">Включить перемотку</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Включает возможность перематывать игровой процесс. Может повлиять на производительность.</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="DuckStationConfig_Runahead_Label">Кадры Run-ahead</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Уменьшает задержку ввода, запуская эмуляцию вперед и откатываясь назад. Используйте с осторожностью, требует мощный ЦП.</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">Сохранить</system:String>
@@ -546,7 +545,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">Если отмечено, окно эмулятора запустится развернутым (окно без рамки).</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">Разрешение окна (Ширина x Высота)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">Устанавливает разрешение окна эмулятора, когда он не в полноэкранном режиме.</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="FlycastConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="FlycastConfig_Title">Настройка Flycast</system:String>
@@ -731,7 +730,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">Развернуть (Запускать развернутым)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">Запускает окно развернутым.</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">Производительность и Дополнительно</system:String>
-    <system:String x:Key="MameConfig_Run_Button">Запустить MAME</system:String>
+    
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">Запустить в окне</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">Запускает MAME в окне вместо полноэкранного режима.</system:String>
     <system:String x:Key="MameConfig_Save_Button">Сохранить</system:String>
@@ -766,7 +765,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">Если отмечено, эмулятор запустится в полноэкранном режиме.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">Включить перемотку</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">Позволяет перематывать игровой процесс. Может быть ресурсоемким.</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button">Запустить</system:String>
+    
     <system:String x:Key="MednafenConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">Непрозрачность строк развертки:</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">Добавляет горизонтальные линии, имитирующие старый ЭЛТ-экран. 0 — выключено, 100 — полностью непрозрачно.</system:String>
@@ -805,7 +804,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">Производительность и функции</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Включить перемотку</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Позволяет перематывать игровой процесс. Может повлиять на производительность.</system:String>
-    <system:String x:Key="MesenConfig_Run_Button">Запустить</system:String>
+    
     <system:String x:Key="MesenConfig_RunAhead_Label">Кадры Run-Ahead</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">Уменьшает задержку ввода, запуская кадры вперед и откатываясь назад. Используйте с осторожностью (0-8).</system:String>
     <system:String x:Key="MesenConfig_Save_Button">Сохранить</system:String>
@@ -829,7 +828,7 @@
     <system:String x:Key="NewThresholdLabel">Новый порог:</system:String>
     <system:String x:Key="NextPage">Следующая страница</system:String>
     <system:String x:Key="NoAchievementsFound">Достижения для этой игры не найдены.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения > Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения &gt; Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="NoGameInfoAvailable">Расширенная информация об игре недоступна.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Игры для случайного выбора не найдены. Пожалуйста, проверьте выбор системы.</system:String>
@@ -937,7 +936,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">Общие настройки</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Рендерер:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Выберите графический API. Vulkan рекомендуется для большинства современных ГПУ.</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button">Внедрить и запустить</system:String>
+    
     <system:String x:Key="Pcsx2Config_Save_Button">Сохранить</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском PCSX2</system:String>
     <system:String x:Key="Pcsx2Config_Title">Инжектор настроек PCSX2</system:String>
@@ -1156,7 +1155,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">RetroAchievements</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">Включить перемотку</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">Позволяет перематывать игровой процесс в реальном времени.</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button">Запустить RetroArch</system:String>
+    
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">Run-Ahead</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">Уменьшает задержку ввода, предсказывая будущие кадры (интенсивно использует CPU).</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">Сохранить</system:String>
@@ -1203,7 +1202,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">Установите выходное разрешение окна эмулятора.</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">Масштаб разрешения:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Увеличивает внутреннее разрешение для более четкой графики. 100% — нативное 720p.</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="RPCS3Config_Save_Button">Сохранить</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">Декодер SPU:</system:String>
@@ -1260,7 +1259,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">Рендерер</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">Разрешение в полноэкранном режиме:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">Устанавливает ширину и высоту для полноэкранного режима.</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="SegaModel2Config_Save_Button">Сохранить</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="SegaModel2Config_Title">Настройка SEGA Model 2</system:String>
@@ -1364,7 +1363,7 @@
     <system:String x:Key="StellaConfig_Features_Header">Функции</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Запустить в полноэкранном режиме</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">Если отмечено, эмулятор запустится в полноэкранном режиме.</system:String>
-    <system:String x:Key="StellaConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="StellaConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">Интенсивность строк развертки:</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">Регулирует видимость имитируемых строк развертки (0-100).</system:String>
@@ -1408,7 +1407,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">Улучшает точность для некоторых графических процессоров, особенно для прозрачных полигонов. Может повлиять на производительность.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">Разрешение (Ширина x Высота):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Устанавливает внутреннее разрешение рендеринга игры.</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button">Сохранить и запустить</system:String>
+    
     <system:String x:Key="SupermodelConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">Показывать это окно перед запуском игры</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">Громкость звуковых эффектов:</system:String>
@@ -1654,7 +1653,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">Исправляет определенные графические сбои за счет производительности.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">Масштаб разрешения (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">Внутренний масштаб разрешения рендеринга (1=720p, 2=1440p).</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button">Запустить Xenia</system:String>
+    
     <system:String x:Key="XeniaConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">Масштабирование и повышение резкости:</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">Метод масштабирования (FSR обеспечивает высококачественное повышение резкости).</system:String>
@@ -1699,7 +1698,7 @@
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Автоматически приостанавливать эмуляцию, когда окно эмулятора теряет фокус.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Уменьшить задержку</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Пытается минимизировать задержку ввода ценой некоторой производительности.</system:String>
-    <system:String x:Key="YumirConfig_Run_Button">Внедрить и запустить</system:String>
+    
     <system:String x:Key="YumirConfig_Save_Button">Сохранить</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Показывать эти настройки каждый раз перед запуском игры</system:String>
     <system:String x:Key="YumirConfig_System_Header">Система и эмуляция</system:String>

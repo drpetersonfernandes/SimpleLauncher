@@ -1,6 +1,5 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -85,7 +84,7 @@
     <system:String x:Key="AresConfig_Mute_Tooltip">Schakel alle audio-uitvoer uit.</system:String>
     <system:String x:Key="AresConfig_Rewind_Checkbox">Terugspoelen Inschakelen</system:String>
     <system:String x:Key="AresConfig_Rewind_Tooltip">Hiermee kunt u gameplay terugspoelen. Kan prestaties beïnvloeden.</system:String>
-    <system:String x:Key="AresConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="AresConfig_RunAhead_Checkbox">Run-Ahead Inschakelen</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">Vermindert invoervertraging. Kan een krachtige CPU vereisen.</system:String>
     <system:String x:Key="AresConfig_Save_Button">Opslaan</system:String>
@@ -130,7 +129,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">Schakelt Nieuwe 3DS-specifieke functies en hogere CPU-klok in voor compatibele spellen.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">Resolutiefactor:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">Interne resolutievermenigvuldiger. Hogere waarden zien er beter uit, maar vereisen meer GPU-kracht.</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button">Injecteren &amp; Starten</system:String>
+    
     <system:String x:Key="AzaharConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="AzaharConfig_System_Header">Systeem Instellingen</system:String>
@@ -149,7 +148,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Button">Annuleren</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Draaien in Volledig Scherm</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Schakelt tussen venstermodus en volledig scherm modus.</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="BlastemConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">Schaalfilter:</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' zorgt voor vloeiende schaling (bilineaire filtering). 'nearest' zorgt voor scherpe, blokkerige schaling (nearest neighbor).</system:String>
@@ -196,7 +195,7 @@
     <system:String x:Key="CemuConfig_General_Header">Algemeen &amp; Systeem</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Console Taal:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Stelt de systeemtaal van de geëmuleerde Wii U-console in.</system:String>
-    <system:String x:Key="CemuConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="CemuConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="CemuConfig_Title">Cemu Configuratie Injectie</system:String>
@@ -269,7 +268,7 @@
     <system:String x:Key="DaphneConfig_Gameplay_Header">Gameplay</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">Resolutie:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">Stel de venster- of volledig scherm resolutie in.</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="DaphneConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="DaphneConfig_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="DaphneConfig_Title">Daphne Configuratie</system:String>
@@ -305,7 +304,7 @@
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Voert DSP-emulatie uit op een aparte thread. Verbetert de prestaties op de meeste multi-core CPU's.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Grafische Backend:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Selecteer de grafische API. Vulkan wordt over het algemeen aanbevolen voor moderne GPU's.</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="DolphinConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="DolphinConfig_ShowBeforeLaunch_Checkbox">Deze instellingen tonen voordat Dolphin wordt gestart</system:String>
     <system:String x:Key="DolphinConfig_Title">Dolphin Configuratie</system:String>
@@ -370,7 +369,7 @@
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">Verhoogt de interne renderresolutie voor scherpere graphics. 1x is native resolutie.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">Terugspoelen Inschakelen</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Schakelt de mogelijkheid in om gameplay terug te spoelen. Kan prestaties beïnvloeden.</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="DuckStationConfig_Runahead_Label">Runahead Frames</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Vermindert invoervertraging door emulatie vooruit te draaien en terug te rollen. Voorzichtig gebruiken, vereist een krachtige CPU.</system:String>
     <system:String x:Key="DuckStationConfig_Save_Button">Opslaan</system:String>
@@ -546,7 +545,7 @@
     <system:String x:Key="FlycastConfig_Maximized_Tooltip">Indien aangevinkt, start het emulatorvenster gemaximaliseerd (randloos venster).</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">Vensterresolutie (Breedte x Hoogte)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">Stelt de resolutie van het emulatorvenster in wanneer niet in volledig scherm modus.</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="FlycastConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="FlycastConfig_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="FlycastConfig_Title">Flycast Configuratie</system:String>
@@ -731,7 +730,7 @@
     <system:String x:Key="MameConfig_Maximize_Checkbox">Maximaliseren (Start gemaximaliseerd)</system:String>
     <system:String x:Key="MameConfig_Maximize_Tooltip">Start het venster gemaximaliseerd.</system:String>
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">Prestaties en Geavanceerd</system:String>
-    <system:String x:Key="MameConfig_Run_Button">MAME starten</system:String>
+    
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">Uitvoeren in venster</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">Voert MAME uit in een venster in plaats van volledig scherm.</system:String>
     <system:String x:Key="MameConfig_Save_Button">Opslaan</system:String>
@@ -766,7 +765,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">Indien aangevinkt, start de emulator in volledig scherm modus.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">Terugspoelen Inschakelen</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">Hiermee kunt u gameplay terugspoelen. Kan prestatie-intensief zijn.</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button">Starten</system:String>
+    
     <system:String x:Key="MednafenConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Label">Scanlines Dekking:</system:String>
     <system:String x:Key="MednafenConfig_Scanlines_Tooltip">Voegt horizontale lijnen toe om een oud CRT-scherm na te bootsen. 0 is uit, 100 is volledig dekkend.</system:String>
@@ -805,7 +804,7 @@
     <system:String x:Key="MesenConfig_Performance_Header">Prestaties &amp; Functies</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Terugspoelen Inschakelen</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Hiermee kunt u gameplay terugspoelen. Kan prestaties beïnvloeden.</system:String>
-    <system:String x:Key="MesenConfig_Run_Button">Starten</system:String>
+    
     <system:String x:Key="MesenConfig_RunAhead_Label">Run-Ahead Frames</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">Vermindert invoervertraging door frames vooruit te draaien en terug te rollen. Voorzichtig gebruiken (0-8).</system:String>
     <system:String x:Key="MesenConfig_Save_Button">Opslaan</system:String>
@@ -829,7 +828,7 @@
     <system:String x:Key="NewThresholdLabel">Nieuwe drempel:</system:String>
     <system:String x:Key="NextPage">Volgende pagina</system:String>
     <system:String x:Key="NoAchievementsFound">Geen prestaties gevonden voor dit spel.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Uw besturingssysteem heeft geen standaard webbrowser geconfigureerd. Stel er een in via Windows Instellingen (Apps > Standaard-apps) om weblinks te openen.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Uw besturingssysteem heeft geen standaard webbrowser geconfigureerd. Stel er een in via Windows Instellingen (Apps &gt; Standaard-apps) om weblinks te openen.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
     <system:String x:Key="NoGameInfoAvailable">Uitgebreide spelinformatie niet beschikbaar.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Geen games gevonden om willekeurig uit te selecteren. Controleer uw systeemkeuze.</system:String>
@@ -937,7 +936,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">Algemene Instellingen</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Renderer:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Selecteer de grafische API. Vulkan wordt aanbevolen voor de meeste moderne GPU's.</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button">Injecteren &amp; Starten</system:String>
+    
     <system:String x:Key="Pcsx2Config_Save_Button">Opslaan</system:String>
     <system:String x:Key="Pcsx2Config_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat PCSX2 wordt gestart</system:String>
     <system:String x:Key="Pcsx2Config_Title">PCSX2 Configuratie Injector</system:String>
@@ -1156,7 +1155,7 @@
     <system:String x:Key="RetroArchConfig_RetroAchievements_Header">RetroAchievements</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Checkbox">Terugspoelen inschakelen</system:String>
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">Hiermee kunt u de gameplay in realtime terugspoelen.</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button">RetroArch uitvoeren</system:String>
+    
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">Run-Ahead</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">Vermindert invoervertraging door toekomstige frames te voorspellen (CPU-intensief).</system:String>
     <system:String x:Key="RetroArchConfig_Save_Button">Opslaan</system:String>
@@ -1203,7 +1202,7 @@
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">Stel de uitvoerresolutie van het emulatorvenster in.</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Label">Resolutie Schaal:</system:String>
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Schaal de interne resolutie op voor scherpere graphics. 100% is native 720p.</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="RPCS3Config_Save_Button">Opslaan</system:String>
     <system:String x:Key="RPCS3Config_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="RPCS3Config_SpuDecoder_Label">SPU Decoder:</system:String>
@@ -1260,7 +1259,7 @@
     <system:String x:Key="SegaModel2Config_Renderer_Header">Renderer</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">Volledig Scherm Resolutie:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">Stelt de breedte en hoogte in voor de volledig scherm modus.</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="SegaModel2Config_Save_Button">Opslaan</system:String>
     <system:String x:Key="SegaModel2Config_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="SegaModel2Config_Title">SEGA Model 2 Configuratie</system:String>
@@ -1364,7 +1363,7 @@
     <system:String x:Key="StellaConfig_Features_Header">Functies</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Draaien in Volledig Scherm</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">Indien aangevinkt, start de emulator in volledig scherm modus.</system:String>
-    <system:String x:Key="StellaConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="StellaConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Label">Scanlines Intensiteit:</system:String>
     <system:String x:Key="StellaConfig_Scanlines_Tooltip">Past de zichtbaarheid van gesimuleerde scanlines aan (0-100).</system:String>
@@ -1408,7 +1407,7 @@
     <system:String x:Key="SupermodelConfig_QuadRendering_Tooltip">Verbetert de nauwkeurigheid voor sommige GPU's, vooral voor transparante polygonen. Kan de prestaties beïnvloeden.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">Resolutie (Breedte x Hoogte):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Stelt de interne renderresolutie van het spel in.</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button">Opslaan &amp; Starten</system:String>
+    
     <system:String x:Key="SupermodelConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="SupermodelConfig_ShowBeforeLaunch_Checkbox">Dit venster tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="SupermodelConfig_SoundVolume_Label">Volume Geluidseffecten:</system:String>
@@ -1654,7 +1653,7 @@
     <system:String x:Key="XeniaConfig_ReadbackResolve_Tooltip">Lost bepaalde grafische glitches op ten koste van prestaties.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">Resolutieschaal (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">Interne renderingsresolutieschaal (1=720p, 2=1440p).</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button">Xenia uitvoeren</system:String>
+    
     <system:String x:Key="XeniaConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Label">Schaling en verscherping:</system:String>
     <system:String x:Key="XeniaConfig_ScalingSharpening_Tooltip">Upscaling-methode (FSR biedt hoogwaardige verscherping).</system:String>
@@ -1699,7 +1698,7 @@
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Pauzeert de emulatie automatisch wanneer het emulatorvenster de focus verliest.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Latentie Verminderen</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Probeert invoervertraging te minimaliseren ten koste van enige prestaties.</system:String>
-    <system:String x:Key="YumirConfig_Run_Button">Injecteren &amp; Starten</system:String>
+    
     <system:String x:Key="YumirConfig_Save_Button">Opslaan</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Deze instellingen elke keer tonen voordat een spel wordt gestart</system:String>
     <system:String x:Key="YumirConfig_System_Header">Systeem &amp; Emulatie</system:String>
