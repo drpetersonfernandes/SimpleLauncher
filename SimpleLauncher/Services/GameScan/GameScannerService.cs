@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameScan;
 
@@ -99,8 +100,7 @@ public class GameScannerService
                 FileFormatsToLaunch = [],
                 Emulators =
                 [
-                    // Fix 2: Use SystemManager.Emulator for the nested class
-                    new SystemManager.Emulator
+                    new Emulator
                     {
                         EmulatorName = "Direct Launch",
                         EmulatorLocation = "",
