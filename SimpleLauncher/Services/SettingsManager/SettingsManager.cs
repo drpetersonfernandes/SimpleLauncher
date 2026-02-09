@@ -223,6 +223,19 @@ public class SettingsManager : IDisposable
     public bool RaineMuteMusic { get; set; }
     public string RaineRomDirectory { get; set; } = string.Empty;
 
+    // Redream
+    public string RedreamCable { get; set; } = "vga";
+    public string RedreamBroadcast { get; set; } = "ntsc";
+    public string RedreamLanguage { get; set; } = "english";
+    public string RedreamRegion { get; set; } = "usa";
+    public bool RedreamVsync { get; set; } = true;
+    public bool RedreamFrameskip { get; set; } = true;
+    public string RedreamAspect { get; set; } = "4:3";
+    public int RedreamRes { get; set; } = 2;
+    public string RedreamRenderer { get; set; } = "hle_perstrip";
+    public string RedreamFullmode { get; set; } = "exclusive fullscreen";
+    public bool RedreamShowSettingsBeforeLaunch { get; set; } = true;
+
     // RetroArch
     public bool RetroArchCheevosEnable { get; set; }
     public bool RetroArchCheevosHardcore { get; set; }
@@ -585,6 +598,19 @@ public class SettingsManager : IDisposable
         RaineMuteSfx = other.RaineMuteSfx;
         RaineMuteMusic = other.RaineMuteMusic;
         RaineRomDirectory = other.RaineRomDirectory;
+
+        // Redream
+        RedreamCable = other.RedreamCable;
+        RedreamBroadcast = other.RedreamBroadcast;
+        RedreamLanguage = other.RedreamLanguage;
+        RedreamRegion = other.RedreamRegion;
+        RedreamVsync = other.RedreamVsync;
+        RedreamFrameskip = other.RedreamFrameskip;
+        RedreamAspect = other.RedreamAspect;
+        RedreamRes = other.RedreamRes;
+        RedreamRenderer = other.RedreamRenderer;
+        RedreamFullmode = other.RedreamFullmode;
+        RedreamShowSettingsBeforeLaunch = other.RedreamShowSettingsBeforeLaunch;
 
         // RetroArch
         RetroArchCheevosEnable = other.RetroArchCheevosEnable;
@@ -1427,6 +1453,35 @@ public class SettingsManager : IDisposable
 
         RaineRomDirectory = raine?.Element("RomDirectory")?.Value ?? settings.Element("RaineRomDirectory")?.Value ?? RaineRomDirectory;
 
+        // Redream Fallback
+        var redream = settings.Element("Redream");
+        RedreamCable = redream?.Element("Cable")?.Value ?? settings.Element("RedreamCable")?.Value ?? RedreamCable;
+        RedreamBroadcast = redream?.Element("Broadcast")?.Value ?? settings.Element("RedreamBroadcast")?.Value ?? RedreamBroadcast;
+        RedreamLanguage = redream?.Element("Language")?.Value ?? settings.Element("RedreamLanguage")?.Value ?? RedreamLanguage;
+        RedreamRegion = redream?.Element("Region")?.Value ?? settings.Element("RedreamRegion")?.Value ?? RedreamRegion;
+        if (bool.TryParse(redream?.Element("Vsync")?.Value ?? settings.Element("RedreamVsync")?.Value, out var rvs))
+        {
+            RedreamVsync = rvs;
+        }
+
+        if (bool.TryParse(redream?.Element("Frameskip")?.Value ?? settings.Element("RedreamFrameskip")?.Value, out var redreamFrameskip))
+        {
+            RedreamFrameskip = redreamFrameskip;
+        }
+
+        RedreamAspect = redream?.Element("Aspect")?.Value ?? settings.Element("RedreamAspect")?.Value ?? RedreamAspect;
+        if (int.TryParse(redream?.Element("Res")?.Value ?? settings.Element("RedreamRes")?.Value, out var rr))
+        {
+            RedreamRes = rr;
+        }
+
+        RedreamRenderer = redream?.Element("Renderer")?.Value ?? settings.Element("RedreamRenderer")?.Value ?? RedreamRenderer;
+        RedreamFullmode = redream?.Element("Fullmode")?.Value ?? settings.Element("RedreamFullmode")?.Value ?? RedreamFullmode;
+        if (bool.TryParse(redream?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("RedreamShowSettingsBeforeLaunch")?.Value, out var redreamShowSettingsBeforeLaunch))
+        {
+            RedreamShowSettingsBeforeLaunch = redreamShowSettingsBeforeLaunch;
+        }
+
         // RetroArch Fallback
         var retroarch = settings.Element("RetroArch");
         if (bool.TryParse(retroarch?.Element("CheevosEnable")?.Value ?? settings.Element("RetroArchCheevosEnable")?.Value, out var race))
@@ -2166,6 +2221,21 @@ public class SettingsManager : IDisposable
                 new XElement("MuteSfx", s.RaineMuteSfx),
                 new XElement("MuteMusic", s.RaineMuteMusic),
                 new XElement("RomDirectory", s.RaineRomDirectory)
+            ),
+
+            // Redream
+            new XElement("Redream",
+                new XElement("Cable", s.RedreamCable),
+                new XElement("Broadcast", s.RedreamBroadcast),
+                new XElement("Language", s.RedreamLanguage),
+                new XElement("Region", s.RedreamRegion),
+                new XElement("Vsync", s.RedreamVsync),
+                new XElement("Frameskip", s.RedreamFrameskip),
+                new XElement("Aspect", s.RedreamAspect),
+                new XElement("Res", s.RedreamRes),
+                new XElement("Renderer", s.RedreamRenderer),
+                new XElement("Fullmode", s.RedreamFullmode),
+                new XElement("ShowSettingsBeforeLaunch", s.RedreamShowSettingsBeforeLaunch)
             ),
 
             // RetroArch

@@ -1716,4 +1716,36 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="RedreamConfig_Title">Redream Configuration</system:String>
+    <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Label">Cable:</system:String>
+    <system:String x:Key="RedreamConfig_Cable_Tooltip">Video cable type.</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Label">Broadcast:</system:String>
+    <system:String x:Key="RedreamConfig_Broadcast_Tooltip">Video broadcast standard.</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Enable V-Sync</system:String>
+    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchronize frame rate with monitor refresh rate.</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Enable Frameskip</system:String>
+    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Skip frames to maintain speed on slower hardware.</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Label">Aspect Ratio:</system:String>
+    <system:String x:Key="RedreamConfig_Aspect_Tooltip">Screen aspect ratio.</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Label">Resolution Scale:</system:String>
+    <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Internal resolution scaling factor (e.g., 2 for 2x).</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Label">Renderer:</system:String>
+    <system:String x:Key="RedreamConfig_Renderer_Tooltip">Graphics renderer to use.</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Label">Fullscreen Mode:</system:String>
+    <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">How the game is displayed in fullscreen.</system:String>
+    <system:String x:Key="RedreamConfig_System_Header">System</system:String>
+    <system:String x:Key="RedreamConfig_Language_Label">Language:</system:String>
+    <system:String x:Key="RedreamConfig_Language_Tooltip">System language.</system:String>
+    <system:String x:Key="RedreamConfig_Region_Label">Region:</system:String>
+    <system:String x:Key="RedreamConfig_Region_Tooltip">System region.</system:String>
+    <system:String x:Key="RedreamConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
+    <system:String x:Key="RedreamConfig_Save_Button">Save</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button">Save &amp; Run</system:String>
+    <system:String x:Key="RedreamConfig_Cancel_Button">Cancel</system:String>
+    <system:String x:Key="ReDreamConfig_PathNotFound">ReDream executable not found. Please select it.</system:String>
+    <system:String x:Key="FailedToSaveReDreamConfiguration">Failed to save ReDream configuration. Please check file permissions.</system:String>
+    <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream configuration saved successfully.</system:String>
+    
 </ResourceDictionary>

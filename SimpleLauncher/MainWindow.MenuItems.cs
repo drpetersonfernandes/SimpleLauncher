@@ -1410,4 +1410,15 @@ public partial class MainWindow
         var raineWindow = new InjectRaineConfigWindow(_settings, null, null, null, false) { Owner = this };
         raineWindow.ShowDialog();
     }
+
+    private void ShowRedreamSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent("Opening Redream configuration...", this);
+        var redreamWindow = new InjectRedreamConfigWindow(_settings, null, false)
+        {
+            Owner = this
+        };
+        redreamWindow.ShowDialog();
+    }
 }
