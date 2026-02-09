@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -46,6 +47,14 @@ internal partial class EditSystemWindow : ILoadingState
         _ = LoadSystemsAsync();
 
         Closing += EditSystem_Closing;
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
 
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;

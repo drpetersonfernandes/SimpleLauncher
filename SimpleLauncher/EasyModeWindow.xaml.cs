@@ -284,6 +284,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
         Closed += CloseWindowRoutineAsync;
         Loaded += EasyModeWindowLoadedAsync;
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private async void EasyModeWindowLoadedAsync(object sender, RoutedEventArgs e)

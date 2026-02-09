@@ -902,7 +902,6 @@
         <ContentControl x:Name="LoadingOverlay" 
                         Template="{StaticResource LoadingOverlayTemplate}" 
                         Visibility="Collapsed" 
-                        Button.Click="EmergencyOverlayRelease_Click"
                         Grid.ColumnSpan="3" />
         
     </Grid>

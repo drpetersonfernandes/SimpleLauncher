@@ -91,6 +91,14 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
         // Set up event handlers
         Closed += CloseWindowRoutineAsync;
         Loaded += DownloadImagePackWindowLoadedAsync;
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     public void SetLoadingState(bool isLoading, string message = null)

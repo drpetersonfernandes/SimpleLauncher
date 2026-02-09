@@ -36,6 +36,14 @@ public partial class RetroAchievementsWindow : ILoadingState
         _playSoundEffects = playSoundEffects;
 
         Loaded += RetroAchievementsWindow_Loaded;
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

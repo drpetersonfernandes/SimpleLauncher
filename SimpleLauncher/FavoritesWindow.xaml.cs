@@ -70,6 +70,14 @@ internal partial class FavoritesWindow : ILoadingState
         FavoritesDataGrid.ItemsSource = _favoriteList;
 
         Loaded += FavoritesWindowLoadedAsync;
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private async void FavoritesWindowLoadedAsync(object sender, RoutedEventArgs e)

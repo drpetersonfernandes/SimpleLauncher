@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LoadingInterface;
@@ -36,6 +37,14 @@ public partial class SupportWindow : ILoadingState
         _configuration = configuration;
 
         MessageBuilder();
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private void MessageBuilder()

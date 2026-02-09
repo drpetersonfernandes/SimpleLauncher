@@ -86,6 +86,14 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
         systemNames.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name));
         SystemComboBox.ItemsSource = systemNames;
         SystemComboBox.SelectedIndex = 0;
+
+        Loaded += (_, _) =>
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)

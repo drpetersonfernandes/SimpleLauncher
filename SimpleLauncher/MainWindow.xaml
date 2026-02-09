@@ -1247,7 +1247,6 @@
                         Grid.Row="0"
                         Panel.ZIndex="9999"
                         Template="{StaticResource LoadingOverlayTemplate}"
-                        Button.Click="EmergencyOverlayRelease_Click"
                         Visibility="Collapsed" />
     </Grid>
 </controls:MetroWindow>
