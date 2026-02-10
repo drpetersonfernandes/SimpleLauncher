@@ -8,12 +8,17 @@
     - Integrated format conversion services for CHD-to-CUE/BIN, CHD-to-ISO, and RVZ-to-ISO transformations, expanding compatibility across emulators. For example, it can convert a CHD file to CUE/BIN if the emulator does not support CHD.
 - **Improved Loading State Management**: Unified UI busy-state handling throughout the application to provide consistent blocking behavior and progress feedback across all major windows (MainWindow, Favorites, Search, etc.).
 - **Configuration Injection Service**: Built a centralized service that programmatically injects settings into emulator configuration files.
-    - Supports 20+ emulators: Ares, Azahar, Blastem, Cemu, Daphne, Dolphin, DuckStation, Flycast, MAME, Mednafen, Mesen, PCSX2, Raine, RetroArch, RPCS3, Sega Model 2, Stella, Supermodel, Xenia, and Yumir.
+    - Supports 20+ emulators: Ares, Azahar, Blastem, Cemu, Daphne, Dolphin, DuckStation, Flycast, MAME, Mednafen, Mesen, PCSX2, Raine, Redream, RetroArch, RPCS3, Sega Model 2, Stella, Supermodel, Xenia, and Yumir.
     - Xenia integration mirrors Xenia Manager's internal configuration injection functionality.
 - **Enhanced RetroAchievements Integration**:
     - Automatically injects RetroAchievements credentials into PCSX2, DuckStation, PPSSPP, Dolphin, Flycast, BizHawk, and RetroArch.
-    - Added RetroAchievements filter in `MainWindow` to quickly identify and display supported titles.
+    - Added RetroAchievements filter in `MainWindow` to quickly identify and display probable supported titles.
     - Refined game hashing algorithms across multiple systems for accurate achievement tracking.
+- **UI Enhancement**
+- **Code Quality Improvements**:
+   - Enhanced error handling for XML corruption.
+   - Fixed potential deadlocks in play history updates.
+   - Centralize 'system.xml' load, edit and delete operations into SystemManager class. 
 
 # Release 4.9.1
 *2026-01-18*

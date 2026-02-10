@@ -33,7 +33,7 @@ public class SettingsManager : IDisposable
     public bool EnableGamePadNavigation { get; set; }
     public string VideoUrl { get; set; }
     public string InfoUrl { get; set; }
-    public string BaseTheme { get; set; } = "Light";
+    public string BaseTheme { get; set; } = "Dark";
     public string AccentColor { get; set; } = "Blue";
     public string Language { get; set; } = "en";
     public float DeadZoneX { get; set; } = DefaultDeadZoneX;
