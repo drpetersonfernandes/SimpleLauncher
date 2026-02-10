@@ -6,8 +6,8 @@
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
         <ImplicitUsings>enable</ImplicitUsings>
-        <AssemblyVersion>2.5</AssemblyVersion>
-        <FileVersion>2.5</FileVersion>
+        <AssemblyVersion>2.6</AssemblyVersion>
+        <FileVersion>2.6</FileVersion>
         <IsPackable>false</IsPackable>
         <LangVersion>14</LangVersion>
         <ApplicationIcon>icon\icon.ico</ApplicationIcon>
