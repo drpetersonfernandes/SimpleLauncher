@@ -1748,7 +1748,7 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
+
     <system:String x:Key="ReturnButton">[ Return ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Click here if the loading screen is stuck to return to the main menu</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
@@ -1790,9 +1790,8 @@
     <system:String x:Key="GameTitle">Game Title</system:String>
     <system:String x:Key="ConsoleName">Console Name</system:String>
     <system:String x:Key="NoDefaultEmulator">No Default Emulator</system:String>
-    
     <system:String x:Key="IMPORTANTSETTING">⚠ IMPORTANT SETTING</system:String>
-    
-    
+    <system:String x:Key="UnknownString">Unknown</system:String>
+
    
 </ResourceDictionary>

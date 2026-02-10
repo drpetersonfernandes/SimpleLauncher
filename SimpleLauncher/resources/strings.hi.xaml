@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ReturnButton">[ वापस जाएं ]</system:String>
+    <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">यदि लोडिंग स्क्रीन अटक गई है, तो मुख्य मेनू पर लौटने के लिए यहाँ क्लिक करें</system:String>
+    <system:String x:Key="GlobalStatsReportTitle">ग्लोबल आँकड़े रिपोर्ट</system:String>
+    <system:String x:Key="SystemSpecifics">सिस्टम विवरण:</system:String>
+    <system:String x:Key="Games">गेम्स</system:String>
+    <system:String x:Key="Images">इमेज</system:String>
+    <system:String x:Key="SelectAresEmulator">Ares एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectAzaharEmulator">Azahar एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectBlastemEmulator">Blastem एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectCemuEmulator">Cemu एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectDolphinEmulator">Dolphin एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectDuckStationEmulator">DuckStation एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectFlycastEmulator">Flycast एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectMAMEEmulator">MAME एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectMednafenEmulator">Mednafen एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectMesenEmulator">Mesen एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectPCSX2Emulator">PCSX2 एमुलेटर चुनें</system:String>
+    <system:String x:Key="RedreamConfig_Vertical_Sync">वर्टिकल सिंक</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Skip">फ्रेम स्किप</system:String>
+    <system:String x:Key="RedreamConfig_Window_Size">विंडो का आकार</system:String>
+    <system:String x:Key="RedreamConfig_Volume">आवाज़</system:String>
+    <system:String x:Key="RedreamConfig_Latency_ms">विलंबता (ms)</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Rate_Counter">फ्रेम रेट काउंटर</system:String>
+    <system:String x:Key="SelectRedreamEmulator">Redream एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectRetroArchEmulator">RetroArch एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectRPCS3Emulator">RPCS3 एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectSEGAModel2Emulator">SEGA Model 2 एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectStellaEmulator">Stella एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectSupermodelEmulator">Supermodel एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectXeniaEmulator">Xenia एमुलेटर चुनें</system:String>
+    <system:String x:Key="SelectYumirEmulator">Yumir एमुलेटर चुनें</system:String>
+    <system:String x:Key="AzaharSettings">Azahar सेटिंग्स</system:String>
+    <system:String x:Key="CemuSettings">Cemu सेटिंग्स</system:String>
+    <system:String x:Key="PCSX2Settings">PCSX2 सेटिंग्स</system:String>
+    <system:String x:Key="RaineSettings">Raine सेटिंग्स</system:String>
+    <system:String x:Key="RedreamSettings">Redream सेटिंग्स</system:String>
+    <system:String x:Key="YumirSettings">Yumir सेटिंग्स</system:String>
+    <system:String x:Key="FoundNewMicrosoftWindowsGames">नए Microsoft Windows गेम्स मिले। सिस्टम सूची को रिफ्रेश किया जा रहा है।</system:String>
+    <system:String x:Key="GameTitle">गेम का शीर्षक</system:String>
+    <system:String x:Key="ConsoleName">कंसोल का नाम</system:String>
+    <system:String x:Key="NoDefaultEmulator">कोई डिफ़ॉल्ट एमुलेटर नहीं</system:String>
+    <system:String x:Key="IMPORTANTSETTING">⚠ महत्वपूर्ण सेटिंग</system:String>
+    <system:String x:Key="UnknownString">अज्ञात</system:String>
+
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>

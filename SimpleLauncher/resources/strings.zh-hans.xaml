@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+        <system:String x:Key="ReturnButton">[ 返回 ]</system:String>
+    <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">如果加载界面卡住，请点击此处返回主菜单</system:String>
+    <system:String x:Key="GlobalStatsReportTitle">全局统计报告</system:String>
+    <system:String x:Key="SystemSpecifics">系统详情：</system:String>
+    <system:String x:Key="Games">游戏</system:String>
+    <system:String x:Key="Images">图片</system:String>
+    <system:String x:Key="SelectAresEmulator">选择 Ares 模拟器</system:String>
+    <system:String x:Key="SelectAzaharEmulator">选择 Azahar 模拟器</system:String>
+    <system:String x:Key="SelectBlastemEmulator">选择 Blastem 模拟器</system:String>
+    <system:String x:Key="SelectCemuEmulator">选择 Cemu 模拟器</system:String>
+    <system:String x:Key="SelectDolphinEmulator">选择 Dolphin 模拟器</system:String>
+    <system:String x:Key="SelectDuckStationEmulator">选择 DuckStation 模拟器</system:String>
+    <system:String x:Key="SelectFlycastEmulator">选择 Flycast 模拟器</system:String>
+    <system:String x:Key="SelectMAMEEmulator">选择 MAME 模拟器</system:String>
+    <system:String x:Key="SelectMednafenEmulator">选择 Mednafen 模拟器</system:String>
+    <system:String x:Key="SelectMesenEmulator">选择 Mesen 模拟器</system:String>
+    <system:String x:Key="SelectPCSX2Emulator">选择 PCSX2 模拟器</system:String>
+    <system:String x:Key="RedreamConfig_Vertical_Sync">垂直同步</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Skip">跳帧</system:String>
+    <system:String x:Key="RedreamConfig_Window_Size">窗口大小</system:String>
+    <system:String x:Key="RedreamConfig_Volume">音量</system:String>
+    <system:String x:Key="RedreamConfig_Latency_ms">延迟 (ms)</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Rate_Counter">帧率计数器</system:String>
+    <system:String x:Key="SelectRedreamEmulator">选择 Redream 模拟器</system:String>
+    <system:String x:Key="SelectRetroArchEmulator">选择 RetroArch 模拟器</system:String>
+    <system:String x:Key="SelectRPCS3Emulator">选择 RPCS3 模拟器</system:String>
+    <system:String x:Key="SelectSEGAModel2Emulator">选择 SEGA Model 2 模拟器</system:String>
+    <system:String x:Key="SelectStellaEmulator">选择 Stella 模拟器</system:String>
+    <system:String x:Key="SelectSupermodelEmulator">选择 Supermodel 模拟器</system:String>
+    <system:String x:Key="SelectXeniaEmulator">选择 Xenia 模拟器</system:String>
+    <system:String x:Key="SelectYumirEmulator">选择 Yumir 模拟器</system:String>
+    <system:String x:Key="AzaharSettings">Azahar 设置</system:String>
+    <system:String x:Key="CemuSettings">Cemu 设置</system:String>
+    <system:String x:Key="PCSX2Settings">PCSX2 设置</system:String>
+    <system:String x:Key="RaineSettings">Raine 设置</system:String>
+    <system:String x:Key="RedreamSettings">Redream 设置</system:String>
+    <system:String x:Key="YumirSettings">Yumir 设置</system:String>
+    <system:String x:Key="FoundNewMicrosoftWindowsGames">发现新的 Microsoft Windows 游戏。正在刷新系统列表。</system:String>
+    <system:String x:Key="GameTitle">游戏标题</system:String>
+    <system:String x:Key="ConsoleName">主机名称</system:String>
+    <system:String x:Key="NoDefaultEmulator">无默认模拟器</system:String>
+    <system:String x:Key="IMPORTANTSETTING">⚠ 重要设置</system:String>
+    <system:String x:Key="UnknownString">未知</system:String>
+
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>

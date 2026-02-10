@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    
+        <system:String x:Key="ReturnButton">[ Назад ]</system:String>
+    <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Нажмите здесь, если экран загрузки завис, чтобы вернуться в главное меню</system:String>
+    <system:String x:Key="GlobalStatsReportTitle">Отчет о глобальной статистике</system:String>
+    <system:String x:Key="SystemSpecifics">Спецификации системы:</system:String>
+    <system:String x:Key="Games">Игры</system:String>
+    <system:String x:Key="Images">Изображения</system:String>
+    <system:String x:Key="SelectAresEmulator">Выбрать эмулятор Ares</system:String>
+    <system:String x:Key="SelectAzaharEmulator">Выбрать эмулятор Azahar</system:String>
+    <system:String x:Key="SelectBlastemEmulator">Выбрать эмулятор Blastem</system:String>
+    <system:String x:Key="SelectCemuEmulator">Выбрать эмулятор Cemu</system:String>
+    <system:String x:Key="SelectDolphinEmulator">Выбрать эмулятор Dolphin</system:String>
+    <system:String x:Key="SelectDuckStationEmulator">Выбрать эмулятор DuckStation</system:String>
+    <system:String x:Key="SelectFlycastEmulator">Выбрать эмулятор Flycast</system:String>
+    <system:String x:Key="SelectMAMEEmulator">Выбрать эмулятор MAME</system:String>
+    <system:String x:Key="SelectMednafenEmulator">Выбрать эмулятор Mednafen</system:String>
+    <system:String x:Key="SelectMesenEmulator">Выбрать эмулятор Mesen</system:String>
+    <system:String x:Key="SelectPCSX2Emulator">Выбрать эмулятор PCSX2</system:String>
+    <system:String x:Key="RedreamConfig_Vertical_Sync">Вертикальная синхронизация</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Skip">Пропуск кадров</system:String>
+    <system:String x:Key="RedreamConfig_Window_Size">Размер окна</system:String>
+    <system:String x:Key="RedreamConfig_Volume">Громкость</system:String>
+    <system:String x:Key="RedreamConfig_Latency_ms">Задержка (мс)</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Rate_Counter">Счетчик частоты кадров</system:String>
+    <system:String x:Key="SelectRedreamEmulator">Выбрать эмулятор Redream</system:String>
+    <system:String x:Key="SelectRetroArchEmulator">Выбрать эмулятор RetroArch</system:String>
+    <system:String x:Key="SelectRPCS3Emulator">Выбрать эмулятор RPCS3</system:String>
+    <system:String x:Key="SelectSEGAModel2Emulator">Выбрать эмулятор SEGA Model 2</system:String>
+    <system:String x:Key="SelectStellaEmulator">Выбрать эмулятор Stella</system:String>
+    <system:String x:Key="SelectSupermodelEmulator">Выбрать эмулятор Supermodel</system:String>
+    <system:String x:Key="SelectXeniaEmulator">Выбрать эмулятор Xenia</system:String>
+    <system:String x:Key="SelectYumirEmulator">Выбрать эмулятор Yumir</system:String>
+    <system:String x:Key="AzaharSettings">Настройки Azahar</system:String>
+    <system:String x:Key="CemuSettings">Настройки Cemu</system:String>
+    <system:String x:Key="PCSX2Settings">Настройки PCSX2</system:String>
+    <system:String x:Key="RaineSettings">Настройки Raine</system:String>
+    <system:String x:Key="RedreamSettings">Настройки Redream</system:String>
+    <system:String x:Key="YumirSettings">Настройки Yumir</system:String>
+    <system:String x:Key="FoundNewMicrosoftWindowsGames">Найдены новые игры Microsoft Windows. Обновление списка систем.</system:String>
+    <system:String x:Key="GameTitle">Название игры</system:String>
+    <system:String x:Key="ConsoleName">Название консоли</system:String>
+    <system:String x:Key="NoDefaultEmulator">Эмулятор по умолчанию не задан</system:String>
+    <system:String x:Key="IMPORTANTSETTING">⚠ ВАЖНАЯ НАСТРОЙКА</system:String>
+    <system:String x:Key="UnknownString">Неизвестно</system:String>
+
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>

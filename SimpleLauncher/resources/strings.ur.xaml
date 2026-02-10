@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+        <system:String x:Key="ReturnButton">[ واپسی ]</system:String>
+    <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">اگر لوڈنگ اسکرین پھنس جائے تو مین مینو پر واپس جانے کے لیے یہاں کلک کریں</system:String>
+    <system:String x:Key="GlobalStatsReportTitle">عالمی اعداد و شمار کی رپورٹ</system:String>
+    <system:String x:Key="SystemSpecifics">سسٹم کی تفصیلات:</system:String>
+    <system:String x:Key="Games">گیمز</system:String>
+    <system:String x:Key="Images">تصاویر</system:String>
+    <system:String x:Key="SelectAresEmulator">Ares ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectAzaharEmulator">Azahar ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectBlastemEmulator">Blastem ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectCemuEmulator">Cemu ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectDolphinEmulator">Dolphin ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectDuckStationEmulator">DuckStation ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectFlycastEmulator">Flycast ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectMAMEEmulator">MAME ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectMednafenEmulator">Mednafen ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectMesenEmulator">Mesen ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectPCSX2Emulator">PCSX2 ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="RedreamConfig_Vertical_Sync">ورٹیکل سنک</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Skip">فریم اسکیپ</system:String>
+    <system:String x:Key="RedreamConfig_Window_Size">ونڈو کا سائز</system:String>
+    <system:String x:Key="RedreamConfig_Volume">آواز</system:String>
+    <system:String x:Key="RedreamConfig_Latency_ms">تاخیر (ms)</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Rate_Counter">فریم ریٹ کاؤنٹر</system:String>
+    <system:String x:Key="SelectRedreamEmulator">Redream ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectRetroArchEmulator">RetroArch ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectRPCS3Emulator">RPCS3 ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectSEGAModel2Emulator">SEGA Model 2 ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectStellaEmulator">Stella ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectSupermodelEmulator">Supermodel ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectXeniaEmulator">Xenia ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="SelectYumirEmulator">Yumir ایمولیٹر منتخب کریں</system:String>
+    <system:String x:Key="AzaharSettings">Azahar ترتیبات</system:String>
+    <system:String x:Key="CemuSettings">Cemu ترتیبات</system:String>
+    <system:String x:Key="PCSX2Settings">PCSX2 ترتیبات</system:String>
+    <system:String x:Key="RaineSettings">Raine ترتیبات</system:String>
+    <system:String x:Key="RedreamSettings">Redream ترتیبات</system:String>
+    <system:String x:Key="YumirSettings">Yumir ترتیبات</system:String>
+    <system:String x:Key="FoundNewMicrosoftWindowsGames">نئی Microsoft Windows گیمز مل گئیں۔ سسٹم کی فہرست تازہ کی جا رہی ہے۔</system:String>
+    <system:String x:Key="GameTitle">گیم کا عنوان</system:String>
+    <system:String x:Key="ConsoleName">کنسول کا نام</system:String>
+    <system:String x:Key="NoDefaultEmulator">کوئی ڈیفالٹ ایمولیٹر نہیں</system:String>
+    <system:String x:Key="IMPORTANTSETTING">⚠ اہم ترتیب</system:String>
+    <system:String x:Key="UnknownString">نامعلوم</system:String>
+
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
     <system:String x:Key="1000games">1000 گیمز</system:String>
