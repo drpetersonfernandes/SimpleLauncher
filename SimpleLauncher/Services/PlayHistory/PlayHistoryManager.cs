@@ -263,6 +263,8 @@ public class PlayHistoryManager
             var dateStr = now.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
             var timeStr = now.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
 
+            PlayHistoryItem itemToAdd = null;
+
             lock (HistoryLock)
             {
                 // Check if the game already exists in play history
@@ -279,7 +281,7 @@ public class PlayHistoryManager
                 else
                 {
                     // Create new record
-                    var newItem = new PlayHistoryItem
+                    itemToAdd = new PlayHistoryItem
                     {
                         FileName = fullPath,
                         SystemName = systemName,
@@ -288,8 +290,13 @@ public class PlayHistoryManager
                         LastPlayDate = dateStr,
                         LastPlayTime = timeStr
                     };
-                    Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(newItem));
                 }
+            }
+
+            // Add to the ObservableCollection outside the lock to prevent deadlock
+            if (itemToAdd != null)
+            {
+                Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(itemToAdd));
             }
 
             Application.Current.Dispatcher.Invoke(SavePlayHistory);

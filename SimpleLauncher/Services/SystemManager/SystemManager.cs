@@ -6,6 +6,7 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
@@ -15,7 +16,7 @@ using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.SystemManager;
 
-public class SystemManager
+public partial class SystemManager
 {
     private static readonly object XmlLock = new();
     public string SystemName { get; init; }
@@ -104,12 +105,12 @@ public class SystemManager
                     }
                 }
 
-                // At this point, system.xml exists (either original, restored backup, or newly created empty)
-                XDocument doc;
+                var systemManagers = new List<SystemManager>();
+                var invalidManagers = new Dictionary<XElement, string>();
+                XDocument doc = null;
 
                 try
                 {
-                    // Load the XML document
                     var settings = new XmlReaderSettings
                     {
                         DtdProcessing = DtdProcessing.Prohibit,
@@ -118,56 +119,76 @@ public class SystemManager
 
                     using var reader = XmlReader.Create(systemXmlPath, settings);
                     doc = XDocument.Load(reader, LoadOptions.None);
+
+                    if (doc.Root != null)
+                    {
+                        foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
+                        {
+                            try
+                            {
+                                ValidateSystemConfiguration(sysConfigElement, systemManagers);
+                            }
+                            catch (Exception ex)
+                            {
+                                var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
+                                if (!invalidManagers.ContainsKey(sysConfigElement))
+                                {
+                                    invalidManagers[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
+                                }
+
+                                invalidManagers[sysConfigElement] += $"- {ex.Message}\n";
+                            }
+                        }
+                    }
                 }
                 catch (XmlException ex)
                 {
-                    // Notify developer
-                    var contextMessage = $"The file 'system.xml' is badly corrupt at line {ex.LineNumber}, position {ex.LinePosition}.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
 
-                    // Notify user
-                    MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    // Create a fresh document for rebuilding
+                    doc = new XDocument(new XElement("SystemConfigs"));
+                    var structuralErrorKey = new XElement("StructuralCorruption");
 
-                    return []; // Return an empty list
+                    try
+                    {
+                        var rawXml = File.ReadAllText(systemXmlPath);
+                        var matches = MyRegex().Matches(rawXml);
+                        foreach (Match match in matches)
+                        {
+                            try
+                            {
+                                var sysConfigElement = XElement.Parse(match.Value);
+                                ValidateSystemConfiguration(sysConfigElement, systemManagers);
+                            }
+                            catch (Exception)
+                            {
+                                var nameMatch = MyRegex1().Match(match.Value);
+                                var sysName = nameMatch.Success ? nameMatch.Groups[1].Value : "Unknown";
+
+                                invalidManagers.TryAdd(structuralErrorKey, "The following systems were removed due to structural corruption in the XML:\n");
+
+                                invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
+
+                                DebugLogger.Log($"Failed to validate system configuration for '{sysName}'");
+                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to validate system configuration for '{sysName}'");
+                            }
+                        }
+                    }
+                    catch (Exception fatalEx)
+                    {
+                        DebugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(fatalEx, "Failed to perform regex recovery on system.xml.");
+                    }
                 }
                 catch (IOException ex)
                 {
-                    // Notify developer
-                    const string contextMessage = "The file 'system.xml' is locked or inaccessible by another process.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-                    // Notify user - File is locked, not corrupted
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "The file 'system.xml' is locked.");
                     MessageBoxLibrary.FileSystemXmlIsLockedMessageBox();
-
-                    return []; // Return an empty list
                 }
 
-                var systemManagers = new List<SystemManager>();
-                var invalidManagers = new Dictionary<XElement, string>();
-
-                // If the root is null (e.g., empty file or invalid XML structure before root), return empty list
-                if (doc.Root == null)
+                if (doc?.Root == null)
                 {
                     return systemManagers;
-                }
-
-                // Iterate through SystemManager elements. This loop will be skipped if the file is empty (<SystemConfigs/>).
-                foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
-                {
-                    try
-                    {
-                        ValidateSystemConfiguration(sysConfigElement, systemManagers);
-                    }
-                    catch (Exception ex)
-                    {
-                        var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
-                        if (!invalidManagers.ContainsKey(sysConfigElement))
-                        {
-                            invalidManagers[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
-                        }
-
-                        invalidManagers[sysConfigElement] += $"- {ex.Message}\n";
-                    }
                 }
 
                 // Rebuild the XML document from the valid, in-memory configurations
@@ -640,4 +661,10 @@ public class SystemManager
 
         return emulatorElement;
     }
+
+    [GeneratedRegex(@"<SystemConfig[^>]*>[\s\S]*?<\/SystemConfig>")]
+    private static partial Regex MyRegex();
+
+    [GeneratedRegex(@"<SystemName>(.*?)<\/SystemName>")]
+    private static partial Regex MyRegex1();
 }

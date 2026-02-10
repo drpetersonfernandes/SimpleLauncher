@@ -51,7 +51,7 @@ public static class DebugLogger
     {
         if (ex == null)
         {
-            ex = new Exception("Exception is null.");
+            ex = new ArgumentNullException(nameof(ex), @"Exception is null.");
         }
 
         var message = new System.Text.StringBuilder();
