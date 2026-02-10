@@ -44,6 +44,8 @@ public static class RedreamConfigurationService
 
         DebugLogger.Log($"[RedreamConfig] Injecting configuration into: {configPath}");
 
+        var isWindowed = IsWindowedMode(settings.RedreamFullmode);
+
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             { "cable", settings.RedreamCable },
@@ -55,13 +57,25 @@ public static class RedreamConfigurationService
             { "aspect", settings.RedreamAspect },
             { "res", settings.RedreamRes.ToString(CultureInfo.InvariantCulture) },
             { "renderer", settings.RedreamRenderer },
-            { "fullmode", settings.RedreamFullmode },
             { "volume", settings.RedreamVolume.ToString(CultureInfo.InvariantCulture) },
             { "latency", settings.RedreamLatency.ToString(CultureInfo.InvariantCulture) },
-            { "framerate", settings.RedreamFramerate ? "1" : "0" },
-            { "width", settings.RedreamWidth.ToString(CultureInfo.InvariantCulture) },
-            { "height", settings.RedreamHeight.ToString(CultureInfo.InvariantCulture) }
+            { "framerate", settings.RedreamFramerate ? "1" : "0" }
         };
+
+        // Handle window/fullscreen mode correctly
+        if (isWindowed) // Changed from: if (settings.RedreamFullmode == "windowed")
+        {
+            updates["mode"] = "windowed";
+            updates["width"] = settings.RedreamWidth.ToString(CultureInfo.InvariantCulture);
+            updates["height"] = settings.RedreamHeight.ToString(CultureInfo.InvariantCulture);
+        }
+        else
+        {
+            updates["mode"] = "fullscreen";
+            updates["fullmode"] = settings.RedreamFullmode;
+            updates["fullwidth"] = settings.RedreamWidth.ToString(CultureInfo.InvariantCulture);
+            updates["fullheight"] = settings.RedreamHeight.ToString(CultureInfo.InvariantCulture);
+        }
 
         var lines = File.ReadAllLines(configPath).ToList();
         var modified = false;
@@ -113,5 +127,11 @@ public static class RedreamConfigurationService
                 throw;
             }
         }
+    }
+
+    private static bool IsWindowedMode(string fullmode)
+    {
+        return string.IsNullOrWhiteSpace(fullmode) ||
+               fullmode.Equals("windowed", StringComparison.OrdinalIgnoreCase);
     }
 }

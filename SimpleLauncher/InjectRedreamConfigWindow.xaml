@@ -112,9 +112,9 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_FullscreenMode_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbFullmode" Grid.Column="1" ToolTip="{DynamicResource RedreamConfig_FullscreenMode_Tooltip}">
-                                <ComboBoxItem Content="windowed" />
-                                <ComboBoxItem Content="exclusive fullscreen" />
-                                <ComboBoxItem Content="borderless fullscreen" />
+                                <ComboBoxItem Content="Windowed" Tag="windowed" />
+                                <ComboBoxItem Content="Exclusive Fullscreen" Tag="exclusive fullscreen" />
+                                <ComboBoxItem Content="Borderless Fullscreen" Tag="borderless fullscreen" />
                             </ComboBox>
                         </Grid>
                         <Grid Margin="0,5,0,5">
@@ -123,11 +123,19 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Window_Size}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbWindowSize" Grid.Column="1">
-                                <ComboBoxItem Content="640x480" />
-                                <ComboBoxItem Content="1024x576" />
-                                <ComboBoxItem Content="1280x720" />
-                                <ComboBoxItem Content="1600x900" />
+                            <ComboBox x:Name="CmbWindowSize" Grid.Column="1" IsEditable="True">
+                                <ComboBoxItem Content="640x480 (4:3)" />
+                                <ComboBoxItem Content="800x600 (4:3)" />
+                                <ComboBoxItem Content="1024x768 (4:3)" />
+                                <ComboBoxItem Content="1280x960 (4:3)" />
+                                <ComboBoxItem Content="1024x576 (16:9)" />
+                                <ComboBoxItem Content="1280x720 (16:9)" />
+                                <ComboBoxItem Content="1600x900 (16:9)" />
+                                <ComboBoxItem Content="1920x1080 (16:9)" />
+                                <ComboBoxItem Content="2560x1440 (16:9)" />
+                                <ComboBoxItem Content="3840x2160 (16:9)" />
+                                <ComboBoxItem Content="2560x1080 (21:9)" />
+                                <ComboBoxItem Content="3440x1440 (21:9)" />
                             </ComboBox>
                         </Grid>
                     </StackPanel>

@@ -40,7 +40,16 @@ public partial class InjectRedreamConfigWindow
         CmbAspect.Text = _settings.RedreamAspect;
         CmbRes.Text = _settings.RedreamRes.ToString(CultureInfo.InvariantCulture);
         CmbRenderer.Text = _settings.RedreamRenderer;
-        CmbFullmode.Text = _settings.RedreamFullmode;
+        // Select Fullmode by Tag
+        foreach (ComboBoxItem item in CmbFullmode.Items)
+        {
+            if (item.Tag?.ToString() == _settings.RedreamFullmode)
+            {
+                CmbFullmode.SelectedItem = item;
+                break;
+            }
+        }
+
         CmbWindowSize.Text = $"{_settings.RedreamWidth}x{_settings.RedreamHeight}";
 
         // System
@@ -73,10 +82,22 @@ public partial class InjectRedreamConfigWindow
         }
 
         _settings.RedreamRenderer = CmbRenderer.Text;
-        _settings.RedreamFullmode = CmbFullmode.Text;
 
-        var sizeParts = CmbWindowSize.Text.Split('x');
-        if (sizeParts.Length == 2 && int.TryParse(sizeParts[0], out var w) && int.TryParse(sizeParts[1], out var h))
+        var fullmodeTag = (CmbFullmode.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "windowed";
+        // Validate fullmode value
+        if (fullmodeTag != "windowed" && fullmodeTag != "exclusive fullscreen" && fullmodeTag != "borderless fullscreen")
+        {
+            fullmodeTag = "windowed";
+        }
+
+        _settings.RedreamFullmode = fullmodeTag;
+
+        // Extract only numbers from resolution string (e.g. "1920x1080 (16:9)" -> "1920", "1080")
+        var rawSize = CmbWindowSize.Text.Split(' ')[0];
+        var sizeParts = rawSize.Split('x');
+        if (sizeParts.Length == 2 &&
+            int.TryParse(sizeParts[0], out var w) &&
+            int.TryParse(sizeParts[1], out var h))
         {
             _settings.RedreamWidth = w;
             _settings.RedreamHeight = h;
