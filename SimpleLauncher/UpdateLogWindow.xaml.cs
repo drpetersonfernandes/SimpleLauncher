@@ -1,3 +1,5 @@
+using System;
+
 namespace SimpleLauncher;
 
 public partial class UpdateLogWindow
@@ -12,7 +14,7 @@ public partial class UpdateLogWindow
     {
         Dispatcher.Invoke(() =>
         {
-            LogTextBox.AppendText($"{message}\n");
+            LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
             LogTextBox.ScrollToEnd();
         });
     }

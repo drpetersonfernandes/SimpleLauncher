@@ -6,9 +6,23 @@
                       Width="600"
                       Height="400"
                       WindowStartupLocation="CenterScreen"
-                      ResizeMode="NoResize">
+                      ResizeMode="NoResize"
+                      Background="#FF1E1E1E"
+                      GlowBrush="Black">
     <Grid>
-        <TextBox x:Name="LogTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                 IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
+        <TextBox x:Name="LogTextBox"
+                 Background="Black"
+                 Foreground="Lime"
+                 FontFamily="Consolas"
+                 FontSize="13"
+                 IsReadOnly="True"
+                 IsUndoEnabled="False"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Disabled"
+                 BorderThickness="0"
+                 Padding="10"
+                 CaretBrush="Lime" />
     </Grid>
 </controls:MetroWindow>
