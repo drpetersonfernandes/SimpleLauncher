@@ -147,16 +147,15 @@ public partial class InjectCemuConfigWindow
                 cmb.SelectedItem = item;
                 return;
             }
+
+        if (cmb.Items.Count > 0)
+        {
+            cmb.SelectedIndex = 0;
+        }
     }
 
     private static string GetSelectedTag(ComboBox cmb)
     {
-        var tag = (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString();
-        if (string.IsNullOrEmpty(tag))
-        {
-            throw new InvalidOperationException($"No valid selection in ComboBox '{cmb.Name}'. Please select a value.");
-        }
-
-        return tag;
+        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "1";
     }
 }

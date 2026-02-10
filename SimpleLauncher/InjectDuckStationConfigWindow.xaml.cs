@@ -114,7 +114,7 @@ public partial class InjectDuckStationConfigWindow
             : "Automatic";
 
         // Use Tag property instead of Text to handle descriptive content like "2x (720p)"
-        var selectedItem = CmbResolutionScale.SelectedItem as ComboBoxItem;
+        var selectedItem = CmbResolutionScale.SelectedItem as ComboBoxItem ?? CmbResolutionScale.Items[0] as ComboBoxItem;
         if (selectedItem?.Tag != null && int.TryParse(selectedItem.Tag.ToString(), out var scale))
         {
             _settings.DuckStationResolutionScale = scale;

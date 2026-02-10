@@ -130,10 +130,15 @@ public partial class InjectAzaharConfigWindow
                 cmb.SelectedItem = item;
                 return;
             }
+
+        if (cmb.Items.Count > 0)
+        {
+            cmb.SelectedIndex = 0;
+        }
     }
 
     private static string GetSelectedTag(ComboBox cmb)
     {
-        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "0";
+        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "1";
     }
 }

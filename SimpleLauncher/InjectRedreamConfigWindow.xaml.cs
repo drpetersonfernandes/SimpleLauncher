@@ -73,8 +73,8 @@ public partial class InjectRedreamConfigWindow
         // Video
         _settings.RedreamCable = CmbCable.Text;
         _settings.RedreamBroadcast = CmbBroadcast.Text;
-        _settings.RedreamVsync = (CmbVsync.SelectedItem as ComboBoxItem)?.Tag?.ToString() == "True";
-        _settings.RedreamFrameskip = (CmbFrameskip.SelectedItem as ComboBoxItem)?.Tag?.ToString() == "True";
+        _settings.RedreamVsync = (CmbVsync.SelectedItem as ComboBoxItem)?.Tag?.ToString()?.Equals("True", StringComparison.OrdinalIgnoreCase) ?? true;
+        _settings.RedreamFrameskip = (CmbFrameskip.SelectedItem as ComboBoxItem)?.Tag?.ToString()?.Equals("True", StringComparison.OrdinalIgnoreCase) ?? true;
         _settings.RedreamAspect = CmbAspect.Text;
         if (int.TryParse(CmbRes.Text, out var res))
         {
@@ -112,7 +112,7 @@ public partial class InjectRedreamConfigWindow
             _settings.RedreamLatency = lat;
         }
 
-        _settings.RedreamFramerate = (CmbFramerate.SelectedItem as ComboBoxItem)?.Tag?.ToString() == "True";
+        _settings.RedreamFramerate = (CmbFramerate.SelectedItem as ComboBoxItem)?.Tag?.ToString()?.Equals("True", StringComparison.OrdinalIgnoreCase) ?? false;
 
         _settings.RedreamShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 

@@ -97,6 +97,10 @@ public partial class InjectRaineConfigWindow
         {
             _settings.RaineSampleRate = rate;
         }
+        else
+        {
+            _settings.RaineSampleRate = 44100;
+        }
 
         _settings.RaineShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
         _settings.RaineShowFps = ChkShowFps.IsChecked ?? false;

@@ -74,6 +74,10 @@ public partial class InjectYumirConfigWindow
         {
             _settings.YumirForcedAspect = double.Parse(selected.Tag.ToString() ?? "1.7777777777777777", CultureInfo.InvariantCulture);
         }
+        else
+        {
+            _settings.YumirForcedAspect = 1.7777777777777777;
+        }
 
         _settings.Save();
     }

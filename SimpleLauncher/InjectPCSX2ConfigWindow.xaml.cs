@@ -131,6 +131,11 @@ public partial class InjectPcsx2ConfigWindow
                 cmb.SelectedItem = item;
                 return;
             }
+
+        if (cmb.Items.Count > 0)
+        {
+            cmb.SelectedIndex = 0;
+        }
     }
 
     private static string GetSelectedTag(ComboBox cmb)
