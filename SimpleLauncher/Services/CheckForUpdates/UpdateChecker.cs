@@ -347,11 +347,16 @@ public partial class UpdateChecker
                 zipInputStream.IsStreamOwner = false;
                 var hasEntries = false;
                 var fullDestinationPath = Path.GetFullPath(destinationPath);
+                if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                {
+                    fullDestinationPath += Path.DirectorySeparatorChar;
+                }
 
                 while (zipInputStream.GetNextEntry() is { } entry)
                 {
                     hasEntries = true;
-                    var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.Name));
+                    // Use the normalized fullDestinationPath for combining
+                    var destinationFileFullPath = Path.GetFullPath(Path.Combine(fullDestinationPath, entry.Name));
                     if (destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
                     {
                         // ReSharper disable once RedundantJumpStatement
