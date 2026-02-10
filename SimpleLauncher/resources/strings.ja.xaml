@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">ケーブル:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">ビデオケーブルの種類。</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">キャンセル</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">フレームスキップを有効にする</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">低スペックのハードウェアで速度を維持するためにフレームをスキップします。</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">全画面モード:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">全画面表示時の表示方法。</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">言語:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">システム</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream 設定</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">ビデオ</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Syncを有効にする</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">フレームレートをモニターのリフレッシュレートに同期させます。</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream設定が正常に保存されました。</system:String>
     <system:String x:Key="RefreshingGameList">ゲームリストを更新しています...</system:String>
     <system:String x:Key="ReinstallSuggestion">これにより、一部の機能 (自動バグ報告など) が正しく機能しない可能性があります。これを修正するために 'Simple Launcher' を再インストールしますか？</system:String>

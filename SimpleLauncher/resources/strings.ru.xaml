@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Кабель:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Тип видеокабеля.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Отмена</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Включить пропуск кадров</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Пропускать кадры для поддержания скорости на слабом оборудовании.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Полноэкранный режим:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Как игра отображается в полноэкранном режиме.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Язык:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">Система</system:String>
     <system:String x:Key="RedreamConfig_Title">Конфигурация Redream</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Видео</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Включить V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Синхронизировать частоту кадров с частотой обновления монитора.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">Конфигурация ReDream успешно сохранена.</system:String>
     <system:String x:Key="RefreshingGameList">Обновление списка игр...</system:String>
     <system:String x:Key="ReinstallSuggestion">Это может помешать правильной работе некоторых функций (например, автоматической отправки отчетов об ошибках). Хотите переустановить Simple Launcher, чтобы исправить это?</system:String>

@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Kabel:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Type videokabel.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Annuleren</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Frameskip inschakelen</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Sla frames over om de snelheid te behouden op tragere hardware.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Volledig scherm modus:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Hoe het spel wordt weergegeven in volledig scherm.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Taal:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">Systeem</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream Configuratie</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync inschakelen</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchroniseer de framesnelheid met de verversingssnelheid van de monitor.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="RefreshingGameList">Spellijst wordt vernieuwd...</system:String>
     <system:String x:Key="ReinstallSuggestion">Dit kan voorkomen dat sommige functies (zoals automatische bugrapportage) correct werken. Wilt u 'Simple Launcher' opnieuw installeren om dit op te lossen?</system:String>

@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Cáp:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Loại cáp video.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Hủy</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Bật Bỏ qua khung hình</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Bỏ qua các khung hình để duy trì tốc độ trên phần cứng chậm hơn.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Chế độ toàn màn hình:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Cách trò chơi được hiển thị ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Ngôn ngữ:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">Hệ thống</system:String>
     <system:String x:Key="RedreamConfig_Title">Cấu hình Redream</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Bật V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Đồng bộ hóa tốc độ khung hình với tốc độ làm mới của màn hình.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">Cấu hình ReDream đã được lưu thành công.</system:String>
     <system:String x:Key="RefreshingGameList">Đang làm mới danh sách trò chơi...</system:String>
     <system:String x:Key="ReinstallSuggestion">Điều này có thể ngăn một số tính năng (như báo cáo lỗi tự động) hoạt động chính xác. Bạn có muốn cài đặt lại 'Simple Launcher' để khắc phục điều này không?</system:String>

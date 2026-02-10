@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Kablo:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Video kablosu türü.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">İptal</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Kare Atlamayı Etkinleştir</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Yavaş donanımlarda hızı korumak için kareleri atla.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Tam Ekran Modu:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Oyunun tam ekranda nasıl görüntüleneceği.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Dil:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">Sistem</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream Yapılandırması</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Dikey Senkronizasyonu (V-Sync) Etkinleştir</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Kare hızını monitör yenileme hızıyla senkronize et.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="RefreshingGameList">Oyun listesi yenileniyor...</system:String>
     <system:String x:Key="ReinstallSuggestion">Bu, bazı özelliklerin (otomatik hata raporlama gibi) doğru çalışmasını engelleyebilir. Bunu düzeltmek için Simple Launcher'ı yeniden yüklemek ister misiniz?</system:String>

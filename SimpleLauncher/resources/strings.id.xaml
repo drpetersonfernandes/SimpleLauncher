@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Kabel:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Jenis kabel video.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Batal</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Aktifkan Frameskip</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Lewati frame untuk menjaga kecepatan pada perangkat keras yang lebih lambat.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Mode Layar Penuh:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Cara game ditampilkan dalam layar penuh.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Bahasa:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">Sistem</system:String>
     <system:String x:Key="RedreamConfig_Title">Konfigurasi Redream</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Aktifkan V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Sinkronkan frame rate dengan refresh rate monitor.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">Konfigurasi ReDream berhasil disimpan.</system:String>
     <system:String x:Key="RefreshingGameList">Menyegarkan daftar game...</system:String>
     <system:String x:Key="ReinstallSuggestion">Ini mungkin mencegah beberapa fitur (seperti pelaporan bug otomatis) berfungsi dengan benar. Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaikinya?</system:String>

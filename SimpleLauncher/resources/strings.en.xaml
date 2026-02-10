@@ -1103,8 +1103,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Cable:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Video cable type.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Cancel</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Enable Frameskip</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Skip frames to maintain speed on slower hardware.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Fullscreen Mode:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">How the game is displayed in fullscreen.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Language:</system:String>
@@ -1122,8 +1120,6 @@
     <system:String x:Key="RedreamConfig_System_Header">System</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream Configuration</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Enable V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Synchronize frame rate with monitor refresh rate.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream configuration saved successfully.</system:String>
     <system:String x:Key="RefreshingGameList">Refreshing game list...</system:String>
     <system:String x:Key="ReinstallSuggestion">This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall 'Simple Launcher' to fix this?</system:String>
@@ -1752,4 +1748,47 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="ReturnButton">[ Return ]</system:String>
+    <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Click here if the loading screen is stuck to return to the main menu</system:String>
+    <system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
+    <system:String x:Key="SystemSpecifics">System Specifics:</system:String>
+    <system:String x:Key="Games">Games</system:String>
+    <system:String x:Key="Images">Images</system:String>
+    <system:String x:Key="SelectAresEmulator">Select Ares Emulator</system:String>
+    <system:String x:Key="SelectAzaharEmulator">Select Azahar Emulator</system:String>
+    <system:String x:Key="SelectBlastemEmulator">Select Blastem Emulator</system:String>
+    <system:String x:Key="SelectCemuEmulator">Select Cemu Emulator</system:String>
+    <system:String x:Key="SelectDolphinEmulator">Select Dolphin Emulator</system:String>
+    <system:String x:Key="SelectDuckStationEmulator">Select DuckStation Emulator</system:String>
+    <system:String x:Key="SelectFlycastEmulator">Select Flycast Emulator</system:String>
+    <system:String x:Key="SelectMAMEEmulator">Select MAME Emulator</system:String>
+    <system:String x:Key="SelectMednafenEmulator">Select Mednafen Emulator</system:String>
+    <system:String x:Key="SelectMesenEmulator">Select Mesen Emulator</system:String>
+    <system:String x:Key="SelectPCSX2Emulator">Select PCSX2 Emulator</system:String>
+    <system:String x:Key="RedreamConfig_Vertical_Sync">Vertical Sync</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Skip">Frame Skip</system:String>
+    <system:String x:Key="RedreamConfig_Window_Size">Window Size</system:String>
+    <system:String x:Key="RedreamConfig_Volume">Volume</system:String>
+    <system:String x:Key="RedreamConfig_Latency_ms">Latency (ms)</system:String>
+    <system:String x:Key="RedreamConfig_Frame_Rate_Counter">Frame Rate Counter</system:String>
+    <system:String x:Key="SelectRedreamEmulator">Select Redream Emulator</system:String>
+    <system:String x:Key="SelectRetroArchEmulator">Select RetroArch Emulator</system:String>
+    <system:String x:Key="SelectRPCS3Emulator">Select RPCS3 Emulator</system:String>
+    <system:String x:Key="SelectSEGAModel2Emulator">Select SEGA Model 2 Emulator</system:String>
+    <system:String x:Key="SelectStellaEmulator">Select Stella Emulator</system:String>
+    <system:String x:Key="SelectSupermodelEmulator">Select Supermodel Emulator</system:String>
+    <system:String x:Key="SelectXeniaEmulator">Select Xenia Emulator</system:String>
+    <system:String x:Key="SelectYumirEmulator">Select Yumir Emulator</system:String>
+    <system:String x:Key="AzaharSettings">Azahar Settings</system:String>
+    <system:String x:Key="CemuSettings">Cemu Settings</system:String>
+    <system:String x:Key="PCSX2Settings">PCSX2 Settings</system:String>
+    <system:String x:Key="RaineSettings">Raine Settings</system:String>
+    <system:String x:Key="RedreamSettings">Redream Settings</system:String>
+    <system:String x:Key="YumirSettings">Yumir Settings</system:String>
+    <system:String x:Key="FoundNewMicrosoftWindowsGames">Found new Microsoft Windows games. Refreshing system list.</system:String>
+    <system:String x:Key="GameTitle">Game Title</system:String>
+    <system:String x:Key="ConsoleName">Console Name</system:String>
+    <system:String x:Key="NoDefaultEmulator">No Default Emulator</system:String>
+   
 </ResourceDictionary>

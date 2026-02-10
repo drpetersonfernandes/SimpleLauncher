@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Cabo:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Tipo de cabo de vídeo.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Cancelar</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Habilitar Frameskip</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Pula quadros para manter a velocidade em hardware mais lento.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Modo Tela Cheia:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Como o jogo é exibido em tela cheia.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Idioma:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">Sistema</system:String>
     <system:String x:Key="RedreamConfig_Title">Configuração do Redream</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Vídeo</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">Habilitar V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Sincroniza a taxa de quadros com a taxa de atualização do monitor.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">Configuração do ReDream salva com sucesso.</system:String>
     <system:String x:Key="RefreshingGameList">Atualizando lista de jogos...</system:String>
     <system:String x:Key="ReinstallSuggestion">Isso pode impedir que alguns recursos (como relatórios automáticos de bugs) funcionem corretamente. Você gostaria de reinstalar o 'Simple Launcher' para corrigir isso?</system:String>

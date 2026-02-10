@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">Kabel:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">Videokabel-Typ.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">Abbrechen</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Frameskip aktivieren</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">Bilder überspringen, um die Geschwindigkeit auf langsamer Hardware beizubehalten.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">Vollbildmodus:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">Anzeige des Spiels im Vollbildmodus.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">Sprache:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">System</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream Konfiguration</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">Video</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync aktivieren</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">Bildrate mit der Monitor-Bildwiederholfrequenz synchronisieren.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream-Konfiguration erfolgreich gespeichert.</system:String>
     <system:String x:Key="RefreshingGameList">Spieleliste wird aktualisiert...</system:String>
     <system:String x:Key="ReinstallSuggestion">Dies könnte verhindern, dass einige Funktionen (wie die automatische Fehlerberichterstattung) korrekt funktionieren. Möchten Sie 'Simple Launcher' neu installieren, um dies zu beheben?</system:String>

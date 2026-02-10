@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">线缆：</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">视频线缆类型。</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">取消</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">启用跳帧</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">在较慢的硬件上跳过帧以维持速度。</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">全屏模式：</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">游戏在全屏模式下的显示方式。</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">语言：</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">系统</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream 配置</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">视频</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">启用垂直同步 (V-Sync)</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">将帧率与显示器刷新率同步。</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream 配置保存成功。</system:String>
     <system:String x:Key="RefreshingGameList">正在刷新游戏列表...</system:String>
     <system:String x:Key="ReinstallSuggestion">这可能会阻止某些功能（例如自动错误报告）正常工作。您想重新安装 'Simple Launcher' 来解决此问题吗？</system:String>

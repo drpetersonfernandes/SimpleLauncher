@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">الكابل:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">نوع كابل الفيديو.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">إلغاء</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">تفعيل تخطي الإطارات</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">تخطي الإطارات للحفاظ على السرعة على الأجهزة البطيئة.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">وضع ملء الشاشة:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">كيفية عرض اللعبة في وضع ملء الشاشة.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">اللغة:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">النظام</system:String>
     <system:String x:Key="RedreamConfig_Title">تكوين Redream</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">الفيديو</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">تفعيل V-Sync</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">مزامنة معدل الإطارات مع معدل تحديث الشاشة.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">تم حفظ تكوين ReDream بنجاح.</system:String>
     <system:String x:Key="RefreshingGameList">تحديث قائمة الألعاب...</system:String>
     <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت 'Simple Launcher' لإصلاح هذا؟</system:String>

@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">کیبل:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">ویڈیو کیبل کی قسم۔</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">منسوخ کریں</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">فریم اسکیپ فعال کریں</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">سست ہارڈویئر پر رفتار برقرار رکھنے کے لیے فریم چھوڑیں۔</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">فل اسکرین موڈ:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">گیم فل اسکرین میں کیسے دکھائی دے گی۔</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">زبان:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">سسٹم</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream کنفیگریشن</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">ویڈیو</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync فعال کریں</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">فریم ریٹ کو مانیٹر کے ریفریش ریٹ کے ساتھ ہم آہنگ کریں۔</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="RefreshingGameList">گیم کی فہرست ریفریش کر رہا ہے...</system:String>
     <system:String x:Key="ReinstallSuggestion">یہ کچھ خصوصیات (جیسے خودکار بگ رپورٹنگ) کو صحیح طریقے سے کام کرنے سے روک سکتا ہے۔ کیا آپ اسے ٹھیک کرنے کے لیے 'Simple Launcher' کو دوبارہ انسٹال کرنا چاہیں گے؟</system:String>

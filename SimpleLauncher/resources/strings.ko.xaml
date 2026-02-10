@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">케이블:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">비디오 케이블 유형.</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">취소</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">프레임 스킵 활성화</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">저사양 하드웨어에서 속도를 유지하기 위해 프레임을 건너뜁니다.</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">전체 화면 모드:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">전체 화면에서 게임이 표시되는 방식.</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">언어:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">시스템</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream 설정</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">비디오</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync 활성화</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">프레임 속도를 모니터 재생률과 동기화합니다.</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="RefreshingGameList">게임 목록 새로 고치는 중...</system:String>
     <system:String x:Key="ReinstallSuggestion">이로 인해 일부 기능(예: 자동 버그 보고)이 제대로 작동하지 않을 수 있습니다. 이 문제를 해결하기 위해 Simple Launcher를 다시 설치하시겠습니까?</system:String>

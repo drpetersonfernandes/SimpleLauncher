@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">কেবল:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">ভিডিও কেবল টাইপ।</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">বাতিল করুন</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">ফ্রেমস্কিপ সক্ষম করুন</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">ধীর হার্ডওয়্যারে গতি বজায় রাখতে ফ্রেম এড়িয়ে যান।</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">ফুলস্ক্রিন মোড:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">ফুলস্ক্রিনে গেমটি কীভাবে প্রদর্শিত হবে।</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">ভাষা:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">সিস্টেম</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream কনফিগারেশন</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">ভিডিও</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync সক্ষম করুন</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">মনিটর রিফ্রেশ রেটের সাথে ফ্রেম রেট সিঙ্ক্রোনাইজ করুন।</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream কনফিগারেশন সফলভাবে সংরক্ষিত হয়েছে।</system:String>
     <system:String x:Key="RefreshingGameList">গেম তালিকা রিফ্রেশ করা হচ্ছে...</system:String>
     <system:String x:Key="ReinstallSuggestion">এটি কিছু বৈশিষ্ট্য (যেমন স্বয়ংক্রিয় বাগ রিপোর্টিং) সঠিকভাবে কাজ করা থেকে আটকাতে পারে। আপনি কি এটি ঠিক করার জন্য 'Simple Launcher' পুনরায় ইনস্টল করতে চান?</system:String>

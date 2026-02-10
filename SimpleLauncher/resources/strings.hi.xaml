@@ -1101,8 +1101,6 @@
     <system:String x:Key="RedreamConfig_Cable_Label">केबल:</system:String>
     <system:String x:Key="RedreamConfig_Cable_Tooltip">वीडियो केबल का प्रकार।</system:String>
     <system:String x:Key="RedreamConfig_Cancel_Button">रद्द करें</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Checkbox">Frameskip सक्षम करें</system:String>
-    <system:String x:Key="RedreamConfig_Frameskip_Tooltip">धीमे हार्डवेयर पर गति बनाए रखने के लिए फ्रेम छोड़ें।</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Label">फुलस्क्रीन मोड:</system:String>
     <system:String x:Key="RedreamConfig_FullscreenMode_Tooltip">फुलस्क्रीन में गेम कैसे प्रदर्शित होता है।</system:String>
     <system:String x:Key="RedreamConfig_Language_Label">भाषा:</system:String>
@@ -1120,8 +1118,6 @@
     <system:String x:Key="RedreamConfig_System_Header">सिस्टम</system:String>
     <system:String x:Key="RedreamConfig_Title">Redream कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="RedreamConfig_Video_Header">वीडियो</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Checkbox">V-Sync सक्षम करें</system:String>
-    <system:String x:Key="RedreamConfig_Vsync_Tooltip">फ्रेम दर को मॉनिटर रिफ्रेश रेट के साथ सिंक्रोनाइज़ करें।</system:String>
     <system:String x:Key="ReDreamConfigurationSavedSuccessfully">ReDream कॉन्फ़िगरेशन सफलतापूर्वक सहेजा गया।</system:String>
     <system:String x:Key="RefreshingGameList">गेम सूची रीफ़्रेश कर रहा है...</system:String>
     <system:String x:Key="ReinstallSuggestion">यह कुछ सुविधाओं (जैसे स्वचालित बग रिपोर्टिंग) को सही ढंग से काम करने से रोक सकता है। क्या आप इसे ठीक करने के लिए 'Simple Launcher' को फिर से स्थापित करना चाहेंगे?</system:String>
