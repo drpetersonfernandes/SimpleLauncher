@@ -55,7 +55,12 @@ public static class RedreamConfigurationService
             { "aspect", settings.RedreamAspect },
             { "res", settings.RedreamRes.ToString(CultureInfo.InvariantCulture) },
             { "renderer", settings.RedreamRenderer },
-            { "fullmode", settings.RedreamFullmode }
+            { "fullmode", settings.RedreamFullmode },
+            { "volume", settings.RedreamVolume.ToString(CultureInfo.InvariantCulture) },
+            { "latency", settings.RedreamLatency.ToString(CultureInfo.InvariantCulture) },
+            { "framerate", settings.RedreamFramerate ? "1" : "0" },
+            { "width", settings.RedreamWidth.ToString(CultureInfo.InvariantCulture) },
+            { "height", settings.RedreamHeight.ToString(CultureInfo.InvariantCulture) }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

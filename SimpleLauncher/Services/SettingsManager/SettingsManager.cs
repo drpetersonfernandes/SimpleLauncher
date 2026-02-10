@@ -229,11 +229,16 @@ public class SettingsManager : IDisposable
     public string RedreamLanguage { get; set; } = "english";
     public string RedreamRegion { get; set; } = "usa";
     public bool RedreamVsync { get; set; } = true;
-    public bool RedreamFrameskip { get; set; } = true;
+    public bool RedreamFrameskip { get; set; } = true; // 1 = auto, 0 = off
     public string RedreamAspect { get; set; } = "4:3";
     public int RedreamRes { get; set; } = 2;
     public string RedreamRenderer { get; set; } = "hle_perstrip";
     public string RedreamFullmode { get; set; } = "exclusive fullscreen";
+    public int RedreamVolume { get; set; } = 100;
+    public int RedreamLatency { get; set; } = 32;
+    public bool RedreamFramerate { get; set; }
+    public int RedreamWidth { get; set; } = 1280;
+    public int RedreamHeight { get; set; } = 720;
     public bool RedreamShowSettingsBeforeLaunch { get; set; } = true;
 
     // RetroArch
@@ -610,6 +615,11 @@ public class SettingsManager : IDisposable
         RedreamRes = other.RedreamRes;
         RedreamRenderer = other.RedreamRenderer;
         RedreamFullmode = other.RedreamFullmode;
+        RedreamVolume = other.RedreamVolume;
+        RedreamLatency = other.RedreamLatency;
+        RedreamFramerate = other.RedreamFramerate;
+        RedreamWidth = other.RedreamWidth;
+        RedreamHeight = other.RedreamHeight;
         RedreamShowSettingsBeforeLaunch = other.RedreamShowSettingsBeforeLaunch;
 
         // RetroArch
@@ -1477,6 +1487,31 @@ public class SettingsManager : IDisposable
 
         RedreamRenderer = redream?.Element("Renderer")?.Value ?? settings.Element("RedreamRenderer")?.Value ?? RedreamRenderer;
         RedreamFullmode = redream?.Element("Fullmode")?.Value ?? settings.Element("RedreamFullmode")?.Value ?? RedreamFullmode;
+        if (int.TryParse(redream?.Element("Volume")?.Value ?? settings.Element("RedreamVolume")?.Value, out var rVol))
+        {
+            RedreamVolume = rVol;
+        }
+
+        if (int.TryParse(redream?.Element("Latency")?.Value ?? settings.Element("RedreamLatency")?.Value, out var rLat))
+        {
+            RedreamLatency = rLat;
+        }
+
+        if (bool.TryParse(redream?.Element("Framerate")?.Value ?? settings.Element("RedreamFramerate")?.Value, out var rFr))
+        {
+            RedreamFramerate = rFr;
+        }
+
+        if (int.TryParse(redream?.Element("Width")?.Value ?? settings.Element("RedreamWidth")?.Value, out var rW))
+        {
+            RedreamWidth = rW;
+        }
+
+        if (int.TryParse(redream?.Element("Height")?.Value ?? settings.Element("RedreamHeight")?.Value, out var rH))
+        {
+            RedreamHeight = rH;
+        }
+
         if (bool.TryParse(redream?.Element("ShowSettingsBeforeLaunch")?.Value ?? settings.Element("RedreamShowSettingsBeforeLaunch")?.Value, out var redreamShowSettingsBeforeLaunch))
         {
             RedreamShowSettingsBeforeLaunch = redreamShowSettingsBeforeLaunch;
@@ -2235,6 +2270,11 @@ public class SettingsManager : IDisposable
                 new XElement("Res", s.RedreamRes),
                 new XElement("Renderer", s.RedreamRenderer),
                 new XElement("Fullmode", s.RedreamFullmode),
+                new XElement("Volume", s.RedreamVolume),
+                new XElement("Latency", s.RedreamLatency),
+                new XElement("Framerate", s.RedreamFramerate),
+                new XElement("Width", s.RedreamWidth),
+                new XElement("Height", s.RedreamHeight),
                 new XElement("ShowSettingsBeforeLaunch", s.RedreamShowSettingsBeforeLaunch)
             ),
 

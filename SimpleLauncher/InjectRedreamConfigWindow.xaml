@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource RedreamConfig_Title}"
-                      Height="700" Width="700"
+                      Height="850" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
@@ -39,10 +39,31 @@
                                 <ComboBoxItem Content="ntsc" />
                                 <ComboBoxItem Content="pal" />
                                 <ComboBoxItem Content="pal_m" />
+                                <ComboBoxItem Content="pal_n" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource RedreamConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RedreamConfig_Vsync_Tooltip}" />
-                        <CheckBox x:Name="ChkFrameskip" Content="{DynamicResource RedreamConfig_Frameskip_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RedreamConfig_Frameskip_Tooltip}" />
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource RedreamConfig_Vertical_Sync}" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CmbVsync" Grid.Column="1">
+                                <ComboBoxItem Content="on" Tag="True" />
+                                <ComboBoxItem Content="off" Tag="False" />
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource RedreamConfig_Frame_Skip}" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CmbFrameskip" Grid.Column="1">
+                                <ComboBoxItem Content="auto" Tag="True" />
+                                <ComboBoxItem Content="off" Tag="False" />
+                            </ComboBox>
+                        </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -80,9 +101,8 @@
                             <Label Content="{DynamicResource RedreamConfig_Renderer_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbRenderer" Grid.Column="1" ToolTip="{DynamicResource RedreamConfig_Renderer_Tooltip}">
                                 <ComboBoxItem Content="hle_perstrip" />
-                                <ComboBoxItem Content="hle_perpolygon" />
-                                <ComboBoxItem Content="lle_vulkan" />
-                                <ComboBoxItem Content="lle_opengl" />
+                                <ComboBoxItem Content="hle_perpixel" />
+                                <ComboBoxItem Content="lle" />
                             </ComboBox>
                         </Grid>
                         <Grid Margin="0,5,0,5">
@@ -97,12 +117,61 @@
                                 <ComboBoxItem Content="borderless fullscreen" />
                             </ComboBox>
                         </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource RedreamConfig_Window_Size}" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CmbWindowSize" Grid.Column="1">
+                                <ComboBoxItem Content="640x480" />
+                                <ComboBoxItem Content="1024x576" />
+                                <ComboBoxItem Content="1280x720" />
+                                <ComboBoxItem Content="1600x900" />
+                            </ComboBox>
+                        </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
                 <GroupBox Header="{DynamicResource RedreamConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource RedreamConfig_Volume}" VerticalAlignment="Center" />
+                            <DockPanel Grid.Column="1">
+                                <TextBlock Text="{Binding ElementName=SldVolume, Path=Value, StringFormat={}{0}%}" Width="40" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,0,0,0" />
+                                <Slider x:Name="SldVolume" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" />
+                            </DockPanel>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource RedreamConfig_Latency_ms}" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CmbLatency" Grid.Column="1">
+                                <ComboBoxItem Content="8" />
+                                <ComboBoxItem Content="16" />
+                                <ComboBoxItem Content="32" />
+                                <ComboBoxItem Content="48" />
+                                <ComboBoxItem Content="64" />
+                            </ComboBox>
+                        </Grid>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="{DynamicResource RedreamConfig_Frame_Rate_Counter}" VerticalAlignment="Center" />
+                            <ComboBox x:Name="CmbFramerate" Grid.Column="1">
+                                <ComboBoxItem Content="off" Tag="False" />
+                                <ComboBoxItem Content="vblanks per second" Tag="True" />
+                            </ComboBox>
+                        </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />

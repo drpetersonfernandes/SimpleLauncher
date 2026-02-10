@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -34,16 +35,20 @@ public partial class InjectRedreamConfigWindow
         // Video
         CmbCable.Text = _settings.RedreamCable;
         CmbBroadcast.Text = _settings.RedreamBroadcast;
-        ChkVsync.IsChecked = _settings.RedreamVsync;
-        ChkFrameskip.IsChecked = _settings.RedreamFrameskip;
+        CmbVsync.SelectedIndex = _settings.RedreamVsync ? 0 : 1;
+        CmbFrameskip.SelectedIndex = _settings.RedreamFrameskip ? 0 : 1;
         CmbAspect.Text = _settings.RedreamAspect;
         CmbRes.Text = _settings.RedreamRes.ToString(CultureInfo.InvariantCulture);
         CmbRenderer.Text = _settings.RedreamRenderer;
         CmbFullmode.Text = _settings.RedreamFullmode;
+        CmbWindowSize.Text = $"{_settings.RedreamWidth}x{_settings.RedreamHeight}";
 
         // System
         CmbLanguage.Text = _settings.RedreamLanguage;
         CmbRegion.Text = _settings.RedreamRegion;
+        SldVolume.Value = _settings.RedreamVolume;
+        CmbLatency.Text = _settings.RedreamLatency.ToString(CultureInfo.InvariantCulture);
+        CmbFramerate.SelectedIndex = _settings.RedreamFramerate ? 1 : 0;
 
         ChkShowBeforeLaunch.IsChecked = _settings.RedreamShowSettingsBeforeLaunch;
 
@@ -59,8 +64,8 @@ public partial class InjectRedreamConfigWindow
         // Video
         _settings.RedreamCable = CmbCable.Text;
         _settings.RedreamBroadcast = CmbBroadcast.Text;
-        _settings.RedreamVsync = ChkVsync.IsChecked ?? true;
-        _settings.RedreamFrameskip = ChkFrameskip.IsChecked ?? true;
+        _settings.RedreamVsync = (CmbVsync.SelectedItem as ComboBoxItem)?.Tag?.ToString() == "True";
+        _settings.RedreamFrameskip = (CmbFrameskip.SelectedItem as ComboBoxItem)?.Tag?.ToString() == "True";
         _settings.RedreamAspect = CmbAspect.Text;
         if (int.TryParse(CmbRes.Text, out var res))
         {
@@ -70,9 +75,23 @@ public partial class InjectRedreamConfigWindow
         _settings.RedreamRenderer = CmbRenderer.Text;
         _settings.RedreamFullmode = CmbFullmode.Text;
 
+        var sizeParts = CmbWindowSize.Text.Split('x');
+        if (sizeParts.Length == 2 && int.TryParse(sizeParts[0], out var w) && int.TryParse(sizeParts[1], out var h))
+        {
+            _settings.RedreamWidth = w;
+            _settings.RedreamHeight = h;
+        }
+
         // System
         _settings.RedreamLanguage = CmbLanguage.Text;
         _settings.RedreamRegion = CmbRegion.Text;
+        _settings.RedreamVolume = (int)SldVolume.Value;
+        if (int.TryParse(CmbLatency.Text, out var lat))
+        {
+            _settings.RedreamLatency = lat;
+        }
+
+        _settings.RedreamFramerate = (CmbFramerate.SelectedItem as ComboBoxItem)?.Tag?.ToString() == "True";
 
         _settings.RedreamShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
 
