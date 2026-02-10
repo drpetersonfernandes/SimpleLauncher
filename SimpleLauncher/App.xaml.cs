@@ -154,8 +154,8 @@ public partial class App : IDisposable
         InitializeSevenZipSharp();
 
         // Delete temp folders and unneeded files
-        // _ = Task.Run(CleanSimpleLauncherFolder.CleanupTrash);
-        _ = Task.Run(CleanSimpleLauncherFolder.CleanupTempFiles);
+        _ = Task.Run(CleanSimpleLauncherFolder.CleanupTrash);
+        // _ = Task.Run(CleanSimpleLauncherFolder.CleanupTempFiles);
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
