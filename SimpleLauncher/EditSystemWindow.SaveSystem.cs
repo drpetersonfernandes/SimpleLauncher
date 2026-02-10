@@ -330,21 +330,24 @@ internal partial class EditSystemWindow
             return path;
         }
 
-        // Check if it's already rooted (absolute)
-        if (Path.IsPathRooted(path))
+        // Normalize separators to the system default (e.g., / to \ on Windows)
+        var normalizedPath = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+
+        // Check if it's already rooted (absolute) using the normalized path
+        if (Path.IsPathRooted(normalizedPath))
         {
-            return path;
+            return normalizedPath;
         }
 
         // Check if it already starts with the placeholder
-        if (path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
+        if (normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
         {
-            return path;
+            return normalizedPath;
         }
 
         // It's a relative path without the placeholder, add it
         // Handle cases like ".\roms" or "../images"
-        var trimmedPath = path.TrimStart('.', '\\', '/');
+        var trimmedPath = normalizedPath.TrimStart('.', Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Path.Combine("%BASEFOLDER%", trimmedPath);
     }
 }
