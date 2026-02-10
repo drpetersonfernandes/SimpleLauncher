@@ -6,12 +6,12 @@ using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher;
 
-public partial class LogWindow
+public partial class DebugWindow
 {
     private readonly object _logLock = new();
 
     // Private constructor to enforce singleton-like access via DebugLogger
-    private LogWindow()
+    private DebugWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -23,14 +23,14 @@ public partial class LogWindow
     }
 
     // Static instance managed by DebugLogger
-    internal static LogWindow Instance { get; private set; }
+    internal static DebugWindow Instance { get; private set; }
 
     // Method to create and show the window (called by DebugLogger)
     internal static void Initialize()
     {
         if (Instance == null)
         {
-            Instance = new LogWindow();
+            Instance = new DebugWindow();
             Instance.Show();
         }
         else
@@ -50,7 +50,7 @@ public partial class LogWindow
             lock (_logLock)
             {
                 // Add timestamp and append to the TextBox
-                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss.fff} - {message}{Environment.NewLine}");
+                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
                 // Auto-scroll to the bottom
                 LogTextBox.ScrollToEnd();
             }

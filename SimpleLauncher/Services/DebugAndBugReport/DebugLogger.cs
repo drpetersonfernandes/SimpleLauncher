@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.DebugAndBugReport;
 public static class DebugLogger
 {
     private static bool _isDebugMode;
-    private static LogWindow _logWindowInstance;
+    private static DebugWindow _logWindowInstance;
 
     /// <summary>
     /// Initializes the DebugLogger based on whether debug mode is enabled.
@@ -19,10 +19,10 @@ public static class DebugLogger
 
         if (!_isDebugMode) return;
 
-        // Initialize and show the LogWindow
-        LogWindow.Initialize();
+        // Initialize and show the DebugWindow
+        DebugWindow.Initialize();
 
-        _logWindowInstance = LogWindow.Instance; // Store the instance reference
+        _logWindowInstance = DebugWindow.Instance; // Store the instance reference
         Log("Debug logging initialized."); // Log the initialization
     }
 
@@ -37,7 +37,7 @@ public static class DebugLogger
 
         if (_isDebugMode && _logWindowInstance != null)
         {
-            // Append message to the LogWindow on the UI thread
+            // Append message to the DebugWindow on the UI thread
             _logWindowInstance.AppendLogMessage(message);
         }
     }

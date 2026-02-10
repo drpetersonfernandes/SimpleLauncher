@@ -118,15 +118,15 @@ public class TrayIconManager : IDisposable
             // Initialize debug mode if it wasn't already enabled,
             DebugLogger.Initialize(true);
 
-            // Initialize LogWindow if it doesn't exist yet
-            LogWindow.Initialize();
+            // Initialize DebugWindow if it doesn't exist yet
+            DebugWindow.Initialize();
 
             // Show the debug window
-            if (LogWindow.Instance == null) return;
+            if (DebugWindow.Instance == null) return;
 
-            LogWindow.Instance.Show();
-            LogWindow.Instance.WindowState = WindowState.Normal;
-            LogWindow.Instance.Activate();
+            DebugWindow.Instance.Show();
+            DebugWindow.Instance.WindowState = WindowState.Normal;
+            DebugWindow.Instance.Activate();
 
             // Log that the debug window was opened from tray
             DebugLogger.Log("Debug window opened from tray menu");

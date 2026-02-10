@@ -1,4 +1,4 @@
-<mah:MetroWindow x:Class="SimpleLauncher.LogWindow"
+<mah:MetroWindow x:Class="SimpleLauncher.DebugWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -24,8 +24,9 @@
                  AcceptsReturn="True"
                  Margin="5"
                  Background="Black"
-                 Foreground="LightGray"
-                 FontFamily="Consolas, Monaco, 'Courier New', Courier, monospace"
+                 Foreground="Lime"
+                 CaretBrush="Lime"
+                 FontFamily="Consolas"
                  FontSize="12" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
