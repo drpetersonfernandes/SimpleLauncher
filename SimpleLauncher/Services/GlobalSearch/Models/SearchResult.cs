@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace SimpleLauncher.Services.GlobalSearch.Models;
 
@@ -26,7 +27,7 @@ public class SearchResult : INotifyPropertyChanged
     }
 
     public string CoverImage { get; init; }
-    public string DefaultEmulator => EmulatorManager?.EmulatorName ?? "No Default Emulator";
+    public string DefaultEmulator => EmulatorManager?.EmulatorName ?? (string)Application.Current.TryFindResource("NoDefaultEmulator") ?? "No Default Emulator";
 
     public event PropertyChangedEventHandler PropertyChanged;
 

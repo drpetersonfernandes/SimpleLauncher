@@ -8,8 +8,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -17,64 +17,64 @@
                 <!-- Renderer Section -->
                 <GroupBox Header="{DynamicResource SegaModel2Config_Renderer_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <Label Content="{DynamicResource SegaModel2Config_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource SegaModel2Config_Resolution_Tooltip}"/>
+                        <Label Content="{DynamicResource SegaModel2Config_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource SegaModel2Config_Resolution_Tooltip}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="640" Maximum="7680" Interval="1"/>
-                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0"/>
-                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="480" Maximum="4320" Interval="1"/>
+                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="640" Maximum="7680" Interval="1" />
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
+                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="480" Maximum="4320" Interval="1" />
                         </Grid>
 
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource SegaModel2Config_Widescreen_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource SegaModel2Config_Widescreen_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbWidescreen" Grid.Column="1" ToolTip="{DynamicResource SegaModel2Config_Widescreen_Tooltip}">
-                                <ComboBoxItem Content="4:3" Tag="0"/>
-                                <ComboBoxItem Content="16:9" Tag="1"/>
-                                <ComboBoxItem Content="16:10" Tag="2"/>
+                                <ComboBoxItem Content="4:3" Tag="0" />
+                                <ComboBoxItem Content="16:9" Tag="1" />
+                                <ComboBoxItem Content="16:10" Tag="2" />
                             </ComboBox>
                         </Grid>
 
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource SegaModel2Config_FSAA_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource SegaModel2Config_FSAA_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbFsaa" Grid.Column="1" ToolTip="{DynamicResource SegaModel2Config_FSAA_Tooltip}">
-                                <ComboBoxItem Content="Off" Tag="0"/>
-                                <ComboBoxItem Content="2x" Tag="2"/>
-                                <ComboBoxItem Content="4x" Tag="4"/>
-                                <ComboBoxItem Content="8x" Tag="8"/>
+                                <ComboBoxItem Content="Off" Tag="0" />
+                                <ComboBoxItem Content="2x" Tag="2" />
+                                <ComboBoxItem Content="4x" Tag="4" />
+                                <ComboBoxItem Content="8x" Tag="8" />
                             </ComboBox>
                         </Grid>
 
-                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource SegaModel2Config_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_Bilinear_Tooltip}"/>
-                        <CheckBox x:Name="ChkTrilinear" Content="{DynamicResource SegaModel2Config_Trilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_Trilinear_Tooltip}"/>
-                        <CheckBox x:Name="ChkFilterTilemaps" Content="{DynamicResource SegaModel2Config_FilterTilemaps_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_FilterTilemaps_Tooltip}"/>
-                        <CheckBox x:Name="ChkDrawCross" Content="{DynamicResource SegaModel2Config_DrawCross_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_DrawCross_Tooltip}"/>
+                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource SegaModel2Config_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_Bilinear_Tooltip}" />
+                        <CheckBox x:Name="ChkTrilinear" Content="{DynamicResource SegaModel2Config_Trilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_Trilinear_Tooltip}" />
+                        <CheckBox x:Name="ChkFilterTilemaps" Content="{DynamicResource SegaModel2Config_FilterTilemaps_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_FilterTilemaps_Tooltip}" />
+                        <CheckBox x:Name="ChkDrawCross" Content="{DynamicResource SegaModel2Config_DrawCross_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_DrawCross_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Input Section -->
                 <GroupBox Header="{DynamicResource SegaModel2Config_Input_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkXInput" Content="{DynamicResource SegaModel2Config_XInput_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_XInput_Tooltip}"/>
-                        <CheckBox x:Name="ChkEnableFf" Content="{DynamicResource SegaModel2Config_EnableFF_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_EnableFF_Tooltip}"/>
-                        <CheckBox x:Name="ChkHoldGears" Content="{DynamicResource SegaModel2Config_HoldGears_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_HoldGears_Tooltip}"/>
-                        <CheckBox x:Name="ChkUseRawInput" Content="{DynamicResource SegaModel2Config_UseRawInput_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_UseRawInput_Tooltip}"/>
+                        <CheckBox x:Name="ChkXInput" Content="{DynamicResource SegaModel2Config_XInput_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_XInput_Tooltip}" />
+                        <CheckBox x:Name="ChkEnableFf" Content="{DynamicResource SegaModel2Config_EnableFF_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_EnableFF_Tooltip}" />
+                        <CheckBox x:Name="ChkHoldGears" Content="{DynamicResource SegaModel2Config_HoldGears_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_HoldGears_Tooltip}" />
+                        <CheckBox x:Name="ChkUseRawInput" Content="{DynamicResource SegaModel2Config_UseRawInput_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SegaModel2Config_UseRawInput_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="{DynamicResource SegaModel2Config_ShowBeforeLaunch_Checkbox}" 
+                <CheckBox x:Name="ChkShowBeforeLaunch"
+                          Content="{DynamicResource SegaModel2Config_ShowBeforeLaunch_Checkbox}"
                           Margin="5,10,0,10" />
             </StackPanel>
         </ScrollViewer>
@@ -82,12 +82,12 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource SegaModel2Config_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource SegaModel2Config_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
-                    Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource SegaModel2Config_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource SegaModel2Config_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource SegaModel2Config_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

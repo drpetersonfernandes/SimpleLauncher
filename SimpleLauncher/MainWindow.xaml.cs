@@ -275,8 +275,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         await _gameScannerService.ScanForStoreGamesAsync();
                         if (_gameScannerService.WasNewSystemCreated)
                         {
-                            UpdateStatusBar.UpdateContent("Found new Microsoft Windows games. Refreshing system list.", this);
-                            LoadOrReloadSystemManager(); // Reload to get the new system
+                            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.", this);
+
+                            // Reload to get the new system
+                            LoadOrReloadSystemManager();
+
                             // After reloading, the system selection screen needs to be updated.
                             await DisplaySystemSelectionScreenAsync();
                         }

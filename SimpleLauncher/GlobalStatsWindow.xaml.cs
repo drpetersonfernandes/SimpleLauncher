@@ -268,13 +268,21 @@ internal partial class GlobalStatsWindow : IDisposable
 
     private static string GenerateReportText(GlobalStatsData globalStats, IEnumerable<SystemStatsData> systemStats)
     {
-        var report = $"Global Stats Report\n-------------------\n" +
-                     $"Total Systems: {globalStats.TotalSystems}\n" +
-                     $"Total Games: {globalStats.TotalGames:N0}\n" +
-                     $"Total Disk Size: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n" +
-                     $"System Specifics:\n-------------------\n";
+        var titleText = Application.Current.TryFindResource("GlobalStatsReportTitle") as string ?? "Global Stats Report";
+        var totalSystemsText = Application.Current.TryFindResource("TotalSystems") as string ?? "Total Systems:";
+        var totalGamesText = Application.Current.TryFindResource("TotalGames") as string ?? "Total Games:";
+        var totalDiskSizeText = Application.Current.TryFindResource("TotalDiskSize") as string ?? "Disk Size:";
+        var systemSpecificsText = Application.Current.TryFindResource("SystemSpecifics") as string ?? "System Specifics:";
+        var gamesText = Application.Current.TryFindResource("Games") as string ?? "Games";
+        var imagesText = Application.Current.TryFindResource("Images") as string ?? "Images";
 
-        return systemStats.Aggregate(report, static (current, s) => current + $"{s.SystemName}: {s.NumberOfFiles} Games, {s.NumberOfImages} Images\n");
+        var report = $"{titleText}\n-------------------\n" +
+                     $"{totalSystemsText} {globalStats.TotalSystems}\n" +
+                     $"{totalGamesText} {globalStats.TotalGames:N0}\n" +
+                     $"{totalDiskSizeText} {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n" +
+                     $"{systemSpecificsText}\n-------------------\n";
+
+        return systemStats.Aggregate(report, (current, s) => current + $"{s.SystemName}: {s.NumberOfFiles} {gamesText}, {s.NumberOfImages} {imagesText}\n");
     }
 
     private void SaveReport_Click(object sender, RoutedEventArgs e)

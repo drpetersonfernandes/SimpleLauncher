@@ -69,7 +69,7 @@ public partial class InjectRpcs3ConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RPCS3 Executable|rpcs3.exe|All Executables|*.exe",
-            Title = "Select RPCS3 Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectRPCS3Emulator") ?? "Select RPCS3 Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

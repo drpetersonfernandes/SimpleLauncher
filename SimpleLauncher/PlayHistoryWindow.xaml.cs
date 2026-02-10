@@ -128,7 +128,7 @@ public partial class PlayHistoryWindow : ILoadingState
                 var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
                 var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
                 var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
                 var playHistoryItem = new PlayHistoryItem
@@ -446,10 +446,8 @@ public partial class PlayHistoryWindow : ILoadingState
             {
                 var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
-
                 var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-
-                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
                 var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
                 var playHistoryItem = new PlayHistoryItem

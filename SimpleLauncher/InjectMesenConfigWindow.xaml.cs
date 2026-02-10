@@ -57,10 +57,11 @@ public partial class InjectMesenConfigWindow
         }
 
         MessageBoxLibrary.MesenEmulatorNotFound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Mesen Executable|Mesen.exe|All Executables|*.exe",
-            Title = "Select Mesen Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectMesenEmulator") ?? "Select Mesen Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

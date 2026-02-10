@@ -541,7 +541,7 @@
                                 <Image Source="pack://application:,,,/images/ares.png" Width="16" Height="16" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Azahar Settings" Click="ShowAzaharSettings_Click">
+                        <MenuItem Header="{DynamicResource AzaharSettings}" Click="ShowAzaharSettings_Click">
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/azahar.png" Width="16" Height="16" />
                             </MenuItem.Icon>
@@ -551,7 +551,7 @@
                                 <Image Source="pack://application:,,,/images/blastem.png" Width="16" Height="16" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Cemu Settings" Click="ShowCemuSettings_Click">
+                        <MenuItem Header="{DynamicResource CemuSettings}" Click="ShowCemuSettings_Click">
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/cemu.png" Width="16" Height="16" />
                             </MenuItem.Icon>
@@ -591,17 +591,17 @@
                                 <Image Source="pack://application:,,,/images/mesen.png" Width="16" Height="16" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="PCSX2 Settings" Click="ShowPcsx2Settings_Click">
+                        <MenuItem Header="{DynamicResource PCSX2Settings}" Click="ShowPcsx2Settings_Click">
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/pcsx2.png" Width="16" Height="16" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Raine Settings" Click="ShowRaineSettings_Click">
+                        <MenuItem Header="{DynamicResource RaineSettings}" Click="ShowRaineSettings_Click">
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/raine.png" Width="16" Height="16" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Redream Settings" Click="ShowRedreamSettings_Click">
+                        <MenuItem Header="{DynamicResource RedreamSettings}" Click="ShowRedreamSettings_Click">
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/redream.png" Width="16" Height="16" />
                             </MenuItem.Icon>
@@ -636,7 +636,7 @@
                                 <Image Source="pack://application:,,,/images/xenia.png" Width="16" Height="16" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Yumir Settings" Click="ShowYumirSettings_Click">
+                        <MenuItem Header="{DynamicResource YumirSettings}" Click="ShowYumirSettings_Click">
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/yumir.png" Width="16" Height="16" />
                             </MenuItem.Icon>

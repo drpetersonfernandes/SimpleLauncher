@@ -58,7 +58,7 @@ public partial class InjectBlastemConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Blastem Executable|blastem.exe|All Executables|*.exe",
-            Title = "Select Blastem Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectBlastemEmulator") ?? "Select Blastem Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

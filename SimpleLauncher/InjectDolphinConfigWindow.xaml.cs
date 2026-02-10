@@ -51,10 +51,11 @@ public partial class InjectDolphinConfigWindow
         }
 
         MessageBoxLibrary.DolphinEmulatorNotFound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Dolphin Executable|Dolphin.exe|All Executables|*.exe",
-            Title = "Select Dolphin Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectDolphinEmulator") ?? "Select Dolphin Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

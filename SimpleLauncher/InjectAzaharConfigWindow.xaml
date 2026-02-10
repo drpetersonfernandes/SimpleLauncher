@@ -7,8 +7,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -17,51 +17,51 @@
                     <StackPanel Margin="5">
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource AzaharConfig_GraphicsApi_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource AzaharConfig_GraphicsApi_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbGraphicsApi" Grid.Column="1" ToolTip="{DynamicResource AzaharConfig_GraphicsApi_Tooltip}">
-                                <ComboBoxItem Content="OpenGL" Tag="0"/>
-                                <ComboBoxItem Content="Vulkan" Tag="2"/>
+                                <ComboBoxItem Content="OpenGL" Tag="0" />
+                                <ComboBoxItem Content="Vulkan" Tag="2" />
                             </ComboBox>
                         </Grid>
 
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource AzaharConfig_Resolution_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource AzaharConfig_Resolution_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbResolution" Grid.Column="1" ToolTip="{DynamicResource AzaharConfig_Resolution_Tooltip}">
-                                <ComboBoxItem Content="Auto" Tag="0"/>
-                                <ComboBoxItem Content="1x Native" Tag="1"/>
-                                <ComboBoxItem Content="2x (800x480)" Tag="2"/>
-                                <ComboBoxItem Content="3x (1200x720)" Tag="3"/>
-                                <ComboBoxItem Content="4x (1600x960)" Tag="4"/>
+                                <ComboBoxItem Content="Auto" Tag="0" />
+                                <ComboBoxItem Content="1x Native" Tag="1" />
+                                <ComboBoxItem Content="2x (800x480)" Tag="2" />
+                                <ComboBoxItem Content="3x (1200x720)" Tag="3" />
+                                <ComboBoxItem Content="4x (1600x960)" Tag="4" />
                             </ComboBox>
                         </Grid>
 
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource AzaharConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Fullscreen_Tooltip}"/>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource AzaharConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Vsync_Tooltip}"/>
-                        <CheckBox x:Name="ChkAsyncShader" Content="{DynamicResource AzaharConfig_AsyncShader_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AsyncShader_Tooltip}"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource AzaharConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Fullscreen_Tooltip}" />
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource AzaharConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Vsync_Tooltip}" />
+                        <CheckBox x:Name="ChkAsyncShader" Content="{DynamicResource AzaharConfig_AsyncShader_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AsyncShader_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{DynamicResource AzaharConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkNew3Ds" Content="{DynamicResource AzaharConfig_New3DS_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_New3DS_Tooltip}"/>
+                        <CheckBox x:Name="ChkNew3Ds" Content="{DynamicResource AzaharConfig_New3DS_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_New3DS_Tooltip}" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource AzaharConfig_Layout_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource AzaharConfig_Layout_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbLayout" Grid.Column="1" ToolTip="{DynamicResource AzaharConfig_Layout_Tooltip}">
-                                <ComboBoxItem Content="Default" Tag="0"/>
-                                <ComboBoxItem Content="Single Screen" Tag="1"/>
-                                <ComboBoxItem Content="Large Screen" Tag="2"/>
-                                <ComboBoxItem Content="Side by Side" Tag="3"/>
+                                <ComboBoxItem Content="Default" Tag="0" />
+                                <ComboBoxItem Content="Single Screen" Tag="1" />
+                                <ComboBoxItem Content="Large Screen" Tag="2" />
+                                <ComboBoxItem Content="Side by Side" Tag="3" />
                             </ComboBox>
                         </Grid>
                     </StackPanel>
@@ -69,23 +69,23 @@
 
                 <GroupBox Header="{DynamicResource AzaharConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <Label Content="{DynamicResource AzaharConfig_Volume_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource AzaharConfig_Volume_Tooltip}"/>
-                        <CheckBox x:Name="ChkAudioStretching" Content="{DynamicResource AzaharConfig_AudioStretching_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AudioStretching_Tooltip}" IsChecked="True"/>
+                        <Label Content="{DynamicResource AzaharConfig_Volume_Label}" VerticalAlignment="Center" />
+                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource AzaharConfig_Volume_Tooltip}" />
+                        <CheckBox x:Name="ChkAudioStretching" Content="{DynamicResource AzaharConfig_AudioStretching_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AudioStretching_Tooltip}" IsChecked="True" />
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource AzaharConfig_ShowBeforeLaunch_Checkbox}" Margin="5,10" FontWeight="Bold"/>
+                <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource AzaharConfig_ShowBeforeLaunch_Checkbox}" Margin="5,10" FontWeight="Bold" />
             </StackPanel>
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource AzaharConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource AzaharConfig_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource AzaharConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource AzaharConfig_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource AzaharConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

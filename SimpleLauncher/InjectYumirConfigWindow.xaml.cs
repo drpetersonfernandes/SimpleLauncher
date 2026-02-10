@@ -90,7 +90,7 @@ public partial class InjectYumirConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Yumir Executable|ymir.exe|All Executables|*.exe",
-            Title = "Select Yumir Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectYumirEmulator") ?? "Select Yumir Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

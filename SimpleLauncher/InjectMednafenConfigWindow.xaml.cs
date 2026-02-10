@@ -80,10 +80,11 @@ public partial class InjectMednafenConfigWindow
         }
 
         MessageBoxLibrary.MednafenEmulatorNotFound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Mednafen Executable|mednafen.exe|All Executables|*.exe",
-            Title = "Select Mednafen Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectMednafenEmulator") ?? "Select Mednafen Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

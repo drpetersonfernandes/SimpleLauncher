@@ -55,9 +55,8 @@ public partial class UpdateChecker
             {
                 // Notify developer
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error getting CurrentVersion.");
-                var unknown = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
 
-                return unknown;
+                return (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
             }
         }
     }

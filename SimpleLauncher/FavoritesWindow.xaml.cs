@@ -144,7 +144,7 @@ internal partial class FavoritesWindow : ILoadingState
                 var systemManager = systemManagers.FirstOrDefault(manager =>
                     manager.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
-                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
 
                 var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
 

@@ -8,8 +8,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -17,23 +17,23 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource SupermodelConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkNew3DEngine" Content="{DynamicResource SupermodelConfig_New3DEngine_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_New3DEngine_Tooltip}"/>
-                        <CheckBox x:Name="ChkQuadRendering" Content="{DynamicResource SupermodelConfig_QuadRendering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_QuadRendering_Tooltip}"/>
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource SupermodelConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Fullscreen_Tooltip}"/>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource SupermodelConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Vsync_Tooltip}"/>
-                        <CheckBox x:Name="ChkWideScreen" Content="{DynamicResource SupermodelConfig_Widescreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Widescreen_Tooltip}"/>
-                        <CheckBox x:Name="ChkStretch" Content="{DynamicResource SupermodelConfig_Stretch_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Stretch_Tooltip}"/>
+                        <CheckBox x:Name="ChkNew3DEngine" Content="{DynamicResource SupermodelConfig_New3DEngine_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_New3DEngine_Tooltip}" />
+                        <CheckBox x:Name="ChkQuadRendering" Content="{DynamicResource SupermodelConfig_QuadRendering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_QuadRendering_Tooltip}" />
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource SupermodelConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Fullscreen_Tooltip}" />
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource SupermodelConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Vsync_Tooltip}" />
+                        <CheckBox x:Name="ChkWideScreen" Content="{DynamicResource SupermodelConfig_Widescreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Widescreen_Tooltip}" />
+                        <CheckBox x:Name="ChkStretch" Content="{DynamicResource SupermodelConfig_Stretch_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Stretch_Tooltip}" />
 
-                        <Label Content="{DynamicResource SupermodelConfig_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource SupermodelConfig_Resolution_Tooltip}"/>
+                        <Label Content="{DynamicResource SupermodelConfig_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource SupermodelConfig_Resolution_Tooltip}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="640" Maximum="7680" Interval="1"/>
-                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0"/>
-                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="480" Maximum="4320" Interval="1"/>
+                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="640" Maximum="7680" Interval="1" />
+                            <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
+                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="480" Maximum="4320" Interval="1" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -41,50 +41,50 @@
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource SupermodelConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <Label Content="{DynamicResource SupermodelConfig_MusicVolume_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldMusic" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource SupermodelConfig_MusicVolume_Tooltip}"/>
-                        <Label Content="{DynamicResource SupermodelConfig_SoundVolume_Label}" VerticalAlignment="Center" Margin="0,5,0,0"/>
-                        <Slider x:Name="SldSound" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource SupermodelConfig_SoundVolume_Tooltip}"/>
+                        <Label Content="{DynamicResource SupermodelConfig_MusicVolume_Label}" VerticalAlignment="Center" />
+                        <Slider x:Name="SldMusic" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource SupermodelConfig_MusicVolume_Tooltip}" />
+                        <Label Content="{DynamicResource SupermodelConfig_SoundVolume_Label}" VerticalAlignment="Center" Margin="0,5,0,0" />
+                        <Slider x:Name="SldSound" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource SupermodelConfig_SoundVolume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System & Performance Section -->
                 <GroupBox Header="{DynamicResource SupermodelConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkThrottle" Content="{DynamicResource SupermodelConfig_Throttle_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Throttle_Tooltip}"/>
-                        <CheckBox x:Name="ChkMultiThreaded" Content="{DynamicResource SupermodelConfig_MultiThreaded_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_MultiThreaded_Tooltip}"/>
-                        
+                        <CheckBox x:Name="ChkThrottle" Content="{DynamicResource SupermodelConfig_Throttle_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_Throttle_Tooltip}" />
+                        <CheckBox x:Name="ChkMultiThreaded" Content="{DynamicResource SupermodelConfig_MultiThreaded_Checkbox}" Margin="0,5" ToolTip="{DynamicResource SupermodelConfig_MultiThreaded_Tooltip}" />
+
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource SupermodelConfig_InputSystem_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource SupermodelConfig_InputSystem_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbInputSystem" Grid.Column="1" ToolTip="{DynamicResource SupermodelConfig_InputSystem_Tooltip}">
-                                <ComboBoxItem Content="xinput"/>
-                                <ComboBoxItem Content="dinput"/>
-                                <ComboBoxItem Content="rawinput"/>
+                                <ComboBoxItem Content="xinput" />
+                                <ComboBoxItem Content="dinput" />
+                                <ComboBoxItem Content="rawinput" />
                             </ComboBox>
                         </Grid>
-                        
+
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource SupermodelConfig_PpcFrequency_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource SupermodelConfig_PpcFrequency_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbPpcFrequency" Grid.Column="1" ToolTip="{DynamicResource SupermodelConfig_PpcFrequency_Tooltip}">
-                                <ComboBoxItem Content="50" ToolTip="{DynamicResource SupermodelConfig_PpcFrequency_50_Tooltip}"/>
-                                <ComboBoxItem Content="60"/>
-                                <ComboBoxItem Content="75"/>
-                                <ComboBoxItem Content="100" ToolTip="{DynamicResource SupermodelConfig_PpcFrequency_100_Tooltip}"/>
+                                <ComboBoxItem Content="50" ToolTip="{DynamicResource SupermodelConfig_PpcFrequency_50_Tooltip}" />
+                                <ComboBoxItem Content="60" />
+                                <ComboBoxItem Content="75" />
+                                <ComboBoxItem Content="100" ToolTip="{DynamicResource SupermodelConfig_PpcFrequency_100_Tooltip}" />
                             </ComboBox>
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="{DynamicResource SupermodelConfig_ShowBeforeLaunch_Checkbox}" 
+                <CheckBox x:Name="ChkShowBeforeLaunch"
+                          Content="{DynamicResource SupermodelConfig_ShowBeforeLaunch_Checkbox}"
                           Margin="5,10,0,10" />
             </StackPanel>
         </ScrollViewer>
@@ -92,12 +92,12 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource SupermodelConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource SupermodelConfig_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
-                    Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource SupermodelConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource SupermodelConfig_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource SupermodelConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

@@ -86,10 +86,11 @@ public partial class InjectDuckStationConfigWindow
         }
 
         MessageBoxLibrary.DuckStationEmulatorNotFound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "DuckStation Executable|duckstation*.exe|All Executables|*.exe",
-            Title = "Select DuckStation Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectDuckStationEmulator") ?? "Select DuckStation Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

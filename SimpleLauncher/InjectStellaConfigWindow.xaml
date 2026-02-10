@@ -8,8 +8,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -17,58 +17,58 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource StellaConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource StellaConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_Fullscreen_Tooltip}"/>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource StellaConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_Vsync_Tooltip}"/>
-                        <CheckBox x:Name="ChkCorrectAspect" Content="{DynamicResource StellaConfig_CorrectAspect_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_CorrectAspect_Tooltip}"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource StellaConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_Fullscreen_Tooltip}" />
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource StellaConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_Vsync_Tooltip}" />
+                        <CheckBox x:Name="ChkCorrectAspect" Content="{DynamicResource StellaConfig_CorrectAspect_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_CorrectAspect_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource StellaConfig_VideoDriver_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource StellaConfig_VideoDriver_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbVideoDriver" Grid.Column="1" ToolTip="{DynamicResource StellaConfig_VideoDriver_Tooltip}">
-                                <ComboBoxItem Content="direct3d"/>
-                                <ComboBoxItem Content="opengl"/>
-                                <ComboBoxItem Content="software"/>
+                                <ComboBoxItem Content="direct3d" />
+                                <ComboBoxItem Content="opengl" />
+                                <ComboBoxItem Content="software" />
                             </ComboBox>
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource StellaConfig_TvFilter_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource StellaConfig_TvFilter_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbTvFilter" Grid.Column="1" ToolTip="{DynamicResource StellaConfig_TvFilter_Tooltip}">
-                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_None}" Tag="0"/>
-                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_Bad}" Tag="1"/>
-                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_Color}" Tag="2"/>
-                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_B_W}" Tag="3"/>
+                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_None}" Tag="0" />
+                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_Bad}" Tag="1" />
+                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_Color}" Tag="2" />
+                                <ComboBoxItem Content="{DynamicResource StellaConfig_TvFilter_B_W}" Tag="3" />
                             </ComboBox>
                         </Grid>
-                        <Label Content="{DynamicResource StellaConfig_Scanlines_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldScanlines" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource StellaConfig_Scanlines_Tooltip}"/>
+                        <Label Content="{DynamicResource StellaConfig_Scanlines_Label}" VerticalAlignment="Center" />
+                        <Slider x:Name="SldScanlines" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource StellaConfig_Scanlines_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource StellaConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAudioEnabled" Content="{DynamicResource StellaConfig_AudioEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_AudioEnabled_Tooltip}"/>
-                        <Label Content="{DynamicResource StellaConfig_AudioVolume_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldAudioVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource StellaConfig_AudioVolume_Tooltip}"/>
+                        <CheckBox x:Name="ChkAudioEnabled" Content="{DynamicResource StellaConfig_AudioEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_AudioEnabled_Tooltip}" />
+                        <Label Content="{DynamicResource StellaConfig_AudioVolume_Label}" VerticalAlignment="Center" />
+                        <Slider x:Name="SldAudioVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource StellaConfig_AudioVolume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Features Section -->
                 <GroupBox Header="{DynamicResource StellaConfig_Features_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkTimeMachine" Content="{DynamicResource StellaConfig_TimeMachine_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_TimeMachine_Tooltip}"/>
-                        <CheckBox x:Name="ChkConfirmExit" Content="{DynamicResource StellaConfig_ConfirmExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_ConfirmExit_Tooltip}"/>
+                        <CheckBox x:Name="ChkTimeMachine" Content="{DynamicResource StellaConfig_TimeMachine_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_TimeMachine_Tooltip}" />
+                        <CheckBox x:Name="ChkConfirmExit" Content="{DynamicResource StellaConfig_ConfirmExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_ConfirmExit_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="{DynamicResource StellaConfig_ShowBeforeLaunch_Checkbox}" 
+                <CheckBox x:Name="ChkShowBeforeLaunch"
+                          Content="{DynamicResource StellaConfig_ShowBeforeLaunch_Checkbox}"
                           Margin="5,10,0,10" />
             </StackPanel>
         </ScrollViewer>
@@ -76,12 +76,12 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource StellaConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource StellaConfig_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
-                    Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource StellaConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource StellaConfig_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource StellaConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

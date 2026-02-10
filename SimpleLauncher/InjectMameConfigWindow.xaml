@@ -8,8 +8,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -19,55 +19,55 @@
                     <StackPanel Margin="5">
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MameConfig_VideoMode_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource MameConfig_VideoMode_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbVideo" Grid.Column="1" ToolTip="{DynamicResource MameConfig_VideoMode_Tooltip}">
-                                <ComboBoxItem Content="auto"/>
-                                <ComboBoxItem Content="d3d"/>
-                                <ComboBoxItem Content="opengl"/>
-                                <ComboBoxItem Content="bgfx"/>
-                                <ComboBoxItem Content="gdi"/>
+                                <ComboBoxItem Content="auto" />
+                                <ComboBoxItem Content="d3d" />
+                                <ComboBoxItem Content="opengl" />
+                                <ComboBoxItem Content="bgfx" />
+                                <ComboBoxItem Content="gdi" />
                             </ComboBox>
                         </Grid>
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MameConfig_BgfxBackend_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource MameConfig_BgfxBackend_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbBgfxBackend" Grid.Column="1" ToolTip="{DynamicResource MameConfig_BgfxBackend_Tooltip}">
-                                <ComboBoxItem Content="auto"/>
-                                <ComboBoxItem Content="d3d11"/>
-                                <ComboBoxItem Content="vulkan"/>
-                                <ComboBoxItem Content="opengl"/>
+                                <ComboBoxItem Content="auto" />
+                                <ComboBoxItem Content="d3d11" />
+                                <ComboBoxItem Content="vulkan" />
+                                <ComboBoxItem Content="opengl" />
                             </ComboBox>
                         </Grid>
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MameConfig_BgfxShader_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource MameConfig_BgfxShader_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbBgfxChains" Grid.Column="1" IsEditable="True" ToolTip="{DynamicResource MameConfig_BgfxShader_Tooltip}">
-                                <ComboBoxItem Content="default"/>
-                                <ComboBoxItem Content="crt-geom"/>
+                                <ComboBoxItem Content="default" />
+                                <ComboBoxItem Content="crt-geom" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkFilter" Content="{DynamicResource MameConfig_BilinearFiltering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_BilinearFiltering_Tooltip}"/>
-                        <CheckBox x:Name="ChkWindow" Content="{DynamicResource MameConfig_RunInWindow_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_RunInWindow_Tooltip}"/>
-                        <CheckBox x:Name="ChkMaximize" Content="{DynamicResource MameConfig_Maximize_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_Maximize_Tooltip}"/>
-                        <CheckBox x:Name="ChkKeepAspect" Content="{DynamicResource MameConfig_EnforceAspectRatio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnforceAspectRatio_Tooltip}"/>
+                        <CheckBox x:Name="ChkFilter" Content="{DynamicResource MameConfig_BilinearFiltering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_BilinearFiltering_Tooltip}" />
+                        <CheckBox x:Name="ChkWindow" Content="{DynamicResource MameConfig_RunInWindow_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_RunInWindow_Tooltip}" />
+                        <CheckBox x:Name="ChkMaximize" Content="{DynamicResource MameConfig_Maximize_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_Maximize_Tooltip}" />
+                        <CheckBox x:Name="ChkKeepAspect" Content="{DynamicResource MameConfig_EnforceAspectRatio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnforceAspectRatio_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{DynamicResource MameConfig_PerformanceAdvanced_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAutoframeskip" Content="{DynamicResource MameConfig_AutoFrameskip_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_AutoFrameskip_Tooltip}"/>
-                        <CheckBox x:Name="ChkCheat" Content="{DynamicResource MameConfig_EnableCheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableCheats_Tooltip}"/>
-                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource MameConfig_EnableRewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableRewind_Tooltip}"/>
-                        <CheckBox x:Name="ChkNvramSave" Content="{DynamicResource MameConfig_SaveNvram_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_SaveNvram_Tooltip}"/>
+                        <CheckBox x:Name="ChkAutoframeskip" Content="{DynamicResource MameConfig_AutoFrameskip_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_AutoFrameskip_Tooltip}" />
+                        <CheckBox x:Name="ChkCheat" Content="{DynamicResource MameConfig_EnableCheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableCheats_Tooltip}" />
+                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource MameConfig_EnableRewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableRewind_Tooltip}" />
+                        <CheckBox x:Name="ChkNvramSave" Content="{DynamicResource MameConfig_SaveNvram_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_SaveNvram_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -75,23 +75,23 @@
                 <GroupBox Header="{DynamicResource MameConfig_UserExperience_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox x:Name="ChkSkipGameInfo" Content="{DynamicResource MameConfig_SkipGameInfo_Checkbox}" Margin="0,5"
-                                  ToolTip="{DynamicResource MameConfig_SkipGameInfo_Tooltip}"/>
+                                  ToolTip="{DynamicResource MameConfig_SkipGameInfo_Tooltip}" />
                         <CheckBox x:Name="ChkAutosave" Content="{DynamicResource MameConfig_AutosaveState_Checkbox}" Margin="0,5"
-                                  ToolTip="{DynamicResource MameConfig_AutosaveState_Tooltip}"/>
+                                  ToolTip="{DynamicResource MameConfig_AutosaveState_Tooltip}" />
                         <CheckBox x:Name="ChkConfirmQuit" Content="{DynamicResource MameConfig_ConfirmQuit_Checkbox}" Margin="0,5"
-                                  ToolTip="{DynamicResource MameConfig_ConfirmQuit_Tooltip}"/>
+                                  ToolTip="{DynamicResource MameConfig_ConfirmQuit_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Input Section -->
                 <GroupBox Header="{DynamicResource MameConfig_Input_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkJoystick" Content="{DynamicResource MameConfig_EnableJoystick_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableJoystick_Tooltip}"/>
+                        <CheckBox x:Name="ChkJoystick" Content="{DynamicResource MameConfig_EnableJoystick_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableJoystick_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="{DynamicResource MameConfig_ShowBeforeLaunch_Checkbox}" 
+                <CheckBox x:Name="ChkShowBeforeLaunch"
+                          Content="{DynamicResource MameConfig_ShowBeforeLaunch_Checkbox}"
                           Margin="5,10,0,10" />
             </StackPanel>
         </ScrollViewer>
@@ -99,12 +99,12 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource MameConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource MameConfig_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
-                    Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource MameConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource MameConfig_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource MameConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

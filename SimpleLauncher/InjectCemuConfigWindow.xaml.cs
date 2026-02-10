@@ -70,8 +70,17 @@ public partial class InjectCemuConfigWindow
         if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         MessageBoxLibrary.Cemuemulatornotfound();
-        var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Cemu Executable|Cemu.exe|All Executables|*.exe" };
-        if (dialog.ShowDialog() != true) return null;
+
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Cemu Executable|Cemu.exe|All Executables|*.exe",
+            Title = (string)Application.Current.TryFindResource("SelectCemuEmulator") ?? "Select Cemu Emulator"
+        };
+
+        if (dialog.ShowDialog() != true)
+        {
+            return null;
+        }
 
         _emulatorPath = dialog.FileName;
         return _emulatorPath;
@@ -144,7 +153,9 @@ public partial class InjectCemuConfigWindow
     {
         var tag = (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString();
         if (string.IsNullOrEmpty(tag))
+        {
             throw new InvalidOperationException($"No valid selection in ComboBox '{cmb.Name}'. Please select a value.");
+        }
 
         return tag;
     }

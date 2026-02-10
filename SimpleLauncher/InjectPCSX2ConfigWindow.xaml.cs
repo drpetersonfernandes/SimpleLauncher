@@ -77,7 +77,7 @@ public partial class InjectPcsx2ConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "PCSX2 Executable|pcsx2*.exe",
-            Title = "Select PCSX2 Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectPCSX2Emulator") ?? "Select PCSX2 Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

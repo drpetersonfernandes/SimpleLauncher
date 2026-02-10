@@ -71,7 +71,7 @@ public partial class InjectSupermodelConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Supermodel Executable|Supermodel.exe|All Executables|*.exe",
-            Title = "Select Supermodel Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectSupermodelEmulator") ?? "Select Supermodel Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

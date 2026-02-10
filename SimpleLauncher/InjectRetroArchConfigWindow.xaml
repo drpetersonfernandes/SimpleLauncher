@@ -8,8 +8,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -19,107 +19,107 @@
                     <StackPanel Margin="5">
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RetroArchConfig_VideoDriver_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource RetroArchConfig_VideoDriver_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbVideoDriver" Grid.Column="1" ToolTip="{DynamicResource RetroArchConfig_VideoDriver_Tooltip}">
-                                <ComboBoxItem Content="gl"/>
-                                <ComboBoxItem Content="vulkan"/>
-                                <ComboBoxItem Content="d3d11"/>
-                                <ComboBoxItem Content="d3d12"/>
-                                <ComboBoxItem Content="d3d10"/>
-                                <ComboBoxItem Content="sdl2"/>
+                                <ComboBoxItem Content="gl" />
+                                <ComboBoxItem Content="vulkan" />
+                                <ComboBoxItem Content="d3d11" />
+                                <ComboBoxItem Content="d3d12" />
+                                <ComboBoxItem Content="d3d10" />
+                                <ComboBoxItem Content="sdl2" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource RetroArchConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Fullscreen_Tooltip}"/>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource RetroArchConfig_VSync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_VSync_Tooltip}"/>
-                        <CheckBox x:Name="ChkThreadedVideo" Content="{DynamicResource RetroArchConfig_ThreadedVideo_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_ThreadedVideo_Tooltip}"/>
-                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource RetroArchConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Bilinear_Tooltip}"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource RetroArchConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Fullscreen_Tooltip}" />
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource RetroArchConfig_VSync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_VSync_Tooltip}" />
+                        <CheckBox x:Name="ChkThreadedVideo" Content="{DynamicResource RetroArchConfig_ThreadedVideo_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_ThreadedVideo_Tooltip}" />
+                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource RetroArchConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Bilinear_Tooltip}" />
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RetroArchConfig_AspectRatio_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource RetroArchConfig_AspectRatio_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbAspectRatio" Grid.Column="1" ToolTip="{DynamicResource RetroArchConfig_AspectRatio_Tooltip}">
-                                <ComboBoxItem Content="Core Provided" Tag="22"/>
-                                <ComboBoxItem Content="4:3" Tag="0"/>
-                                <ComboBoxItem Content="16:9" Tag="1"/>
-                                <ComboBoxItem Content="16:10" Tag="2"/>
+                                <ComboBoxItem Content="Core Provided" Tag="22" />
+                                <ComboBoxItem Content="4:3" Tag="0" />
+                                <ComboBoxItem Content="16:9" Tag="1" />
+                                <ComboBoxItem Content="16:10" Tag="2" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkScaleInteger" Content="{DynamicResource RetroArchConfig_IntegerScale_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_IntegerScale_Tooltip}"/>
-                        <CheckBox x:Name="ChkShaderEnable" Content="{DynamicResource RetroArchConfig_Shaders_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Shaders_Tooltip}"/>
-                        <CheckBox x:Name="ChkHardSync" Content="{DynamicResource RetroArchConfig_HardSync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_HardSync_Tooltip}"/>
+                        <CheckBox x:Name="ChkScaleInteger" Content="{DynamicResource RetroArchConfig_IntegerScale_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_IntegerScale_Tooltip}" />
+                        <CheckBox x:Name="ChkShaderEnable" Content="{DynamicResource RetroArchConfig_Shaders_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Shaders_Tooltip}" />
+                        <CheckBox x:Name="ChkHardSync" Content="{DynamicResource RetroArchConfig_HardSync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_HardSync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAudioEnable" Content="{DynamicResource RetroArchConfig_AudioEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AudioEnable_Tooltip}"/>
-                        <CheckBox x:Name="ChkAudioMute" Content="{DynamicResource RetroArchConfig_AudioMute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AudioMute_Tooltip}"/>
+                        <CheckBox x:Name="ChkAudioEnable" Content="{DynamicResource RetroArchConfig_AudioEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AudioEnable_Tooltip}" />
+                        <CheckBox x:Name="ChkAudioMute" Content="{DynamicResource RetroArchConfig_AudioMute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AudioMute_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Automation & Misc -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_AutomationBehavior_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkPauseNonActive" Content="{DynamicResource RetroArchConfig_PauseNonActive_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_PauseNonActive_Tooltip}"/>
-                        <CheckBox x:Name="ChkSaveOnExit" Content="{DynamicResource RetroArchConfig_SaveOnExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_SaveOnExit_Tooltip}"/>
-                        <CheckBox x:Name="ChkAutoSaveState" Content="{DynamicResource RetroArchConfig_AutoSaveState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AutoSaveState_Tooltip}"/>
-                        <CheckBox x:Name="ChkAutoLoadState" Content="{DynamicResource RetroArchConfig_AutoLoadState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AutoLoadState_Tooltip}"/>
-                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource RetroArchConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Rewind_Tooltip}"/>
-                        <CheckBox x:Name="ChkRunAhead" Content="{DynamicResource RetroArchConfig_RunAhead_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_RunAhead_Tooltip}"/>
+                        <CheckBox x:Name="ChkPauseNonActive" Content="{DynamicResource RetroArchConfig_PauseNonActive_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_PauseNonActive_Tooltip}" />
+                        <CheckBox x:Name="ChkSaveOnExit" Content="{DynamicResource RetroArchConfig_SaveOnExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_SaveOnExit_Tooltip}" />
+                        <CheckBox x:Name="ChkAutoSaveState" Content="{DynamicResource RetroArchConfig_AutoSaveState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AutoSaveState_Tooltip}" />
+                        <CheckBox x:Name="ChkAutoLoadState" Content="{DynamicResource RetroArchConfig_AutoLoadState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AutoLoadState_Tooltip}" />
+                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource RetroArchConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Rewind_Tooltip}" />
+                        <CheckBox x:Name="ChkRunAhead" Content="{DynamicResource RetroArchConfig_RunAhead_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_RunAhead_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
-                
+
                 <!-- UI Section -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_UI_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                         <Grid Margin="0,0,0,5">
+                        <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RetroArchConfig_MenuDriver_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource RetroArchConfig_MenuDriver_Label}" VerticalAlignment="Center" />
                             <ComboBox x:Name="CmbMenuDriver" Grid.Column="1" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Tooltip}">
-                                <ComboBoxItem Content="ozone" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Ozone_Tooltip}"/>
-                                <ComboBoxItem Content="xmb" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Xmb_Tooltip}"/>
-                                <ComboBoxItem Content="rgui" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Rgui_Tooltip}"/>
-                                <ComboBoxItem Content="glui" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Glui_Tooltip}"/>
+                                <ComboBoxItem Content="ozone" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Ozone_Tooltip}" />
+                                <ComboBoxItem Content="xmb" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Xmb_Tooltip}" />
+                                <ComboBoxItem Content="rgui" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Rgui_Tooltip}" />
+                                <ComboBoxItem Content="glui" ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Glui_Tooltip}" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkAdvancedSettings" Content="{DynamicResource RetroArchConfig_AdvancedSettings_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AdvancedSettings_Tooltip}"/>
+                        <CheckBox x:Name="ChkAdvancedSettings" Content="{DynamicResource RetroArchConfig_AdvancedSettings_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AdvancedSettings_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- RetroAchievements -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_RetroAchievements_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="{DynamicResource RetroArchConfig_CredentialsManaged_Text}" FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap"/>
-                        <CheckBox x:Name="ChkCheevosEnable" Content="{DynamicResource RetroArchConfig_EnableCheevos_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_EnableCheevos_Tooltip}"/>
-                        <CheckBox x:Name="ChkCheevosHardcore" Content="{DynamicResource RetroArchConfig_HardcoreMode_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_HardcoreMode_Tooltip}"/>
-                        <CheckBox x:Name="ChkDiscordAllow" Content="{DynamicResource RetroArchConfig_DiscordPresence_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_DiscordPresence_Tooltip}"/>
+                        <TextBlock Text="{DynamicResource RetroArchConfig_CredentialsManaged_Text}" FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap" />
+                        <CheckBox x:Name="ChkCheevosEnable" Content="{DynamicResource RetroArchConfig_EnableCheevos_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_EnableCheevos_Tooltip}" />
+                        <CheckBox x:Name="ChkCheevosHardcore" Content="{DynamicResource RetroArchConfig_HardcoreMode_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_HardcoreMode_Tooltip}" />
+                        <CheckBox x:Name="ChkDiscordAllow" Content="{DynamicResource RetroArchConfig_DiscordPresence_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_DiscordPresence_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="{DynamicResource RetroArchConfig_ShowBeforeLaunch_Checkbox}" 
-                          Margin="5,10,0,10" FontWeight="Bold"/>
+                <CheckBox x:Name="ChkShowBeforeLaunch"
+                          Content="{DynamicResource RetroArchConfig_ShowBeforeLaunch_Checkbox}"
+                          Margin="5,10,0,10" FontWeight="Bold" />
             </StackPanel>
         </ScrollViewer>
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource RetroArchConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource RetroArchConfig_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
-                    Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource RetroArchConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource RetroArchConfig_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource RetroArchConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

@@ -90,7 +90,7 @@ public partial class InjectRedreamConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Redream Executable|redream.exe|All Executables|*.exe",
-            Title = "Select Redream Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectRedreamEmulator") ?? "Select Redream Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

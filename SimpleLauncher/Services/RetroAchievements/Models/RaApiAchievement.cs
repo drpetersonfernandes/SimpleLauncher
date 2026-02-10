@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Text.Json.Serialization;
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
@@ -42,7 +43,7 @@ public record RaApiAchievement
     public string BadgeUri => $"https://retroachievements.org/Badge/{BadgeName}.png";
 
     [JsonIgnore]
-    public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;
+    public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown" : Author;
 
     private static DateTime? ParseDate(string dateString)
     {

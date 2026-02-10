@@ -63,7 +63,7 @@ public partial class InjectStellaConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Stella Executable|stella.exe|All Executables|*.exe",
-            Title = "Select Stella Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectStellaEmulator") ?? "Select Stella Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

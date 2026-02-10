@@ -69,7 +69,7 @@ public partial class InjectSegaModel2ConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "SEGA Model 2 Executable|emulator.exe|All Executables|*.exe",
-            Title = "Select SEGA Model 2 Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectSEGAModel2Emulator") ?? "Select SEGA Model 2 Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

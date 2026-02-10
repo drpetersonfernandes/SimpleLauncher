@@ -8,8 +8,8 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -19,46 +19,46 @@
                     <StackPanel Margin="5">
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MednafenConfig_VideoDriver_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource MednafenConfig_VideoDriver_Label}" VerticalAlignment="Center" />
                             <!-- Video Driver -->
                             <ComboBox x:Name="CmbVideoDriver" Grid.Column="1" ToolTip="{DynamicResource MednafenConfig_VideoDriver_Tooltip}">
-                                <ComboBoxItem Content="OpenGL" Tag="opengl"/>
-                                <ComboBoxItem Content="Software" Tag="soft"/>
-                                <ComboBoxItem Content="Default" Tag="default"/>
+                                <ComboBoxItem Content="OpenGL" Tag="opengl" />
+                                <ComboBoxItem Content="Software" Tag="soft" />
+                                <ComboBoxItem Content="Default" Tag="default" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource MednafenConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Fullscreen_Tooltip}"/>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource MednafenConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Vsync_Tooltip}"/>
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource MednafenConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Fullscreen_Tooltip}" />
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource MednafenConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Vsync_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MednafenConfig_Stretch_Label}" VerticalAlignment="Center"/>
+                            <Label Content="{DynamicResource MednafenConfig_Stretch_Label}" VerticalAlignment="Center" />
                             <!-- Stretch Mode -->
                             <ComboBox x:Name="CmbStretch" Grid.Column="1" ToolTip="{DynamicResource MednafenConfig_Stretch_Tooltip}">
-                                <ComboBoxItem Content="None" Tag="0"/>
-                                <ComboBoxItem Content="Full" Tag="full"/>
-                                <ComboBoxItem Content="Aspect Ratio" Tag="aspect"/>
-                                <ComboBoxItem Content="Integer Aspect" Tag="aspect_int"/>
+                                <ComboBoxItem Content="None" Tag="0" />
+                                <ComboBoxItem Content="Full" Tag="full" />
+                                <ComboBoxItem Content="Aspect Ratio" Tag="aspect" />
+                                <ComboBoxItem Content="Integer Aspect" Tag="aspect_int" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource MednafenConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Bilinear_Tooltip}"/>
+                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource MednafenConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Bilinear_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Effects Section -->
                 <GroupBox Header="{DynamicResource MednafenConfig_Effects_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <Label Content="{DynamicResource MednafenConfig_Scanlines_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldScanlines" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Scanlines_Tooltip}"/>
+                        <Label Content="{DynamicResource MednafenConfig_Scanlines_Label}" VerticalAlignment="Center" />
+                        <Slider x:Name="SldScanlines" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Scanlines_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource MednafenConfig_Shader_Label}" VerticalAlignment="Center" />
                             <!-- Shaders -->
@@ -77,21 +77,21 @@
                 <!-- Sound Section -->
                 <GroupBox Header="{DynamicResource MednafenConfig_Sound_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <Label Content="{DynamicResource MednafenConfig_Volume_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Volume_Tooltip}"/>
+                        <Label Content="{DynamicResource MednafenConfig_Volume_Label}" VerticalAlignment="Center" />
+                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Features Section -->
                 <GroupBox Header="{DynamicResource MednafenConfig_Features_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkCheats" Content="{DynamicResource MednafenConfig_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Cheats_Tooltip}"/>
-                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource MednafenConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Rewind_Tooltip}"/>
+                        <CheckBox x:Name="ChkCheats" Content="{DynamicResource MednafenConfig_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Cheats_Tooltip}" />
+                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource MednafenConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Rewind_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch" 
-                          Content="{DynamicResource MednafenConfig_ShowBeforeLaunch_Checkbox}" 
+                <CheckBox x:Name="ChkShowBeforeLaunch"
+                          Content="{DynamicResource MednafenConfig_ShowBeforeLaunch_Checkbox}"
                           Margin="5,10,0,10" />
             </StackPanel>
         </ScrollViewer>
@@ -99,13 +99,13 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource MednafenConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" 
-                    Click="BtnSave_Click"/>
-            <Button x:Name="BtnRun" Content="{DynamicResource MednafenConfig_Run_Button2}" Width="120" Height="35" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" 
-                    Click="BtnRun_Click" IsDefault="True"/>
-            <Button Content="{DynamicResource MednafenConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" 
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"/>
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Click="BtnSave_Click" />
+            <Button x:Name="BtnRun" Content="{DynamicResource MednafenConfig_Run_Button2}" Width="120" Height="35"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Click="BtnRun_Click" IsDefault="True" />
+            <Button Content="{DynamicResource MednafenConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

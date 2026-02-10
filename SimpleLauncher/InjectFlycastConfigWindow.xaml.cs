@@ -51,10 +51,11 @@ public partial class InjectFlycastConfigWindow
         }
 
         MessageBoxLibrary.FlycastEmulatorNotFound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Flycast Executable|flycast.exe|All Executables|*.exe",
-            Title = "Select Flycast Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectFlycastEmulator") ?? "Select Flycast Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

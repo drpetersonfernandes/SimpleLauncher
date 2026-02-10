@@ -79,7 +79,7 @@ public partial class InjectRetroArchConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RetroArch Executable|retroarch.exe|All Executables|*.exe",
-            Title = "Select RetroArch Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectRetroArchEmulator") ?? "Select RetroArch Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

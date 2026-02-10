@@ -76,7 +76,7 @@ public partial class InjectAzaharConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Azahar Executable|azahar.exe|All Executables|*.exe",
-            Title = "Select Azahar Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectAzaharEmulator") ?? "Select Azahar Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

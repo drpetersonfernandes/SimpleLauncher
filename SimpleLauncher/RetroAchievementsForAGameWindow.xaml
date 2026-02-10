@@ -20,8 +20,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Image x:Name="GameCoverImage" Width="80" Height="80" Stretch="Uniform" Margin="0,0,15,0" />
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock x:Name="GameTitleTextBlock" FontSize="24" FontWeight="Bold" Text="Game Title" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                        <TextBlock x:Name="ConsoleNameTextBlock" FontSize="16" Margin="0,5,0,0" Text="Console Name" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                        <TextBlock x:Name="GameTitleTextBlock" FontSize="24" FontWeight="Bold" Text="{DynamicResource GameTitle}" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                        <TextBlock x:Name="ConsoleNameTextBlock" FontSize="16" Margin="0,5,0,0" Text="{DynamicResource ConsoleName}" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                     </StackPanel>
                 </StackPanel>
             </Border>

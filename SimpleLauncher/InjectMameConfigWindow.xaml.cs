@@ -66,10 +66,11 @@ public partial class InjectMameConfigWindow
         }
 
         MessageBoxLibrary.MameEmulatorPathNotFound();
+
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "MAME Executable|mame*.exe|All Executables|*.exe",
-            Title = "Select MAME Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectMAMEEmulator") ?? "Select MAME Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

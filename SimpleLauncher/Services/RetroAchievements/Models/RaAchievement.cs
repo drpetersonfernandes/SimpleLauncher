@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
@@ -23,7 +24,7 @@ public class RaAchievement
     public string Type { get; set; } = "";
     public DateTime? DateEarnedHardcore { get; set; }
     public DateTime? DateEarned { get; set; }
-    public int? TrueRatio { get; set; } // ADDED: True Ratio for the achievement
+    public int? TrueRatio { get; set; }
 
     // Refined DateUnlockedDisplay to handle null DateUnlocked more explicitly
     public string DateUnlockedDisplay
@@ -38,7 +39,7 @@ public class RaAchievement
     }
 
     public string ModeDisplay => UnlockedInHardcore ? "Hardcore" : IsUnlocked ? "Casual" : "Not Earned";
-    public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;
+    public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown" : Author;
 
     public string RarityDisplay => NumAwarded > 0 && NumAwardedHardcore > 0
         ? $"{(double)NumAwardedHardcore / NumAwarded * 100:F1}% hardcore"

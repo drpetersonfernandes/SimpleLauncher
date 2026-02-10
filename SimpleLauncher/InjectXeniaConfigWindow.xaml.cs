@@ -79,7 +79,7 @@ public partial class InjectXeniaConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Xenia Executable|xenia*.exe|All Executables|*.exe",
-            Title = "Select Xenia Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectXeniaEmulator") ?? "Select Xenia Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;

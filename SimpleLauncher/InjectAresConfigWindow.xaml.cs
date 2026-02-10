@@ -63,7 +63,7 @@ public partial class InjectAresConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Ares Executable|ares.exe|All Executables|*.exe",
-            Title = "Select Ares Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectAresEmulator") ?? "Select Ares Emulator"
         };
 
         if (dialog.ShowDialog() != true) return null;
