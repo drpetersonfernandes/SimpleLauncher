@@ -1790,5 +1790,9 @@
     <system:String x:Key="GameTitle">Game Title</system:String>
     <system:String x:Key="ConsoleName">Console Name</system:String>
     <system:String x:Key="NoDefaultEmulator">No Default Emulator</system:String>
+    
+    <system:String x:Key="IMPORTANTSETTING">⚠ IMPORTANT SETTING</system:String>
+    
+    
    
 </ResourceDictionary>

@@ -43,9 +43,16 @@
                     </StackPanel>
                 </GroupBox>
 
-                <CheckBox x:Name="ChkShowBeforeLaunch"
-                          Content="{DynamicResource DolphinConfig_ShowBeforeLaunch_Checkbox}"
-                          Margin="5,10,0,10" />
+                <!-- CRITICAL SETTING -->
+                <Border Background="{DynamicResource MahApps.Brushes.Accent}" BorderBrush="{DynamicResource MahApps.Brushes.Accent2}" BorderThickness="4" CornerRadius="10" Padding="20" Margin="5,20,5,10">
+                    <Border.Effect>
+                        <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray3}" Direction="320" ShadowDepth="8" Opacity="0.5" BlurRadius="10" />
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" FontSize="12" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.IdealForeground}" Margin="0,0,0,8" />
+                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource DolphinConfig_ShowBeforeLaunch_Checkbox}" FontSize="13" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                    </StackPanel>
+                </Border>
             </StackPanel>
         </ScrollViewer>
 
