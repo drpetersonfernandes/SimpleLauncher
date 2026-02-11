@@ -80,7 +80,10 @@ public static class RetroAchievementsSystemMatcher
         ["atari st"] = new RaSystemInfo(36, ["atari st", "atari ste", "atarist"]),
 
         // Other systems
-        ["arcade"] = new RaSystemInfo(27, ["arcade", "mame", "m.a.m.e."]),
+        ["arcade"] = new RaSystemInfo(27, [
+            "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
+            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo"
+        ]),
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
         ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2"]),

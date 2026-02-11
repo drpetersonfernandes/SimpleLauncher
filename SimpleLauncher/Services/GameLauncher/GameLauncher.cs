@@ -879,7 +879,7 @@ public class GameLauncher
                 if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
 
                 await CheckForMemoryAccessViolationAsync(process, psi, output, error);
-                await CheckForDepViolationAsync(process, psi, output, error);
+                // await CheckForDepViolationAsync(process, psi, output, error);
                 await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
             }
         }
