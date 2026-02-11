@@ -3,7 +3,7 @@
 **Simple Launcher** is a high-performance, open-source emulator frontend built with C# and WPF. Designed for both casual gamers and power users, it provides a seamless interface to organize, browse, and launch your retro gaming collection with deep integration for modern emulators and RetroAchievements.
 
 [![GitHub release](https://img.shields.io/github/v/release/drpetersonfernandes/SimpleLauncher)](https://github.com/drpetersonfernandes/SimpleLauncher/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20x64%20%7C%20ARM64-blue)](#technical-specifications)
+[![Platform](https://img.shields.io/badge/platform-Windows%20x64%20%7C%20ARM64-blue)](https://github.com/drpetersonfernandes/SimpleLauncher/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.txt)
 
 ---
@@ -100,6 +100,6 @@ Simple Launcher is translated into **17 languages**:
 
 ## 📜 License
 
-This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE.txt) file for details.
+This project is licensed under the GPLv3 License – see the [LICENSE](LICENSE.txt) file for details.
 
 *Simple Launcher is an emulator frontend and does not provide ROMs, ISOs, or BIOS files.*
