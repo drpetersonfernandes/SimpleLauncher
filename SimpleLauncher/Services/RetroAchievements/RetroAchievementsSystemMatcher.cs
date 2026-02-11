@@ -78,6 +78,7 @@ public static class RetroAchievementsSystemMatcher
         ["atari jaguar cd"] = new RaSystemInfo(77, ["atari jaguar cd", "jaguar cd", "jaguarcd"]),
         ["atari 5200"] = new RaSystemInfo(50, ["atari 5200", "atari5200"]),
         ["atari st"] = new RaSystemInfo(36, ["atari st", "atari ste", "atarist"]),
+        ["atari 800"] = new RaSystemInfo(36, ["atari 8-bit", "atari800", "atari-800", "atari 800"]),
 
         // Other systems
         ["arcade"] = new RaSystemInfo(27, [

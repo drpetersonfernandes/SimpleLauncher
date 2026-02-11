@@ -49,6 +49,12 @@ internal static class RetroAchievementsHasherTool
         "arcadia 2001", "fm towns", "hubs", "events", "standalone"
     ];
 
+    // ReSharper disable once UnusedMember.Local
+    private static readonly List<string> SystemWithoutRetroAchievements =
+    [
+        "atari 800"
+    ];
+
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
     private static readonly List<string> SystemWithByteSwappingHashLogic = ["nintendo 64"];
 
