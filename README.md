@@ -10,11 +10,12 @@
 
 ## 📸 Screenshots
 
-**System Selection**![Main Window](screenshot.png)
-**List Of Games in Grid Mode**![Global Search](screenshot2.png)
-**List Of Games in List Mode**![List View](screenshot3.png)
-**RetroAchievements Window**![Favorites](screenshot4.png)
-**RetroAchievements Window**![Favorites](screenshot5.png)
+**System Selection**![System Selection](screenshot.png)
+**List Of Games in Grid Mode**![List Of Games in Grid Mode](screenshot2.png)
+**List Of Games in List Mode**![List Of Games in List Mode](screenshot3.png)
+**RetroAchievements Window**![RetroAchievements Window](screenshot4.png)
+**RetroAchievements Window**![RetroAchievements Window](screenshot5.png)
+**Inject Configuration Window for Emulator Xenia**![Inject Configuration Window for Emulator Xenia](screenshot6.png)
 
 ## ✨ Key Features
 
