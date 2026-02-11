@@ -1065,6 +1065,7 @@ public class GameLauncher
         return Task.CompletedTask;
     }
 
+    // ReSharper disable once UnusedMember.Local
     private static Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (process.HasExited && process.ExitCode != DepViolation) return Task.CompletedTask;
