@@ -20,7 +20,9 @@ public static partial class MameConfigurationService
 
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
+        {
             throw new InvalidOperationException("Emulator directory is null or empty.");
+        }
 
         var configPath = Path.Combine(emuDir, "mame.ini");
 

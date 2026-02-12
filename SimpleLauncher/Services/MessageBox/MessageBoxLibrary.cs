@@ -4354,4 +4354,23 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    public static Task CouldNotLaunchGameDueToDepViolation()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return Task.CompletedTask;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var message = (string)Application.Current.TryFindResource("CouldNotLaunchGameDueToDepViolation") ?? "The game failed to launch due to a DEP (Data Execution Prevention) violation.";
+            var message2 = (string)Application.Current.TryFindResource("CouldNotLaunchGameDueToDepViolation2") ?? "This is a Windows security feature that prevents programs from executing code in protected memory regions.";
+            var message3 = (string)Application.Current.TryFindResource("CouldNotLaunchGameDueToDepViolation3") ?? "Ensure you're using the latest emulator version with improved security compatibility.";
+            var message4 = (string)Application.Current.TryFindResource("CouldNotLaunchGameDueToDepViolation3") ?? "You can also try to switch to a different emulator or core.";
+            System.Windows.MessageBox.Show($"{message}\n\n" +
+                                           $"{message2}\n\n" +
+                                           $"{message3}\n\n" +
+                                           $"{message4}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

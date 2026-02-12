@@ -18,6 +18,7 @@ using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.MountFiles;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UsageStats;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -210,7 +211,7 @@ public class GameLauncher
         _ = _stats.CallApiAsync(context.EmulatorName);
     }
 
-    internal async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task RunBatchFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // On Windows, .bat files are not direct executables.
         // To redirect output (UseShellExecute = false), we must run cmd.exe /c "path_to_script.bat"
@@ -369,7 +370,7 @@ public class GameLauncher
         }
     }
 
-    internal async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task LaunchShortcutFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         // Common UI updates.
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
@@ -509,7 +510,7 @@ public class GameLauncher
         }
     }
 
-    internal async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task LaunchExecutableAsync(string resolvedFilePath, Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -634,7 +635,7 @@ public class GameLauncher
         string resolvedFilePath,
         string selectedEmulatorName,
         SystemManager.SystemManager selectedSystemManager,
-        SystemManager.Emulator selectedEmulatorManager,
+        Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
         ILoadingState loadingStateProvider)
@@ -779,7 +780,9 @@ public class GameLauncher
         // Handling MAME and Raine Arcade Related Games
         // Will load the filename without the extension
         var isMame = selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
-                     selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase);
+                     selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
+                     selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                     selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
         var isRaine = selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                       selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase);
 
@@ -879,7 +882,7 @@ public class GameLauncher
                 if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
 
                 await CheckForMemoryAccessViolationAsync(process, psi, output, error);
-                // await CheckForDepViolationAsync(process, psi, output, error);
+                await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
                 await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
             }
         }
@@ -994,7 +997,7 @@ public class GameLauncher
         }
     }
 
-    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
     {
         string contextMessage;
 
@@ -1065,10 +1068,12 @@ public class GameLauncher
         return Task.CompletedTask;
     }
 
-    // ReSharper disable once UnusedMember.Local
-    private static Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private async Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
     {
-        if (process.HasExited && process.ExitCode != DepViolation) return Task.CompletedTask;
+        if (process.HasExited && process.ExitCode != DepViolation)
+        {
+            return;
+        }
 
         // Notify developer
         var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
@@ -1080,7 +1085,12 @@ public class GameLauncher
                              $"Emulator error: {error}\n";
         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
-        return Task.CompletedTask;
+        if (emulatorManager.ReceiveANotificationOnEmulatorError)
+        {
+            // Notify user
+            await MessageBoxLibrary.CouldNotLaunchGameDueToDepViolation();
+            SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
+        }
     }
 
     private bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)

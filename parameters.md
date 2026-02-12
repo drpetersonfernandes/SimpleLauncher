@@ -2250,7 +2250,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Name:** Gearboy<br>
 **Emulator Path (Example):** C:\emulators\Gearboy\Gearboy.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
@@ -2452,7 +2452,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Name:** Gearboy<br>
 **Emulator Path (Example):** C:\emulators\Gearboy\Gearboy.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
