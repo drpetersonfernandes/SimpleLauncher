@@ -18,20 +18,21 @@ public class MameConfigHandler : IEmulatorConfigHandler
     {
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
+        var listOfSecondarySystemFolders = context.SystemManager.SystemFolders.ToArray();
 
         var shouldRun = true;
         if (context.Settings.MameShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {
-                var win = new InjectMameConfigWindow(context.Settings, resolvedExe, resolvedSystemFolder) { Owner = context.MainWindow };
+                var win = new InjectMameConfigWindow(context.Settings, resolvedExe, resolvedSystemFolder, true, listOfSecondarySystemFolders) { Owner = context.MainWindow };
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;
             });
         }
         else
         {
-            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, resolvedSystemFolder);
+            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, resolvedSystemFolder, listOfSecondarySystemFolders);
         }
 
         return shouldRun;

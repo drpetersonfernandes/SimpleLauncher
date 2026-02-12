@@ -16,18 +16,22 @@ public partial class InjectMameConfigWindow
     public bool ShouldRun { get; private set; }
     private string _emulatorPath;
     private readonly string _systemRomPath;
+    private readonly string[] _listOfSecondarySystemFolders;
     private readonly ILogErrors _logErrors;
 
 
-    public InjectMameConfigWindow(SettingsManager settings, string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true)
+    public InjectMameConfigWindow(SettingsManager settings, string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true, string[] listOfSecondaryRomPaths = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+
         _settings = settings;
         _emulatorPath = emulatorPath;
         _systemRomPath = systemRomPath;
+        _listOfSecondarySystemFolders = listOfSecondaryRomPaths;
         _isLauncherMode = isLauncherMode;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+
         LoadSettings();
     }
 
@@ -109,7 +113,7 @@ public partial class InjectMameConfigWindow
 
         try
         {
-            MameConfigurationService.InjectSettings(path, _settings, _systemRomPath);
+            MameConfigurationService.InjectSettings(path, _settings, _systemRomPath, _listOfSecondarySystemFolders);
             return true;
         }
         catch (Exception ex)

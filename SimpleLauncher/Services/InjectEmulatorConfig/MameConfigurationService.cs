@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, string systemRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
             throw new ArgumentException(@"Emulator path cannot be null or empty.", nameof(emulatorPath));
@@ -88,48 +89,77 @@ public static partial class MameConfigurationService
 
             var key = match.Groups[1].Value;
             var whitespaceBetween = match.Groups[2].Value;
-            var trailingPart = match.Groups[4].Value; // Includes any trailing comment
+            var commentPart = match.Groups[4].Value; // Captures only the #comment
 
             // Handle standard settings
             if (updates.TryGetValue(key, out var newValue))
             {
                 // Preserve leading whitespace and trailing comments
                 var leadingWhitespace = line.TakeWhile(char.IsWhiteSpace).ToArray();
-                lines[i] = new string(leadingWhitespace) + key + whitespaceBetween + newValue + trailingPart;
+                lines[i] = new string(leadingWhitespace) + key + whitespaceBetween + newValue + commentPart;
                 keysFound.Add(key);
                 modified = true;
             }
-            // Handle rompath specifically to append/inject the system folder
-            else if (key.Equals("rompath", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(systemRomPath))
+
+            /////////////////////////////////////////////////////////////////////
+            // Handle rompath specifically to append/inject the system folder ///
+            ////////////////////////////////////////////////////////////////////
+            else if (key.Equals("rompath", StringComparison.OrdinalIgnoreCase))
             {
-                // Get full paths of existing entries for comparison
-                var existingPaths = SplitRomPath(trimmedLine.Substring(key.Length).Trim())
-                    .Select(p => NormalizePath(GetFullPathSafe(p, emuDir)))
-                    .Where(static p => !string.IsNullOrEmpty(p))
-                    .ToHashSet(StringComparer.OrdinalIgnoreCase);
+                var existingValue = match.Groups[3].Value;
+                var uniqueFullPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                var finalPathList = new List<string>();
 
-                var newFullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir));
-
-                if (!string.IsNullOrEmpty(newFullPath) && !existingPaths.Contains(newFullPath))
+                // 1. Process existing paths from the INI file, ensuring they exist, are unique and unquoted
+                var existingPathsRaw = SplitRomPath(existingValue);
+                foreach (var path in existingPathsRaw)
                 {
-                    // Quote the new path if it contains semicolons or spaces
-                    var pathToAdd = systemRomPath.Trim();
-                    if (pathToAdd.Contains(';') || pathToAdd.Contains(' '))
+                    var fullPath = NormalizePath(GetFullPathSafe(path, emuDir));
+                    if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                     {
-                        pathToAdd = $"\"{pathToAdd}\"";
+                        finalPathList.Add(path); // Add the original (but unquoted) path
                     }
-
-                    // Reconstruct the value preserving the original format where possible
-                    var currentRomPathValue = trimmedLine.Substring(key.Length).Trim();
-                    var newRomPathValue = string.IsNullOrEmpty(currentRomPathValue)
-                        ? pathToAdd
-                        : $"{currentRomPathValue};{pathToAdd}";
-
-                    var leadingWhitespace = line.TakeWhile(char.IsWhiteSpace).ToArray();
-                    lines[i] = new string(leadingWhitespace) + key + whitespaceBetween + newRomPathValue + trailingPart;
-                    modified = true;
                 }
 
+                // 2. Process the primary system ROM path
+                if (!string.IsNullOrEmpty(systemRomPath))
+                {
+                    var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir));
+                    if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
+                    {
+                        finalPathList.Add(RemoveQuotes(systemRomPath));
+                    }
+                }
+
+                // 3. Process secondary ROM paths
+                if (listOfSecondaryRomPath != null)
+                {
+                    foreach (var secondaryPath in listOfSecondaryRomPath)
+                    {
+                        if (string.IsNullOrWhiteSpace(secondaryPath))
+                            continue;
+
+                        var resolvedSecondaryPath = CheckPath.IsValidPath(secondaryPath)
+                            ? PathHelper.ResolveRelativeToAppDirectory(secondaryPath)
+                            : null;
+
+                        if (string.IsNullOrEmpty(resolvedSecondaryPath))
+                            continue;
+
+                        var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir));
+                        if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
+                        {
+                            finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
+                        }
+                    }
+                }
+
+                // Reconstruct the value with unique, unquoted paths
+                var newRomPathValue = string.Join(";", finalPathList);
+
+                var leadingWhitespace = line.TakeWhile(char.IsWhiteSpace).ToArray();
+                lines[i] = new string(leadingWhitespace) + key + whitespaceBetween + newRomPathValue + commentPart;
+                modified = true;
                 keysFound.Add(key);
             }
         }
@@ -145,17 +175,54 @@ public static partial class MameConfigurationService
         }
 
         // Add missing rompath key if not present in the original file
-        if (!keysFound.Contains("rompath") && !string.IsNullOrEmpty(systemRomPath))
+        if (!keysFound.Contains("rompath"))
         {
-            var pathToAdd = systemRomPath.Trim();
-            if (pathToAdd.Contains(';') || pathToAdd.Contains(' '))
+            var uniqueFullPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var finalPathList = new List<string>();
+
+            // Process the primary system ROM path if it exists
+            if (!string.IsNullOrEmpty(systemRomPath))
             {
-                pathToAdd = $"\"{pathToAdd}\"";
+                var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir));
+                if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
+                {
+                    finalPathList.Add(RemoveQuotes(systemRomPath));
+                }
             }
 
-            lines.Add($"rompath {pathToAdd}");
-            modified = true;
+            // Process secondary ROM paths
+            if (listOfSecondaryRomPath != null)
+            {
+                foreach (var secondaryPath in listOfSecondaryRomPath)
+                {
+                    if (string.IsNullOrWhiteSpace(secondaryPath))
+                        continue;
+
+                    var resolvedSecondaryPath = CheckPath.IsValidPath(secondaryPath)
+                        ? PathHelper.ResolveRelativeToAppDirectory(secondaryPath)
+                        : null;
+
+                    if (string.IsNullOrEmpty(resolvedSecondaryPath))
+                        continue;
+
+                    var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir));
+                    if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
+                    {
+                        finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
+                    }
+                }
+            }
+
+            if (finalPathList.Count > 0)
+            {
+                var newRomPathValue = string.Join(";", finalPathList);
+                lines.Add($"rompath {newRomPathValue}");
+                modified = true;
+            }
         }
+        //////////////////////
+        // Finish rom edit ///
+        //////////////////////
 
         // Atomic write to prevent corruption during concurrent access
         if (modified)
@@ -190,42 +257,25 @@ public static partial class MameConfigurationService
     }
 
     /// <summary>
-    /// Splits ROM path respecting quoted strings. MAME uses semicolons as separators
-    /// but paths containing semicolons or spaces should be quoted.
+    /// Splits ROM path and removes any existing quotes.
+    /// MAME uses semicolons as separators.
     /// </summary>
     private static List<string> SplitRomPath(string value)
     {
-        var result = new List<string>();
-        var current = new StringBuilder();
-        var inQuotes = false;
+        if (string.IsNullOrWhiteSpace(value)) return [];
 
-        foreach (var c in value)
-        {
-            switch (c)
-            {
-                case '"':
-                    inQuotes = !inQuotes;
-                    // Don't include quotes in the path string
-                    break;
-                case ';' when !inQuotes:
-                {
-                    var part = current.ToString().Trim();
-                    if (!string.IsNullOrEmpty(part))
-                        result.Add(part);
-                    current.Clear();
-                    break;
-                }
-                default:
-                    current.Append(c);
-                    break;
-            }
-        }
+        // Split by semicolon and then aggressively remove all quotes from each resulting segment
+        return value.Split(';', StringSplitOptions.RemoveEmptyEntries)
+            .Select(static p => RemoveQuotes(p))
+            .Where(static p => !string.IsNullOrEmpty(p))
+            .ToList();
+    }
 
-        var lastPart = current.ToString().Trim();
-        if (!string.IsNullOrEmpty(lastPart))
-            result.Add(lastPart);
-
-        return result;
+    private static string RemoveQuotes(string value)
+    {
+        return string.IsNullOrWhiteSpace(value)
+            ? string.Empty
+            : value.Replace("\"", string.Empty).Trim();
     }
 
     /// <summary>
@@ -264,6 +314,6 @@ public static partial class MameConfigurationService
         }
     }
 
-    [GeneratedRegex(@"^(\S+)(\s+)(\S*)(.*)$")]
+    [GeneratedRegex(@"^(\S+)(\s+)([^#\r\n]*)(#.*)?$")]
     private static partial Regex IniLineRegex();
 }
