@@ -28,7 +28,7 @@ public class LogErrorsService : ILogErrors
     {
         if (ex == null)
         {
-            ex = new ArgumentNullException(nameof(ex), @"Exception parameter cannot be null.");
+            ex = new ArgumentNullException(nameof(ex), @"Exception parameter is null.");
         }
 
         DebugLogger.LogException(ex, contextMessage);

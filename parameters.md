@@ -1608,6 +1608,17 @@ This emulator requires a BIOS file to work properly.
 
 .
 
+**Emulator Name:** Ootake<br>
+**Emulator Path (Example):** C:\Emulators\Ootake\Ootake.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 only.<br>
+'Simple Launcher' has logic to automatically convert CHD files to CUE/BIN files, since this emulator does not support CHD files natively.<br>
+'Simple Launcher' will automatically extract compressed files to PCE extension, since this emulator does not support compressed files natively.
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine" pce<br>
@@ -1660,6 +1671,17 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 This emulator requires a BIOS file to work properly.
+
+.
+
+**Emulator Name:** Ootake<br>
+**Emulator Path (Example):** C:\Emulators\Ootake\Ootake.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 only.<br>
+'Simple Launcher' has logic to automatically convert CHD files to CUE/BIN files, since this emulator does not support CHD files natively.<br>
+'Simple Launcher' will automatically extract compressed files to PCE extension, since this emulator does not support compressed files natively.
 
 .
 
@@ -2456,6 +2478,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Nintendo GameCube
 

@@ -1103,7 +1103,7 @@ public class GameLauncher
 
         // Notify developer
         var contextMessage = $"There was a memory access violation error running the emulator.\n" +
-                             $"User was not notified.\n" +
+                             $"User was not notified.\n\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
                              $"Calling parameters: {psi.Arguments}\n" +
