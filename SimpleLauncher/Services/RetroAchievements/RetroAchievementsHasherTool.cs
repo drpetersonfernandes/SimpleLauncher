@@ -39,6 +39,7 @@ internal static class RetroAchievementsHasherTool
     ];
 
     // ReSharper disable once UnusedMember.Local
+    // Systems Not Supported or with UnknowHashLogic
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
         "atari 5200", "Arduboy", "wii", "wii u", "nintendo 3ds", "sega pico",
@@ -46,13 +47,7 @@ internal static class RetroAchievementsHasherTool
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
         "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
-        "arcadia 2001", "fm towns", "hubs", "events", "standalone"
-    ];
-
-    // ReSharper disable once UnusedMember.Local
-    private static readonly List<string> SystemWithoutRetroAchievements =
-    [
-        "atari 800"
+        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800"
     ];
 
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
