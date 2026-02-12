@@ -665,10 +665,14 @@ public class GameLauncher
         // Check if it's a file we just converted to temp
         var isTempConvertedFile = resolvedFilePath.Contains(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), StringComparison.OrdinalIgnoreCase);
 
+        var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
+                       (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
+        string tempCuePath = null;
 
-        if (selectedSystemManager.ExtractFileBeforeLaunch && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
+        if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
             if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
             {
@@ -705,6 +709,29 @@ public class GameLauncher
             }
         }
 
+        // Ootake/Raine/4DO CHD Handling: If the file is a CHD (either provided directly or extracted from a zip),
+        // convert it to CUE/BIN on the fly.
+        var isChd = Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
+        var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
+        if (isChd && (isOotake || isRaine || selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase)))
+        {
+            var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
+            loadingStateProvider.SetLoadingState(true, convertingMsg);
+
+            tempCuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
+            if (tempCuePath != null)
+            {
+                resolvedFilePath = tempCuePath;
+            }
+            else
+            {
+                loadingStateProvider.SetLoadingState(false);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                return;
+            }
+        }
+
         if (string.IsNullOrEmpty(resolvedFilePath))
         {
             // Notify developer
@@ -734,183 +761,219 @@ public class GameLauncher
         }
 
         // Resolve the Emulator Path (executable)
-        var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
-        if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(@"\\?\" + resolvedEmulatorExePath))
+        if (selectedEmulatorManager != null)
         {
-            // Notify developer
-            var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(contextMessage), "Emulator configuration error.");
-            DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-
-            return;
-        }
-
-        // Determine the emulator's directory, which is the base for %EMULATORFOLDER%
-        var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
-        if (string.IsNullOrEmpty(resolvedEmulatorFolderPath) || !Directory.Exists(@"\\?\" + resolvedEmulatorFolderPath)) // Should exist if exe exists
-        {
-            // Notify developer
-            var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-            DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-
-            return;
-        }
-
-        // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
-        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
-        // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
-        // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
-
-        // Resolve Emulator Parameters using the PathHelper.ResolveParameterString
-        var resolvedParameters = PathHelper.ResolveParameterString(
-            rawEmulatorParameters, // The raw parameter string from config
-            resolvedSystemFolderPath, // The fully resolved system folder path
-            resolvedEmulatorFolderPath // The fully resolved emulator directory path
-        );
-
-        string arguments;
-
-        // Handling MAME and Raine Arcade Related Games
-        // Will load the filename without the extension
-        var isMame = selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
-                     selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
-                     selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
-                     selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
-        var isRaine = selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
-                      selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase);
-
-        // Detect NeoGeo CD based on extension
-        var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
-        var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
-
-        if (isMame || (isRaine && !isNeoGeoCd))
-        {
-            var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
-            DebugLogger.Log($"Stripped path call detected (MAME/Raine Arcade). Launching: {romName}");
-            arguments = $"{resolvedParameters} \"{romName}\"";
-        }
-        else
-        {
-            // General call or Raine NeoGeo CD - Provide full filepath
-            arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
-        }
-
-        string workingDirectory;
-        try
-        {
-            // Set the working directory to the directory of the emulator executable
-            workingDirectory = resolvedEmulatorFolderPath;
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
-            DebugLogger.Log($"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
-
-            workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
-        }
-
-        var psi = new ProcessStartInfo
-        {
-            FileName = resolvedEmulatorExePath,
-            Arguments = arguments,
-            WorkingDirectory = workingDirectory,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            // CreateNoWindow = true,
-            StandardOutputEncoding = Encoding.UTF8,
-            StandardErrorEncoding = Encoding.UTF8
-        };
-
-        DebugLogger.Log($"LaunchRegularEmulatorAsync:\n\n" +
-                        $"Program Location: {resolvedEmulatorExePath}\n" +
-                        $"Arguments: {arguments}\n" +
-                        $"Working Directory: {psi.WorkingDirectory}\n" +
-                        $"File to launch: {resolvedFilePath}");
-
-        var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
-        var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
-        TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
-        UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
-
-        using var process = new Process();
-        process.StartInfo = psi;
-        StringBuilder output = new();
-        StringBuilder error = new();
-
-        process.OutputDataReceived += (_, args) =>
-        {
-            if (!string.IsNullOrEmpty(args.Data))
+            var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
+            if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(@"\\?\" + resolvedEmulatorExePath))
             {
-                output.AppendLine(args.Data);
-            }
-        };
+                // Notify developer
+                var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(contextMessage), "Emulator configuration error.");
+                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
-        process.ErrorDataReceived += (_, args) =>
-        {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                error.AppendLine(args.Data);
-            }
-        };
-
-        try
-        {
-            var processStarted = process.Start();
-            if (!processStarted)
-            {
-                throw new InvalidOperationException("Failed to start the process.");
-            }
-
-            if (!process.HasExited)
-            {
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                await process.WaitForExitAsync();
-            }
-
-            if (process.HasExited)
-            {
-                if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
-
-                await CheckForMemoryAccessViolationAsync(process, psi, output, error);
-                await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
-                await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
-            }
-        }
-        catch (InvalidOperationException ex)
-        {
-            // Notify developer
-            const string contextMessage = "InvalidOperationException while launching emulator.";
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-            DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-            {
                 // Notify user
-                await MessageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
 
-                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                return;
             }
-        }
-        catch (Win32Exception ex) // Catch Win32Exception specifically
-        {
-            if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+
+            // Determine the emulator's directory, which is the base for %EMULATORFOLDER%
+            var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
+            if (string.IsNullOrEmpty(resolvedEmulatorFolderPath) || !Directory.Exists(@"\\?\" + resolvedEmulatorFolderPath)) // Should exist if exe exists
             {
-                MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");
+                // Notify developer
+                var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                return;
+            }
+
+            // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
+            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
+            // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
+            // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
+
+            // Resolve Emulator Parameters using the PathHelper.ResolveParameterString
+            var resolvedParameters = PathHelper.ResolveParameterString(
+                rawEmulatorParameters, // The raw parameter string from config
+                resolvedSystemFolderPath, // The fully resolved system folder path
+                resolvedEmulatorFolderPath // The fully resolved emulator directory path
+            );
+
+            string arguments;
+
+            // Handling MAME and Raine Arcade Related Games
+            // Will load the filename without the extension
+            var isMame = selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
+                                                                              selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
+                                                                              selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                                                                              selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
+            // var isRaine = selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+            //               selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase); // isRaine already defined for CHD
+
+            // Detect NeoGeo CD based on extension
+            var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
+            var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
+
+            if (isMame || (isRaine && !isNeoGeoCd))
+            {
+                var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
+                DebugLogger.Log($"Stripped path call detected (MAME/Raine Arcade). Launching: {romName}");
+                arguments = $"{resolvedParameters} \"{romName}\"";
             }
             else
             {
-                // Existing error handling for other Win32Exceptions
+                // General call or Raine NeoGeo CD - Provide full filepath
+                arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
+            }
+
+            string workingDirectory;
+            try
+            {
+                // Set the working directory to the directory of the emulator executable
+                workingDirectory = resolvedEmulatorFolderPath;
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
+                DebugLogger.Log($"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'. Using default.");
+
+                workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = resolvedEmulatorExePath,
+                Arguments = arguments,
+                WorkingDirectory = workingDirectory,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                // CreateNoWindow = true,
+                StandardOutputEncoding = Encoding.UTF8,
+                StandardErrorEncoding = Encoding.UTF8
+            };
+
+            DebugLogger.Log($"LaunchRegularEmulatorAsync:\n\n" +
+                            $"Program Location: {resolvedEmulatorExePath}\n" +
+                            $"Arguments: {arguments}\n" +
+                            $"Working Directory: {psi.WorkingDirectory}\n" +
+                            $"File to launch: {resolvedFilePath}");
+
+            var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
+            TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
+            UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
+
+            using var process = new Process();
+            process.StartInfo = psi;
+            StringBuilder output = new();
+            StringBuilder error = new();
+
+            process.OutputDataReceived += (_, args) =>
+            {
+                if (!string.IsNullOrEmpty(args.Data))
+                {
+                    output.AppendLine(args.Data);
+                }
+            };
+
+            process.ErrorDataReceived += (_, args) =>
+            {
+                if (!string.IsNullOrEmpty(args.Data))
+                {
+                    error.AppendLine(args.Data);
+                }
+            };
+
+            try
+            {
+                var processStarted = process.Start();
+                if (!processStarted)
+                {
+                    throw new InvalidOperationException("Failed to start the process.");
+                }
+
+                if (!process.HasExited)
+                {
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+                    await process.WaitForExitAsync();
+                }
+
+                if (process.HasExited)
+                {
+                    if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
+
+                    await CheckForMemoryAccessViolationAsync(process, psi, output, error);
+                    await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
+                    await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Notify developer
+                const string contextMessage = "InvalidOperationException while launching emulator.";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    // Notify user
+                    await MessageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+
+                    SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                }
+            }
+            catch (Win32Exception ex) // Catch Win32Exception specifically
+            {
+                if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                {
+                    MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");
+                }
+                else
+                {
+                    // Existing error handling for other Win32Exceptions
+                    // Notify developer
+                    // Safely check if the process ever started before trying to access its properties.
+                    // A simple way is to check if an ID was ever assigned.
+                    string exitCodeInfo;
+                    try
+                    {
+                        // This check is safe even if the process didn't start.
+                        _ = process.Id;
+                        exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A (Still Running or Failed to get code)")}";
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        exitCodeInfo = "Exit code: N/A (Process failed to start)";
+                    }
+
+                    var errorDetail = $"{exitCodeInfo}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Calling parameters: {psi.Arguments}\n" +
+                                      $"Emulator output: {output}\n" +
+                                      $"Emulator error: {error}\n";
+                    var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                    var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
+                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                    if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                    {
+                        // Notify user
+                        await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
                 // Notify developer
                 // Safely check if the process ever started before trying to access its properties.
                 // A simple way is to check if an ID was ever assigned.
@@ -942,56 +1005,39 @@ public class GameLauncher
                     SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            // Safely check if the process ever started before trying to access its properties.
-            // A simple way is to check if an ID was ever assigned.
-            string exitCodeInfo;
-            try
+            finally
             {
-                // This check is safe even if the process didn't start.
-                _ = process.Id;
-                exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A (Still Running or Failed to get code)")}";
-            }
-            catch (InvalidOperationException)
-            {
-                exitCodeInfo = "Exit code: N/A (Process failed to start)";
-            }
-
-            var errorDetail = $"{exitCodeInfo}\n" +
-                              $"Emulator: {psi.FileName}\n" +
-                              $"Calling parameters: {psi.Arguments}\n" +
-                              $"Emulator output: {output}\n" +
-                              $"Emulator error: {error}\n";
-            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-            var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-            {
-                // Notify user
-                await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
-            }
-        }
-        finally
-        {
-            // Only attempt to delete if a temporary extraction path was actually set
-            if (!string.IsNullOrEmpty(tempExtractionPath) && Directory.Exists(tempExtractionPath))
-            {
-                try
+                // Only attempt to delete if a temporary extraction path was actually set
+                if (!string.IsNullOrEmpty(tempExtractionPath) && Directory.Exists(tempExtractionPath))
                 {
-                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Attempting to delete temporary extraction directory: {tempExtractionPath}");
-                    Directory.Delete(tempExtractionPath, true); // Use Directory.Delete with recursive=true
-                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Successfully deleted temporary extraction directory: {tempExtractionPath}");
+                    try
+                    {
+                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Attempting to delete temporary extraction directory: {tempExtractionPath}");
+                        Directory.Delete(tempExtractionPath, true); // Use Directory.Delete with recursive=true
+                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Successfully deleted temporary extraction directory: {tempExtractionPath}");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log the error but don't prevent other finally block actions
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
+                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+
+                // Cleanup temporary CHD conversion files (.cue and .bin)
+                if (!string.IsNullOrEmpty(tempCuePath))
                 {
-                    // Log the error but don't prevent other finally block actions
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
-                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
+                    try
+                    {
+                        var binPath = Path.ChangeExtension(tempCuePath, ".bin");
+                        if (File.Exists(tempCuePath)) File.Delete(tempCuePath);
+                        if (File.Exists(binPath)) File.Delete(binPath);
+                        DebugLogger.Log($"Cleaned up temporary CHD conversion files: {tempCuePath}");
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+                    }
                 }
             }
         }

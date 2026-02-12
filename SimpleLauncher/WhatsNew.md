@@ -1,3 +1,12 @@
+# Release 5.1.0
+*2026-02-12*
+---
+
+- Improved logic to generate aliases for Microsoft Windows games
+- Fix MAME emulator handler to proper inject rom paths into the emulator configuration file
+- I have created a handler for emulator Ootake, a PC Engine and PC Engine CD emulator. It will automatic extract compressed files to .PCE extension, since this emulator does not support compressed files natively. It will also automatic convert CHD files to CUE/BIN format on the fly, since this great emulator does not support CHD files natively.
+
+
 # Release 5.0.0
 *2026-02-11*
 ---

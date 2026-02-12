@@ -24,7 +24,10 @@ public class ChdToCueStrategy : ILaunchStrategy
         var isRaine = context.EmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                       (context.EmulatorManager?.EmulatorLocation?.Contains("raine", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        return is4do || isRaine;
+        var isOotake = context.EmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
+                       (context.EmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        return is4do || isRaine || isOotake;
     }
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
