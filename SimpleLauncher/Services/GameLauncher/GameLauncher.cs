@@ -595,7 +595,7 @@ public class GameLauncher
                                   $"{exitCodeInfo}\n" +
                                   $"Exception: {ex.Message}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-                var contextMessage = $"{errorDetail}\n{userNotified}";
+                var contextMessage = $"{errorDetail}\n\n{userNotified}";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
@@ -621,7 +621,7 @@ public class GameLauncher
                               $"{exitCodeInfo}\n" +
                               $"Exception: {ex.Message}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-            var contextMessage = $"{errorDetail}\n{userNotified}";
+            var contextMessage = $"{errorDetail}\n\n{userNotified}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
