@@ -681,19 +681,16 @@ public class GameLauncher
 
         if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
-            if (!isOotake || !isSameboy)
+            if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
             {
-                if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
-                {
-                    // Notify developer
-                    const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
-                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                // Notify developer
+                const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
-                    // Notify user
-                    MessageBoxLibrary.NullFileExtensionMessageBox();
-                    return; // Abort
-                }
+                // Notify user
+                MessageBoxLibrary.NullFileExtensionMessageBox();
+                return; // Abort
             }
 
             if (fileExtension is ".zip" or ".rar" or ".7z")
