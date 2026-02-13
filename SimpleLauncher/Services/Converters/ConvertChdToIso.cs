@@ -12,6 +12,8 @@ namespace SimpleLauncher.Services.Converters;
 
 public static class ConvertChdToIso
 {
+    private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+
     /// <summary>
     /// Converts a CHD file to a temporary ISO using chdman.exe.
     /// </summary>
@@ -30,8 +32,9 @@ public static class ConvertChdToIso
             }
 
             var chdmanDir = Path.GetDirectoryName(chdmanPath);
+            Directory.CreateDirectory(TempFolder);
 
-            var tempIsoPath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.iso");
+            var tempIsoPath = Path.Combine(TempFolder, $"{Guid.NewGuid()}.iso");
 
             // chdman extractcd -i "input.chd" -o "output.iso"
             var args = $"extractcd -i \"{chdPath}\" -o \"{tempIsoPath}\"";
