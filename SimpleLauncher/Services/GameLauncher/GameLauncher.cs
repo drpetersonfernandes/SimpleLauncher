@@ -675,21 +675,25 @@ public class GameLauncher
         string tempExtractionPath = null;
         string tempCuePath = null;
 
+        var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
+
         if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
-            if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
+            if (!isOotake || !isSameboy)
             {
-                // Notify developer
-                const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
+                {
+                    // Notify developer
+                    const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
+                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
-                // Notify user
-                MessageBoxLibrary.NullFileExtensionMessageBox();
-                return; // Abort
+                    // Notify user
+                    MessageBoxLibrary.NullFileExtensionMessageBox();
+                    return; // Abort
+                }
             }
 
-            var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
                 var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ?? "Extracting file... Please wait.";
