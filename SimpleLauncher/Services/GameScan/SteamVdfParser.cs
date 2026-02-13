@@ -47,8 +47,9 @@ public static partial class SteamVdfParser
                     continue;
                 }
 
+                // Use manual unescaping instead of Regex.Unescape to avoid RegexParseException on file paths
                 var tokens = TokenRegex.Matches(trimmedLine)
-                    .Select(static m => Regex.Unescape(m.Groups[1].Value))
+                    .Select(static m => UnescapeVdfValue(m.Groups[1].Value))
                     .ToList();
 
                 if (tokens.Count == 0)
@@ -86,6 +87,24 @@ public static partial class SteamVdfParser
 
             return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         }
+    }
+
+    /// <summary>
+    /// Manually unescapes VDF specific sequences.
+    /// This avoids crashing on standard Windows paths like "resource\DearEsther".
+    /// </summary>
+    private static string UnescapeVdfValue(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return value;
+
+        // VDF primarily uses backslashes to escape double quotes and other backslashes.
+        // We handle the most common ones. If a backslash is followed by an unrecognized
+        // character (like \D in a path), we treat the backslash as a literal.
+        return value
+            .Replace("\\\"", "\"")
+            .Replace("\\\\", "\\")
+            .Replace("\\n", "\n")
+            .Replace("\\t", "\t");
     }
 
     [GeneratedRegex("\"((?:\\\\.|[^\\\\\"])*)\"", RegexOptions.Compiled)]
