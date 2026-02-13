@@ -1614,7 +1614,6 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 only.<br>
-'Simple Launcher' has logic to automatically convert CHD files to CUE/BIN files, since this emulator does not support CHD files natively.<br>
 'Simple Launcher' will automatically extract compressed files to PCE extension, since this emulator does not support compressed files natively.
 
 .
@@ -1671,17 +1670,6 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 This emulator requires a BIOS file to work properly.
-
-.
-
-**Emulator Name:** Ootake<br>
-**Emulator Path (Example):** C:\Emulators\Ootake\Ootake.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 only.<br>
-'Simple Launcher' has logic to automatically convert CHD files to CUE/BIN files, since this emulator does not support CHD files natively.<br>
-'Simple Launcher' will automatically extract compressed files to PCE extension, since this emulator does not support compressed files natively.
 
 .
 
