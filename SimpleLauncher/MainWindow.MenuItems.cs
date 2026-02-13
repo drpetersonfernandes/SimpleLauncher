@@ -184,6 +184,10 @@ public partial class MainWindow
 
                 await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
             }
+            catch (OperationCanceledException)
+            {
+                // Do nothing.
+            }
             catch (Exception ex)
             {
                 // Notify developer
