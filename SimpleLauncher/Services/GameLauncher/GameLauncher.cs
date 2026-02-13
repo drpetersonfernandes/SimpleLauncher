@@ -665,9 +665,11 @@ public class GameLauncher
         // Check if it's a file we just converted to temp
         var isTempConvertedFile = resolvedFilePath.Contains(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), StringComparison.OrdinalIgnoreCase);
 
+        // Check if it is the Ootake emulator
         var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
                        (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        // Check if it is the Sameboy emulator
         var isSameboy = selectedEmulatorName.Contains("Sameboy", StringComparison.OrdinalIgnoreCase) ||
                         (selectedEmulatorManager?.EmulatorLocation?.Contains("sameboy.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
@@ -716,12 +718,13 @@ public class GameLauncher
             }
         }
 
-        // Ootake/Raine/4DO CHD Handling: If the file is a CHD (either provided directly or extracted from a zip),
-        // convert it to CUE/BIN on the fly.
+        // Raine/4DO CHD Handling: If the file is a CHD (either provided directly or extracted from a zip), convert it to CUE/BIN on the fly.
         var isChd = Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
         var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                                                                                     selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
-        if (isChd && (isOotake || isRaine || selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase)))
+        var is4Do = selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase);
+
+        if (isChd && (isRaine || is4Do))
         {
             var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
             loadingStateProvider.SetLoadingState(true, convertingMsg);
@@ -819,8 +822,9 @@ public class GameLauncher
                                                                               selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
                                                                               selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
                                                                               selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
-            // var isRaine = selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
-            //               selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase); // isRaine already defined for CHD
+
+            // isRaine = selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+            //                                                                selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
 
             // Detect NeoGeo CD based on extension
             var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
