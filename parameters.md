@@ -1734,6 +1734,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC SuperGrafx
@@ -3869,6 +3870,7 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
@@ -4456,6 +4458,7 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .

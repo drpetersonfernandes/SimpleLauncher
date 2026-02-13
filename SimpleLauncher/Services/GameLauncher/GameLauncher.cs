@@ -715,13 +715,16 @@ public class GameLauncher
             }
         }
 
-        // Raine/4DO CHD Handling: If the file is a CHD (either provided directly or extracted from a zip), convert it to CUE/BIN on the fly.
+        // CHD Handling: If the file is a CHD (either provided directly or extracted from a zip), convert it to CUE/BIN on the fly.
         var isChd = Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
         var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                                                                                     selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
-        var is4Do = selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase);
+        var is4Do = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+                                                                                  selectedEmulatorManager.EmulatorLocation.Contains("4do", StringComparison.OrdinalIgnoreCase));
+        var isMednafen = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
+                                                                                       selectedEmulatorManager.EmulatorLocation.Contains("mednafen", StringComparison.OrdinalIgnoreCase));
 
-        if (isChd && (isRaine || is4Do))
+        if (isChd && (isRaine || is4Do || isMednafen))
         {
             var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
             loadingStateProvider.SetLoadingState(true, convertingMsg);
@@ -819,9 +822,6 @@ public class GameLauncher
                                                                               selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
                                                                               selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
                                                                               selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
-
-            // isRaine = selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
-            //                                                                selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
 
             // Detect NeoGeo CD based on extension
             var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
