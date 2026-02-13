@@ -2,10 +2,10 @@
 *2026-02-12*
 ---
 
-- Improved logic to generate aliases for Microsoft Windows games
-- Fix MAME emulator handler to proper inject rom paths into the emulator configuration file
-- I have created a handler for emulator Ootake, a PC Engine and PC Engine CD emulator. It will automatic extract compressed files to .PCE extension, since this emulator does not support compressed files natively. It will also automatic convert CHD files to CUE/BIN format on the fly, since this great emulator does not support CHD files natively.
-
+- Improved logic to generate aliases for Microsoft Windows games that will improve game detection.
+- Fix MAME emulator handler to proper inject rom paths into the emulator configuration file. From now on you do not need to provide '-rompath' parameter to run MAME, since the logic will automatic inject the rompath's of the 'System Folder' into MAME configuration file. That will prevent launching failures.
+- I have created a handler for emulator Ootake, a PC Engine and PC Engine CD emulator. It will automatic extract compressed files to .PCE extension, since this emulator does not support compressed files natively. It will also automatic convert CHD files to CUE/BIN format on the fly, since this great emulator does not support CHD files natively. That will prevent launching failures.
+- I have created logic to always extract compressed files when you are using the Game Boy emulator SameBoy, since this emulator does not support compressed files natively. That will prevent launching failures.
 
 # Release 5.0.0
 *2026-02-11*

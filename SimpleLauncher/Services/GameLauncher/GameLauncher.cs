@@ -668,11 +668,14 @@ public class GameLauncher
         var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
                        (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        var isSameboy = selectedEmulatorName.Contains("Sameboy", StringComparison.OrdinalIgnoreCase) ||
+                        (selectedEmulatorManager?.EmulatorLocation?.Contains("sameboy.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
         string tempCuePath = null;
 
-        if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
+        if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
             if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
             {

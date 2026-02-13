@@ -2287,6 +2287,16 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
+.
+
+**Emulator Name:** Sameboy<br>
+**Emulator Path (Example):** C:\Emulators\Sameboy\sameboy.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64.<br>
+'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.
+
 ## Nintendo Game Boy Advance
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2488,6 +2498,16 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** Sameboy<br>
+**Emulator Path (Example):** C:\Emulators\Sameboy\sameboy.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64.<br>
+'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.
 
 ## Nintendo GameCube
 
