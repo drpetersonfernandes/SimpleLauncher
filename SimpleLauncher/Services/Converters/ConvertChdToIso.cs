@@ -36,8 +36,8 @@ public static class ConvertChdToIso
 
             var tempIsoPath = Path.Combine(TempFolder, $"{Guid.NewGuid()}.iso");
 
-            // chdman extractcd -i "input.chd" -o "output.iso"
-            var args = $"extractcd -i \"{chdPath}\" -o \"{tempIsoPath}\"";
+            // chdman extractdvd -i "input.chd" -o "output.iso"
+            var args = $"extractdvd -i \"{chdPath}\" -o \"{tempIsoPath}\"";
 
             var processStartInfo = new ProcessStartInfo
             {

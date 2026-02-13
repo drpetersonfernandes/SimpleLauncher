@@ -675,7 +675,7 @@ public class GameLauncher
 
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
-        string tempCuePath = null;
+        string tempConvertedPath = null;
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
 
@@ -723,16 +723,38 @@ public class GameLauncher
                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("4do", StringComparison.OrdinalIgnoreCase));
         var isMednafen = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
                                                                                        selectedEmulatorManager.EmulatorLocation.Contains("mednafen", StringComparison.OrdinalIgnoreCase));
+        var isXemu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
+                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
+        var isXenia = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
+                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("xenia", StringComparison.OrdinalIgnoreCase));
 
         if (isChd && (isRaine || is4Do || isMednafen))
         {
             var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
             loadingStateProvider.SetLoadingState(true, convertingMsg);
 
-            tempCuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
-            if (tempCuePath != null)
+            tempConvertedPath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
+            if (tempConvertedPath != null)
             {
-                resolvedFilePath = tempCuePath;
+                resolvedFilePath = tempConvertedPath;
+            }
+            else
+            {
+                loadingStateProvider.SetLoadingState(false);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                return;
+            }
+        }
+
+        if (isChd && (isXemu || isXenia))
+        {
+            var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToIso") ?? "Converting CHD...";
+            loadingStateProvider.SetLoadingState(true, convertingMsg);
+
+            tempConvertedPath = await Converters.ConvertChdToIso.ConvertChdToIsoAsync(resolvedFilePath);
+            if (tempConvertedPath != null)
+            {
+                resolvedFilePath = tempConvertedPath;
             }
             else
             {
@@ -1032,15 +1054,23 @@ public class GameLauncher
                     }
                 }
 
-                // Cleanup temporary CHD conversion files (.cue and .bin)
-                if (!string.IsNullOrEmpty(tempCuePath))
+                // Cleanup temporary CHD conversion files (.cue, .bin or .iso)
+                if (!string.IsNullOrEmpty(tempConvertedPath))
                 {
                     try
                     {
-                        var binPath = Path.ChangeExtension(tempCuePath, ".bin");
-                        if (File.Exists(tempCuePath)) File.Delete(tempCuePath);
-                        if (File.Exists(binPath)) File.Delete(binPath);
-                        DebugLogger.Log($"Cleaned up temporary CHD conversion files: {tempCuePath}");
+                        var binPath = Path.ChangeExtension(tempConvertedPath, ".bin");
+                        if (File.Exists(tempConvertedPath))
+                        {
+                            File.Delete(tempConvertedPath);
+                        }
+
+                        if (File.Exists(binPath))
+                        {
+                            File.Delete(binPath);
+                        }
+
+                        DebugLogger.Log($"Cleaned up temporary CHD conversion files: {tempConvertedPath}");
                     }
                     catch (Exception ex)
                     {
