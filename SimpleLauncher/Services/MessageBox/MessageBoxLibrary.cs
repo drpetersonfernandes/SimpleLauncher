@@ -2042,7 +2042,6 @@ internal static class MessageBoxLibrary
         {
             var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
             var makesuretheRoMorIsOyouretrying = (string)Application.Current.TryFindResource("MakesuretheROMorISOyouretrying") ?? "Make sure the ROM or ISO you're trying to run is not corrupted.";
-            var ifyouaretryingtorunMamEensurethatyourRom = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
             var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
             var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
@@ -2050,7 +2049,6 @@ internal static class MessageBoxLibrary
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
                                                         $"{makesuretheRoMorIsOyouretrying}\n" +
-                                                        $"{ifyouaretryingtorunMamEensurethatyourRom}\n" +
                                                         $"{ifyouaretryingtorunRetroarchensurethattheBios}\n" +
                                                         $"{alsomakesureyouarecallingtheemulator}\n\n" +
                                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
@@ -4371,6 +4369,42 @@ internal static class MessageBoxLibrary
                                            $"{message2}\n\n" +
                                            $"{message3}\n\n" +
                                            $"{message4}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void MameRomSetError()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("ROMFilesNotFound") ?? "ROM Files Not Found";
+            var message1 = (string)Application.Current.TryFindResource("MameRomSetError1") ?? "MAME emulator could not find required files to launch this game.";
+            var message2 = (string)Application.Current.TryFindResource("MameRomSetError2") ?? "MAME is very restrictive about the filenames of the games.";
+            var message3 = (string)Application.Current.TryFindResource("MameRomSetError3") ?? "Please ensure you are running a compatible ROM set.";
+            var message4 = (string)Application.Current.TryFindResource("MameRomSetError4") ?? "Would you like to visit the PleasureDome website to download a compatible ROM set?";
+            var result = System.Windows.MessageBox.Show($"{message1}\n\n" +
+                                                        $"{message2}\n\n" +
+                                                        $"{message3}\n\n" +
+                                                        $"{message4}", title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                }
+            }
         }
     }
 }

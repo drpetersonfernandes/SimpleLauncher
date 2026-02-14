@@ -1083,7 +1083,14 @@ public class GameLauncher
 
     private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
     {
-        string contextMessage;
+        var userNotified = emulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+        var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                             $"{userNotified}\n\n" +
+                             $"Exit code: {process.ExitCode}\n" +
+                             $"Emulator: {psi.FileName}\n" +
+                             $"Calling parameters: {psi.Arguments}\n" +
+                             $"Emulator output: {output}\n" +
+                             $"Emulator error: {error}\n";
 
         // Ignore MemoryAccessViolation and DepViolation
         if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation || process.ExitCode == DepViolation)
@@ -1091,45 +1098,37 @@ public class GameLauncher
             return;
         }
 
-        // Check if the output contains "File open/read error" and ignore it,
-        // Common RetroArch error that should be ignored
+        // Handle common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
             return;
         }
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError)
+        // Handle MAME ROM set error
+        if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
+            output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase))
         {
-            // Notify developer
-            contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                             $"User was notified.\n\n" +
-                             $"Exit code: {process.ExitCode}\n" +
-                             $"Emulator: {psi.FileName}\n" +
-                             $"Calling parameters: {psi.Arguments}\n" +
-                             $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n";
+            if (emulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                MessageBoxLibrary.MameRomSetError();
+            }
+
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-        }
-        else
-        {
-            // Notify developer
-            contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                             $"User was not notified.\n\n" +
-                             $"Exit code: {process.ExitCode}\n" +
-                             $"Emulator: {psi.FileName}\n" +
-                             $"Calling parameters: {psi.Arguments}\n" +
-                             $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            return;
         }
 
+        // Generic error handler
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
-            // Notify user
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
         }
+
+        DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Exit code {process.ExitCode} detected.");
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
     }
 
     private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
