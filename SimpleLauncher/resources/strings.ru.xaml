@@ -7,7 +7,13 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Это функция безопасности Windows, которая предотвращает выполнение программами кода в защищенных областях памяти.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Убедитесь, что вы используете последнюю версию эмулятора с улучшенной совместимостью безопасности.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Вы также можете попробовать переключиться на другой эмулятор или ядро.</system:String>
-    
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Если вы пытаетесь запустить MAME, убедитесь, что ваша коллекция ROM совместима с используемой вами версией MAME.</system:String>
+    <system:String x:Key="ROMFilesNotFound">Файлы ROM не найдены</system:String>
+    <system:String x:Key="MameRomSetError1">Эмулятор MAME не смог найти файлы, необходимые для запуска этой игры.</system:String>
+    <system:String x:Key="MameRomSetError2">Это функция безопасности Windows, которая предотвращает выполнение программами кода в защищенных областях памяти.</system:String>
+    <system:String x:Key="MameRomSetError3">Убедитесь, что вы используете последнюю версию эмулятора с улучшенной совместимостью безопасности.</system:String>
+    <system:String x:Key="MameRomSetError4">Хотите посетить веб-сайт PleasureDome, чтобы загрузить совместимый набор ROM?</system:String>
+
     <system:String x:Key="ReturnButton">[ Назад ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Нажмите здесь, если экран загрузки завис, чтобы вернуться в главное меню</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Отчет о глобальной статистике</system:String>

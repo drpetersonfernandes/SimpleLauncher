@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Bu, programların korunan bellek bölgelerinde kod yürütmesini engelleyen bir Windows güvenlik özelliğidir.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Gelişmiş güvenlik uyumluluğuna sahip en son emülatör sürümünü kullandığınızdan emin olun.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Ayrıca farklı bir emülatöre veya çekirdeğe geçmeyi deneyebilirsiniz.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME'yi çalıştırmaya çalışıyorsanız, ROM koleksiyonunuzun kullandığınız MAME sürümüyle uyumlu olduğundan emin olun.</system:String>
+    <system:String x:Key="ROMFilesNotFound">ROM Dosyaları Bulunamadı</system:String>
+    <system:String x:Key="MameRomSetError1">MAME emülatörü bu oyunu başlatmak için gerekli dosyaları bulamadı.</system:String>
+    <system:String x:Key="MameRomSetError2">Bu, programların korunan bellek bölgelerinde kod yürütmesini engelleyen bir Windows güvenlik özelliğidir.</system:String>
+    <system:String x:Key="MameRomSetError3">Gelişmiş güvenlik uyumluluğuna sahip en son emülatör sürümünü kullandığınızdan emin olun.</system:String>
+    <system:String x:Key="MameRomSetError4">Uyumlu bir ROM seti indirmek için PleasureDome web sitesini ziyaret etmek ister misiniz?</system:String>
 
     <system:String x:Key="ReturnButton">[ Geri Dön ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Yükleme ekranı takılırsa ana menüye dönmek için buraya tıklayın</system:String>

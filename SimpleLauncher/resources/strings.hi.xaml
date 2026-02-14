@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">यह एक विंडोज सुरक्षा विशेषता है जो प्रोग्रामों को सुरक्षित मेमोरी क्षेत्रों में कोड निष्पादित करने से रोकती है।</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">सुनिश्चित करें कि आप बेहतर सुरक्षा अनुकूलता वाले नवीनतम एमुलेटर संस्करण का उपयोग कर रहे हैं।</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">आप किसी अन्य एमुलेटर या कोर पर स्विच करने का प्रयास भी कर सकते हैं।</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">यदि आप MAME चलाने का प्रयास कर रहे हैं, तो सुनिश्चित करें कि आपका ROM संग्रह आपके द्वारा उपयोग किए जा रहे MAME संस्करण के साथ संगत है।</system:String>
+    <system:String x:Key="ROMFilesNotFound">ROM फ़ाइलें नहीं मिलीं</system:String>
+    <system:String x:Key="MameRomSetError1">MAME एमुलेटर को इस गेम को शुरू करने के लिए आवश्यक फ़ाइलें नहीं मिलीं।</system:String>
+    <system:String x:Key="MameRomSetError2">यह एक विंडोज सुरक्षा सुविधा है जो प्रोग्रामों को सुरक्षित मेमोरी क्षेत्रों में कोड निष्पादित करने से रोकती है।</system:String>
+    <system:String x:Key="MameRomSetError3">सुनिश्चित करें कि आप बेहतर सुरक्षा संगतता वाले नवीनतम एमुलेटर संस्करण का उपयोग कर रहे हैं।</system:String>
+    <system:String x:Key="MameRomSetError4">क्या आप संगत ROM सेट डाउनलोड करने के लिए PleasureDome वेबसाइट पर जाना चाहेंगे?</system:String>
 
     <system:String x:Key="ReturnButton">[ वापस जाएं ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">यदि लोडिंग स्क्रीन अटक गई है, तो मुख्य मेनू पर लौटने के लिए यहाँ क्लिक करें</system:String>

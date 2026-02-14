@@ -6,6 +6,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">এটি একটি উইন্ডোজ সুরক্ষা বৈশিষ্ট্য যা প্রোগ্রামগুলিকে সুরক্ষিত মেমরি অঞ্চলে কোড কার্যকর করতে বাধা দেয়।</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">উন্নত সুরক্ষা সামঞ্জস্য সহ আপনি সর্বশেষ এমুলেটর সংস্করণটি ব্যবহার করছেন কিনা তা নিশ্চিত করুন।</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">আপনি অন্য এমুলেটর বা কোরে স্যুইচ করার চেষ্টাও করতে পারেন।</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">আপনি যদি MAME চালানোর চেষ্টা করেন, তবে নিশ্চিত করুন যে আপনার ROM সংগ্রহটি আপনার ব্যবহৃত MAME সংস্করণের সাথে সামঞ্জস্যপূর্ণ।</system:String>
+    <system:String x:Key="ROMFilesNotFound">ROM ফাইল পাওয়া যায়নি</system:String>
+    <system:String x:Key="MameRomSetError1">MAME এমুলেটর এই গেমটি চালু করার জন্য প্রয়োজনীয় ফাইলগুলি খুঁজে পায়নি।</system:String>
+    <system:String x:Key="MameRomSetError2">এটি একটি উইন্ডোজ সুরক্ষা বৈশিষ্ট্য যা প্রোগ্রামগুলিকে সুরক্ষিত মেমরি অঞ্চলে কোড চালানো থেকে বিরত রাখে।</system:String>
+    <system:String x:Key="MameRomSetError3">উন্নত সুরক্ষা সামঞ্জস্য সহ সর্বশেষ এমুলেটর সংস্করণ ব্যবহার করছেন তা নিশ্চিত করুন।</system:String>
+    <system:String x:Key="MameRomSetError4">আপনি কি সামঞ্জস্যপূর্ণ ROM সেট ডাউনলোড করতে PleasureDome ওয়েবসাইটটি দেখতে চান?</system:String>
 
     <system:String x:Key="ReturnButton">[ ফিরে যান ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">লোডিং স্ক্রিন আটকে গেলে মূল মেনুতে ফিরে যেতে এখানে ক্লিক করুন</system:String>

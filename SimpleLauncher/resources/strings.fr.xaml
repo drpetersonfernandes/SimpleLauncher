@@ -6,6 +6,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Il s'agit d'une fonctionnalité de sécurité Windows qui empêche les programmes d'exécuter du code dans des zones de mémoire protégées.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Assurez-vous d'utiliser la dernière version de l'émulateur avec une compatibilité de sécurité améliorée.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Vous pouvez également essayer de passer à un autre émulateur ou à un autre cœur.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Si vous essayez d'exécuter MAME, assurez-vous que votre collection de ROM est compatible avec la version de MAME que vous utilisez.</system:String>
+    <system:String x:Key="ROMFilesNotFound">Fichiers ROM non trouvés</system:String>
+    <system:String x:Key="MameRomSetError1">L'émulateur MAME n'a pas pu trouver les fichiers requis pour lancer ce jeu.</system:String>
+    <system:String x:Key="MameRomSetError2">Il s'agit d'une fonctionnalité de sécurité Windows qui empêche les programmes d'exécuter du code dans des zones de mémoire protégées.</system:String>
+    <system:String x:Key="MameRomSetError3">Assurez-vous d'utiliser la dernière version de l'émulateur avec une compatibilité de sécurité améliorée.</system:String>
+    <system:String x:Key="MameRomSetError4">Souhaitez-vous visiter le site Web de PleasureDome pour télécharger un ensemble de ROM compatible ?</system:String>
 
     <system:String x:Key="ReturnButton">[ Retour ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Cliquez ici si l'écran de chargement est bloqué pour revenir au menu principal</system:String>

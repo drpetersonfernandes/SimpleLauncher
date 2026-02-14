@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">یہ ونڈوز کا ایک حفاظتی فیچر ہے جو پروگراموں کو محفوظ میموری والے حصوں میں کوڈ چلانے سے روکتا ہے۔</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">یقینی بنائیں کہ آپ بہتر سیکیورٹی مطابقت کے ساتھ ایمولیٹر کا تازہ ترین ورژن استعمال کر رہے ہیں۔</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">آپ کسی دوسرے ایمولیٹر یا کور پر سوئچ کرنے کی کوشش بھی کر سکتے ہیں۔</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">اگر آپ MAME چلانے کی کوشش کر رہے ہیں، تو یقینی بنائیں کہ آپ کا ROM مجموعہ آپ کے استعمال کردہ MAME ورژن کے ساتھ مطابقت رکھتا ہے۔</system:String>
+    <system:String x:Key="ROMFilesNotFound">ROM فائلیں نہیں ملیں</system:String>
+    <system:String x:Key="MameRomSetError1">MAME ایمولیٹر کو اس گیم کو شروع کرنے کے لیے مطلوبہ فائلیں نہیں مل سکیں۔</system:String>
+    <system:String x:Key="MameRomSetError2">یہ ونڈوز کی ایک حفاظتی خصوصیت ہے جو پروگراموں کو محفوظ میموری والے حصوں میں کوڈ چلانے سے روکتی ہے۔</system:String>
+    <system:String x:Key="MameRomSetError3">یقینی بنائیں کہ آپ بہتر حفاظتی مطابقت کے ساتھ تازہ ترین ایمولیٹر ورژن استعمال کر رہے ہیں۔</system:String>
+    <system:String x:Key="MameRomSetError4">کیا آپ مطابقت پذیر ROM سیٹ ڈاؤن لوڈ کرنے کے لیے PleasureDome ویب سائٹ پر جانا چاہیں گے؟</system:String>
 
     <system:String x:Key="ReturnButton">[ واپسی ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">اگر لوڈنگ اسکرین پھنس جائے تو مین مینو پر واپس جانے کے لیے یہاں کلک کریں</system:String>

@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">这是 Windows 的一项安全功能，用于防止程序在受保护的内存区域执行代码。</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">请确保您使用的是具有改进安全兼容性的最新模拟器版本。</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">您也可以尝试切换到其他模拟器或核心。</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">如果您尝试运行 MAME，请确保您的 ROM 集合与您使用的 MAME 版本兼容。</system:String>
+    <system:String x:Key="ROMFilesNotFound">未找到 ROM 文件</system:String>
+    <system:String x:Key="MameRomSetError1">MAME 模拟器找不到启动此游戏所需的文件。</system:String>
+    <system:String x:Key="MameRomSetError2">这是一项 Windows 安全功能，可防止程序在受保护的内存区域中执行代码。</system:String>
+    <system:String x:Key="MameRomSetError3">请确保您使用的是具有改进安全兼容性的最新模拟器版本。</system:String>
+    <system:String x:Key="MameRomSetError4">您想访问 PleasureDome 网站下载兼容的 ROM 集吗？</system:String>
 
     <system:String x:Key="ReturnButton">[ 返回 ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">如果加载界面卡住，请点击此处返回主菜单</system:String>

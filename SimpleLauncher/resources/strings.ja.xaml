@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">これは、プログラムが保護されたメモリ領域でコードを実行するのを防ぐWindowsのセキュリティ機能です。</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">セキュリティの互換性が向上した最新のレプリケーターバージョンを使用していることを確認してください。</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">別のエミュレータまたはコアに切り替えてみることもできます。</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAMEを実行しようとしている場合は、ROMコレクションが使用しているMAMEバージョンと互換性があることを確認してください。</system:String>
+    <system:String x:Key="ROMFilesNotFound">ROMファイルが見つかりません</system:String>
+    <system:String x:Key="MameRomSetError1">MAMEエミュレータはこのゲームを起動するために必要なファイルを見つけることができませんでした。</system:String>
+    <system:String x:Key="MameRomSetError2">これは、プログラムが保護されたメモリ領域でコードを実行するのを防ぐWindowsのセキュリティ機能です。</system:String>
+    <system:String x:Key="MameRomSetError3">セキュリティの互換性が向上した最新のエミュレータバージョンを使用していることを確認してください。</system:String>
+    <system:String x:Key="MameRomSetError4">PleasureDomeのウェブサイトにアクセスして、互換性のあるROMセットをダウンロードしますか？</system:String>
 
     <system:String x:Key="ReturnButton">[ 戻る ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">ロード画面が止まった場合は、ここをクリックしてメインメニューに戻ります</system:String>

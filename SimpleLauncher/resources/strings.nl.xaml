@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Dit is een Windows-beveiligingsfunctie die voorkomt dat programma's code uitvoeren in beveiligde geheugenregio's.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Zorg ervoor dat u de nieuwste emulatorversie gebruikt met verbeterde beveiligingscompatibiliteit.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">U kunt ook proberen over te schakelen naar een andere emulator of core.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Als u MAME probeert uit te voeren, zorg er dan voor dat uw ROM-collectie compatibel is met de MAME-versie die u gebruikt.</system:String>
+    <system:String x:Key="ROMFilesNotFound">ROM-bestanden niet gevonden</system:String>
+    <system:String x:Key="MameRomSetError1">De MAME-emulator kon de vereiste bestanden niet vinden om dit spel te starten.</system:String>
+    <system:String x:Key="MameRomSetError2">Dit is een Windows-beveiligingsfunctie die voorkomt dat programma's code uitvoeren in beveiligde geheugenregio's.</system:String>
+    <system:String x:Key="MameRomSetError3">Zorg ervoor dat u de nieuwste emulatorversie gebruikt met verbeterde beveiligingscompatibiliteit.</system:String>
+    <system:String x:Key="MameRomSetError4">Wilt u de PleasureDome-website bezoeken om een compatibele ROM-set te downloaden?</system:String>
 
     <system:String x:Key="ReturnButton">[ Terug ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Klik hier als het laadscherm vastloopt om terug te keren naar het hoofdmenu</system:String>

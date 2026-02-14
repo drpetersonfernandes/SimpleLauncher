@@ -7,6 +7,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Đây là một tính năng bảo mật của Windows giúp ngăn các chương trình thực thi mã trong các vùng bộ nhớ được bảo vệ.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Hãy đảm bảo bạn đang sử dụng phiên bản giả lập mới nhất với khả năng tương thích bảo mật được cải thiện.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Bạn cũng có thể thử chuyển sang một trình giả lập hoặc nhân (core) khác.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Nếu bạn đang cố gắng chạy MAME, hãy đảm bảo rằng bộ sưu tập ROM của bạn tương thích với phiên bản MAME mà bạn đang sử dụng.</system:String>
+    <system:String x:Key="ROMFilesNotFound">Không tìm thấy tệp ROM</system:String>
+    <system:String x:Key="MameRomSetError1">Trình giả lập MAME không thể tìm thấy các tệp cần thiết để khởi chạy trò chơi này.</system:String>
+    <system:String x:Key="MameRomSetError2">Đây là một tính năng bảo mật của Windows nhằm ngăn các chương trình thực thi mã trong các vùng bộ nhớ được bảo vệ.</system:String>
+    <system:String x:Key="MameRomSetError3">Đảm bảo bạn đang sử dụng phiên bản trình giả lập mới nhất với khả năng tương thích bảo mật được cải thiện.</system:String>
+    <system:String x:Key="MameRomSetError4">Bạn có muốn truy cập trang web PleasureDome để tải xuống bộ ROM tương thích không?</system:String>
 
     <system:String x:Key="ReturnButton">[ Quay lại ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Nhấp vào đây nếu màn hình tải bị kẹt để quay lại menu chính</system:String>

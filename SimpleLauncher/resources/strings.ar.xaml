@@ -6,6 +6,12 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">هذه إحدى ميزات أمان Windows التي تمنع البرامج من تنفيذ التعليمات البرمجية في مناطق الذاكرة المحمية.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">تأكد من استخدام أحدث إصدار من المحاكي مع توافق أمني محسن.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">يمكنك أيضًا محاولة التبديل إلى محاكي أو نواة (Core) مختلفة.</system:String>
+    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">إذا كنت تحاول تشغيل MAME، فتأكد من أن مجموعة ROM الخاصة بك متوافقة مع إصدار MAME الذي تستخدمه.</system:String>
+    <system:String x:Key="ROMFilesNotFound">لم يتم العثور على ملفات ROM</system:String>
+    <system:String x:Key="MameRomSetError1">تعذر على محاكي MAME العثور على الملفات المطلوبة لتشغيل هذه اللعبة.</system:String>
+    <system:String x:Key="MameRomSetError2">هذه إحدى ميزات أمان Windows التي تمنع البرامج من تنفيذ التعليمات البرمجية في مناطق الذاكرة المحمية.</system:String>
+    <system:String x:Key="MameRomSetError3">تأكد من استخدام أحدث إصدار للمحاكي مع توافق أمني محسن.</system:String>
+    <system:String x:Key="MameRomSetError4">هل ترغب في زيارة موقع PleasureDome الإلكتروني لتنزيل مجموعة ROM متوافقة؟</system:String>
 
     <system:String x:Key="ReturnButton">[ عودة ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">انقر هنا إذا توقفت شاشة التحميل للعودة إلى القائمة الرئيسية</system:String>
