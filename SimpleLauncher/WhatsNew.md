@@ -2,19 +2,23 @@
 *2026-02-14*
 ---
 
-- Created logic to convert CHD files to ISO on the fly for the "Xemu" and "Xenia" emulators, since both emulators do not natively support CHD files.
-  This allows users to store their Xbox and Xbox 360 ISOs in CHD format and convert them back to ISO on the fly when launching games.
-  'Simple Launcher' includes a bundled tool called "BatchConvertToXiso" that can convert original REDUMP Xbox ISOs to emulator-ready optimized XISO files. This tool removes unneeded files and optimizes the XISO file for emulators.
-  'Simple Launcher' also includes a bundled tool called "BatchConvertToCHD" that can convert ISO files to CHD format.
-  Using both tools, you can significantly reduce the size of your Xbox and Xbox 360 game library. In my tests I got a size reduction of aproximally 30% over the optimized XISO files.
-  'Simple Launcher' will convert files back to ISO format on the fly when you launch games.
+### Created logic to convert CHD files to ISO on the fly for the "Xemu" and "Xenia" emulators, since both emulators do not natively support CHD files.
+- This allows users to store their Xbox and Xbox 360 ISOs in CHD format and convert them back to ISO on the fly when launching games.
+- 'Simple Launcher' includes a bundled tool called "BatchConvertToXiso" that can convert original REDUMP Xbox ISOs to emulator-ready optimized XISO files. This tool removes unneeded files and optimizes the XISO file for emulators.
+- 'Simple Launcher' also includes a bundled tool called "BatchConvertToCHD" that can convert ISO files to CHD format.
+- Using both tools, you can significantly reduce the size of your Xbox and Xbox 360 game library. In my tests, I achieved a size reduction of approximately 30% over the optimized XISO files.
+- 'Simple Launcher' will convert files back to ISO format on the fly when you launch games.
 
-- Created a handler for the Ootake emulator, a PC Engine emulator. It will always automatically extract compressed files to PCE extension, since this emulator does not natively support compressed files. This will prevent launch failures.
-- Created logic to always extract compressed files when using the Game Boy emulator SameBoy, since this emulator does not natively support compressed files. This will prevent launch failures.
-- Created logic to convert CHD files to CUE/BIN on the fly for the Mednafen emulator, since this emulator does not natively support CHD files. This will prevent launch failures.
-- Created logic to convert CHD files to CUE/BIN on the fly for the 4DO emulator, since this emulator does not natively support CHD files. This will prevent launch failures.
-- Improved logic for generating aliases for Microsoft Windows games, which will enhance game detection.
-- Fixed MAME emulator handler to properly inject ROM paths into the emulator configuration file. From now on, you no longer need to provide the '-rompath' parameter to run MAME, as the logic will automatically inject the ROM paths from the 'System Folder' into the MAME configuration file. This will prevent launch failures.
+### Created a launch handler for the Ootake emulator, a PC Engine emulator, and for SameBoy, a Game Boy emulator.
+- It will force the extraction of compressed files, since both emulators do not natively support compressed files. This will prevent launch failures.
+
+### Created logic to convert CHD files to CUE/BIN on the fly for the Mednafen emulator and the 4DO emulator.
+- Both emulators do not natively support CHD files. This will prevent launch failures.
+
+### Fixed MAME emulator handler to properly inject ROM paths into the emulator configuration file.
+- From now on, you no longer need to provide the '-rompath' parameter to run MAME, as the logic will automatically inject the ROM paths from the 'System Folder' into the MAME configuration file. This will prevent launch failures.
+
+### Improved logic for generating aliases for Microsoft Windows games, which will enhance game detection.
 
 # Release 5.0.0
 *2026-02-11*
