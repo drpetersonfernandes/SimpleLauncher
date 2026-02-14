@@ -680,7 +680,6 @@
     <system:String x:Key="Icouldnotfindthefilesystemxml">আমি 'system.xml' ফাইলটি খুঁজে পাইনি, যা অ্যাপ্লিকেশনটি চালু করতে প্রয়োজনীয়।</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">প্রশাসনিক অনুমতিপত্র সাহায্যে কোড চলমান করুন।</system:String>
     <system:String x:Key="Ifthatdoesnotwork">যদি এটি কাজ না করে তবে 'Simple Launcher' পুনরায় ইনস্টল করুন।</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">আপনি যদি MAME চালানোর চেষ্টা করছেন, নিশ্চিত করুন যে আপনার ROM সংগ্রহটি আপনি যে MAME সংস্করণটি ব্যবহার করছেন তার সাথে সামঞ্জস্যপূর্ণ।</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">আপনি যদি Retroarch চালানোর চেষ্টা করছেন, নিশ্চিত করুন যে কোরের জন্য BIOS বা প্রয়োজনীয় ফাইলগুলি ইনস্টল করা আছে।</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">আপনি যদি এটি মুছার সিদ্ধান্ত নেন, 'Simple Launcher' আপনার জন্য একটি নতুন তৈরি করবে।</system:String>
     <system:String x:Key="Ifyouleaveitempty">আপনি এটি ফাঁকা রাখলে, অ্যাপ্লিকেশনটি এই সিস্টেমের জন্য 'roms' ফোল্ডারের ভিতরে একটি নতুন ফোল্ডার তৈরি করবে।</system:String>

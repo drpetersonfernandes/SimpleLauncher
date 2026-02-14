@@ -681,7 +681,6 @@
     <system:String x:Key="Icouldnotfindthefilesystemxml">Saya tidak dapat menemukan file 'system.xml' yang diperlukan untuk menjalankan aplikasi.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Jika memungkinkan, jalankan dengan hak administratif.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Jika itu tidak berhasil, instal ulang 'Simple Launcher'.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Jika Anda mencoba menjalankan MAME, pastikan koleksi ROM Anda kompatibel dengan versi MAME yang digunakan.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Jika Anda mencoba menjalankan Retroarch, pastikan file BIOS atau file yang diperlukan untuk inti telah terinstal.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Jika Anda memilih untuk menghapusnya, 'Simple Launcher' akan membuat file baru untuk Anda.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Jika Anda membiarkan kosong, aplikasi akan membuat folder untuk sistem ini di dalam folder 'roms'.</system:String>

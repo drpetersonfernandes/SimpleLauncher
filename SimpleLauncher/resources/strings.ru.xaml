@@ -681,7 +681,6 @@
     <system:String x:Key="Icouldnotfindthefilesystemxml">Не удалось найти файл 'system.xml', необходимый для запуска приложения.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Если возможно, запустите с привилегиями администратора.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Если это не поможет, переустановите 'Simple Launcher'.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Если вы пытаетесь запустить MAME, убедитесь, что ваша коллекция ROM совместима с используемой версией MAME.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Если вы пытаетесь запустить Retroarch, убедитесь, что необходимые BIOS или файлы для ядра установлены.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Если вы выберете удаление, 'Simple Launcher' создаст новый файл.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Если оставить поле пустым, приложение создаст папку для этой системы внутри папки 'roms'.</system:String>

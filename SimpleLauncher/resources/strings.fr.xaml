@@ -680,7 +680,6 @@
     <system:String x:Key="Icouldnotfindthefilesystemxml">Je n'ai pas pu trouver le fichier 'system.xml', nécessaire pour lancer l'application.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Si possible, exécutez-le avec des privilèges administratifs.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Si cela ne fonctionne pas, réinstallez 'Simple Launcher'.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Si vous essayez d'exécuter MAME, assurez-vous que votre collection de ROMs est compatible avec la version de MAME utilisée.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Si vous essayez d'exécuter Retroarch, assurez-vous que le BIOS ou les fichiers nécessaires pour le noyau sont installés.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Si vous choisissez de le supprimer, 'Simple Launcher' en créera un nouveau.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Si vous le laissez vide, l'application créera un dossier pour ce système dans le dossier 'roms'.</system:String>

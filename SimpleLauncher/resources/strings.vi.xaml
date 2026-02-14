@@ -681,7 +681,6 @@
     <system:String x:Key="Icouldnotfindthefilesystemxml">Không thể tìm thấy tệp 'system.xml' cần thiết để khởi chạy ứng dụng.</system:String>
     <system:String x:Key="Ifpossiblerunitwithadministrative">Nếu có thể, hãy chạy với quyền quản trị.</system:String>
     <system:String x:Key="Ifthatdoesnotwork">Nếu vẫn không hoạt động, hãy cài đặt lại 'Simple Launcher'.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Nếu bạn đang cố chạy MAME, hãy đảm bảo rằng bộ sưu tập ROM của bạn tương thích với phiên bản MAME đang sử dụng.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Nếu bạn đang cố chạy Retroarch, hãy đảm bảo rằng BIOS cần thiết hoặc các tệp lõi đã được cài đặt.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Nếu bạn chọn xóa, 'Simple Launcher' sẽ tạo một tệp mới.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Nếu để trống, ứng dụng sẽ tạo một thư mục cho hệ thống này trong thư mục 'roms'.</system:String>

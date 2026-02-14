@@ -1748,7 +1748,6 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-
     <system:String x:Key="ReturnButton">[ Return ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Click here if the loading screen is stuck to return to the main menu</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Global Stats Report</system:String>
@@ -1797,5 +1796,11 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">This is a Windows security feature that prevents programs from executing code in protected memory regions.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Ensure you're using the latest emulator version with improved security compatibility.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">You can also try to switch to a different emulator or core.</system:String>
+
+    <system:String x:Key="ROMFilesNotFound">ROM Files Not Found</system:String>
+    <system:String x:Key="MameRomSetError1">MAME emulator could not find required files to launch this game.</system:String>
+    <system:String x:Key="MameRomSetError2">This is a Windows security feature that prevents programs from executing code in protected memory regions.</system:String>
+    <system:String x:Key="MameRomSetError3">Ensure you're using the latest emulator version with improved security compatibility.</system:String>
+    <system:String x:Key="MameRomSetError4">Would you like to visit the PleasureDome website to download a compatible ROM set?</system:String>
     
 </ResourceDictionary>
