@@ -11,7 +11,7 @@
   This allows users to store their Xbox and Xbox 360 ISOs in CHD format and convert them back to ISO on the fly when launching games.
   'Simple Launcher' includes a bundled tool called "BatchConvertToXiso" that can convert original REDUMP Xbox ISOs to emulator-ready optimized XISO files. This tool removes unneeded files and optimizes the XISO file for emulators.
   'Simple Launcher' also includes a bundled tool called "BatchConvertToCHD" that can convert ISO files to CHD format.
-  Using both tools, you can significantly reduce the size of your Xbox and Xbox 360 game library. The size reduction can be substantial—as much as 70% smaller.
+  Using both tools, you can significantly reduce the size of your Xbox and Xbox 360 game library. In my tests I got a size reduction of aproximally 30% over the optimized XISO files.
   'Simple Launcher' will convert files back to ISO format on the fly when you launch games.
 
 # Release 5.0.0

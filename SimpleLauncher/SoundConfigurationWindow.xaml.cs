@@ -65,7 +65,10 @@ public partial class SoundConfigurationWindow
             Title = (string)Application.Current.TryFindResource("SelectNotificationSoundFile") ?? "Select Notification Sound File"
         };
 
-        if (openFileDialog.ShowDialog() != true) return;
+        if (openFileDialog.ShowDialog() != true)
+        {
+            return;
+        }
 
         try
         {

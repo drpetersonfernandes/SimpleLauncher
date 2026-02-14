@@ -47,7 +47,7 @@ internal static class RetroAchievementsHasherTool
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
         "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
-        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800"
+        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows"
     ];
 
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
