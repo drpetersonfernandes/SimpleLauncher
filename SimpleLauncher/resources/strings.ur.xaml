@@ -2,7 +2,13 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-        <system:String x:Key="ReturnButton">[ واپسی ]</system:String>
+    <system:String x:Key="ConvertingChdToIso">تبدیل ہو رہا ہے... CHD</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">کی خلاف ورزی کی وجہ سے گیم لانچ کرنے میں ناکام رہا۔ (DEP) ڈیٹا ایگزیکیوشن پریوینشن</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">یہ ونڈوز کا ایک حفاظتی فیچر ہے جو پروگراموں کو محفوظ میموری والے حصوں میں کوڈ چلانے سے روکتا ہے۔</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">یقینی بنائیں کہ آپ بہتر سیکیورٹی مطابقت کے ساتھ ایمولیٹر کا تازہ ترین ورژن استعمال کر رہے ہیں۔</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">آپ کسی دوسرے ایمولیٹر یا کور پر سوئچ کرنے کی کوشش بھی کر سکتے ہیں۔</system:String>
+
+    <system:String x:Key="ReturnButton">[ واپسی ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">اگر لوڈنگ اسکرین پھنس جائے تو مین مینو پر واپس جانے کے لیے یہاں کلک کریں</system:String>
     <system:String x:Key="GlobalStatsReportTitle">عالمی اعداد و شمار کی رپورٹ</system:String>
     <system:String x:Key="SystemSpecifics">سسٹم کی تفصیلات:</system:String>

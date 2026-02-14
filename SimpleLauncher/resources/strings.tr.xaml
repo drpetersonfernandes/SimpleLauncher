@@ -2,7 +2,13 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-        <system:String x:Key="ReturnButton">[ Geri Dön ]</system:String>
+    <system:String x:Key="ConvertingChdToIso">CHD dönüştürülüyor...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">Oyun, bir DEP (Veri Yürütme Engellemesi) ihlali nedeniyle başlatılamadı.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Bu, programların korunan bellek bölgelerinde kod yürütmesini engelleyen bir Windows güvenlik özelliğidir.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Gelişmiş güvenlik uyumluluğuna sahip en son emülatör sürümünü kullandığınızdan emin olun.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Ayrıca farklı bir emülatöre veya çekirdeğe geçmeyi deneyebilirsiniz.</system:String>
+
+    <system:String x:Key="ReturnButton">[ Geri Dön ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Yükleme ekranı takılırsa ana menüye dönmek için buraya tıklayın</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Küresel İstatistik Raporu</system:String>
     <system:String x:Key="SystemSpecifics">Sistem Özellikleri:</system:String>

@@ -2,7 +2,13 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-        <system:String x:Key="ReturnButton">[ 返回 ]</system:String>
+    <system:String x:Key="ConvertingChdToIso">正在转换 CHD...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">由于 DEP（数据执行保护）冲突，游戏无法启动。</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">这是 Windows 的一项安全功能，用于防止程序在受保护的内存区域执行代码。</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">请确保您使用的是具有改进安全兼容性的最新模拟器版本。</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">您也可以尝试切换到其他模拟器或核心。</system:String>
+
+    <system:String x:Key="ReturnButton">[ 返回 ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">如果加载界面卡住，请点击此处返回主菜单</system:String>
     <system:String x:Key="GlobalStatsReportTitle">全局统计报告</system:String>
     <system:String x:Key="SystemSpecifics">系统详情：</system:String>

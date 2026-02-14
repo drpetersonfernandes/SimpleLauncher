@@ -2,7 +2,13 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-        <system:String x:Key="ReturnButton">[ 戻る ]</system:String>
+    <system:String x:Key="ConvertingChdToIso">CHDを変換中...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">DEP（データ実行防止）違反のため、ゲームを起動できませんでした。</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">これは、プログラムが保護されたメモリ領域でコードを実行するのを防ぐWindowsのセキュリティ機能です。</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">セキュリティの互換性が向上した最新のレプリケーターバージョンを使用していることを確認してください。</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">別のエミュレータまたはコアに切り替えてみることもできます。</system:String>
+
+    <system:String x:Key="ReturnButton">[ 戻る ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">ロード画面が止まった場合は、ここをクリックしてメインメニューに戻ります</system:String>
     <system:String x:Key="GlobalStatsReportTitle">グローバル統計レポート</system:String>
     <system:String x:Key="SystemSpecifics">システム詳細:</system:String>

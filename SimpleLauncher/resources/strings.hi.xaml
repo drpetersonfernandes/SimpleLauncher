@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ConvertingChdToIso">CHD को बदला जा रहा है...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">DEP (डेटा निष्पादन रोकथाम) उल्लंघन के कारण गेम लॉन्च करने में विफल रहा।</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">यह एक विंडोज सुरक्षा विशेषता है जो प्रोग्रामों को सुरक्षित मेमोरी क्षेत्रों में कोड निष्पादित करने से रोकती है।</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">सुनिश्चित करें कि आप बेहतर सुरक्षा अनुकूलता वाले नवीनतम एमुलेटर संस्करण का उपयोग कर रहे हैं।</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">आप किसी अन्य एमुलेटर या कोर पर स्विच करने का प्रयास भी कर सकते हैं।</system:String>
+
     <system:String x:Key="ReturnButton">[ वापस जाएं ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">यदि लोडिंग स्क्रीन अटक गई है, तो मुख्य मेनू पर लौटने के लिए यहाँ क्लिक करें</system:String>
     <system:String x:Key="GlobalStatsReportTitle">ग्लोबल आँकड़े रिपोर्ट</system:String>

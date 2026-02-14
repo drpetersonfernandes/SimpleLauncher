@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ConvertingChdToIso">CHD wird konvertiert...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">Das Spiel konnte aufgrund einer DEP-Verletzung (Datenausführungsverhinderung) nicht gestartet werden.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Dies ist eine Windows-Sicherheitsfunktion, die verhindert, dass Programme Code in geschützten Speicherbereichen ausführen.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Stellen Sie sicher, dass Sie die neueste Emulator-Version mit verbesserter Sicherheitskompatibilität verwenden.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Sie können auch versuchen, zu einem anderen Emulator oder Core zu wechseln.</system:String>
+
     <system:String x:Key="ReturnButton">[ Zurück ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Hier klicken, falls der Ladebildschirm hängt, um zum Hauptmenü zurückzukehren</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Globaler Statistikbericht</system:String>

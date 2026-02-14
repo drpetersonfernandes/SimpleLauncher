@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ConvertingChdToIso">CHD রূপান্তর করা হচ্ছে...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">DEP (ডেটা এক্সিকিউশন প্রিভেনশন) লঙ্ঘনের কারণে গেমটি চালু করতে ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">এটি একটি উইন্ডোজ সুরক্ষা বৈশিষ্ট্য যা প্রোগ্রামগুলিকে সুরক্ষিত মেমরি অঞ্চলে কোড কার্যকর করতে বাধা দেয়।</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">উন্নত সুরক্ষা সামঞ্জস্য সহ আপনি সর্বশেষ এমুলেটর সংস্করণটি ব্যবহার করছেন কিনা তা নিশ্চিত করুন।</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">আপনি অন্য এমুলেটর বা কোরে স্যুইচ করার চেষ্টাও করতে পারেন।</system:String>
+
     <system:String x:Key="ReturnButton">[ ফিরে যান ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">লোডিং স্ক্রিন আটকে গেলে মূল মেনুতে ফিরে যেতে এখানে ক্লিক করুন</system:String>
     <system:String x:Key="GlobalStatsReportTitle">গ্লোবাল পরিসংখ্যান রিপোর্ট</system:String>

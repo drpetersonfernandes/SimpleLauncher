@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ConvertingChdToIso">...CHD جارٍ تحويل</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">(DEP) فشل تشغيل اللعبة بسبب انتهاك منع تنفيذ البيانات</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">هذه إحدى ميزات أمان Windows التي تمنع البرامج من تنفيذ التعليمات البرمجية في مناطق الذاكرة المحمية.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">تأكد من استخدام أحدث إصدار من المحاكي مع توافق أمني محسن.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">يمكنك أيضًا محاولة التبديل إلى محاكي أو نواة (Core) مختلفة.</system:String>
+
     <system:String x:Key="ReturnButton">[ عودة ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">انقر هنا إذا توقفت شاشة التحميل للعودة إلى القائمة الرئيسية</system:String>
     <system:String x:Key="GlobalStatsReportTitle">تقرير الإحصائيات العالمية</system:String>

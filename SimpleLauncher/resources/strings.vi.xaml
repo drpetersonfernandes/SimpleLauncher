@@ -2,7 +2,13 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-        <system:String x:Key="ReturnButton">[ Quay lại ]</system:String>
+    <system:String x:Key="ConvertingChdToIso">Đang chuyển đổi CHD...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">Trò chơi không thể khởi chạy do vi phạm DEP (Ngăn thực thi dữ liệu).</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Đây là một tính năng bảo mật của Windows giúp ngăn các chương trình thực thi mã trong các vùng bộ nhớ được bảo vệ.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Hãy đảm bảo bạn đang sử dụng phiên bản giả lập mới nhất với khả năng tương thích bảo mật được cải thiện.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Bạn cũng có thể thử chuyển sang một trình giả lập hoặc nhân (core) khác.</system:String>
+
+    <system:String x:Key="ReturnButton">[ Quay lại ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Nhấp vào đây nếu màn hình tải bị kẹt để quay lại menu chính</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Báo cáo Thống kê Toàn cầu</system:String>
     <system:String x:Key="SystemSpecifics">Thông số Hệ thống:</system:String>

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ConvertingChdToIso">Mengonversi CHD...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">Game gagal dijalankan karena pelanggaran DEP (Data Execution Prevention).</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Ini adalah fitur keamanan Windows yang mencegah program mengeksekusi kode di wilayah memori yang dilindungi.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Pastikan Anda menggunakan versi emulator terbaru dengan kompatibilitas keamanan yang ditingkatkan.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Anda juga dapat mencoba beralih ke emulator atau core yang berbeda.</system:String>
+
     <system:String x:Key="ReturnButton">[ Kembali ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Klik di sini jika layar pemuatan macet untuk kembali ke menu utama</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Laporan Statistik Global</system:String>

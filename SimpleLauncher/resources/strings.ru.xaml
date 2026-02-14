@@ -2,8 +2,13 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="ConvertingChdToIso">Преобразование CHD...</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation">Не удалось запустить игру из-за нарушения DEP (предотвращение выполнения данных).</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Это функция безопасности Windows, которая предотвращает выполнение программами кода в защищенных областях памяти.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Убедитесь, что вы используете последнюю версию эмулятора с улучшенной совместимостью безопасности.</system:String>
+    <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Вы также можете попробовать переключиться на другой эмулятор или ядро.</system:String>
     
-        <system:String x:Key="ReturnButton">[ Назад ]</system:String>
+    <system:String x:Key="ReturnButton">[ Назад ]</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">Нажмите здесь, если экран загрузки завис, чтобы вернуться в главное меню</system:String>
     <system:String x:Key="GlobalStatsReportTitle">Отчет о глобальной статистике</system:String>
     <system:String x:Key="SystemSpecifics">Спецификации системы:</system:String>
