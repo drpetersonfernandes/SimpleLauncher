@@ -4219,6 +4219,19 @@ You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasured
 
 .
 
+**Emulator Name:** Retroarch geolith<br>
+**Emulator Path (Example):** C:\Emulators\Retroarch\Retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\Retroarch\Cores\geolith_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\geolith_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+Core documentation can be found on [docs.libretro.com](https://docs.libretro.com/library/geolith/).<br>
+Core require BIOS files (aes.zip and neogeo.zip) to work.<br>
+This core can not run MAME ROM sets. It uses ROM files with the extension .NEO. You can find more info about that on the [wiki.terraonion.com](https://wiki.terraonion.com/index.php/Neobuilder_Guide).
+
+.
+
 **Emulator Name:** Ares<br>
 **Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo AES"<br>
