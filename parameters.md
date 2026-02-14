@@ -465,6 +465,7 @@ This emulator requires a BIOS file to run.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
+May require BIOS file to work properly.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Atari ST
@@ -1631,7 +1632,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-## NEC PC Engine CD
+## NEC PC Engine CD / TurboGrafx CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -1684,6 +1685,18 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work properly.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
 ## NEC PC-FX
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1735,6 +1748,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work properly.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC SuperGrafx
@@ -2094,7 +2108,7 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 This emulator is available for Windows-x64.<br>
 Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 
-## Nintendo Family Computer Disk System
+## Nintendo Family Computer Disk System / Famicom Disk System
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -2155,6 +2169,16 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.<br>
 This emulator requires a BIOS file to run this system.
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Nintendo Game Boy
 
@@ -2627,6 +2651,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+
+.
+
+**Emulator Name:** puNES<br>
+**Emulator Path (Example):** C:\Emulators\puNES\punes64.exe<br>
+**Emulator Parameters (Example):** --fullscreen yes<br>
+**Fullscreen Parameter:** --fullscreen yes<br>
+
+This emulator is available for Windows-x64.
 
 ## Nintendo Satellaview
 
@@ -3871,6 +3904,7 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require a BIOS file to work properly.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
@@ -4449,7 +4483,6 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_psx/).<br>
 Core may require BIOS files or system files to work properly.
 
-
 .
 
 **Emulator Name:** Mednafen<br>
@@ -4459,6 +4492,7 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work properly.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
