@@ -4381,13 +4381,51 @@ internal static class MessageBoxLibrary
         {
             var title = (string)Application.Current.TryFindResource("ROMFilesNotFound") ?? "ROM Files Not Found";
             var message1 = (string)Application.Current.TryFindResource("MameRomSetError1") ?? "MAME emulator could not find required files to launch this game.";
-            var message2 = (string)Application.Current.TryFindResource("MameRomSetError2") ?? "MAME is very restrictive about the filenames of the games.";
+            var message2 = (string)Application.Current.TryFindResource("MameRomSetError2x") ?? "MAME is very restrictive about the filename of the game.";
             var message3 = (string)Application.Current.TryFindResource("MameRomSetError3") ?? "Please ensure you are running a compatible ROM set.";
             var message4 = (string)Application.Current.TryFindResource("MameRomSetError4") ?? "Would you like to visit the PleasureDome website to download a compatible ROM set?";
             var result = System.Windows.MessageBox.Show($"{message1}\n\n" +
                                                         $"{message2}\n\n" +
                                                         $"{message3}\n\n" +
                                                         $"{message4}", title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                }
+            }
+        }
+    }
+
+    public static void MameUnknownSystemError()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("UnknownSystemError") ?? "Unknown System Error";
+            var message1 = (string)Application.Current.TryFindResource("MameUnknownSystemError1") ?? "MAME emulator could not find a matching compatible system to launch.";
+            var message2 = (string)Application.Current.TryFindResource("MameUnknownSystemError2") ?? "MAME is very restrictive about the filename of the game.";
+            var message3 = (string)Application.Current.TryFindResource("MameUnknownSystemError3") ?? "The filename of your game must match the expected filename to run on MAME.";
+            var message4 = (string)Application.Current.TryFindResource("MameUnknownSystemError4") ?? "Please ensure you are running a compatible ROM set.";
+            var message5 = (string)Application.Current.TryFindResource("MameUnknownSystemError5") ?? "Would you like to visit the PleasureDome website to download a compatible ROM set?";
+            var result = System.Windows.MessageBox.Show($"{message1}\n\n" +
+                                                        $"{message2}\n\n" +
+                                                        $"{message3}\n\n" +
+                                                        $"{message4}\n\n" +
+                                                        $"{message5}", title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result == MessageBoxResult.Yes)
             {

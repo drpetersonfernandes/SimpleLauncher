@@ -1105,7 +1105,7 @@ public class GameLauncher
             return;
         }
 
-        // Handle MAME ROM set error
+        // Handle MAME Not Found error
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
              emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
             output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase))
@@ -1116,6 +1116,22 @@ public class GameLauncher
             }
 
             DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            return;
+        }
+
+        // Handle MAME Unknown system error
+        if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
+            (output.ToString().Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
+             output.ToString().Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
+        {
+            if (emulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                MessageBoxLibrary.MameUnknownSystemError();
+            }
+
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unknown system error.");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             return;
         }
