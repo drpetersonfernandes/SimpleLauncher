@@ -727,6 +727,8 @@ public class GameLauncher
                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
         var isXenia = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
                                                                                     selectedEmulatorManager.EmulatorLocation.Contains("xenia", StringComparison.OrdinalIgnoreCase));
+        var isRpcs3 = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
+                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("rpcs3", StringComparison.OrdinalIgnoreCase));
 
         if (isChd && (isRaine || is4Do || isMednafen))
         {
@@ -746,7 +748,7 @@ public class GameLauncher
             }
         }
 
-        if (isChd && (isXemu || isXenia))
+        if (isChd && (isXemu || isXenia || isRpcs3))
         {
             var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToIso") ?? "Converting CHD...";
             loadingStateProvider.SetLoadingState(true, convertingMsg);
