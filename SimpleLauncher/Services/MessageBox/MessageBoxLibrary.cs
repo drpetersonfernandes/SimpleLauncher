@@ -4445,4 +4445,91 @@ internal static class MessageBoxLibrary
             }
         }
     }
+
+    public static void MameUnableToLoadImage()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("UnableToLoadImage") ?? "Unable to load image";
+            var message1 = (string)Application.Current.TryFindResource("MameUnableToLoadImageError1") ?? "MAME emulator could not load the image file.";
+            var message2 = (string)Application.Current.TryFindResource("MameUnableToLoadImageError2") ?? "MAME is very restrictive about the filename of the game.";
+            var message3 = (string)Application.Current.TryFindResource("MameUnableToLoadImageError3") ?? "The filename of your game must match the expected filename to run on MAME.";
+            var message4 = (string)Application.Current.TryFindResource("MameUnableToLoadImageError4") ?? "Please ensure you are running a compatible ROM set.";
+            var message5 = (string)Application.Current.TryFindResource("MameUnableToLoadImageError5") ?? "Would you like to visit the PleasureDome website to download a compatible ROM set?";
+            var result = System.Windows.MessageBox.Show($"{message1}\n\n" +
+                                                        $"{message2}\n\n" +
+                                                        $"{message3}\n\n" +
+                                                        $"{message4}\n\n" +
+                                                        $"{message5}", title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:PleasureDomeWebsite") ?? "https://pleasuredome.github.io/pleasuredome/index.html",
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                }
+            }
+        }
+    }
+
+    public static void OotakeDoesNotSupportImageFiles()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var message = (string)Application.Current.TryFindResource("OotakeemulatordoesnotsupportCHD") ?? "Ootake emulator does not support CHD, ISO, CUE/BIN files.";
+            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    public static void GeolithDoesNotSupportCompressedFiles()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var message1 = (string)Application.Current.TryFindResource("GeolithLibretroDllDoesNotSupportZIP1") ?? "'geolith_libretro.dll' does not support ZIP, 7Z or RAR files.";
+            var message2 = (string)Application.Current.TryFindResource("GeolithLibretroDllDoesNotSupportZIP2") ?? "It only support NEO files.";
+            var message3 = (string)Application.Current.TryFindResource("GeolithLibretroDllDoesNotSupportZIP3") ?? "Please ensure you are running a compatible ROM set.";
+            var message4 = (string)Application.Current.TryFindResource("GeolithLibretroDllDoesNotSupportZIP4") ?? "Would you like to visit the url 'wiki.terraonion.com' to get more info about that?";
+            var result = System.Windows.MessageBox.Show($"{message1}\n\n" +
+                                                        $"{message2}\n\n" +
+                                                        $"{message3}\n\n" +
+                                                        $"{message4}", title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "https://wiki.terraonion.com/index.php/Neobuilder_Guide",
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                }
+            }
+        }
+    }
 }

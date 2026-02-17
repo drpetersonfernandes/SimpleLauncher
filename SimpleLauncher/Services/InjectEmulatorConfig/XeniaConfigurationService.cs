@@ -32,7 +32,11 @@ public static class XeniaConfigurationService
         }
 
         if (processedCount == 0)
-            throw new FileNotFoundException("No xenia configuration files found to inject into.");
+        {
+            // Log the issue instead of throwing to prevent crash when samples are missing
+            // or no config files exist. Xenia will use its default settings.
+            DebugLogger.Log("[XeniaConfig] WARNING: No configuration files found to inject into. Expected xenia.config.toml or xenia-canary.config.toml. Xenia will use default settings.");
+        }
     }
 
     private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManager settings)

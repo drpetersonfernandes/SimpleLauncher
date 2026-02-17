@@ -665,13 +665,40 @@ public class GameLauncher
         // Check if it's a file we just converted to temp
         var isTempConvertedFile = resolvedFilePath.Contains(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), StringComparison.OrdinalIgnoreCase);
 
-        // Check if it is the Ootake emulator
+        var isChd = Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
+        var isCue = Path.GetExtension(resolvedFilePath).Equals(".cue", StringComparison.OrdinalIgnoreCase);
+        var isBin = Path.GetExtension(resolvedFilePath).Equals(".bin", StringComparison.OrdinalIgnoreCase);
+        var isIso = Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase);
+        var isZip = Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase);
+        var is7Z = Path.GetExtension(resolvedFilePath).Equals(".7z", StringComparison.OrdinalIgnoreCase);
+        var isRar = Path.GetExtension(resolvedFilePath).Equals(".rar", StringComparison.OrdinalIgnoreCase);
+
         var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
                        (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        // Check if it is the Sameboy emulator
         var isSameboy = selectedEmulatorName.Contains("Sameboy", StringComparison.OrdinalIgnoreCase) ||
                         (selectedEmulatorManager?.EmulatorLocation?.Contains("sameboy.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
+
+        var is4Do = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+                                                                                  selectedEmulatorManager.EmulatorLocation.Contains("4do", StringComparison.OrdinalIgnoreCase));
+
+        var isMednafen = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
+                                                                                       selectedEmulatorManager.EmulatorLocation.Contains("mednafen", StringComparison.OrdinalIgnoreCase));
+
+        var isXemu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
+                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
+
+        var isXenia = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
+                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("xenia", StringComparison.OrdinalIgnoreCase));
+
+        var isRpcs3 = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
+                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("rpcs3", StringComparison.OrdinalIgnoreCase));
+
+        var isGeolith = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro", StringComparison.OrdinalIgnoreCase) ||
+                                                                                      selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro.dll", StringComparison.OrdinalIgnoreCase));
 
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
@@ -683,14 +710,13 @@ public class GameLauncher
         {
             if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
             {
-                // Notify developer
                 const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
                 DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
-                // Notify user
                 MessageBoxLibrary.NullFileExtensionMessageBox();
-                return; // Abort
+
+                return;
             }
 
             if (fileExtension is ".zip" or ".rar" or ".7z")
@@ -699,7 +725,6 @@ public class GameLauncher
                 loadingStateProvider.SetLoadingState(true, extractingMsg);
                 UpdateStatusBar.UpdateStatusBar.UpdateContent(extractingMsg, mainWindow);
 
-                // Use the extraction service from the DI container
                 var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
 
                 if (!string.IsNullOrEmpty(extractedGameFilePath))
@@ -714,21 +739,6 @@ public class GameLauncher
                 loadingStateProvider.SetLoadingState(true, launchingMsg);
             }
         }
-
-        // CHD Handling: If the file is a CHD (either provided directly or extracted from a zip), convert it to CUE/BIN on the fly.
-        var isChd = Path.GetExtension(resolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
-        var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
-                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
-        var is4Do = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
-                                                                                  selectedEmulatorManager.EmulatorLocation.Contains("4do", StringComparison.OrdinalIgnoreCase));
-        var isMednafen = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
-                                                                                       selectedEmulatorManager.EmulatorLocation.Contains("mednafen", StringComparison.OrdinalIgnoreCase));
-        var isXemu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
-                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
-        var isXenia = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
-                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("xenia", StringComparison.OrdinalIgnoreCase));
-        var isRpcs3 = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
-                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("rpcs3", StringComparison.OrdinalIgnoreCase));
 
         if (isChd && (isRaine || is4Do || isMednafen))
         {
@@ -764,6 +774,18 @@ public class GameLauncher
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
+        }
+
+        if (isOotake & (isChd || isBin || isCue || isIso))
+        {
+            MessageBoxLibrary.OotakeDoesNotSupportImageFiles();
+            return;
+        }
+
+        if (isGeolith & (isZip || is7Z || isRar))
+        {
+            MessageBoxLibrary.GeolithDoesNotSupportCompressedFiles();
+            return;
         }
 
         if (string.IsNullOrEmpty(resolvedFilePath))
@@ -1138,6 +1160,23 @@ public class GameLauncher
             return;
         }
 
+        // Handle MAME Unable to load image
+        if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
+            (output.ToString().Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
+             output.ToString().Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
+        {
+            if (emulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                MessageBoxLibrary.MameUnableToLoadImage();
+            }
+
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unable to load image error.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
+            return;
+        }
+
         // Generic error handler
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
@@ -1201,13 +1240,11 @@ public class GameLauncher
             "Kega Fusion", "KegaFusion", "Kega", "Fusion", "Fusion.exe", "Project64", "Project 64", "Project64.exe", "Emulicious", "Emulicious.exe", "Speccy", "Speccy.exe"
         ];
 
-        // Check if the emulator name or executable path matches any entry in the skip list
         foreach (var emulatorToSkip in emulatorsToSkipErrorChecking)
         {
             if (selectedEmulatorName.Contains(emulatorToSkip, StringComparison.OrdinalIgnoreCase) ||
                 resolvedEmulatorExePath.Contains(emulatorToSkip, StringComparison.OrdinalIgnoreCase))
             {
-                // Notify developer
                 var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
                                      $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
                                      $"Exit code: {process.ExitCode}\n" +

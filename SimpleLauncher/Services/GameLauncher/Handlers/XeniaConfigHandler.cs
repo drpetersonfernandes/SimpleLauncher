@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
@@ -31,7 +32,15 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            try
+            {
+                XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            }
+            catch (Exception ex)
+            {
+                // Log error but allow game to launch with default Xenia settings
+                DebugLogger.Log($"[XeniaConfigHandler] Failed to inject settings: {ex.Message}");
+            }
         }
 
         return shouldRun;
