@@ -505,9 +505,6 @@
     <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertToRVZ\7z_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -533,9 +530,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToRVZ\7z_arm64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ_arm64.exe">
