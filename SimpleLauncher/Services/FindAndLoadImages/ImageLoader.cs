@@ -34,10 +34,16 @@ public static class ImageLoader
             // If successful, return the loaded image and false (not default)
             return (bitmapImage, false);
         }
+        catch (NotSupportedException)
+        {
+            // The original image is corrupt or has an unsupported format
+            // Do NOT report to developer - just use fallback logic
+            return await LoadDefaultImageAsync();
+        }
         catch (Exception ex)
         {
-            // Notify developer
-            // If loading the primary image fails, log the error
+            // Any other cause for image load failure (file not found, I/O errors, permissions, etc.)
+            // Report to developer and use fallback logic
             var contextMessage = $"Failed to load primary image: {imagePath}. Attempting to load default.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
