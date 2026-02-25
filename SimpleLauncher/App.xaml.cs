@@ -66,6 +66,7 @@ public partial class App : IDisposable
         {
             var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl") ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
             client.BaseAddress = new Uri(apiUrl);
+            client.Timeout = TimeSpan.FromSeconds(10);
         });
         serviceCollection.AddHttpClient("EasyModeClient", client =>
         {

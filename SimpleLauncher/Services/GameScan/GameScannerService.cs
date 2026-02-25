@@ -129,39 +129,52 @@ public class GameScannerService
     {
         if (string.IsNullOrWhiteSpace(gameName)) return false;
 
-        try
+        // Try up to 2 times (initial attempt + 1 retry after 5 seconds)
+        for (var attempt = 0; attempt < 2; attempt++)
         {
-            var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-            using var client = httpClientFactory.CreateClient("GameImageClient");
-
-            var encodedGameName = System.Net.WebUtility.UrlEncode(gameName);
-            var response = await client.GetAsync($"api/v1/games/search?name={encodedGameName}");
-
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
+                var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+                using var client = httpClientFactory.CreateClient("GameImageClient");
+
+                var encodedGameName = System.Net.WebUtility.UrlEncode(gameName);
+                var response = await client.GetAsync($"api/v1/games/search?name={encodedGameName}");
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    DebugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                    if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
+                    {
+                        DebugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                    }
+
+                    return false;
                 }
 
-                return false;
+                await using var jsonStream = await response.Content.ReadAsStreamAsync();
+                var apiResponse = await JsonSerializer.DeserializeAsync<GameImageApiResponse>(jsonStream);
+
+                if (apiResponse is { Success: true, ImageUrl: not null } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
+                {
+                    // HttpClient supports absolute URLs directly, even when BaseAddress is configured
+                    var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
+                    await File.WriteAllBytesAsync(destinationPath, imageBytes);
+                    DebugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
+                    return true;
+                }
             }
-
-            await using var jsonStream = await response.Content.ReadAsStreamAsync();
-            var apiResponse = await JsonSerializer.DeserializeAsync<GameImageApiResponse>(jsonStream);
-
-            if (apiResponse is { Success: true, ImageUrl: not null } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
+            catch (Exception)
             {
-                // HttpClient supports absolute URLs directly, even when BaseAddress is configured
-                var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
-                await File.WriteAllBytesAsync(destinationPath, imageBytes);
-                DebugLogger.Log($"[GameScannerService] Successfully downloaded image for '{gameName}' from API.");
-                return true;
+                // On first attempt, wait 5 seconds and retry
+                if (attempt == 0)
+                {
+                    DebugLogger.Log($"[GameScannerService] Image download failed for '{gameName}', retrying in 5 seconds...");
+                    await Task.Delay(5000);
+                    continue;
+                }
+
+                // On second attempt, fail silently and let the caller fall back to icon extraction
+                DebugLogger.Log($"[GameScannerService] Image download failed for '{gameName}' after retry. Falling back to icon extraction.");
             }
-        }
-        catch (Exception ex)
-        {
-            await logErrors.LogErrorAsync(ex, $"Failed to fetch or download image for '{gameName}' from API.");
         }
 
         return false;
