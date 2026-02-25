@@ -1278,7 +1278,22 @@ internal static class ScanMicrosoftStoreGames
                 }
 
                 // Check for high-res targetsize images
-                var pngs = Directory.GetFiles(dir, "*.png");
+                string[] pngs;
+                try
+                {
+                    pngs = Directory.GetFiles(dir, "*.png");
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    // Directory may have been removed or is inaccessible
+                    continue;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // No permission to access this directory
+                    continue;
+                }
+
                 var bestIcon = pngs
                     .Where(static f => f.Contains("targetsize", StringComparison.OrdinalIgnoreCase) || f.Contains("scale", StringComparison.OrdinalIgnoreCase))
                     .OrderByDescending(static f => new FileInfo(f).Length) // Bigger is usually better quality
