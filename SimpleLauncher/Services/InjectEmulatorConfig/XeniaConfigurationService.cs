@@ -21,7 +21,22 @@ public static class XeniaConfigurationService
 
         foreach (var fileName in configFiles)
         {
+            // 1. Try portable path first (emulator directory)
             var configPath = Path.Combine(emuDir, fileName);
+
+            // 2. If not found in portable location, try Documents folder (standard Xenia location)
+            if (!File.Exists(configPath))
+            {
+                var documentsPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "Xenia",
+                    fileName);
+                if (File.Exists(documentsPath))
+                {
+                    configPath = documentsPath;
+                }
+            }
+
             // The UpdateSingleConfigFile now handles creation from sample if missing.
             // So we don't need to check File.Exists(configPath) here anymore,
             // as it will attempt to create it if not found.
@@ -35,7 +50,7 @@ public static class XeniaConfigurationService
         {
             // Log the issue instead of throwing to prevent crash when samples are missing
             // or no config files exist. Xenia will use its default settings.
-            DebugLogger.Log("[XeniaConfig] WARNING: No configuration files found to inject into. Expected xenia.config.toml or xenia-canary.config.toml. Xenia will use default settings.");
+            DebugLogger.Log("[XeniaConfig] WARNING: No configuration files found to inject into. Expected xenia.config.toml or xenia-canary.config.toml in emulator directory or Documents\\Xenia. Xenia will use default settings.");
         }
     }
 
