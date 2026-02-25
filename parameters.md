@@ -27,7 +27,7 @@
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -122,7 +122,7 @@ You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasured
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mame_2010/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -161,7 +161,7 @@ You need to use a ROM set compatible with Raine. You can find an updated set of 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/stella/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -233,7 +233,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -275,7 +275,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/prosystem/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -339,7 +339,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Atari Jaguar
 
@@ -804,7 +804,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -895,7 +895,7 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Commodore Amiga
 
@@ -1006,7 +1006,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1273,7 +1273,7 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/bluemsx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1286,7 +1286,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1361,7 +1361,7 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/bluemsx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1374,7 +1374,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1584,7 +1584,7 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1659,7 +1659,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1724,7 +1724,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pc_fx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -1778,7 +1778,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_sgx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2145,7 +2145,7 @@ This emulator requires a BIOS file to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mesen/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2158,7 +2158,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2217,7 +2217,7 @@ This emulator requires a BIOS file to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2230,7 +2230,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2243,7 +2243,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2256,7 +2256,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2337,7 +2337,7 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mgba/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2419,7 +2419,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2432,7 +2432,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2445,7 +2445,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2458,7 +2458,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2559,7 +2559,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Nintendo NES
 
@@ -2714,7 +2714,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/snes9x/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2727,7 +2727,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_bsnes/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2816,7 +2816,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/snes9x/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -2956,7 +2956,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_vb/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3005,7 +3005,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Nintendo WiiU
 
@@ -3069,7 +3069,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Panasonic 3DO
 
@@ -3110,7 +3110,7 @@ This emulator can load CUE/BIN or ISO natively.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/opera/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Philips CD-i
 
@@ -3139,7 +3139,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/same_cdi/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## ScummVM
 
@@ -3228,7 +3228,7 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/flycast/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3280,7 +3280,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3399,7 +3399,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3412,7 +3412,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3425,7 +3425,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/blastem/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3514,7 +3514,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3584,7 +3584,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3597,7 +3597,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3659,7 +3659,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3855,7 +3855,7 @@ This program requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_saturn/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3868,7 +3868,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/kronos/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3881,7 +3881,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabasanshiro/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -3894,7 +3894,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabause/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4113,7 +4113,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [libretro Website](https://docs.libretro.com/library/px68k/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4155,7 +4155,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fuse/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4278,7 +4278,7 @@ You need to use a ROM set compatible with Raine. You can find an updated set of 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [NeoCD Repository](https://github.com/libretro/neocd_libretro).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4331,7 +4331,7 @@ If you try to load a CHD file 'Simple Launcher' will automatic convert it to CUE
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4344,7 +4344,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4407,7 +4407,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4420,7 +4420,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4495,7 +4495,7 @@ Emulator may need BIOS or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_psx/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4520,7 +4520,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 .
 
@@ -4593,7 +4593,7 @@ This emulator may require BIOS or system files to work properly.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/pcsx2/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Sony PlayStation 3
 
@@ -4744,7 +4744,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/ppsspp/).<br>
-Core may require BIOS files or system files to work properly.
+Core may require BIOS files or system files to work.
 
 ## Super ACan / Super-ACan / Super A'Can / Super-A'Can
 
