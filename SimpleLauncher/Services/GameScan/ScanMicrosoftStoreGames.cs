@@ -346,6 +346,7 @@ internal static class ScanMicrosoftStoreGames
         "Gamepad Battery Status",
         "GameSir Nexus",
         "GameSir Nexus Legacy",
+        "GameVault",
         "GamingApp",
         "Get Help",
         "Gigabyte Dynamic Light",
