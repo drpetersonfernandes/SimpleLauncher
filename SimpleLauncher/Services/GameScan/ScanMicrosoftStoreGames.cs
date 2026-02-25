@@ -1201,6 +1201,23 @@ internal static class ScanMicrosoftStoreGames
                         await Task.Run(() => File.Copy(fullLogoPath, destPath, true));
                         return;
                     }
+                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                        try
+                        {
+                            await Task.Run(() =>
+                            {
+                                var bytes = File.ReadAllBytes(fullLogoPath);
+                                File.WriteAllBytes(destPath, bytes);
+                            });
+                            return;
+                        }
+                        catch (Exception fallbackEx)
+                        {
+                            await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                        }
+                    }
                     catch (Exception ex)
                     {
                         await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
@@ -1235,6 +1252,23 @@ internal static class ScanMicrosoftStoreGames
                             await Task.Run(() => File.Copy(p, destPath, true));
                             return;
                         }
+                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                            try
+                            {
+                                await Task.Run(() =>
+                                {
+                                    var bytes = File.ReadAllBytes(p);
+                                    File.WriteAllBytes(destPath, bytes);
+                                });
+                                return;
+                            }
+                            catch (Exception fallbackEx)
+                            {
+                                await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                            }
+                        }
                         catch (Exception ex)
                         {
                             await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
@@ -1257,6 +1291,23 @@ internal static class ScanMicrosoftStoreGames
                         await Task.Run(() => File.Copy(bestIcon, destPath, true));
                         return;
                     }
+                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                        try
+                        {
+                            await Task.Run(() =>
+                            {
+                                var bytes = File.ReadAllBytes(bestIcon);
+                                File.WriteAllBytes(destPath, bytes);
+                            });
+                            return;
+                        }
+                        catch (Exception fallbackEx)
+                        {
+                            await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                        }
+                    }
                     catch (Exception ex)
                     {
                         await logErrors.LogErrorAsync(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
@@ -1273,6 +1324,23 @@ internal static class ScanMicrosoftStoreGames
                         {
                             await Task.Run(() => File.Copy(largestPng, destPath, true));
                             return;
+                        }
+                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                        {
+                            // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                            try
+                            {
+                                await Task.Run(() =>
+                                {
+                                    var bytes = File.ReadAllBytes(largestPng);
+                                    File.WriteAllBytes(destPath, bytes);
+                                });
+                                return;
+                            }
+                            catch (Exception fallbackEx)
+                            {
+                                await logErrors.LogErrorAsync(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                            }
                         }
                         catch (Exception ex)
                         {
