@@ -1129,6 +1129,35 @@ public class GameLauncher
             return;
         }
 
+        // Handle RetroArch parameter should start with -L
+        if ((emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase)) &
+            !emulatorManager.EmulatorParameters.StartsWith("-L", StringComparison.OrdinalIgnoreCase))
+        {
+            if (emulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                MessageBoxLibrary.RetroArchParameterShouldStartWithL();
+            }
+
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter should start with -L.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            return;
+        }
+
+        // Handle RetroArch parameter issues
+        if (emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+            emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase))
+        {
+            if (emulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                MessageBoxLibrary.RetroArchParameterIssue();
+            }
+
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            return;
+        }
+
         // Handle MAME Not Found error
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
              emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
