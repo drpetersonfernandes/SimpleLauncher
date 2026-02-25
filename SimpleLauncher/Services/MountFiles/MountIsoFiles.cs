@@ -171,7 +171,7 @@ public static class MountIsoFiles
         var psi = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"& {{ {command} }}\"",
+            Arguments = $"-NoProfile -Command \"& {{ {command} }}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -288,7 +288,7 @@ public static class MountIsoFiles
         var psi = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"& {{ {command} }}\"",
+            Arguments = $"-NoProfile -Command \"& {{ {command} }}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,

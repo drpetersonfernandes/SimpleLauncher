@@ -980,7 +980,7 @@ internal static class ScanMicrosoftStoreGames
             var startInfo = new ProcessStartInfo
             {
                 FileName = powerShellPath,
-                Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{script}\"",
+                Arguments = $"-NoProfile -Command \"{script}\"",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
