@@ -72,7 +72,7 @@ public class SettingsManager : IDisposable
     public bool AresRewind { get; set; }
     public bool AresRunAhead { get; set; }
     public bool AresAutoSaveMemory { get; set; } = true;
-    public bool AresShowSettingsBeforeLaunch { get; set; } = true;
+    public bool AresShowSettingsBeforeLaunch { get; set; }
 
     // Azahar
     public int AzaharGraphicsApi { get; set; } = 1; // 1=Vulkan
@@ -83,7 +83,7 @@ public class SettingsManager : IDisposable
     public int AzaharVolume { get; set; } = 100;
     public bool AzaharIsNew3ds { get; set; } = true;
     public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
-    public bool AzaharShowSettingsBeforeLaunch { get; set; } = true;
+    public bool AzaharShowSettingsBeforeLaunch { get; set; }
     public bool AzaharEnableAudioStretching { get; set; } = true;
 
     // Blastem
@@ -94,7 +94,7 @@ public class SettingsManager : IDisposable
     public bool BlastemScanlines { get; set; }
     public int BlastemAudioRate { get; set; } = 48000;
     public string BlastemSyncSource { get; set; } = "audio";
-    public bool BlastemShowSettingsBeforeLaunch { get; set; } = true;
+    public bool BlastemShowSettingsBeforeLaunch { get; set; }
 
     // Cemu
     public bool CemuFullscreen { get; set; }
@@ -104,7 +104,7 @@ public class SettingsManager : IDisposable
     public int CemuTvVolume { get; set; } = 50;
     public int CemuConsoleLanguage { get; set; } = 1; // 1=English
     public bool CemuDiscordPresence { get; set; } = true;
-    public bool CemuShowSettingsBeforeLaunch { get; set; } = true;
+    public bool CemuShowSettingsBeforeLaunch { get; set; }
 
     // Daphne
     public bool DaphneFullscreen { get; set; }
@@ -114,14 +114,14 @@ public class SettingsManager : IDisposable
     public bool DaphneBilinear { get; set; } = true;
     public bool DaphneEnableSound { get; set; } = true;
     public bool DaphneUseOverlays { get; set; } = true;
-    public bool DaphneShowSettingsBeforeLaunch { get; set; } = true;
+    public bool DaphneShowSettingsBeforeLaunch { get; set; }
 
     // Dolphin
     public string DolphinGfxBackend { get; set; } = "Vulkan";
     public bool DolphinDspThread { get; set; } = true;
     public bool DolphinWiimoteContinuousScanning { get; set; } = true;
     public bool DolphinWiimoteEnableSpeaker { get; set; } = true;
-    public bool DolphinShowSettingsBeforeLaunch { get; set; } = true;
+    public bool DolphinShowSettingsBeforeLaunch { get; set; }
 
     // DuckStation
     public bool DuckStationStartFullscreen { get; set; }
@@ -138,14 +138,14 @@ public class SettingsManager : IDisposable
     public bool DuckStationVsync { get; set; }
     public int DuckStationOutputVolume { get; set; } = 100;
     public bool DuckStationOutputMuted { get; set; }
-    public bool DuckStationShowSettingsBeforeLaunch { get; set; } = true;
+    public bool DuckStationShowSettingsBeforeLaunch { get; set; }
 
     // Flycast
     public bool FlycastFullscreen { get; set; }
     public int FlycastWidth { get; set; } = 640;
     public int FlycastHeight { get; set; } = 480;
     public bool FlycastMaximized { get; set; }
-    public bool FlycastShowSettingsBeforeLaunch { get; set; } = true;
+    public bool FlycastShowSettingsBeforeLaunch { get; set; }
 
     // MAME
     public string MameVideo { get; set; } = "auto"; // auto, d3d, opengl, bgfx
@@ -156,7 +156,7 @@ public class SettingsManager : IDisposable
     public bool MameAutosave { get; set; }
     public bool MameConfirmQuit { get; set; }
     public bool MameJoystick { get; set; } = true;
-    public bool MameShowSettingsBeforeLaunch { get; set; } = true;
+    public bool MameShowSettingsBeforeLaunch { get; set; }
     public bool MameAutoframeskip { get; set; }
     public string MameBgfxBackend { get; set; } = "auto";
     public string MameBgfxScreenChains { get; set; } = "default";
@@ -177,7 +177,7 @@ public class SettingsManager : IDisposable
     public int MednafenVolume { get; set; } = 100;
     public bool MednafenCheats { get; set; } = true;
     public bool MednafenRewind { get; set; }
-    public bool MednafenShowSettingsBeforeLaunch { get; set; } = true;
+    public bool MednafenShowSettingsBeforeLaunch { get; set; }
 
     // Mesen
     public bool MesenFullscreen { get; set; }
@@ -190,7 +190,7 @@ public class SettingsManager : IDisposable
     public bool MesenRewind { get; set; }
     public int MesenRunAhead { get; set; }
     public bool MesenPauseInBackground { get; set; }
-    public bool MesenShowSettingsBeforeLaunch { get; set; } = true;
+    public bool MesenShowSettingsBeforeLaunch { get; set; }
 
     // PCSX2
     public bool Pcsx2StartFullscreen { get; set; } = true;
@@ -203,7 +203,7 @@ public class SettingsManager : IDisposable
     public int Pcsx2Volume { get; set; } = 100;
     public bool Pcsx2AchievementsEnabled { get; set; }
     public bool Pcsx2AchievementsHardcore { get; set; } = true;
-    public bool Pcsx2ShowSettingsBeforeLaunch { get; set; } = true;
+    public bool Pcsx2ShowSettingsBeforeLaunch { get; set; }
 
     // Raine
     public bool RaineFullscreen { get; set; }
@@ -213,7 +213,7 @@ public class SettingsManager : IDisposable
     public bool RaineVsync { get; set; } = true;
     public string RaineSoundDriver { get; set; } = "directsound";
     public int RaineSampleRate { get; set; } = 44100;
-    public bool RaineShowSettingsBeforeLaunch { get; set; } = true;
+    public bool RaineShowSettingsBeforeLaunch { get; set; }
     public bool RaineShowFps { get; set; }
     public int RaineFrameSkip { get; set; }
     public string RaineNeoCdBios { get; set; } = string.Empty;
@@ -239,7 +239,7 @@ public class SettingsManager : IDisposable
     public bool RedreamFramerate { get; set; }
     public int RedreamWidth { get; set; } = 1280;
     public int RedreamHeight { get; set; } = 720;
-    public bool RedreamShowSettingsBeforeLaunch { get; set; } = true;
+    public bool RedreamShowSettingsBeforeLaunch { get; set; }
 
     // RetroArch
     public bool RetroArchCheevosEnable { get; set; }
@@ -257,7 +257,7 @@ public class SettingsManager : IDisposable
     public bool RetroArchRewind { get; set; }
     public bool RetroArchThreadedVideo { get; set; }
     public bool RetroArchBilinear { get; set; }
-    public bool RetroArchShowSettingsBeforeLaunch { get; set; } = true;
+    public bool RetroArchShowSettingsBeforeLaunch { get; set; }
     public string RetroArchAspectRatioIndex { get; set; } = "22"; // 22 = Core Provided
     public bool RetroArchScaleInteger { get; set; }
     public bool RetroArchShaderEnable { get; set; } = true;
@@ -282,7 +282,7 @@ public class SettingsManager : IDisposable
     public string Rpcs3AudioRenderer { get; set; } = "Cubeb";
     public bool Rpcs3AudioBuffering { get; set; } = true;
     public bool Rpcs3StartFullscreen { get; set; }
-    public bool Rpcs3ShowSettingsBeforeLaunch { get; set; } = true;
+    public bool Rpcs3ShowSettingsBeforeLaunch { get; set; }
 
     // SEGA Model 2
     public int SegaModel2ResX { get; set; } = 640;
@@ -297,7 +297,7 @@ public class SettingsManager : IDisposable
     public bool SegaModel2EnableFf { get; set; }
     public bool SegaModel2HoldGears { get; set; }
     public bool SegaModel2UseRawInput { get; set; }
-    public bool SegaModel2ShowSettingsBeforeLaunch { get; set; } = true;
+    public bool SegaModel2ShowSettingsBeforeLaunch { get; set; }
 
     // Stella
     public bool StellaFullscreen { get; set; }
@@ -310,7 +310,7 @@ public class SettingsManager : IDisposable
     public int StellaAudioVolume { get; set; } = 80;
     public bool StellaTimeMachine { get; set; } = true;
     public bool StellaConfirmExit { get; set; }
-    public bool StellaShowSettingsBeforeLaunch { get; set; } = true;
+    public bool StellaShowSettingsBeforeLaunch { get; set; }
 
     // Supermodel
     public bool SupermodelNew3DEngine { get; set; } = true;
@@ -327,7 +327,7 @@ public class SettingsManager : IDisposable
     public string SupermodelInputSystem { get; set; } = "xinput";
     public bool SupermodelMultiThreaded { get; set; } = true;
     public int SupermodelPowerPcFrequency { get; set; } = 50;
-    public bool SupermodelShowSettingsBeforeLaunch { get; set; } = true;
+    public bool SupermodelShowSettingsBeforeLaunch { get; set; }
 
     // Xenia
     public string XeniaReadbackResolve { get; set; } = "none"; // none, fast, full
@@ -347,7 +347,7 @@ public class SettingsManager : IDisposable
     public bool XeniaDiscordPresence { get; set; } = true;
     public int XeniaUserLanguage { get; set; } = 1; // 1=English
     public string XeniaHid { get; set; } = "xinput"; // xinput, sdl, winkey, any
-    public bool XeniaShowSettingsBeforeLaunch { get; set; } = true;
+    public bool XeniaShowSettingsBeforeLaunch { get; set; }
 
     // Yumir
     public bool YumirFullscreen { get; set; }
@@ -359,7 +359,7 @@ public class SettingsManager : IDisposable
     public double YumirForcedAspect { get; set; } = 1.7777777777777777;
     public bool YumirForceAspectRatio { get; set; }
     public bool YumirReduceLatency { get; set; } = true;
-    public bool YumirShowSettingsBeforeLaunch { get; set; } = true;
+    public bool YumirShowSettingsBeforeLaunch { get; set; }
 
     private const string DefaultSettingsFilePath = "settings.xml";
     private const string DefaultNotificationSoundFileName = "click.mp3";
