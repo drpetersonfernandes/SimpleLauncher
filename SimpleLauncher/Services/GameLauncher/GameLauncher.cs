@@ -700,11 +700,25 @@ public class GameLauncher
         var isGeolith = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro", StringComparison.OrdinalIgnoreCase) ||
                                                                                       selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro.dll", StringComparison.OrdinalIgnoreCase));
 
+        var isRetroArch = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+                                                                                        selectedEmulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase));
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
         string tempConvertedPath = null;
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
+
+        if (isRetroArch && (selectedEmulatorManager != null) && (!selectedEmulatorManager.EmulatorParameters.StartsWith("-L", StringComparison.OrdinalIgnoreCase)))
+        {
+            var errorMessage = $"[LaunchRegularEmulatorAsync] RetroArch parameter should start with -L. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
+            DebugLogger.Log(errorMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+
+            MessageBoxLibrary.RetroArchParameterShouldStartWithL();
+
+            return;
+        }
 
         if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
@@ -776,13 +790,13 @@ public class GameLauncher
             }
         }
 
-        if (isOotake & (isChd || isBin || isCue || isIso))
+        if (isOotake && (isChd || isBin || isCue || isIso))
         {
             MessageBoxLibrary.OotakeDoesNotSupportImageFiles();
             return;
         }
 
-        if (isGeolith & (isZip || is7Z || isRar))
+        if (isGeolith && (isZip || is7Z || isRar))
         {
             MessageBoxLibrary.GeolithDoesNotSupportCompressedFiles();
             return;
@@ -1126,21 +1140,6 @@ public class GameLauncher
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
-            return;
-        }
-
-        // Handle RetroArch parameter should start with -L
-        if ((emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
-             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase)) &
-            !emulatorManager.EmulatorParameters.StartsWith("-L", StringComparison.OrdinalIgnoreCase))
-        {
-            if (emulatorManager.ReceiveANotificationOnEmulatorError)
-            {
-                MessageBoxLibrary.RetroArchParameterShouldStartWithL();
-            }
-
-            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter should start with -L.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             return;
         }
 
