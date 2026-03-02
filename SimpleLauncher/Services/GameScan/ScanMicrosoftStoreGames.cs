@@ -1309,7 +1309,17 @@ internal static class ScanMicrosoftStoreGames
 
                 var bestIcon = pngs
                     .Where(static f => f.Contains("targetsize", StringComparison.OrdinalIgnoreCase) || f.Contains("scale", StringComparison.OrdinalIgnoreCase))
-                    .OrderByDescending(static f => new FileInfo(f).Length) // Bigger is usually better quality
+                    .OrderByDescending(static f =>
+                    {
+                        try
+                        {
+                            return new FileInfo(f).Length;
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            return 0L;
+                        }
+                    }) // Bigger is usually better quality
                     .FirstOrDefault();
 
                 if (bestIcon != null)
@@ -1345,7 +1355,17 @@ internal static class ScanMicrosoftStoreGames
                 // Fallback: Just take the largest PNG in the Assets folder
                 if (dir.EndsWith("Assets", StringComparison.Ordinal) || dir.EndsWith("Images", StringComparison.Ordinal))
                 {
-                    var largestPng = pngs.OrderByDescending(static f => new FileInfo(f).Length).FirstOrDefault();
+                    var largestPng = pngs.OrderByDescending(static f =>
+                    {
+                        try
+                        {
+                            return new FileInfo(f).Length;
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            return 0L;
+                        }
+                    }).FirstOrDefault();
                     if (largestPng != null)
                     {
                         try
