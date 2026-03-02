@@ -25,7 +25,7 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
-public class GameLauncher
+public partial class GameLauncher
 {
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
@@ -392,10 +392,7 @@ public class GameLauncher
             {
                 // Read and validate the .url file content
                 var urlContent = await File.ReadAllTextAsync(resolvedFilePath);
-#pragma warning disable SYSLIB1045
-                var urlMatch = System.Text.RegularExpressions.Regex.Match(urlContent, @"URL=(.+)",
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-#pragma warning restore SYSLIB1045
+                var urlMatch = MyRegex().Match(urlContent);
 
                 if (!urlMatch.Success || string.IsNullOrWhiteSpace(urlMatch.Groups[1].Value))
                 {
@@ -1334,4 +1331,7 @@ public class GameLauncher
             return false;
         }
     }
+
+    [System.Text.RegularExpressions.GeneratedRegex(@"URL=(.+)", System.Text.RegularExpressions.RegexOptions.IgnoreCase, "pt-BR")]
+    private static partial System.Text.RegularExpressions.Regex MyRegex();
 }
