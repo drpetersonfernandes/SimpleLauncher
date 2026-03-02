@@ -703,6 +703,9 @@ public class GameLauncher
         var isRetroArch = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
                                                                                         selectedEmulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase));
 
+        var isBigPEmu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase) ||
+                                                                                      selectedEmulatorManager.EmulatorLocation.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase));
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
         string tempConvertedPath = null;
@@ -754,7 +757,7 @@ public class GameLauncher
             }
         }
 
-        if (isChd && (isRaine || is4Do || isMednafen))
+        if (isChd && (isRaine || is4Do || isMednafen || isBigPEmu))
         {
             var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
             loadingStateProvider.SetLoadingState(true, convertingMsg);
