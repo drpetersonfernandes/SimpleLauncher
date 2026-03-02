@@ -162,18 +162,37 @@ public class GameScannerService
                     return true;
                 }
             }
-            catch (Exception)
+            catch (OperationCanceledException) when (attempt == 0)
             {
-                // On first attempt, wait 5 seconds and retry
-                if (attempt == 0)
+                // Timeout on first attempt - wait and retry
+                DebugLogger.Log($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
+                await Task.Delay(5000);
+                continue;
+            }
+            catch (HttpRequestException ex) when (attempt == 0)
+            {
+                // Network error on first attempt - wait and retry
+                DebugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Retrying in 5 seconds...");
+                await Task.Delay(5000);
+                continue;
+            }
+            catch (Exception ex)
+            {
+                // On second attempt or unexpected errors, fail silently and let the caller fall back to icon extraction
+                var errorType = ex switch
                 {
-                    DebugLogger.Log($"[GameScannerService] Image download failed for '{gameName}', retrying in 5 seconds...");
-                    await Task.Delay(5000);
-                    continue;
-                }
+                    OperationCanceledException => "timeout",
+                    HttpRequestException => "network error",
+                    _ => "error"
+                };
+                var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}). Falling back to icon extraction.";
+                DebugLogger.Log(logMessage);
 
-                // On second attempt, fail silently and let the caller fall back to icon extraction
-                DebugLogger.Log($"[GameScannerService] Image download failed for '{gameName}' after retry. Falling back to icon extraction.");
+                // Log persistent network errors to help identify API issues, but don't spam logs
+                if (ex is HttpRequestException or OperationCanceledException)
+                {
+                    logErrors?.LogErrorAsync(ex, $"Failed to download image for '{gameName}' from API after retry.");
+                }
             }
         }
 
