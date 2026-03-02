@@ -596,6 +596,7 @@ internal static class ScanMicrosoftStoreGames
         "Obtener ayuda",
         "Office",
         "Office.OneNote",
+        "Oh My Posh",
         "Old Windows versions",
         "OMEN Audio Control",
         "OMEN Gaming Hub",
