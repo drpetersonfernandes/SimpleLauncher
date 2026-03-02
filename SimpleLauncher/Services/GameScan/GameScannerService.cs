@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -137,12 +138,12 @@ public class GameScannerService
                 var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
                 using var client = httpClientFactory.CreateClient("GameImageClient");
 
-                var encodedGameName = System.Net.WebUtility.UrlEncode(gameName);
+                var encodedGameName = WebUtility.UrlEncode(gameName);
                 var response = await client.GetAsync($"api/v1/games/search?name={encodedGameName}");
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
+                    if (response.StatusCode != HttpStatusCode.NotFound)
                     {
                         DebugLogger.Log($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
                     }
@@ -167,14 +168,12 @@ public class GameScannerService
                 // Timeout on first attempt - wait and retry
                 DebugLogger.Log($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
                 await Task.Delay(5000);
-                continue;
             }
             catch (HttpRequestException ex) when (attempt == 0)
             {
                 // Network error on first attempt - wait and retry
                 DebugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Retrying in 5 seconds...");
                 await Task.Delay(5000);
-                continue;
             }
             catch (Exception ex)
             {
