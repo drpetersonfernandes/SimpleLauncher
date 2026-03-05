@@ -224,6 +224,40 @@ public static class RetroAchievementsSystemMatcher
     }
 
     /// <summary>
+    /// Checks if a system name exists in the SystemMappings dictionary.
+    /// This checks both the dictionary keys and all aliases for each system.
+    /// </summary>
+    /// <param name="systemName">The system name to check.</param>
+    /// <returns>True if the system exists in SystemMappings; otherwise, false.</returns>
+    public static bool IsSystemInMappings(string systemName)
+    {
+        if (string.IsNullOrWhiteSpace(systemName))
+            return false;
+
+        var normalizedInput = systemName.Trim().ToLowerInvariant();
+
+        // Check if input matches any dictionary key directly
+        if (SystemMappings.ContainsKey(normalizedInput))
+            return true;
+
+        // Check if input matches any alias in any system
+        foreach (var kvp in SystemMappings)
+        {
+            if (kvp.Value.Aliases.Any(alias =>
+                    alias.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase) ||
+                    alias.Contains(normalizedInput, StringComparison.OrdinalIgnoreCase) ||
+                    normalizedInput.Contains(alias, StringComparison.OrdinalIgnoreCase)))
+            {
+                return true;
+            }
+        }
+
+        // Try fuzzy matching as a last resort
+        var bestMatch = GetBestMatchSystemName(systemName);
+        return SystemMappings.ContainsKey(bestMatch);
+    }
+
+    /// <summary>
     /// Performs fuzzy matching between two strings using a combination of techniques.
     /// </summary>
     private static bool IsFuzzyMatch(string input, string pattern)

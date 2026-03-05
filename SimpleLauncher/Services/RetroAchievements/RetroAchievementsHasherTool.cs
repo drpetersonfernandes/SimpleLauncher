@@ -38,8 +38,8 @@ internal static class RetroAchievementsHasherTool
         "playstation", "playstation 2", "playstation portable"
     ];
 
-    // ReSharper disable once UnusedMember.Local
     // Systems Not Supported or with UnknowHashLogic
+    // These systems will not show the RetroAchievements icon and hashing will be skipped
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
         "atari 5200", "Arduboy", "wii", "wii u", "nintendo 3ds", "sega pico",
@@ -47,7 +47,10 @@ internal static class RetroAchievementsHasherTool
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
         "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
-        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows"
+        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows",
+        "playstation 3", "ps3", "sony playstation 3", "xbox 360", "xbox one", "xbox series x", "xbox series s",
+        "nintendo switch", "sega model 2", "sega model 3", "sega naomi", "sega naomi 2", "atomiswave",
+        "odyssey", "odyssey2"
     ];
 
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
@@ -63,6 +66,165 @@ internal static class RetroAchievementsHasherTool
 
     // Add GameCube to its own logic list or handle explicitly
     private static readonly List<string> SystemWithGameCubeLogic = ["gamecube"];
+
+    /// <summary>
+    /// Checks if a system is supported for RetroAchievements hashing.
+    /// This is used to determine whether to show the RA icon and attempt hashing.
+    /// Handles name variations by checking against known aliases and using fuzzy matching.
+    /// </summary>
+    /// <param name="systemName">The system name to check.</param>
+    /// <returns>True if the system is supported for RetroAchievements hashing; otherwise, false.</returns>
+    public static bool IsSystemSupportedForHashing(string systemName)
+    {
+        if (string.IsNullOrWhiteSpace(systemName))
+            return false;
+
+        var normalizedInput = systemName.Trim().ToLowerInvariant();
+
+        // First, check if the input directly matches any unsupported system (including aliases)
+        // This is important to catch variations like "PS3", "Sony PS3", etc.
+        foreach (var unsupportedSystem in SystemWithUnknowHashLogic)
+        {
+            if (IsSystemNameMatch(normalizedInput, unsupportedSystem))
+                return false;
+        }
+
+        // Get the best match from the system mappings (this handles fuzzy matching for supported systems)
+        var matchedSystemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName);
+
+        // Check if the matched system is in the unsupported list
+        if (SystemWithUnknowHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase))
+            return false;
+
+        // Check if the system exists in the SystemMappings dictionary
+        // This ensures all systems defined in RetroAchievementsSystemMatcher are considered supported
+        if (RetroAchievementsSystemMatcher.IsSystemInMappings(systemName))
+            return true;
+
+        // Check if the matched system is in any of the supported lists
+        return SystemWithSimpleHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
+               SystemWithComplexHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
+               SystemWithFileNameHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
+               SystemWithByteSwappingHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
+               SystemWithHeaderCheckHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
+               SystemWithLineEndingNormalizationLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
+               SystemWithGameCubeLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Checks if two system names match, considering various naming conventions and variations.
+    /// </summary>
+    private static bool IsSystemNameMatch(string input, string pattern)
+    {
+        // Direct match
+        if (input.Equals(pattern, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        // Check if input contains the pattern or vice versa
+        if (input.Contains(pattern, StringComparison.OrdinalIgnoreCase) ||
+            pattern.Contains(input, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        // Remove common separators and normalize
+        var cleanInput = NormalizeSystemName(input);
+        var cleanPattern = NormalizeSystemName(pattern);
+
+        if (cleanInput.Equals(cleanPattern, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        if (cleanInput.Contains(cleanPattern, StringComparison.OrdinalIgnoreCase) ||
+            cleanPattern.Contains(cleanInput, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        // Check for common abbreviations and variations
+        return AreSystemAbbreviationsEquivalent(input, pattern);
+    }
+
+    /// <summary>
+    /// Normalizes a system name by removing common separators and standardizing format.
+    /// </summary>
+    private static string NormalizeSystemName(string input)
+    {
+        return input
+            .Replace("-", "")
+            .Replace("/", "")
+            .Replace("&", "")
+            .Replace(" ", "")
+            .Replace(".", "")
+            .Replace("'", "")
+            .Replace("™", "")
+            .Replace("®", "")
+            .ToLowerInvariant();
+    }
+
+    /// <summary>
+    /// Checks if two system names are equivalent based on common abbreviations and naming conventions.
+    /// </summary>
+    private static bool AreSystemAbbreviationsEquivalent(string input, string pattern)
+    {
+        var normalizedInput = NormalizeSystemName(input);
+        var normalizedPattern = NormalizeSystemName(pattern);
+
+        // Common Sony variations
+        if (normalizedInput.Contains("ps3") || normalizedInput.Contains("playstation3"))
+            return normalizedPattern.Contains("ps3") || normalizedPattern.Contains("playstation3");
+        if (normalizedInput.Contains("ps2") || normalizedInput.Contains("playstation2"))
+            return normalizedPattern.Contains("ps2") || normalizedPattern.Contains("playstation2");
+        if (normalizedInput.Contains("ps1") || normalizedInput.Contains("playstation1") || normalizedInput.Contains("psx"))
+            return normalizedPattern.Contains("ps1") || normalizedPattern.Contains("playstation1") || normalizedPattern.Contains("psx");
+        if (normalizedInput.Contains("psp") || normalizedInput.Contains("playstationportable"))
+            return normalizedPattern.Contains("psp") || normalizedPattern.Contains("playstationportable");
+
+        // Common Nintendo variations
+        if (normalizedInput.Contains("nes") || normalizedInput.Contains("nintendoentertainmentsystem"))
+            return normalizedPattern.Contains("nes") || normalizedPattern.Contains("nintendoentertainmentsystem");
+        if (normalizedInput.Contains("snes") || normalizedInput.Contains("supernintendo"))
+            return normalizedPattern.Contains("snes") || normalizedPattern.Contains("supernintendo");
+        if (normalizedInput.Contains("n64") || normalizedInput.Contains("nintendo64"))
+            return normalizedPattern.Contains("n64") || normalizedPattern.Contains("nintendo64");
+        if (normalizedInput.Contains("gc") || normalizedInput.Contains("gamecube"))
+            return normalizedPattern.Contains("gc") || normalizedPattern.Contains("gamecube");
+        if (normalizedInput.Contains("gb") || normalizedInput.Contains("gameboy"))
+            return normalizedPattern.Contains("gb") || normalizedPattern.Contains("gameboy");
+        if (normalizedInput.Contains("gba") || normalizedInput.Contains("gameboyadvance"))
+            return normalizedPattern.Contains("gba") || normalizedPattern.Contains("gameboyadvance");
+        if (normalizedInput.Contains("gbc") || normalizedInput.Contains("gameboycolor"))
+            return normalizedPattern.Contains("gbc") || normalizedPattern.Contains("gameboycolor");
+        if (normalizedInput.Contains("nds") || normalizedInput.Contains("nintendods"))
+            return normalizedPattern.Contains("nds") || normalizedPattern.Contains("nintendods");
+        if (normalizedInput.Contains("3ds") || normalizedInput.Contains("nintendo3ds"))
+            return normalizedPattern.Contains("3ds") || normalizedPattern.Contains("nintendo3ds");
+        if (normalizedInput.Contains("wiiu"))
+            return normalizedPattern.Contains("wiiu");
+        if (normalizedInput.Contains("switch") || normalizedInput.Contains("nintendoswitch"))
+            return normalizedPattern.Contains("switch") || normalizedPattern.Contains("nintendoswitch");
+
+        // Common Sega variations
+        if (normalizedInput.Contains("genesis") || normalizedInput.Contains("megadrive") || normalizedInput.Contains("segagenesis"))
+            return normalizedPattern.Contains("genesis") || normalizedPattern.Contains("megadrive") || normalizedPattern.Contains("segagenesis");
+        if (normalizedInput.Contains("sms") || normalizedInput.Contains("mastersystem") || normalizedInput.Contains("segamastersystem"))
+            return normalizedPattern.Contains("sms") || normalizedPattern.Contains("mastersystem") || normalizedPattern.Contains("segamastersystem");
+        if (normalizedInput.Contains("gg") || normalizedInput.Contains("gamegear") || normalizedInput.Contains("segagamegear"))
+            return normalizedPattern.Contains("gg") || normalizedPattern.Contains("gamegear") || normalizedPattern.Contains("segagamegear");
+        if (normalizedInput.Contains("saturn") || normalizedInput.Contains("segasaturn"))
+            return normalizedPattern.Contains("saturn") || normalizedPattern.Contains("segasaturn");
+        if (normalizedInput.Contains("dreamcast") || normalizedInput.Contains("segadreamcast"))
+            return normalizedPattern.Contains("dreamcast") || normalizedPattern.Contains("segadreamcast");
+
+        // Common Microsoft variations
+        if (normalizedInput.Contains("xbox360") || normalizedInput.Contains("xbox 360") || normalizedInput.Contains("xb360"))
+            return normalizedPattern.Contains("xbox360") || normalizedPattern.Contains("xbox 360") || normalizedPattern.Contains("xb360");
+        if (normalizedInput.Contains("xboxone") || normalizedInput.Contains("xbox one") || normalizedInput.Contains("xbone"))
+            return normalizedPattern.Contains("xboxone") || normalizedPattern.Contains("xbox one") || normalizedPattern.Contains("xbone");
+
+        // Common arcade variations
+        if (normalizedInput.Contains("mame") || normalizedInput.Contains("arcade"))
+            return normalizedPattern.Contains("mame") || normalizedPattern.Contains("arcade");
+        if (normalizedInput.Contains("neogeo") || normalizedInput.Contains("neo geo"))
+            return normalizedPattern.Contains("neogeo") || normalizedPattern.Contains("neo geo");
+
+        return false;
+    }
 
     /// <summary>
     /// Gets the hash for a given file using the external RAHasher.exe tool.

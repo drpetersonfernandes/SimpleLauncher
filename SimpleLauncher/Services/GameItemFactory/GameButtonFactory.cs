@@ -278,7 +278,10 @@ internal class GameButtonFactory(
         const double overlayButtonSpacing = 5; // Vertical spacing between buttons
         double currentVerticalOffset = 5; // Initial top margin for the first button
 
-        if (_settings.OverlayRetroAchievementButton)
+        // Only show RetroAchievements icon for supported systems
+        var isSystemSupportedForRa = RetroAchievements.RetroAchievementsHasherTool.IsSystemSupportedForHashing(selectedSystemManager.SystemName);
+
+        if (_settings.OverlayRetroAchievementButton && isSystemSupportedForRa)
         {
             // Add the RetroAchievements trophy icon overlay
             var trophyButton = new Button

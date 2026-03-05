@@ -243,6 +243,21 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void NoPdfViewerInstalledMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var nopdfviewerinstalled = (string)Application.Current.TryFindResource("NoPDFViewerInstalled") ?? "No PDF viewer is installed on your system.";
+            var pleaseinstallapdfviewer = (string)Application.Current.TryFindResource("PleaseInstallAPDFViewer") ?? "Please install a PDF viewer (such as Adobe Acrobat Reader, Sumatra PDF, or Microsoft Edge) to open this file.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            System.Windows.MessageBox.Show($"{nopdfviewerinstalled}\n\n{pleaseinstallapdfviewer}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     internal static void ThereIsNoManualMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

@@ -187,31 +187,36 @@ public static class ContextMenu
             ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.Machines, context.MainWindow);
         };
 
-        // View Achievements Context Menu
-        var viewAchievementsIcon = new Image
+        // View Achievements Context Menu - Only add for supported systems
+        var isSystemSupportedForRa = RetroAchievements.RetroAchievementsHasherTool.IsSystemSupportedForHashing(context.SelectedSystemManager.SystemName);
+        MenuItem viewAchievementsItem = null;
+        if (isSystemSupportedForRa)
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
-            Width = 16, Height = 16
-        };
-        var viewAchievementsText = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements";
-        var viewAchievementsItem = new MenuItem
-        {
-            Header = viewAchievementsText,
-            Icon = viewAchievementsIcon
-        };
-        viewAchievementsItem.Click += async (s, e) =>
-        {
-            try
+            var viewAchievementsIcon = new Image
             {
-                context.PlaySoundEffects.PlayNotificationSound();
-                await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects, context.LoadingStateProvider);
-            }
-            catch (Exception ex)
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
+                Width = 16, Height = 16
+            };
+            var viewAchievementsText = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements";
+            viewAchievementsItem = new MenuItem
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the RetroAchievements window.");
-                DebugLogger.Log($"Error opening the RetroAchievements window: {ex.Message}");
-            }
-        };
+                Header = viewAchievementsText,
+                Icon = viewAchievementsIcon
+            };
+            viewAchievementsItem.Click += async (s, e) =>
+            {
+                try
+                {
+                    context.PlaySoundEffects.PlayNotificationSound();
+                    await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow, context.PlaySoundEffects, context.LoadingStateProvider);
+                }
+                catch (Exception ex)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the RetroAchievements window.");
+                    DebugLogger.Log($"Error opening the RetroAchievements window: {ex.Message}");
+                }
+            };
+        }
 
         // Open Cover Context Menu
         var openCoverIcon = new Image
@@ -563,8 +568,13 @@ public static class ContextMenu
         contextMenu.Items.Add(addToFavorites);
         contextMenu.Items.Add(removeFromFavorites);
         contextMenu.Items.Add(new Separator());
-        contextMenu.Items.Add(viewAchievementsItem);
-        contextMenu.Items.Add(new Separator());
+        // Only add View Achievements menu item for supported systems
+        if (viewAchievementsItem != null)
+        {
+            contextMenu.Items.Add(viewAchievementsItem);
+            contextMenu.Items.Add(new Separator());
+        }
+
         contextMenu.Items.Add(openVideoLink);
         contextMenu.Items.Add(openInfoLink);
         contextMenu.Items.Add(openHistoryWindow);

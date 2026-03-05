@@ -286,6 +286,24 @@ internal static class ContextMenuFunctions
             var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName);
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
+            // Check if system is supported for RetroAchievements
+            if (!RetroAchievementsHasherTool.IsSystemSupportedForHashing(systemManager.SystemName))
+            {
+                DebugLogger.Log($"[RA Service] System '{systemManager.SystemName}' is not supported for RetroAchievements.");
+
+                var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    playSoundEffects.PlayNotificationSound();
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                    var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
+                    retroAchievementsWindow.Show();
+                }
+
+                UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemManager.SystemName}' is not supported by RetroAchievements.", mainWindow);
+                return;
+            }
+
             // Disable Hash calculation for systems that Group Files by Folder
             if (systemManager.GroupByFolder)
             {
@@ -623,6 +641,18 @@ internal static class ContextMenuFunctions
                 });
                 return;
             }
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1155) // ERROR_NO_ASSOCIATION
+            {
+                // No application is associated with the file format
+                // Notify developer
+                const string contextMessage = "There was a problem opening the manual. No PDF viewer is installed.";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.NoPdfViewerInstalledMessageBox();
+
+                return;
+            }
             catch (Exception ex)
             {
                 // Notify developer
@@ -661,6 +691,18 @@ internal static class ContextMenuFunctions
                     FileName = walkthroughPath,
                     UseShellExecute = true
                 });
+
+                return;
+            }
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1155) // ERROR_NO_ASSOCIATION
+            {
+                // No application is associated with the file format
+                // Notify developer
+                const string contextMessage = "There was a problem opening the walkthrough. No PDF viewer is installed.";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.NoPdfViewerInstalledMessageBox();
 
                 return;
             }
