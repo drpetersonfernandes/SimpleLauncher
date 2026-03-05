@@ -726,7 +726,7 @@ public partial class GameLauncher
             {
                 const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
                 DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException(contextMessage), contextMessage);
 
                 MessageBoxLibrary.NullFileExtensionMessageBox();
 
