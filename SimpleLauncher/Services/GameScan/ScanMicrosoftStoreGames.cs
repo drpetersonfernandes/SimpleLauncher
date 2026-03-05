@@ -669,6 +669,7 @@ internal static class ScanMicrosoftStoreGames
         "Paintÿ3D",
         "Painter Essentials",
         "Paisa",
+        "Paleta de comandos",
         "Palette de commandes",
         "Paperclip by FireCube",
         "Paramount+",
@@ -754,7 +755,7 @@ internal static class ScanMicrosoftStoreGames
         "Realtek Audio Console",
         "Recipe Keeper",
         "Recomendaciones",
-        "Recorte y anotaci¢n",
+        "Recorte y anotación",
         "Rememory",
         "Remote Desktop",
         "Remotehilfe",
@@ -1156,10 +1157,24 @@ internal static class ScanMicrosoftStoreGames
                     // Most games have an EXE. Some system apps don't (they are just hosts).
                     if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                     {
-                        // Optional: Filter out if no .exe is found, though some apps might be pure DLLs hosted by a runner.
-                        // For games, 99% have an exe.
-                        if (!Directory.EnumerateFiles(installLocation, "*.exe", SearchOption.AllDirectories).Any())
+                        try
                         {
+                            // Optional: Filter out if no .exe is found, though some apps might be pure DLLs hosted by a runner.
+                            // For games, 99% have an exe.
+                            if (!Directory.EnumerateFiles(installLocation, "*.exe", SearchOption.AllDirectories).Any())
+                            {
+                                continue;
+                            }
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            // Cannot access directory (e.g., WindowsApps folder permissions)
+                            // Skip this app as we cannot verify it contains an executable
+                            continue;
+                        }
+                        catch (DirectoryNotFoundException)
+                        {
+                            // Directory was removed between the Exists check and enumeration
                             continue;
                         }
                     }
