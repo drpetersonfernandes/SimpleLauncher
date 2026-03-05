@@ -1149,7 +1149,7 @@ public partial class GameLauncher
         {
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.RetroArchParameterIssue();
+                MessageBoxLibrary.RetroArchParameterIssue(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");

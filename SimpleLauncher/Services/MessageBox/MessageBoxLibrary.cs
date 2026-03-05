@@ -4563,22 +4563,41 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void RetroArchParameterIssue()
+    public static void RetroArchParameterIssue(string logPath)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        static void ShowMessage()
+        void ShowMessage()
         {
             var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var message = (string)Application.Current.TryFindResource("RetroArchParameterIssue") ?? "RetroArch could not launch your game.";
             var message2 = (string)Application.Current.TryFindResource("RetroArchParameterIssue2") ?? "99% of the launch failures are due to incorrect parameters.";
             var message3 = (string)Application.Current.TryFindResource("RetroArchParameterIssue3") ?? "Go back to 'Expert Mode' and double-check the parameter field for this emulator. Double-check the path to the desired core. Read the recommendations from the 'Simple Launcher' developer for the specific system.";
             var message4 = (string)Application.Current.TryFindResource("RetroArchParameterIssue4") ?? "Check the core requirements to run it. Some cores require a BIOS file to work. Read the core documentation to figure out what the requirements are for that specific core.";
-            System.Windows.MessageBox.Show($"{message}\n\n" +
-                                           $"{message2}\n\n" +
-                                           $"{message3}\n\n" +
-                                           $"{message4}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var result = System.Windows.MessageBox.Show($"{message}\n\n" +
+                                                        $"{message2}\n\n" +
+                                                        $"{message3}\n\n" +
+                                                        $"{message4}\n\n" +
+                                                        $"{doyouwanttoopenthefileerroruserlog}", title, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    // Notify user
+                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                    System.Windows.MessageBox.Show(thefileerroruserlogwas, title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }
