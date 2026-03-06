@@ -43,7 +43,7 @@ public static class YumirConfigurationService
         DebugLogger.Log($"[YumirConfig] Injecting configuration into: {configPath}");
 
         var tomlContent = File.ReadAllText(configPath);
-        var model = Toml.ToModel(tomlContent);
+        var model = TomlSerializer.Deserialize<TomlTable>(tomlContent) ?? new TomlTable();
 
         // [Video]
         var video = GetOrCreateTable(model, "Video");
@@ -66,7 +66,7 @@ public static class YumirConfigurationService
         var general = GetOrCreateTable(model, "General");
         general["PauseWhenUnfocused"] = settings.YumirPauseWhenUnfocused;
 
-        var updatedToml = Toml.FromModel(model);
+        var updatedToml = TomlSerializer.Serialize(model);
         try
         {
             File.WriteAllText(configPath, updatedToml);

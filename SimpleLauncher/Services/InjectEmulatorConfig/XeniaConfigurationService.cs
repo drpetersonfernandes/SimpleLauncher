@@ -85,7 +85,7 @@ public static class XeniaConfigurationService
         DebugLogger.Log($"[XeniaConfig] Injecting into: {Path.GetFileName(configPath)}");
 
         var tomlContent = File.ReadAllText(configPath);
-        var model = Toml.ToModel(tomlContent);
+        var model = TomlSerializer.Deserialize<TomlTable>(tomlContent) ?? new TomlTable();
 
         // [APU]
         var apu = GetOrCreateTable("APU");
@@ -130,7 +130,7 @@ public static class XeniaConfigurationService
         xconfig["user_language"] = settings.XeniaUserLanguage;
 
         // Write back
-        var updatedToml = Toml.FromModel(model);
+        var updatedToml = TomlSerializer.Serialize(model);
         try
         {
             File.WriteAllText(configPath, updatedToml);
