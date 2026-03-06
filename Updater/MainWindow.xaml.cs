@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
-using ICSharpCode.SharpZipLib.Zip;
+using SharpCompress.Archives.Zip;
 
 namespace Updater;
 
@@ -107,26 +107,26 @@ public partial class MainWindow
                 "Updater.dll",
                 "Updater.deps.json",
                 "Updater.runtimeconfig.json",
-                "ICSharpCode.SharpZipLib.dll",
                 "Updater.pdb" // In debug builds
             };
 
             // Extract the ZIP file
             Log("Extracting update files...");
-            await using (var zipInputStream = new ZipInputStream(updateFileStream))
+            updateFileStream.Position = 0;
+            using (var archive = ZipArchive.OpenArchive(updateFileStream))
             {
-                while (zipInputStream.GetNextEntry() is { } entry)
+                foreach (var entry in archive.Entries)
                 {
-                    if (string.IsNullOrEmpty(entry.Name)) continue;
+                    if (string.IsNullOrEmpty(entry.Key)) continue;
 
-                    var fileName = Path.GetFileName(entry.Name);
+                    var fileName = Path.GetFileName(entry.Key);
                     if (ignoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                     {
-                        Log($"Skipping self-update file: {entry.Name}");
+                        Log($"Skipping self-update file: {entry.Key}");
                         continue;
                     }
 
-                    var destinationPath = Path.Combine(AppDirectory, entry.Name);
+                    var destinationPath = Path.Combine(AppDirectory, entry.Key);
                     var destinationDirectory = Path.GetDirectoryName(destinationPath);
 
                     if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
@@ -134,17 +134,19 @@ public partial class MainWindow
 
                     if (entry.IsDirectory) continue;
 
-                    await using var destinationFileStream = new FileStream(
-                        destinationPath,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None,
-                        81920,
-                        true);
+                    await using (var entryStream = entry.OpenEntryStream())
+                    await using (var destinationFileStream = new FileStream(
+                                     destinationPath,
+                                     FileMode.Create,
+                                     FileAccess.Write,
+                                     FileShare.None,
+                                     81920,
+                                     true))
+                    {
+                        await entryStream.CopyToAsync(destinationFileStream);
+                    }
 
-                    await zipInputStream.CopyToAsync(destinationFileStream);
-
-                    Log($"Extracted: {entry.Name}");
+                    Log($"Extracted: {entry.Key}");
                 }
             }
 

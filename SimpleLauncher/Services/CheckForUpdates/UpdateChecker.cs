@@ -9,8 +9,8 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
+using SharpCompress.Archives.Zip;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -342,48 +342,73 @@ public partial class UpdateChecker
     {
         try
         {
-            using (var zipInputStream = new ZipInputStream(zipStream))
+            zipStream.Position = 0;
+
+            // Ensure destination directory exists
+            if (!Directory.Exists(destinationPath))
             {
-                zipInputStream.IsStreamOwner = false;
-                var hasEntries = false;
-                var fullDestinationPath = Path.GetFullPath(destinationPath);
-                if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                Directory.CreateDirectory(destinationPath);
+            }
+
+            var fullDestinationPath = Path.GetFullPath(destinationPath);
+            if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+            {
+                fullDestinationPath += Path.DirectorySeparatorChar;
+            }
+
+            using var archive = ZipArchive.OpenArchive(zipStream);
+            var hasEntries = false;
+
+            foreach (var entry in archive.Entries)
+            {
+                hasEntries = true;
+
+                if (entry.IsDirectory)
                 {
-                    fullDestinationPath += Path.DirectorySeparatorChar;
+                    continue;
                 }
 
-                while (zipInputStream.GetNextEntry() is { } entry)
+                // Security check: prevent path traversal attacks (zip slip)
+                if (entry.Key != null)
                 {
-                    hasEntries = true;
-                    // Use the normalized fullDestinationPath for combining
-                    var destinationFileFullPath = Path.GetFullPath(Path.Combine(fullDestinationPath, entry.Name));
-                    if (destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
+                    var destinationFileFullPath = Path.GetFullPath(Path.Combine(fullDestinationPath, entry.Key));
+                    if (!destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
                     {
-                        // ReSharper disable once RedundantJumpStatement
-                        continue;
-                    }
-                    else
-                    {
-                        var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Name}'. Aborting update.";
+                        var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Key}'. Aborting update.";
                         logWindow?.Log(errorMessage);
 
                         // Notify developer
                         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
                         return false;
                     }
-                }
 
-                if (!hasEntries)
-                {
-                    logWindow?.Log("Warning: The downloaded ZIP archive is empty or corrupted.");
-                    return false;
+                    // Ensure the directory exists
+                    var entryDirectory = Path.GetDirectoryName(destinationFileFullPath);
+                    if (!string.IsNullOrEmpty(entryDirectory) && !Directory.Exists(entryDirectory))
+                    {
+                        Directory.CreateDirectory(entryDirectory);
+                    }
+
+                    // Extract the entry
+                    using (var entryStream = entry.OpenEntryStream())
+                    using (var fileStream = File.Create(destinationFileFullPath))
+                    {
+                        entryStream.CopyTo(fileStream);
+                    }
+
+                    // Preserve file time if available
+                    if (entry.LastModifiedTime.HasValue)
+                    {
+                        File.SetLastWriteTime(destinationFileFullPath, entry.LastModifiedTime.Value);
+                    }
                 }
             }
 
-            zipStream.Position = 0;
-
-            var fastZip = new FastZip();
-            fastZip.ExtractZip(zipStream, destinationPath, FastZip.Overwrite.Always, null, null, null, true, false);
+            if (!hasEntries)
+            {
+                logWindow?.Log("Warning: The downloaded ZIP archive is empty or corrupted.");
+                return false;
+            }
 
             logWindow?.Log("All files from the updater package extracted successfully.");
             return true;

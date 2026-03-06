@@ -7,9 +7,9 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
-using SevenZip;
+using SharpCompress.Archives;
+using SharpCompress.Archives.Zip;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -130,70 +130,100 @@ public class ExtractionService : IExtractionService
 
             await Task.Run(() =>
             {
-                using (var zipFile = new ZipFile(archivePath))
+                using var archive = ZipArchive.OpenArchive(archivePath);
+                var entries = archive.Entries.ToList();
+
+                if (entries.Count == 0)
                 {
-                    if (zipFile.Count == 0)
+                    throw new InvalidDataException("The ZIP file contains no entries.");
+                }
+
+                var estimatedSize = EstimateExtractedSize(archivePath);
+
+                // Check disk space using the resolved destination folder
+                var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
+                if (!string.IsNullOrEmpty(rootPath))
+                {
+                    try
                     {
-                        throw new InvalidDataException("The ZIP file contains no entries.");
-                    }
-
-                    var estimatedSize = EstimateExtractedSize(archivePath);
-
-                    // Check disk space using the resolved destination folder
-                    var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
-                    if (!string.IsNullOrEmpty(rootPath))
-                    {
-                        try
-                        {
-                            var drive = new DriveInfo(rootPath);
-                            if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
-                            {
-                                // Notify developer
-                                var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-
-                                // Notify user
-                                MessageBoxLibrary.DiskSpaceErrorMessageBox();
-
-                                return;
-                            }
-                        }
-                        catch (ArgumentException ex)
+                        var drive = new DriveInfo(rootPath);
+                        if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                         {
                             // Notify developer
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
+                            var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                             // Notify user
-                            MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
+                            MessageBoxLibrary.DiskSpaceErrorMessageBox();
 
                             return;
                         }
                     }
-
-                    // Path traversal check
-                    var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
-                    if (!fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                    catch (ArgumentException ex)
                     {
-                        fullResolvedDestFolder += Path.DirectorySeparatorChar;
+                        // Notify developer
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
+
+                        // Notify user
+                        MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
+
+                        return;
                     }
+                }
 
-                    foreach (ZipEntry zipEntry in zipFile)
+                // Path traversal check
+                var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
+                if (!fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                {
+                    fullResolvedDestFolder += Path.DirectorySeparatorChar;
+                }
+
+                foreach (var entry in entries)
+                {
+                    if (entry.Key != null)
                     {
-                        var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, zipEntry.Name));
+                        var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.Key));
                         var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
 
                         if (!fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
                         {
                             // Notify user
                             MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
-                            throw new SecurityException($"Potentially dangerous zip entry path: {zipEntry.Name}");
+                            throw new SecurityException($"Potentially dangerous zip entry path: {entry.Key}");
                         }
                     }
                 }
 
-                // Extract using FastZip
-                var fastZip = new FastZip();
-                fastZip.ExtractZip(archivePath, resolvedDestinationFolder, FastZip.Overwrite.Always, null, null, null, true);
+                // Extract all entries
+                foreach (var entry in entries)
+                {
+                    if (entry.IsDirectory)
+                    {
+                        continue;
+                    }
+
+                    if (entry.Key != null)
+                    {
+                        var destinationPath = Path.Combine(resolvedDestinationFolder, entry.Key);
+                        var directory = Path.GetDirectoryName(destinationPath);
+                        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        using (var entryStream = entry.OpenEntryStream())
+                        using (var fileStream = File.Create(destinationPath))
+                        {
+                            entryStream.CopyTo(fileStream);
+                        }
+
+                        // Preserve file time if available
+                        if (entry.LastModifiedTime.HasValue)
+                        {
+                            File.SetLastWriteTime(destinationPath, entry.LastModifiedTime.Value);
+                        }
+                    }
+                }
             });
 
             if (File.Exists(extractionTrackingFile))
@@ -284,7 +314,7 @@ public class ExtractionService : IExtractionService
 
             await Task.Run(() =>
             {
-                using var extractor = new SevenZipExtractor(archivePath);
+                using var archive = ArchiveFactory.OpenArchive(archivePath);
 
                 // First, validate for path traversal before extracting
                 var fullTempDir = Path.GetFullPath(tempDirectory);
@@ -293,20 +323,47 @@ public class ExtractionService : IExtractionService
                     fullTempDir += Path.DirectorySeparatorChar;
                 }
 
-                foreach (var entry in extractor.ArchiveFileData)
+                foreach (var entry in archive.Entries)
                 {
                     if (entry.IsDirectory) continue;
 
-                    var fullDestPath = Path.GetFullPath(Path.Combine(fullTempDir, entry.FileName));
-                    if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
+                    if (entry.Key != null)
                     {
-                        throw new SecurityException($"Potential path traversal detected in archive entry: {entry.FileName}");
+                        var fullDestPath = Path.GetFullPath(Path.Combine(fullTempDir, entry.Key));
+                        if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
+                        {
+                            throw new SecurityException($"Potential path traversal detected in archive entry: {entry.Key}");
+                        }
                     }
                 }
 
                 // If validation passes, extract the archive.
-                // The ExtractArchive method is synchronous, so it's correctly wrapped in Task.Run.
-                extractor.ExtractArchive(tempDirectory);
+                foreach (var entry in archive.Entries)
+                {
+                    if (entry.IsDirectory) continue;
+
+                    if (entry.Key != null)
+                    {
+                        var destinationPath = Path.Combine(tempDirectory, entry.Key);
+                        var directory = Path.GetDirectoryName(destinationPath);
+                        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        using (var entryStream = entry.OpenEntryStream())
+                        using (var fileStream = File.Create(destinationPath))
+                        {
+                            entryStream.CopyTo(fileStream);
+                        }
+
+                        // Preserve file time if available
+                        if (entry.LastModifiedTime.HasValue)
+                        {
+                            File.SetLastWriteTime(destinationPath, entry.LastModifiedTime.Value);
+                        }
+                    }
+                }
             });
 
             return tempDirectory;
@@ -329,9 +386,9 @@ public class ExtractionService : IExtractionService
     private static long EstimateExtractedSize(string archivePath)
     {
         long totalSize;
-        using (var zipFile = new ZipFile(archivePath))
+        using (var archive = ArchiveFactory.OpenArchive(archivePath))
         {
-            totalSize = zipFile.Cast<ZipEntry>().Where(static entry => !entry.IsDirectory).Sum(static entry => entry.Size);
+            totalSize = archive.Entries.Where(static entry => !entry.IsDirectory).Sum(static entry => entry.Size);
         }
 
         // Add a safety margin of 20%

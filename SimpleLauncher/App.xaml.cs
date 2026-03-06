@@ -1,8 +1,6 @@
 using System;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,7 +8,6 @@ using System.Windows.Markup;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SevenZip;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
@@ -41,7 +38,6 @@ public partial class App : IDisposable
     private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
     private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
-    private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -152,9 +148,6 @@ public partial class App : IDisposable
 
         // Initialize DebugLogger early
         DebugLogger.Initialize(isDebugMode);
-
-        // Initialize SevenZipSharp library path
-        InitializeSevenZipSharp();
 
         // Delete temp folders and unneeded files
         _ = Task.Run(CleanSimpleLauncherFolder.CleanupTrash);
@@ -284,60 +277,6 @@ public partial class App : IDisposable
 
         Dispose();
         base.OnExit(e);
-    }
-
-    private static void InitializeSevenZipSharp()
-    {
-        if (ServiceProvider == null) return;
-
-        try
-        {
-            string dllName;
-            switch (RuntimeInformation.ProcessArchitecture)
-            {
-                case Architecture.Arm64:
-                    dllName = "7z_arm64.dll";
-                    break;
-                case Architecture.X64:
-                    dllName = "7z_x64.dll";
-                    break;
-                default:
-                    // Notify developer
-                    var errorMessage = $"Unsupported architecture for 'Simple Launcher': {RuntimeInformation.ProcessArchitecture}";
-                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.UnsupportedArchitectureMessageBox();
-
-                    Current.Shutdown();
-                    return;
-            }
-
-            var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
-
-            if (File.Exists(dllPath))
-            {
-                SevenZipBase.SetLibraryPath(dllPath);
-                DebugLogger.Log($"SevenZipSharp library path set to: {dllPath}");
-            }
-            else
-            {
-                // Notify developer
-                var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {BaseDirectory}";
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.SevenZipDllNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
-
-            // Notify user
-            MessageBoxLibrary.FailedToInitializeSevenZipMessageBox();
-        }
     }
 
     private void ApplyLanguage(string cultureCode = null)
