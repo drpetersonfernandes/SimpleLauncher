@@ -24,14 +24,6 @@ public static class CheckForRequiredFiles
             "appsettings.json",
             "mame.dat"
         ];
-        var requiredFilesForX64 = configuration.GetValue<string[]>("RequiredFilesForX64") ??
-        [
-            "7z_x64.dll"
-        ];
-        var requiredFilesForArm64 = configuration.GetValue<string[]>("RequiredFilesForArm64") ??
-        [
-            "7z_arm64.dll"
-        ];
         try
         {
             var missingFiles = requiredFiles
@@ -39,29 +31,16 @@ public static class CheckForRequiredFiles
                 .Where(static f => !File.Exists(f))
                 .ToList();
 
-            var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
-            var architectureSpecificFiles = architecture switch
-            {
-                System.Runtime.InteropServices.Architecture.X64 => requiredFilesForX64,
-                System.Runtime.InteropServices.Architecture.Arm64 => requiredFilesForArm64,
-                _ => []
-            };
-            missingFiles.AddRange(architectureSpecificFiles
-                .Select(f => Path.Combine(baseDirectory, f))
-                .Where(static f => !File.Exists(f)));
-
             if (missingFiles.Count == 0)
             {
                 return;
             }
 
             var fileList = string.Join(Environment.NewLine, missingFiles);
-            // Notify user
             MessageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to check for required files.");
         }
     }
