@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.MessageBox;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
@@ -29,7 +30,17 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            try
+            {
+                AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            }
+            catch (AzaharPermissionException)
+            {
+                // Show permission error message but allow the game to launch
+                var emuDir = Path.GetDirectoryName(resolvedExe);
+                MessageBoxLibrary.AzaharConfigurationInjectionPermissionError(emuDir);
+                // Return true to allow the game to launch with default settings
+            }
         }
 
         return shouldRun;

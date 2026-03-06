@@ -95,9 +95,17 @@ public partial class InjectAzaharConfigWindow
             AzaharConfigurationService.InjectSettings(path, _settings);
             return true;
         }
+        catch (AzaharPermissionException)
+        {
+            // Show permission error - the caller will handle whether to continue or not
+            var emuDir = Path.GetDirectoryName(path);
+            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError(emuDir);
+            return false;
+        }
         catch (Exception ex)
         {
             _logErrors.LogErrorAsync(ex, "Azahar injection failed");
+            MessageBoxLibrary.FailedToSaveAzaharConfiguration();
             return false;
         }
     }
@@ -105,10 +113,27 @@ public partial class InjectAzaharConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        var path = EnsureEmulatorPath();
+        if (string.IsNullOrEmpty(path)) return;
+
+        try
         {
+            AzaharConfigurationService.InjectSettings(path, _settings);
             ShouldRun = true;
             Close();
+        }
+        catch (AzaharPermissionException)
+        {
+            // Show permission error but allow the game to launch with default settings
+            var emuDir = Path.GetDirectoryName(path);
+            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError(emuDir);
+            ShouldRun = true; // Allow game to launch
+            Close();
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogErrorAsync(ex, "Azahar injection failed");
+            MessageBoxLibrary.FailedToSaveAzaharConfiguration();
         }
     }
 
@@ -117,7 +142,7 @@ public partial class InjectAzaharConfigWindow
         SaveSettings();
         if (InjectConfig())
         {
-            MessageBoxLibrary.SettingsSaved();
+            MessageBoxLibrary.AzaharConfigurationSavedSuccessfully();
             Close();
         }
     }

@@ -11,7 +11,15 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class AzaharConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    /// <summary>
+    /// Injects settings into Azahar's qt-config.ini file.
+    /// </summary>
+    /// <param name="emulatorPath">Path to the Azahar executable.</param>
+    /// <param name="settings">The settings manager containing Azahar configuration.</param>
+    /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
+    /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
+    public static bool InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -19,6 +27,13 @@ public static class AzaharConfigurationService
         // Azahar usually looks for qt-config.ini in the same folder or AppData.
         // We assume portable mode/local config first.
         var configPath = Path.Combine(emuDir, "qt-config.ini");
+
+        // Check if we have write access to the emulator directory
+        if (!IsDirectoryWritable(emuDir))
+        {
+            DebugLogger.Log($"[AzaharConfig] Directory is not writable: {emuDir}");
+            throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}");
+        }
 
         if (!File.Exists(configPath))
         {
@@ -29,6 +44,12 @@ public static class AzaharConfigurationService
                 {
                     File.Copy(samplePath, configPath);
                     DebugLogger.Log($"[AzaharConfig] Created new qt-config.ini from sample: {configPath}");
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    DebugLogger.Log($"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
+                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
+                    throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}", ex);
                 }
                 catch (Exception ex)
                 {
@@ -71,7 +92,18 @@ public static class AzaharConfigurationService
             }
         };
 
-        var lines = File.ReadAllLines(configPath).ToList();
+        List<string> lines;
+        try
+        {
+            lines = File.ReadAllLines(configPath).ToList();
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            DebugLogger.Log($"[AzaharConfig] Failed to read qt-config.ini due to permissions: {ex.Message}");
+            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to read qt-config.ini: {ex.Message}");
+            throw new AzaharPermissionException($"Cannot read configuration file: {configPath}", ex);
+        }
+
         var modified = false;
 
         foreach (var (sectionName, dictionary) in updates)
@@ -159,6 +191,12 @@ public static class AzaharConfigurationService
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
                 DebugLogger.Log("[AzaharConfig] Injected configuration changes..");
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                DebugLogger.Log($"[AzaharConfig] Failed to inject configuration changes due to permissions: {ex.Message}");
+                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
+                throw new AzaharPermissionException($"Cannot write to configuration file: {configPath}", ex);
+            }
             catch (Exception ex)
             {
                 DebugLogger.Log($"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
@@ -166,10 +204,44 @@ public static class AzaharConfigurationService
                 throw;
             }
         }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Checks if a directory is writable by attempting to create a temporary file.
+    /// </summary>
+    private static bool IsDirectoryWritable(string dirPath)
+    {
+        try
+        {
+            var testFile = Path.Combine(dirPath, $".write_test_{Guid.NewGuid()}.tmp");
+            File.WriteAllText(testFile, "test");
+            File.Delete(testFile);
+            return true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return false;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[AzaharConfig] Error checking directory writability: {ex.Message}");
+            return false;
+        }
     }
 
     private static string BoolToString(bool value)
     {
         return value ? "true" : "false";
     }
+}
+
+/// <summary>
+/// Exception thrown when Azahar configuration cannot be modified due to file permission issues.
+/// </summary>
+public class AzaharPermissionException : Exception
+{
+    public AzaharPermissionException(string message) : base(message) { }
+    public AzaharPermissionException(string message, Exception innerException) : base(message, innerException) { }
 }
