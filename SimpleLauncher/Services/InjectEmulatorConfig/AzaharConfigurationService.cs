@@ -19,7 +19,7 @@ public static class AzaharConfigurationService
     /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
-    public static bool InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -204,8 +204,6 @@ public static class AzaharConfigurationService
                 throw;
             }
         }
-
-        return true;
     }
 
     /// <summary>
@@ -242,6 +240,11 @@ public static class AzaharConfigurationService
 /// </summary>
 public class AzaharPermissionException : Exception
 {
-    public AzaharPermissionException(string message) : base(message) { }
-    public AzaharPermissionException(string message, Exception innerException) : base(message, innerException) { }
+    public AzaharPermissionException(string message) : base(message)
+    {
+    }
+
+    public AzaharPermissionException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
 }

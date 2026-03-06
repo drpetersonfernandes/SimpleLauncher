@@ -4264,7 +4264,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectYumirConfiguration()
+    internal static void FailedToInjectYumirConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4277,7 +4277,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void YumirConfigurationSavedSuccessfully()
+    internal static void YumirConfigurationSavedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4290,7 +4290,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void RaineSettingsSavedAndInjected()
+    internal static void RaineSettingsSavedAndInjected()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4303,7 +4303,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void RaineExecutableNotFound()
+    internal static void RaineExecutableNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4316,7 +4316,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void YumirEmulatorNotFound()
+    internal static void YumirEmulatorNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4329,7 +4329,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void ReDreamEmulatorPathNotFound()
+    internal static void ReDreamEmulatorPathNotFound()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4342,7 +4342,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void FailedToInjectReDreamConfiguration()
+    internal static void FailedToInjectReDreamConfiguration()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4355,7 +4355,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void ReDreamConfigurationInjectedSuccessfully()
+    internal static void ReDreamConfigurationInjectedSuccessfully()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4368,7 +4368,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static Task CouldNotLaunchGameDueToDepViolation()
+    internal static Task CouldNotLaunchGameDueToDepViolation()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return Task.CompletedTask;
@@ -4387,7 +4387,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void MameRomSetError()
+    internal static void MameRomSetError()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4423,7 +4423,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void MameUnknownSystemError()
+    internal static void MameUnknownSystemError()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4461,7 +4461,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void MameUnableToLoadImage()
+    internal static void MameUnableToLoadImage()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4499,7 +4499,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void OotakeDoesNotSupportImageFiles()
+    internal static void OotakeDoesNotSupportImageFiles()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4512,7 +4512,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void GeolithDoesNotSupportCompressedFiles()
+    internal static void GeolithDoesNotSupportCompressedFiles()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4548,7 +4548,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void RetroArchParameterShouldStartWithL()
+    internal static void RetroArchParameterShouldStartWithL()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4563,7 +4563,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void RetroArchParameterIssue(string logPath)
+    internal static void RetroArchParameterIssue(string logPath)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4598,6 +4598,55 @@ internal static class MessageBoxLibrary
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+    }
+
+    internal static void AzaharConfigurationInjectionPermissionError(string configPath)
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("InjectionFailed") ?? "Injection Failed";
+            var message1 = (string)Application.Current.TryFindResource("AzaharConfigPermissionError1") ?? "Failed to inject Azahar configuration. The emulator is installed in a protected system directory.";
+            var message2 = (string)Application.Current.TryFindResource("AzaharConfigPermissionError2") ?? "The configuration file could not be modified due to insufficient permissions.";
+            var message3 = (string)Application.Current.TryFindResource("AzaharConfigPermissionError3") ?? "To fix this, either:";
+            var message4 = (string)Application.Current.TryFindResource("AzaharConfigPermissionError4") ?? "1. Run Simple Launcher as administrator, or";
+            var message5 = (string)Application.Current.TryFindResource("AzaharConfigPermissionError5") ?? "2. Install Azahar in a user directory (e.g., C:\\Users\\YourName\\Azahar)";
+            var message6 = (string)Application.Current.TryFindResource("AzaharConfigPermissionError6") ?? "The game will launch with the emulator's default settings.";
+            System.Windows.MessageBox.Show($"{message1}\n\n" +
+                                           $"{message2}\n\n" +
+                                           $"{message3}\n" +
+                                           $"{message4}\n" +
+                                           $"{message5}\n\n" +
+                                           $"{message6}", title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void AzaharConfigurationSavedSuccessfully()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("AzaharConfigurationSavedSuccessfully") ?? "Azahar configuration saved successfully.";
+            var message2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static void FailedToSaveAzaharConfiguration()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message1 = (string)Application.Current.TryFindResource("FailedToSaveAzaharConfiguration") ?? "Failed to save Azahar configuration. Please check file permissions.";
+            var message2 = (string)Application.Current.TryFindResource("SaveFailed") ?? "Save Failed";
+            System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
