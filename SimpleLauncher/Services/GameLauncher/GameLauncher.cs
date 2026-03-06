@@ -30,9 +30,15 @@ public partial class GameLauncher
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
     private readonly IConfiguration _configuration;
+
+    // ReSharper disable once NotAccessedField.Local
     private static IHttpClientFactory _httpClientFactory;
+
+    // ReSharper disable once NotAccessedField.Local
     private readonly ILogErrors _logErrors;
     private readonly IExtractionService _extractionService;
+
+    // ReSharper disable once NotAccessedField.Local
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Stats _stats;
 
@@ -994,8 +1000,7 @@ public partial class GameLauncher
                 {
                     // Notify user
                     await MessageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-
-                    SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                    // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                 }
             }
             catch (Win32Exception ex) // Catch Win32Exception specifically
@@ -1036,7 +1041,7 @@ public partial class GameLauncher
                     {
                         // Notify user
                         await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                        SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                        // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                     }
                 }
             }
@@ -1070,7 +1075,7 @@ public partial class GameLauncher
                 {
                     // Notify user
                     await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                    SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                    // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
                 }
             }
             finally
@@ -1209,7 +1214,7 @@ public partial class GameLauncher
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-            SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
+            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
         }
 
         DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Exit code {process.ExitCode} detected.");
@@ -1236,11 +1241,11 @@ public partial class GameLauncher
         return Task.CompletedTask;
     }
 
-    private async Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
+    private Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
     {
         if (process.HasExited && process.ExitCode != DepViolation)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         // Notify developer
@@ -1256,9 +1261,11 @@ public partial class GameLauncher
         if (emulatorManager.ReceiveANotificationOnEmulatorError)
         {
             // Notify user
-            await MessageBoxLibrary.CouldNotLaunchGameDueToDepViolation();
-            SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
+            return MessageBoxLibrary.CouldNotLaunchGameDueToDepViolation();
+            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
         }
+
+        return Task.CompletedTask;
     }
 
     private bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
