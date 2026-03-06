@@ -177,6 +177,10 @@ public partial class MainWindow
                 SetLoadingState(false);
             }
         }
+        catch (OperationCanceledException)
+        {
+            // Do nothing - cancellation is expected when the UI is reset
+        }
         catch (Exception ex)
         {
             _ = _logErrors.LogErrorAsync(ex, "Error in SystemButtonClickAsync.");

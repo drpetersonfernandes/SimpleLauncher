@@ -198,6 +198,10 @@ public partial class MainWindow
                 _isUiUpdating = false;
             }
         }
+        catch (OperationCanceledException)
+        {
+            // Do nothing - cancellation is expected when the UI is reset multiple times
+        }
         catch (Exception ex)
         {
             _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUiAsync.");
