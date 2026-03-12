@@ -85,7 +85,7 @@ internal class GameButtonFactory(
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
                 // Fallback to current logic: look inside the folder for a file to use as a name.
-                var filesInFolder = await GetListOfFiles.GetListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch);
+                var filesInFolder = await GetListOfFiles.GetListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch, selectedSystemManager);
                 if (filesInFolder.Count != 0)
                 {
                     var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());

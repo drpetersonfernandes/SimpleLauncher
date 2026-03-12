@@ -100,6 +100,8 @@ internal partial class EditSystemWindow
 
             var groupByFolderValue = selectedSystem.GroupByFolder ? "true" : "false";
             GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == groupByFolderValue);
+            var disableRecursiveSearchValue = selectedSystem.DisableRecursiveSearch ? "true" : "false";
+            DisableRecursiveSearchComboBox.SelectedItem = DisableRecursiveSearchComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == disableRecursiveSearchValue);
 
             FormatToLaunchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToLaunch);
 

@@ -165,7 +165,7 @@ internal partial class GlobalStatsWindow : IDisposable
                     var path = PathHelper.ResolveRelativeToAppDirectory(folderRaw);
                     if (!string.IsNullOrEmpty(path) && Directory.Exists(path) && systemManager.FileFormatsToSearch != null)
                     {
-                        var files = await GetListOfFiles.GetFilesAsync(path, systemManager.FileFormatsToSearch, cancellationToken);
+                        var files = await GetListOfFiles.GetFilesAsync(path, systemManager.FileFormatsToSearch, systemManager, cancellationToken);
                         allRomFiles.AddRange(files);
                     }
                 }

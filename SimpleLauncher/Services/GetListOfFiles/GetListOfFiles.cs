@@ -13,7 +13,7 @@ namespace SimpleLauncher.Services.GetListOfFiles;
 
 public abstract class GetListOfFiles
 {
-    public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, CancellationToken cancellationToken = default)
+    public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions, SystemManager.SystemManager systemManager, CancellationToken cancellationToken = default)
     {
         return Task.Run(() =>
         {
@@ -34,7 +34,8 @@ public abstract class GetListOfFiles
                 var restrictedFolders = new List<string>();
 
                 // Perform safe recursive enumeration
-                EnumerateFilesRecursive(directoryPath, extensionsSet, foundFiles, restrictedFolders, cancellationToken);
+                var doRecurse = !(systemManager.DisableRecursiveSearch && !systemManager.GroupByFolder);
+                EnumerateFilesRecursive(directoryPath, extensionsSet, foundFiles, restrictedFolders, doRecurse, cancellationToken);
 
                 // Inform user if restricted folders were encountered
                 if (restrictedFolders.Count > 0)
@@ -64,7 +65,7 @@ public abstract class GetListOfFiles
         }, cancellationToken);
     }
 
-    private static void EnumerateFilesRecursive(string path, HashSet<string> extensions, List<string> results, List<string> restrictedFolders, CancellationToken token)
+    private static void EnumerateFilesRecursive(string path, HashSet<string> extensions, List<string> results, List<string> restrictedFolders, bool doRecurse, CancellationToken token)
     {
         token.ThrowIfCancellationRequested();
 
@@ -81,9 +82,12 @@ public abstract class GetListOfFiles
             }
 
             // 2. Get subdirectories and recurse
-            foreach (var dir in Directory.EnumerateDirectories(path))
+            if (doRecurse)
             {
-                EnumerateFilesRecursive(dir, extensions, results, restrictedFolders, token);
+                foreach (var dir in Directory.EnumerateDirectories(path))
+                {
+                    EnumerateFilesRecursive(dir, extensions, results, restrictedFolders, doRecurse, token);
+                }
             }
         }
         catch (UnauthorizedAccessException)

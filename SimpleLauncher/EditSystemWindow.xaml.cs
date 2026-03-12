@@ -308,6 +308,8 @@ internal partial class EditSystemWindow : ILoadingState
 
         GroupByFolderComboBox.IsEnabled = true;
 
+        DisableRecursiveSearchComboBox.IsEnabled = true;
+
         FormatToLaunchTextBox.IsReadOnly = false;
         FormatToLaunchTextBox.IsEnabled = true;
 
@@ -382,6 +384,8 @@ internal partial class EditSystemWindow : ILoadingState
         ExtractFileBeforeLaunchComboBox.IsEnabled = false;
 
         GroupByFolderComboBox.IsEnabled = false;
+
+        DisableRecursiveSearchComboBox.IsEnabled = false;
 
         FormatToLaunchTextBox.IsReadOnly = true;
         FormatToLaunchTextBox.IsEnabled = false;
@@ -462,6 +466,8 @@ internal partial class EditSystemWindow : ILoadingState
         ExtractFileBeforeLaunchComboBox.SelectedItem = null;
 
         GroupByFolderComboBox.SelectedItem = null;
+
+        DisableRecursiveSearchComboBox.SelectedItem = null;
 
         FormatToLaunchTextBox.Text = string.Empty;
         MarkValid(FormatToLaunchTextBox);

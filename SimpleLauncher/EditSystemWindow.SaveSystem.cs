@@ -103,6 +103,8 @@ internal partial class EditSystemWindow
 
             var groupByFolder = (GroupByFolderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
+            var disableRecursiveSearch = (DisableRecursiveSearchComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
+                ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
             if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch))
             {
@@ -273,6 +275,7 @@ internal partial class EditSystemWindow
                 FileFormatsToSearch = formatsToSearch.ToList(),
                 ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                 GroupByFolder = groupByFolder,
+                DisableRecursiveSearch = disableRecursiveSearch,
                 FileFormatsToLaunch = formatsToLaunch.ToList(),
                 Emulators = emulators
             };

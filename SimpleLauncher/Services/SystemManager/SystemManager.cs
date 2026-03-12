@@ -29,6 +29,7 @@ public partial class SystemManager
     public List<string> FileFormatsToLaunch { get; init; }
     public List<Emulator> Emulators { get; init; }
     public bool GroupByFolder { get; init; }
+    public bool DisableRecursiveSearch { get; init; }
 
     public static bool SystemExists(string systemName, IConfiguration configuration)
     {
@@ -202,6 +203,7 @@ public partial class SystemManager
                         new XElement("SystemIsMAME", config.SystemIsMame),
                         new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
                         new XElement("GroupByFolder", config.GroupByFolder),
+                        new XElement("DisableRecursiveSearch", config.DisableRecursiveSearch),
                         new XElement("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch),
                         new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
                         new XElement("Emulators", config.Emulators.Select(static e =>
@@ -337,6 +339,12 @@ public partial class SystemManager
                 groupByFolder = false;
             }
 
+            // Parse DisableRecursiveSearch
+            if (!bool.TryParse(sysConfigElement.Element("DisableRecursiveSearch")?.Value, out var disableRecursiveSearch))
+            {
+                disableRecursiveSearch = false;
+            }
+
             // Validate emulator configurations
             var emulators = new List<Emulator>();
             var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
@@ -389,7 +397,8 @@ public partial class SystemManager
                 FileFormatsToSearch = formatsToSearch,
                 FileFormatsToLaunch = formatsToLaunch,
                 Emulators = emulators,
-                GroupByFolder = groupByFolder
+                GroupByFolder = groupByFolder,
+                DisableRecursiveSearch = disableRecursiveSearch
             });
         }
 

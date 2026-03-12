@@ -396,7 +396,7 @@ public partial class MainWindow
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
+                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -498,7 +498,7 @@ public partial class MainWindow
                         !Directory.Exists(resolvedSystemFolderPath) ||
                         selectedManager.FileFormatsToSearch == null) continue;
 
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, token);
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
                     foreach (var file in filesInFolder)
                     {
                         uniqueFiles.TryAdd(Path.GetFileName(file), file);

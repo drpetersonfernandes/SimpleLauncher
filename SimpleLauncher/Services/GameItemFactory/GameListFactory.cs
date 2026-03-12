@@ -209,7 +209,7 @@ public class GameListFactory(
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                     {
                         // Fallback to current logic: look inside the folder for a file to use as a name.
-                        var filesInFolder = await GetListOfFiles.GetListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch);
+                        var filesInFolder = await GetListOfFiles.GetListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch, systemManager);
                         if (filesInFolder.Count != 0)
                         {
                             var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
