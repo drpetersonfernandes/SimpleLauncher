@@ -155,26 +155,14 @@ public static class RetroAchievementsSystemMatcher
             }
         }
 
-        // Fuzzy matching - check if any pattern is contained within the input
-        foreach (var kvp in SystemMappings)
-        {
-            if (kvp.Value.Aliases.Any(pattern => normalizedInput.Contains(pattern) || pattern.Contains(normalizedInput)))
-            {
-                return kvp.Key;
-            }
-        }
-
-        // Check for partial matches with higher similarity
-        foreach (var kvp in SystemMappings)
-        {
-            foreach (var pattern in kvp.Value.Aliases)
-            {
-                if (IsFuzzyMatch(normalizedInput, pattern))
-                {
-                    return kvp.Key;
-                }
-            }
-        }
+        // // Fuzzy matching - check if any pattern is contained within the input
+        // foreach (var kvp in SystemMappings)
+        // {
+        //     if (kvp.Value.Aliases.Any(pattern => normalizedInput.Contains(pattern) || pattern.Contains(normalizedInput)))
+        //     {
+        //         return kvp.Key;
+        //     }
+        // }
 
         // No match found, log it for future improvement and return original.
         DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
@@ -255,87 +243,5 @@ public static class RetroAchievementsSystemMatcher
         // Try fuzzy matching as a last resort
         var bestMatch = GetBestMatchSystemName(systemName);
         return SystemMappings.ContainsKey(bestMatch);
-    }
-
-    /// <summary>
-    /// Performs fuzzy matching between two strings using a combination of techniques.
-    /// </summary>
-    private static bool IsFuzzyMatch(string input, string pattern)
-    {
-        // Remove common separators and normalize
-        var cleanInput = RemoveSeparators(input);
-        var cleanPattern = RemoveSeparators(pattern);
-
-        // Exact match
-        if (cleanInput.Equals(cleanPattern, StringComparison.OrdinalIgnoreCase))
-            return true;
-
-        // Contains check
-        if (cleanInput.Contains(cleanPattern) || cleanPattern.Contains(cleanInput))
-            return true;
-
-        // Levenshtein distance for very similar strings (only for shorter strings)
-        if (cleanInput.Length <= 30 && cleanPattern.Length <= 30)
-        {
-            var distance = CalculateLevenshteinDistance(cleanInput, cleanPattern);
-            var maxLength = Math.Max(cleanInput.Length, cleanPattern.Length);
-            var similarity = 1.0 - (double)distance / maxLength;
-            return similarity >= 0.8; // 80% similarity threshold
-        }
-
-        return false;
-    }
-
-    /// <summary>
-    /// Removes common separators and normalizes the string.
-    /// </summary>
-    private static string RemoveSeparators(string input)
-    {
-        return input.Replace("-", "")
-            .Replace("/", "")
-            .Replace("&", "")
-            .Replace(" ", "")
-            .Replace(".", "")
-            .Replace("+", "")
-            .ToLowerInvariant();
-    }
-
-    /// <summary>
-    /// Calculates the Levenshtein distance between two strings.
-    /// </summary>
-    private static int CalculateLevenshteinDistance(string s, string t)
-    {
-        if (string.IsNullOrEmpty(s))
-            return string.IsNullOrEmpty(t) ? 0 : t.Length;
-
-        if (string.IsNullOrEmpty(t))
-            return s.Length;
-
-        var n = s.Length;
-        var m = t.Length;
-        var d = new int[n + 1, m + 1];
-
-        // Initialize the first row and column
-        for (var i = 0; i <= n; d[i, 0] = i++)
-        {
-        }
-
-        for (var j = 0; j <= m; d[0, j] = j++)
-        {
-        }
-
-        // Calculate distances
-        for (var i = 1; i <= n; i++)
-        {
-            for (var j = 1; j <= m; j++)
-            {
-                var cost = t[j - 1] == s[i - 1] ? 0 : 1;
-                d[i, j] = Math.Min(
-                    Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                    d[i - 1, j - 1] + cost);
-            }
-        }
-
-        return d[n, m];
     }
 }
