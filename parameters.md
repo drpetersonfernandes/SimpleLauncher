@@ -480,7 +480,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **System Folder (Example):** c:\Atari ST<br>
 **Is the system MAME-based?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Extension to Search in the System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
+**Extract File Before Launch?** true or false (depending on the emulator you are using)<br>
 **Extension to Launch After Extraction:** msa, st, stx, dim, ipf<br>
 **Group Files by Folder:** false<br>
 
