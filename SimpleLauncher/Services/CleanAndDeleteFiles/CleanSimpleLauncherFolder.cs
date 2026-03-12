@@ -175,7 +175,14 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "RomValidator", "RomValidator_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive_arm64.exe"),
-        Path.Combine(AppDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader_arm64.exe")
+        Path.Combine(AppDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "chdman_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "Magick.Native-Q16-arm64.dll"),
+        Path.Combine(AppDirectory, "tools", "RomValidator", "7z_arm64.dll"),
+        Path.Combine(AppDirectory, "tools", "SimpleXisoDrive", "SimpleXisoDrive_arm64.exe")
     ];
 
     private static readonly string[] FilesToDeleteIfCurrentArchitectureIsArm64 =
@@ -195,7 +202,14 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.exe"),
         Path.Combine(AppDirectory, "tools", "RomValidator", "RomValidator.exe"),
         Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive.exe"),
-        Path.Combine(AppDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader.exe")
+        Path.Combine(AppDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z_x64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "chdman.exe"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "Magick.Native-Q16-x64.dll"),
+        Path.Combine(AppDirectory, "tools", "RomValidator", "7z_x64.dll"),
+        Path.Combine(AppDirectory, "tools", "SimpleXisoDrive", "SimpleXisoDrive.exe")
     ];
 
     private static readonly string[] DirectoriesToDeleteIfCurrentArchitectureIsX64 =
