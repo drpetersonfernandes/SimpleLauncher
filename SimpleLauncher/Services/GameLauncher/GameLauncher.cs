@@ -709,6 +709,11 @@ public partial class GameLauncher
         var isBigPEmu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase) ||
                                                                                       selectedEmulatorManager.EmulatorLocation.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase));
 
+        var isMame = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
+                                                                           selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
+                                                                           selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                                                                           selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
         string tempConvertedPath = null;
@@ -882,21 +887,15 @@ public partial class GameLauncher
 
             string arguments;
 
-            // Handling MAME and Raine Arcade Related Games
-            // Will load the filename without the extension
-            var isMame = selectedEmulatorManager.EmulatorLocation != null && (selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
-                                                                              selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
-                                                                              selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
-                                                                              selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
-
             // Detect NeoGeo CD based on extension
             var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
             var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
 
-            if (isMame || (isRaine && !isNeoGeoCd))
+            // Will load the filename without the extension
+            if ((isMame || isRaine) && !isNeoGeoCd)
             {
                 var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
-                DebugLogger.Log($"Stripped path call detected (MAME/Raine Arcade). Launching: {romName}");
+                DebugLogger.Log($"Stripped path call detected. Launching: {romName}");
                 arguments = $"{resolvedParameters} \"{romName}\"";
             }
             else
@@ -1124,7 +1123,7 @@ public partial class GameLauncher
         }
     }
 
-    private async Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
+    private Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
     {
         var userNotified = emulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
         var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
@@ -1138,28 +1137,29 @@ public partial class GameLauncher
         // Ignore MemoryAccessViolation and DepViolation
         if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation || process.ExitCode == DepViolation)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         // Handle common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
-            return;
+            return Task.CompletedTask;
         }
 
         // Handle RetroArch parameter issues
         if (emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase))
         {
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.RetroArchParameterIssue(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
-            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch parameter issues.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-            return;
+            return Task.CompletedTask;
         }
 
         // Handle MAME Not Found error
@@ -1167,14 +1167,15 @@ public partial class GameLauncher
              emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
             output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase))
         {
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameRomSetError();
             }
 
-            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-            return;
+            return Task.CompletedTask;
         }
 
         // Handle MAME Unknown system error
@@ -1183,14 +1184,15 @@ public partial class GameLauncher
             (output.ToString().Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
         {
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unknown system error.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameUnknownSystemError();
             }
 
-            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unknown system error.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-            return;
+            return Task.CompletedTask;
         }
 
         // Handle MAME Unable to load image
@@ -1199,26 +1201,28 @@ public partial class GameLauncher
             (output.ToString().Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
         {
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unable to load image error.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameUnableToLoadImage();
             }
 
-            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME Unable to load image error.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-
-            return;
-        }
-
-        // Generic error handler
-        if (emulatorManager.ReceiveANotificationOnEmulatorError)
-        {
-            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
+            return Task.CompletedTask;
         }
 
         DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Exit code {process.ExitCode} detected.");
         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
+        // Generic error handler
+        if (emulatorManager.ReceiveANotificationOnEmulatorError)
+        {
+            return MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
+        }
+
+        return Task.CompletedTask;
     }
 
     private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
