@@ -12,6 +12,7 @@ using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SystemManager;
+using System.IO.Compression;
 
 namespace SimpleLauncher.Services.MountFiles;
 
@@ -21,6 +22,48 @@ internal static class MountZipFiles
     private static string _zipMountExecutableName;
     private static string _zipMountExecutableRelativePath;
     internal static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
+
+
+    private static void ValidateZipForPathTraversal(string zipPath)
+    {
+        if (!File.Exists(zipPath))
+            throw new FileNotFoundException($"ZIP file not found: {zipPath}");
+
+        try
+        {
+            using var archive = ZipFile.OpenRead(zipPath);
+
+            foreach (var entry in archive.Entries)
+            {
+                var entryName = entry.FullName;
+
+                if (string.IsNullOrEmpty(entryName))
+                    continue;
+
+                // Check for common path traversal indicators
+                if (entryName.Contains("..") ||
+                    Path.IsPathRooted(entryName) ||
+                    entryName.StartsWith('/') ||
+                    entryName.StartsWith('\\'))
+                {
+                    throw new InvalidOperationException($"ZIP contains path traversal entry: '{entryName}'");
+                }
+
+                // Additional thorough check: simulate extraction path normalization
+                var normalizedEntryName = entryName.Replace('/', Path.DirectorySeparatorChar);
+                var simulatedFullPath = Path.GetFullPath(Path.Combine("D:\\MOCKROOT", normalizedEntryName));
+                if (!simulatedFullPath.StartsWith("D:\\MOCKROOT", StringComparison.Ordinal))
+                {
+                    throw new InvalidOperationException($"ZIP entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
+                }
+            }
+        }
+        catch (InvalidDataException ex)
+        {
+            throw new InvalidOperationException($"Invalid or corrupted ZIP file: {ex.Message}", ex);
+        }
+    }
+
 
     internal static void Configure(IConfiguration configuration)
     {
@@ -125,6 +168,9 @@ internal static class MountZipFiles
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+
+
+        ValidateZipForPathTraversal(resolvedZipFilePath);
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
@@ -350,6 +396,9 @@ internal static class MountZipFiles
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+
+
+        ValidateZipForPathTraversal(resolvedZipFilePath);
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
@@ -606,6 +655,9 @@ internal static class MountZipFiles
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+
+
+        ValidateZipForPathTraversal(resolvedZipFilePath);
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
