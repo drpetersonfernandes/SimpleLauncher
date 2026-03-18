@@ -7,22 +7,10 @@
                       Height="400"
                       WindowStartupLocation="CenterScreen"
                       ResizeMode="NoResize"
-                      Background="#FF1E1E1E"
+                      Background="{StaticResource UpdateLogWindowBackground}"
                       GlowBrush="Black">
     <Grid>
         <TextBox x:Name="LogTextBox"
-                 Background="Black"
-                 Foreground="Lime"
-                 FontFamily="Consolas"
-                 FontSize="13"
-                 IsReadOnly="True"
-                 IsUndoEnabled="False"
-                 AcceptsReturn="True"
-                 TextWrapping="Wrap"
-                 VerticalScrollBarVisibility="Auto"
-                 HorizontalScrollBarVisibility="Disabled"
-                 BorderThickness="0"
-                 Padding="10"
-                 CaretBrush="Lime" />
+                 Style="{StaticResource LogTextBoxStyle}" />
     </Grid>
 </controls:MetroWindow>

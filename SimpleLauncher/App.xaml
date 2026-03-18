@@ -102,9 +102,316 @@
                 </Style.Triggers>
             </Style>
 
+            <SolidColorBrush x:Key="StatsEqualBrush" Color="LightGreen" />
+            <SolidColorBrush x:Key="StatsNotEqualBrush" Color="LightCoral" />
+
+            <SolidColorBrush x:Key="UpdateLogWindowBackground" Color="#FF1E1E1E" />
+            <SolidColorBrush x:Key="LogBackground" Color="Black" />
+            <SolidColorBrush x:Key="LogForeground" Color="Lime" />
+
+            <SolidColorBrush x:Key="GridSplitterBackground" Color="Gray" />
+            <SolidColorBrush x:Key="GridSplitterDotBrush" Color="White" />
+
+            <SolidColorBrush x:Key="OverlayBackgroundBrush" Color="#7F000000" />
+            <SolidColorBrush x:Key="EmergencyButtonBackgroundBrush" Color="#CC000000" />
+
+            <Color x:Key="GridSplitterHoverColor1">#DDDDDD</Color>
+            <Color x:Key="GridSplitterHoverColor2">#AAAAAA</Color>
+
+            <Style x:Key="LogTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="{StaticResource LogBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource LogForeground}" />
+                <Setter Property="FontFamily" Value="Consolas" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="IsUndoEnabled" Value="False" />
+                <Setter Property="AcceptsReturn" Value="True" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="CaretBrush" Value="{StaticResource LogForeground}" />
+            </Style>
+
+            <Style x:Key="ImportantSettingBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent2}" />
+                <Setter Property="BorderThickness" Value="4" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="Margin" Value="5,20,5,10" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray3}" 
+                                          Direction="320" 
+                                          ShadowDepth="8" 
+                                          Opacity="0.5" 
+                                          BlurRadius="10" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ImportantSettingHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Style>
+
+            <Style x:Key="ImportantSettingCheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+            </Style>
+
+            <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
+                <Setter Property="Width" Value="8" />
+                <Setter Property="Background" Value="{StaticResource GridSplitterBackground}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridSplitter">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="2">
+                                <Grid>
+                                    <!-- Visual indicators - dots in the center -->
+                                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Ellipse Width="3" Height="3" Fill="{StaticResource GridSplitterDotBrush}" Margin="0,2,0,2" />
+                                        <Ellipse Width="3" Height="3" Fill="{StaticResource GridSplitterDotBrush}" Margin="0,2,0,2" />
+                                        <Ellipse Width="3" Height="3" Fill="{StaticResource GridSplitterDotBrush}" Margin="0,2,0,2" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="{StaticResource GridSplitterHoverColor1}" Offset="0.0" />
+                                                <GradientStop Color="{StaticResource GridSplitterHoverColor2}" Offset="0.5" />
+                                                <GradientStop Color="{StaticResource GridSplitterHoverColor1}" Offset="1.0" />
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Reusable ControlTemplate for Game Buttons with 3D Effect -->
+            <ControlTemplate x:Key="GameButton3DTemplate" TargetType="Button">
+                <Border x:Name="ButtonBorder"
+                        Background="{DynamicResource MahApps.Brushes.Gray9}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        RenderTransformOrigin="0.5,0.5">
+                    <Border.RenderTransform>
+                        <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
+                    </Border.RenderTransform>
+                    <Border.Effect>
+                        <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}" Direction="315" ShadowDepth="3"
+                                          Opacity="0.4" BlurRadius="5" />
+                    </Border.Effect>
+                    <Grid>
+                        <!-- Wrap the ContentPresenter in a Grid to allow overlays -->
+                        <ContentPresenter x:Name="ButtonContentPresenter"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" />
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="Background"
+                                Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
+                                                  ShadowDepth="5" Opacity="0.6" BlurRadius="8" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="ButtonBorder" Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="1.02" ScaleY="1.02" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="Background"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" Direction="315" ShadowDepth="1" Opacity="0.7"
+                                                  BlurRadius="2" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform X="1" Y="1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <!-- Style for Game Buttons -->
+            <Style x:Key="GameButtonStyle" TargetType="Button">
+                <Setter Property="Template" Value="{StaticResource GameButton3DTemplate}" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="0,5,0,0" />
+                <!-- Set initial opacity to 0 for the fade-in effect -->
+                <Setter Property="Opacity" Value="0" />
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Reusable ControlTemplate for System Buttons with 3D Effect -->
+            <ControlTemplate x:Key="SystemButton3DTemplate" TargetType="Button">
+                <Border x:Name="ButtonBorder"
+                        Background="{DynamicResource MahApps.Brushes.Gray9}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        RenderTransformOrigin="0.5,0.5">
+                    <Border.RenderTransform>
+                        <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
+                    </Border.RenderTransform>
+                    <Border.Effect>
+                        <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}" Direction="315" ShadowDepth="3"
+                                          Opacity="0.4" BlurRadius="5" />
+                    </Border.Effect>
+                    <Grid>
+                        <!-- ContentPresenter for the button's content (StackPanel with Image and Text) -->
+                        <ContentPresenter x:Name="ButtonContentPresenter"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" />
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="Background"
+                                Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
+                                                  ShadowDepth="5" Opacity="0.6" BlurRadius="8" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="ButtonBorder" Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="1.02" ScaleY="1.02" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="Background"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" Direction="315" ShadowDepth="1" Opacity="0.7"
+                                                  BlurRadius="2" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
+                            <Setter.Value>
+                                <TranslateTransform X="1" Y="1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <!-- Style for System Buttons -->
+            <Style x:Key="SystemButtonStyle" TargetType="Button">
+                <Setter Property="Template" Value="{StaticResource SystemButton3DTemplate}" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="0,5,0,0" />
+                <!-- Set initial opacity to 0 for the fade-in effect -->
+                <Setter Property="Opacity" Value="0" />
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="CustomListBoxItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="Margin" Value="0,2" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="CustomDataGridRowStyle" TargetType="DataGridRow">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                <!-- Set initial opacity to 0 for the fade-in effect -->
+                <Setter Property="Opacity" Value="0" />
+
+                <!-- Trigger to control the hover background and foreground color -->
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <!-- Global Loading Overlay Template -->
             <ControlTemplate x:Key="LoadingOverlayTemplate" TargetType="ContentControl">
-                <Grid Background="#7F000000">
+                <Grid Background="{StaticResource OverlayBackgroundBrush}">
                     <!-- Center Content (Spinner and Message) -->
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <mah:ProgressRing IsActive="True"
@@ -130,7 +437,7 @@
                             Padding="15,8"
                             FontSize="14"
                             FontWeight="Bold"
-                            Background="#CC000000"
+                            Background="{StaticResource EmergencyButtonBackgroundBrush}"
                             Foreground="White"
                             BorderBrush="White"
                             BorderThickness="1"

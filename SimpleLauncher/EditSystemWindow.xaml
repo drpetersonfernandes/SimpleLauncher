@@ -11,41 +11,7 @@
                       WindowState="Maximized" x:ClassModifier="internal">
 
     <Window.Resources>
-        <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
-            <Setter Property="Width" Value="8" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="GridSplitter">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="2">
-                            <Grid>
-                                <!-- Visual indicators - dots in the center -->
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
-                                    <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
-                                    <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                            <GradientStop Color="#DDDDDD" Offset="0.0" />
-                                            <GradientStop Color="#AAAAAA" Offset="0.5" />
-                                            <GradientStop Color="#DDDDDD" Offset="1.0" />
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+
     </Window.Resources>
 
     <Grid>
@@ -874,7 +840,6 @@
 
             <!-- GridSplitter between columns 0 and 2 -->
             <GridSplitter Grid.Column="1"
-                          Background="Gray"
                           ResizeDirection="Columns"
                           Style="{StaticResource EnhancedGridSplitterStyle}"
                           HorizontalAlignment="Center"

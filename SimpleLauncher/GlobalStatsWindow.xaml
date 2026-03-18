@@ -41,10 +41,10 @@
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AreFilesAndImagesEqual}" Value="True">
-                                <Setter Property="Background" Value="LightGreen" />
+                                <Setter Property="Background" Value="{StaticResource StatsEqualBrush}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AreFilesAndImagesEqual}" Value="False">
-                                <Setter Property="Background" Value="LightCoral" />
+                                <Setter Property="Background" Value="{StaticResource StatsNotEqualBrush}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
