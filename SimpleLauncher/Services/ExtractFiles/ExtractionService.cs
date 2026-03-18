@@ -156,7 +156,7 @@ public class ExtractionService : IExtractionService
                             // Notify user
                             MessageBoxLibrary.DiskSpaceErrorMessageBox();
 
-                            return;
+                            throw new IOException("Insufficient disk space.");
                         }
                     }
                     catch (ArgumentException ex)
@@ -167,7 +167,7 @@ public class ExtractionService : IExtractionService
                         // Notify user
                         MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
 
-                        return;
+                        throw new IOException($"Unable to check disk space for path {resolvedDestinationFolder}", ex);
                     }
                 }
 

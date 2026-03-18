@@ -897,9 +897,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // although LoadGameFilesAsync will also be invoked on the dispatcher.
         Dispatcher.Invoke(() =>
         {
-            _allGamesForCurrentSystem.Clear();
-            _currentSearchResults.Clear();
-            DebugLogger.Log("[MainWindow.InvalidateGameFileCaches] All game file caches invalidated.");
+            _allGamesLock.Wait();
+            try
+            {
+                _allGamesForCurrentSystem.Clear();
+                _currentSearchResults.Clear();
+                DebugLogger.Log("[MainWindow.InvalidateGameFileCaches] All game file caches invalidated.");
+            }
+            finally
+            {
+                _allGamesLock.Release();
+            }
         });
     }
 }

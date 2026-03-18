@@ -152,10 +152,10 @@ public partial class PlayHistoryWindow : ILoadingState
 
     private async Task DeleteMissingEntriesAsync()
     {
+        var currentHistory = _playHistoryList.ToList();
         var itemsToRemove = await Task.Run(() =>
         {
             var toRemove = new List<PlayHistoryItem>();
-            var currentHistory = _playHistoryList.ToList();
             foreach (var item in currentHistory)
             {
                 // Since FileName now stores the full path, we check existence directly

@@ -22,7 +22,7 @@ public static class CheckForFileLock
 
         try
         {
-            using FileStream stream = new(longPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            using FileStream stream = new(longPath, FileMode.Open, FileAccess.Read, FileShare.None);
             return false;
         }
         catch (IOException)

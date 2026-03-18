@@ -108,7 +108,10 @@ public class RetroAchievementsService
 
             if (apiResponse == null) return (null, null);
 
-            var pointsEarnedHardcore = apiResponse.Achievements.Values
+            var apiAchievements = apiResponse.Achievements?.Values ?? Enumerable.Empty<RaApiAchievement>();
+
+            var raApiAchievements = apiAchievements.ToList();
+            var pointsEarnedHardcore = raApiAchievements
                 .Where(static a => a.DateEarnedHardcore != null)
                 .Sum(static a => a.Points);
 
@@ -119,16 +122,16 @@ public class RetroAchievementsService
                 ConsoleName = apiResponse.ConsoleName,
                 AchievementsEarned = apiResponse.NumAwardedToUser,
                 TotalAchievements = apiResponse.NumAchievements,
-                PointsEarned = apiResponse.Achievements.Values.Where(static a => a.DateEarned != null).Sum(static a => a.Points),
+                PointsEarned = raApiAchievements.Where(static a => a.DateEarned != null).Sum(static a => a.Points),
                 PointsEarnedHardcore = pointsEarnedHardcore,
-                TotalPoints = apiResponse.Achievements.Values.Sum(static a => a.Points),
+                TotalPoints = raApiAchievements.Sum(static a => a.Points),
                 UserCompletion = apiResponse.UserCompletion,
                 UserCompletionHardcore = apiResponse.UserCompletionHardcore,
                 HighestAwardKind = apiResponse.HighestAwardKind,
                 HighestAwardDate = apiResponse.HighestAwardDate
             };
 
-            var achievements = apiResponse.Achievements.Values
+            var achievements = raApiAchievements
                 .OrderBy(static a => a.DisplayOrder)
                 .Select(a => new RaAchievement
                 {

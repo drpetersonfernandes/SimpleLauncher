@@ -64,8 +64,12 @@ public class FavoritesManager
                 .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
-            // Replace the entire list atomically
-            FavoriteList = new ObservableCollection<Favorite>(orderedFavorites);
+            // Clear and repopulate the existing list to maintain UI bindings
+            FavoriteList.Clear();
+            foreach (var fav in orderedFavorites)
+            {
+                FavoriteList.Add(fav);
+            }
         }
 
         // Now serialize

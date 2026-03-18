@@ -243,7 +243,11 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
             {
                 try
                 {
-                    if (sender is not Button { DataContext: ImagePackDownloadItem clickedItem }) return;
+                    if (sender is not Button { DataContext: ImagePackDownloadItem clickedItem })
+                    {
+                        EndOperation();
+                        return;
+                    }
 
                     // Disable button immediately to prevent double-click
                     clickedItem.State = DownloadButtonState.Downloading;
@@ -262,6 +266,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
                             case false:
                                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
                                 clickedItem.State = DownloadButtonState.Failed; // Re-enable on error
+                                EndOperation();
                                 break;
                         }
                     }

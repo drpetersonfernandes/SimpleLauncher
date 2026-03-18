@@ -763,14 +763,22 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     // Helper method to reduce code duplication for downloads and extractions
     private async Task HandleDownloadAndExtractComponentAsync(string type)
     {
-        if (_disposed) return;
+        if (_disposed)
+        {
+            EndOperation();
+            return;
+        }
 
         _currentDownloadType = type;
 
         // State already set by caller to Downloading
 
         var selectedSystem = GetSelectedSystem();
-        if (selectedSystem == null) return;
+        if (selectedSystem == null)
+        {
+            EndOperation();
+            return;
+        }
 
         string downloadUrl;
         string componentName;
@@ -814,6 +822,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 componentName = (string)Application.Current.TryFindResource("ImagePack5") ?? "Image Pack 5";
                 break;
             default:
+                EndOperation();
                 return;
         }
 
@@ -857,7 +866,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
             var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
 
-            if (_disposed) return;
+            if (_disposed)
+            {
+                EndOperation();
+                return;
+            }
 
             if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
@@ -888,7 +901,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             }
             else // Download was not completed successfully (either cancelled, locked, or other failure)
             {
-                if (_disposed) return;
+                if (_disposed)
+                {
+                    EndOperation();
+                    return;
+                }
 
                 if (_downloadManager.IsUserCancellation) // User cancelled the download
                 {
@@ -928,7 +945,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                EndOperation();
+                return;
+            }
 
             var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
             var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
@@ -962,7 +983,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 await ShowDownloadErrorDialogAsync(type, selectedSystem);
             }
 
-            if (_disposed) return;
+            if (_disposed)
+            {
+                EndOperation();
+                return;
+            }
 
             StopDownloadButton.IsEnabled = false;
             SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on exception
