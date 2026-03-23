@@ -17,22 +17,25 @@
                        FontWeight="Bold"
                        Margin="0,0,0,5" />
 
-            <ComboBox x:Name="SystemComboBox"
-                      Margin="0,0,0,30" />
+<ComboBox x:Name="SystemComboBox"
+Margin="0,0,0,30"
+ToolTip="Select the gaming system for this game" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="{DynamicResource ConfirmSelectionButton}"
-                        Click="Confirm_Click"
-                        IsDefault="True"
-                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                        Margin="0,0,10,0"
-                        Width="120" />
+<Button Content="{DynamicResource ConfirmSelectionButton}"
+Click="Confirm_Click"
+IsDefault="True"
+Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+Margin="0,0,10,0"
+Width="120"
+ToolTip="Confirm the selected system" />
 
-                <Button Content="{DynamicResource Cancel}"
-                        Click="Cancel_Click"
-                        IsCancel="True"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Width="80" />
+<Button Content="{DynamicResource Cancel}"
+Click="Cancel_Click"
+IsCancel="True"
+Style="{DynamicResource MahApps.Styles.Button.Square}"
+Width="80"
+ToolTip="Cancel and close this window" />
             </StackPanel>
         </StackPanel>
     </Grid>

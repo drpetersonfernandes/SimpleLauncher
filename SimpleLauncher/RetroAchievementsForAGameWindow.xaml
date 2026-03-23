@@ -152,12 +152,12 @@
                                     <DataGridTextColumn Header="{DynamicResource HeaderAuthor}" Binding="{Binding AuthorDisplay}" Width="Auto" SortMemberPath="Author" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <Grid x:Name="NoAchievementsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock x:Name="NoAchievementsMessage" Text="{DynamicResource NoAchievementsFound}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
-                                               TextAlignment="Center" />
-                                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoAchievementsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoAchievementsMessage" Text="{DynamicResource NoAchievementsFound}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
+                        TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -183,7 +183,7 @@
                                 <StackPanel Grid.Column="0" Margin="0,0,10,0">
                                     <TextBlock Text="{DynamicResource Icon}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoImageIcon" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" />
+                                        <Image x:Name="GameInfoImageIcon" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
 
@@ -191,7 +191,7 @@
                                 <StackPanel Grid.Column="1" Margin="10,0,10,0">
                                     <TextBlock Text="{DynamicResource TitleScreen}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoTitleImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" />
+                                        <Image x:Name="GameInfoTitleImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
 
@@ -199,7 +199,7 @@
                                 <StackPanel Grid.Column="2" Margin="10,0,10,0">
                                     <TextBlock Text="{DynamicResource InGame}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoIngameImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" />
+                                        <Image x:Name="GameInfoIngameImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
 
@@ -207,7 +207,7 @@
                                 <StackPanel Grid.Column="3" Margin="10,0,0,0">
                                     <TextBlock Text="{DynamicResource BoxArt}" FontSize="14" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" BorderThickness="1" Margin="0,5,0,0" HorizontalAlignment="Center">
-                                        <Image x:Name="GameInfoBoxArtImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" />
+                                        <Image x:Name="GameInfoBoxArtImage" Width="150" Height="112.5" Stretch="Uniform" MouseLeftButtonDown="GameImage_MouseLeftButtonDown" ToolTip="{DynamicResource ClickToViewFullSize}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -215,7 +215,7 @@
                             <!-- Game Details Grid -->
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                 <TextBlock Text="{DynamicResource GameDetails}" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                                <Button x:Name="ViewGameOnRaButton" Content="{DynamicResource ViewOnRetroAchievements}" Click="ViewGameOnRaButton_Click" Margin="15,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+                                <Button x:Name="ViewGameOnRaButton" Content="{DynamicResource ViewOnRetroAchievements}" Click="ViewGameOnRaButton_Click" Margin="15,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource ViewGameOnRetroAchievementsTooltip}" />
                             </StackPanel>
                             <Grid Margin="0,0,0,25">
                                 <Grid.ColumnDefinitions>
@@ -341,12 +341,12 @@
                             </StackPanel>
 
                             <!-- No Data Overlay -->
-                            <Grid x:Name="NoGameInfoOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock x:Name="NoGameInfoMessage" Text="{DynamicResource NoGameInfoAvailable}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
-                                               TextAlignment="Center" />
-                                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoGameInfoOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoGameInfoMessage" Text="{DynamicResource NoGameInfoAvailable}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
+                        TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -385,8 +385,8 @@
                                         <TextBlock x:Name="NoUserRankMessage" Text="{DynamicResource NoRankData}"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"
                                                    Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap" TextAlignment="Center" />
-                                        <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>
@@ -409,12 +409,12 @@
                                     <DataGridTextColumn Header="{DynamicResource HeaderLastAward}" Binding="{Binding LastAward}" Width="Auto" SortMemberPath="LastAward" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <Grid x:Name="NoLatestMastersOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock x:Name="NoLatestMastersMessage" Text="{DynamicResource NoLatestMasters}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
-                                               TextAlignment="Center" />
-                                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoLatestMastersOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoLatestMastersMessage" Text="{DynamicResource NoLatestMasters}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
+                        TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                                 </StackPanel>
                             </Grid>
 
@@ -436,11 +436,11 @@
                                     <DataGridTextColumn Header="{DynamicResource HeaderLastAward}" Binding="{Binding LastAward}" Width="Auto" SortMemberPath="LastAward" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <Grid x:Name="NoHighScoresOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock x:Name="NoHighScoresMessage" Text="{DynamicResource NoHighScores}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap" TextAlignment="Center" />
-                                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoHighScoresOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoHighScoresMessage" Text="{DynamicResource NoHighScores}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap" TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -460,7 +460,7 @@
                                     <StackPanel VerticalAlignment="Center" Margin="15,0,0,0">
                                         <TextBlock x:Name="UserProfileUser" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                         <TextBlock x:Name="UserProfileMotto" FontStyle="Italic" TextWrapping="Wrap" Margin="0,5,0,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                                        <Button x:Name="ViewProfileOnRaButton" Content="{DynamicResource ViewProfileOnRA}" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+                                        <Button x:Name="ViewProfileOnRaButton" Content="{DynamicResource ViewProfileOnRA}" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource ViewProfileOnRetroAchievementsTooltip}" />
                                     </StackPanel>
                                 </StackPanel>
 
@@ -592,14 +592,14 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
                             </StackPanel>
-                            <Grid x:Name="NoProfileOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <TextBlock x:Name="NoProfileMainMessage" Text="{DynamicResource NoProfileLoaded}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap" TextAlignment="Center"
-                                               Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                                    <TextBlock x:Name="NoProfileSubMessage" Text="{DynamicResource CheckSettingsTryAgain}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}"
-                                               Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
-                                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoProfileOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoProfileMainMessage" Text="{DynamicResource NoProfileLoaded}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap" TextAlignment="Center"
+                        Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                    <TextBlock x:Name="NoProfileSubMessage" Text="{DynamicResource CheckSettingsTryAgain}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}"
+                        Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -622,10 +622,10 @@
                             <TextBlock Text="{DynamicResource ToDate}" VerticalAlignment="Center" Margin="15,0,5,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                             <DatePicker x:Name="ToDatePicker" Width="120" ToolTip="Select the end date for unlocks (defaults to today)"
                                         Style="{DynamicResource MahApps.Styles.DatePicker}" />
-                            <Button Content="{DynamicResource FetchUnlocks}" Click="FetchUnlocksClickAsync" Margin="15,0,0,0" Padding="10,5" x:Name="FetchUnlocksButton"
-                                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
-                            <Button Content="{DynamicResource ResetDates}" Click="ResetDatesClickAsync" Margin="10,0,0,0" Padding="10,5"
-                                    Style="{DynamicResource MahApps.Styles.Button.Square}" />
+<Button Content="{DynamicResource FetchUnlocks}" Click="FetchUnlocksClickAsync" Margin="15,0,0,0" Padding="10,5" x:Name="FetchUnlocksButton"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource FetchUnlocksTooltip}" />
+<Button Content="{DynamicResource ResetDates}" Click="ResetDatesClickAsync" Margin="10,0,0,0" Padding="10,5"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}" ToolTip="{DynamicResource ResetDatesTooltip}" />
                         </StackPanel>
 
                         <Grid Grid.Row="1" Margin="10,0,10,15">
@@ -676,12 +676,12 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <!-- Add a "No Unlocks" overlay similar to other tabs -->
-                        <Grid x:Name="NoUnlocksOverlay" Grid.Row="2" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock x:Name="NoUnlocksMessage" Text="{DynamicResource NoUnlocksFound}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
-                                           TextAlignment="Center" />
-                                <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoUnlocksOverlay" Grid.Row="2" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoUnlocksMessage" Text="{DynamicResource NoUnlocksFound}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
+                        TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -716,14 +716,14 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Grid x:Name="NoUserProgressOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock x:Name="NoUserProgressMainMessage" Text="{DynamicResource NoUserProgress}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap" TextAlignment="Center"
-                                           Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                                <TextBlock x:Name="NoUserProgressSubMessage" Text="{DynamicResource CheckSettingsTryAgain}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}"
-                                           Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
-                                <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+<Grid x:Name="NoUserProgressOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="NoUserProgressMainMessage" Text="{DynamicResource NoUserProgress}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" TextWrapping="Wrap" TextAlignment="Center"
+                        Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                    <TextBlock x:Name="NoUserProgressSubMessage" Text="{DynamicResource CheckSettingsTryAgain}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}"
+                        Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" ToolTip="{DynamicResource OpenRetroAchievementsSettings}" />
                             </StackPanel>
                         </Grid>
                     </Grid>

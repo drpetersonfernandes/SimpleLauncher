@@ -17,9 +17,9 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource RaineConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource RaineConfig_Fullscreen}" Margin="0,5" />
-                        <CheckBox x:Name="ChkFixAspect" Content="{DynamicResource RaineConfig_FixAspect}" Margin="0,5" />
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource RaineConfig_Vsync}" Margin="0,5" />
+                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource RaineConfig_Fullscreen}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_Fullscreen_Tooltip}" />
+                        <CheckBox x:Name="ChkFixAspect" Content="{DynamicResource RaineConfig_FixAspect}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_FixAspect_Tooltip}" />
+                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource RaineConfig_Vsync}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_Vsync_Tooltip}" />
 
                         <Label Content="{DynamicResource RaineConfig_Resolution}" Margin="0,5,0,0" />
                         <Grid>
@@ -28,9 +28,9 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="320" Maximum="7680" Interval="1" />
+                            <controls:NumericUpDown x:Name="NumResX" Grid.Column="0" Minimum="320" Maximum="7680" Interval="1" ToolTip="{DynamicResource RaineConfig_ResolutionX_Tooltip}" />
                             <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
-                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="240" Maximum="4320" Interval="1" />
+                            <controls:NumericUpDown x:Name="NumResY" Grid.Column="2" Minimum="240" Maximum="4320" Interval="1" ToolTip="{DynamicResource RaineConfig_ResolutionY_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -39,13 +39,13 @@
                 <GroupBox Header="{DynamicResource RaineConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource RaineConfig_AudioDriver}" />
-                        <ComboBox x:Name="CmbAudioDriver">
+                        <ComboBox x:Name="CmbAudioDriver" ToolTip="{DynamicResource RaineConfig_AudioDriver_Tooltip}">
                             <ComboBoxItem Content="directsound" />
                             <ComboBoxItem Content="sdl" />
                         </ComboBox>
 
                         <Label Content="{DynamicResource RaineConfig_SampleRate}" Margin="0,5,0,0" />
-                        <ComboBox x:Name="CmbSampleRate">
+                        <ComboBox x:Name="CmbSampleRate" ToolTip="{DynamicResource RaineConfig_SampleRate_Tooltip}">
                             <ComboBoxItem Content="22050" />
                             <ComboBoxItem Content="44100" />
                             <ComboBoxItem Content="48000" />
@@ -56,9 +56,9 @@
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource RaineConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkShowFps" Content="{DynamicResource RaineConfig_ShowFps}" Margin="0,5" />
+                        <CheckBox x:Name="ChkShowFps" Content="{DynamicResource RaineConfig_ShowFps}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_ShowFps_Tooltip}" />
                         <Label Content="{DynamicResource RaineConfig_FrameSkip}" />
-                        <ComboBox x:Name="CmbFrameSkip" SelectedIndex="0">
+                        <ComboBox x:Name="CmbFrameSkip" SelectedIndex="0" ToolTip="{DynamicResource RaineConfig_FrameSkip_Tooltip}">
                             <ComboBoxItem Content="0" />
                             <ComboBoxItem Content="1" />
                             <ComboBoxItem Content="2" />
@@ -78,18 +78,18 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="TxtNeoCdBios" Grid.Column="0" Margin="0,0,5,10" />
-                            <Button x:Name="BtnSelectNeoCdBios" Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10" Click="BtnSelectNeoCdBios_Click" />
+                            <TextBox x:Name="TxtNeoCdBios" Grid.Column="0" Margin="0,0,5,10" ToolTip="{DynamicResource RaineConfig_NeoCdBios_Tooltip}" />
+                            <Button x:Name="BtnSelectNeoCdBios" Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10" Click="BtnSelectNeoCdBios_Click" ToolTip="{DynamicResource RaineConfig_SelectNeoCdBios_Tooltip}" />
                         </Grid>
 
                         <Label Content="{DynamicResource RaineConfig_MusicVolume}" />
-                        <controls:NumericUpDown x:Name="NumMusicVolume" Minimum="0" Maximum="200" Interval="1" Value="60" Margin="0,0,0,5" />
+                        <controls:NumericUpDown x:Name="NumMusicVolume" Minimum="0" Maximum="200" Interval="1" Value="60" Margin="0,0,0,5" ToolTip="{DynamicResource RaineConfig_MusicVolume_Tooltip}" />
 
                         <Label Content="{DynamicResource RaineConfig_SfxVolume}" />
-                        <controls:NumericUpDown x:Name="NumSfxVolume" Minimum="0" Maximum="200" Interval="1" Value="60" Margin="0,0,0,5" />
+                        <controls:NumericUpDown x:Name="NumSfxVolume" Minimum="0" Maximum="200" Interval="1" Value="60" Margin="0,0,0,5" ToolTip="{DynamicResource RaineConfig_SfxVolume_Tooltip}" />
 
-                        <CheckBox x:Name="ChkMuteSfx" Content="{DynamicResource RaineConfig_MuteSfx}" Margin="0,5" />
-                        <CheckBox x:Name="ChkMuteMusic" Content="{DynamicResource RaineConfig_MuteMusic}" Margin="0,5" />
+                        <CheckBox x:Name="ChkMuteSfx" Content="{DynamicResource RaineConfig_MuteSfx}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_MuteSfx_Tooltip}" />
+                        <CheckBox x:Name="ChkMuteMusic" Content="{DynamicResource RaineConfig_MuteMusic}" Margin="0,5" ToolTip="{DynamicResource RaineConfig_MuteMusic_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -101,8 +101,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="TxtRaineRomDirectory" Grid.Column="0" Margin="0,0,5,0" />
-                            <Button x:Name="BtnSelectRaineRomDirectory" Grid.Column="1" Content="..." Width="30" Height="25" Click="BtnSelectRaineRomDirectory_Click" />
+                            <TextBox x:Name="TxtRaineRomDirectory" Grid.Column="0" Margin="0,0,5,0" ToolTip="{DynamicResource RaineConfig_RomDirectory_Tooltip}" />
+                            <Button x:Name="BtnSelectRaineRomDirectory" Grid.Column="1" Content="..." Width="30" Height="25" Click="BtnSelectRaineRomDirectory_Click" ToolTip="{DynamicResource RaineConfig_SelectRomDirectory_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -111,7 +111,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource RaineConfig_ShowBeforeLaunch}" Style="{StaticResource ImportantSettingCheckBoxStyle}" />
+                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource RaineConfig_ShowBeforeLaunch}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RaineConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -121,12 +121,15 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource RaineConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    Click="BtnSave_Click" />
+                    Click="BtnSave_Click"
+                    ToolTip="{DynamicResource RaineConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource RaineConfig_Run_Button2}" Width="120" Height="35"
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    Click="BtnRun_Click" IsDefault="True" />
+                    Click="BtnRun_Click" IsDefault="True"
+                    ToolTip="{DynamicResource RaineConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource RaineConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"
+                    ToolTip="{DynamicResource RaineConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

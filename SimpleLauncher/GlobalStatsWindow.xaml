@@ -26,10 +26,11 @@
 
         <!-- Start/Process Button -->
         <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center">
-            <Button x:Name="StartButton"
-                    Width="110"
-                    Click="StartButtonClickAsync"
-                    Content="{DynamicResource StartProcess}" />
+        <Button x:Name="StartButton"
+                Width="110"
+                Click="StartButtonClickAsync"
+                Content="{DynamicResource StartProcess}"
+                ToolTip="{DynamicResource TooltipStartProcess}" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
@@ -62,12 +63,13 @@
             Margin="10,10,10,20"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Button
-                Width="110"
-                x:Name="SaveButton"
-                Click="SaveReport_Click"
-                Content="{DynamicResource SaveReport}"
-                Visibility="Collapsed" />
+        <Button
+            Width="110"
+            x:Name="SaveButton"
+            Click="SaveReport_Click"
+            Content="{DynamicResource SaveReport}"
+            Visibility="Collapsed"
+            ToolTip="{DynamicResource TooltipSaveReport}" />
         </StackPanel>
 
         <!-- BUSY OVERLAY -->
@@ -81,13 +83,14 @@
 
         <!-- CANCEL BUTTON OVERLAY -->
         <Grid Grid.Row="0" Grid.RowSpan="5" Panel.ZIndex="101" x:Name="CancelOverlayContainer" Visibility="Collapsed">
-            <Button x:Name="CancelButton"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Margin="0,170,0,0"
-                    Width="110"
-                    Click="CancelButton_Click"
-                    Content="{DynamicResource Cancel}" />
+        <Button x:Name="CancelButton"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="0,170,0,0"
+                Width="110"
+                Click="CancelButton_Click"
+                Content="{DynamicResource Cancel}"
+                ToolTip="{DynamicResource TooltipCancel}" />
         </Grid>
     </Grid>
 </controls:MetroWindow>

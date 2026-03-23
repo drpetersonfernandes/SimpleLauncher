@@ -39,11 +39,12 @@
             <!-- Left Column: Configuration -->
             <StackPanel Grid.Column="0">
                 <controls:MetroHeader Header="{DynamicResource ChooseASystemToAdd}" Margin="0,0,0,20">
-                    <ComboBox x:Name="SystemNameDropdown"
-                              HorizontalAlignment="Stretch"
-                              Margin="0,5,0,0"
-                              SelectionChanged="SystemNameDropdown_SelectionChanged"
-                              controls:TextBoxHelper.Watermark="{DynamicResource SelectASystemWatermark}" />
+<ComboBox x:Name="SystemNameDropdown"
+                          HorizontalAlignment="Stretch"
+                          Margin="0,5,0,0"
+                          SelectionChanged="SystemNameDropdown_SelectionChanged"
+                          controls:TextBoxHelper.Watermark="{DynamicResource SelectASystemWatermark}"
+                          ToolTip="{DynamicResource TooltipChooseSystem}" />
                 </controls:MetroHeader>
 
                 <controls:MetroHeader Header="{DynamicResource ChooseFolderWithROMsOrIsos}" Margin="0,0,0,20">
@@ -57,11 +58,12 @@
                             </Grid.ColumnDefinitions>
                             <TextBox Grid.Column="0" x:Name="SystemFolderTextBox"
                                      VerticalContentAlignment="Center"
-                                     controls:TextBoxHelper.Watermark="{DynamicResource PathToRomsWatermark}" />
-                            <Button Grid.Column="1" Content="..."
-                                    ToolTip="{DynamicResource ChooseFolder}"
-                                    Click="ChooseFolderButton_Click"
-                                    Margin="5,0,0,0" Width="40" />
+                                     controls:TextBoxHelper.Watermark="{DynamicResource PathToRomsWatermark}"
+                                     ToolTip="{DynamicResource TooltipChooseFolder}" />
+<Button Grid.Column="1" Content="..."
+                                        ToolTip="{DynamicResource TooltipChooseFolder}"
+                                        Click="ChooseFolderButton_Click"
+                                        Margin="5,0,0,0" Width="40" />
                         </Grid>
                     </StackPanel>
                 </controls:MetroHeader>
@@ -92,21 +94,23 @@
                     <!-- Essential Components -->
                     <GroupBox Header="{DynamicResource EssentialsHeader}" Margin="0,0,0,15">
                         <UniformGrid Columns="2" Rows="1" Margin="5">
-                            <Button x:Name="DownloadEmulatorButton"
-                                    Content="{DynamicResource DownloadEmulator}"
-                                    Click="DownloadEmulatorButtonClickAsync"
-                                    IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                    Height="40"
-                                    Margin="5" />
+<Button x:Name="DownloadEmulatorButton"
+                                        Content="{DynamicResource DownloadEmulator}"
+                                        Click="DownloadEmulatorButtonClickAsync"
+                                        IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                        Height="40"
+                                        Margin="5"
+                                        ToolTip="{DynamicResource TooltipDownloadEmulator}" />
 
-                            <Button x:Name="DownloadCoreButton"
-                                    Content="{DynamicResource DownloadCore}"
-                                    Click="DownloadCoreButtonClickAsync"
-                                    IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                    Height="40"
-                                    Margin="5" />
+<Button x:Name="DownloadCoreButton"
+                                        Content="{DynamicResource DownloadCore}"
+                                        Click="DownloadCoreButtonClickAsync"
+                                        IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                        Height="40"
+                                        Margin="5"
+                                        ToolTip="{DynamicResource TooltipDownloadCore}" />
                         </UniformGrid>
                     </GroupBox>
 
@@ -114,45 +118,50 @@
                     <GroupBox Header="{DynamicResource ImagePacksOptionalHeader}" Margin="0,0,0,15">
                         <StackPanel Margin="5">
                             <UniformGrid Columns="2">
-                                <Button x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
-                                        Click="DownloadImagePackButton1ClickAsync"
-                                        IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                        Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                        Height="40"
-                                        Margin="5" />
+<Button x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
+                                            Click="DownloadImagePackButton1ClickAsync"
+                                            IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                            Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            Height="40"
+                                            Margin="5"
+                                            ToolTip="{DynamicResource TooltipDownloadImagePack1}" />
 
-                                <Button x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
-                                        Click="DownloadImagePackButton2ClickAsync"
-                                        IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                        Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                        Height="40"
-                                        Margin="5" />
+<Button x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
+                                            Click="DownloadImagePackButton2ClickAsync"
+                                            IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                            Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            Height="40"
+                                            Margin="5"
+                                            ToolTip="{DynamicResource TooltipDownloadImagePack2}" />
 
-                                <Button x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
-                                        Click="DownloadImagePackButton3ClickAsync"
-                                        IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                        Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                        Height="40"
-                                        Margin="5" />
+<Button x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
+                                            Click="DownloadImagePackButton3ClickAsync"
+                                            IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                            Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            Height="40"
+                                            Margin="5"
+                                            ToolTip="{DynamicResource TooltipDownloadImagePack3}" />
 
-                                <Button x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
-                                        Click="DownloadImagePackButton4ClickAsync"
-                                        IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                        Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                        Height="40"
-                                        Margin="5" />
+<Button x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
+                                            Click="DownloadImagePackButton4ClickAsync"
+                                            IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                            Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            Height="40"
+                                            Margin="5"
+                                            ToolTip="{DynamicResource TooltipDownloadImagePack4}" />
 
-                                <Button x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
-                                        Click="DownloadImagePackButton5ClickAsync"
-                                        IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                        Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                                        Height="40"
-                                        Margin="5" />
+<Button x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
+                                            Click="DownloadImagePackButton5ClickAsync"
+                                            IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBooleanConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                            Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            Height="40"
+                                            Margin="5"
+                                            ToolTip="{DynamicResource TooltipDownloadImagePack5}" />
                             </UniformGrid>
                         </StackPanel>
                     </GroupBox>
@@ -184,10 +193,11 @@
                     </Grid>
 
                     <DockPanel Grid.Row="1" Margin="0,5,0,0">
-                        <Button x:Name="StopDownloadButton" Content="{DynamicResource StopDownload}"
-                                DockPanel.Dock="Right" Margin="10,0,0,0" Padding="10,2"
-                                Click="StopDownloadButton_Click" IsEnabled="False"
-                                Style="{DynamicResource MahApps.Styles.Button.Square}" />
+<Button x:Name="StopDownloadButton" Content="{DynamicResource StopDownload}"
+                                    DockPanel.Dock="Right" Margin="10,0,0,0" Padding="10,2"
+                                    Click="StopDownloadButton_Click" IsEnabled="False"
+                                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                                    ToolTip="{DynamicResource TooltipStopDownload}" />
                         <TextBlock x:Name="DownloadStatusTextBlock"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center"
@@ -196,13 +206,14 @@
                 </Grid>
 
                 <!-- Main Action Button -->
-                <Button Grid.Column="1" x:Name="AddSystemButton"
-                        Content="{DynamicResource AddSystem}"
-                        Click="AddSystemButtonClickAsync"
-                        IsEnabled="False"
-                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                        FontSize="16" FontWeight="Bold"
-                        Padding="30,10" />
+<Button Grid.Column="1" x:Name="AddSystemButton"
+                                Content="{DynamicResource AddSystem}"
+                                Click="AddSystemButtonClickAsync"
+                                IsEnabled="False"
+                                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                FontSize="16" FontWeight="Bold"
+                                Padding="30,10"
+                                ToolTip="{DynamicResource TooltipAddSystem}" />
             </Grid>
         </Border>
 

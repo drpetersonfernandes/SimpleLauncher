@@ -48,7 +48,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Vertical_Sync}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbVsync" Grid.Column="1">
+                            <ComboBox x:Name="CmbVsync" Grid.Column="1" ToolTip="{DynamicResource RedreamConfig_Vertical_Sync_Tooltip}">
                                 <ComboBoxItem Content="on" Tag="True" />
                                 <ComboBoxItem Content="off" Tag="False" />
                             </ComboBox>
@@ -59,7 +59,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Frame_Skip}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbFrameskip" Grid.Column="1">
+                            <ComboBox x:Name="CmbFrameskip" Grid.Column="1" ToolTip="{DynamicResource RedreamConfig_Frame_Skip_Tooltip}">
                                 <ComboBoxItem Content="auto" Tag="True" />
                                 <ComboBoxItem Content="off" Tag="False" />
                             </ComboBox>
@@ -123,7 +123,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Window_Size}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbWindowSize" Grid.Column="1" IsEditable="True">
+                            <ComboBox x:Name="CmbWindowSize" Grid.Column="1" IsEditable="True" ToolTip="{DynamicResource RedreamConfig_Window_Size_Tooltip}">
                                 <ComboBoxItem Content="640x480 (4:3)" />
                                 <ComboBoxItem Content="800x600 (4:3)" />
                                 <ComboBoxItem Content="1024x768 (4:3)" />
@@ -161,7 +161,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Latency_ms}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbLatency" Grid.Column="1">
+                            <ComboBox x:Name="CmbLatency" Grid.Column="1" ToolTip="{DynamicResource RedreamConfig_Latency_Tooltip}">
                                 <ComboBoxItem Content="8" />
                                 <ComboBoxItem Content="16" />
                                 <ComboBoxItem Content="32" />
@@ -175,7 +175,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Frame_Rate_Counter}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbFramerate" Grid.Column="1">
+                            <ComboBox x:Name="CmbFramerate" Grid.Column="1" ToolTip="{DynamicResource RedreamConfig_Frame_Rate_Counter_Tooltip}">
                                 <ComboBoxItem Content="off" Tag="False" />
                                 <ComboBoxItem Content="vblanks per second" Tag="True" />
                             </ComboBox>
@@ -213,7 +213,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource RedreamConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" />
+                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource RedreamConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RedreamConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -223,11 +223,14 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource RedreamConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    Click="BtnSave_Click" />
+                    Click="BtnSave_Click"
+                    ToolTip="{DynamicResource RedreamConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource RedreamConfig_Run_Button2}" Width="120" Height="35"
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    Click="BtnRun_Click" IsDefault="True" />
-            <Button Content="{DynamicResource RedreamConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
+                    Click="BtnRun_Click" IsDefault="True"
+                    ToolTip="{DynamicResource RedreamConfig_Run_Tooltip}" />
+            <Button Content="{DynamicResource RedreamConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"
+                    ToolTip="{DynamicResource RedreamConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

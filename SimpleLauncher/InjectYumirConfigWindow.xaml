@@ -68,7 +68,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource YumirConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" />
+                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource YumirConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -76,11 +76,14 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource YumirConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtnSave_Click" />
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" Click="BtnSave_Click"
+                    ToolTip="{DynamicResource YumirConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource YumirConfig_Run_Button2}" Width="120" Height="35"
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="BtnRun_Click" IsDefault="True" />
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" Click="BtnRun_Click" IsDefault="True"
+                    ToolTip="{DynamicResource YumirConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource YumirConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"
+                    ToolTip="{DynamicResource YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

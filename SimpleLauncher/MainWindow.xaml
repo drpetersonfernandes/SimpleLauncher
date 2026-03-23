@@ -24,13 +24,16 @@
             </Grid.RowDefinitions>
 
             <!-- Top Menu -->
-            <Menu Grid.Row="0" VerticalAlignment="Top">
-                <MenuItem Header="{DynamicResource Options}">
+            <Menu Grid.Row="0" VerticalAlignment="Top"
+          ToolTip="{DynamicResource TooltipOptionsMenu}">
+                    <MenuItem Header="{DynamicResource Options}"
+                              ToolTip="{DynamicResource TooltipOptionsMenu}">
                     <MenuItem Header="{DynamicResource Language}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/language.png" Width="16" Height="16" />
                         </MenuItem.Icon>
-                        <MenuItem x:Name="LanguageArabic" Header="العربية" Click="ChangeLanguage_Click" IsCheckable="True" />
+                        <MenuItem x:Name="LanguageArabic" Header="العربية" Click="ChangeLanguage_Click" IsCheckable="True"
+                                  ToolTip="{DynamicResource TooltipLanguageMenu}" />
                         <MenuItem x:Name="LanguageBengali" Header="বাংলা" Click="ChangeLanguage_Click" IsCheckable="True" />
                         <MenuItem x:Name="LanguageGerman" Header="Deutsch" Click="ChangeLanguage_Click" IsCheckable="True" />
                         <MenuItem x:Name="LanguageEnglish" Header="English" Click="ChangeLanguage_Click" IsCheckable="True" />
@@ -453,8 +456,9 @@
                         <MenuItem x:Name="InfoLinkButton" Header="{DynamicResource InfoLinkOverlayButton}" Click="ToggleInfoLinkButton_Click" IsCheckable="True" />
                     </MenuItem>
                 </MenuItem>
-                <MenuItem
-                    Header="{DynamicResource EditSystem}">
+<MenuItem
+Header="{DynamicResource EditSystem}"
+ToolTip="{DynamicResource TooltipEditSystem}">
                     <MenuItem Click="EasyMode_Click" Header="{DynamicResource EasyMode}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/easy.png" Width="16" Height="16" />
@@ -479,7 +483,8 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource SelectWindow}">
+                <MenuItem Header="{DynamicResource SelectWindow}"
+ToolTip="{DynamicResource TooltipSelectWindowMenu}">
                     <MenuItem Click="ShowFavoritesWindow_Click" Header="{DynamicResource Favorites}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/heart.png" Width="16" Height="16" />
@@ -506,7 +511,8 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Tools}">
+                <MenuItem Header="{DynamicResource Tools}"
+ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem Click="BatchConvertIsoToXiso_Click"
                               Header="Batch Convert Iso To Xiso">
                         <MenuItem.Icon>
@@ -589,7 +595,8 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource About}">
+                <MenuItem Header="{DynamicResource About}"
+ToolTip="{DynamicResource TooltipAboutMenu}">
                     <MenuItem Click="About_Click" Header="{DynamicResource About}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/about.png" Width="16" Height="16" />
@@ -601,7 +608,8 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Exit}">
+                <MenuItem Header="{DynamicResource Exit}"
+ToolTip="{DynamicResource TooltipExitMenu}">
                     <MenuItem Click="Exit_Click" Header="{DynamicResource Exit}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16" />
@@ -632,10 +640,10 @@
                         Background="{DynamicResource MahApps.Brushes.Gray9}">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                                 Margin="0">
-                        <Button
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource Restart}"
-                            Click="NavRestartButton_Click"
+<Button
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipRestart}"
+Click="NavRestartButton_Click"
                             Margin="0,10,2,5"
                             AutomationProperties.Name="{DynamicResource Restart}">
                             <Image Source="pack://application:,,,/images/refresh.png" Width="27" Height="27" />
@@ -647,65 +655,65 @@
                         <!--     AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}"> -->
                         <!--     <Image Source="pack://application:,,,/images/darkmode.png" Width="27" Height="27" /> -->
                         <!-- </Button> -->
-                        <Button
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource Favorites}"
-                            Click="NavFavoritesButton_Click"
+<Button
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipFavorites}"
+Click="NavFavoritesButton_Click"
                             AutomationProperties.Name="{DynamicResource Favorites}">
                             <Image Source="pack://application:,,,/images/heart.png" Width="27" Height="27" />
                         </Button>
-                        <Button
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource GlobalSearch}"
-                            Click="NavGlobalSearchButton_Click"
+<Button
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipGlobalSearch}"
+Click="NavGlobalSearchButton_Click"
                             AutomationProperties.Name="{DynamicResource GlobalSearch}">
                             <Image Source="pack://application:,,,/images/search2.png" Width="27" Height="27" />
                         </Button>
-                        <Button
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource PlayHistory}"
-                            Click="NavHistoryButton_Click"
+<Button
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipPlayHistory}"
+Click="NavHistoryButton_Click"
                             AutomationProperties.Name="{DynamicResource PlayHistory}">
                             <Image Source="pack://application:,,,/images/playhistory.png" Width="27" Height="27" />
                         </Button>
-                        <Button
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource RetroAchievements}"
-                            Click="NavRetroAchievementsButton_Click"
+<Button
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipRetroAchievements}"
+Click="NavRetroAchievementsButton_Click"
                             AutomationProperties.Name="{DynamicResource RetroAchievements}">
                             <Image Source="pack://application:,,,/images/trophy.png" Width="27" Height="27" />
                         </Button>
-                        <Button
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource EditSystem}"
-                            Click="NavExpertModeButton_Click"
+<Button
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipEditSystem}"
+Click="NavExpertModeButton_Click"
                             AutomationProperties.Name="{DynamicResource EditSystem}">
                             <Image Source="pack://application:,,,/images/settings.png" Width="27" Height="27" />
                         </Button>
-                        <Button x:Name="ToggleViewMode"
-                                Style="{StaticResource NavImageButton3DStyle}"
-                                ToolTip="{DynamicResource ToggleViewMode}"
+<Button x:Name="ToggleViewMode"
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipToggleViewMode}"
                                 Click="NavToggleViewModeClickAsync"
                                 AutomationProperties.Name="{DynamicResource ToggleViewMode}">
                             <Image Source="pack://application:,,,/images/show.png" Width="27" Height="27" />
                         </Button>
-                        <Button x:Name="ToggleButtonAspectRatio"
-                                Style="{StaticResource NavImageButton3DStyle}"
-                                ToolTip="{DynamicResource ToggleButtonAspectRatio}"
+<Button x:Name="ToggleButtonAspectRatio"
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipToggleAspectRatio}"
                                 Click="NavToggleButtonAspectRatioClickAsync"
                                 AutomationProperties.Name="{DynamicResource ToggleButtonAspectRatio}">
                             <Image Source="pack://application:,,,/images/aspectratio.png" Width="27" Height="27" />
                         </Button>
-                        <Button x:Name="ZoomInButton"
-                                Style="{StaticResource NavImageButton3DStyle}"
-                                ToolTip="{DynamicResource ZoomIn}"
+<Button x:Name="ZoomInButton"
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipZoomIn}"
                                 Click="NavZoomInButtonClickAsync"
                                 AutomationProperties.Name="{DynamicResource ZoomIn}">
                             <Image Source="pack://application:,,,/images/zoom-in.png" Width="27" Height="27" />
                         </Button>
-                        <Button x:Name="ZoomOutButton"
-                                Style="{StaticResource NavImageButton3DStyle}"
-                                ToolTip="{DynamicResource ZoomOut}"
+<Button x:Name="ZoomOutButton"
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipZoomOut}"
                                 Click="NavZoomOutButtonClickAsync"
                                 Margin="0,5,2,10"
                                 AutomationProperties.Name="{DynamicResource ZoomOut}">
@@ -754,15 +762,16 @@
                             Margin="0,10,0,0"
                             VerticalAlignment="Center"
                             Content="{DynamicResource SelectSystem}" />
-                        <ComboBox
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="5,10,0,0"
-                            Name="SystemComboBox"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            SelectionChanged="SystemComboBoxSelectionChangedAsync"
-                            AutomationProperties.Name="{DynamicResource SelectSystemComboBox}" />
+<ComboBox
+Grid.Row="1"
+Grid.Column="1"
+Margin="5,10,0,0"
+Name="SystemComboBox"
+HorizontalAlignment="Stretch"
+VerticalAlignment="Center"
+SelectionChanged="SystemComboBoxSelectionChangedAsync"
+AutomationProperties.Name="{DynamicResource SelectSystemComboBox}"
+ToolTip="{DynamicResource TooltipSelectSystem}" />
 
                         <StackPanel
                             Grid.Row="1"
@@ -770,18 +779,19 @@
                             Grid.Column="2"
                             Margin="10,10,0,0"
                             Orientation="Horizontal">
-                            <TextBox x:Name="SearchTextBox"
-                                     Width="200"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     KeyDown="SearchTextBoxKeyDownAsync"
-                                     AutomationProperties.Name="{DynamicResource SearchTextBoxLabel}"
-                                     AutomationProperties.HelpText="{DynamicResource SearchTextBoxHelpText}" />
-                            <Button x:Name="SearchButton"
-                                    Style="{StaticResource NavImageButton3DStyle}"
-                                    Click="SearchButtonClickAsync"
-                                    Margin="10,0,0,0"
-                                    ToolTip="{DynamicResource Search}"
+<TextBox x:Name="SearchTextBox"
+Width="200"
+HorizontalAlignment="Center"
+VerticalAlignment="Center"
+KeyDown="SearchTextBoxKeyDownAsync"
+AutomationProperties.Name="{DynamicResource SearchTextBoxLabel}"
+AutomationProperties.HelpText="{DynamicResource SearchTextBoxHelpText}"
+ToolTip="{DynamicResource TooltipSearch}" />
+<Button x:Name="SearchButton"
+Style="{StaticResource NavImageButton3DStyle}"
+Click="SearchButtonClickAsync"
+Margin="10,0,0,0"
+ToolTip="{DynamicResource TooltipSearch}"
                                     AutomationProperties.Name="{DynamicResource Search}">
                                 <Image Source="pack://application:,,,/images/search3.png"
                                        Width="27"
@@ -795,56 +805,57 @@
                             Margin="0,5,0,0"
                             VerticalAlignment="Center"
                             Content="{DynamicResource SelectEmulator}" />
-                        <ComboBox
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="5,5,0,0"
-                            Name="EmulatorComboBox"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
-                            AutomationProperties.Name="{DynamicResource SelectEmulatorComboBox}" />
+<ComboBox
+Grid.Row="2"
+Grid.Column="1"
+Margin="5,5,0,0"
+Name="EmulatorComboBox"
+HorizontalAlignment="Stretch"
+VerticalAlignment="Center"
+AutomationProperties.Name="{DynamicResource SelectEmulatorComboBox}"
+ToolTip="{DynamicResource TooltipSelectEmulator}" />
 
-                        <Button
-                            x:Name="SelectedSystemFavoriteButton"
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            Grid.Row="1"
-                            Grid.RowSpan="2"
-                            Grid.Column="3"
-                            ToolTip="{DynamicResource SelectedSystemFavoriteButton}"
+<Button
+x:Name="SelectedSystemFavoriteButton"
+Style="{StaticResource NavImageButton3DStyle}"
+Grid.Row="1"
+Grid.RowSpan="2"
+Grid.Column="3"
+ToolTip="{DynamicResource TooltipSelectedSystemFavorite}"
                             Click="NavSelectedSystemFavoriteButtonClickAsync"
                             Margin="10,10,0,0"
                             AutomationProperties.Name="{DynamicResource SelectedSystemFavoriteButton}">
                             <Image Source="pack://application:,,,/images/star.png" Width="27" Height="27" />
                         </Button>
-                        <Button
-                            Grid.Row="1"
-                            Grid.RowSpan="2"
-                            Grid.Column="4"
-                            x:Name="RandomLuckGameButton"
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource FeelingLucky}"
+<Button
+Grid.Row="1"
+Grid.RowSpan="2"
+Grid.Column="4"
+x:Name="RandomLuckGameButton"
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipFeelingLucky}"
                             Click="NavRandomLuckGameButtonClickAsync"
                             Margin="10,10,0,0"
                             AutomationProperties.Name="{DynamicResource FeelingLucky}">
                             <Image Source="pack://application:,,,/images/dice.png" Width="27" Height="27" />
                         </Button>
-                        <Button
-                            Grid.Row="1"
-                            Grid.RowSpan="2"
-                            Grid.Column="5"
-                            x:Name="RetroAchievementsGameButton"
-                            Style="{StaticResource NavImageButton3DStyle}"
-                            ToolTip="{DynamicResource ShowGamesWithRetroAchievements}"
+<Button
+Grid.Row="1"
+Grid.RowSpan="2"
+Grid.Column="5"
+x:Name="RetroAchievementsGameButton"
+Style="{StaticResource NavImageButton3DStyle}"
+ToolTip="{DynamicResource TooltipShowGamesWithRA}"
                             Click="NavShowGamesWithRetroAchievementsButtonClickAsync"
                             Margin="10,10,0,0"
                             AutomationProperties.Name="{DynamicResource ShowGamesWithRetroAchievements}">
                             <Image Source="pack://application:,,,/images/trophy.png" Width="27" Height="27" />
                         </Button>
-                        <Button x:Name="SortOrderToggleButton" Style="{StaticResource NavImageButton3DStyle}"
-                                Grid.Row="1"
-                                Grid.RowSpan="2"
-                                Grid.Column="6"
-                                ToolTip="{DynamicResource SortByFileNameTooltip}" Click="SortOrderToggleButtonClickAsync"
+<Button x:Name="SortOrderToggleButton" Style="{StaticResource NavImageButton3DStyle}"
+Grid.Row="1"
+Grid.RowSpan="2"
+Grid.Column="6"
+ToolTip="{DynamicResource TooltipSortOrder}" Click="SortOrderToggleButtonClickAsync"
                                 Margin="10,10,0,0"
                                 Visibility="Collapsed" AutomationProperties.Name="{DynamicResource SortByFileNameTooltip}">
                             <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" />
@@ -966,9 +977,9 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="0">
-                    <Button x:Name="PrevPageButton"
-                            Margin="0"
-                            ToolTip="{DynamicResource PreviousPage}"
+<Button x:Name="PrevPageButton"
+Margin="0"
+ToolTip="{DynamicResource TooltipPreviousPage}"
                             Style="{StaticResource NavImageButton3DStyle}"
                             Click="PrevPageButtonClickAsync"
                             AutomationProperties.Name="{DynamicResource PreviousPage}">
@@ -976,9 +987,9 @@
                                Height="27"
                                Width="27" />
                     </Button>
-                    <Button x:Name="NextPageButton"
-                            Margin="10,0,0,0"
-                            ToolTip="{DynamicResource NextPage}"
+<Button x:Name="NextPageButton"
+Margin="10,0,0,0"
+ToolTip="{DynamicResource TooltipNextPage}"
                             Style="{StaticResource NavImageButton3DStyle}"
                             Click="NextPageButtonClickAsync"
                             AutomationProperties.Name="{DynamicResource NextPage}">

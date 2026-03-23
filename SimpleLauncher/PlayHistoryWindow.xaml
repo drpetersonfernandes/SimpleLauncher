@@ -33,30 +33,36 @@
                    HorizontalAlignment="Left"
                    Content="{DynamicResource PlayHistoryList}" />
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
-                <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
-                        Padding="5"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Margin="0,0,10,0" />
-                <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
-                        Padding="5"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Margin="0,0,10,0" />
-                <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
-                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                        Padding="5"
-                        IsDefault="True"
-                        Margin="0,0,10,0" />
-                <Button Content="{DynamicResource SortByDate}" Click="SortByDate_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5"
-                        Margin="0,0,10,0" />
-                <Button Content="{DynamicResource SortByPlayTime}" Click="SortByTotalPlayTime_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5"
-                        Margin="0,0,10,0" />
-                <Button Content="{DynamicResource SortByTimesPlayed}" Click="SortByTimesPlayed_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5" />
+<Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
+                Padding="5"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Margin="0,0,10,0"
+                ToolTip="{DynamicResource TooltipRemoveFromHistory}" />
+<Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
+                Padding="5"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Margin="0,0,10,0"
+                ToolTip="{DynamicResource TooltipRemoveAllFromHistory}" />
+<Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
+                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                Padding="5"
+                IsDefault="True"
+                Margin="0,0,10,0"
+                ToolTip="{DynamicResource TooltipLaunchFromHistory}" />
+<Button Content="{DynamicResource SortByDate}" Click="SortByDate_Click"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Padding="5"
+                Margin="0,0,10,0"
+                ToolTip="{DynamicResource TooltipSortByDate}" />
+<Button Content="{DynamicResource SortByPlayTime}" Click="SortByTotalPlayTime_Click"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Padding="5"
+                Margin="0,0,10,0"
+                ToolTip="{DynamicResource TooltipSortByPlayTime}" />
+<Button Content="{DynamicResource SortByTimesPlayed}" Click="SortByTimesPlayed_Click"
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Padding="5"
+                ToolTip="{DynamicResource TooltipSortByTimesPlayed}" />
             </StackPanel>
             <DataGrid Name="PlayHistoryDataGrid"
                       CanUserAddRows="False"

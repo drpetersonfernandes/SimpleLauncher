@@ -23,39 +23,42 @@
 
             <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,10" Orientation="Horizontal">
                 <TextBlock Text="{DynamicResource Name}" Width="95" VerticalAlignment="Center"/>
-                <TextBox Name="NameTextBox" Width="270" />
+                <TextBox Name="NameTextBox" Width="270" ToolTip="{DynamicResource TooltipName}" />
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,20" Orientation="Horizontal">
                 <TextBlock Text="{DynamicResource Email}" Width="95" VerticalAlignment="Center"/>
-                <TextBox Name="EmailTextBox" Width="270" />
+                <TextBox Name="EmailTextBox" Width="270" ToolTip="{DynamicResource TooltipEmail}" />
             </StackPanel>
 
-            <TextBox
-                Name="SupportTextBox"
-                Grid.Row="3"
-                Height="200"
-                Margin="10,0,10,20"
-                AcceptsReturn="True"
-                TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto" />
+<TextBox
+Name="SupportTextBox"
+Grid.Row="3"
+Height="200"
+Margin="10,0,10,20"
+AcceptsReturn="True"
+TextWrapping="Wrap"
+VerticalScrollBarVisibility="Auto"
+ToolTip="{DynamicResource TooltipSupportDetails}" />
 
             <StackPanel
                 Grid.Row="4"
                 Margin="10,0,10,20"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
-                <Button
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    IsDefault="True"
-                    Click="SendSupportRequestClickAsync"
-                    Content="{DynamicResource SendSupportRequest}" />
-                <Button
-                    Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    IsCancel="True"
-                    Margin="10,0,0,0"
-                    Click="CloseButton_Click"
-                    Content="{DynamicResource Close}" />
+<Button
+Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+IsDefault="True"
+Click="SendSupportRequestClickAsync"
+Content="{DynamicResource SendSupportRequest}"
+ToolTip="{DynamicResource TooltipSendSupport}" />
+<Button
+Style="{DynamicResource MahApps.Styles.Button.Square}"
+IsCancel="True"
+Margin="10,0,0,0"
+Click="CloseButton_Click"
+Content="{DynamicResource Close}"
+ToolTip="{DynamicResource TooltipClose}" />
             </StackPanel>
         </Grid>
 

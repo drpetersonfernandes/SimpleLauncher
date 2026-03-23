@@ -31,12 +31,13 @@
         <!-- New Threshold Input (Slider) -->
         <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource NewThresholdLabel}" FontWeight="Bold" VerticalAlignment="Center" />
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-            <Slider x:Name="ThresholdSlider"
-                    Minimum="0.7"
-                    Maximum="0.95"
-                    TickFrequency="0.05"
-                    IsSnapToTickEnabled="True"
-                    Width="200"/>
+<Slider x:Name="ThresholdSlider"
+Minimum="0.7"
+Maximum="0.95"
+TickFrequency="0.05"
+IsSnapToTickEnabled="True"
+Width="200"
+ToolTip="{DynamicResource TooltipThresholdSlider}"/>
             <TextBlock Text="{Binding Value, ElementName=ThresholdSlider, StringFormat={}{0:P0}}" Margin="10"/>
         </StackPanel>
 
@@ -55,12 +56,14 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,10">
-            <Button Content="{DynamicResource OkButtonText}" Click="OkButton_Click"
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    IsDefault="True" Padding="10" Margin="0,0,10,0" />
-            <Button Content="{DynamicResource CancelButtonText}"
-                    Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    IsCancel="True" Padding="10" />
+<Button Content="{DynamicResource OkButtonText}" Click="OkButton_Click"
+Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+IsDefault="True" Padding="10" Margin="0,0,10,0"
+ToolTip="{DynamicResource TooltipOkButton}" />
+<Button Content="{DynamicResource CancelButtonText}"
+Style="{DynamicResource MahApps.Styles.Button.Square}"
+IsCancel="True" Padding="10"
+ToolTip="{DynamicResource TooltipCancel}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

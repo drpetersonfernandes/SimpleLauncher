@@ -40,6 +40,7 @@
                               HorizontalAlignment="Stretch"
                               Margin="0,5,0,0"
                               SelectionChanged="SystemNameDropdown_SelectionChanged"
+                              ToolTip="{DynamicResource TooltipChooseSystem}"
                               controls:TextBoxHelper.Watermark="{DynamicResource SelectASystemWatermark}" />
                 </controls:MetroHeader>
 
@@ -81,6 +82,7 @@
                                             Margin="5"
                                             Click="DownloadImagePackButtonClickAsync"
                                             IsEnabled="{Binding CanStartDownload}"
+                                            ToolTip="{DynamicResource TooltipDownloadImagePack}"
                                             Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                                             d:DataContext="{d:DesignInstance }" />
                                 </DataTemplate>
@@ -130,6 +132,7 @@
                         Content="{DynamicResource StopDownload}"
                         Click="StopDownloadButton_Click"
                         IsEnabled="False"
+                        ToolTip="{DynamicResource TooltipStopImageDownload}"
                         Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="20,10" />
             </Grid>

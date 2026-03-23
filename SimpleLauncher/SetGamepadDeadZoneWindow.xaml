@@ -77,19 +77,20 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Content="{DynamicResource DeadZoneX}" />
-        <Slider
-            x:Name="DeadZoneXSlider"
-            Margin="10"
-            Grid.Row="2"
-            Grid.Column="1"
-            Width="150"
-            Minimum="0"
-            Maximum="0.3"
-            SmallChange="0.01"
-            LargeChange="0.05"
-            TickFrequency="0.01"
-            HorizontalAlignment="Center"
-            IsSnapToTickEnabled="True" />
+  <Slider
+   x:Name="DeadZoneXSlider"
+   Margin="10"
+   Grid.Row="2"
+   Grid.Column="1"
+   Width="150"
+   Minimum="0"
+   Maximum="0.3"
+   SmallChange="0.01"
+   LargeChange="0.05"
+   TickFrequency="0.01"
+   HorizontalAlignment="Center"
+   IsSnapToTickEnabled="True"
+   ToolTip="{DynamicResource TooltipDeadZoneX}" />
         <TextBlock
             Margin="10"
             Grid.Row="2"
@@ -106,19 +107,20 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Content="{DynamicResource DeadZoneY}" />
-        <Slider
-            x:Name="DeadZoneYSlider"
-            Margin="10"
-            Grid.Row="3"
-            Grid.Column="1"
-            Width="150"
-            Minimum="0"
-            Maximum="0.3"
-            SmallChange="0.01"
-            LargeChange="0.05"
-            TickFrequency="0.01"
-            HorizontalAlignment="Center"
-            IsSnapToTickEnabled="True" />
+  <Slider
+   x:Name="DeadZoneYSlider"
+   Margin="10"
+   Grid.Row="3"
+   Grid.Column="1"
+   Width="150"
+   Minimum="0"
+   Maximum="0.3"
+   SmallChange="0.01"
+   LargeChange="0.05"
+   TickFrequency="0.01"
+   HorizontalAlignment="Center"
+   IsSnapToTickEnabled="True"
+   ToolTip="{DynamicResource TooltipDeadZoneY}" />
         <TextBlock
             Margin="10"
             Grid.Row="3"
@@ -131,21 +133,23 @@
             Grid.Row="4"
             Grid.Column="0" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <!-- Save Button -->
-                <Button
-                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    Margin="0,20,5,10"
-                    Padding="10"
-                    Click="SaveDeadZoneButton_Click"
-                    Content="{DynamicResource SaveDeadZone}" />
+    <!-- Save Button -->
+    <Button
+     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+     Margin="0,20,5,10"
+     Padding="10"
+     Click="SaveDeadZoneButton_Click"
+     Content="{DynamicResource SaveDeadZone}"
+     ToolTip="{DynamicResource TooltipSaveDeadZone}" />
 
-                <!-- Revert Button -->
-                <Button
-                    Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    Margin="5,20,0,10"
-                    Padding="10"
-                    Click="RevertDeadZoneButton_Click"
-                    Content="{DynamicResource ReverttoDefaultValues}" />
+    <!-- Revert Button -->
+    <Button
+     Style="{DynamicResource MahApps.Styles.Button.Square}"
+     Margin="5,20,0,10"
+     Padding="10"
+     Click="RevertDeadZoneButton_Click"
+     Content="{DynamicResource ReverttoDefaultValues}"
+     ToolTip="{DynamicResource TooltipRevertDeadZone}" />
             </StackPanel>
         </Grid>
 

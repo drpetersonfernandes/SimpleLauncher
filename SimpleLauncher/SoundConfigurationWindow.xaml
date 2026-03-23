@@ -28,6 +28,7 @@
         <CheckBox x:Name="EnableNotificationSoundCheckBox"
                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                   Content="{DynamicResource EnableNotificationSound}"
+                  ToolTip="{DynamicResource TooltipEnableNotificationSound}"
                   Margin="0,0,0,10"
                   Click="EnableNotificationSoundCheckBox_Click"/>
 
@@ -37,12 +38,14 @@
         <TextBox x:Name="NotificationSoundFileTextBox"
                  Grid.Row="1" Grid.Column="1"
                  IsReadOnly="True"
+                 ToolTip="{DynamicResource TooltipChooseSoundFile}"
                  Margin="5,0,5,0"
                  VerticalAlignment="Center"/>
         <Button x:Name="ChooseSoundFileButton"
                 Grid.Row="1" Grid.Column="2"
                 Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Content="{DynamicResource ChooseFile}"
+                ToolTip="{DynamicResource TooltipChooseSoundFile}"
                 Click="ChooseSoundFileButton_Click"
                 VerticalAlignment="Center"
                 Width="100"/>
@@ -51,6 +54,7 @@
                 Grid.Row="2" Grid.Column="1"
                 Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Content="{DynamicResource PlayCurrentSound}"
+                ToolTip="{DynamicResource TooltipPlaySound}"
                 Click="PlayCurrentSoundButton_Click"
                 Margin="5,10,5,0"
                 HorizontalAlignment="Left"
@@ -60,6 +64,7 @@
                 Grid.Row="3" Grid.Column="1"
                 Style="{DynamicResource MahApps.Styles.Button.Square}"
                 Content="{DynamicResource ResetToDefault}"
+                ToolTip="{DynamicResource TooltipResetSound}"
                 Click="ResetToDefaultButton_Click"
                 Margin="5,10,5,0"
                 HorizontalAlignment="Left"
@@ -71,12 +76,14 @@
             <Button x:Name="SaveButton"
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                     Content="{DynamicResource Save}"
+                    ToolTip="{DynamicResource TooltipSaveSound}"
                     Click="SaveButton_Click"
                     IsDefault="True"
                     Width="100" Margin="0,0,10,0"/>
             <Button x:Name="CancelButton"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
                     Content="{DynamicResource Cancel}"
+                    ToolTip="{DynamicResource TooltipCancel}"
                     IsCancel="True"
                     Width="100"/>
         </StackPanel>

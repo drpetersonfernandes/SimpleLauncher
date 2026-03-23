@@ -50,30 +50,30 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource SearchFor}" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="SearchTextBox" Height="26" VerticalAlignment="Center" KeyDown="SearchWhenPressEnterKey" Margin="5,0,0,0"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="SearchTextBox" Height="26" VerticalAlignment="Center" KeyDown="SearchWhenPressEnterKey" Margin="5,0,0,0" ToolTip="{DynamicResource TooltipSearch}"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource InSystem}" VerticalAlignment="Center"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" Name="SystemComboBox" Margin="5,5,0,5" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Name="SystemComboBox" Margin="5,5,0,5" VerticalAlignment="Center" ToolTip="{DynamicResource TooltipSelectSystem}"/>
 
                 <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource SearchOptions}" Margin="0,5,0,5">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <CheckBox Name="SearchFilenameCheckBox" Content="{DynamicResource Filename}" IsChecked="True" Margin="0,0,15,0"/>
-                            <CheckBox Name="SearchMameDescriptionCheckBox" Content="{DynamicResource MameDescription}" IsChecked="True" Margin="0,0,15,0"/>
-                            <CheckBox Name="SearchFolderNameCheckBox" Content="{DynamicResource FolderName}" IsChecked="False"/>
+                            <CheckBox Name="SearchFilenameCheckBox" Content="{DynamicResource Filename}" IsChecked="True" Margin="0,0,15,0" ToolTip="{DynamicResource TooltipSearchFilename}"/>
+                            <CheckBox Name="SearchMameDescriptionCheckBox" Content="{DynamicResource MameDescription}" IsChecked="True" Margin="0,0,15,0" ToolTip="{DynamicResource TooltipSearchMameDescription}"/>
+                            <CheckBox Name="SearchFolderNameCheckBox" Content="{DynamicResource FolderName}" IsChecked="False" ToolTip="{DynamicResource TooltipSearchFolderName}"/>
                         </StackPanel>
-                        <CheckBox Name="SearchRecursivelyCheckBox" Content="{DynamicResource SearchRecursively}" IsChecked="False" Margin="5"/>
+                        <CheckBox Name="SearchRecursivelyCheckBox" Content="{DynamicResource SearchRecursively}" IsChecked="False" Margin="5" ToolTip="{DynamicResource TooltipSearchRecursively}"/>
                     </StackPanel>
                 </GroupBox>
 
                 <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button Content="{DynamicResource Search}" Click="SearchButtonClickAsync"
-                            Style="{DynamicResource MahApps.Styles.Button.Square}"
-                            Padding="5" />
-                    <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click"
-                            IsEnabled="False"
-                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                            Padding="5" Margin="10,0,0,0" />
+<Button Content="{DynamicResource Search}" Click="SearchButtonClickAsync"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Padding="5" ToolTip="{DynamicResource TooltipGlobalSearchButton}" />
+<Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click"
+                    IsEnabled="False"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Padding="5" Margin="10,0,0,0" ToolTip="{DynamicResource TooltipLaunchFromSearch}" />
                 </StackPanel>
             </Grid>
             <DataGrid Name="ResultsDataGrid" Grid.Row="3" Grid.Column="0" Margin="10"

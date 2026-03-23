@@ -80,13 +80,14 @@
                 Click="BtnContactDeveloper_Click" 
                 ToolTip="{DynamicResource ToolTipContactDeveloper}"/>
 
-        <!-- Cancel Button -->
-        <Button Grid.Row="6" 
-                Style="{DynamicResource MahApps.Styles.Button.Square}"
-                Name="BtnCancel"
-                Content="{DynamicResource Cancel}" 
-                Height="35" 
-                Click="BtnCancel_Click" 
-                IsCancel="True"/>
+    <!-- Cancel Button -->
+    <Button Grid.Row="6"
+            Style="{DynamicResource MahApps.Styles.Button.Square}"
+            Name="BtnCancel"
+            Content="{DynamicResource Cancel}"
+            Height="35"
+            Click="BtnCancel_Click"
+            IsCancel="True"
+            ToolTip="{DynamicResource ToolTipCancel}"/>
     </Grid>
 </controls:MetroWindow>

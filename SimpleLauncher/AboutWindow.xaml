@@ -45,20 +45,23 @@
             Margin="10"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Button
-                Style="{DynamicResource MahApps.Styles.Button.Square}"
-                Click="CheckForUpdateAsync_Click"
-                Content="{DynamicResource CheckForUpdate}" />
-            <Button
-                Style="{DynamicResource MahApps.Styles.Button.Square}"
-                Margin="10,0,0,0"
-                Click="UpdateHistory_Click"
-                Content="{DynamicResource UpdateHistory}" />
-            <Button
-                Style="{DynamicResource MahApps.Styles.Button.Square}"
-                Margin="10,0,0,0"
-                Click="CloseButton_Click"
-                Content="{DynamicResource Close}" />
+    <Button
+      Style="{DynamicResource MahApps.Styles.Button.Square}"
+      Click="CheckForUpdateAsync_Click"
+      Content="{DynamicResource CheckForUpdate}"
+      ToolTip="{DynamicResource TooltipCheckForUpdate}" />
+    <Button
+      Style="{DynamicResource MahApps.Styles.Button.Square}"
+      Margin="10,0,0,0"
+      Click="UpdateHistory_Click"
+      Content="{DynamicResource UpdateHistory}"
+      ToolTip="{DynamicResource TooltipUpdateHistory}" />
+    <Button
+      Style="{DynamicResource MahApps.Styles.Button.Square}"
+      Margin="10,0,0,0"
+      Click="CloseButton_Click"
+      Content="{DynamicResource Close}"
+      ToolTip="{DynamicResource TooltipClose}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

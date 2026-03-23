@@ -17,10 +17,10 @@
         <TextBlock Grid.Row="0" TextWrapping="Wrap" Margin="0,0,0,15" Text="{DynamicResource VerifyWindowsGamesDescription}" />
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <ListBox x:Name="GamesListBox" SelectionMode="Multiple">
+            <ListBox x:Name="GamesListBox" SelectionMode="Multiple" ToolTip="{DynamicResource SelectGamesToVerify}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="5"/>
+                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="5" ToolTip="{DynamicResource SelectGameForVerification}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -29,10 +29,10 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
             <Button Content="{DynamicResource Confirm}" Click="ConfirmButton_Click"
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    IsDefault="True" Width="100" Margin="0,0,10,0"/>
+                    IsDefault="True" Width="100" Margin="0,0,10,0" ToolTip="{DynamicResource ConfirmSelection}"/>
             <Button Content="{DynamicResource Cancel}"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    IsCancel="True" Width="100"/>
+                    IsCancel="True" Width="100" ToolTip="{DynamicResource CancelOperation}"/>
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

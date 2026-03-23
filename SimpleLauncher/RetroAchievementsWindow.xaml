@@ -13,10 +13,12 @@
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <TabControl Margin="10,0,10,10" SelectionChanged="TabControl_SelectionChanged"
-                    controls:TabControlHelper.Underlined="TabPanel" x:Name="TabControl">
+                    controls:TabControlHelper.Underlined="TabPanel" x:Name="TabControl"
+                    ToolTip="{DynamicResource RetroAchievementsTabControl}">
 
             <!-- Tab 1: My Profile -->
-            <TabItem Header="{DynamicResource MyProfileTab}" Tag="MyProfile">
+            <TabItem Header="{DynamicResource MyProfileTab}" Tag="MyProfile"
+                     ToolTip="{DynamicResource MyProfileTabTooltip}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
                     <Grid>
                         <StackPanel x:Name="UserProfilePanel">
@@ -28,7 +30,8 @@
                                 <StackPanel VerticalAlignment="Center" Margin="15,0,0,0">
                                     <TextBlock x:Name="UserProfileUser" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <TextBlock x:Name="UserProfileMotto" FontStyle="Italic" TextWrapping="Wrap" Margin="0,5,0,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                                    <Button x:Name="ViewProfileOnRaButton" Content="{DynamicResource ViewProfileOnRA}" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+                                    <Button x:Name="ViewProfileOnRaButton" Content="{DynamicResource ViewProfileOnRA}" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                    ToolTip="{DynamicResource ViewProfileOnRaButtonTooltip}" />
                                 </StackPanel>
                             </StackPanel>
 
@@ -112,9 +115,10 @@
 
                             <!-- Recently Played Section -->
                             <TextBlock Text="{DynamicResource RecentlyPlayedGames}" FontWeight="Bold" Margin="0,15,0,10" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                            <ListBox x:Name="UserProfileRecentlyPlayed" BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                                     Style="{DynamicResource MahApps.Styles.ListBox}"
-                                     ItemContainerStyle="{StaticResource CustomListBoxItemStyle}">
+                        <ListBox x:Name="UserProfileRecentlyPlayed" BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray5}" Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                                 Style="{DynamicResource MahApps.Styles.ListBox}"
+                                 ItemContainerStyle="{StaticResource CustomListBoxItemStyle}"
+                                 ToolTip="{DynamicResource RecentlyPlayedGamesTooltip}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,2">
@@ -166,16 +170,18 @@
                                            Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                 <TextBlock x:Name="NoProfileSubMessage" Text="{DynamicResource CheckSettingsTryAgain}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}"
                                            Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
-                                <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </ScrollViewer>
-            </TabItem>
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                            ToolTip="{DynamicResource OpenRaSettingsButtonTooltip}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</TabItem>
 
-            <!-- Tab 2: Unlocks by Date -->
-            <TabItem Header="{DynamicResource UnlocksTab}" Tag="Unlocks">
+<!-- Tab 2: Unlocks by Date -->
+            <TabItem Header="{DynamicResource UnlocksTab}" Tag="Unlocks"
+                     ToolTip="{DynamicResource UnlocksTabTooltip}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -185,15 +191,17 @@
 
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,15,10,15">
                         <TextBlock Text="{DynamicResource FromDate}" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                        <DatePicker x:Name="FromDatePicker" Width="120" ToolTip="Select the start date for unlocks (defaults to 1 month ago)"
-                                    Style="{DynamicResource MahApps.Styles.DatePicker}" />
+                <DatePicker x:Name="FromDatePicker" Width="120" ToolTip="{DynamicResource FromDatePickerTooltip}"
+                            Style="{DynamicResource MahApps.Styles.DatePicker}" />
                         <TextBlock Text="{DynamicResource ToDate}" VerticalAlignment="Center" Margin="15,0,5,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                        <DatePicker x:Name="ToDatePicker" Width="120" ToolTip="Select the end date for unlocks (defaults to today)"
-                                    Style="{DynamicResource MahApps.Styles.DatePicker}" />
+                <DatePicker x:Name="ToDatePicker" Width="120" ToolTip="{DynamicResource ToDatePickerTooltip}"
+                            Style="{DynamicResource MahApps.Styles.DatePicker}" />
                         <Button Content="{DynamicResource FetchUnlocks}" Click="FetchUnlocksClickAsync" Margin="15,0,0,0" Padding="10,5" x:Name="FetchUnlocksButton"
-                                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+                                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                ToolTip="{DynamicResource FetchUnlocksButtonTooltip}" />
                         <Button Content="{DynamicResource ResetDates}" Click="ResetDatesClickAsync" Margin="10,0,0,0" Padding="10,5"
-                                Style="{DynamicResource MahApps.Styles.Button.Square}" />
+                                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                                ToolTip="{DynamicResource ResetDatesButtonTooltip}" />
                     </StackPanel>
 
                     <Grid Grid.Row="1" Margin="10,0,10,15">
@@ -211,13 +219,14 @@
                         </Border>
                     </Grid>
 
-                    <DataGrid Grid.Row="2" Name="UnlocksDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,0,10,10"
-                              Style="{DynamicResource MahApps.Styles.DataGrid}"
-                              HeadersVisibility="Column"
-                              GridLinesVisibility="Horizontal"
-                              RowDetailsVisibilityMode="Collapsed"
-                              Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                              BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }">
+                <DataGrid Grid.Row="2" Name="UnlocksDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,0,10,10"
+                          Style="{DynamicResource MahApps.Styles.DataGrid}"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          RowDetailsVisibilityMode="Collapsed"
+                          Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }"
+                          ToolTip="{DynamicResource UnlocksDataGridTooltip}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="{DynamicResource HeaderGameIcon}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -248,23 +257,26 @@
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock x:Name="NoUnlocksMessage" Text="{DynamicResource NoUnlocksFound}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
                                        TextAlignment="Center" />
-                            <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </TabItem>
+                    <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                            ToolTip="{DynamicResource OpenRaSettingsButtonTooltip}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </TabItem>
 
-            <!-- Tab 3: User Progress -->
-            <TabItem Header="{DynamicResource UserProgressTab}" Tag="UserProgress">
+    <!-- Tab 3: User Progress -->
+            <TabItem Header="{DynamicResource UserProgressTab}" Tag="UserProgress"
+                     ToolTip="{DynamicResource UserProgressTabTooltip}">
                 <Grid>
-                    <DataGrid Name="UserProgressDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,10,10,10"
-                              Style="{DynamicResource MahApps.Styles.DataGrid}"
-                              HeadersVisibility="Column"
-                              GridLinesVisibility="Horizontal"
-                              RowDetailsVisibilityMode="Collapsed"
-                              Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                              BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }">
+                <DataGrid Name="UserProgressDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,10,10,10"
+                          Style="{DynamicResource MahApps.Styles.DataGrid}"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          RowDetailsVisibilityMode="Collapsed"
+                          Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                          BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }"
+                          ToolTip="{DynamicResource UserProgressDataGridTooltip}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="{DynamicResource HeaderIcon}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -289,14 +301,15 @@
                                        Foreground="{DynamicResource MahApps.Brushes.Text}" />
                             <TextBlock x:Name="NoUserProgressSubMessage" Text="{DynamicResource CheckSettingsTryAgain}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}"
                                        Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
-                            <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
-                                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </TabItem>
+                <Button Content="{DynamicResource OpenRaSettings}" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                        ToolTip="{DynamicResource OpenRaSettingsButtonTooltip}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</TabItem>
 
-        </TabControl>
+</TabControl>
 
         <!-- Loading Overlay -->
         <ContentControl x:Name="LoadingOverlay" 

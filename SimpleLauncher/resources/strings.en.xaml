@@ -1792,6 +1792,166 @@
     <system:String x:Key="IMPORTANTSETTING">⚠ IMPORTANT SETTING</system:String>
     <system:String x:Key="UnknownString">Unknown</system:String>
     <system:String x:Key="ConvertingChdToIso">Converting CHD...</system:String>
+
+    <!-- Tooltip Strings -->
+    <!-- MainWindow Tooltips -->
+    <system:String x:Key="TooltipRestart">Restart the application to apply changes or reload systems</system:String>
+    <system:String x:Key="TooltipFavorites">Open your favorite games list</system:String>
+    <system:String x:Key="TooltipGlobalSearch">Search for games across all systems</system:String>
+    <system:String x:Key="TooltipPlayHistory">View your play history and statistics</system:String>
+    <system:String x:Key="TooltipRetroAchievements">View RetroAchievements profile and progress</system:String>
+    <system:String x:Key="TooltipEditSystem">Add, edit or remove game systems</system:String>
+    <system:String x:Key="TooltipToggleViewMode">Switch between grid and list view</system:String>
+    <system:String x:Key="TooltipToggleAspectRatio">Change the aspect ratio of game buttons</system:String>
+    <system:String x:Key="TooltipZoomIn">Increase the size of game buttons</system:String>
+    <system:String x:Key="TooltipZoomOut">Decrease the size of game buttons</system:String>
+    <system:String x:Key="TooltipSearch">Search for games in the current system</system:String>
+    <system:String x:Key="TooltipSelectedSystemFavorite">Add or remove the current system from favorites</system:String>
+    <system:String x:Key="TooltipFeelingLucky">Launch a random game from the current system</system:String>
+    <system:String x:Key="TooltipShowGamesWithRA">Filter games that are compatible with RetroAchievements</system:String>
+    <system:String x:Key="TooltipSortOrder">Toggle sorting between file name and machine description</system:String>
+    <system:String x:Key="TooltipPreviousPage">Navigate to the previous page of games</system:String>
+    <system:String x:Key="TooltipNextPage">Navigate to the next page of games</system:String>
+    <system:String x:Key="TooltipSelectSystem">Select a game system to browse</system:String>
+    <system:String x:Key="TooltipSelectEmulator">Choose which emulator to use for the selected system</system:String>
+
+    <!-- AboutWindow Tooltips -->
+    <system:String x:Key="TooltipCheckForUpdate">Check if a new version is available</system:String>
+    <system:String x:Key="TooltipUpdateHistory">View the changelog and update history</system:String>
+    <system:String x:Key="TooltipClose">Close this window</system:String>
+
+    <!-- DebugWindow Tooltips -->
+    <system:String x:Key="TooltipClearLog">Clear the debug log output</system:String>
+    <system:String x:Key="TooltipCopyLog">Copy the log content to clipboard</system:String>
+
+    <!-- EasyModeWindow Tooltips -->
+    <system:String x:Key="TooltipChooseSystem">Select a system to add to your library</system:String>
+    <system:String x:Key="TooltipChooseFolder">Browse for the folder containing your ROMs or ISOs</system:String>
+    <system:String x:Key="TooltipDownloadEmulator">Download the emulator for the selected system</system:String>
+    <system:String x:Key="TooltipDownloadCore">Download the emulator core (if required)</system:String>
+    <system:String x:Key="TooltipDownloadImagePack1">Download the first image pack for this system</system:String>
+    <system:String x:Key="TooltipDownloadImagePack2">Download the second image pack for this system</system:String>
+    <system:String x:Key="TooltipDownloadImagePack3">Download the third image pack for this system</system:String>
+    <system:String x:Key="TooltipDownloadImagePack4">Download the fourth image pack for this system</system:String>
+    <system:String x:Key="TooltipDownloadImagePack5">Download the fifth image pack for this system</system:String>
+    <system:String x:Key="TooltipStopDownload">Cancel the current download operation</system:String>
+    <system:String x:Key="TooltipAddSystem">Add the configured system to your library</system:String>
+
+    <!-- EditSystemWindow Tooltips -->
+    <system:String x:Key="TooltipAddNewSystem">Add a new game system configuration</system:String>
+    <system:String x:Key="TooltipSaveSystem">Save changes to the current system configuration</system:String>
+    <system:String x:Key="TooltipDeleteSystem">Delete the selected system configuration</system:String>
+    <system:String x:Key="TooltipChooseSystemFolder">Browse for the folder containing ROMs or ISOs</system:String>
+    <system:String x:Key="TooltipChooseSystemImageFolder">Browse for the folder containing cover images</system:String>
+    <system:String x:Key="TooltipAddAdditionalFolder">Add an additional folder for this system</system:String>
+    <system:String x:Key="TooltipRemoveAdditionalFolder">Remove the selected additional folder</system:String>
+    <system:String x:Key="TooltipChooseEmulator1Path">Browse for Emulator 1 executable</system:String>
+    <system:String x:Key="TooltipChooseEmulator2Path">Browse for Emulator 2 executable</system:String>
+    <system:String x:Key="TooltipChooseEmulator3Path">Browse for Emulator 3 executable</system:String>
+    <system:String x:Key="TooltipChooseEmulator4Path">Browse for Emulator 4 executable</system:String>
+    <system:String x:Key="TooltipChooseEmulator5Path">Browse for Emulator 5 executable</system:String>
+    <system:String x:Key="TooltipSystemIsMame">Set to true if this system uses MAME emulator</system:String>
+    <system:String x:Key="TooltipExtractBeforeLaunch">Extract compressed files before launching the game</system:String>
+    <system:String x:Key="TooltipGroupByFolder">Group games by their containing folder</system:String>
+    <system:String x:Key="TooltipDisableRecursiveSearch">Only search the root folder, not subdirectories</system:String>
+    <system:String x:Key="TooltipNotificationOnEmulatorError">Show a notification if the emulator fails to start</system:String>
+
+    <!-- FavoritesWindow Tooltips -->
+    <system:String x:Key="TooltipRemoveFromFavorites">Remove the selected game from favorites</system:String>
+    <system:String x:Key="TooltipLaunchFavorite">Launch the selected favorite game</system:String>
+
+    <!-- GlobalSearchWindow Tooltips -->
+    <system:String x:Key="TooltipSearchFilename">Include filenames in the search</system:String>
+    <system:String x:Key="TooltipSearchMameDescription">Include MAME descriptions in the search</system:String>
+    <system:String x:Key="TooltipSearchFolderName">Include folder names in the search</system:String>
+    <system:String x:Key="TooltipSearchRecursively">Search in subdirectories as well</system:String>
+    <system:String x:Key="TooltipGlobalSearchButton">Search for games matching the criteria</system:String>
+    <system:String x:Key="TooltipLaunchFromSearch">Launch the selected game from search results</system:String>
+
+    <!-- PlayHistoryWindow Tooltips -->
+    <system:String x:Key="TooltipRemoveFromHistory">Remove the selected item from play history</system:String>
+    <system:String x:Key="TooltipRemoveAllFromHistory">Clear all play history records</system:String>
+    <system:String x:Key="TooltipLaunchFromHistory">Launch the selected game from history</system:String>
+    <system:String x:Key="TooltipSortByDate">Sort games by last played date</system:String>
+    <system:String x:Key="TooltipSortByPlayTime">Sort games by total play time</system:String>
+    <system:String x:Key="TooltipSortByTimesPlayed">Sort games by number of times played</system:String>
+
+    <!-- GlobalStatsWindow Tooltips -->
+    <system:String x:Key="TooltipStartProcess">Start calculating global statistics</system:String>
+    <system:String x:Key="TooltipSaveReport">Save the statistics report to a file</system:String>
+    <system:String x:Key="TooltipCancel">Cancel the current operation</system:String>
+
+    <!-- DownloadImagePackWindow Tooltips -->
+    <system:String x:Key="TooltipDownloadImagePack">Download the selected image pack</system:String>
+    <system:String x:Key="TooltipStopImageDownload">Cancel the image pack download</system:String>
+
+    <!-- SetLinksWindow Tooltips -->
+    <system:String x:Key="TooltipVideoLink">URL template for video links (use {GameName} as placeholder)</system:String>
+    <system:String x:Key="TooltipInfoLink">URL template for info links (use {GameName} as placeholder)</system:String>
+    <system:String x:Key="TooltipSaveLinks">Save the custom link configuration</system:String>
+    <system:String x:Key="TooltipRevertLinks">Reset links to default values</system:String>
+
+    <!-- SetGamepadDeadZoneWindow Tooltips -->
+    <system:String x:Key="TooltipDeadZoneX">Adjust the horizontal dead zone for gamepad analog sticks</system:String>
+    <system:String x:Key="TooltipDeadZoneY">Adjust the vertical dead zone for gamepad analog sticks</system:String>
+    <system:String x:Key="TooltipSaveDeadZone">Save the dead zone settings</system:String>
+    <system:String x:Key="TooltipRevertDeadZone">Reset dead zone to default values</system:String>
+
+    <!-- SetFuzzyMatchingWindow Tooltips -->
+    <system:String x:Key="TooltipThresholdSlider">Adjust the matching threshold for fuzzy image search</system:String>
+    <system:String x:Key="TooltipOkButton">Apply the selected threshold</system:String>
+
+    <!-- SoundConfigurationWindow Tooltips -->
+    <system:String x:Key="TooltipEnableNotificationSound">Enable sound notifications for certain events</system:String>
+    <system:String x:Key="TooltipChooseSoundFile">Browse for a custom notification sound file</system:String>
+    <system:String x:Key="TooltipPlaySound">Preview the selected notification sound</system:String>
+    <system:String x:Key="TooltipResetSound">Reset to the default notification sound</system:String>
+    <system:String x:Key="TooltipSaveSound">Save the sound configuration</system:String>
+
+    <!-- RetroAchievementsSettingsWindow Tooltips -->
+    <system:String x:Key="TooltipRaUsername">Your RetroAchievements.org username</system:String>
+    <system:String x:Key="TooltipRaApiKey">Your RetroAchievements API key (found in your RA control panel)</system:String>
+    <system:String x:Key="TooltipRaPassword">Your RetroAchievements password (for hardcore mode)</system:String>
+    <system:String x:Key="TooltipConfigureBizHawk">Auto-configure BizHawk for RetroAchievements</system:String>
+    <system:String x:Key="TooltipConfigureDolphin">Auto-configure Dolphin for RetroAchievements</system:String>
+    <system:String x:Key="TooltipConfigureDuckStation">Auto-configure DuckStation for RetroAchievements</system:String>
+    <system:String x:Key="TooltipConfigureFlycast">Auto-configure Flycast for RetroAchievements</system:String>
+    <system:String x:Key="TooltipConfigurePcsx2">Auto-configure PCSX2 for RetroAchievements</system:String>
+    <system:String x:Key="TooltipConfigurePpspp">Auto-configure PPSSPP for RetroAchievements</system:String>
+    <system:String x:Key="TooltipConfigureRetroArch">Auto-configure RetroArch for RetroAchievements</system:String>
+    <system:String x:Key="TooltipSaveRaSettings">Save RetroAchievements settings</system:String>
+
+    <!-- SupportWindow Tooltips -->
+    <system:String x:Key="TooltipName">Your name (optional)</system:String>
+    <system:String x:Key="TooltipEmail">Your email address for follow-up (optional)</system:String>
+    <system:String x:Key="TooltipSupportDetails">Describe your issue or question in detail</system:String>
+    <system:String x:Key="TooltipSendSupport">Send the support request to the developer</system:String>
+
+    <!-- Menu Tooltips -->
+    <system:String x:Key="TooltipOptionsMenu">Application settings and preferences</system:String>
+    <system:String x:Key="TooltipLanguageMenu">Change the application language</system:String>
+    <system:String x:Key="TooltipThemeMenu">Change the application theme</system:String>
+    <system:String x:Key="TooltipBaseThemeMenu">Switch between light and dark theme</system:String>
+    <system:String x:Key="TooltipAccentColorsMenu">Change the accent color</system:String>
+    <system:String x:Key="TooltipButtonSizeMenu">Adjust the size of game buttons</system:String>
+    <system:String x:Key="TooltipAspectRatioMenu">Change the aspect ratio of game buttons</system:String>
+    <system:String x:Key="TooltipGamesPerPageMenu">Set how many games to display per page</system:String>
+    <system:String x:Key="TooltipViewModeMenu">Switch between grid and list view modes</system:String>
+    <system:String x:Key="TooltipShowGamesMenu">Filter games by cover image status</system:String>
+    <system:String x:Key="TooltipEditLinksMenu">Configure custom video and info links</system:String>
+    <system:String x:Key="TooltipGamepadSupportMenu">Enable or configure gamepad support</system:String>
+    <system:String x:Key="TooltipFuzzyMatchingMenu">Configure fuzzy image matching settings</system:String>
+    <system:String x:Key="TooltipSoundConfigMenu">Configure notification sounds</system:String>
+    <system:String x:Key="TooltipRaSettingsMenu">Configure RetroAchievements integration</system:String>
+    <system:String x:Key="TooltipInjectConfigMenu">Configure emulator settings before launch</system:String>
+    <system:String x:Key="TooltipOverlayButtonMenu">Show or hide overlay buttons on game covers</system:String>
+    <system:String x:Key="TooltipEditSystemMenu">Add or edit game systems</system:String>
+    <system:String x:Key="TooltipSelectWindowMenu">Open additional windows and features</system:String>
+    <system:String x:Key="TooltipToolsMenu">Access additional tools and utilities</system:String>
+    <system:String x:Key="TooltipDonateMenu">Support the development of Simple Launcher</system:String>
+    <system:String x:Key="TooltipAboutMenu">About Simple Launcher and update options</system:String>
+    <system:String x:Key="TooltipSupportMenu">Get help and support</system:String>
+    <system:String x:Key="TooltipExitMenu">Exit the application</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation">The game failed to launch due to a DEP (Data Execution Prevention) violation.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">This is a Windows security feature that prevents programs from executing code in protected memory regions.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Ensure you're using the latest emulator version with improved security compatibility.</system:String>

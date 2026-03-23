@@ -40,13 +40,13 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <ComboBox x:Name="CmbResX" Grid.Column="0">
+                            <ComboBox x:Name="CmbResX" Grid.Column="0" ToolTip="{DynamicResource XeniaConfig_ResolutionScaleX_Tooltip}">
                                 <ComboBoxItem Content="1" />
                                 <ComboBoxItem Content="2" />
                                 <ComboBoxItem Content="3" />
                             </ComboBox>
                             <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
-                            <ComboBox x:Name="CmbResY" Grid.Column="2">
+                            <ComboBox x:Name="CmbResY" Grid.Column="2" ToolTip="{DynamicResource XeniaConfig_ResolutionScaleY_Tooltip}">
                                 <ComboBoxItem Content="1" />
                                 <ComboBoxItem Content="2" />
                                 <ComboBoxItem Content="3" />
@@ -54,21 +54,21 @@
                         </Grid>
 
                         <Label Content="{DynamicResource XeniaConfig_PostProcessingAa_Label}" Margin="0,5,0,0" />
-                        <ComboBox x:Name="CmbAa" ToolTip="{DynamicResource XeniaConfig_PostProcessingAa_Tooltip}">
+                        <ComboBox x:Name="CmbAa" ToolTip="{DynamicResource XeniaConfig_PostProcessingAa_Tooltip}" Tag="Aa">
                             <ComboBoxItem Content="None" Tag="" />
                             <ComboBoxItem Content="FXAA" Tag="fxaa" />
                             <ComboBoxItem Content="FXAA Extreme" Tag="fxaa_extreme" />
                         </ComboBox>
 
                         <Label Content="{DynamicResource XeniaConfig_ScalingSharpening_Label}" Margin="0,5,0,0" />
-                        <ComboBox x:Name="CmbScaling" ToolTip="{DynamicResource XeniaConfig_ScalingSharpening_Tooltip}">
+                        <ComboBox x:Name="CmbScaling" ToolTip="{DynamicResource XeniaConfig_ScalingSharpening_Tooltip}" Tag="Scaling">
                             <ComboBoxItem Content="FSR" Tag="fsr" />
                             <ComboBoxItem Content="CAS" Tag="cas" />
                             <ComboBoxItem Content="Bilinear" Tag="bilinear" />
                         </ComboBox>
 
                         <Label Content="{DynamicResource XeniaConfig_ReadbackResolve_Label}" Margin="0,5,0,0" />
-                        <ComboBox x:Name="CmbReadback" ToolTip="{DynamicResource XeniaConfig_ReadbackResolve_Tooltip}">
+                        <ComboBox x:Name="CmbReadback" ToolTip="{DynamicResource XeniaConfig_ReadbackResolve_Tooltip}" Tag="Readback">
                             <ComboBoxItem Content="{DynamicResource XeniaConfig_ReadbackResolve_None}" Tag="none" />
                             <ComboBoxItem Content="{DynamicResource XeniaConfig_ReadbackResolve_Fast}" Tag="fast" />
                             <ComboBoxItem Content="{DynamicResource XeniaConfig_ReadbackResolve_Full}" Tag="full" />
@@ -144,7 +144,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource XeniaConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" />
+                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource XeniaConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource XeniaConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -154,11 +154,14 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource XeniaConfig_Save_Button}" Width="100" Height="35" Margin="0,0,10,0"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
-                    Click="BtnSave_Click" />
+                    Click="BtnSave_Click"
+                    ToolTip="{DynamicResource XeniaConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource XeniaConfig_Run_Button2}" Width="120" Height="35"
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                    Click="BtnRun_Click" IsDefault="True" />
-            <Button Content="{DynamicResource XeniaConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" />
+                    Click="BtnRun_Click" IsDefault="True"
+                    ToolTip="{DynamicResource XeniaConfig_Run_Tooltip}" />
+            <Button Content="{DynamicResource XeniaConfig_Cancel_Button}" Width="100" Height="35" Margin="10,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True"
+                    ToolTip="{DynamicResource XeniaConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

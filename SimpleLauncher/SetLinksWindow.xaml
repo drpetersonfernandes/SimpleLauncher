@@ -47,12 +47,13 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             Source="pack://application:,,,/images/video.png" />
-        <TextBox
-            Margin="10"
-            x:Name="VideoLinkTextBox"
-            Grid.Row="1"
-            Grid.Column="2"
-            HorizontalAlignment="Stretch" />
+    <TextBox
+      Margin="10"
+      x:Name="VideoLinkTextBox"
+      Grid.Row="1"
+      Grid.Column="2"
+      HorizontalAlignment="Stretch"
+      ToolTip="{DynamicResource TooltipVideoLink}" />
 
         <!-- Info Link -->
         <Label
@@ -69,11 +70,12 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             Source="pack://application:,,,/images/info.png" />
-        <TextBox
-            Margin="10"
-            x:Name="InfoLinkTextBox"
-            Grid.Row="2"
-            Grid.Column="2" />
+    <TextBox
+      Margin="10"
+      x:Name="InfoLinkTextBox"
+      Grid.Row="2"
+      Grid.Column="2"
+      ToolTip="{DynamicResource TooltipInfoLink}" />
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
@@ -81,26 +83,28 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Save Button -->
-            <Button
-                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                Grid.Column="0"
-                Margin="10"
-                Padding="10"
-                HorizontalAlignment="Right"
-                IsDefault="True"
-                Click="SaveLinksButton_Click"
-                Content="{DynamicResource SaveorUpdateLinks}" />
+    <!-- Save Button -->
+    <Button
+      Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+      Grid.Column="0"
+      Margin="10"
+      Padding="10"
+      HorizontalAlignment="Right"
+      IsDefault="True"
+      Click="SaveLinksButton_Click"
+      Content="{DynamicResource SaveorUpdateLinks}"
+      ToolTip="{DynamicResource TooltipSaveLinks}" />
 
-            <!-- Revert Button -->
-            <Button
-                Style="{DynamicResource MahApps.Styles.Button.Square}"
-                Grid.Column="1"
-                Margin="10"
-                Padding="10"
-                HorizontalAlignment="Left"
-                Click="RevertLinksButton_Click"
-                Content="{DynamicResource ReverttoDefaultValues}" />
+    <!-- Revert Button -->
+    <Button
+      Style="{DynamicResource MahApps.Styles.Button.Square}"
+      Grid.Column="1"
+      Margin="10"
+      Padding="10"
+      HorizontalAlignment="Left"
+      Click="RevertLinksButton_Click"
+      Content="{DynamicResource ReverttoDefaultValues}"
+      ToolTip="{DynamicResource TooltipRevertLinks}" />
         </Grid>
 
     </Grid>

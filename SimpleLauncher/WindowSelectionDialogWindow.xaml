@@ -14,7 +14,8 @@
                  Margin="10"
                  Padding="5"
                  VerticalAlignment="Stretch"
-                 HorizontalAlignment="Stretch">
+                 HorizontalAlignment="Stretch"
+                 ToolTip="{DynamicResource SelectWindowToActivate}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
