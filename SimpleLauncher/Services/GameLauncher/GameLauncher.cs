@@ -727,6 +727,7 @@ public partial class GameLauncher
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
         string tempConvertedPath = null;
+        MountChdDrive mountedChdDrive = null;
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
 
@@ -793,7 +794,7 @@ public partial class GameLauncher
             }
         }
 
-        if (isChd && (isXemu || isXenia || isRpcs3))
+        if (isChd && (isXemu))
         {
             var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToIso") ?? "Converting CHD...";
             loadingStateProvider.SetLoadingState(true, convertingMsg);
@@ -810,6 +811,28 @@ public partial class GameLauncher
                 return;
             }
         }
+
+        if (isChd && (isXenia || isRpcs3))
+        {
+            var mountingMsg = (string)Application.Current.TryFindResource("MountingChd") ?? "Mounting CHD...";
+            loadingStateProvider.SetLoadingState(true, mountingMsg);
+
+            var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+            mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath);
+            if (mountedChdDrive is { IsMounted: true })
+            {
+                resolvedFilePath = mountedChdDrive.MountedPath;
+            }
+            else
+            {
+                loadingStateProvider.SetLoadingState(false);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+                return;
+            }
+        }
+
+        // Check if the file to launch is from a mounted CHD drive
+        var isMountedChd = mountedChdDrive is { IsMounted: true };
 
         if (isOotake && (isChd || isBin || isCue || isIso))
         {
@@ -838,7 +861,7 @@ public partial class GameLauncher
         }
 
         // For mounted files, ensure it still exists before proceeding
-        if ((isMountedXbe || isMountedZip) && !File.Exists(@"\\?\" + resolvedFilePath))
+        if ((isMountedXbe || isMountedZip || isMountedChd) && !File.Exists(@"\\?\" + resolvedFilePath))
         {
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
@@ -1127,6 +1150,21 @@ public partial class GameLauncher
                     catch (Exception ex)
                     {
                         DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
+                    }
+                }
+
+                // Cleanup mounted CHD drive
+                if (mountedChdDrive is { IsMounted: true })
+                {
+                    try
+                    {
+                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Disposing mounted CHD drive: {mountedChdDrive.MountedPath}");
+                        await mountedChdDrive.DisposeAsync();
+                        DebugLogger.Log("[LaunchRegularEmulatorAsync] Successfully disposed mounted CHD drive.");
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error disposing mounted CHD drive: {ex.Message}");
                     }
                 }
             }
