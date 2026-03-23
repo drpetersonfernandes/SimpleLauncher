@@ -84,9 +84,11 @@ public static class MountChdFiles
         var psiMount = new ProcessStartInfo
         {
             FileName = resolvedToolPath,
-            Arguments = $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a",
+            Arguments = $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a /s:3",
             UseShellExecute = false,
-            CreateNoWindow = true,
+            RedirectStandardOutput = false,
+            RedirectStandardError = false,
+            CreateNoWindow = false,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 

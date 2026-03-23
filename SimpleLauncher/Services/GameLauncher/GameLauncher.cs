@@ -821,7 +821,27 @@ public partial class GameLauncher
             mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath);
             if (mountedChdDrive is { IsMounted: true })
             {
-                resolvedFilePath = mountedChdDrive.MountedPath;
+                // For RPCS3, we need the path to EBOOT.BIN, not just the drive root
+                if (isRpcs3)
+                {
+                    var ebootPath = FindEbootBin.FindEbootBinRecursive(mountedChdDrive.MountedPath);
+                    if (!string.IsNullOrEmpty(ebootPath))
+                    {
+                        resolvedFilePath = ebootPath;
+                    }
+                    else
+                    {
+                        loadingStateProvider.SetLoadingState(false);
+                        DebugLogger.Log("[LaunchRegularEmulatorAsync] EBOOT.BIN not found in mounted CHD.");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "EBOOT.BIN not found in mounted CHD.");
+                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+                        return;
+                    }
+                }
+                else
+                {
+                    resolvedFilePath = mountedChdDrive.MountedPath;
+                }
             }
             else
             {
