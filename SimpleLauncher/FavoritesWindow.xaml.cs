@@ -227,10 +227,23 @@ internal partial class FavoritesWindow : ILoadingState
 
     private void RemoveFavoriteButton_Click(object sender, RoutedEventArgs e)
     {
-        if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+        var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
+
+        if (selectedItems.Count > 0)
         {
             _playSoundEffects.PlayTrashSound();
-            RemoveFavoriteFromDatabaseAndEmptyPreviewImage(selectedFavorite);
+
+            foreach (var favorite in selectedItems)
+            {
+                _favoriteList.Remove(favorite);
+            }
+
+            // Update the FavoritesManager's internal list with the cleaned local list
+            _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
+            _favoritesManager.SaveFavorites();
+
+            PreviewImage.Source = null;
+            FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
         }
         else
         {
@@ -490,7 +503,11 @@ internal partial class FavoritesWindow : ILoadingState
             var imagePath = selectedFavorite.CoverImage;
             var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
 
-            PreviewImage.Source = loadedImage; // Assign the loaded image to the PreviewImage control
+            // Race condition check: Only assign if the selected item hasn't changed
+            if (FavoritesDataGrid.SelectedItem == selectedFavorite)
+            {
+                PreviewImage.Source = loadedImage; // Assign the loaded image to the PreviewImage control
+            }
         }
         catch (Exception ex)
         {
@@ -509,10 +526,23 @@ internal partial class FavoritesWindow : ILoadingState
                 {
                     e.Handled = true; // Prevent DataGrid from handling Delete key
 
-                    if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+                    var selectedItems = FavoritesDataGrid.SelectedItems.Cast<Favorite>().ToList();
+
+                    if (selectedItems.Count > 0)
                     {
                         _playSoundEffects.PlayTrashSound();
-                        RemoveFavoriteFromDatabaseAndEmptyPreviewImage(selectedFavorite);
+
+                        foreach (var favorite in selectedItems)
+                        {
+                            _favoriteList.Remove(favorite);
+                        }
+
+                        // Update the FavoritesManager's internal list with the cleaned local list
+                        _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
+                        _favoritesManager.SaveFavorites();
+
+                        PreviewImage.Source = null;
+                        FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
                     }
                     else
                     {

@@ -531,7 +531,11 @@ public partial class PlayHistoryWindow : ILoadingState
             var imagePath = selectedItem.CoverImage;
             var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath); // <--- Changed to await
 
-            PreviewImage.Source = loadedImage;
+            // Race condition check: Only assign if the selected item hasn't changed
+            if (PlayHistoryDataGrid.SelectedItem == selectedItem)
+            {
+                PreviewImage.Source = loadedImage;
+            }
         }
         catch (Exception ex)
         {

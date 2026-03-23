@@ -344,12 +344,10 @@ internal static class RetroAchievementsHasherTool
             var guess = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemName);
             DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
 
-            // Run UI on Dispatcher
-            var userSelectedSystem = await Application.Current.Dispatcher.InvokeAsync(() =>
-            {
-                var win = new SystemSelectionWindow(guess) { Owner = Application.Current.MainWindow };
-                return win.ShowDialog() == true ? win.SelectedSystem : null;
-            });
+            // Directly show the dialog (already on the UI thread)
+            var win = new SystemSelectionWindow(guess) { Owner = Application.Current.MainWindow };
+            var userSelectedSystem = win.ShowDialog() == true ? win.SelectedSystem : null;
+
             DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
 
             if (string.IsNullOrEmpty(userSelectedSystem))

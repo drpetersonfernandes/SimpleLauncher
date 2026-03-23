@@ -150,8 +150,18 @@ public partial class GameLauncher
 
     private async Task<bool> ValidateContextAsync(LaunchContext context)
     {
-        if (string.IsNullOrWhiteSpace(context.ResolvedFilePath) ||
-            (!File.Exists(context.ResolvedFilePath) && !Directory.Exists(context.ResolvedFilePath)))
+        if (string.IsNullOrWhiteSpace(context.ResolvedFilePath))
+        {
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Resolved file path is empty");
+            MessageBoxLibrary.FilePathIsInvalid(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            return false;
+        }
+
+        var longPath = context.ResolvedFilePath.StartsWith(@"\\?\", StringComparison.Ordinal)
+            ? context.ResolvedFilePath
+            : @"\\?\" + context.ResolvedFilePath;
+
+        if (!File.Exists(longPath) && !Directory.Exists(longPath))
         {
             var msg = $"File not found: {context.ResolvedFilePath}";
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(msg), msg);

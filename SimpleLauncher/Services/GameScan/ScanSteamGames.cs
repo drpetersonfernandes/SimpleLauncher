@@ -213,7 +213,7 @@ internal static class ScanSteamGames
 
             // 2. Create the Shortcut
             // The protocol for mods is: steam://run/<BaseAppID>//-game <ModFolderName>
-            var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{baseAppId}//-game {modFolderName}";
+            var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{baseAppId}//-game \"{modFolderName}\"";
             await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
             // 3. Handle Icon/Image

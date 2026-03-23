@@ -93,7 +93,11 @@ public static class ImageLoader
     /// <exception cref="NotSupportedException">Thrown if the file format is not supported.</exception>
     private static BitmapImage LoadBitmapImageSafe(string filePath)
     {
-        if (!File.Exists(filePath))
+        var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal)
+            ? filePath
+            : @"\\?\" + filePath;
+
+        if (!File.Exists(longPath))
         {
             throw new FileNotFoundException($"Image file not found: {filePath}", filePath);
         }
@@ -102,7 +106,7 @@ public static class ImageLoader
         byte[] imageData;
         try
         {
-            imageData = File.ReadAllBytes(filePath);
+            imageData = File.ReadAllBytes(longPath);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {

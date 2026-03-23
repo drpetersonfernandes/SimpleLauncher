@@ -596,7 +596,12 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             {
                 LaunchButton.IsEnabled = true; // Enable launch button when a valid item is selected
                 var (loadedImage, _) = await ImageLoader.LoadImageAsync(selectedResult.CoverImage);
-                PreviewImage.Source = loadedImage;
+
+                // Race condition check: Only assign if the selected item hasn't changed
+                if (ResultsDataGrid.SelectedItem == selectedResult)
+                {
+                    PreviewImage.Source = loadedImage;
+                }
             }
             else
             {

@@ -235,7 +235,11 @@ public class GameListFactory(
 
                 _mainWindow.Dispatcher.Invoke(() =>
                 {
-                    _mainWindow.PreviewImage.Source = imageSource;
+                    // Race condition check: Only assign if the selected item hasn't changed
+                    if (_mainWindow.GameDataGrid.SelectedItem == selectedItem)
+                    {
+                        _mainWindow.PreviewImage.Source = imageSource;
+                    }
                 });
             }
             catch (Exception ex)
@@ -249,7 +253,11 @@ public class GameListFactory(
                     var (defaultImageSource, _) = await ImageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() =>
                     {
-                        _mainWindow?.PreviewImage?.Source = defaultImageSource;
+                        // Race condition check: Only assign if the selected item hasn't changed (or is now null)
+                        if (_mainWindow.GameDataGrid.SelectedItem == selectedItem || _mainWindow.GameDataGrid.SelectedItem == null)
+                        {
+                            _mainWindow?.PreviewImage?.Source = defaultImageSource;
+                        }
                     });
                 }
                 catch (Exception fallbackEx)
