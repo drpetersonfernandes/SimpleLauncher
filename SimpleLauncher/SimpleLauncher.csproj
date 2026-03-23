@@ -1,788 +1,788 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
-    <RuntimeFrameworkVersion>10.0.2</RuntimeFrameworkVersion>
-    <OutputType>WinExe</OutputType>
-    <UseWPF>true</UseWPF>
-    <IsPackable>false</IsPackable>
-    <Company>Pure Logic Code</Company>
-    <Product>Simple Launcher</Product>
-    <LangVersion>14</LangVersion>
-    <Nullable>warnings</Nullable>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>icon\icon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>SimpleLauncher.App</StartupObject>
-    <PackageIcon>icon2.png</PackageIcon>
-    <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>5.2.0</AssemblyVersion>
-    <FileVersion>5.2.0</FileVersion>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <Version>$(VersionPrefix)</Version>
-    <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
-    <UseWindowsForms>False</UseWindowsForms>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <IsPublishable>False</IsPublishable>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="WhatsNew.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\ControlzEx.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\FindRomCover.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\FindRomCover.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\FindRomCover.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\FindRomCover.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\FindRomCover.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\MahApps.Metro.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\Microsoft.Xaml.Behaviors.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\settings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\audio\click.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\de\MahApps.Metro.resources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\findromcover\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\Microsoft.Windows.SDK.NET.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\ps3batchlaunchercreator\WinRT.Runtime.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\Microsoft.Windows.SDK.NET.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforps3games\WinRT.Runtime.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="history.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="audio\shutter.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="audio\trash.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="helpuser.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\7z.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\Microsoft.Extensions.DependencyInjection.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\Microsoft.Extensions.DependencyInjection.Abstractions.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="mame.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari 2600.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari 5200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari 7800.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\default.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Amstrad GX4000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari Jaguar.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari Jaguar CD.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari Lynx.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari ST.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari 8-Bit.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Bandai WonderSwan.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Bandai WonderSwan Color.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Famicom.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo GameCube.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo NES.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo SNES.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Super Famicom.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Switch.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Wii.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo WiiU.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo 64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Dreamcast.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Game Gear.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Genesis.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Mark III.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Master System.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Nomad.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Pico.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Saturn.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega SG-1000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sony PlayStation 1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sony PlayStation 2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sony PlayStation 4.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Amstrad CPC.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Casio PV-1000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\ColecoVision.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC PC Engine.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC SuperGrafx.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC TurboGrafx 16.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo DS.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Family Computer Disk System.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Game Boy.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Game Boy Color.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo 3DS.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo 64DD.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Arcade.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Commodore 128.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Mattel Aquarius.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Mattel Intellivision.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft Windows.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft Xbox.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft Xbox 360.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC PC-FX.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC TurboGrafx 16 CD.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Commodore 64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\LaserDisk.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft DOS.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft MSX.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Game Boy Advance.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Satellaview.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Genesis CD.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sharp X6800.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sinclair ZX Spectrum.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\SNK Neo Geo CD.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\SNK Neo Geo Pocket.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\SNK Neo Geo Pocket Color.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sony PlayStation 3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sony PSP.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Commodore Amiga CD32.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Magnavox Odyssey 2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft Xbox 360 XBLA.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC PC Engine CD.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo SNES MSU1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo WiiWare.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Panasonic 3DO.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Philips CD-i.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Genesis 32X.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Model 3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega SC-3000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sharp x68000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Microsoft MSX2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\ScummVM.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="audio\notification.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atari 800.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\NEC PCFX.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Entertainment System.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Super Nintendo Entertainment System.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sony PlayStation Vita.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Amiga.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Commodore Amiga.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\SNK Neo Geo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Zeebo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\7z_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\7z_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\BatchConvertToCHD.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\chdman.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\maxcso.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\7z_arm64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\7z_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToRVZ\DolphinTool.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RomValidator\RomValidator.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\SimpleZipDrive\SimpleZipDrive.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToRVZ\DolphinTool_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForScummVMGames\CreateBatchFilesForScummVMGames_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForWindowsGames\CreateBatchFilesForWindowsGames_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\FindRomCover\FindRomCover_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RomValidator\RomValidator_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\SimpleZipDrive\SimpleZipDrive_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\FindRomCover\mame.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="RetroAchievements.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RAHasher\RAHasher.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Nintendo Virtual Boy.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\runtimes\win-x64\native\WebView2Loader.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\GameCoverScraper.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\mame.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Core.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.WinForms.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Wpf.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\settings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\WebView2Loader.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\audio\click.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\audio\click.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\runtimes\win-arm64\native\WebView2Loader.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\GameCoverScraper.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\mame.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Core.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.WinForms.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Wpf.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\settings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\WebView2Loader.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\bchunk.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RetroGameCoverDownloader\RetroGameCoverDownloader.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RetroGameCoverDownloader\RetroGameCoverDownloader_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\x64\Magick.Native-Q16-x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\GameCoverScraper\arm64\Magick.Native-Q16-arm64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\FindRomCover\Magick.Native-Q16-arm64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\FindRomCover\Magick.Native-Q16-x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RomValidator\7z_arm64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\RomValidator\7z_x64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\SimpleXisoDrive\SimpleXisoDrive.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\SimpleXisoDrive\SimpleXisoDrive_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\7z_arm64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Services\EasyMode\Samples\easymode_arm64.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="Services\EasyMode\Samples\easymode.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\MAME\mame.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Retroarch\retroarch.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Xenia\xenia-canary.config.toml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Xenia\xenia.config.toml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\BizHawk\config.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Dolphin\RetroAchievements.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\DuckStation\settings.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Flycast\emu.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\PCSX2\PCSX2.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\PPSSPP\ppsspp.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Mednafen\mednafen.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Supermodel\Supermodel.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\SEGA Model 2\EMULATOR.INI">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Blastem\default.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Ares\settings.bml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Mesen\settings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\RPCS3\config.yml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Stella\stella.sqlite3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Cemu\settings.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Dolphin\Dolphin.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Azahar\qt-config.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Yumir\Ymir.toml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Super ACan.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Super ACan.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\7z_arm64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\BatchConvertToCHD_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\chdman_arm64.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Atomiswave.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Naomi.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Sega Naomi 2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Raine\raine32_sdl.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\systems\Arcade - Raine.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="samples\Redream\redream.cfg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\PSXPackager\README.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\PSXPackager\psxpackager.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\extract-xiso.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertIsoToXiso\xdvdfs.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\logo2.png">
-      <CopyToOutputDirectory />
-    </Resource>
+    <PropertyGroup>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <RuntimeFrameworkVersion>10.0.2</RuntimeFrameworkVersion>
+        <OutputType>WinExe</OutputType>
+        <UseWPF>true</UseWPF>
+        <IsPackable>false</IsPackable>
+        <Company>Pure Logic Code</Company>
+        <Product>Simple Launcher</Product>
+        <LangVersion>14</LangVersion>
+        <Nullable>warnings</Nullable>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup>
+        <ApplicationIcon>icon\icon.ico</ApplicationIcon>
+    </PropertyGroup>
+    <PropertyGroup>
+        <StartupObject>SimpleLauncher.App</StartupObject>
+        <PackageIcon>icon2.png</PackageIcon>
+        <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <AssemblyVersion>5.2.0</AssemblyVersion>
+        <FileVersion>5.2.0</FileVersion>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+        <Version>$(VersionPrefix)</Version>
+        <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
+        <UseWindowsForms>False</UseWindowsForms>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <IsPublishable>False</IsPublishable>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="WhatsNew.md">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\ControlzEx.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\FindRomCover.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\FindRomCover.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\FindRomCover.pdb">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\FindRomCover.deps.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\FindRomCover.runtimeconfig.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\MahApps.Metro.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\Microsoft.Xaml.Behaviors.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\settings.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\audio\click.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\de\MahApps.Metro.resources.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\findromcover\Newtonsoft.Json.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\Microsoft.Windows.SDK.NET.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.pdb">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.deps.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\PS3BatchLauncherCreator.runtimeconfig.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\ps3batchlaunchercreator\WinRT.Runtime.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.pdb">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.deps.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforscummvmgames\CreateBatchFilesForScummVMGames.runtimeconfig.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\Microsoft.Windows.SDK.NET.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.pdb">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.deps.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\PS3BatchLauncherCreator.runtimeconfig.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforps3games\WinRT.Runtime.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.pdb">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.deps.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.runtimeconfig.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="history.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="audio\shutter.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="audio\trash.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="helpuser.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\7z.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\7z.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.pdb">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.deps.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.runtimeconfig.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForPS3Games\Microsoft.Extensions.DependencyInjection.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForPS3Games\Microsoft.Extensions.DependencyInjection.Abstractions.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="mame.dat">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 2600.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 5200.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 7800.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\default.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Amstrad GX4000.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari Jaguar.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari Jaguar CD.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari Lynx.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari ST.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 8-Bit.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Bandai WonderSwan.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Bandai WonderSwan Color.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Famicom.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo GameCube.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo NES.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo SNES.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Super Famicom.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Switch.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Wii.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo WiiU.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo 64.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Dreamcast.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Game Gear.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Genesis.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Mark III.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Master System.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Nomad.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Pico.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Saturn.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega SG-1000.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 1.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 2.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 4.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Amstrad CPC.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Casio PV-1000.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\ColecoVision.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC Engine.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC SuperGrafx.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC TurboGrafx 16.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo DS.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Family Computer Disk System.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Game Boy.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Game Boy Color.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo 3DS.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo 64DD.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Arcade.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore 128.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Mattel Aquarius.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Mattel Intellivision.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Windows.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Xbox.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Xbox 360.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC-FX.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC TurboGrafx 16 CD.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore 64.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\LaserDisk.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft DOS.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft MSX.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Game Boy Advance.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Satellaview.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Genesis CD.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sharp X6800.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sinclair ZX Spectrum.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo CD.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo Pocket.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo Pocket Color.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 3.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PSP.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore Amiga CD32.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Magnavox Odyssey 2.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Xbox 360 XBLA.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC Engine CD.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo SNES MSU1.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo WiiWare.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Panasonic 3DO.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Philips CD-i.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Genesis 32X.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Model 3.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega SC-3000.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sharp x68000.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft MSX2.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\ScummVM.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="audio\notification.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 800.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PCFX.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Entertainment System.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Super Nintendo Entertainment System.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation Vita.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Amiga.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore Amiga.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Zeebo.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\7z_x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\7z_x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\BatchConvertToCHD.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\chdman.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\maxcso.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCompressedFile\7z_arm64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCompressedFile\7z_x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToRVZ\DolphinTool.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RomValidator\RomValidator.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\SimpleZipDrive\SimpleZipDrive.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToRVZ\DolphinTool_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForScummVMGames\CreateBatchFilesForScummVMGames_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForWindowsGames\CreateBatchFilesForWindowsGames_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\FindRomCover\FindRomCover_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RomValidator\RomValidator_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\SimpleZipDrive\SimpleZipDrive_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\FindRomCover\mame.dat">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="RetroAchievements.dat">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RAHasher\RAHasher.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Virtual Boy.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\runtimes\win-x64\native\WebView2Loader.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\GameCoverScraper.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\mame.dat">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Core.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.WinForms.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Wpf.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\settings.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\WebView2Loader.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\audio\click.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\audio\click.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\runtimes\win-arm64\native\WebView2Loader.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\GameCoverScraper.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\mame.dat">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Core.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.WinForms.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Wpf.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\settings.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\WebView2Loader.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\bchunk.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RetroGameCoverDownloader\RetroGameCoverDownloader.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RetroGameCoverDownloader\RetroGameCoverDownloader_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\x64\Magick.Native-Q16-x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\GameCoverScraper\arm64\Magick.Native-Q16-arm64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\FindRomCover\Magick.Native-Q16-arm64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\FindRomCover\Magick.Native-Q16-x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RomValidator\7z_arm64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\RomValidator\7z_x64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\SimpleXisoDrive\SimpleXisoDrive.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\SimpleXisoDrive\SimpleXisoDrive_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\7z_arm64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Services\EasyMode\Samples\easymode_arm64.xml">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
+        <None Update="Services\EasyMode\Samples\easymode.xml">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\MAME\mame.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Retroarch\retroarch.cfg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Xenia\xenia-canary.config.toml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Xenia\xenia.config.toml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\BizHawk\config.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Dolphin\RetroAchievements.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\DuckStation\settings.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Flycast\emu.cfg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\PCSX2\PCSX2.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\PPSSPP\ppsspp.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Mednafen\mednafen.cfg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Supermodel\Supermodel.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\SEGA Model 2\EMULATOR.INI">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Blastem\default.cfg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Ares\settings.bml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Mesen\settings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\RPCS3\config.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Stella\stella.sqlite3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Cemu\settings.xml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Dolphin\Dolphin.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Azahar\qt-config.ini">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Yumir\Ymir.toml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Super ACan.jpg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Super ACan.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\7z_arm64.dll">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\BatchConvertToCHD_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertToCHD\chdman_arm64.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atomiswave.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Naomi.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Naomi 2.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Raine\raine32_sdl.cfg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Arcade - Raine.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="samples\Redream\redream.cfg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\PSXPackager\README.md">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\PSXPackager\psxpackager.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\extract-xiso.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\BatchConvertIsoToXiso\xdvdfs.exe">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Resource Include="images\logo2.png">
+            <CopyToOutputDirectory />
+        </Resource>
         <Resource Include="images\help.png" />
         <Resource Include="images\clickheretogethelp.png" />
         <Resource Include="images\easy.png" />
@@ -801,390 +801,402 @@
         <Resource Include="images\video.png" />
         <Resource Include="images\cabinet.png" />
         <Resource Include="images\cart.png" />
-    <Resource Include="images\flyer.png" />
-    <Resource Include="images\manual.png" />
-    <Resource Include="images\pcb.png" />
-    <Resource Include="images\snapshot.png" />
-    <Resource Include="images\walkthrough.png" />
-    <Resource Include="images\cover.png" />
-    <Resource Include="images\brokenheart.png" />
-    <Resource Include="images\star.png" />
-    <Resource Include="images\help-desk.png" />
-    <Resource Include="images\theme.png" />
-    <Resource Include="images\setnumber.png" />
-    <Resource Include="images\show.png" />
-    <Resource Include="icon\icon.ico" />
-    <Resource Include="images\tools.png" />
-    <Resource Include="images\findromcover.png" />
-    <Resource Include="images\romhistory.png" />
-    <Resource Include="images\delete.png" />
-    <Resource Include="images\noimage.png" />
-    <Resource Include="images\language.png" />
-    <Page Remove="resources\Strings.de.xaml" />
-    <Resource Include="resources\strings.bn.xaml" />
-    <Resource Include="resources\strings.de.xaml" />
-    <Page Remove="resources\Strings.en.xaml" />
-    <Resource Include="resources\strings.en.xaml" />
-    <Page Remove="resources\Strings.es.xaml" />
-    <Resource Include="resources\strings.es.xaml" />
-    <Page Remove="resources\Strings.fr.xaml" />
-    <Resource Include="resources\strings.fr.xaml" />
-    <Page Remove="resources\Strings.ja.xaml" />
-    <Resource Include="resources\strings.id.xaml" />
-    <Resource Include="resources\strings.ja.xaml" />
-    <Page Remove="resources\Strings.ko.xaml" />
-    <Resource Include="resources\strings.ko.xaml" />
-    <Page Remove="resources\Strings.pt-BR.xaml" />
-    <Resource Include="resources\strings.pt-br.xaml" />
-    <Page Remove="resources\Strings.pt-PT.xaml" />
-    <Page Remove="resources\Strings.ru.xaml" />
-    <Resource Include="resources\strings.ru.xaml" />
-    <Page Remove="resources\Strings.zh-Hans.xaml" />
-    <Resource Include="resources\strings.ur.xaml" />
-    <Resource Include="resources\strings.zh-hans.xaml" />
-    <Page Remove="resources\Strings.zh-Hant.xaml" />
-    <Page Remove="resources\strings.ar.xaml" />
-    <Resource Include="resources\strings.ar.xaml" />
-    <Page Remove="resources\strings.hi.xaml" />
-    <Resource Include="resources\strings.hi.xaml" />
-    <Page Remove="resources\strings.it.xaml" />
-    <Resource Include="resources\strings.it.xaml" />
-    <Page Remove="resources\strings.nl.xaml" />
-    <Resource Include="resources\strings.nl.xaml" />
-    <Page Remove="resources\strings.tr.xaml" />
-    <Resource Include="resources\strings.tr.xaml" />
-    <Page Remove="resources\strings.vi.xaml" />
-    <Resource Include="resources\strings.vi.xaml" />
-    <Resource Include="images\gamepad.png" />
-    <Resource Include="images\aspectratio.png" />
-    <Resource Include="images\buttonsize.png" />
-    <Resource Include="images\setdeadzone.png" />
-    <Resource Include="images\dice.png" />
-    <Resource Include="images\playhistory.png" />
-    <Resource Include="images\support.png" />
-    <Resource Include="images\match.png" />
-    <Resource Include="images\setthreshold.png" />
-    <Resource Include="images\reset.png" />
-    <Resource Include="images\search2.png" />
-    <Resource Include="images\search3.png" />
-    <Resource Include="images\zoom-in.png" />
-    <Resource Include="images\zoom-out.png" />
-    <Resource Include="images\arrowleft.png" />
-    <Resource Include="images\arrowright.png" />
-    <Resource Include="images\settings.png" />
-    <Resource Include="images\refresh.png" />
-    <Resource Include="images\sound.png" />
-    <Resource Include="images\play.png" />
-    <Resource Include="images\trophy.png" />
-    <Resource Include="images\overlaybutton.png" />
-    <Resource Include="images\sort-az.png" />
-    <Resource Include="images\gamecoverscraper.png" />
-    <Resource Include="images\darkmode.png" />
-    <Resource Include="images\retrogamecoverdownloader.png" />
-    <Resource Include="images\inject.png" />
-    <Resource Include="images\mame.png" />
-    <Resource Include="images\retroarch.png" />
-    <Resource Include="images\xenia.png" />
-    <Resource Include="images\mednafen.png" />
-    <Resource Include="images\supermodel.png" />
-    <Resource Include="images\daphne.png" />
-    <Resource Include="images\ares.png" />
-    <Resource Include="images\blastem.png" />
-    <Resource Include="images\mesen.png" />
-    <Resource Include="images\duckstation.png" />
-    <Resource Include="images\rpcs3.png" />
-    <Resource Include="images\flycast.png" />
-    <Resource Include="images\stella.png" />
-    <Resource Include="images\cemu.png" />
-    <Resource Include="images\azahar.png" />
-    <Resource Include="images\pcsx2.png" />
-    <Resource Include="images\yumir.png" />
-    <Resource Include="images\dolphin.png" />
-    <None Remove="images\raine.png" />
-    <Resource Include="images\raine.png" />
-    <None Remove="images\redream.png" />
-    <Resource Include="images\redream.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="images\default.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="images\logo.png">
-      <CopyToOutputDirectory />
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="audio\click.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
-    <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
-    <PackageReference Include="MessagePack" Version="3.1.4" />
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.201">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.5" />
-    <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
-    <PackageReference Include="SharpCompress" Version="0.47.3" />
-    <PackageReference Include="Tomlyn" Version="2.0.0" />
-    <PackageReference Include="YamlDotNet" Version="16.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SharpDX" Version="4.2.0" />
-    <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="GlobalSuppressions.cs" />
-    <Compile Remove="database\**" />
-    <Compile Remove="images\Amstrad CPC GX4000\**" />
-    <Compile Remove="images\Arcade\**" />
-    <Compile Remove="images\Atari Jaguar\**" />
-    <Compile Remove="images\Atari Jaguar CD\**" />
-    <Compile Remove="images\Atari Lynx\**" />
-    <Compile Remove="images\Atari ST\**" />
-    <Compile Remove="images\Atari 8-Bit\**" />
-    <Compile Remove="images\Atari 2600\**" />
-    <Compile Remove="images\Atari 5200\**" />
-    <Compile Remove="images\Atari 7800\**" />
-    <Compile Remove="images\Bandai WonderSwan\**" />
-    <Compile Remove="images\Bandai WonderSwan Color\**" />
-    <Compile Remove="images\Casio PV-1000\**" />
-    <Compile Remove="images\ColecoVision\**" />
-    <Compile Remove="images\Commodore Amiga CD32\**" />
-    <Compile Remove="images\Commodore 64\**" />
-    <Compile Remove="images\Magnavox Odyssey 2\**" />
-    <Compile Remove="images\Mattel Aquarius\**" />
-    <Compile Remove="images\Mattel Intellivision\**" />
-    <Compile Remove="images\Microsoft MSX\**" />
-    <Compile Remove="images\Microsoft MSX2\**" />
-    <Compile Remove="images\Microsoft Windows\**" />
-    <Compile Remove="images\Microsoft Xbox\**" />
-    <Compile Remove="images\Microsoft Xbox 360\**" />
-    <Compile Remove="images\NEC PC-FX\**" />
-    <Compile Remove="images\NEC PC Engine\**" />
-    <Compile Remove="images\NEC PC Engine CD\**" />
-    <Compile Remove="images\NEC SuperGrafx\**" />
-    <Compile Remove="images\Nintendo DS\**" />
-    <Compile Remove="images\Nintendo Family Computer Disk System\**" />
-    <Compile Remove="images\Nintendo Game Boy\**" />
-    <Compile Remove="images\Nintendo Game Boy Advance\**" />
-    <Compile Remove="images\Nintendo Game Boy Color\**" />
-    <Compile Remove="images\Nintendo GameCube\**" />
-    <Compile Remove="images\Nintendo NES\**" />
-    <Compile Remove="images\Nintendo Satellaview\**" />
-    <Compile Remove="images\Nintendo SNES\**" />
-    <Compile Remove="images\Nintendo SNES MSU1\**" />
-    <Compile Remove="images\Nintendo Switch\**" />
-    <Compile Remove="images\Nintendo Wii\**" />
-    <Compile Remove="images\Nintendo WiiU\**" />
-    <Compile Remove="images\Nintendo WiiWare\**" />
-    <Compile Remove="images\Nintendo 3DS\**" />
-    <Compile Remove="images\Nintendo 64\**" />
-    <Compile Remove="images\Nintendo 64DD\**" />
-    <Compile Remove="images\Panasonic 3DO\**" />
-    <Compile Remove="images\Philips CD-i\**" />
-    <Compile Remove="images\Sega Dreamcast\**" />
-    <Compile Remove="images\Sega Game Gear\**" />
-    <Compile Remove="images\Sega Genesis\**" />
-    <Compile Remove="images\Sega Genesis CD\**" />
-    <Compile Remove="images\Sega Genesis 32X\**" />
-    <Compile Remove="images\Sega Master System\**" />
-    <Compile Remove="images\Sega Saturn\**" />
-    <Compile Remove="images\Sega SC-3000\**" />
-    <Compile Remove="images\Sega SG-1000\**" />
-    <Compile Remove="images\Sinclair ZX Spectrum\**" />
-    <Compile Remove="images\SNK Neo Geo CD\**" />
-    <Compile Remove="images\SNK Neo Geo Pocket\**" />
-    <Compile Remove="images\SNK Neo Geo Pocket Color\**" />
-    <Compile Remove="images\Sony PlayStation 1\**" />
-    <Compile Remove="images\Sony PlayStation 2\**" />
-    <Compile Remove="images\Sony PlayStation 3\**" />
-    <Compile Remove="images\Sony PSP\**" />
-    <Compile Remove="cabinets\**" />
-    <Compile Remove="flyers\**" />
-    <Compile Remove="gameplay_snapshots\**" />
-    <Compile Remove="manuals\**" />
-    <Compile Remove="pcbs\**" />
-    <Compile Remove="roms\**" />
-    <Compile Remove="title_snapshots\**" />
-    <Compile Remove="videos\**" />
-    <Compile Remove="walkthrough\**" />
-    <Compile Remove="LoadFiles.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="database\**" />
-    <EmbeddedResource Remove="images\Amstrad CPC GX4000\**" />
-    <EmbeddedResource Remove="images\Arcade\**" />
-    <EmbeddedResource Remove="images\Atari Jaguar\**" />
-    <EmbeddedResource Remove="images\Atari Jaguar CD\**" />
-    <EmbeddedResource Remove="images\Atari Lynx\**" />
-    <EmbeddedResource Remove="images\Atari ST\**" />
-    <EmbeddedResource Remove="images\Atari 8-Bit\**" />
-    <EmbeddedResource Remove="images\Atari 2600\**" />
-    <EmbeddedResource Remove="images\Atari 5200\**" />
-    <EmbeddedResource Remove="images\Atari 7800\**" />
-    <EmbeddedResource Remove="images\Bandai WonderSwan\**" />
-    <EmbeddedResource Remove="images\Bandai WonderSwan Color\**" />
-    <EmbeddedResource Remove="images\Casio PV-1000\**" />
-    <EmbeddedResource Remove="images\ColecoVision\**" />
-    <EmbeddedResource Remove="images\Commodore Amiga CD32\**" />
-    <EmbeddedResource Remove="images\Commodore 64\**" />
-    <EmbeddedResource Remove="images\Magnavox Odyssey 2\**" />
-    <EmbeddedResource Remove="images\Mattel Aquarius\**" />
-    <EmbeddedResource Remove="images\Mattel Intellivision\**" />
-    <EmbeddedResource Remove="images\Microsoft MSX\**" />
-    <EmbeddedResource Remove="images\Microsoft MSX2\**" />
-    <EmbeddedResource Remove="images\Microsoft Windows\**" />
-    <EmbeddedResource Remove="images\Microsoft Xbox\**" />
-    <EmbeddedResource Remove="images\Microsoft Xbox 360\**" />
-    <EmbeddedResource Remove="images\NEC PC-FX\**" />
-    <EmbeddedResource Remove="images\NEC PC Engine\**" />
-    <EmbeddedResource Remove="images\NEC PC Engine CD\**" />
-    <EmbeddedResource Remove="images\NEC SuperGrafx\**" />
-    <EmbeddedResource Remove="images\Nintendo DS\**" />
-    <EmbeddedResource Remove="images\Nintendo Family Computer Disk System\**" />
-    <EmbeddedResource Remove="images\Nintendo Game Boy\**" />
-    <EmbeddedResource Remove="images\Nintendo Game Boy Advance\**" />
-    <EmbeddedResource Remove="images\Nintendo Game Boy Color\**" />
-    <EmbeddedResource Remove="images\Nintendo GameCube\**" />
-    <EmbeddedResource Remove="images\Nintendo NES\**" />
-    <EmbeddedResource Remove="images\Nintendo Satellaview\**" />
-    <EmbeddedResource Remove="images\Nintendo SNES\**" />
-    <EmbeddedResource Remove="images\Nintendo SNES MSU1\**" />
-    <EmbeddedResource Remove="images\Nintendo Switch\**" />
-    <EmbeddedResource Remove="images\Nintendo Wii\**" />
-    <EmbeddedResource Remove="images\Nintendo WiiU\**" />
-    <EmbeddedResource Remove="images\Nintendo WiiWare\**" />
-    <EmbeddedResource Remove="images\Nintendo 3DS\**" />
-    <EmbeddedResource Remove="images\Nintendo 64\**" />
-    <EmbeddedResource Remove="images\Nintendo 64DD\**" />
-    <EmbeddedResource Remove="images\Panasonic 3DO\**" />
-    <EmbeddedResource Remove="images\Philips CD-i\**" />
-    <EmbeddedResource Remove="images\Sega Dreamcast\**" />
-    <EmbeddedResource Remove="images\Sega Game Gear\**" />
-    <EmbeddedResource Remove="images\Sega Genesis\**" />
-    <EmbeddedResource Remove="images\Sega Genesis CD\**" />
-    <EmbeddedResource Remove="images\Sega Genesis 32X\**" />
-    <EmbeddedResource Remove="images\Sega Master System\**" />
-    <EmbeddedResource Remove="images\Sega Saturn\**" />
-    <EmbeddedResource Remove="images\Sega SC-3000\**" />
-    <EmbeddedResource Remove="images\Sega SG-1000\**" />
-    <EmbeddedResource Remove="images\Sinclair ZX Spectrum\**" />
-    <EmbeddedResource Remove="images\SNK Neo Geo CD\**" />
-    <EmbeddedResource Remove="images\SNK Neo Geo Pocket\**" />
-    <EmbeddedResource Remove="images\SNK Neo Geo Pocket Color\**" />
-    <EmbeddedResource Remove="images\Sony PlayStation 1\**" />
-    <EmbeddedResource Remove="images\Sony PlayStation 2\**" />
-    <EmbeddedResource Remove="images\Sony PlayStation 3\**" />
-    <EmbeddedResource Remove="images\Sony PSP\**" />
-    <EmbeddedResource Remove="cabinets\**" />
-    <EmbeddedResource Remove="flyers\**" />
-    <EmbeddedResource Remove="gameplay_snapshots\**" />
-    <EmbeddedResource Remove="manuals\**" />
-    <EmbeddedResource Remove="pcbs\**" />
-    <EmbeddedResource Remove="roms\**" />
-    <EmbeddedResource Remove="title_snapshots\**" />
-    <EmbeddedResource Remove="videos\**" />
-    <EmbeddedResource Remove="walkthrough\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Remove="database\**" />
-    <Page Update="EasyModeWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Remove="EditSystemEasyModeEditSystem.xaml" />
-    <Page Remove="OpenPdfFiles.xaml" />
-    <Page Remove="images\Amstrad CPC GX4000\**" />
-    <Page Remove="images\Arcade\**" />
-    <Page Remove="images\Atari Jaguar\**" />
-    <Page Remove="images\Atari Jaguar CD\**" />
-    <Page Remove="images\Atari Lynx\**" />
-    <Page Remove="images\Atari ST\**" />
-    <Page Remove="images\Atari 8-Bit\**" />
-    <Page Remove="images\Atari 2600\**" />
-    <Page Remove="images\Atari 5200\**" />
-    <Page Remove="images\Atari 7800\**" />
-    <Page Remove="images\Bandai WonderSwan\**" />
-    <Page Remove="images\Bandai WonderSwan Color\**" />
-    <Page Remove="images\Casio PV-1000\**" />
-    <Page Remove="images\ColecoVision\**" />
-    <Page Remove="images\Commodore Amiga CD32\**" />
-    <Page Remove="images\Commodore 64\**" />
-    <Page Remove="images\Magnavox Odyssey 2\**" />
-    <Page Remove="images\Mattel Aquarius\**" />
-    <Page Remove="images\Mattel Intellivision\**" />
-    <Page Remove="images\Microsoft MSX\**" />
-    <Page Remove="images\Microsoft MSX2\**" />
-    <Page Remove="images\Microsoft Windows\**" />
-    <Page Remove="images\Microsoft Xbox\**" />
-    <Page Remove="images\Microsoft Xbox 360\**" />
-    <Page Remove="images\NEC PC-FX\**" />
-    <Page Remove="images\NEC PC Engine\**" />
-    <Page Remove="images\NEC PC Engine CD\**" />
-    <Page Remove="images\NEC SuperGrafx\**" />
-    <Page Remove="images\Nintendo DS\**" />
-    <Page Remove="images\Nintendo Family Computer Disk System\**" />
-    <Page Remove="images\Nintendo Game Boy\**" />
-    <Page Remove="images\Nintendo Game Boy Advance\**" />
-    <Page Remove="images\Nintendo Game Boy Color\**" />
-    <Page Remove="images\Nintendo GameCube\**" />
-    <Page Remove="images\Nintendo NES\**" />
-    <Page Remove="images\Nintendo Satellaview\**" />
-    <Page Remove="images\Nintendo SNES\**" />
-    <Page Remove="images\Nintendo SNES MSU1\**" />
-    <Page Remove="images\Nintendo Switch\**" />
-    <Page Remove="images\Nintendo Wii\**" />
-    <Page Remove="images\Nintendo WiiU\**" />
-    <Page Remove="images\Nintendo WiiWare\**" />
-    <Page Remove="images\Nintendo 3DS\**" />
-    <Page Remove="images\Nintendo 64\**" />
-    <Page Remove="images\Nintendo 64DD\**" />
-    <Page Remove="images\Panasonic 3DO\**" />
-    <Page Remove="images\Philips CD-i\**" />
-    <Page Remove="images\Sega Dreamcast\**" />
-    <Page Remove="images\Sega Game Gear\**" />
-    <Page Remove="images\Sega Genesis\**" />
-    <Page Remove="images\Sega Genesis CD\**" />
-    <Page Remove="images\Sega Genesis 32X\**" />
-    <Page Remove="images\Sega Master System\**" />
-    <Page Remove="images\Sega Saturn\**" />
-    <Page Remove="images\Sega SC-3000\**" />
-    <Page Remove="images\Sega SG-1000\**" />
-    <Page Remove="images\Sinclair ZX Spectrum\**" />
-    <Page Remove="images\SNK Neo Geo CD\**" />
-    <Page Remove="images\SNK Neo Geo Pocket\**" />
-    <Page Remove="images\SNK Neo Geo Pocket Color\**" />
-    <Page Remove="images\Sony PlayStation 1\**" />
-    <Page Remove="images\Sony PlayStation 2\**" />
-    <Page Remove="images\Sony PlayStation 3\**" />
-    <Page Remove="images\Sony PSP\**" />
-    <Page Remove="cabinets\**" />
-    <Page Remove="flyers\**" />
-    <Page Remove="gameplay_snapshots\**" />
-    <Page Remove="manuals\**" />
-    <Page Remove="pcbs\**" />
-    <Page Remove="roms\**" />
-    <Page Remove="title_snapshots\**" />
-    <Page Remove="videos\**" />
-    <Page Remove="walkthrough\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="samples\Stella\" />
-    <Folder Include="Services\GlobalSearch\" />
-  </ItemGroup>
+        <Resource Include="images\flyer.png" />
+        <Resource Include="images\manual.png" />
+        <Resource Include="images\pcb.png" />
+        <Resource Include="images\snapshot.png" />
+        <Resource Include="images\walkthrough.png" />
+        <Resource Include="images\cover.png" />
+        <Resource Include="images\brokenheart.png" />
+        <Resource Include="images\star.png" />
+        <Resource Include="images\help-desk.png" />
+        <Resource Include="images\theme.png" />
+        <Resource Include="images\setnumber.png" />
+        <Resource Include="images\show.png" />
+        <Resource Include="icon\icon.ico" />
+        <Resource Include="images\tools.png" />
+        <Resource Include="images\findromcover.png" />
+        <Resource Include="images\romhistory.png" />
+        <Resource Include="images\delete.png" />
+        <Resource Include="images\noimage.png" />
+        <Resource Include="images\language.png" />
+        <Page Remove="resources\Strings.de.xaml" />
+        <Resource Include="resources\strings.bn.xaml" />
+        <Resource Include="resources\strings.de.xaml" />
+        <Page Remove="resources\Strings.en.xaml" />
+        <Resource Include="resources\strings.en.xaml" />
+        <Page Remove="resources\Strings.es.xaml" />
+        <Resource Include="resources\strings.es.xaml" />
+        <Page Remove="resources\Strings.fr.xaml" />
+        <Resource Include="resources\strings.fr.xaml" />
+        <Page Remove="resources\Strings.ja.xaml" />
+        <Resource Include="resources\strings.id.xaml" />
+        <Resource Include="resources\strings.ja.xaml" />
+        <Page Remove="resources\Strings.ko.xaml" />
+        <Resource Include="resources\strings.ko.xaml" />
+        <Page Remove="resources\Strings.pt-BR.xaml" />
+        <Resource Include="resources\strings.pt-br.xaml" />
+        <Page Remove="resources\Strings.pt-PT.xaml" />
+        <Page Remove="resources\Strings.ru.xaml" />
+        <Resource Include="resources\strings.ru.xaml" />
+        <Page Remove="resources\Strings.zh-Hans.xaml" />
+        <Resource Include="resources\strings.ur.xaml" />
+        <Resource Include="resources\strings.zh-hans.xaml" />
+        <Page Remove="resources\Strings.zh-Hant.xaml" />
+        <Page Remove="resources\strings.ar.xaml" />
+        <Resource Include="resources\strings.ar.xaml" />
+        <Page Remove="resources\strings.hi.xaml" />
+        <Resource Include="resources\strings.hi.xaml" />
+        <Page Remove="resources\strings.it.xaml" />
+        <Resource Include="resources\strings.it.xaml" />
+        <Page Remove="resources\strings.nl.xaml" />
+        <Resource Include="resources\strings.nl.xaml" />
+        <Page Remove="resources\strings.tr.xaml" />
+        <Resource Include="resources\strings.tr.xaml" />
+        <Page Remove="resources\strings.vi.xaml" />
+        <Resource Include="resources\strings.vi.xaml" />
+        <Resource Include="images\gamepad.png" />
+        <Resource Include="images\aspectratio.png" />
+        <Resource Include="images\buttonsize.png" />
+        <Resource Include="images\setdeadzone.png" />
+        <Resource Include="images\dice.png" />
+        <Resource Include="images\playhistory.png" />
+        <Resource Include="images\support.png" />
+        <Resource Include="images\match.png" />
+        <Resource Include="images\setthreshold.png" />
+        <Resource Include="images\reset.png" />
+        <Resource Include="images\search2.png" />
+        <Resource Include="images\search3.png" />
+        <Resource Include="images\zoom-in.png" />
+        <Resource Include="images\zoom-out.png" />
+        <Resource Include="images\arrowleft.png" />
+        <Resource Include="images\arrowright.png" />
+        <Resource Include="images\settings.png" />
+        <Resource Include="images\refresh.png" />
+        <Resource Include="images\sound.png" />
+        <Resource Include="images\play.png" />
+        <Resource Include="images\trophy.png" />
+        <Resource Include="images\overlaybutton.png" />
+        <Resource Include="images\sort-az.png" />
+        <Resource Include="images\gamecoverscraper.png" />
+        <Resource Include="images\darkmode.png" />
+        <Resource Include="images\retrogamecoverdownloader.png" />
+        <Resource Include="images\inject.png" />
+        <Resource Include="images\mame.png" />
+        <Resource Include="images\retroarch.png" />
+        <Resource Include="images\xenia.png" />
+        <Resource Include="images\mednafen.png" />
+        <Resource Include="images\supermodel.png" />
+        <Resource Include="images\daphne.png" />
+        <Resource Include="images\ares.png" />
+        <Resource Include="images\blastem.png" />
+        <Resource Include="images\mesen.png" />
+        <Resource Include="images\duckstation.png" />
+        <Resource Include="images\rpcs3.png" />
+        <Resource Include="images\flycast.png" />
+        <Resource Include="images\stella.png" />
+        <Resource Include="images\cemu.png" />
+        <Resource Include="images\azahar.png" />
+        <Resource Include="images\pcsx2.png" />
+        <Resource Include="images\yumir.png" />
+        <Resource Include="images\dolphin.png" />
+        <None Remove="images\raine.png" />
+        <Resource Include="images\raine.png" />
+        <None Remove="images\redream.png" />
+        <Resource Include="images\redream.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="images\default.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\logo.png">
+            <CopyToOutputDirectory />
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="audio\click.mp3">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <Resource Include="images\info.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
+        <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
+        <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+        <PackageReference Include="MessagePack" Version="3.1.4" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.201">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.5" />
+        <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
+        <PackageReference Include="SharpCompress" Version="0.47.3" />
+        <PackageReference Include="Tomlyn" Version="2.0.0" />
+        <PackageReference Include="YamlDotNet" Version="16.3.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="SharpDX" Version="4.2.0" />
+        <PackageReference Include="SharpDX.XInput" Version="4.2.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="GlobalSuppressions.cs" />
+        <Compile Remove="database\**" />
+        <Compile Remove="images\Amstrad CPC GX4000\**" />
+        <Compile Remove="images\Arcade\**" />
+        <Compile Remove="images\Atari Jaguar\**" />
+        <Compile Remove="images\Atari Jaguar CD\**" />
+        <Compile Remove="images\Atari Lynx\**" />
+        <Compile Remove="images\Atari ST\**" />
+        <Compile Remove="images\Atari 8-Bit\**" />
+        <Compile Remove="images\Atari 2600\**" />
+        <Compile Remove="images\Atari 5200\**" />
+        <Compile Remove="images\Atari 7800\**" />
+        <Compile Remove="images\Bandai WonderSwan\**" />
+        <Compile Remove="images\Bandai WonderSwan Color\**" />
+        <Compile Remove="images\Casio PV-1000\**" />
+        <Compile Remove="images\ColecoVision\**" />
+        <Compile Remove="images\Commodore Amiga CD32\**" />
+        <Compile Remove="images\Commodore 64\**" />
+        <Compile Remove="images\Magnavox Odyssey 2\**" />
+        <Compile Remove="images\Mattel Aquarius\**" />
+        <Compile Remove="images\Mattel Intellivision\**" />
+        <Compile Remove="images\Microsoft MSX\**" />
+        <Compile Remove="images\Microsoft MSX2\**" />
+        <Compile Remove="images\Microsoft Windows\**" />
+        <Compile Remove="images\Microsoft Xbox\**" />
+        <Compile Remove="images\Microsoft Xbox 360\**" />
+        <Compile Remove="images\NEC PC-FX\**" />
+        <Compile Remove="images\NEC PC Engine\**" />
+        <Compile Remove="images\NEC PC Engine CD\**" />
+        <Compile Remove="images\NEC SuperGrafx\**" />
+        <Compile Remove="images\Nintendo DS\**" />
+        <Compile Remove="images\Nintendo Family Computer Disk System\**" />
+        <Compile Remove="images\Nintendo Game Boy\**" />
+        <Compile Remove="images\Nintendo Game Boy Advance\**" />
+        <Compile Remove="images\Nintendo Game Boy Color\**" />
+        <Compile Remove="images\Nintendo GameCube\**" />
+        <Compile Remove="images\Nintendo NES\**" />
+        <Compile Remove="images\Nintendo Satellaview\**" />
+        <Compile Remove="images\Nintendo SNES\**" />
+        <Compile Remove="images\Nintendo SNES MSU1\**" />
+        <Compile Remove="images\Nintendo Switch\**" />
+        <Compile Remove="images\Nintendo Wii\**" />
+        <Compile Remove="images\Nintendo WiiU\**" />
+        <Compile Remove="images\Nintendo WiiWare\**" />
+        <Compile Remove="images\Nintendo 3DS\**" />
+        <Compile Remove="images\Nintendo 64\**" />
+        <Compile Remove="images\Nintendo 64DD\**" />
+        <Compile Remove="images\Panasonic 3DO\**" />
+        <Compile Remove="images\Philips CD-i\**" />
+        <Compile Remove="images\Sega Dreamcast\**" />
+        <Compile Remove="images\Sega Game Gear\**" />
+        <Compile Remove="images\Sega Genesis\**" />
+        <Compile Remove="images\Sega Genesis CD\**" />
+        <Compile Remove="images\Sega Genesis 32X\**" />
+        <Compile Remove="images\Sega Master System\**" />
+        <Compile Remove="images\Sega Saturn\**" />
+        <Compile Remove="images\Sega SC-3000\**" />
+        <Compile Remove="images\Sega SG-1000\**" />
+        <Compile Remove="images\Sinclair ZX Spectrum\**" />
+        <Compile Remove="images\SNK Neo Geo CD\**" />
+        <Compile Remove="images\SNK Neo Geo Pocket\**" />
+        <Compile Remove="images\SNK Neo Geo Pocket Color\**" />
+        <Compile Remove="images\Sony PlayStation 1\**" />
+        <Compile Remove="images\Sony PlayStation 2\**" />
+        <Compile Remove="images\Sony PlayStation 3\**" />
+        <Compile Remove="images\Sony PSP\**" />
+        <Compile Remove="cabinets\**" />
+        <Compile Remove="flyers\**" />
+        <Compile Remove="gameplay_snapshots\**" />
+        <Compile Remove="manuals\**" />
+        <Compile Remove="pcbs\**" />
+        <Compile Remove="roms\**" />
+        <Compile Remove="title_snapshots\**" />
+        <Compile Remove="videos\**" />
+        <Compile Remove="walkthrough\**" />
+        <Compile Remove="LoadFiles.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Remove="database\**" />
+        <EmbeddedResource Remove="images\Amstrad CPC GX4000\**" />
+        <EmbeddedResource Remove="images\Arcade\**" />
+        <EmbeddedResource Remove="images\Atari Jaguar\**" />
+        <EmbeddedResource Remove="images\Atari Jaguar CD\**" />
+        <EmbeddedResource Remove="images\Atari Lynx\**" />
+        <EmbeddedResource Remove="images\Atari ST\**" />
+        <EmbeddedResource Remove="images\Atari 8-Bit\**" />
+        <EmbeddedResource Remove="images\Atari 2600\**" />
+        <EmbeddedResource Remove="images\Atari 5200\**" />
+        <EmbeddedResource Remove="images\Atari 7800\**" />
+        <EmbeddedResource Remove="images\Bandai WonderSwan\**" />
+        <EmbeddedResource Remove="images\Bandai WonderSwan Color\**" />
+        <EmbeddedResource Remove="images\Casio PV-1000\**" />
+        <EmbeddedResource Remove="images\ColecoVision\**" />
+        <EmbeddedResource Remove="images\Commodore Amiga CD32\**" />
+        <EmbeddedResource Remove="images\Commodore 64\**" />
+        <EmbeddedResource Remove="images\Magnavox Odyssey 2\**" />
+        <EmbeddedResource Remove="images\Mattel Aquarius\**" />
+        <EmbeddedResource Remove="images\Mattel Intellivision\**" />
+        <EmbeddedResource Remove="images\Microsoft MSX\**" />
+        <EmbeddedResource Remove="images\Microsoft MSX2\**" />
+        <EmbeddedResource Remove="images\Microsoft Windows\**" />
+        <EmbeddedResource Remove="images\Microsoft Xbox\**" />
+        <EmbeddedResource Remove="images\Microsoft Xbox 360\**" />
+        <EmbeddedResource Remove="images\NEC PC-FX\**" />
+        <EmbeddedResource Remove="images\NEC PC Engine\**" />
+        <EmbeddedResource Remove="images\NEC PC Engine CD\**" />
+        <EmbeddedResource Remove="images\NEC SuperGrafx\**" />
+        <EmbeddedResource Remove="images\Nintendo DS\**" />
+        <EmbeddedResource Remove="images\Nintendo Family Computer Disk System\**" />
+        <EmbeddedResource Remove="images\Nintendo Game Boy\**" />
+        <EmbeddedResource Remove="images\Nintendo Game Boy Advance\**" />
+        <EmbeddedResource Remove="images\Nintendo Game Boy Color\**" />
+        <EmbeddedResource Remove="images\Nintendo GameCube\**" />
+        <EmbeddedResource Remove="images\Nintendo NES\**" />
+        <EmbeddedResource Remove="images\Nintendo Satellaview\**" />
+        <EmbeddedResource Remove="images\Nintendo SNES\**" />
+        <EmbeddedResource Remove="images\Nintendo SNES MSU1\**" />
+        <EmbeddedResource Remove="images\Nintendo Switch\**" />
+        <EmbeddedResource Remove="images\Nintendo Wii\**" />
+        <EmbeddedResource Remove="images\Nintendo WiiU\**" />
+        <EmbeddedResource Remove="images\Nintendo WiiWare\**" />
+        <EmbeddedResource Remove="images\Nintendo 3DS\**" />
+        <EmbeddedResource Remove="images\Nintendo 64\**" />
+        <EmbeddedResource Remove="images\Nintendo 64DD\**" />
+        <EmbeddedResource Remove="images\Panasonic 3DO\**" />
+        <EmbeddedResource Remove="images\Philips CD-i\**" />
+        <EmbeddedResource Remove="images\Sega Dreamcast\**" />
+        <EmbeddedResource Remove="images\Sega Game Gear\**" />
+        <EmbeddedResource Remove="images\Sega Genesis\**" />
+        <EmbeddedResource Remove="images\Sega Genesis CD\**" />
+        <EmbeddedResource Remove="images\Sega Genesis 32X\**" />
+        <EmbeddedResource Remove="images\Sega Master System\**" />
+        <EmbeddedResource Remove="images\Sega Saturn\**" />
+        <EmbeddedResource Remove="images\Sega SC-3000\**" />
+        <EmbeddedResource Remove="images\Sega SG-1000\**" />
+        <EmbeddedResource Remove="images\Sinclair ZX Spectrum\**" />
+        <EmbeddedResource Remove="images\SNK Neo Geo CD\**" />
+        <EmbeddedResource Remove="images\SNK Neo Geo Pocket\**" />
+        <EmbeddedResource Remove="images\SNK Neo Geo Pocket Color\**" />
+        <EmbeddedResource Remove="images\Sony PlayStation 1\**" />
+        <EmbeddedResource Remove="images\Sony PlayStation 2\**" />
+        <EmbeddedResource Remove="images\Sony PlayStation 3\**" />
+        <EmbeddedResource Remove="images\Sony PSP\**" />
+        <EmbeddedResource Remove="cabinets\**" />
+        <EmbeddedResource Remove="flyers\**" />
+        <EmbeddedResource Remove="gameplay_snapshots\**" />
+        <EmbeddedResource Remove="manuals\**" />
+        <EmbeddedResource Remove="pcbs\**" />
+        <EmbeddedResource Remove="roms\**" />
+        <EmbeddedResource Remove="title_snapshots\**" />
+        <EmbeddedResource Remove="videos\**" />
+        <EmbeddedResource Remove="walkthrough\**" />
+    </ItemGroup>
+    <ItemGroup>
+        <Page Remove="database\**" />
+        <Page Update="EasyModeWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Remove="EditSystemEasyModeEditSystem.xaml" />
+        <Page Remove="OpenPdfFiles.xaml" />
+        <Page Remove="images\Amstrad CPC GX4000\**" />
+        <Page Remove="images\Arcade\**" />
+        <Page Remove="images\Atari Jaguar\**" />
+        <Page Remove="images\Atari Jaguar CD\**" />
+        <Page Remove="images\Atari Lynx\**" />
+        <Page Remove="images\Atari ST\**" />
+        <Page Remove="images\Atari 8-Bit\**" />
+        <Page Remove="images\Atari 2600\**" />
+        <Page Remove="images\Atari 5200\**" />
+        <Page Remove="images\Atari 7800\**" />
+        <Page Remove="images\Bandai WonderSwan\**" />
+        <Page Remove="images\Bandai WonderSwan Color\**" />
+        <Page Remove="images\Casio PV-1000\**" />
+        <Page Remove="images\ColecoVision\**" />
+        <Page Remove="images\Commodore Amiga CD32\**" />
+        <Page Remove="images\Commodore 64\**" />
+        <Page Remove="images\Magnavox Odyssey 2\**" />
+        <Page Remove="images\Mattel Aquarius\**" />
+        <Page Remove="images\Mattel Intellivision\**" />
+        <Page Remove="images\Microsoft MSX\**" />
+        <Page Remove="images\Microsoft MSX2\**" />
+        <Page Remove="images\Microsoft Windows\**" />
+        <Page Remove="images\Microsoft Xbox\**" />
+        <Page Remove="images\Microsoft Xbox 360\**" />
+        <Page Remove="images\NEC PC-FX\**" />
+        <Page Remove="images\NEC PC Engine\**" />
+        <Page Remove="images\NEC PC Engine CD\**" />
+        <Page Remove="images\NEC SuperGrafx\**" />
+        <Page Remove="images\Nintendo DS\**" />
+        <Page Remove="images\Nintendo Family Computer Disk System\**" />
+        <Page Remove="images\Nintendo Game Boy\**" />
+        <Page Remove="images\Nintendo Game Boy Advance\**" />
+        <Page Remove="images\Nintendo Game Boy Color\**" />
+        <Page Remove="images\Nintendo GameCube\**" />
+        <Page Remove="images\Nintendo NES\**" />
+        <Page Remove="images\Nintendo Satellaview\**" />
+        <Page Remove="images\Nintendo SNES\**" />
+        <Page Remove="images\Nintendo SNES MSU1\**" />
+        <Page Remove="images\Nintendo Switch\**" />
+        <Page Remove="images\Nintendo Wii\**" />
+        <Page Remove="images\Nintendo WiiU\**" />
+        <Page Remove="images\Nintendo WiiWare\**" />
+        <Page Remove="images\Nintendo 3DS\**" />
+        <Page Remove="images\Nintendo 64\**" />
+        <Page Remove="images\Nintendo 64DD\**" />
+        <Page Remove="images\Panasonic 3DO\**" />
+        <Page Remove="images\Philips CD-i\**" />
+        <Page Remove="images\Sega Dreamcast\**" />
+        <Page Remove="images\Sega Game Gear\**" />
+        <Page Remove="images\Sega Genesis\**" />
+        <Page Remove="images\Sega Genesis CD\**" />
+        <Page Remove="images\Sega Genesis 32X\**" />
+        <Page Remove="images\Sega Master System\**" />
+        <Page Remove="images\Sega Saturn\**" />
+        <Page Remove="images\Sega SC-3000\**" />
+        <Page Remove="images\Sega SG-1000\**" />
+        <Page Remove="images\Sinclair ZX Spectrum\**" />
+        <Page Remove="images\SNK Neo Geo CD\**" />
+        <Page Remove="images\SNK Neo Geo Pocket\**" />
+        <Page Remove="images\SNK Neo Geo Pocket Color\**" />
+        <Page Remove="images\Sony PlayStation 1\**" />
+        <Page Remove="images\Sony PlayStation 2\**" />
+        <Page Remove="images\Sony PlayStation 3\**" />
+        <Page Remove="images\Sony PSP\**" />
+        <Page Remove="cabinets\**" />
+        <Page Remove="flyers\**" />
+        <Page Remove="gameplay_snapshots\**" />
+        <Page Remove="manuals\**" />
+        <Page Remove="pcbs\**" />
+        <Page Remove="roms\**" />
+        <Page Remove="title_snapshots\**" />
+        <Page Remove="videos\**" />
+        <Page Remove="walkthrough\**" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="samples\Stella\" />
+        <Folder Include="Services\GlobalSearch\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="References\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="References\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Remove="References\**" />
+    </ItemGroup>
 </Project>
