@@ -27,6 +27,11 @@ using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UsageStats;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
+using System.Text.Json;
 
 namespace SimpleLauncher;
 
@@ -218,6 +223,9 @@ public partial class App : IDisposable
         Current.MainWindow = mainWindow;
         mainWindow.Show();
 
+        // Call ApplicationStats API on startup
+        _ = CallApplicationStatsAsync(configuration);
+
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization
         if (displayHistoryWindow)
@@ -277,6 +285,36 @@ public partial class App : IDisposable
 
         Dispose();
         base.OnExit(e);
+    }
+
+    private static async Task CallApplicationStatsAsync(IConfiguration configuration)
+    {
+        try
+        {
+            var apiKey = configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+            var statsUrl = configuration.GetValue<string>("StatsApiUrl2") ?? "https://www.purelogiccode.com/ApplicationStats/stats";
+            var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
+
+            var httpClientFactory = ServiceProvider.GetRequiredService<IHttpClientFactory>();
+            using var client = httpClientFactory.CreateClient("StatsClient");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            var payload = new { applicationId = "simplelauncher", version };
+            var json = JsonSerializer.Serialize(payload);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using var response = await client.PostAsync(statsUrl, content);
+            if (!response.IsSuccessStatusCode)
+            {
+                DebugLogger.Log($"ApplicationStats API returned: {response.StatusCode}");
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"ApplicationStats API returned: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"ApplicationStats API call failed: {ex.Message}");
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"ApplicationStats API call failed: {ex.Message}");
+        }
     }
 
     private void ApplyLanguage(string cultureCode = null)
