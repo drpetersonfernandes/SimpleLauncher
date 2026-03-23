@@ -25,6 +25,17 @@ public partial class MainWindow
         if (_isDisposed)
             return;
 
+        // 1. Signal cancellation FIRST to help background threads release locks sooner.
+        // We catch ObjectDisposedException to prevent errors if cancellation was already triggered.
+        try
+        {
+            _cancellationSource?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Already cancelled/disposed, ignore
+        }
+
         try
         {
             // Dispose tray icon resources
@@ -32,29 +43,23 @@ public partial class MainWindow
 
             // Clean up collections
             GameListItems?.Clear();
-            _allGamesLock.Wait();
-            try
+
+            // 2. Use a small timeout to avoid blocking the UI thread indefinitely during disposal.
+            // If the lock cannot be acquired within 100ms, it's safer to skip clearing and continue shutdown.
+            if (_allGamesLock.Wait(100))
             {
-                _currentSearchResults?.Clear();
-            }
-            finally
-            {
-                _allGamesLock.Release();
+                try
+                {
+                    _currentSearchResults?.Clear();
+                }
+                finally
+                {
+                    _allGamesLock.Release();
+                }
             }
 
             _systemManagers?.Clear();
             _allGamesForCurrentSystem?.Clear();
-
-            // Safely cancel and dispose the cancellation token source
-            // Cancel() throws ObjectDisposedException if already disposed, so we catch it
-            try
-            {
-                _cancellationSource?.Cancel();
-            }
-            catch (ObjectDisposedException)
-            {
-                // Already cancelled/disposed, ignore
-            }
 
             _cancellationSource?.Dispose();
         }

@@ -112,7 +112,7 @@ public abstract class GetListOfFiles
 
     private static void NotifyUserOfRestrictedFolders(List<string> restrictedFolders)
     {
-        Application.Current.Dispatcher.Invoke(() =>
+        Application.Current.Dispatcher.InvokeAsync(() =>
         {
             var mainWindow = Application.Current.MainWindow as MainWindow;
 

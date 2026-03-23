@@ -893,11 +893,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// </summary>
     internal void InvalidateGameFileCaches()
     {
-        // Ensure cache clearing happens on the UI thread for thread safety,
-        // although LoadGameFilesAsync will also be invoked on the dispatcher.
-        Dispatcher.Invoke(() =>
+        // Use Task.Run and WaitAsync to avoid blocking the UI thread when acquiring the lock,
+        // preventing deadlocks if a background thread holding the lock is also waiting for the UI thread.
+        _ = Task.Run(async () =>
         {
-            _allGamesLock.Wait();
+            await _allGamesLock.WaitAsync();
             try
             {
                 _allGamesForCurrentSystem.Clear();

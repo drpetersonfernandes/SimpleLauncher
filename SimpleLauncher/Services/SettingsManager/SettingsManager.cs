@@ -2024,11 +2024,31 @@ public class SettingsManager : IDisposable
         try
         {
             var root = BuildXElement(snapshot);
-            root.Save(_filePath);
+            var tempPath = _filePath + ".tmp";
+
+            // Write to temporary file first
+            root.Save(tempPath);
+
+            // Atomically replace the main file with the temp file
+            File.Move(tempPath, _filePath, true);
         }
         catch (Exception ex)
         {
             App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.xml");
+
+            // Attempt to clean up temp file if it exists
+            try
+            {
+                var tempPath = _filePath + ".tmp";
+                if (File.Exists(tempPath))
+                {
+                    File.Delete(tempPath);
+                }
+            }
+            catch
+            {
+                // Ignore cleanup errors
+            }
         }
     }
 

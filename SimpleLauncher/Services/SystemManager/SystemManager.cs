@@ -546,14 +546,36 @@ public partial class SystemManager
 
                     try
                     {
+                        var tempPath = systemXmlPath + ".tmp";
                         var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
-                        using var writer = XmlWriter.Create(systemXmlPath, settings);
-                        xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
-                        xmlDoc.Save(writer);
+
+                        using (var writer = XmlWriter.Create(tempPath, settings))
+                        {
+                            xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                            xmlDoc.Save(writer);
+                        }
+
+                        // Atomically replace the main file with the temp file
+                        File.Move(tempPath, systemXmlPath, true);
                     }
                     catch (Exception ex)
                     {
                         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system.xml.");
+
+                        // Attempt to clean up temp file if it exists
+                        try
+                        {
+                            var tempPath = systemXmlPath + ".tmp";
+                            if (File.Exists(tempPath))
+                            {
+                                File.Delete(tempPath);
+                            }
+                        }
+                        catch
+                        {
+                            // Ignore cleanup errors
+                        }
+
                         throw new InvalidOperationException("Failed to save system configuration.", ex);
                     }
                 }
