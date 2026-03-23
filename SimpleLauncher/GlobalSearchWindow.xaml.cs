@@ -15,6 +15,7 @@ using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GlobalSearch.Models;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
@@ -142,9 +143,9 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                 var searchRecursively = SearchRecursivelyCheckBox.IsChecked == true;
 
                 // Pass the token from the NEW source
-                var results = await Task.Run(() => PerformSearch(
+                var results = await PerformSearchAsync(
                     searchTerm, selectedSystem, searchFilename, searchMameDescription,
-                    searchFolderName, searchRecursively), _cancellationTokenSource.Token);
+                    searchFolderName, searchRecursively, _cancellationTokenSource.Token);
 
                 if (results?.Count > 0)
                 {
@@ -191,11 +192,10 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
         }
     }
 
-    private List<SearchResult> PerformSearch(string searchTerm, string selectedSystem, bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively)
+    private async Task<List<SearchResult>> PerformSearchAsync(string searchTerm, string selectedSystem, bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively, CancellationToken token)
     {
         var results = new List<SearchResult>();
         var searchTerms = ParseSearchTerms(searchTerm);
-        var token = _cancellationTokenSource.Token;
 
         var allSystemsString = (string)Application.Current.TryFindResource("AllSystems") ?? "All Systems";
         IEnumerable<SystemManager> systemsToSearch = _systemManagers;
@@ -204,11 +204,43 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
             systemsToSearch = _systemManagers.Where(sm => sm.SystemName == selectedSystem);
         }
 
-        var searchOption = searchRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-
         foreach (var systemManager in systemsToSearch)
         {
             token.ThrowIfCancellationRequested();
+
+            // To respect the "Search Recursively" checkbox in the UI, we may need to override the system's default setting.
+            // GetFilesAsync uses systemManager.DisableRecursiveSearch and systemManager.GroupByFolder to decide recursion.
+            // We create a temporary modified version if needed.
+            var effectiveSystemManager = searchRecursively switch
+            {
+                true when systemManager.DisableRecursiveSearch => new SystemManager
+                {
+                    SystemName = systemManager.SystemName,
+                    SystemFolders = systemManager.SystemFolders,
+                    SystemImageFolder = systemManager.SystemImageFolder,
+                    SystemIsMame = systemManager.SystemIsMame,
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    Emulators = systemManager.Emulators,
+                    GroupByFolder = systemManager.GroupByFolder,
+                    DisableRecursiveSearch = false // Force recursion
+                },
+                false when !systemManager.DisableRecursiveSearch => new SystemManager
+                {
+                    SystemName = systemManager.SystemName,
+                    SystemFolders = systemManager.SystemFolders,
+                    SystemImageFolder = systemManager.SystemImageFolder,
+                    SystemIsMame = systemManager.SystemIsMame,
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    Emulators = systemManager.Emulators,
+                    GroupByFolder = systemManager.GroupByFolder,
+                    DisableRecursiveSearch = true // Force NO recursion
+                },
+                _ => systemManager
+            };
 
             foreach (var systemFolderPathRaw in systemManager.SystemFolders)
             {
@@ -221,10 +253,10 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                     continue;
                 }
 
-                var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", searchOption)
-                    .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
+                // Use the safe recursive method from GetListOfFiles to avoid UnauthorizedAccessException crashes
+                var matchedFilesList = await GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager, token);
 
-                filesInSystemFolder = filesInSystemFolder.Where(file =>
+                var filesInSystemFolder = matchedFilesList.Where(file =>
                 {
                     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 
