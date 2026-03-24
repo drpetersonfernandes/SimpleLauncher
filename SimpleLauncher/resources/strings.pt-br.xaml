@@ -7,10 +7,8 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Este é um recurso de segurança do Windows que impede que programas executem códigos em regiões de memória protegidas.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Certifique-se de estar usando a versão mais recente do emulador com compatibilidade de segurança aprimorada.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Você também pode tentar mudar para um emulador ou núcleo diferente.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Se você estiver tentando executar o MAME, certifique-se de que sua coleção de ROMs seja compatível com a versão do MAME que você está usando.</system:String>
     <system:String x:Key="ROMFilesNotFound">Arquivos ROM não encontrados</system:String>
     <system:String x:Key="MameRomSetError1">O emulador MAME não conseguiu encontrar os arquivos necessários para iniciar este jogo.</system:String>
-    <system:String x:Key="MameRomSetError2">Este é um recurso de segurança do Windows que impede que programas executem códigos em regiões de memória protegidas.</system:String>
     <system:String x:Key="MameRomSetError3">Certifique-se de estar usando a versão mais recente do emulador com compatibilidade de segurança aprimorada.</system:String>
     <system:String x:Key="MameRomSetError4">Gostaria de visitar o site PleasureDome para baixar um conjunto de ROMs compatível?</system:String>
 
@@ -277,7 +275,6 @@
     <system:String x:Key="Chooseasystem">Escolha um sistema</system:String>
     <system:String x:Key="ChooseASystemToAdd">Selecione um sistema para adicionar</system:String>
     <system:String x:Key="ChooseFile">Escolher arquivo</system:String>
-    <system:String x:Key="ChooseFolder">Escolher pasta</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Selecione a pasta com ROMs ou ISOs</system:String>
     <system:String x:Key="ClearLog">Limpar Log</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Clique nos botões de letras acima para ver os jogos</system:String>

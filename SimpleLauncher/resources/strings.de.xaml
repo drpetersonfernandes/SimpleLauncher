@@ -7,10 +7,8 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Dies ist eine Windows-Sicherheitsfunktion, die verhindert, dass Programme Code in geschützten Speicherbereichen ausführen.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Stellen Sie sicher, dass Sie die neueste Emulator-Version mit verbesserter Sicherheitskompatibilität verwenden.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Sie können auch versuchen, zu einem anderen Emulator oder Core zu wechseln.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Wenn Sie versuchen, MAME auszuführen, stellen Sie sicher, dass Ihre ROM-Sammlung mit der von Ihnen verwendeten MAME-Version kompatibel ist.</system:String>
     <system:String x:Key="ROMFilesNotFound">ROM-Dateien nicht gefunden</system:String>
     <system:String x:Key="MameRomSetError1">Der MAME-Emulator konnte die zum Starten dieses Spiels erforderlichen Dateien nicht finden.</system:String>
-    <system:String x:Key="MameRomSetError2">Dies ist eine Windows-Sicherheitsfunktion, die verhindert, dass Programme Code in geschützten Speicherbereichen ausführen.</system:String>
     <system:String x:Key="MameRomSetError3">Stellen Sie sicher, dass Sie die neueste Emulator-Version mit verbesserter Sicherheitskompatibilität verwenden.</system:String>
     <system:String x:Key="MameRomSetError4">Möchten Sie die PleasureDome-Website besuchen, um ein kompatibles ROM-Set herunterzuladen?</system:String>
 
@@ -277,7 +275,6 @@
     <system:String x:Key="Chooseasystem">Wähle ein System</system:String>
     <system:String x:Key="ChooseASystemToAdd">System zum Hinzufügen auswählen</system:String>
     <system:String x:Key="ChooseFile">Datei auswählen</system:String>
-    <system:String x:Key="ChooseFolder">Ordner auswählen</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Ordner mit ROMs oder ISOs auswählen</system:String>
     <system:String x:Key="ClearLog">Protokoll löschen</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klicken Sie auf die Buchstabentasten oben, um die Spiele zu sehen</system:String>

@@ -7,10 +7,8 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">这是 Windows 的一项安全功能，用于防止程序在受保护的内存区域执行代码。</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">请确保您使用的是具有改进安全兼容性的最新模拟器版本。</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">您也可以尝试切换到其他模拟器或核心。</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">如果您尝试运行 MAME，请确保您的 ROM 集合与您使用的 MAME 版本兼容。</system:String>
     <system:String x:Key="ROMFilesNotFound">未找到 ROM 文件</system:String>
     <system:String x:Key="MameRomSetError1">MAME 模拟器找不到启动此游戏所需的文件。</system:String>
-    <system:String x:Key="MameRomSetError2">这是一项 Windows 安全功能，可防止程序在受保护的内存区域中执行代码。</system:String>
     <system:String x:Key="MameRomSetError3">请确保您使用的是具有改进安全兼容性的最新模拟器版本。</system:String>
     <system:String x:Key="MameRomSetError4">您想访问 PleasureDome 网站下载兼容的 ROM 集吗？</system:String>
 
@@ -277,7 +275,6 @@
     <system:String x:Key="Chooseasystem">选择一个系统</system:String>
     <system:String x:Key="ChooseASystemToAdd">选择要添加的系统</system:String>
     <system:String x:Key="ChooseFile">选择文件</system:String>
-    <system:String x:Key="ChooseFolder">选择文件夹</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">选择包含 ROM 或 ISO 的文件夹</system:String>
     <system:String x:Key="ClearLog">清除日志</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">点击上方的字母按钮查看游戏</system:String>

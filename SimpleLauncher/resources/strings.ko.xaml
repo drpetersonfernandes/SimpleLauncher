@@ -7,10 +7,8 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">이것은 프로그램이 보호된 메모리 영역에서 코드를 실행하는 것을 방지하는 Windows 보안 기능입니다.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">보안 호환성이 개선된 최신 에뮬레이터 버전을 사용 중인지 확인하십시오.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">다른 에뮬레이터나 코어로 전환해 볼 수도 있습니다.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME을 실행하려는 경우, ROM 컬렉션이 사용 중인 MAME 버전과 호환되는지 확인하십시오.</system:String>
     <system:String x:Key="ROMFilesNotFound">ROM 파일을 찾을 수 없음</system:String>
     <system:String x:Key="MameRomSetError1">MAME 에뮬레이터가 이 게임을 실행하는 데 필요한 파일을 찾을 수 없습니다.</system:String>
-    <system:String x:Key="MameRomSetError2">이것은 프로그램이 보호된 메모리 영역에서 코드를 실행하는 것을 방지하는 Windows 보안 기능입니다.</system:String>
     <system:String x:Key="MameRomSetError3">보안 호환성이 향상된 최신 에뮬레이터 버전을 사용하고 있는지 확인하십시오.</system:String>
     <system:String x:Key="MameRomSetError4">호환되는 ROM 세트를 다운로드하기 위해 PleasureDome 웹사이트를 방문하시겠습니까?</system:String>
 
@@ -277,7 +275,6 @@
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="ChooseASystemToAdd">추가할 시스템 선택</system:String>
     <system:String x:Key="ChooseFile">파일 선택</system:String>
-    <system:String x:Key="ChooseFolder">폴더 선택</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM 또는 ISO가 포함된 폴더 선택</system:String>
     <system:String x:Key="ClearLog">로그 지우기</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>

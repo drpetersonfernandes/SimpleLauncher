@@ -7,10 +7,8 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Это функция безопасности Windows, которая предотвращает выполнение программами кода в защищенных областях памяти.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Убедитесь, что вы используете последнюю версию эмулятора с улучшенной совместимостью безопасности.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Вы также можете попробовать переключиться на другой эмулятор или ядро.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Если вы пытаетесь запустить MAME, убедитесь, что ваша коллекция ROM совместима с используемой вами версией MAME.</system:String>
     <system:String x:Key="ROMFilesNotFound">Файлы ROM не найдены</system:String>
     <system:String x:Key="MameRomSetError1">Эмулятор MAME не смог найти файлы, необходимые для запуска этой игры.</system:String>
-    <system:String x:Key="MameRomSetError2">Это функция безопасности Windows, которая предотвращает выполнение программами кода в защищенных областях памяти.</system:String>
     <system:String x:Key="MameRomSetError3">Убедитесь, что вы используете последнюю версию эмулятора с улучшенной совместимостью безопасности.</system:String>
     <system:String x:Key="MameRomSetError4">Хотите посетить веб-сайт PleasureDome, чтобы загрузить совместимый набор ROM?</system:String>
 
@@ -277,7 +275,6 @@
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
     <system:String x:Key="ChooseASystemToAdd">Выберите систему для добавления</system:String>
     <system:String x:Key="ChooseFile">Выбрать файл</system:String>
-    <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Выберите папку с ROM или ISO</system:String>
     <system:String x:Key="ClearLog">Очистить лог</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>

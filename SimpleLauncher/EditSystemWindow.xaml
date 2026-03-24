@@ -46,14 +46,14 @@
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource Chooseasystem}" />
-<ComboBox
-x:Name="SystemNameDropdown"
-Grid.Row="0"
-Grid.Column="1"
-Margin="0,20,10,10"
-HorizontalAlignment="Stretch"
-SelectionChanged="SystemNameDropdown_SelectionChanged"
-ToolTip="{DynamicResource TooltipChooseSystem}" />
+                    <ComboBox
+                        x:Name="SystemNameDropdown"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,20,10,10"
+                        HorizontalAlignment="Stretch"
+                        SelectionChanged="SystemNameDropdown_SelectionChanged"
+                        ToolTip="{DynamicResource TooltipChooseSystem2}" />
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -68,60 +68,60 @@ ToolTip="{DynamicResource TooltipChooseSystem}" />
                     </Grid.ColumnDefinitions>
 
                     <!-- Add New System -->
-<Button
-Grid.Column="0"
-Style="{DynamicResource MahApps.Styles.Button.Square}"
-Margin="10"
-Padding="10"
-HorizontalAlignment="Center"
-VerticalAlignment="Center"
-Click="AddSystemButton_Click"
-Content="{DynamicResource AddNewSystem}"
-ToolTip="{DynamicResource TooltipAddNewSystem}" />
+                    <Button
+                        Grid.Column="0"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
+                        Margin="10"
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="AddSystemButton_Click"
+                        Content="{DynamicResource AddNewSystem}"
+                        ToolTip="{DynamicResource TooltipAddNewSystem2}" />
 
                     <!-- Save New System -->
-<Button
-x:Name="SaveSystemButton"
-Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-Grid.Column="1"
-Margin="10"
-Padding="10"
-HorizontalAlignment="Center"
-VerticalAlignment="Center"
-Click="SaveSystemButtonClickAsync"
-Content="{DynamicResource SaveorUpdateSystem}"
-ToolTip="{DynamicResource TooltipSaveSystem}" />
+                    <Button
+                        x:Name="SaveSystemButton"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                        Grid.Column="1"
+                        Margin="10"
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="SaveSystemButtonClickAsync"
+                        Content="{DynamicResource SaveorUpdateSystem}"
+                        ToolTip="{DynamicResource TooltipSaveSystem2}" />
 
                     <!-- Delete System -->
-<Button
-x:Name="DeleteSystemButton"
-Style="{DynamicResource MahApps.Styles.Button.Square}"
-Grid.Column="2"
-Margin="10"
-Padding="10"
-HorizontalAlignment="Center"
-VerticalAlignment="Center"
-Click="DeleteSystemButton_Click"
-Content="{DynamicResource DeleteSelectedSystem}"
-ToolTip="{DynamicResource TooltipDeleteSystem}" />
+                    <Button
+                        x:Name="DeleteSystemButton"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
+                        Grid.Column="2"
+                        Margin="10"
+                        Padding="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="DeleteSystemButton_Click"
+                        Content="{DynamicResource DeleteSelectedSystem}"
+                        ToolTip="{DynamicResource TooltipDeleteSystem2}" />
 
-<Button
-Margin="0,0,25,0"
-Grid.Column="3"
-Style="{StaticResource NavImageButton3DStyle}"
-Click="HelpLink_Click"
-HorizontalAlignment="Left"
-VerticalAlignment="Top"
-Width="80"
-Height="80"
-ToolTip="{DynamicResource TooltipEditSystem}">
-<Image
-Source="images/help-desk.png"
-Width="60"
-Height="60"
-HorizontalAlignment="Center"
-VerticalAlignment="Center" />
-</Button>
+                    <Button
+                        Margin="0,0,25,0"
+                        Grid.Column="3"
+                        Style="{StaticResource NavImageButton3DStyle}"
+                        Click="HelpLink_Click"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="80"
+                        Height="80"
+                        ToolTip="{DynamicResource TooltipEditSystem}">
+                        <Image
+                            Source="images/help-desk.png"
+                            Width="60"
+                            Height="60"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </Button>
 
                 </Grid>
 
@@ -164,16 +164,16 @@ VerticalAlignment="Center" />
                             VerticalAlignment="Center"
                             Content="{DynamicResource SystemNameRequired}">
                         </Label>
-<TextBox
-Margin="0,20,10,10"
-x:Name="SystemNameTextBox"
-Grid.Row="0"
-Grid.Column="1"
-HorizontalAlignment="Stretch"
-IsReadOnly="True"
-IsEnabled="False"
-LostFocus="SystemNameTextBox_LostFocus"
-ToolTip="{DynamicResource TooltipSystemName}" />
+                        <TextBox
+                            Margin="0,20,10,10"
+                            x:Name="SystemNameTextBox"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            LostFocus="SystemNameTextBox_LostFocus"
+                            ToolTip="{DynamicResource TooltipSystemName}" />
 
                         <!-- System Folder -->
                         <Label
@@ -183,24 +183,24 @@ ToolTip="{DynamicResource TooltipSystemName}" />
                             VerticalAlignment="Center"
                             Content="{DynamicResource SystemFolderRequired}">
                         </Label>
-<TextBox
-Margin="0,0,10,10"
-x:Name="SystemFolderTextBox"
-Grid.Row="1"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipChooseSystemFolder}" />
-<Button
-x:Name="ChooseSystemFolderButton"
-Margin="0,0,10,10"
-Grid.Row="1"
-Grid.Column="2"
-Click="ChooseSystemFolder"
-Content="{DynamicResource SetSystemFolder}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseSystemFolder}" />
+                        <TextBox
+                            Margin="0,0,10,10"
+                            x:Name="SystemFolderTextBox"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipChooseSystemFolder2}" />
+                        <Button
+                            x:Name="ChooseSystemFolderButton"
+                            Margin="0,0,10,10"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Click="ChooseSystemFolder"
+                            Content="{DynamicResource SetSystemFolder}"
+                            IsEnabled="False"
+                            HorizontalAlignment="Left"
+                            ToolTip="{DynamicResource TooltipChooseSystemFolder}" />
 
                         <!-- Additional System Folders -->
                         <Expander x:Name="AdditionalFoldersExpander" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True">
@@ -209,10 +209,10 @@ ToolTip="{DynamicResource TooltipChooseSystemFolder}" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False" ToolTip="{DynamicResource TooltipAddAdditionalFolder}" />
+                                <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False" ToolTip="{DynamicResource TooltipAddAdditionalFolder2}" />
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5" Click="AddFolderButton_Click" IsEnabled="False" ToolTip="{DynamicResource TooltipAddAdditionalFolder}" />
-                                    <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" ToolTip="{DynamicResource TooltipRemoveAdditionalFolder}" />
+                                    <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5" Click="AddFolderButton_Click" IsEnabled="False" ToolTip="{DynamicResource TooltipAddAdditionalFolder2}" />
+                                    <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" ToolTip="{DynamicResource TooltipRemoveAdditionalFolder2}" />
                                 </StackPanel>
                             </Grid>
                         </Expander>
@@ -225,24 +225,24 @@ ToolTip="{DynamicResource TooltipChooseSystemFolder}" />
                             VerticalAlignment="Center"
                             Content="{DynamicResource SystemImageFolderOptional}">
                         </Label>
-<TextBox
-Margin="0,0,10,10"
-x:Name="SystemImageFolderTextBox"
-Grid.Row="3"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipChooseSystemImageFolder}" />
-<Button
-Margin="0,0,10,10"
-x:Name="ChooseSystemImageFolderButton"
-Grid.Row="3"
-Grid.Column="2"
-Click="ChooseSystemImageFolder"
-Content="{DynamicResource SetSystemImageFolder}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseSystemImageFolder}" />
+                        <TextBox
+                            Margin="0,0,10,10"
+                            x:Name="SystemImageFolderTextBox"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipChooseSystemImageFolder2}" />
+                        <Button
+                            Margin="0,0,10,10"
+                            x:Name="ChooseSystemImageFolderButton"
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Click="ChooseSystemImageFolder"
+                            Content="{DynamicResource SetSystemImageFolder}"
+                            IsEnabled="False"
+                            HorizontalAlignment="Left"
+                            ToolTip="{DynamicResource TooltipChooseSystemImageFolder2}" />
 
                         <!-- Is the system MAME-based? -->
                         <Label
@@ -251,17 +251,17 @@ ToolTip="{DynamicResource TooltipChooseSystemImageFolder}" />
                             Grid.Column="0"
                             VerticalAlignment="Center"
                             Content="{DynamicResource IsthesystemMAMEbased}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="SystemIsMameComboBox"
-Grid.Row="4"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipSystemIsMame}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="SystemIsMameComboBox"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipSystemIsMame2}">
+                            <ComboBoxItem>true</ComboBoxItem>
+                            <ComboBoxItem>false</ComboBoxItem>
+                        </ComboBox>
 
                         <!-- Format To Search Inside System Folder -->
                         <Label
@@ -294,17 +294,17 @@ ToolTip="{DynamicResource TooltipSystemIsMame}">
                             Grid.Column="0"
                             VerticalAlignment="Center"
                             Content="{DynamicResource ExtractFileBeforeLaunch}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="ExtractFileBeforeLaunchComboBox"
-Grid.Row="6"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipExtractBeforeLaunch}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="ExtractFileBeforeLaunchComboBox"
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipExtractBeforeLaunch2}">
+                            <ComboBoxItem>true</ComboBoxItem>
+                            <ComboBoxItem>false</ComboBoxItem>
+                        </ComboBox>
 
                         <!-- Format To Launch After Extraction -->
                         <Label
@@ -338,18 +338,18 @@ ToolTip="{DynamicResource TooltipExtractBeforeLaunch}">
                             VerticalAlignment="Center"
                             Content="{DynamicResource GroupFilesbyFolder}">
                         </Label>
-<ComboBox
-Margin="0,0,10,10"
-x:Name="GroupByFolderComboBox"
-Grid.Row="8"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipGroupByFolder}">
-<ComboBoxItem>false</ComboBoxItem>
-<ComboBoxItem>true</ComboBoxItem>
-</ComboBox>
-                        
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="GroupByFolderComboBox"
+                            Grid.Row="8"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipGroupByFolder2}">
+                            <ComboBoxItem>false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
+
                         <!-- Disable Recursive Search -->
                         <Label
                             Margin="10,0,10,10"
@@ -357,17 +357,17 @@ ToolTip="{DynamicResource TooltipGroupByFolder}">
                             Grid.Column="0"
                             VerticalAlignment="Center"
                             Content="{DynamicResource DisableRecursiveSearch}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="DisableRecursiveSearchComboBox"
-Grid.Row="9"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipDisableRecursiveSearch}">
-<ComboBoxItem>false</ComboBoxItem>
-<ComboBoxItem>true</ComboBoxItem>
-</ComboBox>
+                        <ComboBox
+                            Margin="0,0,10,10"
+                            x:Name="DisableRecursiveSearchComboBox"
+                            Grid.Row="9"
+                            Grid.Column="1"
+                            IsReadOnly="True"
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipDisableRecursiveSearch2}">
+                            <ComboBoxItem>false</ComboBoxItem>
+                            <ComboBoxItem>true</ComboBoxItem>
+                        </ComboBox>
 
                         <!-- Emulator 1 -->
                         <Expander x:Name="Emulator1Expander" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True">
@@ -413,16 +413,16 @@ ToolTip="{DynamicResource TooltipDisableRecursiveSearch}">
                                     IsEnabled="False"
                                     HorizontalAlignment="Stretch"
                                     ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
-<Button
-Margin="0,0,10,10"
-x:Name="ChooseEmulator1PathButton"
-Grid.Row="1"
-Grid.Column="2"
-Click="ChooseEmulator1Path"
-Content="{DynamicResource SetEmulator1Path}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseEmulator1Path}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator1PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator1Path"
+                                    Content="{DynamicResource SetEmulator1Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipChooseEmulator1Path}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="2"
@@ -456,17 +456,17 @@ ToolTip="{DynamicResource TooltipChooseEmulator1Path}" />
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="ReceiveANotificationOnEmulatorError1"
-Grid.Row="3"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError1"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipNotificationOnEmulatorError2}">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
 
                             </Grid>
                         </Expander>
@@ -515,16 +515,16 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     IsEnabled="False"
                                     HorizontalAlignment="Stretch"
                                     ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
-<Button
-Margin="0,0,10,10"
-x:Name="ChooseEmulator2PathButton"
-Grid.Row="1"
-Grid.Column="2"
-Click="ChooseEmulator2Path"
-Content="{DynamicResource SetEmulator2Path}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseEmulator2Path}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator2PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator2Path"
+                                    Content="{DynamicResource SetEmulator2Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipChooseEmulator2Path}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="2"
@@ -558,17 +558,17 @@ ToolTip="{DynamicResource TooltipChooseEmulator2Path}" />
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="ReceiveANotificationOnEmulatorError2"
-Grid.Row="3"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError2"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipNotificationOnEmulatorError2}">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
                             </Grid>
                         </Expander>
 
@@ -616,16 +616,16 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     IsEnabled="False"
                                     HorizontalAlignment="Stretch"
                                     ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
-<Button
-Margin="0,0,10,10"
-x:Name="ChooseEmulator3PathButton"
-Grid.Row="1"
-Grid.Column="2"
-Click="ChooseEmulator3Path"
-Content="{DynamicResource SetEmulator3Path}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseEmulator3Path}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator3PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator3Path"
+                                    Content="{DynamicResource SetEmulator3Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipChooseEmulator3Path}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="2"
@@ -659,17 +659,17 @@ ToolTip="{DynamicResource TooltipChooseEmulator3Path}" />
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="ReceiveANotificationOnEmulatorError3"
-Grid.Row="3"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError3"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipNotificationOnEmulatorError2}">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
                             </Grid>
                         </Expander>
 
@@ -717,16 +717,16 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     IsEnabled="False"
                                     HorizontalAlignment="Stretch"
                                     ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
-<Button
-Margin="0,0,10,10"
-x:Name="ChooseEmulator4PathButton"
-Grid.Row="1"
-Grid.Column="2"
-Click="ChooseEmulator4Path"
-Content="{DynamicResource SetEmulator4Path}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseEmulator4Path}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator4PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator4Path"
+                                    Content="{DynamicResource SetEmulator4Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipChooseEmulator4Path}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="2"
@@ -760,17 +760,17 @@ ToolTip="{DynamicResource TooltipChooseEmulator4Path}" />
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="ReceiveANotificationOnEmulatorError4"
-Grid.Row="3"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError4"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipNotificationOnEmulatorError2}">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
                             </Grid>
                         </Expander>
 
@@ -818,16 +818,16 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     IsEnabled="False"
                                     HorizontalAlignment="Stretch"
                                     ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
-<Button
-Margin="0,0,10,10"
-x:Name="ChooseEmulator5PathButton"
-Grid.Row="1"
-Grid.Column="2"
-Click="ChooseEmulator5Path"
-Content="{DynamicResource SetEmulator5Path}"
-IsEnabled="False"
-HorizontalAlignment="Left"
-ToolTip="{DynamicResource TooltipChooseEmulator5Path}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="ChooseEmulator5PathButton"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Click="ChooseEmulator5Path"
+                                    Content="{DynamicResource SetEmulator5Path}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipChooseEmulator5Path}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="2"
@@ -861,17 +861,17 @@ ToolTip="{DynamicResource TooltipChooseEmulator5Path}" />
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Content="{DynamicResource ReceiveANotificationOnEmulatorError}" />
-<ComboBox
-Margin="0,0,10,10"
-x:Name="ReceiveANotificationOnEmulatorError5"
-Grid.Row="3"
-Grid.Column="1"
-IsReadOnly="True"
-IsEnabled="False"
-ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
-<ComboBoxItem>true</ComboBoxItem>
-<ComboBoxItem>false</ComboBoxItem>
-</ComboBox>
+                                <ComboBox
+                                    Margin="0,0,10,10"
+                                    x:Name="ReceiveANotificationOnEmulatorError5"
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    IsReadOnly="True"
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipNotificationOnEmulatorError2}">
+                                    <ComboBoxItem>true</ComboBoxItem>
+                                    <ComboBoxItem>false</ComboBoxItem>
+                                </ComboBox>
                             </Grid>
                         </Expander>
 
@@ -922,12 +922,12 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                 </ScrollViewer>
             </Grid>
         </Grid>
-        
+
         <!-- Global Loading Overlay -->
-        <ContentControl x:Name="LoadingOverlay" 
-                        Template="{StaticResource LoadingOverlayTemplate}" 
-                        Visibility="Collapsed" 
+        <ContentControl x:Name="LoadingOverlay"
+                        Template="{StaticResource LoadingOverlayTemplate}"
+                        Visibility="Collapsed"
                         Grid.ColumnSpan="3" />
-        
+
     </Grid>
 </controls:MetroWindow>

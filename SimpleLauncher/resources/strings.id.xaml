@@ -7,10 +7,8 @@
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation2">Ini adalah fitur keamanan Windows yang mencegah program mengeksekusi kode di wilayah memori yang dilindungi.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation3">Pastikan Anda menggunakan versi emulator terbaru dengan kompatibilitas keamanan yang ditingkatkan.</system:String>
     <system:String x:Key="CouldNotLaunchGameDueToDepViolation4">Anda juga dapat mencoba beralih ke emulator atau core yang berbeda.</system:String>
-    <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Jika Anda mencoba menjalankan MAME, pastikan koleksi ROM Anda kompatibel dengan versi MAME yang Anda gunakan.</system:String>
     <system:String x:Key="ROMFilesNotFound">File ROM Tidak Ditemukan</system:String>
     <system:String x:Key="MameRomSetError1">Emulator MAME tidak dapat menemukan file yang diperlukan untuk menjalankan game ini.</system:String>
-    <system:String x:Key="MameRomSetError2">Ini adalah fitur keamanan Windows yang mencegah program mengeksekusi kode di wilayah memori yang dilindungi.</system:String>
     <system:String x:Key="MameRomSetError3">Pastikan Anda menggunakan versi emulator terbaru dengan kompatibilitas keamanan yang ditingkatkan.</system:String>
     <system:String x:Key="MameRomSetError4">Apakah Anda ingin mengunjungi situs web PleasureDome untuk mengunduh set ROM yang kompatibel?</system:String>
 
@@ -277,7 +275,6 @@
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Pilih sistem yang akan ditambahkan</system:String>
     <system:String x:Key="ChooseFile">Pilih file</system:String>
-    <system:String x:Key="ChooseFolder">Pilih Folder</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Pilih folder berisi ROM atau ISO</system:String>
     <system:String x:Key="ClearLog">Bersihkan Log</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik tombol huruf di atas untuk melihat permainan</system:String>
