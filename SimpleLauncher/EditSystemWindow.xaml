@@ -173,7 +173,7 @@ HorizontalAlignment="Stretch"
 IsReadOnly="True"
 IsEnabled="False"
 LostFocus="SystemNameTextBox_LostFocus"
-ToolTip="{DynamicResource TooltipChooseSystem}" />
+ToolTip="{DynamicResource TooltipSystemName}" />
 
                         <!-- System Folder -->
                         <Label
@@ -277,7 +277,8 @@ ToolTip="{DynamicResource TooltipSystemIsMame}">
                             Grid.Row="5"
                             Grid.Column="1"
                             IsReadOnly="True"
-                            IsEnabled="False" />
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipExtensions}" />
                         <Label
                             Margin="0,0,10,10"
                             Grid.Row="5"
@@ -319,7 +320,8 @@ ToolTip="{DynamicResource TooltipExtractBeforeLaunch}">
                             Grid.Row="7"
                             Grid.Column="1"
                             IsReadOnly="True"
-                            IsEnabled="False" />
+                            IsEnabled="False"
+                            ToolTip="{DynamicResource TooltipExtensions}" />
                         <Label
                             Margin="0,0,10,10"
                             Grid.Row="7"
@@ -394,7 +396,8 @@ ToolTip="{DynamicResource TooltipDisableRecursiveSearch}">
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorName}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="1"
@@ -408,7 +411,8 @@ ToolTip="{DynamicResource TooltipDisableRecursiveSearch}">
                                     Grid.Column="1"
                                     IsReadOnly="True"
                                     IsEnabled="False"
-                                    HorizontalAlignment="Stretch" />
+                                    HorizontalAlignment="Stretch"
+                                    ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
 <Button
 Margin="0,0,10,10"
 x:Name="ChooseEmulator1PathButton"
@@ -431,7 +435,8 @@ ToolTip="{DynamicResource TooltipChooseEmulator1Path}" />
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorParameters}" />
                                 <!-- <Button -->
                                 <!--     Margin="0" -->
                                 <!--     Grid.Row="2" -->
@@ -493,7 +498,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorName}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="1"
@@ -507,7 +513,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Column="1"
                                     IsReadOnly="True"
                                     IsEnabled="False"
-                                    HorizontalAlignment="Stretch" />
+                                    HorizontalAlignment="Stretch"
+                                    ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
 <Button
 Margin="0,0,10,10"
 x:Name="ChooseEmulator2PathButton"
@@ -530,7 +537,8 @@ ToolTip="{DynamicResource TooltipChooseEmulator2Path}" />
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorParameters}" />
                                 <!-- <Button -->
                                 <!--     Margin="0" -->
                                 <!--     Grid.Row="2" -->
@@ -591,7 +599,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorName}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="1"
@@ -605,7 +614,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Column="1"
                                     IsReadOnly="True"
                                     IsEnabled="False"
-                                    HorizontalAlignment="Stretch" />
+                                    HorizontalAlignment="Stretch"
+                                    ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
 <Button
 Margin="0,0,10,10"
 x:Name="ChooseEmulator3PathButton"
@@ -628,7 +638,8 @@ ToolTip="{DynamicResource TooltipChooseEmulator3Path}" />
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorParameters}" />
                                 <!-- <Button -->
                                 <!--     Margin="0" -->
                                 <!--     Grid.Row="2" -->
@@ -689,7 +700,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorName}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="1"
@@ -703,7 +715,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Column="1"
                                     IsReadOnly="True"
                                     IsEnabled="False"
-                                    HorizontalAlignment="Stretch" />
+                                    HorizontalAlignment="Stretch"
+                                    ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
 <Button
 Margin="0,0,10,10"
 x:Name="ChooseEmulator4PathButton"
@@ -726,7 +739,8 @@ ToolTip="{DynamicResource TooltipChooseEmulator4Path}" />
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorParameters}" />
                                 <!-- <Button -->
                                 <!--     Margin="0" -->
                                 <!--     Grid.Row="2" -->
@@ -787,7 +801,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorName}" />
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="1"
@@ -801,7 +816,8 @@ ToolTip="{DynamicResource TooltipNotificationOnEmulatorError}">
                                     Grid.Column="1"
                                     IsReadOnly="True"
                                     IsEnabled="False"
-                                    HorizontalAlignment="Stretch" />
+                                    HorizontalAlignment="Stretch"
+                                    ToolTip="{DynamicResource TooltipChooseEmulatorPath}" />
 <Button
 Margin="0,0,10,10"
 x:Name="ChooseEmulator5PathButton"
@@ -824,7 +840,8 @@ ToolTip="{DynamicResource TooltipChooseEmulator5Path}" />
                                     Grid.Row="2"
                                     Grid.Column="1"
                                     IsReadOnly="True"
-                                    IsEnabled="False" />
+                                    IsEnabled="False"
+                                    ToolTip="{DynamicResource TooltipEmulatorParameters}" />
                                 <!-- <Button -->
                                 <!--     Margin="0" -->
                                 <!--     Grid.Row="2" -->

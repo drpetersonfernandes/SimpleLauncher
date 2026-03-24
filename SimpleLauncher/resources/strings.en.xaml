@@ -1815,6 +1815,9 @@
     <system:String x:Key="TooltipSelectSystem">Select a game system to browse</system:String>
     <system:String x:Key="TooltipSelectEmulator">Choose which emulator to use for the selected system</system:String>
 
+    <system:String x:Key="TooltipNavigateToWebsite">Visit the official project website</system:String>
+    <system:String x:Key="TooltipNavigateToGithub">Visit the project repository on GitHub</system:String>
+
     <!-- AboutWindow Tooltips -->
     <system:String x:Key="TooltipCheckForUpdate">Check if a new version is available</system:String>
     <system:String x:Key="TooltipUpdateHistory">View the changelog and update history</system:String>
@@ -1897,6 +1900,26 @@
     <system:String x:Key="TooltipSaveDeadZone">Save the dead zone settings</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Reset dead zone to default values</system:String>
 
+    <!-- EditSystemWindow Tooltips -->
+    <system:String x:Key="TooltipChooseSystem">Select an existing system to edit</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Add a new game system configuration</system:String>
+    <system:String x:Key="TooltipSaveSystem">Save or update the current system configuration</system:String>
+    <system:String x:Key="TooltipDeleteSystem">Delete the selected system configuration</system:String>
+    <system:String x:Key="TooltipSystemName">The name of the system (e.g. Nintendo 64)</system:String>
+    <system:String x:Key="TooltipChooseSystemFolder">Select the folder where your game files are located</system:String>
+    <system:String x:Key="TooltipAddAdditionalFolder">Add another folder to search for games</system:String>
+    <system:String x:Key="TooltipRemoveAdditionalFolder">Remove the selected additional folder</system:String>
+    <system:String x:Key="TooltipChooseSystemImageFolder">Select the folder where your game cover images are located</system:String>
+    <system:String x:Key="TooltipSystemIsMame">Specify if the system uses MAME-style command line parameters</system:String>
+    <system:String x:Key="TooltipExtensions">The file extensions to search for (e.g. .zip, .nes)</system:String>
+    <system:String x:Key="TooltipExtractBeforeLaunch">Extract compressed files (zip, 7z) before launching the emulator</system:String>
+    <system:String x:Key="TooltipGroupByFolder">Group games by their subfolder name</system:String>
+    <system:String x:Key="TooltipDisableRecursiveSearch">Do not search in subfolders of the main system folder</system:String>
+    <system:String x:Key="TooltipEmulatorName">The name of the emulator (e.g. RetroArch)</system:String>
+    <system:String x:Key="TooltipChooseEmulatorPath">Select the executable file for the emulator</system:String>
+    <system:String x:Key="TooltipEmulatorParameters">Command line parameters to pass to the emulator</system:String>
+    <system:String x:Key="TooltipNotificationOnEmulatorError">Show a Windows notification if the emulator fails to launch</system:String>
+
     <!-- SetFuzzyMatchingWindow Tooltips -->
     <system:String x:Key="TooltipThresholdSlider">Adjust the matching threshold for fuzzy image search</system:String>
     <system:String x:Key="TooltipOkButton">Apply the selected threshold</system:String>
@@ -1963,4 +1986,7 @@
     <system:String x:Key="MameRomSetError3">Ensure you're using the latest emulator version with improved security compatibility.</system:String>
     <system:String x:Key="MameRomSetError4">Would you like to visit the PleasureDome website to download a compatible ROM set?</system:String>
     
+    <system:String x:Key="TooltipConfirmSelection">Confirm the selected gaming system</system:String>
+    <system:String x:Key="TooltipChooseSystemForGame">Select the gaming system for this game</system:String>
+
 </ResourceDictionary>

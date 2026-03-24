@@ -51,12 +51,12 @@
                                TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,5" />
 
                     <TextBlock Margin="0,0,0,5">
-                        <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate" ToolTip="{DynamicResource TooltipNavigateToGithub}">
                             Libretro Thumbnails (GitHub)
                         </Hyperlink>
                     </TextBlock>
                     <TextBlock>
-                        <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate" ToolTip="{DynamicResource TooltipNavigateToWebsite}">
                             EmuMovies Files
                         </Hyperlink>
                     </TextBlock>

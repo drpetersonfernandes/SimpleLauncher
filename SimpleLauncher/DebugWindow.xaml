@@ -27,7 +27,8 @@
                  Foreground="Lime"
                  CaretBrush="Lime"
                  FontFamily="Consolas"
-                 FontSize="12" />
+                 FontSize="12"
+                 ToolTip="{DynamicResource TooltipDebuggerLog}" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
 <Button Content="{DynamicResource ClearLog}" Margin="5,0" Click="ClearLogButton_Click"

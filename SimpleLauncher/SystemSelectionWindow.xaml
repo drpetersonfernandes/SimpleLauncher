@@ -19,7 +19,7 @@
 
 <ComboBox x:Name="SystemComboBox"
 Margin="0,0,0,30"
-ToolTip="Select the gaming system for this game" />
+ToolTip="{DynamicResource TooltipChooseSystemForGame}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 <Button Content="{DynamicResource ConfirmSelectionButton}"
@@ -28,14 +28,14 @@ IsDefault="True"
 Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
 Margin="0,0,10,0"
 Width="120"
-ToolTip="Confirm the selected system" />
+ToolTip="{DynamicResource TooltipConfirmSelection}" />
 
 <Button Content="{DynamicResource Cancel}"
 Click="Cancel_Click"
 IsCancel="True"
 Style="{DynamicResource MahApps.Styles.Button.Square}"
 Width="80"
-ToolTip="Cancel and close this window" />
+ToolTip="{DynamicResource TooltipCancel}" />
             </StackPanel>
         </StackPanel>
     </Grid>
