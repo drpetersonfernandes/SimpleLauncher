@@ -724,6 +724,11 @@ public partial class GameLauncher
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
 
+        var isCxbxReloaded = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Equals("Cxbx-Reloaded", StringComparison.OrdinalIgnoreCase) ||
+                                                                                   selectedEmulatorName.Equals("Cxbx Reloaded", StringComparison.OrdinalIgnoreCase) ||
+                                                                                   selectedEmulatorName.Equals("Cxbx", StringComparison.OrdinalIgnoreCase) ||
+                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("cxbx.exe", StringComparison.OrdinalIgnoreCase));
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
         string tempConvertedPath = null;
@@ -812,7 +817,7 @@ public partial class GameLauncher
             }
         }
 
-        if (isChd && (isXenia || isRpcs3))
+        if (isChd && (isXenia || isRpcs3 || isCxbxReloaded))
         {
             var mountingMsg = (string)Application.Current.TryFindResource("MountingChd") ?? "Mounting CHD...";
             loadingStateProvider.SetLoadingState(true, mountingMsg);
@@ -821,8 +826,7 @@ public partial class GameLauncher
             mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath);
             if (mountedChdDrive is { IsMounted: true })
             {
-                // For RPCS3, we need the path to EBOOT.BIN, not just the drive root
-                if (isRpcs3)
+                if (isRpcs3) // For RPCS3, we need the path to EBOOT.BIN, not just the drive root
                 {
                     var ebootPath = FindEbootBin.FindEbootBinRecursive(mountedChdDrive.MountedPath);
                     if (!string.IsNullOrEmpty(ebootPath))
@@ -834,6 +838,38 @@ public partial class GameLauncher
                         loadingStateProvider.SetLoadingState(false);
                         DebugLogger.Log("[LaunchRegularEmulatorAsync] EBOOT.BIN not found in mounted CHD.");
                         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "EBOOT.BIN not found in mounted CHD.");
+                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+                        return;
+                    }
+                }
+                else if (isXenia) // For Xenia, we need the path to default.xex, not just the drive root
+                {
+                    var defaultPath = FindDefaultXex.Find(mountedChdDrive.MountedPath);
+                    if (!string.IsNullOrEmpty(defaultPath))
+                    {
+                        resolvedFilePath = defaultPath;
+                    }
+                    else
+                    {
+                        loadingStateProvider.SetLoadingState(false);
+                        DebugLogger.Log("[LaunchRegularEmulatorAsync] default.xex not found in mounted CHD.");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "default.xex not found in mounted CHD.");
+                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+                        return;
+                    }
+                }
+                else if (isCxbxReloaded) // For CxbxReloaded, we need the path to default.xbe, not just the drive root
+                {
+                    var defaultPath = FindDefaultXbe.Find(mountedChdDrive.MountedPath);
+                    if (!string.IsNullOrEmpty(defaultPath))
+                    {
+                        resolvedFilePath = defaultPath;
+                    }
+                    else
+                    {
+                        loadingStateProvider.SetLoadingState(false);
+                        DebugLogger.Log("[LaunchRegularEmulatorAsync] default.xbe not found in mounted CHD.");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "default.xbe not found in mounted CHD.");
                         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
                         return;
                     }
