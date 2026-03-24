@@ -50,10 +50,11 @@ public static class MountChdFiles
     /// </summary>
     /// <param name="resolvedChdFilePath">The full path to the CHD file.</param>
     /// <param name="logPath">Path to the application's log file for error reporting.</param>
+    /// <param name="consoleIndex">Optional console index for CHDMounter (1-16).</param>
     /// <returns>A disposable MountChdDrive object that manages the mount process.</returns>
-    public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string logPath)
+    public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string logPath, int? consoleIndex = null)
     {
-        DebugLogger.Log($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath}");
+        DebugLogger.Log($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
 
         var resolvedToolPath = PathHelper.ResolveRelativeToAppDirectory(ChdMounterRelativePath);
 
@@ -81,10 +82,14 @@ public static class MountChdFiles
         var driveLetterWithColon = $"{driveLetter.Value}:";
         var driveRoot = $"{driveLetter.Value}:\\";
 
+        var arguments = consoleIndex.HasValue
+            ? $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a /s:{consoleIndex.Value}"
+            : $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a";
+
         var psiMount = new ProcessStartInfo
         {
             FileName = resolvedToolPath,
-            Arguments = $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a /s:10",
+            Arguments = arguments,
             UseShellExecute = false,
             RedirectStandardOutput = false,
             RedirectStandardError = false,
@@ -547,6 +552,125 @@ public static class MountChdFiles
                 DebugLogger.Log($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
             }
         }
+    }
+
+    /// <summary>
+    /// Gets the console index for CHDMounter based on the system name.
+    /// </summary>
+    /// <param name="systemName">The name of the system.</param>
+    /// <returns>The console index, or null if not found.</returns>
+    public static int? GetConsoleIndexFromSystemName(string systemName)
+    {
+        if (string.IsNullOrEmpty(systemName)) return null;
+
+        var name = systemName.ToUpperInvariant();
+
+        if ((name.Contains("AMIGA CD", StringComparison.OrdinalIgnoreCase) ||
+             name.Contains("AMIGACD", StringComparison.OrdinalIgnoreCase)) &&
+            !name.Contains("CD32", StringComparison.OrdinalIgnoreCase))
+        {
+            return 1;
+        }
+
+        if (name.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("CD32", StringComparison.OrdinalIgnoreCase))
+        {
+            return 2;
+        }
+
+        if (name.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
+        {
+            return 3;
+        }
+
+        if (name.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
+        {
+            return 4;
+        }
+
+        if (name.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
+        {
+            return 5;
+        }
+
+        if (name.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
+        {
+            return 6;
+        }
+
+        if (name.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
+        {
+            return 7;
+        }
+
+        if ((name.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
+             name.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
+             name.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
+            !name.Contains('2') &&
+            !name.Contains('3'))
+        {
+            return 8;
+        }
+
+        if (name.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
+        {
+            return 9;
+        }
+
+        if (name.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
+        {
+            return 10;
+        }
+
+        if (name.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
+        {
+            return 11;
+        }
+
+        if (name.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
+        {
+            return 12;
+        }
+
+        if (name.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase))
+        {
+            return 13;
+        }
+
+        if (name.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
+        {
+            return 14;
+        }
+
+        if (name.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
+            !name.Contains("360"))
+        {
+            return 15;
+        }
+
+        if (name.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
+        {
+            return 16;
+        }
+
+        return null;
     }
 
     private static async Task<bool> WaitForDriveMountAsync(string driveRoot, Process mountProcess, int processId)

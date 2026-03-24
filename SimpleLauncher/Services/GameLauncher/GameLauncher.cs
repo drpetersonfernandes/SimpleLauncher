@@ -823,7 +823,8 @@ public partial class GameLauncher
             loadingStateProvider.SetLoadingState(true, mountingMsg);
 
             var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-            mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath);
+            var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(selectedSystemManager.SystemName);
+            mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath, consoleIndex);
             if (mountedChdDrive is { IsMounted: true })
             {
                 if (isRpcs3) // For RPCS3, we need the path to EBOOT.BIN, not just the drive root
