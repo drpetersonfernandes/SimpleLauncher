@@ -350,8 +350,7 @@ public partial class MainWindow
                         else
                         {
                             // Randomly select one game
-                            var random = new Random();
-                            var randomIndex = random.Next(0, _allGamesForCurrentSystem.Count);
+                            var randomIndex = Random.Shared.Next(0, _allGamesForCurrentSystem.Count);
                             var selectedGame = _allGamesForCurrentSystem[randomIndex];
                             _currentSearchResults = [selectedGame];
                             allFiles = _currentSearchResults;
