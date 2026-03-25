@@ -164,6 +164,6 @@ public partial class InjectAzaharConfigWindow
 
     private static string GetSelectedTag(ComboBox cmb)
     {
-        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "1";
+        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "0";
     }
 }

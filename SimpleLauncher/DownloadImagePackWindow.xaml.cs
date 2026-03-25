@@ -529,9 +529,8 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
             }
         }
 
-        // Note: EndOperation is called by the download completion handler, but we also call here for responsiveness
         // Always reset operation flag to re-enable UI
-        IsOperationInProgress = false;
+        EndOperation();
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -604,8 +603,8 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
         // Cancel any active download
         _downloadManager?.CancelDownload();
 
-        // Reset local state flags
-        IsOperationInProgress = false;
+        // Reset operation flag atomically
+        EndOperation();
 
         // Hide overlay and re-enable UI
         LoadingOverlay.Visibility = Visibility.Collapsed;

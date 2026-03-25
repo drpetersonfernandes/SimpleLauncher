@@ -1074,7 +1074,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
 
         // Always reset operation flag to re-enable UI
-        IsOperationInProgress = false;
+        EndOperation();
     }
 
     private async void AddSystemButtonClickAsync(object sender, RoutedEventArgs e)
@@ -1082,14 +1082,16 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            if (IsOperationInProgress) return;
+            if (!TryStartOperation()) return;
 
-            IsOperationInProgress = true;
-
-            try // Top-level catch for async Task method
+            try
             {
                 var selectedSystem = GetSelectedSystem();
-                if (selectedSystem == null) return;
+                if (selectedSystem == null)
+                {
+                    EndOperation();
+                    return;
+                }
 
                 string systemFolderRaw;
                 if (!string.IsNullOrEmpty(SystemFolderTextBox.Text) && !string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
@@ -1099,18 +1101,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 else
                 {
                     systemFolderRaw = Path.Combine("%BASEFOLDER%", "roms", selectedSystem.SystemName);
-                    // No need to update SystemFolderTextBox.Text here, it's already updated in SelectionChanged or will be updated by the user
                 }
 
                 var systemImageFolderRaw = selectedSystem.SystemImageFolder;
 
-                // --- Start Async Operation ---
                 try
                 {
-                    // Disable button during operation
                     AddSystemButton.IsEnabled = false;
 
-                    // Show overlay
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
                     LoadingOverlay.Visibility = Visibility.Visible;
                     await Task.Yield();
@@ -1119,41 +1117,33 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
                     await Task.Yield();
 
-                    // Resolve paths before passing to folder creation
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
-                    // Create System Folders using *resolved* paths
                     CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration);
 
                     var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                     DownloadStatus = systemhasbeensuccessfullyadded;
 
-                    // Notify user
                     MessageBoxLibrary.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
-                    // Close the window after successful addition
                     Close();
                 }
-                catch (InvalidOperationException ex) // Catch specific exceptions from the helper
+                catch (InvalidOperationException ex)
                 {
                     var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
                     DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}";
 
-                    // Error is already logged by the helper method.
-                    // Notify user
                     MessageBoxLibrary.AddSystemFailedMessageBox(ex.Message);
                 }
-                catch (Exception ex) // Catch any other unexpected errors
+                catch (Exception ex)
                 {
                     var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
                     DownloadStatus = errorFailedtoaddsystem;
 
-                    // Notify developer
                     const string contextMessage = "Unexpected error adding system.";
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-                    // Notify user
                     MessageBoxLibrary.AddSystemFailedMessageBox();
                 }
                 finally
@@ -1161,20 +1151,18 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     LoadingOverlay.Visibility = Visibility.Collapsed;
                     await Task.Yield();
 
-                    if (IsLoaded) // Check if the window is still loaded
+                    if (IsLoaded)
                     {
                         AddSystemButton.IsEnabled = true;
                     }
+
+                    EndOperation();
                 }
             }
             catch (Exception ex)
             {
-                // Notify developer
+                EndOperation();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
-            }
-            finally
-            {
-                IsOperationInProgress = false;
             }
         }
         catch (Exception ex)
@@ -1297,7 +1285,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     {
         _playSoundEffects.PlayNotificationSound();
         _downloadManager?.CancelDownload();
-        IsOperationInProgress = false;
+        EndOperation();
 
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
