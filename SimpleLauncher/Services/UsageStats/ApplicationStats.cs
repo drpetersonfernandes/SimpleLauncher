@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -33,7 +34,16 @@ public class ApplicationStats
             if (!response.IsSuccessStatusCode)
             {
                 DebugLogger.Log($"ApplicationStats API returned: {response.StatusCode}");
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"ApplicationStats API returned: {response.StatusCode}");
+
+                var ex = new HttpRequestException($"ApplicationStats API returned: {response.StatusCode}");
+                if (response.StatusCode == HttpStatusCode.TooManyRequests)
+                {
+                    // ignore
+                }
+                else
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"ApplicationStats API returned: {response.StatusCode}");
+                }
             }
         }
         catch (Exception ex)
