@@ -50,7 +50,7 @@ public static class MountChdFiles
     /// </summary>
     /// <param name="resolvedChdFilePath">The full path to the CHD file.</param>
     /// <param name="logPath">Path to the application's log file for error reporting.</param>
-    /// <param name="consoleIndex">Optional console index for CHDMounter (1-16).</param>
+    /// <param name="consoleIndex">Optional console index for CHDMounter (1-17).</param>
     /// <returns>A disposable MountChdDrive object that manages the mount process.</returns>
     public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string logPath, int? consoleIndex = null)
     {
@@ -93,7 +93,7 @@ public static class MountChdFiles
             UseShellExecute = false,
             RedirectStandardOutput = false,
             RedirectStandardError = false,
-            CreateNoWindow = false,
+            CreateNoWindow = true,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 

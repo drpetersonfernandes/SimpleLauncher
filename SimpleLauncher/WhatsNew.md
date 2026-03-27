@@ -1,3 +1,71 @@
+# Release 5.2.0
+*2026-03-26*
+---
+
+# 🚀 Breaking the "Impossible": CHD Support for Xbox, Xbox 360, and PS3 is Here!
+
+Today marks a major milestone for the retro gaming community. For a long time, using **CHD (Compressed Hunks of Data)** files for modern disc-based systems like the original Xbox, Xbox 360, and PlayStation 3 was considered an "impossible" dream. While the community has begged for this feature—especially for **Xemu**—native support remained out of reach.
+
+**Until now.**
+
+With the latest update to **Simple Launcher**, I am proud to announce that I have achieved the impossible. You can now launch your games directly from CHD files for **Xemu, Xenia, RPCS3, and Cxbx-Reloaded.**
+
+### 🛠️ Why was this so hard?
+Enabling CHD support for these specific systems is a massive technical challenge. To make this work, I had to:
+1.  **Implement a Virtual Drive System:** Simple Launcher now handles the complex task of mounting CHD files as virtual drives on the fly.
+2.  **Advanced File Tree Parsing:** I had to implement a parsing logic to read the raw sectors inside the CHD file. Each console has a parsing logic.
+3.  **Virtual Disk Image:** The logic create a virtual ISO image on the fly to enable Xemu support.
+3.  **Zero Source Code Changes:** Perhaps the most significant achievement is that I did all of this **without touching a single line of the emulators' source code.** Simple Launcher acts as the "brain," handling the heavy lifting externally so you can use standard, official emulator builds.
+
+### 📦 What this means for you:
+*   **Massive Space Savings:** Stop wasting hundreds of gigabytes on uncompressed ISOs. CHD offers incredible compression without losing data.
+*   **Instant Play:** No more waiting for slow "CHD to ISO" conversions in temporary folders. The mounting is nearly instantaneous.
+
+### 🎮 Supported Emulators in this Release:
+*   **Xemu** (Original Xbox) - *The long-awaited community request!*
+*   **Xenia** (Xbox 360)
+*   **RPCS3** (PlayStation 3)
+*   **Cxbx-Reloaded** (Original Xbox)
+
+This refactor wasn't just a code update; I am thrilled to finally put this power into your hands.
+
+**Download the latest version now and reclaim your hard drive space!**
+
+### 🚀 Major Features & Refactoring
+
+*   **CHD Virtual Mounting:** Refactored the launcher to use `CHDMounter` for **Xemu, Xenia, RPCS3, and Cxbx-Reloaded**. Instead of converting large `.chd` files to `.iso` (which was slow and consumed disk space), the app now mounts them as virtual drives and automatically locates the necessary boot files (e.g., `EBOOT.BIN`, `default.xex`, `image.iso`). I wrote the CHDMounter tool and will open source it soon. 
+*   **Atomic File Saving:** Implemented atomic write operations for `settings.xml` and `system.xml`. The app now saves to a temporary file before replacing the original, significantly reducing the risk of configuration corruption during crashes or power loss.
+*   **Enhanced ZIP Security:** Added "Zip Slip" (path traversal) validation to all extraction and mounting services to prevent malicious archives from writing files outside of intended directories.
+*   **PBP Support for Mednafen:** Added a new strategy to convert `.pbp` files to `.cue/.bin` on the fly specifically for the Mednafen emulator.
+
+### 🎨 UI & UX Enhancements
+
+*   **Global Tooltip System:** Added descriptive tooltips to almost every UI element across the application, including the Main Window, Edit System, and Settings windows.
+*   **Centralized Styling:** Refactored XAML resources to centralize styles and brushes in `App.xaml`, ensuring a more consistent look and feel across all windows.
+*   **Improved Loading States:** Replaced direct flag manipulation with atomic lifecycle methods for UI updates, preventing race conditions during system scans and game loading.
+
+### 🕹️ Emulator Compatibility & Logic
+
+*   **RetroAchievements Filtering:** The RetroAchievements icon and context menu items are now intelligently restricted to supported systems. Systems like PS3, Xbox 360, and Switch are now filtered out of the hashing logic.
+*   **RetroArch Validation:** Added early validation for RetroArch parameters. The app now warns users if the `-L` core parameter is missing before attempting to launch.
+*   **MAME Error Handling:** Improved detection for MAME-specific errors (ROM set mismatches, unknown systems, or missing images) with user-friendly dialogs and links to compatibility guides.
+*   **Xenia Configuration:** Extended the Xenia config handler to support both portable and standard `Documents\Xenia` locations.
+
+### 🔍 Game Scanning & Metadata
+
+*   **Microsoft Store Improvements:** 
+    *   Significantly expanded the app exclusion filter to hide system utilities and non-game apps.
+    *   Added EFS encryption fallback for copying game logos.
+    *   Improved icon extraction logic to prioritize high-resolution assets.
+*   **Recursive Search Control:** Added a "Disable Recursive Search" option to system configurations, allowing users to limit scans to top-level directories.
+*   **Robust Image Downloading:** Added retry logic and a 15-second timeout to the game image API service to handle intermittent network issues.
+
+### 🛠️ Maintenance & Build
+
+*   **Dependency Updates:** Updated `SharpCompress` to v0.47.3 and `Tomlyn` to v1.0.0.
+*   **Library Migration:** Replaced `SharpZipLib` and `SevenZipSharp` with `SharpCompress` to simplify the codebase and remove the dependency on external 7z DLLs.
+*   **Long Path Support:** Improved path handling across the service layer using the `\\?\` prefix to support file paths exceeding 260 characters.
+
 # Release 5.1.0
 *2026-02-14*
 ---
