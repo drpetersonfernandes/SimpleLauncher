@@ -37,8 +37,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
             catch (AzaharPermissionException)
             {
                 // Show permission error message but allow the game to launch
-                var emuDir = Path.GetDirectoryName(resolvedExe);
-                MessageBoxLibrary.AzaharConfigurationInjectionPermissionError(emuDir);
+                MessageBoxLibrary.AzaharConfigurationInjectionPermissionError();
                 // Return true to allow the game to launch with default settings
             }
         }

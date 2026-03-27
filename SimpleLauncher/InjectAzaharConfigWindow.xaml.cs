@@ -98,8 +98,7 @@ public partial class InjectAzaharConfigWindow
         catch (AzaharPermissionException)
         {
             // Show permission error - the caller will handle whether to continue or not
-            var emuDir = Path.GetDirectoryName(path);
-            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError(emuDir);
+            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError();
             return false;
         }
         catch (Exception ex)
@@ -125,8 +124,7 @@ public partial class InjectAzaharConfigWindow
         catch (AzaharPermissionException)
         {
             // Show permission error but allow the game to launch with default settings
-            var emuDir = Path.GetDirectoryName(path);
-            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError(emuDir);
+            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError();
             ShouldRun = true; // Allow game to launch
             Close();
         }

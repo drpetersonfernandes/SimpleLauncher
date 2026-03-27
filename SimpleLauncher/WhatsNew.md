@@ -8,20 +8,28 @@ Today marks a major milestone for the retro gaming community. Support for CHD (C
 
 **Until now.**
 
-With the latest update to **Simple Launcher**, I am proud to announce that I have achieved the impossible. You can now launch your games directly from CHD files for **Xemu, Xenia, RPCS3, and Cxbx-Reloaded.**
+With the latest update to **Simple Launcher**, you can now launch your games directly from CHD files for **Xemu, Xenia, RPCS3, and Cxbx-Reloaded.**
 
-### 🛠️ Why was this so hard?
-Enabling CHD support for these specific systems is a massive technical challenge. To make this work, I had to:
-1.  **Implement a Virtual Drive System:** Simple Launcher now handles the complex task of mounting CHD files as virtual drives on the fly.
-2.  **Advanced File Tree Parsing:** I had to implement a parsing logic to read the raw sectors inside the CHD file. Each console has a parsing logic.
-3.  **Virtual Disk Image:** The logic create a virtual ISO image on the fly to enable Xemu support.
-4.  **Zero Source Code Changes:** Perhaps the most significant achievement is that I did all of this **without touching a single line of the emulators' source code.** Simple Launcher acts as the "brain," handling the heavy lifting externally so you can use standard, official emulator builds.
+### 📋 Prerequisite: Dokan Library Required
 
-### 📦 What this means for you:
+To mount CHD files as virtual drives, **you must install the Dokan library** on your system. Dokan is a user-mode filesystem driver for Windows that enables the virtual drive mounting functionality.
+
+**Download and install Dokan from:** https://github.com/dokan-dev/dokany/releases
+
+Simple Launcher will not mount CHD files without Dokan installed.
+
+### 🛠️ How It Works
+
+- The virtual drive system is built around Dokan. I wrote the tool that provides a wrapper layer around Dokan that handles mounting the virtual drive and parsing the file tree inside the CHD image, enabling seamless CHD integration with the supported emulators.
+- Perhaps the most significant achievement is that I did all of this **without touching a single line of the emulators' source code.** Simple Launcher acts as the "brain," handling the heavy lifting externally so you can use standard, official emulator builds.
+
+### 📦 What This Means for You
+
 - **Massive Space Savings:** Stop wasting hundreds of gigabytes on uncompressed ISOs. CHD offers incredible compression without losing data.
 - **Instant Play:** No more waiting for slow "CHD to ISO" conversions in temporary folders. The mounting is nearly instantaneous.
 
-### 🎮 Supported Emulators in this Release:
+### 🎮 Supported Emulators
+
 - **Xemu** (Original Xbox) - *The long-awaited community request!*
 - **Xenia** (Xbox 360)
 - **RPCS3** (PlayStation 3)
@@ -29,11 +37,13 @@ Enabling CHD support for these specific systems is a massive technical challenge
 
 This refactor wasn't just a code update; I am thrilled to finally put this power into your hands.
 
+I wrote the CHDMounter tool and will open source it soon.
+
 **Download the latest version now and reclaim your hard drive space!**
 
 ### 🚀 Major Features & Refactoring
 
-- **CHD Virtual Mounting:** Refactored the launcher to use `CHDMounter` for **Xemu, Xenia, RPCS3, and Cxbx-Reloaded**. Instead of converting large `.chd` files to `.iso` (which was slow and consumed disk space), the app now mounts them as virtual drives and automatically locates the necessary boot files (e.g., `EBOOT.BIN`, `default.xex`, `image.iso`). I wrote the CHDMounter tool and will open source it soon. 
+- **CHD Virtual Mounting:** Refactored the launcher to use `CHDMounter` for **Xemu, Xenia, RPCS3, and Cxbx-Reloaded**. Instead of converting large `.chd` files to `.iso` (which was slow and consumed disk space), the app now mounts them as virtual drives and automatically locates the necessary boot files (e.g., `EBOOT.BIN`, `default.xex`, , `default.xbe`, `image.iso`).
 - **Atomic File Saving:** Implemented atomic write operations for `settings.xml` and `system.xml`. The app now saves to a temporary file before replacing the original, significantly reducing the risk of configuration corruption during crashes or power loss.
 - **Enhanced ZIP Security:** Added "Zip Slip" (path traversal) validation to all extraction and mounting services to prevent malicious archives from writing files outside of intended directories.
 - **PBP Support for Mednafen:** Added a new strategy to convert `.pbp` files to `.cue/.bin` on the fly specifically for the Mednafen emulator.

@@ -74,7 +74,7 @@ public static class MountXisoFiles
             var errorMessage = $"{Path.GetFileName(toolRelativePath)} not found. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return new MountXisoDrive(); // Return failed state
         }
 
@@ -84,7 +84,7 @@ public static class MountXisoFiles
             const string errorMessage = "No available drive letters found to mount the ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return new MountXisoDrive(); // Return failed state
         }
 
@@ -127,7 +127,7 @@ public static class MountXisoFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
                 return new MountXisoDrive(); // Return failed state
             }
 
@@ -155,7 +155,7 @@ public static class MountXisoFiles
 
             mountProcess.Dispose();
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return new MountXisoDrive(); // Return failed state
         }
     }

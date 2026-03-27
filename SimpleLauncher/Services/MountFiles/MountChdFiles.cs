@@ -65,7 +65,7 @@ public static class MountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return new MountChdDrive();
         }
 
@@ -75,7 +75,7 @@ public static class MountChdFiles
             const string errorMessage = "No available drive letters found to mount the CHD.";
             DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return new MountChdDrive();
         }
 
@@ -121,7 +121,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
                 return new MountChdDrive();
             }
 
@@ -148,7 +148,7 @@ public static class MountChdFiles
 
             mountProcess.Dispose();
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return new MountChdDrive();
         }
     }
@@ -188,7 +188,7 @@ public static class MountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -198,7 +198,7 @@ public static class MountChdFiles
             const string errorMessage = "No available drive letters found to mount the CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -247,7 +247,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
                 return;
             }
 
@@ -276,7 +276,7 @@ public static class MountChdFiles
                                  $"{exitCodeInfoInCatch}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
         }
         finally
         {
@@ -388,7 +388,7 @@ public static class MountChdFiles
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -398,7 +398,7 @@ public static class MountChdFiles
             const string errorMessage = "No available drive letters found to mount the CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -451,7 +451,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
                 return;
             }
 
@@ -480,7 +480,7 @@ public static class MountChdFiles
                                  $"{exitCodeInfoInCatch}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
         }
         finally
         {

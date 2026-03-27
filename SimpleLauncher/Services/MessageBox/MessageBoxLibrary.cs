@@ -2771,7 +2771,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ThereWasAnErrorMountingTheFile(string logPath)
+    internal static void ThereWasAnErrorMountingTheFile()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2779,30 +2779,34 @@ internal static class MessageBoxLibrary
         void ShowMessage()
         {
             var simpleLaunchercouldnotmount = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotmount") ?? "'Simple Launcher' could not mount the selected game.";
-            var thismaybeduetoDokannotbeinginstalled = (string)Application.Current.TryFindResource("ThismaybeduetoDokannotbeinginstalled") ?? "This may be due to Dokan not being installed. Dokan is required for mounting ZIP and disk image files.";
-            var youcandownloadDokanfrom = (string)Application.Current.TryFindResource("YoucandownloadDokanfrom") ?? "You can download Dokan from: https://github.com/dokan-dev/dokany";
-            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var thismaybeduetoDokannotbeinginstalled = (string)Application.Current.TryFindResource("ThismaybeduetoDokannotbeinginstalled2") ?? "This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open your browser to download Dokan?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var result = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotmount}\n\n" +
-                                                        $"{thismaybeduetoDokannotbeinginstalled}\n\n" +
-                                                        $"{youcandownloadDokanfrom}\n\n" +
-                                                        $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var messageBoxResult = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotmount}\n\n" +
+                                                                  $"{thismaybeduetoDokannotbeinginstalled}\n\n" +
+                                                                  $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
+                var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:DokanyWebsite") ?? "https://github.com/dokan-dev/dokany";
+
                 try
                 {
                     Process.Start(new ProcessStartInfo
                     {
-                        FileName = logPath,
+                        FileName = downloadPageUrl,
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                    System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Notify developer
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open the Dokan website.");
+
+                    // Notify user
+                    var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningyourbrowser") ?? "An error occurred while opening your browser.";
+                    System.Windows.MessageBox.Show(anerroroccurredwhileopeningthebrowser, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -4601,7 +4605,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void AzaharConfigurationInjectionPermissionError(string configPath)
+    internal static void AzaharConfigurationInjectionPermissionError()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;

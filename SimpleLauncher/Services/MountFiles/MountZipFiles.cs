@@ -184,7 +184,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
 
             return;
         }
@@ -196,7 +196,7 @@ internal static class MountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -304,7 +304,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
         }
         finally
         {
@@ -412,7 +412,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
 
             return;
         }
@@ -424,7 +424,7 @@ internal static class MountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -527,7 +527,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
         }
         finally
         {
@@ -671,7 +671,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
 
             return;
         }
@@ -683,7 +683,7 @@ internal static class MountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
             return;
         }
 
@@ -830,7 +830,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
         }
         finally
         {

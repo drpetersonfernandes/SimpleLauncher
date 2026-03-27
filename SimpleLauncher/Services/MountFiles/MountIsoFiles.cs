@@ -35,7 +35,7 @@ public static class MountIsoFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
 
             return;
         }
@@ -49,7 +49,7 @@ public static class MountIsoFiles
             {
                 // Error already logged by ExecutePowerShellMountCommandAsync
                 // User already notified by ExecutePowerShellMountCommandAsync or will be here
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
                 return;
             }
 
@@ -66,7 +66,7 @@ public static class MountIsoFiles
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
 
                 // The finally block will attempt to dismount.
                 return;
@@ -89,7 +89,7 @@ public static class MountIsoFiles
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(errorMessage), errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath); // Or a more specific message like "Required game files not found in ISO"
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
 
                 return;
             }
@@ -110,7 +110,7 @@ public static class MountIsoFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
         }
         finally
         {
