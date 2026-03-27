@@ -48,7 +48,7 @@ internal static class RetroAchievementsHasherTool
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
         "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
         "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows",
-        "playstation 3", "ps3", "sony playstation 3", "xbox 360", "xbox one", "xbox series x", "xbox series s",
+        "playstation 3", "ps3", "sony playstation 3", "xbox", "xbox 360", "xbox one", "xbox series x", "xbox series s",
         "nintendo switch", "sega model 2", "sega model 3", "sega naomi", "sega naomi 2", "atomiswave",
         "odyssey", "odyssey2"
     ];

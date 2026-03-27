@@ -1446,7 +1446,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 
 **System Folder (Example):** c:\Microsoft Xbox<br>
 **Is the system MAME-based?** false<br>
-**Extension to Search in the System Folder:** iso<br>
+**Extension to Search in the System Folder:** iso, chd<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -1491,7 +1491,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 
 **System Folder (Example):** c:\Microsoft Xbox 360<br>
 **Is the system MAME-based?** false<br>
-**Extension to Search in the System Folder:** iso<br>
+**Extension to Search in the System Folder:** iso, chd<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -4610,7 +4610,24 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 There are multiple ways to use this emulator. You can use [Game Folders], ZIP files or ISO files.<br>
 
-**Option 1 — Use decrypted ISO files (Recommended)**
+**Option 1 — Use CHD files (Recommended)**
+
+**System Folder (Example):** c:\Sony PlayStation 3<br>
+**Is the system MAME-based?** false<br>
+**Extension to Search in the System Folder:** chd<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Name:** RPCS3<br>
+**Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
+
+**Option 2 — Use decrypted ISO files**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **Is the system MAME-based?** false<br>
@@ -4624,7 +4641,7 @@ There are multiple ways to use this emulator. You can use [Game Folders], ZIP fi
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-**Option 2 - Use [Game Folders]**
+**Option 3 - Use [Game Folders]**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **Is the system MAME-based?** false<br>
@@ -4640,7 +4657,7 @@ There are multiple ways to use this emulator. You can use [Game Folders], ZIP fi
 
 Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files for you.<br>
 
-**Option 3 - Use ZIP files**
+**Option 4 - Use ZIP files**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **Is the system MAME-based?** false<br>

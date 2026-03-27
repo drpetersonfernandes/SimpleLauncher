@@ -128,7 +128,7 @@ public static class RetroAchievementsSystemMatcher
         ["hubs"] = new RaSystemInfo(100, ["hubs"]),
         ["events"] = new RaSystemInfo(101, ["events"]),
         ["standalone"] = new RaSystemInfo(102, ["standalone"]),
-        ["Xbox"] = new RaSystemInfo(102, ["xbox", "x-box"]),
+        ["Xbox"] = new RaSystemInfo(102, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(102, ["dos", "microsoft dos"]),
         ["PC-9800"] = new RaSystemInfo(102, ["pc-9800", "pc-9800", "pc9800"]),
         ["Zeebo"] = new RaSystemInfo(102, ["Zeebo"])
@@ -154,15 +154,6 @@ public static class RetroAchievementsSystemMatcher
                 return kvp.Key;
             }
         }
-
-        // // Fuzzy matching - check if any pattern is contained within the input
-        // foreach (var kvp in SystemMappings)
-        // {
-        //     if (kvp.Value.Aliases.Any(pattern => normalizedInput.Contains(pattern) || pattern.Contains(normalizedInput)))
-        //     {
-        //         return kvp.Key;
-        //     }
-        // }
 
         // No match found, log it for future improvement and return original.
         DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
