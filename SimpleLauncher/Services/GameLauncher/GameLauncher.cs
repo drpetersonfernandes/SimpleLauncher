@@ -799,25 +799,7 @@ public partial class GameLauncher
             }
         }
 
-        if (isChd && (isXemu))
-        {
-            var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToIso") ?? "Converting CHD...";
-            loadingStateProvider.SetLoadingState(true, convertingMsg);
-
-            tempConvertedPath = await Converters.ConvertChdToIso.ConvertChdToIsoAsync(resolvedFilePath);
-            if (tempConvertedPath != null)
-            {
-                resolvedFilePath = tempConvertedPath;
-            }
-            else
-            {
-                loadingStateProvider.SetLoadingState(false);
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                return;
-            }
-        }
-
-        if (isChd && (isXenia || isRpcs3 || isCxbxReloaded))
+        if (isChd && (isXenia || isRpcs3 || isCxbxReloaded || isXemu))
         {
             var mountingMsg = (string)Application.Current.TryFindResource("MountingChd") ?? "Mounting CHD...";
             loadingStateProvider.SetLoadingState(true, mountingMsg);
@@ -855,6 +837,22 @@ public partial class GameLauncher
                         loadingStateProvider.SetLoadingState(false);
                         DebugLogger.Log("[LaunchRegularEmulatorAsync] default.xex not found in mounted CHD.");
                         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "default.xex not found in mounted CHD.");
+                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
+                        return;
+                    }
+                }
+                else if (isXemu) // For Xemu, point to image.iso
+                {
+                    var defaultPath = FindImageIso.Find(mountedChdDrive.MountedPath);
+                    if (!string.IsNullOrEmpty(defaultPath))
+                    {
+                        resolvedFilePath = defaultPath;
+                    }
+                    else
+                    {
+                        loadingStateProvider.SetLoadingState(false);
+                        DebugLogger.Log("[LaunchRegularEmulatorAsync] image.iso not found in mounted CHD.");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "image.iso not found in mounted CHD.");
                         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
                         return;
                     }
