@@ -234,6 +234,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Loaded += async (_, _) =>
         {
             // Wire Emergency Return Button from Template
+            LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;

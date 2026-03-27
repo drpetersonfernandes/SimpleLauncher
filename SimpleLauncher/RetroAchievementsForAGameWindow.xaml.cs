@@ -42,6 +42,15 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         _playSoundEffects = App.ServiceProvider.GetRequiredService<PlaySoundEffects>();
 
         Loaded += AchievementsWindow_Loaded;
+
+        Loaded += (_, _) =>
+        {
+            LoadingOverlay.ApplyTemplate();
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private void AchievementsWindow_Loaded(object sender, RoutedEventArgs e)

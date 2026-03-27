@@ -182,7 +182,7 @@ Command line documentation can be found on [Stella Website](https://stella-emu.g
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -465,7 +465,7 @@ This emulator requires a BIOS file to run.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-May require BIOS file to work properly.<br>
+May require BIOS file to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Atari ST
@@ -507,7 +507,7 @@ Core requires tos.img BIOS file to work.
 
 This emulator is available for Windows-x64.<br>
 You can find a list of command-line args on the [Hatari Website](https://www.hatari-emu.org/doc/manual.html#Command_line_options_and_arguments).<br>
-Emulator may require BIOS or system files to work properly.
+Emulator may require BIOS or system files to work.
 
 .
 
@@ -574,7 +574,7 @@ This emulator is available for Windows-x64.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_cygne/).<br>
-Core may require BIOS or system files to work properly.
+Core may require BIOS or system files to work.
 
 .
 
@@ -606,7 +606,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -648,7 +648,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_cygne/).<br>
-Core may require BIOS or system files to work properly.
+Core may require BIOS or system files to work.
 
 .
 
@@ -680,7 +680,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -762,7 +762,7 @@ Core requires colecovision.rom BIOS file to work.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -1306,7 +1306,7 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -1394,7 +1394,7 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -1459,7 +1459,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **Fullscreen Parameter:** -full-screen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires BIOS and system files to work properly.<br>
+This emulator requires BIOS and system files to work.<br>
 The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
 
 The ISO file needs to be formated in XISO format, as the original XBOX discs.<br>
@@ -1605,7 +1605,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -1670,7 +1670,7 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -1694,7 +1694,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work properly.<br>
+May require BIOS files to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC PC-FX
@@ -1748,7 +1748,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work properly.<br>
+May require BIOS files to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC SuperGrafx
@@ -1799,7 +1799,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 ## Nintendo 3DS
 
@@ -1865,7 +1865,7 @@ Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/citra/). <br>
-Core may require BIOS or system files to work properly.
+Core may require BIOS or system files to work.
 
 .
 
@@ -2023,7 +2023,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -2132,7 +2132,7 @@ Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -2204,7 +2204,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -2348,7 +2348,7 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [GitHub](https://github.com/hades-emu/hades).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -2367,7 +2367,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -2477,7 +2477,7 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -2637,7 +2637,7 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -3905,7 +3905,7 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require a BIOS file to work properly.<br>
+May require a BIOS file to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
@@ -4365,7 +4365,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -4441,7 +4441,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -4482,7 +4482,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Emulator documentation can be found on [DuckStation Repository](https://github.com/stenzek/duckstation).<br>
-Emulator may need BIOS or system files to work properly.
+Emulator may need BIOS or system files to work.
 
 .
 
@@ -4506,7 +4506,7 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work properly.<br>
+May require BIOS files to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
@@ -4531,7 +4531,7 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work properly.
+This emulator requires a BIOS file to work.
 
 .
 
@@ -4580,7 +4580,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Documentation can be found on [PCSX2 Website](https://pcsx2.net/docs/).<br>
-This emulator may require BIOS or system files to work properly.
+This emulator may require BIOS or system files to work.
 
 .
 

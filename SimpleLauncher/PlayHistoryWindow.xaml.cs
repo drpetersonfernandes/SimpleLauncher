@@ -75,6 +75,15 @@ public partial class PlayHistoryWindow : ILoadingState
         Closed += PlayHistoryWindow_Closed;
 
         Loaded += PlayHistoryWindowLoadedAsync;
+
+        Loaded += (_, _) =>
+        {
+            LoadingOverlay.ApplyTemplate();
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
     }
 
     private async void PlayHistoryWindowLoadedAsync(object sender, RoutedEventArgs e)

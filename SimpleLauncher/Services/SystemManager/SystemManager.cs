@@ -661,6 +661,7 @@ public partial class SystemManager
         existingSystem.SetElementValue("SystemIsMAME", config.SystemIsMame);
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
+        existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch);
         existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
 

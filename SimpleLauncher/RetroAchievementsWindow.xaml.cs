@@ -39,6 +39,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         Loaded += (_, _) =>
         {
+            LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
             {
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
