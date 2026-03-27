@@ -4,7 +4,7 @@
 
 # 🚀 Breaking the "Impossible": CHD Support for Xbox, Xbox 360, and PS3 is Here!
 
-Today marks a major milestone for the retro gaming community. For a long time, using **CHD (Compressed Hunks of Data)** files for modern disc-based systems like the original Xbox, Xbox 360, and PlayStation 3 was considered an "impossible" dream. While the community has begged for this feature—especially for **Xemu**—native support remained out of reach.
+Today marks a major milestone for the retro gaming community. Support for CHD (Compressed Hunks of Data) files on original Xbox, Xbox 360, and PlayStation 3 has been a long-awaited and heavily requested feature—Xemu users in particular have been vocal about it—but native support never materialized.
 
 **Until now.**
 
