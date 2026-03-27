@@ -805,7 +805,7 @@ public partial class GameLauncher
             loadingStateProvider.SetLoadingState(true, mountingMsg);
 
             var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-            var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(selectedSystemManager.SystemName);
+            var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(selectedSystemManager.SystemName, selectedEmulatorName);
             mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath, consoleIndex);
             if (mountedChdDrive is { IsMounted: true })
             {

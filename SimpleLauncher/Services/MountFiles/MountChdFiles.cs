@@ -555,11 +555,12 @@ public static class MountChdFiles
     }
 
     /// <summary>
-    /// Gets the console index for CHDMounter based on the system name.
+    /// Gets the console index for CHDMounter based on the system name and optionally the emulator name.
     /// </summary>
     /// <param name="systemName">The name of the system.</param>
+    /// <param name="emulatorName">The name of the emulator (optional).</param>
     /// <returns>The console index, or null if not found.</returns>
-    public static int? GetConsoleIndexFromSystemName(string systemName)
+    public static int? GetConsoleIndexFromSystemName(string systemName, string emulatorName = null)
     {
         if (string.IsNullOrEmpty(systemName)) return null;
 
@@ -661,6 +662,12 @@ public static class MountChdFiles
         if (name.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
             !name.Contains("360"))
         {
+            if (!string.IsNullOrEmpty(emulatorName) &&
+                emulatorName.Contains("xemu", StringComparison.OrdinalIgnoreCase))
+            {
+                return 17;
+            }
+
             return 15;
         }
 
