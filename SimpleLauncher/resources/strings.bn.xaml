@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">এটি Dokan ইনস্টল না থাকার কারণে হতে পারে। ZIP, CHD এবং ডিস্ক ইমেজ ফাইল মাউন্ট করার জন্য Dokan প্রয়োজন।</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">আপনার ব্রাউজার খোলার সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">আপনি কি Dokan ডাউনলোড করার জন্য আপনার ব্রাউজার খুলতে চান?</system:String>
+
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -268,7 +272,6 @@
     <system:String x:Key="ContactDeveloper">ডেভেলপারের সাথে যোগাযোগ করুন</system:String>
     <system:String x:Key="Contributions">অবদান:</system:String>
     <system:String x:Key="ConvertingChdToCue">CHD রূপান্তর করা হচ্ছে...</system:String>
-    <system:String x:Key="ConvertingChdToIso">CHD রূপান্তর করা হচ্ছে...</system:String>
     <system:String x:Key="ConvertingPbpToCue">PBP থেকে CUE/BIN এ রূপান্তর করা হচ্ছে...</system:String>
     <system:String x:Key="CopyError">কপি ত্রুটি</system:String>
     <system:String x:Key="CopyLog">লগ কপি করুন</system:String>
@@ -1767,7 +1770,6 @@
     <system:String x:Key="Thisactionwilldelete">এই পদক্ষেপ ফাইলটি HDD থেকে মুছে ফেলবে এবং এটি পূর্বাবস্থায় ফেরানো যাবে না</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">এটি সাধারণত কর্পোরেট বা পরিচালিত পিসিগুলিতে গ্রুপ পলিসি সেটিংসের কারণে ঘটে।</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">এটি সাধারণত কর্পোরেট বা পরিচালিত পিসিগুলিতে গ্রুপ পলিসি সেটিংসের কারণে ঘটে।</system:String>
-    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">এটি Dokan ইনস্টল না থাকার কারণে হতে পারে। ZIP এবং ডিস্ক ইমেজ ফাইল মাউন্ট করার জন্য Dokan প্রয়োজন।</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">এই সার্চ ইঞ্জিনটি ফাইলের নাম এবং বিবরণ খোঁজে।</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">খেলার সংখ্যা</system:String>
     <system:String x:Key="TitleScreen">টাইটেল স্ক্রিন</system:String>
@@ -2064,7 +2066,6 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">আপনি সাময়িকভাবে আপনার অ্যান্টিভাইরাস সফটওয়্যার নিষ্ক্রিয় করতে পারেন বা 'Simple Launcher' ফোল্ডারটি অ্যান্টিভাইরাসের এক্সক্লুশন তালিকায় যুক্ত করতে পারেন।</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">আপনি কাস্টম গেমপ্যাড ডেডজোন সংজ্ঞায়িত করতে পারেন</system:String>
     <system:String x:Key="YoucandefinecustomURL">আপনি ভিডিও লিংক বোতাম এবং তথ্য লিংক বোতামের জন্য একটি কাস্টম URL নির্ধারণ করতে পারেন</system:String>
-    <system:String x:Key="YoucandownloadDokanfrom">আপনি Dokan ডাউনলোড করতে পারেন: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">আপনি একাধিক AI প্রোভাইডার বা ডেভেলপারের থেকে সাপোর্ট পেতে পারেন। নিচে চয়ন করুন।</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">আপনি এক্সপার্ট মোডে এই ত্রুটি বার্তাটি বন্ধ করতে পারেন।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>

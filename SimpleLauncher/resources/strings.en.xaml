@@ -3,6 +3,11 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">An error occurred while opening your browser.</system:String>
+    <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Do you want to open your browser to download Dokan?</system:String>
+    
     <system:String x:Key="1000000games">All games</system:String>
     <system:String x:Key="10000games">10000 games</system:String>
     <system:String x:Key="1000games">1000 games</system:String>
@@ -270,7 +275,6 @@
     <system:String x:Key="ContactDeveloper">Contact Developer (Report Bug)</system:String>
     <system:String x:Key="Contributions">Contributions:</system:String>
     <system:String x:Key="ConvertingChdToCue">Converting CHD...</system:String>
-    <system:String x:Key="ConvertingChdToIso">Converting CHD...</system:String>
     <system:String x:Key="ConvertingPbpToCue">Converting PBP to CUE/BIN...</system:String>
     <system:String x:Key="CopyError">Copy Error</system:String>
     <system:String x:Key="CopyLog">Copy Log</system:String>
@@ -1769,7 +1773,6 @@
     <system:String x:Key="Thisactionwilldelete">This action will delete the file from the HDD and cannot be undone.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
-    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">This may be due to Dokan not being installed. Dokan is required for mounting ZIP and disk image files.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in the emulator frontend.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Times Played</system:String>
     <system:String x:Key="TitleScreen">Title Screen</system:String>
@@ -2066,7 +2069,6 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">You can define custom Gamepad DeadZone</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
-    <system:String x:Key="YoucandownloadDokanfrom">You can download Dokan from: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">You can receive support from multiple AI providers or from the developer. Choose below.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">You can turn off this error message in Expert mode.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>

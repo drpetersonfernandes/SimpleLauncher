@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Điều này có thể là do Dokan chưa được cài đặt. Cần có Dokan để gắn (mount) các tệp ZIP, CHD và tệp ảnh đĩa.</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Đã xảy ra lỗi khi mở trình duyệt của bạn.</system:String>
+    <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Bạn có muốn mở trình duyệt để tải xuống Dokan không?</system:String>
+
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -268,7 +273,6 @@
     <system:String x:Key="ContactDeveloper">Liên hệ nhà phát triển</system:String>
     <system:String x:Key="Contributions">Đóng góp:</system:String>
     <system:String x:Key="ConvertingChdToCue">Đang chuyển đổi CHD...</system:String>
-    <system:String x:Key="ConvertingChdToIso">Đang chuyển đổi CHD...</system:String>
     <system:String x:Key="ConvertingPbpToCue">Đang chuyển đổi PBP sang CUE/BIN...</system:String>
     <system:String x:Key="CopyError">Lỗi sao chép</system:String>
     <system:String x:Key="CopyLog">Sao chép nhật ký</system:String>
@@ -1767,7 +1771,6 @@
     <system:String x:Key="Thisactionwilldelete">Hành động này sẽ xóa tệp khỏi ổ cứng của bạn và không thể hoàn tác.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Điều này thường do cài đặt Chính sách nhóm trên các PC của công ty hoặc được quản lý.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Điều này thường do cài đặt Chính sách nhóm trên các PC của công ty hoặc được quản lý.</system:String>
-    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Điều này có thể do Dokan chưa được cài đặt. Dokan cần thiết để gắn kết các tệp ZIP và tệp hình ảnh đĩa.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trong mỗi hệ thống được cấu hình trong giao diện trình giả lập.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Số Lần Chơi</system:String>
     <system:String x:Key="TitleScreen">Màn hình tiêu đề</system:String>
@@ -2064,7 +2067,6 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Bạn cũng có thể tạm thời tắt phần mềm diệt virus hoặc thêm thư mục 'Simple Launcher' vào danh sách loại trừ của phần mềm diệt virus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Bạn có thể xác định vùng chết gamepad tùy chỉnh</system:String>
     <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
-    <system:String x:Key="YoucandownloadDokanfrom">Bạn có thể tải Dokan từ: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Bạn có thể nhận hỗ trợ từ nhiều nhà cung cấp AI hoặc từ nhà phát triển. Chọn bên dưới.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bạn có thể tắt thông báo lỗi này trong chế độ Chuyên gia.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>

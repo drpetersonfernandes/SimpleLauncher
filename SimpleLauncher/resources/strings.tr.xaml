@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Bu durum Dokan'ın kurulu olmamasından kaynaklanıyor olabilir. ZIP, CHD ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Tarayıcınız açılırken bir hata oluştu.</system:String>
+    <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Dokan'ı indirmek için tarayıcınızı açmak istiyor musunuz?</system:String>
+
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -268,7 +272,6 @@
     <system:String x:Key="ContactDeveloper">Geliştiriciyle İletişime Geçin</system:String>
     <system:String x:Key="Contributions">Katkılar:</system:String>
     <system:String x:Key="ConvertingChdToCue">CHD dönüştürülüyor...</system:String>
-    <system:String x:Key="ConvertingChdToIso">CHD dönüştürülüyor...</system:String>
     <system:String x:Key="ConvertingPbpToCue">PBP'den CUE/BIN'e dönüştürülüyor...</system:String>
     <system:String x:Key="CopyError">Kopyalama Hatası</system:String>
     <system:String x:Key="CopyLog">Günlüğü Kopyala</system:String>
@@ -1767,7 +1770,6 @@
     <system:String x:Key="Thisactionwilldelete">Bu işlem dosyayı sabit diskinizden silecek ve geri alınamayacaktır.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Bu genellikle kurumsal veya yönetilen bilgisayarlardaki Grup İlkesi ayarlarından kaynaklanır.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Bu genellikle kurumsal veya yönetilen bilgisayarlardaki Grup İlkesi ayarlarından kaynaklanır.</system:String>
-    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Bu, Dokan'ın kurulu olmamasından kaynaklanıyor olabilir. ZIP ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, her sistemdeki dosya adlarını ve makine açıklamalarını emülatör ara yüzünde arar.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Oynanma Sayısı</system:String>
     <system:String x:Key="TitleScreen">Başlık Ekranı</system:String>
@@ -2064,7 +2066,6 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakabilir veya 'Simple Launcher' klasörünü antivirüs hariç tutma listesine ekleyebilirsiniz.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
-    <system:String x:Key="YoucandownloadDokanfrom">Dokan'ı şuradan indirebilirsiniz: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Birden fazla yapay zeka sağlayıcısından veya geliştiriciden destek alabilirsiniz. Aşağıdan seçin.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bu hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>

@@ -2780,7 +2780,7 @@ internal static class MessageBoxLibrary
         {
             var simpleLaunchercouldnotmount = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotmount") ?? "'Simple Launcher' could not mount the selected game.";
             var thismaybeduetoDokannotbeinginstalled = (string)Application.Current.TryFindResource("ThismaybeduetoDokannotbeinginstalled2") ?? "This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.";
-            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open your browser to download Dokan?";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("DoyouwanttoopenyourbrowsertodownloadDokan") ?? "Do you want to open your browser to download Dokan?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var messageBoxResult = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotmount}\n\n" +

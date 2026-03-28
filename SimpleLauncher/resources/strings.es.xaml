@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Esto puede deberse a que Dokan no está instalado. Dokan es necesario para montar archivos ZIP, CHD e imágenes de disco.</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Ocurrió un error al abrir su navegador.</system:String>
+    <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">¿Desea abrir su navegador para descargar Dokan?</system:String>
+
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
     <system:String x:Key="1000games">1000 juegos</system:String>
@@ -268,7 +272,6 @@
     <system:String x:Key="ContactDeveloper">Contactar con el desarrollador</system:String>
     <system:String x:Key="Contributions">Contribuciones:</system:String>
     <system:String x:Key="ConvertingChdToCue">Convirtiendo CHD...</system:String>
-    <system:String x:Key="ConvertingChdToIso">Convirtiendo CHD...</system:String>
     <system:String x:Key="ConvertingPbpToCue">Convirtiendo PBP a CUE/BIN...</system:String>
     <system:String x:Key="CopyError">Error de Copia</system:String>
     <system:String x:Key="CopyLog">Copiar registro</system:String>
@@ -1767,7 +1770,6 @@
     <system:String x:Key="Thisactionwilldelete">Esta acción eliminará el archivo del disco duro y no se podrá deshacer.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Esto suele ser causado por la configuración de la Política de grupo en PC corporativas o administradas.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Esto suele ser causado por la configuración de la Política de grupo en PC corporativas o administradas.</system:String>
-    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Esto puede deberse a que Dokan no esté instalado. Dokan es necesario para montar archivos ZIP e imágenes de disco.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Este motor de búsqueda busca nombres de archivos y descripciones de máquinas dentro de cada sistema configurado en la interfaz del emulador.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Veces jugado</system:String>
     <system:String x:Key="TitleScreen">Pantalla de título</system:String>
@@ -2064,7 +2066,6 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">También puede desactivar temporalmente su software antivirus o agregar la carpeta 'Simple Launcher' a la lista de exclusión del antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Puedes definir una zona muerta personalizada del mando</system:String>
     <system:String x:Key="YoucandefinecustomURL">Puede definir una URL personalizada para usar en el botón de enlace de video y el botón de enlace de información.</system:String>
-    <system:String x:Key="YoucandownloadDokanfrom">Puedes descargar Dokan desde: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Puede recibir soporte de múltiples proveedores de IA o del desarrollador. Elija a continuación.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Puede desactivar este mensaje de error en el modo Experto.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puedes usar los operadores lógicos AND / OR.</system:String>

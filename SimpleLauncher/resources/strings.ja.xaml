@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dokan がインストールされていない可能性があります。ZIP、CHD、およびディスクイメージファイルをマウントするには Dokan が必要です。</system:String>
+    <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">ブラウザを開く際にエラーが発生しました。</system:String>
+    <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Dokan をダウンロードするためにブラウザを開きますか？</system:String>
+
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -268,7 +273,6 @@
     <system:String x:Key="ContactDeveloper">開発者に連絡</system:String>
     <system:String x:Key="Contributions">貢献:</system:String>
     <system:String x:Key="ConvertingChdToCue">CHDを変換中...</system:String>
-    <system:String x:Key="ConvertingChdToIso">CHDを変換中...</system:String>
     <system:String x:Key="ConvertingPbpToCue">PBPをCUE/BINに変換中...</system:String>
     <system:String x:Key="CopyError">コピーエラー</system:String>
     <system:String x:Key="CopyLog">ログをコピー</system:String>
@@ -1767,7 +1771,6 @@
     <system:String x:Key="Thisactionwilldelete">この操作により、ハードディスクからファイルが削除され、取り消しはできません。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">これは通常、企業または管理されたPCのグループポリシー設定が原因です。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">これは通常、企業または管理されたPCのグループポリシー設定が原因です。</system:String>
-    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">これはDokanがインストールされていないことが原因かもしれません。ZIPおよびディスクイメージファイルのマウントにはDokanが必要です。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、エミュレーターのフロントエンドで設定された各システムの中のファイル名とマシンの説明を検索します。</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">プレイ回数</system:String>
     <system:String x:Key="TitleScreen">タイトル画面</system:String>
@@ -2064,7 +2067,6 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">アンチウイルスソフトを一時的に無効化するか、「Simple Launcher」フォルダーをアンチウイルスの除外リストに追加することもできます。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">カスタムゲームパッドのデッドゾーンを定義できます</system:String>
     <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
-    <system:String x:Key="YoucandownloadDokanfrom">Dokanは以下からダウンロードできます: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">複数の AI プロバイダーまたは開発者からサポートを受けられます。以下から選択してください。</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">エキスパートモードでこのエラーメッセージをオフにすることができます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
