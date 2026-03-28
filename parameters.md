@@ -2162,6 +2162,19 @@ Core may require BIOS files or system files to work.
 
 .
 
+**Emulator Name:** Retroarch fceumm<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fceumm_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fceumm_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core may require a BIOS file to work.<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).
+
+.
+
 **Emulator Name:** Mesen<br>
 **Emulator Path (Example):** c:\emulators\mesen\Mesen.exe<br>
 **Emulator Parameters (Example):** --fullscreen<br>
@@ -2561,7 +2574,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work.
 
-## Nintendo NES
+## Nintendo NES / Nintendo Famicom
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -2600,6 +2613,19 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).
+
+.
+
+**Emulator Name:** Retroarch fceumm<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fceumm_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fceumm_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core may require a BIOS file to work.<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).
 
 .
 
