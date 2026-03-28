@@ -1,5 +1,5 @@
 # Release 5.2.0
-*2026-03-26*
+*2026-03-28*
 ---
 
 # 🚀 Breaking the "Impossible": CHD Support for Xbox, Xbox 360, and PS3 is Here!
@@ -35,9 +35,7 @@ Simple Launcher will not mount CHD files without Dokan installed.
 - **RPCS3** (PlayStation 3)
 - **Cxbx-Reloaded** (Original Xbox)
 
-This refactor wasn't just a code update; I am thrilled to finally put this power into your hands.
-
-I wrote the CHDMounter tool and will open source it soon.
+This refactor wasn't just a code update; I am thrilled to put this power into your hands.
 
 **Download the latest version now and reclaim your hard drive space!**
 
