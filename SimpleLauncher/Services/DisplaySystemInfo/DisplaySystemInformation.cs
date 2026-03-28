@@ -30,9 +30,10 @@ public static class DisplaySystemInformation
         var defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "Using default image folder";
         var isthesystemMamEbased2 = (string)Application.Current.TryFindResource("IsthesystemMAMEbased") ?? "Is the system MAME-based?";
         var extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder2") ?? "Extension to Search in the System Folder";
-        var groupFilesByFolder2 = (string)Application.Current.TryFindResource("GroupFilesByFolder") ?? "Group Files by Folder?";
         var extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ?? "Extract File Before Launch?";
         var extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction2") ?? "Extension to Launch After Extraction";
+        var groupFilesByFolder2 = (string)Application.Current.TryFindResource("GroupFilesByFolder") ?? "Group Files by Folder?";
+        var disableRecursiveSearch2 = (string)Application.Current.TryFindResource("DisableRecursiveSearch") ?? "Disable Recursive Search?";
         // var totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "Number of games in the System Folder: {0}";
         // var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
         // var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
@@ -73,11 +74,15 @@ public static class DisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedManager.FileFormatsToSearch)}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{groupFilesByFolder2}: {selectedManager.GroupByFolder}"));
-        systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{extractFileBeforeLaunch2}: {selectedManager.ExtractFileBeforeLaunch}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedManager.FileFormatsToLaunch)}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{groupFilesByFolder2}: {selectedManager.GroupByFolder}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new Run($"{disableRecursiveSearch2}: {selectedManager.DisableRecursiveSearch}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+
         verticalStackPanel.Children.Add(systemInfoTextBlock);
 
         // // --- Game and Image Count ---
