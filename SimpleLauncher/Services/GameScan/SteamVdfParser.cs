@@ -74,6 +74,17 @@ public static partial class SteamVdfParser
 
             return result;
         }
+        catch (UnauthorizedAccessException)
+        {
+            // File is locked or inaccessible (e.g. another process has it open)
+            // Return empty result without logging — this is expected in some environments
+            return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        }
+        catch (IOException)
+        {
+            // File is locked or unreadable
+            return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        }
         catch (Exception ex)
         {
             if (logErrors != null)

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 public static class DeleteFiles
 {
     private const int MaxDeleteRetries = 10;
-    private const int DeleteRetryDelayMs = 200;
+    private const int DeleteRetryDelayMs = 500;
 
     public static void TryDeleteFile(string filePath)
     {
@@ -61,6 +62,23 @@ public static class DeleteFiles
             }
             catch (UnauthorizedAccessException ex)
             {
+                // If the file is Updater.exe and an Updater process is still running,
+                // skip silently — the file is locked and will be cleaned up on next launch
+                if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        if (Process.GetProcessesByName("Updater").Length != 0)
+                        {
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        // Process check failed, proceed with normal retry logic
+                    }
+                }
+
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
                 {

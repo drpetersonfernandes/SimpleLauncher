@@ -106,8 +106,21 @@ internal static class ScanSteamGames
             {
                 if (!Directory.Exists(libraryPath)) continue;
 
-                // Standard AppManifests
-                var manifestFiles = Directory.GetFiles(libraryPath, "appmanifest_*.acf");
+                string[] manifestFiles;
+                try
+                {
+                    manifestFiles = Directory.GetFiles(libraryPath, "appmanifest_*.acf");
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Skip inaccessible library paths
+                    continue;
+                }
+                catch (IOException)
+                {
+                    continue;
+                }
+
                 foreach (var manifestFile in manifestFiles)
                 {
                     await ProcessSteamManifest(manifestFile, libraryPath, steamPath, logErrors, windowsRomsPath, windowsImagesPath, ignoredGameNames);
@@ -119,7 +132,21 @@ internal static class ScanSteamGames
             var sourceModsPath = Path.Combine(steamPath, "steamapps", "sourcemods");
             if (Directory.Exists(sourceModsPath))
             {
-                var modDirectories = Directory.GetDirectories(sourceModsPath);
+                string[] modDirectories;
+                try
+                {
+                    modDirectories = Directory.GetDirectories(sourceModsPath);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Skip inaccessible sourcemods path
+                    modDirectories = [];
+                }
+                catch (IOException)
+                {
+                    modDirectories = [];
+                }
+
                 foreach (var modDir in modDirectories)
                 {
                     // Pass windowsImagesPath here

@@ -129,6 +129,7 @@ public static class RetroAchievementsSystemMatcher
         ["events"] = new RaSystemInfo(101, ["events"]),
         ["standalone"] = new RaSystemInfo(102, ["standalone"]),
         ["Xbox"] = new RaSystemInfo(102, ["xbox", "x-box", "Microsoft Xbox"]),
+        ["Xbox360"] = new RaSystemInfo(102, ["xbox360", "xbox 360", "x-box 360", "Microsoft Xbox 360"]),
         ["DOS"] = new RaSystemInfo(102, ["dos", "microsoft dos"]),
         ["PC-9800"] = new RaSystemInfo(102, ["pc-9800", "pc-9800", "pc9800"]),
         ["Zeebo"] = new RaSystemInfo(102, ["Zeebo"])
