@@ -4,6 +4,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="networkPathIssue">If the file is on a network drive ensure your computer is still connected to that drive.</system:String>
+    
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">An error occurred while opening your browser.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Do you want to open your browser to download Dokan?</system:String>

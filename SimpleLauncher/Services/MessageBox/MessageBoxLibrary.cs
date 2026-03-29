@@ -2741,6 +2741,7 @@ internal static class MessageBoxLibrary
         {
             var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
             var thefilepathisinvalid = (string)Application.Current.TryFindResource("Thefilepathisinvalid") ?? "The filepath is invalid or the file does not exist!";
+            var networkPathIssue = (string)Application.Current.TryFindResource("networkPathIssue") ?? "If the file is on a network drive ensure your computer is still connected to that drive.";
             var avoidusingspecialcharactersinthefilepath = (string)Application.Current.TryFindResource("Avoidusingspecialcharactersinthefilepath") ?? "Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
@@ -2748,6 +2749,7 @@ internal static class MessageBoxLibrary
 
             var result = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
                                                         $"{thefilepathisinvalid}\n\n" +
+                                                        $"{networkPathIssue}\n\n" +
                                                         $"{avoidusingspecialcharactersinthefilepath}\n\n" +
                                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
                                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
