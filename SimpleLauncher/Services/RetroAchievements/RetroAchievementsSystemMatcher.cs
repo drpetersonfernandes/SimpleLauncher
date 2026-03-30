@@ -60,7 +60,7 @@ public static class RetroAchievementsSystemMatcher
         // Sony systems
         ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation"]),
         ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2"]),
-        ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp"]),
+        ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP"]),
 
         // NEC systems
         ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16"]),
