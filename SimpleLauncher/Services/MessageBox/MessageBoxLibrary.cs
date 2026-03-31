@@ -4655,4 +4655,19 @@ internal static class MessageBoxLibrary
             System.Windows.MessageBox.Show(message1, message2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void XemuParameterShouldContainDvdPath()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var message = (string)Application.Current.TryFindResource("XemuParameterShouldContainDvdPath") ?? "The Xemu parameter should contain '-dvd_path'.";
+            var message2 = (string)Application.Current.TryFindResource("EditthissysteminExpertModeandfixtheparameter") ?? "Edit this system in 'Expert Mode' and fix the parameter field for this emulator.";
+            System.Windows.MessageBox.Show($"{message}\n\n" +
+                                           $"{message2}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }
