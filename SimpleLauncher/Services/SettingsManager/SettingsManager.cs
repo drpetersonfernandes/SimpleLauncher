@@ -7,6 +7,7 @@ using System.Threading;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.SharedModels;
 using Microsoft.Extensions.Configuration;
 
@@ -2021,35 +2022,76 @@ public class SettingsManager : IDisposable
         }
 
         // 2. Perform serialization and I/O outside the lock
-        try
+        var tempPath = _filePath + ".tmp";
+        const int maxRetries = 3;
+        var retryDelayMs = 500;
+        Exception lastException = null;
+
+        for (var attempt = 0; attempt < maxRetries; attempt++)
         {
-            var root = BuildXElement(snapshot);
-            var tempPath = _filePath + ".tmp";
-
-            // Write to temporary file first
-            root.Save(tempPath);
-
-            // Atomically replace the main file with the temp file
-            File.Move(tempPath, _filePath, true);
-        }
-        catch (Exception ex)
-        {
-            App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving settings.xml");
-
-            // Attempt to clean up temp file if it exists
             try
             {
-                var tempPath = _filePath + ".tmp";
-                if (File.Exists(tempPath))
+                var root = BuildXElement(snapshot);
+
+                // Write to temporary file using FileStream with FileShare.ReadWrite
+                // to avoid locking issues with antivirus or file indexers
+                using (var stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                 {
-                    File.Delete(tempPath);
+                    root.Save(stream);
+                }
+
+                // Atomically replace the main file with the temp file
+                File.Move(tempPath, _filePath, true);
+                return; // Success
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                lastException = ex;
+
+                if (attempt < maxRetries - 1)
+                {
+                    // Attempt to clean up temp file before retrying
+                    try
+                    {
+                        if (File.Exists(tempPath))
+                        {
+                            File.Delete(tempPath);
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore cleanup errors
+                    }
+
+                    Thread.Sleep(retryDelayMs);
+                    retryDelayMs *= 2; // Exponential backoff
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Ignore cleanup errors
+                lastException = ex;
+                break; // Don't retry non-transient errors
             }
         }
+
+        // All retries exhausted or non-transient error
+        App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving settings.xml");
+
+        // Attempt to clean up temp file if it exists
+        try
+        {
+            if (File.Exists(tempPath))
+            {
+                File.Delete(tempPath);
+            }
+        }
+        catch
+        {
+            // Ignore cleanup errors
+        }
+
+        // Notify user that settings could not be saved
+        MessageBoxLibrary.FailedToSaveSettings();
     }
 
     private static XElement BuildXElement(SettingsManager s)

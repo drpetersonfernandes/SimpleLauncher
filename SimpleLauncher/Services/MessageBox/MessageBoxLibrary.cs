@@ -2732,6 +2732,19 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void FailedToSaveSettings()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("FailedToSaveSettings") ?? "Failed to save settings. Please check that the application folder is writable and not locked by another process.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     internal static void FilePathIsInvalid(string logPath)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
