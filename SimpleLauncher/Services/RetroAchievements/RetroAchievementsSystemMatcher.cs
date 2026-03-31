@@ -31,7 +31,7 @@ public static class RetroAchievementsSystemMatcher
     {
         // Nintendo systems
         ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64"]),
-        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC"]),
+        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom"]),
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy"]),
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color"]),
@@ -53,7 +53,8 @@ public static class RetroAchievementsSystemMatcher
         ["master system"] = new RaSystemInfo(11, ["master system", "mastersystem", "mark3"]),
         ["game gear"] = new RaSystemInfo(15, ["game gear", "gamegear", "sega game gear", "sega gamegear"]),
         ["saturn"] = new RaSystemInfo(39, ["saturn", "sega saturn"]),
-        ["dreamcast"] = new RaSystemInfo(40, ["dreamcast", "sega dreamcast"]),
+        ["dreamcast"] = new RaSystemInfo(40, ["dreamcast", "sega dreamcast", "DREAMCAST NAOMI"]),
+        ["naomi"] = new RaSystemInfo(40, ["naomi", "sega naomi"]),
         ["sg-1000"] = new RaSystemInfo(33, ["sg-1000", "sg1000", "sega sg-1000", "sega sg1000"]),
         ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
@@ -88,7 +89,7 @@ public static class RetroAchievementsSystemMatcher
             "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
             "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME"
         ]),
-        ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc"]),
+        ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
         ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX"]),
         ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad"]),
@@ -98,7 +99,7 @@ public static class RetroAchievementsSystemMatcher
         ["intellivision"] = new RaSystemInfo(45, ["intellivision", "intv"]),
         ["vectrex"] = new RaSystemInfo(46, ["vectrex"]),
         ["pc-fx"] = new RaSystemInfo(49, ["pc-fx", "pcfx"]),
-        ["wonderswan"] = new RaSystemInfo(53, ["wonderswan", "wonderswan color", "BANDAI WonderSwan"]),
+        ["wonderswan"] = new RaSystemInfo(53, ["wonderswan", "wonderswan color", "BANDAI WonderSwan", "Bandai WonderSwan Color"]),
         ["neo geo cd"] = new RaSystemInfo(56, ["neo geo cd", "neogeo cd", "neo geo compact disc"]),
         ["watara supervision"] = new RaSystemInfo(63, ["watara supervision", "supervision"]),
         ["mega duck"] = new RaSystemInfo(69, ["mega duck", "creativision"]),
@@ -136,9 +137,10 @@ public static class RetroAchievementsSystemMatcher
         ["DOS"] = new RaSystemInfo(102, ["dos", "microsoft dos"]),
         ["PC-9800"] = new RaSystemInfo(102, ["pc-9800", "pc-9800", "pc9800"]),
         ["Zeebo"] = new RaSystemInfo(102, ["Zeebo"]),
-        ["microsoft windows"] = new RaSystemInfo(102, ["Microsoft Windows", "Windows"]),
+        ["microsoft windows"] = new RaSystemInfo(102, ["Microsoft Windows", "Windows", "PC-DoujinADV", "PC-Port"]),
         ["amstrad GX4000"] = new RaSystemInfo(102, ["amstrad GX4000", "GX4000", "amstrad CPC GX4000"]),
         ["ScummVM"] = new RaSystemInfo(102, ["ScummVM", "Scumm VM", "Scumm-VM"]),
+        ["PinballArcade"] = new RaSystemInfo(102, ["PinballArcade", "Pinball Arcade"]),
     };
 
     /// <summary>
