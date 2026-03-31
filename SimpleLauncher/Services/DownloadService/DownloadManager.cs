@@ -187,6 +187,20 @@ public class DownloadManager : IDisposable
         // Create temp file path
         var downloadFilePath = Path.Combine(TempFolder, fileName);
 
+        // Attempt to delete any existing file to avoid file-lock issues
+        // from a previous failed or cancelled download
+        if (File.Exists(downloadFilePath))
+        {
+            try
+            {
+                File.Delete(downloadFilePath);
+            }
+            catch
+            {
+                // File may be locked by another process; proceed and let FileStream report the error
+            }
+        }
+
         // Check disk space
         var diskSpaceCheckResult = CheckAvailableDiskSpace(TempFolder);
         switch (diskSpaceCheckResult)
@@ -243,8 +257,24 @@ public class DownloadManager : IDisposable
                 // Check for file lock specifically
                 if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
                 {
-                    IsFileLockedDuringDownload = true;
-                    throw; // Exit loop to show the specific "File Locked" message box
+                    if (currentRetry + 1 >= RetryMaxAttempts)
+                    {
+                        IsFileLockedDuringDownload = true;
+                        throw; // Exit loop to show the specific "File Locked" message box
+                    }
+
+                    // Attempt to delete the locked file before retrying
+                    DeleteFiles.TryDeleteFile(downloadFilePath);
+
+                    currentRetry++;
+                    var lockDelay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 0,
+                        StatusMessage = $"File is locked, retrying ({currentRetry}/{RetryMaxAttempts})..."
+                    });
+                    await Task.Delay(lockDelay, token);
+                    continue;
                 }
 
                 currentRetry++;
@@ -260,6 +290,9 @@ public class DownloadManager : IDisposable
                     ProgressPercentage = 0,
                     StatusMessage = retryMsg
                 });
+
+                // Attempt to clean up file before retrying
+                DeleteFiles.TryDeleteFile(downloadFilePath);
 
                 await Task.Delay(delay, token);
             }

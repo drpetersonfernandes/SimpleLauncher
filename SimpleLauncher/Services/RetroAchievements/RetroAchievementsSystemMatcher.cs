@@ -33,7 +33,7 @@ public static class RetroAchievementsSystemMatcher
         ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64"]),
         ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom"]),
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy"]),
-        ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA"]),
+        ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color"]),
         ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom", "nintendo nes"]),
         ["gamecube"] = new RaSystemInfo(16, ["gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube", "nintendo gc"]),
