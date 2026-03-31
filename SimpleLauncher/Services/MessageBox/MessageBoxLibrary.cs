@@ -4670,4 +4670,19 @@ internal static class MessageBoxLibrary
                                            $"{message2}", title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void PleaseExtractApplicationFirst()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var message = (string)Application.Current.TryFindResource("SimpleLaunchercannotrunfromatemporary") ?? "'Simple Launcher' cannot run from a temporary folder.";
+            var message2 = (string)Application.Current.TryFindResource("Pleaseextracttheapplicationtoapermanentfolder") ?? "Please extract the application to a permanent folder before running it.";
+            System.Windows.MessageBox.Show($"{message}\n\n" +
+                                           $"{message2}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

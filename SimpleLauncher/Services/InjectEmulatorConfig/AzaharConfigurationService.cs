@@ -84,7 +84,7 @@ public static class AzaharConfigurationService
             },
             ["System"] = new()
             {
-                { "is_new_3ds", BoolToString(settings.AzaharIsNew3ds) }
+                { "is_new_3ds", BoolToString(settings.AzaharIsNew3Ds) }
             },
             ["Layout"] = new()
             {

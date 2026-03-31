@@ -200,7 +200,7 @@ internal partial class GlobalStatsWindow : IDisposable
                         .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                         .Select(Path.GetFileNameWithoutExtension);
 
-                    numberOfImages = imageFiles.Count(img => romFileBaseNames.Contains(img));
+                    numberOfImages = imageFiles.Count(romFileBaseNames.Contains);
                 }
 
                 results.Add(new SystemStatsData

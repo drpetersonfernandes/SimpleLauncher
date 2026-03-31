@@ -42,7 +42,7 @@ public static class RetroAchievementsSystemMatcher
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
         ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi", "nintendo ndsi", "nintendo dsi"]),
         ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer"]),
-        ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii"]),
+        ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii", "Nintendo Wiiware", "Wiiware"]),
         ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
         ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds"]),
 
@@ -72,7 +72,7 @@ public static class RetroAchievementsSystemMatcher
             "pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pcenginecd", "pcecd", "pce-cd", "pc-engine cd", "turbografx-cd", "turbografx cd",
             "nec pc engine cd", "nec pcengine cd", "nec pcenginecd", "nec pcecd", "nec pce-cd", "nec pc-engine cd", "nec turbografx-cd", "nec turbografx cd"
         ]),
-        ["supergrafx"] = new RaSystemInfo(8, ["supergrafx", "sgx"]),
+        ["supergrafx"] = new RaSystemInfo(8, ["supergrafx", "sgx", "NEC SuperGrafx"]),
 
         // Atari systems
         ["atari lynx"] = new RaSystemInfo(13, ["atari lynx", "lynx"]),
@@ -140,7 +140,7 @@ public static class RetroAchievementsSystemMatcher
         ["microsoft windows"] = new RaSystemInfo(102, ["Microsoft Windows", "Windows", "PC-DoujinADV", "PC-Port"]),
         ["amstrad GX4000"] = new RaSystemInfo(102, ["amstrad GX4000", "GX4000", "amstrad CPC GX4000"]),
         ["ScummVM"] = new RaSystemInfo(102, ["ScummVM", "Scumm VM", "Scumm-VM"]),
-        ["PinballArcade"] = new RaSystemInfo(102, ["PinballArcade", "Pinball Arcade"]),
+        ["PinballArcade"] = new RaSystemInfo(102, ["PinballArcade", "Pinball Arcade"])
     };
 
     /// <summary>

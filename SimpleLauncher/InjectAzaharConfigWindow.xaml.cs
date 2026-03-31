@@ -39,7 +39,7 @@ public partial class InjectAzaharConfigWindow
         ChkFullscreen.IsChecked = _settings.AzaharFullscreen;
         ChkVsync.IsChecked = _settings.AzaharUseVsync;
         ChkAsyncShader.IsChecked = _settings.AzaharAsyncShaderCompilation;
-        ChkNew3Ds.IsChecked = _settings.AzaharIsNew3ds;
+        ChkNew3Ds.IsChecked = _settings.AzaharIsNew3Ds;
         SldVolume.Value = _settings.AzaharVolume;
         ChkShowBeforeLaunch.IsChecked = _settings.AzaharShowSettingsBeforeLaunch;
         ChkAudioStretching.IsChecked = _settings.AzaharEnableAudioStretching;
@@ -59,7 +59,7 @@ public partial class InjectAzaharConfigWindow
         _settings.AzaharFullscreen = ChkFullscreen.IsChecked ?? true;
         _settings.AzaharUseVsync = ChkVsync.IsChecked ?? true;
         _settings.AzaharAsyncShaderCompilation = ChkAsyncShader.IsChecked ?? true;
-        _settings.AzaharIsNew3ds = ChkNew3Ds.IsChecked ?? true;
+        _settings.AzaharIsNew3Ds = ChkNew3Ds.IsChecked ?? true;
         _settings.AzaharVolume = (int)SldVolume.Value;
         _settings.AzaharShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
         _settings.AzaharEnableAudioStretching = ChkAudioStretching.IsChecked ?? true;

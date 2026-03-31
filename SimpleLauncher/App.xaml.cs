@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,6 +42,17 @@ public partial class App : IDisposable
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        // Detect if the application is running from a temporary extraction folder
+        // (e.g., user double-clicked the .exe inside a ZIP/RAR archive)
+        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+        var tempDir = Path.GetTempPath();
+        if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
+        {
+            MessageBoxLibrary.PleaseExtractApplicationFirst();
+            Shutdown();
+            return;
+        }
+
         var builder = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json", false, true);

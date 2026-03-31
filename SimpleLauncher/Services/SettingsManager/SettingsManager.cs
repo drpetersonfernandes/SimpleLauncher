@@ -81,7 +81,7 @@ public class SettingsManager : IDisposable
     public bool AzaharAsyncShaderCompilation { get; set; } = true;
     public bool AzaharFullscreen { get; set; } = true;
     public int AzaharVolume { get; set; } = 100;
-    public bool AzaharIsNew3ds { get; set; } = true;
+    public bool AzaharIsNew3Ds { get; set; } = true;
     public int AzaharLayoutOption { get; set; } // 0=Default, 1=Single, 2=Large...
     public bool AzaharShowSettingsBeforeLaunch { get; set; }
     public bool AzaharEnableAudioStretching { get; set; } = true;
@@ -462,7 +462,7 @@ public class SettingsManager : IDisposable
         AzaharAsyncShaderCompilation = other.AzaharAsyncShaderCompilation;
         AzaharFullscreen = other.AzaharFullscreen;
         AzaharVolume = other.AzaharVolume;
-        AzaharIsNew3ds = other.AzaharIsNew3ds;
+        AzaharIsNew3Ds = other.AzaharIsNew3Ds;
         AzaharLayoutOption = other.AzaharLayoutOption;
         AzaharShowSettingsBeforeLaunch = other.AzaharShowSettingsBeforeLaunch;
         AzaharEnableAudioStretching = other.AzaharEnableAudioStretching;
@@ -927,7 +927,7 @@ public class SettingsManager : IDisposable
 
         if (bool.TryParse(azahar?.Element("IsNew3ds")?.Value ?? settings.Element("AzaharIsNew3ds")?.Value, out var ain))
         {
-            AzaharIsNew3ds = ain;
+            AzaharIsNew3Ds = ain;
         }
 
         if (int.TryParse(azahar?.Element("LayoutOption")?.Value ?? settings.Element("AzaharLayoutOption")?.Value, out var alo))
@@ -1712,9 +1712,9 @@ public class SettingsManager : IDisposable
             SegaModel2FilterTilemaps = sm2Ft;
         }
 
-        if (bool.TryParse(sm2?.Element("DrawCross")?.Value ?? settings.Element("SegaModel2DrawCross")?.Value, out var sm2dc))
+        if (bool.TryParse(sm2?.Element("DrawCross")?.Value ?? settings.Element("SegaModel2DrawCross")?.Value, out var sm2Dc))
         {
-            SegaModel2DrawCross = sm2dc;
+            SegaModel2DrawCross = sm2Dc;
         }
 
         if (int.TryParse(sm2?.Element("Fsaa")?.Value ?? settings.Element("SegaModel2Fsaa")?.Value, out var sm2Fsaa))
@@ -2113,7 +2113,7 @@ public class SettingsManager : IDisposable
                 new XElement("AsyncShaderCompilation", s.AzaharAsyncShaderCompilation),
                 new XElement("Fullscreen", s.AzaharFullscreen),
                 new XElement("Volume", s.AzaharVolume),
-                new XElement("IsNew3ds", s.AzaharIsNew3ds),
+                new XElement("IsNew3ds", s.AzaharIsNew3Ds),
                 new XElement("LayoutOption", s.AzaharLayoutOption),
                 new XElement("ShowSettingsBeforeLaunch", s.AzaharShowSettingsBeforeLaunch),
                 new XElement("EnableAudioStretching", s.AzaharEnableAudioStretching)

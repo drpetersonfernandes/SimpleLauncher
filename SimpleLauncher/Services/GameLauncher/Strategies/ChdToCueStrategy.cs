@@ -18,13 +18,13 @@ public class ChdToCueStrategy : ILaunchStrategy
         var isChd = Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
         if (!isChd) return false;
 
-        var is4do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+        var is4Do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
                     (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         var isRaine = context.EmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                       (context.EmulatorManager?.EmulatorLocation?.Contains("raine", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        return is4do || isRaine;
+        return is4Do || isRaine;
     }
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
