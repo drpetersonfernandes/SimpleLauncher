@@ -26,8 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroAchievements.DataFetch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mame.DatCreator", "Tools\Mame.DatCreator\Mame.DatCreator.csproj", "{3BC8772A-4DAB-4BD9-90D7-91293165F37A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncherAdmin", "SimpleLauncherAdmin\SimpleLauncherAdmin.csproj", "{3258AB7F-4C93-48F0-8E8C-8784790310D3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,18 +84,6 @@ Global
 		{3BC8772A-4DAB-4BD9-90D7-91293165F37A}.Release|x64.Build.0 = Release|Any CPU
 		{3BC8772A-4DAB-4BD9-90D7-91293165F37A}.Release|x86.ActiveCfg = Release|Any CPU
 		{3BC8772A-4DAB-4BD9-90D7-91293165F37A}.Release|x86.Build.0 = Release|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Debug|x64.Build.0 = Debug|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Debug|x86.Build.0 = Debug|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Release|x64.ActiveCfg = Release|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Release|x64.Build.0 = Release|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Release|x86.ActiveCfg = Release|Any CPU
-		{3258AB7F-4C93-48F0-8E8C-8784790310D3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
