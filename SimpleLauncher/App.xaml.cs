@@ -88,6 +88,13 @@ public partial class App : IDisposable
                 easyModeUrl += "/";
             }
         });
+        serviceCollection.AddHttpClient("GameClassificationClient", client =>
+        {
+            var classificationUrl = configuration.GetValue<string>("Urls:GameClassificationApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            client.BaseAddress = new Uri(classificationUrl);
+            client.Timeout = TimeSpan.FromSeconds(30);
+            client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
+        });
 
         // Register IConfiguration
         serviceCollection.AddSingleton<IConfiguration>(configuration);
