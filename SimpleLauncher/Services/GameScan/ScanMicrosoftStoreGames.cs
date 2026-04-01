@@ -250,7 +250,7 @@ internal static class ScanMicrosoftStoreGames
             using var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            var response = await client.PostAsync("simplelauncheradmin/IsAGame", content, cts.Token);
+            var response = await client.PostAsync("api/GameIdentification/IsAGame", content, cts.Token);
 
             if (!response.IsSuccessStatusCode)
             {
