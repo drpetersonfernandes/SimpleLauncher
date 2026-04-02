@@ -86,7 +86,7 @@ public partial class MainWindow
 
                     _mameSortOrder = "FileName";
                     UpdateSortOrderButtonUi();
-                    SortOrderToggleButton.Visibility = selectedManager.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
+                    SortOrderToggleButton.Visibility = Visibility.Visible;
 
                     EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
                     if (EmulatorComboBox.Items.Count > 0)

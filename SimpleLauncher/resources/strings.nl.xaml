@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">Ongeldige zoekopdracht</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beperkte map (bijv. Program Files), waar het geen schrijftoegang heeft.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Het heeft schrijftoegang tot zijn map nodig.</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">Annuleer de huidige downloadoperatie</system:String>
     <system:String x:Key="TooltipStopImageDownload">Annuleer de download van het afbeeldingspakket</system:String>
     <system:String x:Key="TooltipSupportDetails">Beschrijf uw probleem of vraag in detail</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">Geef aan of het systeem MAME-achtige commandoregelparameters gebruikt</system:String>
     <system:String x:Key="TooltipSystemName">De naam van het systeem (bijv. Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">Wijzig het applicatiethema</system:String>
     <system:String x:Key="TooltipThresholdSlider">Pas de overeenkomst drempel aan voor fuzzy beeldzoekopdrachten</system:String>

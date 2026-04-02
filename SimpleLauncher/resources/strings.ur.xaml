@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">غلط تلاش</system:String>
     <system:String x:Key="InvalidSystemConfiguration">غلط سسٹم کنفیگریشن</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">ایسا لگتا ہے کہ 'Simple Launcher' ایک محدود فولڈر (مثلاً Program Files) میں انسٹال ہے، جہاں اسے لکھنے کی رسائی نہیں ہے۔</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">اسے اپنے فولڈر میں لکھنے کی رسائی درکار ہے۔</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">موجودہ ڈاؤن لوڈ آپریشن منسوخ کریں</system:String>
     <system:String x:Key="TooltipStopImageDownload">امیج پیک ڈاؤن لوڈ منسوخ کریں</system:String>
     <system:String x:Key="TooltipSupportDetails">اپنے مسئلے یا سوال کو تفصیل سے بیان کریں</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">بتائیں کہ آیا سسٹم MAME طرز کے کمانڈ لائن پیرامیٹرز استعمال کرتا ہے</system:String>
     <system:String x:Key="TooltipSystemName">سسٹم کا نام (مثلاً نینٹینڈو 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">ایپلیکیشن تھیم تبدیل کریں</system:String>
     <system:String x:Key="TooltipThresholdSlider">فزی امیج سرچ کے لیے میچنگ تھریشولڈ کو ایڈجسٹ کریں</system:String>

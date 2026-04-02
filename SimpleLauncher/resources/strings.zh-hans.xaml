@@ -733,7 +733,6 @@
     <system:String x:Key="InvalidSearch">无效搜索</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系统配置无效</system:String>
     <system:String x:Key="isalreadyinfavorites">已在收藏夹中。</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">系统是基于MAME的吗？</system:String>
     <system:String x:Key="isusedmultipletimes">已被多次使用。每个模拟器名称必须是唯一的。</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">看起来“Simple Launcher”安装在受限文件夹（例如 Program Files）中，没有写入权限。</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">它需要对其文件夹的写入权限。</system:String>
@@ -1918,7 +1917,6 @@
     <system:String x:Key="TooltipStopDownload">取消当前下载操作</system:String>
     <system:String x:Key="TooltipStopImageDownload">取消图片包下载</system:String>
     <system:String x:Key="TooltipSupportDetails">详细描述您的问题或疑问</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">指定系统是否使用MAME风格的命令行参数</system:String>
     <system:String x:Key="TooltipSystemName">系统名称（例如：Nintendo 64）</system:String>
     <system:String x:Key="TooltipThemeMenu">更改应用程序主题</system:String>
     <system:String x:Key="TooltipThresholdSlider">调整模糊图像搜索的匹配阈值</system:String>

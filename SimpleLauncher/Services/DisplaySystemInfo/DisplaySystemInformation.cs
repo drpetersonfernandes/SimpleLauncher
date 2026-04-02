@@ -28,7 +28,6 @@ public static class DisplaySystemInformation
         var systemFolder2 = (string)Application.Current.TryFindResource("SystemFolder") ?? "System Folder";
         var systemImageFolder2 = (string)Application.Current.TryFindResource("SystemImageFolder") ?? "System Image Folder";
         var defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "Using default image folder";
-        var isthesystemMamEbased2 = (string)Application.Current.TryFindResource("IsthesystemMAMEbased") ?? "Is the system MAME-based?";
         var extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder2") ?? "Extension to Search in the System Folder";
         var extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ?? "Extract File Before Launch?";
         var extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction2") ?? "Extension to Launch After Extraction";
@@ -68,9 +67,6 @@ public static class DisplaySystemInformation
         }
 
         systemInfoTextBlock.Inlines.Add(systemImageFolderRun);
-        systemInfoTextBlock.Inlines.Add(new LineBreak());
-
-        systemInfoTextBlock.Inlines.Add(new Run($"{isthesystemMamEbased2}: {selectedManager.SystemIsMame}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedManager.FileFormatsToSearch)}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());

@@ -737,7 +737,6 @@
     <system:String x:Key="InvalidSearch">Invalid Search</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="isusedmultipletimes">is used multiple times. Each emulator name must be unique.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">It needs write access to its folder.</system:String>
@@ -1932,7 +1931,6 @@
     <system:String x:Key="TooltipStopDownload">Cancel the current download operation</system:String>
     <system:String x:Key="TooltipStopImageDownload">Cancel the image pack download</system:String>
     <system:String x:Key="TooltipSupportDetails">Describe your issue or question in detail</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">Specify if the system uses MAME-style command line parameters</system:String>
     <system:String x:Key="TooltipSystemName">The name of the system (e.g. Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">Change the application theme</system:String>
     <system:String x:Key="TooltipThresholdSlider">Adjust the matching threshold for fuzzy image search</system:String>

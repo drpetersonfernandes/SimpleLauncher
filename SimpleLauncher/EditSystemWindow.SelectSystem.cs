@@ -89,9 +89,6 @@ internal partial class EditSystemWindow
 
             SystemImageFolderTextBox.Text = selectedSystem.SystemImageFolder;
 
-            var systemIsMameValue = selectedSystem.SystemIsMame ? "true" : "false";
-            SystemIsMameComboBox.SelectedItem = SystemIsMameComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == systemIsMameValue);
-
             FormatToSearchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToSearch);
 
             var extractFileBeforeLaunchValue = selectedSystem.ExtractFileBeforeLaunch ? "true" : "false";

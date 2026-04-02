@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">অবৈধ অনুসন্ধান</system:String>
     <system:String x:Key="InvalidSystemConfiguration">অবৈধ সিস্টেম কনফিগারেশন</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">সিস্টেমটি কি MAME ভিত্তিক?</system:String>
     <system:String x:Key="isusedmultipletimes">ইতিমধ্যে একাধিকবার ব্যবহৃত হয়েছে। প্রতিটি ইমুলেটর নাম আলাদা হতে হবে।</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">মনে হচ্ছে 'Simple Launcher' একটি সীমাবদ্ধ ফোল্ডারে (যেমন Program Files) ইনস্টল করা আছে, যেখানে এটির লেখার অনুমতি নেই।</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">এটির ফোল্ডারে লেখার অনুমতি প্রয়োজন।</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">বর্তমান ডাউনলোড অপারেশন বাতিল করুন</system:String>
     <system:String x:Key="TooltipStopImageDownload">ইমেজ প্যাক ডাউনলোড বাতিল করুন</system:String>
     <system:String x:Key="TooltipSupportDetails">আপনার সমস্যা বা প্রশ্ন বিস্তারিতভাবে বর্ণনা করুন</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">সিস্টেমটি MAME-স্টাইলের কমান্ড লাইন প্যারামিটার ব্যবহার করে কিনা তা উল্লেখ করুন</system:String>
     <system:String x:Key="TooltipSystemName">সিস্টেমের নাম (যেমন Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">অ্যাপ্লিকেশন থিম পরিবর্তন করুন</system:String>
     <system:String x:Key="TooltipThresholdSlider">ফাজি ইমেজ অনুসন্ধানের জন্য ম্যাচিং থ্রেশহোল্ড সামঞ্জস্য করুন</system:String>

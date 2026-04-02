@@ -93,10 +93,6 @@ internal partial class EditSystemWindow
             // Validate SystemImageFolder (uses the potentially prefixed value)
             if (ValidateSystemImageFolder(systemNameText, ref varSystemImageFolderText)) return;
 
-            var systemIsMame =
-                (SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()?.Equals("true",
-                    StringComparison.OrdinalIgnoreCase) ?? false;
-
             var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null &&
                                           bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)
                                               ?.Content.ToString() ?? "false");
@@ -271,7 +267,6 @@ internal partial class EditSystemWindow
                 SystemName = systemNameText,
                 SystemFolders = allSystemFolders,
                 SystemImageFolder = varSystemImageFolderText,
-                SystemIsMame = systemIsMame,
                 FileFormatsToSearch = formatsToSearch.ToList(),
                 ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                 GroupByFolder = groupByFolder,

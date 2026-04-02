@@ -145,7 +145,7 @@ internal partial class GameButtonFactory(
         var accessibleGameName = fileNameWithoutExtension;
 
         // Show machine name if the user enabled DisplayMachineName and this is a MAME system
-        if (_settings.DisplayMachineName && selectedSystemManager.SystemIsMame)
+        if (_settings.DisplayMachineName)
         {
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))

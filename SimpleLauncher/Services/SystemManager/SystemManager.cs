@@ -23,7 +23,6 @@ public partial class SystemManager
     public List<string> SystemFolders { get; init; }
     public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
     public string SystemImageFolder { get; init; }
-    public bool SystemIsMame { get; init; }
     public List<string> FileFormatsToSearch { get; init; }
     public bool ExtractFileBeforeLaunch { get; init; }
     public List<string> FileFormatsToLaunch { get; init; }
@@ -200,7 +199,6 @@ public partial class SystemManager
                         new XElement("SystemName", config.SystemName),
                         new XElement("SystemFolders", config.SystemFolders.Select(static f => new XElement("SystemFolder", f))),
                         new XElement("SystemImageFolder", config.SystemImageFolder),
-                        new XElement("SystemIsMAME", config.SystemIsMame),
                         new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
                         new XElement("GroupByFolder", config.GroupByFolder),
                         new XElement("DisableRecursiveSearch", config.DisableRecursiveSearch),
@@ -297,9 +295,6 @@ public partial class SystemManager
             if (string.IsNullOrEmpty(systemImageFolder))
                 throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Image Folder' in XML.");
 
-            if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out var systemIsMame))
-                throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Is the system MAME-based?'.");
-
             // Validate FileFormatsToSearch
             var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
                 ?.Elements("FormatToSearch")
@@ -392,7 +387,6 @@ public partial class SystemManager
                 SystemName = systemName,
                 SystemFolders = systemFolders, // Store the raw string
                 SystemImageFolder = systemImageFolder, // Store the raw string
-                SystemIsMame = systemIsMame,
                 ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                 FileFormatsToSearch = formatsToSearch,
                 FileFormatsToLaunch = formatsToLaunch,
@@ -457,7 +451,6 @@ public partial class SystemManager
             SystemName = selectedSystem.SystemName,
             SystemFolders = [systemFolder],
             SystemImageFolder = selectedSystem.SystemImageFolder,
-            SystemIsMame = selectedSystem.SystemIsMame,
             FileFormatsToSearch = selectedSystem.FileFormatsToSearch,
             GroupByFolder = false, // Default to false for new EasyMode systems
             ExtractFileBeforeLaunch = selectedSystem.ExtractFileBeforeLaunch,
@@ -634,7 +627,6 @@ public partial class SystemManager
             new XElement("SystemName", config.SystemName),
             new XElement("SystemFolders", config.SystemFolders.Select(static folder => new XElement("SystemFolder", folder))),
             new XElement("SystemImageFolder", config.SystemImageFolder),
-            new XElement("SystemIsMAME", config.SystemIsMame),
             new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("GroupByFolder", config.GroupByFolder),
             new XElement("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch),
@@ -658,7 +650,6 @@ public partial class SystemManager
         foldersElement.ReplaceNodes(config.SystemFolders.Select(static folder => new XElement("SystemFolder", folder)));
 
         existingSystem.SetElementValue("SystemImageFolder", config.SystemImageFolder);
-        existingSystem.SetElementValue("SystemIsMAME", config.SystemIsMame);
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
         existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);

@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">Pencarian Tidak Valid</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">Apakah sistem berbasis MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">digunakan beberapa kali. Setiap nama emulator harus unik.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Sepertinya 'Simple Launcher' diinstal di folder yang dibatasi (misalnya, Program Files), di mana ia tidak memiliki akses tulis.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Ia membutuhkan akses tulis ke foldernya.</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">Batalkan operasi unduhan saat ini</system:String>
     <system:String x:Key="TooltipStopImageDownload">Batalkan unduhan paket gambar</system:String>
     <system:String x:Key="TooltipSupportDetails">Jelaskan masalah atau pertanyaan Anda secara rinci</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">Tentukan apakah sistem menggunakan parameter baris perintah gaya MAME</system:String>
     <system:String x:Key="TooltipSystemName">Nama sistem (misalnya Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">Ubah tema aplikasi</system:String>
     <system:String x:Key="TooltipThresholdSlider">Sesuaikan ambang batas pencocokan untuk pencarian gambar fuzzy</system:String>

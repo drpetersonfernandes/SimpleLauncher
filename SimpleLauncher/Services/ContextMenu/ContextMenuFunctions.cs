@@ -223,7 +223,7 @@ internal static class ContextMenuFunctions
         }
     }
 
-    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemManager.SystemManager systemManager, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow)
+    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, IEnumerable<MameManager.MameManager> machines, MainWindow mainWindow)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -237,7 +237,7 @@ internal static class ContextMenuFunctions
 
         try
         {
-            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemManager);
+            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm);
             historyWindow.Show();
         }
         catch (Exception ex)

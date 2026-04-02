@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">अमान्य खोज</system:String>
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">सिस्टम MAME-आधारित है?</system:String>
     <system:String x:Key="isusedmultipletimes">कई बार उपयोग किया गया है। प्रत्येक एमुलेटर का नाम अद्वितीय होना चाहिए।</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">ऐसा लगता है कि 'Simple Launcher' एक प्रतिबंधित फ़ोल्डर (जैसे Program Files) में स्थापित है, जहाँ उसके पास लिखने की अनुमति नहीं है।</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">उसे अपने फ़ोल्डर में लिखने की अनुमति चाहिए।</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">वर्तमान डाउनलोड ऑपरेशन रद्द करें</system:String>
     <system:String x:Key="TooltipStopImageDownload">इमेज पैक डाउनलोड रद्द करें</system:String>
     <system:String x:Key="TooltipSupportDetails">अपनी समस्या या प्रश्न का विस्तार से वर्णन करें</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">निर्दिष्ट करें कि क्या सिस्टम MAME-शैली कमांड लाइन पैरामीटर का उपयोग करता है</system:String>
     <system:String x:Key="TooltipSystemName">सिस्टम का नाम (उदाहरण के लिए, Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">एप्लिकेशन थीम बदलें</system:String>
     <system:String x:Key="TooltipThresholdSlider">फ़ज़ी इमेज खोज के लिए मिलान थ्रेशोल्ड समायोजित करें</system:String>

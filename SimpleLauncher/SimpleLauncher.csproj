@@ -910,6 +910,8 @@
         <Resource Include="images\raine.png" />
         <None Remove="images\redream.png" />
         <Resource Include="images\redream.png" />
+        <None Remove="images\filename.png" />
+        <Resource Include="images\filename.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">

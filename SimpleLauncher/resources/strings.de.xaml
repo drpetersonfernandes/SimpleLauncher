@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">Ungültige Suche</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ungültige Systemkonfiguration</system:String>
     <system:String x:Key="isalreadyinfavorites">ist bereits in den Favoriten.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">Ist das System MAME-basiert?</system:String>
     <system:String x:Key="isusedmultipletimes">wird mehrmals verwendet. Jeder Emulatorname muss einzigartig sein.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Es sieht so aus, als wäre 'Simple Launcher' in einem eingeschränkten Ordner (z. B. Programme) installiert, in dem er keine Schreibrechte hat.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Er benötigt Schreibzugriff auf seinen Ordner.</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">Den aktuellen Download-Vorgang abbrechen</system:String>
     <system:String x:Key="TooltipStopImageDownload">Den Download des Bildpakets abbrechen</system:String>
     <system:String x:Key="TooltipSupportDetails">Beschreiben Sie Ihr Problem oder Ihre Frage detailliert</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">Angeben, ob das System MAME-ähnliche Kommandozeilenparameter verwendet</system:String>
     <system:String x:Key="TooltipSystemName">Der Name des Systems (z.B. Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">Das Anwendungsthema ändern</system:String>
     <system:String x:Key="TooltipThresholdSlider">Den Übereinstimmungsschwellenwert für die unscharfe Bildsuche anpassen</system:String>

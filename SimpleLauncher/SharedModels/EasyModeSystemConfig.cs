@@ -13,10 +13,6 @@ public class EasyModeSystemConfig
     public string SystemFolder { get; set; }
     public string SystemImageFolder { get; set; }
 
-    [XmlElement("SystemIsMAME")]
-    [DefaultValue(false)] // When SystemIsMAME is false, it won't be serialized to XML
-    public bool SystemIsMame { get; set; }
-
     [XmlArray("FileFormatsToSearch")]
     [XmlArrayItem("FormatToSearch")]
     public List<string> FileFormatsToSearch { get; set; }

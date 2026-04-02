@@ -244,25 +244,6 @@
                             HorizontalAlignment="Left"
                             ToolTip="{DynamicResource TooltipChooseSystemImageFolder2}" />
 
-                        <!-- Is the system MAME-based? -->
-                        <Label
-                            Margin="10,0,10,10"
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            VerticalAlignment="Center"
-                            Content="{DynamicResource IsthesystemMAMEbased}" />
-                        <ComboBox
-                            Margin="0,0,10,10"
-                            x:Name="SystemIsMameComboBox"
-                            Grid.Row="4"
-                            Grid.Column="1"
-                            IsReadOnly="True"
-                            IsEnabled="False"
-                            ToolTip="{DynamicResource TooltipSystemIsMame2}">
-                            <ComboBoxItem>true</ComboBoxItem>
-                            <ComboBoxItem>false</ComboBoxItem>
-                        </ComboBox>
-
                         <!-- Format To Search Inside System Folder -->
                         <Label
                             Margin="10,0,10,10"

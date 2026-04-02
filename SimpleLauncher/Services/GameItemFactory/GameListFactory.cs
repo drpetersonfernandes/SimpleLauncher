@@ -66,7 +66,7 @@ public class GameListFactory(
             folderPath = Path.GetDirectoryName(entityPath);
         }
 
-        var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
+        var machineDescription = GetMachineDescription(fileNameWithoutExtension);
 
         var isFavorite = _favoritesManager.FavoriteList
             .Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&

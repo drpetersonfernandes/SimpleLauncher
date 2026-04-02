@@ -96,7 +96,7 @@ public partial class MainWindow
                 allFiles = groupedFiles;
             }
 
-            allFiles = ProcessListOfAllFilesWithMachineDescription(selectedManager, allFiles);
+            allFiles = ProcessListOfAllFilesWithMachineDescription(allFiles);
             cancellationToken.ThrowIfCancellationRequested();
 
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
@@ -439,7 +439,6 @@ public partial class MainWindow
                     // ... filtering by searchQuery ...
                     if (!string.IsNullOrWhiteSpace(searchQuery2) && searchQuery2 != "RANDOM_SELECTION" && searchQuery2 != "FAVORITES")
                     {
-                        var systemIsMame = selectedManager.SystemIsMame;
                         var lowerQuery = searchQuery2.ToLowerInvariant();
                         allFiles = await Task.Run(() =>
                             allFiles.FindAll(file =>
@@ -448,7 +447,7 @@ public partial class MainWindow
                                 var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
                                 if (filenameMatch) return true;
 
-                                if (systemIsMame && _mameLookup != null && _mameLookup.TryGetValue(fileName, out var description))
+                                if (_mameLookup != null && _mameLookup.TryGetValue(fileName, out var description))
                                 {
                                     return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
                                 }
@@ -514,9 +513,9 @@ public partial class MainWindow
             }
         }
 
-        List<string> ProcessListOfAllFilesWithMachineDescription(SystemManager selectedManager, List<string> allFiles)
+        List<string> ProcessListOfAllFilesWithMachineDescription(List<string> allFiles)
         {
-            if (selectedManager.SystemIsMame && _mameSortOrder == "MachineDescription")
+            if (_mameSortOrder == "MachineDescription")
             {
                 allFiles = allFiles.OrderBy(f =>
                 {

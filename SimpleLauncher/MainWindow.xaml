@@ -284,7 +284,7 @@
                     </MenuItem>
                     <MenuItem Header="{DynamicResource FilenamePreferences}" ToolTip="{DynamicResource TooltipFilenamePreferencesMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/settings.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/filename.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                         <MenuItem x:Name="FilenameDisplayOriginal" Header="{DynamicResource DisplayOriginalFilenames}" Click="FilenameDisplayMode_Click"
                                   IsCheckable="True" IsChecked="True" ToolTip="{DynamicResource TooltipFilenameDisplayModeMenu}" />

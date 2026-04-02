@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">Недопустимый поиск</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">Система основана на MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">используется несколько раз. Имя каждого эмулятора должно быть уникальным.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Похоже, 'Simple Launcher' установлен в ограниченную папку (например, Program Files), где у него нет прав на запись.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Ему необходим доступ на запись в свою папку.</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">Отменить текущую операцию загрузки</system:String>
     <system:String x:Key="TooltipStopImageDownload">Отменить загрузку пакета изображений</system:String>
     <system:String x:Key="TooltipSupportDetails">Подробно опишите вашу проблему или вопрос</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">Укажите, использует ли система параметры командной строки в стиле MAME</system:String>
     <system:String x:Key="TooltipSystemName">Название системы (например, Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">Изменить тему приложения</system:String>
     <system:String x:Key="TooltipThresholdSlider">Настроить порог соответствия для нечеткого поиска изображений</system:String>

@@ -300,8 +300,6 @@ internal partial class EditSystemWindow : ILoadingState
         SystemImageFolderTextBox.IsReadOnly = false;
         SystemImageFolderTextBox.IsEnabled = true;
 
-        SystemIsMameComboBox.IsEnabled = true;
-
         FormatToSearchTextBox.IsReadOnly = false;
         FormatToSearchTextBox.IsEnabled = true;
 
@@ -376,8 +374,6 @@ internal partial class EditSystemWindow : ILoadingState
 
         SystemImageFolderTextBox.IsReadOnly = true;
         SystemImageFolderTextBox.IsEnabled = false;
-
-        SystemIsMameComboBox.IsEnabled = false;
 
         FormatToSearchTextBox.IsReadOnly = true;
         FormatToSearchTextBox.IsEnabled = false;
@@ -458,8 +454,6 @@ internal partial class EditSystemWindow : ILoadingState
 
         SystemImageFolderTextBox.Text = string.Empty;
         MarkValid(SystemImageFolderTextBox);
-
-        SystemIsMameComboBox.SelectedItem = null;
 
         FormatToSearchTextBox.Text = string.Empty;
         MarkValid(FormatToSearchTextBox);

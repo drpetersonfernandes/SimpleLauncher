@@ -21,7 +21,6 @@
         <SystemName>Amstrad CPC</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Amstrad CPC</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Amstrad CPC</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
             <FormatToSearch>7z</FormatToSearch>

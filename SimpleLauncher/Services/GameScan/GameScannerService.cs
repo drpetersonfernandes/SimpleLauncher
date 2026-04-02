@@ -94,7 +94,6 @@ public class GameScannerService
                 SystemName = WindowsSystemName,
                 SystemFolders = ["%BASEFOLDER%\\roms\\Microsoft Windows"],
                 SystemImageFolder = "%BASEFOLDER%\\images\\Microsoft Windows",
-                SystemIsMame = false,
                 FileFormatsToSearch = ["url", "lnk", "bat"],
                 GroupByFolder = false,
                 ExtractFileBeforeLaunch = false,

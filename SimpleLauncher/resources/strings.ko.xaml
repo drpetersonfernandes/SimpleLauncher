@@ -733,7 +733,6 @@
     <system:String x:Key="InvalidSearch">잘못된 검색</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">시스템이 MAME 기반인가요?</system:String>
     <system:String x:Key="isusedmultipletimes">이 여러 번 사용되고 있습니다. 각 에뮬레이터 이름은 고유해야 합니다.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">'Simple Launcher'가 쓰기 권한이 없는 제한된 폴더(예: Program Files)에 설치된 것 같습니다.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">폴더에 대한 쓰기 권한이 필요합니다.</system:String>
@@ -1918,7 +1917,6 @@
     <system:String x:Key="TooltipStopDownload">현재 다운로드 작업을 취소합니다.</system:String>
     <system:String x:Key="TooltipStopImageDownload">이미지 팩 다운로드를 취소합니다.</system:String>
     <system:String x:Key="TooltipSupportDetails">문제 또는 질문을 자세히 설명하십시오.</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">시스템이 MAME 스타일 명령줄 매개변수를 사용하는지 지정합니다.</system:String>
     <system:String x:Key="TooltipSystemName">시스템 이름 (예: Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">애플리케이션 테마 변경</system:String>
     <system:String x:Key="TooltipThresholdSlider">퍼지 이미지 검색의 일치 임계값을 조정합니다.</system:String>

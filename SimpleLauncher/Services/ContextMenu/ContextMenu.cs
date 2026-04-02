@@ -184,7 +184,7 @@ public static class ContextMenu
         {
             UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningROMHistory") ?? "Opening ROM history...", context.MainWindow);
             context.PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.Machines, context.MainWindow);
+            ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.MainWindow);
         };
 
         // View Achievements Context Menu - Only add for supported systems

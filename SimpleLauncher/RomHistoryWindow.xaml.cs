@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
 
@@ -21,9 +20,8 @@ public partial class RomHistoryWindow
     private readonly string _romName;
     private readonly string _systemName;
     private readonly string _searchTerm;
-    private readonly SystemManager _systemManager;
 
-    public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemManager systemManager)
+    public RomHistoryWindow(string romName, string systemName, string searchTerm)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -31,7 +29,6 @@ public partial class RomHistoryWindow
         _romName = romName;
         _systemName = systemName;
         _searchTerm = searchTerm;
-        _systemManager = systemManager;
 
         RomNameTextBox.Text = _romName;
         RomDescriptionTextBox.Text = _searchTerm;
@@ -103,17 +100,10 @@ public partial class RomHistoryWindow
             {
                 RomNameTextBox.Text = _romName;
 
-                // Only show _searchTerm in RomDescriptionTextBox if SystemIsMame is true
-                if (_systemManager.SystemIsMame)
-                {
-                    RomNameTextBox.Text = _romName;
-                    RomDescriptionTextBox.Text = _searchTerm;
-                    RomDescriptionTextBox.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    RomDescriptionTextBox.Visibility = Visibility.Collapsed;
-                }
+                // Show _searchTerm in RomDescriptionTextBox
+                RomNameTextBox.Text = _romName;
+                RomDescriptionTextBox.Text = _searchTerm;
+                RomDescriptionTextBox.Visibility = Visibility.Visible;
 
                 if (entry != null)
                 {
@@ -142,16 +132,8 @@ public partial class RomHistoryWindow
     {
         RomNameTextBox.Text = _romName;
 
-        if (_systemManager.SystemIsMame)
-        {
-            RomNameTextBox.Text = _romName;
-            RomDescriptionTextBox.Text = _searchTerm;
-            RomDescriptionTextBox.Visibility = Visibility.Visible;
-        }
-        else
-        {
-            RomDescriptionTextBox.Visibility = Visibility.Collapsed;
-        }
+        RomDescriptionTextBox.Text = _searchTerm;
+        RomDescriptionTextBox.Visibility = Visibility.Visible;
 
         var noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
         HistoryTextBlock.Text = noRoMhistoryfoundinthelocal2;

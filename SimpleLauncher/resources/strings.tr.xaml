@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">Geçersiz Arama</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
     <system:String x:Key="isusedmultipletimes">birden fazla kez kullanılıyor. Her emülatör adı benzersiz olmalıdır.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Görünüşe göre 'Simple Launcher', yazma erişimi olmayan kısıtlı bir klasöre (örn. Program Files) yüklenmiş.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Klasörüne yazma erişimi gerekiyor.</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">Mevcut indirme işlemini iptal edin</system:String>
     <system:String x:Key="TooltipStopImageDownload">Resim paketi indirmeyi iptal et</system:String>
     <system:String x:Key="TooltipSupportDetails">Sorununuzu veya sorunuzu ayrıntılı olarak açıklayın</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">Sistemin MAME tarzı komut satırı parametreleri kullanıp kullanmadığını belirtin</system:String>
     <system:String x:Key="TooltipSystemName">Sistemin adı (örn. Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">Uygulama temasını değiştir</system:String>
     <system:String x:Key="TooltipThresholdSlider">Bulanık resim araması için eşik değerini ayarla</system:String>

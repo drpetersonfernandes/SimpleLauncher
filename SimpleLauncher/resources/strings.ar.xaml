@@ -732,7 +732,6 @@
     <system:String x:Key="InvalidSearch">بحث غير صالح</system:String>
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
-    <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
     <system:String x:Key="isusedmultipletimes">اُستخدم عدة مرات. يجب أن يكون اسم كل محاكي فريدًا.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">يبدو أن 'Simple Launcher' مثبت في مجلد مقيد (مثل Program Files)، حيث لا يملك صلاحية الكتابة.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">يحتاج إلى صلاحية الكتابة في مجلده.</system:String>
@@ -1917,7 +1916,6 @@
     <system:String x:Key="TooltipStopDownload">إلغاء عملية التنزيل الحالية</system:String>
     <system:String x:Key="TooltipStopImageDownload">إلغاء تنزيل حزمة الصور</system:String>
     <system:String x:Key="TooltipSupportDetails">صف مشكلتك أو سؤالك بالتفصيل</system:String>
-    <system:String x:Key="TooltipSystemIsMame2">تحديد ما إذا كان النظام يستخدم معلمات سطر أوامر بنمط MAME</system:String>
     <system:String x:Key="TooltipSystemName">اسم النظام (مثل Nintendo 64)</system:String>
     <system:String x:Key="TooltipThemeMenu">تغيير سمة التطبيق</system:String>
     <system:String x:Key="TooltipThresholdSlider">ضبط عتبة المطابقة للبحث الغامض عن الصور</system:String>

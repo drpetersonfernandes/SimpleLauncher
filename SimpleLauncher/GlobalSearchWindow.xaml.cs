@@ -219,7 +219,6 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                     SystemName = systemManager.SystemName,
                     SystemFolders = systemManager.SystemFolders,
                     SystemImageFolder = systemManager.SystemImageFolder,
-                    SystemIsMame = systemManager.SystemIsMame,
                     FileFormatsToSearch = systemManager.FileFormatsToSearch,
                     ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
                     FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
@@ -232,7 +231,6 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                     SystemName = systemManager.SystemName,
                     SystemFolders = systemManager.SystemFolders,
                     SystemImageFolder = systemManager.SystemImageFolder,
-                    SystemIsMame = systemManager.SystemIsMame,
                     FileFormatsToSearch = systemManager.FileFormatsToSearch,
                     ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
                     FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
@@ -268,7 +266,7 @@ internal partial class GlobalSearchWindow : IDisposable, ILoadingState
                     }
 
                     var mameDescriptionMatch = false;
-                    if (searchMameDescription && systemManager.SystemIsMame && _mameLookup != null && _mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
+                    if (searchMameDescription && _mameLookup != null && _mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
                     {
                         mameDescriptionMatch = MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
                     }
