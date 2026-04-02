@@ -18,6 +18,8 @@ namespace SimpleLauncher.Services.GameScan;
 
 internal static class ScanMicrosoftStoreGames
 {
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+
     public static async Task ScanMicrosoftStoreGamesAsync(ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath)
     {
         try
@@ -195,6 +197,10 @@ internal static class ScanMicrosoftStoreGames
             }
 
             DebugLogger.Log($"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
+            foreach (var app in allInstalledApps)
+            {
+                DebugLogger.Log($"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
+            }
 
             var confirmedGames = await ClassifyGamesViaApiAsync(allInstalledApps, logErrors);
 
@@ -260,12 +266,18 @@ internal static class ScanMicrosoftStoreGames
             }
 
             var responseJson = await response.Content.ReadAsStringAsync(cts.Token);
-            var apiResponse = JsonSerializer.Deserialize<GameClassificationResponse>(responseJson);
+            var apiResponse = JsonSerializer.Deserialize<GameClassificationResponse>(responseJson, JsonOptions);
 
             if (apiResponse?.Games == null)
             {
                 DebugLogger.Log("[ScanMicrosoftStoreGames] Game classification API returned null games list.");
                 return [];
+            }
+
+            DebugLogger.Log($"[ScanMicrosoftStoreGames] API deserialized games count: {apiResponse.Games.Count}");
+            foreach (var g in apiResponse.Games)
+            {
+                DebugLogger.Log($"[ScanMicrosoftStoreGames]   <- Received game: Name=\"{g.Name}\" AppId=\"{g.AppId}\"");
             }
 
             var confirmedGames = apiResponse.Games.Select(static g => new SelectableGameItem
