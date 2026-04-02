@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
@@ -24,7 +25,7 @@ using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
-internal class GameButtonFactory(
+internal partial class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     List<SystemManager.SystemManager> systemManagers,
@@ -120,27 +121,32 @@ internal class GameButtonFactory(
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        // Always show the filename on the first row.
-        var filenameTextBlock = new TextBlock
+        // Determine the display name based on the FilenameDisplayMode setting
+        var displayName = GetDisplayName(fileNameWithoutExtension);
+
+        // Show filename unless mode is "NoFilename"
+        if (_settings.FilenameDisplayMode != "NoFilename" && !string.IsNullOrEmpty(displayName))
         {
-            Text = fileNameWithoutExtension,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            TextAlignment = TextAlignment.Center,
-            FontWeight = FontWeights.Bold,
-            TextTrimming = TextTrimming.CharacterEllipsis,
-            FontSize = 13,
-            ToolTip = fileNameWithoutExtension,
-            TextWrapping = TextWrapping.Wrap
-        };
-        textPanel.Children.Add(filenameTextBlock);
+            var filenameTextBlock = new TextBlock
+            {
+                Text = displayName,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                FontWeight = FontWeights.Bold,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                FontSize = 13,
+                ToolTip = fileNameWithoutExtension,
+                TextWrapping = TextWrapping.Wrap
+            };
+            textPanel.Children.Add(filenameTextBlock);
+        }
 
         // Determine accessible name for the main game button
         var accessibleGameName = fileNameWithoutExtension;
 
-        // For MAME systems, add a second row for the description if available.
-        if (selectedSystemManager.SystemIsMame)
+        // Show machine name if the user enabled DisplayMachineName and this is a MAME system
+        if (_settings.DisplayMachineName && selectedSystemManager.SystemIsMame)
         {
-            // Use original filename without extension for MAME lookup
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
@@ -156,7 +162,7 @@ internal class GameButtonFactory(
                     TextWrapping = TextWrapping.Wrap
                 };
                 textPanel.Children.Add(descriptionTextBlock);
-                accessibleGameName = machine.Description; // Use description for accessible name if available
+                accessibleGameName = machine.Description;
             }
         }
 
@@ -592,4 +598,42 @@ internal class GameButtonFactory(
 
         return _button;
     }
+
+    private string GetDisplayName(string fileNameWithoutExtension)
+    {
+        return _settings.FilenameDisplayMode switch
+        {
+            "CleanUp" => CleanUpFileName(fileNameWithoutExtension),
+            "NoFilename" => string.Empty,
+            _ => fileNameWithoutExtension
+        };
+    }
+
+    private static string CleanUpFileName(string fileName)
+    {
+        if (string.IsNullOrWhiteSpace(fileName)) return fileName;
+
+        // Remove content within parentheses: (...)
+        var result = MyRegex().Replace(fileName, "");
+
+        // Remove content within square brackets: [...]
+        result = MyRegex1().Replace(result, "");
+
+        // Remove content within curly braces: {...}
+        result = MyRegex2().Replace(result, "");
+
+        // Trim trailing whitespace, dots, and underscores
+        result = result.Trim().TrimEnd('.', '_', ' ');
+
+        return string.IsNullOrWhiteSpace(result) ? fileName : result;
+    }
+
+    [GeneratedRegex(@"\s*\([^)]*\)")]
+    private static partial Regex MyRegex();
+
+    [GeneratedRegex(@"\s*\[[^\]]*\]")]
+    private static partial Regex MyRegex1();
+
+    [GeneratedRegex(@"\s*\{[^}]*\}")]
+    private static partial Regex MyRegex2();
 }

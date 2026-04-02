@@ -25,6 +25,7 @@ public class SettingsManager : IDisposable
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
     private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
+    private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
 
     // Application Settings
     public int ThumbnailSize { get; set; } = 250;
@@ -40,6 +41,8 @@ public class SettingsManager : IDisposable
     public float DeadZoneX { get; set; } = DefaultDeadZoneX;
     public float DeadZoneY { get; set; } = DefaultDeadZoneY;
     public string ButtonAspectRatio { get; set; } = "Square";
+    public string FilenameDisplayMode { get; set; } = "Original";
+    public bool DisplayMachineName { get; set; }
     public bool EnableFuzzyMatching { get; set; } = true;
     public double FuzzyMatchingThreshold { get; set; } = 0.80;
     public const float DefaultDeadZoneX = 0.05f;
@@ -419,6 +422,8 @@ public class SettingsManager : IDisposable
         DeadZoneX = other.DeadZoneX;
         DeadZoneY = other.DeadZoneY;
         ButtonAspectRatio = other.ButtonAspectRatio;
+        FilenameDisplayMode = other.FilenameDisplayMode;
+        DisplayMachineName = other.DisplayMachineName;
         EnableFuzzyMatching = other.EnableFuzzyMatching;
         FuzzyMatchingThreshold = other.FuzzyMatchingThreshold;
         EnableNotificationSound = other.EnableNotificationSound;
@@ -766,6 +771,11 @@ public class SettingsManager : IDisposable
         AccentColor = app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor;
         Language = app?.Element("Language")?.Value ?? settings.Element("Language")?.Value ?? Language;
         ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value);
+        FilenameDisplayMode = ValidateFilenameDisplayMode(app?.Element("FilenameDisplayMode")?.Value ?? settings.Element("FilenameDisplayMode")?.Value);
+        if (bool.TryParse(app?.Element("DisplayMachineName")?.Value ?? settings.Element("DisplayMachineName")?.Value, out var dmn))
+        {
+            DisplayMachineName = dmn;
+        }
 
         // RetroAchievements mapping (Old used RA_Username, New uses RaUsername)
         RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
@@ -2112,6 +2122,8 @@ public class SettingsManager : IDisposable
                 new XElement("DeadZoneX", s.DeadZoneX.ToString(CultureInfo.InvariantCulture)),
                 new XElement("DeadZoneY", s.DeadZoneY.ToString(CultureInfo.InvariantCulture)),
                 new XElement("ButtonAspectRatio", s.ButtonAspectRatio),
+                new XElement("FilenameDisplayMode", s.FilenameDisplayMode),
+                new XElement("DisplayMachineName", s.DisplayMachineName),
                 new XElement("EnableFuzzyMatching", s.EnableFuzzyMatching),
                 new XElement("FuzzyMatchingThreshold", s.FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
                 new XElement("EnableNotificationSound", s.EnableNotificationSound),
@@ -2509,6 +2521,11 @@ public class SettingsManager : IDisposable
     private string ValidateButtonAspectRatio(string value)
     {
         return _validButtonAspectRatio.Contains(value) ? value : "Square";
+    }
+
+    private string ValidateFilenameDisplayMode(string value)
+    {
+        return _validFilenameDisplayModes.Contains(value) ? value : "Original";
     }
 
     private static string ValidateSupermodelInputSystem(string value)

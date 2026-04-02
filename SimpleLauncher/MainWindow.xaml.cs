@@ -189,6 +189,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         UpdateButtonAspectRatioCheckMarks(_settings.ButtonAspectRatio);
         UpdateNumberOfGamesPerPageCheckMarks(_settings.GamesPerPage);
         UpdateShowGamesCheckMarks(_settings.ShowGames);
+        UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;

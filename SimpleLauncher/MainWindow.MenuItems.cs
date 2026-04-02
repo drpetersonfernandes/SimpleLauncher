@@ -776,6 +776,96 @@ public partial class MainWindow
         SuperTaller2.IsChecked = selectedValue == "SuperTaller2";
     }
 
+    private async void FilenameDisplayMode_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CancelAndRecreateToken();
+
+            if (sender is not MenuItem clickedItem) return;
+
+            try
+            {
+                _playSoundEffects.PlayNotificationSound();
+
+                var mode = clickedItem.Name switch
+                {
+                    "FilenameDisplayOriginal" => "Original",
+                    "FilenameDisplayCleanUp" => "CleanUp",
+                    "FilenameDisplayNoFilename" => "NoFilename",
+                    _ => "Original"
+                };
+
+                _settings.FilenameDisplayMode = mode;
+                _settings.Save();
+
+                UpdateFilenameDisplayModeCheckMarks(mode);
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameDisplayMode") ?? "Changing filename display mode...", this);
+
+                // Only reload if in GridView mode
+                if (_settings.ViewMode == "GridView")
+                {
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = _logErrors.LogErrorAsync(ex, "Error in method FilenameDisplayMode_Click.");
+                MessageBoxLibrary.ErrorMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method FilenameDisplayMode_Click.");
+        }
+    }
+
+    private async void DisplayMachineName_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CancelAndRecreateToken();
+
+            if (sender is not MenuItem menuItem) return;
+
+            try
+            {
+                _playSoundEffects.PlayNotificationSound();
+
+                _settings.DisplayMachineName = menuItem.IsChecked;
+                _settings.Save();
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingDisplayMachineName") ?? "Changing machine name display...", this);
+
+                // Only reload if in GridView mode
+                if (_settings.ViewMode == "GridView")
+                {
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = _logErrors.LogErrorAsync(ex, "Error in method DisplayMachineName_Click.");
+                MessageBoxLibrary.ErrorMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method DisplayMachineName_Click.");
+        }
+    }
+
+    private void UpdateFilenameDisplayModeCheckMarks(string selectedValue)
+    {
+        FilenameDisplayOriginal.IsChecked = selectedValue == "Original";
+        FilenameDisplayCleanUp.IsChecked = selectedValue == "CleanUp";
+        FilenameDisplayNoFilename.IsChecked = selectedValue == "NoFilename";
+        DisplayMachineNameToggle.IsChecked = _settings.DisplayMachineName;
+    }
+
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
         try

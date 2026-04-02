@@ -282,6 +282,20 @@
                         <MenuItem x:Name="ShowWithoutCover" Header="{DynamicResource ShowOnlyGamesWithoutCover}"
                                   Click="ShowGamesWithoutCoverClickAsync" IsCheckable="True" ToolTip="{DynamicResource TooltipShowGamesMenu}" />
                     </MenuItem>
+                    <MenuItem Header="{DynamicResource FilenamePreferences}" ToolTip="{DynamicResource TooltipFilenamePreferencesMenu}">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/settings.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                        <MenuItem x:Name="FilenameDisplayOriginal" Header="{DynamicResource DisplayOriginalFilenames}" Click="FilenameDisplayMode_Click"
+                                  IsCheckable="True" IsChecked="True" ToolTip="{DynamicResource TooltipFilenameDisplayModeMenu}" />
+                        <MenuItem x:Name="FilenameDisplayCleanUp" Header="{DynamicResource DisplayCleanUpFilenames}" Click="FilenameDisplayMode_Click"
+                                  IsCheckable="True" ToolTip="{DynamicResource TooltipFilenameDisplayModeMenu}" />
+                        <MenuItem x:Name="FilenameDisplayNoFilename" Header="{DynamicResource DisplayNoFilename}" Click="FilenameDisplayMode_Click"
+                                  IsCheckable="True" ToolTip="{DynamicResource TooltipFilenameDisplayModeMenu}" />
+                        <Separator />
+                        <MenuItem x:Name="DisplayMachineNameToggle" Header="{DynamicResource DisplayMachineName}" Click="DisplayMachineName_Click"
+                                  IsCheckable="True" ToolTip="{DynamicResource TooltipDisplayMachineNameMenu}" />
+                    </MenuItem>
                     <MenuItem Header="{DynamicResource EditLinks}" ToolTip="{DynamicResource TooltipEditLinksMenu}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" />

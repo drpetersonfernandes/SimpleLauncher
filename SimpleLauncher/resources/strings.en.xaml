@@ -1555,6 +1555,16 @@
     <system:String x:Key="ShowGamesWithRetroAchievements">Filter games that are probably compatible with RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
+    <system:String x:Key="FilenamePreferences">Filename Preferences</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">Display Original Filenames</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">Display Clean Up Filenames</system:String>
+    <system:String x:Key="DisplayNoFilename">Display No Filename</system:String>
+    <system:String x:Key="DisplayMachineName">Display Machine Name (for MAME)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">Changing filename display mode...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">Changing machine name display...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">Change how filenames are displayed in Grid mode</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">Select how the filename is displayed (Original, Clean Up, or No Filename)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">Toggle MAME machine description display in Grid mode</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' cannot perform the requested task.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.</system:String>
