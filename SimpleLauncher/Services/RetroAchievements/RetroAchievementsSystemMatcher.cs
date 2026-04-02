@@ -59,7 +59,7 @@ public static class RetroAchievementsSystemMatcher
         ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
         // Sony systems
-        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlsyStation"]),
+        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation"]),
         ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2"]),
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
@@ -77,9 +77,7 @@ public static class RetroAchievementsSystemMatcher
         ["atari 2600"] = new RaSystemInfo(25, ["atari 2600", "atari2600", "atari vcs"]),
         ["atari 7800"] = new RaSystemInfo(51, ["atari 7800", "atari7800"]),
         ["atari jaguar cd"] = new RaSystemInfo(77, ["atari jaguar cd", "jaguar cd", "jaguarcd"]),
-        ["atari 5200"] = new RaSystemInfo(50, ["atari 5200", "atari5200"]),
         ["atari st"] = new RaSystemInfo(36, ["atari st", "atari ste", "atarist"]),
-        ["atari 800"] = new RaSystemInfo(36, ["atari 8-bit", "atari800", "atari-800", "atari 800"]),
 
         // Other systems
         ["arcade"] = new RaSystemInfo(27, [
@@ -148,8 +146,8 @@ public static class RetroAchievementsSystemMatcher
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
-        ["PC-9800"] = new RaSystemInfo(48, ["pc-9800", "pc-9800", "pc9800"]),
-        ["Zeebo"] = new RaSystemInfo(70, ["Zeebo"]),
+        ["PC-9800"] = new RaSystemInfo(48, ["pc-9800", "pc9800"]),
+        ["Zeebo"] = new RaSystemInfo(70, ["Zeebo"])
     };
 
     /// <summary>

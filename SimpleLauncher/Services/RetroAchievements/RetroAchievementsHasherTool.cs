@@ -28,7 +28,7 @@ internal static class RetroAchievementsHasherTool
         "atari 2600", "atari jaguar", "wonderswan", "colecovision",
         "vectrex", "magnavox odyssey 2", "intellivision", "game boy", "game boy advance", "game boy color",
         "pokemon mini", "virtual boy", "neo geo pocket", "32x", "game gear", "master system", "genesis/mega drive",
-        "sg-1000", "wasm-4", "watara supervision", "atari 5200", "fairchild channel f"
+        "sg-1000", "wasm-4", "watara supervision", "fairchild channel f"
     ];
 
     private static readonly List<string> SystemWithComplexHashLogic =
@@ -49,7 +49,7 @@ internal static class RetroAchievementsHasherTool
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
         "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
         "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows",
-        "sega naomi", "mega duck"
+        "sega naomi", "mega duck", "atari 5200", "atari 800", "atari 8-bit"
     ];
 
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
@@ -307,7 +307,7 @@ internal static class RetroAchievementsHasherTool
         catch (OperationCanceledException)
         {
             // This means the WaitForExitAsync or ReadToEndAsync timed out
-            DebugLogger.Log($"[RAHasher] RAHasher.exe timed out (10s) for '{Path.GetFileName(filePath)}'.");
+            DebugLogger.Log($"[RAHasher] RAHasher.exe timed out (60s) for '{Path.GetFileName(filePath)}'.");
             if (!process.HasExited)
             {
                 try
@@ -320,7 +320,7 @@ internal static class RetroAchievementsHasherTool
                 }
             }
 
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RAHasher] RAHasher.exe timed out (10s) for {filePath}.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RAHasher] RAHasher.exe timed out (60s) for {filePath}.");
             return null;
         }
         catch (Exception ex)
