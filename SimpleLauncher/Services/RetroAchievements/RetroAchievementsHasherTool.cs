@@ -25,32 +25,31 @@ internal static class RetroAchievementsHasherTool
 
     private static readonly List<string> SystemWithSimpleHashLogic =
     [
-        "amstrad cpc", "apple ii", "atari 2600", "atari jaguar", "wonderswan", "colecovision",
-        "vectrex", "magnavox odyssey 2", "intellivision", "msx", "game boy", "game boy advance", "game boy color",
+        "atari 2600", "atari jaguar", "wonderswan", "colecovision",
+        "vectrex", "magnavox odyssey 2", "intellivision", "game boy", "game boy advance", "game boy color",
         "pokemon mini", "virtual boy", "neo geo pocket", "32x", "game gear", "master system", "genesis/mega drive",
-        "sg-1000", "wasm-4", "watara supervision", "mega duck"
+        "sg-1000", "wasm-4", "watara supervision", "atari 5200", "fairchild channel f"
     ];
 
     private static readonly List<string> SystemWithComplexHashLogic =
     [
         "3do interactive multiplayer", "atari jaguar cd", "pc engine cd/turbografx-cd",
         "pc-fx", "nintendo ds", "nintendo dsi", "neo geo cd", "dreamcast", "saturn", "sega cd",
-        "playstation", "playstation 2", "playstation portable"
+        "playstation", "playstation 2", "playstation portable", "nintendo 3ds", "xbox", "dos", "pc-9800", "wii u",
+        "amstrad cpc", "apple ii", "msx", "pc-8000/8800"
     ];
 
     // Systems Not Supported or with UnknowHashLogic
     // These systems will not show the RetroAchievements icon and hashing will be skipped
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
-        "atari 5200", "Arduboy", "wii", "wii u", "nintendo 3ds", "sega pico",
-        "atari st", "pc-8000/8800", "commodore 64", "amiga", "zx spectrum", "fairchild channel f",
+        "sega pico",
+        "atari st", "commodore 64", "amiga", "zx spectrum",
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
         "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
         "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows",
-        "playstation 3", "ps3", "sony playstation 3", "xbox", "xbox 360", "xbox one", "xbox series x", "xbox series s",
-        "nintendo switch", "sega model 2", "sega model 3", "sega naomi", "sega naomi 2", "atomiswave",
-        "odyssey", "odyssey2"
+        "sega naomi", "mega duck"
     ];
 
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
@@ -64,8 +63,8 @@ internal static class RetroAchievementsHasherTool
 
     private static readonly List<string> SystemWithLineEndingNormalizationLogic = ["arduboy"];
 
-    // Add GameCube to its own logic list or handle explicitly
-    private static readonly List<string> SystemWithGameCubeLogic = ["gamecube"];
+    // Systems that use Dolphin or similar logic (e.g., RVZ to ISO conversion)
+    private static readonly List<string> SystemWithDolphinLogic = ["gamecube", "wii"];
 
     /// <summary>
     /// Checks if a system is supported for RetroAchievements hashing.
@@ -108,7 +107,7 @@ internal static class RetroAchievementsHasherTool
                SystemWithByteSwappingHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
                SystemWithHeaderCheckHashLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
                SystemWithLineEndingNormalizationLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase) ||
-               SystemWithGameCubeLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase);
+               SystemWithDolphinLogic.Contains(matchedSystemName, StringComparer.OrdinalIgnoreCase);
     }
 
     /// <summary>
@@ -397,9 +396,9 @@ internal static class RetroAchievementsHasherTool
         {
             hashCalculationType = "Complex";
         }
-        else if (SystemWithGameCubeLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        else if (SystemWithDolphinLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
-            hashCalculationType = "GameCube";
+            hashCalculationType = "Dolphin";
         }
         else if (SystemWithFileNameHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
@@ -427,7 +426,7 @@ internal static class RetroAchievementsHasherTool
         // --- Pre-processing: Extract if necessary ---
         var fileToProcess = filePath; // By default, process the original file
         var isCompressed = fileExtension is ".zip" or ".7z" or ".rar";
-        var requiresExtraction = hashCalculationType is "Simple" or "Complex" or "HashWithByteSwapping" or "HashWithHeaderCheck" or "HashWithLineEndingNormalization" or "GameCube";
+        var requiresExtraction = hashCalculationType is "Simple" or "Complex" or "HashWithByteSwapping" or "HashWithHeaderCheck" or "HashWithLineEndingNormalization" or "Dolphin";
 
         if (isCompressed && requiresExtraction)
         {
@@ -480,7 +479,7 @@ internal static class RetroAchievementsHasherTool
                     break;
                 }
 
-                case "GameCube":
+                case "Dolphin":
                 {
                     var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
                     if (systemId <= 0)
@@ -511,7 +510,7 @@ internal static class RetroAchievementsHasherTool
 
                         if (isExtractionSuccessful)
                         {
-                            DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for GameCube (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
+                            DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId}) on '{Path.GetFileName(fileToProcess)}'...");
                             hash = await GetHashAsync(fileToProcess, systemId);
                             DebugLogger.Log($"[RA Hasher Tool] RAHasher result: {hash}");
                         }

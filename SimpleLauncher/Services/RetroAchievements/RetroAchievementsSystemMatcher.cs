@@ -54,17 +54,14 @@ public static class RetroAchievementsSystemMatcher
         ["game gear"] = new RaSystemInfo(15, ["game gear", "gamegear", "sega game gear", "sega gamegear"]),
         ["saturn"] = new RaSystemInfo(39, ["saturn", "sega saturn"]),
         ["dreamcast"] = new RaSystemInfo(40, ["dreamcast", "sega dreamcast", "DREAMCAST NAOMI"]),
-        ["naomi"] = new RaSystemInfo(40, ["naomi", "sega naomi"]),
+        ["naomi"] = new RaSystemInfo(27, ["naomi", "sega naomi"]),
         ["sg-1000"] = new RaSystemInfo(33, ["sg-1000", "sg1000", "sega sg-1000", "sega sg1000"]),
         ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
         // Sony systems
         ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlsyStation"]),
         ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2"]),
-        ["playstation 3"] = new RaSystemInfo(21, ["playstation 3", "ps3", "sony playstation 3"]),
-        ["playstation 4"] = new RaSystemInfo(21, ["playstation 4", "ps4", "sony playstation 4"]),
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
-        ["playstation vita"] = new RaSystemInfo(41, ["playstation vita", "vita", "SONY PlayStation VITA"]),
 
         // NEC systems
         ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16", "NEC PC Engine"]),
@@ -132,15 +129,27 @@ public static class RetroAchievementsSystemMatcher
         ["hubs"] = new RaSystemInfo(100, ["hubs"]),
         ["events"] = new RaSystemInfo(101, ["events"]),
         ["standalone"] = new RaSystemInfo(102, ["standalone"]),
-        ["Xbox"] = new RaSystemInfo(102, ["xbox", "x-box", "Microsoft Xbox"]),
-        ["Xbox360"] = new RaSystemInfo(102, ["xbox360", "xbox 360", "x-box 360", "Microsoft Xbox 360"]),
-        ["DOS"] = new RaSystemInfo(102, ["dos", "microsoft dos"]),
-        ["PC-9800"] = new RaSystemInfo(102, ["pc-9800", "pc-9800", "pc9800"]),
-        ["Zeebo"] = new RaSystemInfo(102, ["Zeebo"]),
-        ["microsoft windows"] = new RaSystemInfo(102, ["Microsoft Windows", "Windows", "PC-DoujinADV", "PC-Port"]),
-        ["amstrad GX4000"] = new RaSystemInfo(102, ["amstrad GX4000", "GX4000", "amstrad CPC GX4000"]),
-        ["ScummVM"] = new RaSystemInfo(102, ["ScummVM", "Scumm VM", "Scumm-VM"]),
-        ["PinballArcade"] = new RaSystemInfo(102, ["PinballArcade", "Pinball Arcade"])
+        ["unsupported"] = new RaSystemInfo(102, [
+            "playstation 3", "ps3", "sony playstation 3",
+            "playstation 4", "ps4", "sony playstation 4",
+            "playstation vita", "vita", "sony playstation vita",
+            "xbox 360", "xbox360", "x-box 360", "microsoft xbox 360",
+            "xbox one", "xboxone", "x-box one", "microsoft xbox one",
+            "xbox series x", "xbox series s", "xbox series x/s",
+            "nintendo switch", "switch",
+            "sega model 2", "model 2",
+            "sega model 3", "model 3",
+            "sega naomi 2", "naomi 2",
+            "atomiswave",
+            "microsoft windows", "windows",
+            "amstrad gx4000", "gx4000",
+            "scummvm", "scumm vm", "scumm-vm",
+            "pinball arcade", "pinballarcade"
+        ]),
+        ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
+        ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
+        ["PC-9800"] = new RaSystemInfo(48, ["pc-9800", "pc-9800", "pc9800"]),
+        ["Zeebo"] = new RaSystemInfo(70, ["Zeebo"]),
     };
 
     /// <summary>
