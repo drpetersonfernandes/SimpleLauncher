@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Markup;
+using System.Windows.Media;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -301,132 +301,52 @@ public partial class App : IDisposable
         base.OnExit(e);
     }
 
-    private void ApplyLanguage(string cultureCode = null)
+    private static void ApplyLanguage(string languageCode)
     {
         try
         {
-            // Determine the culture code (default to CurrentUICulture if not provided)
-            var culture = string.IsNullOrEmpty(cultureCode)
-                ? CultureInfo.CurrentUICulture
-                : new CultureInfo(cultureCode);
-
+            var culture = new CultureInfo(languageCode);
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
 
-            // Find and remove ALL existing localization dictionaries
-            // Use ToList() to avoid modifying the collection while enumerating it
-            var existingDictionaries = Resources.MergedDictionaries
-                .Where(static d => d.Source?.OriginalString.Contains("strings.") ?? false)
+            // Load and apply the resource dictionary for the selected language
+            var resourceDictionary = new ResourceDictionary();
+            var resourcePath = $"/SimpleLauncher;component/resources/strings.{languageCode}.xaml";
+            resourceDictionary.Source = new Uri(resourcePath, UriKind.Relative);
+
+            // Add the new dictionary to the application's resources
+            // Find and remove any existing language dictionaries first
+            var existingLanguageDictionaries = Current.Resources.MergedDictionaries
+                .Where(static d => d.Source != null && d.Source.OriginalString.Contains("/resources/strings."))
                 .ToList();
 
-            foreach (var existingDictionary in existingDictionaries)
+            foreach (var dict in existingLanguageDictionaries)
             {
-                Resources.MergedDictionaries.Remove(existingDictionary);
+                Current.Resources.MergedDictionaries.Remove(dict);
             }
 
-            var dictionary = new ResourceDictionary();
-
-            try
-            {
-                dictionary.Source = new Uri($"pack://application:,,,/resources/strings.{culture.Name}.xaml", UriKind.Absolute);
-            }
-            catch (Exception)
-            {
-                dictionary.Source = new Uri("pack://application:,,,/resources/strings.en.xaml", UriKind.Absolute);
-                culture = new CultureInfo("en-US");
-            }
-
-            try
-            {
-                // Attempt to add the new dictionary
-                Resources.MergedDictionaries.Add(dictionary);
-
-                // Apply the culture to the application
-                try
-                {
-                    FrameworkElement.LanguageProperty.OverrideMetadata(
-                        typeof(FrameworkElement),
-                        new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
-                }
-                catch (ArgumentException)
-                {
-                    // Metadata already overridden, ignore
-                }
-
-                DebugLogger.Log("Resource language file has been applied.");
-            }
-            catch (Exception innerEx)
-            {
-                // Notify developer
-                var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(innerEx, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
-
-                // Fallback to English
-                var fallbackDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("pack://application:,,,/resources/strings.en.xaml", UriKind.Absolute)
-                };
-
-                // Ensure the fallback is added even if the requested one failed
-                Resources.MergedDictionaries.Add(fallbackDictionary);
-
-                // Apply English culture metadata for consistent formatting
-                var englishCulture = new CultureInfo("en-US");
-                Thread.CurrentThread.CurrentCulture = englishCulture;
-                Thread.CurrentThread.CurrentUICulture = englishCulture;
-
-                try
-                {
-                    FrameworkElement.LanguageProperty.OverrideMetadata(
-                        typeof(FrameworkElement),
-                        new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
-                }
-                catch (ArgumentException)
-                {
-                    // Metadata already overridden, ignore
-                }
-
-                // Notify developer
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Fallback to English language resources.");
-            }
+            Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            // This outer catch handles errors *before* attempting to load the new dictionary
-            // (e.g., invalid cultureCode format).
-            var contextMessage = $"Failed to determine or set culture for {cultureCode}";
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            // Log the error using the LogErrorsService
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to Apply Language.");
 
-            // Notify user
-            MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
-
-            // Use English fallback if none exists
-            if (!Resources.MergedDictionaries.Any(static d => d.Source?.OriginalString.Contains("strings.") ?? false))
+            // Fallback to English if loading the specified language fails
+            if (languageCode != "en")
             {
-                var fallbackDictionary = new ResourceDictionary
-                {
-                    Source = new Uri("pack://application:,,,/resources/strings.en.xaml", UriKind.Absolute)
-                };
-                Resources.MergedDictionaries.Add(fallbackDictionary);
-
-                // Apply English culture metadata for consistent formatting
-                var englishCulture = new CultureInfo("en-US");
-                Thread.CurrentThread.CurrentCulture = englishCulture;
-                Thread.CurrentThread.CurrentUICulture = englishCulture;
-
                 try
                 {
-                    FrameworkElement.LanguageProperty.OverrideMetadata(
-                        typeof(FrameworkElement),
-                        new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
+                    var fallbackDictionary = new ResourceDictionary
+                    {
+                        Source = new Uri("/SimpleLauncher;component/resources/strings.en.xaml", UriKind.Relative)
+                    };
+                    Current.Resources.MergedDictionaries.Add(fallbackDictionary);
                 }
-                catch (ArgumentException)
+                catch (Exception fallbackEx)
                 {
-                    // Metadata already overridden, ignore
+                    // If even English fails, something is seriously wrong
+                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(fallbackEx, "Failed to apply English as fallback language.");
                 }
 
                 // Notify developer
@@ -439,13 +359,137 @@ public partial class App : IDisposable
     {
         try
         {
-            ThemeManager.Current.ChangeTheme(Current, $"{baseTheme}.{accentColor}");
+            // Handle Theme Sync Mode (Adaptive)
+            ThemeManager.Current.ThemeSyncMode = baseTheme == "Adaptive" ? ThemeSyncMode.SyncAll : ThemeSyncMode.DoNotSync;
+            switch (baseTheme)
+            {
+                case "Adaptive":
+                    ThemeManager.Current.SyncTheme();
+                    return;
+                // Handle High Contrast
+                case "HighContrast":
+                {
+                    InternalChangeTheme(Current, "Dark", accentColor);
+                    ApplyCustomThemeOverride("Theme.HighContrast.xaml");
+                    return;
+                }
+                // Handle Custom Theme (Midnight)
+                case "Midnight":
+                {
+                    InternalChangeTheme(Current, "Dark", accentColor);
+                    ApplyCustomThemeOverride("Theme.Midnight.xaml");
+                    return;
+                }
+                default:
+                    // Standard Themes (Light/Dark)
+                    RemoveCustomThemeOverrides();
+                    InternalChangeTheme(Current, baseTheme, accentColor);
+                    break;
+            }
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
             _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+        }
+    }
+
+    private static void InternalChangeTheme(object target, string baseTheme, string accentColor)
+    {
+        if (IsCustomAccent(accentColor))
+        {
+            var color = GetColorForAccent(accentColor);
+            var theme = new Theme(
+                $"{baseTheme}.{accentColor}",
+                $"{baseTheme} ({accentColor})",
+                baseTheme,
+                accentColor,
+                color,
+                new SolidColorBrush(color),
+                true,
+                false
+            );
+
+            switch (target)
+            {
+                case Application app:
+                    ThemeManager.Current.ChangeTheme(app, theme);
+                    break;
+                case Window win:
+                    ThemeManager.Current.ChangeTheme(win, theme);
+                    break;
+            }
+        }
+        else
+        {
+            switch (target)
+            {
+                case Application app:
+                    ThemeManager.Current.ChangeTheme(app, $"{baseTheme}.{accentColor}");
+                    break;
+                case Window win:
+                    ThemeManager.Current.ChangeTheme(win, $"{baseTheme}.{accentColor}");
+                    break;
+            }
+        }
+    }
+
+    private static void ApplyCustomThemeOverride(string fileName)
+    {
+        try
+        {
+            RemoveCustomThemeOverrides();
+            var resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri($"/SimpleLauncher;component/resources2/{fileName}", UriKind.Relative)
+            };
+            Current.Resources.MergedDictionaries.Add(resourceDictionary);
+        }
+        catch (Exception ex)
+        {
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to apply custom theme override: {fileName}");
+        }
+    }
+
+    private static void RemoveCustomThemeOverrides()
+    {
+        var customThemes = Current.Resources.MergedDictionaries
+            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml") || d.Source.OriginalString.Contains("Theme.Midnight.xaml")))
+            .ToList();
+
+        foreach (var dict in customThemes)
+        {
+            Current.Resources.MergedDictionaries.Remove(dict);
+        }
+    }
+
+    private static void ApplyCustomThemeOverrideToWindow(Window window, string fileName)
+    {
+        try
+        {
+            RemoveCustomThemeOverridesFromWindow(window);
+            var resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri($"/SimpleLauncher;component/resources2/{fileName}", UriKind.Relative)
+            };
+            window.Resources.MergedDictionaries.Add(resourceDictionary);
+        }
+        catch (Exception ex)
+        {
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
+        }
+    }
+
+    private static void RemoveCustomThemeOverridesFromWindow(Window window)
+    {
+        var customThemes = window.Resources.MergedDictionaries
+            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml") || d.Source.OriginalString.Contains("Theme.Midnight.xaml")))
+            .ToList();
+
+        foreach (var dict in customThemes)
+        {
+            window.Resources.MergedDictionaries.Remove(dict);
         }
     }
 
@@ -457,7 +501,33 @@ public partial class App : IDisposable
         var accentColor = settings.AccentColor;
         try
         {
-            ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
+            switch (baseTheme)
+            {
+                case "Adaptive":
+                    var detectedTheme = ThemeManager.Current.DetectTheme();
+                    if (detectedTheme != null)
+                    {
+                        ThemeManager.Current.ChangeTheme(window, detectedTheme);
+                    }
+
+                    return;
+                case "HighContrast":
+                {
+                    InternalChangeTheme(window, "Dark", accentColor);
+                    ApplyCustomThemeOverrideToWindow(window, "Theme.HighContrast.xaml");
+                    return;
+                }
+                case "Midnight":
+                {
+                    InternalChangeTheme(window, "Dark", accentColor);
+                    ApplyCustomThemeOverrideToWindow(window, "Theme.Midnight.xaml");
+                    return;
+                }
+                default:
+                    RemoveCustomThemeOverridesFromWindow(window);
+                    InternalChangeTheme(window, baseTheme, accentColor);
+                    break;
+            }
         }
         catch (Exception ex)
         {
@@ -466,16 +536,44 @@ public partial class App : IDisposable
         }
     }
 
+    private static bool IsCustomAccent(string accentColor)
+    {
+        return accentColor switch
+        {
+            "Maroon" or "OliveDrab" or "Plum" or "SkyBlue" => true,
+            _ => false
+        };
+    }
+
+    private static Color GetColorForAccent(string accentColor)
+    {
+        return accentColor switch
+        {
+            "Maroon" => Colors.Maroon,
+            "OliveDrab" => Colors.OliveDrab,
+            "Plum" => Colors.Plum,
+            "SkyBlue" => Colors.SkyBlue,
+            _ => Colors.Blue // Default fallback
+        };
+    }
+
     public static void ChangeTheme(string baseTheme, string accentColor)
     {
-        ApplyTheme(baseTheme, accentColor);
         // Get the singleton SettingsManager instance
         var settings = ServiceProvider.GetRequiredService<SettingsManager>();
         settings.BaseTheme = baseTheme;
         settings.AccentColor = accentColor;
         settings.Save();
 
-        DebugLogger.Log("Theme has been applied.");
+        ApplyTheme(baseTheme, accentColor);
+
+        // Apply theme to all currently open windows
+        foreach (Window window in Current.Windows)
+        {
+            ApplyThemeToWindow(window);
+        }
+
+        DebugLogger.Log("Theme has been applied to all windows.");
         DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}");
     }
 

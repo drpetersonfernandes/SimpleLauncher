@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    mc:Ignorable="options">
+
+    <!-- High Contrast Base Theme (Derived from Dark) -->
+    <!-- We merge the Dark theme first, then override specific brushes to be very stark -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- Backgrounds - Pure Black -->
+    <Color x:Key="MahApps.Colors.ThemeBackground">#FF000000</Color>
+    <Color x:Key="MahApps.Colors.Control.Background">#FF000000</Color>
+    <Color x:Key="MahApps.Colors.Control.MouseOver">#FF333333</Color>
+    <Color x:Key="MahApps.Colors.Control.Selected">#FF555555</Color>
+
+    <!-- Text - Pure White / High Contrast -->
+    <Color x:Key="MahApps.Colors.ThemeForeground">#FFFFFFFF</Color>
+    <Color x:Key="MahApps.Colors.Control.Foreground">#FFFFFFFF</Color>
+    <Color x:Key="MahApps.Colors.IdealForeground">#FFFFFFFF</Color>
+    
+    <!-- Flyouts / Overlays -->
+    <Color x:Key="MahApps.Colors.Flyout.Background">#FF000000</Color>
+    
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="MahApps.Brushes.ThemeBackground" Color="{StaticResource MahApps.Colors.ThemeBackground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ThemeForeground" Color="{StaticResource MahApps.Colors.ThemeForeground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.Control.Background" Color="{StaticResource MahApps.Colors.Control.Background}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.Control.Foreground" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.Control.MouseOver" Color="{StaticResource MahApps.Colors.Control.MouseOver}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.Control.Selected" Color="{StaticResource MahApps.Colors.Control.Selected}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.Flyout.Background" Color="{StaticResource MahApps.Colors.Flyout.Background}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.IdealForeground" Color="{StaticResource MahApps.Colors.IdealForeground}" options:Freeze="True" />
+
+</ResourceDictionary>

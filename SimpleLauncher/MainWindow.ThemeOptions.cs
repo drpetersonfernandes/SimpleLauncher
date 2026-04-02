@@ -1,6 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using ControlzEx.Theming;
 
 namespace SimpleLauncher;
 
@@ -11,11 +10,7 @@ public partial class MainWindow
         if (sender is not MenuItem menuItem) return;
 
         var baseTheme = menuItem.Name;
-        var currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
-        if (currentAccent != null) App.ChangeTheme(baseTheme, currentAccent);
-
-        _settings.BaseTheme = baseTheme;
-        _settings.Save();
+        App.ChangeTheme(baseTheme, _settings.AccentColor);
 
         _playSoundEffects.PlayNotificationSound();
 
@@ -28,11 +23,7 @@ public partial class MainWindow
         if (sender is not MenuItem menuItem) return;
 
         var accentColor = menuItem.Name;
-        var currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
-        if (currentBaseTheme != null) App.ChangeTheme(currentBaseTheme, accentColor);
-
-        _settings.AccentColor = accentColor;
-        _settings.Save();
+        App.ChangeTheme(_settings.BaseTheme, accentColor);
 
         _playSoundEffects.PlayNotificationSound();
 
@@ -44,6 +35,9 @@ public partial class MainWindow
     {
         Light.IsChecked = false;
         Dark.IsChecked = false;
+        Adaptive.IsChecked = false;
+        HighContrast.IsChecked = false;
+        Midnight.IsChecked = false;
     }
 
     private void UncheckAccentColors()
@@ -71,6 +65,10 @@ public partial class MainWindow
         Mauve.IsChecked = false;
         Taupe.IsChecked = false;
         Sienna.IsChecked = false;
+        Maroon.IsChecked = false;
+        OliveDrab.IsChecked = false;
+        Plum.IsChecked = false;
+        SkyBlue.IsChecked = false;
     }
 
     private void SetCheckedTheme(string baseTheme, string accentColor)
@@ -82,6 +80,15 @@ public partial class MainWindow
                 break;
             case "Dark":
                 Dark.IsChecked = true;
+                break;
+            case "Adaptive":
+                Adaptive.IsChecked = true;
+                break;
+            case "HighContrast":
+                HighContrast.IsChecked = true;
+                break;
+            case "Midnight":
+                Midnight.IsChecked = true;
                 break;
         }
 
@@ -155,6 +162,18 @@ public partial class MainWindow
                 break;
             case "Sienna":
                 Sienna.IsChecked = true;
+                break;
+            case "Maroon":
+                Maroon.IsChecked = true;
+                break;
+            case "OliveDrab":
+                OliveDrab.IsChecked = true;
+                break;
+            case "Plum":
+                Plum.IsChecked = true;
+                break;
+            case "SkyBlue":
+                SkyBlue.IsChecked = true;
                 break;
         }
     }

@@ -26,6 +26,7 @@ public class SettingsManager : IDisposable
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
     private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
     private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
+    private readonly HashSet<string> _validStyleVariants = ["Default"];
 
     // Application Settings
     public int ThumbnailSize { get; set; } = 250;
@@ -37,6 +38,7 @@ public class SettingsManager : IDisposable
     public string InfoUrl { get; set; }
     public string BaseTheme { get; set; } = "Dark";
     public string AccentColor { get; set; } = "Blue";
+    public string StyleVariant { get; set; } = "Default";
     public string Language { get; set; } = "en";
     public float DeadZoneX { get; set; } = DefaultDeadZoneX;
     public float DeadZoneY { get; set; } = DefaultDeadZoneY;
@@ -418,6 +420,7 @@ public class SettingsManager : IDisposable
         InfoUrl = other.InfoUrl;
         BaseTheme = other.BaseTheme;
         AccentColor = other.AccentColor;
+        StyleVariant = other.StyleVariant;
         Language = other.Language;
         DeadZoneX = other.DeadZoneX;
         DeadZoneY = other.DeadZoneY;
@@ -769,6 +772,7 @@ public class SettingsManager : IDisposable
         InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
         BaseTheme = app?.Element("BaseTheme")?.Value ?? settings.Element("BaseTheme")?.Value ?? BaseTheme;
         AccentColor = app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor;
+        StyleVariant = ValidateStyleVariant(app?.Element("StyleVariant")?.Value ?? settings.Element("StyleVariant")?.Value);
         Language = app?.Element("Language")?.Value ?? settings.Element("Language")?.Value ?? Language;
         ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value);
         FilenameDisplayMode = ValidateFilenameDisplayMode(app?.Element("FilenameDisplayMode")?.Value ?? settings.Element("FilenameDisplayMode")?.Value);
@@ -2118,6 +2122,7 @@ public class SettingsManager : IDisposable
                 new XElement("InfoUrl", s.InfoUrl),
                 new XElement("BaseTheme", s.BaseTheme),
                 new XElement("AccentColor", s.AccentColor),
+                new XElement("StyleVariant", s.StyleVariant),
                 new XElement("Language", s.Language),
                 new XElement("DeadZoneX", s.DeadZoneX.ToString(CultureInfo.InvariantCulture)),
                 new XElement("DeadZoneY", s.DeadZoneY.ToString(CultureInfo.InvariantCulture)),
@@ -2526,6 +2531,11 @@ public class SettingsManager : IDisposable
     private string ValidateFilenameDisplayMode(string value)
     {
         return _validFilenameDisplayModes.Contains(value) ? value : "Original";
+    }
+
+    private string ValidateStyleVariant(string value)
+    {
+        return _validStyleVariants.Contains(value) ? value : "Default";
     }
 
     private static string ValidateSupermodelInputSystem(string value)

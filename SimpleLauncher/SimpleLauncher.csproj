@@ -786,6 +786,16 @@
         </None>
     </ItemGroup>
     <ItemGroup>
+        <Page Include="resources2\Theme.HighContrast.xaml">
+          <Generator>MSBuild:Compile</Generator>
+          <XamlRuntime>Wpf</XamlRuntime>
+          <SubType>Designer</SubType>
+        </Page>
+        <Page Include="resources2\Theme.Midnight.xaml">
+          <Generator>MSBuild:Compile</Generator>
+          <XamlRuntime>Wpf</XamlRuntime>
+          <SubType>Designer</SubType>
+        </Page>
         <Resource Include="images\logo2.png">
             <CopyToOutputDirectory />
         </Resource>
@@ -861,6 +871,8 @@
         <Resource Include="resources\strings.tr.xaml" />
         <Page Remove="resources\strings.vi.xaml" />
         <Resource Include="resources\strings.vi.xaml" />
+        <Resource Include="resources2\Theme.Midnight.xaml" />
+        <Resource Include="resources2\Theme.HighContrast.xaml" />
         <Resource Include="images\gamepad.png" />
         <Resource Include="images\aspectratio.png" />
         <Resource Include="images\buttonsize.png" />

@@ -165,6 +165,12 @@
     <system:String x:Key="AzaharConfigPermissionError6">The game will launch with the emulator's default settings.</system:String>
     <system:String x:Key="AzaharConfigurationSavedSuccessfully">Azahar configuration saved successfully.</system:String>
     <system:String x:Key="AzaharSettings">Azahar Settings</system:String>
+    <system:String x:Key="Adaptive">Adaptive (Sync with Windows)</system:String>
+    <system:String x:Key="HighContrast">High Contrast</system:String>
+    <system:String x:Key="Midnight">Midnight (Deep Blue)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Automatically switch between Light and Dark based on Windows system settings</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">High contrast theme for better accessibility</system:String>
+    <system:String x:Key="TooltipMidnightMenu">A custom dark theme with deep blue tones</system:String>
     <system:String x:Key="BaseTheme">Base Theme</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Aspect Ratio:</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Tooltip">Sets the display aspect ratio. 'stretch' will fill the window.</system:String>
@@ -195,6 +201,10 @@
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem configuration saved successfully.</system:String>
     <system:String x:Key="BlastememulatornotfoundPleaselocate">Blastem emulator not found. Please locate 'blastem.exe'.</system:String>
     <system:String x:Key="BlastemSettings">Blastem Settings</system:String>
+    <system:String x:Key="Maroon">Maroon</system:String>
+    <system:String x:Key="OliveDrab">Olive Drab</system:String>
+    <system:String x:Key="Plum">Plum</system:String>
+    <system:String x:Key="SkyBlue">Sky Blue</system:String>
     <system:String x:Key="Blue">Blue</system:String>
     <system:String x:Key="BoxArt">Box Art</system:String>
     <system:String x:Key="Brown">Brown</system:String>
@@ -262,6 +272,7 @@
     <system:String x:Key="ClickToViewFullSize">Click to view full size</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
+    <system:String x:Key="Clean">Clean</system:String>
     <system:String x:Key="CompatibilityWarning">Compatibility Warning</system:String>
     <system:String x:Key="ConfigurationFailed">Configuration Failed</system:String>
     <system:String x:Key="ConfigurationWarning">Configuration Warning</system:String>
@@ -335,6 +346,7 @@
     <system:String x:Key="DeadZoneY">DeadZone Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>
     <system:String x:Key="DebugWindow">Debug Window</system:String>
+    <system:String x:Key="Default">Default</system:String>
     <system:String x:Key="DefaultEmulatorHeader">Default Emulator</system:String>
     <system:String x:Key="DefaultImageFolder">Using default image folder</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' file is missing.</system:String>
@@ -1594,6 +1606,7 @@
     <system:String x:Key="StartProcess">Start Process</system:String>
     <system:String x:Key="Status">Status:</system:String>
     <system:String x:Key="Steel">Steel</system:String>
+    <system:String x:Key="StyleVariants">Style Variants</system:String>
     <system:String x:Key="StellaConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="StellaConfig_AudioEnabled_Checkbox">Enable Audio</system:String>
     <system:String x:Key="StellaConfig_AudioEnabled_Tooltip">Toggles all sound output on or off.</system:String>
@@ -1806,6 +1819,7 @@
     <system:String x:Key="Tools">Tools</system:String>
     <system:String x:Key="TooltipAboutMenu">About Simple Launcher and update options</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Change the accent color</system:String>
+    <system:String x:Key="TooltipStyleVariantsMenu">Change the control style variant</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Add another folder to search for games</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Add a new game system configuration</system:String>
     <system:String x:Key="TooltipAddSystem">Add the configured system to your library</system:String>
