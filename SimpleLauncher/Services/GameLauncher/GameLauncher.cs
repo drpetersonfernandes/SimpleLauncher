@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,7 +16,6 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.MountFiles;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UsageStats;
@@ -30,18 +28,8 @@ public partial class GameLauncher
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
     private readonly IConfiguration _configuration;
-
-    // ReSharper disable once NotAccessedField.Local
-    private static IHttpClientFactory _httpClientFactory;
-
-    // ReSharper disable once NotAccessedField.Local
-    private readonly ILogErrors _logErrors;
     private readonly IExtractionService _extractionService;
-
-    // ReSharper disable once NotAccessedField.Local
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly Stats _stats;
-
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
@@ -49,20 +37,14 @@ public partial class GameLauncher
         IEnumerable<IEmulatorConfigHandler> configHandlers,
         IEnumerable<ILaunchStrategy> launchStrategies,
         IExtractionService extraction,
-        PlaySoundEffects sounds,
         Stats stats,
-        IConfiguration configuration,
-        IHttpClientFactory httpClientFactory,
-        ILogErrors logErrors)
+        IConfiguration configuration)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
         _extractionService = extraction;
-        _playSoundEffects = sounds;
         _stats = stats;
         _configuration = configuration;
-        _httpClientFactory = httpClientFactory;
-        _logErrors = logErrors;
     }
 
     internal async Task HandleButtonClickAsync(string filePath,
@@ -96,7 +78,6 @@ public partial class GameLauncher
             if (context.EmulatorManager == null)
             {
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                // Add logging here for developer context
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Could not find EmulatorManager for emulator '{context.EmulatorName}' in system '{context.SystemName}'.");
                 return;
             }
@@ -146,7 +127,6 @@ public partial class GameLauncher
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
-
 
     private async Task<bool> ValidateContextAsync(LaunchContext context)
     {
@@ -316,7 +296,6 @@ public partial class GameLauncher
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    // Notify user
                     MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
             }
@@ -796,25 +775,6 @@ public partial class GameLauncher
             }
         }
 
-        // // Convert CHD to Cue/Bin
-        // if (isChd && (isRaine || is4Do || isBigPEmu))
-        // {
-        //     var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
-        //     loadingStateProvider.SetLoadingState(true, convertingMsg);
-        //
-        //     tempConvertedPath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
-        //     if (tempConvertedPath != null)
-        //     {
-        //         resolvedFilePath = tempConvertedPath;
-        //     }
-        //     else
-        //     {
-        //         loadingStateProvider.SetLoadingState(false);
-        //         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-        //         return;
-        //     }
-        // }
-
         // Mount CHD
         if (isChd && (isRpcs3 || isXenia || isXemu || isCxbxReloaded || isMednafen || isPcsxRedux || isRaine || is4Do || isBigPEmu))
         {
@@ -918,6 +878,25 @@ public partial class GameLauncher
                 return;
             }
         }
+
+        // // Convert CHD to Cue/Bin
+        // if (isChd && (isRaine || is4Do || isBigPEmu))
+        // {
+        //     var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
+        //     loadingStateProvider.SetLoadingState(true, convertingMsg);
+        //
+        //     tempConvertedPath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
+        //     if (tempConvertedPath != null)
+        //     {
+        //         resolvedFilePath = tempConvertedPath;
+        //     }
+        //     else
+        //     {
+        //         loadingStateProvider.SetLoadingState(false);
+        //         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+        //         return;
+        //     }
+        // }
 
         // Check if the file to launch is from a mounted CHD drive
         var isMountedChd = mountedChdDrive is { IsMounted: true };
