@@ -26,6 +26,9 @@ public static class RetroAchievementsSystemMatcher
         }
     }
 
+    // Track which unmatched system names have already been logged to avoid duplicate API reports
+    private static readonly HashSet<string> LoggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
+
     // Define system name mappings with their official RA Console ID and fuzzy matching patterns.
     private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new()
     {
@@ -171,9 +174,12 @@ public static class RetroAchievementsSystemMatcher
             }
         }
 
-        // No match found, log it for future improvement and return original.
-        DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+        // No match found, log it once per unique system name for future improvement
+        if (LoggedUnmatchedSystems.Add(inputSystemName))
+        {
+            DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+        }
 
         return normalizedInput;
     }
