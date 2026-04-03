@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -16,37 +17,18 @@ public static class MountChdFiles
     private const string ChdMounterRelativePath = @"tools\CHDMounter\CHDMounter.exe";
 
     /// <summary>
-    /// Finds an available drive letter from Z: down to D:.
+    /// Gets the current logical drives as a hash set for comparison.
     /// </summary>
-    /// <returns>An available character for a drive letter, or null if none are available.</returns>
-    private static char? GetAvailableDriveLetter()
+    private static HashSet<char> GetCurrentDriveLetters()
     {
-        try
-        {
-            var existingDrives = Environment.GetLogicalDrives()
-                .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
-                .ToHashSet();
-
-            for (var letter = 'Z'; letter >= 'D'; letter--)
-            {
-                if (!existingDrives.Contains(letter))
-                {
-                    return letter;
-                }
-            }
-
-            return null;
-        }
-        catch (Exception ex)
-        {
-            DebugLogger.Log($"[MountChdFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error enumerating available drive letters for CHD mounting.");
-            return null;
-        }
+        return Environment.GetLogicalDrives()
+            .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
+            .ToHashSet();
     }
 
     /// <summary>
     /// Mounts a CHD file to an available drive letter using CHDMounter.exe.
+    /// Uses /a flag to let CHDMounter auto-select the drive letter, then detects which drive was mounted.
     /// </summary>
     /// <param name="resolvedChdFilePath">The full path to the CHD file.</param>
     /// <param name="logPath">Path to the application's log file for error reporting.</param>
@@ -69,22 +51,13 @@ public static class MountChdFiles
             return new MountChdDrive();
         }
 
-        var driveLetter = GetAvailableDriveLetter();
-        if (driveLetter == null)
-        {
-            const string errorMessage = "No available drive letters found to mount the CHD.";
-            DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
-            return new MountChdDrive();
-        }
-
-        var driveLetterWithColon = $"{driveLetter.Value}:";
-        var driveRoot = $"{driveLetter.Value}:\\";
+        // Capture existing drives before mounting
+        var existingDrives = GetCurrentDriveLetters();
+        DebugLogger.Log($"[MountChdFiles.MountAsync] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
         var arguments = consoleIndex.HasValue
-            ? $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a /s:{consoleIndex.Value}"
-            : $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a";
+            ? $"/a \"{resolvedChdFilePath}\" /s:{consoleIndex.Value}"
+            : $"/a \"{resolvedChdFilePath}\"";
 
         var psiMount = new ProcessStartInfo
         {
@@ -97,7 +70,7 @@ public static class MountChdFiles
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
-        DebugLogger.Log($"[MountChdFiles.MountAsync] Attempting to mount on drive {driveLetter.Value}:");
+        DebugLogger.Log("[MountChdFiles.MountAsync] Using auto-select drive letter (/a)");
         DebugLogger.Log($"[MountChdFiles.MountAsync] Arguments: {psiMount.Arguments}");
 
         var mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
@@ -111,9 +84,9 @@ public static class MountChdFiles
 
             DebugLogger.Log($"[MountChdFiles.MountAsync] CHDMounter process started (ID: {mountProcess.Id}).");
 
-            var mountSuccessful = await WaitForDriveMountAsync(driveRoot, mountProcess, mountProcess.Id);
+            var (mountSuccessful, detectedDrive) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcess.Id);
 
-            if (!mountSuccessful)
+            if (!mountSuccessful || detectedDrive == null)
             {
                 if (!mountProcess.HasExited)
                 {
@@ -125,8 +98,9 @@ public static class MountChdFiles
                 return new MountChdDrive();
             }
 
+            var driveRoot = $"{detectedDrive.Value}:\\";
             DebugLogger.Log($"[MountChdFiles.MountAsync] CHD mounted successfully. Drive: {driveRoot}");
-            return new MountChdDrive(mountProcess, driveRoot, driveLetter.Value.ToString());
+            return new MountChdDrive(mountProcess, driveRoot, detectedDrive.Value.ToString());
         }
         catch (Exception ex)
         {
@@ -192,25 +166,14 @@ public static class MountChdFiles
             return;
         }
 
-        var driveLetter = GetAvailableDriveLetter();
-        if (driveLetter == null)
-        {
-            const string errorMessage = "No available drive letters found to mount the CHD.";
-            DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
-            return;
-        }
-
-        var driveLetterWithColon = $"{driveLetter.Value}:";
-        var driveRoot = $"{driveLetter.Value}:\\";
-
-        DebugLogger.Log($"[MountChdFiles] Selected drive letter for mounting: {driveLetter.Value}:");
+        // Capture existing drives before mounting
+        var existingDrives = GetCurrentDriveLetters();
+        DebugLogger.Log($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
         var psiMount = new ProcessStartInfo
         {
             FileName = resolvedToolPath,
-            Arguments = $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a",
+            Arguments = $"/a \"{resolvedChdFilePath}\"",
             UseShellExecute = false,
             CreateNoWindow = true,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
@@ -223,6 +186,7 @@ public static class MountChdFiles
 
         Process mountProcess = null;
         var mountProcessId = -1;
+        string driveRoot = null;
 
         try
         {
@@ -237,9 +201,9 @@ public static class MountChdFiles
             mountProcessId = mountProcess.Id;
             DebugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
-            var mountSuccessful = await WaitForDriveMountAsync(driveRoot, mountProcess, mountProcessId);
+            var (mountSuccessful, drive) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId);
 
-            if (!mountSuccessful)
+            if (!mountSuccessful || drive == null)
             {
                 if (!mountProcess.HasExited)
                 {
@@ -251,7 +215,8 @@ public static class MountChdFiles
                 return;
             }
 
-            DebugLogger.Log($"[MountChdFiles] CHD mounted successfully. Drive: {driveRoot}. Searching for game file...");
+            driveRoot = $"{drive.Value}:\\";
+            DebugLogger.Log($"[MountChdFiles] CHD mounted successfully on drive {drive.Value}:. Searching for game file...");
 
             var gameFilePath = FindGameFile(driveRoot);
 
@@ -392,24 +357,13 @@ public static class MountChdFiles
             return;
         }
 
-        var driveLetter = GetAvailableDriveLetter();
-        if (driveLetter == null)
-        {
-            const string errorMessage = "No available drive letters found to mount the CHD.";
-            DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
-            return;
-        }
-
-        var driveLetterWithColon = $"{driveLetter.Value}:";
-        var driveRoot = $"{driveLetter.Value}:\\";
-
-        DebugLogger.Log($"[MountChdFiles] Selected drive letter for mounting: {driveLetter.Value}:");
+        // Capture existing drives before mounting
+        var existingDrives = GetCurrentDriveLetters();
+        DebugLogger.Log($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
 
         var arguments = consoleIndex.HasValue
-            ? $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /s:{consoleIndex.Value}"
-            : $"\"{resolvedChdFilePath}\" \"{driveLetterWithColon}\" /a";
+            ? $"\"{resolvedChdFilePath}\" /a /s:{consoleIndex.Value}"
+            : $"\"{resolvedChdFilePath}\" /a";
 
         var psiMount = new ProcessStartInfo
         {
@@ -427,6 +381,7 @@ public static class MountChdFiles
 
         Process mountProcess = null;
         var mountProcessId = -1;
+        string driveRoot = null;
 
         try
         {
@@ -441,9 +396,9 @@ public static class MountChdFiles
             mountProcessId = mountProcess.Id;
             DebugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
-            var mountSuccessful = await WaitForDriveMountAsync(driveRoot, mountProcess, mountProcessId);
+            var (mountSuccessful, drive) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId);
 
-            if (!mountSuccessful)
+            if (!mountSuccessful || drive == null)
             {
                 if (!mountProcess.HasExited)
                 {
@@ -455,7 +410,8 @@ public static class MountChdFiles
                 return;
             }
 
-            DebugLogger.Log($"[MountChdFiles] CHD mounted successfully. Drive: {driveRoot}. Searching for game file...");
+            driveRoot = $"{drive.Value}:\\";
+            DebugLogger.Log($"[MountChdFiles] CHD mounted successfully on drive {drive.Value}:. Searching for game file...");
 
             var gameFilePath = FindGameFile(driveRoot);
 
@@ -564,154 +520,183 @@ public static class MountChdFiles
     {
         if (string.IsNullOrEmpty(systemName)) return null;
 
-        var name = systemName.ToUpperInvariant();
-
-        if ((name.Contains("AMIGA CD", StringComparison.OrdinalIgnoreCase) ||
-             name.Contains("AMIGACD", StringComparison.OrdinalIgnoreCase)) &&
-            !name.Contains("CD32", StringComparison.OrdinalIgnoreCase))
+        if ((systemName.Contains("AMIGA CD", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("AMIGACD", StringComparison.OrdinalIgnoreCase)) &&
+            !systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
         {
-            return 1;
+            return 20;
         }
 
-        if (name.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("CD32", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
         {
-            return 2;
+            return 20;
         }
 
-        if (name.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
         {
-            return 3;
+            return 20;
         }
 
-        if (name.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
         {
-            return 4;
+            return 20;
         }
 
-        if (name.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
         {
-            return 5;
+            return 20;
         }
 
-        if (name.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
         {
-            return 6;
+            return 20;
         }
 
-        if (name.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
         {
-            return 7;
+            return 20;
         }
 
-        if ((name.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
-             name.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
-             name.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
-            !name.Contains('2') &&
-            !name.Contains('3'))
+        if ((systemName.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PSX1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PSX 1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PLAY 1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
+            !systemName.Contains('2') &&
+            !systemName.Contains('3'))
         {
-            return 8;
+            return 20;
         }
 
-        if (name.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX 2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAY 2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
         {
             return 9;
         }
 
-        if (name.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX 3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAY 3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
         {
             return 10;
         }
 
-        if (name.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
         {
             return 11;
         }
 
-        if (name.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
         {
-            return 12;
+            return 20;
         }
 
-        if (name.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase))
         {
-            return 13;
+            return 20;
         }
 
-        if (name.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
         {
-            return 14;
+            return 20;
         }
 
-        if (name.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
-            !name.Contains("360"))
+        if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
+            !systemName.Contains("360"))
         {
             if (!string.IsNullOrEmpty(emulatorName) &&
                 emulatorName.Contains("xemu", StringComparison.OrdinalIgnoreCase))
             {
-                return 17;
+                return 18;
             }
 
-            return 15;
+            return 17;
         }
 
-        if (name.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
-            name.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
+        if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
         {
-            return 16;
+            return 17;
+        }
+
+        if (!string.IsNullOrEmpty(emulatorName) &&
+            emulatorName.Contains("RAINE", StringComparison.OrdinalIgnoreCase))
+        {
+            return 20;
+        }
+
+        if (systemName.Contains("JAGUAR CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("JAGUARCD", StringComparison.OrdinalIgnoreCase))
+        {
+            return 20;
         }
 
         return null;
     }
 
-    private static async Task<bool> WaitForDriveMountAsync(string driveRoot, Process mountProcess, int processId)
+    /// <summary>
+    /// Waits for a new drive to appear after mounting with /a flag (auto-select drive letter).
+    /// Compares current drives against the pre-mount snapshot to detect which drive was assigned.
+    /// </summary>
+    private static async Task<(bool Success, char? DriveLetter)> WaitForDriveMountAndDetectAsync(HashSet<char> existingDrives, Process mountProcess, int processId)
     {
         const int maxRetries = 240; // 2 minutes with 500 ms intervals
         const int pollIntervalMs = 500;
         var retryCount = 0;
 
-        DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAsync] Polling for drive '{driveRoot}' to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
+        DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Polling for new drive to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
 
         while (retryCount < maxRetries)
         {
-            if (Directory.Exists(driveRoot))
-            {
-                DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAsync] Found drive '{driveRoot}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
-                return true;
-            }
-
+            // Check if process exited prematurely
             if (mountProcess.HasExited)
             {
-                DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
                 var contextMessage = $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {mountProcess.ExitCode}.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-                return false;
+                return (false, null);
+            }
+
+            // Get current drives and find any new ones
+            var currentDrives = GetCurrentDriveLetters();
+            var newDrives = currentDrives.Except(existingDrives).ToList();
+
+            if (newDrives.Count > 0)
+            {
+                var detectedDrive = newDrives[0];
+                DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Found new drive '{detectedDrive}:' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
+                return (true, detectedDrive);
             }
 
             retryCount++;
             await Task.Delay(pollIntervalMs);
         }
 
-        DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAsync] Timed out waiting for '{driveRoot}' after {maxRetries * pollIntervalMs / 1000} seconds.");
-        var timeoutContextMessage = $"Timed out waiting for the CHD to mount to '{driveRoot}'.";
+        DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Timed out waiting for new drive after {maxRetries * pollIntervalMs / 1000} seconds.");
+        const string timeoutContextMessage = "Timed out waiting for the CHD to mount. No new drive detected.";
         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, timeoutContextMessage);
-        return false;
+        return (false, null);
     }
 
     /// <summary>
