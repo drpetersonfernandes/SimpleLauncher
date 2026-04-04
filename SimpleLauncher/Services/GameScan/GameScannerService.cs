@@ -171,7 +171,8 @@ public class GameScannerService
             catch (HttpRequestException ex) when (attempt == 0)
             {
                 // Network error on first attempt - wait and retry
-                DebugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Retrying in 5 seconds...");
+                var innerMessage = ex.InnerException?.Message ?? "none";
+                DebugLogger.Log($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (Exception ex)
@@ -183,7 +184,8 @@ public class GameScannerService
                     HttpRequestException => "network error",
                     _ => "error"
                 };
-                var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}). Falling back to icon extraction.";
+                var innerDetails = GetInnerExceptionDetails(ex);
+                var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}).{innerDetails} Falling back to icon extraction.";
                 DebugLogger.Log(logMessage);
 
                 // Log persistent network errors to help identify API issues, but don't spam logs
@@ -287,5 +289,23 @@ public class GameScannerService
                 }
             })
             .FirstOrDefault();
+    }
+
+    private static string GetInnerExceptionDetails(Exception ex)
+    {
+        var inner = ex.InnerException;
+        if (inner == null) return string.Empty;
+
+        var details = " Inner exceptions:";
+        var current = inner;
+        var depth = 1;
+        while (current != null && depth <= 3)
+        {
+            details += $" [{depth}] {current.GetType().Name}: {current.Message}";
+            current = current.InnerException;
+            depth++;
+        }
+
+        return details;
     }
 }

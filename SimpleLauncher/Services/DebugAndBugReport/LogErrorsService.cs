@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -43,6 +44,26 @@ public class LogErrorsService : ILogErrors
         var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
         var windowsVersion = GetMicrosoftWindowsVersion.GetVersion();
 
+        // Build exception details including inner exceptions
+        var exceptionDetails = new StringBuilder();
+        var currentEx = ex;
+        while (currentEx != null)
+        {
+            exceptionDetails.AppendLine(CultureInfo.InvariantCulture, $"Exception type: {currentEx.GetType().Name}");
+            exceptionDetails.AppendLine(CultureInfo.InvariantCulture, $"Exception message: {currentEx.Message}");
+            if (currentEx.StackTrace != null)
+            {
+                exceptionDetails.AppendLine("Stack Trace:");
+                exceptionDetails.AppendLine(currentEx.StackTrace);
+            }
+
+            currentEx = currentEx.InnerException;
+            if (currentEx != null)
+            {
+                exceptionDetails.AppendLine("\nInner Exception:");
+            }
+        }
+
         // Write error Message
         var errorMessage =
             $"Date: {DateTime.Now}\n" +
@@ -51,8 +72,7 @@ public class LogErrorsService : ILogErrors
             $"Architecture: {architecture}\n" +
             $"Bitness: {is64Bit}\n" +
             $"Windows Version: {windowsVersion}\n\n" +
-            $"Exception type: {ex.GetType().Name}\n" +
-            $"Exception details: {ex.Message}\n\n" +
+            $"{exceptionDetails}\n\n" +
             $"{contextMessage}\n\n";
 
         await LogFileLock.WaitAsync();

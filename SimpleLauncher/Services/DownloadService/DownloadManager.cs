@@ -65,7 +65,7 @@ public class DownloadManager : IDisposable
         }
 
         // Get HttpClient from the factory
-        _httpClient = _httpClientFactory?.CreateClient();
+        _httpClient = _httpClientFactory?.CreateClient("DownloadClient");
 
         // Initialize cancellation token source
         _cancellationTokenSource = new CancellationTokenSource();

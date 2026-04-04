@@ -2,6 +2,9 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Security;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -60,23 +63,25 @@ public partial class App : IDisposable
         var configuration = builder.Build();
 
         var serviceCollection = new ServiceCollection();
-        // Register IHttpClientFactory and named clients
-        serviceCollection.AddHttpClient("LogErrorsClient");
-        serviceCollection.AddHttpClient("StatsClient");
-        serviceCollection.AddHttpClient("UpdateCheckerClient");
-        serviceCollection.AddHttpClient("SupportWindowClient");
+
+        serviceCollection.AddHttpClient("LogErrorsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        serviceCollection.AddHttpClient("StatsClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        serviceCollection.AddHttpClient("UpdateCheckerClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+        serviceCollection.AddHttpClient("SupportWindowClient").ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
         serviceCollection.AddHttpClient("RetroAchievementsClient", static client =>
         {
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+
         serviceCollection.AddHttpClient("GameImageClient", client =>
         {
             var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl") ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
             client.BaseAddress = new Uri(apiUrl);
             client.Timeout = TimeSpan.FromSeconds(15);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+
         serviceCollection.AddHttpClient("EasyModeClient", client =>
         {
             // Set the base address for the EasyMode configuration API
@@ -87,14 +92,19 @@ public partial class App : IDisposable
                 // ReSharper disable once RedundantAssignment
                 easyModeUrl += "/";
             }
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+
         serviceCollection.AddHttpClient("GameClassificationClient", client =>
         {
             var classificationUrl = configuration.GetValue<string>("Urls:GameClassificationApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
             client.BaseAddress = new Uri(classificationUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
-        });
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+
+        serviceCollection.AddHttpClient("DownloadClient")
+            .ConfigurePrimaryHttpMessageHandler(CreateHttpHandler)
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5));
 
         // Register IConfiguration
         serviceCollection.AddSingleton<IConfiguration>(configuration);
@@ -260,6 +270,23 @@ public partial class App : IDisposable
                     _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
                 }
             }));
+        }
+
+        return;
+
+        // Register IHttpClientFactory and named clients
+        // Each client gets its own SocketsHttpHandler with explicit TLS 1.2/1.3 support
+        static HttpMessageHandler CreateHttpHandler()
+        {
+            return new SocketsHttpHandler
+            {
+                SslOptions = new SslClientAuthenticationOptions
+                {
+                    EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13
+                },
+                PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+                ConnectTimeout = TimeSpan.FromSeconds(15)
+            };
         }
     }
 
