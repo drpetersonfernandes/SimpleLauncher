@@ -152,6 +152,7 @@ public partial class App : IDisposable
 
         // Strategies
         serviceCollection.AddSingleton<ILaunchStrategy, ChdToCueStrategy>();
+        serviceCollection.AddSingleton<ILaunchStrategy, ChdMountStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, PbpToCueStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, XisoMountStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, ZipMountStrategy>();

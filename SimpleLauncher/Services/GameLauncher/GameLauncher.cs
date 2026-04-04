@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
+using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
@@ -665,17 +666,6 @@ public partial class GameLauncher
         var is7Z = Path.GetExtension(resolvedFilePath).Equals(".7z", StringComparison.OrdinalIgnoreCase);
         var isRar = Path.GetExtension(resolvedFilePath).Equals(".rar", StringComparison.OrdinalIgnoreCase);
 
-        var is4Do = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
-                                                                                  selectedEmulatorManager.EmulatorLocation.Contains("4do", StringComparison.OrdinalIgnoreCase));
-
-        var isBigPEmu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase) ||
-                                                                                      selectedEmulatorManager.EmulatorLocation.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase));
-
-        var isCxbxReloaded = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Equals("Cxbx-Reloaded", StringComparison.OrdinalIgnoreCase) ||
-                                                                                   selectedEmulatorName.Equals("Cxbx Reloaded", StringComparison.OrdinalIgnoreCase) ||
-                                                                                   selectedEmulatorName.Equals("Cxbx", StringComparison.OrdinalIgnoreCase) ||
-                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("cxbx.exe", StringComparison.OrdinalIgnoreCase));
-
         var isGeolith = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro", StringComparison.OrdinalIgnoreCase) ||
                                                                                       selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro.dll", StringComparison.OrdinalIgnoreCase));
 
@@ -684,15 +674,8 @@ public partial class GameLauncher
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
 
-        var isMednafen = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
-                                                                                       selectedEmulatorManager.EmulatorLocation.Contains("mednafen", StringComparison.OrdinalIgnoreCase));
-
         var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
                        (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
-
-        var isPcsxRedux = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Equals("PCSX-Redux", StringComparison.OrdinalIgnoreCase) ||
-                                                                                selectedEmulatorName.Equals("PCSX Redux", StringComparison.OrdinalIgnoreCase) ||
-                                                                                selectedEmulatorManager.EmulatorLocation.Contains("pcsx-redux.exe", StringComparison.OrdinalIgnoreCase));
 
         var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                                                                                     selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
@@ -700,22 +683,14 @@ public partial class GameLauncher
         var isRetroArch = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
                                                                                         selectedEmulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase));
 
-        var isRpcs3 = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
-                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("rpcs3", StringComparison.OrdinalIgnoreCase));
-
         var isSameboy = selectedEmulatorName.Contains("Sameboy", StringComparison.OrdinalIgnoreCase) ||
                         (selectedEmulatorManager?.EmulatorLocation?.Contains("sameboy.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         var isXemu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
 
-        var isXenia = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
-                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("xenia", StringComparison.OrdinalIgnoreCase));
-
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
-        string tempConvertedPath = null;
-        MountChdDrive mountedChdDrive = null;
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
 
@@ -775,132 +750,6 @@ public partial class GameLauncher
             }
         }
 
-        // Mount CHD
-        if (isChd && (isRpcs3 || isXenia || isXemu || isCxbxReloaded || isMednafen || isPcsxRedux || isRaine || is4Do || isBigPEmu))
-        {
-            var mountingMsg = (string)Application.Current.TryFindResource("MountingChd") ?? "Mounting CHD...";
-            loadingStateProvider.SetLoadingState(true, mountingMsg);
-
-            var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-            var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(selectedSystemManager.SystemName, selectedEmulatorName);
-            mountedChdDrive = await MountChdFiles.MountAsync(resolvedFilePath, logPath, consoleIndex);
-            if (mountedChdDrive is { IsMounted: true })
-            {
-                if (isRpcs3) // For RPCS3, we need the path to EBOOT.BIN, not just the drive root
-                {
-                    var ebootPath = FindEbootBin.FindEbootBinRecursive(mountedChdDrive.MountedPath);
-                    if (!string.IsNullOrEmpty(ebootPath))
-                    {
-                        resolvedFilePath = ebootPath;
-                    }
-                    else
-                    {
-                        loadingStateProvider.SetLoadingState(false);
-                        DebugLogger.Log("[LaunchRegularEmulatorAsync] EBOOT.BIN not found in mounted CHD.");
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "EBOOT.BIN not found in mounted CHD.");
-                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
-                        return;
-                    }
-                }
-                else if (isXenia) // For Xenia, we need the path to default.xex, not just the drive root
-                {
-                    var defaultPath = FindDefaultXex.Find(mountedChdDrive.MountedPath);
-                    if (!string.IsNullOrEmpty(defaultPath))
-                    {
-                        resolvedFilePath = defaultPath;
-                    }
-                    else
-                    {
-                        loadingStateProvider.SetLoadingState(false);
-                        DebugLogger.Log("[LaunchRegularEmulatorAsync] default.xex not found in mounted CHD.");
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "default.xex not found in mounted CHD.");
-                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
-                        return;
-                    }
-                }
-                else if (isXemu) // For Xemu, point to image.iso
-                {
-                    var defaultPath = FindImageIso.Find(mountedChdDrive.MountedPath);
-                    if (!string.IsNullOrEmpty(defaultPath))
-                    {
-                        resolvedFilePath = defaultPath;
-                    }
-                    else
-                    {
-                        loadingStateProvider.SetLoadingState(false);
-                        DebugLogger.Log("[LaunchRegularEmulatorAsync] image.iso not found in mounted CHD.");
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "image.iso not found in mounted CHD.");
-                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
-                        return;
-                    }
-                }
-                else if (isCxbxReloaded) // For CxbxReloaded, we need the path to default.xbe, not just the drive root
-                {
-                    var defaultPath = FindDefaultXbe.Find(mountedChdDrive.MountedPath);
-                    if (!string.IsNullOrEmpty(defaultPath))
-                    {
-                        resolvedFilePath = defaultPath;
-                    }
-                    else
-                    {
-                        loadingStateProvider.SetLoadingState(false);
-                        DebugLogger.Log("[LaunchRegularEmulatorAsync] default.xbe not found in mounted CHD.");
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "default.xbe not found in mounted CHD.");
-                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
-                        return;
-                    }
-                }
-                else if (isMednafen || isPcsxRedux || isRaine || is4Do || isBigPEmu) // Need the path to the cue file
-                {
-                    var cuePath = FindCueFile.Find(mountedChdDrive.MountedPath);
-                    if (!string.IsNullOrEmpty(cuePath))
-                    {
-                        resolvedFilePath = cuePath;
-                    }
-                    else
-                    {
-                        loadingStateProvider.SetLoadingState(false);
-                        DebugLogger.Log("[LaunchRegularEmulatorAsync] cue file not found in mounted CHD.");
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "cue not found in mounted CHD.");
-                        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
-                        return;
-                    }
-                }
-                else
-                {
-                    resolvedFilePath = mountedChdDrive.MountedPath;
-                }
-            }
-            else
-            {
-                loadingStateProvider.SetLoadingState(false);
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
-                return;
-            }
-        }
-
-        // // Convert CHD to Cue/Bin
-        // if (isChd && (isRaine || is4Do || isBigPEmu))
-        // {
-        //     var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
-        //     loadingStateProvider.SetLoadingState(true, convertingMsg);
-        //
-        //     tempConvertedPath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(resolvedFilePath);
-        //     if (tempConvertedPath != null)
-        //     {
-        //         resolvedFilePath = tempConvertedPath;
-        //     }
-        //     else
-        //     {
-        //         loadingStateProvider.SetLoadingState(false);
-        //         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-        //         return;
-        //     }
-        // }
-
-        // Check if the file to launch is from a mounted CHD drive
-        var isMountedChd = mountedChdDrive is { IsMounted: true };
-
         if (isOotake && (isChd || isBin || isCue || isIso))
         {
             MessageBoxLibrary.OotakeDoesNotSupportImageFiles();
@@ -928,7 +777,7 @@ public partial class GameLauncher
         }
 
         // For mounted files, ensure it still exists before proceeding
-        if ((isMountedXbe || isMountedZip || isMountedChd) && !File.Exists(@"\\?\" + resolvedFilePath))
+        if ((isMountedXbe || isMountedZip) && !File.Exists(@"\\?\" + resolvedFilePath))
         {
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
@@ -1193,45 +1042,6 @@ public partial class GameLauncher
                         // Log the error but don't prevent other finally block actions
                         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
                         DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
-                    }
-                }
-
-                // Cleanup temporary CHD conversion files (.cue, .bin or .iso)
-                if (!string.IsNullOrEmpty(tempConvertedPath))
-                {
-                    try
-                    {
-                        var binPath = Path.ChangeExtension(tempConvertedPath, ".bin");
-                        if (File.Exists(tempConvertedPath))
-                        {
-                            File.Delete(tempConvertedPath);
-                        }
-
-                        if (File.Exists(binPath))
-                        {
-                            File.Delete(binPath);
-                        }
-
-                        DebugLogger.Log($"Cleaned up temporary CHD conversion files: {tempConvertedPath}");
-                    }
-                    catch (Exception ex)
-                    {
-                        DebugLogger.Log($"Failed to cleanup CHD temp files: {ex.Message}");
-                    }
-                }
-
-                // Cleanup mounted CHD drive
-                if (mountedChdDrive is { IsMounted: true })
-                {
-                    try
-                    {
-                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Disposing mounted CHD drive: {mountedChdDrive.MountedPath}");
-                        await mountedChdDrive.DisposeAsync();
-                        DebugLogger.Log("[LaunchRegularEmulatorAsync] Successfully disposed mounted CHD drive.");
-                    }
-                    catch (Exception ex)
-                    {
-                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error disposing mounted CHD drive: {ex.Message}");
                     }
                 }
             }

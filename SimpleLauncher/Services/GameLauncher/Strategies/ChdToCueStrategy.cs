@@ -5,13 +5,14 @@ using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 public class ChdToCueStrategy : ILaunchStrategy
 {
-    public int Priority => 10;
+    public int Priority => 25;
 
     public bool IsMatch(LaunchContext context)
     {

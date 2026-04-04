@@ -619,7 +619,7 @@ public static class MountChdFiles
         if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
             systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
         {
-            return 20;
+            return 21;
         }
 
         if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&

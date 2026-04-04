@@ -5,6 +5,7 @@ using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;

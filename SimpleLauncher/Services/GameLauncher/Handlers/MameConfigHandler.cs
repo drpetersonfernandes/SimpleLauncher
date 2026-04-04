@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
