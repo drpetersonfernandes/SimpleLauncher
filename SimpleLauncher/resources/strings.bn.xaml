@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">সেটিংস সংরক্ষণ করা যায়নি। অনুগ্রহ করে পরীক্ষা করুন যে অ্যাপ্লিকেশন ফোল্ডারটি লেখাযোগ্য এবং অন্য কোনো প্রক্রিয়া দ্বারা লক করা নেই।</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu প্যারামিটারে '-dvd_path' থাকা উচিত।</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'সিম্পল লঞ্চার' একটি অস্থায়ী ফোল্ডার থেকে চালানো যাবে না।</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">চালানোর আগে অনুগ্রহ করে অ্যাপ্লিকেশনটি একটি স্থায়ী ফোল্ডারে এক্সট্র্যাক্ট করুন।</system:String>
+    <system:String x:Key="networkPathIssue">যদি ফাইলটি একটি নেটওয়ার্ক ড্রাইভে থাকে, তবে নিশ্চিত করুন যে আপনার কম্পিউটার এখনও সেই ড্রাইভের সাথে সংযুক্ত আছে।</system:String>
+    <system:String x:Key="Adaptive">অভিযোজিত (উইন্ডোজের সাথে সিঙ্ক করুন)</system:String>
+    <system:String x:Key="HighContrast">উচ্চ বৈসাদৃশ্য</system:String>
+    <system:String x:Key="Midnight">মিডনাইট (গভীর নীল)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">উইন্ডোজ সিস্টেম সেটিংসের উপর ভিত্তি করে স্বয়ংক্রিয়ভাবে হালকা এবং গাঢ় থিমের মধ্যে পরিবর্তন করুন</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">উন্নত অ্যাক্সেসিবিলিটির জন্য উচ্চ বৈসাদৃশ্য থিম</system:String>
+    <system:String x:Key="TooltipMidnightMenu">গভীর নীল টোন সহ একটি কাস্টম ডার্ক থিম</system:String>
+    <system:String x:Key="Maroon">মেরুন</system:String>
+    <system:String x:Key="OliveDrab">অলিভ ড্র্যাব</system:String>
+    <system:String x:Key="Plum">প্লাম</system:String>
+    <system:String x:Key="SkyBlue">স্কাই ব্লু</system:String>
+    <system:String x:Key="FilenamePreferences">ফাইলের নাম পছন্দসমূহ</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">আসল ফাইলের নাম প্রদর্শন করুন</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">পরিষ্কার করা ফাইলের নাম প্রদর্শন করুন</system:String>
+    <system:String x:Key="DisplayNoFilename">কোনো ফাইলের নাম প্রদর্শন করবেন না</system:String>
+    <system:String x:Key="DisplayMachineName">মেশিনের নাম প্রদর্শন করুন (MAME এর জন্য)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">ফাইলের নাম প্রদর্শনের মোড পরিবর্তন করা হচ্ছে...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">মেশিনের নাম প্রদর্শন পরিবর্তন করা হচ্ছে...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">গ্রিড মোডে ফাইলের নাম কিভাবে প্রদর্শিত হবে তা পরিবর্তন করুন</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">ফাইলের নাম কিভাবে প্রদর্শিত হবে তা নির্বাচন করুন (আসল, পরিষ্কার করা, অথবা কোনো ফাইলের নাম নয়)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">গ্রিড মোডে MAME মেশিনের বিবরণ প্রদর্শন টগল করুন</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">এটি Dokan ইনস্টল না থাকার কারণে হতে পারে। ZIP, CHD এবং ডিস্ক ইমেজ ফাইল মাউন্ট করার জন্য Dokan প্রয়োজন।</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">আপনার ব্রাউজার খোলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">আপনি কি Dokan ডাউনলোড করার জন্য আপনার ব্রাউজার খুলতে চান?</system:String>
-
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -924,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">অনুপস্থিত প্রয়োজনীয় ফাইল</system:String>
     <system:String x:Key="MoreOptions">আরও বিকল্প</system:String>
     <system:String x:Key="MostRecentAward">সর্বশেষ পুরস্কার</system:String>
-    <system:String x:Key="MountingChd">CHD মাউন্ট করা হচ্ছে...</system:String>
     <system:String x:Key="MyProfileTab">আমার প্রোফাইল |</system:String>
     <system:String x:Key="MyProfileTabTooltip">আমার প্রোফাইল ট্যাব</system:String>
     <system:String x:Key="Name">নাম</system:String>
@@ -1883,7 +1907,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">পছন্দসই থেকে নির্বাচিত গেমটি সরান</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">খেলার ইতিহাস থেকে নির্বাচিত আইটেমটি সরান</system:String>
     <system:String x:Key="TooltipResetSound">ডিফল্ট নোটিফিকেশন সাউন্ডে রিসেট করুন</system:String>
-<system:String x:Key="TooltipRestart">পরিবর্তনগুলি প্রয়োগ করতে বা সিস্টেমগুলি পুনরায় লোড করতে অ্যাপ্লিকেশনটি পুনরায় চালু করুন</system:String>
+    <system:String x:Key="TooltipRestart">পরিবর্তনগুলি প্রয়োগ করতে বা সিস্টেমগুলি পুনরায় লোড করতে অ্যাপ্লিকেশনটি পুনরায় চালু করুন</system:String>
     <system:String x:Key="TooltipRetroAchievements">RetroAchievements প্রোফাইল এবং অগ্রগতি দেখুন</system:String>
     <system:String x:Key="TooltipRevertDeadZone">ডেড জোন ডিফল্ট মানগুলিতে রিসেট করুন</system:String>
     <system:String x:Key="TooltipRevertLinks">লিঙ্কগুলি ডিফল্ট মানগুলিতে রিসেট করুন</system:String>

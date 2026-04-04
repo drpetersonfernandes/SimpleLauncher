@@ -2,10 +2,34 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="FailedToSaveSettings">无法保存设置。请检查应用程序文件夹是否具有写入权限，且未被其他进程占用。</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu 参数应包含 '-dvd_path'。</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">“Simple Launcher” 无法在临时文件夹中运行。</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">请在运行前将应用程序解压到永久文件夹中。</system:String>
+    <system:String x:Key="networkPathIssue">如果文件位于网络驱动器上，请确保您的计算机仍连接到该驱动器。</system:String>
+    <system:String x:Key="Adaptive">自适应（与 Windows 同步）</system:String>
+    <system:String x:Key="HighContrast">高对比度</system:String>
+    <system:String x:Key="Midnight">午夜（深蓝）</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">根据 Windows 系统设置自动在浅色和深色模式之间切换</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">用于提高辅助功能的高对比度主题</system:String>
+    <system:String x:Key="TooltipMidnightMenu">带有深蓝色调的自定义深色主题</system:String>
+    <system:String x:Key="Maroon">栗色</system:String>
+    <system:String x:Key="OliveDrab">橄榄褐</system:String>
+    <system:String x:Key="Plum">梅紫</system:String>
+    <system:String x:Key="SkyBlue">天蓝色</system:String>
+    <system:String x:Key="FilenamePreferences">文件名首选项</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">显示原始文件名</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">显示清理后的文件名</system:String>
+    <system:String x:Key="DisplayNoFilename">不显示文件名</system:String>
+    <system:String x:Key="DisplayMachineName">显示机器名称（适用于 MAME）</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">正在更改文件名显示模式...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">正在更改机器名称显示...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">更改网格模式下文件名的显示方式</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">选择文件名的显示方式（原始、清理后或不显示）</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">在网格模式下切换 MAME 机器描述的显示</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">这可能是由于未安装 Dokan。挂载 ZIP、CHD 和磁盘映像文件需要 Dokan。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">打开浏览器时出错。</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">您要打开浏览器下载 Dokan 吗？</system:String>
-
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -925,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">缺少必需文件</system:String>
     <system:String x:Key="MoreOptions">更多选项</system:String>
     <system:String x:Key="MostRecentAward">最新奖励</system:String>
-    <system:String x:Key="MountingChd">正在挂载CHD...</system:String>
     <system:String x:Key="MyProfileTab">我的资料 |</system:String>
     <system:String x:Key="MyProfileTabTooltip">我的个人资料选项卡</system:String>
     <system:String x:Key="Name">姓名</system:String>

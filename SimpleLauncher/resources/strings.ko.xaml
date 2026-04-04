@@ -2,10 +2,34 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="FailedToSaveSettings">설정을 저장하지 못했습니다. 애플리케이션 폴더가 쓰기 가능한 상태인지, 다른 프로세스에서 사용 중이지 않은지 확인해 주세요.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu 매개변수에는 '-dvd_path'가 포함되어야 합니다.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher'는 임시 폴더에서 실행할 수 없습니다.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">실행하기 전에 애플리케이션을 영구 폴더에 압축 해제해 주세요.</system:String>
+    <system:String x:Key="networkPathIssue">파일이 네트워크 드라이브에 있는 경우, 컴퓨터가 해당 드라이브에 여전히 연결되어 있는지 확인하십시오.</system:String>
+    <system:String x:Key="Adaptive">적응형 (Windows 설정과 동기화)</system:String>
+    <system:String x:Key="HighContrast">고대비</system:String>
+    <system:String x:Key="Midnight">미드나잇 (진한 파란색)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Windows 시스템 설정에 따라 라이트 모드와 다크 모드를 자동으로 전환합니다.</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">접근성 향상을 위한 고대비 테마</system:String>
+    <system:String x:Key="TooltipMidnightMenu">진한 파란색 톤의 사용자 정의 다크 테마</system:String>
+    <system:String x:Key="Maroon">마룬 (밤색)</system:String>
+    <system:String x:Key="OliveDrab">올리브 드랍 (국방색)</system:String>
+    <system:String x:Key="Plum">플럼 (자두색)</system:String>
+    <system:String x:Key="SkyBlue">스카이 블루 (하늘색)</system:String>
+    <system:String x:Key="FilenamePreferences">파일 이름 표시 설정</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">원본 파일 이름 표시</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">정리된 파일 이름 표시</system:String>
+    <system:String x:Key="DisplayNoFilename">파일 이름 표시 안 함</system:String>
+    <system:String x:Key="DisplayMachineName">머신 이름 표시 (MAME용)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">파일 이름 표시 모드 변경 중...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">머신 이름 표시 설정 변경 중...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">그리드 모드에서 파일 이름이 표시되는 방식을 변경합니다.</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">파일 이름 표시 방식(원본, 정리됨, 또는 표시 안 함)을 선택합니다.</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">그리드 모드에서 MAME 머신 설명 표시 여부를 전환합니다.</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dokan이 설치되지 않았기 때문일 수 있습니다. ZIP, CHD 및 디스크 이미지 파일을 마운트하려면 Dokan이 필요합니다.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">브라우저를 여는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Dokan을 다운로드하기 위해 브라우저를 여시겠습니까?</system:String>
-
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
     <system:String x:Key="1000games">1000 게임</system:String>
@@ -926,7 +950,6 @@
     <system:String x:Key="MissingRequiredFiles">누락된 필수 파일</system:String>
     <system:String x:Key="MoreOptions">추가 옵션</system:String>
     <system:String x:Key="MostRecentAward">가장 최근 수상</system:String>
-    <system:String x:Key="MountingChd">CHD 마운트 중...</system:String>
     <system:String x:Key="MyProfileTab">내 프로필 |</system:String>
     <system:String x:Key="MyProfileTabTooltip">내 프로필 탭</system:String>
     <system:String x:Key="Name">이름</system:String>
@@ -1885,7 +1908,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">선택한 게임을 즐겨찾기에서 제거합니다.</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">플레이 기록에서 선택한 항목을 제거합니다.</system:String>
     <system:String x:Key="TooltipResetSound">기본 알림 소리로 재설정합니다.</system:String>
-<system:String x:Key="TooltipRestart">변경 사항을 적용하거나 시스템을 다시 로드하려면 애플리케이션을 다시 시작하십시오.</system:String>
+    <system:String x:Key="TooltipRestart">변경 사항을 적용하거나 시스템을 다시 로드하려면 애플리케이션을 다시 시작하십시오.</system:String>
     <system:String x:Key="TooltipRetroAchievements">RetroAchievements 프로필 및 진행 상황을 봅니다.</system:String>
     <system:String x:Key="TooltipRevertDeadZone">데드존을 기본값으로 재설정합니다.</system:String>
     <system:String x:Key="TooltipRevertLinks">링크를 기본값으로 재설정합니다.</system:String>

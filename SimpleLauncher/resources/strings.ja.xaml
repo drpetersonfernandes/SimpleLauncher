@@ -2,10 +2,34 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="FailedToSaveSettings">設定の保存に失敗しました。アプリケーションフォルダーが書き込み可能であること、および他のプロセスによってロックされていないことを確認してください。</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Xemuのパラメーターには '-dvd_path' が含まれている必要があります。</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">「Simple Launcher」は一時フォルダーから実行することはできません。</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">実行する前に、アプリケーションを恒久的なフォルダーに展開してください。</system:String>
+    <system:String x:Key="networkPathIssue">ファイルがネットワークドライブ上にある場合は、コンピューターがそのドライブに正しく接続されているか確認してください。</system:String>
+    <system:String x:Key="Adaptive">アダプティブ (Windowsの設定と同期)</system:String>
+    <system:String x:Key="HighContrast">ハイ コントラスト</system:String>
+    <system:String x:Key="Midnight">ミッドナイト (ディープ ブルー)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Windowsのシステム設定に基づいて、ライトモードとダークモードを自動的に切り替えます</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">視認性を高めるためのハイコントラストテーマ</system:String>
+    <system:String x:Key="TooltipMidnightMenu">深い青色を基調としたカスタムダークテーマ</system:String>
+    <system:String x:Key="Maroon">マルーン</system:String>
+    <system:String x:Key="OliveDrab">オリーブドラブ</system:String>
+    <system:String x:Key="Plum">プラム</system:String>
+    <system:String x:Key="SkyBlue">スカイブルー</system:String>
+    <system:String x:Key="FilenamePreferences">ファイル名の表示設定</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">元のファイル名を表示</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">クリーンアップしたファイル名を表示</system:String>
+    <system:String x:Key="DisplayNoFilename">ファイル名を表示しない</system:String>
+    <system:String x:Key="DisplayMachineName">マシン名を表示 (MAME用)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">ファイル名表示モードを変更中...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">マシン名表示を切り替え中...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">グリッドモードでのファイル名の表示方法を変更します</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">ファイル名の表示形式を選択します (元の名前、クリーンアップ、または表示なし)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">グリッドモードでのMAMEマシン名の表示を切り替えます</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dokan がインストールされていない可能性があります。ZIP、CHD、およびディスクイメージファイルをマウントするには Dokan が必要です。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">ブラウザを開く際にエラーが発生しました。</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Dokan をダウンロードするためにブラウザを開きますか？</system:String>
-
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -925,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">不足している必須ファイル</system:String>
     <system:String x:Key="MoreOptions">その他のオプション</system:String>
     <system:String x:Key="MostRecentAward">最新の賞</system:String>
-    <system:String x:Key="MountingChd">CHDをマウント中...</system:String>
     <system:String x:Key="MyProfileTab">マイプロフィール |</system:String>
     <system:String x:Key="MyProfileTabTooltip">マイプロフィールタブ</system:String>
     <system:String x:Key="Name">名前</system:String>

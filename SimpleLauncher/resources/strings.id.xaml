@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">Gagal menyimpan pengaturan. Pastikan folder aplikasi dapat ditulis dan tidak sedang dikunci oleh proses lain.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Parameter Xemu harus berisi '-dvd_path'.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' tidak dapat dijalankan dari folder sementara.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Harap ekstrak aplikasi ke folder permanen sebelum menjalankannya.</system:String>
+    <system:String x:Key="networkPathIssue">Jika file berada di drive jaringan, pastikan komputer Anda masih terhubung ke drive tersebut.</system:String>
+    <system:String x:Key="Adaptive">Adaptif (Sinkronkan dengan Windows)</system:String>
+    <system:String x:Key="HighContrast">Kontras Tinggi</system:String>
+    <system:String x:Key="Midnight">Midnight (Biru Tua)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Beralih secara otomatis antara Terang dan Gelap berdasarkan pengaturan sistem Windows</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">Tema kontras tinggi untuk aksesibilitas yang lebih baik</system:String>
+    <system:String x:Key="TooltipMidnightMenu">Tema gelap khusus dengan nada biru tua</system:String>
+    <system:String x:Key="Maroon">Merah Marun</system:String>
+    <system:String x:Key="OliveDrab">Hijau Zaitun (Olive Drab)</system:String>
+    <system:String x:Key="Plum">Plum</system:String>
+    <system:String x:Key="SkyBlue">Biru Langit</system:String>
+    <system:String x:Key="FilenamePreferences">Preferensi Nama File</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">Tampilkan Nama File Asli</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">Tampilkan Nama File yang Dibersihkan</system:String>
+    <system:String x:Key="DisplayNoFilename">Jangan Tampilkan Nama File</system:String>
+    <system:String x:Key="DisplayMachineName">Tampilkan Nama Mesin (untuk MAME)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">Mengubah mode tampilan nama file...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">Mengubah tampilan nama mesin...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">Ubah cara nama file ditampilkan dalam mode Grid</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">Pilih bagaimana nama file ditampilkan (Asli, Bersih, atau Tanpa Nama File)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">Aktifkan/nonaktifkan tampilan deskripsi mesin MAME dalam mode Grid</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Ini mungkin karena Dokan tidak terinstal. Dokan diperlukan untuk memuat (mount) file ZIP, CHD, dan file image disk.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Terjadi kesalahan saat membuka browser Anda.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Apakah Anda ingin membuka browser untuk mengunduh Dokan?</system:String>
-
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -924,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">File yang Diperlukan Hilang</system:String>
     <system:String x:Key="MoreOptions">Lebih Banyak Opsi</system:String>
     <system:String x:Key="MostRecentAward">Penghargaan Terbaru</system:String>
-    <system:String x:Key="MountingChd">Memasang CHD...</system:String>
     <system:String x:Key="MyProfileTab">Profil Saya |</system:String>
     <system:String x:Key="MyProfileTabTooltip">Tab Profil Saya</system:String>
     <system:String x:Key="Name">Nama</system:String>
@@ -1883,7 +1907,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">Hapus game yang dipilih dari favorit</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Hapus item yang dipilih dari riwayat bermain</system:String>
     <system:String x:Key="TooltipResetSound">Setel ulang ke suara notifikasi default</system:String>
-<system:String x:Key="TooltipRestart">Mulai ulang aplikasi untuk menerapkan perubahan atau memuat ulang sistem</system:String>
+    <system:String x:Key="TooltipRestart">Mulai ulang aplikasi untuk menerapkan perubahan atau memuat ulang sistem</system:String>
     <system:String x:Key="TooltipRetroAchievements">Lihat profil dan kemajuan RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Setel ulang dead zone ke nilai default</system:String>
     <system:String x:Key="TooltipRevertLinks">Setel ulang tautan ke nilai default</system:String>

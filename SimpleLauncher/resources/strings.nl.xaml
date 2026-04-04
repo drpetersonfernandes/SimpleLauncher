@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">Instellingen opslaan mislukt. Controleer of de applicatiemap beschrijfbaar is en niet door een ander proces wordt gebruikt.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">De Xemu-parameter moet '-dvd_path' bevatten.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' kan niet vanuit een tijdelijke map worden uitgevoerd.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Pak de applicatie uit naar een permanente map voordat u deze uitvoert.</system:String>
+    <system:String x:Key="networkPathIssue">Als het bestand zich op een netwerkschijf bevindt, controleer dan of uw computer nog verbonden is met die schijf.</system:String>
+    <system:String x:Key="Adaptive">Adaptief (Synchroniseren met Windows)</system:String>
+    <system:String x:Key="HighContrast">Hoog contrast</system:String>
+    <system:String x:Key="Midnight">Middernacht (Diepblauw)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Schakel automatisch tussen Licht en Donker op basis van de Windows-systeeminstellingen</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">Hoog contrast-thema voor betere toegankelijkheid</system:String>
+    <system:String x:Key="TooltipMidnightMenu">Een aangepast donker thema met diepblauwe tonen</system:String>
+    <system:String x:Key="Maroon">Kastanjebruin</system:String>
+    <system:String x:Key="OliveDrab">Olijfgroen</system:String>
+    <system:String x:Key="Plum">Pruim</system:String>
+    <system:String x:Key="SkyBlue">Hemelsblauw</system:String>
+    <system:String x:Key="FilenamePreferences">Bestandsnaamvoorkeuren</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">Originele bestandsnamen weergeven</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">Opgeschoonde bestandsnamen weergeven</system:String>
+    <system:String x:Key="DisplayNoFilename">Geen bestandsnaam weergeven</system:String>
+    <system:String x:Key="DisplayMachineName">Machinenaam weergeven (voor MAME)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">Weergavemodus voor bestandsnamen wijzigen...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">Weergave van machinenaam wijzigen...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">Wijzig hoe bestandsnamen worden weergegeven in de Rastermodus</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">Selecteer hoe de bestandsnaam wordt weergegeven (Origineel, Opgeschoond of Geen bestandsnaam)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">Schakel de weergave van de MAME-machinebeschrijving in de Rastermodus in of uit</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dit kan komen doordat Dokan niet is geïnstalleerd. Dokan is vereist voor het koppelen van ZIP-, CHD- en schijfkopiebestanden.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Er is een fout opgetreden bij het openen van uw browser.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Wilt u uw browser openen om Dokan te downloaden?</system:String>
-
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -924,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">Ontbrekende vereiste bestanden</system:String>
     <system:String x:Key="MoreOptions">Meer opties</system:String>
     <system:String x:Key="MostRecentAward">Meest recente onderscheiding</system:String>
-    <system:String x:Key="MountingChd">CHD koppelen...</system:String>
     <system:String x:Key="MyProfileTab">Mijn Profiel |</system:String>
     <system:String x:Key="MyProfileTabTooltip">Mijn Profiel tabblad</system:String>
     <system:String x:Key="Name">Naam</system:String>
@@ -1883,7 +1907,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">Verwijder het geselecteerde spel uit favorieten</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Verwijder het geselecteerde item uit de speelgeschiedenis</system:String>
     <system:String x:Key="TooltipResetSound">Herstel naar het standaard meldingsgeluid</system:String>
-<system:String x:Key="TooltipRestart">Herstart de applicatie om wijzigingen toe te passen of systemen te herladen</system:String>
+    <system:String x:Key="TooltipRestart">Herstart de applicatie om wijzigingen toe te passen of systemen te herladen</system:String>
     <system:String x:Key="TooltipRetroAchievements">Bekijk RetroAchievements profiel en voortgang</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Herstel dode zone naar standaardwaarden</system:String>
     <system:String x:Key="TooltipRevertLinks">Herstel links naar standaardwaarden</system:String>

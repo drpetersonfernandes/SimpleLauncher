@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">Не удалось сохранить настройки. Пожалуйста, убедитесь, что папка приложения доступна для записи и не заблокирована другим процессом.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Параметр Xemu должен содержать «-dvd_path».</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">«Simple Launcher» нельзя запускать из временной папки.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Пожалуйста, извлеките приложение в постоянную папку перед запуском.</system:String>
+    <system:String x:Key="networkPathIssue">Если файл находится на сетевом диске, убедитесь, что компьютер всё еще подключен к этому диску.</system:String>
+    <system:String x:Key="Adaptive">Адаптивная (синхронизация с Windows)</system:String>
+    <system:String x:Key="HighContrast">Высокая контрастность</system:String>
+    <system:String x:Key="Midnight">Полночь (тёмно-синий)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Автоматическое переключение между светлой и тёмной темой на основе системных настроек Windows</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">Высококонтрастная тема для лучшей доступности</system:String>
+    <system:String x:Key="TooltipMidnightMenu">Пользовательская тёмная тема в глубоких синих тонах</system:String>
+    <system:String x:Key="Maroon">Бордовый</system:String>
+    <system:String x:Key="OliveDrab">Оливковый</system:String>
+    <system:String x:Key="Plum">Сливовый</system:String>
+    <system:String x:Key="SkyBlue">Небесно-голубой</system:String>
+    <system:String x:Key="FilenamePreferences">Настройки имен файлов</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">Отображать оригинальные имена файлов</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">Отображать очищенные имена файлов</system:String>
+    <system:String x:Key="DisplayNoFilename">Не отображать имя файла</system:String>
+    <system:String x:Key="DisplayMachineName">Отображать название автомата (для MAME)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">Изменение режима отображения имен файлов...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">Изменение отображения названия автомата...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">Изменить способ отображения имен файлов в режиме сетки</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">Выберите способ отображения имени файла (оригинальное, очищенное или без имени)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">Переключить отображение описания автомата MAME в режиме сетки</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Это может быть связано с тем, что Dokan не установлен. Dokan необходим для монтирования файлов ZIP, CHD и образов дисков.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Произошла ошибка при открытии браузера.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Хотите открыть браузер, чтобы скачать Dokan?</system:String>
-
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -924,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">Отсутствуют необходимые файлы</system:String>
     <system:String x:Key="MoreOptions">Больше опций</system:String>
     <system:String x:Key="MostRecentAward">Самая последняя награда</system:String>
-    <system:String x:Key="MountingChd">Монтирование CHD...</system:String>
     <system:String x:Key="MyProfileTab">Мой профиль |</system:String>
     <system:String x:Key="MyProfileTabTooltip">Вкладка "Мой профиль"</system:String>
     <system:String x:Key="Name">Имя</system:String>
@@ -1883,7 +1907,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">Удалить выбранную игру из избранного</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Удалить выбранный элемент из истории игр</system:String>
     <system:String x:Key="TooltipResetSound">Сбросить звук уведомления к значению по умолчанию</system:String>
-<system:String x:Key="TooltipRestart">Перезапустите приложение, чтобы применить изменения или перезагрузить системы</system:String>
+    <system:String x:Key="TooltipRestart">Перезапустите приложение, чтобы применить изменения или перезагрузить системы</system:String>
     <system:String x:Key="TooltipRetroAchievements">Просмотреть профиль и прогресс RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Сбросить мертвую зону к значениям по умолчанию</system:String>
     <system:String x:Key="TooltipRevertLinks">Сбросить ссылки к значениям по умолчанию</system:String>

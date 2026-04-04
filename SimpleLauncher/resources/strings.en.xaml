@@ -4,12 +4,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    <system:String x:Key="FailedToSaveSettings">Failed to save settings. Please check that the application folder is writable and not locked by another process.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">The Xemu parameter should contain '-dvd_path'.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' cannot run from a temporary folder.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Please extract the application to a permanent folder before running it.</system:String>
+
     <system:String x:Key="networkPathIssue">If the file is on a network drive ensure your computer is still connected to that drive.</system:String>
-    
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">An error occurred while opening your browser.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Do you want to open your browser to download Dokan?</system:String>
-    
     <system:String x:Key="1000000games">All games</system:String>
     <system:String x:Key="10000games">10000 games</system:String>
     <system:String x:Key="1000games">1000 games</system:String>
@@ -272,7 +275,6 @@
     <system:String x:Key="ClickToViewFullSize">Click to view full size</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
-    <system:String x:Key="Clean">Clean</system:String>
     <system:String x:Key="CompatibilityWarning">Compatibility Warning</system:String>
     <system:String x:Key="ConfigurationFailed">Configuration Failed</system:String>
     <system:String x:Key="ConfigurationWarning">Configuration Warning</system:String>
@@ -346,7 +348,6 @@
     <system:String x:Key="DeadZoneY">DeadZone Y</system:String>
     <system:String x:Key="Debugger">Debugger</system:String>
     <system:String x:Key="DebugWindow">Debug Window</system:String>
-    <system:String x:Key="Default">Default</system:String>
     <system:String x:Key="DefaultEmulatorHeader">Default Emulator</system:String>
     <system:String x:Key="DefaultImageFolder">Using default image folder</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' file is missing.</system:String>
@@ -941,7 +942,6 @@
     <system:String x:Key="MissingRequiredFiles">Missing Required Files</system:String>
     <system:String x:Key="MoreOptions">More Options</system:String>
     <system:String x:Key="MostRecentAward">Most Recent Award</system:String>
-    <system:String x:Key="MountingChd">Mounting CHD...</system:String>
     <system:String x:Key="MyProfileTab">My Profile |</system:String>
     <system:String x:Key="MyProfileTabTooltip">My Profile tab</system:String>
     <system:String x:Key="Name">Name</system:String>
@@ -1607,7 +1607,6 @@
     <system:String x:Key="StartProcess">Start Process</system:String>
     <system:String x:Key="Status">Status:</system:String>
     <system:String x:Key="Steel">Steel</system:String>
-    <system:String x:Key="StyleVariants">Style Variants</system:String>
     <system:String x:Key="StellaConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="StellaConfig_AudioEnabled_Checkbox">Enable Audio</system:String>
     <system:String x:Key="StellaConfig_AudioEnabled_Tooltip">Toggles all sound output on or off.</system:String>
@@ -1820,7 +1819,6 @@
     <system:String x:Key="Tools">Tools</system:String>
     <system:String x:Key="TooltipAboutMenu">About Simple Launcher and update options</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Change the accent color</system:String>
-    <system:String x:Key="TooltipStyleVariantsMenu">Change the control style variant</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Add another folder to search for games</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Add a new game system configuration</system:String>
     <system:String x:Key="TooltipAddSystem">Add the configured system to your library</system:String>

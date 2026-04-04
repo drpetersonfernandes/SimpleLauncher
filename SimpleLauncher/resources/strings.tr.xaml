@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">Ayarlar kaydedilemedi. Lütfen uygulama klasörünün yazılabilir olduğundan ve başka bir işlem tarafından kilitlenmediğinden emin olun.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu parametresi '-dvd_path' içermelidir.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' geçici bir klasörden çalıştırılamaz.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Lütfen uygulamayı çalıştırmadan önce kalıcı bir klasöre çıkartın.</system:String>
+    <system:String x:Key="networkPathIssue">Eğer dosya bir ağ sürücüsündeyse, bilgisayarınızın bu sürücüye hâlâ bağlı olduğundan emin olun.</system:String>
+    <system:String x:Key="Adaptive">Uyarlanabilir (Windows ile Senkronize)</system:String>
+    <system:String x:Key="HighContrast">Yüksek Karşıtlık</system:String>
+    <system:String x:Key="Midnight">Gece Yarısı (Derin Mavi)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Windows sistem ayarlarına göre Açık ve Koyu mod arasında otomatik geçiş yap</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">Daha iyi erişilebilirlik için yüksek karşıtlıklı tema</system:String>
+    <system:String x:Key="TooltipMidnightMenu">Derin mavi tonlara sahip özel bir koyu tema</system:String>
+    <system:String x:Key="Maroon">Bordo</system:String>
+    <system:String x:Key="OliveDrab">Zeytin Yeşili</system:String>
+    <system:String x:Key="Plum">Mürdüm</system:String>
+    <system:String x:Key="SkyBlue">Gök Mavisi</system:String>
+    <system:String x:Key="FilenamePreferences">Dosya Adı Tercihleri</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">Orijinal Dosya Adlarını Göster</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">Temizlenmiş Dosya Adlarını Göster</system:String>
+    <system:String x:Key="DisplayNoFilename">Dosya Adı Gösterme</system:String>
+    <system:String x:Key="DisplayMachineName">Makine Adını Göster (MAME için)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">Dosya adı görüntüleme modu değiştiriliyor...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">Makine adı görünümü değiştiriliyor...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">Izgara modunda dosya adlarının nasıl görüntüleneceğini değiştirin</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">Dosya adının nasıl görüntüleneceğini seçin (Orijinal, Temizlenmiş veya Dosya Adı Yok)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">Izgara modunda MAME makine açıklaması görünümünü aç/kapat</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Bu durum Dokan'ın kurulu olmamasından kaynaklanıyor olabilir. ZIP, CHD ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Tarayıcınız açılırken bir hata oluştu.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">Dokan'ı indirmek için tarayıcınızı açmak istiyor musunuz?</system:String>
-
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -925,7 +950,6 @@
     <system:String x:Key="MissingRequiredFiles">Eksik Gerekli Dosyalar</system:String>
     <system:String x:Key="MoreOptions">Daha Fazla Seçenek</system:String>
     <system:String x:Key="MostRecentAward">En Son Ödül</system:String>
-    <system:String x:Key="MountingChd">CHD bağlanıyor...</system:String>
     <system:String x:Key="MyProfileTab">Profilim |</system:String>
     <system:String x:Key="MyProfileTabTooltip">Profilim sekmesi</system:String>
     <system:String x:Key="Name">İsim</system:String>
@@ -1884,7 +1908,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">Seçilen oyunu favorilerden kaldırın</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Seçilen öğeyi oynatma geçmişinden kaldırın</system:String>
     <system:String x:Key="TooltipResetSound">Varsayılan bildirim sesine sıfırla</system:String>
-<system:String x:Key="TooltipRestart">Değişiklikleri uygulamak veya sistemleri yeniden yüklemek için uygulamayı yeniden başlatın</system:String>
+    <system:String x:Key="TooltipRestart">Değişiklikleri uygulamak veya sistemleri yeniden yüklemek için uygulamayı yeniden başlatın</system:String>
     <system:String x:Key="TooltipRetroAchievements">RetroAchievements profilini ve ilerlemesini görüntüleyin</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Ölü bölgeyi varsayılan değerlere sıfırla</system:String>
     <system:String x:Key="TooltipRevertLinks">Bağlantıları varsayılan değerlere sıfırla</system:String>

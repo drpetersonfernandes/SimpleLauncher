@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">No se pudieron guardar los ajustes. Por favor, compruebe que la carpeta de la aplicación sea escribible y no esté bloqueada por otro proceso.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">El parámetro Xemu debería contener '-dvd_path'.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' no puede ejecutarse desde una carpeta temporal.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Por favor, extraiga la aplicación a una carpeta permanente antes de ejecutarla.</system:String>
+    <system:String x:Key="networkPathIssue">Si el archivo está en una unidad de red, asegúrese de que su equipo sigue conectado a esa unidad.</system:String>
+    <system:String x:Key="Adaptive">Adaptativo (Sincronizar con Windows)</system:String>
+    <system:String x:Key="HighContrast">Alto Contraste</system:String>
+    <system:String x:Key="Midnight">Medianoche (Azul Oscuro)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">Cambia automáticamente entre Claro y Oscuro según la configuración del sistema Windows</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">Tema de alto contraste para una mejor accesibilidad</system:String>
+    <system:String x:Key="TooltipMidnightMenu">Un tema oscuro personalizado con tonos azul profundo</system:String>
+    <system:String x:Key="Maroon">Granate</system:String>
+    <system:String x:Key="OliveDrab">Verde Oliva</system:String>
+    <system:String x:Key="Plum">Ciruela</system:String>
+    <system:String x:Key="SkyBlue">Azul Cielo</system:String>
+    <system:String x:Key="FilenamePreferences">Preferencias de Nombre de Archivo</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">Mostrar Nombres de Archivo Originales</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">Mostrar Nombres de Archivo Limpios</system:String>
+    <system:String x:Key="DisplayNoFilename">No Mostrar Nombre de Archivo</system:String>
+    <system:String x:Key="DisplayMachineName">Mostrar Nombre de Máquina (para MAME)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">Cambiando modo de visualización de nombre de archivo...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">Cambiando visualización de nombre de máquina...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">Cambiar cómo se muestran los nombres de archivo en el modo Cuadrícula</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">Seleccione cómo se muestra el nombre de archivo (Original, Limpio o Sin Nombre de Archivo)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">Alternar la visualización de la descripción de la máquina MAME en el modo Cuadrícula</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Esto puede deberse a que Dokan no está instalado. Dokan es necesario para montar archivos ZIP, CHD e imágenes de disco.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">Ocurrió un error al abrir su navegador.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">¿Desea abrir su navegador para descargar Dokan?</system:String>
-
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
     <system:String x:Key="1000games">1000 juegos</system:String>
@@ -924,7 +949,6 @@
     <system:String x:Key="MissingRequiredFiles">Archivos requeridos faltantes</system:String>
     <system:String x:Key="MoreOptions">Más opciones</system:String>
     <system:String x:Key="MostRecentAward">Premio más reciente</system:String>
-    <system:String x:Key="MountingChd">Montando CHD...</system:String>
     <system:String x:Key="MyProfileTab">Mi perfil |</system:String>
     <system:String x:Key="MyProfileTabTooltip">Pestaña Mi Perfil</system:String>
     <system:String x:Key="Name">Nombre</system:String>
@@ -1883,7 +1907,7 @@
     <system:String x:Key="TooltipRemoveFromFavorites">Eliminar el juego seleccionado de favoritos</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Eliminar el elemento seleccionado del historial de juego</system:String>
     <system:String x:Key="TooltipResetSound">Restablecer al sonido de notificación predeterminado</system:String>
-<system:String x:Key="TooltipRestart">Reiniciar la aplicación para aplicar cambios o recargar sistemas</system:String>
+    <system:String x:Key="TooltipRestart">Reiniciar la aplicación para aplicar cambios o recargar sistemas</system:String>
     <system:String x:Key="TooltipRetroAchievements">Ver perfil y progreso de RetroAchievements</system:String>
     <system:String x:Key="TooltipRevertDeadZone">Restablecer la zona muerta a los valores predeterminados</system:String>
     <system:String x:Key="TooltipRevertLinks">Restablecer enlaces a valores predeterminados</system:String>

@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <system:String x:Key="FailedToSaveSettings">فشل حفظ الإعدادات. يرجى التحقق من أن مجلد التطبيق قابل للكتابة وغير مقفل بواسطة عملية أخرى.</system:String>
+    <system:String x:Key="XemuParameterShouldContainDvdPath">يجب أن يحتوي معامل Xemu على '-dvd_path'.</system:String>
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' لا يمكن تشغيله من مجلد مؤقت.</system:String>
+    <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">يرجى استخراج التطبيق إلى مجلد دائم قبل تشغيله.</system:String>
+    <system:String x:Key="networkPathIssue">إذا كان الملف على محرك أقراص شبكة، فتأكد من أن جهاز الكمبيوتر الخاص بك لا يزال متصلاً بهذا المحرك.</system:String>
+    <system:String x:Key="Adaptive">تكيفي (مزامنة مع Windows)</system:String>
+    <system:String x:Key="HighContrast">تباين عالٍ</system:String>
+    <system:String x:Key="Midnight">منتصف الليل (أزرق داكن)</system:String>
+    <system:String x:Key="TooltipAdaptiveMenu">التبديل تلقائيًا بين الوضع الفاتح والداكن بناءً على إعدادات نظام Windows</system:String>
+    <system:String x:Key="TooltipHighContrastMenu">سمة تباين عالٍ لتحسين إمكانية الوصول</system:String>
+    <system:String x:Key="TooltipMidnightMenu">سمة داكنة مخصصة بألوان زرقاء عميقة</system:String>
+    <system:String x:Key="Maroon">كستنائي</system:String>
+    <system:String x:Key="OliveDrab">أخضر زيتوني باهت</system:String>
+    <system:String x:Key="Plum">برقوقي</system:String>
+    <system:String x:Key="SkyBlue">أزرق سماوي</system:String>
+    <system:String x:Key="FilenamePreferences">تفضيلات اسم الملف</system:String>
+    <system:String x:Key="DisplayOriginalFilenames">عرض أسماء الملفات الأصلية</system:String>
+    <system:String x:Key="DisplayCleanUpFilenames">عرض أسماء الملفات المنظمة</system:String>
+    <system:String x:Key="DisplayNoFilename">عدم عرض اسم الملف</system:String>
+    <system:String x:Key="DisplayMachineName">عرض اسم الجهاز (لـ MAME)</system:String>
+    <system:String x:Key="ChangingFilenameDisplayMode">تغيير وضع عرض اسم الملف...</system:String>
+    <system:String x:Key="ChangingDisplayMachineName">تغيير عرض اسم الجهاز...</system:String>
+    <system:String x:Key="TooltipFilenamePreferencesMenu">تغيير كيفية عرض أسماء الملفات في وضع الشبكة</system:String>
+    <system:String x:Key="TooltipFilenameDisplayModeMenu">حدد كيفية عرض اسم الملف (الأصلي، المنظم، أو لا يوجد اسم ملف)</system:String>
+    <system:String x:Key="TooltipDisplayMachineNameMenu">تبديل عرض وصف جهاز MAME في وضع الشبكة</system:String>
+
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">قد يكون هذا بسبب عدم تثبيت Dokan. يلزم وجود Dokan لتركيب ملفات ZIP وCHD وصور الأقراص.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">حدث خطأ أثناء فتح المتصفح الخاص بك.</system:String>
     <system:String x:Key="DoyouwanttoopenyourbrowsertodownloadDokan">هل تريد فتح المتصفح لتنزيل Dokan؟</system:String>
-
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -924,7 +950,6 @@
     <system:String x:Key="MissingRequiredFiles">الملفات المطلوبة مفقودة</system:String>
     <system:String x:Key="MoreOptions">المزيد من الخيارات</system:String>
     <system:String x:Key="MostRecentAward">أحدث جائزة</system:String>
-    <system:String x:Key="MountingChd">جاري تحميل CHD...</system:String>
     <system:String x:Key="MyProfileTab">ملفي الشخصي |</system:String>
     <system:String x:Key="MyProfileTabTooltip">تبويب ملفي الشخصي</system:String>
     <system:String x:Key="Name">الاسم</system:String>
@@ -1841,7 +1866,7 @@
     <system:String x:Key="TooltipDownloadImagePack4">تنزيل حزمة الصور الرابعة لهذا النظام</system:String>
     <system:String x:Key="TooltipDownloadImagePack5">تنزيل حزمة الصور الخامسة لهذا النظام</system:String>
     <system:String x:Key="TooltipEditLinksMenu">تكوين روابط الفيديو والمعلومات المخصصة</system:String>
-     <system:String x:Key="TooltipEditSystem">إضافة أو تعديل أو إزالة أنظمة الألعاب</system:String>
+    <system:String x:Key="TooltipEditSystem">إضافة أو تعديل أو إزالة أنظمة الألعاب</system:String>
     <system:String x:Key="TooltipEmail">عنوان بريدك الإلكتروني للمتابعة (اختياري)</system:String>
     <system:String x:Key="TooltipEmulatorName">اسم المحاكي (مثل RetroArch)</system:String>
     <system:String x:Key="TooltipEmulatorParameters">معلمات سطر الأوامر لتمريرها إلى المحاكي</system:String>
@@ -1849,12 +1874,12 @@
     <system:String x:Key="TooltipExitMenu">الخروج من التطبيق</system:String>
     <system:String x:Key="TooltipExtensions">امتدادات الملفات للبحث عنها (مثل .zip, .nes)</system:String>
     <system:String x:Key="TooltipExtractBeforeLaunch2">استخراج الملفات المضغوطة (zip, 7z) قبل تشغيل المحاكي</system:String>
-     <system:String x:Key="TooltipFavorites">افتح قائمة ألعابك المفضلة</system:String>
+    <system:String x:Key="TooltipFavorites">افتح قائمة ألعابك المفضلة</system:String>
     <system:String x:Key="TooltipFeelingLucky">تشغيل لعبة عشوائية من النظام الحالي</system:String>
     <system:String x:Key="TooltipFuzzyMatchingMenu">تكوين إعدادات مطابقة الصور الغامضة</system:String>
     <system:String x:Key="TooltipGamepadSupportMenu">تمكين أو تكوين دعم لوحة الألعاب</system:String>
     <system:String x:Key="TooltipGamesPerPageMenu">تحديد عدد الألعاب التي ستعرض في كل صفحة</system:String>
-     <system:String x:Key="TooltipGlobalSearch">ابحث عن الألعاب عبر جميع الأنظمة</system:String>
+    <system:String x:Key="TooltipGlobalSearch">ابحث عن الألعاب عبر جميع الأنظمة</system:String>
     <system:String x:Key="TooltipGlobalSearchButton">البحث عن الألعاب المطابقة للمعايير</system:String>
     <system:String x:Key="TooltipGroupByFolder2">تجميع الألعاب حسب اسم مجلدها الفرعي</system:String>
     <system:String x:Key="TooltipInfoLink">قالب URL لروابط المعلومات (استخدم {GameName} كعنصر نائب)</system:String>
@@ -1871,7 +1896,7 @@
     <system:String x:Key="TooltipOkButton">تطبيق العتبة المحددة</system:String>
     <system:String x:Key="TooltipOptionsMenu">إعدادات وتفضيلات التطبيق</system:String>
     <system:String x:Key="TooltipOverlayButtonMenu">إظهار أو إخفاء أزرار التراكب على أغلفة الألعاب</system:String>
-     <system:String x:Key="TooltipPlayHistory">عرض سجل اللعب والإحصائيات الخاصة بك</system:String>
+    <system:String x:Key="TooltipPlayHistory">عرض سجل اللعب والإحصائيات الخاصة بك</system:String>
     <system:String x:Key="TooltipPlaySound">معاينة صوت الإشعار المحدد</system:String>
     <system:String x:Key="TooltipPreviousPage">الانتقال إلى الصفحة السابقة من الألعاب</system:String>
     <system:String x:Key="TooltipRaApiKey">مفتاح API الخاص بك لـ RetroAchievements (موجود في لوحة تحكم RA الخاصة بك)</system:String>
@@ -1883,8 +1908,8 @@
     <system:String x:Key="TooltipRemoveFromFavorites">إزالة اللعبة المحددة من المفضلة</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">إزالة العنصر المحدد من سجل اللعب</system:String>
     <system:String x:Key="TooltipResetSound">إعادة تعيين صوت الإشعار إلى الافتراضي</system:String>
-         <system:String x:Key="TooltipRestart">أعد تشغيل التطبيق لتطبيق التغييرات أو إعادة تحميل الأنظمة</system:String>
-     <system:String x:Key="TooltipRetroAchievements">عرض ملف تعريف RetroAchievements والتقدم</system:String>
+    <system:String x:Key="TooltipRestart">أعد تشغيل التطبيق لتطبيق التغييرات أو إعادة تحميل الأنظمة</system:String>
+    <system:String x:Key="TooltipRetroAchievements">عرض ملف تعريف RetroAchievements والتقدم</system:String>
     <system:String x:Key="TooltipRevertDeadZone">إعادة تعيين المنطقة الميتة إلى القيم الافتراضية</system:String>
     <system:String x:Key="TooltipRevertLinks">إعادة تعيين الروابط إلى القيم الافتراضية</system:String>
     <system:String x:Key="TooltipSaveDeadZone">حفظ إعدادات المنطقة الميتة</system:String>
@@ -1921,7 +1946,7 @@
     <system:String x:Key="TooltipThemeMenu">تغيير سمة التطبيق</system:String>
     <system:String x:Key="TooltipThresholdSlider">ضبط عتبة المطابقة للبحث الغامض عن الصور</system:String>
     <system:String x:Key="TooltipToggleAspectRatio">تغيير نسبة العرض إلى الارتفاع لأزرار اللعبة</system:String>
-     <system:String x:Key="TooltipToggleViewMode">التبديل بين عرض الشبكة وعرض القائمة</system:String>
+    <system:String x:Key="TooltipToggleViewMode">التبديل بين عرض الشبكة وعرض القائمة</system:String>
     <system:String x:Key="TooltipToolsMenu">الوصول إلى أدوات ومرافق إضافية</system:String>
     <system:String x:Key="TooltipUpdateHistory">عرض سجل التغييرات وتاريخ التحديث</system:String>
     <system:String x:Key="TooltipVideoLink">قالب URL لروابط الفيديو (استخدم {GameName} كعنصر نائب)</system:String>
