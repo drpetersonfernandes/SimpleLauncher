@@ -496,7 +496,8 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">فائل کو نکالنے کے لیے ہارڈ ڈسک میں کافی جگہ ہونے کو یقینی بنائیں۔</system:String>
     <system:String x:Key="EnterUsernamePassword">براہ کرم پہلے اپنا ریٹرو اچیومنٹس صارف نام اور پاس ورڈ درج کریں۔</system:String>
     <system:String x:Key="EnterValidSearchTerms">براہ کرم درست تلاش کی اصطلاحات درج کریں۔</system:String>
-    <system:String x:Key="Error">خرابی</system:String>
+    <system:String x:Key="Error">غلطی</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">تفصیلات:</system:String>
     <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
     <system:String x:Key="Errorduringdownload">ڈاؤن لوڈ کے دوران خرابی</system:String>

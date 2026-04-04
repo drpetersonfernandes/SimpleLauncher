@@ -497,6 +497,8 @@
     <system:String x:Key="EnterUsernamePassword">Lütfen önce RetroAchievements kullanıcı adınızı ve şifrenizi girin.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Lütfen geçerli arama terimleri girin.</system:String>
     <system:String x:Key="Error">Hata</system:String>
+    <system:String x:Key="ElevationRequired">İstenen işlem için yükseltme (Yönetici ayrıcalıkları) gerekiyor.</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">Detaylar:</system:String>
     <system:String x:Key="Errorduring">sırasında hata</system:String>
     <system:String x:Key="Errorduringdownload">İndirme sırasında hata</system:String>

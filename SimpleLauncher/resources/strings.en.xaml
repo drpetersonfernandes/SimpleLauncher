@@ -514,6 +514,7 @@
     <system:String x:Key="EnterUsernamePassword">Please enter your RetroAchievements username and password first.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Please enter valid search terms.</system:String>
     <system:String x:Key="Error">Error</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">Details:</system:String>
     <system:String x:Key="Errorduring">Error during</system:String>
     <system:String x:Key="Errorduringdownload">Error during download</system:String>

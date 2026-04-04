@@ -24,4 +24,14 @@ public static class CheckApplicationControlPolicy
 
         return false;
     }
+
+    /// <summary>
+    /// Checks if the given exception is a Win32Exception indicating that elevation is required.
+    /// </summary>
+    /// <param name="ex">The exception to check.</param>
+    /// <returns>True if elevation is required, false otherwise.</returns>
+    public static bool IsElevationRequired(Exception ex)
+    {
+        return ex is Win32Exception { NativeErrorCode: 740 };
+    }
 }

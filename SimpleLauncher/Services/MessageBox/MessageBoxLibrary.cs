@@ -2156,6 +2156,24 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void ElevationRequiredMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var therewasanerrorlaunchingthisgame = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
+            var elevationrequired = (string)Application.Current.TryFindResource("ElevationRequired") ?? "The requested operation requires elevation (Administrator privileges).";
+            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            System.Windows.MessageBox.Show($"{therewasanerrorlaunchingthisgame}\n\n" +
+                                           $"{elevationrequired}\n\n" +
+                                           $"{grantSimpleLauncheradministrative}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     internal static void NullFileExtensionMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">Пожалуйста, сначала введите свой логин и пароль RetroAchievements.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Пожалуйста, введите действительные поисковые термины.</system:String>
     <system:String x:Key="Error">Ошибка</system:String>
+    <system:String x:Key="ElevationRequired">Для выполнения запрошенной операции требуются права администратора.</system:String>
     <system:String x:Key="ErrorDetails">Подробности:</system:String>
     <system:String x:Key="Errorduring">Ошибка во время</system:String>
     <system:String x:Key="Errorduringdownload">Ошибка при загрузке</system:String>

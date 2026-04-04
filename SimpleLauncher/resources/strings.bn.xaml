@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">অনুগ্রহ করে প্রথমে আপনার RetroAchievements ব্যবহারকারীর নাম এবং পাসওয়ার্ড লিখুন।</system:String>
     <system:String x:Key="EnterValidSearchTerms">দয়া করে বৈধ অনুসন্ধান শব্দগুলি প্রবেশ করুন।</system:String>
     <system:String x:Key="Error">ত্রুটি</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">বিস্তারিত:</system:String>
     <system:String x:Key="Errorduring">দুর্ঘটনা সময়</system:String>
     <system:String x:Key="Errorduringdownload">ডাউনলোডের সময় ত্রুটি</system:String>

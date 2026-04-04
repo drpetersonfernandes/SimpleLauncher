@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">Harap masukkan nama pengguna dan kata sandi RetroAchievements Anda terlebih dahulu.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Harap masukkan istilah pencarian yang valid.</system:String>
     <system:String x:Key="Error">Kesalahan</system:String>
+    <system:String x:Key="ElevationRequired">Operasi yang diminta memerlukan elevasi (Hak istimewa administrator).</system:String>
     <system:String x:Key="ErrorDetails">Detail:</system:String>
     <system:String x:Key="Errorduring">Error selama</system:String>
     <system:String x:Key="Errorduringdownload">Kesalahan saat mengunduh</system:String>

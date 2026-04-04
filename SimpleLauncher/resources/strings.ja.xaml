@@ -498,6 +498,7 @@
     <system:String x:Key="EnterUsernamePassword">まずRetroAchievementsのユーザー名とパスワードを入力してください。</system:String>
     <system:String x:Key="EnterValidSearchTerms">有効な検索語を入力してください。</system:String>
     <system:String x:Key="Error">エラー</system:String>
+    <system:String x:Key="ElevationRequired">要求された操作には管理者特権が必要です。</system:String>
     <system:String x:Key="ErrorDetails">詳細：</system:String>
     <system:String x:Key="Errorduring">エラー中</system:String>
     <system:String x:Key="Errorduringdownload">ダウンロード中のエラー</system:String>

@@ -498,6 +498,7 @@
     <system:String x:Key="EnterUsernamePassword">请先输入您的 RetroAchievements 用户名和密码。</system:String>
     <system:String x:Key="EnterValidSearchTerms">请输入有效的搜索词。</system:String>
     <system:String x:Key="Error">错误</system:String>
+    <system:String x:Key="ElevationRequired">请求的操作需要提升（管理员权限）。</system:String>
     <system:String x:Key="ErrorDetails">详情：</system:String>
     <system:String x:Key="Errorduring">期间发生错误</system:String>
     <system:String x:Key="Errorduringdownload">下载过程中出错</system:String>

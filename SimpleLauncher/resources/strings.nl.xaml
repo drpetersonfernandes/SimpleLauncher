@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">Voer eerst uw RetroAchievements gebruikersnaam en wachtwoord in.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Voer geldige zoektermen in.</system:String>
     <system:String x:Key="Error">Fout</system:String>
+    <system:String x:Key="ElevationRequired">De gevraagde bewerking vereist verhoogde bevoegdheden (beheerdersrechten).</system:String>
     <system:String x:Key="ErrorDetails">Details:</system:String>
     <system:String x:Key="Errorduring">Fout tijdens</system:String>
     <system:String x:Key="Errorduringdownload">Fout tijdens download</system:String>

@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">الرجاء إدخال اسم المستخدم وكلمة المرور الخاصة بك في RetroAchievements أولاً.</system:String>
     <system:String x:Key="EnterValidSearchTerms">الرجاء إدخال مصطلحات بحث صالحة.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">التفاصيل:</system:String>
     <system:String x:Key="Errorduring">خطأ أثناء</system:String>
     <system:String x:Key="Errorduringdownload">خطأ أثناء التنزيل</system:String>

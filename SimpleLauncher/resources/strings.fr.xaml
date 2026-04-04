@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">Veuillez d'abord entrer votre nom d'utilisateur et votre mot de passe RetroAchievements.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Veuillez saisir des termes de recherche valides.</system:String>
     <system:String x:Key="Error">Erreur</system:String>
+    <system:String x:Key="ElevationRequired">L'opération demandée nécessite une élévation (privilèges d'administrateur).</system:String>
     <system:String x:Key="ErrorDetails">Détails :</system:String>
     <system:String x:Key="Errorduring">Erreur durant</system:String>
     <system:String x:Key="Errorduringdownload">Erreur pendant le téléchargement</system:String>

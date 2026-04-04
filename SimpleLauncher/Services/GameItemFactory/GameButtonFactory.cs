@@ -39,13 +39,13 @@ internal partial class GameButtonFactory(
     PlaySoundEffects playSoundEffects,
     ILogErrors logErrors)
 {
-    private readonly ComboBox _emulatorComboBox = emulatorComboBox;
-    private readonly ComboBox _systemComboBox = systemComboBox;
-    private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers;
-    private readonly List<MameManager.MameManager> _machines = machines;
-    private readonly SettingsManager.SettingsManager _settings = settings;
-    private readonly FavoritesManager _favoritesManager = favoritesManager;
-    private readonly WrapPanel _gameFileGrid = gameFileGrid;
+    private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
+    private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
+    private readonly List<SystemManager.SystemManager> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
+    private readonly List<MameManager.MameManager> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
+    private readonly SettingsManager.SettingsManager _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+    private readonly FavoritesManager _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+    private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
     private readonly GamePadController _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
     private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
@@ -560,7 +560,15 @@ internal partial class GameButtonFactory(
                 // Prevent multiple clicks while launching
                 if (!clickedButton.IsEnabled) return;
 
-                _mainWindow.SetGameButtonsEnabled(false); // Disable all game buttons
+                _mainWindow?.SetGameButtonsEnabled(false); // Disable all game buttons
+
+                if (_emulatorComboBox == null)
+                {
+                    _ = _logErrors.LogErrorAsync(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
+                    MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
+                    _mainWindow?.SetGameButtonsEnabled(true);
+                    return;
+                }
 
                 var selectedEmulatorName = _emulatorComboBox.SelectedItem as string; // Update value to get current selected emulator
                 if (string.IsNullOrEmpty(selectedEmulatorName))
@@ -571,23 +579,30 @@ internal partial class GameButtonFactory(
                     // Notify user
                     MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
 
-                    _mainWindow.SetGameButtonsEnabled(true); // Re-enable buttons on error
+                    _mainWindow?.SetGameButtonsEnabled(true); // Re-enable buttons on error
                     return;
                 }
 
                 try
                 {
-                    _playSoundEffects.PlayNotificationSound();
+                    _playSoundEffects?.PlayNotificationSound();
+
+                    if (_gameLauncher == null)
+                    {
+                        _ = _logErrors.LogErrorAsync(null, "[CreateGameButtonAsync] _gameLauncher is null.");
+                        return;
+                    }
+
                     await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, _mainWindow);
                 }
                 finally
                 {
-                    _mainWindow.SetGameButtonsEnabled(true); // Re-enable all game buttons
+                    _mainWindow?.SetGameButtonsEnabled(true); // Re-enable all game buttons
                 }
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "[CreateGameButtonAsync] Error launching the game.");
+                _ = _logErrors.LogErrorAsync(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };

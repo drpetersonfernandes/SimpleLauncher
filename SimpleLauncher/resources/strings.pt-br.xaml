@@ -498,6 +498,8 @@
     <system:String x:Key="EnterUsernamePassword">Por favor, insira seu nome de usuário e senha do RetroAchievements primeiro.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Por favor, insira termos de pesquisa válidos.</system:String>
     <system:String x:Key="Error">Erro</system:String>
+    <system:String x:Key="ElevationRequired">A operação solicitada requer elevação (privilégios de administrador).</system:String>
+    <system:String x:Key="ElevationRequired">A operação solicitada requer elevação (privilégios de administrador).</system:String>
     <system:String x:Key="ErrorDetails">Detalhes:</system:String>
     <system:String x:Key="Errorduring">Erro durante</system:String>
     <system:String x:Key="Errorduringdownload">Erro durante o download</system:String>

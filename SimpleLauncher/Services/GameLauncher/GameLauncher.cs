@@ -308,6 +308,11 @@ public partial class GameLauncher
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching batch file.");
             }
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            {
+                MessageBoxLibrary.ElevationRequiredMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch batch file.");
+            }
             else
             {
                 string exitCodeInfo;
@@ -450,6 +455,11 @@ public partial class GameLauncher
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching shortcut file.");
             }
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            {
+                MessageBoxLibrary.ElevationRequiredMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch shortcut file.");
+            }
             else
             {
                 // Existing error handling for other Win32Exceptions
@@ -570,6 +580,11 @@ public partial class GameLauncher
             {
                 MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching executable.");
+            }
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+            {
+                MessageBoxLibrary.ElevationRequiredMessageBox();
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch executable.");
             }
             else
             {
@@ -957,6 +972,11 @@ public partial class GameLauncher
                 {
                     MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");
+                }
+                else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+                {
+                    MessageBoxLibrary.ElevationRequiredMessageBox();
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch emulator.");
                 }
                 else
                 {

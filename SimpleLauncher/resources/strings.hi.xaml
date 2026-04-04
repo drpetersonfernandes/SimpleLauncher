@@ -497,6 +497,7 @@
     <system:String x:Key="EnterUsernamePassword">कृपया पहले अपना RetroAchievements उपयोगकर्ता नाम और पासवर्ड दर्ज करें।</system:String>
     <system:String x:Key="EnterValidSearchTerms">कृपया वैध खोज शब्द दर्ज करें।</system:String>
     <system:String x:Key="Error">त्रुटि</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">विवरण:</system:String>
     <system:String x:Key="Errorduring">के दौरान त्रुटि</system:String>
     <system:String x:Key="Errorduringdownload">डाउनलोड के दौरान त्रुटि</system:String>

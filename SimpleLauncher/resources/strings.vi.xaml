@@ -498,6 +498,8 @@
     <system:String x:Key="EnterUsernamePassword">Vui lòng nhập tên người dùng và mật khẩu RetroAchievements của bạn trước.</system:String>
     <system:String x:Key="EnterValidSearchTerms">Vui lòng nhập các từ khóa tìm kiếm hợp lệ.</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
+    <system:String x:Key="ElevationRequired">Thao tác được yêu cầu cần có đặc quyền cao hơn (quyền Quản trị viên).</system:String>
+    <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="ErrorDetails">Chi tiết:</system:String>
     <system:String x:Key="Errorduring">Lỗi trong khi</system:String>
     <system:String x:Key="Errorduringdownload">Lỗi trong quá trình tải xuống</system:String>
