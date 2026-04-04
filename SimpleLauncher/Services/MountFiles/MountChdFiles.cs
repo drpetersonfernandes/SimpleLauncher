@@ -733,4 +733,50 @@ public static class MountChdFiles
             return null;
         }
     }
+
+    /// <summary>
+    /// Kills all running CHDMounter.exe processes.
+    /// This is a safety net to ensure no CHDMounter processes linger after the application exits
+    /// in case a mount operation failed to clean up properly.
+    /// </summary>
+    public static void KillAllChdMounterProcesses()
+    {
+        try
+        {
+            var processes = Process.GetProcessesByName("CHDMounter");
+            if (processes.Length == 0)
+            {
+                DebugLogger.Log("[MountChdFiles.KillAllChdMounterProcesses] No CHDMounter processes found.");
+                return;
+            }
+
+            DebugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} CHDMounter process(es) to kill.");
+
+            foreach (var process in processes)
+            {
+                try
+                {
+                    if (!process.HasExited)
+                    {
+                        DebugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Killing CHDMounter (ID: {process.Id}).");
+                        process.Kill(true);
+                        process.WaitForExit(5000);
+                        DebugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] CHDMounter (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill CHDMounter (ID: {process.Id}): {ex.Message}");
+                }
+                finally
+                {
+                    process.Dispose();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MountChdFiles.KillAllChdMounterProcesses] Error enumerating CHDMounter processes: {ex.Message}");
+        }
+    }
 }

@@ -38,7 +38,7 @@ public static class RetroAchievementsSystemMatcher
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy"]),
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color"]),
-        ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom", "nintendo nes"]),
+        ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom", "nintendo nes", "Nintendo Famicom"]),
         ["gamecube"] = new RaSystemInfo(16, ["gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube", "nintendo gc"]),
         ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nintendo-ds", "nintendods", "nds", "ds", "nintendo ds"]),
         ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
@@ -89,7 +89,7 @@ public static class RetroAchievementsSystemMatcher
         ]),
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
-        ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX"]),
+        ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX", "Microsoft MSX2"]),
         ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad"]),
         ["apple ii"] = new RaSystemInfo(38, ["apple ii", "apple 2", "apple2"]),
         ["3do interactive multiplayer"] = new RaSystemInfo(43, ["3do interactive multiplayer", "3do", "3DO real", "Panasonic 3DO"]),
@@ -145,7 +145,8 @@ public static class RetroAchievementsSystemMatcher
             "microsoft windows", "windows",
             "amstrad gx4000", "gx4000",
             "scummvm", "scumm vm", "scumm-vm",
-            "pinball arcade", "pinballarcade"
+            "pinball arcade", "pinballarcade",
+            "Arcade - Raine", "Commander Genius"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

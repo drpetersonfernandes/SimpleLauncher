@@ -96,6 +96,10 @@ public abstract class GetListOfFiles
             restrictedFolders.Add(path);
             DebugLogger.Log($"[GetListOfFiles] Access denied to folder: {path}. Skipping.");
         }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
         catch (PathTooLongException ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Path too long during enumeration: {path}");

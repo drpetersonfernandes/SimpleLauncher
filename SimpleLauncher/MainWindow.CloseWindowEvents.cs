@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using SimpleLauncher.Services.MountFiles;
 
 namespace SimpleLauncher;
 
@@ -38,6 +39,9 @@ public partial class MainWindow
 
         try
         {
+            // Kill any lingering CHDMounter processes as a safety net
+            MountChdFiles.KillAllChdMounterProcesses();
+
             // Dispose tray icon resources
             _trayIconManager?.Dispose();
 

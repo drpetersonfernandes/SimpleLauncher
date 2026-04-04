@@ -265,6 +265,16 @@ public partial class App : IDisposable
 
     protected override void OnExit(ExitEventArgs e)
     {
+        // Kill any lingering CHDMounter processes as a safety net
+        try
+        {
+            MountChdFiles.KillAllChdMounterProcesses();
+        }
+        catch (Exception ex)
+        {
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to kill lingering CHDMounter processes on exit.");
+        }
+
         try
         {
             var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
