@@ -202,7 +202,7 @@ public partial class SystemManager
                         new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
                         new XElement("GroupByFolder", config.GroupByFolder),
                         new XElement("DisableRecursiveSearch", config.DisableRecursiveSearch),
-                        new XElement("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch),
+                        config.ExtractFileBeforeLaunch ? new XElement("ExtractFileBeforeLaunch", true) : null,
                         new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
                         new XElement("Emulators", config.Emulators.Select(static e =>
                             new XElement("Emulator",
@@ -306,9 +306,17 @@ public partial class SystemManager
                 throw new InvalidOperationException($"System '{systemName}': 'File Extension To Search' should have at least one value.");
 
             // Validate ExtractFileBeforeLaunch
-            if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
-                    out var extractFileBeforeLaunch))
-                throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Extract File Before Launch'.");
+            var extractFileBeforeLaunch = false;
+            var extractElement = sysConfigElement.Element("ExtractFileBeforeLaunch");
+            if (extractElement != null)
+            {
+                if (!bool.TryParse(extractElement.Value, out extractFileBeforeLaunch))
+                {
+                    // If parsing fails, we could either throw or default to false.
+                    // Given we want it to be optional, defaulting to false is safer.
+                    extractFileBeforeLaunch = false;
+                }
+            }
 
             if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.All(static f => f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
                                                                                                         f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
@@ -542,11 +550,27 @@ public partial class SystemManager
                         var tempPath = systemXmlPath + ".tmp";
                         var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
 
-                        using (var writer = XmlWriter.Create(tempPath, settings))
+                        // Serialize to memory first to ensure we have valid data before touching the disk.
+                        // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
+                        byte[] xmlBytes;
+                        using (var ms = new MemoryStream())
                         {
-                            xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
-                            xmlDoc.Save(writer);
+                            using (var writer = XmlWriter.Create(ms, settings))
+                            {
+                                xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                                xmlDoc.Save(writer);
+                            }
+
+                            xmlBytes = ms.ToArray();
                         }
+
+                        if (xmlBytes.Length == 0)
+                        {
+                            throw new InvalidOperationException("Generated system XML is empty.");
+                        }
+
+                        // Write the entire buffer at once to the temporary file.
+                        File.WriteAllBytes(tempPath, xmlBytes);
 
                         // Atomically replace the main file with the temp file
                         File.Move(tempPath, systemXmlPath, true);
@@ -629,7 +653,7 @@ public partial class SystemManager
             new XElement("SystemImageFolder", config.SystemImageFolder),
             new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("GroupByFolder", config.GroupByFolder),
-            new XElement("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch),
+            config.ExtractFileBeforeLaunch ? new XElement("ExtractFileBeforeLaunch", true) : null,
             new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
             new XElement("Emulators", config.Emulators.Select(CreateEmulatorXElement))
         );
@@ -653,7 +677,7 @@ public partial class SystemManager
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
         existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);
-        existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch);
+        existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? (object)true : null);
         existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
 
         existingSystem.Element("Emulators")?.Remove();

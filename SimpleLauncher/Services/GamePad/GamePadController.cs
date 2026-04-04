@@ -228,8 +228,22 @@ public class GamePadController : IDisposable
     {
         try
         {
+            // Check disposal BEFORE attempting to wait
+            lock (_stateLock)
+            {
+                if (_isDisposed) return;
+            }
+
             // Skip if another update is in progress
-            if (!await _updateLock.WaitAsync(0)) return;
+            // Handle ObjectDisposedException if Dispose() was called just before this
+            try
+            {
+                if (!await _updateLock.WaitAsync(0)) return;
+            }
+            catch (ObjectDisposedException)
+            {
+                return; // Shutdown in progress
+            }
 
             try
             {
@@ -377,7 +391,14 @@ public class GamePadController : IDisposable
             finally
             {
                 // Always release, even if _isDisposed was set during execution
-                _updateLock?.Release();
+                // Use lock to ensure we don't call Release on a disposed semaphore
+                lock (_stateLock)
+                {
+                    if (!_isDisposed)
+                    {
+                        _updateLock.Release();
+                    }
+                }
             }
         }
         catch (Exception ex)

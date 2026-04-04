@@ -204,9 +204,19 @@ internal partial class FavoritesWindow : ILoadingState
             }
         }
 
-        _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
-        _favoritesManager.SaveFavorites();
+        UpdateFavoritesManagerList();
         FavoritesDataGrid.Items.Refresh();
+    }
+
+    private void UpdateFavoritesManagerList()
+    {
+        _favoritesManager.FavoriteList.Clear();
+        foreach (var favorite in _favoriteList)
+        {
+            _favoritesManager.FavoriteList.Add(favorite);
+        }
+
+        _favoritesManager.SaveFavorites();
     }
 
     private string GetCoverImagePath(string systemName, string fileName)
@@ -239,9 +249,7 @@ internal partial class FavoritesWindow : ILoadingState
                 _favoriteList.Remove(favorite);
             }
 
-            // Update the FavoritesManager's internal list with the cleaned local list
-            _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
-            _favoritesManager.SaveFavorites();
+            UpdateFavoritesManagerList();
 
             PreviewImage.Source = null;
             FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
@@ -462,9 +470,7 @@ internal partial class FavoritesWindow : ILoadingState
     private void RemoveFavoriteFromDatabaseAndEmptyPreviewImage(Favorite selectedFavorite)
     {
         _favoriteList.Remove(selectedFavorite);
-        // Update the FavoritesManager's internal list with the cleaned local list
-        _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
-        _favoritesManager.SaveFavorites();
+        UpdateFavoritesManagerList();
 
         PreviewImage.Source = null;
         FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
@@ -538,9 +544,7 @@ internal partial class FavoritesWindow : ILoadingState
                             _favoriteList.Remove(favorite);
                         }
 
-                        // Update the FavoritesManager's internal list with the cleaned local list
-                        _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
-                        _favoritesManager.SaveFavorites();
+                        UpdateFavoritesManagerList();
 
                         PreviewImage.Source = null;
                         FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion

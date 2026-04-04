@@ -156,7 +156,7 @@ internal static partial class PathHelper
         // Check path length to prevent infinite recursion risks or overflows
         if (string.IsNullOrWhiteSpace(path) || path.Length > MaxPathLength)
         {
-            return string.Empty;
+            return null;
         }
 
         string basePath;
@@ -195,13 +195,13 @@ internal static partial class PathHelper
         }
         catch (Exception ex)
         {
-            // Log the error but return an empty string to indicate resolution failure.
-            // The calling code should handle the empty string.
+            // Log the error and return null to indicate resolution failure.
+            // The calling code should handle the null return.
 
             // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
 
-            return string.Empty;
+            return null;
         }
     }
 

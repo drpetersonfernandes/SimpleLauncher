@@ -94,6 +94,12 @@ public class FilterMenu
             case Key.Right:
                 newIndex = currentIndex + 1;
                 break;
+            case Key.Up:
+                newIndex = FindNeighbor(currentButton, FocusNavigationDirection.Up);
+                break;
+            case Key.Down:
+                newIndex = FindNeighbor(currentButton, FocusNavigationDirection.Down);
+                break;
             case Key.Home:
                 newIndex = 0;
                 break;
@@ -110,6 +116,45 @@ public class FilterMenu
                 e.Handled = true; // Mark event as handled to prevent further processing
             }
         }
+    }
+
+    private int FindNeighbor(Button currentButton, FocusNavigationDirection direction)
+    {
+        // Get the center point of the current button in LetterPanel coordinates
+        var currentCenter = currentButton.TranslatePoint(new Point(currentButton.ActualWidth / 2, currentButton.ActualHeight / 2), LetterPanel);
+
+        Button bestMatch = null;
+        var bestDistance = double.MaxValue;
+
+        foreach (var child in LetterPanel.Children)
+        {
+            if (child is not Button targetButton || targetButton == currentButton) continue;
+
+            var targetCenter = targetButton.TranslatePoint(new Point(targetButton.ActualWidth / 2, targetButton.ActualHeight / 2), LetterPanel);
+
+            var isCorrectDirection = direction switch
+            {
+                FocusNavigationDirection.Up => targetCenter.Y < currentCenter.Y - currentButton.ActualHeight / 2,
+                FocusNavigationDirection.Down => targetCenter.Y > currentCenter.Y + currentButton.ActualHeight / 2,
+                _ => false
+            };
+
+            if (isCorrectDirection)
+            {
+                // Calculate distance from the current center to the target center
+                var dx = targetCenter.X - currentCenter.X;
+                var dy = targetCenter.Y - currentCenter.Y;
+                var distance = Math.Sqrt(dx * dx + dy * dy);
+
+                if (distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    bestMatch = targetButton;
+                }
+            }
+        }
+
+        return bestMatch != null ? LetterPanel.Children.IndexOf(bestMatch) : -1;
     }
 
     private void UpdateSelectedButton(Button button)

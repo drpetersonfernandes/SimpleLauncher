@@ -214,7 +214,11 @@ public class PlayHistoryManager
             // Notify user
             Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
 
-            var bytes = MessagePackSerializer.Serialize(this);
+            byte[] bytes;
+            lock (HistoryLock)
+            {
+                bytes = MessagePackSerializer.Serialize(this);
+            }
 
             // Write to a temporary file first to prevent data loss on crash
             File.WriteAllBytes(TempFilePath, bytes);

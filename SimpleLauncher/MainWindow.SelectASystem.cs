@@ -97,7 +97,7 @@ public partial class MainWindow
                     SelectedSystem = selectedSystem;
 
                     var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-                    PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+                    PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
 
                     // Display SystemInfo and get the validation result. Game count is now handled inside this method.
                     var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);

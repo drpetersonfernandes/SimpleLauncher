@@ -127,15 +127,23 @@ internal partial class GlobalStatsWindow : IDisposable
             SaveButton.Visibility = Visibility.Visible;
         });
 
-        DoYouWantToSaveTheReportMessageBox();
-
         lock (_processingLock)
         {
+            // Mark processing as complete BEFORE showing the save dialog.
+            // MessageBox.Show pumps UI messages, allowing the user to click the
+            // close button while the dialog is open.  If _isProcessing were still
+            // true, GlobalStatsWindow_Closing would incorrectly prompt to cancel
+            // an operation that has already finished.
+            _isProcessing = false;
+
             if (_forceClose)
             {
                 Application.Current.Dispatcher.InvokeAsync(Close);
+                return;
             }
         }
+
+        DoYouWantToSaveTheReportMessageBox();
     }
 
     private Task<List<SystemStatsData>> CalculateSystemStatsSequentialAsync(CancellationToken cancellationToken)

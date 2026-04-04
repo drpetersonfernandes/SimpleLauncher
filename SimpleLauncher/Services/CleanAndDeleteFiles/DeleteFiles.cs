@@ -21,26 +21,19 @@ public static class DeleteFiles
 
         if (!File.Exists(longPath)) return;
 
-        // Check for and remove the read-only attribute before attempting deletion
-        try
-        {
-            var fileInfo = new FileInfo(longPath);
-            if (fileInfo.IsReadOnly)
-            {
-                fileInfo.IsReadOnly = false;
-            }
-        }
-        catch (Exception ex)
-        {
-            // If we can't even read/modify the attributes, log and exit
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to access or modify file attributes for '{longPath}'.");
-            return;
-        }
-
         for (var i = 0; i < MaxDeleteRetries; i++)
         {
             try
             {
+                // Remove read-only attribute if needed. This is inside the retry
+                // loop because modifying attributes on a locked file will throw —
+                // if that happens we want to retry, not exit early.
+                var fileInfo = new FileInfo(longPath);
+                if (fileInfo.IsReadOnly)
+                {
+                    fileInfo.IsReadOnly = false;
+                }
+
                 File.Delete(longPath);
                 // If deletion succeeds, return
                 return;

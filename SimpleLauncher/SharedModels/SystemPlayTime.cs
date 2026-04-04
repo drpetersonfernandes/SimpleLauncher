@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using MessagePack;
 
 namespace SimpleLauncher.SharedModels;
@@ -9,5 +11,9 @@ public class SystemPlayTime
     public string SystemName { get; init; }
 
     [Key(1)]
-    public string PlayTime { get; set; }
+    public long PlayTimeSeconds { get; set; }
+
+    [IgnoreMember]
+    public string FormattedPlayTime =>
+        TimeSpan.FromSeconds(PlayTimeSeconds).ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
 }

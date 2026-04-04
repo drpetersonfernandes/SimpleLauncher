@@ -447,7 +447,7 @@ public class SettingsManager : IDisposable
 
         // Deep copy of SystemPlayTimes to ensure snapshot isolation
         SystemPlayTimes = other.SystemPlayTimes?
-            .Select(static pt => new SystemPlayTime { SystemName = pt.SystemName, PlayTime = pt.PlayTime })
+            .Select(static pt => new SystemPlayTime { SystemName = pt.SystemName, PlayTimeSeconds = pt.PlayTimeSeconds })
             .ToList() ?? [];
 
         // Ares
@@ -2011,10 +2011,25 @@ public class SettingsManager : IDisposable
             SystemPlayTimes.Clear();
             foreach (var pt in playTimes.Elements("SystemPlayTime"))
             {
+                var playTimeValue = pt.Element("PlayTime")?.Value ?? "0";
+                if (long.TryParse(playTimeValue, out var seconds))
+                {
+                    // New format: stored as total seconds
+                }
+                else if (TimeSpan.TryParse(playTimeValue, CultureInfo.InvariantCulture, out var ts))
+                {
+                    // Legacy format: "HH:mm:ss" string – convert to seconds
+                    seconds = (long)ts.TotalSeconds;
+                }
+                else
+                {
+                    seconds = 0;
+                }
+
                 SystemPlayTimes.Add(new SystemPlayTime
                 {
                     SystemName = pt.Element("SystemName")?.Value ?? "",
-                    PlayTime = pt.Element("PlayTime")?.Value ?? "00:00:00"
+                    PlayTimeSeconds = seconds
                 });
             }
         }
@@ -2047,14 +2062,24 @@ public class SettingsManager : IDisposable
             {
                 var root = BuildXElement(snapshot);
 
-                // Write to temporary file using FileStream with FileShare.ReadWrite
-                // to avoid locking issues with antivirus or file indexers
-                using (var stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+                // Serialize to memory first to ensure we have valid data before touching the disk.
+                // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
+                byte[] xmlBytes;
+                using (var ms = new MemoryStream())
                 {
-                    root.Save(stream);
+                    root.Save(ms);
+                    xmlBytes = ms.ToArray();
                 }
 
-                // Atomically replace the main file with the temp file
+                if (xmlBytes.Length == 0)
+                {
+                    throw new InvalidOperationException("Generated settings XML is empty.");
+                }
+
+                // Write the entire buffer at once to the temporary file.
+                File.WriteAllBytes(tempPath, xmlBytes);
+
+                // Atomically replace the main file with the temp file.
                 File.Move(tempPath, _filePath, true);
                 return; // Success
             }
@@ -2496,7 +2521,7 @@ public class SettingsManager : IDisposable
                 s.SystemPlayTimes.Select(static pt =>
                     new XElement("SystemPlayTime",
                         new XElement("SystemName", pt.SystemName),
-                        new XElement("PlayTime", pt.PlayTime)
+                        new XElement("PlayTime", pt.PlayTimeSeconds)
                     )
                 )
             )
@@ -2568,14 +2593,11 @@ public class SettingsManager : IDisposable
             var item = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
             if (item == null)
             {
-                item = new SystemPlayTime { SystemName = systemName, PlayTime = "00:00:00" };
+                item = new SystemPlayTime { SystemName = systemName, PlayTimeSeconds = 0 };
                 SystemPlayTimes.Add(item);
             }
 
-            if (TimeSpan.TryParse(item.PlayTime, CultureInfo.InvariantCulture, out var existing))
-            {
-                item.PlayTime = (existing + playTime).ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
-            }
+            item.PlayTimeSeconds += (long)playTime.TotalSeconds;
         }
         finally
         {

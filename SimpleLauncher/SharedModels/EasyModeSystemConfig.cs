@@ -21,6 +21,11 @@ public class EasyModeSystemConfig
     [DefaultValue(false)] // When ExtractFileBeforeLaunch is false, it won't be serialized to XML
     public bool ExtractFileBeforeLaunch { get; set; }
 
+    public bool ShouldSerializeExtractFileBeforeLaunch()
+    {
+        return ExtractFileBeforeLaunch;
+    }
+
     [XmlArray("FileFormatsToLaunch")]
     [XmlArrayItem("FormatToLaunch")]
     public List<string> FileFormatsToLaunch { get; set; }

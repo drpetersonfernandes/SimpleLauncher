@@ -195,7 +195,7 @@ public partial class GameLauncher
             var systemPlayTime = context.Settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == context.SystemName);
             if (systemPlayTime != null)
             {
-                context.MainWindow.PlayTime = systemPlayTime.PlayTime;
+                context.MainWindow.PlayTime = systemPlayTime.FormattedPlayTime;
             }
 
             context.MainWindow.RefreshGameListAfterPlay(context.ResolvedFilePath, context.SystemName);
