@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SimpleLauncher.Services.MountFiles;
 
-public static class FindCueFile
+public static class FindBinFile
 {
     public static string Find(string rootPath)
     {
@@ -14,17 +14,17 @@ public static class FindCueFile
                 return null;
             }
 
-            var cueFiles = Directory.GetFiles(rootPath, "*.cue");
-            if (cueFiles.Length > 0)
+            var binFiles = Directory.GetFiles(rootPath, "*.bin");
+            if (binFiles.Length > 0)
             {
-                return cueFiles[0];
+                return binFiles[0];
             }
 
             return null;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($@"Error finding cue file: {ex.Message}");
+            Console.WriteLine($@"Error finding bin file: {ex.Message}");
             return null;
         }
     }

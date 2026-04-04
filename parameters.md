@@ -3575,7 +3575,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-## Sega Genesis CD / Mega Drive CD / Sega CD
+## Sega Genesis CD / Mega Drive CD / Sega CD / Mega CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -3585,10 +3585,50 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
-**Extension to Search in the System Folder:** chd, bin, cue, iso<br>
+**Extension to Search in the System Folder:** chd, cue, iso, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+ 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+It requires a BIOS file to work.
+
+.
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Gens<br>
+**Emulator Path (Example):** C:\Emulators\Gens\gens.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+It requires a BIOS file to work.
+
+.
+
+**Emulator Name:** Blastem<br>
+**Emulator Path (Example):** C:\Emulators\Blastem\blastem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+It requires a BIOS file to work.
 
 .
 
@@ -3615,26 +3655,6 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work.
-
-.
-
-**Emulator Name:** JGenesis<br>
-**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
-**Emulator Parameters (Example):** --file-path<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64.
-
-.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-It may require a BIOS file to work.
 
 .
 
@@ -3841,7 +3861,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Saturn<br>
-**Extension to Search in the System Folder:** ccd, chd, cue, iso, mds<br>
+**Extension to Search in the System Folder:** chd, cue, iso, ccd, mds, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
@@ -3855,6 +3875,72 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 This program requires a BIOS file to work.
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+May require a BIOS file to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** SSF<br>
+**Emulator Path (Example):** c:\emulators\SSF\SSF64.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
+
+.
+
+**Emulator Name:** Kronos<br>
+**Emulator Path (Example):** C:\Emulators\Kronos\kronos.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** C:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Yaba Sanshiro<br>
+**Emulator Path (Example):** C:\Emulators\Yaba Sanshiro\yabasanshiro.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Yabause<br>
+**Emulator Path (Example):** C:\Emulators\Yabause\yabause.exe<br>
+**Emulator Parameters (Example):** -f -a -i<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** C:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
 
 .
 
@@ -3907,28 +3993,6 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabause/).<br>
 Core may require BIOS files or system files to work.
-
-.
-
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require a BIOS file to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-
-.
-
-**Emulator Name:** SSF<br>
-**Emulator Path (Example):** c:\emulators\SSF\SSF64.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
 
 .
 

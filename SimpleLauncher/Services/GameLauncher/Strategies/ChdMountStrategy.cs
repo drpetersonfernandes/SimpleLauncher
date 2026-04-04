@@ -17,13 +17,19 @@ public class ChdMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
 
-    private bool _isRpcs3;
-    private bool _isXenia;
-    private bool _isXemu;
+    private bool _is4Do;
+    private bool _isBlastem;
     private bool _isCxbxReloaded;
+    private bool _isGenesisPlusGx;
+    private bool _isGens;
     private bool _isMednafen;
     private bool _isPcsxRedux;
-    private bool _is4Do;
+    private bool _isPicoDrive;
+    private bool _isRetroArch;
+    private bool _isRpcs3;
+    private bool _isXemu;
+    private bool _isXenia;
+    private bool _isYabause;
 
     public ChdMountStrategy(IConfiguration configuration)
     {
@@ -38,22 +44,25 @@ public class ChdMountStrategy : ILaunchStrategy
         if (!isChd) return false;
 
         ResolveEmulatorFlags(context);
-        return _isRpcs3 || _isXenia || _isXemu || _isCxbxReloaded || _isMednafen || _isPcsxRedux || _is4Do;
+        return _isGenesisPlusGx || _is4Do || _isBlastem || _isCxbxReloaded || _isGens || _isMednafen || _isPcsxRedux || _isPicoDrive || _isRetroArch || _isRpcs3 || _isXemu || _isXenia || _isYabause;
     }
 
     private void ResolveEmulatorFlags(LaunchContext context)
     {
-        _isRpcs3 = context.EmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
-                   (context.EmulatorManager?.EmulatorLocation?.Contains("rpcs3", StringComparison.OrdinalIgnoreCase) ?? false);
+        _is4Do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
+                 (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        _isXenia = context.EmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
-                   (context.EmulatorManager?.EmulatorLocation?.Contains("xenia", StringComparison.OrdinalIgnoreCase) ?? false);
-
-        _isXemu = context.EmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
-                  (context.EmulatorManager?.EmulatorLocation?.Contains("xemu", StringComparison.OrdinalIgnoreCase) ?? false);
+        _isBlastem = context.EmulatorName.Contains("blastem", StringComparison.OrdinalIgnoreCase) ||
+                     (context.EmulatorManager?.EmulatorLocation?.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isCxbxReloaded = context.EmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
                           (context.EmulatorManager?.EmulatorLocation?.Contains("cxbx", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isGenesisPlusGx = context.EmulatorName.Contains("genesis plux gx", StringComparison.OrdinalIgnoreCase) ||
+                           (context.EmulatorManager?.EmulatorLocation?.Contains("gen_sdl.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isGens = context.EmulatorName.Contains("Gens", StringComparison.OrdinalIgnoreCase) ||
+                  (context.EmulatorManager?.EmulatorLocation?.Contains("gens.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isMednafen = context.EmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
                       (context.EmulatorManager?.EmulatorLocation?.Contains("mednafen", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -62,8 +71,24 @@ public class ChdMountStrategy : ILaunchStrategy
                        context.EmulatorName.Contains("PCSX Redux", StringComparison.OrdinalIgnoreCase) ||
                        (context.EmulatorManager?.EmulatorLocation?.Contains("pcsx-redux", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        _is4Do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
-                 (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        _isPicoDrive = context.EmulatorName.Contains("PicoDrive", StringComparison.OrdinalIgnoreCase) ||
+                       context.EmulatorName.Contains("Pico Drive", StringComparison.OrdinalIgnoreCase) ||
+                       (context.EmulatorManager?.EmulatorLocation?.Contains("PicoDrive.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isRetroArch = context.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+                       (context.EmulatorManager?.EmulatorLocation?.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isRpcs3 = context.EmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
+                   (context.EmulatorManager?.EmulatorLocation?.Contains("rpcs3", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isXemu = context.EmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
+                  (context.EmulatorManager?.EmulatorLocation?.Contains("xemu", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isXenia = context.EmulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
+                   (context.EmulatorManager?.EmulatorLocation?.Contains("xenia", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isYabause = context.EmulatorName.Contains("Yabause", StringComparison.OrdinalIgnoreCase) ||
+                     (context.EmulatorManager?.EmulatorLocation?.Contains("yabause.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
@@ -84,7 +109,7 @@ public class ChdMountStrategy : ILaunchStrategy
         }
 
         // Determine the correct game file to launch based on the emulator
-        string gameFilePath = null;
+        string gameFilePath;
 
         if (_isRpcs3)
         {
@@ -106,7 +131,12 @@ public class ChdMountStrategy : ILaunchStrategy
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath);
         }
-        else if (_isMednafen || _isPcsxRedux || _is4Do)
+        else if (_isGens)
+        {
+            // Path to a .bin file
+            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath);
+        }
+        else
         {
             // Path to a .cue file
             gameFilePath = FindCueFile.Find(mountedDrive.MountedPath);
@@ -115,8 +145,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (string.IsNullOrEmpty(gameFilePath))
         {
             DebugLogger.Log($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
-            await App.ServiceProvider.GetRequiredService<ILogErrors>()
-                .LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
             return;
         }
