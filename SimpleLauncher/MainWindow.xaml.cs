@@ -200,6 +200,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
+        // Initialize _gameFileGrid before LoadOrReloadSystemManager uses it
+        _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
+        if (_gameFileGrid == null)
+        {
+            _ = _logErrors.LogErrorAsync(null, "GameFileGrid not found");
+        }
+
         LoadOrReloadSystemManager();
 
         _topLetterNumberMenu = new FilterMenu(_playSoundEffects);
@@ -213,16 +220,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             await TopLetterNumberMenuClickAsync(selectedLetter);
         };
-
-        // Initialize _gameFileGrid
-        _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
-        if (_gameFileGrid == null)
-        {
-            _ = _logErrors.LogErrorAsync(null, "GameFileGrid not found");
-        }
-
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
 
         // Migrate old play history records to full paths
         PlayHistoryManager.MigrateFilenamesToFullPaths(_systemManagers);
