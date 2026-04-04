@@ -48,6 +48,7 @@ Welcome to the official documentation for Simple Launcher, a powerful and flexib
 **Key Features:**
 - **Easy and Expert Configuration:** Use a guided wizard to add systems or dive deep into manual XML configuration.
 - **On-the-Fly File Mounting:** Launch games directly from `.zip`, `.iso`, and `.xiso` files without manual extraction, even for complex emulator setups like RPCS3 and Cxbx-Reloaded.
+- **Universal CHD Support:** Seamlessly launch CHD files on emulators that lack native support (Xenia, RPCS3, etc.) using our built-in **CHDMounter** tool.
 - **Extensive Customization:** Control themes, languages, button sizes, aspect ratios, overlay buttons, and more.
 - **Rich Media Support:** Display covers, snapshots, videos, manuals, and other media for your games.
 - **Powerful Game Management:** Keep track of your favorites, view your play history, and use a global search to find any game across all your systems.
@@ -220,6 +221,7 @@ Simple Launcher's most powerful feature is its ability to handle different file 
     - **Cxbx-Reloaded (Xbox):** Mounts `.xiso` files and launches `default.xbe`.
     - **ScummVM:** Mounts `.zip` files and launches the game via ScummVM's auto-detect feature.
     - **XBLA (Xbox 360):** Mounts `.zip` files and finds the game executable within the required nested folder structure.
+    - **Universal CHD Support (CHDMounter):** For emulators that do not natively support CHD files (such as **Xenia, Xemu, RPCS3, Cxbx Reloaded, Mednafen, PCSX Redux, and 4Do**), Simple Launcher uses the **CHDMounter** tool to mount the CHD as a virtual drive, allowing the game to be presented in a compatible format automatically.
 
 ### Favorites Manager
 - Access via **Favorites -> Favorites** or the heart icon in the navigation panel.
@@ -285,6 +287,7 @@ Simple Launcher includes a suite of tools accessible from the **Tools** menu to 
 
 | Tool                                 | Description                                                                                                                                                     |
 |:-------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **CHDMounter**                       | Automatically mounts CHD files to a virtual drive for emulators that lack native CHD support (Xenia, RPCS3, etc.).                                              |
 | **Batch Convert Iso To Xiso**        | Converts standard Xbox ISO files to the `.xiso` format required by some emulators, and can verify XISO integrity.                                               |
 | **Batch Convert To CHD**             | Converts disc images (`.cue`, `.iso`, `.gdi`, etc.) to the compressed CHD format, and can verify CHD integrity.                                                 |
 | **Batch Convert To Compressed File** | Compresses files or folders into `.zip` or `.7z` archives, and can verify archive integrity.                                                                    |

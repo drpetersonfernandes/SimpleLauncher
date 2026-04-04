@@ -27,6 +27,7 @@
 
 ### 🎮 Deep Emulator Integration
 *   **Configuration Injection:** Manage and inject settings directly into 20+ popular emulators (Ares, Dolphin, DuckStation, Flycast, RPCS3, Xenia, and more) without leaving the launcher.
+*   **Universal CHD Support:** Our built-in **CHDMounter** utility brings CHD support to emulators that lack it natively (**Xenia, Xemu, RPCS3, Cxbx Reloaded, Mednafen, PCSX Redux, 4Do**). It automatically mounts CHD files to a virtual drive, presenting them in a format the emulator can understand.
 *   **On-the-Fly Mounting:** Launch games directly from compressed (`.zip`) or disk image (`.iso`, `.xiso`) files using **Dokan** integration. Supports RPCS3, Cxbx-Reloaded, ScummVM, and XBLA.
 *   **Expert Mode:** Granular control over launch parameters, multiple ROM paths per system, and custom environment variables.
 
@@ -46,6 +47,7 @@
 ## 🛠️ Bundled Power Tools
 
 Simple Launcher includes a suite of specialized utilities for library maintenance:
+*   **CHDMounter:** Automatically handles CHD file mounting for emulators without native support, ensuring compatibility with Xenia, RPCS3, and more.
 *   **Format Converters:** Batch convert to **CHD**, **RVZ**, **XISO**, or **Compressed (7z/Zip)** with built-in integrity verification.
 *   **Metadata Tools:** Scrape game covers, organize system images, and validate ROMs against No-Intro DAT files.
 *   **Batch Creators:** Automatically generate launch scripts for PS3, ScummVM, Sega Model 3, and Windows Store games.
