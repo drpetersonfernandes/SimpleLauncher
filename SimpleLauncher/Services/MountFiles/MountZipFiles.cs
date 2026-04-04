@@ -155,6 +155,45 @@ internal static class MountZipFiles
         }
     }
 
+    private static void KillAllSimpleZipDriveProcesses()
+    {
+        try
+        {
+            var processNames = new[] { "SimpleZipDrive", "SimpleZipDrive_arm64" };
+            foreach (var processName in processNames)
+            {
+                var processes = Process.GetProcessesByName(processName);
+                if (processes.Length == 0) continue;
+
+                DebugLogger.Log($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Found {processes.Length} {processName} process(es) to kill.");
+
+                foreach (var process in processes)
+                {
+                    try
+                    {
+                        if (!process.HasExited)
+                        {
+                            DebugLogger.Log($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Killing {processName} (ID: {process.Id}).");
+                            process.Kill(true);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugLogger.Log($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
+                    }
+                    finally
+                    {
+                        process.Dispose();
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error enumerating processes: {ex.Message}");
+        }
+    }
+
     internal static async Task MountZipFileAndLoadEbootBinAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
@@ -380,6 +419,9 @@ internal static class MountZipFiles
             {
                 DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted (or was not detected).");
             }
+
+            // Safety net: ensure all SimpleZipDrive processes are killed
+            KillAllSimpleZipDriveProcesses();
         }
     }
 
@@ -587,6 +629,9 @@ internal static class MountZipFiles
             {
                 DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
             }
+
+            // Safety net: ensure all SimpleZipDrive processes are killed
+            KillAllSimpleZipDriveProcesses();
         }
     }
 
@@ -890,6 +935,9 @@ internal static class MountZipFiles
             {
                 DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
             }
+
+            // Safety net: ensure all SimpleZipDrive processes are killed
+            KillAllSimpleZipDriveProcesses();
         }
     }
 }
