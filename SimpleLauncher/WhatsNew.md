@@ -1,3 +1,34 @@
+# Release 5.3.0
+*2026-04-05*
+---
+
+# 🚀 CHD "Magic" & Expanded RetroAchievements Support!
+
+### 💿 CHD Support for Everyone! (Mednafen, PCSX-Redux, & 4DO)
+- We’ve performed some "launcher magic"! We expanded the CHD support for **Mednafen**, **PCSX-Redux**, and **4DO** that unfortunately lack native support for the space-saving CHD format.
+- Simple Launcher now grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
+
+### 🏆 RetroAchievements: Welcome to the Wii!
+Achievement hunters, rejoice! We have overhauled our **RetroAchievements** definitions to stay in sync with the latest developments in the RA community. 
+- **Wii Support is here!** We’ve updated our system matching and hashing logic to fully support the **Nintendo Wii**, which recently received official RetroAchievements support.
+- **Expanded Aliases:** Improved matching for Sony PSP, Xbox 360, and more, ensuring your games are identified correctly every time.
+
+### 🎨 Your Launcher, Your Style
+We’ve added several new ways to customize your experience:
+- **New Themes:** Introducing the beautiful **Midnight** (Deep Blue) theme and a stark **High Contrast** mode for better accessibility.
+- **Adaptive Mode:** Simple Launcher can now automatically sync with your Windows Light/Dark mode settings.
+- **Filename Preferences:** You can now "Clean Up" filenames in Grid View (removing tags like `[!]` or `(USA)`) or even hide filenames entirely for a pure, box-art-focused look.
+
+### 🛡️ Smarter & Safer
+- **Elevation Detection:** If a game requires Administrator privileges to run, Simple Launcher will now detect it and notify you immediately with a clear error message.
+- **Safety Mechanisms:** We’ve added a "safety net" that automatically kills any lingering `CHDMounter` or `SimpleZipDrive` processes when you close a game or the launcher. No more "ghost" virtual drives cluttering your PC!
+- **Startup Validation:** The app now detects if it's being run from a temporary folder (like inside a ZIP) and prompts you to extract it first, preventing lost settings.
+
+### 🔧 Technical Improvements
+- **API-Based Scanning:** Our Microsoft Store game detection is now powered by a dynamic API, making the app lighter and more accurate.
+- **Secure Connections:** Refactored networking to use **TLS 1.2/1.3** for all metadata and image downloads.
+- **Resilient Saving:** Improved logic to handle file locks during settings saves and downloads—no more crashes if your antivirus is scanning files!
+
 # Release 5.2.0
 *2026-03-28*
 ---
