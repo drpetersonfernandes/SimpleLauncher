@@ -646,12 +646,6 @@ public static class MountChdFiles
             return 20;
         }
 
-        if (systemName.Contains("JAGUAR CD", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("JAGUARCD", StringComparison.OrdinalIgnoreCase))
-        {
-            return 20;
-        }
-
         return null;
     }
 

@@ -23,7 +23,6 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isCxbxReloaded;
     private bool _isMednafen;
     private bool _isPcsxRedux;
-    private bool _isBigPEmu;
     private bool _is4Do;
 
     public ChdMountStrategy(IConfiguration configuration)
@@ -39,7 +38,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (!isChd) return false;
 
         ResolveEmulatorFlags(context);
-        return _isRpcs3 || _isXenia || _isXemu || _isCxbxReloaded || _isMednafen || _isPcsxRedux || _isBigPEmu || _is4Do;
+        return _isRpcs3 || _isXenia || _isXemu || _isCxbxReloaded || _isMednafen || _isPcsxRedux || _is4Do;
     }
 
     private void ResolveEmulatorFlags(LaunchContext context)
@@ -62,9 +61,6 @@ public class ChdMountStrategy : ILaunchStrategy
         _isPcsxRedux = context.EmulatorName.Contains("PCSX-Redux", StringComparison.OrdinalIgnoreCase) ||
                        context.EmulatorName.Contains("PCSX Redux", StringComparison.OrdinalIgnoreCase) ||
                        (context.EmulatorManager?.EmulatorLocation?.Contains("pcsx-redux", StringComparison.OrdinalIgnoreCase) ?? false);
-
-        _isBigPEmu = context.EmulatorManager?.EmulatorName?.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase) == true ||
-                     context.EmulatorManager?.EmulatorLocation?.Contains("BigPEmu", StringComparison.OrdinalIgnoreCase) == true;
 
         _is4Do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
                  (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -110,7 +106,7 @@ public class ChdMountStrategy : ILaunchStrategy
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath);
         }
-        else if (_isMednafen || _isPcsxRedux || _isBigPEmu || _is4Do)
+        else if (_isMednafen || _isPcsxRedux || _is4Do)
         {
             // Path to a .cue file
             gameFilePath = FindCueFile.Find(mountedDrive.MountedPath);
