@@ -5,13 +5,13 @@
 # 🚀 CHD "Magic" & Expanded RetroAchievements Support!
 
 ### 💿 CHD Support for Everyone! (Mednafen, PCSX-Redux, & 4DO)
-- We’ve performed some "launcher magic"! We expanded the CHD support for **Mednafen**, **PCSX-Redux**, and **4DO** that unfortunately lack native support for the space-saving CHD format.
-- Simple Launcher now grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
+- We expanded the CHD support for **Mednafen**, **PCSX-Redux**, and **4DO** that unfortunately lack native support for the space-saving CHD format.
+- Simple Launcher grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
 
 ### 🏆 RetroAchievements: Welcome to the Wii!
 Achievement hunters, rejoice! We have overhauled our **RetroAchievements** definitions to stay in sync with the latest developments in the RA community. 
 - **Wii Support is here!** We’ve updated our system matching and hashing logic to fully support the **Nintendo Wii**, which recently received official RetroAchievements support.
-- **Expanded Aliases:** Improved matching for Sony PSP, Xbox 360, and more, ensuring your games are identified correctly every time.
+- **Expanded Aliases:** Improved matching for multiple systems, ensuring your games are identified correctly every time.
 
 ### 🎨 Your Launcher, Your Style
 We’ve added several new ways to customize your experience:
