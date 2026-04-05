@@ -146,7 +146,7 @@ public static class RetroAchievementsSystemMatcher
             "amstrad gx4000", "gx4000",
             "scummvm", "scumm vm", "scumm-vm",
             "pinball arcade", "pinballarcade",
-            "Arcade - Raine", "Commander Genius", "Matra Alice32"
+            "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
