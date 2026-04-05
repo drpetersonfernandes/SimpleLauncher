@@ -32,7 +32,7 @@ internal static partial class PathHelper
             string.Equals(text, flag, StringComparison.OrdinalIgnoreCase));
     }
 
-    private static bool ContainsGameSpecificPlaceholder(string text)
+    internal static bool ContainsGameSpecificPlaceholder(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) return false;
 

@@ -3224,16 +3224,35 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
-**Extension to Search in the System Folder:** chd, gdi, cue, bin, cdi<br>
+**Extension to Search in the System Folder:** chd, gdi, cdi, cue, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** c:\emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
 **Emulator Name:** Redream<br>
 **Emulator Path (Example):** c:\emulators\redream\redream.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Demul<br>
+**Emulator Path (Example):** C:\Emulators\Demul\demul.exe<br>
+**Emulator Parameters:** -run=dc -image="%ROM%"<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
@@ -3250,16 +3269,6 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/flycast/).<br>
 Core may require BIOS files or system files to work.
-
-.
-
-**Emulator Name:** Flycast<br>
-**Emulator Path (Example):** c:\emulators\Flycast\flycast.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.
-It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
 

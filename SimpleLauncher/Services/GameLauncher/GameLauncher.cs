@@ -855,17 +855,42 @@ public partial class GameLauncher
             var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
             var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
 
-            // Will load the filename without the extension
-            if ((isMame || isRaine) && !isNeoGeoCd)
+            var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
+
+            // Handle game-specific placeholders if present
+            if (PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
             {
-                var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
-                DebugLogger.Log($"Stripped path call detected. Launching: {romName}");
-                arguments = $"{resolvedParameters} \"{romName}\"";
+                arguments = resolvedParameters
+                    .Replace("%ROM%", resolvedFilePath, StringComparison.OrdinalIgnoreCase);
+                // .Replace("%GAME%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("%ROMFILE%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("%ROMNAME%", romName, StringComparison.OrdinalIgnoreCase)
+                // .Replace("$rom$", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("$game$", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("$romfile$", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("$romname$", romName, StringComparison.OrdinalIgnoreCase)
+                // .Replace("{rom}", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("{game}", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("{romfile}", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                // .Replace("{romname}", romName, StringComparison.OrdinalIgnoreCase);
             }
             else
             {
-                // General call or Raine NeoGeo CD - Provide full filepath
-                arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
+                // Trim trailing spaces and check if it ends with '=' to avoid adding an extra space
+                var trimmedParameters = resolvedParameters?.TrimEnd() ?? string.Empty;
+                var space = (string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('=')) ? "" : " ";
+
+                // Will load the filename without the extension
+                if ((isMame || isRaine) && !isNeoGeoCd)
+                {
+                    DebugLogger.Log($"Stripped path call detected. Launching: {romName}");
+                    arguments = $"{trimmedParameters}{space}\"{romName}\"";
+                }
+                else
+                {
+                    // General call or Raine NeoGeo CD - Provide full filepath
+                    arguments = $"{trimmedParameters}{space}\"{resolvedFilePath}\"";
+                }
             }
 
             string workingDirectory;
