@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
@@ -545,56 +546,92 @@ public partial class SystemManager
                         root.Add(sortedSystems);
                     }
 
-                    try
+                    const int maxRetries = 3;
+                    var retryDelayMs = 500;
+                    Exception lastException = null;
+
+                    for (var attempt = 0; attempt < maxRetries; attempt++)
                     {
-                        var tempPath = systemXmlPath + ".tmp";
-                        var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
-
-                        // Serialize to memory first to ensure we have valid data before touching the disk.
-                        // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
-                        byte[] xmlBytes;
-                        using (var ms = new MemoryStream())
-                        {
-                            using (var writer = XmlWriter.Create(ms, settings))
-                            {
-                                xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
-                                xmlDoc.Save(writer);
-                            }
-
-                            xmlBytes = ms.ToArray();
-                        }
-
-                        if (xmlBytes.Length == 0)
-                        {
-                            throw new InvalidOperationException("Generated system XML is empty.");
-                        }
-
-                        // Write the entire buffer at once to the temporary file.
-                        File.WriteAllBytes(tempPath, xmlBytes);
-
-                        // Atomically replace the main file with the temp file
-                        File.Move(tempPath, systemXmlPath, true);
-                    }
-                    catch (Exception ex)
-                    {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system.xml.");
-
-                        // Attempt to clean up temp file if it exists
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
-                            if (File.Exists(tempPath))
+                            var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
+
+                            // Serialize to memory first to ensure we have valid data before touching the disk.
+                            // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
+                            byte[] xmlBytes;
+                            using (var ms = new MemoryStream())
                             {
-                                File.Delete(tempPath);
+                                using (var writer = XmlWriter.Create(ms, settings))
+                                {
+                                    xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                                    xmlDoc.Save(writer);
+                                }
+
+                                xmlBytes = ms.ToArray();
+                            }
+
+                            if (xmlBytes.Length == 0)
+                            {
+                                throw new InvalidOperationException("Generated system XML is empty.");
+                            }
+
+                            // Write the entire buffer at once to the temporary file.
+                            File.WriteAllBytes(tempPath, xmlBytes);
+
+                            // Atomically replace the main file with the temp file
+                            File.Move(tempPath, systemXmlPath, true);
+                            return; // Success
+                        }
+                        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+                        {
+                            lastException = ex;
+
+                            if (attempt < maxRetries - 1)
+                            {
+                                // Attempt to clean up temp file before retrying
+                                try
+                                {
+                                    var tempPath = systemXmlPath + ".tmp";
+                                    if (File.Exists(tempPath))
+                                    {
+                                        File.Delete(tempPath);
+                                    }
+                                }
+                                catch
+                                {
+                                    // Ignore cleanup errors
+                                }
+
+                                Thread.Sleep(retryDelayMs);
+                                retryDelayMs *= 2; // Exponential backoff
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            // Ignore cleanup errors
+                            lastException = ex;
+                            break; // Don't retry non-transient errors
                         }
-
-                        throw new InvalidOperationException("Failed to save system configuration.", ex);
                     }
+
+                    // All retries exhausted or non-transient error
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving system.xml.");
+
+                    // Attempt to clean up temp file if it exists
+                    try
+                    {
+                        var tempPath = systemXmlPath + ".tmp";
+                        if (File.Exists(tempPath))
+                        {
+                            File.Delete(tempPath);
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore cleanup errors
+                    }
+
+                    throw new InvalidOperationException("Failed to save system configuration.", lastException);
                 }
             });
         }

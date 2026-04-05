@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,40 +74,73 @@ public class FavoritesManager
         }
 
         // Now serialize
-        try
+        const int maxRetries = 3;
+        var retryDelayMs = 500;
+        Exception lastException = null;
+
+        for (var attempt = 0; attempt < maxRetries; attempt++)
         {
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
-
-            // Serialize using MessagePack
-            var bytes = MessagePackSerializer.Serialize(this);
-
-            // Write to temporary file first to prevent corruption on crash
-            File.WriteAllBytes(TempDatFilePath, bytes);
-
-            // Atomically replace the main file with the temp file
-            File.Move(TempDatFilePath, DatFilePath, true);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error saving favorites.dat";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            // Attempt to clean up temp file if it exists
             try
             {
-                if (File.Exists(TempDatFilePath))
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
+
+                // Serialize using MessagePack
+                var bytes = MessagePackSerializer.Serialize(this);
+
+                // Write to temporary file first to prevent corruption on crash
+                File.WriteAllBytes(TempDatFilePath, bytes);
+
+                // Atomically replace the main file with the temp file
+                File.Move(TempDatFilePath, DatFilePath, true);
+                return; // Success
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                lastException = ex;
+
+                if (attempt < maxRetries - 1)
                 {
-                    File.Delete(TempDatFilePath);
+                    // Attempt to clean up temp file before retrying
+                    try
+                    {
+                        if (File.Exists(TempDatFilePath))
+                        {
+                            File.Delete(TempDatFilePath);
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore cleanup errors
+                    }
+
+                    Thread.Sleep(retryDelayMs);
+                    retryDelayMs *= 2; // Exponential backoff
                 }
             }
-            catch (Exception cleanupEx)
+            catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+                lastException = ex;
+                break; // Don't retry non-transient errors
             }
-
-            throw; // Re-throw to notify caller
         }
+
+        // All retries exhausted or non-transient error
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving favorites.dat");
+
+        // Attempt to clean up temp file if it exists
+        try
+        {
+            if (File.Exists(TempDatFilePath))
+            {
+                File.Delete(TempDatFilePath);
+            }
+        }
+        catch (Exception cleanupEx)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+        }
+
+        throw new InvalidOperationException("Failed to save favorites.", lastException);
     }
 }

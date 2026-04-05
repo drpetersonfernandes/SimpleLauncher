@@ -33,9 +33,9 @@ public static class RetroAchievementsSystemMatcher
     private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new()
     {
         // Nintendo systems
-        ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64"]),
-        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom"]),
-        ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy"]),
+        ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD"]),
+        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom", "Nintendo SNES MSU1"]),
+        ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy", "Nintendo Game Boy Color"]),
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color"]),
         ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom", "nintendo nes", "Nintendo Famicom"]),
@@ -44,7 +44,7 @@ public static class RetroAchievementsSystemMatcher
         ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
         ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi", "nintendo ndsi", "nintendo dsi"]),
-        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer"]),
+        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer", "Nintendo Family Computer Disk System"]),
         ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii", "Nintendo Wiiware", "Wiiware"]),
         ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
         ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds"]),
@@ -53,7 +53,7 @@ public static class RetroAchievementsSystemMatcher
         ["genesis/mega drive"] = new RaSystemInfo(1, ["genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis", "sega megadrive", "sega mega drive"]),
         ["sega cd"] = new RaSystemInfo(9, ["sega cd", "segacd", "sega genesis cd", "genesis cd", "sega megadrive cd", "megadrive cd", "sega mega drive cd", "mega drive cd"]),
         ["32x"] = new RaSystemInfo(10, ["32x", "sega 32x", "sega genesis 32x", "genesis 32x", "megadrive 32x", "mega drive 32x", "sega megadrive 32x", "mega drive 32x", "sega mega drive 32x"]),
-        ["master system"] = new RaSystemInfo(11, ["master system", "mastersystem", "mark3"]),
+        ["master system"] = new RaSystemInfo(11, ["master system", "mastersystem", "mark3", "Sega Master System"]),
         ["game gear"] = new RaSystemInfo(15, ["game gear", "gamegear", "sega game gear", "sega gamegear"]),
         ["saturn"] = new RaSystemInfo(39, ["saturn", "sega saturn"]),
         ["dreamcast"] = new RaSystemInfo(40, ["dreamcast", "sega dreamcast", "DREAMCAST NAOMI"]),

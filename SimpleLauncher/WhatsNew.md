@@ -43,7 +43,7 @@ We’ve added several new ways to customize your experience:
 ### 🔧 Technical Improvements
 - **API-Based Scanning:** Our Microsoft Store game detection is now powered by a dynamic API, making the app lighter and more accurate.
 - **Secure Connections:** Refactored networking to use **TLS 1.2/1.3** for all metadata and image downloads.
-- **Resilient Saving:** Improved logic to handle file locks during settings saves and downloads—no more crashes if your antivirus is scanning files!
+- **Resilient Saving:** Improved logic to handle file locks during saves for `settings.xml`, `system.xml`, `favorites.dat`, and `playhistory.dat`.
 
 # Release 5.2.0
 *2026-03-28*

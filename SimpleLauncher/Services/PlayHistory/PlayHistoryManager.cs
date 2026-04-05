@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
@@ -209,41 +210,74 @@ public class PlayHistoryManager
     /// </summary>
     internal void SavePlayHistory()
     {
-        try
+        const int maxRetries = 3;
+        var retryDelayMs = 500;
+        Exception lastException = null;
+
+        for (var attempt = 0; attempt < maxRetries; attempt++)
         {
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
-
-            byte[] bytes;
-            lock (HistoryLock)
-            {
-                bytes = MessagePackSerializer.Serialize(this);
-            }
-
-            // Write to a temporary file first to prevent data loss on crash
-            File.WriteAllBytes(TempFilePath, bytes);
-
-            // Atomically replace the main file with the temp file
-            File.Move(TempFilePath, FilePath, true);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error saving playhistory.dat";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            // Attempt to clean up temp file if it exists
             try
             {
-                if (File.Exists(TempFilePath))
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
+
+                byte[] bytes;
+                lock (HistoryLock)
                 {
-                    File.Delete(TempFilePath);
+                    bytes = MessagePackSerializer.Serialize(this);
+                }
+
+                // Write to a temporary file first to prevent data loss on crash
+                File.WriteAllBytes(TempFilePath, bytes);
+
+                // Atomically replace the main file with the temp file
+                File.Move(TempFilePath, FilePath, true);
+                return; // Success
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                lastException = ex;
+
+                if (attempt < maxRetries - 1)
+                {
+                    // Attempt to clean up temp file before retrying
+                    try
+                    {
+                        if (File.Exists(TempFilePath))
+                        {
+                            File.Delete(TempFilePath);
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore cleanup errors
+                    }
+
+                    Thread.Sleep(retryDelayMs);
+                    retryDelayMs *= 2; // Exponential backoff
                 }
             }
-            catch (Exception cleanupEx)
+            catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary play history file after failed save");
+                lastException = ex;
+                break; // Don't retry non-transient errors
             }
+        }
+
+        // All retries exhausted or non-transient error
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving playhistory.dat");
+
+        // Attempt to clean up temp file if it exists
+        try
+        {
+            if (File.Exists(TempFilePath))
+            {
+                File.Delete(TempFilePath);
+            }
+        }
+        catch (Exception cleanupEx)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary play history file after failed save");
         }
     }
 
