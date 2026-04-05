@@ -74,7 +74,26 @@ public partial class GameLauncher
 
         try
         {
-            // 2. Resolve Emulator Manager
+            // 2. Validate SystemManager and Emulators before resolving
+            if (context.SystemManager == null)
+            {
+                var contextMessage = $"SystemManager is null when attempting to launch.\n" +
+                                     $"SystemName: '{context.SystemName}', EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                return;
+            }
+
+            if (context.SystemManager.Emulators == null || context.SystemManager.Emulators.Count == 0)
+            {
+                var contextMessage = $"SystemManager.Emulators is null or empty for system '{context.SystemName}'.\n" +
+                                     $"EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                return;
+            }
+
+            // 3. Resolve Emulator Manager
             context.EmulatorManager = context.SystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(context.EmulatorName, StringComparison.OrdinalIgnoreCase));
             if (context.EmulatorManager == null)
             {
@@ -83,20 +102,20 @@ public partial class GameLauncher
                 return;
             }
 
-            // 3. Perform Validation
+            // 4. Perform Validation
             if (!await ValidateContextAsync(context)) return;
 
-            // 4. Set Parameters
+            // 5. Set Parameters
             context.Parameters = context.EmulatorManager.EmulatorParameters;
 
-            // 5. Run Configuration Handlers (Interceptors)
+            // 6. Run Configuration Handlers (Interceptors)
             var handler = _configHandlers.FirstOrDefault(h => h.IsMatch(context.EmulatorName, context.EmulatorManager.EmulatorLocation));
             if (handler != null)
             {
                 if (!await handler.HandleConfigurationAsync(context)) return;
             }
 
-            // 6. Pre-launch UI/State
+            // 7. Pre-launch UI/State
             var wasGamePadRunning = gamePadController.IsRunning;
             if (wasGamePadRunning) gamePadController.Stop();
 
@@ -105,13 +124,13 @@ public partial class GameLauncher
 
             try
             {
-                // 7. Execute Strategy
+                // 8. Execute Strategy
                 var strategy = _launchStrategies.First(s => s.IsMatch(context));
                 await strategy.ExecuteAsync(context, this);
             }
             finally
             {
-                // 8. Post-launch Cleanup & Stats
+                // 9. Post-launch Cleanup & Stats
                 context.LoadingState.SetLoadingState(false);
                 if (wasGamePadRunning) gamePadController.Start();
 
@@ -124,7 +143,17 @@ public partial class GameLauncher
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Launch Pipeline Failed");
+            var detailedMessage = $"Launch Pipeline Failed.\n" +
+                                  $"Exception Type: {ex.GetType().FullName}\n" +
+                                  $"SystemName: '{context.SystemName ?? "null"}'\n" +
+                                  $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
+                                  $"FilePath: '{context.FilePath ?? "null"}'\n" +
+                                  $"ResolvedFilePath: '{context.ResolvedFilePath ?? "null"}'\n" +
+                                  $"SystemManager is null: {context.SystemManager == null}\n" +
+                                  $"EmulatorManager is null: {context.EmulatorManager == null}\n" +
+                                  $"SystemManager.Emulators is null: {context.SystemManager?.Emulators == null}\n" +
+                                  $"Stack Trace: {ex.StackTrace}";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, detailedMessage);
             await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }

@@ -20,6 +20,11 @@ public class ZipMountStrategy : ILaunchStrategy
 
     public bool IsMatch(LaunchContext context)
     {
+        if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
+            string.IsNullOrEmpty(context.EmulatorName) ||
+            string.IsNullOrEmpty(context.SystemName))
+            return false;
+
         var isZip = Path.GetExtension(context.ResolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase);
         if (!isZip) return false;
 

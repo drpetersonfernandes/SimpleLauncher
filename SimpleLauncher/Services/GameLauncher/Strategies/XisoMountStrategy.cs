@@ -20,6 +20,10 @@ public class XisoMountStrategy : ILaunchStrategy
 
     public bool IsMatch(LaunchContext context)
     {
+        if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
+            string.IsNullOrEmpty(context.EmulatorName))
+            return false;
+
         return context.EmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                Path.GetExtension(context.ResolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase);
     }

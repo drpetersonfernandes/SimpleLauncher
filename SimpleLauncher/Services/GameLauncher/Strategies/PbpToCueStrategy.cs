@@ -16,6 +16,10 @@ public class PbpToCueStrategy : ILaunchStrategy
 
     public bool IsMatch(LaunchContext context)
     {
+        if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
+            string.IsNullOrEmpty(context.EmulatorName))
+            return false;
+
         var isPbp = Path.GetExtension(context.ResolvedFilePath).Equals(".pbp", StringComparison.OrdinalIgnoreCase);
         if (!isPbp) return false;
 
