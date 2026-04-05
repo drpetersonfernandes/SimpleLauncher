@@ -4,8 +4,8 @@
 
 # 🚀 CHD "Magic" & Expanded RetroAchievements Support!
 
-### 💿 CHD Support for Everyone! (Mednafen, PCSX-Redux, 4DO, Gens, Blastem, Yabause)
-- We expanded the CHD support for **Mednafen**, **PCSX-Redux**, **4DO**, **Gens**, **Blastem**, **Yabause** that unfortunately lack native support for the space-saving CHD format.
+### 💿 CHD Support for Everyone!
+- We expanded the CHD support for **Mednafen**, **PCSX-Redux**, **4DO**, **Gens**, **Blastem**, **Yabause**, **Mesen** that unfortunately lack native support for the space-saving CHD format.
 - Simple Launcher grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
 
   ┌───────────────┬─────────────┐
@@ -21,6 +21,7 @@
   │ Gens          │ Yes         │
   │ Blastem       │ Yes         │
   │ Yabause       │ Yes         │
+  | Mesen         | Yes         |
   └───────────────┴─────────────┘
 
 ### 🏆 RetroAchievements: Welcome to the Wii!

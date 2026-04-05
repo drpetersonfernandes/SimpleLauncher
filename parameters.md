@@ -1670,16 +1670,25 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 .
 
-**Emulator Name:** Retroarch mednafen_pce<br>
-**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
-**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_pce_libretro.dll" -f<br>
-**Fullscreen Parameter:** -f<br>
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
-Core may require BIOS files or system files to work.
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** Geargrafx<br>
+**Emulator Path (Example):** D:\Emulators\Geargrafx\Geargrafx.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You may need a BIOS file to run this system on this emulator.<br>
 
 .
 
@@ -1694,6 +1703,40 @@ This emulator requires a BIOS file to work.
 
 .
 
+**Emulator Name:** Mesen<br>
+**Emulator Path (Example):** C:\Emulators\Mesen\Mesen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator requires a BIOS file to work.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
+**Emulator Name:** Retroarch mednafen_pce<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_pce_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
+Core may require BIOS files or system files to work.
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine CD" pcecd<br>
@@ -1704,18 +1747,6 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
-
-.
-
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC PC-FX
 
@@ -1731,6 +1762,28 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+May require a BIOS file to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
 
@@ -1757,18 +1810,6 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
-
-.
-
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC SuperGrafx
 
@@ -3944,15 +3985,6 @@ This emulator is available for Windows-x64.
 
 .
 
-**Emulator Name:** BizHawk<br>
-**Emulator Path (Example):** C:\Emulators\BizHawk\EmuHawk.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.
-
-.
-
 **Emulator Name:** Retroarch mednafen_saturn<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_saturn_libretro.dll" -f<br>
@@ -4562,6 +4594,40 @@ Emulator may need BIOS or system files to work.
 
 .
 
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "PlayStation"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work.
+
+.
+
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
@@ -4575,18 +4641,6 @@ Core may require BIOS files or system files to work.
 
 .
 
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-
-.
-
 **Emulator Name:** Retroarch swanstation<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\swanstation_libretro.dll" -f<br>
@@ -4597,17 +4651,6 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
 Core may require BIOS files or system files to work.
-
-.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "PlayStation"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
 
 .
 

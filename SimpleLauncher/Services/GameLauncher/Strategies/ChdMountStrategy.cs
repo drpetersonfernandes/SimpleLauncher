@@ -23,6 +23,7 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isGenesisPlusGx;
     private bool _isGens;
     private bool _isMednafen;
+    private bool _isMesen;
     private bool _isPcsxRedux;
     private bool _isPicoDrive;
     private bool _isRetroArch;
@@ -44,7 +45,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (!isChd) return false;
 
         ResolveEmulatorFlags(context);
-        return _isGenesisPlusGx || _is4Do || _isBlastem || _isCxbxReloaded || _isGens || _isMednafen || _isPcsxRedux || _isPicoDrive || _isRetroArch || _isRpcs3 || _isXemu || _isXenia || _isYabause;
+        return _isGenesisPlusGx || _is4Do || _isBlastem || _isCxbxReloaded || _isGens || _isMednafen || _isMesen || _isPcsxRedux || _isPicoDrive || _isRetroArch || _isRpcs3 || _isXemu || _isXenia || _isYabause;
     }
 
     private void ResolveEmulatorFlags(LaunchContext context)
@@ -66,6 +67,9 @@ public class ChdMountStrategy : ILaunchStrategy
 
         _isMednafen = context.EmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
                       (context.EmulatorManager?.EmulatorLocation?.Contains("mednafen", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isMesen = context.EmulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
+                   (context.EmulatorManager?.EmulatorLocation?.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isPcsxRedux = context.EmulatorName.Contains("PCSX-Redux", StringComparison.OrdinalIgnoreCase) ||
                        context.EmulatorName.Contains("PCSX Redux", StringComparison.OrdinalIgnoreCase) ||
