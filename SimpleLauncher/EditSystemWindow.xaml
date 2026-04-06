@@ -10,10 +10,6 @@
                       WindowStartupLocation="CenterScreen"
                       WindowState="Maximized" x:ClassModifier="internal">
 
-    <Window.Resources>
-
-    </Window.Resources>
-
     <Grid>
         <Grid x:Name="MainContentGrid">
             <Grid.ColumnDefinitions>

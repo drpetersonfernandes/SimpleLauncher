@@ -31,7 +31,27 @@
     <SolidColorBrush x:Key="MahApps.Brushes.Control.Foreground" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
     <SolidColorBrush x:Key="MahApps.Brushes.Control.MouseOver" Color="{StaticResource MahApps.Colors.Control.MouseOver}" options:Freeze="True" />
     <SolidColorBrush x:Key="MahApps.Brushes.Control.Selected" Color="{StaticResource MahApps.Colors.Control.Selected}" options:Freeze="True" />
-    <SolidColorBrush x:Key="MahApps.Brushes.Flyout.Background" Color="{StaticResource MahApps.Colors.Flyout.Background}" options:Freeze="True" />
+<SolidColorBrush x:Key="MahApps.Brushes.Flyout.Background" Color="{StaticResource MahApps.Colors.Flyout.Background}" options:Freeze="True" />
     <SolidColorBrush x:Key="MahApps.Brushes.IdealForeground" Color="{StaticResource MahApps.Colors.IdealForeground}" options:Freeze="True" />
+    
+    <!-- TextBox specific brushes for disabled state -->
+    <SolidColorBrush x:Key="MahApps.Brushes.TextBox.Background" Color="{StaticResource MahApps.Colors.Control.Background}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.TextBox.Foreground" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.TextBox.BorderBrush" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
+    
+    <!-- Disabled TextBox brushes - must use light text on dark background -->
+    <SolidColorBrush x:Key="MahApps.Brushes.TextBox.Background.Disabled" Color="#FF333333" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.TextBox.Foreground.Disabled" Color="#FFFFFFFF" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.TextBox.BorderBrush.Disabled" Color="#FF777777" options:Freeze="True" />
+    
+    <!-- ComboBox specific brushes for proper theming -->
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBox.Background" Color="{StaticResource MahApps.Colors.Control.Background}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBox.Foreground" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBox.BorderBrush" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBox.Background.Disabled" Color="#FF333333" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBox.Foreground.Disabled" Color="#FFFFFFFF" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBox.BorderBrush.Disabled" Color="#FF777777" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBoxPopup.Background" Color="{StaticResource MahApps.Colors.Control.Background}" options:Freeze="True" />
+    <SolidColorBrush x:Key="MahApps.Brushes.ComboBoxPopup.Foreground" Color="{StaticResource MahApps.Colors.Control.Foreground}" options:Freeze="True" />
 
 </ResourceDictionary>

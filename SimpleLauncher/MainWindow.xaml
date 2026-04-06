@@ -70,9 +70,9 @@
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipBaseThemeMenu}" />
                             <MenuItem x:Name="Dark" Header="{DynamicResource Dark}" Click="ChangeBaseTheme_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipBaseThemeMenu}" />
-                            <Separator />
                             <MenuItem x:Name="Adaptive" Header="{DynamicResource Adaptive}" Click="ChangeBaseTheme_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAdaptiveMenu}" />
+                            <Separator />
                             <MenuItem x:Name="HighContrast" Header="{DynamicResource HighContrast}" Click="ChangeBaseTheme_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipHighContrastMenu}" />
                             <MenuItem x:Name="Midnight" Header="{DynamicResource Midnight}" Click="ChangeBaseTheme_Click"
@@ -82,60 +82,59 @@
                             <MenuItem.Icon>
                                 <Image Source="pack://application:,,,/images/theme.png" Width="16" Height="16" />
                             </MenuItem.Icon>
-                            <MenuItem x:Name="Red" Header="{DynamicResource Red}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Green" Header="{DynamicResource Green}" Click="ChangeAccentColor_Click"
+                            <MenuItem x:Name="Amber" Header="{DynamicResource Amber}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="Blue" Header="{DynamicResource Blue}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Purple" Header="{DynamicResource Purple}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Orange" Header="{DynamicResource Orange}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Lime" Header="{DynamicResource Lime}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Emerald" Header="{DynamicResource Emerald}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Teal" Header="{DynamicResource Teal}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Cyan" Header="{DynamicResource Cyan}" Click="ChangeAccentColor_Click"
+                            <MenuItem x:Name="Brown" Header="{DynamicResource Brown}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="Cobalt" Header="{DynamicResource Cobalt}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Crimson" Header="{DynamicResource Crimson}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Cyan" Header="{DynamicResource Cyan}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Emerald" Header="{DynamicResource Emerald}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Green" Header="{DynamicResource Green}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="Indigo" Header="{DynamicResource Indigo}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Violet" Header="{DynamicResource Violet}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Pink" Header="{DynamicResource Pink}" Click="ChangeAccentColor_Click"
+                            <MenuItem x:Name="Lime" Header="{DynamicResource Lime}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="Magenta" Header="{DynamicResource Magenta}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Crimson" Header="{DynamicResource Crimson}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Amber" Header="{DynamicResource Amber}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Yellow" Header="{DynamicResource Yellow}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Brown" Header="{DynamicResource Brown}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Olive" Header="{DynamicResource Olive}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Steel" Header="{DynamicResource Steel}" Click="ChangeAccentColor_Click"
+                            <MenuItem x:Name="Maroon" Header="{DynamicResource Maroon}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="Mauve" Header="{DynamicResource Mauve}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Taupe" Header="{DynamicResource Taupe}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <MenuItem x:Name="Sienna" Header="{DynamicResource Sienna}" Click="ChangeAccentColor_Click"
-                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
-                            <Separator />
-                            <MenuItem x:Name="Maroon" Header="{DynamicResource Maroon}" Click="ChangeAccentColor_Click"
+                            <MenuItem x:Name="Olive" Header="{DynamicResource Olive}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="OliveDrab" Header="{DynamicResource OliveDrab}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Orange" Header="{DynamicResource Orange}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Pink" Header="{DynamicResource Pink}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="Plum" Header="{DynamicResource Plum}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Purple" Header="{DynamicResource Purple}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Red" Header="{DynamicResource Red}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Sienna" Header="{DynamicResource Sienna}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                             <MenuItem x:Name="SkyBlue" Header="{DynamicResource SkyBlue}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Steel" Header="{DynamicResource Steel}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Taupe" Header="{DynamicResource Taupe}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Teal" Header="{DynamicResource Teal}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Violet" Header="{DynamicResource Violet}" Click="ChangeAccentColor_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
+                            <MenuItem x:Name="Yellow" Header="{DynamicResource Yellow}" Click="ChangeAccentColor_Click"
                                       IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
                         </MenuItem>
 
