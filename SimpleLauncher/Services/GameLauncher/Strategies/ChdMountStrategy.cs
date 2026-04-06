@@ -19,14 +19,18 @@ public class ChdMountStrategy : ILaunchStrategy
 
     private bool _is4Do;
     private bool _isBlastem;
+    private bool _cDiEmu;
     private bool _isCxbxReloaded;
+    private bool _isFinalBurnAlpha;
+    private bool _isFinalBurnNeo;
     private bool _isGenesisPlusGx;
     private bool _isGens;
     private bool _isMednafen;
     private bool _isMesen;
+    private bool _isNebula;
     private bool _isPcsxRedux;
     private bool _isPicoDrive;
-    private bool _isRetroArch;
+    private bool _isRaine;
     private bool _isRpcs3;
     private bool _isXemu;
     private bool _isXenia;
@@ -49,7 +53,24 @@ public class ChdMountStrategy : ILaunchStrategy
         if (!isChd) return false;
 
         ResolveEmulatorFlags(context);
-        return _isGenesisPlusGx || _is4Do || _isBlastem || _isCxbxReloaded || _isGens || _isMednafen || _isMesen || _isPcsxRedux || _isPicoDrive || _isRetroArch || _isRpcs3 || _isXemu || _isXenia || _isYabause;
+        return _isGenesisPlusGx ||
+               _is4Do ||
+               _isBlastem ||
+               _cDiEmu ||
+               _isCxbxReloaded ||
+               _isFinalBurnAlpha ||
+               _isFinalBurnNeo ||
+               _isGens ||
+               _isMednafen ||
+               _isMesen ||
+               _isNebula ||
+               _isPcsxRedux ||
+               _isPicoDrive ||
+               _isRaine ||
+               _isRpcs3 ||
+               _isXemu ||
+               _isXenia ||
+               _isYabause;
     }
 
     private void ResolveEmulatorFlags(LaunchContext context)
@@ -60,8 +81,31 @@ public class ChdMountStrategy : ILaunchStrategy
         _isBlastem = context.EmulatorName.Contains("blastem", StringComparison.OrdinalIgnoreCase) ||
                      (context.EmulatorManager?.EmulatorLocation?.Contains("blastem.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        _cDiEmu = context.EmulatorName.Contains("CDiEmu", StringComparison.OrdinalIgnoreCase) ||
+                  context.EmulatorName.Contains("CDi Emu", StringComparison.OrdinalIgnoreCase) ||
+                  context.EmulatorName.Contains("CDi-Emu", StringComparison.OrdinalIgnoreCase) ||
+                  context.EmulatorName.Contains("CDiEmulator", StringComparison.OrdinalIgnoreCase) ||
+                  context.EmulatorName.Contains("CDi Emulator", StringComparison.OrdinalIgnoreCase) ||
+                  context.EmulatorName.Contains("CDi-Emulator", StringComparison.OrdinalIgnoreCase) ||
+                  (context.EmulatorManager?.EmulatorLocation?.Contains("wcdiemu-v053b9.exe", StringComparison.OrdinalIgnoreCase) ?? false) ||
+                  (context.EmulatorManager?.EmulatorLocation?.Contains("wcdiemu", StringComparison.OrdinalIgnoreCase) ?? false);
+
         _isCxbxReloaded = context.EmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
                           (context.EmulatorManager?.EmulatorLocation?.Contains("cxbx", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isFinalBurnAlpha = context.EmulatorName.Contains("FBAlpha", StringComparison.OrdinalIgnoreCase) ||
+                            context.EmulatorName.Contains("FB Alpha", StringComparison.OrdinalIgnoreCase) ||
+                            context.EmulatorName.Contains("FinalBurnAlpha", StringComparison.OrdinalIgnoreCase) ||
+                            context.EmulatorName.Contains("Final Burn Alpha", StringComparison.OrdinalIgnoreCase) ||
+                            context.EmulatorName.Contains("FinalBurn Alpha", StringComparison.OrdinalIgnoreCase) ||
+                            (context.EmulatorManager?.EmulatorLocation?.Contains("fba64.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
+        _isFinalBurnNeo = context.EmulatorName.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
+                          context.EmulatorName.Contains("FB Neo", StringComparison.OrdinalIgnoreCase) ||
+                          context.EmulatorName.Contains("FinalBurnNeo", StringComparison.OrdinalIgnoreCase) ||
+                          context.EmulatorName.Contains("Final Burn Neo", StringComparison.OrdinalIgnoreCase) ||
+                          context.EmulatorName.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
+                          (context.EmulatorManager?.EmulatorLocation?.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isGenesisPlusGx = context.EmulatorName.Contains("genesis plux gx", StringComparison.OrdinalIgnoreCase) ||
                            (context.EmulatorManager?.EmulatorLocation?.Contains("gen_sdl.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -75,6 +119,9 @@ public class ChdMountStrategy : ILaunchStrategy
         _isMesen = context.EmulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
                    (context.EmulatorManager?.EmulatorLocation?.Contains("Mesen.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        _isNebula = context.EmulatorName.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
+                    (context.EmulatorManager?.EmulatorLocation?.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
         _isPcsxRedux = context.EmulatorName.Contains("PCSX-Redux", StringComparison.OrdinalIgnoreCase) ||
                        context.EmulatorName.Contains("PCSX Redux", StringComparison.OrdinalIgnoreCase) ||
                        (context.EmulatorManager?.EmulatorLocation?.Contains("pcsx-redux", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -83,8 +130,8 @@ public class ChdMountStrategy : ILaunchStrategy
                        context.EmulatorName.Contains("Pico Drive", StringComparison.OrdinalIgnoreCase) ||
                        (context.EmulatorManager?.EmulatorLocation?.Contains("PicoDrive.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        _isRetroArch = context.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
-                       (context.EmulatorManager?.EmulatorLocation?.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ?? false);
+        _isRaine = context.EmulatorName.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
+                   (context.EmulatorManager?.EmulatorLocation?.Contains("raine.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
         _isRpcs3 = context.EmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
                    (context.EmulatorManager?.EmulatorLocation?.Contains("rpcs3", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -139,7 +186,7 @@ public class ChdMountStrategy : ILaunchStrategy
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath);
         }
-        else if (_isGens)
+        else if (_isGens || _cDiEmu)
         {
             // Path to a .bin file
             gameFilePath = FindBinFile.Find(mountedDrive.MountedPath);
