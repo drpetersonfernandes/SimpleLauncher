@@ -10,21 +10,21 @@
 
 | Emulator        | CHD Support |
 |-----------------|-------------|
-| RPCS3           | Yes         |
-| Xemu            | Yes         |
-| Xenia           | Yes         |
-| Cxbx-Reloaded   | Yes         |
-| Mednafen        | Yes         |
-| PCSX-Redux      | Yes         |
-| 4DO             | Yes         |
-| Gens            | Yes         |
-| Blastem         | Yes         |
-| Yabause         | Yes         |
-| Mesen           | Yes         |
-| FinalBurn Neo   | Yes         |
-| FinalBurn Alpha | Yes         |
-| Raine           | Yes         |
-| CD-i Emulator   | Yes         |
+| RPCS3           | Added       |
+| Xemu            | Added       |
+| Xenia           | Added       |
+| Cxbx-Reloaded   | Added       |
+| Mednafen        | Added       |
+| PCSX-Redux      | Added       |
+| 4DO             | Added       |
+| Gens            | Added       |
+| Blastem         | Added       |
+| Yabause         | Added       |
+| Mesen           | Added       |
+| FinalBurn Neo   | Added       |
+| FinalBurn Alpha | Added       |
+| Raine           | Added       |
+| CD-i Emulator   | Added       |
   
 ### 🏆 RetroAchievements: Welcome to the Wii!
 Achievement hunters, rejoice! We have overhauled our **RetroAchievements** definitions to stay in sync with the latest developments in the RA community. 
