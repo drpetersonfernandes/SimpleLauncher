@@ -8,25 +8,23 @@
 - We expanded the CHD support for **Mednafen**, **PCSX-Redux**, **4DO**, **Gens**, **Blastem**, **Yabause**, **Mesen**, **FinalBurn Neo**, **FinalBurn Alpha**, **Raine**, **CD-i Emulator** that unfortunately lack native support for CHD format.
 - Simple Launcher grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
 
-  ┌─────────────────┬─────────────┐
-  │ Emulator        │ CHD Support │
-  ├─────────────────┼─────────────┤
-  │ RPCS3           │ Yes         │
-  │ Xemu            │ Yes         │
-  │ Xenia           │ Yes         │
-  │ Cxbx-Reloaded   │ Yes         │
-  │ Mednafen        │ Yes         │
-  │ PCSX-Redux      │ Yes         │
-  │ 4DO             │ Yes         │
-  │ Gens            │ Yes         │
-  │ Blastem         │ Yes         │
-  │ Yabause         │ Yes         │
-  │ Mesen           │ Yes         │
-  │ FinalBurn Neo   │ Yes         │
-  │ FinalBurn Alpha │ Yes         │
-  │ Raine           │ Yes         │
-  │ CD-i Emulator   │ Yes         │
-  └─────────────────┴─────────────┘
+| Emulator        | CHD Support |
+|-----------------|-------------|
+| RPCS3           | Yes         |
+| Xemu            | Yes         |
+| Xenia           | Yes         |
+| Cxbx-Reloaded   | Yes         |
+| Mednafen        | Yes         |
+| PCSX-Redux      | Yes         |
+| 4DO             | Yes         |
+| Gens            | Yes         |
+| Blastem         | Yes         |
+| Yabause         | Yes         |
+| Mesen           | Yes         |
+| FinalBurn Neo   | Yes         |
+| FinalBurn Alpha | Yes         |
+| Raine           | Yes         |
+| CD-i Emulator   | Yes         |
   
 ### 🏆 RetroAchievements: Welcome to the Wii!
 Achievement hunters, rejoice! We have overhauled our **RetroAchievements** definitions to stay in sync with the latest developments in the RA community. 
