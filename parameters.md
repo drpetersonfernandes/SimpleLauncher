@@ -1001,6 +1001,31 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
+## FM Towns / FM-Towns
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
+**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+
+**System Folder (Example):** C:\FM Towns<br>
+**Extension to Search in the System Folder:** chd, cue<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Tsugaru<br>
+**Emulator Path (Example):** C:\Emulators\FM Towns\Tsugaru_CUI.exe<br>
+**Emulator Parameters:** "%EMULATORFOLDER%\roms" -CD "%ROM%" -FULLSCREEN<br>
+**Fullscreen Parameter:** -FULLSCREEN<br>
+
+This emulator is available for Windows-x64.<br>
+This emulator require BIOs and system files to work. These files need to be inside the roms folder.
+
 ## LaserDisk
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -3148,7 +3173,7 @@ Core may require BIOS files or system files to work.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
-**Extension to Search in the System Folder:** iso, bin, chd, cue<br>
+**Extension to Search in the System Folder:** chd, cue, iso, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -3161,9 +3186,18 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** --StartFullScreen<br>
 
 This emulator is available for Windows-x64.<br>
-This emulator require a BIOS file to work.
-This emulator can load CUE/BIN or ISO natively.
-'Simple Launcher' has build in logic to convert CHD files to CUE/BIN, in case user use CHD files.
+This emulator requires a BIOS file to work.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
 
@@ -3192,6 +3226,16 @@ Core may require BIOS files or system files to work.
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** CDiEmu<br>
+**Emulator Path (Example):** C:\Emulators\CDiEmu\wcdiemu-v053b9.exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator may require BIOS or system files to work.
 
 .
 
@@ -3918,16 +3962,6 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 .
 
-**Emulator Name:** Ymir<br>
-**Emulator Path (Example):** c:\emulators\Ymir\ymir-sdl3.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-This program requires a BIOS file to work.
-
-.
-
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
@@ -3936,6 +3970,16 @@ This program requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 May require a BIOS file to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** Ymir<br>
+**Emulator Path (Example):** c:\emulators\Ymir\ymir-sdl3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This program requires a BIOS file to work.
 
 .
 
@@ -4363,7 +4407,7 @@ The list of command-line arguments available for this emulator can be found on [
 This emulator is available for Windows-x64.<br>
 You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.
 
-## SNK Neo Geo CD
+## SNK Neo Geo CD / NeoGeo CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -4377,6 +4421,42 @@ You need to use a ROM set compatible with Raine. You can find an updated set of 
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\Emulators\Ares\ares.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Raine<br>
+**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** -fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** FinalBurn Neo<br>
+**Emulator Path (Example):** C:\Emulators\FinalBurn Neo\fbneo64.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** FinalBurn Alpha<br>
+**Emulator Path (Example):** C:\Emulators\FinalBurn Alpha\fba64.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4403,17 +4483,6 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
-
-.
-
-**Emulator Name:** Raine<br>
-**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
-**Emulator Parameters:** <br>
-**Fullscreen Parameter:** -fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-Raine can load CUE/BIN or ISO files.<br>
-If you try to load a CHD file 'Simple Launcher' will automatic convert it to CUE/BIN before launching. 
 
 ## SNK Neo Geo Pocket
 
@@ -4628,6 +4697,26 @@ This emulator requires a BIOS file to work.
 
 .
 
+**Emulator Name:** PCSX-Redux<br>
+**Emulator Path (Example):** C:\Emulators\PCSX-Redux\pcsx-redux.exe<br>
+**Emulator Parameters (Example):** -run -iso<br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator may requires a BIOS file to work.
+
+.
+
+**Emulator Name:** ePSXe<br>
+**Emulator Path (Example):** C:\Emulators\ePSXe\ePSXe.exe<br>
+**Emulator Parameters (Example):** -loadiso<br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator may requires a BIOS file to work.
+
+.
+
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
@@ -4699,6 +4788,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Documentation can be found on [PCSX2 Website](https://pcsx2.net/docs/).<br>
 This emulator may require BIOS or system files to work.
+
+.
+
+**Emulator Name:** Play<br>
+**Emulator Path (Example):** C:\Emulators\Play\Play.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator may require a BIOS file to work.
 
 .
 

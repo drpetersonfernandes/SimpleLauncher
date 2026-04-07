@@ -784,6 +784,9 @@
         <None Update="tools\BatchConvertToCHD\psxpackager.exe">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="images\systems\FM Towns.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">

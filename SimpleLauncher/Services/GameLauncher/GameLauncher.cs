@@ -890,7 +890,8 @@ public partial class GameLauncher
             if (PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
             {
                 arguments = resolvedParameters
-                    .Replace("%ROM%", resolvedFilePath, StringComparison.OrdinalIgnoreCase);
+                    .Replace("%ROM%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
+                    .Replace("%ROMS%", resolvedFilePath, StringComparison.OrdinalIgnoreCase);
                 // .Replace("%GAME%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
                 // .Replace("%ROMFILE%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
                 // .Replace("%ROMNAME%", romName, StringComparison.OrdinalIgnoreCase)

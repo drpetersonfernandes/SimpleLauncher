@@ -72,7 +72,6 @@ public static partial class HelpUser
         var responses = new Dictionary<string, Func<string>>(StringComparer.OrdinalIgnoreCase)
         {
             { "Amstrad CPC", AmstradCpcDetails },
-            { "Amiga", CommodoreAmigaDetails },
             { "CPC", AmstradCpcDetails },
             { "Amstrad CPC GX4000", AmstradCpcgx4000Details },
             { "Amstrad GX4000", AmstradCpcgx4000Details },
@@ -119,6 +118,7 @@ public static partial class HelpUser
             { "Commodore64", Commodore64Details },
             { "Commodore 128", Commodore128Details },
             { "Commodore128", Commodore128Details },
+            { "Amiga", CommodoreAmigaDetails },
             { "Commodore Amiga", CommodoreAmigaDetails },
             { "Commodore Amiga CD32", CommodoreAmigaCd32Details },
             { "Commodore Amiga CD", CommodoreAmigaCd32Details },
@@ -126,6 +126,8 @@ public static partial class HelpUser
             { "Amiga CD32", CommodoreAmigaCd32Details },
             { "AmigaCD", CommodoreAmigaCd32Details },
             { "AmigaCD32", CommodoreAmigaCd32Details },
+            { "FMTowns", FmTownsDetails },
+            { "FM Towns", FmTownsDetails },
             { "LaserDisk", LaserDiskDetails },
             { "Laser Disk", LaserDiskDetails },
             { "Daphne", LaserDiskDetails },
@@ -159,11 +161,6 @@ public static partial class HelpUser
             { "NEC PC Engine", NecpcEngineDetails },
             { "PC Engine", NecpcEngineDetails },
             { "PCEngine", NecpcEngineDetails },
-            { "NEC TurboGrafx-16", NecTurboGrafx16Details },
-            { "NEC TurboGrafx 16", NecTurboGrafx16Details },
-            { "NEC TurboGrafx", NecTurboGrafx16Details },
-            { "TurboGrafx", NecTurboGrafx16Details },
-            { "TurboGrafx16", NecTurboGrafx16Details },
             { "NEC PC Engine CD", NecpcEngineCdDetails },
             { "PC Engine CD", NecpcEngineCdDetails },
             { "PCEngine CD", NecpcEngineCdDetails },
@@ -173,6 +170,11 @@ public static partial class HelpUser
             { "PCFX", NecpcfxDetails },
             { "NEC SuperGrafx", NecSuperGrafxDetails },
             { "SuperGrafx", NecSuperGrafxDetails },
+            { "NEC TurboGrafx-16", NecTurboGrafx16Details },
+            { "NEC TurboGrafx 16", NecTurboGrafx16Details },
+            { "NEC TurboGrafx", NecTurboGrafx16Details },
+            { "TurboGrafx", NecTurboGrafx16Details },
+            { "TurboGrafx16", NecTurboGrafx16Details },
             { "Nintendo 3DS", Nintendo3DsDetails },
             { "Nintendo3DS", Nintendo3DsDetails },
             { "3DS", Nintendo3DsDetails },
@@ -218,12 +220,6 @@ public static partial class HelpUser
             { "Super NES MSU1", NintendoSnesmsu1Details },
             { "Nintendo Switch", NintendoSwitchDetails },
             { "Switch", NintendoSwitchDetails },
-            { "Nintendo Wii", NintendoWiiDetails },
-            { "Wii", NintendoWiiDetails },
-            { "Nintendo WiiU", NintendoWiiUDetails },
-            { "WiiU", NintendoWiiUDetails },
-            { "Nintendo WiiWare", NintendoWiiWareDetails },
-            { "WiiWare", NintendoWiiWareDetails },
             { "Nintendo Virtual Boy", NintendoVirtualBoyDetails },
             { "Nintendo VirtualBoy", NintendoVirtualBoyDetails },
             { "Virtual Boy", NintendoVirtualBoyDetails },
@@ -231,6 +227,12 @@ public static partial class HelpUser
             { "Virtual-Boy", NintendoVirtualBoyDetails },
             { "V-Boy", NintendoVirtualBoyDetails },
             { "VBoy", NintendoVirtualBoyDetails },
+            { "Nintendo Wii", NintendoWiiDetails },
+            { "Wii", NintendoWiiDetails },
+            { "Nintendo WiiU", NintendoWiiUDetails },
+            { "WiiU", NintendoWiiUDetails },
+            { "Nintendo WiiWare", NintendoWiiWareDetails },
+            { "WiiWare", NintendoWiiWareDetails },
             { "Panasonic 3DO", Panasonic3DoDetails },
             { "Panasonic3DO", Panasonic3DoDetails },
             { "3DO", Panasonic3DoDetails },
@@ -455,6 +457,11 @@ public static partial class HelpUser
     private static string CommodoreAmigaCd32Details()
     {
         return GetSystemDetails("Commodore Amiga CD32");
+    }
+
+    private static string FmTownsDetails()
+    {
+        return GetSystemDetails("FM Towns");
     }
 
     private static string LaserDiskDetails()
@@ -905,3 +912,4 @@ public static partial class HelpUser
         richTextBox.Document = flowDocument;
     }
 }
+

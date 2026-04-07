@@ -32,6 +32,7 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isPicoDrive;
     private bool _isRaine;
     private bool _isRpcs3;
+    private bool _isTsugaru;
     private bool _isXemu;
     private bool _isXenia;
     private bool _isYabause;
@@ -68,6 +69,7 @@ public class ChdMountStrategy : ILaunchStrategy
                _isPicoDrive ||
                _isRaine ||
                _isRpcs3 ||
+               _isTsugaru ||
                _isXemu ||
                _isXenia ||
                _isYabause;
@@ -136,6 +138,9 @@ public class ChdMountStrategy : ILaunchStrategy
         _isRpcs3 = context.EmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
                    (context.EmulatorManager?.EmulatorLocation?.Contains("rpcs3", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        _isTsugaru = context.EmulatorName.Contains("Tsugaru", StringComparison.OrdinalIgnoreCase) ||
+                     (context.EmulatorManager?.EmulatorLocation?.Contains("Tsugaru_CUI.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
         _isXemu = context.EmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
                   (context.EmulatorManager?.EmulatorLocation?.Contains("xemu", StringComparison.OrdinalIgnoreCase) ?? false);
 
@@ -155,7 +160,7 @@ public class ChdMountStrategy : ILaunchStrategy
         // Get the console index for CHDMounter based on system and emulator
         var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName);
 
-        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, logPath, consoleIndex);
+        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex);
 
         if (!mountedDrive.IsMounted)
         {

@@ -31,10 +31,9 @@ public static class MountChdFiles
     /// Uses /a flag to let CHDMounter auto-select the drive letter, then detects which drive was mounted.
     /// </summary>
     /// <param name="resolvedChdFilePath">The full path to the CHD file.</param>
-    /// <param name="logPath">Path to the application's log file for error reporting.</param>
     /// <param name="consoleIndex">Optional console index for CHDMounter (1-17).</param>
     /// <returns>A disposable MountChdDrive object that manages the mount process.</returns>
-    public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string logPath, int? consoleIndex = null)
+    public static async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, int? consoleIndex = null)
     {
         DebugLogger.Log($"[MountChdFiles.MountAsync] Starting to mount CHD: {resolvedChdFilePath} (ConsoleIndex: {consoleIndex?.ToString(CultureInfo.InvariantCulture) ?? "default"})");
 
@@ -137,7 +136,6 @@ public static class MountChdFiles
     /// <param name="selectedEmulatorManager">The emulator manager.</param>
     /// <param name="rawEmulatorParameters">Raw emulator parameters.</param>
     /// <param name="mainWindow">The main window.</param>
-    /// <param name="logPath">Path to the application's log file.</param>
     /// <param name="gameLauncher">The game launcher instance.</param>
     public static async Task MountChdFileAndLoadAsync(
         string resolvedChdFilePath,
@@ -147,7 +145,6 @@ public static class MountChdFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        string logPath,
         GameLauncher.GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountChdFiles] Starting to mount CHD for game loading: {resolvedChdFilePath}");
@@ -326,7 +323,6 @@ public static class MountChdFiles
     /// <param name="selectedEmulatorManager">The emulator manager.</param>
     /// <param name="rawEmulatorParameters">Raw emulator parameters.</param>
     /// <param name="mainWindow">The main window.</param>
-    /// <param name="logPath">Path to the application's log file.</param>
     /// <param name="gameLauncher">The game launcher instance.</param>
     /// <param name="consoleIndex">Optional console index for CHDMounter (1-16). If null, uses /a for auto-detection.</param>
     public static async Task MountChdFileAndLoadWithConsoleIndexAsync(
@@ -337,7 +333,6 @@ public static class MountChdFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        string logPath,
         GameLauncher.GameLauncher gameLauncher,
         int? consoleIndex = null)
     {
@@ -518,7 +513,10 @@ public static class MountChdFiles
     /// <returns>The console index, or null if not found.</returns>
     public static int? GetConsoleIndexFromSystemName(string systemName, string emulatorName = null)
     {
-        if (string.IsNullOrEmpty(systemName)) return null;
+        if (string.IsNullOrEmpty(systemName))
+        {
+            return null;
+        }
 
         if ((systemName.Contains("AMIGA CD", StringComparison.OrdinalIgnoreCase) ||
              systemName.Contains("AMIGACD", StringComparison.OrdinalIgnoreCase)) &&
@@ -527,103 +525,109 @@ public static class MountChdFiles
             return 20;
         }
 
-        if (systemName.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("FM Towns", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("FMTowns", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if ((systemName.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
-             systemName.Contains("PSX1", StringComparison.OrdinalIgnoreCase) ||
-             systemName.Contains("PSX 1", StringComparison.OrdinalIgnoreCase) ||
-             systemName.Contains("PLAY 1", StringComparison.OrdinalIgnoreCase) ||
-             systemName.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
-             systemName.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
-            !systemName.Contains('2') &&
-            !systemName.Contains('3'))
+        else if (systemName.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PSX2", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PSX 2", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PLAY 2", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
+        else if ((systemName.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
+                  systemName.Contains("PSX1", StringComparison.OrdinalIgnoreCase) ||
+                  systemName.Contains("PSX 1", StringComparison.OrdinalIgnoreCase) ||
+                  systemName.Contains("PLAY 1", StringComparison.OrdinalIgnoreCase) ||
+                  systemName.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
+                  systemName.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
+                 !systemName.Contains('2') &&
+                 !systemName.Contains('3'))
+        {
+            return 20;
+        }
+
+        else if (systemName.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PSX2", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PSX 2", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PLAY 2", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
         {
             return 9;
         }
 
-        if (systemName.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PSX3", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PSX 3", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PLAY 3", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PSX3", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PSX 3", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PLAY 3", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
         {
             return 10;
         }
 
-        if (systemName.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
         {
             return 11;
         }
 
-        if (systemName.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
         {
             return 21;
         }
 
-        if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
-            !systemName.Contains("360"))
+        else if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
+                 !systemName.Contains("360"))
         {
             if (!string.IsNullOrEmpty(emulatorName) &&
                 emulatorName.Contains("xemu", StringComparison.OrdinalIgnoreCase))
@@ -634,19 +638,22 @@ public static class MountChdFiles
             return 17;
         }
 
-        if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
-            systemName.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
+        else if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
+                 systemName.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
         {
             return 17;
         }
 
-        if (!string.IsNullOrEmpty(emulatorName) &&
-            emulatorName.Contains("RAINE", StringComparison.OrdinalIgnoreCase))
+        else if (!string.IsNullOrEmpty(emulatorName) &&
+                 emulatorName.Contains("RAINE", StringComparison.OrdinalIgnoreCase))
         {
             return 20;
         }
 
-        return null;
+        else
+        {
+            return 20;
+        }
     }
 
     /// <summary>
