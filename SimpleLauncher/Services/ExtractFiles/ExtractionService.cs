@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives;
-using SharpCompress.Archives.Zip;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -99,10 +98,10 @@ public class ExtractionService : IExtractionService
         }
 
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
-        if (extension != ".zip")
+        if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
             // Notify developer
-            var contextMessage = $"Only ZIP files are supported by this extraction method.\n" + $"File type: {extension}";
+            var contextMessage = $"Only 7z, ZIP, and RAR files are supported by this extraction method.\n" + $"File type: {extension}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -130,12 +129,12 @@ public class ExtractionService : IExtractionService
 
             await Task.Run(() =>
             {
-                using var archive = ZipArchive.OpenArchive(archivePath);
+                using var archive = ArchiveFactory.OpenArchive(archivePath);
                 var entries = archive.Entries.ToList();
 
                 if (entries.Count == 0)
                 {
-                    throw new InvalidDataException("The ZIP file contains no entries.");
+                    throw new InvalidDataException("The archive file contains no entries.");
                 }
 
                 var estimatedSize = EstimateExtractedSize(archivePath);

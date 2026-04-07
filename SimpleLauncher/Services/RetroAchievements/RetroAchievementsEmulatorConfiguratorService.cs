@@ -350,7 +350,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
                 var key = parts[0].Trim();
                 if (settingsToUpdate.TryGetValue(key, out var newValue))
                 {
-                    lines[i] = $"{key}{separator}\"{newValue}\"";
+                    lines[i] = $"{key}{separator}{FormatString(newValue)}";
                     updatedSettings.Remove(key);
                 }
             }
@@ -358,7 +358,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Add any settings that were not found
             foreach (var key in updatedSettings)
             {
-                lines.Add($"{key}{separator}\"{settingsToUpdate[key]}\"");
+                lines.Add($"{key}{separator}{FormatString(settingsToUpdate[key])}");
             }
 
             File.WriteAllLines(filePath, lines, Encoding.UTF8);
@@ -368,6 +368,26 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to update simple INI file: {filePath}");
             return false;
+        }
+
+        // Helper to properly format string values for RetroArch config
+        // RetroArch requires string values to be wrapped in double quotes
+        // and internal quotes must be escaped
+        static string FormatString(string val)
+        {
+            if (string.IsNullOrEmpty(val))
+                return "\"\"";
+
+            // Strip existing surrounding quotes to prevent double-quoting
+            val = val.Trim();
+            if (val.Length >= 2 && val.StartsWith('"') && val.EndsWith('"'))
+            {
+                val = val.Substring(1, val.Length - 2);
+            }
+
+            // Escape any internal quotes and wrap in quotes
+            val = val.Replace("\"", "\\\"");
+            return $"\"{val}\"";
         }
     }
 

@@ -890,23 +890,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// Invalidates the in-memory caches of game file paths, forcing a reload from disk
     /// or re-evaluation of search results on the next LoadGameFilesAsync call.
     /// </summary>
-    internal void InvalidateGameFileCaches()
+    internal async Task InvalidateGameFileCaches()
     {
-        // Use Task.Run and WaitAsync to avoid blocking the UI thread when acquiring the lock,
+        // Use WaitAsync to avoid blocking the UI thread when acquiring the lock,
         // preventing deadlocks if a background thread holding the lock is also waiting for the UI thread.
-        _ = Task.Run(async () =>
+        await _allGamesLock.WaitAsync();
+        try
         {
-            await _allGamesLock.WaitAsync();
-            try
-            {
-                _allGamesForCurrentSystem.Clear();
-                _currentSearchResults.Clear();
-                DebugLogger.Log("[MainWindow.InvalidateGameFileCaches] All game file caches invalidated.");
-            }
-            finally
-            {
-                _allGamesLock.Release();
-            }
-        });
+            _allGamesForCurrentSystem.Clear();
+            _currentSearchResults.Clear();
+            DebugLogger.Log("[MainWindow.InvalidateGameFileCaches] All game file caches invalidated.");
+        }
+        finally
+        {
+            _allGamesLock.Release();
+        }
     }
 }

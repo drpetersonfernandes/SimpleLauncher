@@ -1002,7 +1002,7 @@ internal static class ContextMenuFunctions
                 playSoundEffects.PlayTrashSound();
 
                 // Invalidate the game file caches in the main window
-                mainWindow.InvalidateGameFileCaches();
+                await mainWindow.InvalidateGameFileCaches();
 
                 // Notify user
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);

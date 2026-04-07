@@ -949,7 +949,6 @@ public partial class MainWindow
         };
 
         _settings.Language = selectedLanguage;
-        _settings.Save();
 
         SetLanguageAndCheckMenu(selectedLanguage);
 

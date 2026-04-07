@@ -413,8 +413,8 @@ public partial class SystemManager
                 var backupFiles = Directory.GetFiles(directoryPath, "system_backup*.xml").ToList();
                 if (backupFiles.Count > 0)
                 {
-                    // Sort the backup files by their creation time to find the most recent one
-                    var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
+                    // Sort the backup files by their last write time to find the most recent one
+                    var mostRecentBackupFile = backupFiles.MaxBy(File.GetLastWriteTime);
 
                     // Notify user and ask to restore
                     var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
