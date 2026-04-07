@@ -50,6 +50,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "easymode.xml"),
         Path.Combine(AppDirectory, "easymode_arm64.xml"),
         Path.Combine(AppDirectory, "error_user.log"),
+        Path.Combine(AppDirectory, "helpuser.xml"),
 
         // Path.Combine(AppDirectory, "ControlzEx.dll"),
         // Path.Combine(AppDirectory, "Hardcodet.NotifyIcon.Wpf.dll"),

@@ -2,20 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Xml;
-using System.Xml.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser.Models;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.QuitOrReinstall;
 
 namespace SimpleLauncher.Services.HelpUser;
 
-public class HelpUserManager
+public partial class HelpUserManager
 {
-    private const string FilePath = "helpuser.xml";
+    private const string FilePath = "parameters.md";
+
+    // Regex to match Markdown H2 headers: ## System Name
+    private static readonly Regex HeaderRegex = MyRegex();
 
     public List<SystemHelper> Systems { get; private set; } = [];
 
@@ -26,116 +26,116 @@ public class HelpUserManager
             if (!File.Exists(FilePath))
             {
                 // Notify developer
-                const string contextMessage = "The file 'helpuser.xml' is missing.";
+                const string contextMessage = "The file 'parameters.md' is missing.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox();
+                MessageBoxLibrary.FileParametersMdIsMissingMessageBox();
 
                 return;
             }
 
-            XDocument doc;
+            string markdownContent;
             try
             {
-                XmlReaderSettings settings = new()
-                {
-                    DtdProcessing = DtdProcessing.Prohibit,
-                    XmlResolver = null
-                };
-                using var reader = XmlReader.Create(FilePath, settings);
-                doc = XDocument.Load(reader, LoadOptions.None);
+                markdownContent = File.ReadAllText(FilePath);
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
+                const string contextMessage = "Unable to load 'parameters.md'. The file may be corrupted or in use.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
+                MessageBoxLibrary.FailedToLoadParametersMdMessageBox();
 
                 return;
             }
 
-            var entryParseErrorOccurred = false;
-            var parsedSystems = doc.Descendants("System")
-                .Select(system =>
-                {
-                    try
-                    {
-                        var systemNameElement = system.Element("SystemName");
-                        var systemHelperElement = system.Element("SystemHelper");
-
-                        // Basic validation: SystemName must exist and not be empty.
-                        if (systemNameElement == null || string.IsNullOrEmpty(systemNameElement.Value))
-                        {
-                            throw new XmlException(
-                                $"SystemName element is missing or empty. System data: {system.ToString(SaveOptions.DisableFormatting).Substring(0, Math.Min(200, system.ToString(SaveOptions.DisableFormatting).Length))}");
-                        }
-
-                        return new SystemHelper
-                        {
-                            SystemName = systemNameElement.Value,
-                            SystemHelperText = NormalizeText((string)systemHelperElement)
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        var problematicEntry = system.ToString(SaveOptions.DisableFormatting);
-                        problematicEntry = problematicEntry.Substring(0, Math.Min(200, problematicEntry.Length)); // Truncate for log
-                        const string contextMessage = "Failed to parse an entry in 'helpuser.xml'.";
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"{contextMessage} Entry: {problematicEntry}");
-
-                        entryParseErrorOccurred = true; // Mark that at least one error occurred
-                        return null; // Do not show a message box here; return null to filter out later
-                    }
-                })
-                .Where(static helper => helper != null) // Filter out entries that failed to parse
-                .ToList();
-
-            // If any entry failed to parse, notify the user once.
-            if (entryParseErrorOccurred)
-            {
-                var result = MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox();
-                if (result == MessageBoxResult.Yes)
-                {
-                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                }
-                else
-                {
-                    Systems = []; // Return an empty list
-                    return;
-                }
-                // If user declined reinstall, proceed with any systems that were successfully parsed.
-            }
-
-            Systems = parsedSystems; // Assign successfully parsed systems
-
-            // If, after all processing (including potential parsing errors where user declined reinstall),
-            // there are no systems, then show the "NoSystemInHelpUserXmlMessageBox".
-            if (Systems.Count != 0) return;
-
+            if (string.IsNullOrWhiteSpace(markdownContent))
             {
                 // Notify developer
-                const string contextMessage = "No valid systems found in 'helpuser.xml' after processing.";
+                const string contextMessage = "The file 'parameters.md' is empty.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
+                MessageBoxLibrary.FileParametersMdIsEmptyMessageBox();
+
+                return;
             }
-            // If Systems.Count > 0, the method completes, and Systems is populated.
+
+            var parsedSystems = ParseMarkdown(markdownContent);
+
+            if (parsedSystems.Count == 0)
+            {
+                // Notify developer
+                const string contextMessage = "No valid systems found in 'parameters.md' after processing.";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.NoSystemInParametersMdMessageBox();
+
+                return;
+            }
+
+            Systems = parsedSystems;
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
+            const string contextMessage = "Unexpected error while loading 'parameters.md'.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();
+            MessageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();
         }
+    }
+
+    /// <summary>
+    /// Parses the Markdown content and extracts system information.
+    /// </summary>
+    /// <param name="markdownContent">The raw Markdown content.</param>
+    /// <returns>A list of SystemHelper objects parsed from the Markdown.</returns>
+    private static List<SystemHelper> ParseMarkdown(string markdownContent)
+    {
+        var systems = new List<SystemHelper>();
+        var matches = HeaderRegex.Matches(markdownContent);
+
+        for (var i = 0; i < matches.Count; i++)
+        {
+            var currentMatch = matches[i];
+            var systemName = currentMatch.Groups[1].Value.Trim();
+
+            // Skip the title header (e.g., "# List of Parameters to use in the 'system.xml'")
+            // or any H2 that appears to be a title/instruction rather than a system
+            if (systemName.StartsWith("List of Parameters", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            // Calculate the content range for this system
+            var contentStart = currentMatch.Index + currentMatch.Length;
+            var contentEnd = i < matches.Count - 1
+                ? matches[i + 1].Index
+                : markdownContent.Length;
+            var contentLength = contentEnd - contentStart;
+
+            if (contentLength > 0)
+            {
+                var content = markdownContent.Substring(contentStart, contentLength).Trim();
+
+                if (!string.IsNullOrWhiteSpace(content))
+                {
+                    systems.Add(new SystemHelper
+                    {
+                        SystemName = systemName,
+                        SystemHelperText = NormalizeText(content)
+                    });
+                }
+            }
+        }
+
+        return systems;
     }
 
     private static string NormalizeText(string text)
@@ -150,4 +150,7 @@ public class HelpUserManager
             text.Split('\n')
                 .Select(static line => line.TrimStart()));
     }
+
+    [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
 }

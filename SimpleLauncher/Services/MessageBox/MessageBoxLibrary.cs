@@ -913,6 +913,111 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void ErrorWhileLoadingParametersMdMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var unexpectederrorwhileloadingparametersmd = (string)Application.Current.TryFindResource("Unexpectederrorwhileloadingparametersmd") ?? "Unexpected error while loading 'parameters.md'.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = System.Windows.MessageBox.Show($"{unexpectederrorwhileloadingparametersmd}\n\n" +
+                                                        $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+        }
+    }
+
+    internal static void NoSystemInParametersMdMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var novalidsystemsfoundinthefileparametersmd = (string)Application.Current.TryFindResource("Novalidsystemsfoundinthefileparametersmd") ?? "No valid systems found in the file 'parameters.md'.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = System.Windows.MessageBox.Show($"{novalidsystemsfoundinthefileparametersmd}\n\n" +
+                                                        $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+        }
+    }
+
+    internal static void FailedToLoadParametersMdMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var unabletoloadparametersmd = (string)Application.Current.TryFindResource("Unabletoloadparametersmd") ?? "Unable to load 'parameters.md'. The file may be corrupted or in use.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = System.Windows.MessageBox.Show($"{unabletoloadparametersmd}\n\n" +
+                                                        $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+        }
+    }
+
+    internal static void FileParametersMdIsMissingMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var thefileparametersmdismissing = (string)Application.Current.TryFindResource("Thefileparametersmdismissing") ?? "The file 'parameters.md' is missing.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = System.Windows.MessageBox.Show($"{thefileparametersmdismissing}\n\n" +
+                                                        $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+        }
+    }
+
+    internal static void FileParametersMdIsEmptyMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var thefileparametersmdisempty = (string)Application.Current.TryFindResource("Thefileparametersmdisempty") ?? "The file 'parameters.md' is empty.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = System.Windows.MessageBox.Show($"{thefileparametersmdisempty}\n\n" +
+                                                        $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+        }
+    }
+
     internal static void ImageViewerErrorMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

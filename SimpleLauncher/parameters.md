@@ -1,18 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--suppress ALL -->
-<Helper>
-    <System>
-        <SystemName>Amstrad CPC</SystemName>
-        <SystemHelper>
-            <![CDATA[
+# List of Parameters to use in the "system.xml"
+
 ## Amstrad CPC
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Amstrad CPC<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -56,21 +52,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Amstrad GX4000</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Amstrad GX4000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -90,21 +81,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List Roms. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Arcade</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Arcade
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\emulators\mame\roms<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -147,21 +133,16 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64.<br>
 You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari 2600</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari 2600
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari 2600<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -215,21 +196,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari 5200</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari 5200
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari 5200<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -271,21 +247,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari 7800</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari 7800
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari 7800<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -318,21 +289,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari 8-Bits / Atari 800</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari 8-Bits / Atari 800
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari 8-Bits<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -374,21 +340,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari Jaguar</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari Jaguar
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari Jaguar<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -417,21 +378,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari Jaguar CD</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari Jaguar CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -447,21 +403,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari Lynx</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari Lynx
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari Lynx<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -516,21 +467,16 @@ This emulator requires a BIOS file to run.
 This emulator is available for Windows-x64.<br>
 May require BIOS file to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atari ST</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Atari ST
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Atari ST<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -576,21 +522,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Atomiswave</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Atomiswave
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** C:\Atomiswave<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -606,21 +546,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Bandai WonderSwan</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Bandai WonderSwan
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -685,21 +620,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Bandai WonderSwan Color</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Bandai WonderSwan Color
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -764,21 +694,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Casio PV-1000</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Casio PV-1000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Casio PV-1000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -798,21 +723,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Colecovision</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Colecovision
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Colecovision<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -856,21 +776,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Commodore 64</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Commodore 64
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Commodore 64<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -926,21 +841,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Commodore 128</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Commodore 128
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Commodore 128<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -986,21 +896,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Commodore Amiga</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Commodore Amiga
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Commodore Amiga<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1019,7 +924,7 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
-Core requires BIOS files or system files to work.
+Core requires BIOS files to work.
 
 .
 
@@ -1073,21 +978,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Commodore Amiga CD32</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Commodore Amiga CD32
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, nrg, mds, iso<br>
@@ -1120,21 +1020,42 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>LaserDisk</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
+## FM Towns / FM-Towns
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
+
+**System Folder (Example):** C:\FM Towns<br>
+**Extension to Search in the System Folder:** chd, cue<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Tsugaru<br>
+**Emulator Path (Example):** C:\Emulators\FM Towns\Tsugaru_CUI.exe<br>
+**Emulator Parameters:** "%EMULATORFOLDER%\roms" -CD "%ROM%" -FULLSCREEN<br>
+**Fullscreen Parameter:** -FULLSCREEN<br>
+
+This emulator is available for Windows-x64.<br>
+This emulator require BIOs and system files to work. These files need to be inside the roms folder.
+
 ## LaserDisk
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\LaserDisk<br>
 **Extension to Search in the System Folder:** bat<br>
@@ -1161,21 +1082,16 @@ You need to create BAT files to launch the games.
 
 This emulator is available for Windows-x64.<br>
 You need to create BAT files to launch the games.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Magnavox Odyssey 2</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Magnavox Odyssey 2
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1204,21 +1120,16 @@ Core require BIOS files to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Mattel Aquarius</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Mattel Aquarius
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Mattel Aquarius<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1238,21 +1149,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Mattel Intellivision</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Mattel Intellivision
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1285,21 +1191,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft DOS</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Microsoft DOS
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Microsoft DOS<br>
 **Extension to Search in the System Folder:** zip, 7z, rar<br>
@@ -1357,21 +1258,16 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft MSX</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Microsoft MSX
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Microsoft MSX<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1450,21 +1346,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft MSX2</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Microsoft MSX2
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder:** [ROM Folder]<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1543,21 +1434,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft Windows</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Microsoft Windows
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** C:\Windows Games<br>
 **Extension to Search in the System Folder:** lnk, bat, url, exe<br>
@@ -1574,127 +1460,153 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 LNK files are shortcut files.
 You can create a shortcut by right-clicking on the Game.exe and selecting 'Create Shortcut'.<br>
 If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft Xbox</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Microsoft Xbox
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
-
-**System Folder (Example):** c:\Microsoft Xbox<br>
-**Extension to Search in the System Folder:** iso, chd<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 .
 
 **Emulator Name:** Xemu<br>
-**Emulator Path (Example):** c:\emulators\xemu\xemu.exe<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires BIOS and system files to work. The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
+There are multiple ways to launch this emulator.
+
+**Option 1 — Use CHD files (Recommended)**
+
+**System Folder (Example):** c:\Xbox<br>
+**Extension to Search in the System Folder:** chd<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Path (Example):** C:\Emulators\Xemu\xemu.exe<br>
 **Emulator Parameters (Example):** -full-screen -dvd_path<br>
 **Fullscreen Parameter:** -full-screen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires BIOS and system files to work.<br>
-The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISOs to CHD format.<br>
+'Simple Launcher' will mount the CHD file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 
-The ISO file needs to be formated in XISO format, as the original XBOX discs.<br>
-You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
+**Option 2 — Use ISO (XISO) files**
+
+**System Folder (Example):** c:\Xbox<br>
+**Extension to Search in the System Folder:** iso, xiso<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Path (Example):** C:\Emulators\Xemu\xemu.exe<br>
+**Emulator Parameters (Example):** -full-screen -dvd_path<br>
+**Fullscreen Parameter:** -full-screen<br>
+
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISOs to XISO format. This will reduce the ISO filesize and optimize the Redump ISO for emulation.<br>
 
 .
 
 **Emulator Name:** Cxbx-Reloaded<br>
-**Emulator Path (Example):** c:\emulators\Cxbx-Reloaded\cxbx.exe<br>
+This emulator is available for Windows-x64.<br>
+There are multiple ways to launch this emulator.
+
+**Option 1 — Use CHD files (Recommended)**
+
+**System Folder (Example):** c:\Xbox<br>
+**Extension to Search in the System Folder:** chd<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Name:** Cxbx-Reloaded<br>
+**Emulator Path (Example):** C:\Emulators\Cxbx-Reloaded\cxbx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
-For this emulator to work in 'Simple Launcher', you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.<br>
-For the logic to work; the 'Emulator Name' needs to have the word 'Cxbx' in it.<br>
+'Simple Launcher' has logic to mount the CHD file into a virtual drive and then load the file default.xbe. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISO to CHD format.
 
-The ISO file needs to be formated in XISO format, as the original XBOX discs.<br>
-You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft Xbox 360</SystemName>
-        <SystemHelper>
-            <![CDATA[
+**Option 2 — Use ISO (XISO) files**
+
+**System Folder (Example):** c:\Xbox<br>
+**Extension to Search in the System Folder:** iso, xiso<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Name:** Cxbx-Reloaded<br>
+**Emulator Path (Example):** C:\Emulators\Cxbx-Reloaded\cxbx.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+'Simple Launcher' has logic to mount the ISO (XISO) file into a virtual drive and then load the file default.xbe. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert original Redump ISOs to XISO format. This will reduce the ISO filesize and optimize the Redump ISO for emulation.<br>
+
 ## Microsoft Xbox 360
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
-
-**System Folder (Example):** c:\Microsoft Xbox 360<br>
-**Extension to Search in the System Folder:** iso, chd<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 .
 
 **Emulator Name:** Xenia<br>
+This emulator is available for Windows-x64.<br>
+There are multiple ways to launch this emulator.
+
+**Option 1 — Use CHD files (Recommended)**
+
+**System Folder (Example):** c:\Xbox 360<br>
+**Extension to Search in the System Folder:** chd<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
 **Emulator Path (Example):** C:\Emulators\Xenia\xenia.exe<br>
-**Emulator Parameters:** <br>
+**Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
-I recommend that you convert the original Redump ISO file to an optimized XISO file, which is smaller.<br>
-You can find a tool in the 'Simple Launcher' tools menu that can optimize original Xbox ISO files.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Microsoft Xbox 360 XBLA</SystemName>
-        <SystemHelper>
-            <![CDATA[
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISOs to CHD format.<br>
+'Simple Launcher' will mount the CHD file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
+
+**Option 2 — Use ISO (XISO) files**
+
+**System Folder (Example):** c:\Xbox 360<br>
+**Extension to Search in the System Folder:** iso, xiso<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Path (Example):** C:\Emulators\Xenia\xenia.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert original Redump ISOs to XISO format. This will reduce the ISO filesize and optimize the ISO for emulation.<br>
+
 ## Microsoft Xbox 360 XBLA
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 .
 
 **Emulator Name:** Xenia<br>
 This emulator is available for Windows-x64.<br>
-There are multiple ways to use this emulator. You can use [Game Folders] or ZIP files.<br>
+There are multiple ways to launch this emulator.
 
-**Option 1 - Use [Game Folders]**
-
-**System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
-**Extension to Search in the System Folder:** bat<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false<br>
-
-**Emulator Name:** Xenia<br>
-**Emulator Path (Example):** <br>
-**Emulator Parameters:** <br>
-**Fullscreen Parameter:** <br>
-
-Use the tool 'Create Batch Files For Xbox360 XBLA Games' in the 'Simple Launcher' tools menu.
-This tool will generate BAT files for you.
-
-**Option 2 - Use ZIP files (Recommended)**
+**Option 1 - Use ZIP files (Recommended)**
 
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1703,28 +1615,36 @@ This tool will generate BAT files for you.
 **Group Files by Folder:** false<br>
 
 **Emulator Name:** Xenia<br>
-**Emulator Path (Example):** c:\emulators\Xenia\xenia_canary.exe<br>
+**Emulator Path (Example):** C:\Emulators\Xenia\xenia.exe<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game inside a nested '000D0000' folder.<br>
-For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live arcade' into the 'System Name'.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>NEC PC Engine / TurboGrafx 16</SystemName>
-        <SystemHelper>
-            <![CDATA[
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game inside a nested '000D0000' folder. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
+
+**Option 2 - Use [Game Folders]**
+
+**System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
+**Extension to Search in the System Folder:** bat<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+**Emulator Name:** Xenia<br>
+**Emulator Path (Example):** C:\Emulators\Xenia\xenia.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+'Simple Launcher' has a tool in the Tools menu that can [Create Batch Files For Xbox360 XBLA Games]. Use this tool to automatic create BAT files for you.<br>
+
 ## NEC PC Engine / TurboGrafx 16
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\NEC PC Engine<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1790,27 +1710,76 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>NEC PC Engine CD</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## NEC PC Engine CD / TurboGrafx CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder:** c:\NEC PC Engine CD<br>
 **Extension to Search in the System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** Geargrafx<br>
+**Emulator Path (Example):** D:\Emulators\Geargrafx\Geargrafx.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You may need a BIOS file to run this system on this emulator.<br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "PC Engine CD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work.
+
+.
+
+**Emulator Name:** Mesen<br>
+**Emulator Path (Example):** C:\Emulators\Mesen\Mesen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator requires a BIOS file to work.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
 
@@ -1827,17 +1796,6 @@ Core may require BIOS files or system files to work.
 
 .
 
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "PC Engine CD"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
-
-.
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine CD" pcecd<br>
@@ -1849,6 +1807,22 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
+## NEC PC-FX
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
+
+**System Folder (Example):** c:\NEC PC-FX<br>
+**Extension to Search in the System Folder:** chd, cue, ccd, toc<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
 .
 
 **Emulator Name:** Mednafen<br>
@@ -1857,31 +1831,19 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work.<br>
+May require a BIOS file to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>NEC PC-FX</SystemName>
-        <SystemHelper>
-            <![CDATA[
-## NEC PC-FX
+.
 
-**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
-**If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
-
-**System Folder (Example):** c:\NEC PC-FX<br>
-**Extension to Search in the System Folder:** chd, cue, ccd, toc<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+This emulator is available for Windows-x64.<br>
+You need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
 
@@ -1909,32 +1871,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
-.
-
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>NEC SuperGrafx</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## NEC SuperGrafx
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1975,21 +1920,16 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 This emulator requires a BIOS file to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo 3DS</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo 3DS
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
 **Extension to Search in the System Folder:** 3ds, cci, 3dsx, elf, axf, cxi, app<br>
@@ -2058,21 +1998,16 @@ Core may require BIOS or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3ds) or [GitLab](https://git.libretro.com/libretro/Panda3DS).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo 64</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo 64
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo 64<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2171,21 +2106,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo 64DD</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo 64DD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -2227,21 +2157,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo DS</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo DS
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo DS<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2302,21 +2227,16 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 
 This emulator is available for Windows-x64.<br>
 Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Family Computer Disk System</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Family Computer Disk System / Famicom Disk System
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2362,6 +2282,19 @@ Core may require BIOS files or system files to work.
 
 .
 
+**Emulator Name:** Retroarch fceumm<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fceumm_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fceumm_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core may require a BIOS file to work.<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).
+
+.
+
 **Emulator Name:** Mesen<br>
 **Emulator Path (Example):** c:\emulators\mesen\Mesen.exe<br>
 **Emulator Parameters (Example):** --fullscreen<br>
@@ -2379,21 +2312,16 @@ This emulator requires a BIOS file to run this system.
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Game Boy</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Game Boy
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2514,21 +2442,16 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Game Boy Advance</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Game Boy Advance
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2602,21 +2525,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Game Boy Color</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Nintendo Game Boy Color
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2737,21 +2654,16 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo GameCube</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo GameCube
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
 **Extension to Search in the System Folder:** rvz<br>
@@ -2781,21 +2693,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo NES</SystemName>
-        <SystemHelper>
-            <![CDATA[
-## Nintendo NES
+
+## Nintendo NES / Nintendo Famicom
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo NES<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2826,6 +2733,19 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).
+
+.
+
+**Emulator Name:** Retroarch fceumm<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fceumm_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fceumm_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core may require a BIOS file to work.<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).
 
 .
 
@@ -2886,21 +2806,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** --fullscreen yes<br>
 
 This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Satellaview</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Satellaview
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Satellaview<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2917,21 +2832,16 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo SNES / Super Nintendo / Super Famicom</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo SNES / Super Nintendo / Super Famicom
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo SNES<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3025,21 +2935,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo SNES MSU1</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Nintendo SNES MSU1
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3078,21 +2982,16 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Switch</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Switch
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Switch<br>
 **Extension to Search in the System Folder:** nsp, xci, nca, nro, nso<br>
@@ -3162,21 +3061,16 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Virtual Boy</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Virtual Boy
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Virtual Boy<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3219,21 +3113,16 @@ Core may require BIOS files or system files to work.
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo Wii</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo Wii
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo Wii<br>
 **Extension to Search in the System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
@@ -3263,21 +3152,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo WiiU</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo WiiU
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
 **Extension to Search in the System Folder:** wua<br>
@@ -3293,21 +3177,16 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Nintendo WiiWare</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Nintendo WiiWare
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
 **Extension to Search in the System Folder:** wad<br>
@@ -3337,24 +3216,19 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Panasonic 3DO</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Panasonic 3DO
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
-**Extension to Search in the System Folder:** iso, bin, chd, cue<br>
+**Extension to Search in the System Folder:** chd, cue, iso, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -3367,9 +3241,18 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** --StartFullScreen<br>
 
 This emulator is available for Windows-x64.<br>
-This emulator require a BIOS file to work.
-This emulator can load CUE/BIN or ISO natively.
-'Simple Launcher' has build in logic to convert CHD files to CUE/BIN, in case user use CHD files.
+This emulator requires a BIOS file to work.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
 
@@ -3383,27 +3266,32 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/opera/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Philips CD-i</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Philips CD-i
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Philips CD-i<br>
 **Extension to Search in the System Folder:** chd, iso<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** CDiEmu<br>
+**Emulator Path (Example):** C:\Emulators\CDiEmu\wcdiemu-v053b9.exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator may require BIOS or system files to work.
 
 .
 
@@ -3417,21 +3305,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/same_cdi/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>ScummVM</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## ScummVM
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 .
 
@@ -3472,33 +3355,47 @@ You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to 
 For the logic to work you need to add the word 'ScummVM' or 'Scumm-VM' or 'Scumm' into the 'System Name'
 
 Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Dreamcast</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sega Dreamcast
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
-**Extension to Search in the System Folder:** chd, gdi, cue, bin, cdi<br>
+**Extension to Search in the System Folder:** chd, gdi, cdi, cue, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** c:\emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
 **Emulator Name:** Redream<br>
 **Emulator Path (Example):** c:\emulators\redream\redream.exe<br>
 **Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Demul<br>
+**Emulator Path (Example):** C:\Emulators\Demul\demul.exe<br>
+**Emulator Parameters:** -run=dc -image="%ROM%"<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
@@ -3518,16 +3415,6 @@ Core may require BIOS files or system files to work.
 
 .
 
-**Emulator Name:** Flycast<br>
-**Emulator Path (Example):** c:\emulators\Flycast\flycast.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.
-It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-
-.
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Dreamcast" dc<br>
@@ -3538,21 +3425,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Game Gear</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sega Game Gear
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Game Gear<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3662,21 +3544,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Genesis / Mega Drive</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sega Genesis / Mega Drive
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Genesis<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3783,21 +3660,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Genesis 32X / Mega Drive 32X</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Sega Genesis 32X / Mega Drive 32X
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3858,27 +3729,62 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Genesis CD / Mega Drive CD / Sega CD</SystemName>
-        <SystemHelper>
-            <![CDATA[
-## Sega Genesis CD / Mega Drive CD / Sega CD
+
+## Sega Genesis CD / Mega Drive CD / Sega CD / Mega CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
-**Extension to Search in the System Folder:** chd, bin, cue, iso<br>
+**Extension to Search in the System Folder:** chd, cue, iso, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+ 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+It requires a BIOS file to work.
+
+.
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Gens<br>
+**Emulator Path (Example):** C:\Emulators\Gens\gens.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+It requires a BIOS file to work.
+
+.
+
+**Emulator Name:** Blastem<br>
+**Emulator Path (Example):** C:\Emulators\Blastem\blastem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+It requires a BIOS file to work.
 
 .
 
@@ -3908,26 +3814,6 @@ Core may require BIOS files or system files to work.
 
 .
 
-**Emulator Name:** JGenesis<br>
-**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
-**Emulator Parameters (Example):** --file-path<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64.
-
-.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-It may require a BIOS file to work.
-
-.
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis CD" megacd<br>
@@ -3939,21 +3825,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Master System / Mark3</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Sega Master System / Mark3
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Master System<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4055,21 +3935,65 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Model 3</SystemName>
-        <SystemHelper>
-            <![CDATA[
+## Sega Naomi
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
+
+**System Folder (Example):** C:\Sega Naomi<br>
+**Extension to Search in the System Folder:** chd, iso, zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+## Sega Naomi 2
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
+
+**System Folder (Example):** C:\Sega Naomi2<br>
+**Extension to Search in the System Folder:** chd, iso, zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
 ## Sega Model 3
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Model 3<br>
 **Extension to Search in the System Folder:** bat<br>
@@ -4086,87 +4010,33 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Naomi</SystemName>
-        <SystemHelper>
-            <![CDATA[
-## Sega Naomi
 
-**Double-check file and folder paths when entering them in Simple Launcher.**<br>
-
-**If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
-
-**System Folder (Example):** C:\Sega Naomi<br>
-**Extension to Search in the System Folder:** chd, iso, zip<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false<br>
-
-.
-
-**Emulator Name:** Flycast<br>
-**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Naomi 2</SystemName>
-        <SystemHelper>
-            <![CDATA[
-## Sega Naomi 2
-
-**Double-check file and folder paths when entering them in Simple Launcher.**<br>
-
-**If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
-
-**System Folder (Example):** C:\Sega Naomi2<br>
-**Extension to Search in the System Folder:** chd, iso, zip<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false<br>
-
-.
-
-**Emulator Name:** Flycast<br>
-**Emulator Path (Example):** C:\Emulators\Flycast\flycast.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega Saturn</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Sega Saturn
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega Saturn<br>
-**Extension to Search in the System Folder:** ccd, chd, cue, iso, mds<br>
+**Extension to Search in the System Folder:** chd, cue, iso, ccd, mds, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+May require a BIOS file to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
 
@@ -4177,6 +4047,52 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 This program requires a BIOS file to work.
+
+.
+
+**Emulator Name:** SSF<br>
+**Emulator Path (Example):** c:\emulators\SSF\SSF64.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
+
+.
+
+**Emulator Name:** Kronos<br>
+**Emulator Path (Example):** C:\Emulators\Kronos\kronos.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** C:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Yaba Sanshiro<br>
+**Emulator Path (Example):** C:\Emulators\Yaba Sanshiro\yabasanshiro.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.
+
+.
+
+**Emulator Name:** Yabause<br>
+**Emulator Path (Example):** C:\Emulators\Yabause\yabause.exe<br>
+**Emulator Parameters (Example):** -f -a -i<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.
 
 .
 
@@ -4232,27 +4148,6 @@ Core may require BIOS files or system files to work.
 
 .
 
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-May require a BIOS file to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-
-.
-
-**Emulator Name:** SSF<br>
-**Emulator Path (Example):** c:\emulators\SSF\SSF64.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
-
-.
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Saturn" saturn -cdrom<br>
@@ -4272,21 +4167,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega SC-3000</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Sega SC-3000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega SC-3000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4346,21 +4235,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sega SG-1000</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sega SG-1000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sega SG-1000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4429,21 +4313,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sharp x68000</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sharp x68000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sharp x68000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4476,21 +4355,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sinclair ZX Spectrum</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sinclair ZX Spectrum
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4542,21 +4416,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>SNK Neo Geo</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## SNK Neo Geo
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\SNK Neo Geo<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4609,27 +4478,58 @@ The list of command-line arguments available for this emulator can be found on [
 
 This emulator is available for Windows-x64.<br>
 You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>SNK Neo Geo CD</SystemName>
-        <SystemHelper>
-            <![CDATA[
-## SNK Neo Geo CD
+
+## SNK Neo Geo CD / NeoGeo CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
 **Extension to Search in the System Folder:** chd, cue<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\Emulators\Ares\ares.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Raine<br>
+**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** -fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** FinalBurn Neo<br>
+**Emulator Path (Example):** C:\Emulators\FinalBurn Neo\fbneo64.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** FinalBurn Alpha<br>
+**Emulator Path (Example):** C:\Emulators\FinalBurn Alpha\fba64.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4657,32 +4557,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
-.
-
-**Emulator Name:** Raine<br>
-**Emulator Path (Example):** C:\Emulators\Raine\raine.exe<br>
-**Emulator Parameters:** <br>
-**Fullscreen Parameter:** -fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-Raine can load CUE/BIN or ISO files.<br>
-If you try to load a CHD file 'Simple Launcher' will automatic convert it to CUE/BIN before launching. 
-
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>SNK Neo Geo Pocket</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## SNK Neo Geo Pocket
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4750,21 +4633,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>SNK Neo Geo Pocket Color</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## SNK Neo Geo Pocket Color
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4832,21 +4709,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sony PlayStation 1 / PSX 1</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Sony PlayStation 1 / PSX 1
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
 **Extension to Search in the System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
@@ -4868,6 +4739,60 @@ Emulator may need BIOS or system files to work.
 
 .
 
+**Emulator Name:** Mednafen<br>
+**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
+May require BIOS files to work.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+.
+
+**Emulator Name:** BizHawk<br>
+**Emulator Path (Example):** D:\Emulators\BizHawk\EmuHawk.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "PlayStation"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work.
+
+.
+
+**Emulator Name:** PCSX-Redux<br>
+**Emulator Path (Example):** C:\Emulators\PCSX-Redux\pcsx-redux.exe<br>
+**Emulator Parameters (Example):** -run -iso<br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator may requires a BIOS file to work.
+
+.
+
+**Emulator Name:** ePSXe<br>
+**Emulator Path (Example):** C:\Emulators\ePSXe\ePSXe.exe<br>
+**Emulator Parameters (Example):** -loadiso<br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator may requires a BIOS file to work.
+
+.
+
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
@@ -4881,18 +4806,6 @@ Core may require BIOS files or system files to work.
 
 .
 
-**Emulator Name:** Mednafen<br>
-**Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** -video.fs 1<br>
-
-This emulator is available for Windows-x64.<br>
-'Simple Launcher' will automatically convert CHD files to CUE/BIN files before launching this emulator, since this emulator does not support CHD files.<br>
-May require BIOS files to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
-
-.
-
 **Emulator Name:** Retroarch swanstation<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\swanstation_libretro.dll" -f<br>
@@ -4903,17 +4816,6 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
 Core may require BIOS files or system files to work.
-
-.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "PlayStation"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
 
 .
 
@@ -4936,21 +4838,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sony PlayStation 2</SystemName>
-        <SystemHelper>
-            <![CDATA[
 ## Sony PlayStation 2
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sony PlayStation 2<br>
 **Extension to Search in the System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
@@ -4972,6 +4868,16 @@ This emulator may require BIOS or system files to work.
 
 .
 
+**Emulator Name:** Play<br>
+**Emulator Path (Example):** C:\Emulators\Play\Play.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+This emulator may require a BIOS file to work.
+
+.
+
 **Emulator Name:** Retroarch pcsx2<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\pcsx2_libretro.dll" -f<br>
@@ -4982,27 +4888,22 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/pcsx2/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sony PlayStation 3</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sony PlayStation 3
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path<br>
 
 .
 
 **Emulator Name:** RPCS3<br>
 This emulator is available for Windows-x64.<br>
-There are multiple ways to use this emulator. You can use [Game Folders], ZIP files or ISO files.<br>
+There are multiple ways to use this emulator.<br>
 
 **Option 1 — Use CHD files (Recommended)**
 
@@ -5018,7 +4919,8 @@ There are multiple ways to use this emulator. You can use [Game Folders], ZIP fi
 **Fullscreen Parameter:** <br>
 
 You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
+Before converting your games from ISO to CHD ensure the ISO is decrypted.<br>
+'Simple Launcher' will mount the CHD file into a virtual drive, then load the game using a custom logic.<br>
 
 **Option 2 — Use decrypted ISO files**
 
@@ -5061,24 +4963,17 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
-For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sony PlayStation 4</SystemName>
-        <SystemHelper>
-            <![CDATA[
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br><br>
+
 ## Sony PlayStation 4
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
 **Extension to Search in the System Folder:** bin, elf, oelf<br>
@@ -5094,21 +4989,16 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sony PlayStation Vita</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sony PlayStation Vita
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
 **Extension to Search in the System Folder:** iso<br>
@@ -5124,21 +5014,16 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Sony PSP</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Sony PSP
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Sony PSP<br>
 **Extension to Search in the System Folder:** cso, chd, iso, pbp, elf, prx<br>
@@ -5167,21 +5052,16 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/ppsspp/).<br>
 Core may require BIOS files or system files to work.
-]]>
-        </SystemHelper>
-    </System>
-    <System>
-        <SystemName>Super ACan</SystemName>
-        <SystemHelper>
-            <![CDATA[
+
 ## Super ACan / Super-ACan / Super A'Can / Super-A'Can
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
 **If you want to use relative paths, use the following placeholders:**<br>
-**%BASEFOLDER%** - Represents the 'Simple Launcher' folder<br>
-**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
 
 **System Folder (Example):** c:\Super ACan<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -5200,7 +5080,3 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
-]]>
-        </SystemHelper>
-    </System>
-</Helper>

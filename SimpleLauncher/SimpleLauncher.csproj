@@ -166,9 +166,6 @@
         <None Update="audio\trash.mp3">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="helpuser.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="tools\BatchConvertTo7z\7z.dll">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -785,6 +782,9 @@
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="images\systems\FM Towns.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="parameters.md">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>

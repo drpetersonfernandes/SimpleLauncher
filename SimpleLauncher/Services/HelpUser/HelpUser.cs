@@ -19,12 +19,12 @@ public static partial class HelpUser
     {
         try
         {
-            Manager.Load(); // Load helpuser.xml
+            Manager.Load(); // Load parameters.md
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Failed to load helpuser.xml.";
+            const string contextMessage = "Failed to load parameters.md.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
