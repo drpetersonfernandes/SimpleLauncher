@@ -27,6 +27,7 @@
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 Core may require BIOS files or system files to work.
 
 .
@@ -38,6 +39,7 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](http://cngsoft.no-ip.org/cpcec.htm).<br>
 
 .
 
@@ -51,7 +53,8 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Amstrad GX4000
 
@@ -80,7 +83,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List Roms. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List Roms. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Arcade
 
@@ -107,9 +111,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-**Attention**
+**Attention**<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 .
 
@@ -122,7 +127,8 @@ You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasured
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mame_2010/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -132,7 +138,8 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** -fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.
+You need to use a ROM set compatible with Raine. You can find an updated set of Raine ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/nonmame/raine/index.html) website. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://raine.1emulation.com/download/latest.html).<br>
 
 ## Atari 2600
 
@@ -158,7 +165,8 @@ You need to use a ROM set compatible with Raine. You can find an updated set of 
 **Fullscreen Parameter:** -fullscreen 1<br>
 
 This emulator is available for Windows-x64.<br>
-Command line documentation can be found on [Stella Website](https://stella-emu.github.io/docs/index.html#CommandLine).
+Command line documentation can be found on [Stella Website](https://stella-emu.github.io/docs/index.html#CommandLine).<br>
+You can download this emulator on the [Official Website](https://stella-emu.github.io/downloads.html).<br>
 
 .
 
@@ -169,7 +177,8 @@ Command line documentation can be found on [Stella Website](https://stella-emu.g
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -183,6 +192,7 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/stella/).<br>
 Core may require BIOS files or system files to work.
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -195,7 +205,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Atari 5200
 
@@ -221,6 +232,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** /f<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://www.virtualdub.org/altirra.html).<br>
 
 .
 
@@ -233,7 +245,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -246,7 +259,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Atari 7800
 
@@ -275,7 +289,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/prosystem/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -288,7 +303,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Atari 8-Bits / Atari 800
 
@@ -313,7 +329,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Parameters:** /f<br>
 **Fullscreen Parameter:** /f<br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://www.virtualdub.org/altirra.html).<br>
 
 .
 
@@ -326,7 +343,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 .
 
@@ -339,7 +357,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Atari Jaguar
 
@@ -364,7 +383,8 @@ Core may require BIOS files or system files to work.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://richwhitehouse.com/jaguar/index.php?content=download).<br>
 
 .
 
@@ -377,7 +397,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Atari Jaguar CD
 
@@ -402,7 +423,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://richwhitehouse.com/jaguar/index.php?content=download).<br>
 
 ## Atari Lynx
 
@@ -429,7 +451,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 
 This emulator is available for Windows-x64.<br>
 May require BIOS file to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -440,7 +463,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to run.
+This emulator requires a BIOS file to run.<br>
+You can download this emulator on the [Official Website](https://github.com/drhelius/Gearlynx).<br>
 
 .
 
@@ -453,7 +477,8 @@ This emulator requires a BIOS file to run.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_lynx/).<br>
-Core requires a BIOS file to work.
+Core requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -466,7 +491,8 @@ Core requires a BIOS file to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Atari ST
 
@@ -494,7 +520,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 You can find a list of command-line args on the [Hatari Website](https://www.hatari-emu.org/doc/manual.html#Command_line_options_and_arguments).<br>
-Emulator may require BIOS or system files to work.
+Emulator may require BIOS or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.hatari-emu.org/download.html).<br>
 
 .
 
@@ -507,7 +534,8 @@ Emulator may require BIOS or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/hatari/).<br>
-Core requires tos.img BIOS file to work.
+Core requires tos.img BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -520,7 +548,8 @@ Core requires tos.img BIOS file to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Atomiswave / Sammy Atomiswave
 
@@ -545,7 +574,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/flyinghead/flycast).<br>
 
 ## Bandai WonderSwan
 
@@ -571,7 +601,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -582,7 +613,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -594,6 +626,7 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -606,7 +639,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_cygne/).<br>
-Core may require BIOS or system files to work.
+Core may require BIOS or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -619,7 +653,8 @@ Core may require BIOS or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Bandai WonderSwan Color
 
@@ -645,7 +680,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -656,7 +692,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -668,6 +705,7 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -680,7 +718,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_cygne/).<br>
-Core may require BIOS or system files to work.
+Core may require BIOS or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -693,7 +732,8 @@ Core may require BIOS or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Casio PV-1000
 
@@ -722,7 +762,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Colecovision
 
@@ -749,7 +790,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -762,7 +804,8 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearcoleco/).<br>
-Core requires colecovision.rom BIOS file to work.
+Core requires colecovision.rom BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -775,7 +818,8 @@ Core requires colecovision.rom BIOS file to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Commodore 64
 
@@ -801,7 +845,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs64.html).
+Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs64.html).<br>
+You can download this emulator on the [Official Website](https://www.ccs64.com/).<br>
 
 .
 
@@ -812,7 +857,8 @@ Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs
 **Fullscreen Parameter:** -fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
-You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).
+You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).<br>
+You can download this emulator on the [Official Website](https://vice-emu.sourceforge.io/index.html#download).<br>
 
 .
 
@@ -825,7 +871,8 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -840,7 +887,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Commodore 128
 
@@ -867,7 +915,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
-You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).
+You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).<br>
+You can download this emulator on the [Official Website](https://vice-emu.sourceforge.io/index.html#download).<br>
 
 .
 
@@ -882,7 +931,8 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 .
 
@@ -895,7 +945,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Commodore Amiga
 
@@ -924,7 +975,8 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** /fullscreen<br>
 **Fullscreen Parameter:** /windowed<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.winuae.net/download/).<br>
 
 .
 
@@ -933,7 +985,8 @@ This emulator is available for Windows-x64.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://github.com/petschau/WinFellow).<br>
 
 .
 
@@ -946,7 +999,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
-Core requires BIOS files to work.
+Core requires BIOS files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -963,7 +1017,7 @@ Core requires BIOS files to work.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a1000<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a600<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a500<br>
-**Fullscreen Parameter:** -window (will load in windowed mode)<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br><br>
 
 a3000: Amiga 3000<br>
 a2000: Amiga 2000<br>
@@ -977,7 +1031,8 @@ aXXXXn: Represents a specific Amiga model configured specifically to not include
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Commodore Amiga CD32
 
@@ -1006,7 +1061,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1019,7 +1075,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## FM Towns / FM-Towns
 
@@ -1046,7 +1103,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will mount it in a virtual drive. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-This emulator require BIOs and system files to work. These files need to be inside the roms folder.
+This emulator require BIOs and system files to work. These files need to be inside the roms folder.<br>
+You can download this emulator on the [Official Website](https://github.com/captainys/TOWNSEMU/releases).<br>
 
 ## LaserDisk
 
@@ -1072,7 +1130,8 @@ This emulator require BIOs and system files to work. These files need to be insi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You need to create BAT files to launch the games.
+You need to create BAT files to launch the games.<br>
+You can download this emulator on the [Official Website](http://www.daphne-emu.com/site3/index_hi.php).<br>
 
 .
 
@@ -1082,7 +1141,8 @@ You need to create BAT files to launch the games.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You need to create BAT files to launch the games.
+You need to create BAT files to launch the games.<br>
+You can download this emulator on the [Official Website](https://github.com/DirtBagXon/hypseus-singe).<br>
 
 ## Magnavox Odyssey 2
 
@@ -1111,7 +1171,8 @@ You need to create BAT files to launch the games.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/o2em/).<br>
-Core require BIOS files to work.
+Core require BIOS files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1121,6 +1182,7 @@ Core require BIOS files to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://o2em.sourceforge.net/).<br>
 
 ## Mattel Aquarius
 
@@ -1149,7 +1211,8 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Mattel Intellivision
 
@@ -1178,7 +1241,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/freeintv/).<br>
-Core requires BIOS files to work.
+Core requires BIOS files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1191,7 +1255,8 @@ Core requires BIOS files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Microsoft DOS
 
@@ -1217,6 +1282,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.dosbox.com/download.php?main=1).<br>
 
 .
 
@@ -1226,6 +1292,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.dosbox-staging.org/releases/windows/).<br>
 
 .
 
@@ -1237,7 +1304,8 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox_pure/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox_pure/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1247,6 +1315,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://dosbox-x.com/).<br>
 
 .
 
@@ -1258,7 +1327,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Microsoft MSX
 
@@ -1287,7 +1357,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can find a list of parameters for this emulator on [OpenMSX Website](https://openmsx.org/manual/commands.html).
+You can find a list of parameters for this emulator on [OpenMSX Website](https://openmsx.org/manual/commands.html).<br>
+You can download this emulator on the [Official Website](https://openmsx.org/).<br>
 
 .
 
@@ -1296,7 +1367,8 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](http://cngsoft.no-ip.org/cpcec.htm).<br>
 
 .
 
@@ -1307,7 +1379,8 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -1320,7 +1393,8 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/bluemsx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1333,7 +1407,9 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
 
 .
 
@@ -1346,7 +1422,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Microsoft MSX2
 
