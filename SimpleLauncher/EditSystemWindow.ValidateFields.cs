@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.Win32;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SanitizeInputString;
@@ -32,13 +33,40 @@ internal partial class EditSystemWindow
     private void SetTextBoxForeground(Control textBox, bool isValid)
     {
         var baseTheme = _settings.BaseTheme;
-        if (baseTheme == "Dark")
+        var actualTheme = baseTheme;
+
+        // Resolve "Adaptive" to actual theme based on system setting
+        if (baseTheme == "Adaptive")
+        {
+            actualTheme = IsSystemDarkMode() ? "Dark" : "Light";
+        }
+
+        if (actualTheme is "Dark" or "HighContrast" or "Midnight")
         {
             textBox.Foreground = isValid ? Brushes.White : Brushes.Red;
         }
         else
         {
             textBox.Foreground = isValid ? Brushes.Black : Brushes.Red;
+        }
+    }
+
+    private static bool IsSystemDarkMode()
+    {
+        const string keyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+        const string valueName = "AppsUseLightTheme";
+
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(keyPath);
+            var value = key?.GetValue(valueName);
+            // 0 = Dark mode, 1 = Light mode
+            return value is 0;
+        }
+        catch
+        {
+            // Default to light mode if registry access fails
+            return false;
         }
     }
 
