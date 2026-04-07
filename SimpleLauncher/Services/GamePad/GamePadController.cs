@@ -618,8 +618,8 @@ public class GamePadController : IDisposable
         var normalizedX = Math.Max(-1, thumbX / MaxThumbValue);
         var normalizedY = Math.Max(-1, thumbY / MaxThumbValue);
 
-        var resultX = Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX));
-        var resultY = Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY));
+        var resultX = Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * Math.Sign(normalizedX);
+        var resultY = Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * Math.Sign(normalizedY);
 
         // Always apply base scaling, then additional scaling based on the deadzone
         resultX *= XInputScalingFactor;
