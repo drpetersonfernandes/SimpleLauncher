@@ -2024,21 +2024,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    // internal static void FolderCreatedMessageBox(string systemNameText)
-    // {
-    //     Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-    //     return;
-    //
-    //     void ShowMessage()
-    //     {
-    //         var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
-    //         var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
-    //         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-    //         MessageBox.Show($"{simpleLaunchercreatedaimagefolder} '.\\images\\{systemNameText}'.\n\n" +
-    //                         $"{youmayplacethecoverimagesforthissystem}\n\n", info, MessageBoxButton.OK, MessageBoxImage.Information);
-    //     }
-    // }
-
     internal static void FolderCreationFailedMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

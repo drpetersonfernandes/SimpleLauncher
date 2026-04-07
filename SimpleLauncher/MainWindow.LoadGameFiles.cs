@@ -254,7 +254,6 @@ public partial class MainWindow
 
                     if (allFiles.Count == 0)
                     {
-                        // await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoFavoriteFoundMessageBox());
                         // ignore
                     }
 
