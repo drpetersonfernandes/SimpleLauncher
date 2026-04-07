@@ -8,25 +8,27 @@
 - We expanded the CHD support for **Mednafen**, **PCSX-Redux**, **4DO**, **Gens**, **Blastem**, **Yabause**, **Mesen**, **FinalBurn Neo**, **FinalBurn Alpha**, **Raine**, **CD-i Emulator**, **Tsugaru** that unfortunately lack native support for CHD format.
 - Simple Launcher grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
 
-| Emulator        | CHD Support |
-|-----------------|-------------|
-| RPCS3           | Added       |
-| Xemu            | Added       |
-| Xenia           | Added       |
-| Cxbx-Reloaded   | Added       |
-| Mednafen        | Added       |
-| PCSX-Redux      | Added       |
-| 4DO             | Added       |
-| Gens            | Added       |
-| Blastem         | Added       |
-| Yabause         | Added       |
-| Mesen           | Added       |
-| FinalBurn Neo   | Added       |
-| FinalBurn Alpha | Added       |
-| Raine           | Added       |
-| CD-i Emulator   | Added       |
-| Tsugaru         | Added       |
-  
+| Emulator         | CHD Support |
+|------------------|-------------|
+| RPCS3            | Added       |
+| Xemu             | Added       |
+| Xenia            | Added       |
+| Cxbx-Reloaded    | Added       |
+| Mednafen         | Added       |
+| PCSX-Redux       | Added       |
+| 4DO              | Added       |
+| Gens             | Added       |
+| Blastem          | Added       |
+| Yabause          | Added       |
+| Mesen            | Added       |
+| FinalBurn Neo    | Added       |
+| FinalBurn Alpha  | Added       |
+| Raine            | Added       |
+| CD-i Emulator *¹ | Added       |
+| Tsugaru          | Added       |
+
+*¹ This emulator has official support for CHD, but it does not work! 'Simple Launcher' will fix that for you.
+
 ### 🏆 RetroAchievements: Welcome to the Wii!
 Achievement hunters, rejoice! We have overhauled our **RetroAchievements** definitions to stay in sync with the latest developments in the RA community. 
 - **Wii Support is here!** We’ve updated our system matching and hashing logic to fully support the **Nintendo Wii**, which recently received official RetroAchievements support.

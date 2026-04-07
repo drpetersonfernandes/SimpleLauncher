@@ -98,7 +98,7 @@ public static class RetroAchievementsSystemMatcher
         ["vectrex"] = new RaSystemInfo(46, ["vectrex"]),
         ["pc-fx"] = new RaSystemInfo(49, ["pc-fx", "pcfx"]),
         ["wonderswan"] = new RaSystemInfo(53, ["wonderswan", "wonderswan color", "BANDAI WonderSwan", "Bandai WonderSwan Color"]),
-        ["neo geo cd"] = new RaSystemInfo(56, ["neo geo cd", "neogeo cd", "neo geo compact disc"]),
+        ["neo geo cd"] = new RaSystemInfo(56, ["neo geo cd", "neogeo cd", "neo geo compact disc", "SNK Neo Geo CD"]),
         ["watara supervision"] = new RaSystemInfo(63, ["watara supervision", "supervision"]),
         ["mega duck"] = new RaSystemInfo(69, ["mega duck", "creativision"]),
         ["arduboy"] = new RaSystemInfo(71, ["arduboy"]),
