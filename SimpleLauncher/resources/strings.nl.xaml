@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Cemu-configuratie opgeslagen.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Cemu-emulator niet gevonden. Zoek 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">Cemu Instellingen</system:String>
-    <system:String x:Key="ChangingBaseTheme">Basisthema wijzigen...</system:String>
     <system:String x:Key="ChangingLanguage">Taal wijzigen...</system:String>
     <system:String x:Key="ChangingViewMode">Weergavemodus wijzigen...</system:String>
     <system:String x:Key="CheckFilePermissions">Controleer de bestandsmachtigingen en zorg ervoor dat het bestand niet vergrendeld is.</system:String>
@@ -1586,7 +1585,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' kon het bestand 'mame.dat' niet laden of het bestand is beschadigd.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' kon het geselecteerde spel niet koppelen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' kon de downloadlink niet openen.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' ondersteunt geen RetroAchievements-hash van systemen gegroepeerd op map.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' ondersteunt de huidige processorarchitectuur niet. We ondersteunen alleen 64-bit (x64) of ARM64. De applicatie wordt nu gesloten.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher-fout</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="ToDatePickerTooltip">Selecteer einddatum</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Om een bestand uit te pakken, moet het een 7z-, zip- of rar-bestand zijn.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Beeldverhouding knop wisselen</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Lichte/donkere modus wisselen</system:String>
     <system:String x:Key="ToggleViewMode">Weergavemodus wisselen</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Knopverhouding wisselen...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Fuzzy matching wisselen...</system:String>
@@ -2092,7 +2089,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">U kunt ondersteuning krijgen van meerdere AI-aanbieders of van de ontwikkelaar. Kies hieronder.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">U kunt dit foutbericht uitschakelen in de expertmodus.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">U moet RetroAchievement-inloggegevens toevoegen om deze functie te gebruiken.</system:String>
     <system:String x:Key="YourRankAndScore">Uw Rang en Score</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>

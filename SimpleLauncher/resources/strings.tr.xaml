@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Cemu yapılandırması kaydedildi.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Cemu emülatörü bulunamadı. Lütfen 'Cemu.exe' dosyasını bulun.</system:String>
     <system:String x:Key="CemuSettings">Cemu Ayarları</system:String>
-    <system:String x:Key="ChangingBaseTheme">Temel Tema Değiştiriliyor...</system:String>
     <system:String x:Key="ChangingLanguage">Dil değiştiriliyor...</system:String>
     <system:String x:Key="ChangingViewMode">Görünüm modu değiştiriliyor...</system:String>
     <system:String x:Key="CheckFilePermissions">Lütfen dosya izinlerini kontrol edin ve dosyanın kilitli olmadığından emin olun.</system:String>
@@ -1587,7 +1586,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' seçilen oyunu bağlayamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' indirme bağlantısını açamadı.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher', Klasöre Göre Gruplandırılmış Sistemlerin RetroAchievements karmasını desteklemiyor.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' mevcut işlemci mimarisini desteklemiyor. Yalnızca 64-bit (x64) veya ARM64 destekliyoruz. Uygulama şimdi kapanacak.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Hatası</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="ToDatePickerTooltip">Bitiş tarihini seçin</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Bir dosyanın çıkarılabilmesi için 7z, zip veya rar formatında olması gerekir.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Buton en-boy oranını değiştir</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Açık/Koyu Modu Değiştir</system:String>
     <system:String x:Key="ToggleViewMode">Görünüm modunu değiştir</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Düğme en boy oranı değiştiriliyor...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Bulanık eşleştirme değiştiriliyor...</system:String>
@@ -2093,7 +2090,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Birden fazla yapay zeka sağlayıcısından veya geliştiriciden destek alabilirsiniz. Aşağıdan seçin.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bu hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Bu özelliği kullanmak için RetroAchievement giriş bilgilerini eklemeniz gerekiyor.</system:String>
     <system:String x:Key="YourRankAndScore">Sıralamanız ve Puanınız</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>

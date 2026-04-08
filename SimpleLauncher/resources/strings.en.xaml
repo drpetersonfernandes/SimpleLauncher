@@ -4,6 +4,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+
+
     <system:String x:Key="FailedToSaveSettings">Failed to save settings. Please check that the application folder is writable and not locked by another process.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">The Xemu parameter should contain '-dvd_path'.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' cannot run from a temporary folder.</system:String>
@@ -257,7 +259,6 @@
     <system:String x:Key="CemuConfigurationSaved">Cemu configuration saved.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Cemu emulator not found. Please locate 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">Cemu Settings</system:String>
-    <system:String x:Key="ChangingBaseTheme">Changing Base Theme...</system:String>
     <system:String x:Key="ChangingLanguage">Changing language...</system:String>
     <system:String x:Key="ChangingViewMode">Changing view mode...</system:String>
     <system:String x:Key="CheckFilePermissions">Please check file permissions and ensure the file is not locked.</system:String>
@@ -979,6 +980,7 @@
     <system:String x:Key="Noupdateavailable">No update available</system:String>
     <system:String x:Key="NoUserProgress">Could not load user completion progress.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">No valid systems found in the file 'helpuser.xml'.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">No valid systems found in the file 'parameters.md'.</system:String>
     <system:String x:Key="NumberOfImages">Number of images in the System Image Folder: {0}</system:String>
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olive</system:String>
@@ -1589,7 +1591,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' could not mount the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' could not open the download link.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.</system:String>
     <system:String x:Key="SimpleLauncherError">'Simple Launcher' Error</system:String>
@@ -1739,6 +1740,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">The file 'parameters.md' is empty.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">The file 'parameters.md' is missing.</system:String>
     <system:String x:Key="Thefilepathisinvalid">The filepath is invalid or the file does not exist!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">The file 'system.xml' is badly corrupted.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">The file 'system.xml' is locked or inaccessible by another process.</system:String>
@@ -1807,7 +1810,6 @@
     <system:String x:Key="ToDatePickerTooltip">Select end date</system:String>
     <system:String x:Key="Toextractafileitneedstobe">To extract a file, it needs to be a 7z, zip, or rar file.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Toggle Button Aspect Ratio</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Toggle Light Dark Mode</system:String>
     <system:String x:Key="ToggleViewMode">Toggle View Mode</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Toggling button aspect ratio...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Toggling fuzzy matching...</system:String>
@@ -1974,11 +1976,13 @@
     <system:String x:Key="TruePointsEarned">True Points Earned</system:String>
     <system:String x:Key="UnabletoDismountISOfile">Unable to dismount ISO file due to PowerShell execution policy restrictions.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Unable to load 'helpuser.xml'. The file may be corrupted.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">Unable to load 'parameters.md'. The file may be corrupted or in use.</system:String>
     <system:String x:Key="UnableToLoadImage">Unable to load image</system:String>
     <system:String x:Key="UnabletomountISOfile">Unable to mount ISO file due to PowerShell execution policy restrictions.</system:String>
     <system:String x:Key="Unabletoopenthelink">Unable to open the link.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">Unable to scan Microsoft Store games due to PowerShell execution policy restrictions.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Unexpected error while loading 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">Unexpected error while loading 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">Unknown</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Unknown Favorite Status</system:String>
     <system:String x:Key="UnknownString">Unknown</system:String>
@@ -2095,7 +2099,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">You can receive support from multiple AI providers or from the developer. Choose below.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">You can turn off this error message in Expert mode.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">You need to add RetroAchievement login information to use this feature.</system:String>
     <system:String x:Key="YourRankAndScore">Your Rank and Score</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>

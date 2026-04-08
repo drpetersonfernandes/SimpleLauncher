@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Cemuの設定が保存されました。</system:String>
     <system:String x:Key="Cemuemulatornotfound">Cemuエミュレータが見つかりません。'Cemu.exe'の場所を指定してください。</system:String>
     <system:String x:Key="CemuSettings">Cemu 設定</system:String>
-    <system:String x:Key="ChangingBaseTheme">基本テーマを変更中...</system:String>
     <system:String x:Key="ChangingLanguage">言語を変更しています...</system:String>
     <system:String x:Key="ChangingViewMode">表示モードを変更しています...</system:String>
     <system:String x:Key="CheckFilePermissions">ファイルの権限を確認し、ファイルがロックされていないことを確認してください。</system:String>
@@ -1586,7 +1585,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'は'mame.dat'ファイルを読み込めないか、ファイルが破損しています。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">「Simple Launcher」は選択されたゲームをマウントできませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">「Simple Launcher」はダウンロードリンクを開くことができませんでした。</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' はこのシステムのための画像フォルダーを作成しました:</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' は、フォルダでグループ化されたシステムのRetroAchievementsハッシュをサポートしていません。</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' は現在のプロセッサアーキテクチャをサポートしていません。64ビット (x64) または ARM64 のみをサポートしています。アプリケーションは終了します。</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcherエラー</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="ToDatePickerTooltip">終了日を選択</system:String>
     <system:String x:Key="Toextractafileitneedstobe">ファイルを抽出するには、7z、zip、またはrarファイルである必要があります。</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">ボタンのアスペクト比を切り替える</system:String>
-    <system:String x:Key="ToggleLightDarkMode">ライト/ダークモード切り替え</system:String>
     <system:String x:Key="ToggleViewMode">表示モードを切り替える</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">ボタンのアスペクト比を切り替えています...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">ファジーマッチングを切り替えています...</system:String>
@@ -2092,7 +2089,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">複数の AI プロバイダーまたは開発者からサポートを受けられます。以下から選択してください。</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">エキスパートモードでこのエラーメッセージをオフにすることができます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">この機能を使用するには、RetroAchievement のログインデータを追加する必要があります。</system:String>
     <system:String x:Key="YourRankAndScore">あなたのランクとスコア</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>

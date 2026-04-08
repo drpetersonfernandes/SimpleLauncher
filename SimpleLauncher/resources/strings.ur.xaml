@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Cemu کنفیگریشن محفوظ ہو گئی۔</system:String>
     <system:String x:Key="Cemuemulatornotfound">Cemu ایمولیٹر نہیں ملا۔ براہ کرم 'Cemu.exe' تلاش کریں۔</system:String>
     <system:String x:Key="CemuSettings">Cemu ترتیبات</system:String>
-    <system:String x:Key="ChangingBaseTheme">بنیادی تھیم تبدیل کی جا رہی ہے...</system:String>
     <system:String x:Key="ChangingLanguage">زبان تبدیل کر رہا ہے...</system:String>
     <system:String x:Key="ChangingViewMode">ویو موڈ تبدیل کر رہا ہے...</system:String>
     <system:String x:Key="CheckFilePermissions">براہ کرم فائل اجازت نامے چیک کریں اور یقینی بنائیں کہ فائل لاک نہیں ہے۔</system:String>
@@ -1586,7 +1585,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' فائل 'mame.dat' کو لوڈ نہیں کر سکا یا یہ خراب ہے۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'سادہ لانچر' منتخب کردہ گیم کو ماؤنٹ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' ڈاؤن لوڈ لنک نہیں کھول سکا۔</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' نے اس نظام کے لیے تصاویر کا ایک فولڈر بنایا ہے:۔</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'سادہ لانچر' فولڈر کے لحاظ سے گروپ کردہ سسٹمز کے RetroAchievements ہیش کو سپورٹ نہیں کرتا ہے۔</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'سادہ لانچر' موجودہ پروسیسر آرکیٹیکچر کو سپورٹ نہیں کرتا ہے۔ ہم صرف 64-بٹ (x64) یا ARM64 کو سپورٹ کرتے ہیں۔ ایپلیکیشن اب بند ہو جائے گی۔</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher خرابی</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="ToDatePickerTooltip">اختتامی تاریخ منتخب کریں</system:String>
     <system:String x:Key="Toextractafileitneedstobe">کسی فائل کی ایکسٹریکشن کیلئے اسے 7z, zip یا rar ہونا چاہئے۔</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">بٹن کا تناسب تبدیل کریں</system:String>
-    <system:String x:Key="ToggleLightDarkMode">لائٹ/ڈارک موڈ تبدیل کریں</system:String>
     <system:String x:Key="ToggleViewMode">دیکھنے کا موڈ تبدیل کریں</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">بٹن کے پہلو کا تناسب ٹوگل کر رہا ہے...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">فزی میچنگ ٹوگل کر رہا ہے...</system:String>
@@ -2092,7 +2089,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">آپ متعدد AI فراہم کنندگان یا ڈویلپر سے سپورٹ حاصل کر سکتے ہیں۔ نیچے منتخب کریں۔</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">آپ ماہر موڈ میں اس غلطی کا پیغام بند کر سکتے ہیں۔</system:String>
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">اس خصوصیت کو استعمال کرنے کے لیے RetroAchievement لاگ ان کی معلومات شامل کریں۔</system:String>
     <system:String x:Key="YourRankAndScore">آپ کا رینک اور سکور</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>

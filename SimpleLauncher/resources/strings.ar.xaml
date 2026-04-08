@@ -265,7 +265,6 @@
     <system:String x:Key="CemuConfigurationSaved">تم حفظ تكوين Cemu.</system:String>
     <system:String x:Key="Cemuemulatornotfound">لم يتم العثور على محاكي Cemu. يرجى تحديد موقع 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">إعدادات Cemu</system:String>
-    <system:String x:Key="ChangingBaseTheme">جاري تغيير السمة الأساسية...</system:String>
     <system:String x:Key="ChangingLanguage">تغيير اللغة...</system:String>
     <system:String x:Key="ChangingViewMode">تغيير وضع العرض...</system:String>
     <system:String x:Key="CheckFilePermissions">يرجى التحقق من أذونات الملف والتأكد من أن الملف غير مقفل.</system:String>
@@ -1587,7 +1586,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">لم يتمكن "Simple Launcher" من تحميل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' لا يدعم تجزئة RetroAchievements للأنظمة المجمعة حسب المجلد.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' لا يدعم بنية المعالج الحالية. نحن ندعم فقط 64-بت (x64) أو ARM64. سيتم إغلاق التطبيق الآن.</system:String>
     <system:String x:Key="SimpleLauncherError">خطأ في Simple Launcher</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="ToDatePickerTooltip">تحديد تاريخ الانتهاء</system:String>
     <system:String x:Key="Toextractafileitneedstobe">لاستخراج الملفات، يجب أن تكون بتنسيق 7z أو zip أو rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">تبديل نسبة الأبعاد للزر</system:String>
-    <system:String x:Key="ToggleLightDarkMode">تبديل الوضع الفاتح/المظلم</system:String>
     <system:String x:Key="ToggleViewMode">تبديل وضع العرض</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">تبديل نسبة أبعاد الزر...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">تبديل المطابقة الضبابية...</system:String>
@@ -2093,7 +2090,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">يمكنك الحصول على دعم من عدة مزودي ذكاء اصطناعي أو من المطور. اختر أدناه.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">يمكنك إيقاف رسالة الخطأ هذه في وضع الخبير.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">يجب إضافة معلومات تسجيل الدخول إلى RetroAchievement لاستخدام هذه الميزة.</system:String>
     <system:String x:Key="YourRankAndScore">ترتيبك ونقاطك</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>

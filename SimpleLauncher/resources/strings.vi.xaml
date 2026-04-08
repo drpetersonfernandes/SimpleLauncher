@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Đã lưu cấu hình Cemu.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Không tìm thấy trình giả lập Cemu. Vui lòng xác định vị trí 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">Cài đặt Cemu</system:String>
-    <system:String x:Key="ChangingBaseTheme">Đang thay đổi chủ đề cơ bản...</system:String>
     <system:String x:Key="ChangingLanguage">Đang thay đổi ngôn ngữ...</system:String>
     <system:String x:Key="ChangingViewMode">Đang thay đổi chế độ xem...</system:String>
     <system:String x:Key="CheckFilePermissions">Vui lòng kiểm tra quyền truy cập tệp và đảm bảo tệp không bị khóa.</system:String>
@@ -1587,7 +1586,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' không thể tải tệp 'mame.dat' hoặc tệp đã bị hỏng.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' không thể gắn kết trò chơi đã chọn.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' không thể mở liên kết tải xuống.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' đã tạo một thư mục ảnh cho hệ thống này tại:</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' không hỗ trợ băm RetroAchievements của các hệ thống được Nhóm theo Thư mục.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' không hỗ trợ kiến trúc bộ xử lý hiện tại. Chúng tôi chỉ hỗ trợ 64-bit (x64) hoặc ARM64. Ứng dụng sẽ đóng ngay bây giờ.</system:String>
     <system:String x:Key="SimpleLauncherError">Lỗi Simple Launcher</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="ToDatePickerTooltip">Chọn ngày kết thúc</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Để trích xuất tệp, tệp phải là 7z, zip hoặc rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Chuyển đổi tỷ lệ nút</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Chuyển đổi chế độ sáng/tối</system:String>
     <system:String x:Key="ToggleViewMode">Chuyển chế độ xem</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Đang bật/tắt tỷ lệ khung hình nút...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Đang bật/tắt khớp mờ...</system:String>
@@ -2093,7 +2090,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Bạn có thể nhận hỗ trợ từ nhiều nhà cung cấp AI hoặc từ nhà phát triển. Chọn bên dưới.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bạn có thể tắt thông báo lỗi này trong chế độ Chuyên gia.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Bạn cần thêm thông tin đăng nhập RetroAchievement để sử dụng tính năng này.</system:String>
     <system:String x:Key="YourRankAndScore">Hạng và Điểm của bạn</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>

@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Cemu 설정이 저장되었습니다.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Cemu 에뮬레이터를 찾을 수 없습니다. 'Cemu.exe'를 찾아주세요.</system:String>
     <system:String x:Key="CemuSettings">Cemu 설정</system:String>
-    <system:String x:Key="ChangingBaseTheme">기본 테마 변경 중...</system:String>
     <system:String x:Key="ChangingLanguage">언어 변경 중...</system:String>
     <system:String x:Key="ChangingViewMode">보기 모드 변경 중...</system:String>
     <system:String x:Key="CheckFilePermissions">파일 권한을 확인하고 파일이 잠겨 있지 않은지 확인하세요.</system:String>
@@ -1587,7 +1586,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'가 'mame.dat' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher'가 선택한 게임을 마운트할 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher'가 다운로드 링크를 열 수 없습니다.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher'가 이 시스템을 위한 이미지 폴더를 생성했습니다:</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher'는 폴더별로 그룹화된 시스템의 RetroAchievements 해시를 지원하지 않습니다.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher'는 현재 프로세서 아키텍처를 지원하지 않습니다. 64비트(x64) 또는 ARM64만 지원합니다. 애플리케이션이 이제 종료됩니다.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher 오류</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="ToDatePickerTooltip">종료 날짜 선택</system:String>
     <system:String x:Key="Toextractafileitneedstobe">파일을 추출하려면 해당 파일이 7z, zip, 또는 rar 형식이어야 합니다.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">버튼 종횡비 전환</system:String>
-    <system:String x:Key="ToggleLightDarkMode">라이트/다크 모드 전환</system:String>
     <system:String x:Key="ToggleViewMode">보기 모드 전환</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">버튼 종횡비 전환 중...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">퍼지 매칭 전환 중...</system:String>
@@ -2093,7 +2090,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">여러 AI 제공업체 또는 개발자로부터 지원을 받을 수 있습니다. 아래에서 선택하세요.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">전문가 모드에서 이 오류 메시지를 끌 수 있습니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">이 기능을 사용하려면 RetroAchievement 로그인 정보를 추가해야 합니다.</system:String>
     <system:String x:Key="YourRankAndScore">당신의 순위와 점수</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>

@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Configurazione di Cemu salvata.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Emulatore Cemu non trovato. Per favore, individua 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">Impostazioni Cemu</system:String>
-    <system:String x:Key="ChangingBaseTheme">Modifica del tema di base...</system:String>
     <system:String x:Key="ChangingLanguage">Cambio lingua...</system:String>
     <system:String x:Key="ChangingViewMode">Cambio modalità di visualizzazione...</system:String>
     <system:String x:Key="CheckFilePermissions">Controlla i permessi del file e assicurati che il file non sia bloccato.</system:String>
@@ -1587,7 +1586,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' non è riuscito a caricare il file 'mame.dat' o il file è danneggiato.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" non è riuscito a montare il gioco selezionato.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' non è riuscito ad aprire il link di download.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ha creato una cartella immagini per questo sistema in</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' non supporta l'hash RetroAchievements dei sistemi raggruppati per cartella.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' non supporta l'architettura del processore attuale. Supportiamo solo 64-bit (x64) o ARM64. L'applicazione si chiuderà ora.</system:String>
     <system:String x:Key="SimpleLauncherError">Errore di Simple Launcher</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="ToDatePickerTooltip">Seleziona la data di fine</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Per estrarre un file, deve essere un file 7z, zip o rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Cambia proporzioni del pulsante</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Attiva/disattiva modalità chiara/scura</system:String>
     <system:String x:Key="ToggleViewMode">Cambia modalità di visualizzazione</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Attivazione/disattivazione rapporto d'aspetto pulsante...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Attivazione/disattivazione fuzzy matching...</system:String>
@@ -2093,7 +2090,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Puoi ricevere supporto da più fornitori di IA o dallo sviluppatore. Scegli qui sotto.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Puoi disattivare questo messaggio di errore in modalità Esperto.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puoi utilizzare gli operatori logici AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puoi posizionare le immagini di copertina per questo sistema all'interno di questa cartella.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Devi aggiungere le informazioni di login RetroAchievement per utilizzare questa funzione.</system:String>
     <system:String x:Key="YourRankAndScore">Il tuo Rango e Punteggio</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>

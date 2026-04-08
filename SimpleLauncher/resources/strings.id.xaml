@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Konfigurasi Cemu disimpan.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Emulator Cemu tidak ditemukan. Harap temukan 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">Pengaturan Cemu</system:String>
-    <system:String x:Key="ChangingBaseTheme">Mengubah Tema Dasar...</system:String>
     <system:String x:Key="ChangingLanguage">Mengubah bahasa...</system:String>
     <system:String x:Key="ChangingViewMode">Mengubah mode tampilan...</system:String>
     <system:String x:Key="CheckFilePermissions">Harap periksa izin file dan pastikan file tidak terkunci.</system:String>
@@ -1586,7 +1585,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' tidak dapat memasang game yang dipilih.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' tidak dapat membuka tautan unduhan.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' tidak mendukung hash RetroAchievements dari sistem yang Dikelompokkan berdasarkan Folder.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' tidak mendukung arsitektur prosesor saat ini. Kami hanya mendukung 64-bit (x64) atau ARM64. Aplikasi akan ditutup sekarang.</system:String>
     <system:String x:Key="SimpleLauncherError">Kesalahan Simple Launcher</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="ToDatePickerTooltip">Pilih tanggal akhir</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Untuk mengekstrak file, file tersebut harus berupa file 7z, zip, atau rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Ubah Rasio Aspek Tombol</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Alihkan Mode Terang/Gelap</system:String>
     <system:String x:Key="ToggleViewMode">Ganti Mode Tampilan</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Mengaktifkan/menonaktifkan rasio aspek tombol...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Mengaktifkan/menonaktifkan fuzzy matching...</system:String>
@@ -2092,7 +2089,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Anda dapat menerima dukungan dari beberapa penyedia AI atau dari pengembang. Pilih di bawah ini.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Anda dapat mematikan pesan kesalahan ini dalam mode Ahli.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Anda perlu menambahkan informasi login RetroAchievement untuk menggunakan fitur ini.</system:String>
     <system:String x:Key="YourRankAndScore">Peringkat dan Skor Anda</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>

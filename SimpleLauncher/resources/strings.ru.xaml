@@ -264,7 +264,6 @@
     <system:String x:Key="CemuConfigurationSaved">Конфигурация Cemu сохранена.</system:String>
     <system:String x:Key="Cemuemulatornotfound">Эмулятор Cemu не найден. Пожалуйста, найдите 'Cemu.exe'.</system:String>
     <system:String x:Key="CemuSettings">Настройки Cemu</system:String>
-    <system:String x:Key="ChangingBaseTheme">Изменение базовой темы...</system:String>
     <system:String x:Key="ChangingLanguage">Изменение языка...</system:String>
     <system:String x:Key="ChangingViewMode">Изменение режима просмотра...</system:String>
     <system:String x:Key="CheckFilePermissions">Пожалуйста, проверьте разрешения файла и убедитесь, что файл не заблокирован.</system:String>
@@ -1586,7 +1585,6 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' не может загрузить файл 'mame.dat' или файл поврежден.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotmount">«Simple Launcher» не смог смонтировать выбранную игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' не смог открыть ссылку для загрузки.</system:String>
-    <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' не поддерживает хэш RetroAchievements для систем, сгруппированных по папкам.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' не поддерживает текущую архитектуру процессора. Мы поддерживаем только 64-битную (x64) или ARM64. Приложение будет закрыто.</system:String>
     <system:String x:Key="SimpleLauncherError">Ошибка Simple Launcher</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="ToDatePickerTooltip">Выбрать конечную дату</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Чтобы извлечь файл, он должен быть формата 7z, zip или rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Переключить соотношение сторон кнопки</system:String>
-    <system:String x:Key="ToggleLightDarkMode">Переключить светлую/тёмную тему</system:String>
     <system:String x:Key="ToggleViewMode">Переключить режим просмотра</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Переключение соотношения сторон кнопки...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Переключение нечеткого поиска...</system:String>
@@ -2092,7 +2089,6 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Вы можете получить поддержку от нескольких поставщиков ИИ или от разработчика. Выберите ниже.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Вы можете отключить это сообщение об ошибке в режиме Эксперта.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Чтобы использовать эту функцию, добавьте информацию для входа в RetroAchievement.</system:String>
     <system:String x:Key="YourRankAndScore">Ваш ранг и счет</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
