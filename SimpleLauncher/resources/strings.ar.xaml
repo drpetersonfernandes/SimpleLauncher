@@ -986,6 +986,7 @@
     <system:String x:Key="Noupdateavailable">لا يوجد تحديث</system:String>
     <system:String x:Key="NoUserProgress">تعذر تحميل تقدم إكمال المستخدم.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">لم يتم العثور على أنظمة صالحة في ملف 'helpuser.xml'.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">لم يتم العثور على أنظمة صالحة في ملف 'parameters.md'.</system:String>
     <system:String x:Key="NumberOfImages">عدد الصور في مجلد الصور للنظام: {0}</system:String>
     <system:String x:Key="OkButtonText">موافق</system:String>
     <system:String x:Key="Olive">زيتي</system:String>
@@ -1735,6 +1736,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">تمت إزالة الملف من القائمة.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">ملف 'helpuser.xml' مفقود.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">ملف 'parameters.md' فارغ.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">ملف 'parameters.md' مفقود.</system:String>
     <system:String x:Key="Thefilepathisinvalid">مسار الملف غير صالح أو الملف غير موجود!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">الملف 'system.xml' تالف بشدة.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">الملف 'system.xml' مقفل أو غير قابل للوصول بواسطة عملية أخرى.</system:String>
@@ -1969,11 +1972,13 @@
     <system:String x:Key="TruePointsEarned">النقاط الحقيقية المكتسبة</system:String>
     <system:String x:Key="UnabletoDismountISOfile">تعذر إلغاء تحميل ملف ISO بسبب قيود سياسة تنفيذ PowerShell.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">غير قادر على تحميل 'helpuser.xml'. قد يكون الملف تالفًا.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">غير قادر على تحميل 'parameters.md'. قد يكون الملف تالفًا أو قيد الاستخدام.</system:String>
     <system:String x:Key="UnableToLoadImage">غير قادر على تحميل الصورة</system:String>
     <system:String x:Key="UnabletomountISOfile">تعذر تحميل ملف ISO بسبب قيود سياسة تنفيذ PowerShell.</system:String>
     <system:String x:Key="Unabletoopenthelink">غير قادر على فتح الرابط.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">تعذر مسح ألعاب متجر Microsoft بسبب قيود سياسة تنفيذ PowerShell.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">خطأ غير متوقع أثناء تحميل 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">خطأ غير متوقع أثناء تحميل 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">غير معروف</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">حالة مفضل غير معروفة</system:String>
     <system:String x:Key="UnknownString">غير معروف</system:String>

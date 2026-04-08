@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">कोई अपडेट उपलब्ध नहीं</system:String>
     <system:String x:Key="NoUserProgress">उपयोगकर्ता की पूर्णता प्रगति लोड नहीं की जा सकी।</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' फाइल में कोई वैध सिस्टम नहीं मिला।</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">'parameters.md' फाइल में कोई वैध सिस्टम नहीं मिला।</system:String>
     <system:String x:Key="NumberOfImages">सिस्टम छवि फ़ोल्डर में छवियों की संख्या: {0}</system:String>
     <system:String x:Key="OkButtonText">ठीक है</system:String>
     <system:String x:Key="Olive">जैतून</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">फ़ाइल को सूची से हटा दिया गया है।</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' फाइल गायब है।</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">एप्लिकेशन फ़ोल्डर में 'mame.dat' फ़ाइल नहीं मिली।</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">'parameters.md' फाइल खाली है।</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">'parameters.md' फाइल गायब है।</system:String>
     <system:String x:Key="Thefilepathisinvalid">फ़ाइलपाथ अमान्य है या फ़ाइल मौजूद नहीं है!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' फाइल गंभीर रूप से भ्रष्ट है।</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">फ़ाइल 'system.xml' लॉक है या किसी अन्य प्रक्रिया द्वारा दुर्गम है।</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">वास्तविक अर्जित अंक</system:String>
     <system:String x:Key="UnabletoDismountISOfile">PowerShell निष्पादन नीति प्रतिबंधों के कारण ISO फ़ाइल को अनमाउंट करने में असमर्थ।</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' को लोड करने में अक्षम। फाइल शायद क्षतिग्रस्त हो सकती है।</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">'parameters.md' को लोड करने में अक्षम। फाइल शायद क्षतिग्रस्त हो सकती है या उपयोग में हो सकती है।</system:String>
     <system:String x:Key="UnableToLoadImage">इमेज लोड करने में असमर्थ</system:String>
     <system:String x:Key="UnabletomountISOfile">PowerShell निष्पादन नीति प्रतिबंधों के कारण ISO फ़ाइल माउंट करने में असमर्थ।</system:String>
     <system:String x:Key="Unabletoopenthelink">लिंक खोलने में असमर्थ।</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">PowerShell निष्पादन नीति प्रतिबंधों के कारण Microsoft Store गेम्स को स्कैन करने में असमर्थ।</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' लोड करते समय अप्रत्याशित त्रुटि।</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">'parameters.md' लोड करते समय अप्रत्याशित त्रुटि।</system:String>
     <system:String x:Key="Unknown">अज्ञात</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">अज्ञात पसंदीदा स्थिति</system:String>
     <system:String x:Key="UnknownString">अज्ञात</system:String>

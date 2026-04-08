@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">Geen update beschikbaar</system:String>
     <system:String x:Key="NoUserProgress">Gebruikersvoortgang kon niet worden geladen.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Geen geldige systemen gevonden in het bestand 'helpuser.xml'.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">Geen geldige systemen gevonden in het bestand 'parameters.md'.</system:String>
     <system:String x:Key="NumberOfImages">Aantal afbeeldingen in de systeemafbeeldingenmap: {0}</system:String>
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olijf</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Het bestand is uit de lijst verwijderd.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Het bestand 'helpuser.xml' ontbreekt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Het bestand 'mame.dat' werd niet gevonden in de applicatiemap.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">Het bestand 'parameters.md' is leeg.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">Het bestand 'parameters.md' ontbreekt.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Het bestandspad is ongeldig of het bestand bestaat niet!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Het bestand 'system.xml' is ernstig beschadigd.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">Het bestand 'system.xml' is vergrendeld of ontoegankelijk door een ander proces.</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">Echte Behaalde Punten</system:String>
     <system:String x:Key="UnabletoDismountISOfile">Kan ISO-bestand niet ontkoppelen vanwege beperkingen in het PowerShell-uitvoeringsbeleid.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Het bestand 'helpuser.xml' kan niet worden geladen. Het bestand kan beschadigd zijn.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">Het bestand 'parameters.md' kan niet worden geladen. Het bestand kan beschadigd zijn of in gebruik.</system:String>
     <system:String x:Key="UnableToLoadImage">Kan afbeelding niet laden</system:String>
     <system:String x:Key="UnabletomountISOfile">Kan ISO-bestand niet koppelen vanwege beperkingen in het PowerShell-uitvoeringsbeleid.</system:String>
     <system:String x:Key="Unabletoopenthelink">Kan de link niet openen.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">Kan Microsoft Store-spellen niet scannen vanwege beperkingen in het PowerShell-uitvoeringsbeleid.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Er is een onverwachte fout opgetreden bij het laden van 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">Er is een onverwachte fout opgetreden bij het laden van 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">Onbekend</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Onbekende Favorietenstatus</system:String>
     <system:String x:Key="UnknownString">Onbekend</system:String>

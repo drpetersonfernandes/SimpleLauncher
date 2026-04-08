@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">Tidak ada pembaruan</system:String>
     <system:String x:Key="NoUserProgress">Tidak dapat memuat kemajuan penyelesaian pengguna.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Tidak ada sistem valid yang ditemukan dalam file 'helpuser.xml'.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">Tidak ada sistem valid yang ditemukan dalam file 'parameters.md'.</system:String>
     <system:String x:Key="NumberOfImages">Jumlah gambar di Folder Gambar Sistem: {0}</system:String>
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Hijau Zaitun</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">File telah dihapus dari daftar.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">File 'helpuser.xml' hilang.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">File 'mame.dat' tidak ditemukan di folder aplikasi.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">File 'parameters.md' kosong.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">File 'parameters.md' hilang.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Jalur file tidak valid atau file tidak ada!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">File 'system.xml' sangat rusak.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">File 'system.xml' terkunci atau tidak dapat diakses oleh proses lain.</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">Poin Sejati Didapatkan</system:String>
     <system:String x:Key="UnabletoDismountISOfile">Tidak dapat melepas file ISO karena batasan kebijakan eksekusi PowerShell.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Tidak dapat memuat 'helpuser.xml'. File tersebut mungkin rusak.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">Tidak dapat memuat 'parameters.md'. File tersebut mungkin rusak atau sedang digunakan.</system:String>
     <system:String x:Key="UnableToLoadImage">Tidak dapat memuat gambar</system:String>
     <system:String x:Key="UnabletomountISOfile">Tidak dapat memasang file ISO karena batasan kebijakan eksekusi PowerShell.</system:String>
     <system:String x:Key="Unabletoopenthelink">Tidak dapat membuka tautan.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">Tidak dapat memindai game Microsoft Store karena batasan kebijakan eksekusi PowerShell.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Kesalahan tak terduga saat memuat 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">Kesalahan tak terduga saat memuat 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">Tidak Diketahui</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Status Favorit Tidak Dikenal</system:String>
     <system:String x:Key="UnknownString">Tidak Diketahui</system:String>

@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">Обновления отсутствуют</system:String>
     <system:String x:Key="NoUserProgress">Не удалось загрузить прогресс выполнения пользователя.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">В файле 'helpuser.xml' не найдено действительных систем.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">В файле 'parameters.md' не найдено действительных систем.</system:String>
     <system:String x:Key="NumberOfImages">Количество изображений в папке изображений системы: {0}</system:String>
     <system:String x:Key="OkButtonText">ОК</system:String>
     <system:String x:Key="Olive">Оливковый</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Файл был удален из списка.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Файл 'helpuser.xml' отсутствует.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Файл 'mame.dat' не найден в папке приложения.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">Файл 'parameters.md' пуст.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">Файл 'parameters.md' отсутствует.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Путь к файлу недействителен или файл не существует!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Файл 'system.xml' серьезно поврежден.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">Файл 'system.xml' заблокирован или недоступен другим процессом.</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">Заработано истинных очков</system:String>
     <system:String x:Key="UnabletoDismountISOfile">Невозможно размонтировать файл ISO из-за ограничений политики выполнения PowerShell.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Не удалось загрузить файл 'helpuser.xml'. Возможно, файл поврежден.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">Не удалось загрузить файл 'parameters.md'. Возможно, файл поврежден или используется.</system:String>
     <system:String x:Key="UnableToLoadImage">Не удалось загрузить изображение</system:String>
     <system:String x:Key="UnabletomountISOfile">Невозможно смонтировать файл ISO из-за ограничений политики выполнения PowerShell.</system:String>
     <system:String x:Key="Unabletoopenthelink">Невозможно открыть ссылку.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">Невозможно сканировать игры Microsoft Store из-за ограничений политики выполнения PowerShell.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Неожиданная ошибка при загрузке файла 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">Неожиданная ошибка при загрузке файла 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">Неизвестно</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Неизвестный статус избранного</system:String>
     <system:String x:Key="UnknownString">Неизвестно</system:String>

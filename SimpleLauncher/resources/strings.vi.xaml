@@ -986,6 +986,7 @@
     <system:String x:Key="Noupdateavailable">Không có bản cập nhật nào</system:String>
     <system:String x:Key="NoUserProgress">Không thể tải tiến độ hoàn thành của người dùng.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Không tìm thấy hệ thống hợp lệ nào trong tệp 'helpuser.xml'.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">Không tìm thấy hệ thống hợp lệ nào trong tệp 'parameters.md'.</system:String>
     <system:String x:Key="NumberOfImages">Số lượng ảnh trong thư mục ảnh của hệ thống: {0}</system:String>
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Ô liu</system:String>
@@ -1735,6 +1736,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Tệp đã được xóa khỏi danh sách.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Tệp 'helpuser.xml' bị thiếu.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Không tìm thấy tệp 'mame.dat' trong thư mục ứng dụng.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">Tệp 'parameters.md' trống.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">Tệp 'parameters.md' bị thiếu.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Đường dẫn tệp không hợp lệ hoặc tệp không tồn tại!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Tệp 'system.xml' bị hỏng nghiêm trọng.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">Tệp 'system.xml' bị khóa hoặc không thể truy cập được bởi một tiến trình khác.</system:String>
@@ -1969,11 +1972,13 @@
     <system:String x:Key="TruePointsEarned">Điểm thực đã đạt</system:String>
     <system:String x:Key="UnabletoDismountISOfile">Không thể ngắt gắn tệp ISO do các hạn chế về chính sách thực thi PowerShell.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Không thể tải tệp 'helpuser.xml'. Tệp có thể bị hỏng.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">Không thể tải tệp 'parameters.md'. Tệp có thể bị hỏng hoặc đang được sử dụng.</system:String>
     <system:String x:Key="UnableToLoadImage">Không thể tải hình ảnh</system:String>
     <system:String x:Key="UnabletomountISOfile">Không thể gắn tệp ISO do các hạn chế về chính sách thực thi PowerShell.</system:String>
     <system:String x:Key="Unabletoopenthelink">Không thể mở liên kết.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">Không thể quét trò chơi Microsoft Store do các hạn chế về chính sách thực thi PowerShell.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Lỗi không mong muốn khi tải tệp 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">Lỗi không mong muốn khi tải tệp 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">Không xác định</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Trạng thái Yêu thích Không xác định</system:String>
     <system:String x:Key="UnknownString">Không xác định</system:String>

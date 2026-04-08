@@ -986,6 +986,7 @@
     <system:String x:Key="Noupdateavailable">Güncelleme mevcut değil</system:String>
     <system:String x:Key="NoUserProgress">Kullanıcı tamamlama ilerlemesi yüklenemedi.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' dosyasında geçerli bir sistem bulunamadı.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">'parameters.md' dosyasında geçerli bir sistem bulunamadı.</system:String>
     <system:String x:Key="NumberOfImages">Sistem görsel klasöründeki görsel sayısı: {0}</system:String>
     <system:String x:Key="OkButtonText">Tamam</system:String>
     <system:String x:Key="Olive">Zeytin Yeşili</system:String>
@@ -1735,6 +1736,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Dosya listeden kaldırıldı.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' dosyası eksik.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">'mame.dat' dosyası uygulama klasöründe bulunamadı.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">'parameters.md' dosyası boş.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">'parameters.md' dosyası eksik.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Dosya yolu geçersiz veya dosya mevcut değil!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' dosyası ciddi şekilde bozuk.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">'system.xml' dosyası kilitli veya başka bir işlem tarafından erişilemiyor.</system:String>
@@ -1969,11 +1972,13 @@
     <system:String x:Key="TruePointsEarned">Kazanılan Gerçek Puan</system:String>
     <system:String x:Key="UnabletoDismountISOfile">PowerShell yürütme politikası kısıtlamaları nedeniyle ISO dosyası çıkarılamıyor.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' dosyası yüklenemiyor. Dosya muhtemelen bozulmuş olabilir.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">'parameters.md' dosyası yüklenemiyor. Dosya muhtemelen bozulmuş olabilir veya kullanımda olabilir.</system:String>
     <system:String x:Key="UnableToLoadImage">Resim yüklenemedi</system:String>
     <system:String x:Key="UnabletomountISOfile">PowerShell yürütme politikası kısıtlamaları nedeniyle ISO dosyası bağlanamıyor.</system:String>
     <system:String x:Key="Unabletoopenthelink">Bağlantı açılamıyor.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">PowerShell yürütme politikası kısıtlamaları nedeniyle Microsoft Store oyunları taranamıyor.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' yüklenirken beklenmeyen bir hata oluştu.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">'parameters.md' yüklenirken beklenmeyen bir hata oluştu.</system:String>
     <system:String x:Key="Unknown">Bilinmiyor</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Bilinmeyen Favori Durumu</system:String>
     <system:String x:Key="UnknownString">Bilinmiyor</system:String>

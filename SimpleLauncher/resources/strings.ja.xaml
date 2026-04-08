@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">更新はありません</system:String>
     <system:String x:Key="NoUserProgress">ユーザーの完了進捗を読み込めませんでした。</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' ファイルに有効なシステムが見つかりませんでした。</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">'parameters.md' ファイルに有効なシステムが見つかりませんでした。</system:String>
     <system:String x:Key="NumberOfImages">システム画像フォルダ内の画像数：{0}</system:String>
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">オリーブ</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">ファイルはリストから削除されました。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' ファイルが存在しません。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">アプリケーションフォルダーで'mame.dat'ファイルが見つかりませんでした。</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">'parameters.md' ファイルは空です。</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">'parameters.md' ファイルが存在しません。</system:String>
     <system:String x:Key="Thefilepathisinvalid">ファイルパスが無効であるか、ファイルが存在しません！</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' ファイルが深刻な破損をしています。</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">ファイル 'system.xml' はロックされているか、別のプロセスによってアクセスできません。</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">獲得した真のポイント</system:String>
     <system:String x:Key="UnabletoDismountISOfile">PowerShellの実行ポリシー制限により、ISOファイルをアンマウントできません。</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' を読み込むことができません。ファイルが壊れている可能性があります。</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">'parameters.md' を読み込むことができません。ファイルが壊れているか、使用中である可能性があります。</system:String>
     <system:String x:Key="UnableToLoadImage">画像を読み込めません</system:String>
     <system:String x:Key="UnabletomountISOfile">PowerShellの実行ポリシー制限により、ISOファイルをマウントできません。</system:String>
     <system:String x:Key="Unabletoopenthelink">リンクを開くことができません。</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">PowerShellの実行ポリシー制限により、Microsoft Storeのゲームをスキャンできません。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' の読み込み中に予期しないエラーが発生しました。</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">'parameters.md' の読み込み中に予期しないエラーが発生しました。</system:String>
     <system:String x:Key="Unknown">不明</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">不明なお気に入りステータス</system:String>
     <system:String x:Key="UnknownString">不明</system:String>

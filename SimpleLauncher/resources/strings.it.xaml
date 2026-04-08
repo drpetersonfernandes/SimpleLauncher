@@ -986,6 +986,7 @@
     <system:String x:Key="Noupdateavailable">Nessun aggiornamento disponibile</system:String>
     <system:String x:Key="NoUserProgress">Impossibile caricare i progressi di completamento dell'utente.</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Nessun sistema valido trovato nel file 'helpuser.xml'.</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">Nessun sistema valido trovato nel file 'parameters.md'.</system:String>
     <system:String x:Key="NumberOfImages">Numero di immagini nella Cartella Immagini del Sistema: {0}</system:String>
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Oliva</system:String>
@@ -1735,6 +1736,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Il file è stato rimosso dall'elenco.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Il file 'helpuser.xml' è mancante.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Il file 'mame.dat' non è stato trovato nella cartella dell'applicazione.</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">Il file 'parameters.md' è vuoto.</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">Il file 'parameters.md' è mancante.</system:String>
     <system:String x:Key="Thefilepathisinvalid">Il percorso del file non è valido o il file non esiste!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Il file 'system.xml' è gravemente corrotto.</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">Il file 'system.xml' è bloccato o inaccessibile da un altro processo.</system:String>
@@ -1969,11 +1972,13 @@
     <system:String x:Key="TruePointsEarned">Punti Veri Guadagnati</system:String>
     <system:String x:Key="UnabletoDismountISOfile">Impossibile smontare il file ISO a causa delle restrizioni della politica di esecuzione di PowerShell.</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">Impossibile caricare 'helpuser.xml'. Il file potrebbe essere corrotto.</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">Impossibile caricare 'parameters.md'. Il file potrebbe essere corrotto o in uso.</system:String>
     <system:String x:Key="UnableToLoadImage">Impossibile caricare l'immagine</system:String>
     <system:String x:Key="UnabletomountISOfile">Impossibile montare il file ISO a causa delle restrizioni della politica di esecuzione di PowerShell.</system:String>
     <system:String x:Key="Unabletoopenthelink">Impossibile aprire il link.</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">Impossibile scansionare i giochi del Microsoft Store a causa delle restrizioni della politica di esecuzione di PowerShell.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Errore imprevisto durante il caricamento di 'helpuser.xml'.</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">Errore imprevisto durante il caricamento di 'parameters.md'.</system:String>
     <system:String x:Key="Unknown">Sconosciuto</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">Stato Preferito Sconosciuto</system:String>
     <system:String x:Key="UnknownString">Sconosciuto</system:String>

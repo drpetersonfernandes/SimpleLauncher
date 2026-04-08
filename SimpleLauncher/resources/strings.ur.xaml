@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">کوئی اپ ڈیٹ دستیاب نہیں</system:String>
     <system:String x:Key="NoUserProgress">صارف کی تکمیل کی پیشرفت لوڈ نہیں ہو سکی۔</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' فائل میں کوئی درست سسٹم موجود نہیں۔</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">'parameters.md' فائل میں کوئی درست سسٹم موجود نہیں۔</system:String>
     <system:String x:Key="NumberOfImages">سسٹم امیج فولڈر میں تصاویر کی تعداد: {0}</system:String>
     <system:String x:Key="OkButtonText">ٹھیک ہے</system:String>
     <system:String x:Key="Olive">زیتونی</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">فائل کو فہرست سے ہٹا دیا گیا ہے۔</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">ایپلیکیشن فولڈر میں 'mame.dat' فائل نہیں ملی۔</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">'parameters.md' فائل خالی ہے۔</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">'parameters.md' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefilepathisinvalid">فائل پاتھ غلط ہے یا فائل موجود نہیں ہے!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' فائل بری طرح خراب ہو چکی ہے۔</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">فائل 'system.xml' لاک ہے یا کسی دوسرے عمل کے ذریعے ناقابل رسائی ہے۔</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">حقیقی حاصل کردہ پوائنٹس</system:String>
     <system:String x:Key="UnabletoDismountISOfile">پاور شیل ایگزیکیوشن پالیسی کی پابندیوں کی وجہ سے ISO فائل کو ڈسماؤنٹ کرنے سے قاصر ہے۔</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">'helpuser.xml' فائل کو لوڈ کرنے میں ناکامی۔ ممکن ہے کہ فائل خراب ہو۔</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">'parameters.md' فائل کو لوڈ کرنے میں ناکامی۔ ممکن ہے کہ فائل خراب ہو یا استعمال میں ہو۔</system:String>
     <system:String x:Key="UnableToLoadImage">تصویر لوڈ کرنے سے قاصر</system:String>
     <system:String x:Key="UnabletomountISOfile">پاور شیل ایگزیکیوشن پالیسی کی پابندیوں کی وجہ سے ISO فائل کو ماؤنٹ کرنے سے قاصر ہے۔</system:String>
     <system:String x:Key="Unabletoopenthelink">رابطہ کھولنے میں ناکام۔</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">پاور شیل ایگزیکیوشن پالیسی کی پابندیوں کی وجہ سے مائیکروسافٹ سٹور گیمز کو سکین کرنے سے قاصر ہے۔</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' کو لوڈ کرتے وقت ایک غیر متوقع خامی واقع ہوئی۔</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">'parameters.md' کو لوڈ کرتے وقت ایک غیر متوقع خامی واقع ہوئی۔</system:String>
     <system:String x:Key="Unknown">نامعلوم</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">نامعلوم پسندیدہ حالت</system:String>
     <system:String x:Key="UnknownString">نامعلوم</system:String>

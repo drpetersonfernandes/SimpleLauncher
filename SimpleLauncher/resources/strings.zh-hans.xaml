@@ -985,6 +985,7 @@
     <system:String x:Key="Noupdateavailable">没有可用的更新</system:String>
     <system:String x:Key="NoUserProgress">无法加载用户完成进度。</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">文件“helpuser.xml”中未找到有效的系统。</system:String>
+    <system:String x:Key="Novalidsystemsfoundinthefileparametersmd">文件"parameters.md"中未找到有效的系统。</system:String>
     <system:String x:Key="NumberOfImages">系统图片文件夹中的图片数量：{0}</system:String>
     <system:String x:Key="OkButtonText">确定</system:String>
     <system:String x:Key="Olive">橄榄色</system:String>
@@ -1734,6 +1735,8 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">文件已从列表中删除。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">文件“helpuser.xml”缺失。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">在应用程序文件夹中找不到 'mame.dat' 文件。</system:String>
+    <system:String x:Key="Thefileparametersmdisempty">文件"parameters.md"为空。</system:String>
+    <system:String x:Key="Thefileparametersmdismissing">文件"parameters.md"缺失。</system:String>
     <system:String x:Key="Thefilepathisinvalid">文件路径无效或文件不存在！</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">文件“system.xml”损坏严重。</system:String>
     <system:String x:Key="Thefilesystemxmlislocked">文件 'system.xml' 已被锁定或被其他进程占用。</system:String>
@@ -1968,11 +1971,13 @@
     <system:String x:Key="TruePointsEarned">真实获得点数</system:String>
     <system:String x:Key="UnabletoDismountISOfile">由于 PowerShell 执行策略限制，无法卸载 ISO 文件。</system:String>
     <system:String x:Key="Unabletoloadhelpuserxml">无法加载文件“helpuser.xml”。文件可能已损坏。</system:String>
+    <system:String x:Key="Unabletoloadparametersmd">无法加载文件"parameters.md"。文件可能已损坏或正在使用中。</system:String>
     <system:String x:Key="UnableToLoadImage">无法加载图像</system:String>
     <system:String x:Key="UnabletomountISOfile">由于 PowerShell 执行策略限制，无法挂载 ISO 文件。</system:String>
     <system:String x:Key="Unabletoopenthelink">无法打开链接。</system:String>
     <system:String x:Key="UnabletoscanMicrosoftStoregames">由于 PowerShell 执行策略限制，无法扫描 Microsoft Store 游戏。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">加载文件“helpuser.xml”时发生意外错误。</system:String>
+    <system:String x:Key="Unexpectederrorwhileloadingparametersmd">加载文件"parameters.md"时发生意外错误。</system:String>
     <system:String x:Key="Unknown">未知</system:String>
     <system:String x:Key="UnknownFavoriteStatusLabel">未知收藏状态</system:String>
     <system:String x:Key="UnknownString">未知</system:String>
