@@ -4927,7 +4927,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
 
-## Sony PlayStation 2
+## Sony PlayStation 2 / PSX2 / PSX 2
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -4978,7 +4978,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/pcsx2/).<br>
 Core may require BIOS files or system files to work.
 
-## Sony PlayStation 3
+## Sony PlayStation 3 / PSX 3 / PSX3
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -5053,7 +5053,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br><br>
 
-## Sony PlayStation 4
+## Sony PlayStation 4 / PSX4 / PSX 4
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -5103,7 +5103,7 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64.
 
-## Sony PSP
+## Sony PSP / PlayStation Portable
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -5168,3 +5168,28 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+
+## Zeebo
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the ROM path
+
+**System Folder (Example):** C:\Zeebo<br>
+**Extension to Search in the System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false
+
+.
+
+**Emulator Name:** Infuse<br>
+**Emulator Path (Example):** C:\Emulators\Infuse\Infuse.exe<br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>

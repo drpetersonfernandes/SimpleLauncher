@@ -79,6 +79,7 @@ public static partial class HelpUser
             { "GX4000", AmstradCpcgx4000Details },
             { "Arcade", ArcadeDetails },
             { "Mame", ArcadeDetails },
+            { "Raine", ArcadeDetails },
             { "Atari 2600", Atari2600Details },
             { "Atari2600", Atari2600Details },
             { "Atari 5200", Atari5200Details },
@@ -342,7 +343,8 @@ public static partial class HelpUser
             { "SuperA'Can", SuperAcanDetails },
             { "SuperACan", SuperAcanDetails },
             { "A'Can", SuperAcanDetails },
-            { "ACan", SuperAcanDetails }
+            { "ACan", SuperAcanDetails },
+            { "Zeebo", ZeeboDetails }
         };
 
         // Check if a response exists for the given system name
@@ -772,6 +774,11 @@ public static partial class HelpUser
     private static string SuperAcanDetails()
     {
         return GetSystemDetails("Super Acan");
+    }
+
+    private static string ZeeboDetails()
+    {
+        return GetSystemDetails("Zeebo");
     }
 
     private static string GetSystemDetails(string systemName)
