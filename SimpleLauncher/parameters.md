@@ -8,7 +8,7 @@
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Amstrad CPC<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -64,7 +64,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -94,7 +94,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\emulators\mame\roms<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -149,7 +149,7 @@ You can download this emulator on the [Official Website](https://raine.1emulatio
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari 2600<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -216,7 +216,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari 5200<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -270,7 +270,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari 7800<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -314,7 +314,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari 8-Bits<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -368,7 +368,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari Jaguar<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -408,7 +408,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
 **Extension to Search in the System Folder:** zip, 7z, cue, cdi<br>
@@ -434,7 +434,7 @@ You can download this emulator on the [Official Website](https://richwhitehouse.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari Lynx<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -502,7 +502,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Atari ST<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -559,7 +559,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** C:\Atomiswave<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -585,7 +585,7 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -664,7 +664,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -743,7 +743,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Casio PV-1000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -773,7 +773,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Colecovision<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -829,7 +829,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Commodore 64<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -898,7 +898,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Commodore 128<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -956,7 +956,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Commodore Amiga<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1042,7 +1042,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, nrg, mds, iso<br>
@@ -1086,7 +1086,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** C:\FM Towns<br>
 **Extension to Search in the System Folder:** chd, cue<br>
@@ -1114,7 +1114,7 @@ You can download this emulator on the [Official Website](https://github.com/capt
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\LaserDisk<br>
 **Extension to Search in the System Folder:** bat<br>
@@ -1152,7 +1152,7 @@ You can download this emulator on the [Official Website](https://github.com/Dirt
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1192,7 +1192,7 @@ You can download this emulator on the [Official Website](https://o2em.sourceforg
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Mattel Aquarius<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1222,7 +1222,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1266,7 +1266,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Microsoft DOS<br>
 **Extension to Search in the System Folder:** zip, 7z, rar<br>
@@ -1338,7 +1338,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Microsoft MSX<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1433,7 +1433,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder:** [ROM Folder]<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1527,7 +1527,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** C:\Windows Games<br>
 **Extension to Search in the System Folder:** lnk, bat, url, exe<br>
@@ -1553,7 +1553,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 .
 
@@ -1641,7 +1641,7 @@ You can download this emulator on the [Official Website](https://cxbx-reloaded.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 .
 
@@ -1688,7 +1688,7 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 .
 
@@ -1736,7 +1736,7 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\NEC PC Engine<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1816,7 +1816,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder:** c:\NEC PC Engine CD<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, iso, img, bin<br>
@@ -1920,7 +1920,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\NEC PC-FX<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, toc<br>
@@ -1938,7 +1938,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 This emulator is available for Windows-x64.<br>
 May require a BIOS file to work.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -1950,6 +1951,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 You need a BIOS file to run this system on this emulator. Please check documentation on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -1962,7 +1964,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pc_fx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1975,7 +1978,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## NEC SuperGrafx / SuperGrafx
 
@@ -1985,7 +1989,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2001,7 +2005,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -2012,7 +2017,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2025,7 +2031,8 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_sgx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Nintendo 3DS
 
@@ -2035,7 +2042,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
 **Extension to Search in the System Folder:** 3ds, cci, 3dsx, elf, axf, cxi, app<br>
@@ -2051,6 +2058,7 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://azahar-emu.org/pages/download/).<br>
 
 .
 
@@ -2060,6 +2068,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/Borked3DS/Borked3DS).<br>
 
 .
 
@@ -2069,6 +2078,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://citra-emulator.com/download/).<br>
 
 .
 
@@ -2078,7 +2088,8 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS).
+Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS).<br>
+You can download this emulator on the [Official Website](https://panda3ds.com/download.html).<br>
 
 .
 
@@ -2090,8 +2101,9 @@ Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/citra/). <br>
-Core may require BIOS or system files to work.
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/citra/).<br>
+Core may require BIOS or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2103,7 +2115,8 @@ Core may require BIOS or system files to work.
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3ds) or [GitLab](https://git.libretro.com/libretro/Panda3DS).
+Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3ds) or [GitLab](https://git.libretro.com/libretro/Panda3DS).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Nintendo 64
 
@@ -2113,7 +2126,7 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo 64<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2129,6 +2142,7 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2138,6 +2152,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/simple64/simple64).<br>
 
 .
 
@@ -2149,6 +2164,7 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -2158,6 +2174,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/rosalie241/RMG).<br>
 
 .
 
@@ -2166,7 +2183,8 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/gopher64/gopher64).<br>
 
 .
 
@@ -2176,6 +2194,7 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.pj64-emu.com/public-releases).<br>
 
 .
 
@@ -2187,7 +2206,8 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2199,6 +2219,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2211,7 +2232,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo 64DD
 
@@ -2221,7 +2243,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -2237,7 +2259,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2249,7 +2272,8 @@ This emulator requires a BIOS file to work.
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2262,7 +2286,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo DS
 
@@ -2272,7 +2297,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo DS<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2288,7 +2313,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS).
+Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS).<br>
+You can download this emulator on the [Official Website](https://melonds.kuribo64.net/downloads.php).<br>
 
 .
 
@@ -2298,7 +2324,8 @@ Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-Emulator repository available on [GitHub](https://github.com/TASEmulators/desmume).
+Emulator repository available on [GitHub](https://github.com/TASEmulators/desmume).<br>
+You can download this emulator on the [Official Website](https://github.com/TASEmulators/desmume).<br>
 
 .
 
@@ -2308,7 +2335,8 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
+Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).<br>
+You can download this emulator on the [Official Website](https://github.com/hydr8gon/noods).<br>
 
 .
 
@@ -2320,7 +2348,8 @@ Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/melonds/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/melonds/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2332,7 +2361,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/desmume/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/desmume/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Nintendo Family Computer Disk System / Famicom Disk System
 
@@ -2342,7 +2372,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2358,7 +2388,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2368,7 +2399,8 @@ This emulator requires a BIOS file to work.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
-This emulator requires a BIOS file to run this system.
+This emulator requires a BIOS file to run this system.<br>
+You can download this emulator on the [Official Website](https://github.com/SourMesen/Mesen2).<br>
 
 .
 
@@ -2378,7 +2410,8 @@ This emulator requires a BIOS file to run this system.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -2391,7 +2424,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mesen/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2404,7 +2438,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2417,7 +2452,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core may require a BIOS file to work.<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Nintendo Game Boy
 
@@ -2427,7 +2463,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2443,7 +2479,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2452,7 +2489,8 @@ This emulator requires a BIOS file to work.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/jsgroth/jgenesis).<br>
 
 .
 
@@ -2462,7 +2500,7 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
+You can download this emulator on the [Official Website](https://github.com/drhelius/Gearboy).<br>
 
 .
 
@@ -2472,7 +2510,8 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -2482,7 +2521,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
-'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.
+'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.<br>
+You can download this emulator on the [Official Website](https://sameboy.github.io/).<br>
 
 .
 
@@ -2495,7 +2535,8 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2508,7 +2549,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2521,7 +2563,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2534,7 +2577,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2547,7 +2591,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo Game Boy Advance
 
@@ -2557,7 +2602,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2639,7 +2684,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2769,7 +2814,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
 **Extension to Search in the System Folder:** rvz<br>
@@ -2808,7 +2853,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo NES<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2921,7 +2966,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Satellaview<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2947,7 +2992,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo SNES<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3049,7 +3094,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3097,7 +3142,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Switch<br>
 **Extension to Search in the System Folder:** nsp, xci, nca, nro, nso<br>
@@ -3176,7 +3221,7 @@ This emulator is available for Windows-x64.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Virtual Boy<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3228,7 +3273,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo Wii<br>
 **Extension to Search in the System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
@@ -3267,7 +3312,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
 **Extension to Search in the System Folder:** wua<br>
@@ -3292,7 +3337,7 @@ This emulator is available for Windows-x64.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
 **Extension to Search in the System Folder:** wad<br>
@@ -3331,7 +3376,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
 **Extension to Search in the System Folder:** chd, cue, iso, bin<br>
@@ -3382,7 +3427,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Philips CD-i<br>
 **Extension to Search in the System Folder:** chd, iso, cue, bin<br>
@@ -3422,7 +3467,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 .
 
@@ -3470,7 +3515,7 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
 **Extension to Search in the System Folder:** chd, gdi, cdi, cue, bin<br>
@@ -3540,7 +3585,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Game Gear<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3659,7 +3704,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Genesis<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3774,7 +3819,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3844,7 +3889,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
 **Extension to Search in the System Folder:** chd, cue, iso, bin<br>
@@ -3941,7 +3986,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Master System<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4051,7 +4096,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** C:\Sega Naomi<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -4076,7 +4121,7 @@ This emulator is available for Windows-x64.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** C:\Sega Naomi2<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -4101,7 +4146,7 @@ This emulator is available for Windows-x64.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Model 3<br>
 **Extension to Search in the System Folder:** bat<br>
@@ -4127,7 +4172,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Saturn<br>
 **Extension to Search in the System Folder:** chd, cue, iso, ccd, mds, bin<br>
@@ -4286,7 +4331,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega SC-3000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4355,7 +4400,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega SG-1000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4433,7 +4478,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sharp x68000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4475,7 +4520,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4536,7 +4581,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\SNK Neo Geo<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4598,7 +4643,7 @@ This core can not run MAME ROM sets. It uses ROM files with the extension .NEO. 
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
 **Extension to Search in the System Folder:** chd, cue<br>
@@ -4679,7 +4724,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4755,7 +4800,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4831,7 +4876,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
 **Extension to Search in the System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
@@ -4961,7 +5006,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sony PlayStation 2<br>
 **Extension to Search in the System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
@@ -5012,7 +5057,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the ROM path<br><br>
 
 .
 
@@ -5087,7 +5132,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
 **Extension to Search in the System Folder:** bin, elf, oelf<br>
@@ -5112,7 +5157,7 @@ This emulator is available for Windows-x64.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
 **Extension to Search in the System Folder:** iso<br>
@@ -5137,7 +5182,7 @@ This emulator is available for Windows-x64.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sony PSP<br>
 **Extension to Search in the System Folder:** cso, chd, iso, pbp, elf, prx<br>
@@ -5175,7 +5220,7 @@ Core may require BIOS files or system files to work.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Super ACan<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -5203,7 +5248,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path
+**%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** C:\Zeebo<br>
 **Extension to Search in the System Folder:** zip<br>
