@@ -196,13 +196,13 @@ public class ChdMountStrategy : ILaunchStrategy
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath);
         }
-        else if ((_isGens || _cDiEmu) && !_isRetroArch)
+        else if ((_isGens || _cDiEmu) && !(_isRetroArch))
         {
             // Path to a .bin file
             gameFilePath = FindBinFile.Find(mountedDrive.MountedPath);
         }
         else if ((_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen || _isMesen || _isNebula ||
-                  _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause) & !_isRetroArch)
+                  _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause) && !(_isRetroArch))
         {
             // Path to a .cue file
             gameFilePath = FindCueFile.Find(mountedDrive.MountedPath);
