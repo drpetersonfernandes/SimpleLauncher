@@ -127,6 +127,7 @@ internal partial class GameButtonFactory(
         // Show filename unless mode is "NoFilename"
         if (_settings.FilenameDisplayMode != "NoFilename" && !string.IsNullOrEmpty(displayName))
         {
+            var filenameFontSize = GetFilenameFontSize();
             var filenameTextBlock = new TextBlock
             {
                 Text = displayName,
@@ -134,7 +135,7 @@ internal partial class GameButtonFactory(
                 TextAlignment = TextAlignment.Center,
                 FontWeight = FontWeights.Bold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
-                FontSize = 13,
+                FontSize = filenameFontSize,
                 ToolTip = fileNameWithoutExtension,
                 TextWrapping = TextWrapping.Wrap
             };
@@ -150,6 +151,7 @@ internal partial class GameButtonFactory(
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
+                var machineNameFontSize = GetMachineNameFontSize();
                 var descriptionTextBlock = new TextBlock
                 {
                     Text = machine.Description,
@@ -157,7 +159,7 @@ internal partial class GameButtonFactory(
                     TextAlignment = TextAlignment.Center,
                     FontWeight = FontWeights.Normal,
                     TextTrimming = TextTrimming.CharacterEllipsis,
-                    FontSize = 11,
+                    FontSize = machineNameFontSize,
                     ToolTip = machine.Description,
                     TextWrapping = TextWrapping.Wrap
                 };
@@ -651,4 +653,24 @@ internal partial class GameButtonFactory(
 
     [GeneratedRegex(@"\s*\{[^}]*\}")]
     private static partial Regex MyRegex2();
+
+    private double GetFilenameFontSize()
+    {
+        return _settings.FilenameFontSize switch
+        {
+            "Small" => 11,
+            "Big" => 15,
+            _ => 13
+        };
+    }
+
+    private double GetMachineNameFontSize()
+    {
+        return _settings.MachineNameFontSize switch
+        {
+            "Small" => 9,
+            "Big" => 13,
+            _ => 11
+        };
+    }
 }

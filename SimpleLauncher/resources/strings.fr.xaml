@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Afficher le nom de la machine (pour MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Changement du mode d'affichage des noms de fichiers...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Changement de l'affichage du nom de la machine...</system:String>
+    <system:String x:Key="FilenameFontSize">Taille de police du nom de fichier</system:String>
+    <system:String x:Key="MachineNameFontSize">Taille de police du nom de machine</system:String>
+    <system:String x:Key="Small">Petit</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Grand</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Changement de la taille de police du nom de fichier...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Changement de la taille de police du nom de machine...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Modifier la façon dont les noms de fichiers sont affichés en mode Grille</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Sélectionnez la taille de police pour le texte du nom de fichier</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Sélectionnez la taille de police pour le texte du nom de machine</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Sélectionner la façon dont le nom de fichier est affiché (Original, Nettoyé ou Aucun nom de fichier)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Activer/désactiver l'affichage de la description de la machine MAME en mode Grille</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Cela peut être dû au fait que Dokan n'est pas installé. Dokan est requis pour monter les fichiers ZIP, CHD et les images disque.</system:String>

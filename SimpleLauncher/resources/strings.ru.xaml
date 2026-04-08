@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Отображать название автомата (для MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Изменение режима отображения имен файлов...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Изменение отображения названия автомата...</system:String>
+    <system:String x:Key="FilenameFontSize">Размер шрифта имени файла</system:String>
+    <system:String x:Key="MachineNameFontSize">Размер шрифта названия автомата</system:String>
+    <system:String x:Key="Small">Маленький</system:String>
+    <system:String x:Key="Normal">Обычный</system:String>
+    <system:String x:Key="Big">Большой</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Изменение размера шрифта имени файла...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Изменение размера шрифта названия автомата...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Изменить способ отображения имен файлов в режиме сетки</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Выберите размер шрифта для текста имени файла</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Выберите размер шрифта для текста названия автомата</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Выберите способ отображения имени файла (оригинальное, очищенное или без имени)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Переключить отображение описания автомата MAME в режиме сетки</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Это может быть связано с тем, что Dokan не установлен. Dokan необходим для монтирования файлов ZIP, CHD и образов дисков.</system:String>

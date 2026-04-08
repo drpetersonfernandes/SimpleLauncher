@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">عرض اسم الجهاز (لـ MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">تغيير وضع عرض اسم الملف...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">تغيير عرض اسم الجهاز...</system:String>
+    <system:String x:Key="FilenameFontSize">حجم خط اسم الملف</system:String>
+    <system:String x:Key="MachineNameFontSize">حجم خط اسم الجهاز</system:String>
+    <system:String x:Key="Small">صغير</system:String>
+    <system:String x:Key="Normal">عادي</system:String>
+    <system:String x:Key="Big">كبير</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">تغيير حجم خط اسم الملف...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">تغيير حجم خط اسم الجهاز...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">تغيير كيفية عرض أسماء الملفات في وضع الشبكة</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">اختر حجم خط نص اسم الملف</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">اختر حجم خط نص اسم الجهاز</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">حدد كيفية عرض اسم الملف (الأصلي، المنظم، أو لا يوجد اسم ملف)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">تبديل عرض وصف جهاز MAME في وضع الشبكة</system:String>
 

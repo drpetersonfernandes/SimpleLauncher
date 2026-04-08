@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">머신 이름 표시 (MAME용)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">파일 이름 표시 모드 변경 중...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">머신 이름 표시 설정 변경 중...</system:String>
+    <system:String x:Key="FilenameFontSize">파일 이름 글꼴 크기</system:String>
+    <system:String x:Key="MachineNameFontSize">머신 이름 글꼴 크기</system:String>
+    <system:String x:Key="Small">작게</system:String>
+    <system:String x:Key="Normal">보통</system:String>
+    <system:String x:Key="Big">크게</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">파일 이름 글꼴 크기 변경 중...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">머신 이름 글꼴 크기 변경 중...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">그리드 모드에서 파일 이름이 표시되는 방식을 변경합니다.</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">파일 이름 텍스트의 글꼴 크기를 선택합니다.</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">머신 이름 텍스트의 글꼴 크기를 선택합니다.</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">파일 이름 표시 방식(원본, 정리됨, 또는 표시 안 함)을 선택합니다.</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">그리드 모드에서 MAME 머신 설명 표시 여부를 전환합니다.</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dokan이 설치되지 않았기 때문일 수 있습니다. ZIP, CHD 및 디스크 이미지 파일을 마운트하려면 Dokan이 필요합니다.</system:String>

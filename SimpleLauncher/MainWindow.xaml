@@ -311,6 +311,23 @@
                         <Separator />
                         <MenuItem x:Name="DisplayMachineNameToggle" Header="{DynamicResource DisplayMachineName}" Click="DisplayMachineName_Click"
                                   IsCheckable="True" ToolTip="{DynamicResource TooltipDisplayMachineNameMenu}" />
+                        <Separator />
+                        <MenuItem Header="{DynamicResource FilenameFontSize}" ToolTip="{DynamicResource TooltipFilenameFontSizeMenu}">
+                            <MenuItem x:Name="FilenameFontSizeSmall" Header="{DynamicResource Small}" Click="FilenameFontSize_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipFilenameFontSizeMenu}" />
+                            <MenuItem x:Name="FilenameFontSizeNormal" Header="{DynamicResource Normal}" Click="FilenameFontSize_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipFilenameFontSizeMenu}" />
+                            <MenuItem x:Name="FilenameFontSizeBig" Header="{DynamicResource Big}" Click="FilenameFontSize_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipFilenameFontSizeMenu}" />
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource MachineNameFontSize}" ToolTip="{DynamicResource TooltipMachineNameFontSizeMenu}">
+                            <MenuItem x:Name="MachineNameFontSizeSmall" Header="{DynamicResource Small}" Click="MachineNameFontSize_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipMachineNameFontSizeMenu}" />
+                            <MenuItem x:Name="MachineNameFontSizeNormal" Header="{DynamicResource Normal}" Click="MachineNameFontSize_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipMachineNameFontSizeMenu}" />
+                            <MenuItem x:Name="MachineNameFontSizeBig" Header="{DynamicResource Big}" Click="MachineNameFontSize_Click"
+                                      IsCheckable="True" ToolTip="{DynamicResource TooltipMachineNameFontSizeMenu}" />
+                        </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource EditLinks}" ToolTip="{DynamicResource TooltipEditLinksMenu}">
                         <MenuItem.Icon>

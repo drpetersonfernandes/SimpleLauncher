@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Makine Adını Göster (MAME için)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Dosya adı görüntüleme modu değiştiriliyor...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Makine adı görünümü değiştiriliyor...</system:String>
+    <system:String x:Key="FilenameFontSize">Dosya Adı Yazı Boyutu</system:String>
+    <system:String x:Key="MachineNameFontSize">Makine Adı Yazı Boyutu</system:String>
+    <system:String x:Key="Small">Küçük</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Büyük</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Dosya adı yazı boyutu değiştiriliyor...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Makine adı yazı boyutu değiştiriliyor...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Izgara modunda dosya adlarının nasıl görüntüleneceğini değiştirin</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Dosya adı metni için yazı boyutunu seçin</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Makine adı metni için yazı boyutunu seçin</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Dosya adının nasıl görüntüleneceğini seçin (Orijinal, Temizlenmiş veya Dosya Adı Yok)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Izgara modunda MAME makine açıklaması görünümünü aç/kapat</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Bu durum Dokan'ın kurulu olmamasından kaynaklanıyor olabilir. ZIP, CHD ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>

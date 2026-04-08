@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">मशीन का नाम प्रदर्शित करें (MAME के लिए)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">फ़ाइलनाम प्रदर्शन मोड बदल रहा है...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">मशीन का नाम प्रदर्शन बदल रहा है...</system:String>
+    <system:String x:Key="FilenameFontSize">फ़ाइलनाम फ़ॉन्ट आकार</system:String>
+    <system:String x:Key="MachineNameFontSize">मशीन का नाम फ़ॉन्ट आकार</system:String>
+    <system:String x:Key="Small">छोटा</system:String>
+    <system:String x:Key="Normal">सामान्य</system:String>
+    <system:String x:Key="Big">बड़ा</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">फ़ाइलनाम फ़ॉन्ट आकार बदल रहा है...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">मशीन का नाम फ़ॉन्ट आकार बदल रहा है...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">ग्रिड मोड में फ़ाइलनाम कैसे प्रदर्शित होते हैं, इसे बदलें</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">फ़ाइलनाम टेक्स्ट के लिए फ़ॉन्ट आकार चुनें</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">मशीन के नाम टेक्स्ट के लिए फ़ॉन्ट आकार चुनें</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">चुनें कि फ़ाइलनाम कैसे प्रदर्शित होता है (मूल, क्लीन अप, या कोई फ़ाइलनाम नहीं)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">ग्रिड मोड में MAME मशीन विवरण प्रदर्शन टॉगल करें</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">यह Dokan के इंस्टॉल न होने के कारण हो सकता है। ZIP, CHD और डिस्क इमेज फ़ाइलों को माउंट करने के लिए Dokan आवश्यक है।</system:String>

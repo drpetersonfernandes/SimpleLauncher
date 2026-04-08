@@ -866,6 +866,112 @@ public partial class MainWindow
         DisplayMachineNameToggle.IsChecked = _settings.DisplayMachineName;
     }
 
+    private async void FilenameFontSize_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CancelAndRecreateToken();
+
+            if (sender is not MenuItem clickedItem) return;
+
+            try
+            {
+                _playSoundEffects.PlayNotificationSound();
+
+                var size = clickedItem.Name switch
+                {
+                    "FilenameFontSizeSmall" => "Small",
+                    "FilenameFontSizeNormal" => "Normal",
+                    "FilenameFontSizeBig" => "Big",
+                    _ => "Normal"
+                };
+
+                _settings.FilenameFontSize = size;
+                _settings.Save();
+
+                UpdateFilenameFontSizeCheckMarks(size);
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameFontSize") ?? "Changing filename font size...", this);
+
+                // Only reload if in GridView mode
+                if (_settings.ViewMode == "GridView")
+                {
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = _logErrors.LogErrorAsync(ex, "Error in method FilenameFontSize_Click.");
+                MessageBoxLibrary.ErrorMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method FilenameFontSize_Click.");
+        }
+    }
+
+    private async void MachineNameFontSize_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CancelAndRecreateToken();
+
+            if (sender is not MenuItem clickedItem) return;
+
+            try
+            {
+                _playSoundEffects.PlayNotificationSound();
+
+                var size = clickedItem.Name switch
+                {
+                    "MachineNameFontSizeSmall" => "Small",
+                    "MachineNameFontSizeNormal" => "Normal",
+                    "MachineNameFontSizeBig" => "Big",
+                    _ => "Normal"
+                };
+
+                _settings.MachineNameFontSize = size;
+                _settings.Save();
+
+                UpdateMachineNameFontSizeCheckMarks(size);
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingMachineNameFontSize") ?? "Changing machine name font size...", this);
+
+                // Only reload if in GridView mode
+                if (_settings.ViewMode == "GridView")
+                {
+                    var (sl, sq) = GetLoadGameFilesParams();
+                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = _logErrors.LogErrorAsync(ex, "Error in method MachineNameFontSize_Click.");
+                MessageBoxLibrary.ErrorMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method MachineNameFontSize_Click.");
+        }
+    }
+
+    private void UpdateFilenameFontSizeCheckMarks(string selectedValue)
+    {
+        FilenameFontSizeSmall.IsChecked = selectedValue == "Small";
+        FilenameFontSizeNormal.IsChecked = selectedValue == "Normal";
+        FilenameFontSizeBig.IsChecked = selectedValue == "Big";
+    }
+
+    private void UpdateMachineNameFontSizeCheckMarks(string selectedValue)
+    {
+        MachineNameFontSizeSmall.IsChecked = selectedValue == "Small";
+        MachineNameFontSizeNormal.IsChecked = selectedValue == "Normal";
+        MachineNameFontSizeBig.IsChecked = selectedValue == "Big";
+    }
+
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
         try

@@ -1576,7 +1576,16 @@
     <system:String x:Key="DisplayMachineName">Display Machine Name (for MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Changing filename display mode...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Changing machine name display...</system:String>
+    <system:String x:Key="FilenameFontSize">Filename Font Size</system:String>
+    <system:String x:Key="MachineNameFontSize">Machine Name Font Size</system:String>
+    <system:String x:Key="Small">Small</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Big</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Changing filename font size...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Changing machine name font size...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Change how filenames are displayed in Grid mode</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Select the font size for the filename text</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Select the font size for the machine name text</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Select how the filename is displayed (Original, Clean Up, or No Filename)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Toggle MAME machine description display in Grid mode</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>

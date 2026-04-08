@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">مشین کا نام دکھائیں (MAME کے لیے)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">فائل کے نام دکھانے کا طریقہ تبدیل کیا جا رہا ہے...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">مشین کے نام کی نمائش تبدیل کی جا رہی ہے...</system:String>
+    <system:String x:Key="FilenameFontSize">فائل کے نام کا فونٹ سائز</system:String>
+    <system:String x:Key="MachineNameFontSize">مشین کے نام کا فونٹ سائز</system:String>
+    <system:String x:Key="Small">چھوٹا</system:String>
+    <system:String x:Key="Normal">عام</system:String>
+    <system:String x:Key="Big">بڑا</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">فائل کے نام کا فونٹ سائز تبدیل کیا جا رہا ہے...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">مشین کے نام کا فونٹ سائز تبدیل کیا جا رہا ہے...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">گرڈ موڈ میں فائل کے نام دکھانے کا طریقہ تبدیل کریں</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">فائل کے نام کے متن کے لیے فونٹ سائز منتخب کریں</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">مشین کے نام کے متن کے لیے فونٹ سائز منتخب کریں</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">منتخب کریں کہ فائل کا نام کیسے دکھایا جائے (اصل، صاف ستھرا، یا کوئی نام نہیں)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">گرڈ موڈ میں MAME مشین کی تفصیل دکھانے کو آن یا آف کریں</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">یہ Dokan کے انسٹال نہ ہونے کی وجہ سے ہو سکتا ہے۔ ZIP، CHD اور ڈسک امیج فائلوں کو ماؤنٹ کرنے کے لیے Dokan درکار ہے۔</system:String>

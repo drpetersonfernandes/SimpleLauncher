@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">マシン名を表示 (MAME用)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">ファイル名表示モードを変更中...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">マシン名表示を切り替え中...</system:String>
+    <system:String x:Key="FilenameFontSize">ファイル名のフォントサイズ</system:String>
+    <system:String x:Key="MachineNameFontSize">マシン名のフォントサイズ</system:String>
+    <system:String x:Key="Small">小</system:String>
+    <system:String x:Key="Normal">標準</system:String>
+    <system:String x:Key="Big">大</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">ファイル名のフォントサイズを変更中...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">マシン名のフォントサイズを変更中...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">グリッドモードでのファイル名の表示方法を変更します</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">ファイル名テキストのフォントサイズを選択します</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">マシン名テキストのフォントサイズを選択します</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">ファイル名の表示形式を選択します (元の名前、クリーンアップ、または表示なし)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">グリッドモードでのMAMEマシン名の表示を切り替えます</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dokan がインストールされていない可能性があります。ZIP、CHD、およびディスクイメージファイルをマウントするには Dokan が必要です。</system:String>

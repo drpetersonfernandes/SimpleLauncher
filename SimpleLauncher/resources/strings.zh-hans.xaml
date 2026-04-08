@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">显示机器名称（适用于 MAME）</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">正在更改文件名显示模式...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">正在更改机器名称显示...</system:String>
+    <system:String x:Key="FilenameFontSize">文件名字体大小</system:String>
+    <system:String x:Key="MachineNameFontSize">机器名字体大小</system:String>
+    <system:String x:Key="Small">小</system:String>
+    <system:String x:Key="Normal">正常</system:String>
+    <system:String x:Key="Big">大</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">正在更改文件名字体大小...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">正在更改机器名字体大小...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">更改网格模式下文件名的显示方式</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">选择文件名文本的字体大小</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">选择机器名文本的字体大小</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">选择文件名的显示方式（原始、清理后或不显示）</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">在网格模式下切换 MAME 机器描述的显示</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">这可能是由于未安装 Dokan。挂载 ZIP、CHD 和磁盘映像文件需要 Dokan。</system:String>

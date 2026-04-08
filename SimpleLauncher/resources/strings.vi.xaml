@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Hiển thị tên máy (cho MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Đang thay đổi chế độ hiển thị tên tệp...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Đang thay đổi hiển thị tên máy...</system:String>
+    <system:String x:Key="FilenameFontSize">Cỡ Chữ Tên Tệp</system:String>
+    <system:String x:Key="MachineNameFontSize">Cỡ Chữ Tên Máy</system:String>
+    <system:String x:Key="Small">Nhỏ</system:String>
+    <system:String x:Key="Normal">Bình thường</system:String>
+    <system:String x:Key="Big">Lớn</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Đang thay đổi cỡ chữ tên tệp...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Đang thay đổi cỡ chữ tên máy...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Thay đổi cách hiển thị tên tệp trong chế độ Lưới (Grid)</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Chọn cỡ chữ cho văn bản tên tệp</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Chọn cỡ chữ cho văn bản tên máy</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Chọn cách hiển thị tên tệp (Gốc, Rút gọn, hoặc Không hiển thị)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Bật/tắt hiển thị mô tả máy MAME trong chế độ Lưới (Grid)</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Điều này có thể là do Dokan chưa được cài đặt. Cần có Dokan để gắn (mount) các tệp ZIP, CHD và tệp ảnh đĩa.</system:String>

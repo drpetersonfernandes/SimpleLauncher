@@ -27,8 +27,8 @@
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
+Core may require BIOS files or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
-Core may require BIOS files or system files to work.
 
 .
 
@@ -1452,7 +1452,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can find a list of parameters for this emulator on [OpenMSX Website](https://openmsx.org/manual/commands.html).
+You can find a list of parameters for this emulator on [OpenMSX Website](https://openmsx.org/manual/commands.html).<br>
+You can download this emulator on the [Official Website](https://openmsx.org/).<br>
 
 .
 
@@ -1461,7 +1462,8 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](http://cngsoft.no-ip.org/cpcec.htm).<br>
 
 .
 
@@ -1472,7 +1474,8 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/).<br>
 
 .
 
@@ -1485,7 +1488,8 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/bluemsx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1498,7 +1502,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1511,7 +1516,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Microsoft Windows
 
@@ -1537,7 +1543,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 LNK files are shortcut files.
 You can create a shortcut by right-clicking on the Game.exe and selecting 'Create Shortcut'.<br>
-If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
+If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.<br>
 
 ## Microsoft Xbox
 
@@ -1570,6 +1576,7 @@ There are multiple ways to launch this emulator.
 
 You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISOs to CHD format.<br>
 'Simple Launcher' will mount the CHD file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
+You can download this emulator on the [Official Website](https://xemu.app/docs/download/).<br>
 
 **Option 2 — Use ISO (XISO) files**
 
@@ -1584,6 +1591,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can batch convert I
 **Fullscreen Parameter:** -full-screen<br>
 
 You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISOs to XISO format. This will reduce the ISO filesize and optimize the Redump ISO for emulation.<br>
+You can download this emulator on the [Official Website](https://xemu.app/docs/download/).<br>
 
 .
 
@@ -1605,7 +1613,8 @@ There are multiple ways to launch this emulator.
 **Fullscreen Parameter:** <br>
 
 'Simple Launcher' has logic to mount the CHD file into a virtual drive and then load the file default.xbe. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISO to CHD format.
+You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISO to CHD format.<br>
+You can download this emulator on the [Official Website](https://cxbx-reloaded.co.uk/download).<br>
 
 **Option 2 — Use ISO (XISO) files**
 
@@ -1622,6 +1631,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can batch convert I
 
 'Simple Launcher' has logic to mount the ISO (XISO) file into a virtual drive and then load the file default.xbe. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
 You can find a tool in the 'Simple Launcher' tools menu that can batch convert original Redump ISOs to XISO format. This will reduce the ISO filesize and optimize the Redump ISO for emulation.<br>
+You can download this emulator on the [Official Website](https://cxbx-reloaded.co.uk/download).<br>
 
 ## Microsoft Xbox 360
 
@@ -1653,6 +1663,7 @@ There are multiple ways to launch this emulator.
 
 'Simple Launcher' will mount the CHD file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can batch convert ISOs to CHD format.<br>
+You can download this emulator on the [Official Website](https://github.com/xenia-project/release-builds-windows/releases).<br>
 
 **Option 2 — Use ISO (XISO) files**
 
@@ -1667,6 +1678,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can batch convert I
 **Fullscreen Parameter:** <br>
 
 You can find a tool in the 'Simple Launcher' tools menu that can batch convert original Redump ISOs to XISO format. This will reduce the ISO filesize and optimize the ISO for emulation.<br>
+You can download this emulator on the [Official Website](https://github.com/xenia-project/release-builds-windows/releases).<br>
 
 ## Microsoft Xbox 360 XBLA
 
@@ -1698,6 +1710,7 @@ There are multiple ways to launch this emulator.
 **Fullscreen Parameter:** <br>
 
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game inside a nested '000D0000' folder. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
+You can download this emulator on the [Official Website](https://github.com/xenia-project/release-builds-windows/releases).<br>
 
 **Option 2 - Use [Game Folders]**
 
@@ -1713,6 +1726,7 @@ There are multiple ways to launch this emulator.
 **Fullscreen Parameter:** <br>
 
 'Simple Launcher' has a tool in the Tools menu that can create [Batch Files For Xbox360 XBLA Games]. Use this tool to automatic create BAT files for you.<br>
+You can download this emulator on the [Official Website](https://github.com/xenia-project/release-builds-windows/releases).<br>
 
 ## NEC PC Engine / TurboGrafx 16
 
@@ -1738,7 +1752,8 @@ There are multiple ways to launch this emulator.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -1749,7 +1764,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/).<br>
 
 .
 
@@ -1759,7 +1775,8 @@ This emulator requires a BIOS file to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 only.<br>
-'Simple Launcher' will automatically extract compressed files to PCE extension, since this emulator does not support compressed files natively.
+'Simple Launcher' will automatically extract compressed files to PCE extension, since this emulator does not support compressed files natively.<br>
+You can download this emulator on the [Official Website](https://www.ouma.jp/ootake/index.html).<br>
 
 .
 
@@ -1772,7 +1789,8 @@ This emulator is available for Windows-x64 only.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1787,7 +1805,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## NEC PC Engine CD / TurboGrafx CD
 
@@ -1816,6 +1835,7 @@ This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
 May require BIOS files to work.<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -1826,6 +1846,7 @@ May require BIOS files to work.<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 You may need a BIOS file to run this system on this emulator.<br>
+You can download this emulator on the [Official Website](https://github.com/drhelius/Geargrafx).<br>
 
 .
 
@@ -1836,7 +1857,8 @@ You may need a BIOS file to run this system on this emulator.<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -1847,7 +1869,8 @@ This emulator requires a BIOS file to work.
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will mount it in a virtual drive. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://github.com/SourMesen/Mesen2).<br>
 
 .
 
@@ -1859,6 +1882,7 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 You need a BIOS file to run this system on this emulator. Please check documentation on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -1871,7 +1895,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -1885,6 +1910,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## NEC PC-FX / PC-FX / PCFX
 

@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Maschinenname anzeigen (für MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Dateinamen-Anzeigemodus wird geändert...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Anzeige des Maschinennamens wird geändert...</system:String>
+    <system:String x:Key="FilenameFontSize">Dateinamen-Schriftgröße</system:String>
+    <system:String x:Key="MachineNameFontSize">Maschinennamen-Schriftgröße</system:String>
+    <system:String x:Key="Small">Klein</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Groß</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Schriftgröße des Dateinamens wird geändert...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Schriftgröße des Maschinennamens wird geändert...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Ändern Sie, wie Dateinamen im Gittermodus angezeigt werden</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Wählen Sie die Schriftgröße für den Dateinamentext</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Wählen Sie die Schriftgröße für den Maschinennamentext</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Wählen Sie, wie der Dateiname angezeigt wird (Original, Bereinigt oder Kein Dateiname)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">MAME-Maschinenbeschreibung im Gittermodus ein-/ausschalten</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dies kann daran liegen, dass Dokan nicht installiert ist. Dokan ist erforderlich, um ZIP-, CHD- und Disk-Image-Dateien bereitzustellen.</system:String>

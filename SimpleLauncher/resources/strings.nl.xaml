@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Machinenaam weergeven (voor MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Weergavemodus voor bestandsnamen wijzigen...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Weergave van machinenaam wijzigen...</system:String>
+    <system:String x:Key="FilenameFontSize">Bestandsnaam Lettergrootte</system:String>
+    <system:String x:Key="MachineNameFontSize">Machinenaam Lettergrootte</system:String>
+    <system:String x:Key="Small">Klein</system:String>
+    <system:String x:Key="Normal">Normaal</system:String>
+    <system:String x:Key="Big">Groot</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Bestandsnaam lettergrootte wijzigen...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Machinenaam lettergrootte wijzigen...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Wijzig hoe bestandsnamen worden weergegeven in de Rastermodus</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Selecteer de lettergrootte voor de bestandsnaamtekst</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Selecteer de lettergrootte voor de machinenaamtekst</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Selecteer hoe de bestandsnaam wordt weergegeven (Origineel, Opgeschoond of Geen bestandsnaam)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Schakel de weergave van de MAME-machinebeschrijving in de Rastermodus in of uit</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Dit kan komen doordat Dokan niet is geïnstalleerd. Dokan is vereist voor het koppelen van ZIP-, CHD- en schijfkopiebestanden.</system:String>

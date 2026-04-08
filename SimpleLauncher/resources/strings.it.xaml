@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Mostra nome macchina (per MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Cambio della modalità di visualizzazione del nome file...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Cambio della visualizzazione del nome macchina...</system:String>
+    <system:String x:Key="FilenameFontSize">Dimensione Font Nome File</system:String>
+    <system:String x:Key="MachineNameFontSize">Dimensione Font Nome Macchina</system:String>
+    <system:String x:Key="Small">Piccolo</system:String>
+    <system:String x:Key="Normal">Normale</system:String>
+    <system:String x:Key="Big">Grande</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Cambio della dimensione font del nome file...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Cambio della dimensione font del nome macchina...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Cambia il modo in cui i nomi dei file vengono visualizzati nella modalità Griglia</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Seleziona la dimensione del font per il testo del nome file</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Seleziona la dimensione del font per il testo del nome macchina</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Seleziona come viene visualizzato il nome del file (Originale, Pulito o Nessun nome)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Attiva/disattiva la visualizzazione della descrizione della macchina MAME nella modalità Griglia</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Ciò potrebbe essere dovuto al fatto che Dokan non è installato. Dokan è necessario per montare file ZIP, CHD e immagini disco.</system:String>

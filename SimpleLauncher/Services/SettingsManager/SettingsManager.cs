@@ -26,6 +26,7 @@ public class SettingsManager : IDisposable
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
     private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
     private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
+    private readonly HashSet<string> _validFontSizes = ["Small", "Normal", "Big"];
     private readonly HashSet<string> _validStyleVariants = ["Default"];
 
     // Application Settings
@@ -45,6 +46,8 @@ public class SettingsManager : IDisposable
     public string ButtonAspectRatio { get; set; } = "Square";
     public string FilenameDisplayMode { get; set; } = "Original";
     public bool DisplayMachineName { get; set; }
+    public string FilenameFontSize { get; set; } = "Normal";
+    public string MachineNameFontSize { get; set; } = "Normal";
     public bool EnableFuzzyMatching { get; set; } = true;
     public double FuzzyMatchingThreshold { get; set; } = 0.80;
     public const float DefaultDeadZoneX = 0.05f;
@@ -427,6 +430,8 @@ public class SettingsManager : IDisposable
         ButtonAspectRatio = other.ButtonAspectRatio;
         FilenameDisplayMode = other.FilenameDisplayMode;
         DisplayMachineName = other.DisplayMachineName;
+        FilenameFontSize = other.FilenameFontSize;
+        MachineNameFontSize = other.MachineNameFontSize;
         EnableFuzzyMatching = other.EnableFuzzyMatching;
         FuzzyMatchingThreshold = other.FuzzyMatchingThreshold;
         EnableNotificationSound = other.EnableNotificationSound;
@@ -780,6 +785,9 @@ public class SettingsManager : IDisposable
         {
             DisplayMachineName = dmn;
         }
+
+        FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ?? settings.Element("FilenameFontSize")?.Value);
+        MachineNameFontSize = ValidateFontSize(app?.Element("MachineNameFontSize")?.Value ?? settings.Element("MachineNameFontSize")?.Value);
 
         // RetroAchievements mapping (Old used RA_Username, New uses RaUsername)
         RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
@@ -2154,6 +2162,8 @@ public class SettingsManager : IDisposable
                 new XElement("ButtonAspectRatio", s.ButtonAspectRatio),
                 new XElement("FilenameDisplayMode", s.FilenameDisplayMode),
                 new XElement("DisplayMachineName", s.DisplayMachineName),
+                new XElement("FilenameFontSize", s.FilenameFontSize),
+                new XElement("MachineNameFontSize", s.MachineNameFontSize),
                 new XElement("EnableFuzzyMatching", s.EnableFuzzyMatching),
                 new XElement("FuzzyMatchingThreshold", s.FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
                 new XElement("EnableNotificationSound", s.EnableNotificationSound),
@@ -2556,6 +2566,11 @@ public class SettingsManager : IDisposable
     private string ValidateFilenameDisplayMode(string value)
     {
         return _validFilenameDisplayModes.Contains(value) ? value : "Original";
+    }
+
+    private string ValidateFontSize(string value)
+    {
+        return _validFontSizes.Contains(value) ? value : "Normal";
     }
 
     private string ValidateStyleVariant(string value)

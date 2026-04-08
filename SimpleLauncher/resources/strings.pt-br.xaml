@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Exibir Nome da Máquina (para MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Alterando o modo de exibição do nome do arquivo...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Alterando a exibição do nome da máquina...</system:String>
+    <system:String x:Key="FilenameFontSize">Tamanho da Fonte do Nome do Arquivo</system:String>
+    <system:String x:Key="MachineNameFontSize">Tamanho da Fonte do Nome da Máquina</system:String>
+    <system:String x:Key="Small">Pequeno</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Grande</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Alterando o tamanho da fonte do nome do arquivo...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Alterando o tamanho da fonte do nome da máquina...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Alterar como os nomes dos arquivos são exibidos no modo Grade</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Selecione o tamanho da fonte para o texto do nome do arquivo</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Selecione o tamanho da fonte para o texto do nome da máquina</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Selecionar como o nome do arquivo é exibido (Original, Limpo ou Nenhum)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Alternar a exibição da descrição da máquina MAME no modo Grade</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Isso pode ser devido ao Dokan não estar instalado. O Dokan é necessário para montar arquivos ZIP, CHD e de imagem de disco.</system:String>

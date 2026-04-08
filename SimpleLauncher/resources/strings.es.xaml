@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Mostrar Nombre de Máquina (para MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Cambiando modo de visualización de nombre de archivo...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Cambiando visualización de nombre de máquina...</system:String>
+    <system:String x:Key="FilenameFontSize">Tamaño de Fuente del Nombre de Archivo</system:String>
+    <system:String x:Key="MachineNameFontSize">Tamaño de Fuente del Nombre de Máquina</system:String>
+    <system:String x:Key="Small">Pequeño</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Grande</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Cambiando tamaño de fuente del nombre de archivo...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Cambiando tamaño de fuente del nombre de máquina...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Cambiar cómo se muestran los nombres de archivo en el modo Cuadrícula</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Seleccione el tamaño de fuente para el texto del nombre de archivo</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Seleccione el tamaño de fuente para el texto del nombre de máquina</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Seleccione cómo se muestra el nombre de archivo (Original, Limpio o Sin Nombre de Archivo)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Alternar la visualización de la descripción de la máquina MAME en el modo Cuadrícula</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Esto puede deberse a que Dokan no está instalado. Dokan es necesario para montar archivos ZIP, CHD e imágenes de disco.</system:String>

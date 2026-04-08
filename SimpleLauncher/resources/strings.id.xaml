@@ -24,7 +24,16 @@
     <system:String x:Key="DisplayMachineName">Tampilkan Nama Mesin (untuk MAME)</system:String>
     <system:String x:Key="ChangingFilenameDisplayMode">Mengubah mode tampilan nama file...</system:String>
     <system:String x:Key="ChangingDisplayMachineName">Mengubah tampilan nama mesin...</system:String>
+    <system:String x:Key="FilenameFontSize">Ukuran Font Nama File</system:String>
+    <system:String x:Key="MachineNameFontSize">Ukuran Font Nama Mesin</system:String>
+    <system:String x:Key="Small">Kecil</system:String>
+    <system:String x:Key="Normal">Normal</system:String>
+    <system:String x:Key="Big">Besar</system:String>
+    <system:String x:Key="ChangingFilenameFontSize">Mengubah ukuran font nama file...</system:String>
+    <system:String x:Key="ChangingMachineNameFontSize">Mengubah ukuran font nama mesin...</system:String>
     <system:String x:Key="TooltipFilenamePreferencesMenu">Ubah cara nama file ditampilkan dalam mode Grid</system:String>
+    <system:String x:Key="TooltipFilenameFontSizeMenu">Pilih ukuran font untuk teks nama file</system:String>
+    <system:String x:Key="TooltipMachineNameFontSizeMenu">Pilih ukuran font untuk teks nama mesin</system:String>
     <system:String x:Key="TooltipFilenameDisplayModeMenu">Pilih bagaimana nama file ditampilkan (Asli, Bersih, atau Tanpa Nama File)</system:String>
     <system:String x:Key="TooltipDisplayMachineNameMenu">Aktifkan/nonaktifkan tampilan deskripsi mesin MAME dalam mode Grid</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">Ini mungkin karena Dokan tidak terinstal. Dokan diperlukan untuk memuat (mount) file ZIP, CHD, dan file image disk.</system:String>
