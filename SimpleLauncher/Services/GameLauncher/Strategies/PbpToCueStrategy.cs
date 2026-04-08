@@ -18,16 +18,23 @@ public class PbpToCueStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
+        {
             return false;
+        }
 
         var isPbp = Path.GetExtension(context.ResolvedFilePath).Equals(".pbp", StringComparison.OrdinalIgnoreCase);
-        if (!isPbp) return false;
+        if (!isPbp)
+        {
+            return false;
+        }
 
         // Check if emulator is Mednafen (which doesn't support PBP files)
         var isMednafen = context.EmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
                          (context.EmulatorManager?.EmulatorLocation?.Contains("mednafen", StringComparison.OrdinalIgnoreCase) ?? false);
 
-        return isMednafen;
+        {
+            return isMednafen;
+        }
     }
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
