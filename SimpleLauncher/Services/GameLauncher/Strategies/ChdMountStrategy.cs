@@ -31,6 +31,7 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isPcsxRedux;
     private bool _isPicoDrive;
     private bool _isRaine;
+    private bool _isRetroArch;
     private bool _isRpcs3;
     private bool _isTsugaru;
     private bool _isXemu;
@@ -68,6 +69,7 @@ public class ChdMountStrategy : ILaunchStrategy
                _isPcsxRedux ||
                _isPicoDrive ||
                _isRaine ||
+               _isRetroArch ||
                _isRpcs3 ||
                _isTsugaru ||
                _isXemu ||
@@ -135,6 +137,9 @@ public class ChdMountStrategy : ILaunchStrategy
         _isRaine = context.EmulatorName.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
                    (context.EmulatorManager?.EmulatorLocation?.Contains("raine.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        _isRetroArch = context.EmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
+                       (context.EmulatorManager?.EmulatorLocation?.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+
         _isRpcs3 = context.EmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
                    (context.EmulatorManager?.EmulatorLocation?.Contains("rpcs3", StringComparison.OrdinalIgnoreCase) ?? false);
 
@@ -169,7 +174,7 @@ public class ChdMountStrategy : ILaunchStrategy
         }
 
         // Determine the correct game file to launch based on the emulator
-        string gameFilePath;
+        string gameFilePath = null;
 
         if (_isRpcs3)
         {
@@ -191,12 +196,13 @@ public class ChdMountStrategy : ILaunchStrategy
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath);
         }
-        else if (_isGens || _cDiEmu)
+        else if ((_isGens || _cDiEmu) && !_isRetroArch)
         {
             // Path to a .bin file
             gameFilePath = FindBinFile.Find(mountedDrive.MountedPath);
         }
-        else
+        else if ((_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen || _isMesen || _isNebula ||
+                  _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause) & !_isRetroArch)
         {
             // Path to a .cue file
             gameFilePath = FindCueFile.Find(mountedDrive.MountedPath);
