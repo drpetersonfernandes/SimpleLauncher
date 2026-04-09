@@ -4,7 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">Show only the favorites for this system</system:String>
 
     <system:String x:Key="FailedToSaveSettings">Failed to save settings. Please check that the application folder is writable and not locked by another process.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">The Xemu parameter should contain '-dvd_path'.</system:String>
