@@ -21,6 +21,7 @@ public class SettingsManager : IDisposable
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
 
     private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+    private readonly HashSet<int> _validThumbnailSizesForSystem = [50, 100, 150];
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
@@ -31,6 +32,7 @@ public class SettingsManager : IDisposable
 
     // Application Settings
     public int ThumbnailSize { get; set; } = 250;
+    public int ThumbnailSizeForSystem { get; set; } = 50;
     public int GamesPerPage { get; set; } = 200;
     public string ShowGames { get; set; } = "ShowAll";
     public string ViewMode { get; set; } = "GridView";
@@ -415,6 +417,7 @@ public class SettingsManager : IDisposable
 
         // Application Settings
         ThumbnailSize = other.ThumbnailSize;
+        ThumbnailSizeForSystem = other.ThumbnailSizeForSystem;
         GamesPerPage = other.GamesPerPage;
         ShowGames = other.ShowGames;
         ViewMode = other.ViewMode;
@@ -764,6 +767,7 @@ public class SettingsManager : IDisposable
         // Application Settings Fallback Logic
         var app = settings.Element("Application");
         ThumbnailSize = ValidateThumbnailSize(app?.Element("ThumbnailSize")?.Value ?? settings.Element("ThumbnailSize")?.Value);
+        ThumbnailSizeForSystem = ValidateThumbnailSizeForSystem(app?.Element("ThumbnailSizeForSystem")?.Value ?? settings.Element("ThumbnailSizeForSystem")?.Value);
         GamesPerPage = ValidateGamesPerPage(app?.Element("GamesPerPage")?.Value ?? settings.Element("GamesPerPage")?.Value);
         ShowGames = ValidateShowGames(app?.Element("ShowGames")?.Value ?? settings.Element("ShowGames")?.Value);
         ViewMode = ValidateViewMode(app?.Element("ViewMode")?.Value ?? settings.Element("ViewMode")?.Value);
@@ -2147,6 +2151,7 @@ public class SettingsManager : IDisposable
             // Application Settings
             new XElement("Application",
                 new XElement("ThumbnailSize", s.ThumbnailSize),
+                new XElement("ThumbnailSizeForSystem", s.ThumbnailSizeForSystem),
                 new XElement("GamesPerPage", s.GamesPerPage),
                 new XElement("ShowGames", s.ShowGames),
                 new XElement("ViewMode", s.ViewMode),
@@ -2541,6 +2546,11 @@ public class SettingsManager : IDisposable
     private int ValidateThumbnailSize(string value)
     {
         return int.TryParse(value, out var p) && _validThumbnailSizes.Contains(p) ? p : 250;
+    }
+
+    private int ValidateThumbnailSizeForSystem(string value)
+    {
+        return int.TryParse(value, out var p) && _validThumbnailSizesForSystem.Contains(p) ? p : 50;
     }
 
     private int ValidateGamesPerPage(string value)

@@ -1161,21 +1161,44 @@ public partial class MainWindow
 
             _playSoundEffects.PlayNotificationSound();
 
-            const int zoomStep = 50;
-            const int maxSize = 800;
-            var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
+            // Check if we're in system selection mode (TopSystemSelection is collapsed when viewing system selection)
+            var isSystemSelectionMode = TopSystemSelection.Visibility == Visibility.Collapsed;
 
-            if (newSize != _settings.ThumbnailSize)
+            if (isSystemSelectionMode)
             {
-                _gameButtonFactory.ImageHeight = newSize;
-                _settings.ThumbnailSize = newSize;
-                _settings.Save();
-                UpdateThumbnailSizeCheckMarks(newSize);
-            }
+                // Use ThumbnailSizeForSystem for system selection screen
+                const int zoomStep = 50;
+                const int maxSize = 150;
+                var newSize = Math.Min(maxSize, _settings.ThumbnailSizeForSystem + zoomStep);
 
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
-            var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                if (newSize != _settings.ThumbnailSizeForSystem)
+                {
+                    _settings.ThumbnailSizeForSystem = newSize;
+                    _settings.Save();
+                }
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
+                await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
+            }
+            else
+            {
+                // Use ThumbnailSize for game view
+                const int zoomStep = 50;
+                const int maxSize = 800;
+                var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
+
+                if (newSize != _settings.ThumbnailSize)
+                {
+                    _gameButtonFactory.ImageHeight = newSize;
+                    _settings.ThumbnailSize = newSize;
+                    _settings.Save();
+                    UpdateThumbnailSizeCheckMarks(newSize);
+                }
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            }
         }
         catch (Exception ex)
         {
@@ -1191,21 +1214,44 @@ public partial class MainWindow
 
             _playSoundEffects.PlayNotificationSound();
 
-            const int zoomStep = 50;
-            const int minSize = 50;
-            var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
+            // Check if we're in system selection mode (TopSystemSelection is collapsed when viewing system selection)
+            var isSystemSelectionMode = TopSystemSelection.Visibility == Visibility.Collapsed;
 
-            if (newSize != _settings.ThumbnailSize)
+            if (isSystemSelectionMode)
             {
-                _gameButtonFactory.ImageHeight = newSize;
-                _settings.ThumbnailSize = newSize;
-                _settings.Save();
-                UpdateThumbnailSizeCheckMarks(newSize);
-            }
+                // Use ThumbnailSizeForSystem for system selection screen
+                const int zoomStep = 50;
+                const int minSize = 50;
+                var newSize = Math.Max(minSize, _settings.ThumbnailSizeForSystem - zoomStep);
 
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
-            var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+                if (newSize != _settings.ThumbnailSizeForSystem)
+                {
+                    _settings.ThumbnailSizeForSystem = newSize;
+                    _settings.Save();
+                }
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
+                await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
+            }
+            else
+            {
+                // Use ThumbnailSize for game view
+                const int zoomStep = 50;
+                const int minSize = 50;
+                var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
+
+                if (newSize != _settings.ThumbnailSize)
+                {
+                    _gameButtonFactory.ImageHeight = newSize;
+                    _settings.ThumbnailSize = newSize;
+                    _settings.Save();
+                    UpdateThumbnailSizeCheckMarks(newSize);
+                }
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            }
         }
         catch (Exception ex)
         {
