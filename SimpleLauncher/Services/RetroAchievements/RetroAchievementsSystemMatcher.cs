@@ -34,7 +34,7 @@ public static class RetroAchievementsSystemMatcher
     {
         // Nintendo systems
         ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD"]),
-        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom", "Nintendo SNES MSU1"]),
+        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom"]),
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy", "Nintendo Game Boy Color"]),
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color"]),
@@ -146,7 +146,8 @@ public static class RetroAchievementsSystemMatcher
             "amstrad gx4000", "gx4000",
             "scummvm", "scumm vm", "scumm-vm",
             "pinball arcade", "pinballarcade",
-            "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD"
+            "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
+            "NEC PC-FX", "Nintendo SNES MSU1"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
