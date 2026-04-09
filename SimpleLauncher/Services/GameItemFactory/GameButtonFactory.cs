@@ -658,9 +658,9 @@ internal partial class GameButtonFactory(
     {
         return _settings.FilenameFontSize switch
         {
-            "Small" => 11,
-            "Big" => 15,
-            _ => 13
+            "Small" => 13,
+            "Big" => 17,
+            _ => 15
         };
     }
 
@@ -668,9 +668,9 @@ internal partial class GameButtonFactory(
     {
         return _settings.MachineNameFontSize switch
         {
-            "Small" => 9,
-            "Big" => 13,
-            _ => 11
+            "Small" => 13,
+            "Big" => 17,
+            _ => 15
         };
     }
 }

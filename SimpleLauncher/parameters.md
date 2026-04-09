@@ -1834,7 +1834,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
-May require BIOS files to work.<br>
+May require a BIOS files to work.<br>
 You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
@@ -4905,7 +4905,7 @@ Emulator may need BIOS or system files to work.
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-May require BIOS files to work.<br>
+May require a BIOS files to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 .
