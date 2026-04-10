@@ -10,7 +10,7 @@ using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class MountChdFiles
 {
@@ -145,7 +145,7 @@ public static class MountChdFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GameLauncher.GameLauncher gameLauncher)
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountChdFiles] Starting to mount CHD for game loading: {resolvedChdFilePath}");
         DebugLogger.Log($"[MountChdFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -333,7 +333,7 @@ public static class MountChdFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        GameLauncher.GameLauncher gameLauncher,
+        GameLauncher gameLauncher,
         int? consoleIndex = null)
     {
         DebugLogger.Log($"[MountChdFiles] Starting to mount CHD with console index for game loading: {resolvedChdFilePath}");
@@ -365,7 +365,9 @@ public static class MountChdFiles
             FileName = resolvedToolPath,
             Arguments = arguments,
             UseShellExecute = false,
-            CreateNoWindow = true,
+            CreateNoWindow = false,
+            RedirectStandardOutput = false,
+            RedirectStandardError = false,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 

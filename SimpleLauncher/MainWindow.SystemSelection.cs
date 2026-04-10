@@ -21,6 +21,7 @@ public partial class MainWindow
     private async Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken = default)
     {
         TopSystemSelection.Visibility = Visibility.Collapsed;
+        StatusBarArea.Visibility = Visibility.Collapsed;
 
         GameFileGrid.Children.Clear();
         GameListItems.Clear();
@@ -136,6 +137,7 @@ public partial class MainWindow
                     await Task.Delay(100, token);
 
                     TopSystemSelection.Visibility = Visibility.Visible;
+                    StatusBarArea.Visibility = Visibility.Visible;
                     SystemComboBox.SelectedItem = systemName;
                 }
 

@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-public static class FindDefaultXbe
+public static class FindCueFile
 {
     public static string Find(string rootPath)
     {
@@ -14,17 +14,17 @@ public static class FindDefaultXbe
                 return null;
             }
 
-            var defaultXbePath = Path.Combine(rootPath, "default.xbe");
-            if (File.Exists(defaultXbePath))
+            var cueFiles = Directory.GetFiles(rootPath, "*.cue");
+            if (cueFiles.Length > 0)
             {
-                return defaultXbePath;
+                return cueFiles[0];
             }
 
             return null;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($@"Error finding default.xbe: {ex.Message}");
+            Console.WriteLine($@"Error finding cue file: {ex.Message}");
             return null;
         }
     }

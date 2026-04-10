@@ -990,7 +990,7 @@
                     </Grid>
 
                     <!-- Status Bar / Bottom Area -->
-                    <Grid Grid.Row="2" VerticalAlignment="Center" Margin="0,5,0,5">
+                    <Grid x:Name="StatusBarArea" Grid.Row="2" VerticalAlignment="Center" Margin="0,5,0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />

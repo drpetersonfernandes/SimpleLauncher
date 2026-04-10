@@ -10,7 +10,7 @@ using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class MountXisoFiles
 {
@@ -96,9 +96,11 @@ public static class MountXisoFiles
         {
             FileName = resolvedToolPath,
             Arguments = $"\"{resolvedIsoFilePath}\" \"{driveLetterOnly}\"",
-            UseShellExecute = true,
-            CreateNoWindow = false,
             WindowStyle = ProcessWindowStyle.Normal,
+            UseShellExecute = false,
+            CreateNoWindow = false,
+            RedirectStandardOutput = false,
+            RedirectStandardError = false,
             WorkingDirectory = Path.GetDirectoryName(resolvedToolPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 

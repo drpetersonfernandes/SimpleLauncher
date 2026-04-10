@@ -25,7 +25,8 @@
                    Margin="10"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Content="{DynamicResource PlayHistory}" />
+                   Content="{DynamicResource PlayHistory}"
+                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
                         Padding="5"

@@ -657,7 +657,7 @@ public partial class MainWindow
         }
     }
 
-    private void ShowGlobalSearchWindow_Click(object sender, RoutedEventArgs e)
+    private void ShowGlobalSearchWindow_Click()
     {
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
@@ -684,7 +684,7 @@ public partial class MainWindow
         globalStatsWindow.Show();
     }
 
-    private void ShowFavoritesWindow_Click(object sender, RoutedEventArgs e)
+    private void ShowFavoritesWindow_Click()
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
         _playSoundEffects.PlayNotificationSound();
@@ -697,7 +697,7 @@ public partial class MainWindow
         NavigateToPage(favoritesPage);
     }
 
-    private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
+    private void ShowPlayHistoryWindow_Click()
     {
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
@@ -1073,17 +1073,17 @@ public partial class MainWindow
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowGlobalSearchWindow_Click(sender, e);
+        ShowGlobalSearchWindow_Click();
     }
 
     private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowFavoritesWindow_Click(sender, e);
+        ShowFavoritesWindow_Click();
     }
 
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowPlayHistoryWindow_Click(sender, e);
+        ShowPlayHistoryWindow_Click();
     }
 
     private void NavRetroAchievementsButton_Click(object sender, RoutedEventArgs e)

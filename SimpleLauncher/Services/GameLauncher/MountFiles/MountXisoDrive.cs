@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 /// <inheritdoc />
 /// <summary>

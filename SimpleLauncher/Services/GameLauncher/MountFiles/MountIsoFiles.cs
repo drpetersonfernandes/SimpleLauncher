@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class MountIsoFiles
 {
@@ -21,7 +21,7 @@ public static class MountIsoFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher.GameLauncher gameLauncher)
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountIsoFiles] Starting to mount ISO using PowerShell: {resolvedIsoFilePath}");
         DebugLogger.Log($"[MountIsoFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -172,10 +172,10 @@ public static class MountIsoFiles
         {
             FileName = "powershell.exe",
             Arguments = $"-NoProfile -Command \"& {{ {command} }}\"",
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
             UseShellExecute = false,
-            CreateNoWindow = true
+            CreateNoWindow = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
         };
 
         using var process = new Process();

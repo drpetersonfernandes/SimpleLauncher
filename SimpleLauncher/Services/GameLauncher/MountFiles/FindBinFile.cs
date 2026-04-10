@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
-public static class FindImageIso
+public static class FindBinFile
 {
     public static string Find(string rootPath)
     {
@@ -14,17 +14,17 @@ public static class FindImageIso
                 return null;
             }
 
-            var defaultImagePath = Path.Combine(rootPath, "image.iso");
-            if (File.Exists(defaultImagePath))
+            var binFiles = Directory.GetFiles(rootPath, "*.bin");
+            if (binFiles.Length > 0)
             {
-                return defaultImagePath;
+                return binFiles[0];
             }
 
             return null;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($@"Error finding image.iso: {ex.Message}");
+            Console.WriteLine($@"Error finding bin file: {ex.Message}");
             return null;
         }
     }

@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class FindDefaultXex
 {

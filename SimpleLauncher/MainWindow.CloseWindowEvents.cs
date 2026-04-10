@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel;
-using SimpleLauncher.Services.MountFiles;
+using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 namespace SimpleLauncher;
 

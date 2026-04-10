@@ -27,7 +27,8 @@
                    Margin="10"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Content="{DynamicResource GlobalSearch}" />
+                   Content="{DynamicResource GlobalSearch}"
+                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
             <Label Grid.Row="1" Grid.Column="0"
                    Margin="10,0,10,10"
                    VerticalAlignment="Center"

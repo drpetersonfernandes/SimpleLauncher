@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -12,9 +13,8 @@ using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SystemManager;
-using System.IO.Compression;
 
-namespace SimpleLauncher.Services.MountFiles;
+namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 internal static class MountZipFiles
 {
@@ -203,7 +203,7 @@ internal static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher.GameLauncher gameLauncher)
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -250,9 +250,9 @@ internal static class MountZipFiles
             // SimpleZipDrive uses positional arguments: "<PathToZipFile>" "<MountPoint>"
             Arguments = $"\"{resolvedZipFilePath}\" \"{mountPathArgument}\"",
             UseShellExecute = false,
+            CreateNoWindow = false,
             RedirectStandardOutput = false,
             RedirectStandardError = false,
-            CreateNoWindow = false,
             WorkingDirectory = Path.GetDirectoryName(resolvedZipMountExePath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
@@ -434,7 +434,7 @@ internal static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher.GameLauncher gameLauncher)
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");

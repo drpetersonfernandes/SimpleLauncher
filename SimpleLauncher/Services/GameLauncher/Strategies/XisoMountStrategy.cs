@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.GameLauncher.Models;
-using SimpleLauncher.Services.MountFiles;
+using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
