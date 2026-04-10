@@ -2,21 +2,50 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:md="clr-namespace:MdXaml;assembly=MdXaml"
                       Title="{DynamicResource UpdateHistory}"
                       Width="800"
                       Height="700"
                       MinWidth="700"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <Style x:Key="ThemeAwareMarkdownStyle" TargetType="FlowDocument">
+            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+            <Style.Resources>
+                <Style TargetType="Paragraph">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+                <Style TargetType="Run">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+                <Style TargetType="Hyperlink">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
+                </Style>
+                <Style TargetType="List">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+                <Style TargetType="ListItem">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+                <Style TargetType="Table">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+                <Style TargetType="TableCell">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+                <Style TargetType="Section">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </controls:MetroWindow.Resources>
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" 
-                      HorizontalScrollBarVisibility="Disabled" 
-                      Margin="10">
-            <TextBlock x:Name="HistoryTextBlock"
-                       TextWrapping="Wrap"
-                       Margin="10,0,10,0"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Stretch" />
-        </ScrollViewer>
+        <md:MarkdownScrollViewer x:Name="HistoryMarkdownViewer"
+                                 Margin="10"
+                                 VerticalAlignment="Top"
+                                 HorizontalAlignment="Stretch"
+                                 MarkdownStyle="{StaticResource ThemeAwareMarkdownStyle}" />
     </Grid>
 </controls:MetroWindow>

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Navigation;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +35,12 @@ public partial class RomHistoryWindow
         RomDescriptionTextBox.Text = _searchTerm;
         RomDescriptionTextBox.Visibility = Visibility.Collapsed;
 
-        // Load history asynchronously after window initialization
+        Loaded += (_, _) =>
+        {
+            // Attach a bubbling RequestNavigate handler to catch hyperlink clicks
+            HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
+        };
+
         Loaded += async (_, _) =>
         {
             try
@@ -56,26 +62,21 @@ public partial class RomHistoryWindow
         {
             var historyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "history.xml");
 
-            // Check file existence asynchronously
             if (!await Task.Run(() => File.Exists(historyFilePath)))
             {
-                // Notify developer
                 const string contextMessage = "'history.xml' is missing.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
-                // Update UI on the UI thread
                 await Dispatcher.InvokeAsync(() =>
                 {
                     var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
-                    HistoryTextBlock.Text = nohistoryxmlfilefound2;
+                    HistoryMarkdownViewer.Markdown = nohistoryxmlfilefound2;
                 });
 
                 MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
-
                 return;
             }
 
-            // Load and parse XML in a background thread with secure settings
             var entry = await Task.Run(() =>
             {
                 var settings = new XmlReaderSettings
@@ -95,12 +96,8 @@ public partial class RomHistoryWindow
                                .Any(item => item.Attribute("name")?.Value == _romName) == true);
             });
 
-            // Update UI on the UI thread
             await Dispatcher.InvokeAsync(() =>
             {
-                RomNameTextBox.Text = _romName;
-
-                // Show _searchTerm in RomDescriptionTextBox
                 RomNameTextBox.Text = _romName;
                 RomDescriptionTextBox.Text = _searchTerm;
                 RomDescriptionTextBox.Visibility = Visibility.Visible;
@@ -109,7 +106,7 @@ public partial class RomHistoryWindow
                 {
                     var notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
                     var historyText = entry.Element("text")?.Value ?? notextavailable2;
-                    SetHistoryTextWithLinks(historyText);
+                    HistoryMarkdownViewer.Markdown = ConvertUrlsToMarkdown(historyText);
                 }
                 else
                 {
@@ -119,11 +116,8 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "An error occurred while loading ROM history.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
         }
     }
@@ -131,16 +125,13 @@ public partial class RomHistoryWindow
     private void PromptForOnlineSearch()
     {
         RomNameTextBox.Text = _romName;
-
         RomDescriptionTextBox.Text = _searchTerm;
         RomDescriptionTextBox.Visibility = Visibility.Visible;
 
         var noRoMhistoryfoundinthelocal2 = (string)Application.Current.TryFindResource("NoROMhistoryfoundinthelocal") ?? "No ROM history found in the local database for the selected file.";
-        HistoryTextBlock.Text = noRoMhistoryfoundinthelocal2;
+        HistoryMarkdownViewer.Markdown = noRoMhistoryfoundinthelocal2;
 
-        // Notify user
         DidNotFindRomHistoryMessageBox();
-
         return;
 
         void DidNotFindRomHistoryMessageBox()
@@ -164,75 +155,47 @@ public partial class RomHistoryWindow
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "An error occurred while opening the browser.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
         }
     }
 
-    private void SetHistoryTextWithLinks(string historyText)
+    private static void OnHyperlinkRequestNavigate(object sender, RequestNavigateEventArgs e)
     {
-        HistoryTextBlock.Inlines.Clear();
-
-        var regexLink = MyRegex();
-        var regexBoldLine = MyRegex1();
-
-        var parts = regexLink.Split(historyText);
-        var matches = regexLink.Matches(historyText);
-
-        var index = 0;
-        foreach (var part in parts)
+        try
         {
-            // Check if the part contains a bold line pattern
-            if (regexBoldLine.IsMatch(part))
+            Process.Start(new ProcessStartInfo
             {
-                var boldMatches = regexBoldLine.Matches(part);
-                var boldIndex = 0;
-
-                foreach (var subPart in regexBoldLine.Split(part))
-                {
-                    HistoryTextBlock.Inlines.Add(new Run(subPart));
-
-                    // If there's a match for the bold pattern, make it bold
-                    if (boldIndex >= boldMatches.Count) continue;
-
-                    HistoryTextBlock.Inlines.Add(new Bold(new Run(boldMatches[boldIndex].Value)));
-                    boldIndex++;
-                }
-            }
-            else
-            {
-                HistoryTextBlock.Inlines.Add(new Run(part));
-            }
-
-            // If there's a link, make it bold and clickable
-            if (index >= matches.Count) continue;
-
-            var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
-            {
-                NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
-                    ? matches[index].Value
-                    : "http://" + matches[index].Value)
-            };
-            hyperlink.RequestNavigate += static (_, e) =>
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = e.Uri.AbsoluteUri,
-                    UseShellExecute = true
-                });
-            };
-            HistoryTextBlock.Inlines.Add(hyperlink);
-            index++;
+                FileName = e.Uri.AbsoluteUri,
+                UseShellExecute = true
+            });
         }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"Failed to open link: {e.Uri} - {ex.Message}");
+        }
+
+        e.Handled = true;
     }
 
-    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
-    private static partial Regex MyRegex();
+    private static string ConvertUrlsToMarkdown(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
 
-    [GeneratedRegex(@"- .* -", RegexOptions.Compiled)]
-    private static partial Regex MyRegex1();
+        var regex = MyRegex();
+
+        return regex.Replace(text, static match =>
+        {
+            var url = match.Value;
+            var fullUrl = url.StartsWith("www.", StringComparison.OrdinalIgnoreCase)
+                ? "https://" + url
+                : url;
+            return $"[{url}]({fullUrl})";
+        });
+    }
+
+    [GeneratedRegex(@"https?://[^\s""\]>)]+", RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
 }

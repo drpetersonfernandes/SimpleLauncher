@@ -950,6 +950,7 @@
         <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
         <PackageReference Include="MahApps.Metro" Version="2.4.11" />
+        <PackageReference Include="MdXaml" Version="1.27.0" />
         <PackageReference Include="MessagePack" Version="3.1.4" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.201">
             <PrivateAssets>all</PrivateAssets>
@@ -965,7 +966,7 @@
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
         <PackageReference Include="SharpCompress" Version="0.47.4" />
         <PackageReference Include="Tomlyn" Version="2.3.0" />
-        <PackageReference Include="YamlDotNet" Version="16.3.0" />
+        <PackageReference Include="YamlDotNet" Version="17.0.0" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="SharpDX" Version="4.2.0" />
