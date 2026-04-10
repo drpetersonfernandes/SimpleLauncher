@@ -351,6 +351,35 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _cancellationSource = new CancellationTokenSource();
     }
 
+    /// <summary>
+    /// Navigates to a Page within the MainWindow, hiding the main game content.
+    /// </summary>
+    internal void NavigateToPage(Page page)
+    {
+        // Hide main game content and show the page frame
+        MainGameContent.Visibility = Visibility.Collapsed;
+        PageContentFrame.Visibility = Visibility.Visible;
+
+        // Navigate to the page
+        PageContentFrame.Content = page;
+    }
+
+    /// <summary>
+    /// Returns to the main game content from a page.
+    /// </summary>
+    internal void NavigateBackToMainContent()
+    {
+        // Clear the frame content
+        PageContentFrame.Content = null;
+
+        // Show main game content and hide the page frame
+        MainGameContent.Visibility = Visibility.Visible;
+        PageContentFrame.Visibility = Visibility.Collapsed;
+
+        // Refresh the game list to ensure it's up to date
+        _playSoundEffects.PlayNotificationSound();
+    }
+
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()
     {
         var searchQueryToUse = _activeSearchQueryOrMode;

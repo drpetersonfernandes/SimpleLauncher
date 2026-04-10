@@ -1,0 +1,149 @@
+<Page x:Class="SimpleLauncher.Pages.GlobalSearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="{DynamicResource GlobalSearch}"
+      x:ClassModifier="internal">
+    <!-- Resources section remains unchanged -->
+    <Page.Resources>
+
+    </Page.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4.5*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0"
+                   Margin="10,20,10,0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Content="{DynamicResource Thissearchenginesearchesfor}" />
+            <Label Grid.Row="1" Grid.Column="0"
+                   Margin="10,0,10,10"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Content="{DynamicResource Youcanuselogicaloperators}" />
+            <Grid Grid.Row="2" Grid.Column="0" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource SearchFor}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="SearchTextBox" Height="26" VerticalAlignment="Center" KeyDown="SearchWhenPressEnterKey" Margin="5,0,0,0" ToolTip="{DynamicResource TooltipSearch}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource InSystem}" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Name="SystemComboBox" Margin="5,5,0,5" VerticalAlignment="Center" ToolTip="{DynamicResource TooltipSelectSystem}"/>
+
+                <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource SearchOptions}" Margin="0,5,0,5">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <CheckBox Name="SearchFilenameCheckBox" Content="{DynamicResource Filename}" IsChecked="True" Margin="0,0,15,0" ToolTip="{DynamicResource TooltipSearchFilename}"/>
+                            <CheckBox Name="SearchMameDescriptionCheckBox" Content="{DynamicResource MameDescription}" IsChecked="True" Margin="0,0,15,0" ToolTip="{DynamicResource TooltipSearchMameDescription}"/>
+                            <CheckBox Name="SearchFolderNameCheckBox" Content="{DynamicResource FolderName}" IsChecked="False" ToolTip="{DynamicResource TooltipSearchFolderName}"/>
+                        </StackPanel>
+                        <CheckBox Name="SearchRecursivelyCheckBox" Content="{DynamicResource SearchRecursively}" IsChecked="False" Margin="5" ToolTip="{DynamicResource TooltipSearchRecursively}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button Content="{DynamicResource Search}" Click="SearchButtonClickAsync"
+                            Style="{DynamicResource MahApps.Styles.Button.Square}"
+                            Padding="5" ToolTip="{DynamicResource TooltipGlobalSearchButton}" />
+                    <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_Click"
+                            IsEnabled="False"
+                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                            Padding="5" Margin="10,0,0,0" ToolTip="{DynamicResource TooltipLaunchFromSearch}" />
+                </StackPanel>
+            </Grid>
+            <DataGrid Name="ResultsDataGrid" Grid.Row="3" Grid.Column="0" Margin="10"
+                      CanUserAddRows="False"
+                      GridLinesVisibility="All"
+                      BorderThickness="1"
+                      BorderBrush="Gray"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      ScrollViewer.CanContentScroll="True"
+                      MouseRightButtonUp="GlobalSearchPrepareForRightClickContextMenu"
+                      MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
+                      SelectionChanged="ActionsWhenUserSelectAResultItemAsync" d:DataContext="{d:DesignInstance }">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Overlay for "No results found" message -->
+            <Border x:Name="NoResultsMessageOverlay"
+                    Grid.Row="3" Grid.Column="0"
+                    Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}"
+                    BorderThickness="1"
+                    CornerRadius="2"
+                    Visibility="Collapsed">
+                <TextBlock Text="{DynamicResource Noresultsfound}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource MahApps.Brushes.Text}"
+                           Margin="20"/>
+            </Border>
+
+            <!-- GridSplitter -->
+            <GridSplitter Grid.Row="0" Grid.RowSpan="4" Grid.Column="1"
+                          ResizeDirection="Columns"
+                          Style="{StaticResource EnhancedGridSplitterStyle}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Stretch"
+                          ShowsPreview="True"
+                          ResizeBehavior="PreviousAndNext"
+                          Cursor="SizeWE"/>
+
+            <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="2" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       Content="{DynamicResource PreviewImage}"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,10" />
+                <Border Grid.Row="1"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        Padding="5">
+                    <Image Name="PreviewImage"
+                           Stretch="Uniform"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- Loading Overlay -->
+        <ContentControl x:Name="LoadingOverlay"
+                        Template="{StaticResource LoadingOverlayTemplate}"
+                        Visibility="Collapsed"
+                        Grid.Row="0" Grid.ColumnSpan="3" />
+    </Grid>
+</Page>

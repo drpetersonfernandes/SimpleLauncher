@@ -927,6 +927,8 @@
         <Resource Include="images\redream.png" />
         <None Remove="images\filename.png" />
         <Resource Include="images\filename.png" />
+        <None Remove="images\home.png" />
+        <Resource Include="images\home.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">

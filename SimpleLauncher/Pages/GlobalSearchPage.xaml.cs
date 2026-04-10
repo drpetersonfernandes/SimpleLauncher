@@ -1,0 +1,686 @@
+using System;
+using System.Threading;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.GlobalSearch.Models;
+using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.SystemManager;
+using SimpleLauncher.Services.UpdateStatusBar;
+using SimpleLauncher.SharedModels;
+using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
+
+namespace SimpleLauncher.Pages;
+
+using ILoadingState = Services.LoadingInterface.ILoadingState;
+
+internal partial class GlobalSearchPage : IDisposable, ILoadingState
+{
+    private readonly IConfiguration _configuration;
+    private CancellationTokenSource _cancellationTokenSource;
+    private readonly List<SystemManager> _systemManagers;
+    private readonly SettingsManager _settings;
+    private ObservableCollection<SearchResult> _searchResults;
+    private readonly MainWindow _mainWindow;
+    private readonly List<MameManager> _machines;
+    private readonly Dictionary<string, string> _mameLookup;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly GamePadController _gamePadController;
+    private readonly GameLauncher _gameLauncher;
+    private readonly ILogErrors _logErrors;
+
+    public GlobalSearchPage(
+        List<SystemManager> systemManagers,
+        List<MameManager> machines,
+        Dictionary<string, string> mameLookup,
+        FavoritesManager favoritesManager,
+        SettingsManager settings,
+        MainWindow mainWindow,
+        GamePadController gamePadController,
+        GameLauncher gameLauncher,
+        PlaySoundEffects playSoundEffects,
+        ILogErrors logErrors,
+        IConfiguration configuration)
+    {
+        InitializeComponent();
+
+        _cancellationTokenSource = new CancellationTokenSource();
+        _systemManagers = systemManagers;
+        _machines = machines;
+        _mameLookup = mameLookup;
+        _favoritesManager = favoritesManager;
+        _settings = settings;
+        _mainWindow = mainWindow;
+        _gamePadController = gamePadController;
+        _gameLauncher = gameLauncher;
+        _playSoundEffects = playSoundEffects;
+        _logErrors = logErrors;
+        _searchResults = [];
+        _configuration = configuration;
+
+        ResultsDataGrid.ItemsSource = _searchResults;
+        NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
+
+        // Populate the System ComboBox
+        var allSystemsString = (string)Application.Current.TryFindResource("AllSystems") ?? "All Systems";
+        var systemNames = new List<string> { allSystemsString };
+        systemNames.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name));
+        SystemComboBox.ItemsSource = systemNames;
+        SystemComboBox.SelectedIndex = 0;
+
+        Loaded += (_, _) =>
+        {
+            LoadingOverlay.ApplyTemplate();
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click += EmergencyOverlayRelease_Click;
+            }
+        };
+
+        Unloaded += GlobalSearchPage_Unloaded;
+    }
+
+    private void GlobalSearchPage_Unloaded(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Cancel all operations first
+            _cancellationTokenSource?.Cancel();
+
+            // Cleanup resources
+            ResultsDataGrid.ItemsSource = null;
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+
+            _searchResults?.Clear();
+            _searchResults = null;
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error cleaning up resources on page unload.");
+        }
+    }
+
+    private async void SearchButtonClickAsync(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            // Cancel the previous source before disposing to stop running tasks
+            if (_cancellationTokenSource != null)
+            {
+                await _cancellationTokenSource.CancelAsync();
+                _cancellationTokenSource.Dispose();
+            }
+
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            var searchTerm = SearchTextBox.Text;
+
+            // Validate search terms
+            var parsedTerms = ParseSearchTerms(searchTerm);
+            var hasMeaningfulKeywords = parsedTerms
+                .Any(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                                 !t.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+            if (!hasMeaningfulKeywords)
+            {
+                MessageBoxLibrary.EnterValidSearchTerms();
+                return;
+            }
+
+            if (CheckIfSearchTermIsEmpty(searchTerm)) return;
+
+            LaunchButton.IsEnabled = false;
+            PreviewImage.Source = null;
+
+            SetLoadingState(true, (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.");
+            NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
+            await Task.Yield();
+
+            try
+            {
+                var selectedSystem = SystemComboBox.SelectedItem as string;
+                var searchFilename = SearchFilenameCheckBox.IsChecked == true;
+                var searchMameDescription = SearchMameDescriptionCheckBox.IsChecked == true;
+                var searchFolderName = SearchFolderNameCheckBox.IsChecked == true;
+                var searchRecursively = SearchRecursivelyCheckBox.IsChecked == true;
+
+                // Pass the token from the NEW source
+                var results = await PerformSearchAsync(
+                    searchTerm, selectedSystem, searchFilename, searchMameDescription,
+                    searchFolderName, searchRecursively, _cancellationTokenSource.Token);
+
+                if (results?.Count > 0)
+                {
+                    // Detach ItemsSource to allow GC of old containers and avoid UI updates during population
+                    ResultsDataGrid.ItemsSource = null;
+                    _searchResults.Clear();
+
+                    foreach (var result in results)
+                        _searchResults.Add(result);
+
+                    ResultsDataGrid.ItemsSource = _searchResults;
+                }
+                else
+                {
+                    ResultsDataGrid.ItemsSource = null;
+                    _searchResults.Clear();
+                    NoResultsMessageOverlay.Visibility = Visibility.Visible;
+                    PreviewImage.Source = null;
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Search was canceled because a new search started or page unloaded - ignore
+            }
+            catch (Exception ex)
+            {
+                await _logErrors.LogErrorAsync(ex, "Error during search operation.");
+                MessageBoxLibrary.GlobalSearchErrorMessageBox();
+                NoResultsMessageOverlay.Visibility = Visibility.Visible;
+            }
+            finally
+            {
+                // Only hide overlay if this specific task wasn't cancelled
+                // (prevents flickering if multiple searches are queued)
+                if (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    SetLoadingState(false);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logErrors.LogErrorAsync(ex, "Error in SearchButtonClickAsync.");
+        }
+    }
+
+    private async Task<List<SearchResult>> PerformSearchAsync(string searchTerm, string selectedSystem, bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively, CancellationToken token)
+    {
+        var results = new List<SearchResult>();
+        var searchTerms = ParseSearchTerms(searchTerm);
+
+        var allSystemsString = (string)Application.Current.TryFindResource("AllSystems") ?? "All Systems";
+        IEnumerable<SystemManager> systemsToSearch = _systemManagers;
+        if (selectedSystem != allSystemsString)
+        {
+            systemsToSearch = _systemManagers.Where(sm => sm.SystemName == selectedSystem);
+        }
+
+        foreach (var systemManager in systemsToSearch)
+        {
+            token.ThrowIfCancellationRequested();
+
+            // To respect the "Search Recursively" checkbox in the UI, we may need to override the system's default setting.
+            // GetFilesAsync uses systemManager.DisableRecursiveSearch and systemManager.GroupByFolder to decide recursion.
+            // We create a temporary modified version if needed.
+            var effectiveSystemManager = searchRecursively switch
+            {
+                true when systemManager.DisableRecursiveSearch => new SystemManager
+                {
+                    SystemName = systemManager.SystemName,
+                    SystemFolders = systemManager.SystemFolders,
+                    SystemImageFolder = systemManager.SystemImageFolder,
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    Emulators = systemManager.Emulators,
+                    GroupByFolder = systemManager.GroupByFolder,
+                    DisableRecursiveSearch = false // Force recursion
+                },
+                false when !systemManager.DisableRecursiveSearch => new SystemManager
+                {
+                    SystemName = systemManager.SystemName,
+                    SystemFolders = systemManager.SystemFolders,
+                    SystemImageFolder = systemManager.SystemImageFolder,
+                    FileFormatsToSearch = systemManager.FileFormatsToSearch,
+                    ExtractFileBeforeLaunch = systemManager.ExtractFileBeforeLaunch,
+                    FileFormatsToLaunch = systemManager.FileFormatsToLaunch,
+                    Emulators = systemManager.Emulators,
+                    GroupByFolder = systemManager.GroupByFolder,
+                    DisableRecursiveSearch = true // Force NO recursion
+                },
+                _ => systemManager
+            };
+
+            foreach (var systemFolderPathRaw in systemManager.SystemFolders)
+            {
+                token.ThrowIfCancellationRequested();
+
+                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
+
+                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
+                {
+                    continue;
+                }
+
+                // Use the safe recursive method from GetListOfFiles to avoid UnauthorizedAccessException crashes
+                var matchedFilesList = await GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager, token);
+
+                var filesInSystemFolder = matchedFilesList.Where(file =>
+                {
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
+                    var filenameMatch = false;
+                    if (searchFilename)
+                    {
+                        filenameMatch = MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms);
+                    }
+
+                    var mameDescriptionMatch = false;
+                    if (searchMameDescription && _mameLookup != null && _mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
+                    {
+                        mameDescriptionMatch = MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
+                    }
+
+                    var folderNameMatch = false;
+                    if (searchFolderName)
+                    {
+                        var dir = Path.GetDirectoryName(file);
+                        var directoryName = dir is null ? null : new DirectoryInfo(dir).Name;
+                        folderNameMatch = MatchesSearchQuery(directoryName?.ToLowerInvariant(), searchTerms);
+                    }
+
+                    return filenameMatch || mameDescriptionMatch || folderNameMatch;
+                });
+
+                var matchedFilePaths = filesInSystemFolder.ToList();
+
+                foreach (var filePath in matchedFilePaths)
+                {
+                    token.ThrowIfCancellationRequested();
+
+                    var searchResultItem = new SearchResult
+                    {
+                        FileName = Path.GetFileNameWithoutExtension(filePath),
+                        FileNameWithExtension = Path.GetFileName(filePath),
+                        FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
+                        FilePath = filePath,
+                        MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
+                        SystemName = systemManager.SystemName,
+                        EmulatorManager = systemManager.Emulators.FirstOrDefault(),
+                        CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager, _settings)
+                    };
+                    results.Add(searchResultItem);
+                }
+            }
+        }
+
+        var scoredResults = ScoreResults(results, searchTerms);
+        return scoredResults;
+
+        string GetMachineDescription(string fileNameWithoutExtension)
+        {
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            return machine?.Description ?? string.Empty;
+        }
+    }
+
+    private static List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
+    {
+        foreach (var result in results)
+        {
+            result.Score = CalculateScore(result.FileName.ToLowerInvariant(), searchTerms);
+        }
+
+        return results.OrderByDescending(static r => r.Score).ThenBy(static r => r.FileName, StringComparer.OrdinalIgnoreCase).ToList();
+    }
+
+    private static int CalculateScore(string text, List<string> searchTerms)
+    {
+        var score = 0;
+        foreach (var term in searchTerms)
+        {
+            var index = text.IndexOf(term, StringComparison.OrdinalIgnoreCase);
+            if (index < 0) continue;
+
+            score += 10; // Base score for match
+            score += text.Length - index; // Higher score for earlier match
+        }
+
+        return score;
+    }
+
+    private static bool MatchesSearchQuery(string text, IReadOnlyCollection<string> searchTerms)
+    {
+        // Filter out "and" and "or" to get the actual search keywords
+        var keywords = searchTerms
+            .Where(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                               !t.Equals("or", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        // If there are no actual keywords after filtering, and the original search had terms,
+        // it might mean the search was just "and" or "or", which is not a valid search on its own.
+        // However, if searchTerms was empty to begin with, it's like an empty filter (match all).
+        // For simplicity here, if no keywords, we assume it means no specific filtering by keywords.
+        // The original logic `if (!relevantTerms.Any()) return true;` handled this.
+        if (keywords.Count == 0)
+        {
+            // If the original searchTerms was also empty, it's a match (no filter).
+            // If original searchTerms had only "and"/"or", it's effectively no keywords to match.
+            return true;
+        }
+
+        // Check for the presence of "and" or "or" operators in the original search terms
+        var hasAndOperator = searchTerms.Any(static term => term.Equals("and", StringComparison.OrdinalIgnoreCase));
+        var hasOrOperator = searchTerms.Any(static term => term.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+        // If both "and" and "or" are present, "and" typically takes precedence, or it's an invalid query.
+        // For this implementation, let's assume if "and" is present, it's an AND operation.
+        // If only "or" is present, it's an OR operation.
+        // If neither, it defaults to an AND operation for the keywords.
+
+        if (hasAndOperator)
+        {
+            // All keywords must be present in the text
+            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+        else if (hasOrOperator)
+        {
+            // Any of the keywords must be present in the text
+            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+        else
+        {
+            // Default behavior (no "and" / "or" operators, or only keywords): all keywords must be present
+            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+    }
+
+    private static List<string> ParseSearchTerms(string searchTerm)
+    {
+        var terms = new List<string>();
+        // Regex to find quoted strings or non-space sequences
+        var matches = MyRegex().Matches(searchTerm);
+        foreach (Match match in matches)
+        {
+            terms.Add(match.Value.Trim('"').ToLowerInvariant());
+        }
+
+        return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
+    }
+
+    private async void LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, Emulator selectedEmulatorManager, ILoadingState loadingState)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+
+                return;
+            }
+
+            var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            if (selectedSystemManager == null)
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(null, "[LaunchGameFromSearchResultAsync] System manager not found for launching game from search.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+
+                return;
+            }
+
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingState);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var contextMessage = $"[LaunchGameFromSearchResultAsync] Error launching game from search: {filePath}, System: {selectedSystemName}";
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+        }
+    }
+
+    private void LaunchButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                _playSoundEffects.PlayNotificationSound();
+                LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager, this);
+            }
+            else
+            {
+                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error in LaunchButton_Click (GlobalSearch).";
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+        }
+    }
+
+    private void GlobalSearchPrepareForRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    {
+        try
+        {
+            // This check handles cases where no item is selected or the selected item is not a valid game.
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                return;
+            }
+
+            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager == null)
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(null, "SystemManager is null");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(null, "FilePath is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedResult.SystemName))
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(null, "SystemName is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+
+                return;
+            }
+
+            if (selectedResult.EmulatorManager == null)
+            {
+                // Notify developer
+                _ = _logErrors.LogErrorAsync(null, "EmulatorManager is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+
+                return;
+            }
+
+            var context = new RightClickContext(
+                selectedResult.FilePath,
+                selectedResult.FileNameWithExtension,
+                selectedResult.FileName,
+                selectedResult.SystemName,
+                systemManager,
+                _machines,
+                _favoritesManager,
+                _settings,
+                null,
+                null,
+                selectedResult.EmulatorManager,
+                null,
+                null,
+                _mainWindow,
+                _gamePadController,
+                null,
+                _gameLauncher,
+                _playSoundEffects,
+                this
+            );
+
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
+            if (contextMenu != null)
+            {
+                ResultsDataGrid.ContextMenu = contextMenu;
+                contextMenu.IsOpen = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error in GlobalSearch right-click context menu.";
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+        }
+    }
+
+    private void ResultsDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        try
+        {
+            // This check correctly handles cases where no item is selected or the selected item is not a valid game.
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
+
+            _playSoundEffects.PlayNotificationSound();
+            LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager, this);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error in ResultsDataGrid_MouseDoubleClick (GlobalSearch).";
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+        }
+    }
+
+    private void SearchWhenPressEnterKey(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            SearchButtonClickAsync(sender, e);
+        }
+    }
+
+    private async void ActionsWhenUserSelectAResultItemAsync(object sender, SelectionChangedEventArgs e)
+    {
+        try
+        {
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                LaunchButton.IsEnabled = true; // Enable launch button when a valid item is selected
+                var (loadedImage, _) = await ImageLoader.LoadImageAsync(selectedResult.CoverImage);
+
+                // Race condition check: Only assign if the selected item hasn't changed
+                if (ResultsDataGrid.SelectedItem == selectedResult)
+                {
+                    PreviewImage.Source = loadedImage;
+                }
+            }
+            else
+            {
+                // This branch will be hit if ResultsDataGrid.SelectedItem is null (no selection)
+                LaunchButton.IsEnabled = false; // Disable if no item is selected
+                PreviewImage.Source = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItemAsync (GlobalSearch).");
+
+            PreviewImage.Source = null; // Ensure preview is cleared on error
+        }
+    }
+
+    private static bool CheckIfSearchTermIsEmpty(string searchTerm)
+    {
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return false;
+        }
+
+        // Notify user
+        MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
+
+        return true;
+    }
+
+    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
+
+    public void Dispose()
+    {
+        _cancellationTokenSource?.Dispose();
+    }
+
+    public void SetLoadingState(bool isLoading, string message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            if (isLoading)
+            {
+                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
+        });
+    }
+
+    private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
+    {
+        _playSoundEffects.PlayNotificationSound();
+        // Cancel the background search task
+        _cancellationTokenSource?.Cancel();
+
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+
+        DebugLogger.Log("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
+        UpdateStatusBar.UpdateContent("Emergency reset performed.", _mainWindow);
+    }
+}

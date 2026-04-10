@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Pages;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -662,14 +663,14 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
 
-        ResetUiAsync();
-
-        var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup,
+        // Navigate to GlobalSearchPage
+        var globalSearchPage = new GlobalSearchPage(
+            _systemManagers, _machines, _mameLookup,
             _favoritesManager, _settings, this,
             _gamePadController, _gameLauncher, _playSoundEffects,
             _logErrors, _configuration);
-        globalSearchWindow.Owner = this;
-        globalSearchWindow.Show();
+
+        NavigateToPage(globalSearchPage);
     }
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
@@ -689,13 +690,12 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        ResetUiAsync();
+        // Navigate to FavoritesPage
+        var favoritesPage = new FavoritesPage(
+            _settings, _systemManagers, _machines, _favoritesManager,
+            this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration)
-        {
-            Owner = this
-        };
-        favoritesWindow.Show();
+        NavigateToPage(favoritesPage);
     }
 
     private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
@@ -703,15 +703,13 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
 
-        ResetUiAsync();
-
-        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings,
+        // Navigate to PlayHistoryPage
+        var playHistoryPage = new PlayHistoryPage(
+            _systemManagers, _machines, _settings,
             _favoritesManager, PlayHistoryManager, this,
-            _gamePadController, _gameLauncher, _playSoundEffects, _configuration)
-        {
-            Owner = this
-        };
-        playHistoryWindow.Show();
+            _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
+
+        NavigateToPage(playHistoryPage);
     }
 
     public void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
@@ -1069,6 +1067,8 @@ public partial class MainWindow
     {
         _playSoundEffects.PlayNotificationSound();
 
+        // Navigate back to main content if on a page, then reset UI
+        NavigateBackToMainContent();
         ResetUiAsync();
     }
 
