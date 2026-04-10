@@ -531,24 +531,9 @@
             </MenuItem>
             <MenuItem Header="{DynamicResource SelectWindow}"
                       ToolTip="{DynamicResource TooltipSelectWindowMenu}">
-                <MenuItem Click="ShowFavoritesWindow_Click" Header="{DynamicResource Favorites}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/heart.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="ShowGlobalSearchWindow_Click" Header="{DynamicResource GlobalSearch}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/search2.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="ShowPlayHistoryWindow_Click" Header="{DynamicResource PlayHistory}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="ShowRetroAchievementsWindowClick" Header="{DynamicResource RetroAchievements}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
@@ -559,7 +544,7 @@
             </MenuItem>
             <MenuItem Header="{DynamicResource Tools}"
                       ToolTip="{DynamicResource TooltipToolsMenu}">
-                <MenuItem Click="BatchConvertIsoToXiso_Click"
+                    <MenuItem Click="BatchConvertIsoToXiso_Click"
                           Header="Batch Convert Iso To Xiso" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />

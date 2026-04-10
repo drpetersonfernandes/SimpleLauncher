@@ -5,12 +5,11 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
     <system:String x:Key="TooltipSelectedSystemFavorite2">Show only the favorites for this system</system:String>
-
+    
     <system:String x:Key="FailedToSaveSettings">Failed to save settings. Please check that the application folder is writable and not locked by another process.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">The Xemu parameter should contain '-dvd_path'.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' cannot run from a temporary folder.</system:String>
     <system:String x:Key="Pleaseextracttheapplicationtoapermanentfolder">Please extract the application to a permanent folder before running it.</system:String>
-
     <system:String x:Key="networkPathIssue">If the file is on a network drive ensure your computer is still connected to that drive.</system:String>
     <system:String x:Key="ThismaybeduetoDokannotbeinginstalled2">This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningyourbrowser">An error occurred while opening your browser.</system:String>

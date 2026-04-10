@@ -27,7 +27,7 @@
                    Margin="10"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Content="{DynamicResource ListofFavorites}" />
+                   Content="{DynamicResource Favorites}" />
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromFavorites}" Click="RemoveFavoriteButton_Click"
                         Style="{DynamicResource MahApps.Styles.Button.Square}"

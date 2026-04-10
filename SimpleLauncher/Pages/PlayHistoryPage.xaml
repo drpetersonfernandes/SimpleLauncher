@@ -25,7 +25,7 @@
                    Margin="10"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Content="{DynamicResource PlayHistoryList}" />
+                   Content="{DynamicResource PlayHistory}" />
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
                         Padding="5"

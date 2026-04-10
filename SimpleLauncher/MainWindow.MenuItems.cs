@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Pages;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -664,7 +663,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
 
         // Navigate to GlobalSearchPage
-        var globalSearchPage = new GlobalSearchPage(
+        var globalSearchPage = new Pages.GlobalSearchPage(
             _systemManagers, _machines, _mameLookup,
             _favoritesManager, _settings, this,
             _gamePadController, _gameLauncher, _playSoundEffects,
@@ -691,7 +690,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
 
         // Navigate to FavoritesPage
-        var favoritesPage = new FavoritesPage(
+        var favoritesPage = new Pages.FavoritesPage(
             _settings, _systemManagers, _machines, _favoritesManager,
             this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
 
@@ -704,7 +703,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
 
         // Navigate to PlayHistoryPage
-        var playHistoryPage = new PlayHistoryPage(
+        var playHistoryPage = new Pages.PlayHistoryPage(
             _systemManagers, _machines, _settings,
             _favoritesManager, PlayHistoryManager, this,
             _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
