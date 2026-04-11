@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Windows;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 
@@ -26,6 +27,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         _playSoundEffects.PlayNotificationSound();
         _launchTools.BatchConvertToChd(_selectedRomFolders?.FirstOrDefault());
+        DebugLogger.Log($"Called BatchConvertToCHD with args: {_selectedRomFolders?.FirstOrDefault()}");
     }
 
     private void BatchConvertToCompressedFile_Click(object sender, RoutedEventArgs e)
