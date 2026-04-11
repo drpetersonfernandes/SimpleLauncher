@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">Mostra solo i preferiti per questo sistema</system:String>
     <system:String x:Key="FailedToSaveSettings">Errore nel salvataggio delle impostazioni. Verificare che la cartella dell'applicazione sia scrivibile e non bloccata da un altro processo.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Il parametro Xemu deve contenere '-dvd_path'.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' non può essere eseguito da una cartella temporanea.</system:String>

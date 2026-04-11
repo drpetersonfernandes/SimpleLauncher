@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">केवल इस सिस्टम के पसंदीदा दिखाएं</system:String>
     <system:String x:Key="FailedToSaveSettings">सेटिंग्स सहेजने में विफल। कृपया जांचें कि एप्लिकेशन फ़ोल्डर लिखने योग्य है और किसी अन्य प्रक्रिया द्वारा लॉक नहीं है।</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu पैरामीटर में '-dvd_path' होना चाहिए।</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'सिंपल लॉन्चर' अस्थायी फ़ोल्डर से नहीं चल सकता।</system:String>

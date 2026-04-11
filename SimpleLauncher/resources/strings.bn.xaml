@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">শুধুমাত্র এই সিস্টেমের জন্য প্রিয়গুলো দেখান</system:String>
     <system:String x:Key="FailedToSaveSettings">সেটিংস সংরক্ষণ করা যায়নি। অনুগ্রহ করে পরীক্ষা করুন যে অ্যাপ্লিকেশন ফোল্ডারটি লেখাযোগ্য এবং অন্য কোনো প্রক্রিয়া দ্বারা লক করা নেই।</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu প্যারামিটারে '-dvd_path' থাকা উচিত।</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'সিম্পল লঞ্চার' একটি অস্থায়ী ফোল্ডার থেকে চালানো যাবে না।</system:String>

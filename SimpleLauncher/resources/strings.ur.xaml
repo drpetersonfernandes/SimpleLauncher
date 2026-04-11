@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">صرف اس سسٹم کے پسندیدہ دکھائیں</system:String>
     <system:String x:Key="FailedToSaveSettings">ترتیبات محفوظ کرنے میں ناکامی۔ براہ کرم چیک کریں کہ ایپلی کیشن فولڈر قابلِ تحریر ہے اور کسی دوسرے عمل (process) کے ذریعے لاک تو نہیں ہے۔</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu پیرامیٹر میں '-dvd_path' شامل ہونا چاہیے۔</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' کسی عارضی فولڈر سے نہیں چل سکتا۔</system:String>

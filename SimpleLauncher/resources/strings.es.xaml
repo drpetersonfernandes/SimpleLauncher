@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">Mostrar solo los favoritos de este sistema</system:String>
     <system:String x:Key="FailedToSaveSettings">No se pudieron guardar los ajustes. Por favor, compruebe que la carpeta de la aplicación sea escribible y no esté bloqueada por otro proceso.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">El parámetro Xemu debería contener '-dvd_path'.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' no puede ejecutarse desde una carpeta temporal.</system:String>

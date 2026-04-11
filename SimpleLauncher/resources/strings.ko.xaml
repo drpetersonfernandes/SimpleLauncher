@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">이 시스템의 즐겨찾기만 표시</system:String>
     <system:String x:Key="FailedToSaveSettings">설정을 저장하지 못했습니다. 애플리케이션 폴더가 쓰기 가능한 상태인지, 다른 프로세스에서 사용 중이지 않은지 확인해 주세요.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu 매개변수에는 '-dvd_path'가 포함되어야 합니다.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher'는 임시 폴더에서 실행할 수 없습니다.</system:String>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">Tampilkan hanya favorit untuk sistem ini</system:String>
     <system:String x:Key="FailedToSaveSettings">Gagal menyimpan pengaturan. Pastikan folder aplikasi dapat ditulis dan tidak sedang dikunci oleh proses lain.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Parameter Xemu harus berisi '-dvd_path'.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' tidak dapat dijalankan dari folder sementara.</system:String>

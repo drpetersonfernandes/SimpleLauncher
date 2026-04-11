@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">Sadece bu sistem için favorileri göster</system:String>
     <system:String x:Key="FailedToSaveSettings">Ayarlar kaydedilemedi. Lütfen uygulama klasörünün yazılabilir olduğundan ve başka bir işlem tarafından kilitlenmediğinden emin olun.</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu parametresi '-dvd_path' içermelidir.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' geçici bir klasörden çalıştırılamaz.</system:String>

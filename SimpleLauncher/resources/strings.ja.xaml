@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
+    <system:String x:Key="TooltipSelectedSystemFavorite2">このシステムのブックマークのみを表示</system:String>
     <system:String x:Key="FailedToSaveSettings">設定の保存に失敗しました。アプリケーションフォルダーが書き込み可能であること、および他のプロセスによってロックされていないことを確認してください。</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemuのパラメーターには '-dvd_path' が含まれている必要があります。</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">「Simple Launcher」は一時フォルダーから実行することはできません。</system:String>
