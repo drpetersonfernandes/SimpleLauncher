@@ -2618,7 +2618,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2626,6 +2627,10 @@ This emulator requires a BIOS file to work.
 **Emulator Path (Example):** C:\Emulators\Mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** -video.fs 1<br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -2636,7 +2641,8 @@ This emulator requires a BIOS file to work.
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [GitHub](https://github.com/hades-emu/hades).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://github.com/hades-emu/hades).<br>
 
 .
 
@@ -2646,6 +2652,7 @@ This emulator requires a BIOS file to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.
+You can download this emulator on the [Official Website](https://github.com/visualboyadvance-m/visualboyadvance-m).<br>
 
 .
 
@@ -2658,10 +2665,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mgba/).<br>
-Core may require BIOS files or system files to work.
-
-This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2674,7 +2679,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo Game Boy Color
 
@@ -2700,7 +2706,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2710,7 +2717,8 @@ This emulator requires a BIOS file to work.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -2719,7 +2727,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/jsgroth/jgenesis).<br>
 
 .
 
@@ -2729,7 +2738,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
+Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).<br>
+You can download this emulator on the [Official Website](https://github.com/drhelius/gearboy).<br>
 
 .
 
@@ -2739,7 +2749,8 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
-'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.
+'Simple Launcher' will always extract compressed games when you use this emulator, since it does not support compressed files.<br>
+You can download this emulator on the [Official Website](https://github.com/LIJI32/SameBoy).<br>
 
 .
 
@@ -2752,7 +2763,8 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2765,7 +2777,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2778,7 +2791,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2791,7 +2805,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2804,7 +2819,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo GameCube
 
@@ -2831,6 +2847,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://dolphin-emu.org/).<br>
 
 .
 
@@ -2843,7 +2860,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 ## Nintendo NES / Famicom
 

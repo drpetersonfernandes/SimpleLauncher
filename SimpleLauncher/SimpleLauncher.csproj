@@ -966,7 +966,7 @@
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
         <PackageReference Include="SharpCompress" Version="0.47.4" />
         <PackageReference Include="Tomlyn" Version="2.3.0" />
-        <PackageReference Include="YamlDotNet" Version="17.0.0" />
+        <PackageReference Include="YamlDotNet" Version="17.0.1" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="SharpDX" Version="4.2.0" />
