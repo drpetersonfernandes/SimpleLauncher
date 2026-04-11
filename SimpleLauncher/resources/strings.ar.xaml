@@ -790,7 +790,6 @@
     <system:String x:Key="Lime">ليموني</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">تمت إعادة الروابط إلى القيم الافتراضية.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">تم حفظ الروابط بنجاح.</system:String>
-    <system:String x:Key="ListofFavorites">قائمة المفضلة</system:String>
     <system:String x:Key="ListView">عرض قائمة</system:String>
     <system:String x:Key="Loading">جار التحميل...</system:String>
     <system:String x:Key="LoadingAchievements">تحميل الإنجازات...</system:String>
@@ -1105,7 +1104,6 @@
     <system:String x:Key="Players">اللاعبون:</system:String>
     <system:String x:Key="PlayerStatistics">إحصائيات اللاعبين</system:String>
     <system:String x:Key="PlayHistory">سجل التشغيل</system:String>
-    <system:String x:Key="PlayHistoryList">قائمة سجل التشغيل</system:String>
     <system:String x:Key="PlayingVideo">تشغيل الفيديو...</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">وقت اللعب</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="Thisactionwilldelete">سيقوم هذا الإجراء بحذف الملف من القرص الصلب ولا يمكن التراجع عنه.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">يحدث هذا عادةً بسبب إعدادات نهج المجموعة على أجهزة الكمبيوتر الخاصة بالشركات أو المدارة.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">يحدث هذا عادةً بسبب إعدادات نهج المجموعة على أجهزة الكمبيوتر الخاصة بالشركات أو المدارة.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الآلات داخل كل نظام تم تكوينه في واجهة المحاكي.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">عدد مرات اللعب</system:String>
     <system:String x:Key="TitleScreen">شاشة العنوان</system:String>
     <system:String x:Key="TitleSnapshot">لقطة العنوان</system:String>
@@ -1935,7 +1932,6 @@
     <system:String x:Key="ToolTipSearchPhind">ابحث عن حل باستخدام Phind (ذكاء اصطناعي يركز على المطورين).</system:String>
     <system:String x:Key="TooltipSearchRecursively">البحث في الدلائل الفرعية أيضًا</system:String>
     <system:String x:Key="ToolTipSearchYouCom">ابحث عن حل باستخدام You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">إضافة أو إزالة النظام الحالي من المفضلة</system:String>
     <system:String x:Key="TooltipSelectEmulator">اختر المحاكي الذي ستستخدمه للنظام المحدد</system:String>
     <system:String x:Key="TooltipSelectSystem">حدد نظام لعبة للتصفح</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">فتح نوافذ وميزات إضافية</system:String>

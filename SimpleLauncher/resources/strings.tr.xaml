@@ -790,7 +790,6 @@
     <system:String x:Key="Lime">Açık Yeşil</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Bağlantılar varsayılan değerlere sıfırlandı.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Bağlantılar başarıyla kaydedildi.</system:String>
-    <system:String x:Key="ListofFavorites">Favori Listesi</system:String>
     <system:String x:Key="ListView">Liste Görünümü</system:String>
     <system:String x:Key="Loading">Yükleniyor...</system:String>
     <system:String x:Key="LoadingAchievements">Başarılar yükleniyor...</system:String>
@@ -1105,7 +1104,6 @@
     <system:String x:Key="Players">Oyuncular:</system:String>
     <system:String x:Key="PlayerStatistics">Oyuncu İstatistikleri</system:String>
     <system:String x:Key="PlayHistory">Oynatma Geçmişi</system:String>
-    <system:String x:Key="PlayHistoryList">Oynatma geçmişi listesi</system:String>
     <system:String x:Key="PlayingVideo">Video oynatılıyor...</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">Oynama Süresi</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="Thisactionwilldelete">Bu işlem dosyayı sabit diskinizden silecek ve geri alınamayacaktır.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Bu genellikle kurumsal veya yönetilen bilgisayarlardaki Grup İlkesi ayarlarından kaynaklanır.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Bu genellikle kurumsal veya yönetilen bilgisayarlardaki Grup İlkesi ayarlarından kaynaklanır.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, her sistemdeki dosya adlarını ve makine açıklamalarını emülatör ara yüzünde arar.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Oynanma Sayısı</system:String>
     <system:String x:Key="TitleScreen">Başlık Ekranı</system:String>
     <system:String x:Key="TitleSnapshot">Başlık Görüntüsü</system:String>
@@ -1935,7 +1932,6 @@
     <system:String x:Key="ToolTipSearchPhind">Phind (Geliştirici odaklı yapay zeka) kullanarak bir çözüm arayın.</system:String>
     <system:String x:Key="TooltipSearchRecursively">Alt dizinlerde de ara</system:String>
     <system:String x:Key="ToolTipSearchYouCom">You.com AI kullanarak bir çözüm arayın.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Mevcut sistemi favorilere ekleyin veya kaldırın</system:String>
     <system:String x:Key="TooltipSelectEmulator">Seçilen sistem için hangi emülatörü kullanacağınızı seçin</system:String>
     <system:String x:Key="TooltipSelectSystem">Göz atmak için bir oyun sistemi seçin</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Ek pencereleri ve özellikleri aç</system:String>

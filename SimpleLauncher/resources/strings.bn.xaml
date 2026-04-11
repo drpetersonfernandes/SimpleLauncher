@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">লেবু</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">লিঙ্কগুলি ডিফল্ট মানে পুনরুদ্ধার করা হয়েছে।</system:String>
     <system:String x:Key="Linkssavedsuccessfully">লিঙ্কগুলি সফলভাবে সংরক্ষিত হয়েছে।</system:String>
-    <system:String x:Key="ListofFavorites">প্রিয় তালিকা</system:String>
     <system:String x:Key="ListView">তালিকা ভিউ</system:String>
     <system:String x:Key="Loading">লোড হচ্ছে...</system:String>
     <system:String x:Key="LoadingAchievements">অ্যাচিভমেন্ট লোড করা হচ্ছে...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">খেলোয়াড়:</system:String>
     <system:String x:Key="PlayerStatistics">খেলোয়াড় পরিসংখ্যান</system:String>
     <system:String x:Key="PlayHistory">প্লে ইতিহাস</system:String>
-    <system:String x:Key="PlayHistoryList">প্লে ইতিহাসের তালিকা</system:String>
     <system:String x:Key="PlayingVideo">ভিডিও চলছে...</system:String>
     <system:String x:Key="Playtime">খেলার সময়কাল:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">খেলার সময়</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">এই পদক্ষেপ ফাইলটি HDD থেকে মুছে ফেলবে এবং এটি পূর্বাবস্থায় ফেরানো যাবে না</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">এটি সাধারণত কর্পোরেট বা পরিচালিত পিসিগুলিতে গ্রুপ পলিসি সেটিংসের কারণে ঘটে।</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">এটি সাধারণত কর্পোরেট বা পরিচালিত পিসিগুলিতে গ্রুপ পলিসি সেটিংসের কারণে ঘটে।</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">এই সার্চ ইঞ্জিনটি ফাইলের নাম এবং বিবরণ খোঁজে।</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">খেলার সংখ্যা</system:String>
     <system:String x:Key="TitleScreen">টাইটেল স্ক্রিন</system:String>
     <system:String x:Key="TitleSnapshot">শিরোনাম স্ন্যাপশট</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Phind ব্যবহার করে একটি সমাধান খুঁজুন (ডেভেলপার-কেন্দ্রিক এআই)।</system:String>
     <system:String x:Key="TooltipSearchRecursively">সাবডিরেক্টরিগুলিতেও অনুসন্ধান করুন</system:String>
     <system:String x:Key="ToolTipSearchYouCom">You.com AI ব্যবহার করে একটি সমাধান খুঁজুন।</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">পছন্দসই থেকে বর্তমান সিস্টেম যোগ করুন বা সরান</system:String>
     <system:String x:Key="TooltipSelectEmulator">নির্বাচিত সিস্টেমের জন্য কোন এমুলেটর ব্যবহার করবেন তা চয়ন করুন</system:String>
     <system:String x:Key="TooltipSelectSystem">ব্রাউজ করার জন্য একটি গেম সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">অতিরিক্ত উইন্ডো এবং বৈশিষ্ট্য খুলুন</system:String>

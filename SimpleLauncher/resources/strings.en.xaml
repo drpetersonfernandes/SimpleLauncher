@@ -774,7 +774,6 @@
     <system:String x:Key="Lime">Lime</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Links reverted to default values.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Links saved successfully.</system:String>
-    <system:String x:Key="ListofFavorites">List of Favorites</system:String>
     <system:String x:Key="ListView">List View</system:String>
     <system:String x:Key="Loading">Loading...</system:String>
     <system:String x:Key="LoadingAchievements">Loading achievements...</system:String>
@@ -1089,7 +1088,6 @@
     <system:String x:Key="Players">Players:</system:String>
     <system:String x:Key="PlayerStatistics">Player Statistics</system:String>
     <system:String x:Key="PlayHistory">Play History</system:String>
-    <system:String x:Key="PlayHistoryList">Play history List</system:String>
     <system:String x:Key="PlayingVideo">Playing video...</system:String>
     <system:String x:Key="Playtime">Playtime:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">PlayTime</system:String>
@@ -1808,7 +1806,6 @@
     <system:String x:Key="Thisactionwilldelete">This action will delete the file from the HDD and cannot be undone.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in the emulator frontend.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Times Played</system:String>
     <system:String x:Key="TitleScreen">Title Screen</system:String>
     <system:String x:Key="TitleSnapshot">Title Snapshot</system:String>
@@ -1938,7 +1935,6 @@
     <system:String x:Key="ToolTipSearchPhind">Search for a solution using Phind (Developer focused AI).</system:String>
     <system:String x:Key="TooltipSearchRecursively">Search in subdirectories as well</system:String>
     <system:String x:Key="ToolTipSearchYouCom">Search for a solution using You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Add or remove the current system from favorites</system:String>
     <system:String x:Key="TooltipSelectEmulator">Choose which emulator to use for the selected system</system:String>
     <system:String x:Key="TooltipSelectSystem">Select a game system to browse</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Open additional windows and features</system:String>

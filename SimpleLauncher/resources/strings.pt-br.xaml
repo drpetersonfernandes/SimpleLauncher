@@ -790,7 +790,6 @@
     <system:String x:Key="Lime">Limão</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Links revertidos para os valores padrão.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Links salvos com sucesso.</system:String>
-    <system:String x:Key="ListofFavorites">Lista de favoritos</system:String>
     <system:String x:Key="ListView">Visualização em Lista</system:String>
     <system:String x:Key="Loading">Carregando...</system:String>
     <system:String x:Key="LoadingAchievements">Carregando conquistas...</system:String>
@@ -1105,7 +1104,6 @@
     <system:String x:Key="Players">Jogadores:</system:String>
     <system:String x:Key="PlayerStatistics">Estatísticas do Jogador</system:String>
     <system:String x:Key="PlayHistory">Histórico de Reprodução</system:String>
-    <system:String x:Key="PlayHistoryList">Lista de Histórico de Reprodução</system:String>
     <system:String x:Key="PlayingVideo">Reproduzindo vídeo...</system:String>
     <system:String x:Key="Playtime">Tempo de Jogo:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">Tempo de Jogo</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="Thisactionwilldelete">Essa ação excluirá o arquivo do disco rígido e não poderá ser desfeita.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Isso é tipicamente causado por configurações de Política de Grupo em PCs corporativos ou gerenciados.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Isso é tipicamente causado por configurações de Política de Grupo em PCs corporativos ou gerenciados.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">Este mecanismo de busca procura nomes de arquivos e descrições de máquinas dentro de cada sistema configurado na interface do emulador.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Vezes Jogadas</system:String>
     <system:String x:Key="TitleScreen">Tela de Título</system:String>
     <system:String x:Key="TitleSnapshot">Captura de Tela do Título</system:String>
@@ -1935,7 +1932,6 @@
     <system:String x:Key="ToolTipSearchPhind">Pesquise uma solução usando Phind (IA focada em desenvolvedores).</system:String>
     <system:String x:Key="TooltipSearchRecursively">Buscar também em subdiretórios</system:String>
     <system:String x:Key="ToolTipSearchYouCom">Pesquise uma solução usando You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Adicionar ou remover o sistema atual dos favoritos</system:String>
     <system:String x:Key="TooltipSelectEmulator">Escolher qual emulador usar para o sistema selecionado</system:String>
     <system:String x:Key="TooltipSelectSystem">Selecionar um sistema de jogos para navegar</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Abrir janelas e recursos adicionais</system:String>

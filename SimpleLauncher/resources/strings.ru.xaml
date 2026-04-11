@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">Лайм</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Ссылки возвращены к значениям по умолчанию.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Ссылки успешно сохранены.</system:String>
-    <system:String x:Key="ListofFavorites">Список избранного</system:String>
     <system:String x:Key="ListView">Списком</system:String>
     <system:String x:Key="Loading">Загрузка...</system:String>
     <system:String x:Key="LoadingAchievements">Загрузка достижений...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">Игроки:</system:String>
     <system:String x:Key="PlayerStatistics">Статистика игрока</system:String>
     <system:String x:Key="PlayHistory">История воспроизведения</system:String>
-    <system:String x:Key="PlayHistoryList">Список истории воспроизведения</system:String>
     <system:String x:Key="PlayingVideo">Воспроизведение видео...</system:String>
     <system:String x:Key="Playtime">Время игры:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">Время игры</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">Это действие удалит файл с жёсткого диска и не может быть отменено.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Это обычно вызвано настройками групповой политики на корпоративных или управляемых ПК.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Это обычно вызвано настройками групповой политики на корпоративных или управляемых ПК.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">Этот поисковый механизм ищет имена файлов и описания машин в каждой системе, настроенной в интерфейсе эмулятора.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Количество игр</system:String>
     <system:String x:Key="TitleScreen">Титульный экран</system:String>
     <system:String x:Key="TitleSnapshot">Скриншот с заголовком</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Поиск решения с помощью Phind (ИИ, ориентированный на разработчиков).</system:String>
     <system:String x:Key="TooltipSearchRecursively">Искать также в подкаталогах</system:String>
     <system:String x:Key="ToolTipSearchYouCom">Поиск решения с помощью You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Добавить или удалить текущую систему из избранного</system:String>
     <system:String x:Key="TooltipSelectEmulator">Выберите эмулятор для использования с выбранной системой</system:String>
     <system:String x:Key="TooltipSelectSystem">Выберите игровую систему для просмотра</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Открыть дополнительные окна и функции</system:String>

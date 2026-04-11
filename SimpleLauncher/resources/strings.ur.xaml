@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">چونا</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">لنکس ڈیفالٹ پر واپس کر دیے گئے۔</system:String>
     <system:String x:Key="Linkssavedsuccessfully">لنکس کامیابی سے محفوظ ہو گئے۔</system:String>
-    <system:String x:Key="ListofFavorites">پسندیدہ کی فہرست</system:String>
     <system:String x:Key="ListView">فہرست ویو</system:String>
     <system:String x:Key="Loading">لوڈ ہو رہا ہے...</system:String>
     <system:String x:Key="LoadingAchievements">اچیومنٹس لوڈ کر رہا ہے...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">کھلاڑی:</system:String>
     <system:String x:Key="PlayerStatistics">کھلاڑی کے اعدادوشمار</system:String>
     <system:String x:Key="PlayHistory">پلے کی تاریخ</system:String>
-    <system:String x:Key="PlayHistoryList">پلے ہسٹری کی فہرست</system:String>
     <system:String x:Key="PlayingVideo">ویڈیو چلا رہا ہے...</system:String>
     <system:String x:Key="Playtime">کھیل کا وقت:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">کھیلنے کا وقت</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">یہ عمل فائل کو ہارڈ ڈسک سے حذف کر دے گا اور ناقابل واپسی ہوگا۔</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">یہ عام طور پر کارپوریٹ یا منظم PCs پر گروپ پالیسی کی ترتیبات کی وجہ سے ہوتا ہے۔</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">یہ عام طور پر کارپوریٹ یا منظم PCs پر گروپ پالیسی کی ترتیبات کی وجہ سے ہوتا ہے۔</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">یہ سرچ انجن ایمولیٹر فرنٹ اینڈ میں ہر سسٹم میں فائل کے نام اور مشین کی وضاحتیں تلاش کرتا ہے۔</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">کھیلنے کی تعداد</system:String>
     <system:String x:Key="TitleScreen">ٹائٹل سکرین</system:String>
     <system:String x:Key="TitleSnapshot">ٹائٹل اسنیپ شاٹ</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Phind (ڈویلپر پر مرکوز AI) کا استعمال کرتے ہوئے حل تلاش کریں۔</system:String>
     <system:String x:Key="TooltipSearchRecursively">ذیلی ڈائریکٹریز میں بھی تلاش کریں</system:String>
     <system:String x:Key="ToolTipSearchYouCom">You.com AI کا استعمال کرتے ہوئے حل تلاش کریں۔</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">موجودہ سسٹم کو پسندیدہ میں شامل کریں یا ہٹائیں</system:String>
     <system:String x:Key="TooltipSelectEmulator">منتخب سسٹم کے لیے کون سا ایمولیٹر استعمال کرنا ہے منتخب کریں</system:String>
     <system:String x:Key="TooltipSelectSystem">براؤز کرنے کے لیے ایک گیم سسٹم منتخب کریں</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">اضافی ونڈوز اور فیچرز کھولیں</system:String>

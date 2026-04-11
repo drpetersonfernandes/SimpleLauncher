@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">青柠色</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">链接已恢复为默认值。</system:String>
     <system:String x:Key="Linkssavedsuccessfully">链接已成功保存。</system:String>
-    <system:String x:Key="ListofFavorites">收藏列表</system:String>
     <system:String x:Key="ListView">列表视图</system:String>
     <system:String x:Key="Loading">加载中...</system:String>
     <system:String x:Key="LoadingAchievements">正在加载成就...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">玩家：</system:String>
     <system:String x:Key="PlayerStatistics">玩家统计</system:String>
     <system:String x:Key="PlayHistory">播放历史</system:String>
-    <system:String x:Key="PlayHistoryList">播放历史列表</system:String>
     <system:String x:Key="PlayingVideo">正在播放视频...</system:String>
     <system:String x:Key="Playtime">游玩时间：</system:String>
     <system:String x:Key="PlayTimeColumnHeader">游玩时间</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">此操作将删除硬盘上的文件，且无法撤销。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">这通常是由企业或受管 PC 上的组策略设置引起的。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">这通常是由企业或受管 PC 上的组策略设置引起的。</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">此搜索引擎会查找每个系统中已配置的机器的文件名和描述。</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">游玩次数</system:String>
     <system:String x:Key="TitleScreen">标题画面</system:String>
     <system:String x:Key="TitleSnapshot">标题截图</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">使用 Phind (开发者专注的 AI) 搜索解决方案。</system:String>
     <system:String x:Key="TooltipSearchRecursively">同时搜索子目录</system:String>
     <system:String x:Key="ToolTipSearchYouCom">使用 You.com AI 搜索解决方案。</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">将当前系统添加到收藏或从收藏中移除</system:String>
     <system:String x:Key="TooltipSelectEmulator">选择用于所选系统的模拟器</system:String>
     <system:String x:Key="TooltipSelectSystem">选择一个游戏系统进行浏览</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">打开附加窗口和功能</system:String>

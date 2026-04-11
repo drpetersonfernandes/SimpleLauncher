@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">Hijau Muda</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Tautan dikembalikan ke nilai default.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Tautan berhasil disimpan.</system:String>
-    <system:String x:Key="ListofFavorites">Daftar Favorit</system:String>
     <system:String x:Key="ListView">Tampilan Daftar</system:String>
     <system:String x:Key="Loading">Memuat...</system:String>
     <system:String x:Key="LoadingAchievements">Memuat pencapaian...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">Pemain:</system:String>
     <system:String x:Key="PlayerStatistics">Statistik Pemain</system:String>
     <system:String x:Key="PlayHistory">Riwayat Pemutaran</system:String>
-    <system:String x:Key="PlayHistoryList">Daftar Riwayat Pemutaran</system:String>
     <system:String x:Key="PlayingVideo">Memutar video...</system:String>
     <system:String x:Key="Playtime">Waktu Bermain:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">Waktu Bermain</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">Tindakan ini akan menghapus file dari HDD dan tidak dapat dibatalkan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Ini biasanya disebabkan oleh pengaturan Kebijakan Grup pada PC perusahaan atau yang dikelola.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Ini biasanya disebabkan oleh pengaturan Kebijakan Grup pada PC perusahaan atau yang dikelola.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">Mesin pencari ini mencari nama file dan deskripsi mesin dalam setiap Sistem yang dikonfigurasi di frontend emulator.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Kali Dimainkan</system:String>
     <system:String x:Key="TitleScreen">Layar Judul</system:String>
     <system:String x:Key="TitleSnapshot">Snapshot Judul</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Cari solusi menggunakan Phind (AI yang berfokus pada pengembang).</system:String>
     <system:String x:Key="TooltipSearchRecursively">Cari juga di subdirektori</system:String>
     <system:String x:Key="ToolTipSearchYouCom">Cari solusi menggunakan You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Tambah atau hapus sistem saat ini dari favorit</system:String>
     <system:String x:Key="TooltipSelectEmulator">Pilih emulator yang akan digunakan untuk sistem yang dipilih</system:String>
     <system:String x:Key="TooltipSelectSystem">Pilih sistem game untuk dijelajahi</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Buka jendela dan fitur tambahan</system:String>

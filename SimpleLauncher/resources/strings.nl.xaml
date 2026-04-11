@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">Limoen</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Links teruggezet naar standaardwaarden.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Links succesvol opgeslagen.</system:String>
-    <system:String x:Key="ListofFavorites">Favorietenlijst</system:String>
     <system:String x:Key="ListView">Lijstweergave</system:String>
     <system:String x:Key="Loading">Laden...</system:String>
     <system:String x:Key="LoadingAchievements">Prestaties laden...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">Spelers:</system:String>
     <system:String x:Key="PlayerStatistics">Spelerstatistieken</system:String>
     <system:String x:Key="PlayHistory">Afspeelgeschiedenis</system:String>
-    <system:String x:Key="PlayHistoryList">Lijst van afspeelgeschiedenis</system:String>
     <system:String x:Key="PlayingVideo">Video afspelen...</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">Speeltijd</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">Deze actie verwijdert het bestand van de harde schijf en kan niet ongedaan worden gemaakt.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Dit wordt doorgaans veroorzaakt door Groepsbeleid-instellingen op zakelijke of beheerde pc's.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Dit wordt doorgaans veroorzaakt door Groepsbeleid-instellingen op zakelijke of beheerde pc's.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">Deze zoekmachine zoekt naar bestandsnamen en beschrijvingen van machines binnen elk systeem dat is geconfigureerd in de emulatorinterface.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Aantal keer gespeeld</system:String>
     <system:String x:Key="TitleScreen">Titelscherm</system:String>
     <system:String x:Key="TitleSnapshot">Titelmomentopname</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Zoek naar een oplossing met Phind (ontwikkelaarsgerichte AI).</system:String>
     <system:String x:Key="TooltipSearchRecursively">Zoek ook in submappen</system:String>
     <system:String x:Key="ToolTipSearchYouCom">Zoek naar een oplossing met You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Voeg het huidige systeem toe aan of verwijder het uit favorieten</system:String>
     <system:String x:Key="TooltipSelectEmulator">Kies welke emulator te gebruiken voor het geselecteerde systeem</system:String>
     <system:String x:Key="TooltipSelectSystem">Selecteer een spelsysteem om te bladeren</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Open extra vensters en functies</system:String>

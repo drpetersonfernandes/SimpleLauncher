@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">नींबू</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">लिंक्स को डिफ़ॉल्ट मानों पर वापस सेट कर दिया गया है।</system:String>
     <system:String x:Key="Linkssavedsuccessfully">लिंक्स सफलतापूर्वक सहेज लिए गए।</system:String>
-    <system:String x:Key="ListofFavorites">पसंदीदा की सूची</system:String>
     <system:String x:Key="ListView">सूची दृश्य</system:String>
     <system:String x:Key="Loading">लोड हो रहा है...</system:String>
     <system:String x:Key="LoadingAchievements">उपलब्धियां लोड कर रहा है...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">खिलाड़ी:</system:String>
     <system:String x:Key="PlayerStatistics">खिलाड़ी आँकड़े</system:String>
     <system:String x:Key="PlayHistory">प्ले इतिहास</system:String>
-    <system:String x:Key="PlayHistoryList">प्ले इतिहास सूची</system:String>
     <system:String x:Key="PlayingVideo">वीडियो चला रहा है...</system:String>
     <system:String x:Key="Playtime">खेलने का समय:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">खेलने का समय</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">यह क्रिया फ़ाइल को आपके हार्ड डिस्क से हटा देगी और इसे वापस नहीं लाया जा सकेगा।</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">यह आमतौर पर कॉर्पोरेट या प्रबंधित पीसी पर समूह नीति सेटिंग्स के कारण होता है।</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">यह आमतौर पर कॉर्पोरेट या प्रबंधित पीसी पर समूह नीति सेटिंग्स के कारण होता है।</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">यह सर्च इंजन एम्युलेटर फ्रंटेंड में कॉन्फ़िगर की गई हर प्रणाली के भीतर फ़ाइल नामों और मशीन विवरणों की खोज करता है।</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">खेला गया समय</system:String>
     <system:String x:Key="TitleScreen">शीर्षक स्क्रीन</system:String>
     <system:String x:Key="TitleSnapshot">शीर्षक स्नैपशॉट</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Phind (डेवलपर केंद्रित AI) का उपयोग करके समाधान खोजें।</system:String>
     <system:String x:Key="TooltipSearchRecursively">उप-निर्देशिकाओं में भी खोजें</system:String>
     <system:String x:Key="ToolTipSearchYouCom">You.com AI का उपयोग करके समाधान खोजें।</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">वर्तमान सिस्टम को पसंदीदा में जोड़ें या हटाएँ</system:String>
     <system:String x:Key="TooltipSelectEmulator">चुनें कि चयनित सिस्टम के लिए कौन सा एमुलेटर उपयोग करना है</system:String>
     <system:String x:Key="TooltipSelectSystem">ब्राउज़ करने के लिए एक गेम सिस्टम चुनें</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">अतिरिक्त विंडो और सुविधाएँ खोलें</system:String>

@@ -790,7 +790,6 @@
     <system:String x:Key="Lime">라임</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">링크가 기본값으로 초기화되었습니다.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">링크가 성공적으로 저장되었습니다.</system:String>
-    <system:String x:Key="ListofFavorites">즐겨찾기 목록</system:String>
     <system:String x:Key="ListView">리스트 보기</system:String>
     <system:String x:Key="Loading">로드 중...</system:String>
     <system:String x:Key="LoadingAchievements">업적 불러오는 중...</system:String>
@@ -1105,7 +1104,6 @@
     <system:String x:Key="Players">플레이어:</system:String>
     <system:String x:Key="PlayerStatistics">플레이어 통계</system:String>
     <system:String x:Key="PlayHistory">재생 기록</system:String>
-    <system:String x:Key="PlayHistoryList">재생 기록 목록</system:String>
     <system:String x:Key="PlayingVideo">비디오 재생 중...</system:String>
     <system:String x:Key="Playtime">플레이 시간:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">플레이 시간</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="Thisactionwilldelete">이 작업은 파일을 하드 디스크에서 삭제하며, 복원할 수 없습니다.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">이는 일반적으로 기업 또는 관리되는 PC의 그룹 정책 설정으로 인해 발생합니다.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">이는 일반적으로 기업 또는 관리되는 PC의 그룹 정책 설정으로 인해 발생합니다.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">이 검색 엔진은 에뮬레이터 프론트엔드에 설정된 각 시스템의 파일 이름과 머신 설명을 검색합니다.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">플레이 횟수</system:String>
     <system:String x:Key="TitleScreen">타이틀 화면</system:String>
     <system:String x:Key="TitleSnapshot">타이틀 스냅샷</system:String>
@@ -1935,7 +1932,6 @@
     <system:String x:Key="ToolTipSearchPhind">Phind (개발자 중심 AI)를 사용하여 해결책을 검색합니다.</system:String>
     <system:String x:Key="TooltipSearchRecursively">하위 디렉토리에서도 검색합니다.</system:String>
     <system:String x:Key="ToolTipSearchYouCom">You.com AI를 사용하여 해결책을 검색합니다.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">현재 시스템을 즐겨찾기에 추가하거나 제거합니다.</system:String>
     <system:String x:Key="TooltipSelectEmulator">선택한 시스템에 사용할 에뮬레이터를 선택합니다.</system:String>
     <system:String x:Key="TooltipSelectSystem">탐색할 게임 시스템을 선택합니다.</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">추가 창 및 기능 열기</system:String>

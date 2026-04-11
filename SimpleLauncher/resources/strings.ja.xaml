@@ -789,7 +789,6 @@
     <system:String x:Key="Lime">ライム</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">リンクがデフォルト値にリセットされました。</system:String>
     <system:String x:Key="Linkssavedsuccessfully">リンクが正常に保存されました。</system:String>
-    <system:String x:Key="ListofFavorites">お気に入りリスト</system:String>
     <system:String x:Key="ListView">リストビュー</system:String>
     <system:String x:Key="Loading">読み込み中...</system:String>
     <system:String x:Key="LoadingAchievements">実績を読み込んでいます...</system:String>
@@ -1104,7 +1103,6 @@
     <system:String x:Key="Players">プレイヤー:</system:String>
     <system:String x:Key="PlayerStatistics">プレイヤー統計</system:String>
     <system:String x:Key="PlayHistory">再生履歴</system:String>
-    <system:String x:Key="PlayHistoryList">再生履歴リスト</system:String>
     <system:String x:Key="PlayingVideo">ビデオを再生中...</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
     <system:String x:Key="PlayTimeColumnHeader">プレイ時間</system:String>
@@ -1804,7 +1802,6 @@
     <system:String x:Key="Thisactionwilldelete">この操作により、ハードディスクからファイルが削除され、取り消しはできません。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">これは通常、企業または管理されたPCのグループポリシー設定が原因です。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">これは通常、企業または管理されたPCのグループポリシー設定が原因です。</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、エミュレーターのフロントエンドで設定された各システムの中のファイル名とマシンの説明を検索します。</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">プレイ回数</system:String>
     <system:String x:Key="TitleScreen">タイトル画面</system:String>
     <system:String x:Key="TitleSnapshot">タイトルのスクリーンショット</system:String>
@@ -1934,7 +1931,6 @@
     <system:String x:Key="ToolTipSearchPhind">Phind (開発者向けAI) を使用して解決策を検索します。</system:String>
     <system:String x:Key="TooltipSearchRecursively">サブディレクトリも検索します</system:String>
     <system:String x:Key="ToolTipSearchYouCom">You.com AI を使用して解決策を検索します。</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">現在のシステムをお気に入りに追加または削除します</system:String>
     <system:String x:Key="TooltipSelectEmulator">選択したシステムに使用するエミュレータを選択します</system:String>
     <system:String x:Key="TooltipSelectSystem">閲覧するゲームシステムを選択します</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">追加のウィンドウと機能を開きます</system:String>

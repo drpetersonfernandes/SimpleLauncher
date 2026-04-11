@@ -790,7 +790,6 @@
     <system:String x:Key="Lime">Xanh chuối</system:String>
     <system:String x:Key="Linksrevertedtodefaultvalues">Liên kết đã được khôi phục về giá trị mặc định.</system:String>
     <system:String x:Key="Linkssavedsuccessfully">Liên kết đã được lưu thành công.</system:String>
-    <system:String x:Key="ListofFavorites">Danh sách yêu thích</system:String>
     <system:String x:Key="ListView">Dạng danh sách</system:String>
     <system:String x:Key="Loading">Đang tải...</system:String>
     <system:String x:Key="LoadingAchievements">Đang tải thành tích...</system:String>
@@ -1105,7 +1104,6 @@
     <system:String x:Key="Players">Người chơi:</system:String>
     <system:String x:Key="PlayerStatistics">Thống kê người chơi</system:String>
     <system:String x:Key="PlayHistory">Lịch sử Phát</system:String>
-    <system:String x:Key="PlayHistoryList">Danh sách Lịch sử Phát</system:String>
     <system:String x:Key="PlayingVideo">Đang phát video...</system:String>
     <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
     <system:String x:Key="PlayTimeColumnHeader">Thời gian Chơi</system:String>
@@ -1805,7 +1803,6 @@
     <system:String x:Key="Thisactionwilldelete">Hành động này sẽ xóa tệp khỏi ổ cứng của bạn và không thể hoàn tác.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Điều này thường do cài đặt Chính sách nhóm trên các PC của công ty hoặc được quản lý.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Điều này thường do cài đặt Chính sách nhóm trên các PC của công ty hoặc được quản lý.</system:String>
-    <system:String x:Key="Thissearchenginesearchesfor">Công cụ tìm kiếm này tìm kiếm tên tệp và mô tả máy trong mỗi hệ thống được cấu hình trong giao diện trình giả lập.</system:String>
     <system:String x:Key="TimesPlayedColumnHeader">Số Lần Chơi</system:String>
     <system:String x:Key="TitleScreen">Màn hình tiêu đề</system:String>
     <system:String x:Key="TitleSnapshot">Ảnh chụp tiêu đề</system:String>
@@ -1935,7 +1932,6 @@
     <system:String x:Key="ToolTipSearchPhind">Tìm kiếm giải pháp bằng Phind (AI tập trung vào nhà phát triển).</system:String>
     <system:String x:Key="TooltipSearchRecursively">Tìm kiếm cả trong các thư mục con</system:String>
     <system:String x:Key="ToolTipSearchYouCom">Tìm kiếm giải pháp bằng You.com AI.</system:String>
-    <system:String x:Key="TooltipSelectedSystemFavorite">Thêm hoặc xóa hệ thống hiện tại khỏi mục yêu thích</system:String>
     <system:String x:Key="TooltipSelectEmulator">Chọn trình giả lập để sử dụng cho hệ thống đã chọn</system:String>
     <system:String x:Key="TooltipSelectSystem">Chọn một hệ thống trò chơi để duyệt</system:String>
     <system:String x:Key="TooltipSelectWindowMenu">Mở các cửa sổ và tính năng bổ sung</system:String>
