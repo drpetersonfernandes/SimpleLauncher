@@ -2861,6 +2861,7 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Nintendo NES / Famicom
 
@@ -2886,7 +2887,8 @@ Core may require BIOS files or system files to work.<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -2895,7 +2897,8 @@ This emulator requires a BIOS file to work.
 **Emulator Parameters (Example):** --fullscreen yes<br>
 **Fullscreen Parameter:** --fullscreen yes<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/punesemu/punes).<br>
 
 .
 
@@ -2905,7 +2908,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -2915,6 +2919,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/jsgroth/jgenesis).<br>
 
 .
 
@@ -2923,7 +2928,8 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/SourMesen/Mesen2).<br>
 
 .
 
@@ -2935,7 +2941,8 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mesen/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mesen/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2947,7 +2954,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2960,7 +2968,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core may require a BIOS file to work.<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fceumm/).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -2973,7 +2982,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo Satellaview
 
@@ -2999,7 +3009,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 ## Nintendo SNES / Super Nintendo / Super Famicom
 
@@ -3025,6 +3036,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/bsnes-emu/bsnes).<br>
 
 .
 
@@ -3034,6 +3046,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/snes9xgit/snes9x).<br>
 
 .
 
@@ -3042,7 +3055,8 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/jsgroth/jgenesis).<br>
 
 .
 
@@ -3052,7 +3066,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -3062,7 +3077,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -3075,7 +3091,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/snes9x/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -3088,7 +3105,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_bsnes/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -3101,7 +3119,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Nintendo SNES MSU1
 
@@ -3126,7 +3145,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/snes9xgit/snes9x).<br>
 
 .
 
@@ -3136,7 +3156,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -3149,7 +3170,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/snes9x/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 ## Nintendo Switch
 
@@ -3175,6 +3197,7 @@ Core may require BIOS files or system files to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://eden-emu.dev/download).<br>
 
 .
 

@@ -3,7 +3,7 @@ namespace SimpleLauncher.Services.LaunchTools;
 public interface ILaunchTools
 {
     void BatchConvertIsoToXiso();
-    void BatchConvertToChd();
+    void BatchConvertToChd(string selectedRomFolder);
     void BatchConvertToCompressedFile();
     void BatchConvertToRvz();
     void CreateBatchFilesForPs3Games();

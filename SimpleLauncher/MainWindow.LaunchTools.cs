@@ -25,7 +25,7 @@ public partial class MainWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         _playSoundEffects.PlayNotificationSound();
-        _launchTools.BatchConvertToChd();
+        _launchTools.BatchConvertToChd(_selectedRomFolders?.FirstOrDefault());
     }
 
     private void BatchConvertToCompressedFile_Click(object sender, RoutedEventArgs e)

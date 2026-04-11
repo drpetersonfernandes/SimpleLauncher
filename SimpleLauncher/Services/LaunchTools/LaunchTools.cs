@@ -201,7 +201,7 @@ public class LaunchTools : ILaunchTools
         LaunchExternalTool(toolPath);
     }
 
-    public void BatchConvertToChd()
+    public void BatchConvertToChd(string selectedRomFolder)
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
         var executableName = architecture switch
@@ -219,7 +219,17 @@ public class LaunchTools : ILaunchTools
         }
 
         var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", executableName);
-        LaunchExternalTool(toolPath);
+        var arguments = string.Empty;
+        var workingDirectory = Path.GetDirectoryName(toolPath);
+
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
+
+        if (!string.IsNullOrEmpty(absoluteRomFolder))
+        {
+            arguments = $"\"{absoluteRomFolder}\"";
+        }
+
+        LaunchExternalTool(toolPath, arguments, workingDirectory);
     }
 
     public void BatchConvertToCompressedFile()
