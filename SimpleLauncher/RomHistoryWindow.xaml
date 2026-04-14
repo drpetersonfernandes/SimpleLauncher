@@ -7,38 +7,6 @@
                       Width="1000"
                       Height="600"
                       WindowStartupLocation="CenterScreen">
-    <controls:MetroWindow.Resources>
-        <Style x:Key="ThemeAwareMarkdownStyle" TargetType="FlowDocument">
-            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-            <Style.Resources>
-                <Style TargetType="Paragraph">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-                <Style TargetType="Run">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-                <Style TargetType="Hyperlink">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
-                </Style>
-                <Style TargetType="List">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-                <Style TargetType="ListItem">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-                <Style TargetType="Table">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-                <Style TargetType="TableCell">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-                <Style TargetType="Section">
-                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                </Style>
-            </Style.Resources>
-        </Style>
-    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

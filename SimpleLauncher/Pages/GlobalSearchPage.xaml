@@ -6,10 +6,6 @@
       mc:Ignorable="d"
       Title="{DynamicResource GlobalSearch}"
       x:ClassModifier="internal">
-    <!-- Resources section remains unchanged -->
-    <Page.Resources>
-
-    </Page.Resources>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

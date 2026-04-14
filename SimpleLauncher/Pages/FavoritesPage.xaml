@@ -6,10 +6,6 @@
       mc:Ignorable="d"
       Title="{DynamicResource Favorites}"
       x:ClassModifier="internal">
-    <Page.Resources>
-
-    </Page.Resources>
-
     <!-- Main container Grid that holds both the content and overlay -->
     <Grid>
         <Grid>
