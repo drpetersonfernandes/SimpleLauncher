@@ -18,14 +18,14 @@ file static class Program
     {
         if (args.Length == 1 && Path.GetExtension(args[0]).Equals(".json", StringComparison.OrdinalIgnoreCase))
         {
-            await RunConversionMode(args[0]);
+            await RunConversionModeAsync(args[0]);
             return;
         }
 
-        await RunFetchMode();
+        await RunFetchModeAsync();
     }
 
-    private static async Task RunConversionMode(string jsonFilePath)
+    private static async Task RunConversionModeAsync(string jsonFilePath)
     {
         LogInfo($"Conversion mode: Processing JSON file '{jsonFilePath}'...");
 
@@ -56,7 +56,7 @@ file static class Program
         Console.ReadKey();
     }
 
-    private static async Task RunFetchMode()
+    private static async Task RunFetchModeAsync()
     {
         var settings = await LoadOrPromptSettings();
         using HttpClient client = new();
@@ -80,7 +80,7 @@ file static class Program
             }
 
             LogSuccess($"Found {consoles.Count:N0} consoles");
-            await SaveConsoleList(consoles);
+            await SaveConsoleListAsync(consoles);
             Console.WriteLine();
 
             // Filter for active game systems only
@@ -88,7 +88,7 @@ file static class Program
             LogInfo($"Processing {activeConsoles.Count} active game consoles...");
 
             // Fetch games for each console
-            var totalGames = await FetchGamesForAllConsoles(client, settings, activeConsoles, allGames);
+            var totalGames = await FetchGamesForAllConsolesAsync(client, settings, activeConsoles, allGames);
 
             Console.WriteLine();
             LogInfo($"Total games fetched: {totalGames:N0}");
@@ -96,7 +96,7 @@ file static class Program
             // Save results
             if (allGames.Count > 0)
             {
-                await SaveGameData(allGames, serializerOptions);
+                await SaveGameDataAsync(allGames, serializerOptions);
             }
             else
             {
@@ -128,7 +128,7 @@ file static class Program
         return consoles ?? new List<ConsoleInfo>();
     }
 
-    private static async Task<int> FetchGamesForAllConsoles(
+    private static async Task<int> FetchGamesForAllConsolesAsync(
         HttpClient client,
         RaSettings settings,
         List<ConsoleInfo> consoles,
@@ -178,7 +178,7 @@ file static class Program
         return totalGames;
     }
 
-    private static async Task SaveGameData(List<GameInfo> games, JsonSerializerOptions options)
+    private static async Task SaveGameDataAsync(List<GameInfo> games, JsonSerializerOptions options)
     {
         LogInfo($"Saving {games.Count:N0} games to '{OutputFileNameJson}'...");
         var json = JsonSerializer.Serialize(games, options);
@@ -268,7 +268,7 @@ file static class Program
         return Task.FromResult(settings);
     }
 
-    private static async Task SaveConsoleList(List<ConsoleInfo> consoles)
+    private static async Task SaveConsoleListAsync(List<ConsoleInfo> consoles)
     {
         try
         {

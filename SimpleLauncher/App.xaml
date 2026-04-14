@@ -77,6 +77,21 @@
                             </Setter.Value>
                         </Setter>
                     </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderThickness"
+                                Value="2" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}"
+                                                  Direction="315"
+                                                  ShadowDepth="3"
+                                                  Opacity="0.8"
+                                                  BlurRadius="4" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
 
@@ -265,6 +280,18 @@
                             </Setter.Value>
                         </Setter>
                     </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderThickness"
+                                Value="2" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
+                                                  ShadowDepth="4" Opacity="0.8" BlurRadius="6" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
 
@@ -343,6 +370,18 @@
                         <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
                             <Setter.Value>
                                 <TranslateTransform X="1" Y="1" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                                Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Setter TargetName="ButtonBorder" Property="BorderThickness"
+                                Value="2" />
+                        <Setter TargetName="ButtonBorder" Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
+                                                  ShadowDepth="4" Opacity="0.8" BlurRadius="6" />
                             </Setter.Value>
                         </Setter>
                     </Trigger>

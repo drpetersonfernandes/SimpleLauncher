@@ -25,6 +25,15 @@ internal partial class EditSystemWindow
                 out var emulator1ParametersText, out var emulator2ParametersText, out var emulator3ParametersText,
                 out var emulator4ParametersText, out var emulator5ParametersText);
 
+            // Validate SystemName for invalid characters before sanitizing
+            if (SanitizeInputSystemName.ContainsInvalidCharacters(systemNameText, out var invalidChars))
+            {
+                var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
+                MessageBoxLibrary.InvalidSystemNameCharactersMessageBox(invalidCharsStr);
+                MarkInvalid(SystemNameTextBox, false);
+                return;
+            }
+
             // Sanitize SystemNameTextBox.Text immediately
             systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
             SystemNameTextBox.Text = systemNameText;

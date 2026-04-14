@@ -73,7 +73,8 @@
                         VerticalAlignment="Center"
                         Click="AddSystemButton_Click"
                         Content="{DynamicResource AddNewSystem}"
-                        ToolTip="{DynamicResource TooltipAddNewSystem2}" />
+                        ToolTip="{DynamicResource TooltipAddNewSystem2}"
+                        AutomationProperties.Name="{DynamicResource AddNewSystem}" />
 
                     <!-- Save New System -->
                     <Button
@@ -86,7 +87,8 @@
                         VerticalAlignment="Center"
                         Click="SaveSystemButtonClickAsync"
                         Content="{DynamicResource SaveorUpdateSystem}"
-                        ToolTip="{DynamicResource TooltipSaveSystem2}" />
+                        ToolTip="{DynamicResource TooltipSaveSystem2}"
+                        AutomationProperties.Name="{DynamicResource SaveorUpdateSystem}" />
 
                     <!-- Delete System -->
                     <Button
@@ -99,7 +101,8 @@
                         VerticalAlignment="Center"
                         Click="DeleteSystemButton_Click"
                         Content="{DynamicResource DeleteSelectedSystem}"
-                        ToolTip="{DynamicResource TooltipDeleteSystem2}" />
+                        ToolTip="{DynamicResource TooltipDeleteSystem2}"
+                        AutomationProperties.Name="{DynamicResource DeleteSelectedSystem}" />
 
                     <Button
                         Margin="0,0,25,0"
@@ -110,13 +113,15 @@
                         VerticalAlignment="Top"
                         Width="80"
                         Height="80"
-                        ToolTip="{DynamicResource TooltipEditSystem}">
+                        ToolTip="{DynamicResource TooltipEditSystem}"
+                        AutomationProperties.Name="{DynamicResource Help}">
                         <Image
                             Source="images/help-desk.png"
                             Width="60"
                             Height="60"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            AutomationProperties.Name="{DynamicResource Help}" />
                     </Button>
 
                 </Grid>

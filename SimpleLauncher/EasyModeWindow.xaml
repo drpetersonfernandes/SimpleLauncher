@@ -29,7 +29,7 @@
 
         <!-- 2. Main Content (Two Columns) -->
         <Grid x:Name="MainContentGrid" Grid.Row="1" Margin="20,10,20,10"
-              IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}">
+              IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}, TargetNullValue=True}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20" /> <!-- Spacer -->

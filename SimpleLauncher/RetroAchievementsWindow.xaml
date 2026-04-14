@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Title="{DynamicResource RetroAchievements}"
                       Width="1200"
@@ -122,8 +122,8 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Background="Transparent" Margin="0,2">
-                                            <!-- Game Icon -->
-                                            <Image Source="{Binding GameIconUrl}" Width="40" Height="40" Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,10,0" d:DataContext="{d:DesignInstance }" />
+                                             <!-- Game Icon -->
+                                             <Image Source="{Binding GameIconUrl, Converter={StaticResource ImageUrlConverter}}" Width="40" Height="40" Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,10,0" d:DataContext="{d:DesignInstance }" />
                                             <!-- Game Details -->
                                             <StackPanel VerticalAlignment="Center" Background="Transparent">
                                                 <!-- Title -->
@@ -231,7 +231,7 @@
                             <DataGridTemplateColumn Header="{DynamicResource HeaderGameIcon}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding GameIconFullUrl}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                         <Image Source="{Binding GameIconFullUrl, Converter={StaticResource ImageUrlConverter}}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -239,7 +239,7 @@
                             <DataGridTemplateColumn Header="{DynamicResource HeaderBadge}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding BadgeFullUrl}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                         <Image Source="{Binding BadgeFullUrl, Converter={StaticResource ImageUrlConverter}}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -281,7 +281,7 @@
                             <DataGridTemplateColumn Header="{DynamicResource HeaderIcon}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding ImageIcon}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                         <Image Source="{Binding ImageIcon, Converter={StaticResource ImageUrlConverter}}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

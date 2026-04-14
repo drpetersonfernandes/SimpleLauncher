@@ -36,7 +36,7 @@
         <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       Margin="10">
             <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
-                      GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray"
+                      GridLinesVisibility="All" BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                       ScrollViewer.CanContentScroll="True" d:DataContext="{d:DesignInstance }">
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">

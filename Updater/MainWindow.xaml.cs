@@ -67,7 +67,7 @@ public partial class MainWindow
     {
         try
         {
-            await UpdateProcess();
+            await UpdateProcessAsync();
         }
         catch (Exception ex)
         {
@@ -76,7 +76,7 @@ public partial class MainWindow
         }
     }
 
-    private async Task UpdateProcess()
+    private async Task UpdateProcessAsync()
     {
         if (string.IsNullOrEmpty(AppDirectory))
         {
@@ -90,7 +90,7 @@ public partial class MainWindow
         try
         {
             // Wait for the main application to exit using its Process ID
-            await WaitForMainAppToExit();
+            await WaitForMainAppToExitAsync();
 
             // Fetch the latest release from GitHub
             Log("Fetching the latest release from GitHub...");
@@ -122,7 +122,7 @@ public partial class MainWindow
                     if (string.IsNullOrEmpty(entry.Key)) continue;
 
                     var fileName = Path.GetFileName(entry.Key);
-                    if (ignoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
+                    if (!string.IsNullOrEmpty(fileName) && ignoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                     {
                         Log($"Skipping self-update file: {entry.Key}");
                         continue;
@@ -167,7 +167,7 @@ public partial class MainWindow
         }
     }
 
-    private async Task WaitForMainAppToExit()
+    private async Task WaitForMainAppToExitAsync()
     {
         if (_args.Length > 0 && int.TryParse(_args[0], out var pid))
         {
@@ -210,9 +210,17 @@ public partial class MainWindow
         }
 
         var memoryStream = new MemoryStream();
-        await response.Content.CopyToAsync(memoryStream);
-        memoryStream.Position = 0;
-        return memoryStream;
+        try
+        {
+            await response.Content.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
+        }
+        catch
+        {
+            memoryStream.Dispose();
+            throw;
+        }
     }
 
     private async Task<(string version, string assetUrl)> GetLatestReleaseAssetUrlAsync()
