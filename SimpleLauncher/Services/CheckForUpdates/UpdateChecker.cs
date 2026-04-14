@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -7,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives.Zip;
@@ -78,12 +75,12 @@ public partial class UpdateChecker
             {
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     DebugLogger.Log("Check for Updates Success");
 
-                    var content = await response.Content.ReadAsStringAsync();
+                    var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
                     if (latestVersion == null) return;
@@ -93,7 +90,7 @@ public partial class UpdateChecker
                         if (updaterZipAssetUrl != null)
                         {
                             var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content);
-                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
+                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow).ConfigureAwait(false);
                         }
                         else
                         {
@@ -127,12 +124,12 @@ public partial class UpdateChecker
             {
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest").ConfigureAwait(false);
                 if (response.IsSuccessStatusCode)
                 {
                     DebugLogger.Log("Check for Updates Success");
 
-                    var content = await response.Content.ReadAsStringAsync();
+                    var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
                     if (latestVersion == null)
@@ -146,7 +143,7 @@ public partial class UpdateChecker
                     {
                         if (updaterZipAssetUrl != null)
                         {
-                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
+                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow).ConfigureAwait(false);
                         }
                         else
                         {
@@ -204,7 +201,7 @@ public partial class UpdateChecker
             {
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest").ConfigureAwait(false);
                 if (!response.IsSuccessStatusCode)
                 {
                     // Notify developer
@@ -212,7 +209,7 @@ public partial class UpdateChecker
                     return (null, null);
                 }
 
-                var content = await response.Content.ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
                 return (updaterZipAssetUrl, latestVersion);
             }
@@ -253,7 +250,7 @@ public partial class UpdateChecker
             try
             {
                 using var memoryStream = new MemoryStream();
-                await DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
+                await DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream).ConfigureAwait(false);
 
                 logWindow.Log($"Extracting updater to '{appDirectory}'...");
                 if (ExtractAllFromZip(memoryStream, appDirectory, logWindow))
@@ -277,7 +274,7 @@ public partial class UpdateChecker
             if (updaterReady && File.Exists(updaterExePath))
             {
                 logWindow.Log("Launching newly updated Updater.exe...");
-                await Task.Delay(500); // Brief delay for UI to update
+                await Task.Delay(500).ConfigureAwait(false); // Brief delay for UI to update
                 QuitSimpleLauncher.ShutdownForUpdate(updaterExePath);
                 return; // The application will be terminated by ShutdownForUpdate.
             }
@@ -287,7 +284,7 @@ public partial class UpdateChecker
             if (File.Exists(updaterExePath))
             {
                 logWindow.Log("Launching existing Updater.exe...");
-                await Task.Delay(500);
+                await Task.Delay(500).ConfigureAwait(false);
                 QuitSimpleLauncher.ShutdownForUpdate(updaterExePath);
                 return; // The application will be terminated by ShutdownForUpdate.
             }
@@ -330,10 +327,10 @@ public partial class UpdateChecker
         // Use the pre-initialized HttpClient instance
         if (_httpClient != null)
         {
-            using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            await using var stream = await response.Content.ReadAsStreamAsync();
-            await stream.CopyToAsync(memoryStream);
+            await using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            await stream.CopyToAsync(memoryStream).ConfigureAwait(false);
         }
 
         memoryStream.Position = 0;

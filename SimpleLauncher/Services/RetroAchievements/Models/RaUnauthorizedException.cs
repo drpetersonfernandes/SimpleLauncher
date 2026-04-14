@@ -1,5 +1,3 @@
-using System;
-
 namespace SimpleLauncher.Services.RetroAchievements.Models;
 
 // Custom exception for RetroAchievements API Unauthorized errors

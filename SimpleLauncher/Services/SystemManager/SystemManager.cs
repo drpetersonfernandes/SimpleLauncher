@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
@@ -633,7 +628,7 @@ public partial class SystemManager
 
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
                 }
-            });
+            }).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -673,7 +668,7 @@ public partial class SystemManager
                         xmlDoc.Save(systemXmlPath);
                     }
                 }
-            });
+            }).ConfigureAwait(false);
         }
         catch (Exception ex)
         {

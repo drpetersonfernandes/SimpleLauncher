@@ -455,7 +455,7 @@ public static class ContextMenu
                     selectedEmulatorName = null;
                 }
 
-                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncher, context.PlaySoundEffects, context.LoadingStateProvider);
+                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindowAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow, context.GamePadController, context.GameLauncher, context.PlaySoundEffects, context.LoadingStateProvider);
             }
             catch (Exception ex)
             {
