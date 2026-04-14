@@ -60,12 +60,6 @@ public class EasyModeManager : IDisposable
         return null; // Return null if both methods fail
     }
 
-    [Obsolete("Use LoadAsync() instead to support API fallback.", true)]
-    public static EasyModeManager Load()
-    {
-        throw new NotSupportedException("Use the asynchronous LoadAsync() method instead.");
-    }
-
     private static EasyModeManager LoadFromXml()
     {
         // Determine the XML file based on system architecture
