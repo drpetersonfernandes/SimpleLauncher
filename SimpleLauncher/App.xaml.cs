@@ -274,7 +274,19 @@ public partial class App : IDisposable
                     var updateHistoryWindow = new UpdateHistoryWindow();
                     updateHistoryWindow.ShowDialog();
                 }
-                catch (Exception ex)
+                catch (InvalidOperationException ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
+                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                }
+                catch (ArgumentException ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
+                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                }
+                catch (SystemException ex)
                 {
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
@@ -336,7 +348,7 @@ public partial class App : IDisposable
 
     private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        var exception = e.ExceptionObject as Exception ?? new Exception($"Unhandled non-exception object: {e.ExceptionObject}");
+        var exception = e.ExceptionObject as Exception ?? new InvalidOperationException($"Unhandled non-exception object: {e.ExceptionObject}");
         ReportException(exception, "Unhandled AppDomain exception.");
     }
 
@@ -358,7 +370,11 @@ public partial class App : IDisposable
         {
             MountChdFiles.KillAllChdMounterProcesses();
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
+        {
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to kill lingering CHDMounter processes on exit.");
+        }
+        catch (SystemException ex)
         {
             _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
@@ -370,7 +386,12 @@ public partial class App : IDisposable
             gamePadController?.Stop();
             gamePadController?.Dispose();
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
+        {
+            // Notify developer
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to dispose gamepad resources.");
+        }
+        catch (SystemException ex)
         {
             // Notify developer
             _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to dispose gamepad resources.");
@@ -385,7 +406,17 @@ public partial class App : IDisposable
             {
                 _singleInstanceMutex.ReleaseMutex();
             }
-            catch (Exception ex)
+            catch (ApplicationException ex)
+            {
+                // Notify developer
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+            }
+            catch (ObjectDisposedException ex)
+            {
+                // Notify developer
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+            }
+            catch (InvalidOperationException ex)
             {
                 // Notify developer
                 _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
