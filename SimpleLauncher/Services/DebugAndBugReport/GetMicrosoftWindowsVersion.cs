@@ -1,5 +1,3 @@
-using System;
-
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
 public static class GetMicrosoftWindowsVersion

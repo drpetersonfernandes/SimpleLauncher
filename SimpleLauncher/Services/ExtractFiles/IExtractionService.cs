@@ -1,7 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace SimpleLauncher.Services.ExtractFiles;
 
 public interface IExtractionService

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using SimpleLauncher.Services.GameLauncher.Models;
 
 namespace SimpleLauncher.Services.GameLauncher;

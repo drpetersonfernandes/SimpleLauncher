@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
 public interface ILogErrors
