@@ -11,9 +11,7 @@
         <IsPackable>false</IsPackable>
         <LangVersion>14</LangVersion>
         <ApplicationIcon>icon\icon.ico</ApplicationIcon>
-        <NeutralLanguage>en</NeutralLanguage>
-        <DebugType>embedded</DebugType>
-        <DebugSymbols>true</DebugSymbols>
+        <NeutralLanguage>en-US</NeutralLanguage>
         <DebugType>embedded</DebugType>
         <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>

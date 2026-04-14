@@ -17,7 +17,12 @@ public partial class MainWindow
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     private readonly string[] _args;
-    private static readonly HttpClient HttpClient = new();
+    private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromMinutes(5) };
+
+    static MainWindow()
+    {
+        HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SimpleLauncher-Updater");
+    }
 
     private static string CurrentRuntimeIdentifier
     {
@@ -44,8 +49,6 @@ public partial class MainWindow
             Focus();
             Topmost = false; // Release topmost after initial show so user can switch away if needed
         };
-
-        HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SimpleLauncher-Updater");
 
         var applicationVersion = GetApplicationVersion();
         Log($"Updater version: {applicationVersion}\n\n");
@@ -106,8 +109,7 @@ public partial class MainWindow
                 "Updater.pdb",
                 "Updater.dll",
                 "Updater.deps.json",
-                "Updater.runtimeconfig.json",
-                "Updater.pdb" // In debug builds
+                "Updater.runtimeconfig.json"
             };
 
             // Extract the ZIP file
@@ -259,6 +261,16 @@ public partial class MainWindow
         try
         {
             var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
+
+            // Check if the executable exists before attempting to start it
+            if (!File.Exists(simpleLauncherExePath))
+            {
+                Log("SimpleLauncher.exe not found. Cannot restart automatically.");
+                MessageBox.Show("SimpleLauncher.exe was not found. Please start the application manually.",
+                    "Executable Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var startInfo = new ProcessStartInfo
             {
                 FileName = simpleLauncherExePath,
@@ -304,8 +316,15 @@ public partial class MainWindow
 
         if (IsLoaded)
         {
-            LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
-            LogTextBox.ScrollToEnd();
+            try
+            {
+                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
+                LogTextBox.ScrollToEnd();
+            }
+            catch (InvalidOperationException)
+            {
+                // Window may have been closed, ignore logging
+            }
         }
     }
 
