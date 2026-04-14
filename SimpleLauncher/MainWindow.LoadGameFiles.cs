@@ -252,11 +252,6 @@ public partial class MainWindow
                         _allGamesLock.Release();
                     }
 
-                    if (allFiles.Count == 0)
-                    {
-                        // ignore
-                    }
-
                     break;
 
                 case "RETRO_ACHIEVEMENTS":
@@ -326,11 +321,6 @@ public partial class MainWindow
                         _allGamesLock.Release();
                     }
 
-                    if (allFiles.Count == 0)
-                    {
-                        // ignore
-                    }
-
                     break;
 
                 case "RANDOM_SELECTION":
@@ -343,8 +333,6 @@ public partial class MainWindow
                         if (_allGamesForCurrentSystem.Count == 0)
                         {
                             allFiles = [];
-                            // await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox());
-                            // ignore
                         }
                         else
                         {

@@ -8,8 +8,6 @@ namespace SimpleLauncher.Services.PlaySound;
 
 public class PlaySoundEffects
 {
-    private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
     private const string ClickSoundFile = "click.mp3";
     private const string ShutterSoundFile = "shutter.mp3";
     private const string TrashSoundFile = "trash.mp3";
@@ -80,7 +78,7 @@ public class PlaySoundEffects
             return;
         }
 
-        var soundPath = Path.Combine(_baseDirectory, "audio", soundFileName);
+        var soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio", soundFileName);
         if (!File.Exists(soundPath))
         {
             // Notify developer

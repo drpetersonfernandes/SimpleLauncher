@@ -594,7 +594,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // Save application's current state
         _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
         _settings.GamesPerPage = _filesPerPage;
-        _settings.ShowGames = _settings.ShowGames;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
 
