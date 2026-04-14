@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.MessageBox;

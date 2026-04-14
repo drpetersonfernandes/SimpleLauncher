@@ -1,5 +1,3 @@
-using System;
-
 namespace SimpleLauncher;
 
 public partial class UpdateLogWindow
