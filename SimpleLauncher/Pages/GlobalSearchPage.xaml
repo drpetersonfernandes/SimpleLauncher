@@ -75,13 +75,13 @@
                       CanUserAddRows="False"
                       GridLinesVisibility="All"
                       BorderThickness="1"
-                      BorderBrush="Gray"
+                      BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       ScrollViewer.CanContentScroll="True"
                       MouseRightButtonUp="GlobalSearchPrepareForRightClickContextMenu"
                       MouseDoubleClick="ResultsDataGrid_MouseDoubleClick"
-                      SelectionChanged="ActionsWhenUserSelectAResultItemAsync" d:DataContext="{d:DesignInstance }">
+                       SelectionChanged="ActionsWhenUserSelectAResultItemAsync">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />
@@ -128,7 +128,7 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,10" />
                 <Border Grid.Row="1"
-                        BorderBrush="Gray"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                         BorderThickness="1"
                         Padding="5">
                     <Image Name="PreviewImage"

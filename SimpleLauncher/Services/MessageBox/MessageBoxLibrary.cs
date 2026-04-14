@@ -2027,6 +2027,21 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void InvalidSystemNameCharactersMessageBox(string invalidChars)
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var systemNamecontainsinvalid = (string)Application.Current.TryFindResource("SystemNamecontainsinvalid") ?? "'System Name' contains invalid characters:";
+            var pleaseRemoveTheseCharacters = (string)Application.Current.TryFindResource("PleaseRemoveTheseCharacters") ?? "Please remove these characters and try again.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show($"{systemNamecontainsinvalid}\n\n{invalidChars}\n\n" +
+                                           $"{pleaseRemoveTheseCharacters}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     internal static void FolderCreationFailedMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

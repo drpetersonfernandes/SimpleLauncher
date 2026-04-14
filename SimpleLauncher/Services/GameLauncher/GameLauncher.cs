@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -125,7 +121,15 @@ public partial class GameLauncher
             try
             {
                 // 8. Execute Strategy
-                var strategy = _launchStrategies.First(s => s.IsMatch(context));
+                var strategy = _launchStrategies.FirstOrDefault(s => s.IsMatch(context));
+                if (strategy == null)
+                {
+                    var errorMessage = $"No launch strategy found for the context: SystemName='{context.SystemName}', EmulatorName='{context.EmulatorName}', FilePath='{context.FilePath}'";
+                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    return;
+                }
+
                 await strategy.ExecuteAsync(context, this);
             }
             finally

@@ -1,9 +1,6 @@
-using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -237,7 +234,7 @@ public class DownloadManager : IDisposable
             try
             {
                 // We pass 'currentRetry > 0' to attempt resuming if a partial file exists from a previous attempt
-                await DownloadWithProgressAsync(downloadUrl, downloadFilePath, currentRetry > 0, token);
+                await DownloadWithProgressAsync(downloadUrl, downloadFilePath, currentRetry > 0, token).ConfigureAwait(false);
 
                 if (IsDownloadCompleted)
                 {
@@ -273,7 +270,7 @@ public class DownloadManager : IDisposable
                         ProgressPercentage = 0,
                         StatusMessage = $"File is locked, retrying ({currentRetry}/{RetryMaxAttempts})..."
                     });
-                    await Task.Delay(lockDelay, token);
+                    await Task.Delay(lockDelay, token).ConfigureAwait(false);
                     continue;
                 }
 
@@ -294,7 +291,7 @@ public class DownloadManager : IDisposable
                 // Attempt to clean up file before retrying
                 DeleteFiles.TryDeleteFile(downloadFilePath);
 
-                await Task.Delay(delay, token);
+                await Task.Delay(delay, token).ConfigureAwait(false);
             }
         }
 
@@ -333,7 +330,7 @@ public class DownloadManager : IDisposable
                 });
             });
 
-            var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath);
+            var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath).ConfigureAwait(false);
 
             if (result)
             {
@@ -394,7 +391,7 @@ public class DownloadManager : IDisposable
             DebugLogger.Log($"[DownloadManager] Attempting to resume {Path.GetFileName(downloadUrl)} from byte {existingLength}");
         }
 
-        using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 
         // 416 means the file is likely already fully downloaded
         if (response.StatusCode == HttpStatusCode.RequestedRangeNotSatisfiable)
@@ -420,18 +417,18 @@ public class DownloadManager : IDisposable
 
         // Open stream: Append if resuming, Create if starting fresh
         await using var fileStream = new FileStream(destinationPath, isResuming ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
-        await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
+        await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
         var buffer = new byte[8192];
         var totalBytesRead = existingLength;
         int bytesRead;
         var lastProgressUpdate = DateTime.Now;
 
-        while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
+        while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) > 0)
         {
             if (IsUserCancellation) throw new TaskCanceledException();
 
-            await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+            await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
             totalBytesRead += bytesRead;
 
             // Throttle UI updates to 10fps

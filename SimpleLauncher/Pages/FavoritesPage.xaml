@@ -43,7 +43,7 @@
                       CanUserAddRows="False"
                       GridLinesVisibility="All"
                       BorderThickness="1"
-                      BorderBrush="Gray"
+                      BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                       AutoGenerateColumns="False"
                       IsReadOnly="True"
                       ScrollViewer.CanContentScroll="True"
@@ -83,7 +83,7 @@
                        HorizontalAlignment="Center"
                        Margin="0,0,0,10" />
                 <Border Grid.Row="1"
-                        BorderBrush="Gray"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                         BorderThickness="1"
                         Padding="5">
                     <Image Name="PreviewImage"

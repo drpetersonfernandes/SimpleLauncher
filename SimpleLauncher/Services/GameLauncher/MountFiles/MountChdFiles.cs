@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -250,7 +246,7 @@ public static class MountChdFiles
                 {
                     mountProcess.Kill(true);
                     DebugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);
@@ -445,7 +441,7 @@ public static class MountChdFiles
                 {
                     mountProcess.Kill(true);
                     DebugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);
