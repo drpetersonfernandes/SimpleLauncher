@@ -50,47 +50,7 @@ public partial class SupportWindow : ILoadingState
 
     private void MessageBuilder()
     {
-        var messageBuilder = new StringBuilder();
-        var applicationVersion = Services.GetApplicationVersion.GetApplicationVersion.GetVersion ?? "Unknown";
-
-        // Add a header to indicate this is an automatically generated report
-        messageBuilder.AppendLine("--- Automatically Generated Error Report ---");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Date: {DateTime.Now}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {applicationVersion}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion.VersionString}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
-        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
-        messageBuilder.AppendLine("------------------------------------------\n");
-
-        if (!string.IsNullOrEmpty(_contextMessage))
-        {
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Context Message: {_contextMessage}");
-            messageBuilder.AppendLine(); // Add a blank line for readability
-        }
-
-        if (_exception != null)
-        {
-            messageBuilder.AppendLine("--- Exception Details ---");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {_exception.GetType().FullName}");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {_exception.Message}");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {_exception.Source}");
-            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{_exception.StackTrace}");
-
-            if (_exception.InnerException != null)
-            {
-                messageBuilder.AppendLine("\n--- Inner Exception ---");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {_exception.InnerException.GetType().FullName}");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {_exception.InnerException.Message}");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {_exception.InnerException.Source}");
-                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{_exception.InnerException.StackTrace}");
-                messageBuilder.AppendLine("-----------------------");
-            }
-
-            messageBuilder.AppendLine("-----------------------");
-        }
-
-        // Set the text of the SupportTextBox
-        SupportTextBox.Text = messageBuilder.ToString();
+        SupportTextBox.Text = BugReportFormatter.BuildReport(_exception, _contextMessage);
     }
 
     public void SetLoadingState(bool isLoading, string message = null)

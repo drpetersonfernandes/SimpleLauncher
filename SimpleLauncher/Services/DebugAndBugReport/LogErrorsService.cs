@@ -1,9 +1,6 @@
 using System;
-using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
@@ -27,53 +24,18 @@ public class LogErrorsService : ILogErrors
 
     public async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
-        if (ex == null)
+        if (ex != null)
         {
-            ex = new ArgumentNullException(nameof(ex), @"Exception parameter is null.");
+            DebugLogger.LogException(ex, contextMessage);
         }
-
-        DebugLogger.LogException(ex, contextMessage);
+        else if (!string.IsNullOrWhiteSpace(contextMessage))
+        {
+            DebugLogger.Log(contextMessage);
+        }
 
         var errorLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathForAdmin") ?? "error.log");
         var userLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
-
-        // Gather additional environment info
-        var osVersion = RuntimeInformation.OSDescription;
-        var architecture = RuntimeInformation.OSArchitecture.ToString();
-        var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
-        var windowsVersion = GetMicrosoftWindowsVersion.GetVersion();
-
-        // Build exception details including inner exceptions
-        var exceptionDetails = new StringBuilder();
-        var currentEx = ex;
-        while (currentEx != null)
-        {
-            exceptionDetails.AppendLine(CultureInfo.InvariantCulture, $"Exception type: {currentEx.GetType().Name}");
-            exceptionDetails.AppendLine(CultureInfo.InvariantCulture, $"Exception message: {currentEx.Message}");
-            if (currentEx.StackTrace != null)
-            {
-                exceptionDetails.AppendLine("Stack Trace:");
-                exceptionDetails.AppendLine(currentEx.StackTrace);
-            }
-
-            currentEx = currentEx.InnerException;
-            if (currentEx != null)
-            {
-                exceptionDetails.AppendLine("\nInner Exception:");
-            }
-        }
-
-        // Write error Message
-        var errorMessage =
-            $"Date: {DateTime.Now}\n" +
-            $"Simple Launcher Version: {version}\n" +
-            $"OS Version: {osVersion}\n" +
-            $"Architecture: {architecture}\n" +
-            $"Bitness: {is64Bit}\n" +
-            $"Windows Version: {windowsVersion}\n\n" +
-            $"{exceptionDetails}\n\n" +
-            $"{contextMessage}\n\n";
+        var errorMessage = BugReportFormatter.BuildReport(ex, contextMessage);
 
         await LogFileLock.WaitAsync();
         try
@@ -161,23 +123,8 @@ public class LogErrorsService : ILogErrors
     private void WriteLocalErrorLog(Exception ex, string contextMessage)
     {
         var criticalLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathCritical") ?? "critical_error.log");
-        var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown";
-        var osVersion = RuntimeInformation.OSDescription;
-        var architecture = RuntimeInformation.OSArchitecture.ToString();
-        var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
-        var windowsVersion = GetMicrosoftWindowsVersion.GetVersion();
-
-        var errorMessage =
-            $"Date: {DateTime.Now}\n" +
-            $"Simple Launcher Version: {version}\n" +
-            $"OS Version: {osVersion}\n" +
-            $"Architecture: {architecture}\n" +
-            $"Bitness: {is64Bit}\n" +
-            $"Windows Version: {windowsVersion}\n\n" +
-            $"Exception type: {ex.GetType().Name}\n" +
-            $"Exception details: {ex.Message}\n\n" +
-            $"{contextMessage}\n\n" +
-            "--------------------------------------------------------------------------------------------------------------\n\n\n";
+        var errorMessage = BugReportFormatter.BuildReport(ex, contextMessage) +
+                           "\n--------------------------------------------------------------------------------------------------------------\n\n\n";
 
         try
         {
