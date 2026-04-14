@@ -95,7 +95,7 @@ public static class RetroAchievementsSystemMatcher
         ["3do interactive multiplayer"] = new RaSystemInfo(43, ["3do interactive multiplayer", "3do", "3DO real", "Panasonic 3DO"]),
         ["colecovision"] = new RaSystemInfo(44, ["colecovision"]),
         ["intellivision"] = new RaSystemInfo(45, ["intellivision", "intv"]),
-        ["vectrex"] = new RaSystemInfo(46, ["vectrex"]),
+        ["vectrex"] = new RaSystemInfo(46, ["vectrex", "GCE Vectrex"]),
         ["pc-fx"] = new RaSystemInfo(49, ["pc-fx", "pcfx"]),
         ["wonderswan"] = new RaSystemInfo(53, ["wonderswan", "wonderswan color", "BANDAI WonderSwan", "Bandai WonderSwan Color"]),
         ["neo geo cd"] = new RaSystemInfo(56, ["neo geo cd", "neogeo cd", "neo geo compact disc", "SNK Neo Geo CD"]),
@@ -147,7 +147,7 @@ public static class RetroAchievementsSystemMatcher
             "scummvm", "scumm vm", "scumm-vm",
             "pinball arcade", "pinballarcade",
             "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
-            "NEC PC-FX", "Nintendo SNES MSU1"
+            "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

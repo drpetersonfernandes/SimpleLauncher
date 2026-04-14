@@ -161,7 +161,7 @@ public partial class SystemManager
                                 var sysConfigElement = XElement.Parse(match.Value);
                                 ValidateSystemConfiguration(sysConfigElement, systemManagers);
                             }
-                            catch (Exception)
+                            catch (Exception innerEx)
                             {
                                 var nameMatch = MyRegex1().Match(match.Value);
                                 var sysName = nameMatch.Success ? nameMatch.Groups[1].Value : "Unknown";
@@ -171,7 +171,7 @@ public partial class SystemManager
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
                                 DebugLogger.Log($"Failed to validate system configuration for '{sysName}'");
-                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to validate system configuration for '{sysName}'");
+                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
