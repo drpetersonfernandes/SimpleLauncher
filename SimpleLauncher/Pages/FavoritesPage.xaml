@@ -30,12 +30,14 @@
                         Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="5"
                         Margin="0,0,10,0"
-                        ToolTip="{DynamicResource TooltipRemoveFromFavorites}" />
+                        ToolTip="{DynamicResource TooltipRemoveFromFavorites}"
+                        AutomationProperties.Name="{DynamicResource RemovefromFavorites}" />
                 <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
                         Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                         Padding="5"
                         IsDefault="True"
-                        ToolTip="{DynamicResource TooltipLaunchFavorite}" />
+                        ToolTip="{DynamicResource TooltipLaunchFavorite}"
+                        AutomationProperties.Name="{DynamicResource LaunchSelectedGame}" />
             </StackPanel>
             <DataGrid Name="FavoritesDataGrid"
                       CanUserAddRows="False"
