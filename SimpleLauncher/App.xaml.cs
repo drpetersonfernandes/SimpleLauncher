@@ -45,6 +45,10 @@ public partial class App : IDisposable
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        DispatcherUnhandledException += App_DispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
         // Detect if the application is running from a temporary extraction folder
         // (e.g., user double-clicked the .exe inside a ZIP/RAR archive)
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -203,13 +207,20 @@ public partial class App : IDisposable
                 // No need to call ILogErrors.LogErrorAsync here, as it's not a critical error preventing startup,
                 // but rather an informational event about a previous abnormal shutdown.
             }
-            catch (Exception ex)
+            catch (UnauthorizedAccessException ex)
             {
-                // Handle other general exceptions during mutex creation/acquisition (e.g., access denied, out of memory).
-                // Notify developer about the failure.
                 _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
 
-                // Notify user
+                MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
+
+                Shutdown();
+
+                return;
+            }
+            catch (IOException ex)
+            {
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
+
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
 
                 Shutdown();
@@ -288,6 +299,56 @@ public partial class App : IDisposable
                 ConnectTimeout = TimeSpan.FromSeconds(15)
             };
         }
+    }
+
+    private static void ReportException(Exception ex, string contextMessage)
+    {
+        try
+        {
+            var logErrors = ServiceProvider?.GetRequiredService<ILogErrors>();
+            logErrors?.LogErrorAsync(ex, contextMessage).GetAwaiter().GetResult();
+        }
+        catch (HttpRequestException reportEx)
+        {
+            DebugLogger.LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+        }
+        catch (TaskCanceledException reportEx)
+        {
+            DebugLogger.LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+        }
+        catch (IOException reportEx)
+        {
+            DebugLogger.LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+        }
+        catch (UnauthorizedAccessException reportEx)
+        {
+            DebugLogger.LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+        }
+        catch (ObjectDisposedException reportEx)
+        {
+            DebugLogger.LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+        }
+        catch (InvalidOperationException reportEx)
+        {
+            DebugLogger.LogException(reportEx, $"Failed to forward exception to bug report API: {contextMessage}");
+        }
+    }
+
+    private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var exception = e.ExceptionObject as Exception ?? new Exception($"Unhandled non-exception object: {e.ExceptionObject}");
+        ReportException(exception, "Unhandled AppDomain exception.");
+    }
+
+    private static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    {
+        ReportException(e.Exception, "Unhandled dispatcher exception.");
+    }
+
+    private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+    {
+        ReportException(e.Exception, "Unhandled task exception.");
+        e.SetObserved();
     }
 
     protected override void OnExit(ExitEventArgs e)

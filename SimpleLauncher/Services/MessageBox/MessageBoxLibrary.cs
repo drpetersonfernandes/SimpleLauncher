@@ -436,8 +436,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -508,8 +509,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -605,8 +607,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1183,8 +1186,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1218,8 +1222,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -2092,8 +2097,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     // Notify user
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2129,8 +2135,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
                                                  "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas,
@@ -2169,8 +2176,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -2201,8 +2209,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog,
                         error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2237,8 +2246,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -2885,8 +2895,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -3362,8 +3373,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, launchError, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -4718,8 +4730,9 @@ internal static class MessageBoxLibrary
                         UseShellExecute = true
                     });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
                     // Notify user
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, title, MessageBoxButton.OK, MessageBoxImage.Error);
