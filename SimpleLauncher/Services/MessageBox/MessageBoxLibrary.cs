@@ -1,7 +1,5 @@
-using System;
 using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

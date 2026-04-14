@@ -1,5 +1,3 @@
-using System;
-
 namespace SimpleLauncher.Services.TakeScreenshot.Models;
 
 public class WindowItem
