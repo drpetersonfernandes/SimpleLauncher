@@ -442,7 +442,7 @@ internal static class ScanMicrosoftStoreGames
                         {
                             return new FileInfo(f).Length;
                         }
-                        catch (FileNotFoundException)
+                        catch
                         {
                             return 0L;
                         }
@@ -488,7 +488,7 @@ internal static class ScanMicrosoftStoreGames
                         {
                             return new FileInfo(f).Length;
                         }
-                        catch (FileNotFoundException)
+                        catch
                         {
                             return 0L;
                         }

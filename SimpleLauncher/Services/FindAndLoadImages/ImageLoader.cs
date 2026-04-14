@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.FindAndLoadImages;
@@ -93,9 +94,7 @@ public static class ImageLoader
     /// <exception cref="NotSupportedException">Thrown if the file format is not supported.</exception>
     private static BitmapImage LoadBitmapImageSafe(string filePath)
     {
-        var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal)
-            ? filePath
-            : @"\\?\" + filePath;
+        var longPath = PathHelper.GetLongPath(filePath);
 
         if (!File.Exists(longPath))
         {

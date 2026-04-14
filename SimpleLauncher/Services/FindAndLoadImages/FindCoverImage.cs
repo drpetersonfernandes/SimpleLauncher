@@ -45,14 +45,14 @@ public static class FindCoverImage
         }
 
         // Check if the resolved system image folder path is valid before proceeding
-        if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(@"\\?\" + systemImageFolder))
+        if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(PathHelper.GetLongPath(systemImageFolder)))
         {
             // 1. Check for the exact match first within the resolved folder
             {
                 foreach (var ext in imageExtensions)
                 {
                     var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
-                    if (File.Exists(@"\\?\" + imagePath))
+                    if (File.Exists(PathHelper.GetLongPath(imagePath)))
                         return imagePath; // Return the found path (which is already resolved)
                 }
 
@@ -109,7 +109,7 @@ public static class FindCoverImage
 
         // Only check if the resolved folder path was valid
         var defaultSystemImagePath = Path.Combine(systemImageFolder, "default.png");
-        if (File.Exists(@"\\?\" + defaultSystemImagePath))
+        if (File.Exists(PathHelper.GetLongPath(defaultSystemImagePath)))
         {
             return defaultSystemImagePath; // Return the resolved default path
         }

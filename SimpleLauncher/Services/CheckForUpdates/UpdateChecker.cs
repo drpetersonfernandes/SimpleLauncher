@@ -28,11 +28,12 @@ public partial class UpdateChecker
         get
         {
             var arch = RuntimeInformation.ProcessArchitecture;
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
             return arch switch
             {
                 Architecture.Arm64 => "win-arm64",
                 Architecture.X64 => "win-x64",
-                _ => "win-x64" // Fallback to x64 for any other architecture
+                _ => throw new NotSupportedException($"Unsupported runtime architecture '{arch}'. Only win-x64 and win-arm64 are supported.")
             };
         }
     }

@@ -183,8 +183,7 @@ public static class DisplaySystemInformation
         // Validate emulators
         foreach (var emulator in selectedManager.Emulators)
         {
-            var resolvedEmulatorLocation = PathHelper.ResolveRelativeToAppDirectory(emulator.EmulatorLocation);
-            if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) || CheckPath.IsValidPath(resolvedEmulatorLocation)) continue;
+            if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) || CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
 
             result.IsValid = false;
             result.InvalidEmulatorLocations.Add(emulator.EmulatorLocation);

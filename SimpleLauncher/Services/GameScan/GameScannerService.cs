@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.SystemManager;
 
@@ -281,7 +282,7 @@ public class GameScannerService
             {
                 try
                 {
-                    return new FileInfo(@"\\?\" + f).Length;
+                    return new FileInfo(PathHelper.GetLongPath(f)).Length;
                 }
                 catch
                 {

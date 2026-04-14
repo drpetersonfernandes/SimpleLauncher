@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.CheckPaths;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
@@ -16,8 +17,7 @@ public static class DeleteFiles
     {
         if (string.IsNullOrEmpty(filePath)) return;
 
-        // Prepend long path prefix if not already present, assuming absolute path
-        var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal) ? filePath : @"\\?\" + filePath;
+        var longPath = PathHelper.GetLongPath(filePath);
 
         if (!File.Exists(longPath)) return;
 

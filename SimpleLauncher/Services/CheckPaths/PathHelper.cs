@@ -231,22 +231,22 @@ internal static partial class PathHelper
     /// <returns>The canonical absolute path resulting from combining path1 and path2, resolved relative to the application base directory if needed.</returns>
     private static string CombineAndResolveRelativeToAppDirectory(string path1, string path2)
     {
-         // Resolve path1 first, which handles %BASEFOLDER% and relative-to-app resolution
-         var resolvedPath1 = ResolveRelativeToAppDirectory(path1);
+        // Resolve path1 first, which handles %BASEFOLDER% and relative-to-app resolution
+        var resolvedPath1 = ResolveRelativeToAppDirectory(path1);
 
-         // If path1 resolution failed, combining will also likely fail or be meaningless
-         if (string.IsNullOrEmpty(resolvedPath1))
-         {
-             return string.Empty;
-         }
+        // If path1 resolution failed, combining will also likely fail or be meaningless
+        if (string.IsNullOrEmpty(resolvedPath1))
+        {
+            return string.Empty;
+        }
 
-         // Combine the resolved path1 with path2.
-         // Path.Combine handles cases where path2 is absolute (it will ignore path1).
-         var combinedPath = Path.Combine(resolvedPath1, path2);
+        // Combine the resolved path1 with path2.
+        // Path.Combine handles cases where path2 is absolute (it will ignore path1).
+        var combinedPath = Path.Combine(resolvedPath1, path2);
 
-         // Resolve the final combined path. This handles cases where path2 was absolute
-         // or resolves any remaining '.' or '..' segments from the combination.
-         return ResolveRelativeToAppDirectory(combinedPath);
+        // Resolve the final combined path. This handles cases where path2 was absolute
+        // or resolves any remaining '.' or '..' segments from the combination.
+        return ResolveRelativeToAppDirectory(combinedPath);
     }
 
     public static string GetFileNameWithoutExtension(string path)
@@ -277,6 +277,29 @@ internal static partial class PathHelper
         return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
+    /// <summary>
+    /// Converts a path to an extended-length path when needed.
+    /// Preserves UNC paths by converting them to the \?\UNC\ form.
+    /// </summary>
+    /// <param name="path">The input path.</param>
+    /// <returns>An extended-length path, or the original path when already extended or not applicable.</returns>
+    public static string GetLongPath(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) ||
+            path.StartsWith(@"\\?\", StringComparison.OrdinalIgnoreCase) ||
+            path.StartsWith(@"\\.\", StringComparison.OrdinalIgnoreCase))
+        {
+            return path;
+        }
+
+        if (path.StartsWith(@"\\", StringComparison.Ordinal))
+        {
+            return @"\\?\UNC\" + path[2..];
+        }
+
+        return @"\\?\" + path;
+    }
+
     public static string FindFileInSystemFolders(SystemManager.SystemManager systemManager, string fileName)
     {
         if (systemManager?.SystemFolders == null || string.IsNullOrEmpty(fileName))
@@ -289,7 +312,7 @@ internal static partial class PathHelper
             var filePath = CombineAndResolveRelativeToAppDirectory(folder, fileName);
             if (string.IsNullOrEmpty(filePath)) continue;
 
-            var longPath = filePath.StartsWith(@"\\?\", StringComparison.Ordinal) ? filePath : @"\\?\" + filePath;
+            var longPath = GetLongPath(filePath);
 
             // Check both standard and long-path prefixed versions
             if (File.Exists(filePath) || File.Exists(longPath))
@@ -302,7 +325,7 @@ internal static partial class PathHelper
     }
 
     [GeneratedRegex("""
-                                       "[^"]*"|'[^']*'|\S+
-                                       """)]
+                    "[^"]*"|'[^']*'|\S+
+                    """)]
     private static partial Regex MyRegex();
 }

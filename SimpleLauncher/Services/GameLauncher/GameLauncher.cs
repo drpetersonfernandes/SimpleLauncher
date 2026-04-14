@@ -167,9 +167,7 @@ public partial class GameLauncher
             return false;
         }
 
-        var longPath = context.ResolvedFilePath.StartsWith(@"\\?\", StringComparison.Ordinal)
-            ? context.ResolvedFilePath
-            : @"\\?\" + context.ResolvedFilePath;
+        var longPath = PathHelper.GetLongPath(context.ResolvedFilePath);
 
         if (!File.Exists(longPath) && !Directory.Exists(longPath))
         {
@@ -413,7 +411,7 @@ public partial class GameLauncher
             var extension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
 
             // Validate file exists first
-            if (!File.Exists(@"\\?\" + resolvedFilePath))
+            if (!File.Exists(PathHelper.GetLongPath(resolvedFilePath)))
             {
                 throw new FileNotFoundException($"Shortcut file not found: {resolvedFilePath}");
             }
@@ -492,8 +490,8 @@ public partial class GameLauncher
             else
             {
                 // Existing error handling for other Win32Exceptions
-                var fileContent = File.Exists(@"\\?\" + resolvedFilePath)
-                    ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
+                var fileContent = File.Exists(PathHelper.GetLongPath(resolvedFilePath))
+                    ? $"\nFile Content:\n{await File.ReadAllTextAsync(PathHelper.GetLongPath(resolvedFilePath))}"
                     : "\nFile does not exist.";
                 var errorDetail = $"Exception launching the shortcut file.\n" +
                                   $"Shortcut file: {resolvedFilePath}\n" +
@@ -821,7 +819,7 @@ public partial class GameLauncher
         }
 
         // For mounted files, ensure it still exists before proceeding
-        if ((isMountedXbe || isMountedZip) && !File.Exists(@"\\?\" + resolvedFilePath))
+        if ((isMountedXbe || isMountedZip) && !File.Exists(PathHelper.GetLongPath(resolvedFilePath)))
         {
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
@@ -838,7 +836,7 @@ public partial class GameLauncher
         if (selectedEmulatorManager != null)
         {
             var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
-            if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(@"\\?\" + resolvedEmulatorExePath))
+            if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(PathHelper.GetLongPath(resolvedEmulatorExePath)))
             {
                 // Notify developer
                 var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
@@ -853,7 +851,7 @@ public partial class GameLauncher
 
             // Determine the emulator's directory, which is the base for %EMULATORFOLDER%
             var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
-            if (string.IsNullOrEmpty(resolvedEmulatorFolderPath) || !Directory.Exists(@"\\?\" + resolvedEmulatorFolderPath)) // Should exist if exe exists
+            if (string.IsNullOrEmpty(resolvedEmulatorFolderPath) || !Directory.Exists(PathHelper.GetLongPath(resolvedEmulatorFolderPath))) // Should exist if exe exists
             {
                 // Notify developer
                 var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";

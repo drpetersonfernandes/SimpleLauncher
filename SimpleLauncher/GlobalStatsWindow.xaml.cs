@@ -185,7 +185,7 @@ internal partial class GlobalStatsWindow : IDisposable
                     cancellationToken.ThrowIfCancellationRequested();
                     try
                     {
-                        var longPath = file.StartsWith(@"\\?\", StringComparison.Ordinal) ? file : @"\\?\" + file;
+                        var longPath = PathHelper.GetLongPath(file);
                         totalDiskSize += new FileInfo(longPath).Length;
                     }
                     catch

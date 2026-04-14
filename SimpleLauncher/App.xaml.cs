@@ -318,7 +318,21 @@ public partial class App : IDisposable
         try
         {
             var logErrors = ServiceProvider?.GetRequiredService<ILogErrors>();
-            logErrors?.LogErrorAsync(ex, contextMessage).GetAwaiter().GetResult();
+            if (logErrors != null)
+            {
+                // Fire-and-forget pattern with proper exception handling
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await logErrors.LogErrorAsync(ex, contextMessage).ConfigureAwait(false);
+                    }
+                    catch (Exception fireForgetEx)
+                    {
+                        DebugLogger.LogException(fireForgetEx, $"Failed to forward exception to bug report API (fire-and-forget): {contextMessage}");
+                    }
+                });
+            }
         }
         catch (HttpRequestException reportEx)
         {

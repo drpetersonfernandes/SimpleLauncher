@@ -25,8 +25,7 @@ public static class CheckPath
                 return false;
             }
 
-            // Prepend the long path prefix to handle paths longer than 260 characters reliably.
-            var pathForCheck = @"\\?\" + resolvedPath;
+            var pathForCheck = PathHelper.GetLongPath(resolvedPath);
 
             // Check if the resolved path exists as a file or directory
             return File.Exists(pathForCheck) || Directory.Exists(pathForCheck);
@@ -59,8 +58,7 @@ public static class CheckPath
                 return false;
             }
 
-            // Prepend the long path prefix to handle paths longer than 260 characters reliably.
-            var pathForCheck = @"\\?\" + resolvedPath;
+            var pathForCheck = PathHelper.GetLongPath(resolvedPath);
 
             // Check if the resolved path exists as a file (not directory)
             return File.Exists(pathForCheck);

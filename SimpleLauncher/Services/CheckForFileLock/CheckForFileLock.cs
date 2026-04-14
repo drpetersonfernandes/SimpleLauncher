@@ -15,7 +15,7 @@ public static class CheckForFileLock
         if (string.IsNullOrEmpty(resolvedPath))
             return false; // Path could not be resolved
 
-        var longPath = resolvedPath.StartsWith(@"\\?\", StringComparison.Ordinal) ? resolvedPath : @"\\?\" + resolvedPath;
+        var longPath = CheckPaths.PathHelper.GetLongPath(resolvedPath);
 
         if (!File.Exists(longPath))
             return false;
