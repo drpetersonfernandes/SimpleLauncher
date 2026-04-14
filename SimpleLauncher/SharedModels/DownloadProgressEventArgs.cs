@@ -1,5 +1,3 @@
-using System;
-
 namespace SimpleLauncher.SharedModels;
 
 /// <inheritdoc />

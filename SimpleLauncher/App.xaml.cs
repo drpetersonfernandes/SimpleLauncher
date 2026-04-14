@@ -1,12 +1,8 @@
-using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Authentication;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using ControlzEx.Theming;

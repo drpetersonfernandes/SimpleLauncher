@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.Configuration;
-using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

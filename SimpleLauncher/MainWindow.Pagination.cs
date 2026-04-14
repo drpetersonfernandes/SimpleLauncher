@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;

@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;

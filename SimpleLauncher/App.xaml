@@ -18,8 +18,9 @@
             <sys:String x:Key="Plum">Plum</sys:String>
             <sys:String x:Key="SkyBlue">Sky Blue</sys:String>
 
-            <!-- Converters -->
-            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+             <!-- Converters -->
+             <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+             <converters:ImageUrlConverter x:Key="ImageUrlConverter" />
 
             <!-- Reusable ControlTemplate for Image Buttons with 3D Effect -->
             <ControlTemplate x:Key="ImageButton3DEffectTemplate" TargetType="Button">

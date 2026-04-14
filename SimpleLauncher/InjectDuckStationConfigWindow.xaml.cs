@@ -1,8 +1,7 @@
-using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls; // Added for ComboBox and ComboBoxItem
+using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;

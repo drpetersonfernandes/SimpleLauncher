@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GamePad;
