@@ -26,39 +26,28 @@
                    FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_Click"
-                        Padding="5"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Margin="0,0,10,0"
+                        Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipRemoveFromHistory}"
                         AutomationProperties.Name="{DynamicResource RemovefromHistory}" />
                 <Button Content="{DynamicResource RemoveAllfromHistory}" Click="RemoveAllHistoryItemButton_Click"
-                        Padding="5"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Margin="0,0,10,0"
+                        Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipRemoveAllFromHistory}"
                         AutomationProperties.Name="{DynamicResource RemoveAllfromHistory}" />
                 <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
-                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                        Padding="5"
+                        Style="{DynamicResource PrimaryActionButtonStyle}"
                         IsDefault="True"
-                        Margin="0,0,10,0"
                         ToolTip="{DynamicResource TooltipLaunchFromHistory}"
                         AutomationProperties.Name="{DynamicResource LaunchSelectedGame}" />
                 <Button Content="{DynamicResource SortByDate}" Click="SortByDate_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5"
-                        Margin="0,0,10,0"
+                        Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipSortByDate}"
                         AutomationProperties.Name="{DynamicResource SortByDate}" />
                 <Button Content="{DynamicResource SortByPlayTime}" Click="SortByTotalPlayTime_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5"
-                        Margin="0,0,10,0"
+                        Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipSortByPlayTime}"
                         AutomationProperties.Name="{DynamicResource SortByPlayTime}" />
                 <Button Content="{DynamicResource SortByTimesPlayed}" Click="SortByTimesPlayed_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5"
+                        Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipSortByTimesPlayed}"
                         AutomationProperties.Name="{DynamicResource SortByTimesPlayed}" />
             </StackPanel>

@@ -221,7 +221,9 @@ public partial class GameLauncher
 
         try
         {
-            context.MainWindow.PlayHistoryManager.AddOrUpdatePlayHistoryItem(context.ResolvedFilePath, context.SystemName, playTime);
+            // Use FilePath (original archive path) instead of ResolvedFilePath (temp extracted path)
+            // to ensure play history stores the persistent archive location, not the temp file
+            context.MainWindow.PlayHistoryManager.AddOrUpdatePlayHistoryItem(context.FilePath, context.SystemName, playTime);
 
             var systemPlayTime = context.Settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == context.SystemName);
             if (systemPlayTime != null)
@@ -229,7 +231,7 @@ public partial class GameLauncher
                 context.MainWindow.PlayTime = systemPlayTime.FormattedPlayTime;
             }
 
-            context.MainWindow.RefreshGameListAfterPlay(context.ResolvedFilePath, context.SystemName);
+            context.MainWindow.RefreshGameListAfterPlay(context.FilePath, context.SystemName);
         }
         catch (Exception ex)
         {
@@ -280,11 +282,11 @@ public partial class GameLauncher
         TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} {launched}");
         UpdateStatusBar.UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} {launched}", mainWindow);
 
-        using var process = new Process();
-        process.StartInfo = psi;
-
         StringBuilder output = new();
         StringBuilder error = new();
+
+        using var process = new Process();
+        process.StartInfo = psi;
 
         process.OutputDataReceived += (_, args) =>
         {
@@ -964,80 +966,116 @@ public partial class GameLauncher
             TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
             UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
 
-            using var process = new Process();
-            process.StartInfo = psi;
             StringBuilder output = new();
             StringBuilder error = new();
 
-            process.OutputDataReceived += (_, args) =>
+            using (var process = new Process())
             {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    output.AppendLine(args.Data);
-                }
-            };
+                process.StartInfo = psi;
 
-            process.ErrorDataReceived += (_, args) =>
-            {
-                if (!string.IsNullOrEmpty(args.Data))
+                process.OutputDataReceived += (_, args) =>
                 {
-                    error.AppendLine(args.Data);
-                }
-            };
+                    if (!string.IsNullOrEmpty(args.Data))
+                    {
+                        output.AppendLine(args.Data);
+                    }
+                };
 
-            try
-            {
-                var processStarted = process.Start();
-                if (!processStarted)
+                process.ErrorDataReceived += (_, args) =>
                 {
-                    throw new InvalidOperationException("Failed to start the process.");
-                }
+                    if (!string.IsNullOrEmpty(args.Data))
+                    {
+                        error.AppendLine(args.Data);
+                    }
+                };
 
-                if (!process.HasExited)
+                try
                 {
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-                    await process.WaitForExitAsync();
-                }
+                    var processStarted = process.Start();
+                    if (!processStarted)
+                    {
+                        throw new InvalidOperationException("Failed to start the process.");
+                    }
 
-                if (process.HasExited)
-                {
-                    if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
+                    if (!process.HasExited)
+                    {
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+                        await process.WaitForExitAsync();
+                    }
 
-                    await CheckForMemoryAccessViolationAsync(process, psi, output, error);
-                    await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
-                    await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
-                }
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Notify developer
-                const string contextMessage = "InvalidOperationException while launching emulator.";
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+                    if (process.HasExited)
+                    {
+                        if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
 
-                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-                {
-                    // Notify user
-                    await MessageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                    // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                        await CheckForMemoryAccessViolationAsync(process, psi, output, error);
+                        await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
+                        await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
+                    }
                 }
-            }
-            catch (Win32Exception ex) // Catch Win32Exception specifically
-            {
-                if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                catch (InvalidOperationException ex)
                 {
-                    MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");
+                    // Notify developer
+                    const string contextMessage = "InvalidOperationException while launching emulator.";
+                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+
+                    if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                    {
+                        // Notify user
+                        await MessageBoxLibrary.InvalidOperationExceptionMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                    }
                 }
-                else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+                catch (Win32Exception ex) // Catch Win32Exception specifically
                 {
-                    MessageBoxLibrary.ElevationRequiredMessageBox();
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch emulator.");
+                    if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsApplicationControlPolicyBlocked(ex))
+                    {
+                        MessageBoxLibrary.ApplicationControlPolicyBlockedMessageBox();
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked launching emulator.");
+                    }
+                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsElevationRequired(ex))
+                    {
+                        MessageBoxLibrary.ElevationRequiredMessageBox();
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch emulator.");
+                    }
+                    else
+                    {
+                        // Existing error handling for other Win32Exceptions
+                        // Notify developer
+                        // Safely check if the process ever started before trying to access its properties.
+                        // A simple way is to check if an ID was ever assigned.
+                        string exitCodeInfo;
+                        try
+                        {
+                            // This check is safe even if the process didn't start.
+                            _ = process.Id;
+                            exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A (Still Running or Failed to get code)")}";
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            exitCodeInfo = "Exit code: N/A (Process failed to start)";
+                        }
+
+                        var errorDetail = $"{exitCodeInfo}\n" +
+                                          $"Emulator: {psi.FileName}\n" +
+                                          $"Calling parameters: {psi.Arguments}\n" +
+                                          $"Emulator output: {output}\n" +
+                                          $"Emulator error: {error}\n";
+                        var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                        var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
+                        await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                        if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                        {
+                            // Notify user
+                            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    // Existing error handling for other Win32Exceptions
                     // Notify developer
                     // Safely check if the process ever started before trying to access its properties.
                     // A simple way is to check if an ID was ever assigned.
@@ -1070,56 +1108,21 @@ public partial class GameLauncher
                     }
                 }
             }
-            catch (Exception ex)
+
+            // Only attempt to delete if a temporary extraction path was actually set
+            if (!string.IsNullOrEmpty(tempExtractionPath) && Directory.Exists(tempExtractionPath))
             {
-                // Notify developer
-                // Safely check if the process ever started before trying to access its properties.
-                // A simple way is to check if an ID was ever assigned.
-                string exitCodeInfo;
                 try
                 {
-                    // This check is safe even if the process didn't start.
-                    _ = process.Id;
-                    exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A (Still Running or Failed to get code)")}";
+                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Attempting to delete temporary extraction directory: {tempExtractionPath}");
+                    Directory.Delete(tempExtractionPath, true); // Use Directory.Delete with recursive=true
+                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Successfully deleted temporary extraction directory: {tempExtractionPath}");
                 }
-                catch (InvalidOperationException)
+                catch (Exception ex)
                 {
-                    exitCodeInfo = "Exit code: N/A (Process failed to start)";
-                }
-
-                var errorDetail = $"{exitCodeInfo}\n" +
-                                  $"Emulator: {psi.FileName}\n" +
-                                  $"Calling parameters: {psi.Arguments}\n" +
-                                  $"Emulator output: {output}\n" +
-                                  $"Emulator error: {error}\n";
-                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-                var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-                {
-                    // Notify user
-                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                    // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, ex, contextMessage, _playSoundEffects);
-                }
-            }
-            finally
-            {
-                // Only attempt to delete if a temporary extraction path was actually set
-                if (!string.IsNullOrEmpty(tempExtractionPath) && Directory.Exists(tempExtractionPath))
-                {
-                    try
-                    {
-                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Attempting to delete temporary extraction directory: {tempExtractionPath}");
-                        Directory.Delete(tempExtractionPath, true); // Use Directory.Delete with recursive=true
-                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Successfully deleted temporary extraction directory: {tempExtractionPath}");
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log the error but don't prevent other finally block actions
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
-                        DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
-                    }
+                    // Log the error but don't prevent other cleanup actions
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
+                    DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
                 }
             }
         }

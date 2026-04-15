@@ -27,14 +27,11 @@
                    FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromFavorites}" Click="RemoveFavoriteButton_Click"
-                        Style="{DynamicResource MahApps.Styles.Button.Square}"
-                        Padding="5"
-                        Margin="0,0,10,0"
+                        Style="{DynamicResource SecondaryActionButtonStyle}"
                         ToolTip="{DynamicResource TooltipRemoveFromFavorites}"
                         AutomationProperties.Name="{DynamicResource RemovefromFavorites}" />
                 <Button Content="{DynamicResource LaunchSelectedGame}" Click="LaunchGameClickAsync"
-                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-                        Padding="5"
+                        Style="{DynamicResource PrimaryActionButtonStyle}"
                         IsDefault="True"
                         ToolTip="{DynamicResource TooltipLaunchFavorite}"
                         AutomationProperties.Name="{DynamicResource LaunchSelectedGame}" />

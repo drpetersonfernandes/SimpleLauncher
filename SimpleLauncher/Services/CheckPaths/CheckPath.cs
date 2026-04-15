@@ -60,8 +60,8 @@ public static class CheckPath
 
             var pathForCheck = PathHelper.GetLongPath(resolvedPath);
 
-            // Check if the resolved path exists as a file (not directory)
-            return File.Exists(pathForCheck);
+            // Check if the resolved path exists as a file (not directory) and has .exe extension
+            return File.Exists(pathForCheck) && Path.GetExtension(pathForCheck).Equals(".exe", StringComparison.OrdinalIgnoreCase);
         }
         catch
         {
