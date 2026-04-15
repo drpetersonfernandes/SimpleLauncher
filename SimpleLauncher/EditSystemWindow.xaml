@@ -419,19 +419,7 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
-                                <!-- <Button -->
-                                <!--     Margin="0" -->
-                                <!--     Grid.Row="2" -->
-                                <!--     Grid.Column="2" -->
-                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                                <!--     Width="30" -->
-                                <!--     Height="30" -->
-                                <!--     Click="HelpLink_Click" -->
-                                <!--     HorizontalAlignment="Left" -->
-                                <!--     VerticalAlignment="Top"> -->
-                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                                <!--            VerticalAlignment="Top" /> -->
-                                <!-- </Button> -->
+
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="3"
@@ -521,19 +509,7 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
-                                <!-- <Button -->
-                                <!--     Margin="0" -->
-                                <!--     Grid.Row="2" -->
-                                <!--     Grid.Column="2" -->
-                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                                <!--     Width="30" -->
-                                <!--     Height="30" -->
-                                <!--     Click="HelpLink_Click" -->
-                                <!--     HorizontalAlignment="Left" -->
-                                <!--     VerticalAlignment="Top"> -->
-                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                                <!--            VerticalAlignment="Top" /> -->
-                                <!-- </Button> -->
+
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="3"
@@ -622,19 +598,7 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
-                                <!-- <Button -->
-                                <!--     Margin="0" -->
-                                <!--     Grid.Row="2" -->
-                                <!--     Grid.Column="2" -->
-                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                                <!--     Width="30" -->
-                                <!--     Height="30" -->
-                                <!--     Click="HelpLink_Click" -->
-                                <!--     HorizontalAlignment="Left" -->
-                                <!--     VerticalAlignment="Top"> -->
-                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                                <!--            VerticalAlignment="Top" /> -->
-                                <!-- </Button> -->
+
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="3"
@@ -723,19 +687,7 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
-                                <!-- <Button -->
-                                <!--     Margin="0" -->
-                                <!--     Grid.Row="2" -->
-                                <!--     Grid.Column="2" -->
-                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                                <!--     Width="30" -->
-                                <!--     Height="30" -->
-                                <!--     Click="HelpLink_Click" -->
-                                <!--     HorizontalAlignment="Left" -->
-                                <!--     VerticalAlignment="Top"> -->
-                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                                <!--            VerticalAlignment="Top" /> -->
-                                <!-- </Button> -->
+
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="3"
@@ -824,19 +776,7 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
-                                <!-- <Button -->
-                                <!--     Margin="0" -->
-                                <!--     Grid.Row="2" -->
-                                <!--     Grid.Column="2" -->
-                                <!--     Style="{StaticResource NavImageButton3DStyle}" -->
-                                <!--     Width="30" -->
-                                <!--     Height="30" -->
-                                <!--     Click="HelpLink_Click" -->
-                                <!--     HorizontalAlignment="Left" -->
-                                <!--     VerticalAlignment="Top"> -->
-                                <!--     <Image Source="images/help.png" Width="16" Height="16" HorizontalAlignment="Left" -->
-                                <!--            VerticalAlignment="Top" /> -->
-                                <!-- </Button> -->
+
                                 <Label
                                     Margin="10,0,10,10"
                                     Grid.Row="3"

@@ -523,6 +523,56 @@
                 </Grid>
             </ControlTemplate>
 
+            <!-- Standardized Button Styles -->
+            <!-- Primary Action Button: For main actions like Launch, Save, Run -->
+            <Style x:Key="PrimaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square.Accent}">
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="MinHeight" Value="35" />
+                <Setter Property="MinWidth" Value="80" />
+                <Setter Property="Margin" Value="0,0,10,0" />
+            </Style>
+
+            <!-- Secondary Action Button: For secondary actions like Cancel, Remove, Browse -->
+            <Style x:Key="SecondaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="MinHeight" Value="35" />
+                <Setter Property="MinWidth" Value="80" />
+                <Setter Property="Margin" Value="0,0,10,0" />
+            </Style>
+
+            <!-- Browse Button: For "..." browse buttons -->
+            <Style x:Key="BrowseButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="Height" Value="25" />
+                <Setter Property="Width" Value="35" />
+                <Setter Property="Margin" Value="5,0,0,0" />
+                <Setter Property="Content" Value="..." />
+                <Setter Property="ToolTip" Value="Browse..." />
+            </Style>
+
+            <!-- Dialog Button: For dialog action buttons (Save/Run/Cancel patterns) -->
+            <Style x:Key="DialogPrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square.Accent}">
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Width" Value="120" />
+                <Setter Property="Margin" Value="5,0" />
+            </Style>
+
+            <Style x:Key="DialogSecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="5,0" />
+            </Style>
+
+            <Style x:Key="DialogCancelButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="Height" Value="35" />
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Margin" Value="5,0,0,0" />
+                <Setter Property="IsCancel" Value="True" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

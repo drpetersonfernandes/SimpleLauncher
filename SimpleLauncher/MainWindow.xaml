@@ -1042,17 +1042,15 @@
                                         AutomationProperties.Name="{DynamicResource CurrentSystemInfo}">
                                 <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" AutomationProperties.Name="{DynamicResource GamepadIcon}" />
                                 <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0" />
-                                <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" />
+                                <Label Content="{Binding SelectedSystem, FallbackValue=''}" VerticalAlignment="Center" Padding="5,0,0,0" />
                             </StackPanel>
                             <!-- Playtime Info -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0" AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}"
-                                        Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
                                 <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" AutomationProperties.Name="{DynamicResource PlayHistoryIcon}" />
                                 <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
-                                <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" />
+                                <Label Content="{Binding PlayTime, FallbackValue=''}" VerticalAlignment="Center" Padding="5,0,0,0" />
                             </StackPanel>
-                            <!-- Dummy usage to suppress "Resource 'SystemButtonStyle' is never used" warning -->
-                            <Button Style="{StaticResource SystemButtonStyle}" Visibility="Collapsed" Width="0" Height="0" />
                         </StackPanel>
                     </Grid>
 
