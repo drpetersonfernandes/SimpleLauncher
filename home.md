@@ -48,28 +48,30 @@ Welcome to the official documentation for Simple Launcher, a powerful and flexib
 **Key Features:**
 - **Easy and Expert Configuration:** Use a guided wizard to add systems or dive deep into manual XML configuration.
 - **On-the-Fly File Mounting:** Launch games directly from `.zip`, `.iso`, and `.xiso` files without manual extraction, even for complex emulator setups like RPCS3 and Cxbx-Reloaded.
-- **Universal CHD Support:** Seamlessly launch CHD files on emulators that lack native support (Xenia, RPCS3, etc.) using our built-in **CHDMounter** tool.
+- **Universal CHD Support:** Seamlessly launch CHD files on 15+ emulators that lack native support (Xenia, RPCS3, Xemu, etc.) using our built-in **CHDMounter** tool.
+- **Modern Game Store Integration:** Automatic scanning for games from Steam, Epic Games Store, Microsoft Store, GOG, Amazon Games, Battle.net, and more.
 - **Extensive Customization:** Control themes, languages, button sizes, aspect ratios, overlay buttons, and more.
 - **Rich Media Support:** Display covers, snapshots, videos, manuals, and other media for your games.
 - **Powerful Game Management:** Keep track of your favorites, view your play history, and use a global search to find any game across all your systems.
 - **RetroAchievements Integration:** Track your achievements, view game progress, and explore leaderboards directly within the launcher.
-- **Bundled Conversion Tools:** A suite of utilities to help you convert, verify, and manage your game files.
-- **Modern UI:** A clean, responsive interface built with WPF and MahApps.Metro.
+- **Bundled Conversion Tools:** A comprehensive suite of 20+ utilities to help you convert, verify, and manage your game files.
+- **Modern UI:** A clean, responsive interface built with WPF and MahApps.Metro, supporting both x64 and ARM64 architectures.
 
 ## 2. Getting Started
 
 ### System Requirements
-- **Operating System:** Windows 7 or newer.
-- **.NET Framework:** .NET 9 (The installer will handle this).
+- **Operating System:** Windows 10 or newer (Windows 7 support was dropped in recent versions).
+- **.NET Runtime:** .NET 10 Runtime (The installer will handle this).
+- **Architecture:** Supports both x64 and ARM64 (Windows on ARM) systems.
 
 ### Required Dependencies
 For full functionality, especially the on-the-fly file mounting, you must install **Dokan**.
 - **Dokan:** A user-mode file system for Windows that allows Simple Launcher to mount archive files as virtual drives.
     - **Download Link:** [https://github.com/dokan-dev/dokany/releases](https://github.com/dokan-dev/dokany/releases)
-    - Please install Dokan before using features that rely on mounting ZIP or ISO files.
+    - Please install Dokan before using features that rely on mounting ZIP, ISO, or CHD files.
 
 ### Installation
-1.  Download the latest release from the [GitHub Releases page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
+1.  Download the latest release from the [GitHub Releases page](https://github.com/drpetersonfernandes/SimpleLauncher/releases). Choose the correct architecture (x64 or ARM64) for your system.
 2.  Unzip the entire application folder to a **writable location** on your computer, such as `C:\Users\YourName\Documents\SimpleLauncher` or `D:\Emulation\SimpleLauncher`.
 3.  **Do not** place it in restricted folders like `C:\Program Files` or `C:\Program Files (x86)`, as Simple Launcher needs to write configuration files (`system.xml`, `settings.xml`, `favorites.dat`, `playhistory.dat`, etc.) and logs in its own directory.
 4.  Run `SimpleLauncher.exe`.
@@ -77,13 +79,13 @@ For full functionality, especially the on-the-fly file mounting, you must instal
 ## 3. Core Concepts
 
 ### Systems
-A "System" represents a gaming console or platform you want to emulate (e.g., "Nintendo SNES", "Sega Genesis", "Arcade"). Each system has its own configuration, including its game folder(s), emulators, and media paths.
+A "System" represents a gaming console or platform you want to emulate (e.g., "Nintendo SNES", "Sega Genesis", "Arcade"). Each system has its own configuration, including its game folder(s), emulators, and media paths. Simple Launcher supports **100+ gaming systems** including modern platforms like Nintendo Switch, PlayStation 4, and Windows Store games.
 
 ### Game Files (ROMs/ISOs)
-These are the actual files for your games. Simple Launcher supports a wide variety of formats, from single ROM files (`.smc`, `.nes`) to disc images (`.iso`, `.chd`, `.rvz`) and compressed archives (`.zip`, `.7z`, `.rar`).
+These are the actual files for your games. Simple Launcher supports a wide variety of formats, from single ROM files (`.smc`, `.nes`) to disc images (`.iso`, `.chd`, `.rvz`, `.xiso`) and compressed archives (`.zip`, `.7z`, `.rar`).
 
 ### Emulators
-These are the external programs that run your games. Simple Launcher is a frontend, meaning it organizes your games and tells the emulator which game to launch. You must provide your own emulators.
+These are the external programs that run your games. Simple Launcher is a frontend, meaning it organizes your games and tells the emulator which game to launch. You must provide your own emulators. The launcher includes **configuration injection** for 20+ popular emulators.
 
 ### Media and Folders
 Simple Launcher is designed to be a highly visual frontend. It expects a specific folder structure within its main directory to automatically find and display media for your games.
@@ -221,18 +223,32 @@ Simple Launcher's most powerful feature is its ability to handle different file 
     - **Cxbx-Reloaded (Xbox):** Mounts `.xiso` files and launches `default.xbe`.
     - **ScummVM:** Mounts `.zip` files and launches the game via ScummVM's auto-detect feature.
     - **XBLA (Xbox 360):** Mounts `.zip` files and finds the game executable within the required nested folder structure.
-    - **Universal CHD Support (CHDMounter):** For emulators that do not natively support CHD files (such as **Xenia, Xemu, RPCS3, Cxbx Reloaded, Mednafen, PCSX Redux, and 4Do**), Simple Launcher uses the **CHDMounter** tool to mount the CHD as a virtual drive, allowing the game to be presented in a compatible format automatically.
+    - **Universal CHD Support (CHDMounter):** For 15+ emulators that do not natively support CHD files (including **Xenia, Xemu, RPCS3, Cxbx Reloaded, Mednafen, PCSX Redux, 4DO, Gens, Blastem, Yabause, Mesen, FinalBurn Neo, FinalBurn Alpha, Raine, CD-i Emulator, and Tsugaru**), Simple Launcher uses the **CHDMounter** tool to mount the CHD as a virtual drive, allowing the game to be presented in a compatible format automatically.
+
+### Modern Game Store Integration
+Simple Launcher automatically scans for and integrates games from modern PC game stores:
+- **Microsoft Store (Windows Apps):** Scans installed UWP apps and games
+- **Steam:** Integrates with your Steam library
+- **Epic Games Store:** Detects Epic Games installations
+- **GOG:** Scans GOG Galaxy games
+- **Amazon Games:** Integrates with Amazon Prime Gaming
+- **Battle.net:** Detects Blizzard games
+- **EA App:** Scans Electronic Arts games
+- **Humble Bundle:** Integrates with Humble Collection
+- **itch.io:** Scans itch.io games
+- **Rockstar Games:** Detects Rockstar titles
+- **Uplay:** Integrates with Ubisoft Connect
 
 ### Favorites Manager
 - Access via **Favorites -> Favorites** or the heart icon in the navigation panel.
 - Add games to your favorites from the context menu.
 - View, launch, and manage all your favorite games from a single window.
-- Favorites are stored in `favorites.dat`.
+- Favorites are stored in `favorites.dat` using MessagePack for fast serialization.
 
 ### Play History
 - Access via **Play History -> Play History** or the clock icon in the navigation panel.
-- Automatically tracks every game you play, recording the number of plays, total playtime, and last played date/time.
-- Data is stored in `playhistory.dat`.
+- Automatically tracks every game you play, recording the number of plays, total playtime (in seconds for better accuracy), and last played date/time.
+- Data is stored in `playhistory.dat` using MessagePack serialization.
 
 ### Global Search
 - Access via **Global Search -> Global Search** or the magnifying glass icon in the navigation panel.
@@ -275,41 +291,61 @@ Simple Launcher's most powerful feature is its ability to handle different file 
 - **User Profile:** Access your RetroAchievements profile, including total points, rank, recently played games, and unlocked achievements by date range.
 - **Settings:** Configure your RetroAchievements username and API key via **Options -> RetroAchievements Settings**.
 - **Overlay Buttons:** Enable quick access buttons for RetroAchievements on game items in Grid View via **Options -> Overlay Button Settings**.
+- **Nintendo Wii Support:** Full support for Wii RetroAchievements (recently added official support).
+- **Auto-Credential Injection:** Automatically syncs your RA login to supported emulators like PCSX2, DuckStation, PPSSPP, and RetroArch.
 
 ### Automatic Updates
 - Simple Launcher automatically checks for new versions on startup.
 - If an update is found, it will prompt you to download and install it.
 - The update process uses a separate `Updater.exe` application to ensure a smooth transition.
-- The "Update History" window (accessible via **About -> Update History**) displays release notes.
+- The "Update History" window (accessible via **About -> Update History**) displays release notes in Markdown format.
 
 ## 7. Bundled Tools
-Simple Launcher includes a suite of tools accessible from the **Tools** menu to help you manage your game library.
+Simple Launcher includes a comprehensive suite of 20+ tools accessible from the **Tools** menu to help you manage your game library.
 
 | Tool                                 | Description                                                                                                                                                     |
 |:-------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **CHDMounter**                       | Automatically mounts CHD files to a virtual drive for emulators that lack native CHD support (Xenia, RPCS3, etc.).                                              |
+| **CHDMounter**                       | Automatically mounts CHD files to a virtual drive for 15+ emulators that lack native CHD support.                                                              |
 | **Batch Convert Iso To Xiso**        | Converts standard Xbox ISO files to the `.xiso` format required by some emulators, and can verify XISO integrity.                                               |
 | **Batch Convert To CHD**             | Converts disc images (`.cue`, `.iso`, `.gdi`, etc.) to the compressed CHD format, and can verify CHD integrity.                                                 |
 | **Batch Convert To Compressed File** | Compresses files or folders into `.zip` or `.7z` archives, and can verify archive integrity.                                                                    |
 | **Batch Convert To RVZ**             | Converts GameCube and Wii disc images to the highly compressed RVZ format used by Dolphin, and can test RVZ integrity.                                          |
-| **Create Batch Files...**            | A series of tools to generate `.bat` files for launching games that require special setups, such as for PS3, ScummVM, Sega Model 3, Windows, and Xbox 360 XBLA. |
+| **Create Batch Files for PS3 Games** | Generates `.bat` files for launching PS3 games with proper RPCS3 configuration.                                                                                 |
+| **Create Batch Files for ScummVM Games** | Generates `.bat` files for launching ScummVM games with proper configuration.                                                                                |
+| **Create Batch Files for Sega Model 3 Games** | Generates `.bat` files for launching Sega Model 3 arcade games.                                                                                            |
+| **Create Batch Files for Windows Games** | Generates `.bat` files for launching Windows games with proper configuration.                                                                                |
+| **Create Batch Files for Xbox 360 XBLA Games** | Generates `.bat` files for launching Xbox 360 XBLA games.                                                                                                  |
 | **FindRomCover**                     | A utility to help you find and organize cover art for your games, with MAME description support.                                                                |
+| **GameCoverScraper**                 | Web-based tool to scrape game cover art from online sources.                                                                                                    |
+| **RetroGameCoverDownloader**         | Downloads retro game covers from various online databases.                                                                                                      |
 | **RomValidator**                     | A tool to compare user game files with No-Intro dat files for validation.                                                                                       |
+| **MAME.DatCreator**                  | Creates MAME DAT files for organizing arcade ROM collections.                                                                                                   |
+| **PSXPackager**                      | Packages PS1 games into various formats.                                                                                                                        |
+| **RAHasher**                         | Calculates RetroAchievements game hashes for achievement tracking.                                                                                              |
+| **SimpleZipDrive**                   | Mounts ZIP archives as virtual drives for on-the-fly access.                                                                                                    |
+| **SimpleXisoDrive**                  | Mounts XISO files as virtual drives for Xbox emulation.                                                                                                         |
 
 ## 8. Troubleshooting
 - **Application doesn't start:**
-    - Ensure you have .NET 9 installed.
+    - Ensure you have .NET 10 Runtime installed.
     - Make sure you are not running another instance of Simple Launcher.
     - Check that the application is in a writable folder (e.g., not `C:\Program Files`).
+    - Verify you're using the correct architecture (x64 vs ARM64) for your system.
 - **Games won't launch:**
     - **Check paths:** Use **Expert Mode** to verify that the `SystemFolder(s)` and `EmulatorLocation` are correct. Use absolute paths if you are unsure.
-    - **Check parameters:** Ensure the `EmulatorParameters` are correct for the emulator you are using. Refer to the `helpuser.xml` guide in the Expert Mode window or the emulator's official documentation. A list of common emulator parameters can be found on our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters).
+    - **Check parameters:** Ensure the `EmulatorParameters` are correct for the emulator you are using. Refer to the comprehensive `parameters.md` guide or the emulator's official documentation.
     - **Check for BIOS files:** Many emulators require BIOS files to be placed in a specific folder.
+    - **Check elevation requirements:** Some games/emulators require Administrator privileges - Simple Launcher will notify you if this is detected.
 - **Mounting features don't work:**
-    - **Install Dokan:** This is a mandatory dependency for mounting `.zip` and `.xiso` files.
+    - **Install Dokan:** This is a mandatory dependency for mounting `.zip`, `.iso`, `.xiso`, and `.chd` files.
+    - **Check Dokan version:** Ensure you have a compatible version of Dokan installed.
+- **CHD files won't launch:**
+    - Ensure Dokan is installed (required for CHDMounter).
+    - Check that the emulator is in the list of supported emulators for CHD mounting.
 - **Errors or crashes:**
     - Check the `error_user.log` file in the Simple Launcher directory for detailed error messages.
     - You can also enable the debug window by launching `SimpleLauncher.exe -debug` from the command line for real-time logs.
+    - Use the built-in **Support Window** to send detailed error reports to the developers.
 
 ## 9. Dependencies & Credits
 Simple Launcher is built using several excellent open-source libraries and tools.
@@ -319,22 +355,28 @@ Simple Launcher is built using several excellent open-source libraries and tools
 
 ### Bundled Executables
 - **SimpleZipDrive.exe / SimpleZipDrive_arm64.exe:** Custom tools based on Dokan for mounting ZIP archives.
-- **xbox-iso-vfs.exe:** Used by the MountXisoFiles service for mounting XISO files.
+- **SimpleXisoDrive.exe / SimpleXisoDrive_arm64.exe:** Tools for mounting XISO files.
+- **CHDMounter.exe:** Custom tool for mounting CHD files to virtual drives.
 - **RAHasher.exe:** Used for calculating RetroAchievements game hashes.
-- **extract-xiso.exe:** Used by the Batch Convert to XISO tool.
-- **chdman.exe:** The official MAME tool for creating and managing CHD files.
+- **extract-xiso.exe / xdvdfs.exe / bchunk.exe:** Used by the Batch Convert to XISO tool.
+- **chdman.exe / chdman_arm64.exe:** The official MAME tool for creating and managing CHD files.
 - **7z.dll / 7z_arm64.dll / 7z_x64.dll:** Used for 7-Zip archive operations.
 - **DolphinTool.exe / DolphinTool_arm64.exe:** Used by the Batch Convert to RVZ tool.
+- **maxcso.exe:** Used for CSO compression operations.
+- **psxpackager.exe:** Used for PS1 game packaging.
 
 ### Core Libraries (NuGet Packages)
 - **MahApps.Metro:** For the modern UI theme and controls.
-- **Markdig.Wpf:** For rendering Markdown in the Update History window.
-- **SharpDX:** For XInput and DirectInput controller support.
+- **MdXaml:** For rendering Markdown in the Update History window.
+- **SharpDX & SharpDX.XInput:** For XInput and DirectInput controller support.
 - **InputSimulatorCore:** For simulating mouse movements with a controller.
-- **Squid-Box.SevenZipSharp & ICSharpCode.SharpZipLib:** For handling `.7z`, `.zip`, and `.rar` archives.
+- **SharpCompress:** For handling `.7z`, `.zip`, and `.rar` archives.
 - **MessagePack:** For fast serialization of data files like `favorites.dat` and `playhistory.dat`.
-- **Microsoft.Extensions.*:** For modern dependency injection, configuration, and memory caching.
+- **Microsoft.Extensions.*:** For modern dependency injection, configuration, HTTP clients, and memory caching.
+- **Microsoft.Data.Sqlite:** For SQLite database operations (play history).
+- **Tomlyn:** For parsing TOML configuration files (Xenia).
+- **YamlDotNet:** For parsing YAML configuration files (RPCS3).
 
 ---
-Thank you for using Simple Launcher! For further help, please open an issue on the [GitHub repository](https://github.com/drpetersonfernandes/SimpleLauncher/issues).
-```
+
+Thank you for using Simple Launcher! For further help, please open an issue on the [GitHub repository](https://github.com/drpetersonfernandes/SimpleLauncher/issues) or use the built-in Support Window.

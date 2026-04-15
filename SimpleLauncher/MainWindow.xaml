@@ -547,13 +547,13 @@
                 <MenuItem Click="BatchConvertIsoToXiso_Click"
                           Header="Batch Convert Iso To Xiso" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/xiso.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToCHD_Click"
                           Header="Batch Convert To CHD" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/chd.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToCompressedFile_Click"
@@ -565,7 +565,7 @@
                 <MenuItem Click="BatchConvertToRVZ_Click"
                           Header="Batch Convert To RVZ" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/rvz.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click"

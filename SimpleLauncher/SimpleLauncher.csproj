@@ -929,6 +929,12 @@
         <Resource Include="images\filename.png" />
         <None Remove="images\home.png" />
         <Resource Include="images\home.png" />
+        <None Remove="images\chd.png" />
+        <Resource Include="images\chd.png" />
+        <None Remove="images\rvz.png" />
+        <Resource Include="images\rvz.png" />
+        <None Remove="images\xiso.png" />
+        <Resource Include="images\xiso.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">
