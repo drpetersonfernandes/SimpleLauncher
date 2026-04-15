@@ -4874,7 +4874,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var errorMessage = (string)Application.Current.TryFindResource("InjectionFailedGeneric") ?? "Failed to inject configuration. The error has been logged to the developer.";
+            var errorMessage = (string)Application.Current.TryFindResource("Failedtoinjectconfiguration") ?? "Failed to inject configuration. The error has been logged to the developer.";
             var errorTitle = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show(errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -4887,7 +4887,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var errorMessage = (string)Application.Current.TryFindResource("InjectionFailedGeneric") ?? "Failed to save configuration. The error has been logged to the developer.";
+            var errorMessage = (string)Application.Current.TryFindResource("Failedtosaveconfiguration") ?? "Failed to save configuration. The error has been logged to the developer.";
             var errorTitle = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show(errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
         }
