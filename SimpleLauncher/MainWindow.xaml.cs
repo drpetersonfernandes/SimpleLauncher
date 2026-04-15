@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -53,6 +48,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private bool _isDisposed;
     internal DispatcherTimer StatusBarTimer { get; set; }
     public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
+
+    // Constants for magic numbers
+    private const int BatchSize = 100;
+    private const int ZoomStep = 50;
+    private const int MaxThumbnailSizeForSystem = 150;
+    private const int MaxThumbnailSize = 800;
+    private const int MinThumbnailSize = 50;
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
 
@@ -207,6 +209,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         if (_gameFileGrid == null)
         {
             _ = _logErrors.LogErrorAsync(null, "GameFileGrid not found");
+            throw new InvalidOperationException("GameFileGrid not found");
         }
 
         LoadOrReloadSystemManager();
@@ -218,10 +221,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         LetterNumberMenu.Children.Add(_topLetterNumberMenu.LetterPanel);
 
         // Create and integrate FilterMenu
-        _topLetterNumberMenu.OnLetterSelected += async selectedLetter =>
-        {
-            await TopLetterNumberMenuClickAsync(selectedLetter);
-        };
+        _topLetterNumberMenu.OnLetterSelected += TopLetterNumberMenu_OnLetterSelected;
 
         // Migrate old play history records to full paths
         PlayHistoryManager.MigrateFilenamesToFullPaths(_systemManagers);
@@ -344,10 +344,30 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
+    private async void TopLetterNumberMenu_OnLetterSelected(string selectedLetter)
+    {
+        try
+        {
+            await TopLetterNumberMenuClickAsync(selectedLetter);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in method TopLetterNumberMenu_OnLetterSelected");
+        }
+    }
+
     private void CancelAndRecreateToken()
     {
-        _cancellationSource.Cancel();
-        _cancellationSource.Dispose();
+        try
+        {
+            _cancellationSource.Cancel();
+            _cancellationSource.Dispose();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Token was already disposed, ignore and create a new one
+        }
+
         _cancellationSource = new CancellationTokenSource();
     }
 
@@ -623,7 +643,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // Retrieve the system manager for the selected system
-        var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+        var selectedManager = _systemManagers.FirstOrDefault(c => string.Equals(c.SystemName, selectedSystem, StringComparison.OrdinalIgnoreCase));
         if (selectedManager == null)
         {
             return []; // Return an empty list if there is no favorite for that system
@@ -738,6 +758,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // For letter/all, the 'allFiles' passed here (before this method's Skip/Take) is the full list for that filter.
         _totalFiles = allFiles.Count;
 
+        // Display message if there are no files - check BEFORE pagination logic modifies the list
+        if (_totalFiles == 0)
+        {
+            AddNoFilesMessage();
+            _prevPageButton.IsEnabled = false;
+            _nextPageButton.IsEnabled = false;
+            TotalFilesLabel.Dispatcher.Invoke(() =>
+                TotalFilesLabel.Content = $"{(string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to"} 0 {(string)Application.Current.TryFindResource("outof") ?? "out of"} 0 {(string)Application.Current.TryFindResource("total") ?? "total"}"
+            );
+            return allFiles;
+        }
 
         // Calculate the indices of files displayed on the current page
         var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
@@ -757,13 +788,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             // If total files are not enough for pagination, ensure buttons are disabled.
             _prevPageButton.IsEnabled = false;
             _nextPageButton.IsEnabled = false;
-        }
-
-
-        // Display message if the number of files == 0 (after potential pagination, so check the paginated list)
-        if (allFiles.Count == 0 && _totalFiles == 0) // Check if the original list was also empty
-        {
-            AddNoFilesMessage();
         }
 
         // Update the UI to reflect the current pagination status and the indices of files being displayed
@@ -920,7 +944,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// Invalidates the in-memory caches of game file paths, forcing a reload from disk
     /// or re-evaluation of search results on the next LoadGameFilesAsync call.
     /// </summary>
-    internal async Task InvalidateGameFileCaches()
+    internal async Task InvalidateGameFileCachesAsync()
     {
         // Use WaitAsync to avoid blocking the UI thread when acquiring the lock,
         // preventing deadlocks if a background thread holding the lock is also waiting for the UI thread.
