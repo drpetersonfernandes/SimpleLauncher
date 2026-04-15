@@ -6,6 +6,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -100,7 +101,7 @@ public partial class InjectAresConfigWindow
             AresConfigurationService.InjectSettings(path, _settings);
             return true;
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             _logErrors.LogErrorAsync(ex, $"Ares configuration injection failed for path: {path}");
             return false;
@@ -110,29 +111,52 @@ public partial class InjectAresConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            ShouldRun = true;
-            Close();
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window → Launch game
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Ares injection failed"), emulatorName, _emulatorPath, this);
+                ShouldRun = true; // Game should still launch
+            }
         }
-        else
+        catch (InvalidOperationException ex)
         {
-            MessageBoxLibrary.FailedtoinjectAresconfiguration();
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (!InjectConfig())
+        try
         {
-            MessageBoxLibrary.FailedToSaveAresConfiguration();
-            return; // Don't close on failure
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.AresConfigurationSavedSuccessfully();
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Ares injection failed"), emulatorName, _emulatorPath, this);
+            }
         }
-
-        MessageBoxLibrary.AresConfigurationSavedSuccessfully();
-        // Only close on success, and only if not in launcher mode (otherwise Run button handles it)
-        // Actually, in non-launcher mode, we should close on success
-        Close();
+        catch (InvalidOperationException ex)
+        {
+            // Injection failed: Notify user → Notify developer → Close window
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+        }
     }
 }

@@ -7,6 +7,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -100,7 +101,7 @@ public partial class InjectAzaharConfigWindow
             MessageBoxLibrary.AzaharConfigurationInjectionPermissionError();
             return false;
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             _logErrors.LogErrorAsync(ex, "Azahar injection failed");
             MessageBoxLibrary.FailedToSaveAzaharConfiguration();
@@ -124,23 +125,43 @@ public partial class InjectAzaharConfigWindow
         {
             // Show permission error but allow the game to launch with default settings
             MessageBoxLibrary.AzaharConfigurationInjectionPermissionError();
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Azahar permission exception"), emulatorName, _emulatorPath, this);
             ShouldRun = true; // Allow game to launch
-            Close();
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
             _logErrors.LogErrorAsync(ex, "Azahar injection failed");
-            MessageBoxLibrary.FailedToSaveAzaharConfiguration();
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            MessageBoxLibrary.AzaharConfigurationSavedSuccessfully();
-            Close();
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.AzaharConfigurationSavedSuccessfully();
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Azahar injection failed"), emulatorName, _emulatorPath, this);
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Injection failed: Notify user → Notify developer → Close window
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
         }
     }
 

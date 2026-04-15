@@ -7,6 +7,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -108,7 +109,7 @@ public partial class InjectCemuConfigWindow
             CemuConfigurationService.InjectSettings(path, _settings);
             return true;
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             _logErrors.LogErrorAsync(ex, $"Cemu injection failed: {path}");
             return false;
@@ -118,24 +119,54 @@ public partial class InjectCemuConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            ShouldRun = true;
-            Close();
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window → Launch game
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Cemu injection failed"), emulatorName, _emulatorPath, this);
+                ShouldRun = true; // Game should still launch
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        var injected = InjectConfig();
-        if (injected)
+        try
         {
-            MessageBoxLibrary.CemuConfigurationSaved();
-            ShouldRun = false; // Explicitly set for clarity
-            Close();
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.CemuConfigurationSaved();
+                ShouldRun = false; // Explicitly set for clarity
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Cemu injection failed"), emulatorName, _emulatorPath, this);
+            }
         }
-        // If injection failed, don't close - let user see error or retry
+        catch (InvalidOperationException ex)
+        {
+            // Injection failed: Notify user → Notify developer → Close window
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+        }
     }
 
     private static void SelectComboByTag(ComboBox cmb, string tag)

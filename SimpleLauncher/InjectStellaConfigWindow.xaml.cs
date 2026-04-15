@@ -7,6 +7,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -108,28 +109,52 @@ public partial class InjectStellaConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            ShouldRun = true;
-            Close();
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window → Launch game
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Stella injection failed"), emulatorName, _emulatorPath, this);
+                ShouldRun = true; // Game should still launch
+            }
         }
-        else
+        catch (Exception ex)
         {
-            MessageBoxLibrary.FailedToInjectStellaConfiguration();
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            MessageBoxLibrary.StellaConfigurationSavedSuccessfully();
-            Close();
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.StellaConfigurationSavedSuccessfully();
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Stella injection failed"), emulatorName, _emulatorPath, this);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            MessageBoxLibrary.FailedToSaveStellaConfiguration();
+            // Injection failed: Notify user → Notify developer → Close window
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
         }
     }
 

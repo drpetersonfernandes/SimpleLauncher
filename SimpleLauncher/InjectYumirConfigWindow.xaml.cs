@@ -7,6 +7,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -112,7 +113,7 @@ public partial class InjectYumirConfigWindow
             YumirConfigurationService.InjectSettings(path, _settings);
             return true;
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             _logErrors.LogErrorAsync(ex, "Yumir injection failed.");
             return false;
@@ -122,23 +123,52 @@ public partial class InjectYumirConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            ShouldRun = true;
-            Close();
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window → Launch game
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Yumir injection failed"), emulatorName, _emulatorPath, this);
+                ShouldRun = true; // Game should still launch
+            }
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (!InjectConfig())
+        try
         {
-            MessageBoxLibrary.FailedToInjectYumirConfiguration();
-            return;
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.YumirConfigurationSavedSuccessfully();
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Yumir injection failed"), emulatorName, _emulatorPath, this);
+            }
         }
-
-        MessageBoxLibrary.YumirConfigurationSavedSuccessfully();
-        Close();
+        catch (InvalidOperationException ex)
+        {
+            // Injection failed: Notify user → Notify developer → Close window
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+        }
     }
 }

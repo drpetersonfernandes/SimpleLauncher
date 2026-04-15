@@ -5,6 +5,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -107,28 +108,52 @@ public partial class InjectMesenConfigWindow
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            ShouldRun = true;
-            Close();
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window → Launch game
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Mesen injection failed"), emulatorName, _emulatorPath, this);
+                ShouldRun = true; // Game should still launch
+            }
         }
-        else
+        catch (Exception ex)
         {
-            MessageBoxLibrary.FailedToInjectMesenConfiguration();
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        if (InjectConfig())
+        try
         {
-            MessageBoxLibrary.MesenConfigurationSavedSuccessfully();
-            Close();
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.MesenConfigurationSavedSuccessfully();
+                Close();
+            }
+            else
+            {
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Mesen injection failed"), emulatorName, _emulatorPath, this);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            MessageBoxLibrary.FailedToSaveMesenConfiguration();
+            // Injection failed: Notify user → Notify developer → Close window
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
         }
     }
 }

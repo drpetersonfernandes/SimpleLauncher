@@ -5,6 +5,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -151,12 +152,19 @@ public partial class InjectMednafenConfigWindow
             }
             else
             {
-                MessageBoxLibrary.FailedToInjectMednafenConfiguration();
+                // Injection failed: Notify user → Notify developer → Close window → Launch game
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Mednafen injection failed"), emulatorName, _emulatorPath, this);
+                ShouldRun = true; // Game should still launch
             }
         }
         catch (Exception ex)
         {
+            // Injection failed: Notify user → Notify developer → Close window → Launch game
             _ = _logErrors.LogErrorAsync(ex, "Error in the BtnRun_Click method.");
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            ShouldRun = true; // Game should still launch
         }
     }
 
@@ -172,12 +180,17 @@ public partial class InjectMednafenConfigWindow
             }
             else
             {
-                MessageBoxLibrary.FailedToSaveMednafenConfiguration();
+                // Injection failed: Notify user → Notify developer → Close window
+                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Mednafen injection failed"), emulatorName, _emulatorPath, this);
             }
         }
         catch (Exception ex)
         {
+            // Injection failed: Notify user → Notify developer → Close window
             _ = _logErrors.LogErrorAsync(ex, "Error in the BtnSave_Click method.");
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
         }
     }
 }

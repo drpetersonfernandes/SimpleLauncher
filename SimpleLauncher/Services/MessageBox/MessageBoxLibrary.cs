@@ -4866,4 +4866,30 @@ internal static class MessageBoxLibrary
                                            $"{message2}", title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    internal static void InjectionFailedGenericMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var errorMessage = (string)Application.Current.TryFindResource("InjectionFailedGeneric") ?? "Failed to inject configuration. The error has been logged to the developer.";
+            var errorTitle = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show(errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void DaphneConfigurationSaveFailedMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var errorMessage = (string)Application.Current.TryFindResource("InjectionFailedGeneric") ?? "Failed to save configuration. The error has been logged to the developer.";
+            var errorTitle = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show(errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }
