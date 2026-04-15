@@ -1776,6 +1776,40 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static MessageBoxResult GameFileDoesNotExistAskToDeleteMessageBox(string filePath)
+    {
+        return Application.Current.Dispatcher.Invoke(() =>
+        {
+            var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+            var filepathis = (string)Application.Current.TryFindResource("FilePathIs") ?? "File path:";
+            var doYouWantToDeleteThisEntry = (string)Application.Current.TryFindResource("DoYouWantToDeleteThisEntry") ?? "Do you want to delete this entry from the play history?";
+            var clickNoToKeepTheEntry = (string)Application.Current.TryFindResource("ClickNoToKeepTheEntry") ?? "Click 'No' to keep the entry in the list.";
+            var gameNotAvailable = (string)Application.Current.TryFindResource("GameNotAvailable") ?? "Game Not Available";
+            var message = $"{thegamefiledoesnotexist}\n\n" +
+                          $"{filepathis}\n{filePath}\n\n" +
+                          $"{doYouWantToDeleteThisEntry}\n" +
+                          $"{clickNoToKeepTheEntry}";
+            return System.Windows.MessageBox.Show(message, gameNotAvailable, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
+    }
+
+    internal static MessageBoxResult FavoriteFileDoesNotExistAskToDeleteMessageBox(string filePath)
+    {
+        return Application.Current.Dispatcher.Invoke(() =>
+        {
+            var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+            var filepathis = (string)Application.Current.TryFindResource("FilePathIs") ?? "File path:";
+            var doYouWantToDeleteThisFavorite = (string)Application.Current.TryFindResource("DoYouWantToDeleteThisFavorite") ?? "Do you want to delete this favorite from the list?";
+            var clickNoToKeepTheFavorite = (string)Application.Current.TryFindResource("ClickNoToKeepTheFavorite") ?? "Click 'No' to keep the favorite in the list.";
+            var gameNotAvailable = (string)Application.Current.TryFindResource("GameNotAvailable") ?? "Game Not Available";
+            var message = $"{thegamefiledoesnotexist}\n\n" +
+                          $"{filepathis}\n{filePath}\n\n" +
+                          $"{doYouWantToDeleteThisFavorite}\n" +
+                          $"{clickNoToKeepTheFavorite}";
+            return System.Windows.MessageBox.Show(message, gameNotAvailable, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
+    }
+
     internal static void CouldNotOpenHistoryWindowMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

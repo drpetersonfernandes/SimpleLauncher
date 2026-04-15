@@ -101,10 +101,7 @@ public partial class PlayHistoryPage : ILoadingState
                 // Step 2: Populate the UI collection on the UI thread
                 _playHistoryList = new ObservableCollection<PlayHistoryItem>(processedHistory);
 
-                // Step 3: Check for and remove entries with missing files in the background
-                await DeleteMissingEntriesAsync();
-
-                // Step 4: Sort the data now that it's in the collection and bind to DataGrid
+                // Step 3: Sort the data now that it's in the collection and bind to DataGrid
                 SortByDate();
             }
             catch (Exception ex)
@@ -157,44 +154,6 @@ public partial class PlayHistoryPage : ILoadingState
 
             return processedList;
         });
-    }
-
-    private async Task DeleteMissingEntriesAsync()
-    {
-        var currentHistory = _playHistoryList.ToList();
-        var itemsToRemove = await Task.Run(() =>
-        {
-            var toRemove = new List<PlayHistoryItem>();
-            foreach (var item in currentHistory)
-            {
-                // Since FileName now stores the full path, we check existence directly
-                if (!File.Exists(item.FileName))
-                {
-                    toRemove.Add(item);
-                }
-            }
-
-            return toRemove;
-        });
-
-        if (itemsToRemove.Count == 0) return;
-
-        foreach (var itemToRemove in itemsToRemove)
-        {
-            var itemInList = _playHistoryList.FirstOrDefault(i => i.FileName == itemToRemove.FileName && i.SystemName == itemToRemove.SystemName);
-            if (itemInList != null)
-            {
-                _playHistoryList.Remove(itemInList);
-                DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
-            }
-        }
-
-        _playHistoryManager.PlayHistoryList = _playHistoryList;
-        _playHistoryManager.SavePlayHistory();
-
-        // Explicitly refresh the data grid binding to ensure UI updates
-        PlayHistoryDataGrid.ItemsSource = null;
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
     private void SortByDate()
@@ -315,14 +274,19 @@ public partial class PlayHistoryPage : ILoadingState
 
             if (!File.Exists(selectedItem.FileName))
             {
-                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
-                if (itemToRemove != null)
+                // Show message box asking user if they want to delete the entry
+                var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
+                if (result == MessageBoxResult.Yes)
                 {
-                    _playHistoryList.Remove(itemToRemove);
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
+                    var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
+                    if (itemToRemove != null)
+                    {
+                        _playHistoryList.Remove(itemToRemove);
+                        _playHistoryManager.PlayHistoryList = _playHistoryList;
+                        _playHistoryManager.SavePlayHistory();
 
-                    DebugLogger.Log("The entry " + itemToRemove + " was removed from the history.");
+                        DebugLogger.Log("The entry " + itemToRemove + " was removed from the history by user request.");
+                    }
                 }
 
                 return;
@@ -398,17 +362,18 @@ public partial class PlayHistoryPage : ILoadingState
 
         if (!File.Exists(fileName))
         {
-            // Auto remove the history item from the list since the file no longer exists
-            var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == selectedSystemName);
-            if (itemToRemove != null)
+            // Ask user if they want to delete the entry from history
+            var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
+            if (result == MessageBoxResult.Yes)
             {
-                _playHistoryList.Remove(itemToRemove);
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
-                _playHistoryManager.SavePlayHistory();
+                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == selectedSystemName);
+                if (itemToRemove != null)
+                {
+                    _playHistoryList.Remove(itemToRemove);
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+                }
             }
-
-            // Notify user
-            MessageBoxLibrary.GameFileDoesNotExistMessageBox();
 
             return;
         }

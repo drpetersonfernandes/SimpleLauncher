@@ -1,15 +1,15 @@
-<controls:MetroWindow x:Class="SimpleLauncher.MainWindow"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-                      Title="Simple Launcher"
-                      MinWidth="1050"
-                      MinHeight="650"
-                      Closing="MainWindow_Closing"
-                      MouseWheel="MainWindow_MouseWheel"
-                      xmlns:converters1="clr-namespace:SimpleLauncher.Services.Converters">
+<mah:MetroWindow x:Class="SimpleLauncher.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                 Title="Simple Launcher"
+                 MinWidth="1050"
+                 MinHeight="650"
+                 Closing="MainWindow_Closing"
+                 MouseWheel="MainWindow_MouseWheel"
+                 xmlns:converters1="clr-namespace:SimpleLauncher.Services.Converters">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters1:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
@@ -29,7 +29,7 @@
                       ToolTip="{DynamicResource TooltipOptionsMenu}">
                 <MenuItem Header="{DynamicResource Language}" ToolTip="{DynamicResource TooltipLanguageMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/language.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/language.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource LanguageIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="LanguageArabic" Header="العربية" Click="ChangeLanguage_Click" IsCheckable="True"
                               ToolTip="{DynamicResource TooltipLanguageMenu}" />
@@ -63,7 +63,7 @@
                     </MenuItem.Icon>
                     <MenuItem Header="{DynamicResource BaseTheme}" ToolTip="{DynamicResource TooltipBaseThemeMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/darkmode.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/darkmode.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource DarkModeIcon}" />
                         </MenuItem.Icon>
                         <MenuItem x:Name="Light" Header="{DynamicResource Light}" Click="ChangeBaseTheme_Click"
                                   IsCheckable="True" ToolTip="{DynamicResource TooltipBaseThemeMenu}" />
@@ -79,7 +79,7 @@
                     </MenuItem>
                     <MenuItem Header="{DynamicResource AccentColors}" ToolTip="{DynamicResource TooltipAccentColorsMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/theme.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/theme.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ThemeIcon}" />
                         </MenuItem.Icon>
                         <MenuItem x:Name="Amber" Header="{DynamicResource Amber}" Click="ChangeAccentColor_Click"
                                   IsCheckable="True" ToolTip="{DynamicResource TooltipAccentColorsMenu}" />
@@ -140,7 +140,7 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetButtonSize}" ToolTip="{DynamicResource TooltipButtonSizeMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/buttonsize.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/buttonsize.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ButtonSizeIcon}" />
                     </MenuItem.Icon>
                     <MenuItem
                         x:Name="Size50"
@@ -209,7 +209,7 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetButtonAspectRatio}" ToolTip="{DynamicResource TooltipAspectRatioMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource AspectRatioIcon}" />
                     </MenuItem.Icon>
                     <MenuItem
                         x:Name="Square"
@@ -242,7 +242,7 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetNumberOfGamesPerPage}" ToolTip="{DynamicResource TooltipGamesPerPageMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/setnumber.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/setnumber.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SetNumberIcon}" />
                     </MenuItem.Icon>
                     <MenuItem
                         x:Name="Page100"
@@ -279,7 +279,7 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ViewMode}" ToolTip="{DynamicResource TooltipViewModeMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/show.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/show.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ShowIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="GridView" Header="{DynamicResource GridView}" Click="ChangeViewMode_Click"
                               IsCheckable="True" IsChecked="True" ToolTip="{DynamicResource TooltipViewModeMenu}" />
@@ -288,7 +288,7 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource ShowGames}" ToolTip="{DynamicResource TooltipShowGamesMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/noimage.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/noimage.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource NoImageIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="ShowAll" Header="{DynamicResource ShowAllGames}" Click="ShowAllGamesClickAsync"
                               IsCheckable="True" ToolTip="{DynamicResource TooltipShowGamesMenu}" />
@@ -299,7 +299,7 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource FilenamePreferences}" ToolTip="{DynamicResource TooltipFilenamePreferencesMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/filename.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/filename.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource FilenameIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="FilenameDisplayOriginal" Header="{DynamicResource DisplayOriginalFilenames}" Click="FilenameDisplayMode_Click"
                               IsCheckable="True" IsChecked="True" ToolTip="{DynamicResource TooltipFilenameDisplayModeMenu}" />
@@ -330,172 +330,172 @@
                 </MenuItem>
                 <MenuItem Header="{DynamicResource EditLinks}" ToolTip="{DynamicResource TooltipEditLinksMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource LinksIcon}" />
                     </MenuItem.Icon>
                     <MenuItem Click="EditLinksClickAsync" Header="{DynamicResource EditLinks}" ToolTip="{DynamicResource TooltipEditLinksMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/links.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource LinksIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource GamepadSupport}" ToolTip="{DynamicResource TooltipGamepadSupportMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource GamepadIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="ToggleGamepad" Header="{DynamicResource Enable}" Click="ToggleGamepad_Click"
                               IsCheckable="True" ToolTip="{DynamicResource TooltipGamepadSupportMenu}" />
                     <MenuItem Header="{DynamicResource SetGamepadDeadZone}" Click="SetGamepadDeadZone_Click" ToolTip="{DynamicResource TooltipGamepadSupportMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/setdeadzone.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/setdeadzone.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SetDeadzoneIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource FuzzyImageMatching}" ToolTip="{DynamicResource TooltipFuzzyMatchingMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/match.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/match.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource MatchIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="ToggleFuzzyMatching" Header="{DynamicResource Enable}"
                               Click="ToggleFuzzyMatchingClickAsync"
                               IsCheckable="True" ToolTip="{DynamicResource TooltipFuzzyMatchingMenu}" />
                     <MenuItem Header="{DynamicResource SetThreshold}" Click="SetFuzzyMatchingThresholdClickAsync" ToolTip="{DynamicResource TooltipFuzzyMatchingMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/setthreshold.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/setthreshold.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SetThresholdIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SoundConfiguration}" ToolTip="{DynamicResource TooltipSoundConfigMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SoundIcon}" />
                     </MenuItem.Icon>
                     <MenuItem Header="{DynamicResource SoundConfiguration}" Click="SoundConfiguration_Click" ToolTip="{DynamicResource TooltipSoundConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SoundIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource RetroAchievementsSettings}" ToolTip="{DynamicResource TooltipRaSettingsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource TrophyIcon}" />
                     </MenuItem.Icon>
                     <MenuItem Header="{DynamicResource RetroAchievementsSettings}" Click="ShowRetroAchievementsSettingsWindow_Click" ToolTip="{DynamicResource TooltipRaSettingsMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource TrophyIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource InjectEmulatorConfig}" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/inject.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/inject.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource InjectIcon}" />
                     </MenuItem.Icon>
                     <MenuItem Header="{DynamicResource AresSettings}" Click="ShowAresSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/ares.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/ares.png" Width="16" Height="16" AutomationProperties.Name="Ares" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource AzaharSettings}" Click="ShowAzaharSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/azahar.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/azahar.png" Width="16" Height="16" AutomationProperties.Name="Azahar" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource BlastemSettings}" Click="ShowBlastemSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/blastem.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/blastem.png" Width="16" Height="16" AutomationProperties.Name="Blastem" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource CemuSettings}" Click="ShowCemuSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/cemu.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/cemu.png" Width="16" Height="16" AutomationProperties.Name="Cemu" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource DaphneSettings}" Click="ShowDaphneSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/daphne.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/daphne.png" Width="16" Height="16" AutomationProperties.Name="Daphne" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource DolphinSettings}" Click="ShowDolphinSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/dolphin.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/dolphin.png" Width="16" Height="16" AutomationProperties.Name="Dolphin" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource DuckStationSettings}" Click="ShowDuckStationSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/duckstation.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/duckstation.png" Width="16" Height="16" AutomationProperties.Name="DuckStation" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource FlycastSettings}" Click="ShowFlycastSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/flycast.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/flycast.png" Width="16" Height="16" AutomationProperties.Name="Flycast" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource MameSettings}" Click="ShowMameSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/mame.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/mame.png" Width="16" Height="16" AutomationProperties.Name="MAME" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource MednafenSettings}" Click="ShowMednafenSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/mednafen.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/mednafen.png" Width="16" Height="16" AutomationProperties.Name="Mednafen" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource MesenSettings}" Click="ShowMesenSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/mesen.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/mesen.png" Width="16" Height="16" AutomationProperties.Name="Mesen" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource PCSX2Settings}" Click="ShowPcsx2Settings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/pcsx2.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/pcsx2.png" Width="16" Height="16" AutomationProperties.Name="PCSX2" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource RaineSettings}" Click="ShowRaineSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/raine.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/raine.png" Width="16" Height="16" AutomationProperties.Name="Raine" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource RedreamSettings}" Click="ShowRedreamSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/redream.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/redream.png" Width="16" Height="16" AutomationProperties.Name="Redream" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource RetroArchSettings}" Click="ShowRetroArchSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/retroarch.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/retroarch.png" Width="16" Height="16" AutomationProperties.Name="RetroArch" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource RPCS3Settings}" Click="ShowRPCS3Settings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/rpcs3.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/rpcs3.png" Width="16" Height="16" AutomationProperties.Name="RPCS3" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource SegaModel2Settings}" Click="ShowSegaModel2Settings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/supermodel.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="Sega Model 2" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource StellaSettings}" Click="ShowStellaSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/stella.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/stella.png" Width="16" Height="16" AutomationProperties.Name="Stella" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource SupermodelSettings}" Click="ShowSupermodelSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/supermodel.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="Supermodel" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource XeniaSettings}" Click="ShowXeniaSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/xenia.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/xenia.png" Width="16" Height="16" AutomationProperties.Name="Xenia" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource YumirSettings}" Click="ShowYumirSettings_Click" ToolTip="{DynamicResource TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/yumir.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/yumir.png" Width="16" Height="16" AutomationProperties.Name="Yumir" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource OverlayButtonSettings}" ToolTip="{DynamicResource TooltipOverlayButtonMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/overlaybutton.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/overlaybutton.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource OverlayButtonIcon}" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="RetroAchievementButton" Header="{DynamicResource RetroAchievementOverlayButton}" Click="ToggleRetroAchievementButton_Click" IsCheckable="True" ToolTip="{DynamicResource TooltipOverlayButtonMenu}" />
                     <MenuItem x:Name="VideoLinkButton" Header="{DynamicResource VideoLinkOverlayButton}" Click="ToggleVideoLinkButton_Click" IsCheckable="True" ToolTip="{DynamicResource TooltipOverlayButtonMenu}" />
@@ -507,25 +507,25 @@
                 ToolTip="{DynamicResource TooltipEditSystem}">
                 <MenuItem Click="EasyMode_Click" Header="{DynamicResource EasyMode}" ToolTip="{DynamicResource TooltipEditSystem}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/easy.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/easy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource EasyIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="ExpertMode_Click" Header="{DynamicResource ExpertMode}" ToolTip="{DynamicResource TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image
-                            Source="pack://application:,,,/images/expert.png" Width="16" Height="16" />
+                            Source="pack://application:,,,/images/expert.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ExpertIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="DownloadImagePack_Click" Header="{DynamicResource DownloadImagePack}" ToolTip="{DynamicResource TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image
-                            Source="pack://application:,,,/images/image.png" Width="16" Height="16" />
+                            Source="pack://application:,,,/images/image.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ImageIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="ScanForMicrosoftWindowsGames_Click" Header="{DynamicResource ScanForMicrosoftWindowsGames}" ToolTip="{DynamicResource TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image
-                            Source="pack://application:,,,/images/search2.png" Width="16" Height="16" />
+                            Source="pack://application:,,,/images/search2.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource Search2Icon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -533,96 +533,96 @@
                       ToolTip="{DynamicResource TooltipSelectWindowMenu}">
                 <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource StatsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="ShowRetroAchievementsWindowClick" Header="{DynamicResource RetroAchievements}" ToolTip="{DynamicResource TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource TrophyIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource Tools}"
                       ToolTip="{DynamicResource TooltipToolsMenu}">
-                    <MenuItem Click="BatchConvertIsoToXiso_Click"
+                <MenuItem Click="BatchConvertIsoToXiso_Click"
                           Header="Batch Convert Iso To Xiso" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToCHD_Click"
                           Header="Batch Convert To CHD" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToCompressedFile_Click"
                           Header="Batch Convert To Compressed File" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="BatchConvertToRVZ_Click"
                           Header="Batch Convert To RVZ" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click"
                           Header="Create Batch Files For PS3 Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForScummVMGames_Click"
                           Header="Create Batch Files For ScummVM Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForSegaModel3Games_Click"
                           Header="Create Batch Files For Sega Model 3 Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForWindowsGames_Click"
                           Header="Create Batch Files For Windows Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForXbox360XBLAGames_Click"
                           Header="Create Batch Files For Xbox360 XBLA Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="FindRomCover_Click" Header="Find Rom Cover" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource FindRomCoverIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="GameCoverScraper_Click" Header="Game Cover Scraper" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/gamecoverscraper.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/gamecoverscraper.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource GameCoverScraperIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="RetroGameCoverDownloader_Click" Header="Retro Game Cover Downloader" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/retrogamecoverdownloader.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/retrogamecoverdownloader.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource RetroGameCoverDownloaderIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="RomValidator_Click" Header="Rom Validator" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource Donate}">
                 <MenuItem Click="Donate_Click" Header="{DynamicResource Donate}" ToolTip="{DynamicResource Donate}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/donate.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/donate.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource DonateIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -630,12 +630,12 @@
                       ToolTip="{DynamicResource TooltipAboutMenu}">
                 <MenuItem Click="About_Click" Header="{DynamicResource About}" ToolTip="{DynamicResource TooltipAboutMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/about.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/about.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource AboutIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="Support_Click" Header="{DynamicResource Support}" ToolTip="{DynamicResource TooltipAboutMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/support.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/support.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource SupportIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -643,7 +643,7 @@
                       ToolTip="{DynamicResource TooltipExitMenu}">
                 <MenuItem Click="Exit_Click" Header="{DynamicResource Exit}" ToolTip="{DynamicResource TooltipExitMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/exit.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ExitIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -674,14 +674,14 @@
                         Click="NavRestartButton_Click"
                         Margin="0,10,2,5"
                         AutomationProperties.Name="{DynamicResource Restart}">
-                        <Image Source="pack://application:,,,/images/home.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/home.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource HomeIcon}" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource TooltipFavorites}"
                         Click="NavFavoritesButton_Click"
                         AutomationProperties.Name="{DynamicResource Favorites}">
-                        <Image Source="pack://application:,,,/images/heart.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/heart.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource HeartIcon}" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
@@ -695,7 +695,7 @@
                         ToolTip="{DynamicResource TooltipPlayHistory}"
                         Click="NavHistoryButton_Click"
                         AutomationProperties.Name="{DynamicResource PlayHistory}">
-                        <Image Source="pack://application:,,,/images/playhistory.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/playhistory.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource PlayHistoryIcon}" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
@@ -709,28 +709,28 @@
                         ToolTip="{DynamicResource TooltipEditSystem}"
                         Click="NavExpertModeButton_Click"
                         AutomationProperties.Name="{DynamicResource EditSystem}">
-                        <Image Source="pack://application:,,,/images/settings.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/settings.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource SettingsIcon}" />
                     </Button>
                     <Button x:Name="ToggleViewMode"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource TooltipToggleViewMode}"
                             Click="NavToggleViewModeClickAsync"
                             AutomationProperties.Name="{DynamicResource ToggleViewMode}">
-                        <Image Source="pack://application:,,,/images/show.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/show.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource ShowIcon}" />
                     </Button>
                     <Button x:Name="ToggleButtonAspectRatio"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource TooltipToggleAspectRatio}"
                             Click="NavToggleButtonAspectRatioClickAsync"
                             AutomationProperties.Name="{DynamicResource ToggleButtonAspectRatio}">
-                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource AspectRatioIcon}" />
                     </Button>
                     <Button x:Name="ZoomInButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource TooltipZoomIn}"
                             Click="NavZoomInButtonClickAsync"
                             AutomationProperties.Name="{DynamicResource ZoomIn}">
-                        <Image Source="pack://application:,,,/images/zoom-in.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/zoom-in.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource ZoomInIcon}" />
                     </Button>
                     <Button x:Name="ZoomOutButton"
                             Style="{StaticResource NavImageButton3DStyle}"
@@ -738,7 +738,7 @@
                             Click="NavZoomOutButtonClickAsync"
                             Margin="0,5,2,10"
                             AutomationProperties.Name="{DynamicResource ZoomOut}">
-                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="27" Height="27" />
+                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource ZoomOutIcon}" />
                     </Button>
                 </StackPanel>
             </Border>
@@ -825,7 +825,7 @@
                                         AutomationProperties.Name="{DynamicResource Search}">
                                     <Image Source="pack://application:,,,/images/search3.png"
                                            Width="27"
-                                           Height="27" />
+                                           Height="27" AutomationProperties.Name="{DynamicResource SearchIcon}" />
                                 </Button>
                             </StackPanel>
 
@@ -855,7 +855,7 @@
                                 Click="NavSelectedSystemFavoriteButtonClickAsync"
                                 Margin="10,10,0,0"
                                 AutomationProperties.Name="{DynamicResource SelectedSystemFavoriteButton}">
-                                <Image Source="pack://application:,,,/images/star.png" Width="27" Height="27" />
+                                <Image Source="pack://application:,,,/images/star.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource StarIcon}" />
                             </Button>
                             <Button
                                 Grid.Row="1"
@@ -867,7 +867,7 @@
                                 Click="NavRandomLuckGameButtonClickAsync"
                                 Margin="10,10,0,0"
                                 AutomationProperties.Name="{DynamicResource FeelingLucky}">
-                                <Image Source="pack://application:,,,/images/dice.png" Width="27" Height="27" />
+                                <Image Source="pack://application:,,,/images/dice.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource DiceIcon}" />
                             </Button>
                             <Button
                                 Grid.Row="1"
@@ -888,7 +888,7 @@
                                     ToolTip="{DynamicResource TooltipSortOrder}" Click="SortOrderToggleButtonClickAsync"
                                     Margin="10,10,0,0"
                                     Visibility="Collapsed" AutomationProperties.Name="{DynamicResource SortByFileNameTooltip}">
-                                <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" />
+                                <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource SortAzIcon}" />
                             </Button>
                         </Grid>
                     </Border>
@@ -976,7 +976,7 @@
                                        HorizontalAlignment="Center"
                                        Margin="0,0,0,5" />
                                 <Border Grid.Row="1"
-                                        BorderBrush="Gray"
+                                        BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                                         BorderThickness="1"
                                         Padding="5">
                                     <Image Name="PreviewImage"
@@ -1014,7 +1014,7 @@
                                     AutomationProperties.Name="{DynamicResource PreviousPage}">
                                 <Image Source="pack://application:,,,/images/arrowleft.png"
                                        Height="27"
-                                       Width="27" />
+                                       Width="27" AutomationProperties.Name="{DynamicResource ArrowLeftIcon}" />
                             </Button>
                             <Button x:Name="NextPageButton"
                                     Margin="10,0,0,0"
@@ -1024,7 +1024,7 @@
                                     AutomationProperties.Name="{DynamicResource NextPage}">
                                 <Image Source="pack://application:,,,/images/arrowright.png"
                                        Height="27"
-                                       Width="27" />
+                                       Width="27" AutomationProperties.Name="{DynamicResource ArrowRightIcon}" />
                             </Button>
                             <Label
                                 x:Name="TotalFilesLabel"
@@ -1040,14 +1040,14 @@
                             <!-- System Info -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,15,0"
                                         AutomationProperties.Name="{DynamicResource CurrentSystemInfo}">
-                                <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" AutomationProperties.Name="{DynamicResource GamepadIcon}" />
                                 <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0" />
                                 <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" />
                             </StackPanel>
                             <!-- Playtime Info -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0" AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}"
                                         Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
+                                <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" AutomationProperties.Name="{DynamicResource PlayHistoryIcon}" />
                                 <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
                                 <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" />
                             </StackPanel>
@@ -1064,7 +1064,7 @@
                                     Template="{StaticResource LoadingOverlayTemplate}"
                                     Visibility="Collapsed" />
                 </Grid>
-                
+
                 <!-- Page Content Frame - for hosting Pages like Favorites, GlobalSearch, PlayHistory -->
                 <!-- This Frame is at the same level as MainGameContent, not inside it -->
                 <Frame x:Name="PageContentFrame"
@@ -1074,4 +1074,4 @@
         </Grid> <!-- Content grid -->
     </Grid> <!--Main content -->
 
-</controls:MetroWindow>
+</mah:MetroWindow>

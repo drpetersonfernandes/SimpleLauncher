@@ -99,9 +99,6 @@ internal partial class FavoritesPage : ILoadingState
                 {
                     _favoriteList.Add(fav);
                 }
-
-                // Step 3: Clean up missing files (also using snapshots)
-                await DeleteMissingFavoritesAsync(systemManagersSnapshot);
             }
             catch (Exception ex)
             {
@@ -154,50 +151,6 @@ internal partial class FavoritesPage : ILoadingState
 
             return processedList;
         });
-    }
-
-    private async Task DeleteMissingFavoritesAsync(IReadOnlyCollection<SystemManager> systemManagers)
-    {
-        var itemsToRemove = await Task.Run(() =>
-        {
-            var toRemove = new List<Favorite>();
-            // Work with a snapshot captured on UI thread
-            var currentFavorites = _favoriteList.ToList();
-
-            foreach (var item in currentFavorites)
-            {
-                var systemManager = systemManagers.FirstOrDefault(manager =>
-                    manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-
-                if (systemManager == null) continue;
-
-                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
-                if (!File.Exists(filePath))
-                {
-                    toRemove.Add(item);
-                    DebugLogger.Log("Invalid Favorite queued for removal: " + item.FileName);
-                }
-            }
-
-            return toRemove;
-        });
-
-        if (itemsToRemove.Count == 0) return;
-
-        // All UI modifications happen on UI thread
-        foreach (var item in itemsToRemove)
-        {
-            var itemInList = _favoriteList.FirstOrDefault(f =>
-                f.FileName == item.FileName && f.SystemName == item.SystemName);
-
-            if (itemInList != null)
-            {
-                _favoriteList.Remove(itemInList);
-            }
-        }
-
-        UpdateFavoritesManagerList();
-        FavoritesDataGrid.Items.Refresh();
     }
 
     private void UpdateFavoritesManagerList()
@@ -298,11 +251,16 @@ internal partial class FavoritesPage : ILoadingState
             var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
-
-                if (favoriteToRemove != null)
+                // Ask user if they want to delete the favorite
+                var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? selectedFavorite.FileName);
+                if (result == MessageBoxResult.Yes)
                 {
-                    RemoveFavoriteFromDatabaseAndEmptyPreviewImage(favoriteToRemove);
+                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
+
+                    if (favoriteToRemove != null)
+                    {
+                        RemoveFavoriteFromDatabaseAndEmptyPreviewImage(favoriteToRemove);
+                    }
                 }
 
                 return;
@@ -413,19 +371,21 @@ internal partial class FavoritesPage : ILoadingState
             var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
-
-                if (favoriteToRemove != null)
+                // Ask user if they want to delete the favorite
+                var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? fileName);
+                if (result == MessageBoxResult.Yes)
                 {
-                    RemoveFavoriteFromDatabaseAndEmptyPreviewImage(favoriteToRemove);
+                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
+
+                    if (favoriteToRemove != null)
+                    {
+                        RemoveFavoriteFromDatabaseAndEmptyPreviewImage(favoriteToRemove);
+                    }
                 }
 
                 // Notify developer
                 var contextMessage = $"[LaunchGameFromFavoritesAsync] Favorite file does not exist or path resolution failed: {filePath}";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
 
                 return;
             }

@@ -40,7 +40,7 @@ public static class DisplaySystemInformation
 
         // --- Validate Configuration ---
         // Offload path validation to a background thread to prevent UI freezing
-        var validationResult = await Task.Run(() => ValidateSystemConfiguration(selectedManager), cancellationToken).ConfigureAwait(false);
+        var validationResult = await Task.Run(() => ValidateSystemConfiguration(selectedManager), cancellationToken);
 
         // --- Create UI Elements and Apply Validation Styling ---
         var systemInfoTextBlock = new TextBlock();
