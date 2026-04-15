@@ -679,8 +679,15 @@ public partial class GameLauncher
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
-        ILoadingState loadingStateProvider)
+        ILoadingState loadingStateProvider,
+        string originalFilePathForDisplay = null)
     {
+        // Use the original file path for display if provided (e.g., for mounted files),
+        // otherwise use the resolved file path.
+        // This ensures we show the original archive name, not the temp extracted or mounted file.
+        var displayFilePath = originalFilePathForDisplay ?? resolvedFilePath;
+        var originalFileName = Path.GetFileNameWithoutExtension(displayFilePath);
+
         var isDirectory = Directory.Exists(resolvedFilePath);
 
         if (string.IsNullOrEmpty(selectedEmulatorName))
@@ -961,10 +968,10 @@ public partial class GameLauncher
                             $"Working Directory: {psi.WorkingDirectory}\n" +
                             $"File to launch: {resolvedFilePath}");
 
-            var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
             var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
-            TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
-            UpdateStatusBar.UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
+
+            TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {selectedEmulatorName}");
+            UpdateStatusBar.UpdateStatusBar.UpdateContent($"{originalFileName} {launchedwith} {selectedEmulatorName}", mainWindow);
 
             StringBuilder output = new();
             StringBuilder error = new();

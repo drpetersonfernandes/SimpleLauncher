@@ -224,6 +224,7 @@ public class ChdMountStrategy : ILaunchStrategy
         }
 
         // Launch the emulator with the found game file
+        // Pass the original CHD file path for display in notifications
         await launcher.LaunchRegularEmulatorAsync(
             gameFilePath,
             context.EmulatorName,
@@ -231,6 +232,7 @@ public class ChdMountStrategy : ILaunchStrategy
             context.EmulatorManager,
             context.Parameters,
             context.MainWindow,
-            context.LoadingState);
+            context.LoadingState,
+            context.ResolvedFilePath);
     }
 }

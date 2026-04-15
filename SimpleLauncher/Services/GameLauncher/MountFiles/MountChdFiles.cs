@@ -221,7 +221,8 @@ public static class MountChdFiles
 
             DebugLogger.Log($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
 
-            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow);
+            // Pass the original CHD file path for display in notifications
+            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedChdFilePath);
 
             DebugLogger.Log($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
         }
@@ -416,7 +417,8 @@ public static class MountChdFiles
 
             DebugLogger.Log($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
 
-            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow);
+            // Pass the original CHD file path for display in notifications
+            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedChdFilePath);
 
             DebugLogger.Log($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
         }

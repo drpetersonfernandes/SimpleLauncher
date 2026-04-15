@@ -94,7 +94,8 @@ public static class MountIsoFiles
             DebugLogger.Log($"[MountIsoFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch.");
 
             // 3. Launch the game/emulator with EBOOT.BIN
-            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow);
+            // Pass the original ISO file path for display in notifications
+            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedIsoFilePath);
 
             DebugLogger.Log($"[MountIsoFiles] Emulator for {ebootBinPath} has exited.");
         }
