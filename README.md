@@ -78,10 +78,10 @@ The following emulators have CHD support integrated into Simple Launcher:
 | FinalBurn Neo | Added |
 | FinalBurn Alpha | Added |
 | Raine | Added |
-| CD-i Emulator *¹ | Added |
+| CD-i Emulator * | Added |
 | Tsugaru | Added |
 
-*¹ CD-i Emulator requires specific configuration. Please refer to the emulator documentation for setup details.
+* This emulator has official CHD support that doesn't work properly - Simple Launcher fixes that for you!
 
 ---
 
