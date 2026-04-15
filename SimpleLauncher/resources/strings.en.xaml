@@ -38,7 +38,7 @@
     <system:String x:Key="700pixels">700 pixels</system:String>
     <system:String x:Key="750pixels">750 pixels</system:String>
     <system:String x:Key="800pixels">800 pixels</system:String>
-    <system:String x:Key="About">About</system:String>
+    <system:String x:Key="About">_About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
     <system:String x:Key="AchievementsEarned">Achievements Earned</system:String>
     <system:String x:Key="AchievementsList">Achievements List</system:String>
@@ -384,7 +384,7 @@
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin configuration saved successfully.</system:String>
     <system:String x:Key="DolphinEmulatorNotFound">Dolphin emulator not found. Please locate 'Dolphin.exe'.</system:String>
     <system:String x:Key="DolphinSettings">Dolphin Settings</system:String>
-    <system:String x:Key="Donate">Donate</system:String>
+    <system:String x:Key="Donate">_Donate</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download and extraction completed successfully.</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
@@ -463,7 +463,7 @@
     <system:String x:Key="DuckStationSettings">DuckStation Settings</system:String>
     <system:String x:Key="EasyMode">Easy Mode</system:String>
     <system:String x:Key="EditLinks">Edit Links</system:String>
-    <system:String x:Key="EditSystem">Edit System</system:String>
+    <system:String x:Key="EditSystem">Edit _System</system:String>
     <system:String x:Key="EditSystemtofixit">Edit System to fix it.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Edit this system in 'Expert Mode' and fix the parameter field for this emulator.</system:String>
     <system:String x:Key="Email">Email</system:String>
@@ -533,7 +533,7 @@
     <system:String x:Key="errorSettingSoundFile">Error choosing or copying sound file.</system:String>
     <system:String x:Key="EssentialsHeader">Essentials</system:String>
     <system:String x:Key="ExecutingSearch">Executing search...</system:String>
-    <system:String x:Key="Exit">Exit</system:String>
+    <system:String x:Key="Exit">_Exit</system:String>
     <system:String x:Key="ExpertMode">Expert Mode</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extension to Launch After Extraction</system:String>
@@ -755,7 +755,7 @@
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">It needs write access to its folder.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">It will not accept other extensions.</system:String>
-    <system:String x:Key="Language">Language</system:String>
+    <system:String x:Key="Language">_Language</system:String>
     <system:String x:Key="LanguageLoadingError">Language Loading Error</system:String>
     <system:String x:Key="LastAward">Last Award:</system:String>
     <system:String x:Key="LastPlayedDateColumnHeader">Last Played Date</system:String>
@@ -1038,7 +1038,7 @@
     <system:String x:Key="OpenVideoLink">Open Video Link</system:String>
     <system:String x:Key="OperationCancelled">Operation Cancelled</system:String>
     <system:String x:Key="OperationCancelledMessage">The operation was cancelled.</system:String>
-    <system:String x:Key="Options">Options</system:String>
+    <system:String x:Key="Options">_Options</system:String>
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="outof">out of</system:String>
     <system:String x:Key="OverlayButtonSettings">Overlay Button Settings</system:String>
@@ -1535,15 +1535,15 @@
     <system:String x:Key="SelectSystem">Select System</system:String>
     <system:String x:Key="SelectSystemButtonHelpText">Select {config.SystemName} system</system:String>
     <system:String x:Key="SelectSystemComboBox">Select System ComboBox</system:String>
-    <system:String x:Key="SelectWindow">Select Window</system:String>
+    <system:String x:Key="SelectWindow">Select _Window</system:String>
     <system:String x:Key="SelectWindowToActivate">Select window to activate</system:String>
     <system:String x:Key="SelectXeniaEmulator">Select Xenia Emulator</system:String>
     <system:String x:Key="SelectYumirEmulator">Select Yumir Emulator</system:String>
     <system:String x:Key="SendingMessagePleaseWait">Sending message ... Please wait</system:String>
     <system:String x:Key="SendingSupportRequest">Sending support request...</system:String>
     <system:String x:Key="SendSupportRequest">Send Support Request</system:String>
-    <system:String x:Key="SetButtonAspectRatio">Set Button Aspect Ratio</system:String>
-    <system:String x:Key="SetButtonSize">Set Button Size</system:String>
+    <system:String x:Key="SetButtonAspectRatio">Set Button _Aspect Ratio</system:String>
+    <system:String x:Key="SetButtonSize">Set _Button Size</system:String>
     <system:String x:Key="SetEmulator1Path">Set Emulator 1 Path</system:String>
     <system:String x:Key="SetEmulator2Path">Set Emulator 2 Path</system:String>
     <system:String x:Key="SetEmulator3Path">Set Emulator 3 Path</system:String>
@@ -1552,7 +1552,7 @@
     <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Failed to set fuzzy matching threshold.</system:String>
     <system:String x:Key="SetFuzzyMatchingThresholdTitle">Set Fuzzy Matching Threshold</system:String>
     <system:String x:Key="SetGamepadDeadZone">Set Gamepad DeadZone</system:String>
-    <system:String x:Key="SetNumberOfGamesPerPage">Set Number of Games Per Page</system:String>
+    <system:String x:Key="SetNumberOfGamesPerPage">Set Number of _Games Per Page</system:String>
     <system:String x:Key="SetSystemFolder">Set System Folder</system:String>
     <system:String x:Key="SetSystemImageFolder">Set System Image Folder</system:String>
     <system:String x:Key="Setthegamewindowto">Set the game window to non-fullscreen. This is important.</system:String>
@@ -1562,7 +1562,7 @@
     <system:String x:Key="SettingsSaved">Settings saved.</system:String>
     <system:String x:Key="SettingsSavedSuccessfully">Settings saved successfully.</system:String>
     <system:String x:Key="ShowAllGames">Show All Games</system:String>
-    <system:String x:Key="ShowGames">Show Games</system:String>
+    <system:String x:Key="ShowGames">_Show Games</system:String>
     <system:String x:Key="ShowGamesWithRetroAchievements">Filter games that are probably compatible with RetroAchievements</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
@@ -1756,7 +1756,7 @@
     <system:String x:Key="Thegamewilllaunchnow">The game will launch now.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">The image may be corrupted or inaccessible.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">The launch of the selected tool was canceled by the user.</system:String>
-    <system:String x:Key="Theme">Theme</system:String>
+    <system:String x:Key="Theme">_Theme</system:String>
     <system:String x:Key="Thename">The name</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">There is a software update available.</system:String>
     <system:String x:Key="Thereisnocabinetfile">There is no cabinet file associated with this game.</system:String>
@@ -1823,7 +1823,7 @@
     <system:String x:Key="TogglingRetroAchievementsOverlayButton">Toggling RetroAchievements overlay button...</system:String>
     <system:String x:Key="TogglingVideoLinkOverlayButton">Toggling video link overlay button...</system:String>
     <system:String x:Key="TogglingViewMode">Toggling view mode...</system:String>
-    <system:String x:Key="Tools">Tools</system:String>
+    <system:String x:Key="Tools">_Tools</system:String>
     <system:String x:Key="TooltipAboutMenu">About Simple Launcher and update options</system:String>
     <system:String x:Key="TooltipAccentColorsMenu">Change the accent color</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Add another folder to search for games</system:String>
@@ -2020,7 +2020,7 @@
     <system:String x:Key="ViewAchievements">View Achievements</system:String>
     <system:String x:Key="ViewGameOnRetroAchievementsTooltip">View game on RetroAchievements</system:String>
     <system:String x:Key="ViewInfo">View Info</system:String>
-    <system:String x:Key="ViewMode">View Mode</system:String>
+    <system:String x:Key="ViewMode">_View Mode</system:String>
     <system:String x:Key="ViewOnRetroAchievements">View on RetroAchievements.org</system:String>
     <system:String x:Key="ViewProfileOnRA">View Profile on RetroAchievements.org</system:String>
     <system:String x:Key="ViewProfileOnRaButtonTooltip">View profile on RetroAchievements button</system:String>
