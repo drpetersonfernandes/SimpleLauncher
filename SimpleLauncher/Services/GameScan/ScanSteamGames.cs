@@ -119,7 +119,7 @@ internal static class ScanSteamGames
 
                 foreach (var manifestFile in manifestFiles)
                 {
-                    await ProcessSteamManifest(manifestFile, libraryPath, steamPath, logErrors, windowsRomsPath, windowsImagesPath, ignoredGameNames);
+                    await ProcessSteamManifestAsync(manifestFile, libraryPath, steamPath, logErrors, windowsRomsPath, windowsImagesPath, ignoredGameNames);
                 }
             }
 
@@ -146,7 +146,7 @@ internal static class ScanSteamGames
                 foreach (var modDir in modDirectories)
                 {
                     // Pass windowsImagesPath here
-                    await ProcessSourceMod(modDir, windowsRomsPath, windowsImagesPath, logErrors);
+                    await ProcessSourceModAsync(modDir, windowsRomsPath, windowsImagesPath, logErrors);
                 }
             }
         }
@@ -156,7 +156,7 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSteamManifest(string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
+    private static async Task ProcessSteamManifestAsync(string manifestFile, string libraryPath, string steamPath, ILogErrors logErrors, string windowsRomsPath, string windowsImagesPath, HashSet<string> ignoredGameNames)
     {
         try
         {
@@ -186,7 +186,7 @@ internal static class ScanSteamGames
         }
     }
 
-    private static async Task ProcessSourceMod(string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
+    private static async Task ProcessSourceModAsync(string modDir, string windowsRomsPath, string windowsImagesPath, ILogErrors logErrors)
     {
         try
         {
@@ -332,6 +332,6 @@ internal static class ScanSteamGames
         }
 
         // 3. Fallback to EXE icon if no artwork was found
-        await GameScannerService.ExtractIconFromGameFolder(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
+        await GameScannerService.ExtractIconFromGameFolderAsync(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
     }
 }

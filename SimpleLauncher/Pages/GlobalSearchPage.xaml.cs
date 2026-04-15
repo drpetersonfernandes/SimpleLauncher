@@ -1,11 +1,6 @@
-using System;
-using System.Threading;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -171,21 +166,37 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
 
                 if (results?.Count > 0)
                 {
-                    // Detach ItemsSource to allow GC of old containers and avoid UI updates during population
-                    ResultsDataGrid.ItemsSource = null;
-                    _searchResults.Clear();
+                    void UpdateResults()
+                    {
+                        // Detach ItemsSource to allow GC of old containers and avoid UI updates during population
+                        ResultsDataGrid.ItemsSource = null;
+                        _searchResults.Clear();
 
-                    foreach (var result in results)
-                        _searchResults.Add(result);
+                        foreach (var result in results)
+                            _searchResults.Add(result);
 
-                    ResultsDataGrid.ItemsSource = _searchResults;
+                        ResultsDataGrid.ItemsSource = _searchResults;
+                    }
+
+                    if (Dispatcher.CheckAccess())
+                        UpdateResults();
+                    else
+                        Dispatcher.Invoke(UpdateResults);
                 }
                 else
                 {
-                    ResultsDataGrid.ItemsSource = null;
-                    _searchResults.Clear();
-                    NoResultsMessageOverlay.Visibility = Visibility.Visible;
-                    PreviewImage.Source = null;
+                    void ClearResults()
+                    {
+                        ResultsDataGrid.ItemsSource = null;
+                        _searchResults.Clear();
+                        NoResultsMessageOverlay.Visibility = Visibility.Visible;
+                        PreviewImage.Source = null;
+                    }
+
+                    if (Dispatcher.CheckAccess())
+                        ClearResults();
+                    else
+                        Dispatcher.Invoke(ClearResults);
                 }
             }
             catch (OperationCanceledException)

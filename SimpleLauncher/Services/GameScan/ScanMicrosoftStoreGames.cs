@@ -213,7 +213,7 @@ internal static class ScanMicrosoftStoreGames
 
                     if (!string.IsNullOrEmpty(game.InstallLocation) && Directory.Exists(game.InstallLocation))
                     {
-                        await TryExtractStoreIcon(logErrors, game.Name, game.InstallLocation, game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
+                        await TryExtractStoreIconAsync(logErrors, game.Name, game.InstallLocation, game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
                     }
                 }
             }
@@ -305,7 +305,7 @@ internal static class ScanMicrosoftStoreGames
         }
     }
 
-    private static async Task TryExtractStoreIcon(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
+    private static async Task TryExtractStoreIconAsync(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
         var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         // Check if a valid icon already exists (non-zero size to handle corrupt/empty files from previous failed copies)
@@ -521,7 +521,7 @@ internal static class ScanMicrosoftStoreGames
             }
 
             // 4. Final fallback to extracting icon from an EXE in the install folder
-            await GameScannerService.ExtractIconFromGameFolder(logErrors, installPath, sanitizedGameName, windowsImagesPath);
+            await GameScannerService.ExtractIconFromGameFolderAsync(logErrors, installPath, sanitizedGameName, windowsImagesPath);
         }
         catch (Exception ex)
         {

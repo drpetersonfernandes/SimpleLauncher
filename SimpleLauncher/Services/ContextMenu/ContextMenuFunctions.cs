@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
@@ -358,7 +354,7 @@ internal static class ContextMenuFunctions
             UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, null);
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, null).ConfigureAwait(false);
 
             if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
             {
@@ -792,7 +788,7 @@ internal static class ContextMenuFunctions
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
-    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider)
+    public static async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider)
     {
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", mainWindow);
         try
@@ -834,7 +830,7 @@ internal static class ContextMenuFunctions
             _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController, loadingStateProvider);
 
             // Minimum wait time to process startup)
-            await Task.Delay(2000);
+            await Task.Delay(2000).ConfigureAwait(false);
 
             // Poll for new windows
             var maxWaitTime = TimeSpan.FromSeconds(30); // Max 30 seconds
@@ -844,7 +840,7 @@ internal static class ContextMenuFunctions
 
             while (stopwatch.Elapsed < maxWaitTime && !newWindowDetected)
             {
-                await Task.Delay(pollInterval);
+                await Task.Delay(pollInterval).ConfigureAwait(false);
 
                 var currentWindows = WindowManager.GetOpenWindows();
                 if (currentWindows.Count > initialCount)
@@ -935,11 +931,11 @@ internal static class ContextMenuFunctions
             playSoundEffects.PlayShutterSound();
 
             // Wait
-            await Task.Delay(1000);
+            await Task.Delay(1000).ConfigureAwait(false);
 
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
-            await flashWindow.ShowFlashAsync();
+            await flashWindow.ShowFlashAsync().ConfigureAwait(false);
 
             if (button != null)
             {
@@ -952,7 +948,7 @@ internal static class ContextMenuFunctions
                         if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
                         {
                             // Load the new screenshot image
-                            var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);
+                            var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath).ConfigureAwait(false);
                             imageControl.Source = loadedImage; // Assign the loaded image
                         }
                     }
@@ -970,7 +966,7 @@ internal static class ContextMenuFunctions
             // Reload the current Game List
             try
             {
-                await mainWindow.LoadGameFilesAsync();
+                await mainWindow.LoadGameFilesAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -1002,7 +998,7 @@ internal static class ContextMenuFunctions
                 playSoundEffects.PlayTrashSound();
 
                 // Invalidate the game file caches in the main window
-                await mainWindow.InvalidateGameFileCaches();
+                await mainWindow.InvalidateGameFileCachesAsync().ConfigureAwait(false);
 
                 // Notify user
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
@@ -1010,7 +1006,7 @@ internal static class ContextMenuFunctions
                 // Reload the current Game List to reflect the deletion
                 try
                 {
-                    await mainWindow.LoadGameFilesAsync();
+                    await mainWindow.LoadGameFilesAsync().ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
@@ -1054,7 +1050,7 @@ internal static class ContextMenuFunctions
                 DeleteFiles.TryDeleteFile(coverPath);
             }
 
-            await Task.Delay(400);
+            await Task.Delay(400).ConfigureAwait(false);
 
             if (!File.Exists(coverPath))
             {
@@ -1062,7 +1058,7 @@ internal static class ContextMenuFunctions
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(coverPath);
 
                 // Reload the current Game List
-                await mainWindow.LoadGameFilesAsync();
+                await mainWindow.LoadGameFilesAsync().ConfigureAwait(false);
             }
         }
         catch (Exception ex)

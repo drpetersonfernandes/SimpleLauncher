@@ -1,10 +1,7 @@
-using System;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 
@@ -37,18 +34,18 @@ public class LogErrorsService : ILogErrors
         var userLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         var errorMessage = BugReportFormatter.BuildReport(ex, contextMessage);
 
-        await LogFileLock.WaitAsync();
+        await LogFileLock.WaitAsync().ConfigureAwait(false);
         try
         {
             // Append the error message to the general log
-            await File.AppendAllTextAsync(errorLogPath, errorMessage);
+            await File.AppendAllTextAsync(errorLogPath, errorMessage).ConfigureAwait(false);
 
             // Append the error message to the user-specific log
             var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
-            if (true) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
+            if (true) await File.AppendAllTextAsync(userLogPath, userErrorMessage).ConfigureAwait(false);
 
             // Attempt to send the error log content to the API only if enabled
-            if (await SendLogToApiAsync(errorMessage))
+            if (await SendLogToApiAsync(errorMessage).ConfigureAwait(false))
             {
                 // If the log was successfully sent, delete the general log file to clean up.
                 if (File.Exists(errorLogPath))
@@ -97,7 +94,7 @@ public class LogErrorsService : ILogErrors
                 };
 
                 var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent);
+                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent).ConfigureAwait(false);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 

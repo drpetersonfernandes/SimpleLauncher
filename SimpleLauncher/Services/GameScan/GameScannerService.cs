@@ -223,7 +223,7 @@ public class GameScannerService
     }
 
     // This is the final fallback for special cases like Steam/Microsoft Store
-    internal static async Task ExtractIconFromGameFolder(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
+    internal static async Task ExtractIconFromGameFolderAsync(ILogErrors logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string specificExePath = null)
     {
         try
         {
