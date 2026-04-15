@@ -1,12 +1,13 @@
 # Release 5.3.0
-*2026-04-06*
+*2026-04-15*
 ---
 
-# 🚀 CHD "Magic" & Expanded RetroAchievements Support!
+# 🚀 Universal CHD Support & Enhanced RetroAchievements!
 
 ### 💿 CHD Support for Everyone!
-- We expanded the CHD support for **Mednafen**, **PCSX-Redux**, **4DO**, **Gens**, **Blastem**, **Yabause**, **Mesen**, **FinalBurn Neo**, **FinalBurn Alpha**, **Raine**, **CD-i Emulator**, **Tsugaru** that unfortunately lack native support for CHD format.
-- Simple Launcher grants these emulators full CHD support by leveraging our built-in **CHDMounter** tool. When you launch a CHD, Simple Launcher automatically mounts it as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly. Save your disk space without sacrificing your favorite emulators!
+We've massively expanded CHD support to emulators that lack native CHD format support. Simple Launcher now grants these emulators full CHD capability by leveraging our built-in **CHDMounter** tool. When you launch a CHD, it automatically mounts as a virtual drive in the background, allowing these emulators to run your compressed library seamlessly!
+
+**Newly Supported Emulators:**
 
 | Emulator         | CHD Support |
 |------------------|-------------|
@@ -26,29 +27,39 @@
 | Raine            | Added       |
 | CD-i Emulator *¹ | Added       |
 | Tsugaru          | Added       |
+| RetroArch        | Added       |
 
-*¹ This emulator has official support for CHD, but it does not work! 'Simple Launcher' will fix that for you.
+*¹ This emulator has official CHD support that doesn't work properly - Simple Launcher fixes that for you!
 
-### 🏆 RetroAchievements: Welcome to the Wii!
-Achievement hunters, rejoice! We have overhauled our **RetroAchievements** definitions to stay in sync with the latest developments in the RA community. 
-- **Wii Support is here!** We’ve updated our system matching and hashing logic to fully support the **Nintendo Wii**, which recently received official RetroAchievements support.
-- **Expanded Aliases:** Improved matching for multiple systems, ensuring your games are identified correctly every time.
+### 🏆 RetroAchievements: Welcome to the Wii & More!
+Achievement hunters, rejoice! We've overhauled our RetroAchievements integration:
+- **Nintendo Wii Support:** Full support for the Wii, which recently received official RetroAchievements support
+- **Expanded System Aliases:** Better matching for NEC PC-FX, SNES MSU1, and many more systems
 
 ### 🎨 Your Launcher, Your Style
-We’ve added several new ways to customize your experience:
-- **New Themes:** Introducing the beautiful **Midnight** (Deep Blue) theme and a stark **High Contrast** mode for better accessibility.
-- **Adaptive Mode:** Simple Launcher can now automatically sync with your Windows Light/Dark mode settings.
-- **Filename Preferences:** You can now "Clean Up" filenames in Grid View (removing tags like `[!]` or `(USA)`) or even hide filenames entirely for a pure, box-art-focused look.
+New customization options put you in control:
+- **New Themes:** Beautiful **Midnight** (Deep Blue) theme and **High Contrast** mode for better accessibility
+- **Adaptive Mode:** Automatically syncs with your Windows Light/Dark mode settings
+- **Filename Preferences:** "Clean Up" filenames in Grid View (removing tags like `[!]` or `(USA)`) or hide filenames entirely for a pure, box-art-focused look
+- **Font Size Control:** Customize filename and machine name font sizes in game buttons
+- **Separate Thumbnail Sizes:** Independent zoom controls for system selection and game view
 
 ### 🛡️ Smarter & Safer
-- **Elevation Detection:** If a game requires Administrator privileges to run, Simple Launcher will now detect it and notify you immediately with a clear error message.
-- **Safety Mechanisms:** We’ve added a "safety net" that automatically kills any lingering `CHDMounter` or `SimpleZipDrive` processes when you close a game or the launcher. No more "ghost" virtual drives cluttering your PC!
-- **Startup Validation:** The app now detects if it's being run from a temporary folder (like inside a ZIP) and prompts you to extract it first, preventing lost settings.
+- **Elevation Detection:** Detects games requiring Administrator privileges and notifies you immediately
+- **Safety Mechanisms:** Automatically kills lingering `CHDMounter` and `SimpleZipDrive` processes when closing games or the launcher - no more "ghost" virtual drives!
+- **Startup Validation:** Detects if running from a temporary folder (like inside a ZIP) and prompts you to extract it first
+
+### 📚 Documentation & Help Improvements
+- **Enhanced Parameters Guide:** Enhanced `parameters.md` with official emulator download links and comprehensive parameter documentation
+- **Markdown-Based Help:** Migrated help system from XML to Markdown format for better readability
 
 ### 🔧 Technical Improvements
-- **API-Based Scanning:** Our Microsoft Store game detection is now powered by a dynamic API, making the app lighter and more accurate.
-- **Secure Connections:** Refactored networking to use **TLS 1.2/1.3** for all metadata and image downloads.
-- **Resilient Saving:** Improved logic to handle file locks during saves for `settings.xml`, `system.xml`, `favorites.dat`, and `playhistory.dat`.
+- **API-Based Scanning:** Microsoft Store game detection now uses a dynamic API for lighter, more accurate results
+- **Secure Connections:** All metadata and image downloads now use **TLS 1.2/1.3**
+- **Resilient Saving:** Improved file lock handling during saves for `settings.xml`, `system.xml`, `favorites.dat`, and `playhistory.dat` with retry logic and exponential backoff
+- **Enhanced Error Handling:** Better exception handling throughout the app with specific error types and improved logging
+- **Play Time Tracking:** Refactored play time storage from strings to seconds for better accuracy
+- **Better Accessibility:** Added automation properties to images and access keys to menu items
 
 # Release 5.2.0
 *2026-03-28*

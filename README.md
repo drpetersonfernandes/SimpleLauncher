@@ -54,6 +54,37 @@ Simple Launcher includes a suite of specialized utilities for library maintenanc
 
 ---
 
+## 💿 CHD Support
+
+Simple Launcher includes built-in CHD mounting capabilities, allowing you to use compressed CHD (Compressed Hunks of Data) files with emulators that don't natively support this format. The launcher automatically mounts CHD files to a virtual drive using **Dokan** integration, presenting them in a format the emulator can understand.
+
+### Supported Emulators
+
+The following emulators have CHD support integrated into Simple Launcher:
+
+| Emulator | CHD Support |
+|----------|-------------|
+| RPCS3 | Added |
+| Xemu | Added |
+| Xenia | Added |
+| Cxbx-Reloaded | Added |
+| Mednafen | Added |
+| PCSX-Redux | Added |
+| 4DO | Added |
+| Gens | Added |
+| Blastem | Added |
+| Yabause | Added |
+| Mesen | Added |
+| FinalBurn Neo | Added |
+| FinalBurn Alpha | Added |
+| Raine | Added |
+| CD-i Emulator *¹ | Added |
+| Tsugaru | Added |
+
+*¹ CD-i Emulator requires specific configuration. Please refer to the emulator documentation for setup details.
+
+---
+
 ## 📥 Installation
 
 1.  **Download:** Grab the latest release for your architecture (x64 or ARM64) from the [Releases Page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
