@@ -32,8 +32,8 @@ public class GameScannerService
         "Ubisoft Connect"
     };
 
-    private readonly string _windowsRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
-    private readonly string _windowsImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
+    private string _windowsRomsPath;
+    private string _windowsImagesPath;
 
     internal bool WasNewSystemCreated { get; private set; }
 
@@ -47,7 +47,11 @@ public class GameScannerService
     {
         try
         {
-            WasNewSystemCreated = await EnsureWindowsSystemExistsAsync();
+            // Initialize paths based on existing system configuration or create default
+            var pathResult = await InitializeWindowsPathsAsync();
+            _windowsRomsPath = pathResult.RomsPath;
+            _windowsImagesPath = pathResult.ImagesPath;
+            WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
             var tasks = new List<Task>
             {
@@ -74,17 +78,35 @@ public class GameScannerService
         }
     }
 
-    private async Task<bool> EnsureWindowsSystemExistsAsync()
+    private async Task<(string RomsPath, string ImagesPath, bool WasNewSystemCreated)> InitializeWindowsPathsAsync()
     {
         try
         {
-            // Fix 1: Use SystemManager.SystemManager for the static method
-            if (SystemManager.SystemManager.SystemExists(WindowsSystemName, _configuration))
+            // Check if the system already exists
+            var existingSystems = SystemManager.SystemManager.LoadSystemManagers(_configuration);
+            var existingWindowsSystem = existingSystems.FirstOrDefault(static s =>
+                s.SystemName.Equals(WindowsSystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (existingWindowsSystem != null)
             {
-                return false;
+                // Use existing paths from the system configuration
+                var existingRomsPath = existingWindowsSystem.PrimarySystemFolder;
+                var existingImagesPath = existingWindowsSystem.SystemImageFolder;
+
+                // Resolve the paths (handle %BASEFOLDER% placeholder)
+                var resolvedRomsPath = PathHelper.ResolveRelativeToAppDirectory(existingRomsPath);
+                var resolvedImagesPath = PathHelper.ResolveRelativeToAppDirectory(existingImagesPath);
+
+                DebugLogger.Log($"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
+
+                return (resolvedRomsPath, resolvedImagesPath, false);
             }
 
+            // System doesn't exist, create it with default paths
             DebugLogger.Log($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
+
+            var defaultRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
+            var defaultImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
 
             var windowsSystem = new SystemManager.SystemManager
             {
@@ -110,15 +132,22 @@ public class GameScannerService
             await SystemManager.SystemManager.SaveSystemConfigurationAsync(windowsSystem);
 
             // Create the necessary directories
-            Directory.CreateDirectory(_windowsRomsPath);
-            Directory.CreateDirectory(_windowsImagesPath);
+            Directory.CreateDirectory(defaultRomsPath);
+            Directory.CreateDirectory(defaultImagesPath);
 
-            return true;
+            DebugLogger.Log($"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
+
+            return (defaultRomsPath, defaultImagesPath, true);
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, "Failed to create 'Microsoft Windows' system in system.xml.");
-            return false;
+            await _logErrors.LogErrorAsync(ex, "Failed to initialize 'Microsoft Windows' system paths.");
+
+            // Fall back to default paths even on error
+            var fallbackRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
+            var fallbackImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
+
+            return (fallbackRomsPath, fallbackImagesPath, false);
         }
     }
 
