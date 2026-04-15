@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -105,11 +100,9 @@ public partial class MainWindow
             allFiles = SetPaginationOfListOfFiles(allFiles);
             cancellationToken.ThrowIfCancellationRequested();
 
-            const int batchSize = 100;
-
             if (_settings.ViewMode == "GridView")
             {
-                var buttonBatch = new List<Button>(Math.Min(batchSize, allFiles.Count));
+                var buttonBatch = new List<Button>(Math.Min(BatchSize, allFiles.Count));
 
                 foreach (var filePath in allFiles)
                 {
@@ -118,7 +111,7 @@ public partial class MainWindow
                     var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager, this);
                     buttonBatch.Add(gameButton);
 
-                    if (buttonBatch.Count >= batchSize)
+                    if (buttonBatch.Count >= BatchSize)
                     {
                         GameFileGrid.Dispatcher.Invoke(() =>
                         {
@@ -140,7 +133,7 @@ public partial class MainWindow
             }
             else // ListView
             {
-                var itemBatch = new List<GameListViewItem>(Math.Min(batchSize, allFiles.Count));
+                var itemBatch = new List<GameListViewItem>(Math.Min(BatchSize, allFiles.Count));
 
                 foreach (var filePath in allFiles)
                 {
@@ -149,7 +142,7 @@ public partial class MainWindow
                     var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
                     itemBatch.Add(gameListViewItem);
 
-                    if (itemBatch.Count >= batchSize)
+                    if (itemBatch.Count >= BatchSize)
                     {
                         await Dispatcher.InvokeAsync(() =>
                         {
@@ -292,17 +285,18 @@ public partial class MainWindow
                         // Match filenames against RA Titles using Jaro-Winkler Fuzzy Matching
                         _currentSearchResults = _allGamesForCurrentSystem.Where(filePath =>
                         {
-                            var fileName = Path.GetFileNameWithoutExtension(filePath).ToLowerInvariant();
+                            var fileName = Path.GetFileNameWithoutExtension(filePath);
 
                             return raGamesForSystem.Any(ra =>
                             {
-                                var raTitle = ra.Title.ToLowerInvariant();
+                                var raTitle = ra.Title;
 
                                 // 1. Fast Check: Direct containment (handles "Game Name (USA)" vs "Game Name")
-                                if (fileName.Contains(raTitle) || raTitle.Contains(fileName))
+                                if (fileName.Contains(raTitle, StringComparison.OrdinalIgnoreCase) ||
+                                    raTitle.Contains(fileName, StringComparison.OrdinalIgnoreCase))
                                     return true;
 
-                                // 2. Fuzzy Check: Jaro-Winkler Similarity
+                                // 2. Fuzzy Check: Jaro-Winkler Similarity (handles case-insensitive comparison internally)
                                 var similarity = Services.FindAndLoadImages.FindCoverImage.CalculateJaroWinklerSimilarity(fileName, raTitle);
                                 return similarity >= threshold;
                             });

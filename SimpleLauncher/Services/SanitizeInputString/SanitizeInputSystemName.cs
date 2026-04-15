@@ -9,6 +9,36 @@ public static class SanitizeInputSystemName
     private static readonly string[] ReservedNames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"];
 
     /// <summary>
+    /// Validates a system name for invalid characters.
+    /// Returns true if the name contains invalid characters.
+    /// </summary>
+    /// <param name="name">The system name to validate.</param>
+    /// <param name="invalidChars">The invalid characters found, if any.</param>
+    /// <returns>True if invalid characters are found; otherwise false.</returns>
+    public static bool ContainsInvalidCharacters(string name, out char[] invalidChars)
+    {
+        invalidChars = [];
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return false;
+        }
+
+        var invalidFileNameChars = Path.GetInvalidFileNameChars();
+        var foundInvalidChars = new List<char>();
+
+        foreach (var c in name)
+        {
+            if (invalidFileNameChars.Contains(c))
+            {
+                foundInvalidChars.Add(c);
+            }
+        }
+
+        invalidChars = [.. foundInvalidChars];
+        return invalidChars.Length > 0;
+    }
+
+    /// <summary>
     /// Sanitizes a string to be safe for use as a folder name.
     /// Removes invalid path characters and directory traversal sequences.
     /// </summary>

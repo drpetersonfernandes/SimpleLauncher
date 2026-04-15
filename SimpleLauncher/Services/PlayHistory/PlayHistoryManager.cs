@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +13,7 @@ namespace SimpleLauncher.Services.PlayHistory;
 [MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
-    [IgnoreMember] private static readonly object HistoryLock = new();
+    [IgnoreMember] private readonly object _historyLock = new();
 
     // This collection will be serialized.
     [Key(0)] internal ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
@@ -222,7 +218,7 @@ public class PlayHistoryManager
                 Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
 
                 byte[] bytes;
-                lock (HistoryLock)
+                lock (_historyLock)
                 {
                     bytes = MessagePackSerializer.Serialize(this);
                 }
@@ -303,7 +299,7 @@ public class PlayHistoryManager
 
             PlayHistoryItem itemToAdd = null;
 
-            lock (HistoryLock)
+            lock (_historyLock)
             {
                 // Check if the game already exists in play history
                 var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName == systemName);

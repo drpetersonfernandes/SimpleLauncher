@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -15,6 +14,12 @@ public partial class MainWindow
         {
             StatusBarTimer.Stop();
             StatusBarTimer = null;
+        }
+
+        // Unsubscribe from events to prevent memory leaks
+        if (_topLetterNumberMenu != null)
+        {
+            _topLetterNumberMenu.OnLetterSelected -= TopLetterNumberMenu_OnLetterSelected;
         }
 
         Dispose();
@@ -50,15 +55,26 @@ public partial class MainWindow
 
             // 2. Use a small timeout to avoid blocking the UI thread indefinitely during disposal.
             // If the lock cannot be acquired within 100ms, it's safer to skip clearing and continue shutdown.
-            if (_allGamesLock.Wait(100))
+            // Also check disposal state to prevent ObjectDisposedException.
+            if (!_isDisposed)
             {
                 try
                 {
-                    _currentSearchResults?.Clear();
+                    if (_allGamesLock.Wait(100))
+                    {
+                        try
+                        {
+                            _currentSearchResults?.Clear();
+                        }
+                        finally
+                        {
+                            _allGamesLock.Release();
+                        }
+                    }
                 }
-                finally
+                catch (ObjectDisposedException)
                 {
-                    _allGamesLock.Release();
+                    // Semaphore was disposed, ignore and continue shutdown
                 }
             }
 

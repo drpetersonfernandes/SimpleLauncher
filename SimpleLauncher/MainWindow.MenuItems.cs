@@ -1163,9 +1163,7 @@ public partial class MainWindow
             if (isSystemSelectionMode)
             {
                 // Use ThumbnailSizeForSystem for system selection screen
-                const int zoomStep = 50;
-                const int maxSize = 150;
-                var newSize = Math.Min(maxSize, _settings.ThumbnailSizeForSystem + zoomStep);
+                var newSize = Math.Min(MaxThumbnailSizeForSystem, _settings.ThumbnailSizeForSystem + ZoomStep);
 
                 if (newSize != _settings.ThumbnailSizeForSystem)
                 {
@@ -1179,9 +1177,7 @@ public partial class MainWindow
             else
             {
                 // Use ThumbnailSize for game view
-                const int zoomStep = 50;
-                const int maxSize = 800;
-                var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
+                var newSize = Math.Min(MaxThumbnailSize, _settings.ThumbnailSize + ZoomStep);
 
                 if (newSize != _settings.ThumbnailSize)
                 {
@@ -1216,9 +1212,7 @@ public partial class MainWindow
             if (isSystemSelectionMode)
             {
                 // Use ThumbnailSizeForSystem for system selection screen
-                const int zoomStep = 50;
-                const int minSize = 50;
-                var newSize = Math.Max(minSize, _settings.ThumbnailSizeForSystem - zoomStep);
+                var newSize = Math.Max(MinThumbnailSize, _settings.ThumbnailSizeForSystem - ZoomStep);
 
                 if (newSize != _settings.ThumbnailSizeForSystem)
                 {
@@ -1232,9 +1226,7 @@ public partial class MainWindow
             else
             {
                 // Use ThumbnailSize for game view
-                const int zoomStep = 50;
-                const int minSize = 50;
-                var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
+                var newSize = Math.Max(MinThumbnailSize, _settings.ThumbnailSize - ZoomStep);
 
                 if (newSize != _settings.ThumbnailSize)
                 {
