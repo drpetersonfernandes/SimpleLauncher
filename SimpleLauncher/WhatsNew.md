@@ -1,5 +1,5 @@
 # Release 5.3.0
-*2026-04-15*
+*2026-04-16*
 ---
 
 # 🚀 Universal CHD Support & Enhanced RetroAchievements!
