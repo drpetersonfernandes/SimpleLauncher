@@ -258,16 +258,19 @@ internal static class ContextMenuFunctions
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
                 MessageBoxLibrary.AddRaLogin();
-                UpdateStatusBar.UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
-
                 playSoundEffects.PlayNotificationSound();
 
-                // Open RetroAchievements Settings Window
-                var raSettingsWindow = new RetroAchievementsSettingsWindow(settings)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Owner = mainWindow // Set owner to main window
-                };
-                raSettingsWindow.ShowDialog();
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
+
+                    // Open RetroAchievements Settings Window
+                    var raSettingsWindow = new RetroAchievementsSettingsWindow(settings)
+                    {
+                        Owner = mainWindow // Set owner to main window
+                    };
+                    raSettingsWindow.ShowDialog();
+                });
 
                 // If user didn't save credentials, or saved empty ones, return
                 if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
@@ -291,12 +294,20 @@ internal static class ContextMenuFunctions
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                    var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
-                    retroAchievementsWindow.Show();
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
+                        retroAchievementsWindow.Show();
+                    });
                 }
 
-                UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemManager.SystemName}' is not supported by RetroAchievements.", mainWindow);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemManager.SystemName}' is not supported by RetroAchievements.", mainWindow);
+                });
+
                 return;
             }
 
@@ -313,9 +324,13 @@ internal static class ContextMenuFunctions
             {
                 DebugLogger.Log($"[RA Service] File not found at {filePath}");
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RA Service] File not found at {filePath}");
+
                 MessageBoxLibrary.CouldNotFindAFileMessageBox();
 
-                UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                });
 
                 return;
             }
@@ -325,7 +340,11 @@ internal static class ContextMenuFunctions
                 DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[RA Service] FileNameWithoutExtension is null or empty.");
                 MessageBoxLibrary.ErrorMessageBox();
-                UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                });
 
                 return;
             }
@@ -339,19 +358,30 @@ internal static class ContextMenuFunctions
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                    var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
-                    retroAchievementsWindow.Show();
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
+                        retroAchievementsWindow.Show();
+                    });
                 }
 
-                UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                });
 
                 return;
             }
 
             var preparingRaMsg = (string)Application.Current.TryFindResource("CalculatingGameHash") ?? "Calculating Game Hash... Please wait.";
             (loadingStateProvider as Window)?.Dispatcher.Invoke(() => loadingStateProvider.SetLoadingState(true, preparingRaMsg));
-            UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
+            });
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
             var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, null).ConfigureAwait(false);
@@ -362,7 +392,10 @@ internal static class ContextMenuFunctions
                 return;
             }
 
-            UpdateStatusBar.UpdateStatusBar.UpdateContent("Calculating the hash of the selected game", mainWindow);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                UpdateStatusBar.UpdateStatusBar.UpdateContent("Calculating the hash of the selected game", mainWindow);
+            });
 
             var hash = raHashResult.Hash;
             tempExtractionPath = raHashResult.TempExtractionPath;
@@ -379,18 +412,29 @@ internal static class ContextMenuFunctions
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         playSoundEffects.PlayNotificationSound();
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
-                        retroAchievementsWindow.Show();
+
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                            var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
+                            retroAchievementsWindow.Show();
+                        });
                     }
 
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemName}' is not supported by RetroAchievements.", mainWindow);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemName}' is not supported by RetroAchievements.", mainWindow);
+                    });
                 }
                 // Check if the failure was due to an actual extraction issue (and not just "system not supported")
                 else if (!raHashResult.IsExtractionSuccessful)
                 {
                     MessageBoxLibrary.ExtractionFailedMessageBox(); // Inform user about extraction failure
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error extracting the file for hashing", mainWindow);
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        UpdateStatusBar.UpdateStatusBar.UpdateContent("Error extracting the file for hashing", mainWindow);
+                    });
                 }
                 else // A generic hashing failure not covered by the above
                 {
@@ -398,12 +442,19 @@ internal static class ContextMenuFunctions
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         playSoundEffects.PlayNotificationSound();
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
-                        retroAchievementsWindow.Show();
+
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                            var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
+                            retroAchievementsWindow.Show();
+                        });
                     }
 
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        UpdateStatusBar.UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
+                    });
                 }
 
                 return; // Exit as we cannot proceed without a valid hash
@@ -411,7 +462,11 @@ internal static class ContextMenuFunctions
 
             // If we reach here, a hash was successfully obtained. Proceed with lookup.
             DebugLogger.Log($"[RA Service] Successfully obtained hash: {hash}");
-            UpdateStatusBar.UpdateStatusBar.UpdateContent($"Successfully obtained hash for {fileNameWithoutExtension}", mainWindow);
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                UpdateStatusBar.UpdateStatusBar.UpdateContent($"Successfully obtained hash for {fileNameWithoutExtension}", mainWindow);
+            });
 
             // Use the lookup method from RetroAchievementsManager
             var matchedGame = raManager.GetGameInfoByHash(hash);
@@ -419,7 +474,11 @@ internal static class ContextMenuFunctions
             if (matchedGame != null)
             {
                 DebugLogger.Log($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
-                UpdateStatusBar.UpdateStatusBar.UpdateContent($"Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})", mainWindow);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})", mainWindow);
+                });
 
                 // Ensure this is run on the UI thread as it creates a new window
                 await mainWindow.Dispatcher.InvokeAsync(() =>
@@ -434,15 +493,23 @@ internal static class ContextMenuFunctions
             else
             {
                 DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
-                UpdateStatusBar.UpdateStatusBar.UpdateContent($"No match found for hash: {hash}", mainWindow);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"No match found for hash: {hash}", mainWindow);
+                });
 
                 var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                    var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
-                    retroAchievementsWindow.Show();
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects);
+                        retroAchievementsWindow.Show();
+                    });
                 }
             }
         }
@@ -450,7 +517,6 @@ internal static class ContextMenuFunctions
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
-
             MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
         }
         finally
@@ -830,7 +896,7 @@ internal static class ContextMenuFunctions
             _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController, loadingStateProvider);
 
             // Minimum wait time to process startup)
-            await Task.Delay(2000).ConfigureAwait(false);
+            await Task.Delay(2000);
 
             // Poll for new windows
             var maxWaitTime = TimeSpan.FromSeconds(30); // Max 30 seconds
@@ -840,7 +906,7 @@ internal static class ContextMenuFunctions
 
             while (stopwatch.Elapsed < maxWaitTime && !newWindowDetected)
             {
-                await Task.Delay(pollInterval).ConfigureAwait(false);
+                await Task.Delay(pollInterval);
 
                 var currentWindows = WindowManager.GetOpenWindows();
                 if (currentWindows.Count > initialCount)
@@ -931,11 +997,11 @@ internal static class ContextMenuFunctions
             playSoundEffects.PlayShutterSound();
 
             // Wait
-            await Task.Delay(1000).ConfigureAwait(false);
+            await Task.Delay(1000);
 
             // Show the flash effect
             var flashWindow = new FlashOverlayWindow();
-            await flashWindow.ShowFlashAsync().ConfigureAwait(false);
+            await flashWindow.ShowFlashAsync();
 
             if (button != null)
             {
@@ -948,7 +1014,7 @@ internal static class ContextMenuFunctions
                         if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
                         {
                             // Load the new screenshot image
-                            var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath).ConfigureAwait(false);
+                            var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);
                             imageControl.Source = loadedImage; // Assign the loaded image
                         }
                     }
@@ -966,7 +1032,7 @@ internal static class ContextMenuFunctions
             // Reload the current Game List
             try
             {
-                await mainWindow.LoadGameFilesAsync().ConfigureAwait(false);
+                await mainWindow.LoadGameFilesAsync();
             }
             catch (Exception ex)
             {

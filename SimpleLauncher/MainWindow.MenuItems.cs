@@ -983,8 +983,6 @@ public partial class MainWindow
 
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
-
-                ResetUiAsync();
             }
             else if (Equals(sender, ListView))
             {
@@ -994,10 +992,9 @@ public partial class MainWindow
 
                 GameFileGrid.Visibility = Visibility.Collapsed;
                 ListViewPreviewArea.Visibility = Visibility.Visible;
+
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
-
-                ResetUiAsync();
             }
 
             _settings.Save(); // Save the updated ViewMode
