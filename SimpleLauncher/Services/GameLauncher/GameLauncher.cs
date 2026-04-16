@@ -790,18 +790,27 @@ public partial class GameLauncher
                 loadingStateProvider.SetLoadingState(true, extractingMsg);
                 UpdateStatusBar.UpdateStatusBar.UpdateContent(extractingMsg, mainWindow);
 
-                var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
-
-                if (!string.IsNullOrEmpty(extractedGameFilePath))
+                try
                 {
-                    resolvedFilePath = extractedGameFilePath;
+                    var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
+
+                    if (!string.IsNullOrEmpty(extractedGameFilePath))
+                    {
+                        resolvedFilePath = extractedGameFilePath;
+                    }
+
+                    // Always store the temp directory path for cleanup, even if no game file was found within it
+                    tempExtractionPath = extractedTempDirPath;
+                }
+                finally
+                {
+                    // End extraction loading state before starting launch state
+                    loadingStateProvider.SetLoadingState(false);
                 }
 
-                // Always store the temp directory path for cleanup, even if no game file was found within it
-                tempExtractionPath = extractedTempDirPath;
-
+                // Update message for launching without incrementing count (caller already has loading state active)
                 var launchingMsg = (string)Application.Current.TryFindResource("Launching") ?? "Launching...";
-                loadingStateProvider.SetLoadingState(true, launchingMsg);
+                UpdateStatusBar.UpdateStatusBar.UpdateContent(launchingMsg, mainWindow);
             }
         }
 

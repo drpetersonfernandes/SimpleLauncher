@@ -588,7 +588,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         else
         {
-            Interlocked.Decrement(ref _loadingOperationsCount);
+            // Prevent negative reference count
+            if (_loadingOperationsCount > 0)
+            {
+                Interlocked.Decrement(ref _loadingOperationsCount);
+            }
+            else
+            {
+                DebugLogger.Log("[SetLoadingState] Warning: Attempted to decrement loading count when already at 0");
+            }
         }
 
         // Only update UI state if the counter transitioned between 0 and 1
@@ -604,6 +612,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             LoadingOverlay.Visibility = shouldShowOverlay ? Visibility.Visible : Visibility.Collapsed;
 
             // Disable the entire content area to prevent clicks/hotkeys during load
+            // Note: LoadingOverlay is now outside MainContentGrid, so it remains active
             MainContentGrid.IsEnabled = !shouldShowOverlay;
 
             if (isLoading && shouldShowOverlay && message != null)

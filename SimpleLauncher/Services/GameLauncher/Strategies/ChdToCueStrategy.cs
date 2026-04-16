@@ -40,10 +40,19 @@ public class ChdToCueStrategy : ILaunchStrategy
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingChdToCue") ?? "Converting CHD...";
         context.LoadingState.SetLoadingState(true, convertingMsg);
 
-        var cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(context.ResolvedFilePath);
+        string cuePath;
+        try
+        {
+            cuePath = await Converters.ConvertChdToCueBin.ConvertChdToCueBinAsync(context.ResolvedFilePath);
+        }
+        finally
+        {
+            // Always end conversion loading state before launching
+            context.LoadingState.SetLoadingState(false);
+        }
+
         if (cuePath == null)
         {
-            context.LoadingState.SetLoadingState(false);
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
             return;
         }

@@ -89,27 +89,39 @@ public class PlaySoundEffects
 
         try
         {
-            if (_currentMediaPlayer != null)
+            // MediaPlayer has thread affinity - must run on UI thread
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                _currentMediaPlayer.Stop();
-                _currentMediaPlayer.Close();
-            }
-
-            var playerInstance = new MediaPlayer();
-            playerInstance.MediaEnded += static (sender, _) =>
-            {
-                if (sender is not MediaPlayer endedPlayer) return;
-
-                endedPlayer.Close();
-                if (ReferenceEquals(_currentMediaPlayer, endedPlayer))
+                try
                 {
-                    _currentMediaPlayer = null;
-                }
-            };
+                    if (_currentMediaPlayer != null)
+                    {
+                        _currentMediaPlayer.Stop();
+                        _currentMediaPlayer.Close();
+                    }
 
-            playerInstance.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-            playerInstance.Play();
-            _currentMediaPlayer = playerInstance;
+                    var playerInstance = new MediaPlayer();
+                    playerInstance.MediaEnded += static (sender, _) =>
+                    {
+                        if (sender is not MediaPlayer endedPlayer) return;
+
+                        endedPlayer.Close();
+                        if (ReferenceEquals(_currentMediaPlayer, endedPlayer))
+                        {
+                            _currentMediaPlayer = null;
+                        }
+                    };
+
+                    playerInstance.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
+                    playerInstance.Play();
+                    _currentMediaPlayer = playerInstance;
+                }
+                catch (Exception ex)
+                {
+                    // Log error but don't crash - sound is not critical
+                    DebugLogger.Log($"[PlaySound] Error playing sound on UI thread: {ex.Message}");
+                }
+            });
         }
         catch (Exception ex)
         {

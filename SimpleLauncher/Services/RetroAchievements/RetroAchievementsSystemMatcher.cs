@@ -144,7 +144,8 @@ public static class RetroAchievementsSystemMatcher
             "scummvm", "scumm vm", "scumm-vm",
             "pinball arcade", "pinballarcade",
             "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
-            "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade"
+            "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade",
+            "Atari 5200"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

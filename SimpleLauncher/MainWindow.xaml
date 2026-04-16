@@ -15,12 +15,14 @@
         <converters1:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
     </Window.Resources>
 
-    <!-- Main Content Grid -->
-    <Grid x:Name="MainContentGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" /> <!-- Menu -->
-            <RowDefinition Height="*" /> <!-- Content -->
-        </Grid.RowDefinitions>
+    <!-- Root Grid to host MainContent and LoadingOverlay as siblings -->
+    <Grid>
+        <!-- Main Content Grid -->
+        <Grid x:Name="MainContentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" /> <!-- Menu -->
+                <RowDefinition Height="*" /> <!-- Content -->
+            </Grid.RowDefinitions>
 
         <!-- Top Menu -->
         <Menu Grid.Row="0" VerticalAlignment="Top"
@@ -1054,13 +1056,6 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- Loading Overlay stays OUTSIDE MainContentGrid so it remains active -->
-                    <ContentControl x:Name="LoadingOverlay"
-                                    Grid.Row="0"
-                                    Grid.RowSpan="3"
-                                    Panel.ZIndex="9999"
-                                    Template="{StaticResource LoadingOverlayTemplate}"
-                                    Visibility="Collapsed" />
                 </Grid>
 
                 <!-- Page Content Frame - for hosting Pages like Favorites, GlobalSearch, PlayHistory -->
@@ -1070,6 +1065,15 @@
                        NavigationUIVisibility="Hidden" />
             </Grid>
         </Grid> <!-- Content grid -->
-    </Grid> <!--Main content -->
+
+        </Grid> <!-- MainContentGrid ends -->
+
+        <!-- Loading Overlay stays OUTSIDE MainContentGrid so it remains active -->
+        <!-- This ensures the overlay and its Emergency Return Button work even when MainContentGrid is disabled -->
+        <ContentControl x:Name="LoadingOverlay"
+                        Panel.ZIndex="9999"
+                        Template="{StaticResource LoadingOverlayTemplate}"
+                        Visibility="Collapsed" />
+    </Grid> <!-- Root Grid ends -->
 
 </mah:MetroWindow>

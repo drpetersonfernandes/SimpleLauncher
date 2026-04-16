@@ -40,10 +40,19 @@ public class PbpToCueStrategy : ILaunchStrategy
         var convertingMsg = (string)Application.Current.TryFindResource("ConvertingPbpToCue") ?? "Converting PBP to CUE/BIN...";
         context.LoadingState.SetLoadingState(true, convertingMsg);
 
-        var cuePath = await Converters.ConvertPbpToCueBin.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
+        string cuePath;
+        try
+        {
+            cuePath = await Converters.ConvertPbpToCueBin.ConvertPbpToCueBinAsync(context.ResolvedFilePath);
+        }
+        finally
+        {
+            // Always end conversion loading state before launching
+            context.LoadingState.SetLoadingState(false);
+        }
+
         if (cuePath == null)
         {
-            context.LoadingState.SetLoadingState(false);
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
             return;
         }
