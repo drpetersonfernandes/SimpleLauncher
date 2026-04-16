@@ -376,15 +376,19 @@ internal static class ContextMenuFunctions
             }
 
             var preparingRaMsg = (string)Application.Current.TryFindResource("CalculatingGameHash") ?? "Calculating Game Hash... Please wait.";
-            (loadingStateProvider as Window)?.Dispatcher.Invoke(() => loadingStateProvider.SetLoadingState(true, preparingRaMsg));
 
-            Application.Current.Dispatcher.Invoke(() =>
+            // Show loading overlay before starting the hash calculation
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
+                loadingStateProvider.SetLoadingState(true, preparingRaMsg);
                 UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
-            });
+            }, System.Windows.Threading.DispatcherPriority.Render);
+
+            // Allow the UI to render the overlay before starting CPU-intensive hash calculation
+            await Task.Delay(100);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, null).ConfigureAwait(false);
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider).ConfigureAwait(false);
 
             if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
             {
