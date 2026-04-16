@@ -125,8 +125,11 @@ public class Stats
                     jsonContent = new StringContent(string.Empty, Encoding.UTF8, "application/json");
                 }
 
+                // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+
                 // Send the POST request.
-                using var response = await httpClient.PostAsync(_statsApiUrl, jsonContent);
+                using var response = await httpClient.PostAsync(_statsApiUrl, jsonContent, cts.Token);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -137,7 +140,7 @@ public class Stats
 
                 // Notify developer
                 // Log API response error
-                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorContent = await response.Content.ReadAsStringAsync(cts.Token);
                 var contextMessage = $"Stats API responded with an error.\n" +
                                      $"Status Code: '{response.StatusCode}'.\n" +
                                      $"Response Body: '{errorContent}'\n" +
@@ -145,6 +148,17 @@ public class Stats
                                      (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
+
+            return false;
+        }
+        catch (OperationCanceledException)
+        {
+            // Request timed out - don't crash, just log and return false
+            var contextMessage = $"Stats API request timed out after 15 seconds.\n" +
+                                 $"Stats API URL: '{_statsApiUrl}'.\n" +
+                                 $"CallType: {callType}" +
+                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             return false;
         }

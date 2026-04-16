@@ -94,7 +94,10 @@ public class LogErrorsService : ILogErrors
                 };
 
                 var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent).ConfigureAwait(false);
+
+                // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent, cts.Token).ConfigureAwait(false);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 
@@ -102,6 +105,14 @@ public class LogErrorsService : ILogErrors
             }
 
             // If httpClient is null, return false
+            return false;
+        }
+        catch (OperationCanceledException)
+        {
+            // Request timed out - log locally and don't crash
+            WriteLocalErrorLog(new TimeoutException("The request to the bug report API timed out after 15 seconds."), "Error sending the ErrorLog to the API: timeout.");
+            DebugLogger.Log("The ErrorLog request timed out after 15 seconds.");
+
             return false;
         }
         catch (Exception ex)

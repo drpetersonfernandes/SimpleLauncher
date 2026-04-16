@@ -161,7 +161,10 @@ public partial class SupportWindow : ILoadingState
                 // Construct the full API URL
                 var apiUrl = apiBaseUrl.TrimEnd('/');
 
-                using var response = await httpClient.PostAsync(apiUrl, jsonContent);
+                // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+
+                using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -175,7 +178,7 @@ public partial class SupportWindow : ILoadingState
                 else
                 {
                     // Get error details from the response
-                    var errorContent = await response.Content.ReadAsStringAsync();
+                    var errorContent = await response.Content.ReadAsStringAsync(cts.Token);
 
                     // Notify developer
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
@@ -185,6 +188,15 @@ public partial class SupportWindow : ILoadingState
                     MessageBoxLibrary.SupportRequestSendErrorMessageBox();
                 }
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // Request timed out - notify user and developer
+            const string contextMessage = "The support request timed out after 15 seconds. Please check your internet connection and try again.";
+            _ = _logErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.SupportRequestSendErrorMessageBox();
         }
         catch (Exception ex)
         {

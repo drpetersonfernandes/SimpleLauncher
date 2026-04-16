@@ -1612,7 +1612,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Afficher uniquement les jeux sans couverture</system:String>
     <system:String x:Key="Sienna">Terre de Sienne</system:String>
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' ne peut pas effectuer la tâche demandée.</system:String>
-    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' ne peut pas s'exécuter à partir d'un dossier temporaire.</system:String>**
+    <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' ne peut pas s'exécuter à partir d'un dossier temporaire.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' n'a pas pu accéder à l'API Web pour télécharger les URLs mises à jour. Veuillez réessayer plus tard.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' n'a pas pu calculer la valeur de hachage de ce jeu ou ce jeu n'est pas encore pris en charge par RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' n'a pas pu vérifier l'espace disque pour le chemin spécifié. Veuillez vérifier le chemin et réessayer.</system:String>

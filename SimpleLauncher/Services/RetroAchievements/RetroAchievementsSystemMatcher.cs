@@ -138,14 +138,14 @@ public static class RetroAchievementsSystemMatcher
             "sega model 2", "model 2",
             "sega model 3", "model 3",
             "sega naomi 2", "naomi 2",
-            "atomiswave",
-            "microsoft windows", "windows",
+            "atomiswave", "microsoft windows", "windows",
             "amstrad gx4000", "gx4000",
             "scummvm", "scumm vm", "scumm-vm",
             "pinball arcade", "pinballarcade",
             "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
             "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade",
-            "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk"
+            "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
+            "Adobe Flash", "Emulators"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

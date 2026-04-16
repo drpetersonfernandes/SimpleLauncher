@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
@@ -11,7 +12,7 @@ using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.GameScan;
 
-internal static class ScanMicrosoftStoreGames
+internal static partial class ScanMicrosoftStoreGames
 {
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
@@ -140,6 +141,10 @@ internal static class ScanMicrosoftStoreGames
             var jsonStr = output.Trim();
             // Safeguard against non-JSON output
             if (!jsonStr.StartsWith('[') && !jsonStr.StartsWith('{')) return;
+
+            // Remove invalid control characters that may appear in PowerShell output
+            // (e.g., game names containing control characters like 0x07 BEL)
+            jsonStr = SanitizeJsonControlCharacters(jsonStr);
 
             var allInstalledApps = new List<SelectableGameItem>();
 
@@ -530,6 +535,21 @@ internal static class ScanMicrosoftStoreGames
     }
 
     /// <summary>
+    /// Removes invalid control characters from JSON strings.
+    /// Control characters (0x00-0x1F) are not valid in JSON strings unless properly escaped.
+    /// This method removes them to prevent JsonReaderException.
+    /// </summary>
+    private static string SanitizeJsonControlCharacters(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return json;
+
+        // Remove control characters 0x00-0x1F except for valid whitespace:
+        // 0x09 (tab), 0x0A (line feed), 0x0D (carriage return)
+        // Also allow 0x7F (DEL) and 0x00 is already excluded
+        return MyRegex().Replace(json, "");
+    }
+
+    /// <summary>
     /// Detects if PowerShell error output indicates execution policy restrictions
     /// </summary>
     private static bool IsExecutionPolicyRestricted(string errorOutput)
@@ -544,4 +564,7 @@ internal static class ScanMicrosoftStoreGames
                  lowerError.Contains("cannot be loaded"))) ||
                (lowerError.Contains("is not digitally signed") && lowerError.Contains("execution policy"));
     }
+
+    [GeneratedRegex("[\0-\b\v\f\x0E-\x1F]")]
+    private static partial Regex MyRegex();
 }

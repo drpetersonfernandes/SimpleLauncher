@@ -28,7 +28,10 @@ public class ApplicationStats
             var json = JsonSerializer.Serialize(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            using var response = await client.PostAsync(statsUrl, content);
+            // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+
+            using var response = await client.PostAsync(statsUrl, content, cts.Token);
             if (!response.IsSuccessStatusCode)
             {
                 DebugLogger.Log($"ApplicationStats API returned: {response.StatusCode}");
@@ -43,6 +46,13 @@ public class ApplicationStats
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"ApplicationStats API returned: {response.StatusCode}");
                 }
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // Request timed out - log but don't crash
+            const string message = "ApplicationStats API call timed out after 15 seconds.";
+            DebugLogger.Log(message);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, message);
         }
         catch (Exception ex)
         {
