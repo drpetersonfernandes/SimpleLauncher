@@ -25,10 +25,10 @@ We've massively expanded CHD support to emulators that lack native CHD format su
 | FinalBurn Neo    | NEW - Working       |
 | FinalBurn Alpha  | NEW - Working       |
 | Raine            | NEW - Working       |
-| CD-i Emulator * | NEW - Working       |
+| CD-i Emulator ¹ | NEW - Working       |
 | Tsugaru          | NEW - Working       |
 
-* This emulator has official CHD support that doesn't work properly - Simple Launcher fixes that for you!
+¹ This emulator has official CHD support that doesn't work properly - Simple Launcher fixes that for you!
 
 ### 🏆 RetroAchievements: Welcome to the Wii & More!
 Achievement hunters, rejoice! We've overhauled our RetroAchievements integration:
