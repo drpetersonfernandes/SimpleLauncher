@@ -91,11 +91,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     } = true;
 
     private bool _isLoadingGames;
+    private int _loadingOperationsCount; // Reference counter for concurrent loading operations
 
     public bool IsLoadingGames
     {
         get => _isLoadingGames;
-        set
+        private set
         {
             _isLoadingGames = value;
             OnPropertyChanged(nameof(IsLoadingGames));
@@ -444,6 +445,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             _currentFilter = selectedLetter; // Update current filter
             _activeSearchQueryOrMode = null; // Reset special search mode
 
+            // Show loading overlay immediately with proper message
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
+            await Task.Yield(); // Allow UI to render the loading overlay
+
             await LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
         }
         catch (Exception ex)
@@ -473,6 +478,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             _currentFilter = null;
             _activeSearchQueryOrMode = "FAVORITES";
 
+            // Show loading overlay immediately with proper message
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
+            await Task.Yield(); // Allow UI to render the loading overlay
+
             await LoadGameFilesAsync(null, "FAVORITES", _cancellationSource.Token);
         }
         catch (Exception ex)
@@ -499,6 +508,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SearchTextBox.Text = "";
             _currentFilter = null;
             _activeSearchQueryOrMode = "RANDOM_SELECTION";
+
+            // Show loading overlay immediately with proper message
+            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
+            await Task.Yield(); // Allow UI to render the loading overlay
 
             await LoadGameFilesAsync(null, "RANDOM_SELECTION", _cancellationSource.Token);
 
@@ -567,21 +580,39 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
-        // Update the internal flags used by pagination/search logic
-        _isLoadingGames = isLoading;
-        IsLoadingGames = isLoading; // Notifies UI via PropertyChanged
+        // Use reference counting for concurrent loading operations
+        // This ensures the overlay stays visible if multiple operations are running
+        if (isLoading)
+        {
+            Interlocked.Increment(ref _loadingOperationsCount);
+        }
+        else
+        {
+            Interlocked.Decrement(ref _loadingOperationsCount);
+        }
 
-        // Visual Updates
+        // Only update UI state if the counter transitioned between 0 and 1
+        var shouldShowOverlay = _loadingOperationsCount > 0;
+
+        // Update the internal flags used by pagination/search logic
+        _isLoadingGames = shouldShowOverlay;
+        IsLoadingGames = shouldShowOverlay; // Notifies UI via PropertyChanged
+
+        // Visual Updates - only execute on UI thread when state actually changes
         Dispatcher.Invoke(() =>
         {
-            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            LoadingOverlay.Visibility = shouldShowOverlay ? Visibility.Visible : Visibility.Collapsed;
 
             // Disable the entire content area to prevent clicks/hotkeys during load
-            MainContentGrid.IsEnabled = !isLoading;
+            MainContentGrid.IsEnabled = !shouldShowOverlay;
 
-            if (isLoading)
+            if (isLoading && shouldShowOverlay && message != null)
             {
-                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+                LoadingOverlay.Content = message;
+            }
+            else if (!shouldShowOverlay)
+            {
+                LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
             }
         });
     }
@@ -591,7 +622,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // 1. Play a sound to confirm interaction
         _playSoundEffects?.PlayNotificationSound();
 
-        // 2. Force the loading flags to false
+        // 2. Reset the reference counter and force the loading flags to false
+        _loadingOperationsCount = 0;
         _isLoadingGames = false;
         IsLoadingGames = false;
 

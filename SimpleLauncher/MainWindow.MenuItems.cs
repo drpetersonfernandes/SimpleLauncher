@@ -234,6 +234,8 @@ public partial class MainWindow
             setLinksWindow.ShowDialog();
 
             var (sl, sq) = GetLoadGameFilesParams();
+            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+            await Task.Yield(); // Allow UI to render the loading overlay
             await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
@@ -319,6 +321,8 @@ public partial class MainWindow
                 _settings.Save();
 
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
 
                 // Notify user
@@ -357,6 +361,8 @@ public partial class MainWindow
             var (sl, sq) = GetLoadGameFilesParams();
             // Notify user
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFuzzyMatchingSettings") ?? "Opening fuzzy matching settings...", this);
+            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+            await Task.Yield(); // Allow UI to render the loading overlay
             await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)
@@ -435,6 +441,8 @@ public partial class MainWindow
                 UpdateShowGamesSetting("ShowAll");
                 UpdateMenuCheckMarks("ShowAll");
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
@@ -465,6 +473,8 @@ public partial class MainWindow
                 UpdateMenuCheckMarks("ShowWithCover");
 
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
@@ -495,6 +505,8 @@ public partial class MainWindow
                 UpdateMenuCheckMarks("ShowWithoutCover");
 
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
@@ -548,6 +560,8 @@ public partial class MainWindow
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", this);
 
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
@@ -587,6 +601,8 @@ public partial class MainWindow
                 UpdateButtonAspectRatioCheckMarks(aspectRatio);
 
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
@@ -639,6 +655,8 @@ public partial class MainWindow
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", this);
 
                 var (sl, sq) = GetLoadGameFilesParams();
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                await Task.Yield(); // Allow UI to render the loading overlay
                 await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
             }
             catch (Exception ex)
@@ -801,6 +819,8 @@ public partial class MainWindow
                 if (_settings.ViewMode == "GridView")
                 {
                     var (sl, sq) = GetLoadGameFilesParams();
+                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                    await Task.Yield(); // Allow UI to render the loading overlay
                     await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
             }
@@ -837,6 +857,8 @@ public partial class MainWindow
                 if (_settings.ViewMode == "GridView")
                 {
                     var (sl, sq) = GetLoadGameFilesParams();
+                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                    await Task.Yield(); // Allow UI to render the loading overlay
                     await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
             }
@@ -891,6 +913,8 @@ public partial class MainWindow
                 if (_settings.ViewMode == "GridView")
                 {
                     var (sl, sq) = GetLoadGameFilesParams();
+                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                    await Task.Yield(); // Allow UI to render the loading overlay
                     await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
             }
@@ -937,6 +961,8 @@ public partial class MainWindow
                 if (_settings.ViewMode == "GridView")
                 {
                     var (sl, sq) = GetLoadGameFilesParams();
+                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+                    await Task.Yield(); // Allow UI to render the loading overlay
                     await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
                 }
             }

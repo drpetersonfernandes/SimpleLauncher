@@ -272,6 +272,8 @@ public partial class MainWindow
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...", this);
 
             var (sl, sq) = GetLoadGameFilesParams();
+            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+            await Task.Yield(); // Allow UI to render the loading overlay
             await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
         catch (Exception ex)

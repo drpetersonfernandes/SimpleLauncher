@@ -17,11 +17,8 @@ public partial class MainWindow
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
 
-        // Only set generic message if not already loading a specific action
-        if (!_isLoadingGames)
-        {
-            Dispatcher.Invoke(() => SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
-        }
+        // Note: Loading overlay should be shown by the caller before invoking this method
+        // to ensure immediate UI feedback. This prevents the overlay from flickering or not showing.
 
         await SetUiBeforeLoadGameFilesAsync();
 
@@ -191,12 +188,10 @@ public partial class MainWindow
         }
         finally
         {
-            // Only reset the loading state if this is still the active task.
-            // If cancelled, a newer task has taken over and will manage the state.
-            if (cancellationToken == _cancellationSource.Token)
-            {
-                Dispatcher.Invoke(() => SetLoadingState(false));
-            }
+            // Always decrement the loading counter when this operation completes.
+            // The reference counting in SetLoadingState ensures the overlay stays visible
+            // if there are other concurrent operations still running.
+            Dispatcher.Invoke(() => SetLoadingState(false));
         }
 
         return;
