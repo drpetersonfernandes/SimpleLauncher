@@ -145,7 +145,7 @@ public static class RetroAchievementsSystemMatcher
             "pinball arcade", "pinballarcade",
             "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
             "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade",
-            "Atari 5200"
+            "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
