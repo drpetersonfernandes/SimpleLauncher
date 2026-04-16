@@ -11,22 +11,22 @@ We've massively expanded CHD support to emulators that lack native CHD format su
 
 | Emulator         | CHD Support |
 |------------------|-------------|
-| RPCS3            | Added       |
-| Xemu             | Added       |
-| Xenia            | Added       |
-| Cxbx-Reloaded    | Added       |
-| Mednafen         | Added       |
-| PCSX-Redux       | Added       |
-| 4DO              | Added       |
-| Gens             | Added       |
-| Blastem          | Added       |
-| Yabause          | Added       |
-| Mesen            | Added       |
-| FinalBurn Neo    | Added       |
-| FinalBurn Alpha  | Added       |
-| Raine            | Added       |
-| CD-i Emulator * | Added       |
-| Tsugaru          | Added       |
+| RPCS3            | Working since version 5.2       |
+| Xemu             | Working since version 5.2       |
+| Xenia            | Working since version 5.2       |
+| Cxbx-Reloaded    | Working since version 5.2       |
+| Mednafen         | NEW - Working       |
+| PCSX-Redux       | NEW - Working       |
+| 4DO              | NEW - Working       |
+| Gens             | NEW - Working       |
+| Blastem          | NEW - Working       |
+| Yabause          | NEW - Working       |
+| Mesen            | NEW - Working       |
+| FinalBurn Neo    | NEW - Working       |
+| FinalBurn Alpha  | NEW - Working       |
+| Raine            | NEW - Working       |
+| CD-i Emulator * | NEW - Working       |
+| Tsugaru          | NEW - Working       |
 
 * This emulator has official CHD support that doesn't work properly - Simple Launcher fixes that for you!
 
