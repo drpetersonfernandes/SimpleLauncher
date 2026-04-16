@@ -163,7 +163,7 @@ The launcher supports an extensive range of gaming systems including:
 | FinalBurn Alpha | ✅ Added | Arcade |
 | Raine | ✅ Added | Arcade |
 | CD-i Emulator | ✅ Added | Philips CD-i |
-| Tsugaru | ✅ Added | PC-9800 series |
+| Tsugaru | ✅ Added | FM Towns |
 
 ---
 
