@@ -1128,7 +1128,7 @@ internal static class ContextMenuFunctions
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(coverPath);
 
                 // Reload the current Game List
-                await mainWindow.LoadGameFilesAsync().ConfigureAwait(false);
+                await mainWindow.LoadGameFilesAsync();
             }
         }
         catch (Exception ex)
