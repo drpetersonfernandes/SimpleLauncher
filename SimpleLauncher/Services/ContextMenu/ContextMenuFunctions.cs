@@ -388,7 +388,7 @@ internal static class ContextMenuFunctions
             await Task.Delay(100);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider).ConfigureAwait(false);
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider);
 
             if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
             {
@@ -1068,7 +1068,7 @@ internal static class ContextMenuFunctions
                 playSoundEffects.PlayTrashSound();
 
                 // Invalidate the game file caches in the main window
-                await mainWindow.InvalidateGameFileCachesAsync().ConfigureAwait(false);
+                await mainWindow.InvalidateGameFileCachesAsync();
 
                 // Notify user
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
@@ -1076,7 +1076,7 @@ internal static class ContextMenuFunctions
                 // Reload the current Game List to reflect the deletion
                 try
                 {
-                    await mainWindow.LoadGameFilesAsync().ConfigureAwait(false);
+                    await mainWindow.LoadGameFilesAsync();
                 }
                 catch (Exception ex)
                 {
@@ -1120,7 +1120,7 @@ internal static class ContextMenuFunctions
                 DeleteFiles.TryDeleteFile(coverPath);
             }
 
-            await Task.Delay(400).ConfigureAwait(false);
+            await Task.Delay(400);
 
             if (!File.Exists(coverPath))
             {

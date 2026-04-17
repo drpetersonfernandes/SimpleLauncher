@@ -90,7 +90,7 @@ public partial class UpdateChecker
                         if (updaterZipAssetUrl != null)
                         {
                             var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content);
-                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow).ConfigureAwait(false);
+                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
                         }
                         else
                         {
@@ -143,7 +143,7 @@ public partial class UpdateChecker
                     {
                         if (updaterZipAssetUrl != null)
                         {
-                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow).ConfigureAwait(false);
+                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
                         }
                         else
                         {
@@ -250,7 +250,7 @@ public partial class UpdateChecker
             try
             {
                 using var memoryStream = new MemoryStream();
-                await DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream).ConfigureAwait(false);
+                await DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                 logWindow.Log($"Extracting updater to '{appDirectory}'...");
                 if (ExtractAllFromZip(memoryStream, appDirectory, logWindow))
@@ -274,7 +274,7 @@ public partial class UpdateChecker
             if (updaterReady && File.Exists(updaterExePath))
             {
                 logWindow.Log("Launching newly updated Updater.exe...");
-                await Task.Delay(500).ConfigureAwait(false); // Brief delay for UI to update
+                await Task.Delay(500); // Brief delay for UI to update
                 QuitSimpleLauncher.ShutdownForUpdate(updaterExePath);
                 return; // The application will be terminated by ShutdownForUpdate.
             }
@@ -284,7 +284,7 @@ public partial class UpdateChecker
             if (File.Exists(updaterExePath))
             {
                 logWindow.Log("Launching existing Updater.exe...");
-                await Task.Delay(500).ConfigureAwait(false);
+                await Task.Delay(500);
                 QuitSimpleLauncher.ShutdownForUpdate(updaterExePath);
                 return; // The application will be terminated by ShutdownForUpdate.
             }

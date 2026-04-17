@@ -628,7 +628,7 @@ public partial class SystemManager
 
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
                 }
-            }).ConfigureAwait(false);
+            });
         }
         catch (Exception ex)
         {
@@ -668,7 +668,7 @@ public partial class SystemManager
                         xmlDoc.Save(systemXmlPath);
                     }
                 }
-            }).ConfigureAwait(false);
+            });
         }
         catch (Exception ex)
         {
