@@ -850,7 +850,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
 
         // Clear PreviewImage
-        PreviewImage.Source = null;
+        PreviewImage.Dispatcher.Invoke(() => PreviewImage.Source = null);
 
         // Clear Game Grid
         GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
@@ -859,18 +859,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         await Dispatcher.InvokeAsync(() => GameListItems.Clear());
 
         // Set ViewMode based on user preference
-        if (_settings.ViewMode == "GridView")
+        await Dispatcher.InvokeAsync(() =>
         {
-            // Allow GridView
-            GameFileGrid.Visibility = Visibility.Visible;
-            ListViewPreviewArea.Visibility = Visibility.Collapsed;
-        }
-        else
-        {
-            // Allow ListView
-            GameFileGrid.Visibility = Visibility.Collapsed;
-            ListViewPreviewArea.Visibility = Visibility.Visible;
-        }
+            if (_settings.ViewMode == "GridView")
+            {
+                // Allow GridView
+                GameFileGrid.Visibility = Visibility.Visible;
+                ListViewPreviewArea.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                // Allow ListView
+                GameFileGrid.Visibility = Visibility.Collapsed;
+                ListViewPreviewArea.Visibility = Visibility.Visible;
+            }
+        });
     }
 
     private Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)

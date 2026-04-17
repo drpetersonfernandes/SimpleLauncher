@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">El 99% de los fallos de lanzamiento se deben a parámetros incorrectos.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Vuelve al 'Modo Experto' y verifica el campo de parámetros para este emulador. Verifica la ruta al núcleo deseado. Lee las recomendaciones del desarrollador de 'Simple Launcher' para el sistema específico.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Verifica los requisitos del núcleo para ejecutarlo. Algunos núcleos requieren un archivo BIOS para funcionar. Lee la documentación del núcleo para saber cuáles son los requisitos para ese núcleo específico.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">El parámetro de RetroArch debe comenzar con -L para apuntar correctamente al núcleo deseado.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">El parámetro de RetroArch debe contener -L para apuntar correctamente al núcleo deseado.</system:String>
     <system:String x:Key="RetroArchSettings">Configuración de RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Descargador de portadas de juegos retro</system:String>
     <system:String x:Key="ReturnButton">[ Volver ]</system:String>

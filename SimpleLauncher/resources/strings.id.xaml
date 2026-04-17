@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% kegagalan peluncuran disebabkan oleh parameter yang salah.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Kembali ke 'Mode Ahli' dan periksa kembali bidang parameter untuk emulator ini. Periksa kembali jalur ke core yang diinginkan. Baca rekomendasi dari pengembang 'Simple Launcher' untuk sistem tertentu.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Periksa persyaratan core untuk menjalankannya. Beberapa core memerlukan file BIOS agar berfungsi. Baca dokumentasi core untuk mengetahui apa saja persyaratannya untuk core tersebut.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">Parameter RetroArch harus dimulai dengan -L untuk menunjuk dengan benar ke core yang diinginkan.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">Parameter RetroArch harus mengandung -L untuk menunjuk dengan benar ke core yang diinginkan.</system:String>
     <system:String x:Key="RetroArchSettings">Pengaturan RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Pengunduh Sampul Game Retro</system:String>
     <system:String x:Key="ReturnButton">[ Kembali ]</system:String>

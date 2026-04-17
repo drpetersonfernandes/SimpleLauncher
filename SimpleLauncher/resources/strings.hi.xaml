@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% लॉन्च विफलताएँ गलत पैरामीटर के कारण होती हैं।</system:String>
     <system:String x:Key="RetroArchParameterIssue3">'विशेषज्ञ मोड' पर वापस जाएँ और इस एमुलेटर के लिए पैरामीटर फ़ील्ड को दोबारा जाँचें। वांछित कोर के पथ को दोबारा जाँचें। विशिष्ट सिस्टम के लिए 'सिंपल लॉन्चर' डेवलपर की सिफारिशें पढ़ें।</system:String>
     <system:String x:Key="RetroArchParameterIssue4">इसे चलाने के लिए कोर आवश्यकताओं की जाँच करें। कुछ कोर को काम करने के लिए BIOS फ़ाइल की आवश्यकता होती है। उस विशिष्ट कोर के लिए क्या आवश्यकताएँ हैं, यह जानने के लिए कोर दस्तावेज़ पढ़ें।</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArch पैरामीटर को वांछित कोर को ठीक से इंगित करने के लिए -L से शुरू होना चाहिए।</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArch पैरामीटर को वांछित कोर को ठीक से इंगित करने के लिए -L शामिल होना चाहिए।</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch सेटिंग्स</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">रेट्रो गेम कवर डाउनलोडर</system:String>
     <system:String x:Key="ReturnButton">[ वापस जाएं ]</system:String>

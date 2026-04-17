@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99%的启动失败是由于参数不正确。</system:String>
     <system:String x:Key="RetroArchParameterIssue3">返回“专家模式”并仔细检查此模拟器的参数字段。仔细检查所需核心的路径。阅读“Simple Launcher”开发者针对特定系统的建议。</system:String>
     <system:String x:Key="RetroArchParameterIssue4">检查核心的运行要求。某些核心需要BIOS文件才能工作。阅读核心文档以了解该特定核心的要求。</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArch参数应以-L开头，以正确指向所需的核心。</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArch参数应包含-L，以正确指向所需的核心。</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch设置</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">复古游戏封面下载器</system:String>
     <system:String x:Key="ReturnButton">[ 返回 ]</system:String>

@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% các lỗi khởi chạy là do tham số không chính xác.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Quay lại 'Chế độ chuyên gia' và kiểm tra kỹ trường tham số cho trình giả lập này. Kiểm tra kỹ đường dẫn đến lõi mong muốn. Đọc các khuyến nghị từ nhà phát triển 'Simple Launcher' cho hệ thống cụ thể.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Kiểm tra các yêu cầu của lõi để chạy nó. Một số lõi yêu cầu tệp BIOS để hoạt động. Đọc tài liệu lõi để tìm hiểu các yêu cầu cho lõi cụ thể đó.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">Tham số RetroArch phải bắt đầu bằng -L để trỏ đúng đến lõi mong muốn.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">Tham số RetroArch phải chứa -L để trỏ đúng đến lõi mong muốn.</system:String>
     <system:String x:Key="RetroArchSettings">Cài đặt RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Trình tải bìa trò chơi cổ điển</system:String>
     <system:String x:Key="ReturnButton">[ Quay lại ]</system:String>

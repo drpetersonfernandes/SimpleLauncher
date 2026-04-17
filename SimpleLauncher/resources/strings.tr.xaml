@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">Başlatma hatalarının %99'u yanlış parametrelerden kaynaklanmaktadır.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">'Uzman Modu'na geri dönün ve bu emülatör için parametre alanını tekrar kontrol edin. İstenen çekirdeğin yolunu tekrar kontrol edin. 'Simple Launcher' geliştiricisinin belirli sistem için önerilerini okuyun.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Çekirdeği çalıştırmak için gereksinimleri kontrol edin. Bazı çekirdekler çalışmak için bir BIOS dosyası gerektirir. Bu çekirdek için gereksinimlerin ne olduğunu öğrenmek için çekirdek belgelerini okuyun.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArch parametresi, istenen çekirdeği doğru şekilde işaret etmek için -L ile başlamalıdır.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArch parametresi, istenen çekirdeği doğru şekilde işaret etmek için -L içermelidir.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch Ayarları</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Retro Oyun Kapağı İndirici</system:String>
     <system:String x:Key="ReturnButton">[ Geri Dön ]</system:String>

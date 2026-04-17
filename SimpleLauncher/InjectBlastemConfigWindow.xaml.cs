@@ -81,47 +81,66 @@ public partial class InjectBlastemConfigWindow
         _settings.Save();
     }
 
-    private bool InjectConfig()
+    private record InjectionResult(bool Success, string ErrorMessage, Exception OriginalException);
+
+    private InjectionResult InjectConfig()
     {
         var path = EnsureEmulatorPath();
         if (string.IsNullOrEmpty(path))
-            return false;
+        {
+            var errorMsg = string.IsNullOrEmpty(_emulatorPath)
+                ? "Blastem emulator path is not configured."
+                : $"Blastem emulator not found at: {_emulatorPath}";
+            return new InjectionResult(false, errorMsg, null);
+        }
 
         try
         {
             BlastemConfigurationService.InjectSettings(path, _settings);
-            return true;
+            return new InjectionResult(true, null, null);
         }
-        catch (InvalidOperationException ex)
+        catch (FileNotFoundException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Blastem configuration injection failed for path: {path}");
-            return false;
+            var errorMsg = $"Configuration file not found for Blastem at: {path}. Details: {ex.Message}";
+            _logErrors.LogErrorAsync(ex, errorMsg);
+            return new InjectionResult(false, errorMsg, ex);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            var errorMsg = $"Permission denied accessing Blastem configuration at: {path}. Details: {ex.Message}";
+            _logErrors.LogErrorAsync(ex, errorMsg);
+            return new InjectionResult(false, errorMsg, ex);
+        }
+        catch (IOException ex)
+        {
+            var errorMsg = $"I/O error while accessing Blastem configuration at: {path}. Details: {ex.Message}";
+            _logErrors.LogErrorAsync(ex, errorMsg);
+            return new InjectionResult(false, errorMsg, ex);
+        }
+        catch (Exception ex)
+        {
+            var errorMsg = $"Blastem configuration injection failed for path: {path}. Details: {ex.Message}";
+            _logErrors.LogErrorAsync(ex, errorMsg);
+            return new InjectionResult(false, errorMsg, ex);
         }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        try
+        var result = InjectConfig();
+
+        if (result.Success)
         {
-            if (InjectConfig())
-            {
-                ShouldRun = true;
-                Close();
-            }
-            else
-            {
-                // Injection failed: Notify user → Notify developer → Close window → Launch game
-                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Blastem injection failed"), emulatorName, _emulatorPath, this);
-                ShouldRun = true; // Game should still launch
-            }
+            ShouldRun = true;
+            Close();
         }
-        catch (InvalidOperationException ex)
+        else
         {
             // Injection failed: Notify user → Notify developer → Close window → Launch game
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            var exception = result.OriginalException ?? new InvalidOperationException(result.ErrorMessage);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, exception, emulatorName, _emulatorPath, this);
             ShouldRun = true; // Game should still launch
         }
     }
@@ -129,25 +148,19 @@ public partial class InjectBlastemConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        try
+        var result = InjectConfig();
+
+        if (result.Success)
         {
-            if (InjectConfig())
-            {
-                MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
-                Close();
-            }
-            else
-            {
-                // Injection failed: Notify user → Notify developer → Close window
-                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Blastem injection failed"), emulatorName, _emulatorPath, this);
-            }
+            MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
+            Close();
         }
-        catch (InvalidOperationException ex)
+        else
         {
             // Injection failed: Notify user → Notify developer → Close window
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
+            var exception = result.OriginalException ?? new InvalidOperationException(result.ErrorMessage);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, exception, emulatorName, _emulatorPath, this);
         }
     }
 }

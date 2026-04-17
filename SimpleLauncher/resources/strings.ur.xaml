@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">لانچ کی 99% ناکامیاں غلط پیرامیٹرز کی وجہ سے ہوتی ہیں۔</system:String>
     <system:String x:Key="RetroArchParameterIssue3">'ایکسپرٹ موڈ' پر واپس جائیں اور اس ایمولیٹر کے لیے پیرامیٹر فیلڈ کو دوبارہ چیک کریں۔ مطلوبہ کور کے راستے کو دوبارہ چیک کریں۔ مخصوص سسٹم کے لیے 'سادہ لانچر' ڈویلپر کی سفارشات پڑھیں۔</system:String>
     <system:String x:Key="RetroArchParameterIssue4">اسے چلانے کے لیے کور کی ضروریات چیک کریں۔ کچھ کورز کو کام کرنے کے لیے BIOS فائل کی ضرورت ہوتی ہے۔ اس مخصوص کور کے لیے کیا ضروریات ہیں یہ جاننے کے لیے کور کی دستاویزات پڑھیں۔</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArch پیرامیٹر کو مطلوبہ کور کی صحیح نشاندہی کرنے کے لیے -L سے شروع ہونا چاہیے۔</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArch پیرامیٹر کو مطلوبہ کور کی صحیح نشاندہی کرنے کے لیے -L کا ہونا ضروری ہے۔</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch سیٹنگز</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">ریٹرو گیم کور ڈاؤنلوڈر</system:String>
     <system:String x:Key="ReturnButton">[ واپسی ]</system:String>

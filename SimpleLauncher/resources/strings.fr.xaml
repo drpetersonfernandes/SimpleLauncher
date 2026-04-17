@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% des échecs de lancement sont dus à des paramètres incorrects.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Retournez en 'Mode Expert' et vérifiez attentivement le champ des paramètres pour cet émulateur. Vérifiez le chemin d'accès au cœur désiré. Lisez les recommandations du développeur de 'Simple Launcher' pour le système spécifique.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Vérifiez les exigences du cœur pour le faire fonctionner. Certains cœurs nécessitent un fichier BIOS pour fonctionner. Lisez la documentation du cœur pour savoir quelles sont les exigences pour ce cœur spécifique.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">Le paramètre RetroArch doit commencer par -L pour pointer correctement vers le cœur désiré.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">Le paramètre RetroArch doit contenir -L pour pointer correctement vers le cœur désiré.</system:String>
     <system:String x:Key="RetroArchSettings">Paramètres RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Téléchargeur de pochettes de jeux rétro</system:String>
     <system:String x:Key="ReturnButton">[ Retour ]</system:String>

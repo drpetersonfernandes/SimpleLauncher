@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">실행 실패의 99%는 잘못된 매개변수 때문입니다.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">'전문가 모드'로 돌아가 이 에뮬레이터의 매개변수 필드를 다시 확인하십시오. 원하는 코어 경로를 다시 확인하십시오. 특정 시스템에 대한 'Simple Launcher' 개발자의 권장 사항을 읽어보십시오.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">코어 실행 요구 사항을 확인하십시오. 일부 코어는 작동하려면 BIOS 파일이 필요합니다. 해당 코어의 요구 사항이 무엇인지 파악하려면 코어 문서를 읽어보십시오.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArch 매개변수는 원하는 코어를 제대로 가리키기 위해 -L로 시작해야 합니다.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArch 매개변수는 원하는 코어를 제대로 가리키기 위해 -L을 포함해야 합니다.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch 설정</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">레트로 게임 커버 다운로더</system:String>
     <system:String x:Key="ReturnButton">[ 돌아가기 ]</system:String>

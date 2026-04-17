@@ -1423,7 +1423,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% of the launch failures are due to incorrect parameters.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Go back to 'Expert Mode' and double-check the parameter field for this emulator. Double-check the path to the desired core. Read the recommendations from the 'Simple Launcher' developer for the specific system.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Check the core requirements to run it. Some cores require a BIOS file to work. Read the core documentation to figure out what the requirements are for that specific core.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">The RetroArch parameter should start with -L to properly point to the desired core.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">The RetroArch parameter should contain -L to properly point to the desired core.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch Settings</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Retro Game Cover Downloader</system:String>
     <system:String x:Key="ReturnButton">[ Return ]</system:String>

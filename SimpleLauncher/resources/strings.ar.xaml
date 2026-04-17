@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% من حالات فشل التشغيل ترجع إلى معلمات غير صحيحة.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">ارجع إلى "الوضع الخبير" وتحقق جيدًا من حقل المعلمة لهذا المحاكي. تحقق جيدًا من المسار إلى النواة المطلوبة. اقرأ التوصيات من مطور "Simple Launcher" للنظام المحدد.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">تحقق من متطلبات النواة لتشغيلها. تتطلب بعض النوى ملف BIOS للعمل. اقرأ وثائق النواة لمعرفة ما هي المتطلبات لتلك النواة المحددة.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">يجب أن تبدأ معلمة RetroArch بـ -L للإشارة بشكل صحيح إلى النواة المطلوبة.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">يجب أن تحتوي معلمة RetroArch على -L للإشارة بشكل صحيح إلى النواة المطلوبة.</system:String>
     <system:String x:Key="RetroArchSettings">إعدادات RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">مُنزّل أغلفة الألعاب الكلاسيكية</system:String>
     <system:String x:Key="ReturnButton">[ عودة ]</system:String>

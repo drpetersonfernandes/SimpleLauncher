@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% сбоев запуска происходят из-за неправильных параметров.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Вернитесь в "Экспертный режим" и перепроверьте поле параметра для этого эмулятора. Дважды проверьте путь к желаемому ядру. Прочитайте рекомендации разработчика "Simple Launcher" для конкретной системы.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Проверьте требования ядра для его запуска. Некоторые ядра требуют файл BIOS для работы. Прочитайте документацию ядра, чтобы выяснить, каковы требования для этого конкретного ядра.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">Параметр RetroArch должен начинаться с -L, чтобы правильно указывать на желаемое ядро.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">Параметр RetroArch должен содержать -L, чтобы правильно указывать на желаемое ядро.</system:String>
     <system:String x:Key="RetroArchSettings">Настройки RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Загрузчик обложек ретро-игр</system:String>
     <system:String x:Key="ReturnButton">[ Назад ]</system:String>

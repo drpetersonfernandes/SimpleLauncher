@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">৯৯% লঞ্চ ব্যর্থতা ভুল প্যারামিটারের কারণে হয়।</system:String>
     <system:String x:Key="RetroArchParameterIssue3">'বিশেষজ্ঞ মোডে' ফিরে যান এবং এই এমুলেটরের জন্য প্যারামিটার ক্ষেত্রটি দুবার পরীক্ষা করুন। কাঙ্ক্ষিত কোরের পথটি দুবার পরীক্ষা করুন। নির্দিষ্ট সিস্টেমের জন্য 'সিম্পল লঞ্চার' ডেভেলপারের সুপারিশগুলি পড়ুন।</system:String>
     <system:String x:Key="RetroArchParameterIssue4">এটি চালানোর জন্য কোরের প্রয়োজনীয়তাগুলি পরীক্ষা করুন। কিছু কোরের কাজ করার জন্য একটি BIOS ফাইল প্রয়োজন। সেই নির্দিষ্ট কোরের জন্য কী কী প্রয়োজনীয়তা রয়েছে তা জানতে কোরের ডকুমেন্টেশন পড়ুন।</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArch প্যারামিটারটি কাঙ্ক্ষিত কোরের দিকে সঠিকভাবে নির্দেশ করার জন্য -L দিয়ে শুরু হওয়া উচিত।</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArch প্যারামিটারটি কাঙ্ক্ষিত কোরের দিকে সঠিকভাবে নির্দেশ করার জন্য -L থাকা উচিত।</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch সেটিংস</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">রেট্রো গেম কভার ডাউনলোডার</system:String>
     <system:String x:Key="ReturnButton">[ ফিরে যান ]</system:String>

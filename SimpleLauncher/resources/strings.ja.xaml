@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">起動失敗の99%は、パラメータが間違っていることが原因です。</system:String>
     <system:String x:Key="RetroArchParameterIssue3">「エキスパートモード」に戻り、このエミュレータのパラメータフィールドを再確認してください。目的のコアへのパスを再確認してください。「Simple Launcher」開発者からの特定のシステムに関する推奨事項を読んでください。</system:String>
     <system:String x:Key="RetroArchParameterIssue4">コアを実行するための要件を確認してください。一部のコアは動作するためにBIOSファイルを必要とします。その特定のコアの要件を把握するために、コアのドキュメントを読んでください。</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">RetroArchのパラメータは、目的のコアを適切に指定するために -L で始まる必要があります。</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">RetroArchのパラメータは、目的のコアを適切に指定するために -L を含む必要があります。</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch設定</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">レトロゲームカバー・ダウンローダー</system:String>
     <system:String x:Key="ReturnButton">[ 戻る ]</system:String>

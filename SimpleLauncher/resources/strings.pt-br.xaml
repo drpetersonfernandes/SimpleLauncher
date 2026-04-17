@@ -1420,7 +1420,7 @@
     <system:String x:Key="RetroArchParameterIssue2">99% das falhas de inicialização são devido a parâmetros incorretos.</system:String>
     <system:String x:Key="RetroArchParameterIssue3">Volte para o 'Modo Expert' e verifique novamente o campo de parâmetro para este emulador. Verifique novamente o caminho para o core desejado. Leia as recomendações do desenvolvedor do 'Simple Launcher' para o sistema específico.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Verifique os requisitos do core para executá-lo. Alguns cores exigem um arquivo BIOS para funcionar. Leia a documentação do core para descobrir quais são os requisitos para aquele core específico.</system:String>
-    <system:String x:Key="RetroArchParameterShouldStartWithL">O parâmetro do RetroArch deve começar com -L para apontar corretamente para o core desejado.</system:String>
+    <system:String x:Key="RetroArchParameterShouldContainL">O parâmetro do RetroArch deve conter -L para apontar corretamente para o core desejado.</system:String>
     <system:String x:Key="RetroArchSettings">Configurações do RetroArch</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Downloader de Capas de Jogos Retrô</system:String>
     <system:String x:Key="ReturnButton">[ Voltar ]</system:String>
