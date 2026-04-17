@@ -1,3 +1,37 @@
+# Release 5.3.1
+*2026-04-17*
+---
+
+# 🔧 Bug Fixes & Improvements
+
+### 🐛 Bug Fixes
+
+- **Fixed HTTP Request Timeouts** - Added 15-second timeouts to all HTTP requests (bug reports, stats, support requests) to prevent indefinite hangs when network issues occur
+- **Fixed Microsoft Store Game Scanning** - Added sanitization for JSON control characters that could cause crashes when parsing game data with special characters
+- **Fixed Thread Safety Issues** - Wrapped UI updates in dispatcher invocations in MainWindow to prevent cross-thread access exceptions
+- **Fixed Directory Creation** - Ensured destination directories exist before saving extracted icons
+
+### ✨ Improvements
+
+- **Enhanced RetroArch Validation** - Changed parameter validation from "must start with -L" to "must contain -L" for more flexible core configuration
+- **Improved Blastem Error Handling** - Added comprehensive error handling for Blastem configuration injection with specific exception types (FileNotFound, UnauthorizedAccess, IOException)
+- **Better Batch File Error Reporting** - Batch file failures now create proper exceptions for better debugging
+
+### 📦 Tools & Dependencies
+
+- Updated BatchConvertToRVZ and RomValidator binaries
+- Added 7z DLLs for arm64/x64 architectures
+- Removed unused 7z DLLs from cleanup list
+
+### 📚 Documentation
+
+- Fixed Tsugaru emulator platform documentation (PC-9800 series → FM Towns)
+- Updated CD-i Emulator footnote formatting in changelog
+
+### 🌐 Localization
+
+- Updated RetroArch parameter error messages in all 16 supported languages
+
 # Release 5.3.0
 *2026-04-16*
 ---
