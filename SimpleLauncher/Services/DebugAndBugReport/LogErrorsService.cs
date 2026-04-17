@@ -2,6 +2,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Windows;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 
@@ -34,18 +35,18 @@ public class LogErrorsService : ILogErrors
         var userLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         var errorMessage = BugReportFormatter.BuildReport(ex, contextMessage);
 
-        await LogFileLock.WaitAsync().ConfigureAwait(false);
+        await LogFileLock.WaitAsync();
         try
         {
             // Append the error message to the general log
-            await File.AppendAllTextAsync(errorLogPath, errorMessage).ConfigureAwait(false);
+            await File.AppendAllTextAsync(errorLogPath, errorMessage);
 
             // Append the error message to the user-specific log
             var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
-            if (true) await File.AppendAllTextAsync(userLogPath, userErrorMessage).ConfigureAwait(false);
+            if (true) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
 
             // Attempt to send the error log content to the API only if enabled
-            if (await SendLogToApiAsync(errorMessage).ConfigureAwait(false))
+            if (await SendLogToApiAsync(errorMessage))
             {
                 // If the log was successfully sent, delete the general log file to clean up.
                 if (File.Exists(errorLogPath))
@@ -57,7 +58,10 @@ public class LogErrorsService : ILogErrors
                     catch (Exception ex2)
                     {
                         WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
-                        DebugLogger.LogException(ex2, "Error deleting the ErrorLog");
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            DebugLogger.LogException(ex2, "Error deleting the ErrorLog");
+                        });
                     }
                 }
             }
@@ -97,7 +101,7 @@ public class LogErrorsService : ILogErrors
 
                 // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent, cts.Token).ConfigureAwait(false);
+                using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent, cts.Token);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 

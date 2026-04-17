@@ -787,6 +787,9 @@
         <None Update="parameters.md">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="Updater.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">

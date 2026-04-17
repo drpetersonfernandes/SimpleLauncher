@@ -321,7 +321,7 @@ public partial class App : IDisposable
                 {
                     try
                     {
-                        await logErrors.LogErrorAsync(ex, contextMessage).ConfigureAwait(false);
+                        await logErrors.LogErrorAsync(ex, contextMessage);
                     }
                     catch (Exception fireForgetEx)
                     {

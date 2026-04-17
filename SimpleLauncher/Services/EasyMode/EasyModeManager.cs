@@ -44,7 +44,7 @@ public class EasyModeManager : IDisposable
 
         // If XML fails or is empty, try loading from the API
         DebugLogger.Log("Local EasyMode XML not found or is empty. Attempting to load from API.");
-        manager = await LoadFromApiAsync().ConfigureAwait(false);
+        manager = await LoadFromApiAsync();
         if (manager != null && manager.Systems.Count != 0)
         {
             DebugLogger.Log("Successfully loaded EasyMode configuration from API.");
@@ -114,7 +114,7 @@ public class EasyModeManager : IDisposable
 
     private static async Task<EasyModeManager> LoadFromApiAsync()
     {
-        await CacheLock.WaitAsync().ConfigureAwait(false);
+        await CacheLock.WaitAsync();
         try
         {
             // Get cache duration from configuration (default to 60 minutes)
@@ -131,7 +131,7 @@ public class EasyModeManager : IDisposable
 
             // Cache miss or expired, fetch from API
             DebugLogger.Log("EasyMode session cache miss or expired. Fetching from API...");
-            var manager = await FetchFromApiAsync().ConfigureAwait(false);
+            var manager = await FetchFromApiAsync();
 
             if (manager is { Systems.Count: > 0 })
             {
@@ -163,12 +163,12 @@ public class EasyModeManager : IDisposable
 
             // Use a CancellationToken with a timeout
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            var response = await client.GetAsync($"api/Systems/{architecture}", cts.Token).ConfigureAwait(false);
+            var response = await client.GetAsync($"api/Systems/{architecture}", cts.Token);
 
             response.EnsureSuccessStatusCode();
 
-            var stream = await response.Content.ReadAsStreamAsync(cts.Token).ConfigureAwait(false);
-            var systems = await JsonSerializer.DeserializeAsync<List<EasyModeSystemConfig>>(stream, JsonOptions, cts.Token).ConfigureAwait(false);
+            var stream = await response.Content.ReadAsStreamAsync(cts.Token);
+            var systems = await JsonSerializer.DeserializeAsync<List<EasyModeSystemConfig>>(stream, JsonOptions, cts.Token);
 
             if (systems == null || systems.Count == 0)
             {
