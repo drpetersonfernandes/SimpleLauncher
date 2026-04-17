@@ -155,10 +155,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.deps.json"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.dll"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.pdb"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.runtimeconfig.json"),
-
-        Path.Combine(AppDirectory, "tools", "RomValidator", "7z_arm64.dll"),
-        Path.Combine(AppDirectory, "tools", "RomValidator", "7z_x64.dll")
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.runtimeconfig.json")
     ];
 
     private static readonly string[] FilesToDeleteIfCurrentArchitectureIsX64 =
