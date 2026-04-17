@@ -4734,7 +4734,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RetroArchParameterShouldStartWithL()
+    internal static void RetroArchParameterShouldContainL()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4742,7 +4742,7 @@ internal static class MessageBoxLibrary
         static void ShowMessage()
         {
             var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var message = (string)Application.Current.TryFindResource("RetroArchParameterShouldStartWithL") ?? "The RetroArch parameter should start with -L to properly point to the desired core.";
+            var message = (string)Application.Current.TryFindResource("RetroArchParameterShouldContainL") ?? "The RetroArch parameter should contain -L to properly point to the desired core.";
             var message2 = (string)Application.Current.TryFindResource("EditthissysteminExpertModeandfixtheparameter") ?? "Edit this system in 'Expert Mode' and fix the parameter field for this emulator.";
             System.Windows.MessageBox.Show($"{message}\n\n" +
                                            $"{message2}", title, MessageBoxButton.OK, MessageBoxImage.Error);

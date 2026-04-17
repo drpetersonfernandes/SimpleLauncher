@@ -312,6 +312,12 @@ internal static partial class ScanMicrosoftStoreGames
 
     private static async Task TryExtractStoreIconAsync(ILogErrors logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
     {
+        // Ensure the destination directory exists
+        if (!Directory.Exists(windowsImagesPath))
+        {
+            Directory.CreateDirectory(windowsImagesPath);
+        }
+
         var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         // Check if a valid icon already exists (non-zero size to handle corrupt/empty files from previous failed copies)
         if (File.Exists(destPath))

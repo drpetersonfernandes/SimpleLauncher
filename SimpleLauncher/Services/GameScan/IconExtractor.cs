@@ -36,6 +36,14 @@ public static class IconExtractor
             {
                 using var icon = Icon.FromHandle(hIcon);
                 using var bmp = icon.ToBitmap();
+
+                // Ensure the directory exists before saving
+                var directory = Path.GetDirectoryName(savePath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
                 bmp.Save(savePath, ImageFormat.Png);
             }
         }

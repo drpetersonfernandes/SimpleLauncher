@@ -326,7 +326,8 @@ public partial class GameLauncher
                                   $"Error: {error}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
                 var contextMessage = $"{errorDetail}\n{userNotified}";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                var batchException = new InvalidOperationException($"Batch file exited with code {process.ExitCode}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(batchException, contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
@@ -749,13 +750,13 @@ public partial class GameLauncher
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
 
-        if (isRetroArch && (selectedEmulatorManager != null) && (!selectedEmulatorManager.EmulatorParameters.StartsWith("-L", StringComparison.OrdinalIgnoreCase)))
+        if (isRetroArch && (selectedEmulatorManager != null) && (!selectedEmulatorManager.EmulatorParameters.Contains("-L", StringComparison.OrdinalIgnoreCase)))
         {
-            var errorMessage = $"[LaunchRegularEmulatorAsync] RetroArch parameter should start with -L. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
+            var errorMessage = $"[LaunchRegularEmulatorAsync] RetroArch parameter should contain -L. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
             DebugLogger.Log(errorMessage);
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
-            MessageBoxLibrary.RetroArchParameterShouldStartWithL();
+            MessageBoxLibrary.RetroArchParameterShouldContainL();
 
             return;
         }
