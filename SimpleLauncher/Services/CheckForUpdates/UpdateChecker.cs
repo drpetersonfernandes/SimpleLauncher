@@ -75,12 +75,12 @@ public partial class UpdateChecker
             {
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest").ConfigureAwait(false);
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
                     DebugLogger.Log("Check for Updates Success");
 
-                    var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var content = await response.Content.ReadAsStringAsync();
                     var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
                     if (latestVersion == null) return;
@@ -124,12 +124,12 @@ public partial class UpdateChecker
             {
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest").ConfigureAwait(false);
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
                     DebugLogger.Log("Check for Updates Success");
 
-                    var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    var content = await response.Content.ReadAsStringAsync();
                     var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
                     if (latestVersion == null)
@@ -201,7 +201,7 @@ public partial class UpdateChecker
             {
                 _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest").ConfigureAwait(false);
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (!response.IsSuccessStatusCode)
                 {
                     // Notify developer
@@ -209,7 +209,7 @@ public partial class UpdateChecker
                     return (null, null);
                 }
 
-                var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
                 return (updaterZipAssetUrl, latestVersion);
             }
@@ -327,10 +327,10 @@ public partial class UpdateChecker
         // Use the pre-initialized HttpClient instance
         if (_httpClient != null)
         {
-            using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
-            await using var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            await stream.CopyToAsync(memoryStream).ConfigureAwait(false);
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            await stream.CopyToAsync(memoryStream);
         }
 
         memoryStream.Position = 0;

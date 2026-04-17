@@ -45,7 +45,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "7z.exe"),
         Path.Combine(AppDirectory, "7z_x86.exe"),
         Path.Combine(AppDirectory, "whatsnew.txt"),
-        Path.Combine(AppDirectory, "Updater.exe"),
+        // Path.Combine(AppDirectory, "Updater.exe"),
         Path.Combine(AppDirectory, "easymode.xml"),
         Path.Combine(AppDirectory, "easymode_arm64.xml"),
         Path.Combine(AppDirectory, "error_user.log"),
