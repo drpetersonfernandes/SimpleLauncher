@@ -1,46 +1,67 @@
 using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text.Json;
-using System.Text.RegularExpressions;
 using System.Windows;
-using SharpCompress.Archives.Zip;
+using Updater.Services;
 
 namespace Updater;
 
+/// <summary>
+/// Exception marker to track exceptions that have already been reported to avoid duplicate bug reports.
+/// </summary>
+internal class AlreadyReportedException : Exception
+{
+    public AlreadyReportedException(Exception innerException) : base("Exception already reported", innerException)
+    {
+    }
+}
+
+/// <summary>
+/// Main window for the Updater application that manages the update process for SimpleLauncher.
+/// </summary>
 public partial class MainWindow
 {
-    private const string RepoOwner = "drpetersonfernandes";
-    private const string RepoName = "SimpleLauncher";
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-    private readonly string[] _args;
     private static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromMinutes(5) };
+
+    private readonly UpdateService _updateService;
+    private readonly string[] _args;
+
+    // Files to exclude during extraction to prevent self-destruction
+    private static readonly string[] IgnoredFiles =
+    [
+        "Updater.exe",
+        "Updater.pdb",
+        "Updater.dll",
+        "Updater.deps.json",
+        "Updater.runtimeconfig.json"
+    ];
 
     static MainWindow()
     {
         HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SimpleLauncher-Updater");
     }
 
-    private static string CurrentRuntimeIdentifier
+    /// <summary>
+    /// Disposes the HttpClient instance. Should be called when the application is shutting down.
+    /// </summary>
+    public static void DisposeHttpClient()
     {
-        get
-        {
-            var arch = RuntimeInformation.ProcessArchitecture;
-            return arch switch
-            {
-                Architecture.Arm64 => "win-arm64",
-                _ => "win-x64"
-            };
-        }
+        HttpClient.Dispose();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the MainWindow class.
+    /// </summary>
+    /// <param name="args">Command line arguments, typically containing the process ID of the main application.</param>
     public MainWindow(string[] args)
     {
         InitializeComponent();
         _args = args;
+
+        // Initialize services
+        _updateService = CreateUpdateService();
+        WireUpServiceEvents();
 
         // Force UI to show on top and focused
         Loaded += (_, _) =>
@@ -57,242 +78,116 @@ public partial class MainWindow
         Loaded += async (_, _) => await ExecuteUpdateAsync();
     }
 
+    /// <summary>
+    /// Creates and configures the UpdateService with all required dependencies.
+    /// </summary>
+    private static UpdateService CreateUpdateService()
+    {
+        var gitHubService = new GitHubService(HttpClient);
+        var downloadService = new DownloadService(HttpClient);
+        var zipService = new ZipService(AppDirectory);
+        var processService = new ProcessService();
+
+        return new UpdateService(gitHubService, downloadService, zipService, processService, AppDirectory);
+    }
+
+    /// <summary>
+    /// Wires up event handlers for the UpdateService events.
+    /// </summary>
+    private void WireUpServiceEvents()
+    {
+        _updateService.LogMessage += Log;
+        _updateService.DownloadProgressChanged += (_, e) =>
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                DownloadProgressBar.Value = e.Percentage;
+                ProgressStatusText.Text = e.StatusText;
+            });
+        };
+        _updateService.DownloadProgressReset += (_, _) =>
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                DownloadProgressBar.Value = 0;
+                ProgressStatusText.Text = "Download complete";
+            });
+        };
+        _updateService.ExtractionStarted += (_, _) =>
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                DownloadProgressBar.Maximum = 100;
+                DownloadProgressBar.Value = 0;
+                ProgressStatusText.Text = "Extracting files...";
+            });
+        };
+        _updateService.ExtractionProgressChanged += (_, e) =>
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                DownloadProgressBar.Value = e.Percentage;
+                ProgressStatusText.Text = e.StatusText;
+            });
+        };
+        _updateService.ExtractionCompleted += (_, _) =>
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                DownloadProgressBar.Value = 0;
+                ProgressStatusText.Text = "Extraction complete";
+            });
+        };
+    }
+
+    /// <summary>
+    /// Gets the version of the currently executing assembly.
+    /// </summary>
+    /// <returns>The application version string, or "Version not available" if the version cannot be determined.</returns>
     private static string GetApplicationVersion()
     {
         var version = Assembly.GetExecutingAssembly().GetName().Version;
         return version?.ToString() ?? "Version not available";
     }
 
+    /// <summary>
+    /// Executes the update process asynchronously with error handling and bug reporting.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     private async Task ExecuteUpdateAsync()
     {
         try
         {
-            await UpdateProcessAsync();
+            // Parse process ID from command line arguments
+            int? processId = null;
+            if (_args.Length > 0 && int.TryParse(_args[0], out var pid))
+            {
+                processId = pid;
+            }
+
+            // Execute the update through the service
+            var result = await _updateService.ExecuteUpdateAsync(processId, IgnoredFiles);
+
+            if (result.Success)
+            {
+                MessageBox.Show("Update installed successfully.", "Success",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
+                _updateService.RestartMainApplication();
+                Close();
+            }
+            else if (result.RequiresManualUpdate)
+            {
+                RedirectToDownloadPage(result.ErrorMessage ?? "Automatic update failed.\n\nWould you like to update manually?");
+            }
         }
         catch (Exception ex)
         {
+            // Report bug to the bug report API
+            await BugReportService.ReportBugAsync(ex, "Error during main update execution");
+
             Log($"An error occurred during update process: {ex.Message}");
             Log("Please update manually.");
-        }
-    }
-
-    private async Task UpdateProcessAsync()
-    {
-        if (string.IsNullOrEmpty(AppDirectory))
-        {
-            Log("Could not determine the application directory.");
-            RedirectToDownloadPage("Could not determine the application directory.\n\n" +
-                                   "The automatic update won't work.\n\n" +
-                                   "Would you like to update manually?");
-            return;
-        }
-
-        try
-        {
-            // Wait for the main application to exit using its Process ID
-            await WaitForMainAppToExitAsync();
-
-            // Fetch the latest release from GitHub
-            Log("Fetching the latest release from GitHub...");
-            var (latestVersion, assetUrl) = await GetLatestReleaseAssetUrlAsync();
-            Log($"Latest version found: {latestVersion}");
-            Log($"Release package URL: {assetUrl}");
-
-            // Download the update file to memory
-            Log("Downloading the update file...");
-            await using var updateFileStream = await DownloadUpdateFileToMemoryAsync(assetUrl);
-
-            // Files to exclude during extraction to prevent self-destruction
-            var ignoredFiles = new[]
-            {
-                "Updater.exe",
-                "Updater.pdb",
-                "Updater.dll",
-                "Updater.deps.json",
-                "Updater.runtimeconfig.json"
-            };
-
-            // Extract the ZIP file
-            Log("Extracting update files...");
-            updateFileStream.Position = 0;
-            using (var archive = ZipArchive.OpenArchive(updateFileStream))
-            {
-                foreach (var entry in archive.Entries)
-                {
-                    if (string.IsNullOrEmpty(entry.Key)) continue;
-
-                    var fileName = Path.GetFileName(entry.Key);
-                    if (!string.IsNullOrEmpty(fileName) && ignoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
-                    {
-                        Log($"Skipping self-update file: {entry.Key}");
-                        continue;
-                    }
-
-                    var destinationPath = Path.Combine(AppDirectory, entry.Key);
-                    var destinationDirectory = Path.GetDirectoryName(destinationPath);
-
-                    if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
-                        Directory.CreateDirectory(destinationDirectory);
-
-                    if (entry.IsDirectory) continue;
-
-                    await using (var entryStream = entry.OpenEntryStream())
-                    await using (var destinationFileStream = new FileStream(
-                                     destinationPath,
-                                     FileMode.Create,
-                                     FileAccess.Write,
-                                     FileShare.None,
-                                     81920,
-                                     true))
-                    {
-                        await entryStream.CopyToAsync(destinationFileStream);
-                    }
-
-                    Log($"Extracted: {entry.Key}");
-                }
-            }
-
-            Log("Update installed successfully.");
-            MessageBox.Show("Update installed successfully.", "Success",
-                MessageBoxButton.OK, MessageBoxImage.Information);
-
-            RestartMainApplication();
-            Close();
-        }
-        catch (Exception ex)
-        {
-            Log($"Automatic update failed: {ex.Message}");
-            RedirectToDownloadPage("Automatic update failed.\n\n" +
-                                   "Would you like to update manually?");
-        }
-    }
-
-    private async Task WaitForMainAppToExitAsync()
-    {
-        if (_args.Length > 0 && int.TryParse(_args[0], out var pid))
-        {
-            try
-            {
-                var mainAppProcess = Process.GetProcessById(pid);
-                Log($"Waiting for Simple Launcher (PID: {pid}) to exit...");
-
-                // Use Task.Run to prevent UI freeze during the synchronous WaitForExit
-                await Task.Run(() => mainAppProcess.WaitForExit(10000));
-
-                if (!mainAppProcess.HasExited)
-                {
-                    Log("Warning: Simple Launcher did not exit in time. Update may fail.");
-                }
-                else
-                {
-                    Log("Simple Launcher has exited.");
-                }
-            }
-            catch (ArgumentException)
-            {
-                Log("Simple Launcher process not found. Assuming it has already exited.");
-            }
-        }
-        else
-        {
-            Log("No PID provided by Simple Launcher. Waiting for 3 seconds (this is unreliable)...");
-            await Task.Delay(3000); // Added await
-        }
-    }
-
-    private static async Task<MemoryStream> DownloadUpdateFileToMemoryAsync(string url)
-    {
-        var response = await HttpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new HttpRequestException($"Failed to download the update file. Status Code: {response.StatusCode}");
-        }
-
-        var memoryStream = new MemoryStream();
-        try
-        {
-            await response.Content.CopyToAsync(memoryStream);
-            memoryStream.Position = 0;
-            return memoryStream;
-        }
-        catch
-        {
-            memoryStream.Dispose();
-            throw;
-        }
-    }
-
-    private async Task<(string version, string assetUrl)> GetLatestReleaseAssetUrlAsync()
-    {
-        const string apiUrl = $"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest";
-        var response = await HttpClient.GetAsync(apiUrl);
-
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new HttpRequestException($"Failed to fetch release info. Status Code: {response.StatusCode}");
-        }
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        using var jsonDoc = JsonDocument.Parse(jsonResponse);
-        var root = jsonDoc.RootElement;
-
-        var versionTag = root.GetProperty("tag_name").GetString() ?? string.Empty;
-        var versionMatch = MyRegex().Match(versionTag);
-        var rawVersionString = versionMatch.Success ? versionMatch.Value : "0.0.0.0";
-        var normalizedVersion = NormalizeVersion(rawVersionString);
-
-        var expectedAssetName = $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
-        Log($"Searching for asset: {expectedAssetName}");
-
-        if (root.TryGetProperty("assets", out var assetsElement))
-        {
-            foreach (var asset in assetsElement.EnumerateArray())
-            {
-                var assetName = asset.GetProperty("name").GetString();
-                if (assetName?.Equals(expectedAssetName, StringComparison.OrdinalIgnoreCase) == true)
-                {
-                    var assetUrl = asset.GetProperty("browser_download_url").GetString();
-                    if (!string.IsNullOrEmpty(assetUrl))
-                    {
-                        return (normalizedVersion, assetUrl);
-                    }
-                }
-            }
-        }
-
-        throw new InvalidOperationException($"Could not find the required asset '{expectedAssetName}' in the latest release.");
-    }
-
-    private void RestartMainApplication()
-    {
-        try
-        {
-            var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
-
-            // Check if the executable exists before attempting to start it
-            if (!File.Exists(simpleLauncherExePath))
-            {
-                Log("SimpleLauncher.exe not found. Cannot restart automatically.");
-                MessageBox.Show("SimpleLauncher.exe was not found. Please start the application manually.",
-                    "Executable Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = simpleLauncherExePath,
-                Arguments = "-whatsnew",
-                UseShellExecute = true,
-                WorkingDirectory = AppDirectory
-            };
-            Process.Start(startInfo);
-        }
-        catch (Exception ex)
-        {
-            Log($"Failed to restart the main application: {ex.Message}");
-            MessageBox.Show("Update complete, but failed to restart SimpleLauncher automatically. Please start it manually.",
-                "Restart Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -303,12 +198,7 @@ public partial class MainWindow
         var result = MessageBox.Show(message, "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result == MessageBoxResult.Yes)
         {
-            const string downloadPageUrl = $"https://github.com/{RepoOwner}/{RepoName}/releases/latest";
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = downloadPageUrl,
-                UseShellExecute = true
-            });
+            _updateService.OpenManualDownloadPage();
         }
 
         Close();
@@ -318,7 +208,7 @@ public partial class MainWindow
     {
         if (!Dispatcher.CheckAccess())
         {
-            Dispatcher.BeginInvoke(new Action(() => Log(message)));
+            Dispatcher.BeginInvoke(() => Log(message));
             return;
         }
 
@@ -329,26 +219,29 @@ public partial class MainWindow
                 LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
                 LogTextBox.ScrollToEnd();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
-                // Window may have been closed, ignore logging
+                // Window may have been closed, ignore logging but report bug (fire-and-forget)
+                _ = ReportBugFireAndForgetAsync(ex, "Error logging message to UI");
             }
         }
     }
 
-    private static string NormalizeVersion(string version)
+    /// <summary>
+    /// Fire-and-forget helper for reporting bugs from synchronous contexts.
+    /// Logs exceptions to Debug output if the bug report itself fails.
+    /// </summary>
+    private static async Task ReportBugFireAndForgetAsync(Exception exception, string context)
     {
-        if (string.IsNullOrEmpty(version)) return "0.0.0.0";
-
-        var parts = new List<string>(version.Split('.'));
-        while (parts.Count < 4)
+        try
         {
-            parts.Add("0");
+            await BugReportService.ReportBugAsync(exception, context);
         }
-
-        return string.Join(".", parts.Take(4));
+        catch (Exception ex)
+        {
+            // If bug reporting fails, log to debug output - don't throw
+            Debug.WriteLine($"Failed to report bug: {ex.Message}");
+            Debug.WriteLine($"Original exception: {exception.Message}");
+        }
     }
-
-    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled)]
-    private static partial Regex MyRegex();
 }
