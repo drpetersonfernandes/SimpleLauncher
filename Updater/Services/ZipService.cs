@@ -1,6 +1,7 @@
 using System.Security;
 using System.IO;
-using SharpCompress.Archives.Zip;
+using SharpCompress.Readers;
+using SharpCompress.Readers.Zip;
 
 namespace Updater.Services;
 
@@ -10,11 +11,6 @@ namespace Updater.Services;
 public class ExtractionProgressInfo
 {
     /// <summary>
-    /// The percentage of completion (0-100).
-    /// </summary>
-    public double Percentage { get; set; }
-
-    /// <summary>
     /// The current file being extracted.
     /// </summary>
     public string? CurrentFile { get; set; }
@@ -23,11 +19,6 @@ public class ExtractionProgressInfo
     /// The number of files extracted so far.
     /// </summary>
     public int ExtractedCount { get; set; }
-
-    /// <summary>
-    /// The total number of files to extract.
-    /// </summary>
-    public int TotalEntries { get; set; }
 }
 
 /// <summary>
@@ -66,6 +57,7 @@ public class ZipService
 
     /// <summary>
     /// Extracts a ZIP archive from a memory stream to the application directory.
+    /// Uses streaming extraction without upfront indexing for faster start.
     /// </summary>
     /// <param name="zipStream">The memory stream containing the ZIP archive.</param>
     /// <returns>The number of files extracted.</returns>
@@ -75,78 +67,72 @@ public class ZipService
         LogMessage?.Invoke("Extracting update files...");
 
         zipStream.Position = 0;
-        using var archive = ZipArchive.OpenArchive(zipStream);
-        var entries = archive.Entries.Where(static e => !string.IsNullOrEmpty(e.Key)).ToList();
-        var totalEntries = entries.Count;
         var extractedCount = 0;
 
-        // Report initial progress
-        ProgressChanged?.Invoke(new ExtractionProgressInfo
-        {
-            Percentage = 0,
-            CurrentFile = null,
-            ExtractedCount = 0,
-            TotalEntries = totalEntries
-        });
+        // Use ZipReader for streaming extraction - no upfront indexing needed
+        using var reader = ZipReader.OpenReader(zipStream, new ReaderOptions { LeaveStreamOpen = true });
 
-        foreach (var entry in entries)
+        while (reader.MoveToNextEntry())
         {
+            var entryKey = reader.Entry.Key;
+
             try
             {
-                extractedCount++;
-                var fileName = Path.GetFileName(entry.Key);
+                // Skip directory entries
+                if (reader.Entry.IsDirectory)
+                    continue;
+
+                // Skip entries without keys
+                if (string.IsNullOrEmpty(entryKey))
+                    continue;
+
+                var fileName = Path.GetFileName(entryKey);
                 if (!string.IsNullOrEmpty(fileName) && IgnoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                 {
-                    LogMessage?.Invoke($"Skipping self-update file: {entry.Key}");
+                    LogMessage?.Invoke($"Skipping self-update file: {entryKey}");
                     continue;
                 }
 
                 // Validate and sanitize entry path to prevent path traversal attacks
-                if (entry.Key != null)
+                var safeEntryName = entryKey.Replace("..", "").TrimStart('/', '\\');
+                var destinationPath = Path.GetFullPath(Path.Combine(_appDirectory, safeEntryName));
+                var appDirectoryFullPath = Path.GetFullPath(_appDirectory);
+
+                // Security check: ensure the destination path is within AppDirectory
+                if (!destinationPath.StartsWith(appDirectoryFullPath, StringComparison.OrdinalIgnoreCase))
                 {
-                    var safeEntryName = entry.Key.Replace("..", "").TrimStart('/', '\\');
-                    var destinationPath = Path.GetFullPath(Path.Combine(_appDirectory, safeEntryName));
-                    var appDirectoryFullPath = Path.GetFullPath(_appDirectory);
-
-                    // Security check: ensure the destination path is within AppDirectory
-                    if (!destinationPath.StartsWith(appDirectoryFullPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        throw new SecurityException($"Zip entry attempts to escape target directory: {entry.Key}");
-                    }
-
-                    var destinationDirectory = Path.GetDirectoryName(destinationPath);
-
-                    if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
-                        Directory.CreateDirectory(destinationDirectory);
-
-                    if (entry.IsDirectory) continue;
-
-                    // Report extraction progress
-                    var extractPercentage = totalEntries > 0 ? (double)extractedCount / totalEntries * 100 : 0;
-                    ProgressChanged?.Invoke(new ExtractionProgressInfo
-                    {
-                        Percentage = extractPercentage,
-                        CurrentFile = entry.Key,
-                        ExtractedCount = extractedCount,
-                        TotalEntries = totalEntries
-                    });
-
-                    await using var entryStream = entry.OpenEntryStream();
-                    await using var destinationFileStream = new FileStream(
-                        destinationPath,
-                        FileMode.Create,
-                        FileAccess.Write,
-                        FileShare.None,
-                        FileBufferSize,
-                        true);
-                    await entryStream.CopyToAsync(destinationFileStream);
+                    throw new SecurityException($"Zip entry attempts to escape target directory: {entryKey}");
                 }
 
-                LogMessage?.Invoke($"Extracted: {entry.Key}");
+                var destinationDirectory = Path.GetDirectoryName(destinationPath);
+
+                if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
+                    Directory.CreateDirectory(destinationDirectory);
+
+                extractedCount++;
+
+                // Report extraction progress (current file only, no percentage)
+                ProgressChanged?.Invoke(new ExtractionProgressInfo
+                {
+                    CurrentFile = entryKey,
+                    ExtractedCount = extractedCount
+                });
+
+                await using var destinationFileStream = new FileStream(
+                    destinationPath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None,
+                    FileBufferSize,
+                    true);
+                await using var entryStream = reader.OpenEntryStream();
+                await entryStream.CopyToAsync(destinationFileStream);
+
+                LogMessage?.Invoke($"Extracted: {entryKey}");
             }
             catch (Exception ex)
             {
-                await BugReportService.ReportBugAsync(ex, $"Error extracting file: {entry.Key}");
+                await BugReportService.ReportBugAsync(ex, $"Error extracting file: {entryKey}");
                 throw;
             }
         }
@@ -154,13 +140,11 @@ public class ZipService
         // Report completion
         ProgressChanged?.Invoke(new ExtractionProgressInfo
         {
-            Percentage = 100,
             CurrentFile = null,
-            ExtractedCount = extractedCount,
-            TotalEntries = totalEntries
+            ExtractedCount = extractedCount
         });
 
-        LogMessage?.Invoke("Extraction complete");
+        LogMessage?.Invoke($"Extraction complete ({extractedCount} files extracted)");
         return extractedCount;
     }
 }

@@ -117,8 +117,6 @@ public partial class MainWindow
         {
             Dispatcher.BeginInvoke(() =>
             {
-                DownloadProgressBar.Maximum = 100;
-                DownloadProgressBar.Value = 0;
                 ProgressStatusText.Text = "Extracting files...";
             });
         };
@@ -126,7 +124,6 @@ public partial class MainWindow
         {
             Dispatcher.BeginInvoke(() =>
             {
-                DownloadProgressBar.Value = e.Percentage;
                 ProgressStatusText.Text = e.StatusText;
             });
         };
@@ -134,7 +131,6 @@ public partial class MainWindow
         {
             Dispatcher.BeginInvoke(() =>
             {
-                DownloadProgressBar.Value = 0;
                 ProgressStatusText.Text = "Extraction complete";
             });
         };

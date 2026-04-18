@@ -18,10 +18,8 @@ public class DownloadProgressEventArgs : EventArgs
 /// </summary>
 public class ExtractionProgressEventArgs : EventArgs
 {
-    public double Percentage { get; set; }
     public string? CurrentFile { get; set; }
     public int ExtractedCount { get; set; }
-    public int TotalEntries { get; set; }
     public string StatusText { get; set; } = string.Empty;
 }
 
@@ -277,23 +275,17 @@ public class UpdateService
         string statusText;
         if (info.CurrentFile != null)
         {
-            statusText = $"Extracting ({info.ExtractedCount}/{info.TotalEntries}): {info.CurrentFile}";
-        }
-        else if (info.Percentage >= 100)
-        {
-            statusText = "Extraction complete";
+            statusText = $"Extracting ({info.ExtractedCount}): {info.CurrentFile}";
         }
         else
         {
-            statusText = "Extracting files...";
+            statusText = "Extraction complete";
         }
 
         ExtractionProgressChanged?.Invoke(this, new ExtractionProgressEventArgs
         {
-            Percentage = info.Percentage,
             CurrentFile = info.CurrentFile,
             ExtractedCount = info.ExtractedCount,
-            TotalEntries = info.TotalEntries,
             StatusText = statusText
         });
     }
