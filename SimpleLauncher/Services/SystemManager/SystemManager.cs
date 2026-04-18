@@ -15,6 +15,12 @@ namespace SimpleLauncher.Services.SystemManager;
 public partial class SystemManager
 {
     private static readonly object XmlLock = new();
+
+    // Portable mode support for system.xml
+    private static string _systemXmlFilePath;
+    private static bool _isPortableMode;
+    private static bool _pathInitialized;
+
     public string SystemName { get; init; }
     public List<string> SystemFolders { get; init; }
     public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
@@ -26,11 +32,180 @@ public partial class SystemManager
     public bool GroupByFolder { get; init; }
     public bool DisableRecursiveSearch { get; init; }
 
+    /// <summary>
+    /// Gets the path to system.xml, determining the location based on portable mode availability.
+    /// This method ensures the path is initialized and returns the appropriate location.
+    /// </summary>
+    /// <param name="configuration">The application configuration.</param>
+    /// <returns>The full path to system.xml.</returns>
+    private static string GetSystemXmlPath(IConfiguration configuration)
+    {
+        // Initialize path if not already done
+        if (!_pathInitialized)
+        {
+            InitializeSystemXmlPath(configuration);
+        }
+
+        return _systemXmlFilePath;
+    }
+
+    /// <summary>
+    /// Initializes the system.xml file path, preferring portable mode but falling back to LocalAppData if necessary.
+    /// </summary>
+    /// <param name="configuration">The application configuration.</param>
+    private static void InitializeSystemXmlPath(IConfiguration configuration)
+    {
+        var configuredPath = configuration.GetValue<string>("SystemXmlPath") ?? "system.xml";
+        var portablePath = PathHelper.ResolveRelativeToAppDirectory(configuredPath) ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+        var localAppDataPath = Path.Combine(appDataFolder, "system.xml");
+
+        // Check if settings already exist in either location
+        var portableSettingsExist = File.Exists(portablePath);
+        var localAppDataSettingsExist = File.Exists(localAppDataPath);
+
+        switch (portableSettingsExist)
+        {
+            case true when !localAppDataSettingsExist:
+                // Existing portable installation - keep using portable mode
+                _systemXmlFilePath = portablePath;
+                _isPortableMode = true;
+                break;
+            case false when localAppDataSettingsExist:
+                // Settings were previously moved to LocalAppData - continue using it
+                _systemXmlFilePath = localAppDataPath;
+                _isPortableMode = false;
+                break;
+            case true when localAppDataSettingsExist:
+            {
+                // Both exist - use the more recently modified one
+                var portableInfo = new FileInfo(portablePath);
+                var localInfo = new FileInfo(localAppDataPath);
+                if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
+                {
+                    _systemXmlFilePath = portablePath;
+                    _isPortableMode = true;
+                }
+                else
+                {
+                    _systemXmlFilePath = localAppDataPath;
+                    _isPortableMode = false;
+                }
+
+                break;
+            }
+            default:
+            {
+                // No existing settings - try portable mode first
+                if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
+                {
+                    _systemXmlFilePath = portablePath;
+                    _isPortableMode = true;
+                }
+                else
+                {
+                    // Application directory is not writable - fallback to LocalAppData
+                    try
+                    {
+                        if (!Directory.Exists(appDataFolder))
+                        {
+                            Directory.CreateDirectory(appDataFolder);
+                        }
+                    }
+                    catch
+                    {
+                        // If we can't create the directory, we'll still use the path
+                    }
+
+                    _systemXmlFilePath = localAppDataPath;
+                    _isPortableMode = false;
+                }
+
+                break;
+            }
+        }
+
+        _pathInitialized = true;
+    }
+
+    /// <summary>
+    /// Checks if a directory is writable by attempting to create and delete a temporary file.
+    /// </summary>
+    /// <param name="directoryPath">The directory to test.</param>
+    /// <returns>True if the directory is writable; otherwise, false.</returns>
+    private static bool IsDirectoryWritable(string directoryPath)
+    {
+        try
+        {
+            if (!Directory.Exists(directoryPath))
+            {
+                return false;
+            }
+
+            var testFilePath = Path.Combine(directoryPath, $".write_test_{Guid.NewGuid()}.tmp");
+            File.WriteAllText(testFilePath, "test");
+            File.Delete(testFilePath);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to fallback from portable mode to LocalAppData when save fails.
+    /// </summary>
+    private static void TryFallbackToLocalAppData()
+    {
+        try
+        {
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+            var newFilePath = Path.Combine(appDataFolder, "system.xml");
+
+            // Ensure the directory exists
+            if (!Directory.Exists(appDataFolder))
+            {
+                Directory.CreateDirectory(appDataFolder);
+            }
+
+            _systemXmlFilePath = newFilePath;
+            _isPortableMode = false;
+        }
+        catch
+        {
+            // If fallback fails, we'll just keep the original path
+        }
+    }
+
+    /// <summary>
+    /// Gets whether the application is running in portable mode for system.xml.
+    /// </summary>
+    public static bool IsPortableMode
+    {
+        get
+        {
+            lock (XmlLock)
+            {
+                if (!_pathInitialized)
+                {
+                    // Initialize with default configuration if not already done
+                    // This shouldn't happen in normal operation
+                    return true; // Assume portable by default
+                }
+            }
+
+            return _isPortableMode;
+        }
+    }
+
     public static bool SystemExists(string systemName, IConfiguration configuration)
     {
         lock (XmlLock)
         {
-            var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("SystemXmlPath") ?? "system.xml");
+            var systemXmlPath = GetSystemXmlPath(configuration);
             if (!File.Exists(systemXmlPath))
             {
                 return false;
@@ -63,7 +238,7 @@ public partial class SystemManager
     {
         lock (XmlLock)
         {
-            var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("SystemXmlPath") ?? "system.xml");
+            var systemXmlPath = GetSystemXmlPath(configuration);
 
             try
             {
@@ -491,7 +666,7 @@ public partial class SystemManager
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
+                    var systemXmlPath = GetSystemXmlPath(App.ServiceProvider.GetRequiredService<IConfiguration>());
                     XDocument xmlDoc;
                     try
                     {
@@ -582,6 +757,31 @@ public partial class SystemManager
                         {
                             lastException = ex;
 
+                            // If in portable mode and this is the last attempt, try falling back to LocalAppData
+                            if (_isPortableMode && attempt == maxRetries - 1)
+                            {
+                                try
+                                {
+                                    // Store the old path for cleanup
+                                    var oldSystemXmlPath = systemXmlPath;
+
+                                    // Attempt fallback
+                                    TryFallbackToLocalAppData();
+                                    systemXmlPath = _systemXmlFilePath;
+
+                                    // If we successfully switched paths, retry the save
+                                    if (systemXmlPath != oldSystemXmlPath)
+                                    {
+                                        attempt--; // Don't count this as an attempt, retry with new path
+                                        continue;
+                                    }
+                                }
+                                catch
+                                {
+                                    // Fallback failed, continue with normal error handling
+                                }
+                            }
+
                             if (attempt < maxRetries - 1)
                             {
                                 // Attempt to clean up temp file before retrying
@@ -645,7 +845,7 @@ public partial class SystemManager
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("SystemXmlPath") ?? "system.xml");
+                    var systemXmlPath = GetSystemXmlPath(App.ServiceProvider.GetRequiredService<IConfiguration>());
                     if (!File.Exists(systemXmlPath)) return;
 
                     XDocument xmlDoc;

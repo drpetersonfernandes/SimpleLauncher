@@ -13,7 +13,7 @@ public class SettingsManager : IDisposable
 {
     private readonly IConfiguration _configuration;
 
-    private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
+    private string _filePath;
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
 
     private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
@@ -375,10 +375,133 @@ public class SettingsManager : IDisposable
     {
         _configuration = configuration;
 
+        // Determine the best location for settings file
+        // Try portable mode first (application directory), fallback to LocalAppData if not writable
+        (_filePath, IsPortableMode) = DetermineSettingsFilePath();
+
         // Initialize properties that depend on configuration
         VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
         InfoUrl = configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
     }
+
+    /// <summary>
+    /// Determines the best location for the settings file.
+    /// Prefers portable mode (application directory) if writable, otherwise falls back to LocalAppData.
+    /// </summary>
+    /// <returns>A tuple containing the file path and whether portable mode is being used.</returns>
+    private static (string filePath, bool isPortableMode) DetermineSettingsFilePath()
+    {
+        var portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, DefaultSettingsFilePath);
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+        var localAppDataPath = Path.Combine(appDataFolder, DefaultSettingsFilePath);
+
+        // First, check if settings already exist in either location
+        // Prioritize existing settings location to maintain consistency
+        var portableSettingsExist = File.Exists(portablePath);
+        var localAppDataSettingsExist = File.Exists(localAppDataPath);
+
+        switch (portableSettingsExist)
+        {
+            case true when !localAppDataSettingsExist:
+                // Existing portable installation - keep using portable mode
+                return (portablePath, true);
+            case false when localAppDataSettingsExist:
+                // Settings were previously moved to LocalAppData - continue using it
+                return (localAppDataPath, false);
+            case true when localAppDataSettingsExist:
+            {
+                // Both exist - use the more recently modified one
+                var portableInfo = new FileInfo(portablePath);
+                var localInfo = new FileInfo(localAppDataPath);
+                return portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc
+                    ? (portablePath, true)
+                    : (localAppDataPath, false);
+            }
+        }
+
+        // No existing settings - try portable mode first
+        if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
+        {
+            return (portablePath, true);
+        }
+
+        // Application directory is not writable - fallback to LocalAppData
+        // Ensure the directory exists
+        try
+        {
+            if (!Directory.Exists(appDataFolder))
+            {
+                Directory.CreateDirectory(appDataFolder);
+            }
+        }
+        catch
+        {
+            // If we can't create the directory, we'll still return the path
+            // and let the save operation fail gracefully with proper error handling
+        }
+
+        return (localAppDataPath, false);
+    }
+
+    /// <summary>
+    /// Checks if a directory is writable by attempting to create and delete a temporary file.
+    /// This is a simple version that doesn't depend on the service provider.
+    /// </summary>
+    /// <param name="directoryPath">The directory to test.</param>
+    /// <returns>True if the directory is writable; otherwise, false.</returns>
+    private static bool IsDirectoryWritable(string directoryPath)
+    {
+        try
+        {
+            if (!Directory.Exists(directoryPath))
+            {
+                return false;
+            }
+
+            // Try to create a temporary file
+            var testFilePath = Path.Combine(directoryPath, $".write_test_{Guid.NewGuid()}.tmp");
+            File.WriteAllText(testFilePath, "test");
+            File.Delete(testFilePath);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to fallback from portable mode to LocalAppData when save fails.
+    /// </summary>
+    private void TryFallbackToLocalAppData()
+    {
+        try
+        {
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
+            var newFilePath = Path.Combine(appDataFolder, DefaultSettingsFilePath);
+
+            // Ensure the directory exists
+            if (!Directory.Exists(appDataFolder))
+            {
+                Directory.CreateDirectory(appDataFolder);
+            }
+
+            // Update the file path and mode
+            _filePath = newFilePath;
+            IsPortableMode = false;
+        }
+        catch
+        {
+            // If fallback fails, we'll just keep the original path and let the error be logged
+        }
+    }
+
+    /// <summary>
+    /// Gets whether the application is running in portable mode (settings stored in app directory).
+    /// </summary>
+    public bool IsPortableMode { get; private set; }
 
     public void Load()
     {
@@ -2064,6 +2187,20 @@ public class SettingsManager : IDisposable
         var retryDelayMs = 500;
         Exception lastException = null;
 
+        // Ensure the settings directory exists before attempting to save
+        var settingsDirectory = Path.GetDirectoryName(_filePath);
+        if (!string.IsNullOrEmpty(settingsDirectory) && !Directory.Exists(settingsDirectory))
+        {
+            try
+            {
+                Directory.CreateDirectory(settingsDirectory);
+            }
+            catch (Exception ex)
+            {
+                App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating settings directory.");
+            }
+        }
+
         for (var attempt = 0; attempt < maxRetries; attempt++)
         {
             try
@@ -2094,6 +2231,24 @@ public class SettingsManager : IDisposable
             catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
             {
                 lastException = ex;
+
+                // If in portable mode and this is the last attempt, try falling back to LocalAppData
+                if (IsPortableMode && attempt == maxRetries - 1)
+                {
+                    try
+                    {
+                        TryFallbackToLocalAppData();
+                        // Update temp path for the new location
+                        tempPath = _filePath + ".tmp";
+                        // Give it one more try in the new location
+                        attempt--; // Don't count this as an attempt
+                        continue;
+                    }
+                    catch
+                    {
+                        // Fallback failed, continue with normal error handling
+                    }
+                }
 
                 if (attempt < maxRetries - 1)
                 {
