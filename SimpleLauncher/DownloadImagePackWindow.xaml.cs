@@ -477,7 +477,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
     private EasyModeSystemConfig GetSelectedSystem()
     {
         return SystemNameDropdown.SelectedItem != null
-            ? _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
+            ? _manager.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase))
             : null;
     }
 

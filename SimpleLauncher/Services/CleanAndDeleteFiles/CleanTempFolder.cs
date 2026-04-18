@@ -8,13 +8,13 @@ public static class CleanTempFolder
     /// Cleans up the specified temporary directory by removing all its contents and the directory itself.
     /// </summary>
     /// <param name="directoryPath">The path to the temporary directory to be cleaned up.</param>
-    public static void CleanupTempDirectory(string directoryPath)
+    public static async Task CleanupTempDirectoryAsync(string directoryPath)
     {
         if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath)) return;
 
         try
         {
-            Directory.Delete(directoryPath, true);
+            await Task.Run(() => Directory.Delete(directoryPath, true));
         }
         catch (Exception)
         {
@@ -26,7 +26,7 @@ public static class CleanTempFolder
     /// Cleans up partially extracted files from a failed extraction
     /// </summary>
     /// <param name="directoryPath">Directory containing partial extraction</param>
-    public static void CleanupPartialExtraction(string directoryPath)
+    public static async Task CleanupPartialExtractionAsync(string directoryPath)
     {
         if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
         {
@@ -39,19 +39,19 @@ public static class CleanTempFolder
             var trackingFile = Path.Combine(directoryPath, ".extraction_in_progress");
             if (File.Exists(trackingFile))
             {
-                DeleteFiles.TryDeleteFile(trackingFile);
+                await DeleteFiles.TryDeleteFileAsync(trackingFile);
             }
 
             // Delete all files in the directory
             foreach (var file in Directory.GetFiles(directoryPath))
             {
-                DeleteFiles.TryDeleteFile(file);
+                await DeleteFiles.TryDeleteFileAsync(file);
             }
 
             // Recursively delete subdirectories
             foreach (var subDir in Directory.GetDirectories(directoryPath))
             {
-                Directory.Delete(subDir, true);
+                await Task.Run(() => Directory.Delete(subDir, true));
             }
         }
         catch (Exception)

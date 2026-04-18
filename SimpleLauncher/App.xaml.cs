@@ -180,7 +180,17 @@ public partial class App : IDisposable
         DebugLogger.Initialize(isDebugMode);
 
         // Delete temp folders and unneeded files
-        _ = Task.Run(CleanSimpleLauncherFolder.CleanupTrash);
+        _ = Task.Run(static () =>
+        {
+            try
+            {
+                CleanSimpleLauncherFolder.CleanupTrash();
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.LogException(ex, "Failed to cleanup trash in SimpleLauncher folder.");
+            }
+        });
         // _ = Task.Run(CleanSimpleLauncherFolder.CleanupTempFiles);
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
@@ -209,6 +219,7 @@ public partial class App : IDisposable
 
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
 
+                _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return;
@@ -219,6 +230,7 @@ public partial class App : IDisposable
 
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
 
+                _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return;
@@ -231,6 +243,7 @@ public partial class App : IDisposable
                 // Another instance is running. Inform the user and exit this instance.
                 MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
 
+                _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return; // Stop further startup logic
@@ -256,7 +269,17 @@ public partial class App : IDisposable
         mainWindow.Show();
 
         // Call ApplicationStats API on startup
-        _ = ApplicationStats.CallApplicationStatsAsync(configuration);
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await ApplicationStats.CallApplicationStatsAsync(configuration);
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.LogException(ex, "Failed to call ApplicationStats API on startup.");
+            }
+        });
 
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization

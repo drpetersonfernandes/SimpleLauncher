@@ -399,7 +399,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             return;
         }
 
-        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
         if (selectedSystem == null)
         {
             // This should ideally not happen if PopulateSystemDropdown is correct, but handle defensively
@@ -1035,7 +1035,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         if (_disposed || _manager == null) return null;
 
         return SystemNameDropdown.SelectedItem != null
-            ? _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
+            ? _manager.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase))
             : null;
     }
 

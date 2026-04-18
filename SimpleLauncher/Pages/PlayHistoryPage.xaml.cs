@@ -278,7 +278,7 @@ public partial class PlayHistoryPage : ILoadingState
                 var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
+                    var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(selectedItem.FileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
                     if (itemToRemove != null)
                     {
                         _playHistoryList.Remove(itemToRemove);
@@ -366,7 +366,7 @@ public partial class PlayHistoryPage : ILoadingState
             var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
             if (result == MessageBoxResult.Yes)
             {
-                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == selectedSystemName);
+                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                 if (itemToRemove != null)
                 {
                     _playHistoryList.Remove(itemToRemove);

@@ -234,7 +234,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         IEnumerable<SystemManager> systemsToSearch = _systemManagers;
         if (selectedSystem != allSystemsString)
         {
-            systemsToSearch = _systemManagers.Where(sm => sm.SystemName == selectedSystem);
+            systemsToSearch = _systemManagers.Where(sm => sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
         }
 
         foreach (var systemManager in systemsToSearch)

@@ -55,7 +55,7 @@ public partial class MainWindow
                     // // --- "Microsoft Windows" rescan prompt ---
                     // if (await ReScanMicrosoftWindowsSystem(selectedSystem)) return; // Exit after handling rescan, do not proceed with normal load for this selection
 
-                    var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+                    var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     if (selectedSystem == null || selectedManager == null)
                     {
                         // Notify developer
@@ -92,7 +92,7 @@ public partial class MainWindow
 
                     SelectedSystem = selectedSystem;
 
-                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
 
                     // Display SystemInfo and get the validation result. Game count is now handled inside this method.

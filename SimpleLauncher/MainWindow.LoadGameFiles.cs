@@ -33,7 +33,7 @@ public partial class MainWindow
             }
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+            var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
             if (selectedManager == null)
             {
                 // Notify developer
@@ -105,7 +105,7 @@ public partial class MainWindow
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager, this);
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
                     buttonBatch.Add(gameButton);
 
                     if (buttonBatch.Count >= BatchSize)
@@ -174,7 +174,12 @@ public partial class MainWindow
         {
             DebugLogger.Log("[LoadGameFilesAsync] Operation was canceled.");
             // Clear the UI to prevent showing partial results from the canceled operation.
-            GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
+            // Also clear image sources to prevent memory leaks from BitmapImage references.
+            GameFileGrid.Dispatcher.Invoke(() =>
+            {
+                ClearGameButtonImages(GameFileGrid);
+                GameFileGrid.Children.Clear();
+            });
             await Dispatcher.InvokeAsync(() => GameListItems.Clear());
         }
         catch (Exception ex)

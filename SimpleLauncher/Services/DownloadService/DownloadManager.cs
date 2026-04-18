@@ -320,7 +320,7 @@ public class DownloadManager : IDisposable
     {
         try
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
@@ -334,7 +334,7 @@ public class DownloadManager : IDisposable
 
             if (result)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
@@ -345,7 +345,7 @@ public class DownloadManager : IDisposable
             }
             else
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
@@ -359,7 +359,7 @@ public class DownloadManager : IDisposable
         }
         catch (Exception ex)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 OnProgressChanged(new DownloadProgressEventArgs
                 {

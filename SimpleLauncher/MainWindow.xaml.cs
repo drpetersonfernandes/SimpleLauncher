@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +49,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private bool _isDisposed;
     internal DispatcherTimer StatusBarTimer { get; set; }
     public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
+
+    // Event handler references for proper unsubscription to prevent memory leaks
+    private RoutedEventHandler _emergencyButtonClickHandler;
+    private readonly RoutedEventHandler _asyncLoadedHandler;
 
     // Constants for magic numbers
     private const int BatchSize = 100;
@@ -92,6 +97,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private bool _isLoadingGames;
     private int _loadingOperationsCount; // Reference counter for concurrent loading operations
+    private readonly object _loadingStateLock = new(); // Lock object to synchronize loading state updates
 
     public bool IsLoadingGames
     {
@@ -232,92 +238,107 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Activated += MainWindow_Activated;
         Deactivated += MainWindow_Deactivated;
 
-        Loaded += async (_, _) =>
+        // Store the async Loaded handler reference so it can be unsubscribed later
+        _asyncLoadedHandler = async void (_, _) =>
         {
-            // Wire Emergency Return Button from Template
-            LoadingOverlay.ApplyTemplate();
-            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
-            {
-                emergencyBtn.Click += EmergencyOverlayRelease_Click;
-            }
-
             try
             {
-                await DisplaySystemSelectionScreenAsync();
-                DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
+                // Wire Emergency Return Button from Template
+                LoadingOverlay.ApplyTemplate();
+                if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+                {
+                    _emergencyButtonClickHandler = EmergencyOverlayRelease_Click;
+                    emergencyBtn.Click += _emergencyButtonClickHandler;
+                }
+
+                await HandleLoadedAsync();
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
-                DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the HandleLoadedAsync method.");
             }
+        };
+        Loaded += _asyncLoadedHandler;
+    }
 
-            try
-            {
-                await _updateChecker.SilentCheckForUpdatesAsync(this);
-                DebugLogger.Log("Silent check for updates was done.");
-                await _stats.CallApiAsync();
-                DebugLogger.Log("Stats API call was done.");
-            }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
-                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
-            }
+    private async Task HandleLoadedAsync()
+    {
+        try
+        {
+            await DisplaySystemSelectionScreenAsync();
+            DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
+            DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
+        }
 
-            try
+        try
+        {
+            await _updateChecker.SilentCheckForUpdatesAsync(this);
+            DebugLogger.Log("Silent check for updates was done.");
+            await _stats.CallApiAsync();
+            DebugLogger.Log("Stats API call was done.");
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+            DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+        }
+
+        try
+        {
+            // --- First-run experience: Check if system.xml is empty ---
+            if (_systemManagers == null || _systemManagers.Count == 0)
             {
-                // --- First-run experience: Check if system.xml is empty ---
+                // This is the first run. Let's scan for Windows games automatically.
+                SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
+                try
+                {
+                    await _gameScannerService.ScanForStoreGamesAsync();
+                    if (_gameScannerService.WasNewSystemCreated)
+                    {
+                        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.", this);
+
+                        // Reload to get the new system
+                        LoadOrReloadSystemManager();
+
+                        // After reloading, the system selection screen needs to be updated.
+                        await DisplaySystemSelectionScreenAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _ = _logErrors.LogErrorAsync(ex, "Error during initial Windows games scan.");
+                }
+                finally
+                {
+                    SetLoadingState(false);
+                }
+
+                // After the scan, check again if any systems exist.
+                // If still no systems, show the Easy Mode prompt.
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
-                    // This is the first run. Let's scan for Windows games automatically.
-                    SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
-                    try
+                    var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
+                    if (result == MessageBoxResult.Yes)
                     {
-                        await _gameScannerService.ScanForStoreGamesAsync();
-                        if (_gameScannerService.WasNewSystemCreated)
-                        {
-                            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.", this);
+                        var easyModeWindow = new EasyModeWindow(_playSoundEffects, _configuration);
+                        easyModeWindow.Owner = this;
+                        easyModeWindow.ShowDialog();
 
-                            // Reload to get the new system
-                            LoadOrReloadSystemManager();
-
-                            // After reloading, the system selection screen needs to be updated.
-                            await DisplaySystemSelectionScreenAsync();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _ = _logErrors.LogErrorAsync(ex, "Error during initial Windows games scan.");
-                    }
-                    finally
-                    {
-                        SetLoadingState(false);
-                    }
-
-                    // After the scan, check again if any systems exist.
-                    // If still no systems, show the Easy Mode prompt.
-                    if (_systemManagers == null || _systemManagers.Count == 0)
-                    {
-                        var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
-                        if (result == MessageBoxResult.Yes)
-                        {
-                            var easyModeWindow = new EasyModeWindow(_playSoundEffects, _configuration);
-                            easyModeWindow.Owner = this;
-                            easyModeWindow.ShowDialog();
-
-                            LoadOrReloadSystemManager();
-                            await DisplaySystemSelectionScreenAsync(); // Await this now
-                        }
+                        LoadOrReloadSystemManager();
+                        await DisplaySystemSelectionScreenAsync(); // Await this now
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event's first-run logic.");
-                DebugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
-            }
-        };
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event's first-run logic.");
+            DebugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
+        }
     }
 
     private void MainWindow_Activated(object sender, EventArgs e)
@@ -359,17 +380,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void CancelAndRecreateToken()
     {
+        // Atomically exchange the old CancellationTokenSource with a new one
+        // This prevents race conditions when multiple threads try to recreate the token
+        var oldCts = Interlocked.Exchange(ref _cancellationSource, new CancellationTokenSource());
+
+        // Dispose the old instance after the exchange is complete
         try
         {
-            _cancellationSource.Cancel();
-            _cancellationSource.Dispose();
+            oldCts.Cancel();
+            oldCts.Dispose();
         }
         catch (ObjectDisposedException)
         {
-            // Token was already disposed, ignore and create a new one
+            // Token was already disposed, ignore
         }
-
-        _cancellationSource = new CancellationTokenSource();
     }
 
     /// <summary>
@@ -580,31 +604,38 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
-        // Use reference counting for concurrent loading operations
-        // This ensures the overlay stays visible if multiple operations are running
-        if (isLoading)
+        bool shouldShowOverlay;
+
+        // Synchronize counter change and UI state decision atomically
+        // This prevents race conditions when multiple threads update loading state concurrently
+        lock (_loadingStateLock)
         {
-            Interlocked.Increment(ref _loadingOperationsCount);
-        }
-        else
-        {
-            // Prevent negative reference count
-            if (_loadingOperationsCount > 0)
+            // Use reference counting for concurrent loading operations
+            // This ensures the overlay stays visible if multiple operations are running
+            if (isLoading)
             {
-                Interlocked.Decrement(ref _loadingOperationsCount);
+                _loadingOperationsCount++;
             }
             else
             {
-                DebugLogger.Log("[SetLoadingState] Warning: Attempted to decrement loading count when already at 0");
+                // Prevent negative reference count
+                if (_loadingOperationsCount > 0)
+                {
+                    _loadingOperationsCount--;
+                }
+                else
+                {
+                    DebugLogger.Log("[SetLoadingState] Warning: Attempted to decrement loading count when already at 0");
+                }
             }
+
+            // Only update UI state if the counter transitioned between 0 and 1
+            shouldShowOverlay = _loadingOperationsCount > 0;
+
+            // Update the internal flags used by pagination/search logic
+            _isLoadingGames = shouldShowOverlay;
+            IsLoadingGames = shouldShowOverlay; // Notifies UI via PropertyChanged
         }
-
-        // Only update UI state if the counter transitioned between 0 and 1
-        var shouldShowOverlay = _loadingOperationsCount > 0;
-
-        // Update the internal flags used by pagination/search logic
-        _isLoadingGames = shouldShowOverlay;
-        IsLoadingGames = shouldShowOverlay; // Notifies UI via PropertyChanged
 
         // Visual Updates - only execute on UI thread when state actually changes
         Dispatcher.Invoke(() =>
@@ -632,9 +663,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _playSoundEffects?.PlayNotificationSound();
 
         // 2. Reset the reference counter and force the loading flags to false
-        _loadingOperationsCount = 0;
-        _isLoadingGames = false;
-        IsLoadingGames = false;
+        // Use lock to synchronize with SetLoadingState and prevent race conditions
+        lock (_loadingStateLock)
+        {
+            _loadingOperationsCount = 0;
+            _isLoadingGames = false;
+            IsLoadingGames = false;
+        }
 
         // 3. Cancel any active background operations (scans, file loading, etc.)
         CancelAndRecreateToken();
@@ -755,6 +790,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         if (_settings.ViewMode == "GridView")
         {
             // Clear existing content in Grid view and add the message
+            // Also clear image sources to prevent memory leaks
+            ClearGameButtonImages(GameFileGrid);
             GameFileGrid.Children.Clear();
             GameFileGrid.Children.Add(new TextBlock
             {
@@ -844,6 +881,72 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         return allFiles;
     }
 
+    /// <summary>
+    /// Recursively clears all Image.Source properties from game buttons to prevent memory leaks.
+    /// BitmapImage objects need to be released by clearing their references.
+    /// </summary>
+    private static void ClearGameButtonImages(Panel panel)
+    {
+        foreach (var child in panel.Children)
+        {
+            switch (child)
+            {
+                case Image image:
+                    // Clear the image source to release the BitmapImage reference
+                    if (image.Source is BitmapImage)
+                    {
+                        image.Source = null;
+                    }
+
+                    break;
+
+                case Button button:
+                    switch (button.Content)
+                    {
+                        // Game buttons contain a Grid with nested images
+                        case Panel buttonPanel:
+                            ClearGameButtonImages(buttonPanel);
+                            break;
+                        case Border border:
+                            ClearImageFromBorder(border);
+                            break;
+                    }
+
+                    break;
+
+                case Panel childPanel:
+                    ClearGameButtonImages(childPanel);
+                    break;
+
+                case Border border:
+                    ClearImageFromBorder(border);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Helper method to clear images from a Border control.
+    /// </summary>
+    private static void ClearImageFromBorder(Border border)
+    {
+        switch (border.Child)
+        {
+            case Image image:
+            {
+                if (image.Source is BitmapImage)
+                {
+                    image.Source = null;
+                }
+
+                break;
+            }
+            case Panel panel:
+                ClearGameButtonImages(panel);
+                break;
+        }
+    }
+
     private async Task SetUiBeforeLoadGameFilesAsync()
     {
         // Move scroller to top
@@ -852,8 +955,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // Clear PreviewImage
         PreviewImage.Dispatcher.Invoke(() => PreviewImage.Source = null);
 
-        // Clear Game Grid
-        GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
+        // Clear Game Grid and dispose image resources to prevent memory leaks
+        GameFileGrid.Dispatcher.Invoke(() =>
+        {
+            ClearGameButtonImages(GameFileGrid);
+            GameFileGrid.Children.Clear();
+        });
 
         // Clear the Game List
         await Dispatcher.InvokeAsync(() => GameListItems.Clear());

@@ -2611,7 +2611,7 @@ public class SettingsManager : IDisposable
         _settingsLock.EnterWriteLock();
         try
         {
-            var item = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
+            var item = SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (item == null)
             {
                 item = new SystemPlayTime { SystemName = systemName, PlayTimeSeconds = 0 };

@@ -302,7 +302,7 @@ public class PlayHistoryManager
             lock (_historyLock)
             {
                 // Check if the game already exists in play history
-                var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName == systemName);
+                var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
                 if (existingItem != null)
                 {

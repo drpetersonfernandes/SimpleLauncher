@@ -180,7 +180,7 @@ public class GameListFactory(
                     return;
                 }
 
-                var systemManager = _systemManagers?.FirstOrDefault(c => c.SystemName == selectedSystem);
+                var systemManager = _systemManagers?.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                 if (systemManager == null)
                 {
                     // Notify developer
@@ -292,7 +292,7 @@ public class GameListFactory(
         var filePath = selectedItem.FilePath;
         var selectedEmulatorName = _emulatorComboBox.SelectedItem as string;
         var selectedSystemName = _systemComboBox.SelectedItem as string;
-        var selectedSystemManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystemName);
+        var selectedSystemManager = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         if (string.IsNullOrEmpty(filePath))
         {

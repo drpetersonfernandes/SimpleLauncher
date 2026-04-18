@@ -255,7 +255,7 @@ internal partial class FavoritesPage : ILoadingState
                 var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? selectedFavorite.FileName);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
+                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName.Equals(selectedFavorite.FileName, StringComparison.OrdinalIgnoreCase) && fav.SystemName.Equals(systemManager.SystemName, StringComparison.OrdinalIgnoreCase));
 
                     if (favoriteToRemove != null)
                     {
@@ -375,7 +375,7 @@ internal partial class FavoritesPage : ILoadingState
                 var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? fileName);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
+                    var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
                     if (favoriteToRemove != null)
                     {

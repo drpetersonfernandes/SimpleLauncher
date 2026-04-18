@@ -55,6 +55,9 @@ public class FavoritesManager
     /// </summary>
     public void SaveFavorites()
     {
+        // Notify user outside of any lock to prevent potential deadlock
+        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
+
         lock (ListLock)
         {
             // Order the favorites by FileName
@@ -79,11 +82,12 @@ public class FavoritesManager
         {
             try
             {
-                // Notify user
-                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
-
                 // Serialize using MessagePack
-                var bytes = MessagePackSerializer.Serialize(this);
+                byte[] bytes;
+                lock (ListLock)
+                {
+                    bytes = MessagePackSerializer.Serialize(this);
+                }
 
                 // Write to temporary file first to prevent corruption on crash
                 File.WriteAllBytes(TempDatFilePath, bytes);

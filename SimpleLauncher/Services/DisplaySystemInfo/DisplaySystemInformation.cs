@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DisplaySystemInfo.Models;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -12,6 +13,8 @@ public static class DisplaySystemInformation
 {
     public static async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManager selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
+        // Clear image sources first to prevent memory leaks from BitmapImage references
+        ClearGameButtonImages(gameFileGrid);
         gameFileGrid.Children.Clear();
 
         var verticalStackPanel = new StackPanel
@@ -189,5 +192,71 @@ public static class DisplaySystemInformation
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Recursively clears all Image.Source properties from game buttons to prevent memory leaks.
+    /// BitmapImage objects need to be released by clearing their references.
+    /// </summary>
+    private static void ClearGameButtonImages(Panel panel)
+    {
+        foreach (var child in panel.Children)
+        {
+            switch (child)
+            {
+                case Image image:
+                    // Clear the image source to release the BitmapImage reference
+                    if (image.Source is BitmapImage)
+                    {
+                        image.Source = null;
+                    }
+
+                    break;
+
+                case Button button:
+                    switch (button.Content)
+                    {
+                        // Game buttons contain a Grid with nested images
+                        case Panel buttonPanel:
+                            ClearGameButtonImages(buttonPanel);
+                            break;
+                        case Border border:
+                            ClearImageFromBorder(border);
+                            break;
+                    }
+
+                    break;
+
+                case Panel childPanel:
+                    ClearGameButtonImages(childPanel);
+                    break;
+
+                case Border border:
+                    ClearImageFromBorder(border);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Helper method to clear images from a Border control.
+    /// </summary>
+    private static void ClearImageFromBorder(Border border)
+    {
+        switch (border.Child)
+        {
+            case Image image:
+            {
+                if (image.Source is BitmapImage)
+                {
+                    image.Source = null;
+                }
+
+                break;
+            }
+            case Panel panel:
+                ClearGameButtonImages(panel);
+                break;
+        }
     }
 }

@@ -531,7 +531,7 @@ internal static class ContextMenuFunctions
             // --- Remove temporary extraction folder ---
             if (!string.IsNullOrEmpty(tempExtractionPath))
             {
-                CleanTempFolder.CleanupTempDirectory(tempExtractionPath);
+                await CleanTempFolder.CleanupTempDirectoryAsync(tempExtractionPath);
                 DebugLogger.Log($"[RA Service] Cleaned up temporary extraction folder: {tempExtractionPath}");
             }
         }

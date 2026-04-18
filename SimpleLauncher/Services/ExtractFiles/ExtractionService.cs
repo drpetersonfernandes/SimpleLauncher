@@ -237,7 +237,7 @@ public class ExtractionService : IExtractionService
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
                     {
-                        CleanTempFolder.CleanupPartialExtraction(resolvedDestinationFolder);
+                        await CleanTempFolder.CleanupPartialExtractionAsync(resolvedDestinationFolder);
                     }
                 }
                 catch (Exception cleanupEx)
@@ -365,7 +365,7 @@ public class ExtractionService : IExtractionService
         }
         catch (Exception ex)
         {
-            CleanTempFolder.CleanupTempDirectory(tempDirectory);
+            await CleanTempFolder.CleanupTempDirectoryAsync(tempDirectory);
 
             // Notify developer
             const string contextMessage = "Extraction of the compressed file failed. The file may be corrupted or a security issue was detected.";

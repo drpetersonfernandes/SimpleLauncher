@@ -265,7 +265,7 @@ internal partial class EditSystemWindow
                 });
             }
 
-            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName == SystemNameDropdown.SelectedItem.ToString();
+            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase);
             var originalSystemNameToUse = isUpdate ? _originalSystemName : systemNameText;
 
             var systemToSave = new Services.SystemManager.SystemManager

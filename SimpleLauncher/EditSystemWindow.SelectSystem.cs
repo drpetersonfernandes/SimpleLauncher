@@ -71,7 +71,7 @@ internal partial class EditSystemWindow
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = true;
 
-        var selectedSystem = _systems.FirstOrDefault(x => x.SystemName == systemNameToLoad);
+        var selectedSystem = _systems.FirstOrDefault(x => x.SystemName.Equals(systemNameToLoad, StringComparison.OrdinalIgnoreCase));
 
         if (selectedSystem != null)
         {

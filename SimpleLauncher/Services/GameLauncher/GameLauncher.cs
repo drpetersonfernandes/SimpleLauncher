@@ -225,7 +225,7 @@ public partial class GameLauncher
             // to ensure play history stores the persistent archive location, not the temp file
             context.MainWindow.PlayHistoryManager.AddOrUpdatePlayHistoryItem(context.FilePath, context.SystemName, playTime);
 
-            var systemPlayTime = context.Settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == context.SystemName);
+            var systemPlayTime = context.Settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(context.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemPlayTime != null)
             {
                 context.MainWindow.PlayTime = systemPlayTime.FormattedPlayTime;
@@ -282,9 +282,12 @@ public partial class GameLauncher
         TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} {launched}");
         UpdateStatusBar.UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} {launched}", mainWindow);
 
-        StringBuilder output = new();
-        StringBuilder error = new();
+        // Use StringBuilder to capture output and error streams
+        // Note: StringBuilder does not implement IDisposable, so no using statement is needed
+        var output = new StringBuilder();
+        var error = new StringBuilder();
 
+        // Use a nested using statement to ensure Process is disposed even if exceptions occur
         using var process = new Process();
         process.StartInfo = psi;
 

@@ -51,7 +51,7 @@ internal partial class GameButtonFactory(
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
-    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager, MainWindow mainWindow)
+    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
 
@@ -317,7 +317,15 @@ internal partial class GameButtonFactory(
                     e.Handled = true;
 
                     _playSoundEffects.PlayNotificationSound();
-                    context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
+
+                    // Null check for _mainWindow before using it
+                    if (_mainWindow == null)
+                    {
+                        _ = _logErrors.LogErrorAsync(null, "_mainWindow is null in trophy button click handler.");
+                        return;
+                    }
+
+                    _mainWindow.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
                     try
                     {
@@ -333,7 +341,7 @@ internal partial class GameButtonFactory(
                     }
                     finally
                     {
-                        context.MainWindow?.SetLoadingState(false);
+                        _mainWindow.SetLoadingState(false);
                     }
                 }
                 catch (Exception ex)
@@ -383,7 +391,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, mainWindow);
+                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow);
                     }
                     catch (Exception ex)
                     {
@@ -445,7 +453,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, mainWindow);
+                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow);
                     }
                     catch (Exception ex)
                     {

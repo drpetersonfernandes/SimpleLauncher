@@ -64,10 +64,10 @@ public static class RetroAchievementsSystemMatcher
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
         // NEC systems
-        ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16", "NEC PC Engine"]),
+        ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16", "NEC PC Engine", "NEC TurboGrafx 16"]),
         ["pc engine cd/turbografx-cd"] = new RaSystemInfo(76, [
             "pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pcenginecd", "pcecd", "pce-cd", "pc-engine cd", "turbografx-cd", "turbografx cd",
-            "nec pc engine cd", "nec pcengine cd", "nec pcenginecd", "nec pcecd", "nec pce-cd", "nec pc-engine cd", "nec turbografx-cd", "nec turbografx cd"
+            "nec pc engine cd", "nec pcengine cd", "nec pcenginecd", "nec pcecd", "nec pce-cd", "nec pc-engine cd", "nec turbografx-cd", "nec turbografx cd", "NEC TurboGrafx 16 CD"
         ]),
         ["supergrafx"] = new RaSystemInfo(8, ["supergrafx", "sgx", "NEC SuperGrafx"]),
 

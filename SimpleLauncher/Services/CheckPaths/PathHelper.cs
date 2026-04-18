@@ -30,6 +30,35 @@ internal static partial class PathHelper
             string.Equals(text, flag, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>
+    /// Validates that a resolved path is contained within a base folder.
+    /// This prevents path traversal attacks where a malicious path could escape the intended directory.
+    /// </summary>
+    /// <param name="resolvedPath">The fully resolved (absolute) path to validate.</param>
+    /// <param name="baseFolder">The base folder that the resolved path should be contained within.</param>
+    /// <returns>True if the resolved path is within the base folder, false otherwise.</returns>
+    private static bool IsPathContainedInBaseFolder(string resolvedPath, string baseFolder)
+    {
+        if (string.IsNullOrEmpty(resolvedPath) || string.IsNullOrEmpty(baseFolder))
+        {
+            return false;
+        }
+
+        // Normalize paths for comparison
+        var normalizedResolved = Path.GetFullPath(resolvedPath);
+        var normalizedBase = Path.GetFullPath(baseFolder);
+
+        // Ensure base folder ends with separator for proper containment check
+        if (!normalizedBase.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal) &&
+            !normalizedBase.EndsWith(Path.AltDirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+        {
+            normalizedBase += Path.DirectorySeparatorChar;
+        }
+
+        // Check if the resolved path starts with the base folder path
+        return normalizedResolved.StartsWith(normalizedBase, StringComparison.OrdinalIgnoreCase);
+    }
+
     internal static bool ContainsGameSpecificPlaceholder(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) return false;
@@ -78,25 +107,48 @@ internal static partial class PathHelper
             }
 
             var processedToken = tokenForLogic;
+            string validationBaseFolder = null;
 
-            // Replace custom placeholders
+            // Replace custom placeholders and track which base folder to validate against
             if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%BASEFOLDER%", SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
+                validationBaseFolder = AppDomain.CurrentDomain.BaseDirectory;
             }
 
             if (!string.IsNullOrEmpty(resolvedSystemFolderPath) && processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%SYSTEMFOLDER%", SanitizePathToken(resolvedSystemFolderPath), StringComparison.OrdinalIgnoreCase);
+                validationBaseFolder = resolvedSystemFolderPath;
             }
 
             if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) && processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%EMULATORFOLDER%", SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
+                validationBaseFolder = resolvedEmulatorFolderPath;
             }
 
             // Expand environment variables
             processedToken = Environment.ExpandEnvironmentVariables(processedToken);
+
+            // Validate path after all transformations to prevent path traversal attacks
+            if (!string.IsNullOrEmpty(validationBaseFolder))
+            {
+                try
+                {
+                    var fullPath = Path.GetFullPath(processedToken);
+                    if (!IsPathContainedInBaseFolder(fullPath, validationBaseFolder))
+                    {
+                        // Path escapes the intended directory - return original token to prevent traversal
+                        return originalToken;
+                    }
+                }
+                catch
+                {
+                    // If path validation fails, return original token to be safe
+                    return originalToken;
+                }
+            }
 
             var finalTokenValue = processedToken;
 

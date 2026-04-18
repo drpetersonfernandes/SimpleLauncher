@@ -19,6 +19,8 @@ public partial class MainWindow
         TopSystemSelection.Visibility = Visibility.Collapsed;
         StatusBarArea.Visibility = Visibility.Collapsed;
 
+        // Clear image sources first to prevent memory leaks from BitmapImage references
+        ClearGameButtonImages(GameFileGrid);
         GameFileGrid.Children.Clear();
         GameListItems.Clear();
 

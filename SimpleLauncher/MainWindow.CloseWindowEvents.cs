@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Windows.Controls;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 namespace SimpleLauncher;
@@ -17,12 +18,42 @@ public partial class MainWindow
         }
 
         // Unsubscribe from events to prevent memory leaks
+        UnsubscribeEventHandlers();
+
+        Dispose();
+    }
+
+    /// <summary>
+    /// Unsubscribes all event handlers to prevent memory leaks.
+    /// </summary>
+    private void UnsubscribeEventHandlers()
+    {
+        // Unsubscribe window-level event handlers
+        Loaded -= MainWindow_Loaded;
+        Closing -= MainWindow_Closing;
+        Activated -= MainWindow_Activated;
+        Deactivated -= MainWindow_Deactivated;
+
+        // Unsubscribe the async Loaded handler if it was subscribed
+        if (_asyncLoadedHandler != null)
+        {
+            Loaded -= _asyncLoadedHandler;
+        }
+
+        // Unsubscribe FilterMenu event handler
         if (_topLetterNumberMenu != null)
         {
             _topLetterNumberMenu.OnLetterSelected -= TopLetterNumberMenu_OnLetterSelected;
         }
 
-        Dispose();
+        // Unsubscribe emergency button click handler if it was wired
+        if (_emergencyButtonClickHandler != null && LoadingOverlay?.Template != null)
+        {
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+            {
+                emergencyBtn.Click -= _emergencyButtonClickHandler;
+            }
+        }
     }
 
     public void Dispose()
