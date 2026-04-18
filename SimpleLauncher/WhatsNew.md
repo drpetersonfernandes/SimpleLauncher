@@ -1,36 +1,67 @@
 # Release 5.3.1
-*2026-04-17*
+*2026-04-18*
 ---
 
-# 🔧 Bug Fixes & Improvements
+This release focuses on bug fixes, performance improvements, memory leak prevention, and enhanced async/await handling throughout the application.
 
-### 🐛 Bug Fixes
+## 🔧 Bug Fixes
 
+### Network & HTTP Improvements
 - **Fixed HTTP Request Timeouts** - Added 15-second timeouts to all HTTP requests (bug reports, stats, support requests) to prevent indefinite hangs when network issues occur
-- **Fixed Microsoft Store Game Scanning** - Added sanitization for JSON control characters that could cause crashes when parsing game data with special characters
-- **Fixed Thread Safety Issues** - Wrapped UI updates in dispatcher invocations in MainWindow to prevent cross-thread access exceptions
+- **Added Operation Cancellation Handling** - HTTP requests now handle timeout exceptions gracefully without crashing
+
+### Microsoft Store Game Scanning
+- **Fixed JSON Parsing Issues** - Added sanitization for JSON control characters that could cause crashes when parsing game data with special characters
 - **Fixed Directory Creation** - Ensured destination directories exist before saving extracted icons
 
-### ✨ Improvements
+### Thread Safety & UI Stability
+- **Fixed Thread Safety Issues** - Wrapped UI updates in dispatcher invocations in MainWindow to prevent cross-thread access exceptions
+- **Fixed String Comparison Issues** - Implemented case-insensitive string comparisons throughout the application for system names, file names, and emulator matching
 
+### Memory Management
+- **Fixed Memory Leaks** - Added proper image source clearing to prevent BitmapImage reference leaks when clearing game grids
+- **Fixed Async Cleanup** - Replaced synchronous cleanup methods with async versions to prevent blocking
+- **Fixed Event Handler Leaks** - Properly unsubscribe event handlers when closing windows
+
+## ✨ Improvements
+
+### RetroArch Integration
 - **Enhanced RetroArch Validation** - Changed parameter validation from "must start with -L" to "must contain -L" for more flexible core configuration
+- **Localization Updates** - Updated RetroArch parameter error messages in all 16 supported languages
+
+### Blastem Emulator
 - **Improved Blastem Error Handling** - Added comprehensive error handling for Blastem configuration injection with specific exception types (FileNotFound, UnauthorizedAccess, IOException)
+
+### Batch File Execution
 - **Better Batch File Error Reporting** - Batch file failures now create proper exceptions for better debugging
 
-### 📦 Tools & Dependencies
+### Async/Await Refactoring
+- **Removed ConfigureAwait(false)** - Removed `.ConfigureAwait(false)` from await calls across the application (LogErrorsService, EasyModeManager, DownloadManager, UpdateChecker, SystemManager, ContextMenuFunctions, App)
+- **Proper Dispatcher Invokes** - Added proper dispatcher invocations for UI updates in async methods
 
-- Updated BatchConvertToRVZ and RomValidator binaries
-- Added 7z DLLs for arm64/x64 architectures
-- Removed unused 7z DLLs from cleanup list
+### Security
+- **Path Traversal Prevention** - Added validation to ensure resolved paths stay within intended base folders
 
-### 📚 Documentation
+## 📦 Tools & Dependencies
 
-- Fixed Tsugaru emulator platform documentation (PC-9800 series → FM Towns)
-- Updated CD-i Emulator footnote formatting in changelog
+- **Updated BatchConvertToRVZ and RomValidator binaries**
 
-### 🌐 Localization
+## 📚 Documentation
 
-- Updated RetroArch parameter error messages in all 16 supported languages
+- **Fixed Tsugaru emulator platform documentation** (PC-9800 series → FM Towns)
+
+## 🏗️ Technical Improvements
+
+### Code Quality
+- Enhanced exception handling throughout async operations
+- Improved null checks and defensive programming
+- Better logging for debugging purposes
+- Added proper disposal of resources (mutex, cancellation tokens)
+
+### Performance
+- Thread-safe loading state management with locks
+- Atomic operations for cancellation token source replacement
+- Optimized file deletion with async retry logic
 
 # Release 5.3.0
 *2026-04-16*

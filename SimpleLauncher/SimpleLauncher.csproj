@@ -938,6 +938,8 @@
         <Resource Include="images\rvz.png" />
         <None Remove="images\xiso.png" />
         <Resource Include="images\xiso.png" />
+        <None Remove="images\romvalidator.png" />
+        <Resource Include="images\romvalidator.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">

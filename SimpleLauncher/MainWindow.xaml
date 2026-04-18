@@ -617,7 +617,7 @@
                 </MenuItem>
                 <MenuItem Click="RomValidator_Click" Header="Rom Validator" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/romvalidator.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
