@@ -66,9 +66,9 @@ public class MountChdDrive : IAsyncDisposable
 
             if (!processExitedBeforeKill)
             {
-                DebugLogger.Log($"[MountChdDrive.DisposeAsync] Waiting for CHDMounter (ID: {_mountProcessId}) to exit (up to 10s).");
+                DebugLogger.Log($"[MountChdDrive.DisposeAsync] Waiting for CHDMounter (ID: {_mountProcessId}) to exit (up to 20s).");
 
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                 try
                 {
                     await _mountProcess.WaitForExitAsync(cts.Token);

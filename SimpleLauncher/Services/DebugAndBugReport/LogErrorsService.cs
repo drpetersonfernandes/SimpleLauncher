@@ -99,8 +99,8 @@ public class LogErrorsService : ILogErrors
 
                 var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
-                // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+                // Use a CancellationToken with a 30-second timeout to prevent indefinite hangs
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
                 using var response = await httpClient.PostAsync(_configuration.GetValue<string>("BugReportApiUrl") ?? "https://www.purelogiccode.com/bugreport/api/send-bug-report/", jsonContent, cts.Token);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);

@@ -74,9 +74,9 @@ public class MountXisoDrive : IAsyncDisposable
             if (!processExitedBeforeKill)
             {
                 DebugLogger.Log(
-                    $"[MountXisoDrive.DisposeAsync] Waiting for mounting tool (ID: {_mountProcessId}) to exit (up to 10s).");
+                    $"[MountXisoDrive.DisposeAsync] Waiting for mounting tool (ID: {_mountProcessId}) to exit (up to 20s).");
 
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                 try
                 {
                     await _mountProcess.WaitForExitAsync(cts.Token);

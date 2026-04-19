@@ -28,8 +28,8 @@ public class ApplicationStats
             var json = JsonSerializer.Serialize(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            // Use a CancellationToken with a 20-second timeout to prevent indefinite hangs
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
 
             using var response = await client.PostAsync(statsUrl, content, cts.Token);
             if (!response.IsSuccessStatusCode)

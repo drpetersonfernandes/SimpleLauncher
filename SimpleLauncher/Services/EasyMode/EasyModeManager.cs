@@ -30,6 +30,7 @@ public class EasyModeManager : IDisposable
     /// <summary>
     /// Asynchronously loads the EasyMode configuration. It first tries to load from a local XML file.
     /// If the file is not found or is empty, it falls back to loading from the web API.
+    /// If the API also fails, it attempts to download from a fallback XML URL.
     /// </summary>
     /// <returns>An EasyModeManager instance if successful, otherwise null.</returns>
     public static async Task<EasyModeManager> LoadAsync()
@@ -51,8 +52,17 @@ public class EasyModeManager : IDisposable
             return manager;
         }
 
-        DebugLogger.Log("Failed to load EasyMode configuration from both local XML and API.");
-        return null; // Return null if both methods fail
+        // If both local XML and API fail, try loading from fallback URL
+        DebugLogger.Log("API load failed. Attempting to load from fallback XML URL.");
+        manager = await LoadFromFallbackAsync();
+        if (manager != null && manager.Systems.Count != 0)
+        {
+            DebugLogger.Log("Successfully loaded EasyMode configuration from fallback URL.");
+            return manager;
+        }
+
+        DebugLogger.Log("Failed to load EasyMode configuration from all sources (local XML, API, and fallback URL).");
+        return null; // Return null if all methods fail
     }
 
     private static EasyModeManager LoadFromXml()
@@ -161,8 +171,8 @@ public class EasyModeManager : IDisposable
                 _ => "x64"
             };
 
-            // Use a CancellationToken with a timeout
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            // Use a CancellationToken with a timeout (30 seconds to accommodate users with slower connections or VPN)
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             var response = await client.GetAsync($"api/Systems/{architecture}", cts.Token);
 
             response.EnsureSuccessStatusCode();
@@ -183,6 +193,73 @@ public class EasyModeManager : IDisposable
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An error occurred while loading EasyMode configuration from the API.");
+            return null;
+        }
+    }
+
+    private static async Task<EasyModeManager> LoadFromFallbackAsync()
+    {
+        try
+        {
+            // Determine the appropriate XML file based on system architecture
+            var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
+                ? RuntimeInformation.OSArchitecture switch
+                {
+                    Architecture.Arm64 => "easymode_arm64.xml",
+                    _ => "easymode.xml" // Default fallback for x64 and others
+                }
+                : "easymode.xml"; // Default fallback
+
+            // Get the fallback URL from configuration
+            var configuration = App.ServiceProvider.GetRequiredService<IConfiguration>();
+            var fallbackUrl = xmlFile == "easymode_arm64.xml"
+                ? configuration.GetValue<string>("Urls:EasyModeFallbackXmlArm64")
+                : configuration.GetValue<string>("Urls:EasyModeFallbackXmlX64");
+
+            if (string.IsNullOrEmpty(fallbackUrl))
+            {
+                DebugLogger.Log("No fallback URL configured for EasyMode XML.");
+                return null;
+            }
+
+            DebugLogger.Log($"Attempting to download EasyMode XML from fallback URL: {fallbackUrl}");
+
+            // Download the XML file from fallback URL
+            var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+            var client = httpClientFactory.CreateClient("EasyModeClient");
+
+            // Use a CancellationToken with a timeout (30 seconds)
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+            var response = await client.GetAsync(fallbackUrl, cts.Token);
+
+            response.EnsureSuccessStatusCode();
+
+            // Read the XML content
+            var xmlContent = await response.Content.ReadAsStringAsync(cts.Token);
+
+            if (string.IsNullOrWhiteSpace(xmlContent))
+            {
+                DebugLogger.Log("Fallback URL returned empty XML content.");
+                return null;
+            }
+
+            // Save the downloaded XML to the application directory for future use
+            var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
+            await File.WriteAllTextAsync(xmlFilePath, xmlContent, cts.Token);
+            DebugLogger.Log($"Downloaded EasyMode XML saved to: {xmlFilePath}");
+
+            // Load the saved XML file
+            return LoadFromXml();
+        }
+        catch (OperationCanceledException)
+        {
+            DebugLogger.Log("Fallback XML download timed out (20 seconds).");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"Failed to load EasyMode configuration from fallback URL: {ex.Message}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
             return null;
         }
     }

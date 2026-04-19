@@ -125,8 +125,8 @@ public class Stats
                     jsonContent = new StringContent(string.Empty, Encoding.UTF8, "application/json");
                 }
 
-                // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+                // Use a CancellationToken with a 20-second timeout to prevent indefinite hangs
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
 
                 // Send the POST request.
                 using var response = await httpClient.PostAsync(_statsApiUrl, jsonContent, cts.Token);

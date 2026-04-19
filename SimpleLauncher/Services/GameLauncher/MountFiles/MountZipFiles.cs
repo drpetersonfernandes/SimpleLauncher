@@ -351,8 +351,8 @@ internal static class MountZipFiles
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);
@@ -578,8 +578,8 @@ internal static class MountZipFiles
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);
@@ -890,8 +890,8 @@ internal static class MountZipFiles
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);

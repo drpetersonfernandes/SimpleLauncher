@@ -78,7 +78,7 @@ public partial class App : IDisposable
         {
             var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl") ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
             client.BaseAddress = new Uri(apiUrl);
-            client.Timeout = TimeSpan.FromSeconds(15);
+            client.Timeout = TimeSpan.FromSeconds(20);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
         }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
 
@@ -327,7 +327,7 @@ public partial class App : IDisposable
                     EnabledSslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13
                 },
                 PooledConnectionLifetime = TimeSpan.FromMinutes(5),
-                ConnectTimeout = TimeSpan.FromSeconds(15)
+                ConnectTimeout = TimeSpan.FromSeconds(20)
             };
         }
     }

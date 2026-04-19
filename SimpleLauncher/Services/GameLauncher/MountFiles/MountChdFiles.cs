@@ -246,8 +246,8 @@ public static class MountChdFiles
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    DebugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);
@@ -442,8 +442,8 @@ public static class MountChdFiles
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
-                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    DebugLogger.Log($"[MountChdFiles] Kill signal sent to CHDMounter (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
                         await mountProcess.WaitForExitAsync(cts.Token);

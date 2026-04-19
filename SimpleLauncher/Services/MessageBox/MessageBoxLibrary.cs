@@ -3266,9 +3266,18 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPI") ?? "'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.";
-            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPI")
+                          ?? "'Simple Launcher' could not access the Web API to download the updated configuration.\n\n"
+                          + "This could be due to:\n"
+                          + "• A government firewall or internet restriction in your region\n"
+                          + "• Network connectivity issues\n\n"
+                          + "To resolve this issue, you can:\n"
+                          + "1. Enable a VPN connection and try again\n"
+                          + "2. Check your internet connection\n"
+                          + "3. Configure systems manually using the Edit System feature\n\n"
+                          + "Note: A VPN may be required if you are located in a country with internet restrictions.";
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Easy Mode Unavailable";
+            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 

@@ -161,8 +161,8 @@ public partial class SupportWindow : ILoadingState
                 // Construct the full API URL
                 var apiUrl = apiBaseUrl.TrimEnd('/');
 
-                // Use a CancellationToken with a 15-second timeout to prevent indefinite hangs
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+                // Use a CancellationToken with a 20-second timeout to prevent indefinite hangs
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
 
                 using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
 
