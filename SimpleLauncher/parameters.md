@@ -3639,7 +3639,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-The list of commands available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).
+The list of commands available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).<br>
+You can download this emulator on the [Official Website](https://fms.komkon.org/MG/).<br>
 
 .
 
@@ -3649,6 +3650,7 @@ The list of commands available for this emulator can be found on [MasterGear Web
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.carpeludum.com/kega-fusion/).<br>
 
 .
 
@@ -3658,6 +3660,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/jsgroth/jgenesis/releases).<br>
 
 .
 
@@ -3667,7 +3670,8 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -3677,6 +3681,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://emulicious.net/downloads/).<br>
 
 .
 
@@ -3695,7 +3700,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -3707,6 +3713,7 @@ The list of command-line arguments available for this emulator can be found on [
 This emulator is available for Windows-x64.<br>
 You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -3719,7 +3726,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -3732,7 +3740,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Sega Genesis / Mega Drive
 
@@ -3758,6 +3767,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.carpeludum.com/kega-fusion/).<br>
 
 .
 
@@ -3776,7 +3786,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -3795,7 +3806,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -3808,7 +3820,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -3821,7 +3834,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -3834,7 +3848,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/blastem/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -3847,7 +3862,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Sega Genesis 32X / Mega Drive 32X
 
@@ -3891,7 +3907,8 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -3917,7 +3934,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Sega Genesis CD / Mega Drive CD / Sega CD / Mega CD
 
@@ -3964,7 +3982,7 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-It requires a BIOS file to work.
+It requires a BIOS file to work.<br>
 
 .
 
@@ -3975,7 +3993,8 @@ It requires a BIOS file to work.
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-It requires a BIOS file to work.
+It requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://www.retrodev.com/blastem/).<br>
 
 .
 
@@ -3988,7 +4007,8 @@ It requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4001,7 +4021,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4014,7 +4035,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Sega Master System / Mark3
 
@@ -4040,7 +4062,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-The list of command-line arguments available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).
+The list of command-line arguments available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).<br>
+You can download this emulator on the [Official Website](https://fms.komkon.org/MG/).<br>
 
 .
 
@@ -4050,6 +4073,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://www.carpeludum.com/kega-fusion/).<br>
 
 .
 
@@ -4059,6 +4083,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/jsgroth/jgenesis/releases).<br>
 
 .
 
@@ -4077,7 +4102,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).<br>
 
 .
 
@@ -4089,6 +4115,7 @@ The list of command-line arguments available for this emulator can be found on [
 This emulator is available for Windows-x64.<br>
 You may need a BIOS file to run this system on this emulator. Please check on the [BizHawk Website](https://tasvideos.org/Bizhawk).<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+You can download this emulator on the [Official Website](https://tasvideos.org/Bizhawk).<br>
 
 .
 
@@ -4098,7 +4125,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 **Fullscreen Parameter:** -video.fs 1<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
 
@@ -4111,7 +4139,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4124,7 +4153,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Sega Naomi
 
@@ -4150,6 +4180,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/flyinghead/flycast).<br>
 
 ## Sega Naomi 2
 
@@ -4175,6 +4206,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/flyinghead/flycast).<br>
 
 ## Sega Model 3
 
@@ -4200,7 +4232,7 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
+You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.<br>
 
 ## Sega Saturn
 
@@ -4238,7 +4270,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-This program requires a BIOS file to work.
+This program requires a BIOS file to work.<br>
 
 .
 
@@ -4249,7 +4281,8 @@ This program requires a BIOS file to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
+Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).<br>
+You can download this emulator on the [Official Website](https://segaretro.org/SSF).<br>
 
 .
 
@@ -4299,7 +4332,8 @@ If you use a CHD file 'Simple Launcher' will automatically mount the CHD file be
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_saturn/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4312,7 +4346,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/kronos/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4325,7 +4360,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabasanshiro/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4338,7 +4374,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabause/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
 
@@ -4359,7 +4396,8 @@ saturneu: Sega Saturn (Europe, BIOS 2.xx)<br>
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
 ## Sega SC-3000
 
