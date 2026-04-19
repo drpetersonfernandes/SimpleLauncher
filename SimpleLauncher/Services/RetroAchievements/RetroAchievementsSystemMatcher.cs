@@ -87,7 +87,7 @@ public static class RetroAchievementsSystemMatcher
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
         ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX", "Microsoft MSX2"]),
-        ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad"]),
+        ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad", "Amstrad PCW"]),
         ["apple ii"] = new RaSystemInfo(38, ["apple ii", "apple 2", "apple2"]),
         ["3do interactive multiplayer"] = new RaSystemInfo(43, ["3do interactive multiplayer", "3do", "3DO real", "Panasonic 3DO"]),
         ["colecovision"] = new RaSystemInfo(44, ["colecovision"]),

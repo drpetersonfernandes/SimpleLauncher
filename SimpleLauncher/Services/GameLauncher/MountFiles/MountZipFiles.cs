@@ -808,6 +808,12 @@ internal static class MountZipFiles
             // --- Custom ScummVM Launch Logic ---
 
             // 1. Resolve Emulator Path
+            if (string.IsNullOrWhiteSpace(selectedEmulatorManager.EmulatorLocation))
+            {
+                throw new FileNotFoundException($"Emulator executable path is not configured for '{selectedEmulatorName}'. " +
+                                                "Please edit the system configuration and provide a valid emulator path.");
+            }
+
             var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
             if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
             {

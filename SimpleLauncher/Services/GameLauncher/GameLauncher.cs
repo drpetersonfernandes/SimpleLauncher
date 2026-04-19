@@ -350,6 +350,10 @@ public partial class GameLauncher
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch batch file.");
             }
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            {
+                // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
+            }
             else
             {
                 string exitCodeInfo;
@@ -497,6 +501,10 @@ public partial class GameLauncher
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch shortcut file.");
             }
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            {
+                // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
+            }
             else
             {
                 // Existing error handling for other Win32Exceptions
@@ -622,6 +630,10 @@ public partial class GameLauncher
             {
                 MessageBoxLibrary.ElevationRequiredMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch executable.");
+            }
+            else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+            {
+                // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
             }
             else
             {
@@ -861,6 +873,22 @@ public partial class GameLauncher
         // Resolve the Emulator Path (executable)
         if (selectedEmulatorManager != null)
         {
+            // Check if emulator location is empty or null
+            if (string.IsNullOrWhiteSpace(selectedEmulatorManager.EmulatorLocation))
+            {
+                // Notify developer
+                var contextMessage = $"EmulatorLocation is null or empty for emulator '{selectedEmulatorName}'. " +
+                                     $"This typically means the system was configured to run directly executable files (.bat, .exe, .lnk) " +
+                                     $"but the user is trying to launch a non-executable file that requires an emulator.";
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+
+                // Notify user with a helpful message
+                MessageBoxLibrary.EmulatorPathNotConfiguredMessageBox(selectedEmulatorName);
+
+                return;
+            }
+
             var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
             if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(PathHelper.GetLongPath(resolvedEmulatorExePath)))
             {
@@ -1058,6 +1086,10 @@ public partial class GameLauncher
                     {
                         MessageBoxLibrary.ElevationRequiredMessageBox();
                         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Elevation required to launch emulator.");
+                    }
+                    else if (CheckApplicationControlPolicy.CheckApplicationControlPolicy.IsOperationCanceledByUser(ex))
+                    {
+                        // User canceled the operation (e.g., clicked Cancel on UAC prompt) - do nothing, don't log
                     }
                     else
                     {

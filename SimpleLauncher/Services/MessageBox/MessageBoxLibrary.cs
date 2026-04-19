@@ -517,6 +517,25 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void EmulatorPathNotConfiguredMessageBox(string emulatorName)
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var emulatorPathNotConfigured = (string)Application.Current.TryFindResource("EmulatorPathNotConfigured") ?? "The emulator path is not configured.";
+            var emulatorPathNotConfiguredDetails = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails") ??
+                                                   $"The emulator '{emulatorName}' does not have a valid executable path configured.\n\n" +
+                                                   "This typically happens when:\n" +
+                                                   "- The system was configured to run directly executable files (.bat, .exe, .lnk)\n" +
+                                                   "- But you are trying to launch a file that requires an emulator\n\n" +
+                                                   "Please edit the system configuration and provide a valid emulator path.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show($"{emulatorPathNotConfigured}\n\n{emulatorPathNotConfiguredDetails}", error, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
     internal static void ErrorCalculatingStatsMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

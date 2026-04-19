@@ -33,4 +33,17 @@ public static class CheckApplicationControlPolicy
     {
         return ex is Win32Exception { NativeErrorCode: 740 };
     }
+
+    /// <summary>
+    /// Checks if the given exception is a Win32Exception indicating the operation was canceled by the user.
+    /// This typically occurs when a user cancels a UAC (User Account Control) prompt.
+    /// </summary>
+    /// <param name="ex">The exception to check.</param>
+    /// <returns>True if the operation was canceled by the user, false otherwise.</returns>
+    public static bool IsOperationCanceledByUser(Exception ex)
+    {
+        // Win32 error code 1223 (ERROR_CANCELLED) indicates the user canceled the operation.
+        // This commonly happens when the user clicks "Cancel" on a UAC dialog.
+        return ex is Win32Exception { NativeErrorCode: 1223 };
+    }
 }

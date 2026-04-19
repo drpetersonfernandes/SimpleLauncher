@@ -2726,6 +2726,10 @@ public class SettingsManager : IDisposable
 
     private string ValidateFilenameDisplayMode(string value)
     {
+        // Return default "Original" if value is null, empty, or not in the valid set
+        if (string.IsNullOrWhiteSpace(value))
+            return "Original";
+
         return _validFilenameDisplayModes.Contains(value) ? value : "Original";
     }
 

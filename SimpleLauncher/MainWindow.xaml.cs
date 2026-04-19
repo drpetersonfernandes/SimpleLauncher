@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
@@ -693,13 +692,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
 
-        // Save theme settings
-        var detectedTheme = ThemeManager.Current.DetectTheme(this);
-        if (detectedTheme != null)
-        {
-            _settings.BaseTheme = detectedTheme.BaseColorScheme;
-            _settings.AccentColor = detectedTheme.ColorScheme;
-        }
+        // Note: Theme settings (BaseTheme and AccentColor) are already saved
+        // when the user changes them via App.ChangeTheme().
+        // We do NOT detect and overwrite them here because DetectTheme()
+        // cannot properly identify custom themes like "Adaptive", "HighContrast",
+        // or "Midnight" - it would incorrectly save them as "Dark" or "Light".
 
         _settings.Save();
     }
