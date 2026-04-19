@@ -99,7 +99,10 @@ public partial class GameLauncher
             }
 
             // 4. Perform Validation
-            if (!await ValidateContextAsync(context)) return;
+            if (!await ValidateContextAsync(context))
+            {
+                return;
+            }
 
             // 5. Set Parameters
             context.Parameters = context.EmulatorManager.EmulatorParameters;

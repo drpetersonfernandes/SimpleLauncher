@@ -28,8 +28,8 @@
         <PackageIcon>icon2.png</PackageIcon>
         <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>5.3.1</AssemblyVersion>
-        <FileVersion>5.3.1</FileVersion>
+        <AssemblyVersion>5.3.2</AssemblyVersion>
+        <FileVersion>5.3.2</FileVersion>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <Version>$(VersionPrefix)</Version>
         <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
