@@ -174,14 +174,49 @@ public partial class GameLauncher
             return false;
         }
 
-        var longPath = PathHelper.GetLongPath(context.ResolvedFilePath);
+        var standardPath = context.ResolvedFilePath;
+        var longPath = PathHelper.GetLongPath(standardPath);
 
-        if (!File.Exists(longPath) && !Directory.Exists(longPath))
+        // Check both standard and long path formats for maximum compatibility
+        var standardFileExists = File.Exists(standardPath);
+        var longFileExists = File.Exists(longPath);
+        var standardDirExists = Directory.Exists(standardPath);
+        var longDirExists = Directory.Exists(longPath);
+
+        var fileExists = standardFileExists || longFileExists;
+        var directoryExists = standardDirExists || longDirExists;
+
+        if (!fileExists && !directoryExists)
         {
             var msg = $"File not found: {context.ResolvedFilePath}";
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(msg), msg);
             MessageBoxLibrary.FilePathIsInvalid(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
+        }
+
+        // Detect path format mismatch (exists in one format but not the other)
+        // This helps identify Unicode normalization or path handling issues
+        var hasFileMismatch = standardFileExists != longFileExists;
+        var hasDirMismatch = standardDirExists != longDirExists;
+
+        if (hasFileMismatch || hasDirMismatch)
+        {
+            var mismatchDetails = $"Path validation mismatch detected:\n" +
+                                  $"  Original Path: {context.FilePath}\n" +
+                                  $"  Resolved Path: {standardPath}\n" +
+                                  $"  Long Path: {longPath}\n" +
+                                  $"  Standard File.Exists: {standardFileExists}\n" +
+                                  $"  Long Path File.Exists: {longFileExists}\n" +
+                                  $"  Standard Directory.Exists: {standardDirExists}\n" +
+                                  $"  Long Path Directory.Exists: {longDirExists}\n" +
+                                  $"  This may indicate a Unicode normalization or path handling issue.";
+
+            DebugLogger.Log(mismatchDetails);
+
+            // Send to developer for investigation but don't block the launch
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+                new InvalidOperationException("Path validation mismatch"),
+                mismatchDetails);
         }
 
         if (string.IsNullOrWhiteSpace(context.EmulatorName))
