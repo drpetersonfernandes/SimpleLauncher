@@ -2939,6 +2939,7 @@ internal static class MessageBoxLibrary
             var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
             var thefilepathisinvalid = (string)Application.Current.TryFindResource("Thefilepathisinvalid") ?? "The filepath is invalid or the file does not exist!";
             var networkPathIssue = (string)Application.Current.TryFindResource("networkPathIssue") ?? "If the file is on a network drive ensure your computer is still connected to that drive.";
+            var usbDeviceIssue = (string)Application.Current.TryFindResource("usbDeviceIssue") ?? "If the file is on a portable USB device ensure it is still connected to your computer.";
             var avoidusingspecialcharactersinthefilepath = (string)Application.Current.TryFindResource("Avoidusingspecialcharactersinthefilepath") ?? "Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
@@ -2947,6 +2948,7 @@ internal static class MessageBoxLibrary
             var result = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
                                                         $"{thefilepathisinvalid}\n\n" +
                                                         $"{networkPathIssue}\n\n" +
+                                                        $"{usbDeviceIssue}\n\n" +
                                                         $"{avoidusingspecialcharactersinthefilepath}\n\n" +
                                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
                                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -4919,5 +4921,21 @@ internal static class MessageBoxLibrary
             var errorTitle = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show(errorMessage, errorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    internal static void ShowImageDownloadTimeoutMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(static () =>
+        {
+            var simpleLauncherCouldNotDownloadImages = (string)Application.Current.TryFindResource("SimpleLauncherCouldNotDownloadImages") ?? "Simple Launcher could not download images due to access issues to Cloudflare servers.";
+            var thisMayBeDueToCountryFirewallRestrictions = (string)Application.Current.TryFindResource("ThisMayBeDueToCountryFirewallRestrictions") ?? "This may be due to country firewall restrictions.";
+            var pleaseTryAgainBehindAVpn = (string)Application.Current.TryFindResource("PleaseTryAgainBehindAVpn") ?? "Please try again behind a VPN.";
+            var imageDownloadError = (string)Application.Current.TryFindResource("ImageDownloadError") ?? "Image Download Error";
+
+            System.Windows.MessageBox.Show($"{simpleLauncherCouldNotDownloadImages}\n\n" +
+                                           $"{thisMayBeDueToCountryFirewallRestrictions}\n\n" +
+                                           $"{pleaseTryAgainBehindAVpn}",
+                imageDownloadError, MessageBoxButton.OK, MessageBoxImage.Warning);
+        });
     }
 }

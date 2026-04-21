@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.GameScan.Models;
+using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameScan;
@@ -36,6 +37,8 @@ public class GameScannerService
     private string _windowsImagesPath;
 
     internal bool WasNewSystemCreated { get; private set; }
+
+    private static bool _timeoutMessageShown;
 
     public GameScannerService(ILogErrors logErrors)
     {
@@ -218,6 +221,13 @@ public class GameScannerService
                 if (ex is HttpRequestException or OperationCanceledException)
                 {
                     logErrors?.LogErrorAsync(ex, $"Failed to download image for '{gameName}' from API after retry.");
+
+                    // Show message box for timeout/network errors on final attempt (attempt == 1)
+                    if (attempt == 1 && !_timeoutMessageShown)
+                    {
+                        _timeoutMessageShown = true;
+                        MessageBoxLibrary.ShowImageDownloadTimeoutMessageBox();
+                    }
                 }
             }
         }
