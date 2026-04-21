@@ -253,7 +253,7 @@ public class EasyModeManager : IDisposable
         }
         catch (OperationCanceledException)
         {
-            DebugLogger.Log("Fallback XML download timed out (20 seconds).");
+            DebugLogger.Log("Fallback XML download timed out (30 seconds).");
             return null;
         }
         catch (Exception ex)

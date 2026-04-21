@@ -833,7 +833,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 **System Folder (Example):** c:\Commodore 64<br>
 **Extension to Search in the System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
+**Extract File Before Launch?** true or false (depending on the emulator you are using)<br>
 **Extension to Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 **Group Files by Folder:** false<br>
 
