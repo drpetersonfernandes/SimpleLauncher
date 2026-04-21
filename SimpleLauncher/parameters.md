@@ -4219,7 +4219,7 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Sega Model 3<br>
-**Extension to Search in the System Folder:** bat<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -4227,12 +4227,11 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 .
 
 **Emulator Name:** Supermodel<br>
-**Emulator Path (Example):** <br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Supermodel\Supermodel.exe<br>
+**Emulator Parameters (Example):** -fullscreen -show-fps<br>
+**Fullscreen Parameter:** -fullscreen<br>
 
 This emulator is available for Windows-x64.<br>
-You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.<br>
 
 ## Sega Saturn
 

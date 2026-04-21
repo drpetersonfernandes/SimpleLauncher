@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net10.0-windows</TargetFramework>
         <RuntimeFrameworkVersion>10.0.2</RuntimeFrameworkVersion>
@@ -508,9 +508,6 @@
         <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.exe">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.exe">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.exe">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -533,9 +530,6 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="tools\CreateBatchFilesForScummVMGames\CreateBatchFilesForScummVMGames_arm64.exe">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games_arm64.exe">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="tools\CreateBatchFilesForWindowsGames\CreateBatchFilesForWindowsGames_arm64.exe">

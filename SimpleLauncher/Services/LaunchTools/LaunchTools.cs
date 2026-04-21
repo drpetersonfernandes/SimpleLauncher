@@ -294,27 +294,6 @@ public class LaunchTools : ILaunchTools
         LaunchExternalTool(toolPath);
     }
 
-    public void CreateBatchFilesForSegaModel3Games()
-    {
-        var architecture = RuntimeInformation.ProcessArchitecture;
-        var executableName = architecture switch
-        {
-            Architecture.X64 => "CreateBatchFilesForSegaModel3Games.exe",
-            Architecture.Arm64 => "CreateBatchFilesForSegaModel3Games_arm64.exe",
-            _ => null
-        };
-
-        if (executableName == null)
-        {
-            var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
-            return;
-        }
-
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", executableName);
-        LaunchExternalTool(toolPath);
-    }
-
     public void RomValidator()
     {
         var architecture = RuntimeInformation.ProcessArchitecture;

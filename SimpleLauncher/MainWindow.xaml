@@ -582,12 +582,6 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="CreateBatchFilesForSegaModel3Games_Click"
-                          Header="Create Batch Files For Sega Model 3 Games" ToolTip="{DynamicResource TooltipToolsMenu}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Click="CreateBatchFilesForWindowsGames_Click"
                           Header="Create Batch Files For Windows Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>

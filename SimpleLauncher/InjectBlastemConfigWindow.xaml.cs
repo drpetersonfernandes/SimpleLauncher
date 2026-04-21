@@ -54,6 +54,14 @@ public partial class InjectBlastemConfigWindow
             return _emulatorPath;
         }
 
+        // Try to resolve from system.xml
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Blastem");
+        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
+        {
+            _emulatorPath = resolved;
+            return _emulatorPath;
+        }
+
         MessageBoxLibrary.BlastemEmulatorNotFound();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -81,66 +89,71 @@ public partial class InjectBlastemConfigWindow
         _settings.Save();
     }
 
-    private record InjectionResult(bool Success, string ErrorMessage, Exception OriginalException);
-
-    private InjectionResult InjectConfig()
+    private bool InjectConfig()
     {
         var path = EnsureEmulatorPath();
         if (string.IsNullOrEmpty(path))
-        {
-            var errorMsg = string.IsNullOrEmpty(_emulatorPath)
-                ? "Blastem emulator path is not configured."
-                : $"Blastem emulator not found at: {_emulatorPath}";
-            return new InjectionResult(false, errorMsg, null);
-        }
+            throw new OperationCanceledException("User cancelled emulator path selection.");
 
         try
         {
             BlastemConfigurationService.InjectSettings(path, _settings);
-            return new InjectionResult(true, null, null);
+            return true;
         }
         catch (FileNotFoundException ex)
         {
             var errorMsg = $"Configuration file not found for Blastem at: {path}. Details: {ex.Message}";
             _logErrors.LogErrorAsync(ex, errorMsg);
-            return new InjectionResult(false, errorMsg, ex);
+            return false;
         }
         catch (UnauthorizedAccessException ex)
         {
             var errorMsg = $"Permission denied accessing Blastem configuration at: {path}. Details: {ex.Message}";
             _logErrors.LogErrorAsync(ex, errorMsg);
-            return new InjectionResult(false, errorMsg, ex);
+            return false;
         }
         catch (IOException ex)
         {
             var errorMsg = $"I/O error while accessing Blastem configuration at: {path}. Details: {ex.Message}";
             _logErrors.LogErrorAsync(ex, errorMsg);
-            return new InjectionResult(false, errorMsg, ex);
+            return false;
         }
         catch (Exception ex)
         {
             var errorMsg = $"Blastem configuration injection failed for path: {path}. Details: {ex.Message}";
             _logErrors.LogErrorAsync(ex, errorMsg);
-            return new InjectionResult(false, errorMsg, ex);
+            return false;
         }
     }
 
     private void BtnRun_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        var result = InjectConfig();
-
-        if (result.Success)
+        try
         {
-            ShouldRun = true;
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                Close();
+            }
+            else
+            {
+                // Injection failed but was already logged inside InjectConfig.
+                // Notify user and close without generating a duplicate report.
+                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                Close();
+                ShouldRun = true; // Game should still launch
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // User cancelled - close silently
             Close();
         }
-        else
+        catch (Exception ex)
         {
-            // Injection failed: Notify user → Notify developer → Close window → Launch game
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            var exception = result.OriginalException ?? new InvalidOperationException(result.ErrorMessage);
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, exception, emulatorName, _emulatorPath, this);
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
             ShouldRun = true; // Game should still launch
         }
     }
@@ -148,19 +161,30 @@ public partial class InjectBlastemConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        var result = InjectConfig();
-
-        if (result.Success)
+        try
         {
-            MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
+                Close();
+            }
+            else
+            {
+                // Injection failed but was already logged inside InjectConfig.
+                // Notify user and close without generating a duplicate report.
+                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                Close();
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // User cancelled - close silently
             Close();
         }
-        else
+        catch (Exception ex)
         {
-            // Injection failed: Notify user → Notify developer → Close window
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            var exception = result.OriginalException ?? new InvalidOperationException(result.ErrorMessage);
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, exception, emulatorName, _emulatorPath, this);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
         }
     }
 }

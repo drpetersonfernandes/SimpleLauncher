@@ -50,6 +50,14 @@ public partial class InjectDolphinConfigWindow
             return _emulatorPath;
         }
 
+        // Try to resolve from system.xml
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Dolphin");
+        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
+        {
+            _emulatorPath = resolved;
+            return _emulatorPath;
+        }
+
         MessageBoxLibrary.DolphinEmulatorNotFound();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
@@ -79,7 +87,7 @@ public partial class InjectDolphinConfigWindow
     {
         var path = EnsureEmulatorPath();
         if (string.IsNullOrEmpty(path))
-            return false;
+            throw new OperationCanceledException("User cancelled emulator path selection.");
 
         try
         {
@@ -105,11 +113,17 @@ public partial class InjectDolphinConfigWindow
             }
             else
             {
-                // Injection failed: Notify user → Notify developer → Close window → Launch game
-                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-                InjectionErrorHandler.HandleRunButtonFailure(_logErrors, new InvalidOperationException("Dolphin injection failed"), emulatorName, _emulatorPath, this);
+                // Injection failed but was already logged inside InjectConfig.
+                // Notify user and close without generating a duplicate report.
+                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                Close();
                 ShouldRun = true; // Game should still launch
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // User cancelled - close silently
+            Close();
         }
         catch (Exception ex)
         {
@@ -132,10 +146,16 @@ public partial class InjectDolphinConfigWindow
             }
             else
             {
-                // Injection failed: Notify user → Notify developer → Close window
-                var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-                InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, new InvalidOperationException("Dolphin injection failed"), emulatorName, _emulatorPath, this);
+                // Injection failed but was already logged inside InjectConfig.
+                // Notify user and close without generating a duplicate report.
+                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                Close();
             }
+        }
+        catch (OperationCanceledException)
+        {
+            // User cancelled - close silently
+            Close();
         }
         catch (Exception ex)
         {

@@ -8,7 +8,6 @@ public interface ILaunchTools
     void BatchConvertToRvz();
     void CreateBatchFilesForPs3Games();
     void CreateBatchFilesForScummVmGames();
-    void CreateBatchFilesForSegaModel3Games();
     void CreateBatchFilesForWindowsGames();
     void CreateBatchFilesForXbox360XblaGames();
     void FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder);

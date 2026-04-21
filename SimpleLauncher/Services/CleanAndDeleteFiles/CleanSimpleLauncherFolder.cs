@@ -21,6 +21,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "x86"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x64"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games"),
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs"),
         Path.Combine(AppDirectory, "resources"),
         Path.Combine(AppDirectory, "de"),
@@ -149,12 +150,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.deps.json"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.dll"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.pdb"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.runtimeconfig.json"),
-
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.deps.json"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.dll"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.pdb"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.runtimeconfig.json")
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.runtimeconfig.json")
     ];
 
     private static readonly string[] FilesToDeleteIfCurrentArchitectureIsX64 =
@@ -168,7 +164,6 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "DolphinTool_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames_arm64.exe"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover_arm64.exe"),
@@ -195,7 +190,6 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "DolphinTool.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.exe"),

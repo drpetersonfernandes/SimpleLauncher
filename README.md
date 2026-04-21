@@ -109,7 +109,6 @@ Simple Launcher includes a comprehensive suite of specialized utilities:
 * **Batch File Creators:**
   - CreateBatchFilesForPS3Games: PS3 game launchers
   - CreateBatchFilesForScummVMGames: ScummVM game launchers
-  - CreateBatchFilesForSegaModel3Games: Sega Model 3 launchers
   - CreateBatchFilesForWindowsGames: Windows game launchers
   - CreateBatchFilesForXbox360XBLAGames: Xbox 360 XBLA launchers
 * **Validation & Organization:**

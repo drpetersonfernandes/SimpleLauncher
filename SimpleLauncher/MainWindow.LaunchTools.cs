@@ -57,13 +57,6 @@ public partial class MainWindow
         _launchTools.CreateBatchFilesForScummVmGames();
     }
 
-    private void CreateBatchFilesForSegaModel3Games_Click(object sender, RoutedEventArgs e)
-    {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        _playSoundEffects.PlayNotificationSound();
-        _launchTools.CreateBatchFilesForSegaModel3Games();
-    }
-
     private void CreateBatchFilesForWindowsGames_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
