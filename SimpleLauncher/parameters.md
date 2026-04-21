@@ -3353,7 +3353,7 @@ Core may require BIOS files or system files to work.
 **%ROM%** - Represents the ROM path<br>
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
-**Extension to Search in the System Folder:** wua<br>
+**Extension to Search in the System Folder:** wua, wux<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>

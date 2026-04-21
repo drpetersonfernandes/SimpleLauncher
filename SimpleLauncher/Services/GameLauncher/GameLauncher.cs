@@ -1340,6 +1340,7 @@ public partial class GameLauncher
         return Task.CompletedTask;
     }
 
+    // ReSharper disable once UnusedParameter.Local
     private Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, Emulator emulatorManager)
     {
         if (process.HasExited && process.ExitCode != DepViolation)
@@ -1357,12 +1358,12 @@ public partial class GameLauncher
                              $"Emulator error: {error}\n";
         _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError)
-        {
-            // Notify user
-            return MessageBoxLibrary.CouldNotLaunchGameDueToDepViolation();
-            // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
-        }
+        // if (emulatorManager.ReceiveANotificationOnEmulatorError)
+        // {
+        //     // Notify user
+        //     return MessageBoxLibrary.CouldNotLaunchGameDueToDepViolation();
+        //     // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
+        // }
 
         return Task.CompletedTask;
     }
