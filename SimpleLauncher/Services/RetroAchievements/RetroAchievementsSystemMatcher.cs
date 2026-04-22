@@ -59,8 +59,8 @@ public static class RetroAchievementsSystemMatcher
         ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
         // Sony systems
-        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation"]),
-        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2"]),
+        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station", "Sony Play Station 1"]),
+        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2"]),
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
         // NEC systems

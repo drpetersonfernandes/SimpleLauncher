@@ -4963,6 +4963,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **Emulator Name:** DuckStation<br>
 **Emulator Path (Example):** C:\emulators\duckstation\duckstation-qt-x64-ReleaseLTCG.exe<br>
+**Emulator Path (Example):** C:\emulators\duckstation\duckstation-nogui-x64-ReleaseLTCG.exe<br>
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 

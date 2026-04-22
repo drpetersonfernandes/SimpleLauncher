@@ -560,6 +560,9 @@ public partial class App : IDisposable
 
     private static void InternalChangeTheme(object target, string baseTheme, string accentColor)
     {
+        baseTheme = string.IsNullOrWhiteSpace(baseTheme) ? "Dark" : baseTheme;
+        accentColor = string.IsNullOrWhiteSpace(accentColor) ? "Blue" : accentColor;
+
         if (IsCustomAccent(accentColor))
         {
             var color = GetColorForAccent(accentColor);

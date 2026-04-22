@@ -25,6 +25,8 @@ public class SettingsManager : IDisposable
     private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
     private readonly HashSet<string> _validFontSizes = ["Small", "Normal", "Big"];
     private readonly HashSet<string> _validStyleVariants = ["Default"];
+    private readonly HashSet<string> _validBaseThemes = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
+    private readonly HashSet<string> _validAccentColors = ["Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta", "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow"];
 
     // Application Settings
     public int ThumbnailSize { get; set; } = 250;
@@ -898,8 +900,8 @@ public class SettingsManager : IDisposable
 
         VideoUrl = app?.Element("VideoUrl")?.Value ?? settings.Element("VideoUrl")?.Value ?? VideoUrl;
         InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
-        BaseTheme = app?.Element("BaseTheme")?.Value ?? settings.Element("BaseTheme")?.Value ?? BaseTheme;
-        AccentColor = app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor;
+        BaseTheme = ValidateBaseTheme(app?.Element("BaseTheme")?.Value ?? settings.Element("BaseTheme")?.Value ?? BaseTheme);
+        AccentColor = ValidateAccentColor(app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor);
         StyleVariant = ValidateStyleVariant(app?.Element("StyleVariant")?.Value ?? settings.Element("StyleVariant")?.Value);
         Language = app?.Element("Language")?.Value ?? settings.Element("Language")?.Value ?? Language;
         ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value);
@@ -2741,6 +2743,16 @@ public class SettingsManager : IDisposable
     private string ValidateStyleVariant(string value)
     {
         return _validStyleVariants.Contains(value) ? value : "Default";
+    }
+
+    private string ValidateBaseTheme(string value)
+    {
+        return _validBaseThemes.Contains(value) ? value : "Dark";
+    }
+
+    private string ValidateAccentColor(string value)
+    {
+        return _validAccentColors.Contains(value) ? value : "Blue";
     }
 
     private static string ValidateSupermodelInputSystem(string value)
