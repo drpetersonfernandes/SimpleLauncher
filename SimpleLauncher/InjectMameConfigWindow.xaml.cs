@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

@@ -6,7 +6,6 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
