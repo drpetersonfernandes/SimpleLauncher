@@ -1753,6 +1753,9 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">'System Image Folder' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemImageFolderOptional">System Image Folder (Optional)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">System Image Folder path is not valid or does not exist:</system:String>
+    <system:String x:Key="SystemImageLabel">System Image</system:String>
+    <system:String x:Key="ChooseSystemImage">Choose Image</system:String>
+    <system:String x:Key="TooltipChooseSystemImage">Choose an image to represent this system</system:String>
     <system:String x:Key="SystemLoadCancelled">System load cancelled.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'System Name' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemNamecontainsinvalid">'System Name' contains invalid characters:</system:String>

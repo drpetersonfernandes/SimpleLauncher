@@ -23,6 +23,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -126,8 +127,39 @@
 
                 </Grid>
 
+                <!-- System Image Preview -->
+                <Grid Grid.Row="2" Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource SystemImageLabel}"
+                        Margin="0,0,10,0" />
+                    <Image
+                        x:Name="SystemImagePreview"
+                        Grid.Column="1"
+                        Width="64"
+                        Height="64"
+                        Margin="5"
+                        VerticalAlignment="Center" />
+                    <Button
+                        x:Name="ChooseSystemImageButton"
+                        Grid.Column="2"
+                        Margin="0,0,10,0"
+                        Padding="10"
+                        VerticalAlignment="Center"
+                        Click="ChooseSystemImageButton_Click"
+                        Content="{DynamicResource ChooseSystemImage}"
+                        IsEnabled="False"
+                        ToolTip="{DynamicResource TooltipChooseSystemImage}" />
+                </Grid>
+
                 <ScrollViewer
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     HorizontalScrollBarVisibility="Disabled"
                     VerticalScrollBarVisibility="Auto"
