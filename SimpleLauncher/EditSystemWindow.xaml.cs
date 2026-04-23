@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -356,6 +357,7 @@ internal partial class EditSystemWindow : ILoadingState
         ChooseEmulator3PathButton.IsEnabled = true;
         ChooseEmulator4PathButton.IsEnabled = true;
         ChooseEmulator5PathButton.IsEnabled = true;
+        ChooseSystemImageButton.IsEnabled = true;
     }
 
     private void DisableAllEditableFields()
@@ -431,6 +433,7 @@ internal partial class EditSystemWindow : ILoadingState
         ChooseEmulator3PathButton.IsEnabled = false;
         ChooseEmulator4PathButton.IsEnabled = false;
         ChooseEmulator5PathButton.IsEnabled = false;
+        ChooseSystemImageButton.IsEnabled = false;
     }
 
     private void ClearFields()
@@ -465,6 +468,7 @@ internal partial class EditSystemWindow : ILoadingState
         MarkValid(FormatToLaunchTextBox);
 
         ClearAllEmulatorFieldsInternal();
+        UpdateSystemImagePreview();
     }
 
     private void ClearAllEmulatorFieldsInternal()
@@ -645,5 +649,95 @@ internal partial class EditSystemWindow : ILoadingState
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
         UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+    }
+
+    private void ChooseSystemImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        var systemName = SystemNameTextBox.Text.Trim();
+        if (string.IsNullOrEmpty(systemName))
+        {
+            MessageBoxLibrary.SystemNameRequiredBeforeChoosingImageMessageBox();
+            return;
+        }
+
+        var dialog = new OpenFileDialog
+        {
+            DefaultExt = ".png",
+            Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
+            Title = "Select System Image"
+        };
+
+        if (dialog.ShowDialog() != true) return;
+
+        var sourceFilePath = dialog.FileName;
+        var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
+        if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
+        {
+            MessageBoxLibrary.InvalidImageFormatMessageBox();
+            return;
+        }
+
+        var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
+        try
+        {
+            if (!Directory.Exists(imagesSystemsDir))
+            {
+                Directory.CreateDirectory(imagesSystemsDir);
+            }
+
+            var destFilePath = Path.Combine(imagesSystemsDir, $"{systemName}{extension}");
+            File.Copy(sourceFilePath, destFilePath, true);
+            UpdateSystemImagePreview();
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying system image.");
+            MessageBoxLibrary.FailedToCopySystemImageMessageBox(ex.Message);
+        }
+    }
+
+    private void UpdateSystemImagePreview()
+    {
+        var systemName = SystemNameTextBox.Text.Trim();
+        var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
+        string imagePath = null;
+
+        if (!string.IsNullOrEmpty(systemName))
+        {
+            foreach (var ext in new[] { ".png", ".jpg", ".jpeg" })
+            {
+                var path = Path.Combine(imagesSystemsDir, $"{systemName}{ext}");
+                if (File.Exists(path))
+                {
+                    imagePath = path;
+                    break;
+                }
+            }
+        }
+
+        if (string.IsNullOrEmpty(imagePath))
+        {
+            imagePath = Path.Combine(imagesSystemsDir, "default.png");
+        }
+
+        if (!File.Exists(imagePath))
+        {
+            SystemImagePreview.Source = null;
+            return;
+        }
+
+        try
+        {
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            SystemImagePreview.Source = bitmap;
+        }
+        catch
+        {
+            SystemImagePreview.Source = null;
+        }
     }
 }

@@ -59,8 +59,8 @@ public static class RetroAchievementsSystemMatcher
         ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
         // Sony systems
-        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station", "Sony Play Station 1"]),
-        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2"]),
+        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station", "Sony Play Station 1", "Sony - PlayStation", "Sony - PlayStation 1"]),
+        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2", "Sony - PlayStation 2"]),
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
         // NEC systems
@@ -145,7 +145,9 @@ public static class RetroAchievementsSystemMatcher
             "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
             "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade",
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
-            "Adobe Flash", "Emulators"
+            "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
+            "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron",
+            "Casio CFX-9850"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

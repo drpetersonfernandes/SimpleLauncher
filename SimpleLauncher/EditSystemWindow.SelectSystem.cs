@@ -76,6 +76,7 @@ internal partial class EditSystemWindow
         if (selectedSystem != null)
         {
             SystemNameTextBox.Text = selectedSystem.SystemName;
+            UpdateSystemImagePreview();
 
             // Load system folders
             SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? string.Empty;

@@ -4938,4 +4938,43 @@ internal static class MessageBoxLibrary
                 imageDownloadError, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
+
+    internal static void SystemNameRequiredBeforeChoosingImageMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("SystemNameRequiredBeforeChoosingImage") ?? "Please enter a system name before choosing an image.";
+            var title = (string)Application.Current.TryFindResource("SystemNameRequired") ?? "System Name Required";
+            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static void InvalidImageFormatMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("InvalidImageFormat") ?? "Only PNG, JPG, and JPEG images are supported.";
+            var title = (string)Application.Current.TryFindResource("InvalidImageFormatTitle") ?? "Invalid Image Format";
+            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void FailedToCopySystemImageMessageBox(string errorMessage)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowMessage(errorMessage));
+        return;
+
+        static void ShowMessage(string errorMessage)
+        {
+            var baseMessage = (string)Application.Current.TryFindResource("FailedToCopySystemImage") ?? "Failed to copy the image:";
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show($"{baseMessage} {errorMessage}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }
