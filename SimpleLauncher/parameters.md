@@ -81,8 +81,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-**Attention**
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List Roms. I am not affiliated with PleasureDome in any way.<br>
 You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
@@ -112,7 +112,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.<br>
 You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
@@ -191,7 +191,7 @@ You can download this emulator on the [Official Website](https://ares-emu.net/do
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/stella/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
@@ -973,7 +973,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Parameters (Example using relative paths):** /config "%EMULATORFOLDER%\Config.uae" /nogui /harddrive<br>
 **Emulator Parameters (Example using relative paths):** /config "%EMULATORFOLDER%\Config.uae" /nogui /cdrom<br>
 **Fullscreen Parameter:** /fullscreen<br>
-**Fullscreen Parameter:** /windowed<br>
+**Windowed Parameter:** /windowed<br>
 
 This emulator is available for Windows-x64.<br>
 You can download this emulator on the [Official Website](https://www.winuae.net/download/).<br>
@@ -1017,7 +1017,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a1000<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a600<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Commodore Amiga;%SYSTEMFOLDER%" a500<br>
-**Fullscreen Parameter:** -window (will load in windowed mode)<br><br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 a3000: Amiga 3000<br>
 a2000: Amiga 2000<br>
@@ -1103,7 +1103,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will mount it in a virtual drive. For this logic to work you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-This emulator require BIOs and system files to work. These files need to be inside the roms folder.<br>
+This emulator requires BIOS and system files to work. These files need to be inside the roms folder.<br>
 You can download this emulator on the [Official Website](https://github.com/captainys/TOWNSEMU/releases).<br>
 
 ## LaserDisk
@@ -1171,7 +1171,7 @@ You can download this emulator on the [Official Website](https://github.com/Dirt
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/o2em/).<br>
-Core require BIOS files to work.<br>
+Core requires BIOS files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
@@ -1541,7 +1541,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Emulator Path:** <br>
 **Emulator Parameters:** <br>
 
-LNK files are shortcut files.
+LNK files are shortcut files.<br>
 You can create a shortcut by right-clicking on the Game.exe and selecting 'Create Shortcut'.<br>
 If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.<br>
 
@@ -1723,7 +1723,7 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-'Simple Launcher' has a tool in the Tools menu that can create [Batch Files For Xbox360 XBLA Games]. Use this tool to automatic create BAT files for you.<br>
+'Simple Launcher' has a tool in the Tools menu that can create [Batch Files For Xbox360 XBLA Games]. Use this tool to automatically create BAT files for you.<br>
 You can download this emulator on the [Official Website](https://github.com/xenia-project/release-builds-windows/releases).<br>
 
 ## NEC PC Engine / TurboGrafx 16
@@ -1816,7 +1816,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
 
-**System Folder:** c:\NEC PC Engine CD<br>
+**System Folder (Example):** c:\NEC PC Engine CD<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
@@ -1832,7 +1832,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
-May require a BIOS files to work.<br>
+May require BIOS files to work.<br>
 You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).<br>
 
 .
@@ -2649,7 +2649,7 @@ You can download this emulator on the [Official Website](https://github.com/hade
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 You can download this emulator on the [Official Website](https://github.com/visualboyadvance-m/visualboyadvance-m).<br>
 
 .
@@ -3240,7 +3240,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -3288,7 +3288,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_vb/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -3340,7 +3340,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 ## Nintendo WiiU
 
@@ -3365,7 +3365,7 @@ Core may require BIOS files or system files to work.
 **Emulator Parameters (Example):** -f -g<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo WiiWare
 
@@ -3404,7 +3404,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 ## Panasonic 3DO
 
@@ -3455,7 +3455,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/opera/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 ## Philips CD-i
 
@@ -3495,7 +3495,7 @@ Emulator may require BIOS or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/same_cdi/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 ## ScummVM / Scumm-VM
 
@@ -3568,7 +3568,7 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 
 .
@@ -3600,7 +3600,7 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/flycast/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -3776,7 +3776,7 @@ You can download this emulator on the [Official Website](https://www.carpeludum.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -3796,7 +3796,7 @@ You can download this emulator on the [Official Website](https://ares-emu.net/do
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -3897,7 +3897,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -3921,7 +3921,7 @@ You can download this emulator on the [Official Website](https://ares-emu.net/do
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -3971,7 +3971,7 @@ It requires a BIOS file to work.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4092,7 +4092,7 @@ You can download this emulator on the [Official Website](https://github.com/jsgr
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 .
 
@@ -4290,7 +4290,7 @@ You can download this emulator on the [Official Website](https://segaretro.org/S
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4299,7 +4299,7 @@ This emulator is available for Windows-x64.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4308,7 +4308,7 @@ This emulator is available for Windows-x64.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4317,7 +4317,7 @@ This emulator is available for Windows-x64.
 **Emulator Parameters (Example):** -f -a -i<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 
 .
@@ -4442,7 +4442,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4520,7 +4520,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 .
 
@@ -4610,7 +4610,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:**
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
 
 .
 
@@ -4633,7 +4633,7 @@ The list of command-line arguments available for this emulator can be found on [
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fuse/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -4673,8 +4673,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
-**Attention**
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+**Attention**<br>
+To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
 .
@@ -4707,8 +4707,8 @@ You need to use a ROM set compatible with Raine. You can find an updated set of 
 
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [docs.libretro.com](https://docs.libretro.com/library/geolith/).<br>
-Core require BIOS files (aes.zip and neogeo.zip) to work.<br>
-This core can not run MAME ROM sets. It uses ROM files with the extension .NEO.<br>
+Core requires BIOS files (aes.zip and neogeo.zip) to work.<br>
+This core cannot run MAME ROM sets. It uses ROM files with the extension .NEO.<br>
 
 ## SNK Neo Geo CD / NeoGeo CD
 
@@ -4776,7 +4776,7 @@ If you use a CHD file 'Simple Launcher' will automatically mount the CHD file be
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [NeoCD Repository](https://github.com/libretro/neocd_libretro).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -4839,7 +4839,7 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -4852,7 +4852,7 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -4915,7 +4915,7 @@ This emulator requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -4928,7 +4928,7 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
 
 .
 
@@ -4982,7 +4982,7 @@ You can download this emulator on the [Official Website](https://github.com/sten
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-May require a BIOS files to work.<br>
+May require BIOS files to work.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
 You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).
 
@@ -5018,7 +5018,7 @@ You can download this emulator on the [Official Website](https://ares-emu.net/do
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-This emulator may requires a BIOS file to work.<br>
+This emulator may require a BIOS file to work.<br>
 You can download this emulator on the [GitHub Repository](https://github.com/grumpycoders/pcsx-redux).
 
 .
@@ -5029,7 +5029,7 @@ You can download this emulator on the [GitHub Repository](https://github.com/gru
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-This emulator may requires a BIOS file to work.<br>
+This emulator may require a BIOS file to work.<br>
 You can download this emulator on the [Official Website](https://www.epsxe.com/download.php).
 
 .
@@ -5158,7 +5158,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br><br>
+**%ROM%** - Represents the ROM path<br>
 
 .
 
@@ -5223,7 +5223,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br><br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 You can download this emulator on the [Official Website](https://rpcs3.net/download).
 
 ## Sony PlayStation 4 / PSX4 / PSX 4
@@ -5360,7 +5360,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
-**Group Files by Folder:** false
+**Group Files by Folder:** false<br>
 
 .
 
