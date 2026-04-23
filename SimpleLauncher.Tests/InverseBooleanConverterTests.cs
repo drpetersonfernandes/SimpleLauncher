@@ -11,7 +11,7 @@ public class InverseBooleanConverterTests
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, true)]
-    public void Convert_Boolean_ReturnsInverse(bool input, bool expected)
+    public void ConvertBooleanReturnsInverse(bool input, bool expected)
     {
         var result = _converter.Convert(input, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(expected, result);
@@ -20,21 +20,21 @@ public class InverseBooleanConverterTests
     [Theory]
     [InlineData(true, false)]
     [InlineData(false, true)]
-    public void ConvertBack_Boolean_ReturnsInverse(bool input, bool expected)
+    public void ConvertBackBooleanReturnsInverse(bool input, bool expected)
     {
         var result = _converter.ConvertBack(input, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void Convert_NonBoolean_ReturnsOriginalValue()
+    public void ConvertNonBooleanReturnsOriginalValue()
     {
         var result = _converter.Convert("hello", typeof(string), null, CultureInfo.InvariantCulture);
         Assert.Equal("hello", result);
     }
 
     [Fact]
-    public void ConvertBack_NonBoolean_ReturnsOriginalValue()
+    public void ConvertBackNonBooleanReturnsOriginalValue()
     {
         var result = _converter.ConvertBack(42, typeof(int), null, CultureInfo.InvariantCulture);
         Assert.Equal(42, result);

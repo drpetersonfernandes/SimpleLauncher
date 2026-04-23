@@ -6,7 +6,7 @@ namespace SimpleLauncher.Tests;
 public class CheckIfDirectoryIsWritableTests
 {
     [Fact]
-    public void IsWritableDirectory_NonExistent_ReturnsFalse()
+    public void IsWritableDirectoryNonExistentReturnsFalse()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "nonexistent");
         var result = CheckIfDirectoryIsWritable.IsWritableDirectory(fakePath);
@@ -14,7 +14,7 @@ public class CheckIfDirectoryIsWritableTests
     }
 
     [Fact]
-    public void IsWritableDirectory_TempDirectory_ReturnsTrue()
+    public void IsWritableDirectoryTempDirectoryReturnsTrue()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
@@ -30,7 +30,7 @@ public class CheckIfDirectoryIsWritableTests
     }
 
     [Fact]
-    public void IsWritableDirectory_LeavesNoTempFiles()
+    public void IsWritableDirectoryLeavesNoTempFiles()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);

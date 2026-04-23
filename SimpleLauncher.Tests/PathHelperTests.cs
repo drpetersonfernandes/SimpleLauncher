@@ -13,7 +13,7 @@ public class PathHelperTests
     [InlineData("C:\\Windows", false)]
     [InlineData("%BASEFOLDER%", false)]
     [InlineData("", false)]
-    public void IsRelativePathWithoutBaseFolder_ReturnsExpected(string path, bool expected)
+    public void IsRelativePathWithoutBaseFolderReturnsExpected(string path, bool expected)
     {
         var result = PathHelper.IsRelativePathWithoutBaseFolder(path);
         Assert.Equal(expected, result);
@@ -24,14 +24,14 @@ public class PathHelperTests
     [InlineData("C:\\MyFolder//", "C:\\MyFolder")]
     [InlineData("C:\\MyFolder", "C:\\MyFolder")]
     [InlineData("", "")]
-    public void SanitizePathToken_RemovesTrailingSeparators(string input, string expected)
+    public void SanitizePathTokenRemovesTrailingSeparators(string input, string expected)
     {
         var result = PathHelper.SanitizePathToken(input);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void SanitizePathToken_Null_ReturnsEmpty()
+    public void SanitizePathTokenNullReturnsEmpty()
     {
         var result = PathHelper.SanitizePathToken(null);
         Assert.Equal("", result);
@@ -41,7 +41,7 @@ public class PathHelperTests
     [InlineData("C:\\test.txt", "test")]
     [InlineData("C:\\folder\\file.zip", "file")]
     [InlineData("file", "file")]
-    public void GetFileNameWithoutExtension_ReturnsExpected(string path, string expected)
+    public void GetFileNameWithoutExtensionReturnsExpected(string path, string expected)
     {
         var result = PathHelper.GetFileNameWithoutExtension(path);
         Assert.Equal(expected, result);
@@ -51,7 +51,7 @@ public class PathHelperTests
     [InlineData("C:\\test.txt", "test.txt")]
     [InlineData("C:\\folder\\file.zip", "file.zip")]
     [InlineData("file", "file")]
-    public void GetFileName_ReturnsExpected(string path, string expected)
+    public void GetFileNameReturnsExpected(string path, string expected)
     {
         var result = PathHelper.GetFileName(path);
         Assert.Equal(expected, result);
@@ -65,14 +65,14 @@ public class PathHelperTests
     [InlineData("C:\\test.txt", false)]
     [InlineData("-f", false)]
     [InlineData("", false)]
-    public void ContainsGameSpecificPlaceholder_ReturnsExpected(string text, bool expected)
+    public void ContainsGameSpecificPlaceholderReturnsExpected(string text, bool expected)
     {
         var result = PathHelper.ContainsGameSpecificPlaceholder(text);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void ContainsGameSpecificPlaceholder_Null_ReturnsFalse()
+    public void ContainsGameSpecificPlaceholderNullReturnsFalse()
     {
         var result = PathHelper.ContainsGameSpecificPlaceholder(null);
         Assert.False(result);
@@ -83,35 +83,35 @@ public class PathHelperTests
     [InlineData("\\\\server\\share", "\\\\?\\UNC\\server\\share")]
     [InlineData("\\\\?\\C:\\already\\extended", "\\\\?\\C:\\already\\extended")]
     [InlineData("", "")]
-    public void GetLongPath_ReturnsExpected(string path, string expected)
+    public void GetLongPathReturnsExpected(string path, string expected)
     {
         var result = PathHelper.GetLongPath(path);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void GetLongPath_Null_ReturnsNull()
+    public void GetLongPathNullReturnsNull()
     {
         var result = PathHelper.GetLongPath(null);
         Assert.Null(result);
     }
 
     [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectory_EmptyString_ReturnsEmpty()
+    public void ResolveRelativeToCurrentWorkingDirectoryEmptyStringReturnsEmpty()
     {
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory("");
         Assert.Equal(string.Empty, result);
     }
 
     [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectory_Null_ReturnsEmpty()
+    public void ResolveRelativeToCurrentWorkingDirectoryNullReturnsEmpty()
     {
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(null);
         Assert.Equal(string.Empty, result);
     }
 
     [Fact]
-    public void ResolveRelativeToCurrentWorkingDirectory_RelativePath_ReturnsAbsolute()
+    public void ResolveRelativeToCurrentWorkingDirectoryRelativePathReturnsAbsolute()
     {
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(".");
         Assert.True(Path.IsPathRooted(result));

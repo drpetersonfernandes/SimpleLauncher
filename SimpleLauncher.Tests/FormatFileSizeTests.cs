@@ -11,7 +11,7 @@ public class FormatFileSizeTests
     [InlineData(2 * 1024 * 1024, "2,00 MB")]
     [InlineData(1536 * 1024, "1,50 MB")]
     [InlineData(1048576 * 5, "5,00 MB")]
-    public void FormatToMb_ReturnsExpected(long bytes, string expected)
+    public void FormatToMbReturnsExpected(long bytes, string expected)
     {
         var result = FormatFileSize.FormatToMb(bytes);
         Assert.Equal(expected, result);
@@ -30,7 +30,7 @@ public class FormatFileSizeTests
     [InlineData(1024L * 1024 * 1024 + 1, "1,00 GB")]
     [InlineData(1024L * 1024 * 1024 * 1024, "1024,00 GB")]
     [InlineData(1024L * 1024 * 1024 * 1024 + 1, "1,00 TB")]
-    public void FormatToHumanReadable_ReturnsExpected(long bytes, string expected)
+    public void FormatToHumanReadableReturnsExpected(long bytes, string expected)
     {
         var result = FormatFileSize.FormatToHumanReadable(bytes);
         Assert.Equal(expected, result);

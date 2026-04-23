@@ -8,14 +8,14 @@ public class CheckPathTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void IsValidPath_InvalidInput_ReturnsFalse(string path)
+    public void IsValidPathInvalidInputReturnsFalse(string path)
     {
         var result = CheckPath.IsValidPath(path);
         Assert.False(result);
     }
 
     [Fact]
-    public void IsValidPath_Null_ReturnsFalse()
+    public void IsValidPathNullReturnsFalse()
     {
         var result = CheckPath.IsValidPath(null);
         Assert.False(result);
@@ -24,21 +24,21 @@ public class CheckPathTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void IsValidEmulatorExecutablePath_InvalidInput_ReturnsFalse(string path)
+    public void IsValidEmulatorExecutablePathInvalidInputReturnsFalse(string path)
     {
         var result = CheckPath.IsValidEmulatorExecutablePath(path);
         Assert.False(result);
     }
 
     [Fact]
-    public void IsValidEmulatorExecutablePath_Null_ReturnsFalse()
+    public void IsValidEmulatorExecutablePathNullReturnsFalse()
     {
         var result = CheckPath.IsValidEmulatorExecutablePath(null);
         Assert.False(result);
     }
 
     [Fact]
-    public void IsValidPath_ExistingFile_ReturnsTrue()
+    public void IsValidPathExistingFileReturnsTrue()
     {
         var tempFile = Path.GetTempFileName();
         try
@@ -53,7 +53,7 @@ public class CheckPathTests
     }
 
     [Fact]
-    public void IsValidPath_ExistingDirectory_ReturnsTrue()
+    public void IsValidPathExistingDirectoryReturnsTrue()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
@@ -69,7 +69,7 @@ public class CheckPathTests
     }
 
     [Fact]
-    public void IsValidPath_NonExistentPath_ReturnsFalse()
+    public void IsValidPathNonExistentPathReturnsFalse()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "fake.txt");
         var result = CheckPath.IsValidPath(fakePath);
@@ -77,7 +77,7 @@ public class CheckPathTests
     }
 
     [Fact]
-    public void IsValidEmulatorExecutablePath_NonExeFile_ReturnsFalse()
+    public void IsValidEmulatorExecutablePathNonExeFileReturnsFalse()
     {
         var tempFile = Path.GetTempFileName(); // .tmp extension
         try
@@ -92,7 +92,7 @@ public class CheckPathTests
     }
 
     [Fact]
-    public void IsValidEmulatorExecutablePath_ExeFile_ReturnsTrue()
+    public void IsValidEmulatorExecutablePathExeFileReturnsTrue()
     {
         var tempFile = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.exe");
         File.WriteAllText(tempFile, "fake exe");

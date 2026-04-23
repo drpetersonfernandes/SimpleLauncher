@@ -6,7 +6,7 @@ namespace SimpleLauncher.Tests;
 public class BugReportFormatterTests
 {
     [Fact]
-    public void BuildReport_NullException_ContainsNoneSections()
+    public void BuildReportNullExceptionContainsNoneSections()
     {
         var report = BugReportFormatter.BuildReport(null);
 
@@ -20,7 +20,7 @@ public class BugReportFormatterTests
     }
 
     [Fact]
-    public void BuildReport_WithException_ContainsExceptionDetails()
+    public void BuildReportWithExceptionContainsExceptionDetails()
     {
         var ex = new InvalidOperationException("Test error message");
         var report = BugReportFormatter.BuildReport(ex);
@@ -31,7 +31,7 @@ public class BugReportFormatterTests
     }
 
     [Fact]
-    public void BuildReport_WithContextMessage_UsesContextMessage()
+    public void BuildReportWithContextMessageUsesContextMessage()
     {
         var report = BugReportFormatter.BuildReport(null, "Custom context");
 
@@ -39,7 +39,7 @@ public class BugReportFormatterTests
     }
 
     [Fact]
-    public void BuildReport_WithInnerException_ContainsInnerException()
+    public void BuildReportWithInnerExceptionContainsInnerException()
     {
         var inner = new ArgumentException("Inner error");
         var ex = new InvalidOperationException("Outer error", inner);
@@ -50,7 +50,7 @@ public class BugReportFormatterTests
     }
 
     [Fact]
-    public void BuildReport_ContainsEnvironmentDetails()
+    public void BuildReportContainsEnvironmentDetails()
     {
         var report = BugReportFormatter.BuildReport(null);
 

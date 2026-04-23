@@ -7,21 +7,21 @@ public class CheckForFileLockTests
 {
     [Theory]
     [InlineData("")]
-    public void IsFileLocked_Empty_ReturnsFalse(string filePath)
+    public void IsFileLockedEmptyReturnsFalse(string filePath)
     {
         var result = CheckForFileLock.IsFileLocked(filePath);
         Assert.False(result);
     }
 
     [Fact]
-    public void IsFileLocked_Null_ReturnsFalse()
+    public void IsFileLockedNullReturnsFalse()
     {
         var result = CheckForFileLock.IsFileLocked(null);
         Assert.False(result);
     }
 
     [Fact]
-    public void IsFileLocked_NonExistentFile_ReturnsFalse()
+    public void IsFileLockedNonExistentFileReturnsFalse()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "fake.txt");
         var result = CheckForFileLock.IsFileLocked(fakePath);
@@ -29,7 +29,7 @@ public class CheckForFileLockTests
     }
 
     [Fact]
-    public void IsFileLocked_ExistingUnlockedFile_ReturnsFalse()
+    public void IsFileLockedExistingUnlockedFileReturnsFalse()
     {
         var tempFile = Path.GetTempFileName();
         try
@@ -44,7 +44,7 @@ public class CheckForFileLockTests
     }
 
     [Fact]
-    public void IsFileLocked_LockedFile_ReturnsTrue()
+    public void IsFileLockedLockedFileReturnsTrue()
     {
         var tempFile = Path.GetTempFileName();
         using var stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.None);

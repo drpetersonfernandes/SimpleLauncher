@@ -6,14 +6,14 @@ namespace SimpleLauncher.Tests;
 public class GetMicrosoftWindowsVersionTests
 {
     [Fact]
-    public void GetVersion_ReturnsNonEmptyString()
+    public void GetVersionReturnsNonEmptyString()
     {
         var result = GetMicrosoftWindowsVersion.GetVersion();
         Assert.False(string.IsNullOrWhiteSpace(result));
     }
 
     [Fact]
-    public void GetVersion_ContainsExpectedPrefix()
+    public void GetVersionContainsExpectedPrefix()
     {
         var result = GetMicrosoftWindowsVersion.GetVersion();
         Assert.True(

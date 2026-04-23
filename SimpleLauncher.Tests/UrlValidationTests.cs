@@ -1,4 +1,3 @@
-using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -9,7 +8,7 @@ using Xunit;
 
 namespace SimpleLauncher.Tests;
 
-public class UrlValidationTests
+public partial class UrlValidationTests
 {
     private static readonly HttpClient HttpClient = new(new SocketsHttpHandler
     {
@@ -25,21 +24,26 @@ public class UrlValidationTests
 
     private static string GetProjectFilePath(string relativePath)
     {
-        var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        if (assemblyLocation == null)
+        {
+            throw new InvalidOperationException("Could not determine executing assembly location.");
+        }
+
         var path = Path.Combine(assemblyLocation, "..", "..", "..", "..", relativePath);
         return Path.GetFullPath(path);
     }
 
     [Fact]
-    public async Task ParametersMd_AllUrlsAreReachable()
+    public async Task ParametersMdAllUrlsAreReachable()
     {
         var filePath = GetProjectFilePath(Path.Combine("SimpleLauncher", "parameters.md"));
         Assert.True(File.Exists(filePath), $"File not found: {filePath}");
 
         var content = await File.ReadAllTextAsync(filePath);
-        var matches = Regex.Matches(content, @"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase);
+        var matches = MyRegex().Matches(content);
         var urls = matches
-            .Select(m => m.Groups[1].Value)
+            .Select(static m => m.Groups[1].Value)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .ToList();
 
@@ -54,7 +58,10 @@ public class UrlValidationTests
                 var error = await CheckUrlAsync(url);
                 if (error != null)
                 {
-                    lock (brokenUrls) brokenUrls.Add(error);
+                    lock (brokenUrls)
+                    {
+                        brokenUrls.Add(error);
+                    }
                 }
             }
             finally
@@ -74,7 +81,7 @@ public class UrlValidationTests
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncheradmin/api/Systems/x64")]
     [InlineData("https://www.purelogiccode.com/simplelauncheradmin/api/Systems/arm64")]
-    public async Task EasyModeApi_EndpointIsReachable(string url)
+    public async Task EasyModeApiEndpointIsReachable(string url)
     {
         using var response = await HttpClient.GetAsync(url);
         Assert.True(response.IsSuccessStatusCode, $"API endpoint {url} returned {(int)response.StatusCode}");
@@ -87,7 +94,7 @@ public class UrlValidationTests
     [Theory]
     [InlineData("https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/easymode.xml")]
     [InlineData("https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/easymode_arm64.xml")]
-    public async Task EasyModeFallbackXml_IsReachableAndContainsValidUrls(string xmlUrl)
+    public async Task EasyModeFallbackXmlIsReachableAndContainsValidUrls(string xmlUrl)
     {
         using var response = await HttpClient.GetAsync(xmlUrl);
         Assert.True(response.IsSuccessStatusCode, $"Fallback XML {xmlUrl} returned {(int)response.StatusCode}");
@@ -117,7 +124,7 @@ public class UrlValidationTests
             nameof(EmulatorConfig.ImagePackDownloadLink2),
             nameof(EmulatorConfig.ImagePackDownloadLink3),
             nameof(EmulatorConfig.ImagePackDownloadLink4),
-            nameof(EmulatorConfig.ImagePackDownloadLink5),
+            nameof(EmulatorConfig.ImagePackDownloadLink5)
         };
 
         var urls = new List<string>();
@@ -147,7 +154,10 @@ public class UrlValidationTests
                 var error = await CheckUrlAsync(url);
                 if (error != null)
                 {
-                    lock (brokenUrls) brokenUrls.Add($"{xmlUrl} -> {error}");
+                    lock (brokenUrls)
+                    {
+                        brokenUrls.Add($"{xmlUrl} -> {error}");
+                    }
                 }
             }
             finally
@@ -174,8 +184,7 @@ public class UrlValidationTests
             if (headResponse.IsSuccessStatusCode)
                 return null;
 
-            // Some servers block HEAD or return non-success codes for it.
-            // Fall back to GET (headers only) for a more accurate check.
+            // Some servers block HEAD or return non-success codes for it.            // Fall back to GET (headers only) for a more accurate check.
             using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
             using var getResponse = await HttpClient.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
             if (getResponse.IsSuccessStatusCode)
@@ -192,4 +201,7 @@ public class UrlValidationTests
             return $"{url} -> {ex.GetType().Name}: {ex.Message}";
         }
     }
+
+    [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase, "pt-BR")]
+    private static partial Regex MyRegex();
 }

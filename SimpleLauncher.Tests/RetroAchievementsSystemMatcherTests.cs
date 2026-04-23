@@ -20,14 +20,14 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("mame", "arcade")]
     [InlineData("dreamcast", "dreamcast")]
     [InlineData("sega dreamcast", "dreamcast")]
-    public void GetBestMatchSystemName_KnownAlias_ReturnsExpectedKey(string input, string expected)
+    public void GetBestMatchSystemNameKnownAliasReturnsExpectedKey(string input, string expected)
     {
         var result = RetroAchievementsSystemMatcher.GetBestMatchSystemName(input);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void GetBestMatchSystemName_NullOrWhitespace_ReturnsOriginal()
+    public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
     {
         Assert.Null(RetroAchievementsSystemMatcher.GetBestMatchSystemName(null));
         Assert.Equal("", RetroAchievementsSystemMatcher.GetBestMatchSystemName(""));
@@ -39,14 +39,14 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("playstation", true)]
     [InlineData("arcade", true)]
     [InlineData("unknown console xyz", false)]
-    public void IsOfficialSystemName_ReturnsExpected(string name, bool expected)
+    public void IsOfficialSystemNameReturnsExpected(string name, bool expected)
     {
         var result = RetroAchievementsSystemMatcher.IsOfficialSystemName(name);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void GetSupportedSystemNames_ReturnsNonEmptyList()
+    public void GetSupportedSystemNamesReturnsNonEmptyList()
     {
         var result = RetroAchievementsSystemMatcher.GetSupportedSystemNames();
         Assert.NotEmpty(result);
@@ -57,14 +57,14 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("gb", "game boy")]
     [InlineData("n64", "nintendo 64")]
-    public void GetExactAliasMatch_ReturnsExpected(string input, string expected)
+    public void GetExactAliasMatchReturnsExpected(string input, string expected)
     {
         var result = RetroAchievementsSystemMatcher.GetExactAliasMatch(input);
         Assert.Equal(expected, result);
     }
 
     [Fact]
-    public void GetExactAliasMatch_Unknown_ReturnsNull()
+    public void GetExactAliasMatchUnknownReturnsNull()
     {
         var result = RetroAchievementsSystemMatcher.GetExactAliasMatch("unknown");
         Assert.Null(result);
@@ -74,7 +74,7 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("snes", true)]
     [InlineData("super nintendo", true)]
     [InlineData("nintendo 64", true)]
-    public void IsSystemInMappings_ReturnsExpected(string input, bool expected)
+    public void IsSystemInMappingsReturnsExpected(string input, bool expected)
     {
         var result = RetroAchievementsSystemMatcher.IsSystemInMappings(input);
         Assert.Equal(expected, result);
@@ -84,7 +84,7 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("snes", 3)]
     [InlineData("n64", 2)]
     [InlineData("playstation", 12)]
-    public void GetSystemId_KnownSystem_ReturnsExpectedId(string input, int expected)
+    public void GetSystemIdKnownSystemReturnsExpectedId(string input, int expected)
     {
         var result = RetroAchievementsSystemMatcher.GetSystemId(input);
         Assert.Equal(expected, result);
