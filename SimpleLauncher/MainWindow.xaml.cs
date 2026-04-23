@@ -978,6 +978,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 ListViewPreviewArea.Visibility = Visibility.Visible;
             }
         });
+
+        // Show pagination buttons when games are being loaded
+        await Dispatcher.InvokeAsync(() =>
+        {
+            _prevPageButton.Visibility = Visibility.Visible;
+            _nextPageButton.Visibility = Visibility.Visible;
+        });
     }
 
     private Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)

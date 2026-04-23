@@ -2,7 +2,7 @@ using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class InjectionErrorHandler
 {

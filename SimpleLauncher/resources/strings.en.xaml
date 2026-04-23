@@ -2201,7 +2201,6 @@
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
     <system:String x:Key="SystemNameRequiredBeforeChoosingImage">Please enter a system name before choosing an image.</system:String>
-    <system:String x:Key="SystemNameRequired">System Name Required</system:String>
     <system:String x:Key="InvalidImageFormat">Only PNG, JPG, and JPEG images are supported.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Invalid Image Format</system:String>
     <system:String x:Key="FailedToCopySystemImage">Failed to copy the image:</system:String>

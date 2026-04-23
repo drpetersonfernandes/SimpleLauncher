@@ -4970,7 +4970,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Emulator documentation can be found on [DuckStation Repository](https://github.com/stenzek/duckstation).<br>
-Emulator may need BIOS or system files to work.
+Emulator may need BIOS or system files to work.<br>
+You can download this emulator on the [Official Website](https://github.com/stenzek/duckstation).
 
 .
 
@@ -4982,7 +4983,8 @@ Emulator may need BIOS or system files to work.
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 May require a BIOS files to work.<br>
-Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).<br>
+You can download this emulator on the [Official Website](https://mednafen.github.io/releases/).
 
 .
 
@@ -5004,7 +5006,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
-This emulator requires a BIOS file to work.
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://ares-emu.net/download).
 
 .
 
@@ -5015,7 +5018,8 @@ This emulator requires a BIOS file to work.
 
 This emulator is available for Windows-x64.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
-This emulator may requires a BIOS file to work.
+This emulator may requires a BIOS file to work.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/grumpycoders/pcsx-redux).
 
 .
 
@@ -5025,7 +5029,8 @@ This emulator may requires a BIOS file to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-This emulator may requires a BIOS file to work.
+This emulator may requires a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://www.epsxe.com/download.php).
 
 .
 
@@ -5038,7 +5043,8 @@ This emulator may requires a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_psx/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).
 
 .
 
@@ -5051,7 +5057,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).
 
 .
 
@@ -5064,7 +5071,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [libretro.com](https://docs.libretro.com/library/pcsx_rearmed/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).
 
 .
 
@@ -5085,7 +5093,8 @@ psa – Sony PlayStation (Asia-Pacific)<br>
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List CHDs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).
 
 ## Sony PlayStation 2 / PSX2 / PSX 2
 
@@ -5113,7 +5122,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Documentation can be found on [PCSX2 Website](https://pcsx2.net/docs/).<br>
-This emulator may require BIOS or system files to work.
+This emulator may require BIOS or system files to work.<br>
+You can download this emulator on the [Official Website](https://pcsx2.net/downloads).
 
 .
 
@@ -5123,7 +5133,8 @@ This emulator may require BIOS or system files to work.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-This emulator may require a BIOS file to work.
+This emulator may require a BIOS file to work.<br>
+You can download this emulator on the [Official Website](https://purei.org/downloads.php).
 
 .
 
@@ -5136,7 +5147,8 @@ This emulator may require a BIOS file to work.
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/pcsx2/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).
 
 ## Sony PlayStation 3 / PSX 3 / PSX3
 
@@ -5212,6 +5224,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Fullscreen Parameter:** <br>
 
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br><br>
+You can download this emulator on the [Official Website](https://rpcs3.net/download).
 
 ## Sony PlayStation 4 / PSX4 / PSX 4
 
@@ -5236,7 +5249,8 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/shadps4-emu/shadPS4).
 
 ## Sony PlayStation Vita
 
@@ -5261,7 +5275,8 @@ This emulator is available for Windows-x64.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://github.com/Vita3K/Vita3K).
 
 ## Sony PSP / PlayStation Portable
 
@@ -5299,7 +5314,8 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/ppsspp/).<br>
-Core may require BIOS files or system files to work.
+Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).
 
 ## Super ACan / Super-ACan / Super A'Can / Super-A'Can
 
@@ -5327,7 +5343,8 @@ Core may require BIOS files or system files to work.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Attention**<br>
 To use this emulator you need to use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).
 
 ## Zeebo
 
@@ -5353,3 +5370,4 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Official Website](https://tuxality.net/projects/infuse_zeebo_emulator).<br>
