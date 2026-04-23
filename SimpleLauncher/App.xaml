@@ -29,7 +29,7 @@
                         BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                         BorderThickness="1"
                         CornerRadius="4"
-                        Padding="8">
+                        Padding="7">
                     <Border.Effect>
                         <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}"
                                           Direction="315"

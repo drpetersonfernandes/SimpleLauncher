@@ -656,21 +656,21 @@
             <Border Grid.Column="0"
                     x:Name="LeftNavigationPanel"
                     VerticalAlignment="Top"
-                    Width="57"
+                    Width="60"
                     BorderThickness="1"
                     CornerRadius="5"
                     Margin="8,5,0,0"
                     BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
-                    Background="{DynamicResource MahApps.Brushes.Gray9}">
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Margin="0">
+                    Background="{DynamicResource MahApps.Brushes.Gray9}"
+                    ToolTip="{DynamicResource TooltipLeftNavigationPanel}">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource TooltipRestart}"
                         Click="NavRestartButton_Click"
                         Margin="0,10,2,5"
                         AutomationProperties.Name="{DynamicResource Restart}">
-                        <Image Source="pack://application:,,,/images/home.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource HomeIcon}" />
+                        <Image Source="pack://application:,,,/images/home.png" Width="27" Height="27" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  AutomationProperties.Name="{DynamicResource HomeIcon}" />
                     </Button>
                     <Button
                         Style="{StaticResource NavImageButton3DStyle}"
@@ -749,45 +749,53 @@
                     </Grid.RowDefinitions>
 
                     <!-- Top Menu -->
-                    <Border Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left"
-                            x:Name="TopSystemSelection"
-                            BorderThickness="1"
-                            Margin="10,5,0,5"
-                            Padding="5"
-                            BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
-                            Background="{DynamicResource MahApps.Brushes.Gray9}"
-                            CornerRadius="5">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                x:Name="TopSystemSelection"
+                                BorderThickness="1"
+                                Margin="10,5,0,5"
+                                Padding="5"
+                                BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                                Background="{DynamicResource MahApps.Brushes.Gray9}"
+                                ToolTip="{DynamicResource TooltipTopSystemSelection}"
+                                CornerRadius="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <StackPanel x:Name="LetterNumberMenu"
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="7"
-                                        Margin="0,5,0,0"
-                                        Orientation="Horizontal"
-                                        HorizontalAlignment="Stretch">
-                                <!-- Buttons for LetterNumberMenu will be added here programmatically -->
-                            </StackPanel>
+                                <StackPanel x:Name="LetterNumberMenu"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="7"
+                                            Margin="0,5,0,0"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Stretch"
+                                            ToolTip="{DynamicResource TooltipLetterNumberMenu}">
+                                    <!-- Buttons for LetterNumberMenu will be added here programmatically -->
+                                </StackPanel>
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 Margin="0,10,0,0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource SelectSystem}" />
+                                Content="{DynamicResource SelectSystem}"
+                                ToolTip="{DynamicResource TooltipSelectSystemLabel}" />
                             <ComboBox
                                 Grid.Row="1"
                                 Grid.Column="1"
@@ -830,7 +838,8 @@
                                 Grid.Column="0"
                                 Margin="0,5,0,0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource SelectEmulator}" />
+                                Content="{DynamicResource SelectEmulator}"
+                                ToolTip="{DynamicResource TooltipSelectEmulatorLabel}" />
                             <ComboBox
                                 Grid.Row="2"
                                 Grid.Column="1"
@@ -886,19 +895,42 @@
                                     Visibility="Collapsed" AutomationProperties.Name="{DynamicResource SortByFileNameTooltip}">
                                 <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" AutomationProperties.Name="{DynamicResource SortAzIcon}" />
                             </Button>
-                        </Grid>
-                    </Border>
+                            </Grid>
+                        </Border>
+
+                          <Border Grid.Column="1"
+                                  VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Left"
+                                  MaxHeight="{Binding ElementName=TopSystemSelection, Path=ActualHeight}"
+                                  x:Name="TopSystemImage"
+                                  BorderThickness="1"
+                                  Margin="10,5,0,5"
+                                  Padding="5"
+                                  BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                                  Background="{DynamicResource MahApps.Brushes.Gray9}"
+                                  ToolTip="{DynamicResource TooltipTopSystemImage}"
+                                  CornerRadius="5">
+                              <Image x:Name="TopSystemLogoImage"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Stretch="Uniform"
+                                     ToolTip="{DynamicResource TooltipTopSystemLogoImage}" />
+                          </Border>
+                </Grid>
 
                     <!-- Main Content -->
                     <Grid Grid.Row="1">
-                        <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" Margin="5,0,5,0">
-                            <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0">
+                        <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" Margin="5,0,5,0"
+                                      ToolTip="{DynamicResource TooltipScroller}">
+                            <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0"
+                                       ToolTip="{DynamicResource TooltipGameFileGrid}">
                                 <!-- Game buttons will be added here programmatically -->
                             </WrapPanel>
                         </ScrollViewer>
 
                         <!-- Embedded Grid -->
-                        <Grid x:Name="ListViewPreviewArea" Visibility="Collapsed" Margin="0">
+                        <Grid x:Name="ListViewPreviewArea" Visibility="Collapsed" Margin="0"
+                              ToolTip="{DynamicResource TooltipListViewPreviewArea}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4.5*" />
                                 <ColumnDefinition Width="5" />
@@ -921,7 +953,8 @@
                                       GridLinesVisibility="All"
                                       SelectionChanged="GameListSelectionChanged"
                                       AutomationProperties.Name="{DynamicResource GameListGrid}"
-                                      AutomationProperties.HelpText="{DynamicResource GameListGridHelpText}">
+                                      AutomationProperties.HelpText="{DynamicResource GameListGridHelpText}"
+                                      ToolTip="{DynamicResource TooltipGameDataGrid}">
                                 <DataGrid.RowStyle>
                                     <Style TargetType="DataGridRow" BasedOn="{StaticResource CustomDataGridRowStyle}">
                                         <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
@@ -930,6 +963,11 @@
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="{DynamicResource FavoriteColumnHeader}" Width="Auto"
                                                             AutomationProperties.Name="{DynamicResource FavoriteColumnHeader}">
+                                        <DataGridTemplateColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipFavoriteColumnHeader}" />
+                                            </Style>
+                                        </DataGridTemplateColumn.HeaderStyle>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
@@ -939,15 +977,45 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*"
-                                                        AutomationProperties.Name="{DynamicResource FileNameColumnHeader}" />
+                                                        AutomationProperties.Name="{DynamicResource FileNameColumnHeader}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipFileNameColumnHeader}" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
                                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*"
-                                                        AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}" />
+                                                        AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipMachineDescriptionColumnHeader}" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
                                     <DataGridTextColumn Header="{DynamicResource FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*"
-                                                        AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}" />
+                                                        AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipFolderPathColumnHeader}" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
                                     <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto"
-                                                        AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}" />
+                                                        AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipTimesPlayedColumnHeader}" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
                                     <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto"
-                                                        AutomationProperties.Name="{DynamicResource PlayTimeColumnHeader}" />
+                                                        AutomationProperties.Name="{DynamicResource PlayTimeColumnHeader}">
+                                        <DataGridTextColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipPlayTimeColumnHeader}" />
+                                            </Style>
+                                        </DataGridTextColumn.HeaderStyle>
+                                    </DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
 
@@ -959,7 +1027,8 @@
                                           VerticalAlignment="Stretch"
                                           ShowsPreview="True"
                                           ResizeBehavior="PreviousAndNext"
-                                          Cursor="SizeWE" />
+                                          Cursor="SizeWE"
+                                          ToolTip="{DynamicResource TooltipGridSplitter}" />
 
                             <Grid Grid.Column="2" Margin="5,0,10,0">
                                 <Grid.RowDefinitions>
@@ -974,19 +1043,22 @@
                                 <Border Grid.Row="1"
                                         BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                                         BorderThickness="1"
-                                        Padding="5">
+                                        Padding="5"
+                                        ToolTip="{DynamicResource TooltipPreviewImageBorder}">
                                     <Image Name="PreviewImage"
                                            Stretch="Uniform"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
-                                           AutomationProperties.Name="{DynamicResource PreviewImageLabel}" />
+                                           AutomationProperties.Name="{DynamicResource PreviewImageLabel}"
+                                           ToolTip="{DynamicResource TooltipPreviewImage}" />
                                 </Border>
                             </Grid>
                         </Grid>
                     </Grid>
 
                     <!-- Status Bar / Bottom Area -->
-                    <Grid x:Name="StatusBarArea" Grid.Row="2" VerticalAlignment="Center" Margin="0,5,0,5">
+                    <Grid x:Name="StatusBarArea" Grid.Row="2" VerticalAlignment="Center" Margin="0,5,0,5"
+                          ToolTip="{DynamicResource TooltipStatusBarArea}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -996,7 +1068,8 @@
                         <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                                     Margin="10,0,0,0"
                                     Orientation="Horizontal">
-                            <Label x:Name="StatusBarText" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                            <Label x:Name="StatusBarText" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                   ToolTip="{DynamicResource TooltipStatusBarText}" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
@@ -1028,21 +1101,24 @@
                                 Content=""
                                 VerticalAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                AutomationProperties.Name="{DynamicResource TotalFilesLabel}" />
+                                AutomationProperties.Name="{DynamicResource TotalFilesLabel}"
+                                ToolTip="{DynamicResource TooltipTotalFilesLabel}" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                                     Margin="10,0,0,0"
                                     Orientation="Horizontal">
                             <!-- System Info -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,15,0"
-                                        AutomationProperties.Name="{DynamicResource CurrentSystemInfo}">
+                                        AutomationProperties.Name="{DynamicResource CurrentSystemInfo}"
+                                        ToolTip="{DynamicResource TooltipCurrentSystemInfo}">
                                 <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" AutomationProperties.Name="{DynamicResource GamepadIcon}" />
                                 <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0" />
                                 <Label Content="{Binding SelectedSystem, FallbackValue=''}" VerticalAlignment="Center" Padding="5,0,0,0" />
                             </StackPanel>
                             <!-- Playtime Info -->
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0" AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}"
-                                        Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                                        Visibility="{Binding IsPlayTimeVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}"
+                                        ToolTip="{DynamicResource TooltipTotalPlaytimeInfo}">
                                 <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" AutomationProperties.Name="{DynamicResource PlayHistoryIcon}" />
                                 <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
                                 <Label Content="{Binding PlayTime, FallbackValue=''}" VerticalAlignment="Center" Padding="5,0,0,0" />
@@ -1056,7 +1132,8 @@
                 <!-- This Frame is at the same level as MainGameContent, not inside it -->
                 <Frame x:Name="PageContentFrame"
                        Visibility="Collapsed"
-                       NavigationUIVisibility="Hidden" />
+                       NavigationUIVisibility="Hidden"
+                       ToolTip="{DynamicResource TooltipPageContentFrame}" />
             </Grid>
         </Grid> <!-- Content grid -->
 
@@ -1067,7 +1144,8 @@
         <ContentControl x:Name="LoadingOverlay"
                         Panel.ZIndex="9999"
                         Template="{StaticResource LoadingOverlayTemplate}"
-                        Visibility="Collapsed" />
+                        Visibility="Collapsed"
+                        ToolTip="{DynamicResource TooltipLoadingOverlay}" />
     </Grid> <!-- Root Grid ends -->
 
 </mah:MetroWindow>

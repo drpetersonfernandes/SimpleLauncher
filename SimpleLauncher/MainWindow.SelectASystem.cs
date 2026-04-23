@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DisplaySystemInfo;
+using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MessageBox;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -29,6 +30,8 @@ public partial class MainWindow
                     // Clear the cached list when no system is selected
                     _allGamesForCurrentSystem.Clear();
                     IsPlayTimeVisible = false; // Hide when no system is selected
+                    TopSystemImage.Visibility = Visibility.Collapsed;
+                    TopSystemLogoImage.Source = null;
 
                     return;
                 }
@@ -94,6 +97,8 @@ public partial class MainWindow
 
                     var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
+
+                    await UpdateTopSystemImageAsync(selectedManager);
 
                     // Display SystemInfo and get the validation result. Game count is now handled inside this method.
                     var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
@@ -179,6 +184,30 @@ public partial class MainWindow
         catch (Exception ex)
         {
             _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+        }
+    }
+
+    private async Task UpdateTopSystemImageAsync(SystemManager selectedManager)
+    {
+        if (selectedManager == null)
+        {
+            TopSystemImage.Visibility = Visibility.Collapsed;
+            TopSystemLogoImage?.Source = null;
+            return;
+        }
+
+        try
+        {
+            var imagePath = await GetSystemDisplayImagePathAsync(selectedManager, _settings);
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
+            TopSystemLogoImage.Source = loadedImage;
+            TopSystemImage.Visibility = Visibility.Visible;
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error updating top system logo image.");
+            TopSystemImage.Visibility = Visibility.Collapsed;
+            TopSystemLogoImage.Source = null;
         }
     }
 }
