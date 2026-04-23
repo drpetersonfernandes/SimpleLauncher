@@ -105,7 +105,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 .
 
 **Emulator Name:** MAME<br>
-**Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
+**Emulator Path (Example):** C:\Emulators\mame\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\mame\roms;C:\Emulators\mame\bios"<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Arcade;%SYSTEMFOLDER%"<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
@@ -119,8 +119,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 .
 
 **Emulator Name:** Retroarch mame<br>
-**Emulator Path (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example using absolute paths):** -L "C:\emulators\retroarch\cores\mame_libretro.dll" -f<br>
+**Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\mame_libretro.dll" -f<br>
 **Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mame_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
@@ -160,7 +160,7 @@ You can download this emulator on the [Official Website](https://raine.1emulatio
 .
 
 **Emulator Name:** Stella<br>
-**Emulator Path (Example):** C:\emulators\stella\Stella.exe<br>
+**Emulator Path (Example):** C:\Emulators\stella\Stella.exe<br>
 **Emulator Parameters (Example):** -fullscreen 1<br>
 **Fullscreen Parameter:** -fullscreen 1<br>
 
@@ -171,7 +171,7 @@ You can download this emulator on the [Official Website](https://stella-emu.gith
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Atari 2600"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -484,7 +484,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Atari Lynx" lynx<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari Lynx" lynx<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari Lynx;%SYSTEMFOLDER%" lynx<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -513,7 +513,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 .
 
 **Emulator Name:** Hatari<br>
-**Emulator Path (Example):** C:\emulators\hatari\hatari.exe<br>
+**Emulator Path (Example):** C:\Emulators\hatari\hatari.exe<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** -f or --fullscreen<br>
 **Windowed Parameter:** -w or --window<br>
@@ -541,7 +541,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Atari ST" st<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari ST" st<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Atari ST;%SYSTEMFOLDER%" st<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -607,7 +607,7 @@ You can download this emulator on the [Official Website](https://mednafen.github
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "WonderSwan"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -686,7 +686,7 @@ You can download this emulator on the [Official Website](https://mednafen.github
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "WonderSwan Color"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -784,7 +784,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "ColecoVision"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -811,7 +811,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Colecovision" coleco<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Colecovision" coleco<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Colecovision;%SYSTEMFOLDER%" coleco<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -1204,7 +1204,7 @@ You can download this emulator on the [Official Website](https://o2em.sourceforg
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Mattel Aquarius" aquarius<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Mattel Aquarius" aquarius<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Mattel Aquarius;%SYSTEMFOLDER%" aquarius<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -1248,7 +1248,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Intellivision" intv<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Intellivision" intv<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Intellivision;%SYSTEMFOLDER%" intv<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -1373,7 +1373,7 @@ You can download this emulator on the [Official Website](http://cngsoft.no-ip.or
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "MSX"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1468,7 +1468,7 @@ You can download this emulator on the [Official Website](http://cngsoft.no-ip.or
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "MSX2"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1756,7 +1756,7 @@ You can download this emulator on the [Official Website](https://mednafen.github
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "PC Engine"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1794,7 +1794,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine" pce<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC Engine" pce<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine;%SYSTEMFOLDER%" pce<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC Engine" tg16<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine;%SYSTEMFOLDER%" tg16<br>
@@ -1900,7 +1900,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine CD" pcecd<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC Engine CD" pcecd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC Engine CD;%SYSTEMFOLDER%" pcecd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -1969,7 +1969,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC-FX" pcfx<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\NEC PC-FX" pcfx<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\NEC PC-FX;%SYSTEMFOLDER%" pcfx<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -2009,7 +2009,7 @@ You can download this emulator on the [Official Website](https://mednafen.github
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "SuperGrafx"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2135,7 +2135,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Nintendo 64"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2252,7 +2252,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Nintendo 64DD"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2381,7 +2381,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Famicom Disk System"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2493,7 +2493,7 @@ You can download this emulator on the [Official Website](https://github.com/jsgr
 .
 
 **Emulator Name:** Gearboy<br>
-**Emulator Path (Example):** C:\emulators\Gearboy\Gearboy.exe<br>
+**Emulator Path (Example):** C:\Emulators\Gearboy\Gearboy.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** -f<br>
 
@@ -2670,7 +2670,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo Game Boy Advance" gba<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo Game Boy Advance" gba<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo Game Boy Advance;%SYSTEMFOLDER%" gba<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -2731,7 +2731,7 @@ You can download this emulator on the [Official Website](https://github.com/jsgr
 .
 
 **Emulator Name:** Gearboy<br>
-**Emulator Path (Example):** C:\emulators\Gearboy\Gearboy.exe<br>
+**Emulator Path (Example):** C:\Emulators\Gearboy\Gearboy.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** -f<br>
 
@@ -2973,7 +2973,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo NES" nes<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo NES" nes<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo NES;%SYSTEMFOLDER%" nes<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -3002,7 +3002,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -3059,7 +3059,7 @@ You can download this emulator on the [Official Website](https://github.com/jsgr
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -3110,7 +3110,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo SNES" snes<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo SNES" snes<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Nintendo SNES;%SYSTEMFOLDER%" snes<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -3149,7 +3149,7 @@ You can download this emulator on the [Official Website](https://github.com/snes
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -3606,7 +3606,7 @@ Core may require BIOS files or system files to work.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Dreamcast" dc<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Dreamcast" dc<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Dreamcast;%SYSTEMFOLDER%" dc<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -3695,7 +3695,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Game Gear"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -3733,7 +3733,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Game Gear" gamegear<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Game Gear" gamegear<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Game Gear;%SYSTEMFOLDER%" gamegear<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -3855,7 +3855,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis" megadriv<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Genesis" megadriv<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis;%SYSTEMFOLDER%" megadriv<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -3927,7 +3927,7 @@ Core may require BIOS files or system files to work.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis 32x" 32x<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Genesis 32x" 32x<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis 32x;%SYSTEMFOLDER%" 32x<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4028,7 +4028,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis CD" megacd<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Genesis CD" megacd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Genesis CD;%SYSTEMFOLDER%" megacd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4146,7 +4146,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Master System" sms<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Master System" sms<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Master System;%SYSTEMFOLDER%" sms<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4380,7 +4380,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Saturn" saturn -cdrom<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega Saturn" saturn -cdrom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturn -cdrom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturnjp -cdrom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega Saturn;%SYSTEMFOLDER%" saturnus -cdrom<br>
@@ -4458,7 +4458,7 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega SC-3000" sc3000<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega SC-3000" sc3000<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega SC-3000;%SYSTEMFOLDER%" sc3000<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4536,7 +4536,7 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega SG-1000" sg1000<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sega SG-1000" sg1000<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sega SG-1000;%SYSTEMFOLDER%" sg1000<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4708,7 +4708,7 @@ You need to use a ROM set compatible with Raine. You can find an updated set of 
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [docs.libretro.com](https://docs.libretro.com/library/geolith/).<br>
 Core require BIOS files (aes.zip and neogeo.zip) to work.<br>
-This core can not run MAME ROM sets. It uses ROM files with the extension .NEO. You can find more info about that on the [wiki.terraonion.com](https://wiki.terraonion.com/index.php/Neobuilder_Guide).
+This core can not run MAME ROM sets. It uses ROM files with the extension .NEO.<br>
 
 ## SNK Neo Geo CD / NeoGeo CD
 
@@ -4782,7 +4782,7 @@ Core may require BIOS files or system files to work.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\SNK Neo Geo CD" neocd<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\SNK Neo Geo CD" neocd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo CD;%SYSTEMFOLDER%" neocd<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4820,7 +4820,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -4858,7 +4858,7 @@ Core may require BIOS files or system files to work.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\SNK Neo Geo Pocket" ngp<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\SNK Neo Geo Pocket" ngp<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo Pocket;%SYSTEMFOLDER%" ngp<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4896,7 +4896,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket Color"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -4934,7 +4934,7 @@ Core may require BIOS files or system files to work.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\SNK Neo Geo Pocket Color" ngpc<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\SNK Neo Geo Pocket Color" ngpc<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\SNK Neo Geo Pocket Color;%SYSTEMFOLDER%" ngpc<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
@@ -4962,8 +4962,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 .
 
 **Emulator Name:** DuckStation<br>
-**Emulator Path (Example):** C:\emulators\duckstation\duckstation-qt-x64-ReleaseLTCG.exe<br>
-**Emulator Path (Example):** C:\emulators\duckstation\duckstation-nogui-x64-ReleaseLTCG.exe<br>
+**Emulator Path (Example):** C:\Emulators\duckstation\duckstation-qt-x64-ReleaseLTCG.exe<br>
+**Emulator Path (Example):** C:\Emulators\duckstation\duckstation-nogui-x64-ReleaseLTCG.exe<br>
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
@@ -5000,7 +5000,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 .
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "PlayStation"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -5078,7 +5078,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sony PlayStation 1" psu -cdrom<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Sony PlayStation 1" psu -cdrom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" psu -cdrom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" psj -cdrom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Sony PlayStation 1;%SYSTEMFOLDER%" pse -cdrom<br>
