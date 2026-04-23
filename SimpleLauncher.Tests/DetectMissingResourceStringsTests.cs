@@ -152,7 +152,7 @@ public partial class DetectMissingResourceStringsTests
             var match = entryRegex.Match(lines[i]);
             if (match.Success)
             {
-                existingEntries[match.Groups[1].Value] = match.Groups[2].Value;
+                existingEntries[match.Groups[1].Value] = UnescapeXml(match.Groups[2].Value);
                 if (firstEntryIndex == -1)
                 {
                     firstEntryIndex = i;
@@ -198,6 +198,18 @@ public partial class DetectMissingResourceStringsTests
             .Replace("<", "&lt;")
             .Replace(">", "&gt;")
             .Replace("\"", "&quot;");
+    }
+
+    private static string UnescapeXml(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return text
+            .Replace("&lt;", "<")
+            .Replace("&gt;", ">")
+            .Replace("&quot;", "\"")
+            .Replace("&amp;", "&");
     }
 
     private static bool IsBuildOrResourceFolder(string path)

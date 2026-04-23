@@ -3268,18 +3268,25 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPI")
-                          ?? "'Simple Launcher' could not access the Web API to download the updated configuration.\n\n"
-                          + "This could be due to:\n"
-                          + "• A government firewall or internet restriction in your region\n"
-                          + "• Network connectivity issues\n\n"
-                          + "To resolve this issue, you can:\n"
-                          + "1. Enable a VPN connection and try again\n"
-                          + "2. Check your internet connection\n"
-                          + "3. Configure systems manually using the Edit System feature\n\n"
-                          + "Note: A VPN may be required if you are located in a country with internet restrictions.";
-            var title = (string)Application.Current.TryFindResource("Error") ?? "Easy Mode Unavailable";
-            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration") ?? "'Simple Launcher' could not access the Web API to download the updated configuration.";
+            var message2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration2") ?? "This could be due to:";
+            var message3 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration3") ?? "• A government firewall or internet restriction in your region";
+            var message4 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration4") ?? "• Network connectivity issues";
+            var message5 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration5") ?? "To resolve this issue, you can:";
+            var message6 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration6") ?? "1. Enable a VPN connection and try again";
+            var message7 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration7") ?? "2. Check your internet connection";
+            var message8 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration8") ?? "3. Configure systems manually using the Edit System feature";
+            var message9 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration9") ?? "Note: A VPN may be required if you are located in a country with internet restrictions.";
+            var title = (string)Application.Current.TryFindResource("EasyModeUnavailable") ?? "Easy Mode Unavailable";
+            System.Windows.MessageBox.Show($"{message}\n\n" +
+                                           $"{message2}\n" +
+                                           $"{message3}\n" +
+                                           $"{message4}\n\n" +
+                                           $"{message5}\n" +
+                                           $"{message6}\n" +
+                                           $"{message7}\n" +
+                                           $"{message8}\n\n" +
+                                           $"{message9}", title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
