@@ -60,8 +60,13 @@ public static class CheckPath
 
             var pathForCheck = PathHelper.GetLongPath(resolvedPath);
 
-            // Check if the resolved path exists as a file (not directory) and has .exe extension
-            return File.Exists(pathForCheck) && Path.GetExtension(pathForCheck).Equals(".exe", StringComparison.OrdinalIgnoreCase);
+            // Check if the resolved path exists as a file (not directory) and has a valid emulator extension
+            if (!File.Exists(pathForCheck))
+                return false;
+
+            var extension = Path.GetExtension(pathForCheck);
+            return extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) ||
+                   extension.Equals(".bat", StringComparison.OrdinalIgnoreCase);
         }
         catch
         {

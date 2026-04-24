@@ -957,7 +957,8 @@ public partial class GameLauncher
             }
 
             // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
-            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
+            // Determine the correct folder dynamically based on where the game actually lives
+            var resolvedSystemFolderPath = PathHelper.FindContainingSystemFolder(selectedSystemManager, displayFilePath);
             // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
             // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
 

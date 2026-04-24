@@ -826,7 +826,8 @@ internal static class MountZipFiles
                 throw new FileNotFoundException("Emulator executable folder could not be determined");
             }
 
-            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
+            // Determine the correct system folder dynamically based on where the ZIP actually lives
+            var resolvedSystemFolderPath = PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedZipFilePath);
 
             // 2. Resolve Parameters
             var resolvedParameters = PathHelper.ResolveParameterString(

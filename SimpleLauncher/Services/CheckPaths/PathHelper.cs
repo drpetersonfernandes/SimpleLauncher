@@ -48,6 +48,12 @@ internal static partial class PathHelper
         var normalizedResolved = Path.GetFullPath(resolvedPath);
         var normalizedBase = Path.GetFullPath(baseFolder);
 
+        // Exact match is valid (e.g., resolvedPath == baseFolder)
+        if (normalizedResolved.Equals(normalizedBase, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
         // Ensure base folder ends with separator for proper containment check
         if (!normalizedBase.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal) &&
             !normalizedBase.EndsWith(Path.AltDirectorySeparatorChar.ToString(), StringComparison.Ordinal))
@@ -372,6 +378,40 @@ internal static partial class PathHelper
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Finds which system folder contains the given file path.
+    /// Iterates through all configured system folders and returns the resolved path
+    /// of the folder that actually contains the file.
+    /// Falls back to the primary (first) system folder if no match is found.
+    /// </summary>
+    /// <param name="systemManager">The system manager containing the configured folders.</param>
+    /// <param name="filePath">The absolute path to the file.</param>
+    /// <returns>The resolved system folder path that contains the file, or the primary system folder as fallback.</returns>
+    public static string FindContainingSystemFolder(SystemManager.SystemManager systemManager, string filePath)
+    {
+        if (systemManager?.SystemFolders == null || string.IsNullOrEmpty(filePath))
+        {
+            return systemManager?.PrimarySystemFolder;
+        }
+
+        var normalizedFilePath = Path.GetFullPath(filePath);
+
+        foreach (var folder in systemManager.SystemFolders)
+        {
+            var resolvedFolder = ResolveRelativeToAppDirectory(folder);
+            if (string.IsNullOrEmpty(resolvedFolder)) continue;
+
+            var normalizedFolder = Path.GetFullPath(resolvedFolder);
+
+            if (IsPathContainedInBaseFolder(normalizedFilePath, normalizedFolder))
+            {
+                return resolvedFolder;
+            }
+        }
+
+        return systemManager.PrimarySystemFolder;
     }
 
     [GeneratedRegex("""
