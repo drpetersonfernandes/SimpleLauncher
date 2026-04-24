@@ -1,4 +1,6 @@
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -23,7 +25,7 @@ public static class FindBinFile
         }
         catch (Exception ex)
         {
-            Console.WriteLine($@"Error finding bin file: {ex.Message}");
+            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, $"Error finding bin file in path: {rootPath}");
             return null;
         }
     }

@@ -1,4 +1,5 @@
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SanitizeInputString;
 
@@ -71,9 +72,9 @@ public static class ScanItchioGames
                                 }
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            /* ignore parse error */
+                            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, "Error parsing itch.io manifest file.");
                         }
                     }
 

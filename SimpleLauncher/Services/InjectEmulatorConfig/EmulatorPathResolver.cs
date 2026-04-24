@@ -1,6 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -42,9 +43,9 @@ public static class EmulatorPathResolver
                 }
             }
         }
-        catch
+        catch (Exception ex)
         {
-            // Silently fail if system.xml can't be loaded
+            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, $"Error resolving emulator path for hint: {emulatorNameHint}");
         }
 
         return null;

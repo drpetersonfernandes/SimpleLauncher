@@ -1,4 +1,6 @@
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -23,7 +25,7 @@ public static class FindDefaultXbe
         }
         catch (Exception ex)
         {
-            Console.WriteLine($@"Error finding default.xbe: {ex.Message}");
+            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, $"Error finding default.xbe in path: {rootPath}");
             return null;
         }
     }

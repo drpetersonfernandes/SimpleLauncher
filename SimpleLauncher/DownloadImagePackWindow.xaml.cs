@@ -287,14 +287,13 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
             catch (Exception ex)
             {
                 // This is the outermost catch - should not happen, but ensure we don't crash
-                Debug.WriteLine($"Critical error in DownloadImagePackButtonClickAsync: {ex}");
+                _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, "Critical error in DownloadImagePackButtonClickAsync.");
                 EndOperation();
             }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error in DownloadImagePackButtonClickAsync: {ex}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
+            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
         }
     }
 

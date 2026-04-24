@@ -868,9 +868,9 @@ internal static class ContextMenuFunctions
             {
                 mainWindow.PreviewImage.Source = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore
+                _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, "Error clearing preview image source before taking screenshot.");
             }
 
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);
@@ -888,7 +888,10 @@ internal static class ContextMenuFunctions
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
+                if (App.ServiceProvider != null)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
+                }
             }
 
             // Capture initial window count before launch
@@ -1027,7 +1030,10 @@ internal static class ContextMenuFunctions
                 {
                     // Notify developer
                     const string contextMessage = "[TakeScreenshotOfSelectedWindow] Failed to update button image after screenshot.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    if (App.ServiceProvider != null)
+                    {
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    }
 
                     // Do not notify the user
                 }
@@ -1042,14 +1048,20 @@ internal static class ContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem loading the Game Files.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                if (App.ServiceProvider != null)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                }
             }
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            if (App.ServiceProvider != null)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            }
 
             // Notify user
             MessageBoxLibrary.CouldNotSaveScreenshotMessageBox();

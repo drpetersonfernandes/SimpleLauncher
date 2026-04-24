@@ -1,4 +1,6 @@
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
@@ -25,8 +27,7 @@ public static class FindDefaultXex
         }
         catch (Exception ex)
         {
-            // Handle or log exception as needed
-            Console.WriteLine($@"Error finding default.xex: {ex.Message}");
+            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, $"Error finding default.xex in path: {rootPath}");
             return null;
         }
     }
