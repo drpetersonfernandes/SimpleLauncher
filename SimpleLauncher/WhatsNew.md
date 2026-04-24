@@ -1,3 +1,15 @@
+# Release 5.3.3
+*2026-04-24*
+---
+
+- Improved support for `.bat` files.
+- Dynamic Folder Detection to improves accuracy for multi-folder setups.
+- Raine Configuration Fix. The Raine emulator config handler now properly resolves the `RaineRomDirectory` path before passing it to the injection service.
+- Fix handling of placeholders during path validation.
+- Fixed an edge case in the path containment check where an exact match between the resolved path and base folder was incorrectly rejected.
+- Added required resource files for PSX packaging, including icons, images, a game information database, and encryption keys.
+- Added comprehensive unit tests for ZIP path traversal validation, temporary directory cleanup, `PathHelper` resolution methods, and `.bat` file validation.
+
 # Release 5.3.2
 *2026-04-24*
 ---
