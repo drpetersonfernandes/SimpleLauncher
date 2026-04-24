@@ -118,7 +118,7 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindContainingSystemFolder_PrimaryFolderMatch_ReturnsPrimaryFolder()
+    public void FindContainingSystemFolderPrimaryFolderMatchReturnsPrimaryFolder()
     {
         var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
@@ -145,7 +145,7 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindContainingSystemFolder_AdditionalFolderMatch_ReturnsAdditionalFolder()
+    public void FindContainingSystemFolderAdditionalFolderMatchReturnsAdditionalFolder()
     {
         var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
@@ -174,7 +174,7 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindContainingSystemFolder_NoMatch_ReturnsPrimaryFolder()
+    public void FindContainingSystemFolderNoMatchReturnsPrimaryFolder()
     {
         var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
@@ -204,7 +204,7 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindContainingSystemFolder_NestedSubfolderMatch_ReturnsParentFolder()
+    public void FindContainingSystemFolderNestedSubfolderMatchReturnsParentFolder()
     {
         var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
@@ -232,14 +232,14 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindContainingSystemFolder_NullSystemManager_ReturnsNull()
+    public void FindContainingSystemFolderNullSystemManagerReturnsNull()
     {
         var result = PathHelper.FindContainingSystemFolder(null, "C:\\game.zip");
         Assert.Null(result);
     }
 
     [Fact]
-    public void FindContainingSystemFolder_NullFilePath_ReturnsPrimaryFolder()
+    public void FindContainingSystemFolderNullFilePathReturnsPrimaryFolder()
     {
         var systemManager = new Services.SystemManager.SystemManager
         {
@@ -251,7 +251,7 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void ResolveRelativeToAppDirectory_BaseFolderPlaceholder_ResolvesCorrectly()
+    public void ResolveRelativeToAppDirectoryBaseFolderPlaceholderResolvesCorrectly()
     {
         var result = PathHelper.ResolveRelativeToAppDirectory("%BASEFOLDER%\\roms\\test");
         Assert.NotNull(result);
@@ -260,14 +260,14 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void ResolveRelativeToAppDirectory_AbsolutePath_ReturnsCanonicalPath()
+    public void ResolveRelativeToAppDirectoryAbsolutePathReturnsCanonicalPath()
     {
         var result = PathHelper.ResolveRelativeToAppDirectory("C:\\Windows\\System32");
         Assert.Equal("C:\\Windows\\System32", result);
     }
 
     [Fact]
-    public void ResolveRelativeToAppDirectory_RelativePath_ResolvesToAppDirectory()
+    public void ResolveRelativeToAppDirectoryRelativePathResolvesToAppDirectory()
     {
         var result = PathHelper.ResolveRelativeToAppDirectory("roms\\test");
         Assert.NotNull(result);
@@ -276,9 +276,9 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void ResolveParameterString_ResolvesBaseFolderPlaceholder()
+    public void ResolveParameterStringResolvesBaseFolderPlaceholder()
     {
-        var parameters = "-path %BASEFOLDER%\\roms";
+        const string parameters = "-path %BASEFOLDER%\\roms";
         var result = PathHelper.ResolveParameterString(parameters);
 
         Assert.NotNull(result);
@@ -287,27 +287,27 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void ResolveParameterString_ResolvesSystemFolderPlaceholder()
+    public void ResolveParameterStringResolvesSystemFolderPlaceholder()
     {
-        var parameters = "-rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", null);
+        const string parameters = "-rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade");
 
         Assert.Equal("-rompath C:\\roms\\Arcade", result);
     }
 
     [Fact]
-    public void ResolveParameterString_ResolvesEmulatorFolderPlaceholder()
+    public void ResolveParameterStringResolvesEmulatorFolderPlaceholder()
     {
-        var parameters = "-cfg %EMULATORFOLDER%\\config.ini";
+        const string parameters = "-cfg %EMULATORFOLDER%\\config.ini";
         var result = PathHelper.ResolveParameterString(parameters, null, "C:\\emulators\\mame");
 
         Assert.Equal("-cfg C:\\emulators\\mame\\config.ini", result);
     }
 
     [Fact]
-    public void ResolveParameterString_ResolvesMultiplePlaceholders()
+    public void ResolveParameterStringResolvesMultiplePlaceholders()
     {
-        var parameters = "-rompath %EMULATORFOLDER%\\roms;%SYSTEMFOLDER% -skip_gameinfo";
+        const string parameters = "-rompath %EMULATORFOLDER%\\roms;%SYSTEMFOLDER% -skip_gameinfo";
         var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", "C:\\emulators\\mame");
 
         Assert.Contains("C:\\emulators\\mame\\roms", result);
@@ -317,28 +317,27 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void ResolveParameterString_KeepsUnknownPlaceholdersIntact()
+    public void ResolveParameterStringKeepsUnknownPlaceholdersIntact()
     {
-        var parameters = "-path %UNKNOWN%\\test";
+        const string parameters = "-path %UNKNOWN%\\test";
         var result = PathHelper.ResolveParameterString(parameters);
 
         Assert.Equal("-path %UNKNOWN%\\test", result);
     }
 
     [Fact]
-    public void ResolveParameterString_KeepsGameSpecificPlaceholdersIntact()
+    public void ResolveParameterStringKeepsGameSpecificPlaceholdersIntact()
     {
-        var parameters = "-rom %ROM% -name %ROMNAME%";
+        const string parameters = "-rom %ROM% -name %ROMNAME%";
         var result = PathHelper.ResolveParameterString(parameters, "C:\\roms", "C:\\emu");
 
         Assert.Equal("-rom %ROM% -name %ROMNAME%", result);
     }
 
     [Fact]
-    public void ResolveParameterString_RejectsPathTraversal()
+    public void ResolveParameterStringRejectsPathTraversal()
     {
-        var baseDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
-        var parameters = $"-path %BASEFOLDER%\\..\\..\\Windows";
+        const string parameters = "-path %BASEFOLDER%\\..\\..\\Windows";
         var result = PathHelper.ResolveParameterString(parameters);
 
         // Should return original token because it escapes base folder
@@ -346,29 +345,29 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void ResolveParameterString_HandlesQuotedPaths()
+    public void ResolveParameterStringHandlesQuotedPaths()
     {
-        var parameters = "-rompath \"%SYSTEMFOLDER%\"";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\My Roms\\Arcade", null);
+        const string parameters = "-rompath \"%SYSTEMFOLDER%\"";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\My Roms\\Arcade");
 
         Assert.Equal("-rompath \"C:\\My Roms\\Arcade\"", result);
     }
 
     [Fact]
-    public void ResolveParameterString_ExactMatchSystemFolder_ResolvesCorrectly()
+    public void ResolveParameterStringExactMatchSystemFolderResolvesCorrectly()
     {
         // This tests the exact-match bug fix in IsPathContainedInBaseFolder
-        var parameters = "-rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", null);
+        const string parameters = "-rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade");
 
         Assert.Equal("-rompath C:\\roms\\Arcade", result);
     }
 
     [Fact]
-    public void ResolveParameterString_KnownFlagsAreNotModified()
+    public void ResolveParameterStringKnownFlagsAreNotModified()
     {
-        var parameters = "-f -L core --fullscreen -rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms", null);
+        const string parameters = "-f -L core --fullscreen -rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms");
 
         Assert.Contains("-f", result);
         Assert.Contains("-L", result);
@@ -377,11 +376,11 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindFileInSystemFolders_FileExists_ReturnsPath()
+    public void FindFileInSystemFoldersFileExistsReturnsPath()
     {
         var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var folder = Path.Combine(baseDir, "roms");
-        var fileName = "game.zip";
+        const string fileName = "game.zip";
         var filePath = Path.Combine(folder, fileName);
 
         try
@@ -405,7 +404,7 @@ public class PathHelperTests
     }
 
     [Fact]
-    public void FindFileInSystemFolders_FileNotFound_ReturnsNull()
+    public void FindFileInSystemFoldersFileNotFoundReturnsNull()
     {
         var systemManager = new Services.SystemManager.SystemManager
         {

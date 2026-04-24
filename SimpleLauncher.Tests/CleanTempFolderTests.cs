@@ -6,21 +6,21 @@ namespace SimpleLauncher.Tests;
 public class CleanTempFolderTests
 {
     [Fact]
-    public async Task CleanupTempDirectoryAsync_NullPath_DoesNotThrow()
+    public async Task CleanupTempDirectoryAsyncNullPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(() => CleanTempFolder.CleanupTempDirectoryAsync(null));
+        var ex = await Record.ExceptionAsync(static () => CleanTempFolder.CleanupTempDirectoryAsync(null));
         Assert.Null(ex);
     }
 
     [Fact]
-    public async Task CleanupTempDirectoryAsync_EmptyPath_DoesNotThrow()
+    public async Task CleanupTempDirectoryAsyncEmptyPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(() => CleanTempFolder.CleanupTempDirectoryAsync(""));
+        var ex = await Record.ExceptionAsync(static () => CleanTempFolder.CleanupTempDirectoryAsync(""));
         Assert.Null(ex);
     }
 
     [Fact]
-    public async Task CleanupTempDirectoryAsync_NonExistentPath_DoesNotThrow()
+    public async Task CleanupTempDirectoryAsyncNonExistentPathDoesNotThrow()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "nonexistent");
         var ex = await Record.ExceptionAsync(() => CleanTempFolder.CleanupTempDirectoryAsync(fakePath));
@@ -28,7 +28,7 @@ public class CleanTempFolderTests
     }
 
     [Fact]
-    public async Task CleanupTempDirectoryAsync_ExistingDirectory_DeletesDirectory()
+    public async Task CleanupTempDirectoryAsyncExistingDirectoryDeletesDirectory()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
@@ -43,21 +43,21 @@ public class CleanTempFolderTests
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_NullPath_DoesNotThrow()
+    public async Task CleanupPartialExtractionAsyncNullPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(() => CleanTempFolder.CleanupPartialExtractionAsync(null));
+        var ex = await Record.ExceptionAsync(static () => CleanTempFolder.CleanupPartialExtractionAsync(null));
         Assert.Null(ex);
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_EmptyPath_DoesNotThrow()
+    public async Task CleanupPartialExtractionAsyncEmptyPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(() => CleanTempFolder.CleanupPartialExtractionAsync(""));
+        var ex = await Record.ExceptionAsync(static () => CleanTempFolder.CleanupPartialExtractionAsync(""));
         Assert.Null(ex);
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_NonExistentPath_DoesNotThrow()
+    public async Task CleanupPartialExtractionAsyncNonExistentPathDoesNotThrow()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "nonexistent");
         var ex = await Record.ExceptionAsync(() => CleanTempFolder.CleanupPartialExtractionAsync(fakePath));
@@ -65,7 +65,7 @@ public class CleanTempFolderTests
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_DeletesTrackingFile()
+    public async Task CleanupPartialExtractionAsyncDeletesTrackingFile()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);
@@ -81,7 +81,7 @@ public class CleanTempFolderTests
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_DeletesFilesAndSubdirectories()
+    public async Task CleanupPartialExtractionAsyncDeletesFilesAndSubdirectories()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var subDir = Path.Combine(tempDir, "subdir");
@@ -106,7 +106,7 @@ public class CleanTempFolderTests
     }
 
     [Fact]
-    public async Task CleanupPartialExtractionAsync_ReadOnlyFiles_DeletesSuccessfully()
+    public async Task CleanupPartialExtractionAsyncReadOnlyFilesDeletesSuccessfully()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempDir);

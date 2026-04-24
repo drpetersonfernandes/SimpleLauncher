@@ -17,23 +17,20 @@ public class MountZipFilesTests
     private static string CreateTestZip(string[] entryNames)
     {
         var tempFile = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.zip");
-        using (var archive = ZipFile.Open(tempFile, ZipArchiveMode.Create))
+        using var archive = ZipFile.Open(tempFile, ZipArchiveMode.Create);
+        foreach (var entryName in entryNames)
         {
-            foreach (var entryName in entryNames)
-            {
-                var entry = archive.CreateEntry(entryName);
-                using (var stream = entry.Open())
-                using (var writer = new StreamWriter(stream))
-                {
-                    writer.Write("test content");
-                }
-            }
+            var entry = archive.CreateEntry(entryName);
+            using var stream = entry.Open();
+            using var writer = new StreamWriter(stream);
+            writer.Write("test content");
         }
+
         return tempFile;
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_ValidZip_DoesNotThrow()
+    public void ValidateZipForPathTraversalValidZipDoesNotThrow()
     {
         var zipPath = CreateTestZip(["roms/game.bin", "roms/game.cue"]);
         try
@@ -48,7 +45,7 @@ public class MountZipFilesTests
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_DotDotEntry_ThrowsInvalidOperationException()
+    public void ValidateZipForPathTraversalDotDotEntryThrowsInvalidOperationException()
     {
         var zipPath = CreateTestZip(["roms/../evil.exe"]);
         try
@@ -62,7 +59,7 @@ public class MountZipFilesTests
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_RootedPathEntry_ThrowsInvalidOperationException()
+    public void ValidateZipForPathTraversalRootedPathEntryThrowsInvalidOperationException()
     {
         var zipPath = CreateTestZip(["/Windows/System32/evil.exe"]);
         try
@@ -76,7 +73,7 @@ public class MountZipFilesTests
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_LeadingSlashEntry_ThrowsInvalidOperationException()
+    public void ValidateZipForPathTraversalLeadingSlashEntryThrowsInvalidOperationException()
     {
         var zipPath = CreateTestZip(["/evil.exe"]);
         try
@@ -90,7 +87,7 @@ public class MountZipFilesTests
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_LeadingBackslashEntry_ThrowsInvalidOperationException()
+    public void ValidateZipForPathTraversalLeadingBackslashEntryThrowsInvalidOperationException()
     {
         var zipPath = CreateTestZip(["\\evil.exe"]);
         try
@@ -104,14 +101,14 @@ public class MountZipFilesTests
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_NonExistentFile_ThrowsFileNotFoundException()
+    public void ValidateZipForPathTraversalNonExistentFileThrowsFileNotFoundException()
     {
         var fakePath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.zip");
         Assert.Throws<TargetInvocationException>(() => InvokeValidateZipForPathTraversal(fakePath));
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_EmptyZip_DoesNotThrow()
+    public void ValidateZipForPathTraversalEmptyZipDoesNotThrow()
     {
         var zipPath = CreateTestZip([]);
         try
@@ -126,7 +123,7 @@ public class MountZipFilesTests
     }
 
     [Fact]
-    public void ValidateZipForPathTraversal_DeepNestedValidPaths_DoesNotThrow()
+    public void ValidateZipForPathTraversalDeepNestedValidPathsDoesNotThrow()
     {
         var zipPath = CreateTestZip([
             "level1/level2/level3/game.bin",
