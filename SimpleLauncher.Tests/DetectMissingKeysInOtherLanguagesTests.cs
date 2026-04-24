@@ -1,5 +1,6 @@
 using System.Globalization;
-using System.Text.RegularExpressions;
+using System.Text;
+using System.Xml.Linq;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -7,8 +8,9 @@ namespace SimpleLauncher.Tests;
 /// <summary>
 /// Treats strings.en.xaml as the master resource file and verifies that
 /// every other strings.*.xaml file contains exactly the same set of keys.
-/// The test fails if any non-English file is missing a key from English
-/// or contains extra keys not present in English.
+/// Keys present in non-English files but missing from the English base
+/// are automatically removed. The test fails only if keys are missing
+/// from the non-English files (present in English but absent elsewhere).
 /// </summary>
 public partial class DetectMissingKeysInOtherLanguagesTests
 {
@@ -32,15 +34,29 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             Assert.Fail("No other language resource files found to compare against English.");
 
         var missingKeysByFile = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
-        var extraKeysByFile = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+        var removedKeysByFile = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+        XNamespace xNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
 
         foreach (var file in otherFiles)
         {
-            var fileKeys = ExtractKeys(file);
+            var doc = XDocument.Load(file, LoadOptions.PreserveWhitespace);
+            var root = doc.Root;
+            if (root == null)
+                continue;
+
+            var elementsWithKey = root.Elements()
+                .Where(e => e.Attribute(xNamespace + "Key") != null)
+                .ToList();
+
+            var fileKeys = elementsWithKey
+                // ReSharper disable once NullableWarningSuppressionIsUsed
+                .Select(e => e.Attribute(xNamespace + "Key")!.Value)
+                .ToHashSet(StringComparer.Ordinal);
+
             var fileName = Path.GetFileName(file);
 
-            var missing = englishKeys.Except(fileKeys, StringComparer.OrdinalIgnoreCase).ToList();
-            var extra = fileKeys.Except(englishKeys, StringComparer.OrdinalIgnoreCase).ToList();
+            var missing = englishKeys.Except(fileKeys, StringComparer.Ordinal).ToList();
+            var extra = fileKeys.Except(englishKeys, StringComparer.Ordinal).ToList();
 
             if (missing.Count > 0)
             {
@@ -49,21 +65,35 @@ public partial class DetectMissingKeysInOtherLanguagesTests
 
             if (extra.Count > 0)
             {
-                extraKeysByFile[fileName] = extra;
+                removedKeysByFile[fileName] = extra;
+
+                // Remove elements whose key is not present in English.
+                foreach (var element in elementsWithKey)
+                {
+                    // ReSharper disable once NullableWarningSuppressionIsUsed
+                    var key = element.Attribute(xNamespace + "Key")!.Value;
+                    if (!englishKeys.Contains(key))
+                    {
+                        element.Remove();
+                    }
+                }
+
+                var encoding = new UTF8Encoding(true);
+                using var writer = new StreamWriter(file, false, encoding);
+                doc.Save(writer);
             }
         }
 
-        if (missingKeysByFile.Count == 0 && extraKeysByFile.Count == 0)
+        if (missingKeysByFile.Count == 0 && removedKeysByFile.Count == 0)
             return; // 100 % match – pass
 
-        var message = new System.Text.StringBuilder();
-        message.AppendLine("Language resource files do not match the English base file (strings.en.xaml).");
-        message.AppendLine();
+        var message = new StringBuilder();
 
-        if (missingKeysByFile.Count > 0)
+        if (removedKeysByFile.Count > 0)
         {
-            message.AppendLine("MISSING KEYS (present in English but missing in other files):");
-            foreach (var kvp in missingKeysByFile.OrderBy(static x => x.Key, StringComparer.OrdinalIgnoreCase))
+            message.AppendLine("The following extra keys (not present in strings.en.xaml) were automatically removed:");
+            message.AppendLine();
+            foreach (var kvp in removedKeysByFile.OrderBy(static x => x.Key, StringComparer.OrdinalIgnoreCase))
             {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  File: {kvp.Key}");
                 foreach (var key in kvp.Value.OrderBy(static x => x, StringComparer.OrdinalIgnoreCase))
@@ -75,10 +105,10 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             message.AppendLine();
         }
 
-        if (extraKeysByFile.Count > 0)
+        if (missingKeysByFile.Count > 0)
         {
-            message.AppendLine("EXTRA KEYS (present in other files but missing in English):");
-            foreach (var kvp in extraKeysByFile.OrderBy(static x => x.Key, StringComparer.OrdinalIgnoreCase))
+            message.AppendLine("MISSING KEYS (present in English but missing in other files):");
+            foreach (var kvp in missingKeysByFile.OrderBy(static x => x.Key, StringComparer.OrdinalIgnoreCase))
             {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  File: {kvp.Key}");
                 foreach (var key in kvp.Value.OrderBy(static x => x, StringComparer.OrdinalIgnoreCase))
@@ -97,7 +127,7 @@ public partial class DetectMissingKeysInOtherLanguagesTests
         var regex = MyRegex();
         return regex.Matches(content)
             .Select(static m => m.Groups[1].Value)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            .ToHashSet(StringComparer.Ordinal);
     }
 
     private static string GetSimpleLauncherPath()
@@ -120,8 +150,6 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
 
-    [GeneratedRegex("""
-                    x:Key="([^"]+)"
-                    """, RegexOptions.Compiled)]
-    private static partial Regex MyRegex();
+    [System.Text.RegularExpressions.GeneratedRegex("x:Key=\"([^\"]+)\"", System.Text.RegularExpressions.RegexOptions.Compiled)]
+    private static partial System.Text.RegularExpressions.Regex MyRegex();
 }

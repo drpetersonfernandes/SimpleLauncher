@@ -85,7 +85,7 @@
     <system:String x:Key="AresConfig_Exclusive_Tooltip">Enable exclusive fullscreen mode.</system:String>
     <system:String x:Key="AresConfig_FastBoot_Checkbox">Fast Boot</system:String>
     <system:String x:Key="AresConfig_FastBoot_Tooltip">Skips console BIOS screens for faster game loading.</system:String>
-    <system:String x:Key="AresConfig_General_Header">General &amp;amp; Features</system:String>
+    <system:String x:Key="AresConfig_General_Header">General &amp; Features</system:String>
     <system:String x:Key="AresConfig_Multiplier_Label">Internal Resolution Scale:</system:String>
     <system:String x:Key="AresConfig_Multiplier_Tooltip">Increases the internal rendering resolution for sharper graphics.</system:String>
     <system:String x:Key="AresConfig_Mute_Checkbox">Mute Audio</system:String>
@@ -94,7 +94,7 @@
     <system:String x:Key="AresConfig_Rewind_Tooltip">Allows you to rewind gameplay. May impact performance.</system:String>
     <system:String x:Key="AresConfig_RunAhead_Checkbox">Enable Run-Ahead</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">Reduces input latency. May require a powerful CPU.</system:String>
-    <system:String x:Key="AresConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="AresConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="AresConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="AresConfig_Save_Button">Save</system:String>
     <system:String x:Key="AresConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -150,7 +150,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">Enables New 3DS specific features and higher CPU clock for compatible games.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">Resolution Factor:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">Internal resolution multiplier. Higher values look better but require more GPU power.</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="AzaharConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="AzaharConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="AzaharConfig_Save_Button">Save</system:String>
     <system:String x:Key="AzaharConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -158,7 +158,7 @@
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Tooltip">Show this window before launching a game.</system:String>
     <system:String x:Key="AzaharConfig_System_Header">System Settings</system:String>
     <system:String x:Key="AzaharConfig_Title">Azahar Configuration</system:String>
-    <system:String x:Key="AzaharConfig_Video_Header">Video &amp;amp; Renderer</system:String>
+    <system:String x:Key="AzaharConfig_Video_Header">Video &amp; Renderer</system:String>
     <system:String x:Key="AzaharConfig_Volume_Label">Master Volume:</system:String>
     <system:String x:Key="AzaharConfig_Volume_Tooltip">Adjust the overall output volume of the emulator.</system:String>
     <system:String x:Key="AzaharConfig_Vsync_Checkbox">Enable VSync</system:String>
@@ -176,7 +176,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Tooltip">Cancel and close this window without saving changes.</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Toggles between windowed and fullscreen mode.</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="BlastemConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="BlastemConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="BlastemConfig_Save_Button">Save</system:String>
     <system:String x:Key="BlastemConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -226,17 +226,17 @@
     <system:String x:Key="CemuConfig_Discord_Tooltip">Show the current game you are playing on your Discord profile.</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Checkbox">Start in Fullscreen</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Tooltip">Automatically switch to fullscreen mode when a game starts.</system:String>
-    <system:String x:Key="CemuConfig_General_Header">General &amp;amp; System</system:String>
+    <system:String x:Key="CemuConfig_General_Header">General &amp; System</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Console Language:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Sets the system language of the emulated Wii U console.</system:String>
-    <system:String x:Key="CemuConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="CemuConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="CemuConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="CemuConfig_Save_Button">Save</system:String>
     <system:String x:Key="CemuConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Show this window before launching a game</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Tooltip">Show this window before launching a game.</system:String>
     <system:String x:Key="CemuConfig_Title">Cemu Configuration Injection</system:String>
-    <system:String x:Key="CemuConfig_Video_Header">Video &amp;amp; Graphics</system:String>
+    <system:String x:Key="CemuConfig_Video_Header">Video &amp; Graphics</system:String>
     <system:String x:Key="CemuConfig_Volume_Label">TV Volume:</system:String>
     <system:String x:Key="CemuConfig_Volume_Tooltip">Adjust the master volume level for the emulated TV output.</system:String>
     <system:String x:Key="CemuConfig_Vsync_Label">VSync:</system:String>
@@ -322,7 +322,7 @@
     <system:String x:Key="DaphneConfig_ResolutionY_Tooltip">Set the vertical resolution.</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">Resolution:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">Set the windowed or fullscreen resolution.</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="DaphneConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="DaphneConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="DaphneConfig_Save_Button">Save</system:String>
     <system:String x:Key="DaphneConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -331,7 +331,7 @@
     <system:String x:Key="DaphneConfig_Title">Daphne Configuration</system:String>
     <system:String x:Key="DaphneConfig_UseOverlays_Checkbox">Use Score Overlays</system:String>
     <system:String x:Key="DaphneConfig_UseOverlays_Tooltip">Enable or disable the on-screen score and credit displays.</system:String>
-    <system:String x:Key="DaphneConfig_Video_Header">Video &amp;amp; Display</system:String>
+    <system:String x:Key="DaphneConfig_Video_Header">Video &amp; Display</system:String>
     <system:String x:Key="DaphneSettings">Daphne Settings</system:String>
     <system:String x:Key="Daphnesettingssavedsuccessfully">Daphne settings saved successfully.</system:String>
     <system:String x:Key="Dark">Dark</system:String>
@@ -365,12 +365,12 @@
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin configuration saved successfully.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Cancel and close this window without saving changes.</system:String>
-    <system:String x:Key="DolphinConfig_Core_Header">Core &amp;amp; Graphics</system:String>
+    <system:String x:Key="DolphinConfig_Core_Header">Core &amp; Graphics</system:String>
     <system:String x:Key="DolphinConfig_DspThread_Checkbox">Enable DSP Thread</system:String>
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Runs DSP emulation on a separate thread. Improves performance on most multi-core CPUs.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Graphics Backend:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Select the graphics API. Vulkan is generally recommended for modern GPUs.</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="DolphinConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="DolphinConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="DolphinConfig_Save_Button">Save</system:String>
     <system:String x:Key="DolphinConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -445,7 +445,7 @@
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Enables the ability to rewind gameplay. May impact performance.</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Label">Runahead Frames</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Reduces input latency by running emulation ahead and rolling back. Use with caution, requires a powerful CPU.</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="DuckStationConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="DuckStationConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="DuckStationConfig_SaveStateOnExit_Checkbox">Save State On Exit</system:String>
     <system:String x:Key="DuckStationConfig_SaveStateOnExit_Tooltip">If checked, a save state will be automatically created when you close the game.</system:String>
@@ -456,7 +456,7 @@
     <system:String x:Key="DuckStationConfig_TextureFilter_Label">Texture Filtering</system:String>
     <system:String x:Key="DuckStationConfig_TextureFilter_Tooltip">'Nearest' provides a sharp, pixelated look. 'Bilinear' smooths textures.</system:String>
     <system:String x:Key="DuckStationConfig_Title">DuckStation Configuration</system:String>
-    <system:String x:Key="DuckStationConfig_Video_Header">Video &amp;amp; GPU Settings</system:String>
+    <system:String x:Key="DuckStationConfig_Video_Header">Video &amp; GPU Settings</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Label">Master Volume</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Tooltip">Adjusts the master audio volume.</system:String>
     <system:String x:Key="DuckStationConfig_Vsync_Checkbox">Enable VSync</system:String>
@@ -467,6 +467,7 @@
     <system:String x:Key="DuckStationSettings">DuckStation Settings</system:String>
     <system:String x:Key="EasyIcon">Easy</system:String>
     <system:String x:Key="EasyMode">Easy Mode</system:String>
+    <system:String x:Key="EasyModeUnavailable">Easy Mode Unavailable</system:String>
     <system:String x:Key="EditLinks">Edit Links</system:String>
     <system:String x:Key="EditSystem">Edit _System</system:String>
     <system:String x:Key="EditSystemtofixit">Edit System to fix it.</system:String>
@@ -510,7 +511,11 @@
     <system:String x:Key="EmulatorPath">Emulator Path</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator path is not valid for</system:String>
     <system:String x:Key="EmulatorPathNotConfigured">The emulator path is not configured.</system:String>
-    <system:String x:Key="EmulatorPathNotConfiguredDetails"></system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails1">The emulator you are using does not have a valid executable path configured.</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails2">This typically happens when:</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails3">- The system was configured to run directly executable files (.bat, .exe, .lnk)</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails4">- But you are trying to launch a file that requires an emulator</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails5">Please edit the system configuration and provide a valid emulator path.</system:String>
     <system:String x:Key="EmulatorRequired">Emulator Required</system:String>
     <system:String x:Key="Enable">Enable</system:String>
     <system:String x:Key="EnableNotificationSound">Enable notification sound</system:String>
@@ -645,7 +650,7 @@
     <system:String x:Key="FlycastConfig_ResolutionY_Tooltip">Set the vertical resolution.</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">Window Resolution (Width x Height)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">Sets the resolution of the emulator window when not in fullscreen mode.</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="FlycastConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="FlycastConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="FlycastConfig_Save_Button">Save</system:String>
     <system:String x:Key="FlycastConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -702,6 +707,7 @@
     <system:String x:Key="GroupByFolderMameWarningMessage">You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">The 'Group Files by Folder' option is only compatible with MAME emulators. To use a different emulator, please edit the system settings and disable this option.</system:String>
     <system:String x:Key="GroupFilesbyFolder">Group Files by Folder?</system:String>
+    <system:String x:Key="GroupFilesByFolder">Group Files by Folder?</system:String>
     <system:String x:Key="GuideURL">Guide URL:</system:String>
     <system:String x:Key="Hardcore">Hardcore</system:String>
     <system:String x:Key="HardcorePlayers">Hardcore Players</system:String>
@@ -859,7 +865,7 @@
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">Performance And Advanced</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">Run in Window</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">Runs MAME in a window instead of fullscreen.</system:String>
-    <system:String x:Key="MameConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="MameConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="MameConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="MameConfig_SaveNvram_Checkbox">Save NVRAM (High Scores)</system:String>
     <system:String x:Key="MameConfig_SaveNvram_Tooltip">Saves non-volatile RAM (high scores, settings) on exit.</system:String>
@@ -912,7 +918,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">If checked, the emulator will start in fullscreen mode.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">Enable Rewind</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">Allows you to rewind gameplay. Can be performance-intensive.</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="MednafenConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="MednafenConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="MednafenConfig_Save_Button">Save</system:String>
     <system:String x:Key="MednafenConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -952,12 +958,12 @@
     <system:String x:Key="MesenConfig_MasterVolume_Tooltip">Adjusts the overall sound volume.</system:String>
     <system:String x:Key="MesenConfig_PauseInBackground_Checkbox">Pause When in Background</system:String>
     <system:String x:Key="MesenConfig_PauseInBackground_Tooltip">Pauses the emulation when the window is not in focus.</system:String>
-    <system:String x:Key="MesenConfig_Performance_Header">Performance &amp;amp; Features</system:String>
+    <system:String x:Key="MesenConfig_Performance_Header">Performance &amp; Features</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Enable Rewind</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Allows you to rewind gameplay. May impact performance.</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">Run-Ahead Frames</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">Reduces input lag by running frames ahead and rolling back. Use with caution (0-8).</system:String>
-    <system:String x:Key="MesenConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="MesenConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="MesenConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="MesenConfig_Save_Button">Save</system:String>
     <system:String x:Key="MesenConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1103,7 +1109,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">General Settings</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Renderer:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Select the graphics API. Vulkan is recommended for most modern GPUs.</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="Pcsx2Config_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="Pcsx2Config_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="Pcsx2Config_Save_Button">Save</system:String>
     <system:String x:Key="Pcsx2Config_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1112,7 +1118,7 @@
     <system:String x:Key="Pcsx2Config_Title">PCSX2 Configuration Injector</system:String>
     <system:String x:Key="Pcsx2Config_Upscale_Label">Internal Resolution:</system:String>
     <system:String x:Key="Pcsx2Config_Upscale_Tooltip">Higher values increase clarity but require more GPU power.</system:String>
-    <system:String x:Key="Pcsx2Config_Video_Header">Video &amp;amp; Graphics</system:String>
+    <system:String x:Key="Pcsx2Config_Video_Header">Video &amp; Graphics</system:String>
     <system:String x:Key="Pcsx2Config_Volume_Label">Master Volume:</system:String>
     <system:String x:Key="Pcsx2Config_Volume_Tooltip">Adjust the overall output volume of the emulator.</system:String>
     <system:String x:Key="Pcsx2Config_Vsync_Checkbox">Enable VSync</system:String>
@@ -1230,7 +1236,7 @@
     <system:String x:Key="RaineConfig_ResolutionY_Tooltip">Set the vertical resolution.</system:String>
     <system:String x:Key="RaineConfig_RomDirectory">ROM Directory</system:String>
     <system:String x:Key="RaineConfig_RomDirectory_Tooltip">Select the ROM directory.</system:String>
-    <system:String x:Key="RaineConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="RaineConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="RaineConfig_SampleRate">Sample Rate (Hz):</system:String>
     <system:String x:Key="RaineConfig_SampleRate_Tooltip">Select the audio sample rate.</system:String>
@@ -1316,7 +1322,7 @@
     <system:String x:Key="RedreamConfig_Renderer_Tooltip">Graphics renderer to use.</system:String>
     <system:String x:Key="RedreamConfig_ResolutionScale_Label">Resolution Scale:</system:String>
     <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Internal resolution scaling factor (e.g., 2 for 2x).</system:String>
-    <system:String x:Key="RedreamConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="RedreamConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="RedreamConfig_Save_Button">Save</system:String>
     <system:String x:Key="RedreamConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1339,6 +1345,7 @@
     <system:String x:Key="Remove">Remove</system:String>
     <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
     <system:String x:Key="RemovefromFavorites">Remove From Favorites</system:String>
+    <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
     <system:String x:Key="RemovefromHistory">Remove from history</system:String>
     <system:String x:Key="RemovingAllHistoryItems">Removing all history items...</system:String>
     <system:String x:Key="RemovingFromFavorites">Removing from favorites...</system:String>
@@ -1405,7 +1412,7 @@
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">Allows you to rewind gameplay in real-time.</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">Run-Ahead</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">Reduces input lag by predicting future frames (CPU intensive).</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="RetroArchConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="RetroArchConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="RetroArchConfig_SaveOnExit_Checkbox">Save Configuration on Exit</system:String>
     <system:String x:Key="RetroArchConfig_SaveOnExit_Tooltip">If checked, changes made inside RA menu will be saved.</system:String>
@@ -1464,7 +1471,7 @@
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Upscale the internal resolution for sharper graphics. 100% is native 720p.</system:String>
     <system:String x:Key="RPCS3Config_Resolution_Label">Resolution:</system:String>
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">Set the output resolution of the emulator window.</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="RPCS3Config_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="RPCS3Config_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="RPCS3Config_Save_Button">Save</system:String>
     <system:String x:Key="RPCS3Config_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1529,7 +1536,7 @@
     <system:String x:Key="SegaModel2Config_ResolutionY_Tooltip">Set the vertical resolution.</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">Fullscreen Resolution:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">Sets the width and height for fullscreen mode.</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="SegaModel2Config_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="SegaModel2Config_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="SegaModel2Config_Save_Button">Save</system:String>
     <system:String x:Key="SegaModel2Config_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1623,6 +1630,15 @@
     <system:String x:Key="SimpleLaunchercannotperform">'Simple Launcher' cannot perform the requested task.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' cannot run from a temporary folder.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration">'Simple Launcher' could not access the Web API to download the updated configuration.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration2">This could be due to:</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration3">• A government firewall or internet restriction in your region</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration4">• Network connectivity issues</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration5">To resolve this issue, you can:</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration6">1. Enable a VPN connection and try again</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration7">2. Check your internet connection</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration8">3. Configure systems manually using the Edit System feature</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration9">Note: A VPN may be required if you are located in a country with internet restrictions.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.</system:String>
     <system:String x:Key="SimpleLauncherCouldNotDownloadImages">Simple Launcher could not download images due to access issues to Cloudflare servers.</system:String>
@@ -1671,7 +1687,7 @@
     <system:String x:Key="StellaConfig_Features_Header">Features</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Run in Fullscreen</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">If checked, the emulator will start in fullscreen mode.</system:String>
-    <system:String x:Key="StellaConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="StellaConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="StellaConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="StellaConfig_Save_Button">Save</system:String>
     <system:String x:Key="StellaConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1683,7 +1699,7 @@
     <system:String x:Key="StellaConfig_TimeMachine_Tooltip">Allows you to rewind gameplay. May impact performance.</system:String>
     <system:String x:Key="StellaConfig_Title">Stella Configuration</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Bad">Bad Adjust</system:String>
-    <system:String x:Key="StellaConfig_TvFilter_B_W">Black &amp;amp; White</system:String>
+    <system:String x:Key="StellaConfig_TvFilter_B_W">Black &amp; White</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Color">Color</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Label">TV Effects:</system:String>
     <system:String x:Key="StellaConfig_TvFilter_None">None</system:String>
@@ -1721,7 +1737,7 @@
     <system:String x:Key="SupermodelConfig_ResolutionY_Tooltip">Set the vertical resolution.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">Resolution (Width x Height):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Sets the internal rendering resolution of the game.</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="SupermodelConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="SupermodelConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="SupermodelConfig_Save_Button">Save</system:String>
     <system:String x:Key="SupermodelConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -1731,11 +1747,11 @@
     <system:String x:Key="SupermodelConfig_SoundVolume_Tooltip">Adjusts the volume of sound effects (0-100).</system:String>
     <system:String x:Key="SupermodelConfig_Stretch_Checkbox">Stretch to Fill Screen</system:String>
     <system:String x:Key="SupermodelConfig_Stretch_Tooltip">Stretches the image to fill your entire screen, ignoring the original aspect ratio.</system:String>
-    <system:String x:Key="SupermodelConfig_System_Header">System &amp;amp; Performance</system:String>
+    <system:String x:Key="SupermodelConfig_System_Header">System &amp; Performance</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Checkbox">Throttle Emulation Speed</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Tooltip">Limits the emulation speed to the original hardware's speed (60 FPS). Disable for benchmarking.</system:String>
     <system:String x:Key="SupermodelConfig_Title">Supermodel Configuration</system:String>
-    <system:String x:Key="SupermodelConfig_Video_Header">Video &amp;amp; Graphics</system:String>
+    <system:String x:Key="SupermodelConfig_Video_Header">Video &amp; Graphics</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Checkbox">Enable V-Sync</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Tooltip">Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing.</system:String>
     <system:String x:Key="SupermodelConfig_Widescreen_Checkbox">Force Wide Screen (16:9)</system:String>
@@ -2207,7 +2223,7 @@
     <system:String x:Key="XeniaConfig_ResolutionScaleY_Tooltip">Set the vertical resolution scale.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">Resolution Scale (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">Internal rendering resolution scale (1=720p, 2=1440p).</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="XeniaConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="XeniaConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">Save</system:String>
     <system:String x:Key="XeniaConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
@@ -2255,13 +2271,13 @@
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Automatically pause emulation when the emulator window loses focus.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Reduce Latency</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Attempts to minimize input lag at the cost of some performance.</system:String>
-    <system:String x:Key="YumirConfig_Run_Button2">Save &amp;amp; Run</system:String>
+    <system:String x:Key="YumirConfig_Run_Button2">Save &amp; Run</system:String>
     <system:String x:Key="YumirConfig_Run_Tooltip">Save the configuration and run the game.</system:String>
     <system:String x:Key="YumirConfig_Save_Button">Save</system:String>
     <system:String x:Key="YumirConfig_Save_Tooltip">Save the configuration and close this window.</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Show these settings every time before launching a game</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Tooltip">Show this window before launching a game.</system:String>
-    <system:String x:Key="YumirConfig_System_Header">System &amp;amp; Emulation</system:String>
+    <system:String x:Key="YumirConfig_System_Header">System &amp; Emulation</system:String>
     <system:String x:Key="YumirConfig_Title">Yumir (Ymir) Configuration</system:String>
     <system:String x:Key="YumirConfig_VideoStandard_Label">Video Standard:</system:String>
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Choose between PAL (50Hz) or NTSC (60Hz) timing.</system:String>

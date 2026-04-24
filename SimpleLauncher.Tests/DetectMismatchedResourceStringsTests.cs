@@ -39,7 +39,7 @@ public partial class DetectMismatchedResourceStringsTests
         // Matches: TryFindResource("KEY") ?? "VALUE" (literal fallback only)
         var regex = MyRegex();
 
-        var resourceDictionary = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+        var resourceDictionary = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
 
         var files = Directory.EnumerateFiles(sourcePath, "*.cs", SearchOption.AllDirectories)
             .Concat(Directory.EnumerateFiles(sourcePath, "*.xaml", SearchOption.AllDirectories))

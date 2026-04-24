@@ -184,7 +184,8 @@ public partial class UrlValidationTests
             if (headResponse.IsSuccessStatusCode)
                 return null;
 
-            // Some servers block HEAD or return non-success codes for it.            // Fall back to GET (headers only) for a more accurate check.
+            // Some servers block HEAD or return non-success codes for it.
+            // Fall back to GET (headers only) for a more accurate check.
             using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
             using var getResponse = await HttpClient.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
             if (getResponse.IsSuccessStatusCode)

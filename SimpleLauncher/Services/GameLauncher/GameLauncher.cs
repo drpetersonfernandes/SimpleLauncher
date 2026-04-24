@@ -922,7 +922,7 @@ public partial class GameLauncher
                 DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user with a helpful message
-                MessageBoxLibrary.EmulatorPathNotConfiguredMessageBox(selectedEmulatorName);
+                MessageBoxLibrary.EmulatorPathNotConfiguredMessageBox();
 
                 return;
             }

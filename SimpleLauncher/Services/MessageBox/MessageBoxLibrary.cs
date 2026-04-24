@@ -517,22 +517,26 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void EmulatorPathNotConfiguredMessageBox(string emulatorName)
+    internal static void EmulatorPathNotConfiguredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
             var emulatorPathNotConfigured = (string)Application.Current.TryFindResource("EmulatorPathNotConfigured") ?? "The emulator path is not configured.";
-            var emulatorPathNotConfiguredDetails = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails") ??
-                                                   $"The emulator '{emulatorName}' does not have a valid executable path configured.\n\n" +
-                                                   "This typically happens when:\n" +
-                                                   "- The system was configured to run directly executable files (.bat, .exe, .lnk)\n" +
-                                                   "- But you are trying to launch a file that requires an emulator\n\n" +
-                                                   "Please edit the system configuration and provide a valid emulator path.";
+            var emulatorPathNotConfiguredDetails1 = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails1") ?? "The emulator you are using does not have a valid executable path configured.";
+            var emulatorPathNotConfiguredDetails2 = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails2") ?? "This typically happens when:";
+            var emulatorPathNotConfiguredDetails3 = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails3") ?? "- The system was configured to run directly executable files (.bat, .exe, .lnk)";
+            var emulatorPathNotConfiguredDetails4 = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails4") ?? "- But you are trying to launch a file that requires an emulator";
+            var emulatorPathNotConfiguredDetails5 = (string)Application.Current.TryFindResource("EmulatorPathNotConfiguredDetails5") ?? "Please edit the system configuration and provide a valid emulator path.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            System.Windows.MessageBox.Show($"{emulatorPathNotConfigured}\n\n{emulatorPathNotConfiguredDetails}", error, MessageBoxButton.OK, MessageBoxImage.Warning);
+            System.Windows.MessageBox.Show($"{emulatorPathNotConfigured}\n" +
+                                           $"{emulatorPathNotConfiguredDetails1}\n\n" +
+                                           $"{emulatorPathNotConfiguredDetails2}\n" +
+                                           $"{emulatorPathNotConfiguredDetails3}\n" +
+                                           $"{emulatorPathNotConfiguredDetails4}\n\n" +
+                                           $"{emulatorPathNotConfiguredDetails5}", error, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -605,8 +609,7 @@ internal static class MessageBoxLibrary
         {
             var anerroroccurredwhilelaunchingtheselectedtool = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
             var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
-                                                          "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = System.Windows.MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool}\n\n" +
@@ -1464,8 +1467,7 @@ internal static class MessageBoxLibrary
         {
             var downloadedfileislocked = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
             var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
-                                                          "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
             var openTempFolderQuestion = (string)Application.Current.TryFindResource("OpenTempFolderQuestion") ?? "Would you like to open the temporary folder to inspect the file?"; // New line
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
@@ -2838,8 +2840,7 @@ internal static class MessageBoxLibrary
         {
             var title = (string)Application.Current.TryFindResource("SecurityWarning") ?? "Security Warning";
             var pathManipulationDetected = (string)Application.Current.TryFindResource("PathManipulationDetected") ?? "Potential Path Manipulation Detected";
-            var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ??
-                                     "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.";
+            var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ?? "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.";
             var archivePathMessage = (string)Application.Current.TryFindResource("ArchivePathMessage") ?? "Archive file:";
             var actionTaken = (string)Application.Current.TryFindResource("ActionTaken") ?? "For your security, the extraction process has been properly handle and the issue has been logged.";
             var reportedToDeveloper = (string)Application.Current.TryFindResource("ReportedToDeveloper") ?? "This security issue has been reported to the developer team.";
@@ -3137,8 +3138,7 @@ internal static class MessageBoxLibrary
 
         static MessageBoxResult ShowMessage()
         {
-            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage") ??
-                                 "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
+            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage") ?? "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
             var proceedQuestion = (string)Application.Current.TryFindResource("AreYouSureYouWantToProceed") ?? "Are you sure you want to proceed?";
             var warningTitle = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             return System.Windows.MessageBox.Show($"{warningMessage}\n\n{proceedQuestion}", warningTitle, MessageBoxButton.YesNo, MessageBoxImage.Warning);
@@ -3162,8 +3162,7 @@ internal static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(static () =>
         {
-            var message = (string)Application.Current.TryFindResource("GroupByFolderMameWarningMessage") ??
-                          "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?";
+            var message = (string)Application.Current.TryFindResource("GroupByFolderMameWarningMessage") ?? "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?";
             var title = (string)Application.Current.TryFindResource("ConfigurationWarning") ?? "Configuration Warning";
             return System.Windows.MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
         });
@@ -3312,8 +3311,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var simpleLauncherdoesnotsupportthecurrentprocessorarchitecture = (string)Application.Current.TryFindResource("SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture") ??
-                                                                              "'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.";
+            var simpleLauncherdoesnotsupportthecurrentprocessorarchitecture = (string)Application.Current.TryFindResource("SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture") ?? "'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.";
             var unsupportedArchitecture = (string)Application.Current.TryFindResource("UnsupportedArchitecture") ?? "Unsupported Architecture";
             System.Windows.MessageBox.Show(simpleLauncherdoesnotsupportthecurrentprocessorarchitecture, unsupportedArchitecture, MessageBoxButton.OK, MessageBoxImage.Error);
         }

@@ -27,7 +27,7 @@ public partial class DetectMissingResourceStringsTests
         var existingKeys = ExtractKeysFromXaml(stringsEnPath);
 
         // Keys defined in App.xaml (brushes, styles, converters, etc.) are not localization strings.
-        var appKeys = File.Exists(appXamlPath) ? ExtractKeysFromXaml(appXamlPath) : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var appKeys = File.Exists(appXamlPath) ? ExtractKeysFromXaml(appXamlPath) : new HashSet<string>(StringComparer.Ordinal);
 
         // Collect keys referenced in C# together with their fallback value when available.
         var csKeys = CollectCsKeys(simpleLauncherPath);
@@ -36,36 +36,70 @@ public partial class DetectMissingResourceStringsTests
         var xamlKeys = CollectXamlDynamicResourceKeys(simpleLauncherPath);
 
         // Determine missing keys.
-        var missingFromCs = csKeys.Keys.Except(existingKeys, StringComparer.OrdinalIgnoreCase);
-        var missingFromXaml = xamlKeys.Except(existingKeys, StringComparer.OrdinalIgnoreCase)
-            .Except(appKeys, StringComparer.OrdinalIgnoreCase);
+        var missingFromCs = csKeys.Keys.Except(existingKeys, StringComparer.Ordinal);
+        var missingFromXaml = xamlKeys.Except(existingKeys, StringComparer.Ordinal)
+            .Except(appKeys, StringComparer.Ordinal);
 
         var missingKeys = missingFromCs.Concat(missingFromXaml)
-            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Distinct(StringComparer.Ordinal)
             .ToList();
 
         if (missingKeys.Count == 0)
             return; // nothing missing – pass
 
-        // Build a dictionary of key -> fallback value (empty string when unknown).
-        var entriesToAdd = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        // Separate keys with known fallback values from keys without known values.
+        var keysWithValues = new Dictionary<string, string>(StringComparer.Ordinal);
+        var keysWithoutValues = new List<string>();
+
         foreach (var key in missingKeys)
         {
-            var value = csKeys.TryGetValue(key, out var fallback) ? fallback : string.Empty;
-            entriesToAdd[key] = value;
+            if (csKeys.TryGetValue(key, out var fallback) && !string.IsNullOrEmpty(fallback))
+            {
+                keysWithValues[key] = fallback;
+            }
+            else
+            {
+                keysWithoutValues.Add(key);
+            }
         }
 
-        AppendMissingEntries(stringsEnPath, entriesToAdd);
-
-        var message = new StringBuilder();
-        message.AppendLine(CultureInfo.InvariantCulture, $"{entriesToAdd.Count} missing resource key(s) were automatically added to strings.en.xaml:");
-        message.AppendLine();
-        foreach (var key in entriesToAdd.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
+        // Only auto-add keys that have a known non-empty fallback value.
+        if (keysWithValues.Count > 0)
         {
-            message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
+            AppendMissingEntries(stringsEnPath, keysWithValues);
         }
 
-        Assert.Fail(message.ToString());
+        // Build failure message.
+        var message = new StringBuilder();
+        var hasMissing = keysWithoutValues.Count > 0;
+        var hasAdded = keysWithValues.Count > 0;
+
+        if (hasAdded)
+        {
+            message.AppendLine(CultureInfo.InvariantCulture, $"{keysWithValues.Count} missing resource key(s) were automatically added to strings.en.xaml:");
+            message.AppendLine();
+            foreach (var key in keysWithValues.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
+            {
+                message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
+            }
+
+            message.AppendLine();
+        }
+
+        if (hasMissing)
+        {
+            message.AppendLine("The following referenced keys could not be automatically added because no fallback value is known. Please add them manually to strings.en.xaml:");
+            message.AppendLine();
+            foreach (var key in keysWithoutValues.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
+            {
+                message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
+            }
+        }
+
+        if (hasMissing || hasAdded)
+        {
+            Assert.Fail(message.ToString());
+        }
     }
 
     /// <summary>
@@ -74,7 +108,7 @@ public partial class DetectMissingResourceStringsTests
     /// </summary>
     private static Dictionary<string, string> CollectCsKeys(string sourcePath)
     {
-        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var result = new Dictionary<string, string>(StringComparer.Ordinal);
 
         // Captures key + optional literal fallback value.
         var regex = MyRegex();
@@ -103,7 +137,7 @@ public partial class DetectMissingResourceStringsTests
     /// </summary>
     private static HashSet<string> CollectXamlDynamicResourceKeys(string sourcePath)
     {
-        var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var result = new HashSet<string>(StringComparer.Ordinal);
         var regex = MyRegex1();
 
         var files = Directory.EnumerateFiles(sourcePath, "*.xaml", SearchOption.AllDirectories)
@@ -125,7 +159,7 @@ public partial class DetectMissingResourceStringsTests
 
     private static HashSet<string> ExtractKeysFromXaml(string xamlPath)
     {
-        var keys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var keys = new HashSet<string>(StringComparer.Ordinal);
         var content = File.ReadAllText(xamlPath);
         var regex = MyRegex2();
 
@@ -144,7 +178,7 @@ public partial class DetectMissingResourceStringsTests
         var lines = File.ReadAllLines(filePath).ToList();
         var entryRegex = MyRegex3();
 
-        var existingEntries = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var existingEntries = new Dictionary<string, string>(StringComparer.Ordinal);
         var firstEntryIndex = -1;
 
         for (var i = 0; i < lines.Count; i++)

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 using Xunit;
@@ -9,7 +10,7 @@ namespace SimpleLauncher.Tests;
 /// Duplicate keys with identical XML representations are automatically removed so that
 /// only one remains. If duplicate keys have different values, the test fails.
 /// </summary>
-public partial class DetectDuplicateResourceKeysTests
+public class DetectDuplicateResourceKeysTests
 {
     [Fact]
     public void AllResourceFilesShouldHaveNoDuplicateKeys()
@@ -37,8 +38,9 @@ public partial class DetectDuplicateResourceKeysTests
                 .ToList();
 
             var grouped = elementsWithKey
-                .GroupBy(e => e.Attribute(xNamespace + "Key")!.Value, StringComparer.OrdinalIgnoreCase)
-                .Where(g => g.Count() > 1)
+                // ReSharper disable once NullableWarningSuppressionIsUsed
+                .GroupBy(e => e.Attribute(xNamespace + "Key")!.Value, StringComparer.Ordinal)
+                .Where(static g => g.Count() > 1)
                 .ToList();
 
             var hasChanges = false;
@@ -49,7 +51,7 @@ public partial class DetectDuplicateResourceKeysTests
                 var elements = group.ToList();
 
                 var distinctRepresentations = elements
-                    .Select(e => e.ToString(SaveOptions.DisableFormatting))
+                    .Select(static e => e.ToString(SaveOptions.DisableFormatting))
                     .Distinct(StringComparer.Ordinal)
                     .ToList();
 
@@ -65,7 +67,7 @@ public partial class DetectDuplicateResourceKeysTests
                 else
                 {
                     var values = elements
-                        .Select(e => e.ToString(SaveOptions.DisableFormatting))
+                        .Select(static e => e.ToString(SaveOptions.DisableFormatting))
                         .ToList();
                     conflicts.Add((Path.GetFileName(file), key, values));
                 }
@@ -87,10 +89,10 @@ public partial class DetectDuplicateResourceKeysTests
         message.AppendLine();
         foreach (var conflict in conflicts)
         {
-            message.AppendLine($"File: {conflict.FileName}, Key: '{conflict.Key}'");
+            message.AppendLine(CultureInfo.InvariantCulture, $"File: {conflict.FileName}, Key: '{conflict.Key}'");
             foreach (var value in conflict.Values)
             {
-                message.AppendLine($"  - {value}");
+                message.AppendLine(CultureInfo.InvariantCulture, $"  - {value}");
             }
         }
 
@@ -116,5 +118,4 @@ public partial class DetectDuplicateResourceKeysTests
         throw new DirectoryNotFoundException(
             "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
-
 }
