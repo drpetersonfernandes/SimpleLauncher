@@ -6,7 +6,7 @@
         <UseWPF>true</UseWPF>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>false</IsPackable>
-        <Company>Pure Logic Code</Company>
+        <Company>PureLogicCode.com</Company>
         <Product>Simple Launcher</Product>
         <LangVersion>14</LangVersion>
         <Nullable>warnings</Nullable>
