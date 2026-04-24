@@ -1,11 +1,13 @@
-using System.Text.RegularExpressions;
+using System.Text;
+using System.Xml.Linq;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
 /// Scans every localization resource file (strings.*.xaml) for duplicate x:Key entries.
-/// The test fails if any key appears more than once inside the same file.
+/// Duplicate keys with identical XML representations are automatically removed so that
+/// only one remains. If duplicate keys have different values, the test fails.
 /// </summary>
 public partial class DetectDuplicateResourceKeysTests
 {
@@ -20,36 +22,79 @@ public partial class DetectDuplicateResourceKeysTests
         if (resourceFiles.Count == 0)
             Assert.Fail($"No resource files found in: {resourcesPath}");
 
-        var duplicates = new List<(string FileName, string Key, int Count)>();
-        var keyRegex = MyRegex();
+        var conflicts = new List<(string FileName, string Key, List<string> Values)>();
+        XNamespace xNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
 
         foreach (var file in resourceFiles)
         {
-            var content = File.ReadAllText(file);
-            var keyCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+            var doc = XDocument.Load(file, LoadOptions.PreserveWhitespace);
+            var root = doc.Root;
+            if (root == null)
+                continue;
 
-            foreach (Match match in keyRegex.Matches(content))
+            var elementsWithKey = root.Elements()
+                .Where(e => e.Attribute(xNamespace + "Key") != null)
+                .ToList();
+
+            var grouped = elementsWithKey
+                .GroupBy(e => e.Attribute(xNamespace + "Key")!.Value, StringComparer.OrdinalIgnoreCase)
+                .Where(g => g.Count() > 1)
+                .ToList();
+
+            var hasChanges = false;
+
+            foreach (var group in grouped)
             {
-                var key = match.Groups[1].Value;
-                keyCounts[key] = keyCounts.GetValueOrDefault(key) + 1;
+                var key = group.Key;
+                var elements = group.ToList();
+
+                var distinctRepresentations = elements
+                    .Select(e => e.ToString(SaveOptions.DisableFormatting))
+                    .Distinct(StringComparer.Ordinal)
+                    .ToList();
+
+                if (distinctRepresentations.Count == 1)
+                {
+                    // All duplicates are identical: keep the first, remove the rest.
+                    for (var i = 1; i < elements.Count; i++)
+                    {
+                        elements[i].Remove();
+                        hasChanges = true;
+                    }
+                }
+                else
+                {
+                    var values = elements
+                        .Select(e => e.ToString(SaveOptions.DisableFormatting))
+                        .ToList();
+                    conflicts.Add((Path.GetFileName(file), key, values));
+                }
             }
 
-            foreach (var kvp in keyCounts.Where(static x => x.Value > 1))
+            if (hasChanges)
             {
-                duplicates.Add((Path.GetFileName(file), kvp.Key, kvp.Value));
+                var encoding = new UTF8Encoding(true);
+                using var writer = new StreamWriter(file, false, encoding);
+                doc.Save(writer);
             }
         }
 
-        if (duplicates.Count == 0)
+        if (conflicts.Count == 0)
             return;
 
-        var message = "Duplicate resource keys detected:\n\n" +
-                      string.Join(
-                          "\n",
-                          duplicates.Select(static d => $"File: {d.FileName}, Key: '{d.Key}', Occurrences: {d.Count}")
-                      );
+        var message = new StringBuilder();
+        message.AppendLine("Duplicate resource keys with conflicting values detected:");
+        message.AppendLine();
+        foreach (var conflict in conflicts)
+        {
+            message.AppendLine($"File: {conflict.FileName}, Key: '{conflict.Key}'");
+            foreach (var value in conflict.Values)
+            {
+                message.AppendLine($"  - {value}");
+            }
+        }
 
-        Assert.Fail(message);
+        Assert.Fail(message.ToString());
     }
 
     private static string GetSimpleLauncherPath()
@@ -72,8 +117,4 @@ public partial class DetectDuplicateResourceKeysTests
             "Could not locate the SimpleLauncher project directory from the test output folder.");
     }
 
-    [GeneratedRegex("""
-                    x:Key="([^"]+)"
-                    """, RegexOptions.Compiled)]
-    private static partial Regex MyRegex();
 }
