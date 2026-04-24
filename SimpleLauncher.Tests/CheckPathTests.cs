@@ -106,4 +106,20 @@ public class CheckPathTests
             File.Delete(tempFile);
         }
     }
+
+    [Fact]
+    public void IsValidEmulatorExecutablePathBatFileReturnsTrue()
+    {
+        var tempFile = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.bat");
+        File.WriteAllText(tempFile, "@echo off");
+        try
+        {
+            var result = CheckPath.IsValidEmulatorExecutablePath(tempFile);
+            Assert.True(result);
+        }
+        finally
+        {
+            File.Delete(tempFile);
+        }
+    }
 }

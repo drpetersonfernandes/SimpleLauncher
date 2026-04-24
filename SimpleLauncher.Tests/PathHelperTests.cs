@@ -116,4 +116,303 @@ public class PathHelperTests
         var result = PathHelper.ResolveRelativeToCurrentWorkingDirectory(".");
         Assert.True(Path.IsPathRooted(result));
     }
+
+    [Fact]
+    public void FindContainingSystemFolder_PrimaryFolderMatch_ReturnsPrimaryFolder()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
+        var gameFile = Path.Combine(primaryFolder, "game.zip");
+
+        try
+        {
+            Directory.CreateDirectory(primaryFolder);
+            File.WriteAllText(gameFile, "dummy");
+
+            var systemManager = new Services.SystemManager.SystemManager
+            {
+                SystemFolders = [primaryFolder]
+            };
+
+            var result = PathHelper.FindContainingSystemFolder(systemManager, gameFile);
+            Assert.Equal(primaryFolder, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void FindContainingSystemFolder_AdditionalFolderMatch_ReturnsAdditionalFolder()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
+        var additionalFolder = Path.Combine(baseDir, "roms", "cps1");
+        var gameFile = Path.Combine(additionalFolder, "sf2.zip");
+
+        try
+        {
+            Directory.CreateDirectory(primaryFolder);
+            Directory.CreateDirectory(additionalFolder);
+            File.WriteAllText(gameFile, "dummy");
+
+            var systemManager = new Services.SystemManager.SystemManager
+            {
+                SystemFolders = [primaryFolder, additionalFolder]
+            };
+
+            var result = PathHelper.FindContainingSystemFolder(systemManager, gameFile);
+            Assert.Equal(additionalFolder, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void FindContainingSystemFolder_NoMatch_ReturnsPrimaryFolder()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
+        var otherFolder = Path.Combine(baseDir, "roms", "cps1");
+        var gameFile = Path.Combine(baseDir, "unrelated", "game.zip");
+
+        try
+        {
+            Directory.CreateDirectory(primaryFolder);
+            Directory.CreateDirectory(otherFolder);
+            Directory.CreateDirectory(Path.Combine(baseDir, "unrelated"));
+            File.WriteAllText(gameFile, "dummy");
+
+            var systemManager = new Services.SystemManager.SystemManager
+            {
+                SystemFolders = [primaryFolder, otherFolder]
+            };
+
+            var result = PathHelper.FindContainingSystemFolder(systemManager, gameFile);
+            Assert.Equal(primaryFolder, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void FindContainingSystemFolder_NestedSubfolderMatch_ReturnsParentFolder()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var primaryFolder = Path.Combine(baseDir, "roms", "Arcade");
+        var nestedFolder = Path.Combine(primaryFolder, "subfolder");
+        var gameFile = Path.Combine(nestedFolder, "game.zip");
+
+        try
+        {
+            Directory.CreateDirectory(nestedFolder);
+            File.WriteAllText(gameFile, "dummy");
+
+            var systemManager = new Services.SystemManager.SystemManager
+            {
+                SystemFolders = [primaryFolder]
+            };
+
+            var result = PathHelper.FindContainingSystemFolder(systemManager, gameFile);
+            Assert.Equal(primaryFolder, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void FindContainingSystemFolder_NullSystemManager_ReturnsNull()
+    {
+        var result = PathHelper.FindContainingSystemFolder(null, "C:\\game.zip");
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void FindContainingSystemFolder_NullFilePath_ReturnsPrimaryFolder()
+    {
+        var systemManager = new Services.SystemManager.SystemManager
+        {
+            SystemFolders = ["C:\\roms\\Arcade"]
+        };
+
+        var result = PathHelper.FindContainingSystemFolder(systemManager, null);
+        Assert.Equal("C:\\roms\\Arcade", result);
+    }
+
+    [Fact]
+    public void ResolveRelativeToAppDirectory_BaseFolderPlaceholder_ResolvesCorrectly()
+    {
+        var result = PathHelper.ResolveRelativeToAppDirectory("%BASEFOLDER%\\roms\\test");
+        Assert.NotNull(result);
+        Assert.True(Path.IsPathRooted(result));
+        Assert.EndsWith("roms\\test", result);
+    }
+
+    [Fact]
+    public void ResolveRelativeToAppDirectory_AbsolutePath_ReturnsCanonicalPath()
+    {
+        var result = PathHelper.ResolveRelativeToAppDirectory("C:\\Windows\\System32");
+        Assert.Equal("C:\\Windows\\System32", result);
+    }
+
+    [Fact]
+    public void ResolveRelativeToAppDirectory_RelativePath_ResolvesToAppDirectory()
+    {
+        var result = PathHelper.ResolveRelativeToAppDirectory("roms\\test");
+        Assert.NotNull(result);
+        Assert.True(Path.IsPathRooted(result));
+        Assert.EndsWith("roms\\test", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_ResolvesBaseFolderPlaceholder()
+    {
+        var parameters = "-path %BASEFOLDER%\\roms";
+        var result = PathHelper.ResolveParameterString(parameters);
+
+        Assert.NotNull(result);
+        Assert.DoesNotContain("%BASEFOLDER%", result);
+        Assert.Contains("\\roms", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_ResolvesSystemFolderPlaceholder()
+    {
+        var parameters = "-rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", null);
+
+        Assert.Equal("-rompath C:\\roms\\Arcade", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_ResolvesEmulatorFolderPlaceholder()
+    {
+        var parameters = "-cfg %EMULATORFOLDER%\\config.ini";
+        var result = PathHelper.ResolveParameterString(parameters, null, "C:\\emulators\\mame");
+
+        Assert.Equal("-cfg C:\\emulators\\mame\\config.ini", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_ResolvesMultiplePlaceholders()
+    {
+        var parameters = "-rompath %EMULATORFOLDER%\\roms;%SYSTEMFOLDER% -skip_gameinfo";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", "C:\\emulators\\mame");
+
+        Assert.Contains("C:\\emulators\\mame\\roms", result);
+        Assert.Contains("C:\\roms\\Arcade", result);
+        Assert.DoesNotContain("%EMULATORFOLDER%", result);
+        Assert.DoesNotContain("%SYSTEMFOLDER%", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_KeepsUnknownPlaceholdersIntact()
+    {
+        var parameters = "-path %UNKNOWN%\\test";
+        var result = PathHelper.ResolveParameterString(parameters);
+
+        Assert.Equal("-path %UNKNOWN%\\test", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_KeepsGameSpecificPlaceholdersIntact()
+    {
+        var parameters = "-rom %ROM% -name %ROMNAME%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms", "C:\\emu");
+
+        Assert.Equal("-rom %ROM% -name %ROMNAME%", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_RejectsPathTraversal()
+    {
+        var baseDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
+        var parameters = $"-path %BASEFOLDER%\\..\\..\\Windows";
+        var result = PathHelper.ResolveParameterString(parameters);
+
+        // Should return original token because it escapes base folder
+        Assert.Contains("%BASEFOLDER%", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_HandlesQuotedPaths()
+    {
+        var parameters = "-rompath \"%SYSTEMFOLDER%\"";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\My Roms\\Arcade", null);
+
+        Assert.Equal("-rompath \"C:\\My Roms\\Arcade\"", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_ExactMatchSystemFolder_ResolvesCorrectly()
+    {
+        // This tests the exact-match bug fix in IsPathContainedInBaseFolder
+        var parameters = "-rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", null);
+
+        Assert.Equal("-rompath C:\\roms\\Arcade", result);
+    }
+
+    [Fact]
+    public void ResolveParameterString_KnownFlagsAreNotModified()
+    {
+        var parameters = "-f -L core --fullscreen -rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms", null);
+
+        Assert.Contains("-f", result);
+        Assert.Contains("-L", result);
+        Assert.Contains("--fullscreen", result);
+        Assert.DoesNotContain("%SYSTEMFOLDER%", result);
+    }
+
+    [Fact]
+    public void FindFileInSystemFolders_FileExists_ReturnsPath()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var folder = Path.Combine(baseDir, "roms");
+        var fileName = "game.zip";
+        var filePath = Path.Combine(folder, fileName);
+
+        try
+        {
+            Directory.CreateDirectory(folder);
+            File.WriteAllText(filePath, "dummy");
+
+            var systemManager = new Services.SystemManager.SystemManager
+            {
+                SystemFolders = [folder]
+            };
+
+            var result = PathHelper.FindFileInSystemFolders(systemManager, fileName);
+            Assert.Equal(filePath, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void FindFileInSystemFolders_FileNotFound_ReturnsNull()
+    {
+        var systemManager = new Services.SystemManager.SystemManager
+        {
+            SystemFolders = ["C:\\nonexistent\\roms"]
+        };
+
+        var result = PathHelper.FindFileInSystemFolders(systemManager, "missing.zip");
+        Assert.Null(result);
+    }
 }
