@@ -25,7 +25,7 @@ public static class ApplicationStats
     /// </summary>
     public static void SendLaunchStats()
     {
-        _ = Task.Run(async () => await SendLaunchStatsAsync());
+        _ = Task.Run(static async () => await SendLaunchStatsAsync());
     }
 
     /// <summary>
