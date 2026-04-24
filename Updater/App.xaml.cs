@@ -20,6 +20,9 @@ public partial class App
         // Call the base implementation
         base.OnStartup(e);
 
+        // Send application launch statistics
+        ApplicationStats.SendLaunchStats();
+
         // Manually create the window and pass the arguments
         var mainWindow = new MainWindow(e.Args);
 

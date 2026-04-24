@@ -1,3 +1,32 @@
+# Release 5.3.2
+*2026-04-24*
+---
+
+## 🔄 Updater Overhaul
+- Completely refactored the auto-updater with a clean service-oriented architecture (`UpdateService`, `GitHubService`, `DownloadService`, `ZipService`)
+- Added real-time download progress bar and status text during updates
+- Added global exception handling and graceful fallback to manual download
+
+## 🌍 Localization & Translation
+- Added more localized tooltips across the main interface
+
+## 🎨 UI/UX Improvements
+- System image selection with live preview and validation in the system editor
+
+## 🛡️ Reliability & Robustness
+- Added `LocalAppData` fallback for data files
+- Enhanced emulator path validation and UAC cancel handling
+- Improved path validation with long path support and mismatch detection
+- Explicit TLS 1.2/1.3 support and enhanced HTTP error logging
+
+## 🧪 Testing
+- Added comprehensive unit test suite for core services
+
+## 📚 Documentation & Tools
+- Standardized emulator paths and added official download links in `parameters.md`
+- Updated `BatchConvertToCHD` and `RomValidator` tool binaries
+- Added timeout messaging for image downloads and USB path guidance
+
 # Release 5.3.1
 *2026-04-18*
 ---
