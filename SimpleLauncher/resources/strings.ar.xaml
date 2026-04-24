@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
@@ -508,7 +508,11 @@
     <system:String x:Key="EmulatorPath">مسار المحاكي</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">مسار المحاكي غير صالح لـ</system:String>
     <system:String x:Key="EmulatorPathNotConfigured">مسار المحاكي غير مُكوّن.</system:String>
-    <system:String x:Key="EmulatorPathNotConfiguredDetails"></system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails1">المحاكي الذي تستخدمه لم يتم تكوين مسار تنفيذي صالح له.</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails2">يحدث هذا عادةً في الحالات التالية:</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails3">- تم تكوين النظام لتشغيل الملفات التنفيذية مباشرةً (.bat, .exe, .lnk)</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails4">- ولكنك تحاول تشغيل ملف يتطلب محاكيًا</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails5">يرجى تعديل تكوين النظام وتوفير مسار محاكي صالح.</system:String>
     <system:String x:Key="EmulatorRequired">المحاكي مطلوب</system:String>
     <system:String x:Key="Enable">تفعيل</system:String>
     <system:String x:Key="EnableNotificationSound">تمكين صوت الإشعار</system:String>
@@ -699,7 +703,7 @@
     <system:String x:Key="GridView">عرض شبكي</system:String>
     <system:String x:Key="GroupByFolderMameWarningMessage">لقد قمت بتمكين 'تجميع الملفات حسب المجلد' ولكنك قمت بتكوين محاكي غير MAME. هذا التجميع غير مدعوم وسيفشل عند التشغيل. هل أنت متأكد أنك تريد حفظ هذه الإعدادات؟</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">خيار 'تجميع الملفات حسب المجلد' متوافق فقط مع محاكيات MAME. لاستخدام محاكي مختلف، يرجى تعديل إعدادات النظام وتعطيل هذا الخيار.</system:String>
-    <system:String x:Key="GroupFilesbyFolder">تجميع الملفات حسب المجلد</system:String>
+    <system:String x:Key="GroupFilesByFolder">تجميع الملفات حسب المجلد</system:String>
     <system:String x:Key="GuideURL">رابط الدليل:</system:String>
     <system:String x:Key="Hardcore">متشدد</system:String>
     <system:String x:Key="HardcorePlayers">لاعبون صعبو المراس</system:String>
@@ -982,7 +986,7 @@
     <system:String x:Key="NewThresholdLabel">العتبة الجديدة:</system:String>
     <system:String x:Key="NextPage">الصفحة التالية</system:String>
     <system:String x:Key="NoAchievementsFound">لا توجد إنجازات لهذه اللعبة.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">نظام التشغيل الخاص بك لا يحتوي على متصفح ويب افتراضي مُعد. يرجى تعيين واحد في إعدادات Windows (التطبيقات &amp;gt; التطبيقات الافتراضية) لفتح روابط الويب.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">نظام التشغيل الخاص بك لا يحتوي على متصفح ويب افتراضي مُعد. يرجى تعيين واحد في إعدادات Windows (التطبيقات &amp;amp;gt; التطبيقات الافتراضية) لفتح روابط الويب.</system:String>
     <system:String x:Key="NoDefaultEmulator">لا يوجد محاكي افتراضي</system:String>
     <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
     <system:String x:Key="NoGameInfoAvailable">معلومات اللعبة الموسّعة غير متوفرة.</system:String>
@@ -1336,7 +1340,7 @@
     <system:String x:Key="ReloadingGames">جاري إعادة تحميل الألعاب...</system:String>
     <system:String x:Key="Remove">إزالة</system:String>
     <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
-    <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
+    <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
     <system:String x:Key="RemovingAllHistoryItems">إزالة جميع عناصر السجل...</system:String>
     <system:String x:Key="RemovingFromFavorites">الإزالة من المفضلة...</system:String>
@@ -1891,7 +1895,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">تغيير نسبة العرض إلى الارتفاع لأزرار اللعبة</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">التبديل بين السمة الفاتحة والداكنة</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">ضبط حجم أزرار اللعبة</system:String>
-    <system:String x:Key="TooltipCancel">إلغاء العملية الحالية</system:String>
+    <system:String x:Key="ToolTipCancel">إلغاء العملية الحالية</system:String>
     <system:String x:Key="TooltipCheckForUpdate">التحقق مما إذا كان هناك إصدار جديد متاح</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">تصفح لتحديد الملف التنفيذي للمحاكي الأول</system:String>
     <system:String x:Key="TooltipChooseEmulator2Path">تصفح لتحديد الملف التنفيذي للمحاكي الثاني</system:String>

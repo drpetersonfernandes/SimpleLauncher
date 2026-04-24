@@ -355,7 +355,7 @@
                             Grid.Row="8"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource GroupFilesbyFolder}" ToolTip="{DynamicResource TooltipGroupFilesByFolderLabel}">
+                            Content="{DynamicResource GroupFilesByFolder}" ToolTip="{DynamicResource TooltipGroupFilesByFolderLabel}">
                         </Label>
                         <ComboBox
                             Margin="0,0,10,10"

@@ -3,6 +3,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    
+    
+    <system:String x:Key="ToolTipCancel">Cancel</system:String>
+    
     <system:String x:Key="1000000games">All games</system:String>
     <system:String x:Key="10000games">10000 games</system:String>
     <system:String x:Key="1000games">1000 games</system:String>
@@ -706,7 +710,6 @@
     <system:String x:Key="GridView">Grid View</system:String>
     <system:String x:Key="GroupByFolderMameWarningMessage">You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">The 'Group Files by Folder' option is only compatible with MAME emulators. To use a different emulator, please edit the system settings and disable this option.</system:String>
-    <system:String x:Key="GroupFilesbyFolder">Group Files by Folder?</system:String>
     <system:String x:Key="GroupFilesByFolder">Group Files by Folder?</system:String>
     <system:String x:Key="GuideURL">Guide URL:</system:String>
     <system:String x:Key="Hardcore">Hardcore</system:String>
@@ -1344,7 +1347,6 @@
     <system:String x:Key="ReloadingGames">Reloading games...</system:String>
     <system:String x:Key="Remove">Remove</system:String>
     <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
-    <system:String x:Key="RemovefromFavorites">Remove From Favorites</system:String>
     <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
     <system:String x:Key="RemovefromHistory">Remove from history</system:String>
     <system:String x:Key="RemovingAllHistoryItems">Removing all history items...</system:String>
@@ -1900,7 +1902,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">Change the aspect ratio of game buttons</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Switch between light and dark theme</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Adjust the size of game buttons</system:String>
-    <system:String x:Key="TooltipCancel">Cancel</system:String>
+
     <system:String x:Key="TooltipCheckForUpdate">Check if a new version is available</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Browse for the first emulator executable</system:String>
     <system:String x:Key="TooltipChooseEmulator2Path">Browse for the second emulator executable</system:String>

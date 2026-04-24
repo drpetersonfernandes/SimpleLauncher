@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
@@ -508,7 +508,11 @@
     <system:String x:Key="EmulatorPath">ইমুলেটর পাথ</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">এমুলেটরের পাথটি এর জন্য বৈধ নয়</system:String>
     <system:String x:Key="EmulatorPathNotConfigured">এমুলেটর পাথ কনফিগার করা হয়নি।</system:String>
-    <system:String x:Key="EmulatorPathNotConfiguredDetails"></system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails1">আপনি যে এমুলেটরটি ব্যবহার করছেন, সেটির জন্য একটি বৈধ এক্সিকিউটেবল পাথ কনফিগার করা নেই।</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails2">এটি সাধারণত ঘটে যখন:</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails3">- সিস্টেমটি সরাসরি এক্সিকিউটেবল ফাইল (.bat, .exe, .lnk) চালানোর জন্য কনফিগার করা হয়েছিল</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails4">- কিন্তু আপনি এমন একটি ফাইল চালু করার চেষ্টা করছেন যার জন্য একটি এমুলেটর প্রয়োজন</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails5">অনুগ্রহ করে সিস্টেম কনফিগারেশন সম্পাদনা করুন এবং একটি বৈধ এমুলেটর পাথ প্রদান করুন।</system:String>
     <system:String x:Key="EmulatorRequired">এমুলেটর প্রয়োজন</system:String>
     <system:String x:Key="Enable">সক্রিয় করুন</system:String>
     <system:String x:Key="EnableNotificationSound">বিজ্ঞপ্তি শব্দ সক্ষম করুন</system:String>
@@ -699,7 +703,7 @@
     <system:String x:Key="GridView">গ্রিড ভিউ</system:String>
     <system:String x:Key="GroupByFolderMameWarningMessage">আপনি 'ফোল্ডার দ্বারা ফাইল গ্রুপ করুন' সক্ষম করেছেন কিন্তু একটি নন-MAME এমুলেটর কনফিগার করেছেন। এই সংমিশ্রণ সমর্থিত নয় এবং চালু করার সময় ব্যর্থ হবে। আপনি কি এই সেটিংস সংরক্ষণ করতে নিশ্চিত?</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">'ফোল্ডার দ্বারা ফাইল গ্রুপ করুন' বিকল্পটি শুধুমাত্র MAME এমুলেটরগুলির সাথে সামঞ্জস্যপূর্ণ। একটি ভিন্ন এমুলেটর ব্যবহার করতে, অনুগ্রহ করে সিস্টেম সেটিংস সম্পাদনা করুন এবং এই বিকল্পটি অক্ষম করুন।</system:String>
-    <system:String x:Key="GroupFilesbyFolder">ফোল্ডার দ্বারা ফাইল গ্রুপ করুন</system:String>
+    <system:String x:Key="GroupFilesByFolder">ফোল্ডার দ্বারা ফাইল গ্রুপ করুন</system:String>
     <system:String x:Key="GuideURL">গাইড URL:</system:String>
     <system:String x:Key="Hardcore">হার্ডকোর</system:String>
     <system:String x:Key="HardcorePlayers">হার্ডকোর খেলোয়াড়</system:String>
@@ -982,7 +986,7 @@
     <system:String x:Key="NewThresholdLabel">নতুন থ্রেশহোল্ড:</system:String>
     <system:String x:Key="NextPage">পরবর্তী পাতা</system:String>
     <system:String x:Key="NoAchievementsFound">এই গেমের কোনো অ্যাচিভমেন্ট পাওয়া যায়নি।</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">আপনার অপারেটিং সিস্টেমে কোনো ডিফল্ট ওয়েব ব্রাউজার কনফিগার করা নেই। ওয়েব লিঙ্ক খোলার জন্য অনুগ্রহ করে Windows Settings (Apps &amp;gt; Default apps) এ একটি সেট করুন।</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">আপনার অপারেটিং সিস্টেমে কোনো ডিফল্ট ওয়েব ব্রাউজার কনফিগার করা নেই। ওয়েব লিঙ্ক খোলার জন্য অনুগ্রহ করে Windows Settings (Apps &amp;amp;gt; Default apps) এ একটি সেট করুন।</system:String>
     <system:String x:Key="NoDefaultEmulator">কোনো ডিফল্ট এমুলেটর নেই</system:String>
     <system:String x:Key="Nodetailsavailablefor">এর জন্য কোনো বিবরণ উপলব্ধ নেই</system:String>
     <system:String x:Key="NoGameInfoAvailable">বিস্তারিত গেম তথ্য পাওয়া যায়নি।</system:String>
@@ -1336,7 +1340,7 @@
     <system:String x:Key="ReloadingGames">গেমগুলো আবার লোড হচ্ছে...</system:String>
     <system:String x:Key="Remove">সরান</system:String>
     <system:String x:Key="RemoveAllfromHistory">ইতিহাস থেকে সব সরান</system:String>
-    <system:String x:Key="RemovefromFavorites">প্রিয় থেকে সরান</system:String>
+    <system:String x:Key="RemoveFromFavorites">প্রিয় থেকে সরান</system:String>
     <system:String x:Key="RemovefromHistory">ইতিহাস থেকে সরান</system:String>
     <system:String x:Key="RemovingAllHistoryItems">সমস্ত হিস্টরি আইটেম সরানো হচ্ছে...</system:String>
     <system:String x:Key="RemovingFromFavorites">প্রিয় থেকে সরানো হচ্ছে...</system:String>
@@ -1891,7 +1895,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">গেম বোতামগুলির অনুপাত পরিবর্তন করুন</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">হালকা এবং গাঢ় থিমের মধ্যে স্যুইচ করুন</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">গেম বোতামগুলির আকার সামঞ্জস্য করুন</system:String>
-    <system:String x:Key="TooltipCancel">বর্তমান অপারেশন বাতিল করুন</system:String>
+    <system:String x:Key="ToolTipCancel">বর্তমান অপারেশন বাতিল করুন</system:String>
     <system:String x:Key="TooltipCheckForUpdate">একটি নতুন সংস্করণ উপলব্ধ আছে কিনা তা পরীক্ষা করুন</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">প্রথম এমুলেটর এক্সিকিউটেবল ব্রাউজ করুন</system:String>
     <system:String x:Key="TooltipChooseEmulator2Path">দ্বিতীয় এমুলেটর এক্সিকিউটেবল ব্রাউজ করুন</system:String>

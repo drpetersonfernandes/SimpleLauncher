@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
@@ -82,7 +82,7 @@
     <system:String x:Key="AresConfig_Exclusive_Tooltip">Bật chế độ toàn màn hình độc quyền.</system:String>
     <system:String x:Key="AresConfig_FastBoot_Checkbox">Khởi động nhanh</system:String>
     <system:String x:Key="AresConfig_FastBoot_Tooltip">Bỏ qua màn hình BIOS của console để tải trò chơi nhanh hơn.</system:String>
-    <system:String x:Key="AresConfig_General_Header">Tổng quan &amp;amp; Tính năng</system:String>
+    <system:String x:Key="AresConfig_General_Header">Tổng quan &amp;amp;amp; Tính năng</system:String>
     <system:String x:Key="AresConfig_Multiplier_Label">Tỷ lệ độ phân giải nội bộ:</system:String>
     <system:String x:Key="AresConfig_Multiplier_Tooltip">Tăng độ phân giải kết xuất nội bộ để có đồ họa sắc nét hơn.</system:String>
     <system:String x:Key="AresConfig_Mute_Checkbox">Tắt tiếng</system:String>
@@ -91,7 +91,7 @@
     <system:String x:Key="AresConfig_Rewind_Tooltip">Cho phép bạn tua lại trò chơi. Có thể ảnh hưởng đến hiệu suất.</system:String>
     <system:String x:Key="AresConfig_RunAhead_Checkbox">Bật Run-Ahead</system:String>
     <system:String x:Key="AresConfig_RunAhead_Tooltip">Giảm độ trễ đầu vào. Có thể yêu cầu CPU mạnh.</system:String>
-    <system:String x:Key="AresConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="AresConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="AresConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="AresConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="AresConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -147,7 +147,7 @@
     <system:String x:Key="AzaharConfig_New3DS_Tooltip">Bật các tính năng dành riêng cho New 3DS và xung nhịp CPU cao hơn cho các trò chơi tương thích.</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Label">Hệ số độ phân giải:</system:String>
     <system:String x:Key="AzaharConfig_Resolution_Tooltip">Hệ số nhân độ phân giải nội bộ. Giá trị cao hơn trông đẹp hơn nhưng yêu cầu nhiều sức mạnh GPU hơn.</system:String>
-    <system:String x:Key="AzaharConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="AzaharConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="AzaharConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="AzaharConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="AzaharConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -155,7 +155,7 @@
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Tooltip">Hiển thị cửa sổ này trước khi khởi chạy trò chơi.</system:String>
     <system:String x:Key="AzaharConfig_System_Header">Cài đặt Hệ thống</system:String>
     <system:String x:Key="AzaharConfig_Title">Cấu hình Azahar</system:String>
-    <system:String x:Key="AzaharConfig_Video_Header">Video &amp;amp; Trình kết xuất</system:String>
+    <system:String x:Key="AzaharConfig_Video_Header">Video &amp;amp;amp; Trình kết xuất</system:String>
     <system:String x:Key="AzaharConfig_Volume_Label">Âm lượng tổng:</system:String>
     <system:String x:Key="AzaharConfig_Volume_Tooltip">Điều chỉnh âm lượng đầu ra tổng thể của trình giả lập.</system:String>
     <system:String x:Key="AzaharConfig_Vsync_Checkbox">Bật VSync</system:String>
@@ -173,7 +173,7 @@
     <system:String x:Key="BlastemConfig_Cancel_Tooltip">Hủy và đóng cửa sổ này mà không lưu thay đổi.</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Checkbox">Chạy ở chế độ Toàn màn hình</system:String>
     <system:String x:Key="BlastemConfig_Fullscreen_Tooltip">Chuyển đổi giữa chế độ cửa sổ và toàn màn hình.</system:String>
-    <system:String x:Key="BlastemConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="BlastemConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="BlastemConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="BlastemConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="BlastemConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -223,17 +223,17 @@
     <system:String x:Key="CemuConfig_Discord_Tooltip">Hiển thị trò chơi hiện tại bạn đang chơi trên hồ sơ Discord của bạn.</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Checkbox">Bắt đầu ở chế độ Toàn màn hình</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Tooltip">Tự động chuyển sang chế độ toàn màn hình khi trò chơi bắt đầu.</system:String>
-    <system:String x:Key="CemuConfig_General_Header">Tổng quan &amp;amp; Hệ thống</system:String>
+    <system:String x:Key="CemuConfig_General_Header">Tổng quan &amp;amp;amp; Hệ thống</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Ngôn ngữ Console:</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Đặt ngôn ngữ hệ thống của console Wii U giả lập.</system:String>
-    <system:String x:Key="CemuConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="CemuConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="CemuConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="CemuConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="CemuConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Hiển thị cửa sổ này trước khi khởi chạy trò chơi</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Tooltip">Hiển thị cửa sổ này trước khi khởi chạy trò chơi.</system:String>
     <system:String x:Key="CemuConfig_Title">Cấu hình Cemu</system:String>
-    <system:String x:Key="CemuConfig_Video_Header">Video &amp;amp; Đồ họa</system:String>
+    <system:String x:Key="CemuConfig_Video_Header">Video &amp;amp;amp; Đồ họa</system:String>
     <system:String x:Key="CemuConfig_Volume_Label">Âm lượng TV:</system:String>
     <system:String x:Key="CemuConfig_Volume_Tooltip">Điều chỉnh mức âm lượng tổng cho đầu ra TV giả lập.</system:String>
     <system:String x:Key="CemuConfig_Vsync_Label">VSync:</system:String>
@@ -319,7 +319,7 @@
     <system:String x:Key="DaphneConfig_ResolutionY_Tooltip">Đặt độ phân giải dọc.</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Label">Độ phân giải:</system:String>
     <system:String x:Key="DaphneConfig_Resolution_Tooltip">Đặt độ phân giải cửa sổ hoặc toàn màn hình.</system:String>
-    <system:String x:Key="DaphneConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="DaphneConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="DaphneConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="DaphneConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="DaphneConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -328,7 +328,7 @@
     <system:String x:Key="DaphneConfig_Title">Cấu hình Daphne</system:String>
     <system:String x:Key="DaphneConfig_UseOverlays_Checkbox">Sử dụng Lớp phủ điểm số</system:String>
     <system:String x:Key="DaphneConfig_UseOverlays_Tooltip">Bật hoặc tắt hiển thị điểm số và tín dụng trên màn hình.</system:String>
-    <system:String x:Key="DaphneConfig_Video_Header">Video &amp;amp; Hiển thị</system:String>
+    <system:String x:Key="DaphneConfig_Video_Header">Video &amp;amp;amp; Hiển thị</system:String>
     <system:String x:Key="DaphneSettings">Cài đặt Daphne</system:String>
     <system:String x:Key="Daphnesettingssavedsuccessfully">Đã lưu cài đặt Daphne thành công.</system:String>
     <system:String x:Key="Dark">Tối</system:String>
@@ -362,12 +362,12 @@
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Đã lưu cấu hình Dolphin thành công.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Hủy</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Hủy và đóng cửa sổ này mà không lưu thay đổi.</system:String>
-    <system:String x:Key="DolphinConfig_Core_Header">Lõi &amp;amp; Đồ họa</system:String>
+    <system:String x:Key="DolphinConfig_Core_Header">Lõi &amp;amp;amp; Đồ họa</system:String>
     <system:String x:Key="DolphinConfig_DspThread_Checkbox">Bật Luồng DSP</system:String>
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Chạy giả lập DSP trên một luồng riêng biệt. Cải thiện hiệu suất trên hầu hết các CPU đa lõi.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Backend đồ họa:</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Tooltip">Chọn API đồ họa. Vulkan thường được khuyến nghị cho các GPU hiện đại.</system:String>
-    <system:String x:Key="DolphinConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="DolphinConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="DolphinConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="DolphinConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="DolphinConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -442,7 +442,7 @@
     <system:String x:Key="DuckStationConfig_RewindEnable_Tooltip">Bật khả năng tua lại trò chơi. Có thể ảnh hưởng đến hiệu suất.</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Label">Khung Runahead</system:String>
     <system:String x:Key="DuckStationConfig_Runahead_Tooltip">Giảm độ trễ đầu vào bằng cách chạy giả lập trước và quay lại. Sử dụng cẩn thận, yêu cầu CPU mạnh.</system:String>
-    <system:String x:Key="DuckStationConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="DuckStationConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="DuckStationConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="DuckStationConfig_SaveStateOnExit_Checkbox">Lưu trạng thái khi thoát</system:String>
     <system:String x:Key="DuckStationConfig_SaveStateOnExit_Tooltip">Nếu được chọn, một trạng thái lưu sẽ tự động được tạo khi bạn đóng trò chơi.</system:String>
@@ -453,7 +453,7 @@
     <system:String x:Key="DuckStationConfig_TextureFilter_Label">Lọc họa tiết</system:String>
     <system:String x:Key="DuckStationConfig_TextureFilter_Tooltip">'Nearest' (Gần nhất) mang lại vẻ sắc nét, pixel hóa. 'Bilinear' (Song tuyến) làm mượt họa tiết.</system:String>
     <system:String x:Key="DuckStationConfig_Title">Cấu hình DuckStation</system:String>
-    <system:String x:Key="DuckStationConfig_Video_Header">Cài đặt Video &amp;amp; GPU</system:String>
+    <system:String x:Key="DuckStationConfig_Video_Header">Cài đặt Video &amp;amp;amp; GPU</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Label">Âm lượng tổng</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Tooltip">Điều chỉnh âm lượng tổng.</system:String>
     <system:String x:Key="DuckStationConfig_Vsync_Checkbox">Bật VSync</system:String>
@@ -508,7 +508,11 @@
     <system:String x:Key="EmulatorPath">Đường dẫn trình giả lập</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Đường dẫn của trình giả lập không hợp lệ cho:</system:String>
     <system:String x:Key="EmulatorPathNotConfigured">Đường dẫn trình giả lập chưa được cấu hình.</system:String>
-    <system:String x:Key="EmulatorPathNotConfiguredDetails"></system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails1">Trình giả lập bạn đang sử dụng chưa được cấu hình đường dẫn tệp thực thi hợp lệ.</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails2">Điều này thường xảy ra khi:</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails3">- Hệ thống được cấu hình để chạy trực tiếp các tệp thực thi (.bat, .exe, .lnk)</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails4">- Nhưng bạn đang cố gắng khởi chạy một tệp yêu cầu trình giả lập</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails5">Vui lòng chỉnh sửa cấu hình hệ thống và cung cấp đường dẫn trình giả lập hợp lệ.</system:String>
     <system:String x:Key="EmulatorRequired">Yêu cầu trình giả lập</system:String>
     <system:String x:Key="Enable">Kích hoạt</system:String>
     <system:String x:Key="EnableNotificationSound">Bật âm thanh thông báo</system:String>
@@ -643,7 +647,7 @@
     <system:String x:Key="FlycastConfig_ResolutionY_Tooltip">Đặt độ phân giải dọc.</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Label">Độ phân giải cửa sổ (Rộng x Cao)</system:String>
     <system:String x:Key="FlycastConfig_Resolution_Tooltip">Đặt độ phân giải của cửa sổ trình giả lập khi không ở chế độ toàn màn hình.</system:String>
-    <system:String x:Key="FlycastConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="FlycastConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="FlycastConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="FlycastConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="FlycastConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -699,7 +703,7 @@
     <system:String x:Key="GridView">Dạng lưới</system:String>
     <system:String x:Key="GroupByFolderMameWarningMessage">Bạn đã bật 'Nhóm tệp theo thư mục' nhưng đã cấu hình một trình giả lập không phải MAME. Sự kết hợp này không được hỗ trợ và sẽ thất bại khi khởi chạy. Bạn có chắc chắn muốn lưu các cài đặt này không?</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">Tùy chọn 'Nhóm tệp theo thư mục' chỉ tương thích với các trình giả lập MAME. Để sử dụng một trình giả lập khác, vui lòng chỉnh sửa cài đặt hệ thống và tắt tùy chọn này.</system:String>
-    <system:String x:Key="GroupFilesbyFolder">Nhóm tệp theo thư mục</system:String>
+    <system:String x:Key="GroupFilesByFolder">Nhóm tệp theo thư mục</system:String>
     <system:String x:Key="GuideURL">URL hướng dẫn:</system:String>
     <system:String x:Key="Hardcore">Khó</system:String>
     <system:String x:Key="HardcorePlayers">Người chơi Hardcore</system:String>
@@ -857,7 +861,7 @@
     <system:String x:Key="MameConfig_PerformanceAdvanced_Header">Hiệu suất và Nâng cao</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Checkbox">Chạy trong Cửa sổ</system:String>
     <system:String x:Key="MameConfig_RunInWindow_Tooltip">Chạy MAME trong một cửa sổ thay vì toàn màn hình.</system:String>
-    <system:String x:Key="MameConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="MameConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="MameConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="MameConfig_SaveNvram_Checkbox">Lưu NVRAM (Điểm cao)</system:String>
     <system:String x:Key="MameConfig_SaveNvram_Tooltip">Lưu RAM không bay hơi (điểm cao, cài đặt) khi thoát.</system:String>
@@ -910,7 +914,7 @@
     <system:String x:Key="MednafenConfig_Fullscreen_Tooltip">Nếu được chọn, trình giả lập sẽ khởi động ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Checkbox">Bật Tua lại</system:String>
     <system:String x:Key="MednafenConfig_Rewind_Tooltip">Cho phép bạn tua lại trò chơi. Có thể tốn hiệu suất.</system:String>
-    <system:String x:Key="MednafenConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="MednafenConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="MednafenConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="MednafenConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="MednafenConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -950,12 +954,12 @@
     <system:String x:Key="MesenConfig_MasterVolume_Tooltip">Điều chỉnh âm lượng tổng thể.</system:String>
     <system:String x:Key="MesenConfig_PauseInBackground_Checkbox">Tạm dừng khi ở chế độ nền</system:String>
     <system:String x:Key="MesenConfig_PauseInBackground_Tooltip">Tạm dừng giả lập khi cửa sổ không được lấy nét.</system:String>
-    <system:String x:Key="MesenConfig_Performance_Header">Hiệu suất &amp;amp; Tính năng</system:String>
+    <system:String x:Key="MesenConfig_Performance_Header">Hiệu suất &amp;amp;amp; Tính năng</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Bật Tua lại</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Cho phép bạn tua lại trò chơi. Có thể ảnh hưởng đến hiệu suất.</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">Khung Run-Ahead</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Tooltip">Giảm độ trễ đầu vào bằng cách chạy trước các khung hình và quay lại. Sử dụng cẩn thận (0-8).</system:String>
-    <system:String x:Key="MesenConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="MesenConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="MesenConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="MesenConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="MesenConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -982,7 +986,7 @@
     <system:String x:Key="NewThresholdLabel">Ngưỡng mới:</system:String>
     <system:String x:Key="NextPage">Trang tiếp theo</system:String>
     <system:String x:Key="NoAchievementsFound">Không tìm thấy thành tích nào cho trò chơi này.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Hệ điều hành của bạn không có trình duyệt web mặc định nào được cấu hình. Vui lòng đặt một trình duyệt trong Cài đặt Windows (Ứng dụng &amp;gt; Ứng dụng mặc định) để mở các liên kết web.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Hệ điều hành của bạn không có trình duyệt web mặc định nào được cấu hình. Vui lòng đặt một trình duyệt trong Cài đặt Windows (Ứng dụng &amp;amp;gt; Ứng dụng mặc định) để mở các liên kết web.</system:String>
     <system:String x:Key="NoDefaultEmulator">Không có trình giả lập mặc định</system:String>
     <system:String x:Key="Nodetailsavailablefor">Không có chi tiết nào khả dụng cho</system:String>
     <system:String x:Key="NoGameInfoAvailable">Thông tin trò chơi mở rộng không có sẵn.</system:String>
@@ -1101,7 +1105,7 @@
     <system:String x:Key="Pcsx2Config_General_Header">Cài đặt chung</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Label">Trình kết xuất:</system:String>
     <system:String x:Key="Pcsx2Config_Renderer_Tooltip">Chọn API đồ họa. Vulkan được khuyến nghị cho hầu hết các GPU hiện đại.</system:String>
-    <system:String x:Key="Pcsx2Config_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="Pcsx2Config_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="Pcsx2Config_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="Pcsx2Config_Save_Button">Lưu</system:String>
     <system:String x:Key="Pcsx2Config_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -1110,7 +1114,7 @@
     <system:String x:Key="Pcsx2Config_Title">Trình chèn cấu hình PCSX2</system:String>
     <system:String x:Key="Pcsx2Config_Upscale_Label">Độ phân giải nội bộ:</system:String>
     <system:String x:Key="Pcsx2Config_Upscale_Tooltip">Giá trị cao hơn tăng độ rõ nét nhưng yêu cầu nhiều sức mạnh GPU hơn.</system:String>
-    <system:String x:Key="Pcsx2Config_Video_Header">Video &amp;amp; Đồ họa</system:String>
+    <system:String x:Key="Pcsx2Config_Video_Header">Video &amp;amp;amp; Đồ họa</system:String>
     <system:String x:Key="Pcsx2Config_Volume_Label">Âm lượng tổng:</system:String>
     <system:String x:Key="Pcsx2Config_Volume_Tooltip">Điều chỉnh âm lượng đầu ra tổng thể của trình giả lập.</system:String>
     <system:String x:Key="Pcsx2Config_Vsync_Checkbox">Bật VSync</system:String>
@@ -1228,7 +1232,7 @@
     <system:String x:Key="RaineConfig_ResolutionY_Tooltip">Đặt độ phân giải dọc.</system:String>
     <system:String x:Key="RaineConfig_RomDirectory">Thư mục ROM</system:String>
     <system:String x:Key="RaineConfig_RomDirectory_Tooltip">Chọn thư mục ROM.</system:String>
-    <system:String x:Key="RaineConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="RaineConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="RaineConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="RaineConfig_SampleRate">Tốc độ lấy mẫu (Hz):</system:String>
     <system:String x:Key="RaineConfig_SampleRate_Tooltip">Chọn tốc độ lấy mẫu âm thanh.</system:String>
@@ -1314,7 +1318,7 @@
     <system:String x:Key="RedreamConfig_Renderer_Tooltip">Trình kết xuất đồ họa sẽ sử dụng.</system:String>
     <system:String x:Key="RedreamConfig_ResolutionScale_Label">Tỷ lệ độ phân giải:</system:String>
     <system:String x:Key="RedreamConfig_ResolutionScale_Tooltip">Hệ số tỷ lệ độ phân giải nội bộ (ví dụ: 2 cho 2x).</system:String>
-    <system:String x:Key="RedreamConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="RedreamConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="RedreamConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="RedreamConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="RedreamConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -1336,7 +1340,7 @@
     <system:String x:Key="ReloadingGames">Đang tải lại trò chơi...</system:String>
     <system:String x:Key="Remove">Xóa</system:String>
     <system:String x:Key="RemoveAllfromHistory">Xóa tất cả khỏi lịch sử</system:String>
-    <system:String x:Key="RemovefromFavorites">Xóa khỏi mục yêu thích</system:String>
+    <system:String x:Key="RemoveFromFavorites">Xóa khỏi mục yêu thích</system:String>
     <system:String x:Key="RemovefromHistory">Xóa khỏi lịch sử</system:String>
     <system:String x:Key="RemovingAllHistoryItems">Đang xóa tất cả các mục lịch sử...</system:String>
     <system:String x:Key="RemovingFromFavorites">Đang xóa khỏi mục ưa thích...</system:String>
@@ -1403,7 +1407,7 @@
     <system:String x:Key="RetroArchConfig_Rewind_Tooltip">Cho phép bạn tua lại trò chơi trong thời gian thực.</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Checkbox">Run-Ahead</system:String>
     <system:String x:Key="RetroArchConfig_RunAhead_Tooltip">Giảm độ trễ đầu vào bằng cách dự đoán các khung hình trong tương lai (tốn CPU).</system:String>
-    <system:String x:Key="RetroArchConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="RetroArchConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="RetroArchConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="RetroArchConfig_SaveOnExit_Checkbox">Lưu Cấu hình khi Thoát</system:String>
     <system:String x:Key="RetroArchConfig_SaveOnExit_Tooltip">Nếu được chọn, các thay đổi được thực hiện trong menu RA sẽ được lưu.</system:String>
@@ -1462,7 +1466,7 @@
     <system:String x:Key="RPCS3Config_ResolutionScale_Tooltip">Nâng cấp độ phân giải nội bộ để có đồ họa sắc nét hơn. 100% là 720p gốc.</system:String>
     <system:String x:Key="RPCS3Config_Resolution_Label">Độ phân giải:</system:String>
     <system:String x:Key="RPCS3Config_Resolution_Tooltip">Đặt độ phân giải đầu ra của cửa sổ trình giả lập.</system:String>
-    <system:String x:Key="RPCS3Config_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="RPCS3Config_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="RPCS3Config_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="RPCS3Config_Save_Button">Lưu</system:String>
     <system:String x:Key="RPCS3Config_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -1527,7 +1531,7 @@
     <system:String x:Key="SegaModel2Config_ResolutionY_Tooltip">Đặt độ phân giải dọc.</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Label">Độ phân giải toàn màn hình:</system:String>
     <system:String x:Key="SegaModel2Config_Resolution_Tooltip">Đặt chiều rộng và chiều cao cho chế độ toàn màn hình.</system:String>
-    <system:String x:Key="SegaModel2Config_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="SegaModel2Config_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="SegaModel2Config_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="SegaModel2Config_Save_Button">Lưu</system:String>
     <system:String x:Key="SegaModel2Config_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -1678,7 +1682,7 @@
     <system:String x:Key="StellaConfig_Features_Header">Tính năng</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Checkbox">Chạy ở chế độ Toàn màn hình</system:String>
     <system:String x:Key="StellaConfig_Fullscreen_Tooltip">Nếu được chọn, trình giả lập sẽ khởi động ở chế độ toàn màn hình.</system:String>
-    <system:String x:Key="StellaConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="StellaConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="StellaConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="StellaConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="StellaConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -1690,7 +1694,7 @@
     <system:String x:Key="StellaConfig_TimeMachine_Tooltip">Cho phép bạn tua lại trò chơi. Có thể ảnh hưởng đến hiệu suất.</system:String>
     <system:String x:Key="StellaConfig_Title">Cấu hình Stella</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Bad">Điều chỉnh kém</system:String>
-    <system:String x:Key="StellaConfig_TvFilter_B_W">Đen &amp;amp; Trắng</system:String>
+    <system:String x:Key="StellaConfig_TvFilter_B_W">Đen &amp;amp;amp; Trắng</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Color">Màu</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Label">Hiệu ứng TV:</system:String>
     <system:String x:Key="StellaConfig_TvFilter_None">Không</system:String>
@@ -1728,7 +1732,7 @@
     <system:String x:Key="SupermodelConfig_ResolutionY_Tooltip">Đặt độ phân giải dọc.</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Label">Độ phân giải (Rộng x Cao):</system:String>
     <system:String x:Key="SupermodelConfig_Resolution_Tooltip">Đặt độ phân giải kết xuất nội bộ của trò chơi.</system:String>
-    <system:String x:Key="SupermodelConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="SupermodelConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="SupermodelConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="SupermodelConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="SupermodelConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -1738,11 +1742,11 @@
     <system:String x:Key="SupermodelConfig_SoundVolume_Tooltip">Điều chỉnh âm lượng hiệu ứng âm thanh (0-100).</system:String>
     <system:String x:Key="SupermodelConfig_Stretch_Checkbox">Kéo giãn để lấp đầy màn hình</system:String>
     <system:String x:Key="SupermodelConfig_Stretch_Tooltip">Kéo giãn hình ảnh để lấp đầy toàn bộ màn hình của bạn, bỏ qua tỷ lệ khung hình gốc.</system:String>
-    <system:String x:Key="SupermodelConfig_System_Header">Hệ thống &amp;amp; Hiệu suất</system:String>
+    <system:String x:Key="SupermodelConfig_System_Header">Hệ thống &amp;amp;amp; Hiệu suất</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Checkbox">Giới hạn tốc độ giả lập</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Tooltip">Giới hạn tốc độ giả lập ở tốc độ phần cứng gốc (60 FPS). Tắt để kiểm tra hiệu suất.</system:String>
     <system:String x:Key="SupermodelConfig_Title">Cấu hình Supermodel</system:String>
-    <system:String x:Key="SupermodelConfig_Video_Header">Video &amp;amp; Đồ họa</system:String>
+    <system:String x:Key="SupermodelConfig_Video_Header">Video &amp;amp;amp; Đồ họa</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Checkbox">Bật V-Sync</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Tooltip">Đồng bộ hóa tốc độ khung hình với tốc độ làm mới của màn hình để ngăn chặn hiện tượng xé hình.</system:String>
     <system:String x:Key="SupermodelConfig_Widescreen_Checkbox">Buộc Màn hình rộng (16:9)</system:String>
@@ -1891,7 +1895,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">Thay đổi tỷ lệ khung hình của các nút trò chơi</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Chuyển đổi giữa chủ đề sáng và tối</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Điều chỉnh kích thước các nút trò chơi</system:String>
-    <system:String x:Key="TooltipCancel">Hủy thao tác hiện tại</system:String>
+    <system:String x:Key="ToolTipCancel">Hủy thao tác hiện tại</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Kiểm tra xem có phiên bản mới không</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Duyệt tìm tệp thực thi trình giả lập đầu tiên</system:String>
     <system:String x:Key="TooltipChooseEmulator2Path">Duyệt tìm tệp thực thi trình giả lập thứ hai</system:String>
@@ -2214,7 +2218,7 @@
     <system:String x:Key="XeniaConfig_ResolutionScaleY_Tooltip">Đặt tỷ lệ độ phân giải dọc.</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Label">Tỷ lệ độ phân giải (X / Y):</system:String>
     <system:String x:Key="XeniaConfig_ResolutionScale_Tooltip">Tỷ lệ độ phân giải kết xuất nội bộ (1=720p, 2=1440p).</system:String>
-    <system:String x:Key="XeniaConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="XeniaConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="XeniaConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="XeniaConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="XeniaConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
@@ -2262,13 +2266,13 @@
     <system:String x:Key="YumirConfig_PauseUnfocused_Tooltip">Tự động tạm dừng giả lập khi cửa sổ trình giả lập mất tiêu điểm.</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Checkbox">Giảm độ trễ</system:String>
     <system:String x:Key="YumirConfig_ReduceLatency_Tooltip">Cố gắng giảm thiểu độ trễ đầu vào với chi phí một số hiệu suất.</system:String>
-    <system:String x:Key="YumirConfig_Run_Button2">Lưu &amp;amp; Chạy</system:String>
+    <system:String x:Key="YumirConfig_Run_Button2">Lưu &amp;amp;amp; Chạy</system:String>
     <system:String x:Key="YumirConfig_Run_Tooltip">Lưu cấu hình và chạy trò chơi.</system:String>
     <system:String x:Key="YumirConfig_Save_Button">Lưu</system:String>
     <system:String x:Key="YumirConfig_Save_Tooltip">Lưu cấu hình và đóng cửa sổ này.</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Hiển thị các cài đặt này mỗi lần trước khi khởi chạy trò chơi</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Tooltip">Hiển thị cửa sổ này trước khi khởi chạy trò chơi.</system:String>
-    <system:String x:Key="YumirConfig_System_Header">Hệ thống &amp;amp; Giả lập</system:String>
+    <system:String x:Key="YumirConfig_System_Header">Hệ thống &amp;amp;amp; Giả lập</system:String>
     <system:String x:Key="YumirConfig_Title">Cấu hình Yumir (Ymir)</system:String>
     <system:String x:Key="YumirConfig_VideoStandard_Label">Tiêu chuẩn Video:</system:String>
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Chọn giữa thời gian PAL (50Hz) hoặc NTSC (60Hz).</system:String>

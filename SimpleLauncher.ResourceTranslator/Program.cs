@@ -109,7 +109,7 @@ public class Program
             Console.WriteLine($"Processing [{batch.LanguageCode}] {batch.LanguageName}...");
             var languageStopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-            var allTranslations = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var allTranslations = new Dictionary<string, string>(StringComparer.Ordinal);
             var missingList = batch.MissingKeys;
             var totalBatches = (int)Math.Ceiling(missingList.Count / (double)BatchSize);
 

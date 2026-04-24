@@ -30,7 +30,7 @@ public static partial class ResourceAnalyzer
 
     public static Dictionary<string, string> ReadEnglishKeys(string englishFilePath)
     {
-        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var result = new Dictionary<string, string>(StringComparer.Ordinal);
         foreach (var line in File.ReadAllLines(englishFilePath))
         {
             var match = EntryRegex.Match(line);
@@ -57,7 +57,7 @@ public static partial class ResourceAnalyzer
             var langCode = fileName.Replace("strings.", "", StringComparison.OrdinalIgnoreCase);
             var langName = LanguageNames.GetValueOrDefault(langCode, langCode);
 
-            var existingKeys = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var existingKeys = new Dictionary<string, string>(StringComparer.Ordinal);
             var duplicateKeys = new List<string>();
 
             foreach (var line in File.ReadAllLines(file))
@@ -90,7 +90,7 @@ public static partial class ResourceAnalyzer
                     LanguageCode = langCode,
                     LanguageName = langName,
                     MissingKeys = missing,
-                    DuplicateKeysRemoved = duplicateKeys.Distinct(StringComparer.OrdinalIgnoreCase).ToList()
+                    DuplicateKeysRemoved = duplicateKeys.Distinct(StringComparer.Ordinal).ToList()
                 });
             }
         }

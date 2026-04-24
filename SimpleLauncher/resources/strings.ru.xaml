@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
@@ -508,7 +508,11 @@
     <system:String x:Key="EmulatorPath">Путь к эмулятору</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Путь к эмулятору недействителен для:</system:String>
     <system:String x:Key="EmulatorPathNotConfigured">Путь к эмулятору не настроен.</system:String>
-    <system:String x:Key="EmulatorPathNotConfiguredDetails"></system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails1">Эмулятор, который вы используете, не имеет настроенного действительного пути к исполняемому файлу.</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails2">Обычно это происходит, когда:</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails3">- Система была настроена на запуск непосредственно исполняемых файлов (.bat, .exe, .lnk)</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails4">- Но вы пытаетесь запустить файл, который требует эмулятор</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails5">Пожалуйста, отредактируйте конфигурацию системы и укажите действительный путь к эмулятору.</system:String>
     <system:String x:Key="EmulatorRequired">Требуется эмулятор</system:String>
     <system:String x:Key="Enable">Включить</system:String>
     <system:String x:Key="EnableNotificationSound">Включить звук уведомлений</system:String>
@@ -699,7 +703,7 @@
     <system:String x:Key="GridView">Сеткой</system:String>
     <system:String x:Key="GroupByFolderMameWarningMessage">Вы включили 'Группировать файлы по папкам', но настроили эмулятор, отличный от MAME. Эта комбинация не поддерживается и приведет к ошибке при запуске. Вы уверены, что хотите сохранить эти настройки?</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">Опция 'Группировать файлы по папкам' совместима только с эмуляторами MAME. Чтобы использовать другой эмулятор, пожалуйста, измените настройки системы и отключите эту опцию.</system:String>
-    <system:String x:Key="GroupFilesbyFolder">Группировать файлы по папкам</system:String>
+    <system:String x:Key="GroupFilesByFolder">Группировать файлы по папкам</system:String>
     <system:String x:Key="GuideURL">URL руководства:</system:String>
     <system:String x:Key="Hardcore">Хардкор</system:String>
     <system:String x:Key="HardcorePlayers">Хардкорные игроки</system:String>
@@ -982,7 +986,7 @@
     <system:String x:Key="NewThresholdLabel">Новый порог:</system:String>
     <system:String x:Key="NextPage">Следующая страница</system:String>
     <system:String x:Key="NoAchievementsFound">Достижения для этой игры не найдены.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения &amp;gt; Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения &amp;amp;gt; Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
     <system:String x:Key="NoDefaultEmulator">Эмулятор по умолчанию не задан</system:String>
     <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="NoGameInfoAvailable">Расширенная информация об игре недоступна.</system:String>
@@ -1336,7 +1340,7 @@
     <system:String x:Key="ReloadingGames">Перезагрузка игр...</system:String>
     <system:String x:Key="Remove">Удалить</system:String>
     <system:String x:Key="RemoveAllfromHistory">Удалить все из истории</system:String>
-    <system:String x:Key="RemovefromFavorites">Удалить из избранного</system:String>
+    <system:String x:Key="RemoveFromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemovefromHistory">Удалить из истории</system:String>
     <system:String x:Key="RemovingAllHistoryItems">Удаление всех элементов истории...</system:String>
     <system:String x:Key="RemovingFromFavorites">Удаление из избранного...</system:String>
@@ -1891,7 +1895,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">Изменить соотношение сторон кнопок игр</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Переключиться между светлой и темной темой</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Настроить размер кнопок игр</system:String>
-    <system:String x:Key="TooltipCancel">Отменить текущую операцию</system:String>
+    <system:String x:Key="ToolTipCancel">Отменить текущую операцию</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Проверить наличие новой версии</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Просмотрите первый исполняемый файл эмулятора</system:String>
     <system:String x:Key="TooltipChooseEmulator2Path">Просмотрите второй исполняемый файл эмулятора</system:String>

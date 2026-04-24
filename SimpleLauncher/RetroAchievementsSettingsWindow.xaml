@@ -61,7 +61,7 @@
         <Button Content="{DynamicResource Save}" Click="SaveButton_Click"
                 Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" IsDefault="True" Width="80" Margin="0,0,10,0" ToolTip="{DynamicResource TooltipSaveRaSettings}"/>
         <Button Content="{DynamicResource Cancel}"
-                Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" Width="80" ToolTip="{DynamicResource TooltipCancel}"/>
+                Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" Width="80" ToolTip="{DynamicResource ToolTipCancel}"/>
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

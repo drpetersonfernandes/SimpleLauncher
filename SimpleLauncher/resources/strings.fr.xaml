@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
@@ -82,7 +82,7 @@
     <system:String x:Key="AresConfig_Exclusive_Tooltip">Activer le mode plein écran exclusif.</system:String>
     <system:String x:Key="AresConfig_FastBoot_Checkbox">Démarrage rapide</system:String>
     <system:String x:Key="AresConfig_FastBoot_Tooltip">Ignore les écrans du BIOS de la console pour un chargement de jeu plus rapide.</system:String>
-    <system:String x:Key="AresConfig_General_Header">Général &amp;amp; Fonctionnalités</system:String>
+    <system:String x:Key="AresConfig_General_Header">Général &amp;amp;amp; Fonctionnalités</system:String>
     <system:String x:Key="AresConfig_Multiplier_Label">Échelle de résolution interne :</system:String>
     <system:String x:Key="AresConfig_Multiplier_Tooltip">Augmente la résolution de rendu interne pour des graphiques plus nets.</system:String>
     <system:String x:Key="AresConfig_Mute_Checkbox">Couper le son</system:String>
@@ -155,7 +155,7 @@
     <system:String x:Key="AzaharConfig_ShowBeforeLaunch_Tooltip">Afficher cette fenêtre avant de lancer un jeu.</system:String>
     <system:String x:Key="AzaharConfig_System_Header">Paramètres système</system:String>
     <system:String x:Key="AzaharConfig_Title">Configuration Azahar</system:String>
-    <system:String x:Key="AzaharConfig_Video_Header">Vidéo &amp;amp; Rendu</system:String>
+    <system:String x:Key="AzaharConfig_Video_Header">Vidéo &amp;amp;amp; Rendu</system:String>
     <system:String x:Key="AzaharConfig_Volume_Label">Volume principal :</system:String>
     <system:String x:Key="AzaharConfig_Volume_Tooltip">Ajuste le volume de sortie global de l'émulateur.</system:String>
     <system:String x:Key="AzaharConfig_Vsync_Checkbox">Activer la VSync</system:String>
@@ -223,7 +223,7 @@
     <system:String x:Key="CemuConfig_Discord_Tooltip">Affiche le jeu auquel vous jouez actuellement sur votre profil Discord.</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Checkbox">Démarrer en plein écran</system:String>
     <system:String x:Key="CemuConfig_Fullscreen_Tooltip">Passer automatiquement en mode plein écran lorsqu'un jeu démarre.</system:String>
-    <system:String x:Key="CemuConfig_General_Header">Général &amp;amp; Système</system:String>
+    <system:String x:Key="CemuConfig_General_Header">Général &amp;amp;amp; Système</system:String>
     <system:String x:Key="CemuConfig_Language_Label">Langue de la console :</system:String>
     <system:String x:Key="CemuConfig_Language_Tooltip">Définit la langue du système de la console Wii U émulée.</system:String>
     <system:String x:Key="CemuConfig_Run_Button2">Enregistrer et lancer</system:String>
@@ -233,7 +233,7 @@
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Checkbox">Afficher cette fenêtre avant de lancer un jeu</system:String>
     <system:String x:Key="CemuConfig_ShowBeforeLaunch_Tooltip">Afficher cette fenêtre avant de lancer un jeu.</system:String>
     <system:String x:Key="CemuConfig_Title">Injection de configuration Cemu</system:String>
-    <system:String x:Key="CemuConfig_Video_Header">Vidéo &amp;amp; Graphiques</system:String>
+    <system:String x:Key="CemuConfig_Video_Header">Vidéo &amp;amp;amp; Graphiques</system:String>
     <system:String x:Key="CemuConfig_Volume_Label">Volume TV :</system:String>
     <system:String x:Key="CemuConfig_Volume_Tooltip">Ajuste le niveau de volume principal pour la sortie TV émulée.</system:String>
     <system:String x:Key="CemuConfig_Vsync_Label">VSync :</system:String>
@@ -328,7 +328,7 @@
     <system:String x:Key="DaphneConfig_Title">Configuration Daphne</system:String>
     <system:String x:Key="DaphneConfig_UseOverlays_Checkbox">Utiliser les superpositions de score</system:String>
     <system:String x:Key="DaphneConfig_UseOverlays_Tooltip">Activer ou désactiver l'affichage du score et des crédits à l'écran.</system:String>
-    <system:String x:Key="DaphneConfig_Video_Header">Vidéo &amp;amp; Affichage</system:String>
+    <system:String x:Key="DaphneConfig_Video_Header">Vidéo &amp;amp;amp; Affichage</system:String>
     <system:String x:Key="DaphneSettings">Paramètres Daphne</system:String>
     <system:String x:Key="Daphnesettingssavedsuccessfully">Paramètres Daphne enregistrés avec succès.</system:String>
     <system:String x:Key="Dark">Sombre</system:String>
@@ -362,7 +362,7 @@
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Configuration Dolphin enregistrée avec succès.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Annuler</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Annuler et fermer cette fenêtre sans enregistrer les modifications.</system:String>
-    <system:String x:Key="DolphinConfig_Core_Header">Cœur &amp;amp; Graphiques</system:String>
+    <system:String x:Key="DolphinConfig_Core_Header">Cœur &amp;amp;amp; Graphiques</system:String>
     <system:String x:Key="DolphinConfig_DspThread_Checkbox">Activer le thread DSP</system:String>
     <system:String x:Key="DolphinConfig_DspThread_Tooltip">Exécute l'émulation DSP sur un thread séparé. Améliore les performances sur la plupart des CPU multi-cœurs.</system:String>
     <system:String x:Key="DolphinConfig_GfxBackend_Label">Backend graphique :</system:String>
@@ -453,7 +453,7 @@
     <system:String x:Key="DuckStationConfig_TextureFilter_Label">Filtrage des textures</system:String>
     <system:String x:Key="DuckStationConfig_TextureFilter_Tooltip">'Nearest' offre un aspect net et pixélisé. 'Bilinear' lisse les textures.</system:String>
     <system:String x:Key="DuckStationConfig_Title">Configuration DuckStation</system:String>
-    <system:String x:Key="DuckStationConfig_Video_Header">Paramètres vidéo &amp;amp; GPU</system:String>
+    <system:String x:Key="DuckStationConfig_Video_Header">Paramètres vidéo &amp;amp;amp; GPU</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Label">Volume principal</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Tooltip">Ajuste le volume audio principal.</system:String>
     <system:String x:Key="DuckStationConfig_Vsync_Checkbox">Activer la VSync</system:String>
@@ -508,7 +508,11 @@
     <system:String x:Key="EmulatorPath">Chemin de l'émulateur</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Le chemin de l'émulateur n'est pas valide pour</system:String>
     <system:String x:Key="EmulatorPathNotConfigured">Le chemin de l'émulateur n'est pas configuré.</system:String>
-    <system:String x:Key="EmulatorPathNotConfiguredDetails"></system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails1">L'émulateur que vous utilisez n'a pas de chemin d'accès exécutable valide configuré.</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails2">Cela se produit généralement lorsque :</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails3">- Le système a été configuré pour exécuter directement des fichiers exécutables (.bat, .exe, .lnk)</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails4">- Mais vous essayez de lancer un fichier qui nécessite un émulateur</system:String>
+    <system:String x:Key="EmulatorPathNotConfiguredDetails5">Veuillez modifier la configuration du système et fournir un chemin d'accès d'émulateur valide.</system:String>
     <system:String x:Key="EmulatorRequired">Émulateur requis</system:String>
     <system:String x:Key="Enable">Activer</system:String>
     <system:String x:Key="EnableNotificationSound">Activer le son de notification</system:String>
@@ -699,7 +703,7 @@
     <system:String x:Key="GridView">Vue en grille</system:String>
     <system:String x:Key="GroupByFolderMameWarningMessage">Vous avez activé 'Regrouper les fichiers par dossier' mais avez configuré un émulateur non-MAME. Cette combinaison n'est pas prise en charge et échouera au lancement. Êtes-vous sûr de vouloir enregistrer ces paramètres ?</system:String>
     <system:String x:Key="GroupByFolderOnlyForMameMessage">L'option 'Regrouper les fichiers par dossier' n'est compatible qu'avec les émulateurs MAME. Pour utiliser un émulateur différent, veuillez modifier les paramètres du système et désactiver cette option.</system:String>
-    <system:String x:Key="GroupFilesbyFolder">Regrouper les fichiers par dossier</system:String>
+    <system:String x:Key="GroupFilesByFolder">Regrouper les fichiers par dossier</system:String>
     <system:String x:Key="GuideURL">URL du guide :</system:String>
     <system:String x:Key="Hardcore">Hardcore</system:String>
     <system:String x:Key="HardcorePlayers">Joueurs hardcore</system:String>
@@ -950,7 +954,7 @@
     <system:String x:Key="MesenConfig_MasterVolume_Tooltip">Ajuste le volume sonore global.</system:String>
     <system:String x:Key="MesenConfig_PauseInBackground_Checkbox">Mettre en pause en arrière-plan</system:String>
     <system:String x:Key="MesenConfig_PauseInBackground_Tooltip">Met l'émulation en pause lorsque la fenêtre n'est pas au premier plan.</system:String>
-    <system:String x:Key="MesenConfig_Performance_Header">Performance &amp;amp; Fonctionnalités</system:String>
+    <system:String x:Key="MesenConfig_Performance_Header">Performance &amp;amp;amp; Fonctionnalités</system:String>
     <system:String x:Key="MesenConfig_Rewind_Checkbox">Activer le rembobinage</system:String>
     <system:String x:Key="MesenConfig_Rewind_Tooltip">Vous permet de rembobiner le jeu. Peut affecter les performances.</system:String>
     <system:String x:Key="MesenConfig_RunAhead_Label">Images Run-Ahead</system:String>
@@ -982,7 +986,7 @@
     <system:String x:Key="NewThresholdLabel">Nouveau seuil :</system:String>
     <system:String x:Key="NextPage">Page suivante</system:String>
     <system:String x:Key="NoAchievementsFound">Aucun succès pour ce jeu.</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Votre système d'exploitation n'a pas de navigateur web par défaut configuré. Veuillez en définir un dans les Paramètres Windows (Applications &amp;gt; Applications par défaut) pour ouvrir les liens web.</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Votre système d'exploitation n'a pas de navigateur web par défaut configuré. Veuillez en définir un dans les Paramètres Windows (Applications &amp;amp;gt; Applications par défaut) pour ouvrir les liens web.</system:String>
     <system:String x:Key="NoDefaultEmulator">Aucun émulateur par défaut</system:String>
     <system:String x:Key="Nodetailsavailablefor">Aucun détail disponible pour</system:String>
     <system:String x:Key="NoGameInfoAvailable">Infos étendues non disponibles.</system:String>
@@ -1110,7 +1114,7 @@
     <system:String x:Key="Pcsx2Config_Title">Injecteur de configuration PCSX2</system:String>
     <system:String x:Key="Pcsx2Config_Upscale_Label">Résolution interne :</system:String>
     <system:String x:Key="Pcsx2Config_Upscale_Tooltip">Des valeurs plus élevées augmentent la clarté mais nécessitent plus de puissance GPU.</system:String>
-    <system:String x:Key="Pcsx2Config_Video_Header">Vidéo &amp;amp; Graphiques</system:String>
+    <system:String x:Key="Pcsx2Config_Video_Header">Vidéo &amp;amp;amp; Graphiques</system:String>
     <system:String x:Key="Pcsx2Config_Volume_Label">Volume principal :</system:String>
     <system:String x:Key="Pcsx2Config_Volume_Tooltip">Ajuste le volume de sortie global de l'émulateur.</system:String>
     <system:String x:Key="Pcsx2Config_Vsync_Checkbox">Activer la VSync</system:String>
@@ -1336,7 +1340,7 @@
     <system:String x:Key="ReloadingGames">Rechargement des jeux...</system:String>
     <system:String x:Key="Remove">Supprimer</system:String>
     <system:String x:Key="RemoveAllfromHistory">Tout supprimer de l'historique</system:String>
-    <system:String x:Key="RemovefromFavorites">Retirer des favoris</system:String>
+    <system:String x:Key="RemoveFromFavorites">Retirer des favoris</system:String>
     <system:String x:Key="RemovefromHistory">Supprimer de l'historique</system:String>
     <system:String x:Key="RemovingAllHistoryItems">Suppression de tous les éléments de l'historique...</system:String>
     <system:String x:Key="RemovingFromFavorites">Suppression des favoris...</system:String>
@@ -1690,7 +1694,7 @@
     <system:String x:Key="StellaConfig_TimeMachine_Tooltip">Vous permet de rembobiner le jeu. Peut affecter les performances.</system:String>
     <system:String x:Key="StellaConfig_Title">Configuration Stella</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Bad">Mauvais réglage</system:String>
-    <system:String x:Key="StellaConfig_TvFilter_B_W">Noir &amp;amp; Blanc</system:String>
+    <system:String x:Key="StellaConfig_TvFilter_B_W">Noir &amp;amp;amp; Blanc</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Color">Couleur</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Label">Effets TV :</system:String>
     <system:String x:Key="StellaConfig_TvFilter_None">Aucun</system:String>
@@ -1738,11 +1742,11 @@
     <system:String x:Key="SupermodelConfig_SoundVolume_Tooltip">Ajuste le volume des effets sonores (0-100).</system:String>
     <system:String x:Key="SupermodelConfig_Stretch_Checkbox">Étirer pour remplir l'écran</system:String>
     <system:String x:Key="SupermodelConfig_Stretch_Tooltip">Étire l'image pour remplir tout votre écran, ignorant le rapport d'aspect original.</system:String>
-    <system:String x:Key="SupermodelConfig_System_Header">Système &amp;amp; Performance</system:String>
+    <system:String x:Key="SupermodelConfig_System_Header">Système &amp;amp;amp; Performance</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Checkbox">Limiter la vitesse d'émulation</system:String>
     <system:String x:Key="SupermodelConfig_Throttle_Tooltip">Limite la vitesse d'émulation à la vitesse du matériel original (60 FPS). Désactiver pour le benchmarking.</system:String>
     <system:String x:Key="SupermodelConfig_Title">Configuration Supermodel</system:String>
-    <system:String x:Key="SupermodelConfig_Video_Header">Vidéo &amp;amp; Graphiques</system:String>
+    <system:String x:Key="SupermodelConfig_Video_Header">Vidéo &amp;amp;amp; Graphiques</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Checkbox">Activer la V-Sync</system:String>
     <system:String x:Key="SupermodelConfig_Vsync_Tooltip">Synchronise la fréquence d'images avec le taux de rafraîchissement de votre moniteur pour éviter le déchirement d'écran.</system:String>
     <system:String x:Key="SupermodelConfig_Widescreen_Checkbox">Forcer le mode écran large (16:9)</system:String>
@@ -1891,7 +1895,7 @@
     <system:String x:Key="TooltipAspectRatioMenu">Changer le rapport d'aspect des boutons de jeu</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Basculer entre le thème clair et sombre</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Ajuster la taille des boutons de jeu</system:String>
-    <system:String x:Key="TooltipCancel">Annuler l'opération en cours</system:String>
+    <system:String x:Key="ToolTipCancel">Annuler l'opération en cours</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Vérifier si une nouvelle version est disponible</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Parcourir pour le premier exécutable de l'émulateur</system:String>
     <system:String x:Key="TooltipChooseEmulator2Path">Parcourir pour le deuxième exécutable de l'émulateur</system:String>
@@ -2241,7 +2245,7 @@
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Vous pouvez désactiver ce message d'erreur en mode Expert.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Vous pouvez utiliser les opérateurs logiques AND / OR.</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Vous devez ajouter les informations de connexion RetroAchievements pour utiliser cette fonctionnalité.</system:String>
-    <system:String x:Key="YourRankAndScore">Votre rang &amp;amp; score</system:String>
+    <system:String x:Key="YourRankAndScore">Votre rang &amp;amp;amp; score</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Vous devriez modifier les paramètres de l'émulateur pour éviter qu'il ne démarre en plein écran.</system:String>
     <system:String x:Key="YumirConfigurationSavedSuccessfully">Configuration de Yumir enregistrée avec succès.</system:String>
     <system:String x:Key="YumirConfig_Audio_Header">Paramètres audio</system:String>
@@ -2268,7 +2272,7 @@
     <system:String x:Key="YumirConfig_Save_Tooltip">Enregistrer la configuration et fermer cette fenêtre.</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Checkbox">Afficher ces paramètres à chaque lancement d'un jeu</system:String>
     <system:String x:Key="YumirConfig_ShowBeforeLaunch_Tooltip">Afficher cette fenêtre avant de lancer un jeu.</system:String>
-    <system:String x:Key="YumirConfig_System_Header">Système &amp;amp; Émulation</system:String>
+    <system:String x:Key="YumirConfig_System_Header">Système &amp;amp;amp; Émulation</system:String>
     <system:String x:Key="YumirConfig_Title">Configuration Yumir (Ymir)</system:String>
     <system:String x:Key="YumirConfig_VideoStandard_Label">Standard vidéo :</system:String>
     <system:String x:Key="YumirConfig_VideoStandard_Tooltip">Choisissez entre la synchronisation PAL (50Hz) ou NTSC (60Hz).</system:String>

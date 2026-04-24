@@ -35,7 +35,7 @@ Click="Cancel_Click"
 IsCancel="True"
 Style="{DynamicResource MahApps.Styles.Button.Square}"
 Width="80"
-ToolTip="{DynamicResource TooltipCancel}" />
+ToolTip="{DynamicResource ToolTipCancel}" />
             </StackPanel>
         </StackPanel>
     </Grid>

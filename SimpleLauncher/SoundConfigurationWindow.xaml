@@ -83,7 +83,7 @@
             <Button x:Name="CancelButton"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
                     Content="{DynamicResource Cancel}"
-                    ToolTip="{DynamicResource TooltipCancel}"
+                    ToolTip="{DynamicResource ToolTipCancel}"
                     IsCancel="True"
                     Width="100"/>
         </StackPanel>

@@ -44,8 +44,8 @@ public static partial class XamlResourceWriter
         var header = lines.Take(firstEntryIndex).ToList();
 
         // Parse existing entries, skipping duplicates
-        var existingEntries = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        var duplicatesRemoved = new HashSet<string>(duplicatesToRemove, StringComparer.OrdinalIgnoreCase);
+        var existingEntries = new Dictionary<string, string>(StringComparer.Ordinal);
+        var duplicatesRemoved = new HashSet<string>(duplicatesToRemove, StringComparer.Ordinal);
 
         foreach (var line in lines)
         {
@@ -68,7 +68,7 @@ public static partial class XamlResourceWriter
 
         // Sort by key and build lines
         var sortedEntries = existingEntries
-            .OrderBy(static e => e.Key, StringComparer.OrdinalIgnoreCase)
+            .OrderBy(static e => e.Key, StringComparer.Ordinal)
             .Select(static e =>
             {
                 var escapedValue = EscapeXml(e.Value);
