@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
@@ -514,6 +515,20 @@ internal static class MessageBoxLibrary
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+    }
+
+    internal static void ProtocolHandlerNotRegisteredMessageBox(string protocol)
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var protocolHandlerNotRegistered = (string)Application.Current.TryFindResource("ProtocolHandlerNotRegistered") ?? "Protocol handler for '{0}://' is not registered. Please ensure the associated application is installed.";
+            var launchErrorTitle = (string)Application.Current.TryFindResource("LaunchErrorTitle") ?? "Launch Error";
+
+            System.Windows.MessageBox.Show(string.Format(CultureInfo.InvariantCulture, protocolHandlerNotRegistered, protocol), launchErrorTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
@@ -1060,6 +1075,11 @@ internal static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileCorruptedMessageBox()
     {
+        if (Application.Current == null)
+        {
+            return;
+        }
+
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
@@ -1090,6 +1110,11 @@ internal static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileMissingMessageBox()
     {
+        if (Application.Current == null)
+        {
+            return;
+        }
+
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 

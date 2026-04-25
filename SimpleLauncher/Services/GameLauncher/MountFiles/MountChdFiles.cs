@@ -673,8 +673,12 @@ public static class MountChdFiles
             // Check if process exited prematurely
             if (mountProcess.HasExited)
             {
-                DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
-                var contextMessage = $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {mountProcess.ExitCode}.";
+                var exitCode = mountProcess.ExitCode;
+                var contextMessage = exitCode == -1073741515
+                    ? $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode} (STATUS_DLL_NOT_FOUND). This indicates that the Dokan library is not installed."
+                    : $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode}.";
+
+                DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
                 return (false, null);
             }
