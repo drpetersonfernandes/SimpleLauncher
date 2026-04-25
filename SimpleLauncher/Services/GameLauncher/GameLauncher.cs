@@ -490,7 +490,8 @@ public partial class GameLauncher
                     var protocol = targetUrl[..protocolIndex];
                     if (!IsProtocolRegistered(protocol))
                     {
-                        throw new InvalidOperationException($"Protocol handler for '{protocol}://' is not registered. Please ensure the associated application is installed.");
+                        MessageBoxLibrary.ProtocolHandlerNotRegisteredMessageBox(protocol);
+                        return;
                     }
                 }
 
@@ -587,7 +588,6 @@ public partial class GameLauncher
                 var userMessage = ex switch
                 {
                     FileNotFoundException => $"Shortcut file not found: {Path.GetFileName(resolvedFilePath)}.",
-                    InvalidOperationException when ex.Message.Contains("Protocol handler for", StringComparison.OrdinalIgnoreCase) => ex.Message,
                     _ => couldNotLaunchShortcut
                 };
 

@@ -4,8 +4,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using System.Xml;
-using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -75,23 +73,7 @@ public partial class RomHistoryWindow
             }
 
             var entry = await Task.Run(() =>
-            {
-                var settings = new XmlReaderSettings
-                {
-                    DtdProcessing = DtdProcessing.Prohibit,
-                    XmlResolver = null
-                };
-
-                using var reader = XmlReader.Create(historyFilePath, settings);
-                var doc = XDocument.Load(reader, LoadOptions.None);
-
-                return doc.Descendants("entry")
-                           .FirstOrDefault(e => e.Element("systems")?.Elements("system")
-                               .Any(system => system.Attribute("name")?.Value == _romName) == true)
-                       ?? doc.Descendants("entry")
-                           .FirstOrDefault(e => e.Element("software")?.Elements("item")
-                               .Any(item => item.Attribute("name")?.Value == _romName) == true);
-            });
+                Services.RomHistory.RomHistoryLoader.FindEntry(historyFilePath, _romName));
 
             await Dispatcher.InvokeAsync(() =>
             {

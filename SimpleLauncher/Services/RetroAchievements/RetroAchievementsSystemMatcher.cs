@@ -44,7 +44,7 @@ public static class RetroAchievementsSystemMatcher
         ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer", "Nintendo Family Computer Disk System"]),
         ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii", "Nintendo Wiiware", "Wiiware"]),
         ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
-        ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds"]),
+        ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds", "Nintendo - Nintendo 3DS"]),
 
         // Sega systems
         ["genesis/mega drive"] = new RaSystemInfo(1, ["genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis", "sega megadrive", "sega mega drive"]),
@@ -147,7 +147,7 @@ public static class RetroAchievementsSystemMatcher
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
             "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron",
-            "Casio CFX-9850"
+            "Casio CFX-9850", "Commodore 128", "Casio PV-1000"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
