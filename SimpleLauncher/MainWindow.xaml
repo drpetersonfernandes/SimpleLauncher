@@ -963,13 +963,6 @@
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="{DynamicResource FavoriteColumnHeader}" Width="Auto"
                                                             AutomationProperties.Name="{DynamicResource FavoriteColumnHeader}">
-                                        <DataGridTemplateColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipFavoriteColumnHeader}" />
-                                            </Style>
-                                        </DataGridTemplateColumn.HeaderStyle>
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
@@ -979,55 +972,15 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*"
-                                                        AutomationProperties.Name="{DynamicResource FileNameColumnHeader}">
-                                        <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipFileNameColumnHeader}" />
-                                            </Style>
-                                        </DataGridTextColumn.HeaderStyle>
-                                    </DataGridTextColumn>
+                                                        AutomationProperties.Name="{DynamicResource FileNameColumnHeader}" />
                                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*"
-                                                        AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}">
-                                        <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipMachineDescriptionColumnHeader}" />
-                                            </Style>
-                                        </DataGridTextColumn.HeaderStyle>
-                                    </DataGridTextColumn>
+                                                        AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}" />
                                     <DataGridTextColumn Header="{DynamicResource FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*"
-                                                        AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}">
-                                        <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipFolderPathColumnHeader}" />
-                                            </Style>
-                                        </DataGridTextColumn.HeaderStyle>
-                                    </DataGridTextColumn>
+                                                        AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}" />
                                     <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto"
-                                                        AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}">
-                                        <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipTimesPlayedColumnHeader}" />
-                                            </Style>
-                                        </DataGridTextColumn.HeaderStyle>
-                                    </DataGridTextColumn>
+                                                        AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}" />
                                     <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto"
-                                                        AutomationProperties.Name="{DynamicResource PlayTimeColumnHeader}">
-                                        <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
-                                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                                <Setter Property="ToolTip" Value="{DynamicResource TooltipPlayTimeColumnHeader}" />
-                                            </Style>
-                                        </DataGridTextColumn.HeaderStyle>
-                                    </DataGridTextColumn>
+                                                        AutomationProperties.Name="{DynamicResource PlayTimeColumnHeader}" />
                                 </DataGrid.Columns>
                             </DataGrid>
 
