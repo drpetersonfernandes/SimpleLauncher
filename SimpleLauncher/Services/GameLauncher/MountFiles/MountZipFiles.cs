@@ -826,14 +826,12 @@ internal static class MountZipFiles
                 throw new FileNotFoundException("Emulator executable folder could not be determined");
             }
 
-            // Determine the correct system folder dynamically based on where the ZIP actually lives
-            var resolvedSystemFolderPath = PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedZipFilePath);
-
             // 2. Resolve Parameters
             var resolvedParameters = PathHelper.ResolveParameterString(
                 selectedEmulatorParameters,
-                resolvedSystemFolderPath,
-                resolvedEmulatorFolderPath
+                selectedSystemManager?.SystemFolders,
+                resolvedEmulatorFolderPath,
+                resolvedZipFilePath
             );
 
             // The ScummVM -p argument expects a path to the game data.
