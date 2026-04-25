@@ -964,7 +964,7 @@
                                     <DataGridTemplateColumn Header="{DynamicResource FavoriteColumnHeader}" Width="Auto"
                                                             AutomationProperties.Name="{DynamicResource FavoriteColumnHeader}">
                                         <DataGridTemplateColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader">
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                 <Setter Property="ToolTip" Value="{DynamicResource TooltipFavoriteColumnHeader}" />
                                             </Style>
                                         </DataGridTemplateColumn.HeaderStyle>
@@ -979,7 +979,7 @@
                                     <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*"
                                                         AutomationProperties.Name="{DynamicResource FileNameColumnHeader}">
                                         <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader">
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                 <Setter Property="ToolTip" Value="{DynamicResource TooltipFileNameColumnHeader}" />
                                             </Style>
                                         </DataGridTextColumn.HeaderStyle>
@@ -987,7 +987,7 @@
                                     <DataGridTextColumn Header="{DynamicResource MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*"
                                                         AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}">
                                         <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader">
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                 <Setter Property="ToolTip" Value="{DynamicResource TooltipMachineDescriptionColumnHeader}" />
                                             </Style>
                                         </DataGridTextColumn.HeaderStyle>
@@ -995,7 +995,7 @@
                                     <DataGridTextColumn Header="{DynamicResource FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*"
                                                         AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}">
                                         <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader">
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                 <Setter Property="ToolTip" Value="{DynamicResource TooltipFolderPathColumnHeader}" />
                                             </Style>
                                         </DataGridTextColumn.HeaderStyle>
@@ -1003,7 +1003,7 @@
                                     <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto"
                                                         AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}">
                                         <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader">
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                 <Setter Property="ToolTip" Value="{DynamicResource TooltipTimesPlayedColumnHeader}" />
                                             </Style>
                                         </DataGridTextColumn.HeaderStyle>
@@ -1011,7 +1011,7 @@
                                     <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto"
                                                         AutomationProperties.Name="{DynamicResource PlayTimeColumnHeader}">
                                         <DataGridTextColumn.HeaderStyle>
-                                            <Style TargetType="DataGridColumnHeader">
+                                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                 <Setter Property="ToolTip" Value="{DynamicResource TooltipPlayTimeColumnHeader}" />
                                             </Style>
                                         </DataGridTextColumn.HeaderStyle>
