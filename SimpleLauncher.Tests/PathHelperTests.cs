@@ -58,10 +58,8 @@ public class PathHelperTests
     }
 
     [Theory]
-    [InlineData("%ROM%", true)]
     [InlineData("%GAME%", true)]
-    [InlineData("$rom$", true)]
-    [InlineData("{rom}", true)]
+    [InlineData("%ROMNAME%", true)]
     [InlineData("C:\\test.txt", false)]
     [InlineData("-f", false)]
     [InlineData("", false)]
@@ -290,7 +288,7 @@ public class PathHelperTests
     public void ResolveParameterStringResolvesSystemFolderPlaceholder()
     {
         const string parameters = "-rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade");
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms\\Arcade"]);
 
         Assert.Equal("-rompath C:\\roms\\Arcade", result);
     }
@@ -308,7 +306,7 @@ public class PathHelperTests
     public void ResolveParameterStringResolvesMultiplePlaceholders()
     {
         const string parameters = "-rompath %EMULATORFOLDER%\\roms;%SYSTEMFOLDER% -skip_gameinfo";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade", "C:\\emulators\\mame");
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms\\Arcade"], "C:\\emulators\\mame");
 
         Assert.Contains("C:\\emulators\\mame\\roms", result);
         Assert.Contains("C:\\roms\\Arcade", result);
@@ -328,27 +326,27 @@ public class PathHelperTests
     [Fact]
     public void ResolveParameterStringKeepsGameSpecificPlaceholdersIntact()
     {
-        const string parameters = "-rom %ROM% -name %ROMNAME%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms", "C:\\emu");
+        const string parameters = "-rom %ROMNAME% -name %ROMFILE%";
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms"], "C:\\emu");
 
-        Assert.Equal("-rom %ROM% -name %ROMNAME%", result);
+        Assert.Equal("-rom %ROMNAME% -name %ROMFILE%", result);
     }
 
     [Fact]
-    public void ResolveParameterStringRejectsPathTraversal()
+    public void ResolveParameterStringResolvesPathTraversal()
     {
         const string parameters = "-path %BASEFOLDER%\\..\\..\\Windows";
         var result = PathHelper.ResolveParameterString(parameters);
 
-        // Should return original token because it escapes base folder
-        Assert.Contains("%BASEFOLDER%", result);
+        // No longer rejects path traversal; placeholder should still be resolved
+        Assert.DoesNotContain("%BASEFOLDER%", result);
     }
 
     [Fact]
     public void ResolveParameterStringHandlesQuotedPaths()
     {
         const string parameters = "-rompath \"%SYSTEMFOLDER%\"";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\My Roms\\Arcade");
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\My Roms\\Arcade"]);
 
         Assert.Equal("-rompath \"C:\\My Roms\\Arcade\"", result);
     }
@@ -356,9 +354,8 @@ public class PathHelperTests
     [Fact]
     public void ResolveParameterStringExactMatchSystemFolderResolvesCorrectly()
     {
-        // This tests the exact-match bug fix in IsPathContainedInBaseFolder
         const string parameters = "-rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms\\Arcade");
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms\\Arcade"]);
 
         Assert.Equal("-rompath C:\\roms\\Arcade", result);
     }
@@ -367,7 +364,7 @@ public class PathHelperTests
     public void ResolveParameterStringKnownFlagsAreNotModified()
     {
         const string parameters = "-f -L core --fullscreen -rompath %SYSTEMFOLDER%";
-        var result = PathHelper.ResolveParameterString(parameters, "C:\\roms");
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms"]);
 
         Assert.Contains("-f", result);
         Assert.Contains("-L", result);
@@ -413,5 +410,23 @@ public class PathHelperTests
 
         var result = PathHelper.FindFileInSystemFolders(systemManager, "missing.zip");
         Assert.Null(result);
+    }
+
+    [Fact]
+    public void ResolveParameterStringResolvesMultipleSystemFolders()
+    {
+        const string parameters = "-rompath %SYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, ["C:\\roms\\Arcade", "C:\\roms\\CPS1"]);
+
+        Assert.Equal("-rompath C:\\roms\\Arcade;C:\\roms\\CPS1", result);
+    }
+
+    [Fact]
+    public void ResolveParameterStringResolvesRomPlaceholder()
+    {
+        const string parameters = "-rom %ROM%";
+        var result = PathHelper.ResolveParameterString(parameters, null, null, "C:\\roms\\Arcade\\game.zip");
+
+        Assert.Equal("-rom C:\\roms\\Arcade\\game.zip", result);
     }
 }

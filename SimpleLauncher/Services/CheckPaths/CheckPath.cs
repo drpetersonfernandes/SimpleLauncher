@@ -42,7 +42,7 @@ public static class CheckPath
     /// This is stricter than IsValidPath as it only accepts files, not directories.
     /// </summary>
     /// <param name="path">The path string to check.</param>
-    /// <returns>True if the path is valid, exists as a file, and has an .exe extension; false otherwise.</returns>
+    /// <returns>True if the path is valid, exists as a file, and has a valid emulator extension; false otherwise.</returns>
     public static bool IsValidEmulatorExecutablePath(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
@@ -66,7 +66,8 @@ public static class CheckPath
 
             var extension = Path.GetExtension(pathForCheck);
             return extension.Equals(".exe", StringComparison.OrdinalIgnoreCase) ||
-                   extension.Equals(".bat", StringComparison.OrdinalIgnoreCase);
+                   extension.Equals(".bat", StringComparison.OrdinalIgnoreCase) ||
+                   extension.Equals(".lnk", StringComparison.OrdinalIgnoreCase);
         }
         catch
         {

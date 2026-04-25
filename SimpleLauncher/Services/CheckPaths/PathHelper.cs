@@ -14,8 +14,8 @@ internal static partial class PathHelper
 
     private static readonly string[] GameSpecificPlaceholders =
     [
-        "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
-        "{rom}", "{game}", "{romname}", "{romfile}"
+        "%GAME%", "%ROMNAME%", "%ROMFILE%", "$game$", "$romname$", "$romfile$",
+        "{game}", "{romname}", "{romfile}"
     ];
 
     private static readonly string[] KnownParameterFlags =
@@ -81,8 +81,9 @@ internal static partial class PathHelper
 
     public static string ResolveParameterString(
         string parameters,
-        string resolvedSystemFolderPath = null,
-        string resolvedEmulatorFolderPath = null)
+        List<string> systemFolders = null,
+        string resolvedEmulatorFolderPath = null,
+        string resolvedRomPath = null)
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
@@ -107,54 +108,52 @@ internal static partial class PathHelper
                 IsKnownFlag(tokenForLogic) ||
                 (!tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
-                 !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase)))
+                 !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                 !tokenForLogic.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)))
             {
                 return originalToken;
             }
 
             var processedToken = tokenForLogic;
-            string validationBaseFolder = null;
 
-            // Replace custom placeholders and track which base folder to validate against
+            // Replace custom placeholders
             if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%BASEFOLDER%", SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
-                validationBaseFolder = AppDomain.CurrentDomain.BaseDirectory;
             }
 
-            if (!string.IsNullOrEmpty(resolvedSystemFolderPath) && processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+            if (processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
-                processedToken = processedToken.Replace("%SYSTEMFOLDER%", SanitizePathToken(resolvedSystemFolderPath), StringComparison.OrdinalIgnoreCase);
-                validationBaseFolder = resolvedSystemFolderPath;
+                var resolvedSystemFolderPaths = string.Empty;
+                if (systemFolders is { Count: > 0 })
+                {
+                    var resolvedFolders = systemFolders
+                        .Select(ResolveRelativeToAppDirectory)
+                        .Where(static resolved => !string.IsNullOrEmpty(resolved))
+                        .Select(SanitizePathToken)
+                        .ToList();
+
+                    if (resolvedFolders.Count > 0)
+                    {
+                        resolvedSystemFolderPaths = string.Join(";", resolvedFolders);
+                    }
+                }
+
+                processedToken = processedToken.Replace("%SYSTEMFOLDER%", resolvedSystemFolderPaths, StringComparison.OrdinalIgnoreCase);
             }
 
             if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) && processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%EMULATORFOLDER%", SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
-                validationBaseFolder = resolvedEmulatorFolderPath;
+            }
+
+            if (!string.IsNullOrEmpty(resolvedRomPath) && processedToken.Contains("%ROM%", StringComparison.OrdinalIgnoreCase))
+            {
+                processedToken = processedToken.Replace("%ROM%", SanitizePathToken(resolvedRomPath), StringComparison.OrdinalIgnoreCase);
             }
 
             // Expand environment variables
             processedToken = Environment.ExpandEnvironmentVariables(processedToken);
-
-            // Validate path after all transformations to prevent path traversal attacks
-            if (!string.IsNullOrEmpty(validationBaseFolder))
-            {
-                try
-                {
-                    var fullPath = Path.GetFullPath(processedToken);
-                    if (!IsPathContainedInBaseFolder(fullPath, validationBaseFolder))
-                    {
-                        // Path escapes the intended directory - return original token to prevent traversal
-                        return originalToken;
-                    }
-                }
-                catch
-                {
-                    // If path validation fails, return original token to be safe
-                    return originalToken;
-                }
-            }
 
             var finalTokenValue = processedToken;
 

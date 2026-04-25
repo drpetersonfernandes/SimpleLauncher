@@ -956,17 +956,12 @@ public partial class GameLauncher
                 return;
             }
 
-            // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
-            // Determine the correct folder dynamically based on where the game actually lives
-            var resolvedSystemFolderPath = PathHelper.FindContainingSystemFolder(selectedSystemManager, displayFilePath);
-            // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
-            // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
-
             // Resolve Emulator Parameters using the PathHelper.ResolveParameterString
             var resolvedParameters = PathHelper.ResolveParameterString(
                 rawEmulatorParameters, // The raw parameter string from config
-                resolvedSystemFolderPath, // The fully resolved system folder path
-                resolvedEmulatorFolderPath // The fully resolved emulator directory path
+                selectedSystemManager.SystemFolders, // All configured system folders
+                resolvedEmulatorFolderPath, // The fully resolved emulator directory path
+                resolvedFilePath // The ROM path for %ROM%
             );
 
             string arguments;
@@ -977,23 +972,13 @@ public partial class GameLauncher
 
             var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
 
-            // Handle game-specific placeholders if present
-            if (PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
+            // If the original parameters contained %ROM%, it was already resolved by ResolveParameterString
+            // and we should not append the file path again.
+            var containsRomPlaceholder = rawEmulatorParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase);
+
+            if (containsRomPlaceholder || PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
             {
-                arguments = resolvedParameters
-                    .Replace("%ROM%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                    .Replace("%ROMS%", resolvedFilePath, StringComparison.OrdinalIgnoreCase);
-                // .Replace("%GAME%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("%ROMFILE%", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("%ROMNAME%", romName, StringComparison.OrdinalIgnoreCase)
-                // .Replace("$rom$", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("$game$", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("$romfile$", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("$romname$", romName, StringComparison.OrdinalIgnoreCase)
-                // .Replace("{rom}", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("{game}", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("{romfile}", resolvedFilePath, StringComparison.OrdinalIgnoreCase)
-                // .Replace("{romname}", romName, StringComparison.OrdinalIgnoreCase);
+                arguments = resolvedParameters;
             }
             else
             {

@@ -157,7 +157,7 @@ internal partial class EditSystemWindow : ILoadingState
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
-            Filter = "Exe File (.exe)|*.exe",
+            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
             Title = selectEmulator12
         };
         var result = dialog.ShowDialog();
@@ -179,7 +179,7 @@ internal partial class EditSystemWindow : ILoadingState
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
-            Filter = "EXE File (.exe)|*.exe",
+            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
             Title = selectEmulator22
         };
 
@@ -202,7 +202,7 @@ internal partial class EditSystemWindow : ILoadingState
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
-            Filter = "EXE File (.exe)|*.exe",
+            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
             Title = selectEmulator32
         };
 
@@ -225,7 +225,7 @@ internal partial class EditSystemWindow : ILoadingState
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
-            Filter = "EXE File (.exe)|*.exe",
+            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
             Title = selectEmulator42
         };
 
@@ -248,7 +248,7 @@ internal partial class EditSystemWindow : ILoadingState
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
-            Filter = "EXE File (.exe)|*.exe",
+            Filter = "Executable Files (*.exe;*.bat)|*.exe;*.bat",
             Title = selectEmulator52
         };
         var result = dialog.ShowDialog();

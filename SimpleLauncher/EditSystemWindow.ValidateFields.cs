@@ -1,8 +1,10 @@
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SanitizeInputString;
 
@@ -140,11 +142,12 @@ internal partial class EditSystemWindow
 
     private static bool ValidateEmulator1Location(string emulator1LocationText, IEnumerable<string> formatsToSearch)
     {
-        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
             f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("url", StringComparison.OrdinalIgnoreCase));
 
         // If an emulator path is required but not provided, show an error.
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
@@ -164,11 +167,12 @@ internal partial class EditSystemWindow
             return false;
         }
 
-        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
             f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("url", StringComparison.OrdinalIgnoreCase));
 
         // If an emulator path is required but not provided, show an error.
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator2LocationText))
@@ -188,11 +192,12 @@ internal partial class EditSystemWindow
             return false;
         }
 
-        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
             f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("url", StringComparison.OrdinalIgnoreCase));
 
         // If an emulator path is required but not provided, show an error.
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator3LocationText))
@@ -212,11 +217,12 @@ internal partial class EditSystemWindow
             return false;
         }
 
-        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
             f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("url", StringComparison.OrdinalIgnoreCase));
 
         // If an emulator path is required but not provided, show an error.
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator4LocationText))
@@ -236,11 +242,12 @@ internal partial class EditSystemWindow
             return false;
         }
 
-        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
             f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
-            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("url", StringComparison.OrdinalIgnoreCase));
 
         // If an emulator path is required but not provided, show an error.
         if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator5LocationText))
@@ -309,10 +316,29 @@ internal partial class EditSystemWindow
             SystemImageFolderTextBox.Text = systemImageFolderText;
         }
 
-        if (!string.IsNullOrEmpty(systemImageFolderText)) return false;
+        if (string.IsNullOrEmpty(systemImageFolderText))
+        {
+            MessageBoxLibrary.SystemImageFolderCanNotBeEmptyMessageBox();
+            return true;
+        }
 
-        MessageBoxLibrary.SystemImageFolderCanNotBeEmptyMessageBox();
-        return true;
+        // Auto-create the image folder if it doesn't exist
+        var resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
+        if (!string.IsNullOrEmpty(resolvedImageFolder) && !Directory.Exists(resolvedImageFolder))
+        {
+            try
+            {
+                Directory.CreateDirectory(resolvedImageFolder);
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the system image folder: {resolvedImageFolder}");
+                MessageBoxLibrary.FolderCreationFailedMessageBox();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private bool ValidateSystemFolder(string systemNameText, ref string systemFolderText)
@@ -326,10 +352,29 @@ internal partial class EditSystemWindow
             SystemFolderTextBox.Text = systemFolderText;
         }
 
-        if (!string.IsNullOrEmpty(systemFolderText)) return false;
+        if (string.IsNullOrEmpty(systemFolderText))
+        {
+            MessageBoxLibrary.SystemFolderCanNotBeEmptyMessageBox();
+            return true;
+        }
 
-        MessageBoxLibrary.SystemFolderCanNotBeEmptyMessageBox();
-        return true;
+        // Auto-create the system folder if it doesn't exist
+        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderText);
+        if (!string.IsNullOrEmpty(resolvedSystemFolder) && !Directory.Exists(resolvedSystemFolder))
+        {
+            try
+            {
+                Directory.CreateDirectory(resolvedSystemFolder);
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the system folder: {resolvedSystemFolder}");
+                MessageBoxLibrary.FolderCreationFailedMessageBox();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static bool ValidateSystemName(string systemNameText)
