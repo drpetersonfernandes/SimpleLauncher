@@ -42,9 +42,8 @@ public class ProcessService
                     LogMessage?.Invoke("Simple Launcher has exited.");
                 }
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
-                await BugReportService.ReportBugAsync(ex, "Error getting main application process");
                 LogMessage?.Invoke("Simple Launcher process not found. Assuming it has already exited.");
             }
         }
