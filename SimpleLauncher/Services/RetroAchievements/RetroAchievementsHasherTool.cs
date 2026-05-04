@@ -30,7 +30,7 @@ internal static class RetroAchievementsHasherTool
     [
         "3do interactive multiplayer", "atari jaguar cd", "pc engine cd/turbografx-cd",
         "pc-fx", "nintendo ds", "nintendo dsi", "neo geo cd", "dreamcast", "saturn", "sega cd",
-        "playstation", "playstation 2", "playstation portable", "nintendo 3ds", "xbox", "dos", "pc-9800", "wii u",
+        "playstation", "playstation 2", "playstation portable", "nintendo 3ds", "dos", "pc-9800", "wii u",
         "amstrad cpc", "apple ii", "msx", "pc-8000/8800"
     ];
 
@@ -38,7 +38,7 @@ internal static class RetroAchievementsHasherTool
     // These systems will not show the RetroAchievements icon and hashing will be skipped
     private static readonly List<string> SystemWithUnknowHashLogic =
     [
-        "sega pico",
+        "sega pico", "xbox", "xbox360",
         "atari st", "commodore 64", "amiga", "zx spectrum",
         "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
         "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
