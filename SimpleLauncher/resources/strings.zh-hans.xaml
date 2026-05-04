@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">处理仍在运行。您要取消并关闭吗？</system:String>
     <system:String x:Key="ProcessingSystem">正在处理系统</system:String>
     <system:String x:Key="ProfileID">个人资料 ID (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">协议处理程序 '{0}://' 未注册。请确保关联的应用程序已安装。</system:String>
     <system:String x:Key="Publisher">发行商：</system:String>
     <system:String x:Key="Purple">紫色</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">将此系统的封面图片放入</system:String>

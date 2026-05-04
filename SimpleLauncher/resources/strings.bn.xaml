@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">প্রসেসিং এখনও চলছে। আপনি কি বাতিল করে বন্ধ করতে চান?</system:String>
     <system:String x:Key="ProcessingSystem">সিস্টেম প্রসেস করা হচ্ছে</system:String>
     <system:String x:Key="ProfileID">প্রোফাইল আইডি (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">'{0}://'-এর জন্য প্রোটোকল হ্যান্ডলার নিবন্ধিত নয়। অনুগ্রহ করে নিশ্চিত করুন যে সংশ্লিষ্ট অ্যাপ্লিকেশনটি ইনস্টল করা আছে।</system:String>
     <system:String x:Key="Publisher">পাবলিশার:</system:String>
     <system:String x:Key="Purple">বেগুনি</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">এই সিস্টেমের জন্য কভার ইমেজ রাখুন</system:String>

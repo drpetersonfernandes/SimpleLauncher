@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">प्रसंस्करण अभी भी चल रहा है। क्या आप रद्द करके बंद करना चाहते हैं?</system:String>
     <system:String x:Key="ProcessingSystem">सिस्टम संसाधित हो रहा है</system:String>
     <system:String x:Key="ProfileID">प्रोफ़ाइल आईडी (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">प्रोटोकॉल हैंडलर '{0}://' के लिए पंजीकृत नहीं है। कृपया सुनिश्चित करें कि संबंधित एप्लिकेशन स्थापित है।</system:String>
     <system:String x:Key="Publisher">प्रकाशक:</system:String>
     <system:String x:Key="Purple">बैंगनी</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">इस सिस्टम के लिए कवर छवियां अंदर रखें</system:String>

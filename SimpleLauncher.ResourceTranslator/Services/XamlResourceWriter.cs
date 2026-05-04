@@ -55,7 +55,7 @@ public static partial class XamlResourceWriter
                 var key = match.Groups[1].Value;
                 if (!duplicatesRemoved.Contains(key) && !existingEntries.ContainsKey(key))
                 {
-                    existingEntries[key] = match.Groups[2].Value;
+                    existingEntries[key] = UnescapeXml(match.Groups[2].Value);
                 }
             }
         }
@@ -68,7 +68,7 @@ public static partial class XamlResourceWriter
 
         // Sort by key and build lines
         var sortedEntries = existingEntries
-            .OrderBy(static e => e.Key, StringComparer.Ordinal)
+            .OrderBy(static e => e.Key, StringComparer.OrdinalIgnoreCase)
             .Select(static e =>
             {
                 var escapedValue = EscapeXml(e.Value);
@@ -92,6 +92,18 @@ public static partial class XamlResourceWriter
             .Replace("<", "&lt;")
             .Replace(">", "&gt;")
             .Replace("\"", "&quot;");
+    }
+
+    private static string UnescapeXml(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return text
+            .Replace("&lt;", "<")
+            .Replace("&gt;", ">")
+            .Replace("&quot;", "\"")
+            .Replace("&amp;", "&");
     }
 
     [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled)]

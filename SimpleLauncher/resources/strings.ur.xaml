@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">پروسیسنگ ابھی بھی چل رہی ہے۔ کیا آپ منسوخ کر کے بند کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="ProcessingSystem">سسٹم پر کارروائی جاری ہے</system:String>
     <system:String x:Key="ProfileID">پروفائل ID (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">'{0}://' کے لیے پروٹوکول ہینڈلر رجسٹرڈ نہیں ہے۔ براہ کرم یقینی بنائیں کہ متعلقہ ایپلیکیشن انسٹال ہے۔</system:String>
     <system:String x:Key="Publisher">پبلشر:</system:String>
     <system:String x:Key="Purple">جامنی</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">اس سسٹم کے لیے کور تصاویر یہاں رکھیں</system:String>

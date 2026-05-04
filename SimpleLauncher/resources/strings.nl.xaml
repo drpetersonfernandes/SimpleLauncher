@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">De verwerking is nog bezig. Wilt u annuleren en sluiten?</system:String>
     <system:String x:Key="ProcessingSystem">Systeem verwerken</system:String>
     <system:String x:Key="ProfileID">Profiel-ID (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">Protocolhandler voor '{0}://' is niet geregistreerd. Zorg ervoor dat de bijbehorende applicatie is geïnstalleerd.</system:String>
     <system:String x:Key="Publisher">Uitgever:</system:String>
     <system:String x:Key="Purple">Paars</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>

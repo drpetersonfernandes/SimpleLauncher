@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">Quá trình xử lý vẫn đang chạy. Bạn có muốn hủy và đóng không?</system:String>
     <system:String x:Key="ProcessingSystem">Đang xử lý hệ thống</system:String>
     <system:String x:Key="ProfileID">ID Hồ sơ (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">Trình xử lý giao thức cho '{0}://' chưa được đăng ký. Vui lòng đảm bảo ứng dụng liên quan đã được cài đặt.</system:String>
     <system:String x:Key="Publisher">Nhà xuất bản:</system:String>
     <system:String x:Key="Purple">Tím</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Đặt hình ảnh bìa cho hệ thống này vào</system:String>

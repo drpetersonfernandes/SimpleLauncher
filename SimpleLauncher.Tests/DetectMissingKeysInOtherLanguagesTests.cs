@@ -78,6 +78,27 @@ public partial class DetectMissingKeysInOtherLanguagesTests
                     }
                 }
 
+                // Ensure alphabetical order (case-insensitive) after removal.
+                var remainingElements = root.Elements()
+                    .Where(e => e.Attribute(xNamespace + "Key") != null)
+                    .ToList();
+
+                var sortedElements = remainingElements
+                    .OrderBy(
+                        // ReSharper disable once NullableWarningSuppressionIsUsed
+                        e => e.Attribute(xNamespace + "Key")!.Value,
+                        StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+
+                if (!remainingElements.SequenceEqual(sortedElements))
+                {
+                    foreach (var el in remainingElements)
+                        el.Remove();
+
+                    foreach (var el in sortedElements)
+                        root.Add(el);
+                }
+
                 var encoding = new UTF8Encoding(true);
                 using var writer = new StreamWriter(file, false, encoding);
                 doc.Save(writer);

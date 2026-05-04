@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">المعالجة لا تزال قيد التشغيل. هل تريد الإلغاء والإغلاق؟</system:String>
     <system:String x:Key="ProcessingSystem">معالجة النظام</system:String>
     <system:String x:Key="ProfileID">معرف الملف الشخصي (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">معالج البروتوكول لـ '{0}://' غير مسجل. يرجى التأكد من تثبيت التطبيق المرتبط.</system:String>
     <system:String x:Key="Publisher">الناشر:</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">ضع صور الأغلفة لهذا النظام داخل</system:String>

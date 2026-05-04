@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">Обработка все еще выполняется. Вы хотите отменить и закрыть?</system:String>
     <system:String x:Key="ProcessingSystem">Обработка системы</system:String>
     <system:String x:Key="ProfileID">ID профиля (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">Обработчик протокола для '{0}://' не зарегистрирован. Убедитесь, что соответствующее приложение установлено.</system:String>
     <system:String x:Key="Publisher">Издатель:</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Поместите обложки для этой системы в</system:String>

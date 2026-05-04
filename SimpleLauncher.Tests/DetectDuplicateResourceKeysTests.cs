@@ -73,6 +73,29 @@ public class DetectDuplicateResourceKeysTests
                 }
             }
 
+            // Ensure alphabetical order (case-insensitive) after duplicate removal.
+            var allKeyedElements = root.Elements()
+                .Where(e => e.Attribute(xNamespace + "Key") != null)
+                .ToList();
+
+            var sortedElements = allKeyedElements
+                .OrderBy(
+                    // ReSharper disable once NullableWarningSuppressionIsUsed
+                    e => e.Attribute(xNamespace + "Key")!.Value,
+                    StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            if (!allKeyedElements.SequenceEqual(sortedElements))
+            {
+                foreach (var el in allKeyedElements)
+                    el.Remove();
+
+                foreach (var el in sortedElements)
+                    root.Add(el);
+
+                hasChanges = true;
+            }
+
             if (hasChanges)
             {
                 var encoding = new UTF8Encoding(true);

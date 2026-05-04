@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
@@ -1176,6 +1176,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">Le traitement est toujours en cours. Voulez-vous annuler et fermer ?</system:String>
     <system:String x:Key="ProcessingSystem">Traitement du système</system:String>
     <system:String x:Key="ProfileID">ID de profil (ULID) :</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">Le gestionnaire de protocole pour '{0}://' n'est pas enregistré. Veuillez vous assurer que l'application associée est installée.</system:String>
     <system:String x:Key="Publisher">Éditeur :</system:String>
     <system:String x:Key="Purple">Violet</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Mettez les images de couverture pour ce système dans</system:String>

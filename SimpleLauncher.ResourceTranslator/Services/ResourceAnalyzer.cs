@@ -36,7 +36,7 @@ public static partial class ResourceAnalyzer
             var match = EntryRegex.Match(line);
             if (match.Success)
             {
-                result[match.Groups[1].Value] = match.Groups[2].Value;
+                result[match.Groups[1].Value] = UnescapeXml(match.Groups[2].Value);
             }
         }
 
@@ -72,7 +72,7 @@ public static partial class ResourceAnalyzer
                     }
                     else
                     {
-                        existingKeys[key] = match.Groups[2].Value;
+                        existingKeys[key] = UnescapeXml(match.Groups[2].Value);
                     }
                 }
             }
@@ -96,6 +96,18 @@ public static partial class ResourceAnalyzer
         }
 
         return batches;
+    }
+
+    private static string UnescapeXml(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return text
+            .Replace("&lt;", "<")
+            .Replace("&gt;", ">")
+            .Replace("&quot;", "\"")
+            .Replace("&amp;", "&");
     }
 
     [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.Compiled)]
