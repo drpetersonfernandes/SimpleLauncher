@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -16,6 +15,7 @@ using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
+using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -686,6 +686,7 @@ internal partial class EditSystemWindow : ILoadingState
             }
 
             var destFilePath = Path.Combine(imagesSystemsDir, $"{systemName}{extension}");
+            SystemImagePreview.Source = null; // Release any file lock before overwriting
             File.Copy(sourceFilePath, destFilePath, true);
             UpdateSystemImagePreview();
         }
@@ -728,12 +729,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         try
         {
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.EndInit();
-            SystemImagePreview.Source = bitmap;
+            SystemImagePreview.Source = ImageLoader.LoadBitmapImageSafe(imagePath);
         }
         catch
         {

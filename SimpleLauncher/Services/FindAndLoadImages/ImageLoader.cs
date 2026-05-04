@@ -90,7 +90,7 @@ public static class ImageLoader
     /// <exception cref="IOException">Thrown if there's an I/O error reading the file.</exception>
     /// <exception cref="System.Security.SecurityException">Thrown if there are permission issues.</exception>
     /// <exception cref="NotSupportedException">Thrown if the file format is not supported.</exception>
-    private static BitmapImage LoadBitmapImageSafe(string filePath)
+    public static BitmapImage LoadBitmapImageSafe(string filePath)
     {
         var longPath = PathHelper.GetLongPath(filePath);
 
