@@ -65,6 +65,14 @@ public abstract class GetListOfFiles
     {
         token.ThrowIfCancellationRequested();
 
+        // Proactive guard against the common race condition where a directory disappears
+        // between the parent listing it and the recursive call entering it.
+        if (!Directory.Exists(path))
+        {
+            DebugLogger.Log($"[GetListOfFiles] Directory no longer exists: {path}. Skipping.");
+            return;
+        }
+
         try
         {
             // 1. Get files in the current directory and filter by extension
@@ -96,9 +104,10 @@ public abstract class GetListOfFiles
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Path too long during enumeration: {path}");
         }
-        catch (DirectoryNotFoundException ex)
+        catch (DirectoryNotFoundException)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Directory disappeared during enumeration: {path}");
+            // Don't report transient filesystem races as bugs.
+            DebugLogger.Log($"[GetListOfFiles] Directory disappeared during enumeration: {path}. Skipping.");
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
