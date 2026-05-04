@@ -82,7 +82,7 @@ public static class RetroAchievementsSystemMatcher
         // Other systems
         ["arcade"] = new RaSystemInfo(27, [
             "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
-            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME"
+            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME", "ARCADE - Multiple Arcade Machine Emulator"
         ]),
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
@@ -147,7 +147,7 @@ public static class RetroAchievementsSystemMatcher
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
             "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron",
-            "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Sega MSU MD"
+            "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Sega MSU MD", "ra", "FBA2"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

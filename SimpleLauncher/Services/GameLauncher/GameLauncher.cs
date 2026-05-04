@@ -828,17 +828,6 @@ public partial class GameLauncher
 
         if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
-            if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
-            {
-                const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
-                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException(contextMessage), contextMessage);
-
-                MessageBoxLibrary.NullFileExtensionMessageBox();
-
-                return;
-            }
-
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
                 var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ?? "Extracting file... Please wait.";
