@@ -4848,6 +4848,23 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void RetroArchSpecialCharactersInPathMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var message = (string)Application.Current.TryFindResource("RetroArchSpecialCharactersInPath1") ?? "The emulator could not launch the game because the file path contains special characters (for example: ´, `, ~, !, ?).";
+            var message2 = (string)Application.Current.TryFindResource("RetroArchSpecialCharactersInPath2") ?? "RetroArch cannot create its required folders in paths with these characters.";
+            var message3 = (string)Application.Current.TryFindResource("RetroArchSpecialCharactersInPath3") ?? "To fix this, please move your emulator and your game files to a folder that uses only standard letters and numbers, such as C:\\Games\\.";
+            System.Windows.MessageBox.Show($"{message}\n\n" +
+                                           $"{message2}\n\n" +
+                                           $"{message3}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     internal static void AzaharConfigurationInjectionPermissionError()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);

@@ -1218,6 +1218,23 @@ public partial class GameLauncher
             return Task.CompletedTask;
         }
 
+        // Handle RetroArch failing due to special characters in path (mkdir permission denied)
+        if ((emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase)) &&
+            output.ToString().Contains("mkdir(", StringComparison.OrdinalIgnoreCase) &&
+            output.ToString().Contains("Permission denied", StringComparison.OrdinalIgnoreCase))
+        {
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] RetroArch mkdir permission denied due to special characters in path.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
+            if (emulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                MessageBoxLibrary.RetroArchSpecialCharactersInPathMessageBox();
+            }
+
+            return Task.CompletedTask;
+        }
+
         // Handle RetroArch parameter issues
         if (emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase))
@@ -1236,7 +1253,8 @@ public partial class GameLauncher
         // Handle MAME Not Found error
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
              emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase) ||
-             emulatorManager.EmulatorLocation.Contains("mame64", StringComparison.OrdinalIgnoreCase)) &&
+             emulatorManager.EmulatorLocation.Contains("mame64", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase)) &&
             (output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)))

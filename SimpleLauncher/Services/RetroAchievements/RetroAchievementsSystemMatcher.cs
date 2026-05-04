@@ -30,13 +30,13 @@ public static class RetroAchievementsSystemMatcher
     private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new()
     {
         // Nintendo systems
-        ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD"]),
+        ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD", "Nintendo N64"]),
         ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom", "NintendoSNES"]),
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy"]),
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance", "Nintendo - Game Boy Advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color", "Nintendo - Game Boy Color", "Nintendo Game Boy Color"]),
         ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom", "nintendo nes", "Nintendo Famicom"]),
-        ["gamecube"] = new RaSystemInfo(16, ["gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube", "nintendo gc"]),
+        ["gamecube"] = new RaSystemInfo(16, ["gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube", "nintendo gc", "Nintndo Gamecube"]),
         ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nintendo-ds", "nintendods", "nds", "ds", "nintendo ds"]),
         ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
@@ -60,7 +60,7 @@ public static class RetroAchievementsSystemMatcher
 
         // Sony systems
         ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station", "Sony Play Station 1", "Sony - PlayStation", "Sony - PlayStation 1"]),
-        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2", "Sony - PlayStation 2"]),
+        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2", "Sony - PlayStation 2", "Sony Playstation2"]),
         ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
         // NEC systems
@@ -87,7 +87,7 @@ public static class RetroAchievementsSystemMatcher
         ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
         ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX", "Microsoft MSX2"]),
-        ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad", "Amstrad PCW"]),
+        ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad", "Amstrad PCW", "Amstrad CPC6128"]),
         ["apple ii"] = new RaSystemInfo(38, ["apple ii", "apple 2", "apple2"]),
         ["3do interactive multiplayer"] = new RaSystemInfo(43, ["3do interactive multiplayer", "3do", "3DO real", "Panasonic 3DO"]),
         ["colecovision"] = new RaSystemInfo(44, ["colecovision"]),
