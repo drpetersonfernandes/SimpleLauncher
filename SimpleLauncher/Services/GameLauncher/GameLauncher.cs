@@ -1237,7 +1237,9 @@ public partial class GameLauncher
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
              emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase) ||
              emulatorManager.EmulatorLocation.Contains("mame64", StringComparison.OrdinalIgnoreCase)) &&
-            output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase))
+            (output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
+             output.ToString().Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
+             output.ToString().Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)))
         {
             DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);

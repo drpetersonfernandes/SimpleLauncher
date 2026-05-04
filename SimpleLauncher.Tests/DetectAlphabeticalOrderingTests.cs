@@ -40,12 +40,16 @@ public partial class DetectAlphabeticalOrderingTests
                 {
                     entries.Add((match.Groups[1].Value, lines[i]));
                     if (firstEntryIndex == -1)
+                    {
                         firstEntryIndex = i;
+                    }
                 }
                 else if (lines[i].Trim() == "</ResourceDictionary>")
                 {
                     if (firstEntryIndex == -1)
+                    {
                         firstEntryIndex = i;
+                    }
                 }
             }
 
