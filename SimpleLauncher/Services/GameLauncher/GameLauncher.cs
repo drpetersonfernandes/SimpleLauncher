@@ -1245,7 +1245,8 @@ public partial class GameLauncher
 
         // Handle MAME Not Found error
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
-             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame64", StringComparison.OrdinalIgnoreCase)) &&
             output.ToString().Contains("Not Found", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME ROM set error.");
@@ -1261,7 +1262,9 @@ public partial class GameLauncher
 
         // Handle MAME Unknown system error
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
-             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
+             emulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase)) &&
             (output.ToString().Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)))
         {
@@ -1278,7 +1281,7 @@ public partial class GameLauncher
 
         // Handle MAME Unable to load image
         if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
-             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase)) &&
             (output.ToString().Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
              output.ToString().Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)))
         {

@@ -134,7 +134,7 @@ public static class RetroAchievementsSystemMatcher
             "xbox 360", "xbox360", "x-box 360", "microsoft xbox 360", "Microsoft Xbox 360 XBLA",
             "xbox one", "xboxone", "x-box one", "microsoft xbox one",
             "xbox series x", "xbox series s", "xbox series x/s",
-            "nintendo switch", "switch",
+            "nintendo switch", "switch", "Nintendo - Switch",
             "sega model 2", "model 2",
             "sega model 3", "model 3",
             "sega naomi 2", "naomi 2",
