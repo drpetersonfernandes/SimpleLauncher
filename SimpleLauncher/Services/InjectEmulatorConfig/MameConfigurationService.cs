@@ -254,6 +254,49 @@ public static partial class MameConfigurationService
     }
 
     /// <summary>
+    /// Restores mame.ini from the bundled sample.
+    /// Backs up the existing file to mame.ini.bak before overwriting.
+    /// </summary>
+    public static bool RestoreMameIniFromSample(string emulatorPath)
+    {
+        if (string.IsNullOrWhiteSpace(emulatorPath))
+            return false;
+
+        var emuDir = Path.GetDirectoryName(emulatorPath);
+        if (string.IsNullOrEmpty(emuDir))
+            return false;
+
+        var configPath = Path.Combine(emuDir, "mame.ini");
+        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "MAME", "mame.ini");
+
+        if (!File.Exists(samplePath))
+        {
+            DebugLogger.Log($"[MameConfig] Sample mame.ini not found at: {samplePath}");
+            return false;
+        }
+
+        try
+        {
+            if (File.Exists(configPath))
+            {
+                var backupPath = configPath + ".bak";
+                File.Move(configPath, backupPath, true);
+                DebugLogger.Log($"[MameConfig] Backed up existing mame.ini to: {backupPath}");
+            }
+
+            File.Copy(samplePath, configPath, true);
+            DebugLogger.Log($"[MameConfig] Restored mame.ini from sample: {configPath}");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
+            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Splits ROM path and removes any existing quotes.
     /// MAME uses semicolons as separators.
     /// </summary>

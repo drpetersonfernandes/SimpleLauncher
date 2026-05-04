@@ -15,6 +15,7 @@ using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.TrayIcon;
+using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.UsageStats;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
@@ -1291,6 +1292,26 @@ public partial class GameLauncher
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameUnableToLoadImage();
+            }
+
+            return Task.CompletedTask;
+        }
+
+        // Handle MAME corrupted INI (unknown option warnings)
+        if ((emulatorManager.EmulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame", StringComparison.OrdinalIgnoreCase) ||
+             emulatorManager.EmulatorLocation.Contains("mame64", StringComparison.OrdinalIgnoreCase)) &&
+            error.ToString().Contains("Warning: unknown option in INI", StringComparison.OrdinalIgnoreCase))
+        {
+            DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] MAME unknown option in INI detected. Restoring mame.ini from sample.");
+            var restored = MameConfigurationService.RestoreMameIniFromSample(psi.FileName);
+            if (restored)
+            {
+                DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] mame.ini restored successfully. User should retry.");
+            }
+            else
+            {
+                DebugLogger.Log("[CheckForExitCodeWithErrorAnyAsync] Failed to restore mame.ini from sample.");
             }
 
             return Task.CompletedTask;

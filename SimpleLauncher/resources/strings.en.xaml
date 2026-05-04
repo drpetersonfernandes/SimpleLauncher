@@ -1181,6 +1181,7 @@
     <system:String x:Key="ProcessingStillRunningMessage">Processing is still running. Do you want to cancel and close?</system:String>
     <system:String x:Key="ProcessingSystem">Processing system</system:String>
     <system:String x:Key="ProfileID">Profile ID (ULID):</system:String>
+    <system:String x:Key="ProtocolHandlerNotRegistered">Protocol handler for '{0}://' is not registered. Please ensure the associated application is installed.</system:String>
     <system:String x:Key="Publisher">Publisher:</system:String>
     <system:String x:Key="Purple">Purple</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Put cover images for this system inside</system:String>
