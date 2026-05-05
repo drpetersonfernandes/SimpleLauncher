@@ -787,6 +787,9 @@ public partial class GameLauncher
         var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
                        (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
 
+        var isDuckstation = selectedEmulatorName.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ||
+                            (selectedEmulatorManager?.EmulatorLocation?.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ?? false);
+
         var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
                                                                                     selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
 
@@ -826,7 +829,7 @@ public partial class GameLauncher
             return;
         }
 
-        if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
+        if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy || isDuckstation) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {

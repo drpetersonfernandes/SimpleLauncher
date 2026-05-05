@@ -2999,7 +2999,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ThereWasAnErrorMountingTheFile()
+    internal static void ThereWasAnErrorMountingTheFile(int? exitCode = null)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3007,12 +3007,17 @@ internal static class MessageBoxLibrary
         void ShowMessage()
         {
             var simpleLaunchercouldnotmount = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotmount") ?? "'Simple Launcher' could not mount the selected game.";
-            var thismaybeduetoDokannotbeinginstalled = (string)Application.Current.TryFindResource("ThismaybeduetoDokannotbeinginstalled2") ?? "This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files.";
+            var reasonMessage = exitCode switch
+            {
+                -1073741510 => (string)Application.Current.TryFindResource("ThisDokanVersionIncompatible") ?? "The installed version of Dokan may be incompatible. Try reinstalling or updating Dokan.",
+                -1073741515 => (string)Application.Current.TryFindResource("Dokannotinstalled") ?? "Dokan library is not installed. Dokan is required for mounting ZIP, CHD and disk image files.",
+                _ => (string)Application.Current.TryFindResource("ThismaybeduetoDokannotbeinginstalled2") ?? "This may be due to Dokan not being installed. Dokan is required for mounting ZIP, CHD and disk image files."
+            };
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("DoyouwanttoopenyourbrowsertodownloadDokan") ?? "Do you want to open your browser to download Dokan?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var messageBoxResult = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotmount}\n\n" +
-                                                                  $"{thismaybeduetoDokannotbeinginstalled}\n\n" +
+                                                                  $"{reasonMessage}\n\n" +
                                                                   $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (messageBoxResult == MessageBoxResult.Yes)
