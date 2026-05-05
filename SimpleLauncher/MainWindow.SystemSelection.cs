@@ -25,8 +25,8 @@ public partial class MainWindow
         GameListItems.Clear();
 
         PreviewImage.Source = null;
-        TopSystemImage.Visibility = Visibility.Collapsed;
-        TopSystemLogoImage.Source = null;
+        // TopSystemImage.Visibility = Visibility.Collapsed;
+        // TopSystemLogoImage.Source = null;
 
         TotalFilesLabel.Content = null;
         _prevPageButton.IsEnabled = false;

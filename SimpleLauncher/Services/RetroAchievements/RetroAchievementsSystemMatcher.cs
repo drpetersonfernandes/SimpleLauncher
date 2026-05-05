@@ -147,7 +147,8 @@ public static class RetroAchievementsSystemMatcher
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
             "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron",
-            "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Sega MSU MD", "ra", "FBA2", "FBA", "Bally Astrocade"
+            "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Sega MSU MD", "ra", "FBA2", "FBA", "Bally Astrocade",
+            "unsupported"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

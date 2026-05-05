@@ -898,24 +898,24 @@
                             </Grid>
                         </Border>
 
-                          <Border Grid.Column="1"
-                                  VerticalAlignment="Stretch"
-                                  HorizontalAlignment="Left"
-                                  MaxHeight="{Binding ElementName=TopSystemSelection, Path=ActualHeight}"
-                                  x:Name="TopSystemImage"
-                                  BorderThickness="1"
-                                  Margin="10,5,0,5"
-                                  Padding="5"
-                                  BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
-                                  Background="{DynamicResource MahApps.Brushes.Gray9}"
-                                  ToolTip="{DynamicResource TooltipTopSystemImage}"
-                                  CornerRadius="5">
-                              <Image x:Name="TopSystemLogoImage"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     Stretch="Uniform"
-                                     ToolTip="{DynamicResource TooltipTopSystemLogoImage}" />
-                          </Border>
+                          <!-- <Border Grid.Column="1" -->
+                          <!--         VerticalAlignment="Stretch" -->
+                          <!--         HorizontalAlignment="Left" -->
+                          <!--         MaxHeight="{Binding ElementName=TopSystemSelection, Path=ActualHeight}" -->
+                          <!--         x:Name="TopSystemImage" -->
+                          <!--         BorderThickness="1" -->
+                          <!--         Margin="10,5,0,5" -->
+                          <!--         Padding="5" -->
+                          <!--         BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" -->
+                          <!--         Background="{DynamicResource MahApps.Brushes.Gray9}" -->
+                          <!--         ToolTip="{DynamicResource TooltipTopSystemImage}" -->
+                          <!--         CornerRadius="5"> -->
+                          <!--     <Image x:Name="TopSystemLogoImage" -->
+                          <!--            VerticalAlignment="Center" -->
+                          <!--            HorizontalAlignment="Center" -->
+                          <!--            Stretch="Uniform" -->
+                          <!--            ToolTip="{DynamicResource TooltipTopSystemLogoImage}" /> -->
+                          <!-- </Border> -->
                 </Grid>
 
                     <!-- Main Content -->
