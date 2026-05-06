@@ -101,7 +101,7 @@ public static class RetroAchievementsSystemMatcher
         ["arduboy"] = new RaSystemInfo(71, ["arduboy"]),
         ["wasm-4"] = new RaSystemInfo(72, ["wasm-4"]),
         ["pc-8000/8800"] = new RaSystemInfo(47, ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"]),
-        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore C64 (Pytronik stuff)"]),
+        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore Max"]),
         ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
         ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
         ["fairchild channel f"] = new RaSystemInfo(57, ["fairchild channel f", "channel f"]),
@@ -147,8 +147,8 @@ public static class RetroAchievementsSystemMatcher
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
             "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron",
-            "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Sega MSU MD", "ra", "FBA2", "FBA", "Bally Astrocade",
-            "unsupported", "Build Engine"
+            "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD", "ra", "FBA2", "FBA",
+            "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
