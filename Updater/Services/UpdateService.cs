@@ -43,6 +43,7 @@ public class UpdateService
     private readonly DownloadService _downloadService;
     private readonly ZipService _zipService;
     private readonly ProcessService _processService;
+    private readonly DokanService _dokanService;
     private readonly string _appDirectory;
 
     /// <summary>
@@ -76,6 +77,12 @@ public class UpdateService
     public event EventHandler? ExtractionCompleted;
 
     /// <summary>
+    /// Event raised when Dokan is not installed and the user should be prompted.
+    /// Returns true if the user wants to install Dokan, false otherwise.
+    /// </summary>
+    public event Func<Task<bool>>? DokanInstallationPrompt;
+
+    /// <summary>
     /// Initializes a new instance of the UpdateService class.
     /// </summary>
     public UpdateService(
@@ -83,12 +90,14 @@ public class UpdateService
         DownloadService downloadService,
         ZipService zipService,
         ProcessService processService,
+        DokanService dokanService,
         string appDirectory)
     {
         _gitHubService = gitHubService;
         _downloadService = downloadService;
         _zipService = zipService;
         _processService = processService;
+        _dokanService = dokanService;
         _appDirectory = appDirectory;
 
         // Wire up service events
@@ -98,6 +107,8 @@ public class UpdateService
         _zipService.LogMessage += msg => LogMessage?.Invoke(msg);
         _zipService.ProgressChanged += OnExtractionProgressChanged;
         _processService.LogMessage += msg => LogMessage?.Invoke(msg);
+        _dokanService.LogMessage += msg => LogMessage?.Invoke(msg);
+        _dokanService.ProgressChanged += OnDownloadProgressChanged;
     }
 
     /// <summary>
@@ -246,6 +257,49 @@ public class UpdateService
     public void OpenManualDownloadPage()
     {
         _processService.OpenUrl(GitHubService.GetReleasesPageUrl());
+    }
+
+    /// <summary>
+    /// Checks if Dokan is installed and offers to install it if missing.
+    /// </summary>
+    public async Task CheckAndInstallDokanAsync()
+    {
+        try
+        {
+            if (_dokanService.IsDokanInstalled())
+            {
+                LogMessage?.Invoke("Dokan is already installed. No action needed.");
+                return;
+            }
+
+            // Dokan is not installed - ask the user
+            LogMessage?.Invoke("Dokan library is not installed.");
+
+            if (DokanInstallationPrompt != null)
+            {
+                var shouldInstall = await DokanInstallationPrompt.Invoke();
+                if (!shouldInstall)
+                {
+                    LogMessage?.Invoke("Skipping Dokan installation.");
+                    return;
+                }
+            }
+            else
+            {
+                LogMessage?.Invoke("No prompt handler configured. Skipping Dokan installation.");
+                return;
+            }
+
+            // User chose to install Dokan
+            LogMessage?.Invoke("Starting Dokan download and installation...");
+            await _dokanService.DownloadAndInstallDokanAsync(_appDirectory);
+            LogMessage?.Invoke("Dokan installer has been launched.");
+        }
+        catch (Exception ex)
+        {
+            await BugReportService.ReportBugAsync(ex, "Error during Dokan installation check");
+            LogMessage?.Invoke($"Error during Dokan check/installation: {ex.Message}");
+        }
     }
 
     private void OnDownloadProgressChanged(DownloadProgressInfo info)

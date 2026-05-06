@@ -87,8 +87,9 @@ public partial class MainWindow
         var downloadService = new DownloadService(HttpClient);
         var zipService = new ZipService(AppDirectory);
         var processService = new ProcessService();
+        var dokanService = new DokanService(HttpClient);
 
-        return new UpdateService(gitHubService, downloadService, zipService, processService, AppDirectory);
+        return new UpdateService(gitHubService, downloadService, zipService, processService, dokanService, AppDirectory);
     }
 
     /// <summary>
@@ -134,6 +135,18 @@ public partial class MainWindow
                 ProgressStatusText.Text = "Extraction complete";
             });
         };
+        _updateService.DokanInstallationPrompt += async () =>
+        {
+            return await Dispatcher.InvokeAsync(static () =>
+            {
+                var result = MessageBox.Show(
+                    "Dokan library is not installed.\n\n" +
+                    "Dokan is required for mounting ZIP, CHD and disk image files.\n\n" +
+                    "Do you want to download and install it now?",
+                    "Dokan Not Found", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                return result == MessageBoxResult.Yes;
+            });
+        };
     }
 
     /// <summary>
@@ -168,6 +181,9 @@ public partial class MainWindow
             {
                 MessageBox.Show("Update installed successfully.", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Check if Dokan is installed and offer to install it if missing
+                await _updateService.CheckAndInstallDokanAsync();
 
                 _updateService.RestartMainApplication();
                 Close();
