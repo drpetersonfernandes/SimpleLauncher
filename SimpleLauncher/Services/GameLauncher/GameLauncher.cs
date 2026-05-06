@@ -1233,6 +1233,7 @@ public partial class GameLauncher
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.RetroArchSpecialCharactersInPathMessageBox();
+                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1268,6 +1269,7 @@ public partial class GameLauncher
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameRomSetError();
+                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1286,7 +1288,8 @@ public partial class GameLauncher
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.MameUnknownSystemError();
+                MessageBoxLibrary.MameUnknownSystemErrorMessageBox();
+                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1304,6 +1307,7 @@ public partial class GameLauncher
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameUnableToLoadImage();
+                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;

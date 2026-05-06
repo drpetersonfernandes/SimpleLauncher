@@ -1243,6 +1243,39 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void WouldYouKLikeToOpenTheLogMessageBox(string logPath)
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var simpleLauncherWasUnableToLaunchThisGame = (string)Application.Current.TryFindResource("SimpleLauncherWasUnableToLaunchThisGame") ?? "'Simple Launcher' was unable to launch this game.";
+            var wouldyouliketoopentheerroruserlogfiletodebug = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlogfiletodebug") ?? "Would you like to open the 'error_user.log' file to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = System.Windows.MessageBox.Show($"{simpleLauncherWasUnableToLaunchThisGame}\n\n" +
+                                                        $"{wouldyouliketoopentheerroruserlogfiletodebug}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the 'error_user.log' file.");
+                    var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                    System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+
     internal static void FileSystemXmlIsCorruptedMessageBox(string logPath)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
@@ -4674,7 +4707,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MameUnknownSystemError()
+    internal static void MameUnknownSystemErrorMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
