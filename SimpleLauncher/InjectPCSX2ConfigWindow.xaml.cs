@@ -151,7 +151,7 @@ public partial class InjectPcsx2ConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.Pcsx2Settingssaved();
+                MessageBoxLibrary.Pcsx2SettingssavedMessageBox();
                 Close();
             }
             else

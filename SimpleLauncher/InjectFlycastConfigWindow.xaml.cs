@@ -57,7 +57,7 @@ public partial class InjectFlycastConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.FlycastEmulatorNotFound();
+        MessageBoxLibrary.FlycastEmulatorNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -140,7 +140,7 @@ public partial class InjectFlycastConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.FlycastConfigurationSavedSuccessfully();
+                MessageBoxLibrary.FlycastConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

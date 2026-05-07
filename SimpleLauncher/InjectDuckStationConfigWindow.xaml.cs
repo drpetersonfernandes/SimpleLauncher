@@ -92,7 +92,7 @@ public partial class InjectDuckStationConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.DuckStationEmulatorNotFound();
+        MessageBoxLibrary.DuckStationEmulatorNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -210,7 +210,7 @@ public partial class InjectDuckStationConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.DuckStationConfigurationSavedSuccessfully();
+                MessageBoxLibrary.DuckStationConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

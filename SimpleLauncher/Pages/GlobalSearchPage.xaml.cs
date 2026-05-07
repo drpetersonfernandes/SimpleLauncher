@@ -138,7 +138,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
 
             if (!hasMeaningfulKeywords)
             {
-                MessageBoxLibrary.EnterValidSearchTerms();
+                MessageBoxLibrary.EnterValidSearchTermsMessageBox();
                 return;
             }
 

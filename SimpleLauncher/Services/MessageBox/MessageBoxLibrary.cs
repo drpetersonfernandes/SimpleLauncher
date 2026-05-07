@@ -1243,7 +1243,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void WouldYouKLikeToOpenTheLogMessageBox(string logPath)
+    internal static void WouldYouLikeToOpenTheLogMessageBox(string logPath)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -2861,7 +2861,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CouldNotOpenTheDownloadLink()
+    internal static void CouldNotOpenTheDownloadLinkMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2910,7 +2910,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CouldNotOpenSoundConfigurationWindow()
+    internal static void CouldNotOpenSoundConfigurationWindowMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2923,7 +2923,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ErrorSettingSoundFile()
+    internal static void ErrorSettingSoundFileMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2936,7 +2936,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void NotificationSoundIsDisable()
+    internal static void NotificationSoundIsDisableMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2949,7 +2949,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void NoSoundFileIsSelected()
+    internal static void NoSoundFileIsSelectedMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2962,7 +2962,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SettingsSavedSuccessfully()
+    internal static void SettingsSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2975,7 +2975,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveSettings()
+    internal static void FailedToSaveSettingsMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2988,9 +2988,9 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FilePathIsInvalid(string logPath)
+    internal static void FilePathIsInvalidMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3032,7 +3032,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ThereWasAnErrorMountingTheFile(int? exitCode = null)
+    internal static void ThereWasAnErrorMountingTheFileMessageBox(int? exitCode = null)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3048,7 +3048,6 @@ internal static class MessageBoxLibrary
             };
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("DoyouwanttoopenyourbrowsertodownloadDokan") ?? "Do you want to open your browser to download Dokan?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
             var messageBoxResult = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotmount}\n\n" +
                                                                   $"{reasonMessage}\n\n" +
                                                                   $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -3078,7 +3077,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void LaunchToolInformation(string info)
+    internal static void LaunchToolInformationMessageBox(string info)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3103,7 +3102,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToCopyLogContent()
+    internal static void FailedToCopyLogContentMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3116,7 +3115,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CouldNotFindUpdaterOnGitHub()
+    internal static void CouldNotFindUpdaterOnGitHubMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3168,7 +3167,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void AddRaLogin()
+    internal static void AddRaLoginMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3195,7 +3194,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static MessageBoxResult WarnUserAboutMemoryConsumption()
+    internal static MessageBoxResult WarnUserAboutMemoryConsumptionMessageBox()
     {
         return Application.Current.Dispatcher.Invoke(ShowMessage);
 
@@ -3352,7 +3351,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolder()
+    internal static void SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3529,7 +3528,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void EnterValidSearchTerms()
+    internal static void EnterValidSearchTermsMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3542,7 +3541,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void OperationCancelled()
+    internal static void OperationCancelledMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3555,7 +3554,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static MessageBoxResult DoYouWantToCancelAndClose()
+    internal static MessageBoxResult DoYouWantToCancelAndCloseMessageBox()
     {
         return Application.Current.Dispatcher.Invoke(ShowMessage);
 
@@ -3567,7 +3566,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CouldNotOpenBrowserForAiSupport()
+    internal static void CouldNotOpenBrowserForAiSupportMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3580,7 +3579,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void PowerShellExecutionPolicyRestrictions()
+    internal static void PowerShellExecutionPolicyRestrictionsMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3597,7 +3596,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void UnabletomountIsOfile()
+    internal static void UnabletomountIsOfileMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3614,7 +3613,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void UnabletoDismountIsOfile()
+    internal static void UnabletoDismountIsOfileMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3664,7 +3663,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void EnterYourRetroAchievementsUsername()
+    internal static void EnterYourRetroAchievementsUsernameMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3677,7 +3676,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void EmulatorConfiguredSuccessfully()
+    internal static void EmulatorConfiguredSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3690,7 +3689,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToConfigureTheEmulator()
+    internal static void FailedToConfigureTheEmulatorMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3703,7 +3702,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void AnErrorOccurredWhileConfiguringTheEmulator()
+    internal static void AnErrorOccurredWhileConfiguringTheEmulatorMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3716,7 +3715,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToLoginToRetroAchievements()
+    internal static void FailedToLoginToRetroAchievementsMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3742,7 +3741,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectMameConfiguration()
+    internal static void FailedToInjectMameConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3755,7 +3754,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MamEconfigurationinjectedsuccessfully()
+    internal static void MamEconfigurationinjectedsuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3768,7 +3767,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectMamEconfiguration2()
+    internal static void FailedtoinjectMamEconfiguration2MessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3781,7 +3780,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MameEmulatorPathNotFound()
+    internal static void MameEmulatorPathNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3794,7 +3793,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RetroArchemulatorpathnotfound()
+    internal static void RetroArchemulatorpathnotfoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3807,7 +3806,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectRetroArchconfiguration()
+    internal static void FailedtoinjectRetroArchconfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3820,7 +3819,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RetroArchconfigurationinjectedsuccessfully()
+    internal static void RetroArchconfigurationinjectedsuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3833,7 +3832,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectRetroArchconfiguration2()
+    internal static void FailedtoinjectRetroArchconfiguration2MessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3846,7 +3845,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Xeniaemulatorpathnotfound()
+    internal static void XeniaemulatorpathnotfoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3859,7 +3858,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectXeniaconfiguration()
+    internal static void FailedtoinjectXeniaconfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3872,7 +3871,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Xeniaconfigurationinjectedsuccessfully()
+    internal static void XeniaconfigurationinjectedsuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3885,7 +3884,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectXeniaconfiguration2()
+    internal static void FailedtoinjectXeniaconfiguration2MessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3898,7 +3897,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void EnterUsernamePassword()
+    internal static void EnterUsernamePasswordMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3911,7 +3910,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Aresemulatornotfound()
+    internal static void AresemulatornotfoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3924,7 +3923,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Daphnesettingssavedsuccessfully()
+    internal static void DaphnesettingssavedsuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3937,7 +3936,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Pcsx2Settingssaved()
+    internal static void Pcsx2SettingssavedMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3950,7 +3949,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SettingsSaved()
+    internal static void SettingsSavedMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3963,7 +3962,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Cemuemulatornotfound()
+    internal static void CemuemulatornotfoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3976,7 +3975,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedtoinjectAresconfiguration()
+    internal static void FailedtoinjectAresconfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3989,7 +3988,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void CemuConfigurationSaved()
+    internal static void CemuConfigurationSavedMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4002,7 +4001,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FlycastEmulatorNotFound()
+    internal static void FlycastEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4015,7 +4014,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void AresConfigurationSavedSuccessfully()
+    internal static void AresConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4028,7 +4027,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveAresConfiguration()
+    internal static void FailedToSaveAresConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4041,7 +4040,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectFlycastConfiguration()
+    internal static void FailedToInjectFlycastConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4054,7 +4053,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FlycastConfigurationSavedSuccessfully()
+    internal static void FlycastConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4067,7 +4066,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DolphinEmulatorNotFound()
+    internal static void DolphinEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4080,7 +4079,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveFlycastConfiguration()
+    internal static void FailedToSaveFlycastConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4093,7 +4092,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectDolphinConfiguration()
+    internal static void FailedToInjectDolphinConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4106,7 +4105,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DolphinConfigurationSavedSuccessfully()
+    internal static void DolphinConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4119,7 +4118,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveDolphinConfiguration()
+    internal static void FailedToSaveDolphinConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4132,7 +4131,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SegaModel2EmulatorNotFound()
+    internal static void SegaModel2EmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4145,7 +4144,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectSegaModel2Configuration()
+    internal static void FailedToInjectSegaModel2ConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4158,7 +4157,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SegaModel2ConfigurationSavedSuccessfully()
+    internal static void SegaModel2ConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4171,7 +4170,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void BlastemEmulatorNotFound()
+    internal static void BlastemEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4184,7 +4183,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectBlastemConfiguration()
+    internal static void FailedToInjectBlastemConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4197,7 +4196,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void BlastemConfigurationSavedSuccessfully()
+    internal static void BlastemConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4210,7 +4209,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveSegaModel2Configuration()
+    internal static void FailedToSaveSegaModel2ConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4223,7 +4222,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveBlastemConfiguration()
+    internal static void FailedToSaveBlastemConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4236,7 +4235,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Rpcs3EmulatorNotFoundPleaseLocate()
+    internal static void Rpcs3EmulatorNotFoundPleaseLocateMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4249,7 +4248,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectRpcs3Configuration()
+    internal static void FailedToInjectRpcs3ConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4262,7 +4261,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void Rpcs3ConfigurationSavedSuccessfully()
+    internal static void Rpcs3ConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4275,7 +4274,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveRpcs3Configuration()
+    internal static void FailedToSaveRpcs3ConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4288,7 +4287,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void StellaEmulatorNotFound()
+    internal static void StellaEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4301,7 +4300,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectStellaConfiguration()
+    internal static void FailedToInjectStellaConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4314,7 +4313,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SupermodelEmulatorNotFound()
+    internal static void SupermodelEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4327,7 +4326,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void StellaConfigurationSavedSuccessfully()
+    internal static void StellaConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4340,7 +4339,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectSupermodelConfiguration()
+    internal static void FailedToInjectSupermodelConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4353,7 +4352,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveStellaConfiguration()
+    internal static void FailedToSaveStellaConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4366,7 +4365,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void SupermodelConfigurationSavedSuccessfully()
+    internal static void SupermodelConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4379,7 +4378,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveSupermodelConfiguration()
+    internal static void FailedToSaveSupermodelConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4392,7 +4391,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MednafenEmulatorNotFound()
+    internal static void MednafenEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4405,7 +4404,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MesenEmulatorNotFound()
+    internal static void MesenEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4418,7 +4417,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectMednafenConfiguration()
+    internal static void FailedToInjectMednafenConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4431,7 +4430,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectMesenConfiguration()
+    internal static void FailedToInjectMesenConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4444,7 +4443,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DuckStationEmulatorNotFound()
+    internal static void DuckStationEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4457,7 +4456,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MednafenConfigurationSavedSuccessfully()
+    internal static void MednafenConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4470,7 +4469,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveMednafenConfiguration()
+    internal static void FailedToSaveMednafenConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4483,7 +4482,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectDuckStationConfiguration()
+    internal static void FailedToInjectDuckStationConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4496,7 +4495,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DuckStationConfigurationSavedSuccessfully()
+    internal static void DuckStationConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4509,7 +4508,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveMesenConfiguration()
+    internal static void FailedToSaveMesenConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4522,7 +4521,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveDuckStationConfiguration()
+    internal static void FailedToSaveDuckStationConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4535,7 +4534,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MesenConfigurationSavedSuccessfully()
+    internal static void MesenConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4548,7 +4547,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectYumirConfiguration()
+    internal static void FailedToInjectYumirConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4561,7 +4560,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void YumirConfigurationSavedSuccessfully()
+    internal static void YumirConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4574,7 +4573,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RaineSettingsSavedAndInjected()
+    internal static void RaineSettingsSavedAndInjectedMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4587,7 +4586,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RaineExecutableNotFound()
+    internal static void RaineExecutableNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4600,7 +4599,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void YumirEmulatorNotFound()
+    internal static void YumirEmulatorNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4613,7 +4612,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ReDreamEmulatorPathNotFound()
+    internal static void ReDreamEmulatorPathNotFoundMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4626,7 +4625,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToInjectReDreamConfiguration()
+    internal static void FailedToInjectReDreamConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4639,7 +4638,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void ReDreamConfigurationInjectedSuccessfully()
+    internal static void ReDreamConfigurationInjectedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4652,7 +4651,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static Task CouldNotLaunchGameDueToDepViolation()
+    internal static Task CouldNotLaunchGameDueToDepViolationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return Task.CompletedTask;
@@ -4671,7 +4670,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MameRomSetError()
+    internal static void MameRomSetErrorMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4745,7 +4744,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void MameUnableToLoadImage()
+    internal static void MameUnableToLoadImageMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4783,7 +4782,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void OotakeDoesNotSupportImageFiles()
+    internal static void OotakeDoesNotSupportImageFilesMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4796,7 +4795,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void GeolithDoesNotSupportCompressedFiles()
+    internal static void GeolithDoesNotSupportCompressedFilesMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4832,7 +4831,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RetroArchParameterShouldContainL()
+    internal static void RetroArchParameterShouldContainLMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4847,7 +4846,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void RetroArchParameterIssue(string logPath)
+    internal static void RetroArchParameterIssueMessageBox(string logPath)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4903,7 +4902,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void AzaharConfigurationInjectionPermissionError()
+    internal static void AzaharConfigurationInjectionPermissionErrorMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4926,7 +4925,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void AzaharConfigurationSavedSuccessfully()
+    internal static void AzaharConfigurationSavedSuccessfullyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4939,7 +4938,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FailedToSaveAzaharConfiguration()
+    internal static void FailedToSaveAzaharConfigurationMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4952,7 +4951,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void XemuParameterShouldContainDvdPath()
+    public static void XemuParameterShouldContainDvdPathMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4967,7 +4966,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void PleaseExtractApplicationFirst()
+    public static void PleaseExtractApplicationFirstMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;

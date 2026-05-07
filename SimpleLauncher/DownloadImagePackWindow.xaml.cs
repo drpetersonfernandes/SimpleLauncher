@@ -543,7 +543,7 @@ internal partial class DownloadImagePackWindow : IDisposable, System.ComponentMo
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the download link.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotOpenTheDownloadLink();
+            MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
         }
     }
 

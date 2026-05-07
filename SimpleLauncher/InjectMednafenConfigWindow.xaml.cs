@@ -85,7 +85,7 @@ public partial class InjectMednafenConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.MednafenEmulatorNotFound();
+        MessageBoxLibrary.MednafenEmulatorNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -188,7 +188,7 @@ public partial class InjectMednafenConfigWindow
             SaveSettings();
             if (await InjectConfigAsync())
             {
-                MessageBoxLibrary.MednafenConfigurationSavedSuccessfully();
+                MessageBoxLibrary.MednafenConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

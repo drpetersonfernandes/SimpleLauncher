@@ -229,7 +229,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
             return;
         }
@@ -241,7 +241,7 @@ internal static class MountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
 
@@ -360,7 +360,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
@@ -471,7 +471,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
             return;
         }
@@ -483,7 +483,7 @@ internal static class MountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
 
@@ -597,7 +597,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
@@ -788,7 +788,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
             return;
         }
@@ -800,7 +800,7 @@ internal static class MountZipFiles
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
 
@@ -962,7 +962,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {

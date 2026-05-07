@@ -63,7 +63,7 @@ public partial class InjectMesenConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.MesenEmulatorNotFound();
+        MessageBoxLibrary.MesenEmulatorNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -152,7 +152,7 @@ public partial class InjectMesenConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.MesenConfigurationSavedSuccessfully();
+                MessageBoxLibrary.MesenConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

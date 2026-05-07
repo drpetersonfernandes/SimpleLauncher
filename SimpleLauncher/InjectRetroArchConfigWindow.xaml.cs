@@ -82,7 +82,7 @@ public partial class InjectRetroArchConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.RetroArchemulatorpathnotfound();
+        MessageBoxLibrary.RetroArchemulatorpathnotfoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RetroArch Executable|retroarch.exe|All Executables|*.exe",
@@ -187,7 +187,7 @@ public partial class InjectRetroArchConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.RetroArchconfigurationinjectedsuccessfully();
+                MessageBoxLibrary.RetroArchconfigurationinjectedsuccessfullyMessageBox();
                 Close();
             }
             else

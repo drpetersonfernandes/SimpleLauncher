@@ -113,7 +113,7 @@ public partial class RetroAchievementsSettingsWindow
             // 1. Ensure user entered credentials before attempting injection
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBoxLibrary.EnterUsernamePassword();
+                MessageBoxLibrary.EnterUsernamePasswordMessageBox();
                 return;
             }
 
@@ -137,7 +137,7 @@ public partial class RetroAchievementsSettingsWindow
                     }
                     else
                     {
-                        MessageBoxLibrary.FailedToLoginToRetroAchievements();
+                        MessageBoxLibrary.FailedToLoginToRetroAchievementsMessageBox();
                         return;
                     }
                 }
@@ -169,16 +169,16 @@ public partial class RetroAchievementsSettingsWindow
 
                 if (success)
                 {
-                    MessageBoxLibrary.EmulatorConfiguredSuccessfully();
+                    MessageBoxLibrary.EmulatorConfiguredSuccessfullyMessageBox();
                 }
                 else
                 {
-                    MessageBoxLibrary.FailedToConfigureTheEmulator();
+                    MessageBoxLibrary.FailedToConfigureTheEmulatorMessageBox();
                 }
             }
             catch (Exception ex)
             {
-                MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulator();
+                MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
             }
         }

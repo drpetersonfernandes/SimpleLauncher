@@ -96,7 +96,7 @@ public partial class InjectYumirConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.YumirEmulatorNotFound(); // Ensure this exists in MessageBoxLibrary
+        MessageBoxLibrary.YumirEmulatorNotFoundMessageBox(); // Ensure this exists in MessageBoxLibrary
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -168,7 +168,7 @@ public partial class InjectYumirConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.YumirConfigurationSavedSuccessfully();
+                MessageBoxLibrary.YumirConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

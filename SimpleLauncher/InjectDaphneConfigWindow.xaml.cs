@@ -76,7 +76,7 @@ public partial class InjectDaphneConfigWindow
     private void BtnSave_Click(object sender, RoutedEventArgs e)
     {
         SaveSettings();
-        MessageBoxLibrary.Daphnesettingssavedsuccessfully();
+        MessageBoxLibrary.DaphnesettingssavedsuccessfullyMessageBox();
         Close();
     }
 }

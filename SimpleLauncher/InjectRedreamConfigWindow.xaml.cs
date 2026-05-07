@@ -133,7 +133,7 @@ public partial class InjectRedreamConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.ReDreamEmulatorPathNotFound();
+        MessageBoxLibrary.ReDreamEmulatorPathNotFoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Redream Executable|redream.exe|All Executables|*.exe",
@@ -204,7 +204,7 @@ public partial class InjectRedreamConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.ReDreamConfigurationInjectedSuccessfully();
+                MessageBoxLibrary.ReDreamConfigurationInjectedSuccessfullyMessageBox();
                 Close();
             }
             else

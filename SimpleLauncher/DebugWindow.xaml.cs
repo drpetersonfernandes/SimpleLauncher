@@ -84,7 +84,7 @@ public partial class DebugWindow
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying log");
 
             // Notify user
-            MessageBoxLibrary.FailedToCopyLogContent();
+            MessageBoxLibrary.FailedToCopyLogContentMessageBox();
             DebugLogger.Log("Failed to copy log content.");
         }
     }

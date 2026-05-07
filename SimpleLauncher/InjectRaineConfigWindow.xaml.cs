@@ -56,7 +56,7 @@ public partial class InjectRaineConfigWindow
         }
 
         // Use a localized message if possible, or generic
-        MessageBoxLibrary.RaineExecutableNotFound();
+        MessageBoxLibrary.RaineExecutableNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -181,7 +181,7 @@ public partial class InjectRaineConfigWindow
             if (InjectConfig())
             {
                 if (!_isLauncherMode)
-                    MessageBoxLibrary.RaineSettingsSavedAndInjected();
+                    MessageBoxLibrary.RaineSettingsSavedAndInjectedMessageBox();
 
                 Close();
             }

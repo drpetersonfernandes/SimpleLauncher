@@ -257,7 +257,7 @@ internal static class ContextMenuFunctions
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
-                MessageBoxLibrary.AddRaLogin();
+                MessageBoxLibrary.AddRaLoginMessageBox();
                 playSoundEffects.PlayNotificationSound();
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -314,7 +314,7 @@ internal static class ContextMenuFunctions
             // Disable Hash calculation for systems that Group Files by Folder
             if (systemManager.GroupByFolder)
             {
-                MessageBoxLibrary.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolder();
+                MessageBoxLibrary.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBox();
                 DebugLogger.Log("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
                 DebugLogger.Log("[RA Service] Please edit the system settings and disable the 'Group Files by Folder' option.");
                 return;

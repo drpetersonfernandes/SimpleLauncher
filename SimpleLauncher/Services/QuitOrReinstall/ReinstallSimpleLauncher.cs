@@ -38,7 +38,7 @@ public static class ReinstallSimpleLauncher
 
                     if (string.IsNullOrEmpty(updaterZipUrl))
                     {
-                        MessageBoxLibrary.CouldNotFindUpdaterOnGitHub();
+                        MessageBoxLibrary.CouldNotFindUpdaterOnGitHubMessageBox();
                         return;
                     }
 

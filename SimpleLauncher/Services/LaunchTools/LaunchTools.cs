@@ -97,7 +97,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -118,7 +118,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -139,7 +139,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -171,7 +171,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -192,7 +192,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -213,7 +213,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -244,7 +244,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -265,7 +265,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -286,7 +286,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -307,7 +307,7 @@ public class LaunchTools : ILaunchTools
         if (executableName == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -328,7 +328,7 @@ public class LaunchTools : ILaunchTools
         if (executablePath == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 
@@ -359,7 +359,7 @@ public class LaunchTools : ILaunchTools
         if (executablePath == null)
         {
             var msg = (string)Application.Current.TryFindResource("AppNotAvailableForArch") ?? "This application is not available for {0}";
-            MessageBoxLibrary.LaunchToolInformation(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            MessageBoxLibrary.LaunchToolInformationMessageBox(string.Format(CultureInfo.InvariantCulture, msg, architecture));
             return;
         }
 

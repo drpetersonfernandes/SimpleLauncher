@@ -59,7 +59,7 @@ internal partial class GlobalStatsWindow : IDisposable
             {
                 if (!_forceClose)
                 {
-                    MessageBoxLibrary.OperationCancelled();
+                    MessageBoxLibrary.OperationCancelledMessageBox();
                 }
 
                 ResetUiAfterProcessing();
@@ -316,7 +316,7 @@ internal partial class GlobalStatsWindow : IDisposable
 
             // Processing is active - ask user to confirm
             e.Cancel = true;
-            if (MessageBoxLibrary.DoYouWantToCancelAndClose() == MessageBoxResult.Yes)
+            if (MessageBoxLibrary.DoYouWantToCancelAndCloseMessageBox() == MessageBoxResult.Yes)
             {
                 _forceClose = true;
                 CancelButton_Click(null, null);

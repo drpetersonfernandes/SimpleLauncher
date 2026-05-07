@@ -65,7 +65,7 @@ public partial class InjectStellaConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.StellaEmulatorNotFound();
+        MessageBoxLibrary.StellaEmulatorNotFoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Stella Executable|stella.exe|All Executables|*.exe",
@@ -153,7 +153,7 @@ public partial class InjectStellaConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.StellaConfigurationSavedSuccessfully();
+                MessageBoxLibrary.StellaConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

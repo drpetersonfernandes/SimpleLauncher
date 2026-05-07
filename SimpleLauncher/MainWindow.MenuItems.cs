@@ -634,7 +634,7 @@ public partial class MainWindow
             {
                 if (clickedItem.Name is "Page1000" or "Page10000" or "Page1000000")
                 {
-                    if (MessageBoxLibrary.WarnUserAboutMemoryConsumption() == MessageBoxResult.No)
+                    if (MessageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == MessageBoxResult.No)
                     {
                         return; // User chose not to proceed
                     }
@@ -1326,7 +1326,7 @@ public partial class MainWindow
             _ = _logErrors.LogErrorAsync(ex, "Error opening Sound Configuration window.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotOpenSoundConfigurationWindow();
+            MessageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBox();
         }
     }
 

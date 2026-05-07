@@ -71,7 +71,7 @@ public partial class InjectSegaModel2ConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.SegaModel2EmulatorNotFound();
+        MessageBoxLibrary.SegaModel2EmulatorNotFoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "SEGA Model 2 Executable|emulator.exe|All Executables|*.exe",
@@ -165,7 +165,7 @@ public partial class InjectSegaModel2ConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.SegaModel2ConfigurationSavedSuccessfully();
+                MessageBoxLibrary.SegaModel2ConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

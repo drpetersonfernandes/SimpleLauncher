@@ -2295,7 +2295,7 @@ public class SettingsManager : IDisposable
         }
 
         // Notify user that settings could not be saved
-        MessageBoxLibrary.FailedToSaveSettings();
+        MessageBoxLibrary.FailedToSaveSettingsMessageBox();
     }
 
     private static XElement BuildXElement(SettingsManager s)

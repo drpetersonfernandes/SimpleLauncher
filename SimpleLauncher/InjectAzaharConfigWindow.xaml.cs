@@ -106,13 +106,13 @@ public partial class InjectAzaharConfigWindow
         catch (AzaharPermissionException)
         {
             // Show permission error - the caller will handle whether to continue or not
-            MessageBoxLibrary.AzaharConfigurationInjectionPermissionError();
+            MessageBoxLibrary.AzaharConfigurationInjectionPermissionErrorMessageBox();
             throw;
         }
         catch (InvalidOperationException ex)
         {
             _logErrors.LogErrorAsync(ex, "Azahar injection failed");
-            MessageBoxLibrary.FailedToSaveAzaharConfiguration();
+            MessageBoxLibrary.FailedToSaveAzaharConfigurationMessageBox();
             return false;
         }
     }
@@ -163,7 +163,7 @@ public partial class InjectAzaharConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.AzaharConfigurationSavedSuccessfully();
+                MessageBoxLibrary.AzaharConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

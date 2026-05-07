@@ -51,7 +51,7 @@ public partial class App : IDisposable
         var tempDir = Path.GetTempPath();
         if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
         {
-            MessageBoxLibrary.PleaseExtractApplicationFirst();
+            MessageBoxLibrary.PleaseExtractApplicationFirstMessageBox();
             Shutdown();
             return;
         }

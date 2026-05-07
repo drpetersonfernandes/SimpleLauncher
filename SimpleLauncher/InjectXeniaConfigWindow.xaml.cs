@@ -82,7 +82,7 @@ public partial class InjectXeniaConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.Xeniaemulatorpathnotfound();
+        MessageBoxLibrary.XeniaemulatorpathnotfoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Xenia Executable|xenia*.exe|All Executables|*.exe",
@@ -197,7 +197,7 @@ public partial class InjectXeniaConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.Xeniaconfigurationinjectedsuccessfully();
+                MessageBoxLibrary.XeniaconfigurationinjectedsuccessfullyMessageBox();
                 Close();
             }
             else

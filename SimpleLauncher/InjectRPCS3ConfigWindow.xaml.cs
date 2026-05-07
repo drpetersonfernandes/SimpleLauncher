@@ -72,7 +72,7 @@ public partial class InjectRpcs3ConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.Rpcs3EmulatorNotFoundPleaseLocate();
+        MessageBoxLibrary.Rpcs3EmulatorNotFoundPleaseLocateMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RPCS3 Executable|rpcs3.exe|All Executables|*.exe",
@@ -168,7 +168,7 @@ public partial class InjectRpcs3ConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.Rpcs3ConfigurationSavedSuccessfully();
+                MessageBoxLibrary.Rpcs3ConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

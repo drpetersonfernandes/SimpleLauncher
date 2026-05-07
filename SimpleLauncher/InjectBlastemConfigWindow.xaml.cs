@@ -61,7 +61,7 @@ public partial class InjectBlastemConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.BlastemEmulatorNotFound();
+        MessageBoxLibrary.BlastemEmulatorNotFoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Blastem Executable|blastem.exe|All Executables|*.exe",
@@ -164,7 +164,7 @@ public partial class InjectBlastemConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.BlastemConfigurationSavedSuccessfully();
+                MessageBoxLibrary.BlastemConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

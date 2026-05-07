@@ -74,7 +74,7 @@ public partial class SupportOptionWindow
         }
         catch (Exception ex)
         {
-            MessageBoxLibrary.CouldNotOpenBrowserForAiSupport();
+            MessageBoxLibrary.CouldNotOpenBrowserForAiSupportMessageBox();
 
             var contextMessage = $"Error in LaunchAiSearch with base URL: {baseUrl}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);

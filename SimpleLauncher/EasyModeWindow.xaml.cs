@@ -1263,7 +1263,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the download link.");
 
             // Notify user
-            MessageBoxLibrary.CouldNotOpenTheDownloadLink();
+            MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
         }
     }
 

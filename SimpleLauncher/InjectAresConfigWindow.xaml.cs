@@ -65,7 +65,7 @@ public partial class InjectAresConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.Aresemulatornotfound();
+        MessageBoxLibrary.AresemulatornotfoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -155,7 +155,7 @@ public partial class InjectAresConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.AresConfigurationSavedSuccessfully();
+                MessageBoxLibrary.AresConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

@@ -57,7 +57,7 @@ public partial class InjectDolphinConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.DolphinEmulatorNotFound();
+        MessageBoxLibrary.DolphinEmulatorNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -140,7 +140,7 @@ public partial class InjectDolphinConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.DolphinConfigurationSavedSuccessfully();
+                MessageBoxLibrary.DolphinConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else

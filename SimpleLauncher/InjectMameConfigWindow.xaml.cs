@@ -76,7 +76,7 @@ public partial class InjectMameConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.MameEmulatorPathNotFound();
+        MessageBoxLibrary.MameEmulatorPathNotFoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -171,7 +171,7 @@ public partial class InjectMameConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.MamEconfigurationinjectedsuccessfully();
+                MessageBoxLibrary.MamEconfigurationinjectedsuccessfullyMessageBox();
                 Close();
             }
             else

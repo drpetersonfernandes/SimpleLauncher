@@ -76,7 +76,7 @@ public partial class InjectCemuConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.Cemuemulatornotfound();
+        MessageBoxLibrary.CemuemulatornotfoundMessageBox();
 
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -164,7 +164,7 @@ public partial class InjectCemuConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.CemuConfigurationSaved();
+                MessageBoxLibrary.CemuConfigurationSavedMessageBox();
                 ShouldRun = false; // Explicitly set for clarity
                 Close();
             }

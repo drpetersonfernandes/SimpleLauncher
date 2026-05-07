@@ -93,7 +93,7 @@ public partial class SoundConfigurationWindow
             _ = _logErrors.LogErrorAsync(ex, "Error choosing or copying sound file.");
 
             // Notify user
-            MessageBoxLibrary.ErrorSettingSoundFile();
+            MessageBoxLibrary.ErrorSettingSoundFileMessageBox();
         }
     }
 
@@ -105,10 +105,10 @@ public partial class SoundConfigurationWindow
                 _playSoundEffects.PlayConfiguredSound(NotificationSoundFileTextBox.Text);
                 break;
             case false:
-                MessageBoxLibrary.NotificationSoundIsDisable();
+                MessageBoxLibrary.NotificationSoundIsDisableMessageBox();
                 break;
             default:
-                MessageBoxLibrary.NoSoundFileIsSelected();
+                MessageBoxLibrary.NoSoundFileIsSelectedMessageBox();
                 break;
         }
     }
@@ -127,7 +127,7 @@ public partial class SoundConfigurationWindow
         _settings.Save();
 
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...", Application.Current.MainWindow as MainWindow);
-        MessageBoxLibrary.SettingsSavedSuccessfully();
+        MessageBoxLibrary.SettingsSavedSuccessfullyMessageBox();
 
         DialogResult = true;
         Close();

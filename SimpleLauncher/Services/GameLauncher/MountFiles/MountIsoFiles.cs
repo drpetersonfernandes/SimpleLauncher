@@ -32,7 +32,7 @@ public static class MountIsoFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
             return;
         }
@@ -46,7 +46,7 @@ public static class MountIsoFiles
             {
                 // Error already logged by ExecutePowerShellMountCommandAsync
                 // User already notified by ExecutePowerShellMountCommandAsync or will be here
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
                 return;
             }
 
@@ -63,7 +63,7 @@ public static class MountIsoFiles
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
                 // The finally block will attempt to dismount.
                 return;
@@ -86,7 +86,7 @@ public static class MountIsoFiles
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(errorMessage), errorMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
                 return;
             }
@@ -108,7 +108,7 @@ public static class MountIsoFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
         }
         finally
         {
@@ -205,7 +205,7 @@ public static class MountIsoFiles
                 // Check for execution policy restrictions
                 if (IsExecutionPolicyRestricted(errors))
                 {
-                    MessageBoxLibrary.UnabletomountIsOfile();
+                    MessageBoxLibrary.UnabletomountIsOfileMessageBox();
 
                     return null;
                 }
@@ -238,7 +238,7 @@ public static class MountIsoFiles
             var errorOutput = errorBuilder.ToString().Trim();
             if (IsExecutionPolicyRestricted(errorOutput))
             {
-                MessageBoxLibrary.UnabletomountIsOfile();
+                MessageBoxLibrary.UnabletomountIsOfileMessageBox();
             }
 
             // Notify developer
@@ -264,7 +264,7 @@ public static class MountIsoFiles
             // Check if the exception message indicates execution policy restrictions
             if (IsExecutionPolicyRestricted(ex.Message))
             {
-                MessageBoxLibrary.UnabletomountIsOfile();
+                MessageBoxLibrary.UnabletomountIsOfileMessageBox();
             }
 
             // Notify developer
@@ -316,7 +316,7 @@ public static class MountIsoFiles
                 // Check for execution policy restrictions
                 if (IsExecutionPolicyRestricted(errors))
                 {
-                    MessageBoxLibrary.UnabletoDismountIsOfile();
+                    MessageBoxLibrary.UnabletoDismountIsOfileMessageBox();
                 }
 
                 var warningMessage = $"PowerShell dismount command for ISO {isoPath} finished with Exit Code: {process.ExitCode} or reported errors (ErrorAction SilentlyContinue was used).\nErrors: {errors}";
@@ -333,7 +333,7 @@ public static class MountIsoFiles
             var errorOutput = errorBuilder.ToString().Trim();
             if (IsExecutionPolicyRestricted(errorOutput))
             {
-                MessageBoxLibrary.UnabletoDismountIsOfile();
+                MessageBoxLibrary.UnabletoDismountIsOfileMessageBox();
             }
 
             // Notify developer
@@ -358,7 +358,7 @@ public static class MountIsoFiles
             // Check if the exception message indicates execution policy restrictions
             if (IsExecutionPolicyRestricted(ex.Message))
             {
-                MessageBoxLibrary.UnabletoDismountIsOfile();
+                MessageBoxLibrary.UnabletoDismountIsOfileMessageBox();
             }
 
             // Notify developer

@@ -171,7 +171,7 @@ public partial class GameLauncher
         if (string.IsNullOrWhiteSpace(context.ResolvedFilePath))
         {
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Resolved file path is empty");
-            MessageBoxLibrary.FilePathIsInvalid(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            MessageBoxLibrary.FilePathIsInvalidMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
         }
 
@@ -191,7 +191,7 @@ public partial class GameLauncher
         {
             var msg = $"File not found: {context.ResolvedFilePath}";
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(msg), msg);
-            MessageBoxLibrary.FilePathIsInvalid(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            MessageBoxLibrary.FilePathIsInvalidMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;
         }
 
@@ -813,7 +813,7 @@ public partial class GameLauncher
             DebugLogger.Log(errorMessage);
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
-            MessageBoxLibrary.RetroArchParameterShouldContainL();
+            MessageBoxLibrary.RetroArchParameterShouldContainLMessageBox();
 
             return;
         }
@@ -824,7 +824,7 @@ public partial class GameLauncher
             DebugLogger.Log(errorMessage);
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
-            MessageBoxLibrary.XemuParameterShouldContainDvdPath();
+            MessageBoxLibrary.XemuParameterShouldContainDvdPathMessageBox();
 
             return;
         }
@@ -863,13 +863,13 @@ public partial class GameLauncher
 
         if (isOotake && (isChd || isBin || isCue || isIso))
         {
-            MessageBoxLibrary.OotakeDoesNotSupportImageFiles();
+            MessageBoxLibrary.OotakeDoesNotSupportImageFilesMessageBox();
             return;
         }
 
         if (isGeolith && (isZip || is7Z || isRar))
         {
-            MessageBoxLibrary.GeolithDoesNotSupportCompressedFiles();
+            MessageBoxLibrary.GeolithDoesNotSupportCompressedFilesMessageBox();
             return;
         }
 
@@ -1233,7 +1233,7 @@ public partial class GameLauncher
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.RetroArchSpecialCharactersInPathMessageBox();
-                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                MessageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1248,7 +1248,7 @@ public partial class GameLauncher
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.RetroArchParameterIssue(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                MessageBoxLibrary.RetroArchParameterIssueMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1268,8 +1268,8 @@ public partial class GameLauncher
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.MameRomSetError();
-                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                MessageBoxLibrary.MameRomSetErrorMessageBox();
+                MessageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1289,7 +1289,7 @@ public partial class GameLauncher
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.MameUnknownSystemErrorMessageBox();
-                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                MessageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1306,8 +1306,8 @@ public partial class GameLauncher
 
             if (emulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.MameUnableToLoadImage();
-                MessageBoxLibrary.WouldYouKLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                MessageBoxLibrary.MameUnableToLoadImageMessageBox();
+                MessageBoxLibrary.WouldYouLikeToOpenTheLogMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             }
 
             return Task.CompletedTask;
@@ -1387,7 +1387,7 @@ public partial class GameLauncher
         // if (emulatorManager.ReceiveANotificationOnEmulatorError)
         // {
         //     // Notify user
-        //     return MessageBoxLibrary.CouldNotLaunchGameDueToDepViolation();
+        //     return MessageBoxLibrary.CouldNotLaunchGameDueToDepViolationMessageBox();
         //     // SupportFromTheDeveloper.DoYouWantToReceiveSupportFromTheDeveloper(_configuration, _httpClientFactory, _logErrors, null, contextMessage, _playSoundEffects);
         // }
 

@@ -74,7 +74,7 @@ public partial class InjectSupermodelConfigWindow
             return _emulatorPath;
         }
 
-        MessageBoxLibrary.SupermodelEmulatorNotFound();
+        MessageBoxLibrary.SupermodelEmulatorNotFoundMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Supermodel Executable|Supermodel.exe|All Executables|*.exe",
@@ -172,7 +172,7 @@ public partial class InjectSupermodelConfigWindow
         {
             if (InjectConfig())
             {
-                MessageBoxLibrary.SupermodelConfigurationSavedSuccessfully();
+                MessageBoxLibrary.SupermodelConfigurationSavedSuccessfullyMessageBox();
                 Close();
             }
             else
