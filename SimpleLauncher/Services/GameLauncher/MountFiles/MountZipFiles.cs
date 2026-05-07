@@ -107,6 +107,16 @@ internal static class MountZipFiles
         };
     }
 
+    private static string GetExitCodeReason(int exitCode)
+    {
+        return exitCode switch
+        {
+            -1073741515 => "STATUS_DLL_NOT_FOUND (Dokan library is not installed)",
+            -1073741510 => "STATUS_ORDINAL_NOT_FOUND (Dokan library version mismatch — the installed version may be incompatible)",
+            _ => "unknown error"
+        };
+    }
+
     /// <summary>
     /// Finds an available drive letter, preferring the configured letter, then searching from Z: down to D:.
     /// </summary>
@@ -295,7 +305,8 @@ internal static class MountZipFiles
 
                 if (mountProcess.HasExited)
                 {
-                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                    var exitCode = mountProcess.ExitCode;
+                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
                     break;
                 }
 
@@ -306,9 +317,18 @@ internal static class MountZipFiles
 
             if (!mountSuccessful)
             {
-                var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
-                DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. {exitCodeInfoOnFailure} Check the console window of {_zipMountExecutableName} for details.");
-                throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                if (mountProcess.HasExited)
+                {
+                    var exitCode = mountProcess.ExitCode;
+                    var reason = GetExitCodeReason(exitCode);
+                    DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
+                    throw new InvalidOperationException($"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
+                }
+                else
+                {
+                    DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
+                    throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                }
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for EBOOT.BIN...");
@@ -340,7 +360,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
@@ -523,7 +543,8 @@ internal static class MountZipFiles
 
                 if (mountProcess.HasExited)
                 {
-                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                    var exitCode = mountProcess.ExitCode;
+                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
                     break;
                 }
 
@@ -534,9 +555,18 @@ internal static class MountZipFiles
 
             if (!mountSuccessful)
             {
-                var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
-                DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. {exitCodeInfoOnFailure} Check the console window of {_zipMountExecutableName} for details.");
-                throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                if (mountProcess.HasExited)
+                {
+                    var exitCode = mountProcess.ExitCode;
+                    var reason = GetExitCodeReason(exitCode);
+                    DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
+                    throw new InvalidOperationException($"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
+                }
+                else
+                {
+                    DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
+                    throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                }
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for nested file...");
@@ -567,7 +597,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
@@ -687,6 +717,51 @@ internal static class MountZipFiles
         }
     }
 
+    private static string FindScummVmGamePath(string mountDriveRootForChecks)
+    {
+        try
+        {
+            DebugLogger.Log($"[FindScummVmGamePath] Searching for game files in {mountDriveRootForChecks}...");
+
+            var currentPath = mountDriveRootForChecks;
+
+            while (true)
+            {
+                var directories = Directory.GetDirectories(currentPath);
+                var files = Directory.GetFiles(currentPath);
+
+                if (files.Length > 0)
+                {
+                    DebugLogger.Log($"[FindScummVmGamePath] Found files in: {currentPath}");
+                    return currentPath;
+                }
+
+                switch (directories.Length)
+                {
+                    case 1:
+                        DebugLogger.Log($"[FindScummVmGamePath] Single folder found, navigating into: {directories[0]}");
+                        currentPath = directories[0];
+                        continue;
+                    case > 1:
+                        DebugLogger.Log($"[FindScummVmGamePath] Multiple folders found, using current path: {currentPath}");
+                        return currentPath;
+                    default:
+                        DebugLogger.Log($"[FindScummVmGamePath] Empty directory, returning current path: {currentPath}");
+                        return currentPath;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[FindScummVmGamePath] Error: {ex.Message}");
+
+            // Notify developer
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in FindScummVmGamePath");
+
+            return mountDriveRootForChecks;
+        }
+    }
+
     public static async Task MountZipFileAndLoadWithScummVmAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
@@ -698,7 +773,6 @@ internal static class MountZipFiles
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
-
 
         ValidateZipForPathTraversal(resolvedZipFilePath);
 
@@ -732,7 +806,6 @@ internal static class MountZipFiles
 
         var mountPathArgument = driveLetter.Value.ToString().ToLowerInvariant();
         var mountDriveRootForChecks = $"{driveLetter.Value}:\\";
-        var finalMountDriveRoot = $"{driveLetter.Value}:";
 
         DebugLogger.Log($"[MountZipFiles] Selected drive letter for mounting: {driveLetter.Value}:");
 
@@ -787,7 +860,8 @@ internal static class MountZipFiles
 
                 if (mountProcess.HasExited)
                 {
-                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                    var exitCode = mountProcess.ExitCode;
+                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
                     break;
                 }
 
@@ -798,9 +872,18 @@ internal static class MountZipFiles
 
             if (!mountSuccessful)
             {
-                var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
-                DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. {exitCodeInfoOnFailure} Check the console window of {_zipMountExecutableName} for details.");
-                throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                if (mountProcess.HasExited)
+                {
+                    var exitCode = mountProcess.ExitCode;
+                    var reason = GetExitCodeReason(exitCode);
+                    DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
+                    throw new InvalidOperationException($"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
+                }
+                else
+                {
+                    DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
+                    throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                }
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Proceeding to launch with {selectedEmulatorName}.");
@@ -834,10 +917,11 @@ internal static class MountZipFiles
                 resolvedZipFilePath
             );
 
-            // The ScummVM -p argument expects a path to the game data.
-            // Do not pass the root directory explicitly ("Z:\").
-            // Pass just the drive letter ("Z:").
-            var arguments = $"-p \"{finalMountDriveRoot}\" {resolvedParameters} ";
+            // Navigate into nested single-folder directories to find the actual game files location
+            var gamePath = FindScummVmGamePath(mountDriveRootForChecks);
+            // ScummVM -p expects just the drive letter (e.g. "Y:") for root paths, not "Y:\"
+            var scummVmPath = gamePath == mountDriveRootForChecks ? mountDriveRootForChecks.TrimEnd('\\') : gamePath;
+            var arguments = $"-p \"{scummVmPath}\" {resolvedParameters} ";
 
             var psiEmulator = new ProcessStartInfo
             {
@@ -878,7 +962,7 @@ internal static class MountZipFiles
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheFile();
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
         }
         finally
         {
