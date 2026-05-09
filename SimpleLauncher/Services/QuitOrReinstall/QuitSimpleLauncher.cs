@@ -17,9 +17,9 @@ public static class QuitSimpleLauncher
         var startInfo = new ProcessStartInfo
         {
             FileName = processModule.FileName,
-            // Add the "--restarting" argument to signal the new instance
             Arguments = "--restarting",
-            UseShellExecute = true
+            UseShellExecute = true,
+            WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
         };
 
         try

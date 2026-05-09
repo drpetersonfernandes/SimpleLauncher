@@ -148,7 +148,7 @@ public static class RetroAchievementsSystemMatcher
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
             "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes",
             "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD", "ra", "FBA2", "FBA",
-            "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port"
+            "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
