@@ -146,9 +146,10 @@ public static class RetroAchievementsSystemMatcher
             "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade",
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
-            "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes",
+            "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes", "Acorn BBC Micro",
             "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD", "ra", "FBA2", "FBA",
-            "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch"
+            "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch",
+            "Namco 2x6", "FBN"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

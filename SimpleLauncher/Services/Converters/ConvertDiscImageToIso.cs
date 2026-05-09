@@ -7,12 +7,12 @@ using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
 
-public static class ConvertRvzToIso
+public static class ConvertDiscImageToIso
 {
     /// <summary>
-    /// Converts an RVZ file to a temporary ISO using DolphinTool.exe.
+    /// Converts a disc image file (RVZ, WBFS, GCZ, CISO, WIA) to a temporary ISO using DolphinTool.exe.
     /// </summary>
-    public static async Task<string> ConvertRvzToIsoAsync(string rvzPath)
+    public static async Task<string> ConvertToIsoAsync(string discImagePath)
     {
         try
         {
@@ -22,7 +22,7 @@ public static class ConvertRvzToIso
 
             if (!File.Exists(dolphinToolPath))
             {
-                DebugLogger.Log($"[ConvertRvzToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert RVZ.");
+                DebugLogger.Log($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
                 return null;
             }
 
@@ -31,7 +31,7 @@ public static class ConvertRvzToIso
             var tempIsoPath = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.iso");
 
             // Arguments: convert --format=iso --input="in.rvz" --output="out.iso"
-            var args = $"convert --format=iso --input=\"{rvzPath}\" --output=\"{tempIsoPath}\"";
+            var args = $"convert --format=iso --input=\"{discImagePath}\" --output=\"{tempIsoPath}\"";
 
             var processStartInfo = new ProcessStartInfo
             {
@@ -47,8 +47,8 @@ public static class ConvertRvzToIso
             using var process = new Process();
             process.StartInfo = processStartInfo;
 
-            DebugLogger.Log($"[ConvertRvzToIso] Running DolphinTool with args: {args}");
-            DebugLogger.Log("[ConvertRvzToIso] Converting from RVZ to ISO.");
+            DebugLogger.Log($"[ConvertDiscImageToIso] Running DolphinTool with args: {args}");
+            DebugLogger.Log($"[ConvertDiscImageToIso] Converting {Path.GetExtension(discImagePath)} to ISO.");
 
             var errorBuilder = new StringBuilder();
             process.ErrorDataReceived += (_, e) =>
@@ -67,7 +67,7 @@ public static class ConvertRvzToIso
             }
             catch (OperationCanceledException)
             {
-                DebugLogger.Log("[ConvertRvzToIso] Conversion timed out after 5 minutes.");
+                DebugLogger.Log("[ConvertDiscImageToIso] Conversion timed out after 5 minutes.");
                 try
                 {
                     process.Kill();
@@ -82,17 +82,17 @@ public static class ConvertRvzToIso
 
             if (process.ExitCode == 0 && File.Exists(tempIsoPath))
             {
-                DebugLogger.Log("[ConvertRvzToIso] Conversion successful.");
+                DebugLogger.Log("[ConvertDiscImageToIso] Conversion successful.");
                 return tempIsoPath;
             }
 
-            DebugLogger.Log($"[ConvertRvzToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            DebugLogger.Log($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, "[ConvertRvzToIso] Error converting RVZ to ISO.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertRvzToIso] Error converting RVZ to ISO.");
+            DebugLogger.LogException(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }
     }

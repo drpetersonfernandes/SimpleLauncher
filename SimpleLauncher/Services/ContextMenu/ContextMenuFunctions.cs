@@ -1110,7 +1110,7 @@ internal static class ContextMenuFunctions
         else
         {
             // Notify developer
-            var contextMessage = $"The file '{fileNameWithExtension}' could not be found for deletion.";
+            var contextMessage = $"The file '{fileNameWithExtension}' could not be found for deletion.\n\nFile path checked: {filePath}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user

@@ -783,6 +783,17 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 .
 
+**Emulator Name:** Gearcoleco<br>
+**Emulator Path (Example):** C:\Emulators\Gearcoleco\Gearcoleco.exe<br>
+**Emulator Parameters (Example):** -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/drhelius/Gearcoleco).<br>
+
+.
+
 **Emulator Name:** Ares<br>
 **Emulator Path (Example):** C:\Emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "ColecoVision"<br>

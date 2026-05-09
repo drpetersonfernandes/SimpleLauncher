@@ -487,18 +487,25 @@ internal static class RetroAchievementsHasherTool
                     string tempIsoPath = null;
                     try
                     {
-                        // Handle RVZ conversion if necessary
-                        if (Path.GetExtension(fileToProcess).Equals(".rvz", StringComparison.OrdinalIgnoreCase))
+                        // Handle disc image conversion if necessary
+                        // RAHasher only supports raw disc images (ISO/GCM) and WiiWare (WAD)
+                        // Other formats (RVZ, WBFS, GCZ, CISO, WIA) must be converted to ISO first
+                        var fileExt = Path.GetExtension(fileToProcess);
+                        if (fileExt.Equals(".rvz", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".wbfs", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".gcz", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".ciso", StringComparison.OrdinalIgnoreCase) ||
+                            fileExt.Equals(".wia", StringComparison.OrdinalIgnoreCase))
                         {
-                            DebugLogger.Log($"[RA Hasher Tool] RVZ detected. Converting to ISO for hashing: {fileToProcess}");
-                            tempIsoPath = await ConvertRvzToIso.ConvertRvzToIsoAsync(fileToProcess);
+                            DebugLogger.Log($"[RA Hasher Tool] {fileExt.ToUpperInvariant()} detected. Converting to ISO for hashing: {fileToProcess}");
+                            tempIsoPath = await ConvertDiscImageToIso.ConvertToIsoAsync(fileToProcess);
                             if (!string.IsNullOrEmpty(tempIsoPath))
                             {
                                 fileToProcess = tempIsoPath;
                             }
                             else
                             {
-                                extractionErrorMessage = "Failed to convert RVZ to ISO.";
+                                extractionErrorMessage = $"Failed to convert {fileExt.ToUpperInvariant()} to ISO.";
                                 isExtractionSuccessful = false;
                             }
                         }
