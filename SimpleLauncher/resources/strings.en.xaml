@@ -364,6 +364,7 @@
     <system:String x:Key="DisplayMachineName">Display Machine Name (for MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Display No Filename</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Display Original Filenames</system:String>
+    <system:String x:Key="Dokannotinstalled">Dokan library is not installed. Dokan is required for mounting ZIP, CHD and disk image files.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin configuration saved successfully.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Cancel</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Cancel and close this window without saving changes.</system:String>
@@ -1657,6 +1658,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.</system:String>
     <system:String x:Key="SimpleLauncherError">'Simple Launcher' Error</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' was unable to launch this game.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
     <system:String x:Key="SkyBlue">Sky Blue</system:String>
     <system:String x:Key="Small">Small</system:String>
@@ -1871,6 +1873,7 @@
     <system:String x:Key="Theupdateversionis">The update version is</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">The URL was copied to the clipboard for your convenience. You can paste it into your browser.</system:String>
     <system:String x:Key="Thisactionwilldelete">This action will delete the file from the HDD and cannot be undone.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">The installed version of Dokan may be incompatible. Try reinstalling or updating Dokan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">This is typically caused by Group Policy settings on corporate or managed PCs.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">This may be due to country firewall restrictions.</system:String>
@@ -2192,6 +2195,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Would you like to open the 'error_user.log' file to debug the error?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Would you like to restore the last backup?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">The Xemu parameter should contain '-dvd_path'.</system:String>

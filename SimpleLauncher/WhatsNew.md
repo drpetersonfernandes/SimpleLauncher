@@ -1,3 +1,42 @@
+# Release 5.4.0
+*2026-05-10*
+---
+
+## New Parameter Placeholder
+- Added `%ROMSYSTEMFOLDER%` placeholder that resolves to the specific system folder containing the ROM being launched.
+
+## RetroAchievements Integration
+- Improve the hashing of GameCube and Wii games with better support for RVZ, WBFS, GCZ, CISO, and WIA file formats.
+- Significantly expanded system name aliases for better matching (Nintendo N64, SEGA MEGA-CD, ARCADE - MAME, Nintendo - Game Boy Advance, and many more).
+
+## Dokan Installation Check
+- Integrated `DokanService` into the Updater that detects missing Dokan library and offers to download and install it after updates (x64/ARM64 support).
+- Enhanced CHD/ZIP mount error messages with specific Dokan exit code reasons (STATUS_DLL_NOT_FOUND, STATUS_ORDINAL_NOT_FOUND).
+
+## Enhanced Error Handling & Robustness
+- New RetroArch special characters in path detection (shows a clear message about mkdir permission denied).
+- MAME corrupted INI auto-restore from bundled sample when unknown option warnings are detected.
+- MAME error detection expanded to catch `mame64`, `WRONG LENGTH`, and `Required files are missing` patterns.
+- Protocol handler errors now show a localized message box instead of throwing an exception.
+- Guard against directory disappearance races during file enumeration.
+
+## Code Refactoring
+- Extracted `RomHistoryLoader` service from `RomHistoryWindow` for cleaner separation of concerns.
+
+## System Image Handling
+- Fix a bug while loading System image preview in the Edit System Window.
+
+## Unit Tests
+- New test suites for `MameManager` (corrupted/XML/empty dat files), `RetroAchievementsManager`, and `RomHistoryLoader`.
+- Added `ServiceProviderMock` helper for mocking `App.ServiceProvider` in unit tests.
+- Added test for XAML string key regex extraction.
+- Added auto-sorting tests for detecting and fixing alphabetical ordering issues in resource files.
+
+## Dependency Updates
+- SharpCompress 0.47.4 → 0.48.0
+- YamlDotNet 17.0.1 → 17.1.0
+- Microsoft.NET.Test.Sdk 18.4.0 → 18.5.1
+
 # Release 5.3.3
 *2026-04-25*
 ---
