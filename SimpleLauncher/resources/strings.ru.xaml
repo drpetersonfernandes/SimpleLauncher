@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Отображать название автомата (для MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Не отображать имя файла</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Отображать оригинальные имена файлов</system:String>
+    <system:String x:Key="Dokannotinstalled">Библиотека Dokan не установлена. Dokan необходима для монтирования файлов ZIP, CHD и образов дисков.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Конфигурация Dolphin успешно сохранена.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Отмена</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Отменить и закрыть это окно без сохранения изменений.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Проверьте требования ядра для его запуска. Некоторые ядра требуют файл BIOS для работы. Прочитайте документацию ядра, чтобы выяснить, каковы требования для этого конкретного ядра.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">Параметр RetroArch должен содержать -L, чтобы правильно указывать на желаемое ядро.</system:String>
     <system:String x:Key="RetroArchSettings">Настройки RetroArch</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">Эмулятор не смог запустить игру, так как путь к файлу содержит специальные символы (например: ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch не может создавать необходимые папки в путях, содержащих эти символы.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Чтобы исправить это, переместите эмулятор и файлы игры в папку, которая использует только стандартные буквы и цифры, например C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Загрузчик обложек ретро-игр</system:String>
     <system:String x:Key="ReturnButton">[ Назад ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Отмена настроек мертвой зоны геймпада...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' не поддерживает текущую архитектуру процессора. Мы поддерживаем только 64-битную (x64) или ARM64. Приложение будет закрыто.</system:String>
     <system:String x:Key="SimpleLauncherError">Ошибка Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' не смог запустить эту игру.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' не удалось восстановить последнюю резервную копию.</system:String>
     <system:String x:Key="SkyBlue">Небесно-голубой</system:String>
     <system:String x:Key="Small">Маленький</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">Версия обновления:</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">URL-адрес был скопирован в буфер обмена для вашего удобства. Вы можете вставить его в свой браузер.</system:String>
     <system:String x:Key="Thisactionwilldelete">Это действие удалит файл с жёсткого диска и не может быть отменено.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">Установленная версия Dokan может быть несовместима. Попробуйте переустановить или обновить Dokan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Это обычно вызвано настройками групповой политики на корпоративных или управляемых ПК.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Это обычно вызвано настройками групповой политики на корпоративных или управляемых ПК.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Это может быть связано с ограничениями брандмауэра страны.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Вы хотите быть перенаправлены на страницу загрузки?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Хотите перейти на страницу скачивания для ручной установки или обновления?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Вы хотите открыть файл 'error_user.log', чтобы исследовать эту проблему?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Хотите восстановить последнюю резервную копию?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Параметр Xemu должен содержать «-dvd_path».</system:String>

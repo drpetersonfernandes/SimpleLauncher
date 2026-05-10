@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">머신 이름 표시 (MAME용)</system:String>
     <system:String x:Key="DisplayNoFilename">파일 이름 표시 안 함</system:String>
     <system:String x:Key="DisplayOriginalFilenames">원본 파일 이름 표시</system:String>
+    <system:String x:Key="Dokannotinstalled">Dokan 라이브러리가 설치되어 있지 않습니다. ZIP, CHD 및 디스크 이미지 파일을 마운트하려면 Dokan이 필요합니다.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">취소</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">변경 사항을 저장하지 않고 취소하고 이 창을 닫습니다.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">코어 실행 요구 사항을 확인하십시오. 일부 코어는 작동하려면 BIOS 파일이 필요합니다. 해당 코어의 요구 사항이 무엇인지 파악하려면 코어 문서를 읽어보십시오.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">RetroArch 매개변수는 원하는 코어를 제대로 가리키기 위해 -L을 포함해야 합니다.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch 설정</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">에뮬레이터가 게임을 실행할 수 없습니다. 파일 경로에 특수 문자(예: ´, `, ~, !, ?)가 포함되어 있기 때문입니다.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch는 이러한 문자가 포함된 경로에 필요한 폴더를 생성할 수 없습니다.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">이 문제를 해결하려면 에뮬레이터와 게임 파일을 C:\Games\와 같이 표준 문자 및 숫자만 사용하는 폴더로 이동하십시오.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">레트로 게임 커버 다운로더</system:String>
     <system:String x:Key="ReturnButton">[ 돌아가기 ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">게임패드 데드존 설정 되돌리는 중...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher'는 현재 프로세서 아키텍처를 지원하지 않습니다. 64비트(x64) 또는 ARM64만 지원합니다. 애플리케이션이 이제 종료됩니다.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher 오류</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher'가 이 게임을 실행할 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher'는 마지막 백업을 복원할 수 없었습니다.</system:String>
     <system:String x:Key="SkyBlue">스카이 블루 (하늘색)</system:String>
     <system:String x:Key="Small">작게</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">업데이트 버전은 다음과 같습니다:</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">편의를 위해 URL이 클립보드에 복사되었습니다. 브라우저에 붙여넣을 수 있습니다.</system:String>
     <system:String x:Key="Thisactionwilldelete">이 작업은 파일을 하드 디스크에서 삭제하며, 복원할 수 없습니다.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">설치된 Dokan 버전이 호환되지 않을 수 있습니다. Dokan을 다시 설치하거나 업데이트해 보세요.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">이는 일반적으로 기업 또는 관리되는 PC의 그룹 정책 설정으로 인해 발생합니다.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">이는 일반적으로 기업 또는 관리되는 PC의 그룹 정책 설정으로 인해 발생합니다.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">이는 국가 방화벽 제한 때문일 수 있습니다.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">오류를 디버그하기 위해 'error_user.log' 파일을 여시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketorestore">마지막 백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu 매개변수에는 '-dvd_path'가 포함되어야 합니다.</system:String>

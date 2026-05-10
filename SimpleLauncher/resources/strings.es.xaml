@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Mostrar Nombre de Máquina (para MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">No Mostrar Nombre de Archivo</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Mostrar Nombres de Archivo Originales</system:String>
+    <system:String x:Key="Dokannotinstalled">La biblioteca Dokan no está instalada. Dokan es necesaria para montar archivos ZIP, CHD e imágenes de disco.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Configuración de Dolphin guardada correctamente.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Cancelar</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Cancelar y cerrar esta ventana sin guardar cambios.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Verifica los requisitos del núcleo para ejecutarlo. Algunos núcleos requieren un archivo BIOS para funcionar. Lee la documentación del núcleo para saber cuáles son los requisitos para ese núcleo específico.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">El parámetro de RetroArch debe contener -L para apuntar correctamente al núcleo deseado.</system:String>
     <system:String x:Key="RetroArchSettings">Configuración de RetroArch</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">El emulador no pudo iniciar el juego porque la ruta del archivo contiene caracteres especiales (por ejemplo: ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch no puede crear las carpetas necesarias en rutas con estos caracteres.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Para solucionar esto, mueva su emulador y sus archivos de juego a una carpeta que utilice solo letras y números estándar, como C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Descargador de portadas de juegos retro</system:String>
     <system:String x:Key="ReturnButton">[ Volver ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Revirtiendo configuración de zona muerta del gamepad...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' no es compatible con la arquitectura de procesador actual. Solo admitimos 64-bit (x64) o ARM64. La aplicación se cerrará ahora.</system:String>
     <system:String x:Key="SimpleLauncherError">Error de Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' no pudo crear las carpetas necesarias para este sistema.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' no pudo iniciar este juego.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' no pudo restaurar la última copia de seguridad.</system:String>
     <system:String x:Key="SkyBlue">Azul Cielo</system:String>
     <system:String x:Key="Small">Pequeño</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">La versión de la actualización es</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">La URL se copió al portapapeles para su conveniencia. Puede pegarla en su navegador.</system:String>
     <system:String x:Key="Thisactionwilldelete">Esta acción eliminará el archivo del disco duro y no se podrá deshacer.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">La versión instalada de Dokan podría ser incompatible. Intente reinstalar o actualizar Dokan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Esto suele ser causado por la configuración de la Política de grupo en PC corporativas o administradas.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Esto suele ser causado por la configuración de la Política de grupo en PC corporativas o administradas.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Esto puede deberse a restricciones de cortafuegos del país.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">¿Te gustaría ser redirigido a la página de descarga?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">¿Te gustaría ser redirigido a la página de descarga para instalarlo o actualizarlo manualmente?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">¿Le gustaría abrir el archivo 'error_user.log' para investigar el problema?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">¿Desea abrir el archivo 'error_user.log' para depurar el error?</system:String>
     <system:String x:Key="Wouldyouliketorestore">¿Le gustaría restaurar la última copia de seguridad?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">¿Te gustaría guardar un informe con los resultados?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">El parámetro Xemu debería contener '-dvd_path'.</system:String>

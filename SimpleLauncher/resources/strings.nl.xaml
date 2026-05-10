@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Machinenaam weergeven (voor MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Geen bestandsnaam weergeven</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Originele bestandsnamen weergeven</system:String>
+    <system:String x:Key="Dokannotinstalled">De Dokan-bibliotheek is niet geïnstalleerd. Dokan is vereist voor het koppelen van ZIP-, CHD- en schijfkopiebestanden.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Annuleren</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Annuleer en sluit dit venster zonder wijzigingen op te slaan.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Controleer de core-vereisten om deze te draaien. Sommige cores vereisen een BIOS-bestand om te werken. Lees de core-documentatie om erachter te komen wat de vereisten zijn voor die specifieke core.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">De RetroArch-parameter moet -L bevatten om correct naar de gewenste core te verwijzen.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch-instellingen</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">De emulator kon het spel niet starten omdat het bestandspad speciale tekens bevat (bijvoorbeeld: ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch kan zijn vereiste mappen niet aanmaken in paden met deze tekens.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Om dit op te lossen, verplaatst u uw emulator en uw spelbestanden naar een map die alleen standaard letters en cijfers gebruikt, zoals C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Retro game-cover downloader</system:String>
     <system:String x:Key="ReturnButton">[ Terug ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad Dead Zone-instellingen herstellen...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' ondersteunt de huidige processorarchitectuur niet. We ondersteunen alleen 64-bit (x64) of ARM64. De applicatie wordt nu gesloten.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher-fout</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' kon de laatste back-up niet herstellen.</system:String>
     <system:String x:Key="SkyBlue">Hemelsblauw</system:String>
     <system:String x:Key="Small">Klein</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">De updateversie is</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">De URL is voor uw gemak naar het klembord gekopieerd. U kunt deze in uw browser plakken.</system:String>
     <system:String x:Key="Thisactionwilldelete">Deze actie verwijdert het bestand van de harde schijf en kan niet ongedaan worden gemaakt.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">De geïnstalleerde versie van Dokan is mogelijk incompatibel. Probeer Dokan opnieuw te installeren of bij te werken.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Dit wordt doorgaans veroorzaakt door Groepsbeleid-instellingen op zakelijke of beheerde pc's.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Dit wordt doorgaans veroorzaakt door Groepsbeleid-instellingen op zakelijke of beheerde pc's.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Dit kan te wijten zijn aan firewallbeperkingen in het land.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Wilt u doorverwezen worden naar de downloadpagina?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Wilt u het bestand 'error_user.log' openen om de fout op te sporen?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Wil je de laatste back-up herstellen?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">De Xemu-parameter moet '-dvd_path' bevatten.</system:String>

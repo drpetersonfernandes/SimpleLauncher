@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">मशीन का नाम प्रदर्शित करें (MAME के लिए)</system:String>
     <system:String x:Key="DisplayNoFilename">कोई फ़ाइलनाम प्रदर्शित न करें</system:String>
     <system:String x:Key="DisplayOriginalFilenames">मूल फ़ाइलनाम प्रदर्शित करें</system:String>
+    <system:String x:Key="Dokannotinstalled">Dokan लाइब्रेरी स्थापित नहीं है। ZIP, CHD और डिस्क इमेज फ़ाइलों को माउंट करने के लिए Dokan आवश्यक है।</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">डॉल्फिन कॉन्फ़िगरेशन सफलतापूर्वक सहेजा गया।</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">रद्द करें</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">परिवर्तन सहेजे बिना रद्द करें और इस विंडो को बंद करें।</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">इसे चलाने के लिए कोर आवश्यकताओं की जाँच करें। कुछ कोर को काम करने के लिए BIOS फ़ाइल की आवश्यकता होती है। उस विशिष्ट कोर के लिए क्या आवश्यकताएँ हैं, यह जानने के लिए कोर दस्तावेज़ पढ़ें।</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">RetroArch पैरामीटर को वांछित कोर को ठीक से इंगित करने के लिए -L शामिल होना चाहिए।</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch सेटिंग्स</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">एमुलेटर गेम लॉन्च नहीं कर सका क्योंकि फ़ाइल पाथ में विशेष वर्ण (उदाहरण के लिए: ´, `, ~, !, ?) शामिल हैं।</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch इन वर्णों वाले पाथ में अपने आवश्यक फ़ोल्डर नहीं बना सकता।</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">इसे ठीक करने के लिए, कृपया अपने एमुलेटर और अपनी गेम फ़ाइलों को ऐसे फ़ोल्डर में ले जाएँ जिसमें केवल मानक अक्षर और संख्याएँ हों, जैसे C:\Games\।</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">रेट्रो गेम कवर डाउनलोडर</system:String>
     <system:String x:Key="ReturnButton">[ वापस जाएं ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">गेमपैड डेड ज़ोन सेटिंग्स वापस कर रहा है...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'सिंपल लॉन्चर' वर्तमान प्रोसेसर आर्किटेक्चर का समर्थन नहीं करता है। हम केवल 64-बिट (x64) या ARM64 का समर्थन करते हैं। एप्लिकेशन अब बंद हो जाएगा।</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher त्रुटि</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' इस सिस्टम के लिए आवश्यक फ़ोल्डर बनाने में विफल रहा।</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' इस गेम को लॉन्च करने में असमर्थ था।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' अंतिम बैकअप को पुनर्स्थापित करने में असमर्थ था।</system:String>
     <system:String x:Key="SkyBlue">स्काई ब्लू</system:String>
     <system:String x:Key="Small">छोटा</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">अपडेट संस्करण है</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">आपकी सुविधा के लिए URL को क्लिपबोर्ड पर कॉपी कर लिया गया है। आप इसे अपने ब्राउज़र में पेस्ट कर सकते हैं।</system:String>
     <system:String x:Key="Thisactionwilldelete">यह क्रिया फ़ाइल को आपके हार्ड डिस्क से हटा देगी और इसे वापस नहीं लाया जा सकेगा।</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">Dokan का स्थापित संस्करण असंगत हो सकता है। Dokan को फिर से स्थापित करने या अपडेट करने का प्रयास करें।</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">यह आमतौर पर कॉर्पोरेट या प्रबंधित पीसी पर समूह नीति सेटिंग्स के कारण होता है।</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">यह आमतौर पर कॉर्पोरेट या प्रबंधित पीसी पर समूह नीति सेटिंग्स के कारण होता है।</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">यह देश के फ़ायरवॉल प्रतिबंधों के कारण हो सकता है।</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">क्या आप डाउनलोड पेज पर पुनर्निर्देशित होना चाहेंगे?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">इसे मैन्युअली इंस्टॉल या अपडेट करने के लिए क्या आप डाउनलोड पृष्ठ पर पुनर्निर्देशित होना चाहते हैं?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">क्या आप समस्या की जांच करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">क्या आप त्रुटि को डीबग करने के लिए 'error_user.log' फ़ाइल खोलना चाहेंगे?</system:String>
     <system:String x:Key="Wouldyouliketorestore">क्या आप अंतिम बैकअप को पुनर्स्थापित करना चाहेंगे?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">क्या आप परिणामों के साथ एक रिपोर्ट सहेजना चाहेंगे?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu पैरामीटर में '-dvd_path' होना चाहिए।</system:String>

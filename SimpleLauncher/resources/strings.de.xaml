@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Maschinenname anzeigen (für MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Keinen Dateinamen anzeigen</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Original-Dateinamen anzeigen</system:String>
+    <system:String x:Key="Dokannotinstalled">Die Dokan-Bibliothek ist nicht installiert. Dokan wird zum Einbinden von ZIP-, CHD- und Disk-Image-Dateien benötigt.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin-Konfiguration erfolgreich gespeichert.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Abbrechen</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Abbrechen und dieses Fenster ohne Speichern von Änderungen schließen.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Überprüfen Sie die Core-Anforderungen, um ihn auszuführen. Einige Cores benötigen eine BIOS-Datei, um zu funktionieren. Lesen Sie die Core-Dokumentation, um herauszufinden, welche Anforderungen für diesen spezifischen Core gelten.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">Der RetroArch-Parameter sollte -L enthalten, um korrekt auf den gewünschten Core zu verweisen.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch-Einstellungen</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">Der Emulator konnte das Spiel nicht starten, da der Dateipfad Sonderzeichen enthält (zum Beispiel: ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch kann seine benötigten Ordner in Pfaden mit diesen Zeichen nicht erstellen.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Um dies zu beheben, verschieben Sie bitte Ihren Emulator und Ihre Spieldateien in einen Ordner, der nur Standardbuchstaben und -zahlen verwendet, wie z.B. C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Retro-Game-Cover-Downloader</system:String>
     <system:String x:Key="ReturnButton">[ Zurück ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad-Deadzone-Einstellungen werden zurückgesetzt...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' unterstützt die aktuelle Prozessorarchitektur nicht. Wir unterstützen nur 64-Bit (x64) oder ARM64. Die Anwendung wird jetzt geschlossen.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Fehler</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' konnte die benötigten Ordner für dieses System nicht erstellen.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' konnte dieses Spiel nicht starten.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' konnte das letzte Backup nicht wiederherstellen.</system:String>
     <system:String x:Key="SkyBlue">Himmelblau</system:String>
     <system:String x:Key="Small">Klein</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">Die Update-Version ist</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">Die URL wurde zu Ihrer Bequemlichkeit in die Zwischenablage kopiert. Sie können sie in Ihren Browser einfügen.</system:String>
     <system:String x:Key="Thisactionwilldelete">Diese Aktion löscht die Datei von der Festplatte und kann nicht rückgängig gemacht werden.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">Die installierte Version von Dokan ist möglicherweise inkompatibel. Versuchen Sie, Dokan neu zu installieren oder zu aktualisieren.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Dies wird typischerweise durch Gruppenrichtlinieneinstellungen auf Firmen- oder verwalteten PCs verursacht.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Dies wird typischerweise durch Gruppenrichtlinieneinstellungen auf Firmen- oder verwalteten PCs verursacht.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Dies kann auf länderspezifische Firewall-Beschränkungen zurückzuführen sein.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Möchten Sie zur Download-Seite weitergeleitet werden?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Möchten Sie zur Download-Seite weitergeleitet werden, um es manuell zu installieren oder zu aktualisieren?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Möchten Sie die Datei 'error_user.log' öffnen, um das Problem zu untersuchen?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Möchten Sie die letzte Sicherung wiederherstellen?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Möchten Sie einen Bericht mit den Ergebnissen speichern?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Der Xemu-Parameter sollte '-dvd_path' enthalten.</system:String>

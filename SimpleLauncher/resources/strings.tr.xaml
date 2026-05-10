@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Makine Adını Göster (MAME için)</system:String>
     <system:String x:Key="DisplayNoFilename">Dosya Adı Gösterme</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Orijinal Dosya Adlarını Göster</system:String>
+    <system:String x:Key="Dokannotinstalled">Dokan kütüphanesi yüklü değil. ZIP, CHD ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">İptal</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Değişiklikleri kaydetmeden iptal et ve bu pencereyi kapat.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Çekirdeği çalıştırmak için gereksinimleri kontrol edin. Bazı çekirdekler çalışmak için bir BIOS dosyası gerektirir. Bu çekirdek için gereksinimlerin ne olduğunu öğrenmek için çekirdek belgelerini okuyun.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">RetroArch parametresi, istenen çekirdeği doğru şekilde işaret etmek için -L içermelidir.</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch Ayarları</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">Dosya yolu özel karakterler (örneğin: ´, `, ~, !, ?) içerdiği için emülatör oyunu başlatamadı.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch, bu karakterleri içeren yollarda gerekli klasörlerini oluşturamaz.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Bunu düzeltmek için lütfen emülatörünüzü ve oyun dosyalarınızı C:\Oyunlar\ gibi yalnızca standart harf ve rakamlar kullanan bir klasöre taşıyın.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Retro Oyun Kapağı İndirici</system:String>
     <system:String x:Key="ReturnButton">[ Geri Dön ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Gamepad ölü bölge ayarları geri alınıyor...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' mevcut işlemci mimarisini desteklemiyor. Yalnızca 64-bit (x64) veya ARM64 destekliyoruz. Uygulama şimdi kapanacak.</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Hatası</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher', son yedeği geri yükleyemedi.</system:String>
     <system:String x:Key="SkyBlue">Gök Mavisi</system:String>
     <system:String x:Key="Small">Küçük</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">Güncelleme sürümü:</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">URL kolaylık sağlamak amacıyla panoya kopyalandı. Tarayıcınıza yapıştırabilirsiniz.</system:String>
     <system:String x:Key="Thisactionwilldelete">Bu işlem dosyayı sabit diskinizden silecek ve geri alınamayacaktır.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">Yüklü Dokan sürümü uyumsuz olabilir. Dokan'ı yeniden yüklemeyi veya güncellemeyi deneyin.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Bu genellikle kurumsal veya yönetilen bilgisayarlardaki Grup İlkesi ayarlarından kaynaklanır.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Bu genellikle kurumsal veya yönetilen bilgisayarlardaki Grup İlkesi ayarlarından kaynaklanır.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Bu durum, ülke güvenlik duvarı kısıtlamalarından kaynaklanabilir.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">İndirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Manuel olarak yüklemek veya güncellemek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Hatayı ayıklamak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Son yedeği geri yüklemek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu parametresi '-dvd_path' içermelidir.</system:String>

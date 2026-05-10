@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Tampilkan Nama Mesin (untuk MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Jangan Tampilkan Nama File</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Tampilkan Nama File Asli</system:String>
+    <system:String x:Key="Dokannotinstalled">Pustaka Dokan tidak terinstal. Dokan diperlukan untuk me-mount file ZIP, CHD, dan image disk.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Konfigurasi Dolphin berhasil disimpan.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Batal</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Batalkan dan tutup jendela ini tanpa menyimpan perubahan.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Periksa persyaratan core untuk menjalankannya. Beberapa core memerlukan file BIOS agar berfungsi. Baca dokumentasi core untuk mengetahui apa saja persyaratannya untuk core tersebut.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">Parameter RetroArch harus mengandung -L untuk menunjuk dengan benar ke core yang diinginkan.</system:String>
     <system:String x:Key="RetroArchSettings">Pengaturan RetroArch</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">Emulator tidak dapat meluncurkan game karena jalur file berisi karakter khusus (misalnya: ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch tidak dapat membuat folder yang diperlukan di jalur dengan karakter ini.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Untuk memperbaikinya, harap pindahkan emulator dan file game Anda ke folder yang hanya menggunakan huruf dan angka standar, seperti C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Pengunduh Sampul Game Retro</system:String>
     <system:String x:Key="ReturnButton">[ Kembali ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Mengembalikan pengaturan dead zone gamepad...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' tidak mendukung arsitektur prosesor saat ini. Kami hanya mendukung 64-bit (x64) atau ARM64. Aplikasi akan ditutup sekarang.</system:String>
     <system:String x:Key="SimpleLauncherError">Kesalahan Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' tidak dapat memulihkan cadangan terakhir.</system:String>
     <system:String x:Key="SkyBlue">Biru Langit</system:String>
     <system:String x:Key="Small">Kecil</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">Versi pembaruan adalah</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">URL telah disalin ke papan klip untuk kenyamanan Anda. Anda dapat menempelkannya ke browser Anda.</system:String>
     <system:String x:Key="Thisactionwilldelete">Tindakan ini akan menghapus file dari HDD dan tidak dapat dibatalkan.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">Versi Dokan yang terinstal mungkin tidak kompatibel. Coba instal ulang atau perbarui Dokan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Ini biasanya disebabkan oleh pengaturan Kebijakan Grup pada PC perusahaan atau yang dikelola.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Ini biasanya disebabkan oleh pengaturan Kebijakan Grup pada PC perusahaan atau yang dikelola.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Ini mungkin disebabkan oleh pembatasan firewall negara.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Apakah Anda ingin diarahkan ke halaman unduhan?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan untuk menginstal atau memperbarui secara manual?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk menyelidiki masalah ini?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Apakah Anda ingin membuka file 'error_user.log' untuk men-debug kesalahan?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Apakah Anda ingin memulihkan cadangan terakhir?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Apakah Anda ingin menyimpan laporan dengan hasilnya?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Parameter Xemu harus berisi '-dvd_path'.</system:String>

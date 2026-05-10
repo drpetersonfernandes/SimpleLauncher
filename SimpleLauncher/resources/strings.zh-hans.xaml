@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">显示机器名称（适用于 MAME）</system:String>
     <system:String x:Key="DisplayNoFilename">不显示文件名</system:String>
     <system:String x:Key="DisplayOriginalFilenames">显示原始文件名</system:String>
+    <system:String x:Key="Dokannotinstalled">Dokan 库未安装。挂载 ZIP、CHD 和磁盘镜像文件需要 Dokan。</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin 配置保存成功。</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">取消</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">取消并关闭此窗口而不保存更改。</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">检查核心的运行要求。某些核心需要BIOS文件才能工作。阅读核心文档以了解该特定核心的要求。</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">RetroArch参数应包含-L，以正确指向所需的核心。</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch设置</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">模拟器无法启动游戏，因为文件路径包含特殊字符（例如：´, `, ~, !, ?）。</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch 无法在包含这些字符的路径中创建其所需的文件夹。</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">要解决此问题，请将您的模拟器和游戏文件移动到仅使用标准字母和数字的文件夹中，例如 C:\Games\。</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">复古游戏封面下载器</system:String>
     <system:String x:Key="ReturnButton">[ 返回 ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">正在恢复手柄死区设置...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' 不支持当前的处理器架构。我们只支持 64 位 (x64) 或 ARM64。应用程序现在将关闭。</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher错误</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 无法为此系统创建所需文件夹。</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">“Simple Launcher”无法启动此游戏。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">“Simple Launcher”未能恢复最近的备份。</system:String>
     <system:String x:Key="SkyBlue">天蓝色</system:String>
     <system:String x:Key="Small">小</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">更新版本是</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">为方便起见，URL 已复制到剪贴板。您可以将其粘贴到浏览器中。</system:String>
     <system:String x:Key="Thisactionwilldelete">此操作将删除硬盘上的文件，且无法撤销。</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">已安装的 Dokan 版本可能不兼容。请尝试重新安装或更新 Dokan。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">这通常是由企业或受管 PC 上的组策略设置引起的。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">这通常是由企业或受管 PC 上的组策略设置引起的。</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">这可能是由于国家防火墙限制。</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">是否需要跳转到下载页面？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳转到下载页面以手动安装或更新？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想打开 'error_user.log' 文件来调查此问题？</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">您想打开“error_user.log”文件来调试错误吗？</system:String>
     <system:String x:Key="Wouldyouliketorestore">您希望恢复最新的备份吗？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您是否希望保存包含结果的报告？</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemu 参数应包含 '-dvd_path'。</system:String>

@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">عرض اسم الجهاز (لـ MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">عدم عرض اسم الملف</system:String>
     <system:String x:Key="DisplayOriginalFilenames">عرض أسماء الملفات الأصلية</system:String>
+    <system:String x:Key="Dokannotinstalled">مكتبة Dokan غير مثبتة. Dokan مطلوب لتركيب ملفات ZIP و CHD وصور الأقراص.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">تم حفظ تكوين Dolphin بنجاح.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">إلغاء</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">إلغاء وإغلاق هذه النافذة دون حفظ التغييرات.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">تحقق من متطلبات النواة لتشغيلها. تتطلب بعض النوى ملف BIOS للعمل. اقرأ وثائق النواة لمعرفة ما هي المتطلبات لتلك النواة المحددة.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">يجب أن تحتوي معلمة RetroArch على -L للإشارة بشكل صحيح إلى النواة المطلوبة.</system:String>
     <system:String x:Key="RetroArchSettings">إعدادات RetroArch</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">لم يتمكن المحاكي من تشغيل اللعبة لأن مسار الملف يحتوي على أحرف خاصة (على سبيل المثال: ´, `, ~, !, ؟).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">لا يمكن لـ RetroArch إنشاء مجلداته المطلوبة في المسارات التي تحتوي على هذه الأحرف.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">لإصلاح ذلك، يرجى نقل المحاكي وملفات اللعبة إلى مجلد يستخدم فقط الحروف والأرقام القياسية، مثل C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">مُنزّل أغلفة الألعاب الكلاسيكية</system:String>
     <system:String x:Key="ReturnButton">[ عودة ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">التراجع عن إعدادات منطقة الموت للوحة الألعاب...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' لا يدعم بنية المعالج الحالية. نحن ندعم فقط 64-بت (x64) أو ARM64. سيتم إغلاق التطبيق الآن.</system:String>
     <system:String x:Key="SimpleLauncherError">خطأ في Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' لم يتمكن من استعادة النسخة الاحتياطية الأخيرة.</system:String>
     <system:String x:Key="SkyBlue">أزرق سماوي</system:String>
     <system:String x:Key="Small">صغير</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">إصدار التحديث هو</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">تم نسخ الرابط إلى الحافظة لراحتك. يمكنك لصقه في متصفحك.</system:String>
     <system:String x:Key="Thisactionwilldelete">سيقوم هذا الإجراء بحذف الملف من القرص الصلب ولا يمكن التراجع عنه.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">قد تكون نسخة Dokan المثبتة غير متوافقة. حاول إعادة تثبيت Dokan أو تحديثه.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">يحدث هذا عادةً بسبب إعدادات نهج المجموعة على أجهزة الكمبيوتر الخاصة بالشركات أو المدارة.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">يحدث هذا عادةً بسبب إعدادات نهج المجموعة على أجهزة الكمبيوتر الخاصة بالشركات أو المدارة.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">قد يكون هذا بسبب قيود جدار الحماية في البلد.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">هل ترغب في الانتقال إلى صفحة التنزيل؟</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">هل ترغب في فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
     <system:String x:Key="Wouldyouliketorestore">هل ترغب في استعادة النسخة الاحتياطية الأخيرة؟</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">يجب أن يحتوي معامل Xemu على '-dvd_path'.</system:String>

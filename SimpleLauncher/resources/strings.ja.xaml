@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">マシン名を表示 (MAME用)</system:String>
     <system:String x:Key="DisplayNoFilename">ファイル名を表示しない</system:String>
     <system:String x:Key="DisplayOriginalFilenames">元のファイル名を表示</system:String>
+    <system:String x:Key="Dokannotinstalled">Dokanライブラリがインストールされていません。DokanはZIP、CHD、ディスクイメージファイルをマウントするために必要です。</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphinの設定が正常に保存されました。</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">キャンセル</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">変更を保存せずにキャンセルしてこのウィンドウを閉じます。</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">コアを実行するための要件を確認してください。一部のコアは動作するためにBIOSファイルを必要とします。その特定のコアの要件を把握するために、コアのドキュメントを読んでください。</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">RetroArchのパラメータは、目的のコアを適切に指定するために -L を含む必要があります。</system:String>
     <system:String x:Key="RetroArchSettings">RetroArch設定</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">ファイルパスに特殊文字（例：´, `, ~, !, ?）が含まれているため、エミュレーターはゲームを起動できませんでした。</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArchは、これらの文字を含むパスに必須フォルダーを作成できません。</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">これを修正するには、エミュレーターとゲームファイルをC:\Games\ のように、標準の文字と数字のみを使用するフォルダーに移動してください。</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">レトロゲームカバー・ダウンローダー</system:String>
     <system:String x:Key="ReturnButton">[ 戻る ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">ゲームパッドデッドゾーン設定を元に戻しています...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' は現在のプロセッサアーキテクチャをサポートしていません。64ビット (x64) または ARM64 のみをサポートしています。アプリケーションは終了します。</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcherエラー</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' はこのシステム用に必要なフォルダーを作成できませんでした。</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">「Simple Launcher」はこのゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' は最後のバックアップを復元できませんでした。</system:String>
     <system:String x:Key="SkyBlue">スカイブルー</system:String>
     <system:String x:Key="Small">小</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">更新バージョンは</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">URLは便宜上クリップボードにコピーされました。ブラウザに貼り付けることができます。</system:String>
     <system:String x:Key="Thisactionwilldelete">この操作により、ハードディスクからファイルが削除され、取り消しはできません。</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">インストールされているDokanのバージョンは互換性がない可能性があります。Dokanを再インストールまたは更新してみてください。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">これは通常、企業または管理されたPCのグループポリシー設定が原因です。</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">これは通常、企業または管理されたPCのグループポリシー設定が原因です。</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">これは、国のファイアウォール制限が原因である可能性があります。</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">ダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">手動でインストールまたは更新するためにダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">問題を調査するために 'error_user.log' ファイルを開きますか？</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">エラーをデバッグするために「error_user.log」ファイルを開きますか？</system:String>
     <system:String x:Key="Wouldyouliketorestore">最後のバックアップを復元しますか？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">結果を含むレポートを保存しますか？</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Xemuのパラメーターには '-dvd_path' が含まれている必要があります。</system:String>

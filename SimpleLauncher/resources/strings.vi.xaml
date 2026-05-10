@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Hiển thị tên máy (cho MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Không hiển thị tên tệp</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Hiển thị tên tệp gốc</system:String>
+    <system:String x:Key="Dokannotinstalled">Thư viện Dokan chưa được cài đặt. Dokan là bắt buộc để gắn các tệp ZIP, CHD và ảnh đĩa.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Đã lưu cấu hình Dolphin thành công.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Hủy</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Hủy và đóng cửa sổ này mà không lưu thay đổi.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Kiểm tra các yêu cầu của lõi để chạy nó. Một số lõi yêu cầu tệp BIOS để hoạt động. Đọc tài liệu lõi để tìm hiểu các yêu cầu cho lõi cụ thể đó.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">Tham số RetroArch phải chứa -L để trỏ đúng đến lõi mong muốn.</system:String>
     <system:String x:Key="RetroArchSettings">Cài đặt RetroArch</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">Trình giả lập không thể khởi chạy trò chơi vì đường dẫn tệp chứa các ký tự đặc biệt (ví dụ: ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch không thể tạo các thư mục cần thiết trong các đường dẫn có các ký tự này.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Để khắc phục điều này, vui lòng di chuyển trình giả lập và các tệp trò chơi của bạn đến một thư mục chỉ sử dụng các chữ cái và số tiêu chuẩn, chẳng hạn như C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Trình tải bìa trò chơi cổ điển</system:String>
     <system:String x:Key="ReturnButton">[ Quay lại ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Đang hoàn tác cài đặt vùng chết gamepad...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' không hỗ trợ kiến trúc bộ xử lý hiện tại. Chúng tôi chỉ hỗ trợ 64-bit (x64) hoặc ARM64. Ứng dụng sẽ đóng ngay bây giờ.</system:String>
     <system:String x:Key="SimpleLauncherError">Lỗi Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' không thể khôi phục bản sao lưu gần đây nhất.</system:String>
     <system:String x:Key="SkyBlue">Xanh da trời (Sky Blue)</system:String>
     <system:String x:Key="Small">Nhỏ</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">Phiên bản cập nhật là</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">URL đã được sao chép vào khay nhớ tạm để bạn tiện sử dụng. Bạn có thể dán nó vào trình duyệt của mình.</system:String>
     <system:String x:Key="Thisactionwilldelete">Hành động này sẽ xóa tệp khỏi ổ cứng của bạn và không thể hoàn tác.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">Phiên bản Dokan đã cài đặt có thể không tương thích. Hãy thử cài đặt lại hoặc cập nhật Dokan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Điều này thường do cài đặt Chính sách nhóm trên các PC của công ty hoặc được quản lý.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Điều này thường do cài đặt Chính sách nhóm trên các PC của công ty hoặc được quản lý.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Điều này có thể do các hạn chế tường lửa của quốc gia.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Bạn có muốn được chuyển hướng đến trang tải xuống không?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Bạn có muốn khôi phục lại bản sao lưu cuối cùng không?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Tham số Xemu phải bao gồm '-dvd_path'.</system:String>

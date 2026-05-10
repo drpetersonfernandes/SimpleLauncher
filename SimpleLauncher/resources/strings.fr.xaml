@@ -359,6 +359,7 @@
     <system:String x:Key="DisplayMachineName">Afficher le nom de la machine (pour MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Ne pas afficher de nom de fichier</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Afficher les noms de fichiers originaux</system:String>
+    <system:String x:Key="Dokannotinstalled">La bibliothèque Dokan n'est pas installée. Dokan est nécessaire pour monter les fichiers ZIP, CHD et les images disque.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Configuration Dolphin enregistrée avec succès.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Annuler</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Tooltip">Annuler et fermer cette fenêtre sans enregistrer les modifications.</system:String>
@@ -1434,6 +1435,9 @@
     <system:String x:Key="RetroArchParameterIssue4">Vérifiez les exigences du cœur pour le faire fonctionner. Certains cœurs nécessitent un fichier BIOS pour fonctionner. Lisez la documentation du cœur pour savoir quelles sont les exigences pour ce cœur spécifique.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">Le paramètre RetroArch doit contenir -L pour pointer correctement vers le cœur désiré.</system:String>
     <system:String x:Key="RetroArchSettings">Paramètres RetroArch</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath1">L'émulateur n'a pas pu lancer le jeu car le chemin du fichier contient des caractères spéciaux (par exemple : ´, `, ~, !, ?).</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath2">RetroArch ne peut pas créer les dossiers requis dans les chemins contenant ces caractères.</system:String>
+    <system:String x:Key="RetroArchSpecialCharactersInPath3">Pour résoudre ce problème, veuillez déplacer votre émulateur et vos fichiers de jeu vers un dossier qui n'utilise que des lettres et des chiffres standards, tel que C:\Games\.</system:String>
     <system:String x:Key="RetroGameCoverDownloaderIcon">Téléchargeur de pochettes de jeux rétro</system:String>
     <system:String x:Key="ReturnButton">[ Retour ]</system:String>
     <system:String x:Key="RevertingGamepadDeadZoneSettings">Rétablissement des paramètres de la zone morte du gamepad...</system:String>
@@ -1649,6 +1653,7 @@
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' ne prend pas en charge l'architecture de processeur actuelle. Nous ne prenons en charge que le 64 bits (x64) ou ARM64. L'application va maintenant se fermer.</system:String>
     <system:String x:Key="SimpleLauncherError">Erreur de Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' n'a pas pu créer les dossiers nécessaires pour ce système.</system:String>
+    <system:String x:Key="SimpleLauncherWasUnableToLaunchThisGame">'Simple Launcher' n'a pas pu lancer ce jeu.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' n'a pas pu restaurer la dernière sauvegarde.</system:String>
     <system:String x:Key="SkyBlue">Bleu ciel</system:String>
     <system:String x:Key="Small">Petit</system:String>
@@ -1863,6 +1868,7 @@
     <system:String x:Key="Theupdateversionis">La version de mise à jour est</system:String>
     <system:String x:Key="TheURLwascopiedtotheclipboard">L'URL a été copiée dans le presse-papiers pour votre commodité. Vous pouvez la coller dans votre navigateur.</system:String>
     <system:String x:Key="Thisactionwilldelete">Cette action supprimera le fichier du disque dur et ne pourra pas être annulée.</system:String>
+    <system:String x:Key="ThisDokanVersionIncompatible">La version installée de Dokan pourrait être incompatible. Essayez de réinstaller ou de mettre à jour Dokan.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroup">Ceci est généralement causé par les paramètres de stratégie de groupe sur les PC d'entreprise ou gérés.</system:String>
     <system:String x:Key="ThisistypicallycausedbyGroupPolicy">Ceci est généralement causé par les paramètres de stratégie de groupe sur les PC d'entreprise ou gérés.</system:String>
     <system:String x:Key="ThisMayBeDueToCountryFirewallRestrictions">Cela peut être dû à des restrictions de pare-feu nationales.</system:String>
@@ -2184,6 +2190,7 @@
     <system:String x:Key="Wouldyouliketoberedirected">Souhaitez-vous être redirigé vers la page de téléchargement ?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Voulez-vous être redirigé vers la page de téléchargement pour l'installer ou le mettre à jour manuellement ?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour enquêter sur le problème ?</system:String>
+    <system:String x:Key="Wouldyouliketoopentheerroruserlogfiletodebug">Voulez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Voulez-vous restaurer la dernière sauvegarde ?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Souhaitez-vous enregistrer un rapport avec les résultats ?</system:String>
     <system:String x:Key="XemuParameterShouldContainDvdPath">Le paramètre Xemu doit contenir '-dvd_path'.</system:String>
