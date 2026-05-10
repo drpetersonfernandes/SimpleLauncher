@@ -9,6 +9,7 @@
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Amstrad CPC<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -65,6 +66,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -95,6 +97,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Emulators\mame\roms<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -150,6 +153,7 @@ You can download this emulator on the [Official Website](https://raine.1emulatio
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 2600<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -217,6 +221,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 5200<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -271,6 +276,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 7800<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -315,6 +321,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 8-Bits<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -369,6 +376,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari Jaguar<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -409,6 +417,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
 **Extension to Search in the System Folder:** zip, 7z, cue, cdi<br>
@@ -435,6 +444,7 @@ You can download this emulator on the [Official Website](https://richwhitehouse.
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari Lynx<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -503,6 +513,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari ST<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -560,6 +571,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Atomiswave<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -586,6 +598,7 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -665,6 +678,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -744,6 +758,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Casio PV-1000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -774,6 +789,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Colecovision<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -841,6 +857,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore 64<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -910,6 +927,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore 128<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -968,6 +986,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore Amiga<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1054,6 +1073,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, nrg, mds, iso<br>
@@ -1098,6 +1118,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\FM Towns<br>
 **Extension to Search in the System Folder:** chd, cue<br>
@@ -1126,6 +1147,7 @@ You can download this emulator on the [Official Website](https://github.com/capt
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\LaserDisk<br>
 **Extension to Search in the System Folder:** bat<br>
@@ -1164,6 +1186,7 @@ You can download this emulator on the [Official Website](https://github.com/Dirt
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1204,6 +1227,7 @@ You can download this emulator on the [Official Website](https://o2em.sourceforg
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Mattel Aquarius<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1234,6 +1258,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1278,6 +1303,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Microsoft DOS<br>
 **Extension to Search in the System Folder:** zip, 7z, rar<br>
@@ -1350,6 +1376,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Microsoft MSX<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1445,6 +1472,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Microsoft MSX2<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -1539,6 +1567,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Windows Games<br>
 **Extension to Search in the System Folder:** lnk, bat, url, exe<br>
@@ -1565,6 +1594,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
 
@@ -1651,6 +1681,7 @@ You can download this emulator on the [Official Website](https://cxbx-reloaded.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
 
@@ -1698,6 +1729,7 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
 
@@ -1746,6 +1778,7 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC PC Engine<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -1826,6 +1859,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC PC Engine CD<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, iso, img, bin<br>
@@ -1930,6 +1964,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC PC-FX<br>
 **Extension to Search in the System Folder:** chd, cue, ccd, toc<br>
@@ -1999,6 +2034,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2052,6 +2088,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
 **Extension to Search in the System Folder:** 3ds, cci, 3dsx, elf, axf, cxi, app<br>
@@ -2136,6 +2173,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo 64<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2253,6 +2291,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
 **Extension to Search in the System Folder:** zip, 7z<br>
@@ -2307,6 +2346,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo DS<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2382,6 +2422,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2473,6 +2514,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2612,6 +2654,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2700,6 +2743,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -2840,6 +2884,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
 **Extension to Search in the System Folder:** rvz<br>
@@ -2881,6 +2926,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo NES<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3003,6 +3049,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Satellaview<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3030,6 +3077,7 @@ You can download this emulator on the [Official Website](https://ares-emu.net/do
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo SNES<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3140,6 +3188,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3191,6 +3240,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Switch<br>
 **Extension to Search in the System Folder:** nsp, xci, nca, nro, nso<br>
@@ -3271,6 +3321,7 @@ This emulator is available for Windows-x64.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Virtual Boy<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3323,6 +3374,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Wii<br>
 **Extension to Search in the System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
@@ -3362,6 +3414,7 @@ Core may require BIOS files or system files to work.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
 **Extension to Search in the System Folder:** wua, wux<br>
@@ -3387,6 +3440,7 @@ This emulator is available for Windows-x64.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
 **Extension to Search in the System Folder:** wad<br>
@@ -3426,6 +3480,7 @@ Core may require BIOS files or system files to work.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
 **Extension to Search in the System Folder:** chd, cue, iso, bin<br>
@@ -3477,6 +3532,7 @@ Core may require BIOS files or system files to work.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Philips CD-i<br>
 **Extension to Search in the System Folder:** chd, iso, cue, bin<br>
@@ -3517,6 +3573,7 @@ Core may require BIOS files or system files to work.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
 
@@ -3565,6 +3622,7 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
 **Extension to Search in the System Folder:** chd, gdi, cdi, cue, bin<br>
@@ -3635,6 +3693,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Game Gear<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3763,6 +3822,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Genesis<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3885,6 +3945,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -3957,6 +4018,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
 **Extension to Search in the System Folder:** chd, cue, iso, bin<br>
@@ -4058,6 +4120,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Master System<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4176,6 +4239,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Sega Naomi<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -4202,6 +4266,7 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Sega Naomi2<br>
 **Extension to Search in the System Folder:** chd, iso, zip<br>
@@ -4228,6 +4293,7 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Model 3<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4253,6 +4319,7 @@ This emulator is available for Windows-x64.<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Saturn<br>
 **Extension to Search in the System Folder:** chd, cue, iso, ccd, mds, bin<br>
@@ -4418,6 +4485,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega SC-3000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4487,6 +4555,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega SG-1000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4565,6 +4634,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sharp x68000<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4607,6 +4677,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4668,6 +4739,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4730,6 +4802,7 @@ This core cannot run MAME ROM sets. It uses ROM files with the extension .NEO.<b
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
 **Extension to Search in the System Folder:** chd, cue<br>
@@ -4811,6 +4884,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4887,6 +4961,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -4963,6 +5038,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
 **Extension to Search in the System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
@@ -5116,6 +5192,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation 2<br>
 **Extension to Search in the System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
@@ -5170,6 +5247,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
 
@@ -5246,6 +5324,7 @@ You can download this emulator on the [Official Website](https://rpcs3.net/downl
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
 **Extension to Search in the System Folder:** bin, elf, oelf<br>
@@ -5272,6 +5351,7 @@ You can download this emulator on the [GitHub Repository](https://github.com/sha
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
 **Extension to Search in the System Folder:** iso<br>
@@ -5298,6 +5378,7 @@ You can download this emulator on the [Official Website](https://github.com/Vita
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PSP<br>
 **Extension to Search in the System Folder:** cso, chd, iso, pbp, elf, prx<br>
@@ -5337,6 +5418,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Super ACan<br>
 **Extension to Search in the System Folder:** zip<br>
@@ -5366,6 +5448,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
 **%ROM%** - Represents the ROM path<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Zeebo<br>
 **Extension to Search in the System Folder:** zip<br>

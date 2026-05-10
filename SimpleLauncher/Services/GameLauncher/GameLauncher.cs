@@ -949,12 +949,16 @@ public partial class GameLauncher
                 return;
             }
 
+            // Resolve the system folder that contains this specific ROM
+            var romSystemFolder = PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedFilePath);
+
             // Resolve Emulator Parameters using the PathHelper.ResolveParameterString
             var resolvedParameters = PathHelper.ResolveParameterString(
                 rawEmulatorParameters, // The raw parameter string from config
                 selectedSystemManager.SystemFolders, // All configured system folders
                 resolvedEmulatorFolderPath, // The fully resolved emulator directory path
-                resolvedFilePath // The ROM path for %ROM%
+                resolvedFilePath, // The ROM path for %ROM%
+                romSystemFolder // The system folder containing this ROM for %ROMSYSTEMFOLDER%
             );
 
             string arguments;

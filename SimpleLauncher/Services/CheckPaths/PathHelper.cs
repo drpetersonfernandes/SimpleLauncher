@@ -83,7 +83,8 @@ internal static partial class PathHelper
         string parameters,
         List<string> systemFolders = null,
         string resolvedEmulatorFolderPath = null,
-        string resolvedRomPath = null)
+        string resolvedRomPath = null,
+        string romSystemFolder = null)
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
@@ -108,6 +109,7 @@ internal static partial class PathHelper
                 IsKnownFlag(tokenForLogic) ||
                 (!tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                 !tokenForLogic.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)))
             {
@@ -140,6 +142,11 @@ internal static partial class PathHelper
                 }
 
                 processedToken = processedToken.Replace("%SYSTEMFOLDER%", resolvedSystemFolderPaths, StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (!string.IsNullOrEmpty(romSystemFolder) && processedToken.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
+                processedToken = processedToken.Replace("%ROMSYSTEMFOLDER%", SanitizePathToken(romSystemFolder), StringComparison.OrdinalIgnoreCase);
             }
 
             if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) && processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))

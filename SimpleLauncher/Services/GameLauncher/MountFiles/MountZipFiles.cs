@@ -910,11 +910,15 @@ internal static class MountZipFiles
             }
 
             // 2. Resolve Parameters
+            var romSystemFolder = selectedSystemManager != null
+                ? PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedZipFilePath)
+                : null;
             var resolvedParameters = PathHelper.ResolveParameterString(
                 selectedEmulatorParameters,
                 selectedSystemManager?.SystemFolders,
                 resolvedEmulatorFolderPath,
-                resolvedZipFilePath
+                resolvedZipFilePath,
+                romSystemFolder
             );
 
             // Navigate into nested single-folder directories to find the actual game files location
