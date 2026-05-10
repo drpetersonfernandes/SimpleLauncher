@@ -118,9 +118,6 @@ public class CleanTempFolderTests
 
         await CleanTempFolder.CleanupPartialExtractionAsync(tempDir);
 
-        // Note: Directory.Delete with recursive=true handles read-only files,
-        // but the individual file deletion in CleanupPartialExtractionAsync may not.
-        // This test documents actual behavior.
-        // If the implementation uses DeleteFiles.TryDeleteFileAsync, read-only files should be handled.
+        Assert.False(File.Exists(readOnlyFile), "Read-only file should be deleted after cleanup.");
     }
 }

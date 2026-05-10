@@ -1,5 +1,6 @@
 using System.IO.Compression;
 using SimpleLauncher.Services.CheckForUpdates;
+using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
@@ -16,6 +17,7 @@ public class UpdateSimulationTests : IDisposable
 
     public UpdateSimulationTests()
     {
+        ServiceProviderMock.Install();
         _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_UpdateTest_{Guid.NewGuid():N}");
         Directory.CreateDirectory(_testDirectory);
     }
@@ -35,6 +37,7 @@ public class UpdateSimulationTests : IDisposable
             // Best-effort cleanup
         }
 
+        ServiceProviderMock.Restore();
         GC.SuppressFinalize(this);
     }
 
@@ -140,6 +143,72 @@ public class UpdateSimulationTests : IDisposable
         Assert.Equal("https://example.com/updater.zip", updaterUrl);
     }
 
+    [Fact]
+    public void ParseVersionAndAssetUrlsFromResponseMalformedJsonReturnsNulls()
+    {
+        const string json = "this is not valid json {{{";
+
+        var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
+
+        Assert.Null(version);
+        Assert.Null(releaseUrl);
+        Assert.Null(updaterUrl);
+    }
+
+    [Fact]
+    public void ParseVersionAndAssetUrlsFromResponseMissingTagNameReturnsNulls()
+    {
+        const string json = """
+        {
+          "assets": [
+            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
+          ]
+        }
+        """;
+
+        var (version, _, _) = InvokeParseVersionAndAssetUrls(json);
+
+        Assert.Null(version);
+    }
+
+    [Fact]
+    public void ParseVersionAndAssetUrlsFromResponseMissingAssetsArrayReturnsNulls()
+    {
+        const string json = """
+        {
+          "tag_name": "release5.3.2"
+        }
+        """;
+
+        var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
+
+        // Without assets array, the method returns nulls for all fields
+        Assert.Null(version);
+        Assert.Null(releaseUrl);
+        Assert.Null(updaterUrl);
+    }
+
+    [Fact]
+    public void IsNewVersionAvailableNullCurrentReturnsFalse()
+    {
+        var result = InvokeIsNewVersionAvailable(null, "5.3.2");
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsNewVersionAvailableNullLatestReturnsFalse()
+    {
+        var result = InvokeIsNewVersionAvailable("5.3.1", null);
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void IsNewVersionAvailableEmptyStringsReturnsFalse()
+    {
+        var result = InvokeIsNewVersionAvailable("", "");
+        Assert.False(result);
+    }
+
     // ------------------------------------------------------------------
     // Helpers
     // ------------------------------------------------------------------
@@ -169,7 +238,7 @@ public class UpdateSimulationTests : IDisposable
         Assert.Equal(expectedContent, actual);
     }
 
-    private static bool InvokeIsNewVersionAvailable(string current, string latest)
+    private static bool InvokeIsNewVersionAvailable(string? current, string? latest)
     {
         // UpdateChecker.IsNewVersionAvailable is private; use reflection
         var method = typeof(UpdateChecker).GetMethod("IsNewVersionAvailable",

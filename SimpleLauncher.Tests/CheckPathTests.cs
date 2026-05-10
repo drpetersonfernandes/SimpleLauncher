@@ -122,4 +122,28 @@ public class CheckPathTests
             File.Delete(tempFile);
         }
     }
+
+    [Fact]
+    public void IsValidEmulatorExecutablePathLnkFileReturnsTrue()
+    {
+        var tempFile = Path.Combine(Path.GetTempPath(), $"{Guid.NewGuid()}.lnk");
+        File.WriteAllText(tempFile, "fake shortcut");
+        try
+        {
+            var result = CheckPath.IsValidEmulatorExecutablePath(tempFile);
+            Assert.True(result);
+        }
+        finally
+        {
+            File.Delete(tempFile);
+        }
+    }
+
+    [Fact]
+    public void IsValidPathWithBaseFolderPlaceholderResolvesAndChecks()
+    {
+        // %BASEFOLDER% should resolve to the app directory
+        var result = CheckPath.IsValidPath("%BASEFOLDER%\\nonexistent_path_12345");
+        Assert.False(result);
+    }
 }

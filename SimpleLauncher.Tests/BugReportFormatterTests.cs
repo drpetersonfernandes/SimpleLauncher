@@ -60,4 +60,51 @@ public class BugReportFormatterTests
         Assert.Contains("Architecture:", report);
         Assert.Contains("Base Directory:", report);
     }
+
+    [Fact]
+    public void BuildReportDeeplyNestedExceptionContainsAllLevels()
+    {
+        var level3 = new ArgumentException("Level 3 error");
+        var level2 = new InvalidOperationException("Level 2 error", level3);
+        var level1 = new ApplicationException("Level 1 error", level2);
+        var report = BugReportFormatter.BuildReport(level1);
+
+        Assert.Contains("ApplicationException", report);
+        Assert.Contains("Level 1 error", report);
+        Assert.Contains("--- Inner Exception ---", report);
+        Assert.Contains("InvalidOperationException", report);
+        Assert.Contains("Level 2 error", report);
+    }
+
+    [Fact]
+    public void BuildReportExceptionWithNullSourceHandlesGracefully()
+    {
+        var ex = new Exception("test error");
+        // Source is null by default for manually created exceptions
+        Assert.Null(ex.Source);
+
+        var report = BugReportFormatter.BuildReport(ex);
+
+        Assert.Contains("test error", report);
+        Assert.Contains("Source:", report);
+    }
+
+    [Fact]
+    public void BuildReportWithContextMessageAndExceptionUsesContextMessage()
+    {
+        var ex = new InvalidOperationException("Exception message");
+        var report = BugReportFormatter.BuildReport(ex, "Context takes priority");
+
+        Assert.Contains("Context takes priority", report);
+        Assert.Contains("Exception message", report); // Exception details still included
+    }
+
+    [Fact]
+    public void BuildReportEmptyContextMessageFallsBackToExceptionMessage()
+    {
+        var ex = new InvalidOperationException("Fallback message");
+        var report = BugReportFormatter.BuildReport(ex, "");
+
+        Assert.Contains("Fallback message", report);
+    }
 }

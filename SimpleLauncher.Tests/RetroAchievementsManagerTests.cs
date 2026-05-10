@@ -161,4 +161,73 @@ public class RetroAchievementsManagerTests : IDisposable
 
         Assert.Null(result);
     }
+
+    [Fact]
+    public void GetGameInfoByHashEmptyStringReturnsNull()
+    {
+        var games = new List<RaGameInfo>
+        {
+            new()
+            {
+                Id = 1,
+                Title = "Super Mario Bros.",
+                ConsoleId = 7,
+                ConsoleName = "NES",
+                ImageIcon = "image.png",
+                NumAchievements = 10,
+                Points = 100,
+                DateModified = "2024-01-01",
+                Hashes = ["abc123"]
+            }
+        };
+
+        var bytes = MessagePackSerializer.Serialize(games);
+        File.WriteAllBytes(_datFilePath, bytes);
+
+        var manager = RetroAchievementsManager.LoadRetroAchievement();
+        var result = manager.GetGameInfoByHash("");
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void GetGameInfoByHashOverlappingHashesReturnsFirstMatch()
+    {
+        var games = new List<RaGameInfo>
+        {
+            new()
+            {
+                Id = 1,
+                Title = "First Game",
+                ConsoleId = 7,
+                ConsoleName = "NES",
+                ImageIcon = "image1.png",
+                NumAchievements = 5,
+                Points = 50,
+                DateModified = "2024-01-01",
+                Hashes = ["shared_hash", "unique1"]
+            },
+            new()
+            {
+                Id = 2,
+                Title = "Second Game",
+                ConsoleId = 7,
+                ConsoleName = "NES",
+                ImageIcon = "image2.png",
+                NumAchievements = 10,
+                Points = 100,
+                DateModified = "2024-02-01",
+                Hashes = ["shared_hash", "unique2"]
+            }
+        };
+
+        var bytes = MessagePackSerializer.Serialize(games);
+        File.WriteAllBytes(_datFilePath, bytes);
+
+        var manager = RetroAchievementsManager.LoadRetroAchievement();
+        var result = manager.GetGameInfoByHash("shared_hash");
+
+        Assert.NotNull(result);
+        Assert.Equal("First Game", result.Title);
+    }
 }

@@ -429,4 +429,25 @@ public class PathHelperTests
 
         Assert.Equal("-rom C:\\roms\\Arcade\\game.zip", result);
     }
+
+    [Fact]
+    public void FindContainingSystemFolderEmptySystemFoldersListReturnsNull()
+    {
+        var systemManager = new Services.SystemManager.SystemManager
+        {
+            SystemFolders = []
+        };
+
+        var result = PathHelper.FindContainingSystemFolder(systemManager, "C:\\game.zip");
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void ResolveParameterStringResolvesRomSystemFolderPlaceholder()
+    {
+        const string parameters = "-path %ROMSYSTEMFOLDER%";
+        var result = PathHelper.ResolveParameterString(parameters, null, null, null, "C:\\roms\\Arcade");
+
+        Assert.Equal("-path C:\\roms\\Arcade", result);
+    }
 }
