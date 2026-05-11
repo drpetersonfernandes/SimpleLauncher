@@ -10,7 +10,7 @@ namespace SimpleLauncher.Tests;
 /// When a mismatch is detected the test automatically rewrites the file and
 /// then fails so the developer can review the change before committing.
 /// </summary>
-public partial class VersionConsistencyTests
+public class VersionConsistencyTests
 {
     private static string GetProjectFilePath(string relativePath)
     {
@@ -92,5 +92,4 @@ public partial class VersionConsistencyTests
         Assert.Fail($"Updater/version.txt was automatically updated from '{currentContent}' to '{expectedContent}'. " +
                     "Please review the change and commit it.");
     }
-
 }
