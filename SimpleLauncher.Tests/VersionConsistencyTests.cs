@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Xunit;
 
@@ -53,21 +52,25 @@ public partial class VersionConsistencyTests
         var manifestPath = GetProjectFilePath(Path.Combine("SimpleLauncher", "app.manifest"));
         Assert.True(File.Exists(manifestPath), $"app.manifest not found at {manifestPath}");
 
-        var content = File.ReadAllText(manifestPath);
-        var match = MyRegex().Match(content);
-        Assert.True(match.Success, "Could not find assemblyIdentity version attribute in app.manifest");
+        var doc = XDocument.Load(manifestPath);
+        XNamespace ns = "urn:schemas-microsoft-com:asm.v1";
+        var identityElement = doc.Root?.Element(ns + "assemblyIdentity");
+        Assert.NotNull(identityElement);
 
-        var currentVersion = match.Groups[1].Value;
+        var currentVersion = identityElement.Attribute("version")?.Value;
+        Assert.False(string.IsNullOrWhiteSpace(currentVersion), "assemblyIdentity version attribute not found in app.manifest");
+
         if (currentVersion == expectedVersion)
         {
             return;
         }
 
-        var updatedContent = MyRegex1().Replace(content, $"""<assemblyIdentity version="{expectedVersion}""");
+        identityElement.SetAttributeValue("version", expectedVersion);
+        doc.Save(manifestPath);
 
-        File.WriteAllText(manifestPath, updatedContent);
-        Assert.Fail($"app.manifest version was automatically updated from '{currentVersion}' to '{expectedVersion}'. " +
-                    "Please review the change and commit it.");
+        Assert.Fail(
+            $"app.manifest version was automatically updated from '{currentVersion}' to '{expectedVersion}'. " +
+            "Please review the change and commit it.");
     }
 
     [Fact]
@@ -90,13 +93,4 @@ public partial class VersionConsistencyTests
                     "Please review the change and commit it.");
     }
 
-    [GeneratedRegex("""
-                    <assemblyIdentity\s+version="([^"]+)"
-                    """)]
-    private static partial Regex MyRegex();
-
-    [GeneratedRegex("""
-                    <assemblyIdentity\s+version="[^"]+"
-                    """)]
-    private static partial Regex MyRegex1();
 }
