@@ -37,6 +37,7 @@
 		<Extension>sfx</Extension>
 		<Extension>t64</Extension>
 		<Extension>tap</Extension>
+        <Extension>dummy</Extension>
 	</SupportedExtensions>
     <GoogleKey/>
     <GoogleSearchEngineId>d30e97188f5914611</GoogleSearchEngineId>

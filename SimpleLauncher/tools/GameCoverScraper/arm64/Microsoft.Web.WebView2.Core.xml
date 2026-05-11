@@ -703,6 +703,13 @@
             requested when developers use the [Multi-Screen Window Placement API](https://www.w3.org/TR/window-placement/)
             to get screen details.</summary>
         </member>
+        <member name="F:Microsoft.Web.WebView2.Core.CoreWebView2PermissionKind.PersistentStorage">
+            <summary>Indicates permission to persist storage created by the Storage APIs,
+            service workers, etc. If the persistent storage permission is granted,
+            the browser will not evict data in case of low disk space. Permission
+            for a site can be checked using
+            [Storage Manager API](https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persisted).</summary>
+        </member>
         <member name="T:Microsoft.Web.WebView2.Core.CoreWebView2PermissionState">
             <summary>Specifies the response to a permission request.</summary>
         </member>
