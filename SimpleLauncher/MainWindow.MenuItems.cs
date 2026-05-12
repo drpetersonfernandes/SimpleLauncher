@@ -377,7 +377,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
         _playSoundEffects.PlayNotificationSound();
 
-        SupportWindow supportRequestWindow = new(_playSoundEffects, _httpClientFactory, _logErrors, null, null, _configuration)
+        SupportWindow supportRequestWindow = new(_playSoundEffects, _httpClientFactory, _logErrors, _configuration)
         {
             Owner = this
         };

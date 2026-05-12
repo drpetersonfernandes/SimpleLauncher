@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Net.Security;
+using System.Runtime.InteropServices;
 using System.Security.Authentication;
 using System.Windows;
 using System.Windows.Media;
@@ -38,6 +40,8 @@ public partial class App : IDisposable
     private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
     private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
+    private const string EventName = "SimpleLauncher_SingleInstanceEvent_" + UniqueMutexIdentifier;
+    private EventWaitHandle _instanceSignal;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -240,13 +244,37 @@ public partial class App : IDisposable
             // check if this is truly the first instance.
             if (!_isFirstInstance)
             {
-                // Another instance is running. Inform the user and exit this instance.
-                MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
+                // Another instance is running. Signal it to restore its window and exit.
+                try
+                {
+                    using var signal = EventWaitHandle.OpenExisting(EventName);
+                    signal.Set();
+                }
+                catch (WaitHandleCannotBeOpenedException)
+                {
+                    RestoreExistingWindow();
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.LogException(ex, "Failed to signal existing instance.");
+                    RestoreExistingWindow();
+                }
 
                 _singleInstanceMutex?.Dispose();
                 Shutdown();
 
                 return; // Stop further startup logic
+            }
+
+            // Create the named event so future instances can signal us to restore the window
+            try
+            {
+                _instanceSignal = new EventWaitHandle(false, EventResetMode.AutoReset, EventName);
+                _ = Task.Run(InstanceSignalListener);
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.LogException(ex, "Failed to create instance signal event.");
             }
         }
         // --- End Single Instance Check ---
@@ -745,7 +773,70 @@ public partial class App : IDisposable
 
     public void Dispose()
     {
+        _instanceSignal?.Dispose();
         _singleInstanceMutex?.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    private void InstanceSignalListener()
+    {
+        while (_instanceSignal != null)
+        {
+            try
+            {
+                _instanceSignal.WaitOne();
+                Dispatcher.Invoke(static () =>
+                {
+                    if (Current.MainWindow is null) return;
+
+                    Current.MainWindow.ShowInTaskbar = true;
+                    Current.MainWindow.Show();
+                    Current.MainWindow.WindowState = WindowState.Normal;
+                    Current.MainWindow.Activate();
+                });
+            }
+            catch (ObjectDisposedException)
+            {
+                break;
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.LogException(ex, "Error in instance signal listener.");
+            }
+        }
+    }
+
+    private const int SwRestore = 9;
+
+    [DllImport("user32.dll")]
+    private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    [DllImport("user32.dll")]
+    private static extern bool IsIconic(IntPtr hWnd);
+
+    private static void RestoreExistingWindow()
+    {
+        try
+        {
+            var currentProcess = Process.GetCurrentProcess();
+            foreach (var process in Process.GetProcessesByName(currentProcess.ProcessName))
+            {
+                if (process.Id != currentProcess.Id && process.MainWindowHandle != IntPtr.Zero)
+                {
+                    var hWnd = process.MainWindowHandle;
+                    if (IsIconic(hWnd))
+                        ShowWindow(hWnd, SwRestore);
+                    SetForegroundWindow(hWnd);
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.LogException(ex, "Failed to restore existing SimpleLauncher window.");
+        }
     }
 }

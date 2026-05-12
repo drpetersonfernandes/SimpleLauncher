@@ -18,11 +18,9 @@ public partial class SupportWindow : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private static IHttpClientFactory _httpClientFactory;
     private readonly ILogErrors _logErrors;
-    private readonly Exception _exception;
-    private readonly string _contextMessage;
     private readonly IConfiguration _configuration;
 
-    public SupportWindow(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, Exception exception, string contextMessage, IConfiguration configuration)
+    public SupportWindow(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -30,8 +28,6 @@ public partial class SupportWindow : ILoadingState
         _playSoundEffects = playSoundEffects;
         _httpClientFactory = httpClientFactory;
         _logErrors = logErrors;
-        _exception = exception;
-        _contextMessage = contextMessage;
         _configuration = configuration;
 
         Loaded += (_, _) =>

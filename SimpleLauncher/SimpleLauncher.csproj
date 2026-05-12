@@ -28,8 +28,8 @@
         <PackageIcon>icon2.png</PackageIcon>
         <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>5.4.0</AssemblyVersion>
-        <FileVersion>5.4.0</FileVersion>
+        <AssemblyVersion>5.4.1</AssemblyVersion>
+        <FileVersion>5.4.1</FileVersion>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <Version>$(VersionPrefix)</Version>
         <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
@@ -1036,7 +1036,7 @@
         <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.7" />
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
         <PackageReference Include="SharpCompress" Version="0.48.0" />
-        <PackageReference Include="Tomlyn" Version="2.3.2" />
+        <PackageReference Include="Tomlyn" Version="2.4.0" />
         <PackageReference Include="YamlDotNet" Version="17.1.0" />
     </ItemGroup>
     <ItemGroup>

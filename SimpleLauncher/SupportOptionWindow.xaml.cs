@@ -37,7 +37,7 @@ public partial class SupportOptionWindow
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        var supportRequestWindow = new SupportWindow(_playSoundEffects, _httpClientFactory, _logErrors, _exception, _contextMessage, _configuration);
+        var supportRequestWindow = new SupportWindow(_playSoundEffects, _httpClientFactory, _logErrors, _configuration);
         supportRequestWindow.Show();
 
         Close();

@@ -15,8 +15,8 @@ public class TrayIconManager : IDisposable
     private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;
 
-    // Updated delegate types
     private readonly RoutedEventHandler _onOpenHandler;
+    private readonly RoutedEventHandler _onMinimizeToTrayHandler;
     private readonly RoutedEventHandler _onExitHandler;
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
@@ -28,6 +28,7 @@ public class TrayIconManager : IDisposable
 
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
+        _onMinimizeToTrayHandler = OnMinimizeToTray;
         _onExitHandler = OnExit;
         _onOpenDebugWindowHandler = OnOpenDebugWindow;
         _trayMouseDoubleClickHandler = OnOpen;
@@ -46,6 +47,7 @@ public class TrayIconManager : IDisposable
     {
         var menu = new System.Windows.Controls.ContextMenu();
         var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
+        var minimizeToTray = (string)Application.Current.TryFindResource("MinimizeToTray") ?? "Minimize to Tray";
         var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
         var debugWindow = (string)Application.Current.TryFindResource("DebugWindow") ?? "Debug Window";
 
@@ -60,6 +62,18 @@ public class TrayIconManager : IDisposable
             }
         };
         openMenuItem.Click += _onOpenHandler;
+
+        var minimizeToTrayMenuItem = new MenuItem
+        {
+            Header = minimizeToTray,
+            Icon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/show.png")),
+                Width = 16,
+                Height = 16
+            }
+        };
+        minimizeToTrayMenuItem.Click += _onMinimizeToTrayHandler;
 
         var debugWindowMenuItem = new MenuItem
         {
@@ -86,6 +100,8 @@ public class TrayIconManager : IDisposable
         exitMenuItem.Click += _onExitHandler;
 
         menu.Items.Add(openMenuItem);
+        menu.Items.Add(minimizeToTrayMenuItem);
+        menu.Items.Add(new Separator());
         menu.Items.Add(debugWindowMenuItem);
         menu.Items.Add(exitMenuItem);
 
@@ -105,9 +121,16 @@ public class TrayIconManager : IDisposable
 
     private void OnOpen(object sender, RoutedEventArgs e)
     {
+        _mainWindow.ShowInTaskbar = true;
         _mainWindow.Show();
         _mainWindow.WindowState = WindowState.Normal;
         _mainWindow.Activate();
+    }
+
+    private void OnMinimizeToTray(object sender, RoutedEventArgs e)
+    {
+        _mainWindow.Hide();
+        _mainWindow.ShowInTaskbar = false;
     }
 
     private void OnOpenDebugWindow(object sender, RoutedEventArgs e)
@@ -165,6 +188,7 @@ public class TrayIconManager : IDisposable
                 if (item is not MenuItem menuItem) continue;
 
                 menuItem.Click -= _onOpenHandler;
+                menuItem.Click -= _onMinimizeToTrayHandler;
                 menuItem.Click -= _onExitHandler;
                 menuItem.Click -= _onOpenDebugWindowHandler;
             }
