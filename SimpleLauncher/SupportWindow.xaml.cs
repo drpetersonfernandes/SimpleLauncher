@@ -34,8 +34,6 @@ public partial class SupportWindow : ILoadingState
         _contextMessage = contextMessage;
         _configuration = configuration;
 
-        MessageBuilder();
-
         Loaded += (_, _) =>
         {
             LoadingOverlay.ApplyTemplate();
@@ -44,11 +42,6 @@ public partial class SupportWindow : ILoadingState
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
-    }
-
-    private void MessageBuilder()
-    {
-        SupportTextBox.Text = BugReportFormatter.BuildReport(_exception, _contextMessage);
     }
 
     public void SetLoadingState(bool isLoading, string message = null)
