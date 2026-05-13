@@ -450,4 +450,101 @@ public class PathHelperTests
 
         Assert.Equal("-path C:\\roms\\Arcade", result);
     }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathNullPathReturnsNull()
+    {
+        var result = PathHelper.TryFindFileWithNormalizedPath(null);
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathEmptyPathReturnsNull()
+    {
+        var result = PathHelper.TryFindFileWithNormalizedPath("");
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathWhitespacePathReturnsNull()
+    {
+        var result = PathHelper.TryFindFileWithNormalizedPath("   ");
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathNonExistentDirectoryReturnsNull()
+    {
+        var result = PathHelper.TryFindFileWithNormalizedPath("C:\\NonExistentDir\\file.txt");
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathFileExistsReturnsOriginalPath()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var filePath = Path.Combine(baseDir, "testfile.txt");
+
+        try
+        {
+            Directory.CreateDirectory(baseDir);
+            File.WriteAllText(filePath, "dummy");
+
+            var result = PathHelper.TryFindFileWithNormalizedPath(filePath);
+
+            Assert.NotNull(result);
+            Assert.Equal(filePath, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathDirectoryExistsReturnsDirectoryPath()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var subDir = Path.Combine(baseDir, "subdir");
+
+        try
+        {
+            Directory.CreateDirectory(subDir);
+
+            var result = PathHelper.TryFindFileWithNormalizedPath(subDir);
+
+            Assert.NotNull(result);
+            Assert.Equal(subDir, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    [Fact]
+    public void TryFindFileWithNormalizedPathCaseMismatchReturnsActualPath()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var actualFilePath = Path.Combine(baseDir, "TestFile.txt");
+        var searchFilePath = Path.Combine(baseDir, "testfile.txt");
+
+        try
+        {
+            Directory.CreateDirectory(baseDir);
+            File.WriteAllText(actualFilePath, "dummy");
+
+            var result = PathHelper.TryFindFileWithNormalizedPath(searchFilePath);
+
+            Assert.NotNull(result);
+            Assert.Equal(actualFilePath, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
 }

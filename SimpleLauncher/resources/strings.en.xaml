@@ -982,6 +982,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen emulator not found. Please locate 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Mesen Settings</system:String>
     <system:String x:Key="Midnight">Midnight (Deep Blue)</system:String>
+    <system:String x:Key="MinimizeToTray">Minimize to Tray</system:String>
     <system:String x:Key="MissingInformation">Missing Information</system:String>
     <system:String x:Key="MissingRequiredFiles">Missing Required Files</system:String>
     <system:String x:Key="MoreOptions">More Options</system:String>

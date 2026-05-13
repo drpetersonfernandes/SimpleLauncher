@@ -187,6 +187,22 @@ public partial class GameLauncher
         var fileExists = standardFileExists || longFileExists;
         var directoryExists = standardDirExists || longDirExists;
 
+        // If file doesn't exist, try Unicode normalization variations
+        // This handles cases where filenames have different normalization forms (NFC vs NFD)
+        // commonly occurring when files are created on different operating systems (macOS vs Windows)
+        string normalizedPath = null;
+        if (!fileExists && !directoryExists)
+        {
+            normalizedPath = PathHelper.TryFindFileWithNormalizedPath(standardPath);
+            if (!string.IsNullOrEmpty(normalizedPath))
+            {
+                fileExists = true;
+                // Update the resolved path to use the normalized version that actually exists
+                context.ResolvedFilePath = normalizedPath;
+                DebugLogger.Log($"[ValidateContextAsync] Found file using Unicode normalization: {normalizedPath}");
+            }
+        }
+
         if (!fileExists && !directoryExists)
         {
             var msg = $"File not found: {context.ResolvedFilePath}";
@@ -206,6 +222,7 @@ public partial class GameLauncher
                                   $"  Original Path: {context.FilePath}\n" +
                                   $"  Resolved Path: {standardPath}\n" +
                                   $"  Long Path: {longPath}\n" +
+                                  $"  Normalized Path Found: {normalizedPath ?? "N/A"}\n" +
                                   $"  Standard File.Exists: {standardFileExists}\n" +
                                   $"  Long Path File.Exists: {longFileExists}\n" +
                                   $"  Standard Directory.Exists: {standardDirExists}\n" +

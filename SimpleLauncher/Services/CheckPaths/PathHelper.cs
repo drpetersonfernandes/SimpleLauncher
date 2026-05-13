@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -424,4 +425,85 @@ internal static partial class PathHelper
                     "[^"]*"|'[^']*'|\S+
                     """)]
     private static partial Regex MyRegex();
+
+    /// <summary>
+    /// Attempts to find a file by trying different Unicode normalization forms.
+    /// This is necessary because Windows filesystems can store filenames with different
+    /// normalization forms (NFC vs NFD), especially when files are created on different
+    /// operating systems (e.g., macOS uses NFD by default, Windows uses NFC).
+    /// </summary>
+    /// <param name="filePath">The original file path to check.</param>
+    /// <returns>The normalized path if found, otherwise null.</returns>
+    public static string TryFindFileWithNormalizedPath(string filePath)
+    {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            return null;
+        }
+
+        try
+        {
+            // Get the directory and filename components
+            var directoryPath = Path.GetDirectoryName(filePath);
+            var fileName = Path.GetFileName(filePath);
+
+            if (string.IsNullOrEmpty(directoryPath) || string.IsNullOrEmpty(fileName))
+            {
+                return null;
+            }
+
+            // If directory doesn't exist, no point in searching
+            if (!Directory.Exists(directoryPath))
+            {
+                return null;
+            }
+
+            // Try different Unicode normalization forms for the filename
+            var normalizedFileNames = new HashSet<string>(StringComparer.Ordinal)
+            {
+                fileName, // Original
+                fileName.Normalize(NormalizationForm.FormC), // NFC (Windows default)
+                fileName.Normalize(NormalizationForm.FormD), // NFD (macOS default)
+                fileName.Normalize(NormalizationForm.FormKC), // NFKC
+                fileName.Normalize(NormalizationForm.FormKD) // NFKD
+            };
+
+            // Get all files in the directory and check for normalized matches
+            foreach (var existingFile in Directory.EnumerateFiles(directoryPath))
+            {
+                var existingFileName = Path.GetFileName(existingFile);
+
+                // Check if any normalized form matches the existing file (case-insensitive)
+                foreach (var normalizedFileName in normalizedFileNames)
+                {
+                    if (existingFileName.Equals(normalizedFileName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Found a match, return the full path with the actual filename from disk
+                        return existingFile;
+                    }
+                }
+            }
+
+            // Also check directories if the original path was a directory
+            foreach (var existingDir in Directory.EnumerateDirectories(directoryPath))
+            {
+                var existingDirName = Path.GetFileName(existingDir);
+
+                foreach (var normalizedFileName in normalizedFileNames)
+                {
+                    if (existingDirName.Equals(normalizedFileName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return existingDir;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log but don't throw - this is a best-effort attempt
+            DebugLogger.Log($"[TryFindFileWithNormalizedPath] Error during normalization search: {ex.Message}");
+        }
+
+        return null;
+    }
 }
