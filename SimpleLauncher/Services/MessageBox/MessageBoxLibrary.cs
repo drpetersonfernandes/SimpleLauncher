@@ -1351,6 +1351,49 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void UpdaterLaunchFailedMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var updaterLaunchFailed = (string)Application.Current.TryFindResource("UpdaterLaunchFailed") ?? "Failed to launch the Updater.";
+            var accessDeniedExplanation = (string)Application.Current.TryFindResource("AccessDeniedExplanation") ?? "This may be due to insufficient permissions or Windows security settings blocking the file.";
+            var wouldyouliketoberedirectedtothedownloadpage = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var messageBoxResult = System.Windows.MessageBox.Show($"{updaterLaunchFailed}\n\n" +
+                                                                  $"{accessDeniedExplanation}\n\n" +
+                                                                  $"{wouldyouliketoberedirectedtothedownloadpage}", error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:GitHubReleases") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
+
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdaterLaunchFailedMessageBox");
+
+                    // Notify user
+                    var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
+                    var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                    System.Windows.MessageBox.Show($"{anerroroccurredwhileopeningthebrowser}\n\n" +
+                                                   $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+
     internal static void RequiredFileMissingMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

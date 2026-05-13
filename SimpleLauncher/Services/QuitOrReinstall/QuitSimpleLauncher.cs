@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
@@ -69,12 +70,47 @@ public static class QuitSimpleLauncher
                 Environment.Exit(0);
             });
         }
+        catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
+        {
+            // Log the initial access denied error
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
+                .LogErrorAsync(ex, "Access denied when starting Updater.exe. Attempting to restart with elevation.");
+
+            try
+            {
+                // Retry with elevated privileges (UAC prompt)
+                var elevatedStartInfo = new ProcessStartInfo(updaterPath)
+                {
+                    Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
+                    UseShellExecute = true,
+                    Verb = "runas" // Request administrator privileges
+                };
+                Process.Start(elevatedStartInfo);
+
+                // If elevation succeeded, shutdown
+                Application.Current.Dispatcher.Invoke(static () =>
+                {
+                    Application.Current.Shutdown();
+                    Process.GetCurrentProcess().Kill();
+                    Environment.Exit(0);
+                });
+            }
+            catch (Exception elevationEx)
+            {
+                // Log the elevation attempt failure
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
+                    .LogErrorAsync(elevationEx, "Failed to start Updater.exe even with elevation.");
+
+                // Notify user that update failed
+                MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+            }
+        }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to start updater and shut down.");
 
-            // // If the updater fails to launch, we should inform the user and NOT shut down.
-            // MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+            // Notify user that update failed
+            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }
     }
 }
