@@ -313,6 +313,15 @@ public partial class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
+        if (!string.IsNullOrEmpty(psi.WorkingDirectory) && !Directory.Exists(psi.WorkingDirectory))
+        {
+            var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+            var msg = $"The working directory for the batch file does not exist: {psi.WorkingDirectory}";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new DirectoryNotFoundException(msg), msg);
+            MessageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, $"Working directory not found: {psi.WorkingDirectory}", logPath);
+            return;
+        }
+
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
         DebugLogger.Log("RunBatchFileAsync:\n\n");
         DebugLogger.Log($"Command: {psi.FileName} {psi.Arguments}");
@@ -360,6 +369,8 @@ public partial class GameLauncher
 
             if (process.ExitCode != 0)
             {
+                var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+
                 // Notify developer
                 var errorDetail = $"There was an issue running the batch process.\n" +
                                   $"Batch file: {resolvedFilePath}\n" +
@@ -371,9 +382,12 @@ public partial class GameLauncher
                 var batchException = new InvalidOperationException($"Batch file exited with code {process.ExitCode}");
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(batchException, contextMessage);
 
+                LogBatchFileContentsOnError(resolvedFilePath);
+
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    var batchError = error.ToString().Trim();
+                    MessageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, batchError, logPath);
                 }
             }
         }
@@ -415,9 +429,13 @@ public partial class GameLauncher
                 var contextMessage = $"{errorDetail}\n{userNotified}";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
+                LogBatchFileContentsOnError(resolvedFilePath);
+
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    var batchError = error.ToString().Trim();
+                    var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+                    MessageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, batchError, logPath);
                 }
             }
         }
@@ -444,10 +462,31 @@ public partial class GameLauncher
             var contextMessage = $"{errorDetail}\n{userNotified}";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
+            LogBatchFileContentsOnError(resolvedFilePath);
+
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                var batchError = error.ToString().Trim();
+                var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+                MessageBoxLibrary.BatchFileFailedMessageBox(resolvedFilePath, batchError, logPath);
             }
+        }
+    }
+
+    private static void LogBatchFileContentsOnError(string batchFilePath)
+    {
+        try
+        {
+            if (File.Exists(batchFilePath))
+            {
+                var contents = File.ReadAllText(batchFilePath);
+                DebugLogger.Log($"Batch file contents for '{batchFilePath}':\n{contents}");
+                DebugLogger.Log("End of batch file contents.");
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"Could not read batch file contents for logging: {ex.Message}");
         }
     }
 

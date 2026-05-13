@@ -167,6 +167,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Synchronizes frame rate with monitor refresh rate to prevent screen tearing.</system:String>
     <system:String x:Key="AzaharSettings">Azahar Settings</system:String>
     <system:String x:Key="BaseTheme">Base Theme</system:String>
+    <system:String x:Key="Batchfilefailed">The batch file failed to run.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">This usually means a path referenced inside the batch file no longer exists or is incorrect.</system:String>
     <system:String x:Key="Big">Big</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem configuration saved successfully.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Aspect Ratio:</system:String>

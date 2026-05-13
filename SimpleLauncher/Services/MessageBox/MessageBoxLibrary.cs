@@ -2382,6 +2382,48 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void BatchFileFailedMessageBox(string batchFilePath, string errorDetail, string logPath)
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var batchFileName = System.IO.Path.GetFileName(batchFilePath);
+            var batchfilefailed = (string)Application.Current.TryFindResource("Batchfilefailed") ?? "The batch file failed to run.";
+            var batchNameMessage = $"{batchfilefailed}\n\n{batchFileName}";
+            var errorMessage = !string.IsNullOrEmpty(errorDetail)
+                ? $"Error: {errorDetail}\n\n"
+                : string.Empty;
+            var explanation = (string)Application.Current.TryFindResource("Batchfilefailedexplanation") ?? "This usually means a path referenced inside the batch file no longer exists or is incorrect.";
+            var youcanturnoff = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
+            var doyouwanttoopen = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var message = $"{batchNameMessage}\n\n{errorMessage}{explanation}\n\n{youcanturnoff}\n\n{doyouwanttoopen}";
+
+            var result = System.Windows.MessageBox.Show(message, error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a batch file error message box.");
+                    var notFound = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                    System.Windows.MessageBox.Show(notFound, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+
     internal static void ElevationRequiredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
