@@ -7,14 +7,6 @@
                       Height="600"
                       WindowStartupLocation="CenterScreen">
     <Grid>
-        <Image Name="ImageViewer" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
-    
-    
-    <!-- <Grid> -->
-    <!--     ~1~ ScrollViewer with ZoomMode for basic zoom/pan functionality @1@ -->
-    <!--     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"> -->
-    <!--         <Image x:Name="ImageViewerImage" Stretch="Uniform" /> -->
-    <!--     </ScrollViewer> -->
-    <!-- </Grid> -->
 </controls:MetroWindow>

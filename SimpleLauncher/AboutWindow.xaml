@@ -28,13 +28,12 @@
         <StackPanel Grid.Row="1" Margin="10">
             <TextBlock FontWeight="Bold" Text="Simple Launcher" />
             <TextBlock Text="{DynamicResource Anopensourceemulatorfrontend}" />
-            <TextBlock Name="AppVersionTextBlock" Margin="0,10,0,0" Text="" />
+            <TextBlock Margin="0,10,0,0" Text="{Binding AppVersion}" />
             <TextBlock Margin="0,10,0,0">
-                <Hyperlink NavigateUri="https://www.purelogiccode.com" RequestNavigate="Hyperlink_RequestNavigate" ToolTip="{DynamicResource TooltipNavigateToWebsite}">https://www.purelogiccode.com</Hyperlink>
+                <Hyperlink Command="{Binding OpenWebsiteCommand}" CommandParameter="https://www.purelogiccode.com" ToolTip="{DynamicResource TooltipNavigateToWebsite}">https://www.purelogiccode.com</Hyperlink>
             </TextBlock>
             <TextBlock Margin="0,10,0,10">
-                <Hyperlink NavigateUri="https://github.com/drpetersonfernandes/SimpleLauncher"
-                           RequestNavigate="Hyperlink_RequestNavigate" ToolTip="{DynamicResource TooltipNavigateToGithub}">
+                <Hyperlink Command="{Binding OpenWebsiteCommand}" CommandParameter="https://github.com/drpetersonfernandes/SimpleLauncher" ToolTip="{DynamicResource TooltipNavigateToGithub}">
                     https://github.com/drpetersonfernandes/SimpleLauncher
                 </Hyperlink>
             </TextBlock>
@@ -45,23 +44,23 @@
             Margin="10"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-    <Button
-      Style="{DynamicResource MahApps.Styles.Button.Square}"
-      Click="CheckForUpdateAsync_Click"
-      Content="{DynamicResource CheckForUpdate}"
-      ToolTip="{DynamicResource TooltipCheckForUpdate}" />
-    <Button
-      Style="{DynamicResource MahApps.Styles.Button.Square}"
-      Margin="10,0,0,0"
-      Click="UpdateHistory_Click"
-      Content="{DynamicResource UpdateHistory}"
-      ToolTip="{DynamicResource TooltipUpdateHistory}" />
-    <Button
-      Style="{DynamicResource MahApps.Styles.Button.Square}"
-      Margin="10,0,0,0"
-      Click="CloseButton_Click"
-      Content="{DynamicResource Close}"
-      ToolTip="{DynamicResource TooltipClose}" />
+            <Button
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Command="{Binding CheckForUpdatesCommand}"
+                Content="{DynamicResource CheckForUpdate}"
+                ToolTip="{DynamicResource TooltipCheckForUpdate}" />
+            <Button
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Margin="10,0,0,0"
+                Command="{Binding OpenUpdateHistoryCommand}"
+                Content="{DynamicResource UpdateHistory}"
+                ToolTip="{DynamicResource TooltipUpdateHistory}" />
+            <Button
+                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                Margin="10,0,0,0"
+                Command="{Binding CloseCommand}"
+                Content="{DynamicResource Close}"
+                ToolTip="{DynamicResource TooltipClose}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

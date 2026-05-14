@@ -2518,8 +2518,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
 **Extension to Search in the System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
+**Extract File Before Launch?** false or true (depends on the emulator you are using)<br>
+**Extension to Launch After Extraction:** gb, sgb, gbc, gba<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2630,6 +2630,17 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
 Core may require BIOS files or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
+**Emulator Name:** TGB-Dual-L<br>
+**Emulator Path (Example):** C:\Emulators\TGB-Dual-L\TGB_Dual_L (en).exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/libertyernie/tgbdual_L).<br>
 
 .
 
@@ -2747,8 +2758,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
 **Extension to Search in the System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Extension to Launch After Extraction:** <br>
+**Extract File Before Launch?** false or true (depends on the emulator you are using)<br>
+**Extension to Launch After Extraction:** gb, sgb, gbc, gba<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -2860,6 +2871,17 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
 Core may require BIOS files or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
+**Emulator Name:** TGB-Dual-L<br>
+**Emulator Path (Example):** C:\Emulators\TGB-Dual-L\TGB_Dual_L (en).exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/libertyernie/tgbdual_L).<br>
 
 .
 

@@ -26,19 +26,19 @@
 
         <!-- Current Threshold -->
         <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CurrentThresholdLabel}" FontWeight="Bold" VerticalAlignment="Center" />
-        <Label Grid.Row="0" Grid.Column="1" x:Name="CurrentThresholdLabel" />
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentThresholdText}" />
 
         <!-- New Threshold Input (Slider) -->
         <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource NewThresholdLabel}" FontWeight="Bold" VerticalAlignment="Center" />
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-            <Slider x:Name="ThresholdSlider"
-                    Minimum="0.7"
-                    Maximum="0.95"
-                    TickFrequency="0.05"
+            <Slider Value="{Binding ThresholdValue}"
+                    Minimum="{Binding Minimum}"
+                    Maximum="{Binding Maximum}"
+                    TickFrequency="{Binding TickFrequencyValue}"
                     IsSnapToTickEnabled="True"
                     Width="200"
                     ToolTip="{DynamicResource TooltipThresholdSlider}" />
-            <TextBlock Text="{Binding Value, ElementName=ThresholdSlider, StringFormat={}{0:P0}}" Margin="10" />
+            <TextBlock Text="{Binding ThresholdPercentage}" Margin="10" />
         </StackPanel>
 
         <!-- Description -->
@@ -56,11 +56,11 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,10">
-            <Button Content="{DynamicResource OkButtonText}" Click="OkButton_Click"
+            <Button Content="{DynamicResource OkButtonText}" Command="{Binding SaveCommand}"
                     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
                     IsDefault="True" Padding="10" Margin="0,0,10,0"
                     ToolTip="{DynamicResource TooltipOkButton}" />
-            <Button Content="{DynamicResource CancelButtonText}"
+            <Button Content="{DynamicResource CancelButtonText}" Command="{Binding CancelCommand}"
                     Style="{DynamicResource MahApps.Styles.Button.Square}"
                     IsCancel="True" Padding="10"
                     ToolTip="{DynamicResource ToolTipCancel}" />
