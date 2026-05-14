@@ -3189,6 +3189,19 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 .
 
+**Emulator Name:** Retroarch bsnes-jg<br>
+**Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\bsnes-jg_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\bsnes-jg_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core documentation can be found on [GitHub Repository](https://github.com/libretro/bsnes-jg).<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo SNES" snes<br>
