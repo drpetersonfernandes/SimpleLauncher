@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">ایمولیٹر 5 منتخب کریں۔</system:String>
     <system:String x:Key="SelectEmulatorComboBox">ایمولیٹر کامبو باکس منتخب کریں</system:String>
     <system:String x:Key="SelectFlycastEmulator">Flycast ایمولیٹر منتخب کریں</system:String>
-    <system:String x:Key="SelectGameForVerification">تصدیق کے لیے گیم منتخب کریں</system:String>
-    <system:String x:Key="SelectGamesToVerify">تصدیق کرنے کے لیے گیمز منتخب کریں</system:String>
     <system:String x:Key="SelectMAMEEmulator">MAME ایمولیٹر منتخب کریں</system:String>
     <system:String x:Key="SelectMednafenEmulator">Mednafen ایمولیٹر منتخب کریں</system:String>
     <system:String x:Key="SelectMesenEmulator">Mesen ایمولیٹر منتخب کریں</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">صارف کی پیشرفت ٹیب</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">سپورٹ حاصل کرنے کے لیے نیچے فارم استعمال کریں</system:String>
     <system:String x:Key="Validationerrors">تصدیقی خامیاں</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">مائیکروسافٹ سٹور گیمز کی تصدیق کریں</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' کو مائیکروسافٹ سٹور سے درج ذیل ایپلیکیشنز ملی ہیں۔ براہ کرم ان گیمز کو منتخب کریں جو آپ اپنی لائبریری میں شامل کرنا چاہتے ہیں۔</system:String>
     <system:String x:Key="Version">ورژن:</system:String>
     <system:String x:Key="Video">ویڈیو</system:String>
     <system:String x:Key="VideoLinkButton">ویڈیو لنک بٹن</system:String>

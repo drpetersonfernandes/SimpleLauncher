@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Selecteer Emulator ComboBox</system:String>
     <system:String x:Key="SelectFlycastEmulator">Selecteer Flycast Emulator</system:String>
-    <system:String x:Key="SelectGameForVerification">Selecteer spel voor verificatie</system:String>
-    <system:String x:Key="SelectGamesToVerify">Selecteer spellen om te verifiëren</system:String>
     <system:String x:Key="SelectMAMEEmulator">Selecteer MAME Emulator</system:String>
     <system:String x:Key="SelectMednafenEmulator">Selecteer Mednafen Emulator</system:String>
     <system:String x:Key="SelectMesenEmulator">Selecteer Mesen Emulator</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">Gebruikersvoortgang tabblad</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Gebruik het onderstaande formulier om ondersteuning te krijgen</system:String>
     <system:String x:Key="Validationerrors">Validatiefouten</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Microsoft Store-spellen verifiëren</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' heeft de volgende applicaties uit de Microsoft Store gevonden. Selecteer de spellen om ze aan uw bibliotheek toe te voegen.</system:String>
     <system:String x:Key="Version">Versie:</system:String>
     <system:String x:Key="Video">Video</system:String>
     <system:String x:Key="VideoLinkButton">Videokoppelingsknop</system:String>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">选择模拟器 5。</system:String>
     <system:String x:Key="SelectEmulatorComboBox">选择模拟器组合框</system:String>
     <system:String x:Key="SelectFlycastEmulator">选择 Flycast 模拟器</system:String>
-    <system:String x:Key="SelectGameForVerification">选择要验证的游戏</system:String>
-    <system:String x:Key="SelectGamesToVerify">选择要验证的游戏</system:String>
     <system:String x:Key="SelectMAMEEmulator">选择 MAME 模拟器</system:String>
     <system:String x:Key="SelectMednafenEmulator">选择 Mednafen 模拟器</system:String>
     <system:String x:Key="SelectMesenEmulator">选择 Mesen 模拟器</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">用户进度选项卡</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">使用下面的表格获取支持</system:String>
     <system:String x:Key="Validationerrors">验证错误</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">验证 Microsoft Store 游戏</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">“Simple Launcher”在 Microsoft Store 中找到了以下应用程序。请选择是游戏的应用程序以将其添加到您的库中。</system:String>
     <system:String x:Key="Version">版本:</system:String>
     <system:String x:Key="Video">视频</system:String>
     <system:String x:Key="VideoLinkButton">视频链接按钮</system:String>

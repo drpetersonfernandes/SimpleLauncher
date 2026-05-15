@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Todos los juegos</system:String>
     <system:String x:Key="10000games">10000 juegos</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">Selecciona el emulador 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Lista desplegable de emulador</system:String>
     <system:String x:Key="SelectFlycastEmulator">Seleccionar emulador Flycast</system:String>
-    <system:String x:Key="SelectGameForVerification">Seleccionar juego para verificación</system:String>
-    <system:String x:Key="SelectGamesToVerify">Seleccionar juegos para verificar</system:String>
     <system:String x:Key="SelectMAMEEmulator">Seleccionar emulador MAME</system:String>
     <system:String x:Key="SelectMednafenEmulator">Seleccionar emulador Mednafen</system:String>
     <system:String x:Key="SelectMesenEmulator">Seleccionar emulador Mesen</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">Pestaña Progreso del usuario</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Use el siguiente formulario para obtener soporte</system:String>
     <system:String x:Key="Validationerrors">Errores de validación</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Verificar juegos de Microsoft Store</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' encontró las siguientes aplicaciones de Microsoft Store. Seleccione las que son juegos para agregarlas a su biblioteca.</system:String>
     <system:String x:Key="Version">Versión:</system:String>
     <system:String x:Key="Video">Video</system:String>
     <system:String x:Key="VideoLinkButton">Botón de enlace de video</system:String>

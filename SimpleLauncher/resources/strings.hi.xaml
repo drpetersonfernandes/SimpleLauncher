@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">इम्यूलेटर 5 का चयन करें।</system:String>
     <system:String x:Key="SelectEmulatorComboBox">इमुलेटर कॉम्बोबॉक्स चुनें</system:String>
     <system:String x:Key="SelectFlycastEmulator">Flycast एमुलेटर चुनें</system:String>
-    <system:String x:Key="SelectGameForVerification">सत्यापन के लिए गेम चुनें</system:String>
-    <system:String x:Key="SelectGamesToVerify">सत्यापित करने के लिए गेम चुनें</system:String>
     <system:String x:Key="SelectMAMEEmulator">MAME एमुलेटर चुनें</system:String>
     <system:String x:Key="SelectMednafenEmulator">Mednafen एमुलेटर चुनें</system:String>
     <system:String x:Key="SelectMesenEmulator">Mesen एमुलेटर चुनें</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">उपयोगकर्ता प्रगति टैब</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">समर्थन प्राप्त करने के लिए नीचे दिए गए फॉर्म का उपयोग करें</system:String>
     <system:String x:Key="Validationerrors">सत्यापन त्रुटियां</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Microsoft Store गेम्स सत्यापित करें</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' को Microsoft Store से निम्नलिखित एप्लिकेशन मिले। कृपया उन खेलों का चयन करें जिन्हें आप अपनी लाइब्रेरी में जोड़ना चाहते हैं।</system:String>
     <system:String x:Key="Version">संस्करण:</system:String>
     <system:String x:Key="Video">वीडियो</system:String>
     <system:String x:Key="VideoLinkButton">वीडियो लिंक बटन</system:String>

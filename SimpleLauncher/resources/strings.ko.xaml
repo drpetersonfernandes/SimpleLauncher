@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">에뮬레이터 콤보박스 선택</system:String>
     <system:String x:Key="SelectFlycastEmulator">Flycast 에뮬레이터 선택</system:String>
-    <system:String x:Key="SelectGameForVerification">확인할 게임 선택</system:String>
-    <system:String x:Key="SelectGamesToVerify">확인할 게임 선택</system:String>
     <system:String x:Key="SelectMAMEEmulator">MAME 에뮬레이터 선택</system:String>
     <system:String x:Key="SelectMednafenEmulator">Mednafen 에뮬레이터 선택</system:String>
     <system:String x:Key="SelectMesenEmulator">Mesen 에뮬레이터 선택</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">사용자 진행 상황 탭</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">지원받기 위해 아래 양식을 사용하세요</system:String>
     <system:String x:Key="Validationerrors">검증 오류</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Microsoft Store 게임 확인</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher'가 Microsoft Store에서 다음 애플리케이션을 찾았습니다. 라이브러리에 추가할 게임을 선택하세요.</system:String>
     <system:String x:Key="Version">버전:</system:String>
     <system:String x:Key="Video">비디오</system:String>
     <system:String x:Key="VideoLinkButton">비디오 링크 버튼</system:String>

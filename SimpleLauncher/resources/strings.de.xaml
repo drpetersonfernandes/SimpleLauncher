@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">Wählen Sie Emulator 5 aus.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Emulator-Auswahlliste</system:String>
     <system:String x:Key="SelectFlycastEmulator">Flycast-Emulator auswählen</system:String>
-    <system:String x:Key="SelectGameForVerification">Spiel zur Überprüfung auswählen</system:String>
-    <system:String x:Key="SelectGamesToVerify">Spiele zur Überprüfung auswählen</system:String>
     <system:String x:Key="SelectMAMEEmulator">MAME-Emulator auswählen</system:String>
     <system:String x:Key="SelectMednafenEmulator">Mednafen-Emulator auswählen</system:String>
     <system:String x:Key="SelectMesenEmulator">Mesen-Emulator auswählen</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">Registerkarte „Benutzerfortschritt“</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Verwenden Sie das untenstehende Formular, um Support zu erhalten</system:String>
     <system:String x:Key="Validationerrors">Validierungsfehler</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Microsoft Store-Spiele überprüfen</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' hat die folgenden Anwendungen aus dem Microsoft Store gefunden. Bitte wählen Sie diejenigen aus, die Spiele sind, um sie Ihrer Bibliothek hinzuzufügen.</system:String>
     <system:String x:Key="Version">Version:</system:String>
     <system:String x:Key="Video">Video</system:String>
     <system:String x:Key="VideoLinkButton">Video-Link-Schaltfläche</system:String>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Emülatör ComboBox'ını Seçin</system:String>
     <system:String x:Key="SelectFlycastEmulator">Flycast Emülatörünü Seç</system:String>
-    <system:String x:Key="SelectGameForVerification">Doğrulama için oyun seçin</system:String>
-    <system:String x:Key="SelectGamesToVerify">Doğrulanacak oyunları seçin</system:String>
     <system:String x:Key="SelectMAMEEmulator">MAME Emülatörünü Seç</system:String>
     <system:String x:Key="SelectMednafenEmulator">Mednafen Emülatörünü Seç</system:String>
     <system:String x:Key="SelectMesenEmulator">Mesen Emülatörünü Seç</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">Kullanıcı ilerlemesi sekmesi</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Destek almak için aşağıdaki formu kullanın</system:String>
     <system:String x:Key="Validationerrors">Doğrulama hataları</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Microsoft Store Oyunlarını Doğrula</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' Microsoft Store'dan aşağıdaki uygulamaları buldu. Lütfen kütüphanenize eklemek için oyun olanları seçin.</system:String>
     <system:String x:Key="Version">Sürüm:</system:String>
     <system:String x:Key="Video">Video</system:String>
     <system:String x:Key="VideoLinkButton">Video Bağlantı Düğmesi</system:String>

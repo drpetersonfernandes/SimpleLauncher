@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1582,8 +1582,6 @@
     <system:String x:Key="SelectEmulator5">Select Emulator 5</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Select Emulator ComboBox</system:String>
     <system:String x:Key="SelectFlycastEmulator">Select Flycast Emulator</system:String>
-    <system:String x:Key="SelectGameForVerification">Select game for verification</system:String>
-    <system:String x:Key="SelectGamesToVerify">Select games to verify</system:String>
     <system:String x:Key="SelectMAMEEmulator">Select MAME Emulator</system:String>
     <system:String x:Key="SelectMednafenEmulator">Select Mednafen Emulator</system:String>
     <system:String x:Key="SelectMesenEmulator">Select Mesen Emulator</system:String>
@@ -2167,8 +2165,6 @@
     <system:String x:Key="UserProgressTabTooltip">User progress tab</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Use the form below to get support</system:String>
     <system:String x:Key="Validationerrors">Validation errors</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Verify Microsoft Store Games</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' found the following applications from the Microsoft Store. Please select the ones that are games to add them to your library.</system:String>
     <system:String x:Key="Version">Version:</system:String>
     <system:String x:Key="Video">Video</system:String>
     <system:String x:Key="VideoLinkButton">Video Link Button</system:String>

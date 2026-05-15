@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">اختر المحاكي 5</system:String>
     <system:String x:Key="SelectEmulatorComboBox">اختر قائمة المحاكي</system:String>
     <system:String x:Key="SelectFlycastEmulator">اختر محاكي Flycast</system:String>
-    <system:String x:Key="SelectGameForVerification">حدد اللعبة للتحقق</system:String>
-    <system:String x:Key="SelectGamesToVerify">حدد الألعاب للتحقق</system:String>
     <system:String x:Key="SelectMAMEEmulator">اختر محاكي MAME</system:String>
     <system:String x:Key="SelectMednafenEmulator">اختر محاكي Mednafen</system:String>
     <system:String x:Key="SelectMesenEmulator">اختر محاكي Mesen</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">تبويب تقدم المستخدم</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">استخدم النموذج أدناه للحصول على الدعم</system:String>
     <system:String x:Key="Validationerrors">أخطاء التحقق</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">التحقق من ألعاب متجر Microsoft</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">عثر &quot;Simple Launcher&quot; على التطبيقات التالية من متجر Microsoft. يرجى تحديد الألعاب لإضافتها إلى مكتبتك.</system:String>
     <system:String x:Key="Version">الإصدار:</system:String>
     <system:String x:Key="Video">الفيديو</system:String>
     <system:String x:Key="VideoLinkButton">زر رابط الفيديو</system:String>

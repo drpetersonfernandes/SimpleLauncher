@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
@@ -1577,8 +1577,6 @@
     <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
     <system:String x:Key="SelectEmulatorComboBox">Chọn ComboBox Trình giả lập</system:String>
     <system:String x:Key="SelectFlycastEmulator">Chọn trình giả lập Flycast</system:String>
-    <system:String x:Key="SelectGameForVerification">Chọn trò chơi để xác minh</system:String>
-    <system:String x:Key="SelectGamesToVerify">Chọn trò chơi để xác minh</system:String>
     <system:String x:Key="SelectMAMEEmulator">Chọn trình giả lập MAME</system:String>
     <system:String x:Key="SelectMednafenEmulator">Chọn trình giả lập Mednafen</system:String>
     <system:String x:Key="SelectMesenEmulator">Chọn trình giả lập Mesen</system:String>
@@ -2162,8 +2160,6 @@
     <system:String x:Key="UserProgressTabTooltip">Tab Tiến độ người dùng</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Sử dụng biểu mẫu dưới đây để nhận hỗ trợ</system:String>
     <system:String x:Key="Validationerrors">Lỗi xác nhận</system:String>
-    <system:String x:Key="VerifyMicrosoftStoreGames">Xác minh trò chơi Microsoft Store</system:String>
-    <system:String x:Key="VerifyWindowsGamesDescription">'Simple Launcher' đã tìm thấy các ứng dụng sau từ Microsoft Store. Vui lòng chọn những ứng dụng là trò chơi để thêm chúng vào thư viện của bạn.</system:String>
     <system:String x:Key="Version">Phiên bản:</system:String>
     <system:String x:Key="Video">Video</system:String>
     <system:String x:Key="VideoLinkButton">Nút liên kết video</system:String>
