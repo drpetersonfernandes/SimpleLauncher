@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameScan.Models;
 using SimpleLauncher.Services.SanitizeInputString;
-using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.GameScan;
 
@@ -146,7 +145,7 @@ internal static partial class ScanMicrosoftStoreGames
             // (e.g., game names containing control characters like 0x07 BEL)
             jsonStr = SanitizeJsonControlCharacters(jsonStr);
 
-            var allInstalledApps = new List<SelectableGameItem>();
+            var allInstalledApps = new List<StoreAppInfo>();
 
             if (jsonStr.StartsWith('{')) // Single object returned
             {
@@ -174,14 +173,13 @@ internal static partial class ScanMicrosoftStoreGames
                     // Skip duplicates
                     if (!seenAppIds.Add(appId)) continue;
 
-                    allInstalledApps.Add(new SelectableGameItem
+                    allInstalledApps.Add(new StoreAppInfo
                     {
                         Name = name,
                         AppId = appId,
                         InstallLocation = installLocation,
                         PackageFamilyName = packageFamilyName,
-                        LogoRelativePath = logoRelativePath,
-                        IsSelected = true
+                        LogoRelativePath = logoRelativePath
                     });
                 }
                 catch (Exception ex)
@@ -233,7 +231,7 @@ internal static partial class ScanMicrosoftStoreGames
         }
     }
 
-    private static async Task<List<SelectableGameItem>> ClassifyGamesViaApiAsync(List<SelectableGameItem> installedApps, ILogErrors logErrors)
+    private static async Task<List<StoreAppInfo>> ClassifyGamesViaApiAsync(List<StoreAppInfo> installedApps, ILogErrors logErrors)
     {
         try
         {
@@ -280,14 +278,13 @@ internal static partial class ScanMicrosoftStoreGames
                 DebugLogger.Log($"[ScanMicrosoftStoreGames]   <- Received game: Name=\"{g.Name}\" AppId=\"{g.AppId}\"");
             }
 
-            var confirmedGames = apiResponse.Games.Select(static g => new SelectableGameItem
+            var confirmedGames = apiResponse.Games.Select(static g => new StoreAppInfo
             {
                 Name = g.Name,
                 AppId = g.AppId,
                 InstallLocation = g.InstallLocation,
                 PackageFamilyName = g.PackageFamilyName,
-                LogoRelativePath = g.LogoRelativePath,
-                IsSelected = true
+                LogoRelativePath = g.LogoRelativePath
             }).ToList();
 
             return confirmedGames;
