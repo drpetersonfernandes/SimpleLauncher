@@ -27,6 +27,7 @@
     <system:String x:Key="About">À propos</system:String>
     <system:String x:Key="AboutIcon">À propos</system:String>
     <system:String x:Key="AccentColors">Couleurs d'accentuation</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Cela peut être dû à des autorisations insuffisantes ou à des paramètres de sécurité Windows bloquant le fichier.</system:String>
     <system:String x:Key="AchievementsEarned">Succès débloqués</system:String>
     <system:String x:Key="AchievementsList">Liste des succès</system:String>
     <system:String x:Key="AchievementsTab">Succès |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Synchronise la fréquence d'images avec le taux de rafraîchissement du moniteur pour éviter le déchirement d'écran.</system:String>
     <system:String x:Key="AzaharSettings">Paramètres Azahar</system:String>
     <system:String x:Key="BaseTheme">Thème de base</system:String>
+    <system:String x:Key="Batchfilefailed">L'exécution du fichier de commandes a échoué.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Cela signifie généralement qu'un chemin d'accès référencé dans le fichier de commandes n'existe plus ou est incorrect.</system:String>
     <system:String x:Key="Big">Grand</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Configuration Blastem enregistrée avec succès.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Rapport d'aspect :</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Émulateur Mesen introuvable. Veuillez localiser 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Paramètres Mesen</system:String>
     <system:String x:Key="Midnight">Minuit (Bleu profond)</system:String>
+    <system:String x:Key="MinimizeToTray">Réduire dans la zone de notification</system:String>
     <system:String x:Key="MissingInformation">Informations manquantes</system:String>
     <system:String x:Key="MissingRequiredFiles">Fichiers requis manquants</system:String>
     <system:String x:Key="MoreOptions">Plus d'options</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Mise à jour :</system:String>
     <system:String x:Key="UpdateHistory">Historique des mises à jour</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Erreur. Impossible de charger l'historique des mises à jour. L'erreur a été enregistrée.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Échec du lancement du programme de mise à jour.</system:String>
     <system:String x:Key="Updating">Mise à jour en cours</system:String>
     <system:String x:Key="UpdatingPlayHistory">Mise à jour de l'historique de jeu...</system:String>
     <system:String x:Key="usbDeviceIssue">Si le fichier se trouve sur un périphérique USB portable, assurez-vous qu'il est toujours connecté à votre ordinateur.</system:String>

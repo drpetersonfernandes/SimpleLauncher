@@ -27,6 +27,7 @@
     <system:String x:Key="About">关于</system:String>
     <system:String x:Key="AboutIcon">关于</system:String>
     <system:String x:Key="AccentColors">强调色</system:String>
+    <system:String x:Key="AccessDeniedExplanation">这可能是由于权限不足或 Windows 安全设置阻止了该文件。</system:String>
     <system:String x:Key="AchievementsEarned">已获得成就</system:String>
     <system:String x:Key="AchievementsList">成就列表</system:String>
     <system:String x:Key="AchievementsTab">成就 |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">将帧率与显示器刷新率同步，以防止画面撕裂。</system:String>
     <system:String x:Key="AzaharSettings">Azahar 设置</system:String>
     <system:String x:Key="BaseTheme">基础主题</system:String>
+    <system:String x:Key="Batchfilefailed">批处理文件运行失败。</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">这通常意味着批处理文件中引用的路径不再存在或不正确。</system:String>
     <system:String x:Key="Big">大</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem 配置保存成功。</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">宽高比:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">未找到 Mesen 模拟器。</system:String>
     <system:String x:Key="MesenSettings">Mesen 设置</system:String>
     <system:String x:Key="Midnight">午夜（深蓝）</system:String>
+    <system:String x:Key="MinimizeToTray">最小化到托盘</system:String>
     <system:String x:Key="MissingInformation">缺少信息</system:String>
     <system:String x:Key="MissingRequiredFiles">缺少必需文件</system:String>
     <system:String x:Key="MoreOptions">更多选项</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">更新日期：</system:String>
     <system:String x:Key="UpdateHistory">更新历史</system:String>
     <system:String x:Key="UpdateHistoryLoadError">错误。无法加载更新历史。错误已记录。</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">启动更新程序失败。</system:String>
     <system:String x:Key="Updating">正在更新</system:String>
     <system:String x:Key="UpdatingPlayHistory">正在更新播放历史...</system:String>
     <system:String x:Key="usbDeviceIssue">如果文件位于便携式USB设备上，请确保它仍连接到您的计算机。</system:String>

@@ -27,6 +27,7 @@
     <system:String x:Key="About">Over</system:String>
     <system:String x:Key="AboutIcon">Over</system:String>
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Dit kan komen door onvoldoende machtigingen of Windows-beveiligingsinstellingen die het bestand blokkeren.</system:String>
     <system:String x:Key="AchievementsEarned">Behaalde Prestaties</system:String>
     <system:String x:Key="AchievementsList">Lijst met Prestaties</system:String>
     <system:String x:Key="AchievementsTab">Prestaties |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Synchroniseert framerate met de verversingssnelheid van de monitor om schermscheuren te voorkomen.</system:String>
     <system:String x:Key="AzaharSettings">Azahar Instellingen</system:String>
     <system:String x:Key="BaseTheme">Basisthema</system:String>
+    <system:String x:Key="Batchfilefailed">Het batchbestand kon niet worden uitgevoerd.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Dit betekent meestal dat een pad waarnaar wordt verwezen in het batchbestand niet meer bestaat of onjuist is.</system:String>
     <system:String x:Key="Big">Groot</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Beeldverhouding:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen-emulator niet gevonden. Zoek 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Mesen Instellingen</system:String>
     <system:String x:Key="Midnight">Middernacht (Diepblauw)</system:String>
+    <system:String x:Key="MinimizeToTray">Minimaliseren naar systeemvak</system:String>
     <system:String x:Key="MissingInformation">Ontbrekende Informatie</system:String>
     <system:String x:Key="MissingRequiredFiles">Ontbrekende vereiste bestanden</system:String>
     <system:String x:Key="MoreOptions">Meer opties</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Bijgewerkt:</system:String>
     <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Fout. De updategeschiedenis kon niet worden geladen. De fout is gelogd.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Het is niet gelukt om de Updater te starten.</system:String>
     <system:String x:Key="Updating">Bezig met bijwerken</system:String>
     <system:String x:Key="UpdatingPlayHistory">Speelgeschiedenis bijwerken...</system:String>
     <system:String x:Key="usbDeviceIssue">Als het bestand op een draagbaar USB-apparaat staat, zorg er dan voor dat het nog steeds is aangesloten op uw computer.</system:String>

@@ -27,6 +27,7 @@
     <system:String x:Key="About">کے بارے میں</system:String>
     <system:String x:Key="AboutIcon">متعلق</system:String>
     <system:String x:Key="AccentColors">نمایاں رنگ</system:String>
+    <system:String x:Key="AccessDeniedExplanation">یہ ناکافی اجازتوں یا ونڈوز سیکیورٹی سیٹنگز کی وجہ سے ہو سکتا ہے جو فائل کو بلاک کر رہی ہیں۔</system:String>
     <system:String x:Key="AchievementsEarned">حاصل کردہ کامیابیاں</system:String>
     <system:String x:Key="AchievementsList">کامیابیوں کی فہرست</system:String>
     <system:String x:Key="AchievementsTab">کامیابیاں |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">سکرین پھٹنے سے بچنے کے لیے فریم ریٹ کو مانیٹر کی ریفریش ریٹ کے ساتھ ہم آہنگ کریں۔</system:String>
     <system:String x:Key="AzaharSettings">Azahar ترتیبات</system:String>
     <system:String x:Key="BaseTheme">بنیادی تھیم</system:String>
+    <system:String x:Key="Batchfilefailed">بیچ فائل چلانے میں ناکام ہو گئی۔</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">اس کا عام طور پر مطلب ہے کہ بیچ فائل کے اندر حوالہ دیا گیا پاتھ اب موجود نہیں ہے یا غلط ہے۔</system:String>
     <system:String x:Key="Big">بڑا</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">پہلو تناسب:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen ایمولیٹر نہیں ملا۔ براہ کرم 'Mesen.exe' تلاش کریں۔</system:String>
     <system:String x:Key="MesenSettings">میسن سیٹنگز</system:String>
     <system:String x:Key="Midnight">مڈ نائٹ (گہرا نیلا)</system:String>
+    <system:String x:Key="MinimizeToTray">ٹری میں چھوٹا کریں۔</system:String>
     <system:String x:Key="MissingInformation">گمشدہ معلومات</system:String>
     <system:String x:Key="MissingRequiredFiles">مطلوبہ فائلیں غائب ہیں</system:String>
     <system:String x:Key="MoreOptions">مزید اختیارات</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">اپ ڈیٹ کیا گیا:</system:String>
     <system:String x:Key="UpdateHistory">اپ ڈیٹ کی تاریخ</system:String>
     <system:String x:Key="UpdateHistoryLoadError">خرابی۔ اپ ڈیٹ ہسٹری لوڈ نہیں ہو سکی۔ خرابی لاگ کر دی گئی ہے۔</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">اپڈیٹر لانچ کرنے میں ناکام ہو گیا۔</system:String>
     <system:String x:Key="Updating">اپ ڈیٹ ہو رہا ہے</system:String>
     <system:String x:Key="UpdatingPlayHistory">پلے ہسٹری اپ ڈیٹ کر رہا ہے...</system:String>
     <system:String x:Key="usbDeviceIssue">اگر فائل کسی پورٹیبل USB ڈیوائس پر ہے تو یقینی بنائیں کہ یہ اب بھی آپ کے کمپیوٹر سے منسلک ہے۔</system:String>

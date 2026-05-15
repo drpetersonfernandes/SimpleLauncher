@@ -27,6 +27,7 @@
     <system:String x:Key="About">Acerca de</system:String>
     <system:String x:Key="AboutIcon">Acerca de</system:String>
     <system:String x:Key="AccentColors">Colores de acento</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Esto puede deberse a permisos insuficientes o a la configuración de seguridad de Windows que bloquea el archivo.</system:String>
     <system:String x:Key="AchievementsEarned">Logros conseguidos</system:String>
     <system:String x:Key="AchievementsList">Lista de logros</system:String>
     <system:String x:Key="AchievementsTab">Logros |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Sincroniza la velocidad de fotogramas con la frecuencia de actualización del monitor para evitar el desgarro de pantalla.</system:String>
     <system:String x:Key="AzaharSettings">Ajustes de Azahar</system:String>
     <system:String x:Key="BaseTheme">Tema base</system:String>
+    <system:String x:Key="Batchfilefailed">El archivo por lotes no se pudo ejecutar.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Esto suele significar que una ruta referenciada dentro del archivo por lotes ya no existe o es incorrecta.</system:String>
     <system:String x:Key="Big">Grande</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Configuración de Blastem guardada correctamente.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Relación de Aspecto:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Emulador Mesen no encontrado. Por favor, localice 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Ajustes de Mesen</system:String>
     <system:String x:Key="Midnight">Medianoche (Azul Oscuro)</system:String>
+    <system:String x:Key="MinimizeToTray">Minimizar a la bandeja</system:String>
     <system:String x:Key="MissingInformation">Información Faltante</system:String>
     <system:String x:Key="MissingRequiredFiles">Archivos requeridos faltantes</system:String>
     <system:String x:Key="MoreOptions">Más opciones</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Actualizado:</system:String>
     <system:String x:Key="UpdateHistory">Historial de actualizaciones</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Error. No se pudo cargar el historial de actualizaciones. El error ha sido registrado.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">No se pudo iniciar el Actualizador.</system:String>
     <system:String x:Key="Updating">Actualizando</system:String>
     <system:String x:Key="UpdatingPlayHistory">Actualizando historial de juego...</system:String>
     <system:String x:Key="usbDeviceIssue">Si el archivo está en un dispositivo USB portátil, asegúrate de que sigue conectado a tu ordenador.</system:String>

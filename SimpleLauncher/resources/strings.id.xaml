@@ -27,6 +27,7 @@
     <system:String x:Key="About">Tentang</system:String>
     <system:String x:Key="AboutIcon">Tentang</system:String>
     <system:String x:Key="AccentColors">Warna Aksen</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Ini mungkin karena izin yang tidak memadai atau pengaturan keamanan Windows memblokir file.</system:String>
     <system:String x:Key="AchievementsEarned">Pencapaian Didapatkan</system:String>
     <system:String x:Key="AchievementsList">Daftar Pencapaian</system:String>
     <system:String x:Key="AchievementsTab">Pencapaian |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Menyinkronkan laju bingkai dengan laju penyegaran monitor untuk mencegah screen tearing.</system:String>
     <system:String x:Key="AzaharSettings">Pengaturan Azahar</system:String>
     <system:String x:Key="BaseTheme">Tema Dasar</system:String>
+    <system:String x:Key="Batchfilefailed">File batch gagal dijalankan.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Ini biasanya berarti jalur yang direferensikan di dalam file batch tidak lagi ada atau salah.</system:String>
     <system:String x:Key="Big">Besar</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Konfigurasi Blastem berhasil disimpan.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Rasio Aspek:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Emulator Mesen tidak ditemukan. Harap temukan 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Pengaturan Mesen</system:String>
     <system:String x:Key="Midnight">Midnight (Biru Tua)</system:String>
+    <system:String x:Key="MinimizeToTray">Minimalkan ke Baki Sistem</system:String>
     <system:String x:Key="MissingInformation">Informasi Hilang</system:String>
     <system:String x:Key="MissingRequiredFiles">File yang Diperlukan Hilang</system:String>
     <system:String x:Key="MoreOptions">Lebih Banyak Opsi</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Diperbarui:</system:String>
     <system:String x:Key="UpdateHistory">Riwayat Pembaruan</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Kesalahan. Tidak dapat memuat riwayat pembaruan. Kesalahan telah dicatat.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Gagal meluncurkan Pembaruan.</system:String>
     <system:String x:Key="Updating">Memperbarui</system:String>
     <system:String x:Key="UpdatingPlayHistory">Memperbarui riwayat putar...</system:String>
     <system:String x:Key="usbDeviceIssue">Jika file berada di perangkat USB portabel, pastikan perangkat tersebut masih terhubung ke komputer Anda.</system:String>

@@ -27,6 +27,7 @@
     <system:String x:Key="About">حول</system:String>
     <system:String x:Key="AboutIcon">حول</system:String>
     <system:String x:Key="AccentColors">ألوان التمييز</system:String>
+    <system:String x:Key="AccessDeniedExplanation">قد يكون هذا بسبب عدم كفاية الأذونات أو إعدادات أمان Windows التي تمنع الملف.</system:String>
     <system:String x:Key="AchievementsEarned">الإنجازات المكتسبة</system:String>
     <system:String x:Key="AchievementsList">قائمة الإنجازات</system:String>
     <system:String x:Key="AchievementsTab">الإنجازات |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">يزامن معدل الإطارات مع معدل تحديث الشاشة لمنع تمزق الشاشة.</system:String>
     <system:String x:Key="AzaharSettings">إعدادات Azahar</system:String>
     <system:String x:Key="BaseTheme">السمة الأساسية</system:String>
+    <system:String x:Key="Batchfilefailed">فشل تشغيل ملف الدفعة.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">يعني هذا عادةً أن المسار المشار إليه داخل ملف الدفعة لم يعد موجودًا أو غير صحيح.</system:String>
     <system:String x:Key="Big">كبير</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">تم حفظ تكوين Blastem بنجاح.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">نسبة العرض إلى الارتفاع:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">لم يتم العثور على محاكي Mesen. يرجى تحديد موقع 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">إعدادات Mesen</system:String>
     <system:String x:Key="Midnight">منتصف الليل (أزرق داكن)</system:String>
+    <system:String x:Key="MinimizeToTray">تصغير إلى علبة النظام</system:String>
     <system:String x:Key="MissingInformation">معلومات مفقودة</system:String>
     <system:String x:Key="MissingRequiredFiles">الملفات المطلوبة مفقودة</system:String>
     <system:String x:Key="MoreOptions">المزيد من الخيارات</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">آخر تحديث:</system:String>
     <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
     <system:String x:Key="UpdateHistoryLoadError">خطأ. تعذر تحميل سجل التحديث. تم تسجيل الخطأ.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">فشل تشغيل برنامج التحديث.</system:String>
     <system:String x:Key="Updating">جارٍ التحديث</system:String>
     <system:String x:Key="UpdatingPlayHistory">تحديث سجل اللعب...</system:String>
     <system:String x:Key="usbDeviceIssue">إذا كان الملف على جهاز USB محمول، فتأكد من أنه لا يزال متصلاً بجهاز الكمبيوتر الخاص بك.</system:String>

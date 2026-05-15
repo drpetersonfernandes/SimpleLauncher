@@ -27,6 +27,7 @@
     <system:String x:Key="About">情報</system:String>
     <system:String x:Key="AboutIcon">バージョン情報</system:String>
     <system:String x:Key="AccentColors">アクセントカラー</system:String>
+    <system:String x:Key="AccessDeniedExplanation">アクセスが拒否されました。権限不足またはWindowsのセキュリティ設定がファイルをブロックしていることが原因である可能性があります。</system:String>
     <system:String x:Key="AchievementsEarned">獲得した実績</system:String>
     <system:String x:Key="AchievementsList">実績リスト</system:String>
     <system:String x:Key="AchievementsTab">実績 |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">画面のティアリングを防ぐため、フレームレートをモニターのリフレッシュレートと同期させます。</system:String>
     <system:String x:Key="AzaharSettings">Azahar 設定</system:String>
     <system:String x:Key="BaseTheme">基本テーマ</system:String>
+    <system:String x:Key="Batchfilefailed">バッチファイルの実行に失敗しました。</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">これは通常、バッチファイル内で参照されているパスが存在しないか、正しくないことを意味します。</system:String>
     <system:String x:Key="Big">大</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastemの設定が正常に保存されました。</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">アスペクト比:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesenエミュレータが見つかりません。'Mesen.exe'の場所を指定してください。</system:String>
     <system:String x:Key="MesenSettings">Mesen設定</system:String>
     <system:String x:Key="Midnight">ミッドナイト (ディープ ブルー)</system:String>
+    <system:String x:Key="MinimizeToTray">トレイに最小化</system:String>
     <system:String x:Key="MissingInformation">情報が不足しています</system:String>
     <system:String x:Key="MissingRequiredFiles">不足している必須ファイル</system:String>
     <system:String x:Key="MoreOptions">その他のオプション</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">更新日:</system:String>
     <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
     <system:String x:Key="UpdateHistoryLoadError">エラー。更新履歴を読み込めませんでした。エラーはログに記録されました。</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">アップデーターの起動に失敗しました。</system:String>
     <system:String x:Key="Updating">更新中</system:String>
     <system:String x:Key="UpdatingPlayHistory">プレイ履歴を更新しています...</system:String>
     <system:String x:Key="usbDeviceIssue">ファイルがポータブルUSBデバイスにある場合は、コンピューターに接続されていることを確認してください。</system:String>

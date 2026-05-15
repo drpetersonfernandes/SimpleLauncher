@@ -27,6 +27,7 @@
     <system:String x:Key="About">Informazioni</system:String>
     <system:String x:Key="AboutIcon">Informazioni</system:String>
     <system:String x:Key="AccentColors">Colori accento</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Ciò potrebbe essere dovuto ad autorizzazioni insufficienti o a impostazioni di sicurezza di Windows che bloccano il file.</system:String>
     <system:String x:Key="AchievementsEarned">Obiettivi Guadagnati</system:String>
     <system:String x:Key="AchievementsList">Elenco Obiettivi</system:String>
     <system:String x:Key="AchievementsTab">Obiettivi |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Sincronizza il frame rate con la frequenza di aggiornamento del monitor per prevenire il tearing dello schermo.</system:String>
     <system:String x:Key="AzaharSettings">Impostazioni Azahar</system:String>
     <system:String x:Key="BaseTheme">Tema di base</system:String>
+    <system:String x:Key="Batchfilefailed">Il file batch non è stato eseguito.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Ciò di solito significa che un percorso a cui si fa riferimento all'interno del file batch non esiste più o non è corretto.</system:String>
     <system:String x:Key="Big">Grande</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Configurazione di Blastem salvata con successo.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Rapporto d'Aspetto:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Emulatore Mesen non trovato. Per favore, individua 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Impostazioni Mesen</system:String>
     <system:String x:Key="Midnight">Mezzanotte (Blu profondo)</system:String>
+    <system:String x:Key="MinimizeToTray">Riduci a icona nella barra delle applicazioni</system:String>
     <system:String x:Key="MissingInformation">Informazioni Mancanti</system:String>
     <system:String x:Key="MissingRequiredFiles">File richiesti mancanti</system:String>
     <system:String x:Key="MoreOptions">Altre opzioni</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Aggiornato:</system:String>
     <system:String x:Key="UpdateHistory">Cronologia aggiornamenti</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Errore. Impossibile caricare la cronologia degli aggiornamenti. L'errore è stato registrato.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Impossibile avviare l'Updater.</system:String>
     <system:String x:Key="Updating">Aggiornamento in corso</system:String>
     <system:String x:Key="UpdatingPlayHistory">Aggiornamento cronologia di gioco...</system:String>
     <system:String x:Key="usbDeviceIssue">Se il file si trova su un dispositivo USB portatile, assicurati che sia ancora collegato al tuo computer.</system:String>

@@ -27,6 +27,7 @@
     <system:String x:Key="About">সম্পর্কিত</system:String>
     <system:String x:Key="AboutIcon">সম্পর্কে</system:String>
     <system:String x:Key="AccentColors">অ্যাকসেন্ট রঙ</system:String>
+    <system:String x:Key="AccessDeniedExplanation">এটি অপর্যাপ্ত অনুমতি অথবা উইন্ডোজ নিরাপত্তা সেটিংস দ্বারা ফাইলটি ব্লক হওয়ার কারণে হতে পারে।</system:String>
     <system:String x:Key="AchievementsEarned">অর্জিত অ্যাচিভমেন্ট</system:String>
     <system:String x:Key="AchievementsList">অ্যাচিভমেন্টের তালিকা</system:String>
     <system:String x:Key="AchievementsTab">অ্যাচিভমেন্ট |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">স্ক্রিন টিয়ারিং প্রতিরোধ করতে মনিটরের রিফ্রেশ রেটের সাথে ফ্রেম রেট সিঙ্ক্রোনাইজ করে।</system:String>
     <system:String x:Key="AzaharSettings">Azahar সেটিংস</system:String>
     <system:String x:Key="BaseTheme">মৌলিক থিম</system:String>
+    <system:String x:Key="Batchfilefailed">ব্যাচ ফাইলটি চালু হতে ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">এর মানে সাধারণত ব্যাচ ফাইলের মধ্যে উল্লেখিত একটি পাথ আর বিদ্যমান নেই অথবা ভুল।</system:String>
     <system:String x:Key="Big">বড়</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">অ্যাসপেক্ট রেশিও:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen এমুলেটর খুঁজে পাওয়া যায়নি। অনুগ্রহ করে 'Mesen.exe' সনাক্ত করুন।</system:String>
     <system:String x:Key="MesenSettings">মেসেন সেটিংস</system:String>
     <system:String x:Key="Midnight">মিডনাইট (গভীর নীল)</system:String>
+    <system:String x:Key="MinimizeToTray">ট্রে-তে ছোট করুন</system:String>
     <system:String x:Key="MissingInformation">তথ্য অনুপস্থিত</system:String>
     <system:String x:Key="MissingRequiredFiles">অনুপস্থিত প্রয়োজনীয় ফাইল</system:String>
     <system:String x:Key="MoreOptions">আরও বিকল্প</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">আপডেট:</system:String>
     <system:String x:Key="UpdateHistory">আপডেট ইতিহাস</system:String>
     <system:String x:Key="UpdateHistoryLoadError">ত্রুটি। আপডেট হিস্টরি লোড করা যায়নি। ত্রুটি লগ করা হয়েছে।</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">আপডেটারটি চালু করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Updating">প্রক্রিয়া।</system:String>
     <system:String x:Key="UpdatingPlayHistory">প্লে হিস্টরি আপডেট করা হচ্ছে...</system:String>
     <system:String x:Key="usbDeviceIssue">ফাইলটি যদি একটি পোর্টেবল USB ডিভাইসে থাকে, নিশ্চিত করুন যে এটি এখনও আপনার কম্পিউটারের সাথে সংযুক্ত আছে।</system:String>

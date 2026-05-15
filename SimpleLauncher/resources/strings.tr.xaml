@@ -27,6 +27,7 @@
     <system:String x:Key="About">Hakkında</system:String>
     <system:String x:Key="AboutIcon">Hakkında</system:String>
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Bu durum, yetersiz izinlerden veya Windows güvenlik ayarlarının dosyayı engellemesinden kaynaklanıyor olabilir.</system:String>
     <system:String x:Key="AchievementsEarned">Kazanılan Başarımlar</system:String>
     <system:String x:Key="AchievementsList">Başarımlar Listesi</system:String>
     <system:String x:Key="AchievementsTab">Başarımlar |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Ekran yırtılmasını önlemek için kare hızını monitör yenileme hızıyla senkronize eder.</system:String>
     <system:String x:Key="AzaharSettings">Azahar Ayarları</system:String>
     <system:String x:Key="BaseTheme">Temel Tema</system:String>
+    <system:String x:Key="Batchfilefailed">Toplu iş dosyası çalıştırılamadı.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Bu genellikle, toplu iş dosyasında referans verilen bir yolun artık mevcut olmadığı veya yanlış olduğu anlamına gelir.</system:String>
     <system:String x:Key="Big">Büyük</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">En Boy Oranı:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen emülatörü bulunamadı. Lütfen 'Mesen.exe' dosyasını bulun.</system:String>
     <system:String x:Key="MesenSettings">Mesen Ayarları</system:String>
     <system:String x:Key="Midnight">Gece Yarısı (Derin Mavi)</system:String>
+    <system:String x:Key="MinimizeToTray">Sistem Tepsisine Küçült</system:String>
     <system:String x:Key="MissingInformation">Eksik Bilgi</system:String>
     <system:String x:Key="MissingRequiredFiles">Eksik Gerekli Dosyalar</system:String>
     <system:String x:Key="MoreOptions">Daha Fazla Seçenek</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Güncellendi:</system:String>
     <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Hata. Güncelleme geçmişi yüklenemedi. Hata günlüğe kaydedildi.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Güncelleyici başlatılamadı.</system:String>
     <system:String x:Key="Updating">Güncelleme yapılıyor</system:String>
     <system:String x:Key="UpdatingPlayHistory">Oynatma geçmişi güncelleniyor...</system:String>
     <system:String x:Key="usbDeviceIssue">Dosya taşınabilir bir USB aygıtındaysa, bilgisayarınıza bağlı olduğundan emin olun.</system:String>

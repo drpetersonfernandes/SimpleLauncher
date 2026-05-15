@@ -27,6 +27,7 @@
     <system:String x:Key="About">Giới thiệu</system:String>
     <system:String x:Key="AboutIcon">Giới thiệu</system:String>
     <system:String x:Key="AccentColors">Màu nhấn</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Điều này có thể do không đủ quyền hoặc cài đặt bảo mật của Windows chặn tệp.</system:String>
     <system:String x:Key="AchievementsEarned">Thành tích đã đạt</system:String>
     <system:String x:Key="AchievementsList">Danh sách thành tích</system:String>
     <system:String x:Key="AchievementsTab">Thành tích |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Đồng bộ hóa tốc độ khung hình với tốc độ làm mới của màn hình để ngăn chặn hiện tượng xé hình.</system:String>
     <system:String x:Key="AzaharSettings">Cài đặt Azahar</system:String>
     <system:String x:Key="BaseTheme">Chủ đề cơ bản</system:String>
+    <system:String x:Key="Batchfilefailed">Tệp batch không chạy được.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Điều này thường có nghĩa là một đường dẫn được tham chiếu trong tệp batch không còn tồn tại hoặc không chính xác.</system:String>
     <system:String x:Key="Big">Lớn</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Đã lưu cấu hình Blastem thành công.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Tỷ lệ khung hình:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Không tìm thấy trình giả lập Mesen.</system:String>
     <system:String x:Key="MesenSettings">Cài đặt Mesen</system:String>
     <system:String x:Key="Midnight">Nửa đêm (Xanh đậm)</system:String>
+    <system:String x:Key="MinimizeToTray">Thu nhỏ vào khay hệ thống</system:String>
     <system:String x:Key="MissingInformation">Thiếu thông tin</system:String>
     <system:String x:Key="MissingRequiredFiles">Thiếu tệp bắt buộc</system:String>
     <system:String x:Key="MoreOptions">Thêm Tùy Chọn</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Cập nhật:</system:String>
     <system:String x:Key="UpdateHistory">Lịch sử cập nhật</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Lỗi. Không thể tải lịch sử cập nhật. Lỗi đã được ghi lại.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Không thể khởi chạy Trình cập nhật.</system:String>
     <system:String x:Key="Updating">Đang Cập Nhật</system:String>
     <system:String x:Key="UpdatingPlayHistory">Đang cập nhật lịch sử chơi...</system:String>
     <system:String x:Key="usbDeviceIssue">Nếu tệp nằm trên thiết bị USB di động, hãy đảm bảo thiết bị vẫn được kết nối với máy tính của bạn.</system:String>

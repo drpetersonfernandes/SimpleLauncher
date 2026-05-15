@@ -27,6 +27,7 @@
     <system:String x:Key="About">के बारे में</system:String>
     <system:String x:Key="AboutIcon">के बारे में</system:String>
     <system:String x:Key="AccentColors">एक्सेंट रंग</system:String>
+    <system:String x:Key="AccessDeniedExplanation">यह अपर्याप्त अनुमतियों या विंडोज सुरक्षा सेटिंग्स द्वारा फ़ाइल को ब्लॉक किए जाने के कारण हो सकता है।</system:String>
     <system:String x:Key="AchievementsEarned">अर्जित उपलब्धियाँ</system:String>
     <system:String x:Key="AchievementsList">उपलब्धियों की सूची</system:String>
     <system:String x:Key="AchievementsTab">उपलब्धियाँ |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">स्क्रीन फटने से रोकने के लिए फ्रेम दर को मॉनिटर की ताज़ा दर के साथ सिंक्रनाइज़ करता है।</system:String>
     <system:String x:Key="AzaharSettings">Azahar सेटिंग्स</system:String>
     <system:String x:Key="BaseTheme">बेस थीम</system:String>
+    <system:String x:Key="Batchfilefailed">बैच फ़ाइल चलने में विफल रही।</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">इसका आमतौर पर मतलब है कि बैच फ़ाइल के अंदर संदर्भित एक पथ अब मौजूद नहीं है या गलत है।</system:String>
     <system:String x:Key="Big">बड़ा</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">ब्लास्टेम कॉन्फ़िगरेशन सफलतापूर्वक सहेजा गया।</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">पहलू अनुपात:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">मेसेन एमुलेटर नहीं मिला। कृपया 'Mesen.exe' का पता लगाएँ।</system:String>
     <system:String x:Key="MesenSettings">मेसेन सेटिंग्स</system:String>
     <system:String x:Key="Midnight">मिडनाइट (गहरा नीला)</system:String>
+    <system:String x:Key="MinimizeToTray">ट्रे में छोटा करें</system:String>
     <system:String x:Key="MissingInformation">जानकारी गुम है</system:String>
     <system:String x:Key="MissingRequiredFiles">आवश्यक फ़ाइलें गायब हैं</system:String>
     <system:String x:Key="MoreOptions">अधिक विकल्प</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">अपडेट किया गया:</system:String>
     <system:String x:Key="UpdateHistory">अपडेट इतिहास</system:String>
     <system:String x:Key="UpdateHistoryLoadError">त्रुटि। अपडेट इतिहास लोड नहीं किया जा सका। त्रुटि लॉग की गई है।</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">अपडेटर को लॉन्च करने में विफल रहा।</system:String>
     <system:String x:Key="Updating">अपडेट किया जा रहा है</system:String>
     <system:String x:Key="UpdatingPlayHistory">प्ले हिस्ट्री अपडेट कर रहा है...</system:String>
     <system:String x:Key="usbDeviceIssue">यदि फ़ाइल किसी पोर्टेबल USB डिवाइस पर है, तो सुनिश्चित करें कि यह अभी भी आपके कंप्यूटर से जुड़ा हुआ है।</system:String>

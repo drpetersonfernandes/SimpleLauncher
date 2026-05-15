@@ -32,6 +32,7 @@
     <system:String x:Key="About">_About</system:String>
     <system:String x:Key="AboutIcon">About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
+    <system:String x:Key="AccessDeniedExplanation">This may be due to insufficient permissions or Windows security settings blocking the file.</system:String>
     <system:String x:Key="AchievementsEarned">Achievements Earned</system:String>
     <system:String x:Key="AchievementsList">Achievements List</system:String>
     <system:String x:Key="AchievementsTab">Achievements |</system:String>
@@ -2153,6 +2154,7 @@
     <system:String x:Key="Updated">Updated:</system:String>
     <system:String x:Key="UpdateHistory">Update History</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Error. Could not load the update history. The error has been logged.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Failed to launch the Updater.</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="UpdatingPlayHistory">Updating play history...</system:String>
     <system:String x:Key="usbDeviceIssue">If the file is on a portable USB device ensure it is still connected to your computer.</system:String>

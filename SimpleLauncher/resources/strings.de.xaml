@@ -27,6 +27,7 @@
     <system:String x:Key="About">Über</system:String>
     <system:String x:Key="AboutIcon">Über</system:String>
     <system:String x:Key="AccentColors">Akzentfarben</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Dies kann an unzureichenden Berechtigungen oder Windows-Sicherheitseinstellungen liegen, die die Datei blockieren.</system:String>
     <system:String x:Key="AchievementsEarned">Errungene Achievements</system:String>
     <system:String x:Key="AchievementsList">Achievements-Liste</system:String>
     <system:String x:Key="AchievementsTab">Achievements |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Synchronisiert die Bildrate mit der Bildwiederholfrequenz des Monitors, um Screen Tearing zu verhindern.</system:String>
     <system:String x:Key="AzaharSettings">Azahar-Einstellungen</system:String>
     <system:String x:Key="BaseTheme">Grunddesign</system:String>
+    <system:String x:Key="Batchfilefailed">Die Batchdatei konnte nicht ausgeführt werden.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Dies bedeutet normalerweise, dass ein in der Batchdatei referenzierter Pfad nicht mehr existiert oder falsch ist.</system:String>
     <system:String x:Key="Big">Groß</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem-Konfiguration erfolgreich gespeichert.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Seitenverhältnis:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen-Emulator nicht gefunden. Bitte suchen Sie 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Mesen Einstellungen</system:String>
     <system:String x:Key="Midnight">Mitternacht (Tiefblau)</system:String>
+    <system:String x:Key="MinimizeToTray">In den Infobereich minimieren</system:String>
     <system:String x:Key="MissingInformation">Fehlende Informationen</system:String>
     <system:String x:Key="MissingRequiredFiles">Fehlende erforderliche Dateien</system:String>
     <system:String x:Key="MoreOptions">Weitere Optionen</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Aktualisiert:</system:String>
     <system:String x:Key="UpdateHistory">Update-Verlauf</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Fehler. Der Update-Verlauf konnte nicht geladen werden. Der Fehler wurde protokolliert.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Fehler beim Starten des Updaters.</system:String>
     <system:String x:Key="Updating">Aktualisiere</system:String>
     <system:String x:Key="UpdatingPlayHistory">Spielverlauf wird aktualisiert...</system:String>
     <system:String x:Key="usbDeviceIssue">Wenn sich die Datei auf einem tragbaren USB-Gerät befindet, stellen Sie sicher, dass es noch mit Ihrem Computer verbunden ist.</system:String>

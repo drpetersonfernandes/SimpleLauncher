@@ -27,6 +27,7 @@
     <system:String x:Key="About">О программе</system:String>
     <system:String x:Key="AboutIcon">О программе</system:String>
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
+    <system:String x:Key="AccessDeniedExplanation">Это может быть вызвано недостаточными разрешениями или настройками безопасности Windows, блокирующими файл.</system:String>
     <system:String x:Key="AchievementsEarned">Получено достижений</system:String>
     <system:String x:Key="AchievementsList">Список достижений</system:String>
     <system:String x:Key="AchievementsTab">Достижения |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">Синхронизирует частоту кадров с частотой обновления монитора для предотвращения разрывов экрана.</system:String>
     <system:String x:Key="AzaharSettings">Настройки Azahar</system:String>
     <system:String x:Key="BaseTheme">Базовая тема</system:String>
+    <system:String x:Key="Batchfilefailed">Пакетный файл не удалось запустить.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">Обычно это означает, что путь, указанный в пакетном файле, больше не существует или неверен.</system:String>
     <system:String x:Key="Big">Большой</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Конфигурация Blastem успешно сохранена.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Соотношение сторон:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Эмулятор Mesen не найден. Пожалуйста, найдите 'Mesen.exe'.</system:String>
     <system:String x:Key="MesenSettings">Настройки Mesen</system:String>
     <system:String x:Key="Midnight">Полночь (тёмно-синий)</system:String>
+    <system:String x:Key="MinimizeToTray">Свернуть в трей</system:String>
     <system:String x:Key="MissingInformation">Отсутствует информация</system:String>
     <system:String x:Key="MissingRequiredFiles">Отсутствуют необходимые файлы</system:String>
     <system:String x:Key="MoreOptions">Больше опций</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">Обновлено:</system:String>
     <system:String x:Key="UpdateHistory">История обновлений</system:String>
     <system:String x:Key="UpdateHistoryLoadError">Ошибка. Не удалось загрузить историю обновлений. Ошибка была записана в лог.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">Не удалось запустить обновление.</system:String>
     <system:String x:Key="Updating">Обновление</system:String>
     <system:String x:Key="UpdatingPlayHistory">Обновление истории игр...</system:String>
     <system:String x:Key="usbDeviceIssue">Если файл находится на портативном USB-устройстве, убедитесь, что оно все еще подключено к вашему компьютеру.</system:String>

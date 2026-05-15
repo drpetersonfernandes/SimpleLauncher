@@ -27,6 +27,7 @@
     <system:String x:Key="About">정보</system:String>
     <system:String x:Key="AboutIcon">정보</system:String>
     <system:String x:Key="AccentColors">포인트 색상</system:String>
+    <system:String x:Key="AccessDeniedExplanation">권한 부족 또는 Windows 보안 설정으로 인해 파일이 차단되었을 수 있습니다.</system:String>
     <system:String x:Key="AchievementsEarned">획득한 업적</system:String>
     <system:String x:Key="AchievementsList">업적 목록</system:String>
     <system:String x:Key="AchievementsTab">업적 |</system:String>
@@ -162,6 +163,8 @@
     <system:String x:Key="AzaharConfig_Vsync_Tooltip">화면 찢어짐을 방지하기 위해 프레임 속도를 모니터 재생률과 동기화합니다.</system:String>
     <system:String x:Key="AzaharSettings">Azahar 설정</system:String>
     <system:String x:Key="BaseTheme">기본 테마</system:String>
+    <system:String x:Key="Batchfilefailed">배치 파일을 실행하지 못했습니다.</system:String>
+    <system:String x:Key="Batchfilefailedexplanation">이는 일반적으로 배치 파일 내에서 참조된 경로가 더 이상 존재하지 않거나 잘못되었음을 의미합니다.</system:String>
     <system:String x:Key="Big">크게</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">화면 비율:</system:String>
@@ -975,6 +978,7 @@
     <system:String x:Key="Mesenemulatornotfound">Mesen 에뮬레이터를 찾을 수 없습니다. 'Mesen.exe'를 찾아주세요.</system:String>
     <system:String x:Key="MesenSettings">메센 설정</system:String>
     <system:String x:Key="Midnight">미드나잇 (진한 파란색)</system:String>
+    <system:String x:Key="MinimizeToTray">트레이로 최소화</system:String>
     <system:String x:Key="MissingInformation">정보 누락</system:String>
     <system:String x:Key="MissingRequiredFiles">누락된 필수 파일</system:String>
     <system:String x:Key="MoreOptions">추가 옵션</system:String>
@@ -2145,6 +2149,7 @@
     <system:String x:Key="Updated">업데이트됨:</system:String>
     <system:String x:Key="UpdateHistory">업데이트 기록</system:String>
     <system:String x:Key="UpdateHistoryLoadError">오류. 업데이트 기록을 로드할 수 없습니다. 오류가 기록되었습니다.</system:String>
+    <system:String x:Key="UpdaterLaunchFailed">업데이터를 시작하지 못했습니다.</system:String>
     <system:String x:Key="Updating">업데이트 중</system:String>
     <system:String x:Key="UpdatingPlayHistory">플레이 기록 업데이트 중...</system:String>
     <system:String x:Key="usbDeviceIssue">파일이 휴대용 USB 장치에 있는 경우 컴퓨터에 여전히 연결되어 있는지 확인하십시오.</system:String>
