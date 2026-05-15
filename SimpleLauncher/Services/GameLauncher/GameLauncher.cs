@@ -832,31 +832,38 @@ public partial class GameLauncher
         var is7Z = Path.GetExtension(resolvedFilePath).Equals(".7z", StringComparison.OrdinalIgnoreCase);
         var isRar = Path.GetExtension(resolvedFilePath).Equals(".rar", StringComparison.OrdinalIgnoreCase);
 
-        var isGeolith = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro", StringComparison.OrdinalIgnoreCase) ||
-                                                                                      selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro.dll", StringComparison.OrdinalIgnoreCase));
+        var isAzahar = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) ||
+                                                                             selectedEmulatorManager.EmulatorLocation.Contains("azahar.exe", StringComparison.OrdinalIgnoreCase));
+
+        var isCitra = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("Citra", StringComparison.OrdinalIgnoreCase) ||
+                                                                            selectedEmulatorManager.EmulatorLocation.Contains("citra.exe", StringComparison.OrdinalIgnoreCase) ||
+                                                                            selectedEmulatorManager.EmulatorLocation.Contains("citra-qt.exe", StringComparison.OrdinalIgnoreCase));
+
+        var isDuckstation = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ||
+                                                                                  selectedEmulatorManager.EmulatorLocation.Contains("duckstation", StringComparison.OrdinalIgnoreCase));
+
+        var isGeolith = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro", StringComparison.OrdinalIgnoreCase) ||
+                                                                              selectedEmulatorManager.EmulatorParameters.Contains("geolith_libretro.dll", StringComparison.OrdinalIgnoreCase));
 
         var isMame = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
                                                                            selectedEmulatorName.Equals("M.A.M.E.", StringComparison.OrdinalIgnoreCase) ||
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
                                                                            selectedEmulatorManager.EmulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase));
 
-        var isOotake = selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
-                       (selectedEmulatorManager?.EmulatorLocation?.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        var isOotake = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
+                                                                             selectedEmulatorManager.EmulatorLocation.Contains("ootake.exe", StringComparison.OrdinalIgnoreCase));
 
-        var isDuckstation = selectedEmulatorName.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ||
-                            (selectedEmulatorManager?.EmulatorLocation?.Contains("duckstation", StringComparison.OrdinalIgnoreCase) ?? false);
+        var isRaine = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
+                                                                            selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
 
-        var isRaine = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
-                                                                                    selectedEmulatorManager.EmulatorLocation.Contains("raine", StringComparison.OrdinalIgnoreCase));
+        var isRetroArch = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
+                                                                                selectedEmulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase));
 
-        var isRetroArch = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorManager.EmulatorName.Contains("retroarch", StringComparison.OrdinalIgnoreCase) ||
-                                                                                        selectedEmulatorManager.EmulatorLocation.Contains("retroarch", StringComparison.OrdinalIgnoreCase));
+        var isSameboy = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("Sameboy", StringComparison.OrdinalIgnoreCase) ||
+                                                                              selectedEmulatorManager.EmulatorLocation.Contains("sameboy.exe", StringComparison.OrdinalIgnoreCase));
 
-        var isSameboy = selectedEmulatorName.Contains("Sameboy", StringComparison.OrdinalIgnoreCase) ||
-                        (selectedEmulatorManager?.EmulatorLocation?.Contains("sameboy.exe", StringComparison.OrdinalIgnoreCase) ?? false);
-
-        var isXemu = selectedEmulatorManager is { EmulatorLocation: not null } && (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
-                                                                                   selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
+        var isXemu = selectedEmulatorManager?.EmulatorLocation != null && (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
+                                                                           selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
 
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
@@ -885,7 +892,7 @@ public partial class GameLauncher
             return;
         }
 
-        if ((selectedSystemManager.ExtractFileBeforeLaunch || isOotake || isSameboy || isDuckstation) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
+        if ((selectedSystemManager.ExtractFileBeforeLaunch || isAzahar || isCitra || isDuckstation || isOotake || isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
