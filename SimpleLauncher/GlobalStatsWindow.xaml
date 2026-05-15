@@ -3,7 +3,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
                       Title="{DynamicResource GlobalStats}"
                       Width="1000"
                       Height="700"
@@ -20,22 +21,20 @@
         </Grid.RowDefinitions>
 
         <!-- Explanation Text -->
-        <TextBlock Grid.Row="0" Margin="10,20,10,10" TextWrapping="Wrap" x:Name="GlobalInfoTextBlock">
-            <Run Text="{DynamicResource GlobalStatsExplanation}" />
+        <TextBlock Grid.Row="0" Margin="10,20,10,10" TextWrapping="Wrap" Text="{Binding InfoText}">
         </TextBlock>
 
         <!-- Start/Process Button -->
-        <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center">
-        <Button x:Name="StartButton"
-                Width="110"
-                Click="StartButtonClickAsync"
-                Content="{DynamicResource StartProcess}"
-                ToolTip="{DynamicResource TooltipStartProcess}" />
+        <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center" Visibility="{Binding IsStartButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button Width="110"
+                    Command="{Binding StartCommand}"
+                    Content="{DynamicResource StartProcess}"
+                    ToolTip="{DynamicResource TooltipStartProcess}" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       Margin="10">
-            <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+            <DataGrid ItemsSource="{Binding SystemStats}" AutoGenerateColumns="False" CanUserAddRows="False"
                       GridLinesVisibility="All" BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                       ScrollViewer.CanContentScroll="True" d:DataContext="{d:DesignInstance }">
                 <DataGrid.RowStyle>
@@ -62,35 +61,34 @@
             Grid.Row="4"
             Margin="10,10,10,20"
             HorizontalAlignment="Center"
-            Orientation="Horizontal">
-        <Button
-            Width="110"
-            x:Name="SaveButton"
-            Click="SaveReport_Click"
-            Content="{DynamicResource SaveReport}"
-            Visibility="Collapsed"
-            ToolTip="{DynamicResource TooltipSaveReport}" />
+            Orientation="Horizontal"
+            Visibility="{Binding IsSaveButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button
+                Width="110"
+                Command="{Binding SaveReportCommand}"
+                Content="{DynamicResource SaveReport}"
+                ToolTip="{DynamicResource TooltipSaveReport}" />
         </StackPanel>
 
         <!-- BUSY OVERLAY -->
-        <ContentControl x:Name="BusyServiceOverlay"
-                        Grid.Row="0"
-                        Grid.RowSpan="5"
-                        Panel.ZIndex="100"
-                        Template="{StaticResource LoadingOverlayTemplate}"
-                        Visibility="Collapsed"
-                        Content="{DynamicResource Processingpleasewait}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.RowSpan="5"
+            Panel.ZIndex="100"
+            Template="{StaticResource LoadingOverlayTemplate}"
+            Visibility="{Binding IsBusyOverlayVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+            Content="{Binding BusyOverlayText}" />
 
         <!-- CANCEL BUTTON OVERLAY -->
-        <Grid Grid.Row="0" Grid.RowSpan="5" Panel.ZIndex="101" x:Name="CancelOverlayContainer" Visibility="Collapsed">
-        <Button x:Name="CancelButton"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Margin="0,170,0,0"
-                Width="110"
-                Click="CancelButton_Click"
-                Content="{DynamicResource Cancel}"
-                ToolTip="{DynamicResource ToolTipCancel}" />
+        <Grid Grid.Row="0" Grid.RowSpan="5" Panel.ZIndex="101"
+              Visibility="{Binding IsCancelOverlayVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0,170,0,0"
+                    Width="110"
+                    Command="{Binding CancelCommand}"
+                    Content="{DynamicResource Cancel}"
+                    ToolTip="{DynamicResource ToolTipCancel}" />
         </Grid>
     </Grid>
 </controls:MetroWindow>

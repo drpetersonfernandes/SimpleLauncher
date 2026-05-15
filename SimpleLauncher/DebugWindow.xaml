@@ -28,15 +28,16 @@
                  CaretBrush="Lime"
                  FontFamily="Consolas"
                  FontSize="12"
+                 Text="{Binding LogText, Mode=OneWay}"
                  ToolTip="{DynamicResource TooltipDebuggerLog}" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-<Button Content="{DynamicResource ClearLog}" Margin="5,0" Click="ClearLogButton_Click"
-Style="{DynamicResource MahApps.Styles.Button.Square}"
-ToolTip="{DynamicResource TooltipClearLog}" />
-<Button Content="{DynamicResource CopyLog}" Margin="5,0" Click="CopyLogButton_Click"
-Style="{DynamicResource MahApps.Styles.Button.Square}"
-ToolTip="{DynamicResource TooltipCopyLog}" />
+            <Button Content="{DynamicResource ClearLog}" Margin="5,0" Command="{Binding ClearLogCommand}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    ToolTip="{DynamicResource TooltipClearLog}" />
+            <Button Content="{DynamicResource CopyLog}" Margin="5,0" Command="{Binding CopyLogCommand}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    ToolTip="{DynamicResource TooltipCopyLog}" />
         </StackPanel>
     </Grid>
 </mah:MetroWindow>

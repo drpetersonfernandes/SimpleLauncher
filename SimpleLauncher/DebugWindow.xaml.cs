@@ -1,13 +1,10 @@
-using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class DebugWindow
 {
-    private readonly object _logLock = new();
+    private DebugViewModel _viewModel;
 
     // Private constructor to enforce singleton-like access via DebugLogger
     private DebugWindow()
@@ -29,7 +26,14 @@ public partial class DebugWindow
     {
         if (Instance == null)
         {
-            Instance = new DebugWindow();
+            Instance = new DebugWindow
+            {
+                // Create and set up ViewModel
+                _viewModel = new DebugViewModel()
+            };
+
+            Instance.DataContext = Instance._viewModel;
+
             Instance.Show();
         }
         else
@@ -46,46 +50,12 @@ public partial class DebugWindow
         // Use Dispatcher to ensure UI update happens on the UI thread
         Dispatcher.Invoke(() =>
         {
-            lock (_logLock)
-            {
-                // Add timestamp and append to the TextBox
-                LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
-                // Auto-scroll to the bottom
-                LogTextBox.ScrollToEnd();
-            }
+            _viewModel?.AppendLogMessage(message);
         });
     }
 
     private static void LogWindow_Closed(object sender, EventArgs e)
     {
         Instance = null;
-    }
-
-
-    // Button click handler to clear the log
-    private void ClearLogButton_Click(object sender, RoutedEventArgs e)
-    {
-        LogTextBox.Clear();
-    }
-
-    // Button click handler to copy the log content
-    private void CopyLogButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (!string.IsNullOrEmpty(LogTextBox.Text))
-            {
-                Clipboard.SetText(LogTextBox.Text);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying log");
-
-            // Notify user
-            MessageBoxLibrary.FailedToCopyLogContentMessageBox();
-            DebugLogger.Log("Failed to copy log content.");
-        }
     }
 }
