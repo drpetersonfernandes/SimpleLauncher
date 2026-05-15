@@ -3917,6 +3917,16 @@ You can download this emulator on the [Official Website](https://mednafen.github
 
 .
 
+**Emulator Name:** ClownMDEmu<br>
+**Emulator Path (Example):** C:\Emulators\ClownMDEmu\clownmdemu-v1.6.11-i686.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/Clownacy/clownmdemu-frontend).<br>
+
+.
+
 **Emulator Name:** Retroarch picodrive<br>
 **Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
