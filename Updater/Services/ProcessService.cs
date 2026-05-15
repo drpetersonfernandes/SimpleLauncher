@@ -8,8 +8,9 @@ namespace Updater.Services;
 /// </summary>
 public class ProcessService
 {
-    private const int ProcessExitTimeoutMs = 10000; // 10 seconds timeout for main app to exit
-    private const int FallbackWaitDelayMs = 3000; // 3 seconds fallback when no PID provided
+    private const int ProcessExitTimeoutMs = 30000; // 30 seconds timeout for main app to exit
+    private const int ProcessExitPollIntervalMs = 500; // Poll every 500ms to check if process exited
+    private const int FallbackWaitDelayMs = 5000; // 5 seconds fallback when no PID provided
 
     /// <summary>
     /// Event raised when a log message needs to be displayed.
@@ -21,6 +22,7 @@ public class ProcessService
     /// </summary>
     /// <param name="processId">The process ID of the main application, or null if not available.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
+    /// <exception cref="TimeoutException">Thrown when the process does not exit within the timeout period.</exception>
     public async Task WaitForProcessExitAsync(int? processId)
     {
         if (processId.HasValue)
@@ -30,17 +32,23 @@ public class ProcessService
                 var mainAppProcess = Process.GetProcessById(processId.Value);
                 LogMessage?.Invoke($"Waiting for Simple Launcher (PID: {processId}) to exit...");
 
-                // Use Task.Run to prevent UI freeze during the synchronous WaitForExit
-                await Task.Run(() => mainAppProcess.WaitForExit(ProcessExitTimeoutMs));
+                var stopwatch = Stopwatch.StartNew();
+                while (!mainAppProcess.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
+                {
+                    await Task.Delay(ProcessExitPollIntervalMs);
+                    mainAppProcess.Refresh();
+                }
 
                 if (!mainAppProcess.HasExited)
                 {
-                    LogMessage?.Invoke("Warning: Simple Launcher did not exit in time. Update may fail.");
+                    throw new TimeoutException(
+                        $"Simple Launcher (PID: {processId}) did not exit within {ProcessExitTimeoutMs / 1000} seconds. " +
+                        "The process may be unresponsive or still shutting down.");
                 }
-                else
-                {
-                    LogMessage?.Invoke("Simple Launcher has exited.");
-                }
+
+                // Add a small delay to ensure file handles are released
+                await Task.Delay(500);
+                LogMessage?.Invoke("Simple Launcher has exited.");
             }
             catch (ArgumentException)
             {
@@ -49,7 +57,7 @@ public class ProcessService
         }
         else
         {
-            LogMessage?.Invoke("No PID provided by Simple Launcher. Waiting for 3 seconds (this is unreliable)...");
+            LogMessage?.Invoke("No PID provided by Simple Launcher. Waiting for 5 seconds (this is unreliable)...");
             await Task.Delay(FallbackWaitDelayMs);
         }
     }

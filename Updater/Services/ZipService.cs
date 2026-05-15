@@ -27,6 +27,8 @@ public class ExtractionProgressInfo
 public class ZipService
 {
     private const int FileBufferSize = 81920; // 80KB buffer for efficient file I/O
+    private const int FileWriteRetryAttempts = 5; // Number of retry attempts for locked files
+    private const int FileWriteRetryDelayMs = 500; // Delay between retry attempts
 
     private readonly string _appDirectory;
 
@@ -118,15 +120,8 @@ public class ZipService
                     ExtractedCount = extractedCount
                 });
 
-                await using var destinationFileStream = new FileStream(
-                    destinationPath,
-                    FileMode.Create,
-                    FileAccess.Write,
-                    FileShare.None,
-                    FileBufferSize,
-                    true);
-                await using var entryStream = reader.OpenEntryStream();
-                await entryStream.CopyToAsync(destinationFileStream);
+                // Extract with retry logic for locked files
+                await ExtractFileWithRetryAsync(reader, destinationPath, entryKey);
 
                 LogMessage?.Invoke($"Extracted: {entryKey}");
             }
@@ -146,5 +141,50 @@ public class ZipService
 
         LogMessage?.Invoke($"Extraction complete ({extractedCount} files extracted)");
         return extractedCount;
+    }
+
+    /// <summary>
+    /// Extracts a file from the ZIP reader with retry logic for locked files.
+    /// </summary>
+    /// <param name="reader">The ZIP reader positioned at the entry to extract.</param>
+    /// <param name="destinationPath">The destination file path.</param>
+    /// <param name="entryKey">The ZIP entry key for logging purposes.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <exception cref="IOException">Thrown when the file cannot be written after all retry attempts.</exception>
+    private async Task ExtractFileWithRetryAsync(IReader reader, string destinationPath, string entryKey)
+    {
+        Exception? lastException = null;
+
+        for (var attempt = 1; attempt <= FileWriteRetryAttempts; attempt++)
+        {
+            try
+            {
+                await using var destinationFileStream = new FileStream(
+                    destinationPath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None,
+                    FileBufferSize,
+                    true);
+                await using var entryStream = reader.OpenEntryStream();
+                await entryStream.CopyToAsync(destinationFileStream);
+                return; // Success, exit the method
+            }
+            catch (IOException ex) when (attempt < FileWriteRetryAttempts)
+            {
+                // File is likely locked by another process, retry after delay
+                lastException = ex;
+                LogMessage?.Invoke($"File locked ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms...");
+                await Task.Delay(FileWriteRetryDelayMs * attempt); // Increasing delay for each attempt
+            }
+        }
+
+        // All retry attempts failed
+        if (lastException != null)
+        {
+            throw new IOException(
+                $"Failed to extract file after {FileWriteRetryAttempts} attempts: {entryKey}. " +
+                $"The file may be locked by another process.", lastException);
+        }
     }
 }
