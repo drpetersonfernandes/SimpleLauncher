@@ -25,8 +25,12 @@ public class ZipMountStrategy : ILaunchStrategy
             return false;
         }
 
-        var isZip = Path.GetExtension(context.ResolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase);
-        if (!isZip)
+        var extension = Path.GetExtension(context.ResolvedFilePath);
+        var isArchive = extension.Equals(".zip", StringComparison.OrdinalIgnoreCase) ||
+                        extension.Equals(".7z", StringComparison.OrdinalIgnoreCase) ||
+                        extension.Equals(".rar", StringComparison.OrdinalIgnoreCase);
+
+        if (!isArchive)
         {
             return false;
         }

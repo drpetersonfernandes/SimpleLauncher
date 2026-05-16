@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Runtime.InteropServices;
+using SharpCompress.Archives;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
@@ -20,18 +20,24 @@ internal static class MountZipFiles
     internal static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
 
-    private static void ValidateZipForPathTraversal(string zipPath)
+    private static void ValidateZipForPathTraversal(string archivePath)
     {
-        if (!File.Exists(zipPath))
-            throw new FileNotFoundException($"ZIP file not found: {zipPath}");
+        if (!File.Exists(archivePath))
+        {
+            throw new FileNotFoundException($"Compressed file not found: {archivePath}");
+        }
 
         try
         {
-            using var archive = ZipFile.OpenRead(zipPath);
+            using var archive = ArchiveFactory.OpenArchive(archivePath);
 
             foreach (var entry in archive.Entries)
             {
-                var entryName = entry.FullName;
+                // Skip directory entries
+                if (entry.IsDirectory)
+                    continue;
+
+                var entryName = entry.Key;
 
                 if (string.IsNullOrEmpty(entryName))
                     continue;
@@ -42,7 +48,7 @@ internal static class MountZipFiles
                     entryName.StartsWith('/') ||
                     entryName.StartsWith('\\'))
                 {
-                    throw new InvalidOperationException($"ZIP contains path traversal entry: '{entryName}'");
+                    throw new InvalidOperationException($"Archive contains path traversal entry: '{entryName}'");
                 }
 
                 // Additional thorough check: simulate extraction path normalization
@@ -50,13 +56,19 @@ internal static class MountZipFiles
                 var simulatedFullPath = Path.GetFullPath(Path.Combine("D:\\MOCKROOT", normalizedEntryName));
                 if (!simulatedFullPath.StartsWith("D:\\MOCKROOT", StringComparison.Ordinal))
                 {
-                    throw new InvalidOperationException($"ZIP entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
+                    throw new InvalidOperationException($"Archive entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
                 }
             }
         }
-        catch (InvalidDataException ex)
+        catch (Exception ex) when (ex is InvalidOperationException)
         {
-            throw new InvalidOperationException($"Invalid or corrupted ZIP file: {ex.Message}", ex);
+            // Re-throw our own exceptions (path traversal errors)
+            throw;
+        }
+        catch (Exception ex)
+        {
+            // Wrap other exceptions (corrupted archive, etc.) as InvalidOperationException
+            throw new InvalidOperationException($"Invalid or corrupted archive file: {ex.Message}", ex);
         }
     }
 
@@ -213,7 +225,6 @@ internal static class MountZipFiles
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
-
 
         ValidateZipForPathTraversal(resolvedZipFilePath);
 
@@ -455,7 +466,6 @@ internal static class MountZipFiles
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
-
 
         ValidateZipForPathTraversal(resolvedZipFilePath);
 
