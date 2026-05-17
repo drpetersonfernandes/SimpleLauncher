@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -28,24 +27,7 @@ public partial class MainWindow
 
     private void SetLanguageAndCheckMenu(string languageCode)
     {
-        LanguageArabic.IsChecked = languageCode == "ar";
-        LanguageBengali.IsChecked = languageCode == "bn";
-        LanguageGerman.IsChecked = languageCode == "de";
-        LanguageEnglish.IsChecked = languageCode == "en";
-        LanguageSpanish.IsChecked = languageCode == "es";
-        LanguageFrench.IsChecked = languageCode == "fr";
-        LanguageHindi.IsChecked = languageCode == "hi";
-        LanguageIndonesianMalay.IsChecked = languageCode == "id";
-        LanguageItalian.IsChecked = languageCode == "it";
-        LanguageJapanese.IsChecked = languageCode == "ja";
-        LanguageKorean.IsChecked = languageCode == "ko";
-        LanguageDutch.IsChecked = languageCode == "nl";
-        LanguagePortugueseBr.IsChecked = languageCode == "pt-br";
-        LanguageRussian.IsChecked = languageCode == "ru";
-        LanguageTurkish.IsChecked = languageCode == "tr";
-        LanguageUrdu.IsChecked = languageCode == "ur";
-        LanguageVietnamese.IsChecked = languageCode == "vi";
-        LanguageChineseSimplified.IsChecked = languageCode == "zh-hans";
+        _languageMenuService.SetLanguageCheckMarks(languageCode);
     }
 
     private void EasyMode_Click(object sender, RoutedEventArgs e)
@@ -1048,40 +1030,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        _playSoundEffects.PlayNotificationSound();
-
-        var selectedLanguage = menuItem.Name switch
-        {
-            "LanguageArabic" => "ar",
-            "LanguageBengali" => "bn",
-            "LanguageGerman" => "de",
-            "LanguageEnglish" => "en",
-            "LanguageSpanish" => "es",
-            "LanguageFrench" => "fr",
-            "LanguageHindi" => "hi",
-            "LanguageIndonesianMalay" => "id",
-            "LanguageItalian" => "it",
-            "LanguageJapanese" => "ja",
-            "LanguageKorean" => "ko",
-            "LanguageDutch" => "nl",
-            "LanguagePortugueseBr" => "pt-br",
-            "LanguageRussian" => "ru",
-            "LanguageTurkish" => "tr",
-            "LanguageUrdu" => "ur",
-            "LanguageVietnamese" => "vi",
-            "LanguageChineseSimplified" => "zh-hans",
-            _ => "en"
-        };
-
-        _settings.Language = selectedLanguage;
-
-        SetLanguageAndCheckMenu(selectedLanguage);
-
-        // Notify user
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", this);
-        SaveApplicationSettings();
-
-        QuitSimpleLauncher.RestartApplication();
+        _languageMenuService.ChangeLanguage(menuItem);
     }
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)

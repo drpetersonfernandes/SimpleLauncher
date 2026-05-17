@@ -21,12 +21,14 @@ using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.UsageStats;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
@@ -139,6 +141,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<GameScannerService>();
+        serviceCollection.AddSingleton<ThemeMenuService>();
+        serviceCollection.AddSingleton<LanguageMenuService>();
         serviceCollection.AddTransient<MainWindow>();
 
         // Handlers

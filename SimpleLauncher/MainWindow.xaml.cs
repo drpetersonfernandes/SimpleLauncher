@@ -16,6 +16,7 @@ using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
@@ -23,6 +24,7 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -155,6 +157,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly Stats _stats;
     private readonly ILogErrors _logErrors;
     private readonly GameScannerService _gameScannerService;
+    private readonly ThemeMenuService _themeMenuService;
+    private readonly LanguageMenuService _languageMenuService;
 
     public MainWindow(
         SettingsManager settings,
@@ -170,7 +174,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         GameScannerService gameScannerService,
         RetroAchievementsService retroAchievementsService,
         IConfiguration configuration,
-        IHttpClientFactory httpClientFactory)
+        IHttpClientFactory httpClientFactory,
+        ThemeMenuService themeMenuService,
+        LanguageMenuService languageMenuService)
     {
         InitializeComponent();
 
@@ -183,11 +189,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _playSoundEffects = playSoundEffects;
         _launchTools = launchTools;
         _gameScannerService = gameScannerService;
+        _themeMenuService = themeMenuService;
+        _languageMenuService = languageMenuService;
         _stats = stats;
         _logErrors = logErrors;
         _retroAchievementsService = retroAchievementsService;
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
+
+        _themeMenuService.Initialize(this);
+        _languageMenuService.Initialize(this);
 
         DataContext = this;
 
