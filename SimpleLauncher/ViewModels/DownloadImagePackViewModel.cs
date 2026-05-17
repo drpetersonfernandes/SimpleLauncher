@@ -1,7 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
@@ -16,7 +17,7 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.ViewModels;
 
-public class DownloadImagePackViewModel : ViewModelBase, IDisposable
+public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly DownloadManager _downloadManager;
@@ -41,9 +42,7 @@ public class DownloadImagePackViewModel : ViewModelBase, IDisposable
         ImagePacksToDisplay = [];
         SystemNames = [];
 
-        DownloadImagePackCommand = new RelayCommand(ExecuteDownloadAsync, _ => !IsOperationInProgress);
-        StopDownloadCommand = new RelayCommand(_ => ExecuteStopDownload());
-        HyperlinkNavigateCommand = new RelayCommand<string>(ExecuteHyperlinkNavigate);
+        DownloadImagePackCommand = new RelayCommand<object>(ExecuteDownloadAsync, _ => !IsOperationInProgress);
     }
 
     public ObservableCollection<string> SystemNames { get; }
@@ -115,9 +114,7 @@ public class DownloadImagePackViewModel : ViewModelBase, IDisposable
 
     public bool IsMainContentEnabled => !IsOperationInProgress && !IsLoading;
 
-    public ICommand DownloadImagePackCommand { get; }
-    public ICommand StopDownloadCommand { get; }
-    public ICommand HyperlinkNavigateCommand { get; }
+    public IRelayCommand<object> DownloadImagePackCommand { get; }
 
     private bool TryStartOperation()
     {
@@ -454,7 +451,8 @@ public class DownloadImagePackViewModel : ViewModelBase, IDisposable
         });
     }
 
-    private void ExecuteStopDownload()
+    [RelayCommand]
+    private void StopDownload()
     {
         _playSoundEffects.PlayNotificationSound();
 
@@ -480,7 +478,8 @@ public class DownloadImagePackViewModel : ViewModelBase, IDisposable
         EndOperation();
     }
 
-    private void ExecuteHyperlinkNavigate(string url)
+    [RelayCommand]
+    private void HyperlinkNavigate(string url)
     {
         try
         {
@@ -516,7 +515,7 @@ public class DownloadImagePackViewModel : ViewModelBase, IDisposable
         {
             if (IsStopEnabled)
             {
-                ExecuteStopDownload();
+                StopDownload();
                 await Task.Delay(200);
             }
 

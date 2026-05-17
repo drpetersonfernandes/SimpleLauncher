@@ -1,5 +1,6 @@
 using System.IO;
 using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -9,7 +10,7 @@ namespace SimpleLauncher.ViewModels;
 /// <summary>
 /// ViewModel for the ImageViewerWindow.
 /// </summary>
-public class ImageViewerViewModel : ViewModelBase
+public class ImageViewerViewModel : ObservableObject
 {
     private BitmapSource _imageSource;
     private string _errorMessage;

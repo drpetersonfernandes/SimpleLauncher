@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -10,24 +11,24 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
-public class InjectAresConfigViewModel : ViewModelBase
+public partial class InjectAresConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private string _emulatorPath;
 
-    private string _videoDriver;
-    private bool _exclusive;
-    private string _shader;
-    private string _multiplier;
-    private string _aspectCorrection;
-    private bool _mute;
-    private double _volume;
-    private bool _fastBoot;
-    private bool _rewind;
-    private bool _runAhead;
-    private bool _autoSaveMemory;
-    private bool _showBeforeLaunch;
+    [ObservableProperty] private string _videoDriver;
+    [ObservableProperty] private bool _exclusive;
+    [ObservableProperty] private string _shader;
+    [ObservableProperty] private string _multiplier;
+    [ObservableProperty] private string _aspectCorrection;
+    [ObservableProperty] private bool _mute;
+    [ObservableProperty] private double _volume;
+    [ObservableProperty] private bool _fastBoot;
+    [ObservableProperty] private bool _rewind;
+    [ObservableProperty] private bool _runAhead;
+    [ObservableProperty] private bool _autoSaveMemory;
+    [ObservableProperty] private bool _showBeforeLaunch;
 
     public InjectAresConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
     {
@@ -35,9 +36,6 @@ public class InjectAresConfigViewModel : ViewModelBase
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
-        SaveCommand = new RelayCommand(_ => ExecuteSave());
-        RunCommand = new RelayCommand(_ => ExecuteRun());
 
         LoadSettings();
     }
@@ -47,84 +45,9 @@ public class InjectAresConfigViewModel : ViewModelBase
     public List<string> MultiplierOptions { get; } = ["1", "2", "3", "4", "5"];
     public List<string> AspectCorrectionOptions { get; } = ["Standard", "Center", "Scale", "Stretch"];
 
-    public string VideoDriver
-    {
-        get => _videoDriver;
-        set => SetProperty(ref _videoDriver, value);
-    }
-
-    public bool Exclusive
-    {
-        get => _exclusive;
-        set => SetProperty(ref _exclusive, value);
-    }
-
-    public string Shader
-    {
-        get => _shader;
-        set => SetProperty(ref _shader, value);
-    }
-
-    public string Multiplier
-    {
-        get => _multiplier;
-        set => SetProperty(ref _multiplier, value);
-    }
-
-    public string AspectCorrection
-    {
-        get => _aspectCorrection;
-        set => SetProperty(ref _aspectCorrection, value);
-    }
-
-    public bool Mute
-    {
-        get => _mute;
-        set => SetProperty(ref _mute, value);
-    }
-
-    public double Volume
-    {
-        get => _volume;
-        set => SetProperty(ref _volume, value);
-    }
-
-    public bool FastBoot
-    {
-        get => _fastBoot;
-        set => SetProperty(ref _fastBoot, value);
-    }
-
-    public bool Rewind
-    {
-        get => _rewind;
-        set => SetProperty(ref _rewind, value);
-    }
-
-    public bool RunAhead
-    {
-        get => _runAhead;
-        set => SetProperty(ref _runAhead, value);
-    }
-
-    public bool AutoSaveMemory
-    {
-        get => _autoSaveMemory;
-        set => SetProperty(ref _autoSaveMemory, value);
-    }
-
-    public bool ShowBeforeLaunch
-    {
-        get => _showBeforeLaunch;
-        set => SetProperty(ref _showBeforeLaunch, value);
-    }
-
     public bool IsLauncherMode { get; }
 
     public bool ShouldRun { get; private set; }
-
-    public ICommand SaveCommand { get; }
-    public ICommand RunCommand { get; }
 
     public event Action CloseRequested;
     public event Func<string> RequestEmulatorPath;
@@ -205,7 +128,8 @@ public class InjectAresConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteRun()
+    [RelayCommand]
+    private void Run()
     {
         SaveSettings();
         try
@@ -235,7 +159,8 @@ public class InjectAresConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteSave()
+    [RelayCommand]
+    private void Save()
     {
         SaveSettings();
         try

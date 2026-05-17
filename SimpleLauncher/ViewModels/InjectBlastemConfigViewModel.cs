@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -10,20 +11,20 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
-public class InjectBlastemConfigViewModel : ViewModelBase
+public partial class InjectBlastemConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private string _emulatorPath;
 
-    private bool _fullscreen;
-    private bool _vsync;
-    private bool _scanlines;
-    private string _aspect;
-    private string _scaling;
-    private string _audioRate;
-    private string _syncSource;
-    private bool _showBeforeLaunch;
+    [ObservableProperty] private bool _fullscreen;
+    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] private bool _scanlines;
+    [ObservableProperty] private string _aspect;
+    [ObservableProperty] private string _scaling;
+    [ObservableProperty] private string _audioRate;
+    [ObservableProperty] private string _syncSource;
+    [ObservableProperty] private bool _showBeforeLaunch;
 
     public InjectBlastemConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
     {
@@ -31,9 +32,6 @@ public class InjectBlastemConfigViewModel : ViewModelBase
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
-        SaveCommand = new RelayCommand(_ => ExecuteSave());
-        RunCommand = new RelayCommand(_ => ExecuteRun());
 
         LoadSettings();
     }
@@ -43,60 +41,9 @@ public class InjectBlastemConfigViewModel : ViewModelBase
     public List<string> AudioRateOptions { get; } = ["48000", "44100", "22050"];
     public List<string> SyncSourceOptions { get; } = ["audio", "video"];
 
-    public bool Fullscreen
-    {
-        get => _fullscreen;
-        set => SetProperty(ref _fullscreen, value);
-    }
-
-    public bool Vsync
-    {
-        get => _vsync;
-        set => SetProperty(ref _vsync, value);
-    }
-
-    public bool Scanlines
-    {
-        get => _scanlines;
-        set => SetProperty(ref _scanlines, value);
-    }
-
-    public string Aspect
-    {
-        get => _aspect;
-        set => SetProperty(ref _aspect, value);
-    }
-
-    public string Scaling
-    {
-        get => _scaling;
-        set => SetProperty(ref _scaling, value);
-    }
-
-    public string AudioRate
-    {
-        get => _audioRate;
-        set => SetProperty(ref _audioRate, value);
-    }
-
-    public string SyncSource
-    {
-        get => _syncSource;
-        set => SetProperty(ref _syncSource, value);
-    }
-
-    public bool ShowBeforeLaunch
-    {
-        get => _showBeforeLaunch;
-        set => SetProperty(ref _showBeforeLaunch, value);
-    }
-
     public bool IsLauncherMode { get; }
 
     public bool ShouldRun { get; private set; }
-
-    public ICommand SaveCommand { get; }
-    public ICommand RunCommand { get; }
 
     public event Action CloseRequested;
     public event Func<string> RequestEmulatorPath;
@@ -188,7 +135,8 @@ public class InjectBlastemConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteRun()
+    [RelayCommand]
+    private void Run()
     {
         SaveSettings();
         try
@@ -218,7 +166,8 @@ public class InjectBlastemConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteSave()
+    [RelayCommand]
+    private void Save()
     {
         SaveSettings();
         try

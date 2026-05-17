@@ -2,7 +2,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -18,7 +19,7 @@ namespace SimpleLauncher.ViewModels;
 /// <summary>
 /// ViewModel for the GlobalStatsWindow.
 /// </summary>
-public class GlobalStatsViewModel : ViewModelBase, IDisposable
+public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly List<SystemManager> _systemManagers;
@@ -44,11 +45,6 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
         // Initialize info text
         InfoText = Application.Current?.TryFindResource("GlobalStatsExplanation") as string ?? string.Empty;
         BusyOverlayText = Application.Current?.TryFindResource("Processingpleasewait") as string ?? "Processing";
-
-        StartCommand = new RelayCommand(_ => StartProcessing(), _ => !IsProcessing);
-        CancelCommand = new RelayCommand(_ => CancelProcessing(), _ => IsProcessing);
-        SaveReportCommand = new RelayCommand(_ => SaveReport(), _ => IsSaveButtonVisible);
-        ClosingCommand = new RelayCommand<CancelEventArgs>(OnClosing);
     }
 
     #region Properties
@@ -90,7 +86,8 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
         {
             if (SetProperty(ref _isProcessing, value))
             {
-                CommandManager.InvalidateRequerySuggested();
+                StartCommand.NotifyCanExecuteChanged();
+                CancelCommand.NotifyCanExecuteChanged();
             }
         }
     }
@@ -119,7 +116,13 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
     public bool IsSaveButtonVisible
     {
         get => _isSaveButtonVisible;
-        private set => SetProperty(ref _isSaveButtonVisible, value);
+        private set
+        {
+            if (SetProperty(ref _isSaveButtonVisible, value))
+            {
+                SaveReportCommand.NotifyCanExecuteChanged();
+            }
+        }
     }
 
     /// <summary>
@@ -133,27 +136,11 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
 
     #endregion
 
-    #region Commands
+    #region CanExecute Properties
 
-    /// <summary>
-    /// Command to start the processing.
-    /// </summary>
-    public ICommand StartCommand { get; }
-
-    /// <summary>
-    /// Command to cancel the processing.
-    /// </summary>
-    public ICommand CancelCommand { get; }
-
-    /// <summary>
-    /// Command to save the report.
-    /// </summary>
-    public ICommand SaveReportCommand { get; }
-
-    /// <summary>
-    /// Command called when the window is closing.
-    /// </summary>
-    public ICommand ClosingCommand { get; }
+    private bool CanStart => !IsProcessing;
+    private bool CanCancel => IsProcessing;
+    private bool CanSaveReport => IsSaveButtonVisible;
 
     #endregion
 
@@ -176,7 +163,8 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
 
     #endregion
 
-    private async void StartProcessing()
+    [RelayCommand(CanExecute = nameof(CanStart))]
+    private async Task Start()
     {
         try
         {
@@ -401,6 +389,7 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
         }
     }
 
+    [RelayCommand(CanExecute = nameof(CanSaveReport))]
     private void SaveReport()
     {
         if (_globalStats == null) return;
@@ -447,7 +436,8 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
         return systemStats.Aggregate(report, (current, s) => current + $"{s.SystemName}: {s.NumberOfFiles} {gamesText}, {s.NumberOfImages} {imagesText}\n");
     }
 
-    private void CancelProcessing()
+    [RelayCommand(CanExecute = nameof(CanCancel))]
+    private void Cancel()
     {
         if (_cancellationTokenSource is { IsCancellationRequested: false })
         {
@@ -457,7 +447,8 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
         }
     }
 
-    private void OnClosing(CancelEventArgs e)
+    [RelayCommand]
+    private void Closing(CancelEventArgs e)
     {
         lock (_processingLock)
         {
@@ -474,7 +465,7 @@ public class GlobalStatsViewModel : ViewModelBase, IDisposable
             if (result == MessageBoxResult.Yes)
             {
                 _forceClose = true;
-                CancelProcessing();
+                Cancel();
             }
         }
     }

@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -10,22 +11,22 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
-public class InjectAzaharConfigViewModel : ViewModelBase
+public partial class InjectAzaharConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private string _emulatorPath;
 
-    private string _graphicsApi;
-    private string _resolution;
-    private string _layout;
-    private bool _fullscreen;
-    private bool _vsync;
-    private bool _asyncShader;
-    private bool _isNew3Ds;
-    private int _volume;
-    private bool _showBeforeLaunch;
-    private bool _audioStretching;
+    [ObservableProperty] private string _graphicsApi;
+    [ObservableProperty] private string _resolution;
+    [ObservableProperty] private string _layout;
+    [ObservableProperty] private bool _fullscreen;
+    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] private bool _asyncShader;
+    [ObservableProperty] private bool _isNew3Ds;
+    [ObservableProperty] private int _volume;
+    [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private bool _audioStretching;
 
     public InjectAzaharConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
     {
@@ -34,78 +35,12 @@ public class InjectAzaharConfigViewModel : ViewModelBase
         IsLauncherMode = isLauncherMode;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
 
-        SaveCommand = new RelayCommand(_ => ExecuteSave());
-        RunCommand = new RelayCommand(_ => ExecuteRun());
-
         LoadSettings();
-    }
-
-    public string GraphicsApi
-    {
-        get => _graphicsApi;
-        set => SetProperty(ref _graphicsApi, value);
-    }
-
-    public string Resolution
-    {
-        get => _resolution;
-        set => SetProperty(ref _resolution, value);
-    }
-
-    public string Layout
-    {
-        get => _layout;
-        set => SetProperty(ref _layout, value);
-    }
-
-    public bool Fullscreen
-    {
-        get => _fullscreen;
-        set => SetProperty(ref _fullscreen, value);
-    }
-
-    public bool Vsync
-    {
-        get => _vsync;
-        set => SetProperty(ref _vsync, value);
-    }
-
-    public bool AsyncShader
-    {
-        get => _asyncShader;
-        set => SetProperty(ref _asyncShader, value);
-    }
-
-    public bool IsNew3Ds
-    {
-        get => _isNew3Ds;
-        set => SetProperty(ref _isNew3Ds, value);
-    }
-
-    public int Volume
-    {
-        get => _volume;
-        set => SetProperty(ref _volume, value);
-    }
-
-    public bool ShowBeforeLaunch
-    {
-        get => _showBeforeLaunch;
-        set => SetProperty(ref _showBeforeLaunch, value);
-    }
-
-    public bool AudioStretching
-    {
-        get => _audioStretching;
-        set => SetProperty(ref _audioStretching, value);
     }
 
     public bool IsLauncherMode { get; }
 
     public bool ShouldRun { get; private set; }
-
-    public ICommand SaveCommand { get; }
-    public ICommand RunCommand { get; }
 
     public event Action CloseRequested;
     public event Func<string> RequestEmulatorPath;
@@ -185,7 +120,8 @@ public class InjectAzaharConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteRun()
+    [RelayCommand]
+    private void Run()
     {
         SaveSettings();
         try
@@ -220,7 +156,8 @@ public class InjectAzaharConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteSave()
+    [RelayCommand]
+    private void Save()
     {
         SaveSettings();
         try

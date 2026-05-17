@@ -1,5 +1,6 @@
 using System.Globalization;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -12,7 +13,7 @@ namespace SimpleLauncher.ViewModels;
 /// <summary>
 /// ViewModel for the SetFuzzyMatchingWindow.
 /// </summary>
-public class SetFuzzyMatchingViewModel : ViewModelBase
+public partial class SetFuzzyMatchingViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
 
@@ -30,9 +31,6 @@ public class SetFuzzyMatchingViewModel : ViewModelBase
         // Initialize values from settings
         _thresholdValue = Math.Max(MinimumThreshold, Math.Min(MaximumThreshold, _settings.FuzzyMatchingThreshold));
         CurrentThresholdText = _settings.FuzzyMatchingThreshold.ToString("P0", CultureInfo.InvariantCulture);
-
-        SaveCommand = new RelayCommand(_ => Save(), _ => CanSave);
-        CancelCommand = new RelayCommand(_ => CancelRequested?.Invoke());
     }
 
     /// <summary>
@@ -82,16 +80,6 @@ public class SetFuzzyMatchingViewModel : ViewModelBase
     public bool CanSave => _settings != null;
 
     /// <summary>
-    /// Command to save the settings.
-    /// </summary>
-    public ICommand SaveCommand { get; }
-
-    /// <summary>
-    /// Command to cancel and close the window.
-    /// </summary>
-    public ICommand CancelCommand { get; }
-
-    /// <summary>
     /// Event raised when the window should be closed with a success result.
     /// </summary>
     public event Action SaveCompleted;
@@ -101,6 +89,7 @@ public class SetFuzzyMatchingViewModel : ViewModelBase
     /// </summary>
     public event Action CancelRequested;
 
+    [RelayCommand(CanExecute = nameof(CanSave))]
     private void Save()
     {
         try
@@ -131,5 +120,11 @@ public class SetFuzzyMatchingViewModel : ViewModelBase
             MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();
             // Do not close the window on error
         }
+    }
+
+    [RelayCommand]
+    private void Cancel()
+    {
+        CancelRequested?.Invoke();
     }
 }

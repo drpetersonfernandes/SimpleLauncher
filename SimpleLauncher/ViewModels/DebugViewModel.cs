@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -9,16 +10,10 @@ namespace SimpleLauncher.ViewModels;
 /// <summary>
 /// ViewModel for the DebugWindow.
 /// </summary>
-public class DebugViewModel : ViewModelBase
+public partial class DebugViewModel : ObservableObject
 {
     private readonly object _logLock = new();
     private string _logText = string.Empty;
-
-    public DebugViewModel()
-    {
-        ClearLogCommand = new RelayCommand(_ => ClearLog(), _ => CanClearLog);
-        CopyLogCommand = new RelayCommand(_ => CopyLog(), _ => CanCopyLog);
-    }
 
     /// <summary>
     /// Gets the collection of log messages.
@@ -45,16 +40,6 @@ public class DebugViewModel : ViewModelBase
     public bool CanCopyLog => !string.IsNullOrEmpty(LogText);
 
     /// <summary>
-    /// Command to clear the log.
-    /// </summary>
-    public ICommand ClearLogCommand { get; }
-
-    /// <summary>
-    /// Command to copy the log content.
-    /// </summary>
-    public ICommand CopyLogCommand { get; }
-
-    /// <summary>
     /// Appends a message to the log.
     /// </summary>
     public void AppendLogMessage(string message)
@@ -64,22 +49,24 @@ public class DebugViewModel : ViewModelBase
             var timestampedMessage = $"{DateTime.Now:HH:mm:ss} - {message}";
             LogMessages.Add(timestampedMessage);
             LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
-            OnPropertyChanged(nameof(CanClearLog));
-            OnPropertyChanged(nameof(CanCopyLog));
+            ClearLogCommand.NotifyCanExecuteChanged();
+            CopyLogCommand.NotifyCanExecuteChanged();
         }
     }
 
+    [RelayCommand(CanExecute = nameof(CanClearLog))]
     private void ClearLog()
     {
         lock (_logLock)
         {
             LogMessages.Clear();
             LogText = string.Empty;
-            OnPropertyChanged(nameof(CanClearLog));
-            OnPropertyChanged(nameof(CanCopyLog));
+            ClearLogCommand.NotifyCanExecuteChanged();
+            CopyLogCommand.NotifyCanExecuteChanged();
         }
     }
 
+    [RelayCommand(CanExecute = nameof(CanCopyLog))]
     private void CopyLog()
     {
         try

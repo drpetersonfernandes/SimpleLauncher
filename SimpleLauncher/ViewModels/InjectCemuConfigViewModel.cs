@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -10,20 +11,20 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
-public class InjectCemuConfigViewModel : ViewModelBase
+public partial class InjectCemuConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private string _emulatorPath;
 
-    private bool _fullscreen;
-    private string _graphicApi;
-    private string _vsync;
-    private bool _asyncCompile;
-    private int _volume;
-    private bool _discord;
-    private string _language;
-    private bool _showBeforeLaunch;
+    [ObservableProperty] private bool _fullscreen;
+    [ObservableProperty] private string _graphicApi;
+    [ObservableProperty] private string _vsync;
+    [ObservableProperty] private bool _asyncCompile;
+    [ObservableProperty] private int _volume;
+    [ObservableProperty] private bool _discord;
+    [ObservableProperty] private string _language;
+    [ObservableProperty] private bool _showBeforeLaunch;
 
     public InjectCemuConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
     {
@@ -32,66 +33,12 @@ public class InjectCemuConfigViewModel : ViewModelBase
         IsLauncherMode = isLauncherMode;
         _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
 
-        SaveCommand = new RelayCommand(_ => ExecuteSave());
-        RunCommand = new RelayCommand(_ => ExecuteRun());
-
         LoadSettings();
-    }
-
-    public bool Fullscreen
-    {
-        get => _fullscreen;
-        set => SetProperty(ref _fullscreen, value);
-    }
-
-    public string GraphicApi
-    {
-        get => _graphicApi;
-        set => SetProperty(ref _graphicApi, value);
-    }
-
-    public string Vsync
-    {
-        get => _vsync;
-        set => SetProperty(ref _vsync, value);
-    }
-
-    public bool AsyncCompile
-    {
-        get => _asyncCompile;
-        set => SetProperty(ref _asyncCompile, value);
-    }
-
-    public int Volume
-    {
-        get => _volume;
-        set => SetProperty(ref _volume, value);
-    }
-
-    public bool Discord
-    {
-        get => _discord;
-        set => SetProperty(ref _discord, value);
-    }
-
-    public string Language
-    {
-        get => _language;
-        set => SetProperty(ref _language, value);
-    }
-
-    public bool ShowBeforeLaunch
-    {
-        get => _showBeforeLaunch;
-        set => SetProperty(ref _showBeforeLaunch, value);
     }
 
     public bool IsLauncherMode { get; }
 
     public bool ShouldRun { get; private set; }
-
-    public ICommand SaveCommand { get; }
-    public ICommand RunCommand { get; }
 
     public event Action CloseRequested;
     public event Func<string> RequestEmulatorPath;
@@ -163,7 +110,8 @@ public class InjectCemuConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteRun()
+    [RelayCommand]
+    private void Run()
     {
         SaveSettings();
         try
@@ -193,7 +141,8 @@ public class InjectCemuConfigViewModel : ViewModelBase
         }
     }
 
-    private void ExecuteSave()
+    [RelayCommand]
+    private void Save()
     {
         SaveSettings();
         try

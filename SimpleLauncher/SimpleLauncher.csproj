@@ -1020,6 +1020,7 @@
         <Resource Include="images\info.png" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
         <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
         <PackageReference Include="MahApps.Metro" Version="2.4.11" />

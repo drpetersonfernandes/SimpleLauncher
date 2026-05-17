@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetApplicationVersion;
@@ -12,18 +13,13 @@ namespace SimpleLauncher.ViewModels;
 /// <summary>
 /// ViewModel for the AboutWindow.
 /// </summary>
-public class AboutViewModel : ViewModelBase
+public partial class AboutViewModel : ObservableObject
 {
     private string _appVersion;
 
     public AboutViewModel()
     {
         AppVersion = GetApplicationVersion.GetVersion;
-
-        CloseCommand = new RelayCommand(_ => CloseRequested?.Invoke());
-        CheckForUpdatesCommand = new RelayCommand(_ => CheckForUpdatesAsync().ConfigureAwait(false), _ => !IsCheckingForUpdates);
-        OpenUpdateHistoryCommand = new RelayCommand(_ => OpenUpdateHistoryRequested?.Invoke());
-        OpenWebsiteCommand = new RelayCommand<string>(OpenWebsite);
     }
 
     /// <summary>
@@ -47,31 +43,10 @@ public class AboutViewModel : ViewModelBase
         {
             if (SetProperty(ref _isCheckingForUpdates, value))
             {
-                // Re-evaluate CanExecute for CheckForUpdatesCommand
-                CommandManager.InvalidateRequerySuggested();
+                CheckForUpdatesCommand.NotifyCanExecuteChanged();
             }
         }
     }
-
-    /// <summary>
-    /// Command to close the window.
-    /// </summary>
-    public ICommand CloseCommand { get; }
-
-    /// <summary>
-    /// Command to check for updates.
-    /// </summary>
-    public ICommand CheckForUpdatesCommand { get; }
-
-    /// <summary>
-    /// Command to open the update history window.
-    /// </summary>
-    public ICommand OpenUpdateHistoryCommand { get; }
-
-    /// <summary>
-    /// Command to open a website URL.
-    /// </summary>
-    public ICommand OpenWebsiteCommand { get; }
 
     /// <summary>
     /// Event raised when the window should be closed.
@@ -88,6 +63,15 @@ public class AboutViewModel : ViewModelBase
     /// </summary>
     public event Func<Window> GetOwnerWindow;
 
+    private bool CanCheckForUpdates => !IsCheckingForUpdates;
+
+    [RelayCommand]
+    private void Close()
+    {
+        CloseRequested?.Invoke();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanCheckForUpdates))]
     private async Task CheckForUpdatesAsync()
     {
         IsCheckingForUpdates = true;
@@ -113,6 +97,13 @@ public class AboutViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
+    private void OpenUpdateHistory()
+    {
+        OpenUpdateHistoryRequested?.Invoke();
+    }
+
+    [RelayCommand]
     private void OpenWebsite(string url)
     {
         try
