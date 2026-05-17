@@ -209,7 +209,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _themeMenuService.Initialize(this);
         _languageMenuService.Initialize(this);
         _loadingOverlayService.Initialize(this);
-        _startupInitializationService.Initialize(this);
         _gameListUiService.Initialize(this);
 
         DataContext = this;

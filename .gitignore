@@ -403,3 +403,4 @@ FodyWeavers.xsd
 !/SimpleLauncher/appsettings.json
 !/.gitignore
 !/TODO.txt
+modernize.md
