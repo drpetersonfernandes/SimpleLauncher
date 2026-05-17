@@ -68,7 +68,7 @@ public class TrayIconManager : IDisposable
             Header = minimizeToTray,
             Icon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/images/show.png")),
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/shrink.png")),
                 Width = 16,
                 Height = 16
             }

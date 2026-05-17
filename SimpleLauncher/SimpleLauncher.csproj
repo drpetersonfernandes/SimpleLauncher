@@ -1000,6 +1000,8 @@
         <Resource Include="images\xiso.png" />
         <None Remove="images\romvalidator.png" />
         <Resource Include="images\romvalidator.png" />
+        <None Remove="images\shrink.png" />
+        <Resource Include="images\shrink.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">
