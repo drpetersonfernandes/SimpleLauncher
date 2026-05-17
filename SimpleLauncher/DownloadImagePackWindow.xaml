@@ -11,6 +11,9 @@
                       Height="600"
                       MinHeight="500"
                       WindowStartupLocation="CenterScreen" x:ClassModifier="internal">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" /> <!-- Header -->
@@ -25,8 +28,8 @@
         </StackPanel>
 
         <!-- 2. Main Content -->
-        <Grid x:Name="MainContentGrid" Grid.Row="1" Margin="20,10,20,10"
-              IsEnabled="{Binding IsOperationInProgress, Converter={StaticResource InverseBooleanConverter}}">
+        <Grid Grid.Row="1" Margin="20,10,20,10"
+              IsEnabled="{Binding IsMainContentEnabled}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20" />
@@ -36,10 +39,11 @@
             <!-- Left Column: Selection & Info -->
             <StackPanel Grid.Column="0">
                 <controls:MetroHeader Header="{DynamicResource PleaseselectanImagePack}" Margin="0,0,0,20">
-                    <ComboBox x:Name="SystemNameDropdown"
-                              HorizontalAlignment="Stretch"
+                    <ComboBox HorizontalAlignment="Stretch"
                               Margin="0,5,0,0"
-                              SelectionChanged="SystemNameDropdown_SelectionChanged"
+                              ItemsSource="{Binding SystemNames}"
+                              SelectedItem="{Binding SelectedSystemName}"
+                              IsEnabled="{Binding IsSystemDropdownEnabled}"
                               ToolTip="{DynamicResource TooltipChooseSystem}"
                               controls:TextBoxHelper.Watermark="{DynamicResource SelectASystemWatermark}" />
                 </controls:MetroHeader>
@@ -51,12 +55,12 @@
                                TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,5" />
 
                     <TextBlock Margin="0,0,0,5">
-                        <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate" ToolTip="{DynamicResource TooltipNavigateToGithub}">
+                        <Hyperlink Command="{Binding HyperlinkNavigateCommand}" CommandParameter="https://github.com/libretro-thumbnails/libretro-thumbnails" ToolTip="{DynamicResource TooltipNavigateToGithub}">
                             Libretro Thumbnails (GitHub)
                         </Hyperlink>
                     </TextBlock>
                     <TextBlock>
-                        <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate" ToolTip="{DynamicResource TooltipNavigateToWebsite}">
+                        <Hyperlink Command="{Binding HyperlinkNavigateCommand}" CommandParameter="https://emumovies.com/files/" ToolTip="{DynamicResource TooltipNavigateToWebsite}">
                             EmuMovies Files
                         </Hyperlink>
                     </TextBlock>
@@ -69,7 +73,7 @@
                     <controls:MetroHeader Header="{DynamicResource InstallImagePack}" Margin="0,0,0,10" />
 
                     <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" BorderThickness="1" CornerRadius="3" Padding="10">
-                        <ItemsControl x:Name="ImagePacksItemsControl">
+                        <ItemsControl ItemsSource="{Binding ImagePacksToDisplay}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
@@ -80,7 +84,8 @@
                                     <Button Content="{Binding DisplayName}"
                                             Height="40"
                                             Margin="5"
-                                            Click="DownloadImagePackButtonClickAsync"
+                                            Command="{Binding DataContext.DownloadImagePackCommand, RelativeSource={RelativeSource AncestorType=controls:MetroWindow}}"
+                                            CommandParameter="{Binding}"
                                             IsEnabled="{Binding CanStartDownload}"
                                             ToolTip="{DynamicResource TooltipDownloadImagePack}"
                                             Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
@@ -112,7 +117,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid>
-                        <ProgressBar x:Name="DownloadProgressBar" Height="20" />
+                        <ProgressBar Value="{Binding ProgressPercentage, Mode=OneWay}" Height="20" />
                         <TextBlock Text="{DynamicResource DownloadProgress}"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Foreground="{DynamicResource MahApps.Brushes.Text}"
@@ -120,7 +125,7 @@
                     </Grid>
 
                     <DockPanel Grid.Row="1" Margin="0,5,0,0">
-                        <TextBlock x:Name="StatusTextBlock"
+                        <TextBlock Text="{Binding StatusMessage}"
                                    TextWrapping="Wrap"
                                    VerticalAlignment="Center"
                                    FontWeight="SemiBold" />
@@ -128,10 +133,10 @@
                 </Grid>
 
                 <!-- Stop Button -->
-                <Button Grid.Column="1" x:Name="StopDownloadButton"
+                <Button Grid.Column="1"
                         Content="{DynamicResource StopDownload}"
-                        Click="StopDownloadButton_Click"
-                        IsEnabled="False"
+                        Command="{Binding StopDownloadCommand}"
+                        IsEnabled="{Binding IsStopEnabled}"
                         ToolTip="{DynamicResource TooltipStopImageDownload}"
                         Style="{DynamicResource MahApps.Styles.Button.Square}"
                         Padding="20,10" />
@@ -141,7 +146,8 @@
         <!-- Loading Overlay -->
         <ContentControl x:Name="LoadingOverlay"
                         Template="{StaticResource LoadingOverlayTemplate}"
-                        Visibility="Collapsed"
+                        Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Content="{Binding LoadingMessage, TargetNullValue='Loading...'}"
                         Grid.Row="0" Grid.RowSpan="3" />
     </Grid>
 

@@ -6,6 +6,9 @@
                       Height="600" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -17,20 +20,19 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource BlastemConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource BlastemConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Fullscreen_Tooltip}" />
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource BlastemConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Vsync_Tooltip}" />
-                        <CheckBox x:Name="ChkScanlines" Content="{DynamicResource BlastemConfig_Scanlines_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Scanlines_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource BlastemConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource BlastemConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Scanlines}" Content="{DynamicResource BlastemConfig_Scanlines_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Scanlines_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource BlastemConfig_Aspect_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAspect" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_Aspect_Tooltip}">
-                                <ComboBoxItem Content="4:3" />
-                                <ComboBoxItem Content="16:9" />
-                                <ComboBoxItem Content="stretch" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectOptions}"
+                                      SelectedItem="{Binding Aspect}"
+                                      ToolTip="{DynamicResource BlastemConfig_Aspect_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -38,10 +40,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource BlastemConfig_Scaling_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbScaling" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_Scaling_Tooltip}">
-                                <ComboBoxItem Content="linear" />
-                                <ComboBoxItem Content="nearest" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ScalingOptions}"
+                                      SelectedItem="{Binding Scaling}"
+                                      ToolTip="{DynamicResource BlastemConfig_Scaling_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -55,11 +57,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource BlastemConfig_AudioRate_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAudioRate" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_AudioRate_Tooltip}">
-                                <ComboBoxItem Content="48000" />
-                                <ComboBoxItem Content="44100" />
-                                <ComboBoxItem Content="22050" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AudioRateOptions}"
+                                      SelectedItem="{Binding AudioRate}"
+                                      ToolTip="{DynamicResource BlastemConfig_AudioRate_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -73,10 +74,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource BlastemConfig_SyncSource_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbSyncSource" Grid.Column="1" ToolTip="{DynamicResource BlastemConfig_SyncSource_Tooltip}">
-                                <ComboBoxItem Content="audio" />
-                                <ComboBoxItem Content="video" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding SyncSourceOptions}"
+                                      SelectedItem="{Binding SyncSource}"
+                                      ToolTip="{DynamicResource BlastemConfig_SyncSource_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -85,7 +86,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource BlastemConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource BlastemConfig_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource BlastemConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource BlastemConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -95,11 +96,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource BlastemConfig_Save_Button}"
                     Style="{DynamicResource DialogSecondaryButtonStyle}"
-                    Click="BtnSave_Click"
+                    Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource BlastemConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource BlastemConfig_Run_Button2}"
                     Style="{DynamicResource DialogPrimaryButtonStyle}"
-                    Click="BtnRun_Click" IsDefault="True"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource BlastemConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource BlastemConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

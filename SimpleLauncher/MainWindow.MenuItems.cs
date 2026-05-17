@@ -103,8 +103,10 @@ public partial class MainWindow
 
             ResetUiAsync();
 
-            DownloadImagePackWindow downloadImagePack = new(_playSoundEffects);
-            downloadImagePack.Owner = this;
+            DownloadImagePackWindow downloadImagePack = new(_playSoundEffects)
+            {
+                Owner = this
+            };
             downloadImagePack.ShowDialog();
         }
         catch (Exception ex)

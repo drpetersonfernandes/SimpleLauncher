@@ -6,6 +6,9 @@
                       Height="600" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -17,7 +20,7 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource CemuConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource CemuConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource CemuConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_Fullscreen_Tooltip}" />
 
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
@@ -25,7 +28,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource CemuConfig_Api_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbApi" Grid.Column="1" ToolTip="{DynamicResource CemuConfig_Api_Tooltip}">
+                            <ComboBox Grid.Column="1"
+                                      SelectedValue="{Binding GraphicApi}"
+                                      SelectedValuePath="Tag"
+                                      ToolTip="{DynamicResource CemuConfig_Api_Tooltip}">
                                 <ComboBoxItem Content="OpenGL" Tag="0" />
                                 <ComboBoxItem Content="Vulkan" Tag="1" />
                             </ComboBox>
@@ -37,13 +43,16 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource CemuConfig_Vsync_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbVsync" Grid.Column="1" ToolTip="{DynamicResource CemuConfig_Vsync_Tooltip}">
+                            <ComboBox Grid.Column="1"
+                                      SelectedValue="{Binding Vsync}"
+                                      SelectedValuePath="Tag"
+                                      ToolTip="{DynamicResource CemuConfig_Vsync_Tooltip}">
                                 <ComboBoxItem Content="{DynamicResource CemuConfig_Vsync_Off}" Tag="0" />
                                 <ComboBoxItem Content="{DynamicResource CemuConfig_Vsync_On}" Tag="1" />
                             </ComboBox>
                         </Grid>
 
-                        <CheckBox x:Name="ChkAsyncCompile" Content="{DynamicResource CemuConfig_AsyncCompile_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_AsyncCompile_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AsyncCompile}" Content="{DynamicResource CemuConfig_AsyncCompile_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_AsyncCompile_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -51,21 +60,24 @@
                 <GroupBox Header="{DynamicResource CemuConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource CemuConfig_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource CemuConfig_Volume_Tooltip}" />
+                        <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource CemuConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource CemuConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkDiscord" Content="{DynamicResource CemuConfig_Discord_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_Discord_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Discord}" Content="{DynamicResource CemuConfig_Discord_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_Discord_Tooltip}" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource CemuConfig_Language_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbLanguage" Grid.Column="1" ToolTip="{DynamicResource CemuConfig_Language_Tooltip}">
+                            <ComboBox Grid.Column="1"
+                                      SelectedValue="{Binding Language}"
+                                      SelectedValuePath="Tag"
+                                      ToolTip="{DynamicResource CemuConfig_Language_Tooltip}">
                                 <ComboBoxItem Content="Japanese" Tag="0" />
                                 <ComboBoxItem Content="English" Tag="1" />
                                 <ComboBoxItem Content="French" Tag="2" />
@@ -81,7 +93,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource CemuConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource CemuConfig_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource CemuConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource CemuConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -89,10 +101,11 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource CemuConfig_Save_Button}"
-                    Style="{DynamicResource DialogSecondaryButtonStyle}" Click="BtnSave_Click"
+                    Style="{DynamicResource DialogSecondaryButtonStyle}" Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource CemuConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource CemuConfig_Run_Button2}"
-                    Style="{DynamicResource DialogPrimaryButtonStyle}" Click="BtnRun_Click" IsDefault="True"
+                    Style="{DynamicResource DialogPrimaryButtonStyle}" Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource CemuConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource CemuConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

@@ -1,211 +1,41 @@
-using System.Globalization;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class InjectCemuConfigWindow
 {
-    private readonly SettingsManager _settings;
-    private readonly bool _isLauncherMode;
-    public bool ShouldRun { get; private set; }
-    private string _emulatorPath;
-    private readonly ILogErrors _logErrors;
+    private readonly InjectCemuConfigViewModel _viewModel;
 
     public InjectCemuConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _settings = settings;
-        _emulatorPath = emulatorPath;
-        _isLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        LoadSettings();
-    }
 
-    private void LoadSettings()
-    {
-        ChkFullscreen.IsChecked = _settings.CemuFullscreen;
-        SelectComboByTag(CmbApi, _settings.CemuGraphicApi.ToString(CultureInfo.InvariantCulture));
-        SelectComboByTag(CmbVsync, _settings.CemuVsync.ToString(CultureInfo.InvariantCulture));
-        ChkAsyncCompile.IsChecked = _settings.CemuAsyncCompile;
-        SldVolume.Value = _settings.CemuTvVolume;
+        _viewModel = new InjectCemuConfigViewModel(settings, emulatorPath, isLauncherMode);
+        _viewModel.CloseRequested += Close;
+        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
+        _viewModel.GetOwnerWindow += () => this;
 
-        // Ensure ComboBoxes have a valid selection
-        if (CmbApi.SelectedItem == null && CmbApi.Items.Count > 0)
-        {
-            CmbApi.SelectedIndex = 1; // Default to Vulkan (index 1, Tag="1")
-        }
+        DataContext = _viewModel;
 
-        if (CmbVsync.SelectedItem == null && CmbVsync.Items.Count > 0)
-        {
-            CmbVsync.SelectedIndex = 1; // Default to On (index 1, Tag="1")
-        }
-
-        if (CmbLanguage.SelectedItem == null && CmbLanguage.Items.Count > 0)
-        {
-            CmbLanguage.SelectedIndex = 1; // Default to English (index 1, Tag="1")
-        }
-
-        ChkDiscord.IsChecked = _settings.CemuDiscordPresence;
-        SelectComboByTag(CmbLanguage, _settings.CemuConsoleLanguage.ToString(CultureInfo.InvariantCulture));
-        ChkShowBeforeLaunch.IsChecked = _settings.CemuShowSettingsBeforeLaunch;
-
-        BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
-        if (!_isLauncherMode)
+        if (!isLauncherMode)
         {
             BtnSave.IsDefault = true;
         }
     }
 
-    private string EnsureEmulatorPath()
+    public bool ShouldRun => _viewModel.ShouldRun;
+
+    private static string OnRequestEmulatorPath()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
-
-        // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Cemu");
-        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
-        {
-            _emulatorPath = resolved;
-            return _emulatorPath;
-        }
-
-        MessageBoxLibrary.CemuemulatornotfoundMessageBox();
-
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Cemu Executable|Cemu.exe|All Executables|*.exe",
             Title = (string)Application.Current.TryFindResource("SelectCemuEmulator") ?? "Select Cemu Emulator"
         };
 
-        if (dialog.ShowDialog() != true)
-        {
-            return null;
-        }
-
-        _emulatorPath = dialog.FileName;
-        return _emulatorPath;
-    }
-
-    private void SaveSettings()
-    {
-        _settings.CemuFullscreen = ChkFullscreen.IsChecked ?? false;
-        _settings.CemuGraphicApi = int.Parse(GetSelectedTag(CmbApi), CultureInfo.InvariantCulture);
-        _settings.CemuVsync = int.Parse(GetSelectedTag(CmbVsync), CultureInfo.InvariantCulture);
-        _settings.CemuAsyncCompile = ChkAsyncCompile.IsChecked ?? false; // Match XAML default (unchecked)
-        _settings.CemuTvVolume = (int)SldVolume.Value;
-        _settings.CemuDiscordPresence = ChkDiscord.IsChecked ?? true;
-        _settings.CemuConsoleLanguage = int.Parse(GetSelectedTag(CmbLanguage), CultureInfo.InvariantCulture);
-        _settings.CemuShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
-        _settings.Save();
-    }
-
-    private bool InjectConfig()
-    {
-        var path = EnsureEmulatorPath();
-        if (string.IsNullOrEmpty(path))
-            throw new OperationCanceledException("User cancelled emulator path selection.");
-
-        try
-        {
-            CemuConfigurationService.InjectSettings(path, _settings);
-            return true;
-        }
-        catch (InvalidOperationException ex)
-        {
-            _logErrors.LogErrorAsync(ex, $"Cemu injection failed: {path}");
-            return false;
-        }
-    }
-
-    private void BtnRun_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                ShouldRun = true;
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-                ShouldRun = true; // Game should still launch
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window → Launch game
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-            ShouldRun = true; // Game should still launch
-        }
-    }
-
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                MessageBoxLibrary.CemuConfigurationSavedMessageBox();
-                ShouldRun = false; // Explicitly set for clarity
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-        }
-    }
-
-    private static void SelectComboByTag(ComboBox cmb, string tag)
-    {
-        foreach (ComboBoxItem item in cmb.Items)
-            if (item.Tag?.ToString() == tag)
-            {
-                cmb.SelectedItem = item;
-                return;
-            }
-
-        if (cmb.Items.Count > 0)
-        {
-            cmb.SelectedIndex = 0;
-        }
-    }
-
-    private static string GetSelectedTag(ComboBox cmb)
-    {
-        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "1";
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 }

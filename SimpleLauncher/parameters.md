@@ -3695,6 +3695,16 @@ This emulator is available for Windows-x64.<br>
 
 .
 
+**Emulator Name:** Deecy<br>
+**Emulator Path (Example):** C:\Emulators\Deecy\Deecy.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/Senryoku/Deecy).<br>
+
+.
+
 **Emulator Name:** Retroarch flycast<br>
 **Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\flycast_libretro.dll" -f<br>
@@ -4729,6 +4739,15 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Extract File Before Launch?** true<br>
 **Extension to Launch After Extraction:** tzx, tap, z80, rzx, scl, trd, ipf<br>
 **Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Spectral<br>
+**Emulator Path (Example):** C:\Emulators\Spectral\Spectral-116.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:**
+
+This emulator is available for Windows-x64.<br>
 
 .
 

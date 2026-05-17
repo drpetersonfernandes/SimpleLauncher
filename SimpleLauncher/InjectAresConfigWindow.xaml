@@ -6,6 +6,9 @@
                       Height="700" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -23,24 +26,22 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource AresConfig_VideoDriver_Label}" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbVideoDriver" Grid.Column="1" ToolTip="{DynamicResource AresConfig_VideoDriver_Tooltip}">
-                                <ComboBoxItem Content="OpenGL 3.2"/>
-                                <ComboBoxItem Content="Vulkan"/>
-                                <ComboBoxItem Content="Direct3D 11"/>
-                                <ComboBoxItem Content="Direct3D 12"/>
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding VideoDriverOptions}"
+                                      SelectedItem="{Binding VideoDriver}"
+                                      ToolTip="{DynamicResource AresConfig_VideoDriver_Tooltip}" />
                         </Grid>
-                        <CheckBox x:Name="ChkExclusive" Content="{DynamicResource AresConfig_Exclusive_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Exclusive_Tooltip}"/>
+                        <CheckBox IsChecked="{Binding Exclusive}" Content="{DynamicResource AresConfig_Exclusive_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Exclusive_Tooltip}"/>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource AresConfig_Shader_Label}" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbShader" Grid.Column="1" IsEditable="True" ToolTip="{DynamicResource AresConfig_Shader_Tooltip}">
-                                <ComboBoxItem Content="None"/>
-                                <ComboBoxItem Content="Blur"/>
-                            </ComboBox>
+                            <ComboBox Grid.Column="1" IsEditable="True"
+                                      ItemsSource="{Binding ShaderOptions}"
+                                      Text="{Binding Shader}"
+                                      ToolTip="{DynamicResource AresConfig_Shader_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -48,13 +49,10 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource AresConfig_Multiplier_Label}" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbMultiplier" Grid.Column="1" ToolTip="{DynamicResource AresConfig_Multiplier_Tooltip}">
-                                <ComboBoxItem Content="1"/>
-                                <ComboBoxItem Content="2"/>
-                                <ComboBoxItem Content="3"/>
-                                <ComboBoxItem Content="4"/>
-                                <ComboBoxItem Content="5"/>
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding MultiplierOptions}"
+                                      SelectedItem="{Binding Multiplier}"
+                                      ToolTip="{DynamicResource AresConfig_Multiplier_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -62,12 +60,10 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource AresConfig_AspectCorrection_Label}" VerticalAlignment="Center"/>
-                            <ComboBox x:Name="CmbAspectCorrection" Grid.Column="1" ToolTip="{DynamicResource AresConfig_AspectCorrection_Tooltip}">
-                                <ComboBoxItem Content="Standard"/>
-                                <ComboBoxItem Content="Center"/>
-                                <ComboBoxItem Content="Scale"/>
-                                <ComboBoxItem Content="Stretch"/>
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectCorrectionOptions}"
+                                      SelectedItem="{Binding AspectCorrection}"
+                                      ToolTip="{DynamicResource AresConfig_AspectCorrection_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -75,19 +71,19 @@
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource AresConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkMute" Content="{DynamicResource AresConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Mute_Tooltip}"/>
+                        <CheckBox IsChecked="{Binding Mute}" Content="{DynamicResource AresConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Mute_Tooltip}"/>
                         <Label Content="{DynamicResource AresConfig_Volume_Label}" VerticalAlignment="Center"/>
-                        <Slider x:Name="SldVolume" Minimum="0.0" Maximum="2.0" IsSnapToTickEnabled="True" TickFrequency="0.1" ToolTip="{DynamicResource AresConfig_Volume_Tooltip}"/>
+                        <Slider Value="{Binding Volume}" Minimum="0.0" Maximum="2.0" IsSnapToTickEnabled="True" TickFrequency="0.1" ToolTip="{DynamicResource AresConfig_Volume_Tooltip}"/>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource AresConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFastBoot" Content="{DynamicResource AresConfig_FastBoot_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_FastBoot_Tooltip}"/>
-                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource AresConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Rewind_Tooltip}"/>
-                        <CheckBox x:Name="ChkRunAhead" Content="{DynamicResource AresConfig_RunAhead_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_RunAhead_Tooltip}"/>
-                        <CheckBox x:Name="ChkAutoSaveMemory" Content="{DynamicResource AresConfig_AutoSaveMemory_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_AutoSaveMemory_Tooltip}" />
+                        <CheckBox IsChecked="{Binding FastBoot}" Content="{DynamicResource AresConfig_FastBoot_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_FastBoot_Tooltip}"/>
+                        <CheckBox IsChecked="{Binding Rewind}" Content="{DynamicResource AresConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_Rewind_Tooltip}"/>
+                        <CheckBox IsChecked="{Binding RunAhead}" Content="{DynamicResource AresConfig_RunAhead_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_RunAhead_Tooltip}"/>
+                        <CheckBox IsChecked="{Binding AutoSaveMemory}" Content="{DynamicResource AresConfig_AutoSaveMemory_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AresConfig_AutoSaveMemory_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -96,7 +92,7 @@
                            <StackPanel>
                                <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
                                           Style="{StaticResource ImportantSettingHeaderStyle}" />
-<CheckBox x:Name="ChkShowBeforeLaunch"
+<CheckBox IsChecked="{Binding ShowBeforeLaunch}"
                       Content="{DynamicResource AresConfig_ShowBeforeLaunch_Checkbox}"
                       Style="{StaticResource ImportantSettingCheckBoxStyle}"
                       ToolTip="{DynamicResource AresConfig_ShowBeforeLaunch_Tooltip}" />
@@ -109,11 +105,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
 <Button x:Name="BtnSave" Content="{DynamicResource AresConfig_Save_Button}"
                      Style="{DynamicResource DialogSecondaryButtonStyle}"
-                     Click="BtnSave_Click"
+                     Command="{Binding SaveCommand}"
                      ToolTip="{DynamicResource AresConfig_Save_Tooltip}"/>
  <Button x:Name="BtnRun" Content="{DynamicResource AresConfig_Run_Button2}"
                      Style="{DynamicResource DialogPrimaryButtonStyle}"
-                     Click="BtnRun_Click" IsDefault="True"
+                     Command="{Binding RunCommand}" IsDefault="True"
+                     Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                      ToolTip="{DynamicResource AresConfig_Run_Tooltip}"/>
              <Button Content="{DynamicResource AresConfig_Cancel_Button}"
                      Style="{DynamicResource DialogCancelButtonStyle}"
