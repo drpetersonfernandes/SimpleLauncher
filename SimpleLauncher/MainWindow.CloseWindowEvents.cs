@@ -79,7 +79,7 @@ public partial class MainWindow
             MountChdFiles.KillAllChdMounterProcesses();
 
             // Dispose tray icon resources
-            _trayIconManager?.Dispose();
+            TrayIconManager?.Dispose();
 
             // Clean up collections
             GameListItems?.Clear();

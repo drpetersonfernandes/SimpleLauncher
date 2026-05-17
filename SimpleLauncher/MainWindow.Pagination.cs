@@ -8,8 +8,8 @@ public partial class MainWindow
 {
     private void ResetPaginationButtons()
     {
-        _prevPageButton.IsEnabled = false;
-        _nextPageButton.IsEnabled = false;
+        PrevPageButton2.IsEnabled = false;
+        NextPageButton2.IsEnabled = false;
         _currentPage = 1;
         Scroller.ScrollToTop();
         TotalFilesLabel.Content = null;
@@ -91,7 +91,7 @@ public partial class MainWindow
 
     private void UpdatePaginationButtons()
     {
-        _prevPageButton.IsEnabled = _currentPage > 1;
-        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
+        PrevPageButton2.IsEnabled = _currentPage > 1;
+        NextPageButton2.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
     }
 }

@@ -29,8 +29,8 @@ public partial class MainWindow
         // TopSystemLogoImage.Source = null;
 
         TotalFilesLabel.Content = null;
-        _prevPageButton.IsEnabled = false;
-        _nextPageButton.IsEnabled = false;
+        PrevPageButton2.IsEnabled = false;
+        NextPageButton2.IsEnabled = false;
         _currentFilter = null;
         _activeSearchQueryOrMode = null;
         SearchTextBox.Text = "";

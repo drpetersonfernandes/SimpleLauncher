@@ -11,7 +11,7 @@ namespace SimpleLauncher;
 
 public partial class MainWindow
 {
-    private void SetViewMode(string viewMode)
+    internal void SetViewMode(string viewMode)
     {
         if (viewMode == "ListView")
         {
@@ -23,11 +23,6 @@ public partial class MainWindow
             GridView.IsChecked = true;
             ListView.IsChecked = false;
         }
-    }
-
-    private void SetLanguageAndCheckMenu(string languageCode)
-    {
-        _languageMenuService.SetLanguageCheckMarks(languageCode);
     }
 
     private void EasyMode_Click(object sender, RoutedEventArgs e)
@@ -127,7 +122,7 @@ public partial class MainWindow
         }
     }
 
-    private async void ResetUiAsync()
+    internal async void ResetUiAsync()
     {
         try
         {

@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -14,16 +13,19 @@ using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
+using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
@@ -97,8 +99,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     } = true;
 
     private bool _isLoadingGames;
-    private int _loadingOperationsCount; // Reference counter for concurrent loading operations
-    private readonly object _loadingStateLock = new(); // Lock object to synchronize loading state updates
 
     public bool IsLoadingGames
     {
@@ -120,11 +120,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private int _filesPerPage;
     private int _totalFiles;
     private int _paginationThreshold;
-    private Button _nextPageButton;
-    private Button _prevPageButton;
+    internal Button NextPageButton2;
+    internal Button PrevPageButton2;
     private string _currentFilter;
 
-    private TrayIconManager _trayIconManager;
+    internal TrayIconManager TrayIconManager;
     internal PlayHistoryManager PlayHistoryManager { get; }
     private readonly IConfiguration _configuration;
     private static IHttpClientFactory _httpClientFactory;
@@ -159,6 +159,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly GameScannerService _gameScannerService;
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
+    private readonly LoadingOverlayService _loadingOverlayService;
+    private readonly StartupInitializationService _startupInitializationService;
+    private readonly GameListUiService _gameListUiService;
 
     public MainWindow(
         SettingsManager settings,
@@ -176,7 +179,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
         ThemeMenuService themeMenuService,
-        LanguageMenuService languageMenuService)
+        LanguageMenuService languageMenuService,
+        LoadingOverlayService loadingOverlayService,
+        StartupInitializationService startupInitializationService,
+        GameListUiService gameListUiService)
     {
         InitializeComponent();
 
@@ -191,6 +197,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameScannerService = gameScannerService;
         _themeMenuService = themeMenuService;
         _languageMenuService = languageMenuService;
+        _loadingOverlayService = loadingOverlayService;
+        _startupInitializationService = startupInitializationService;
+        _gameListUiService = gameListUiService;
         _stats = stats;
         _logErrors = logErrors;
         _retroAchievementsService = retroAchievementsService;
@@ -199,6 +208,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
         _themeMenuService.Initialize(this);
         _languageMenuService.Initialize(this);
+        _loadingOverlayService.Initialize(this);
+        _startupInitializationService.Initialize(this);
+        _gameListUiService.Initialize(this);
 
         DataContext = this;
 
@@ -388,7 +400,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
     }
 
-    private void CancelAndRecreateToken()
+    internal void CancelAndRecreateToken()
     {
         // Atomically exchange the old CancellationTokenSource with a new one
         // This prevents race conditions when multiple threads try to recreate the token
@@ -614,85 +626,37 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
-        bool shouldShowOverlay;
+        _loadingOverlayService.SetLoadingState(isLoading, message);
+    }
 
-        // Synchronize counter change and UI state decision atomically
-        // This prevents race conditions when multiple threads update loading state concurrently
-        lock (_loadingStateLock)
-        {
-            // Use reference counting for concurrent loading operations
-            // This ensures the overlay stays visible if multiple operations are running
-            if (isLoading)
-            {
-                _loadingOperationsCount++;
-            }
-            else
-            {
-                // Prevent negative reference count
-                if (_loadingOperationsCount > 0)
-                {
-                    _loadingOperationsCount--;
-                }
-                else
-                {
-                    DebugLogger.Log("[SetLoadingState] Warning: Attempted to decrement loading count when already at 0");
-                }
-            }
-
-            // Only update UI state if the counter transitioned between 0 and 1
-            shouldShowOverlay = _loadingOperationsCount > 0;
-
-            // Update the internal flags used by pagination/search logic
-            _isLoadingGames = shouldShowOverlay;
-            IsLoadingGames = shouldShowOverlay; // Notifies UI via PropertyChanged
-        }
-
-        // Visual Updates - only execute on UI thread when state actually changes
-        Dispatcher.Invoke(() =>
-        {
-            LoadingOverlay.Visibility = shouldShowOverlay ? Visibility.Visible : Visibility.Collapsed;
-
-            // Disable the entire content area to prevent clicks/hotkeys during load
-            // Note: LoadingOverlay is now outside MainContentGrid, so it remains active
-            MainContentGrid.IsEnabled = !shouldShowOverlay;
-
-            if (isLoading && shouldShowOverlay && message != null)
-            {
-                LoadingOverlay.Content = message;
-            }
-            else if (!shouldShowOverlay)
-            {
-                LoadingOverlay.Content = (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-            }
-        });
+    internal void SetIsLoadingGamesInternal(bool value)
+    {
+        _isLoadingGames = value;
+        IsLoadingGames = value;
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
-        // 1. Play a sound to confirm interaction
-        _playSoundEffects?.PlayNotificationSound();
+        _loadingOverlayService.EmergencyRelease();
+    }
 
-        // 2. Reset the reference counter and force the loading flags to false
-        // Use lock to synchronize with SetLoadingState and prevent race conditions
-        lock (_loadingStateLock)
-        {
-            _loadingOperationsCount = 0;
-            _isLoadingGames = false;
-            IsLoadingGames = false;
-        }
+    internal void SetPaginationButtonsDefault()
+    {
+        PrevPageButton2 = PrevPageButton;
+        NextPageButton2 = NextPageButton;
+        PrevPageButton2.IsEnabled = false;
+        NextPageButton2.IsEnabled = false;
+    }
 
-        // 3. Cancel any active background operations (scans, file loading, etc.)
-        CancelAndRecreateToken();
+    internal void SetPaginationButtonsVisibility(Visibility visibility)
+    {
+        PrevPageButton2.Visibility = visibility;
+        NextPageButton2.Visibility = visibility;
+    }
 
-        // 4. Hide the overlay visually
-        LoadingOverlay.Visibility = Visibility.Collapsed;
-        MainContentGrid.IsEnabled = true;
-
-        // 5. Reset the UI to the "Start" state (System Selection)
-        ResetUiAsync();
-
-        DebugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
-        UpdateStatusBar.UpdateContent("Emergency reset performed.", this);
+    internal void SetTrayIconManager(TrayIconManager manager)
+    {
+        TrayIconManager = manager;
     }
 
     private void SaveApplicationSettings()
@@ -792,47 +756,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void AddNoFilesMessage()
     {
-        var noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
-
-        // Check the current view mode
-        if (_settings.ViewMode == "GridView")
-        {
-            // Clear existing content in Grid view and add the message
-            // Also clear image sources to prevent memory leaks
-            ClearGameButtonImages(GameFileGrid);
-            GameFileGrid.Children.Clear();
-            GameFileGrid.Children.Add(new TextBlock
-            {
-                Text = $"\n{noGamesMatched}",
-                Padding = new Thickness(10)
-            });
-        }
-        else
-        {
-            // For List view, clear GameListItems
-            GameListItems.Clear();
-            GameListItems.Add(new GameListViewItem
-            {
-                FileName = noGamesMatched,
-                MachineDescription = string.Empty
-            });
-        }
-
-        // Deselect any selected letter when no system is selected
+        _gameListUiService.AddNoFilesMessage();
         _topLetterNumberMenu.DeselectLetter();
     }
 
     internal void SetGameButtonsEnabled(bool isEnabled)
     {
-        if (_gameFileGrid == null) return;
+        _gameListUiService.SetGameButtonsEnabled(isEnabled);
+    }
 
-        foreach (var child in _gameFileGrid.Children)
-        {
-            if (child is Button button)
-            {
-                button.IsEnabled = isEnabled;
-            }
-        }
+    internal static void ClearGameButtonImages(Panel panel)
+    {
+        GameListUiService.ClearGameButtonImages(panel);
+    }
+
+    private Task SetUiBeforeLoadGameFilesAsync()
+    {
+        return _gameListUiService.SetUiBeforeLoadGameFilesAsync();
     }
 
     private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
@@ -848,8 +788,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         if (_totalFiles == 0)
         {
             AddNoFilesMessage();
-            _prevPageButton.IsEnabled = false;
-            _nextPageButton.IsEnabled = false;
+            PrevPageButton2.IsEnabled = false;
+            NextPageButton2.IsEnabled = false;
             TotalFilesLabel.Dispatcher.Invoke(() =>
                 TotalFilesLabel.Content = $"{(string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to"} 0 {(string)Application.Current.TryFindResource("outof") ?? "out of"} 0 {(string)Application.Current.TryFindResource("total") ?? "total"}"
             );
@@ -872,8 +812,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         else
         {
             // If total files are not enough for pagination, ensure buttons are disabled.
-            _prevPageButton.IsEnabled = false;
-            _nextPageButton.IsEnabled = false;
+            PrevPageButton2.IsEnabled = false;
+            NextPageButton2.IsEnabled = false;
         }
 
         // Update the UI to reflect the current pagination status and the indices of files being displayed
@@ -887,115 +827,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             TotalFilesLabel.Content = _totalFiles == 0 ? $"{displayingfiles0To} 0 {outOf} 0 {total}" : $"{displayingfiles} {(_totalFiles > 0 ? startIndex : 0)} {to} {endIndex} {outOf} {_totalFiles} {total}"
         );
         return allFiles;
-    }
-
-    /// <summary>
-    /// Recursively clears all Image.Source properties from game buttons to prevent memory leaks.
-    /// BitmapImage objects need to be released by clearing their references.
-    /// </summary>
-    private static void ClearGameButtonImages(Panel panel)
-    {
-        foreach (var child in panel.Children)
-        {
-            switch (child)
-            {
-                case Image image:
-                    // Clear the image source to release the BitmapImage reference
-                    if (image.Source is BitmapImage)
-                    {
-                        image.Source = null;
-                    }
-
-                    break;
-
-                case Button button:
-                    switch (button.Content)
-                    {
-                        // Game buttons contain a Grid with nested images
-                        case Panel buttonPanel:
-                            ClearGameButtonImages(buttonPanel);
-                            break;
-                        case Border border:
-                            ClearImageFromBorder(border);
-                            break;
-                    }
-
-                    break;
-
-                case Panel childPanel:
-                    ClearGameButtonImages(childPanel);
-                    break;
-
-                case Border border:
-                    ClearImageFromBorder(border);
-                    break;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Helper method to clear images from a Border control.
-    /// </summary>
-    private static void ClearImageFromBorder(Border border)
-    {
-        switch (border.Child)
-        {
-            case Image image:
-            {
-                if (image.Source is BitmapImage)
-                {
-                    image.Source = null;
-                }
-
-                break;
-            }
-            case Panel panel:
-                ClearGameButtonImages(panel);
-                break;
-        }
-    }
-
-    private async Task SetUiBeforeLoadGameFilesAsync()
-    {
-        // Move scroller to top
-        Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
-
-        // Clear PreviewImage
-        PreviewImage.Dispatcher.Invoke(() => PreviewImage.Source = null);
-
-        // Clear Game Grid and dispose image resources to prevent memory leaks
-        GameFileGrid.Dispatcher.Invoke(() =>
-        {
-            ClearGameButtonImages(GameFileGrid);
-            GameFileGrid.Children.Clear();
-        });
-
-        // Clear the Game List
-        await Dispatcher.InvokeAsync(() => GameListItems.Clear());
-
-        // Set ViewMode based on user preference
-        await Dispatcher.InvokeAsync(() =>
-        {
-            if (_settings.ViewMode == "GridView")
-            {
-                // Allow GridView
-                GameFileGrid.Visibility = Visibility.Visible;
-                ListViewPreviewArea.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                // Allow ListView
-                GameFileGrid.Visibility = Visibility.Collapsed;
-                ListViewPreviewArea.Visibility = Visibility.Visible;
-            }
-        });
-
-        // Show pagination buttons when games are being loaded
-        await Dispatcher.InvokeAsync(() =>
-        {
-            _prevPageButton.Visibility = Visibility.Visible;
-            _nextPageButton.Visibility = Visibility.Visible;
-        });
     }
 
     private Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)

@@ -18,9 +18,4 @@ public partial class MainWindow
 
         _themeMenuService.ChangeAccentColor(menuItem);
     }
-
-    private void SetCheckedTheme(string baseTheme, string accentColor)
-    {
-        _themeMenuService.SetCheckedTheme(baseTheme, accentColor);
-    }
 }
