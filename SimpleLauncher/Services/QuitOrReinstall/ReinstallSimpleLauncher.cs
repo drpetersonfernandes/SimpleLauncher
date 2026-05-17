@@ -24,7 +24,8 @@ public static class ReinstallSimpleLauncher
                     var startInfo = new ProcessStartInfo(updaterPath)
                     {
                         Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                        UseShellExecute = true
+                        UseShellExecute = true,
+                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                     };
                     Process.Start(startInfo);
 
@@ -43,7 +44,8 @@ public static class ReinstallSimpleLauncher
                         {
                             Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
                             UseShellExecute = true,
-                            Verb = "runas" // Request administrator privileges
+                            Verb = "runas",
+                            WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                         };
                         Process.Start(elevatedStartInfo);
 
@@ -99,7 +101,8 @@ public static class ReinstallSimpleLauncher
                             var startInfo = new ProcessStartInfo(updaterPath)
                             {
                                 Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                                UseShellExecute = true
+                                UseShellExecute = true,
+                                WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                             };
                             Process.Start(startInfo);
 
@@ -118,7 +121,8 @@ public static class ReinstallSimpleLauncher
                                 {
                                     Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
                                     UseShellExecute = true,
-                                    Verb = "runas" // Request administrator privileges
+                                    Verb = "runas",
+                                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                                 };
                                 Process.Start(elevatedStartInfo);
 

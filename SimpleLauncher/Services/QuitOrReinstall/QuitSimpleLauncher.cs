@@ -1,8 +1,10 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.CheckForUpdates;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -49,20 +51,53 @@ public static class QuitSimpleLauncher
         Application.Current.Shutdown();
     }
 
-    // A robust way to launch the updater and exit immediately.
-    public static void ShutdownForUpdate(string updaterPath)
+    // Downloads a fresh Updater.exe from GitHub first, falling back to the local copy if offline.
+    // Then launches the updater and forcefully exits the current process.
+    public static async Task ShutdownForUpdateAsync(string updaterPath)
     {
+        var appDirectory = Path.GetDirectoryName(updaterPath) ?? AppDomain.CurrentDomain.BaseDirectory;
+
+        // 1. Try to download a fresh Updater.exe from GitHub (overwrites any existing copy)
+        var downloaded = false;
+        try
+        {
+            var updateChecker = App.ServiceProvider.GetRequiredService<UpdateChecker>();
+            var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
+
+            if (!string.IsNullOrEmpty(updaterZipUrl))
+            {
+                using var memoryStream = new MemoryStream();
+                await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
+                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null);
+                if (File.Exists(updaterPath))
+                {
+                    downloaded = true;
+                }
+            }
+        }
+        catch
+        {
+            // GitHub unreachable or download failed — will fall back to local copy
+        }
+
+        // 2. If neither downloaded nor local file exists, notify and return
+        if (!downloaded && !File.Exists(updaterPath))
+        {
+            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
+            return;
+        }
+
+        // 3. Launch Updater.exe and shut down
         try
         {
             var startInfo = new ProcessStartInfo(updaterPath)
             {
                 Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                UseShellExecute = true
+                UseShellExecute = true,
+                WorkingDirectory = appDirectory
             };
             Process.Start(startInfo);
 
-            // Use Dispatcher to ensure shutdown happens on the UI thread,
-            // then forcefully exit.
             Application.Current.Dispatcher.Invoke(static () =>
             {
                 Application.Current.Shutdown();
@@ -72,22 +107,20 @@ public static class QuitSimpleLauncher
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
         {
-            // Log the initial access denied error
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
                 .LogErrorAsync(ex, "Access denied when starting Updater.exe. Attempting to restart with elevation.");
 
             try
             {
-                // Retry with elevated privileges (UAC prompt)
                 var elevatedStartInfo = new ProcessStartInfo(updaterPath)
                 {
                     Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
                     UseShellExecute = true,
-                    Verb = "runas" // Request administrator privileges
+                    Verb = "runas",
+                    WorkingDirectory = appDirectory
                 };
                 Process.Start(elevatedStartInfo);
 
-                // If elevation succeeded, shutdown
                 Application.Current.Dispatcher.Invoke(static () =>
                 {
                     Application.Current.Shutdown();
@@ -97,11 +130,9 @@ public static class QuitSimpleLauncher
             }
             catch (Exception elevationEx)
             {
-                // Log the elevation attempt failure
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
                     .LogErrorAsync(elevationEx, "Failed to start Updater.exe even with elevation.");
 
-                // Notify user that update failed
                 MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
             }
         }
@@ -109,7 +140,6 @@ public static class QuitSimpleLauncher
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to start updater and shut down.");
 
-            // Notify user that update failed
             MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }
     }
