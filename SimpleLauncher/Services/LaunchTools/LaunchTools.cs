@@ -371,7 +371,7 @@ public class LaunchTools : ILaunchTools
 
         if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
         {
-            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+            arguments = $"\"{absoluteRomFolder}\" \"{absoluteImageFolder}\"";
         }
 
         LaunchExternalTool(executablePath, arguments, workingDirectory);
