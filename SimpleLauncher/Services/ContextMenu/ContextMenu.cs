@@ -3,9 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.ContextMenu;
 

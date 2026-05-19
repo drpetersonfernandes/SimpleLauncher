@@ -4,8 +4,8 @@ using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.SharedModels;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.SettingsManager;
 

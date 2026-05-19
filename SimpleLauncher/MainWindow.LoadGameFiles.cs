@@ -1,11 +1,11 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 

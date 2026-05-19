@@ -5,10 +5,10 @@ using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.SystemManager;
 

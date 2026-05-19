@@ -2301,4 +2301,8 @@
     <system:String x:Key="ZoomInIcon">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Select File to Launch</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Multiple executable files were found. Select which file to launch with DOSBox:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Launch</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Double-click or select a file and click Launch to start the game</system:String>
 </ResourceDictionary>

@@ -180,6 +180,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchStrategy, PbpToCueStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, XisoMountStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, ZipMountStrategy>();
+        serviceCollection.AddSingleton<ILaunchStrategy, DosBoxLaunchStrategy>();
         serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();

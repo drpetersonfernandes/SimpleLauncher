@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using SimpleLauncher.SharedModels;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services.DownloadService.Models;
 

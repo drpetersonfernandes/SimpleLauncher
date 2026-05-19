@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
@@ -18,12 +19,11 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
-using SimpleLauncher.SharedModels;
 using Image = System.Windows.Controls.Image;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
-using WindowScreenshot = SimpleLauncher.SharedModels.WindowScreenshot;
+using WindowScreenshot = SimpleLauncher.Models.WindowScreenshot;
 
 namespace SimpleLauncher.Services.ContextMenu;
 

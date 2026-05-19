@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 public class GameListViewItem : INotifyPropertyChanged
 {

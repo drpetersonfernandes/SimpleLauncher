@@ -1,0 +1,68 @@
+<controls:MetroWindow x:Class="SimpleLauncher.DosBoxFileSelectionWindow"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+                       Title="{DynamicResource DosBoxSelectFileTitle}"
+                       Width="650"
+                       Height="480"
+                       MinWidth="450"
+                       MinHeight="300"
+                       ResizeMode="CanResize"
+                       WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="{DynamicResource DosBoxSelectFileInstruction}"
+                   Margin="10,5,10,10"
+                   FontSize="14"
+                   TextWrapping="Wrap" />
+
+        <ListBox x:Name="FileListBox"
+                 Grid.Row="1"
+                 SelectionChanged="FileListBox_SelectionChanged"
+                 MouseDoubleClick="FileListBox_MouseDoubleClick"
+                 Margin="10,0"
+                 Padding="5"
+                 VerticalAlignment="Stretch"
+                 HorizontalAlignment="Stretch"
+                 ToolTip="{DynamicResource DosBoxSelectFileTooltip}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding DisplayName}"
+                                   Margin="5,2,5,2"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" d:DataContext="{d:DesignInstance }" />
+                        <TextBlock Text="{Binding RelativePath}"
+                                   Margin="5,0,5,2"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource MahApps.Brushes.Gray}"
+                                   d:DataContext="{d:DesignInstance }" />
+                        <Separator Margin="5,2" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,15,10,5">
+            <Button x:Name="CancelButton"
+                    Content="{DynamicResource Cancel}"
+                    Margin="5,0"
+                    Click="CancelButton_Click"
+                    MinWidth="75" />
+            <Button x:Name="LaunchButton"
+                    Content="{DynamicResource DosBoxSelectFileLaunch}"
+                    Margin="5,0"
+                    Click="LaunchButton_Click"
+                    MinWidth="75"
+                    IsEnabled="False" />
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

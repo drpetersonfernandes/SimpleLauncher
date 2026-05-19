@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
@@ -17,7 +18,6 @@ using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;

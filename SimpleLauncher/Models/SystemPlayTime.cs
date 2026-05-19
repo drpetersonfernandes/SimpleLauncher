@@ -1,7 +1,7 @@
 using System.Globalization;
 using MessagePack;
 
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 [MessagePackObject]
 public class SystemPlayTime

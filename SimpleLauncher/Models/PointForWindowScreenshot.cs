@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 public static partial class WindowScreenshot
 {

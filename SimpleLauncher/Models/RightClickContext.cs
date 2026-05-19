@@ -5,7 +5,7 @@ using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SystemManager;
 using ILoadingState = SimpleLauncher.Services.LoadingInterface.ILoadingState;
 
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 public class RightClickContext(
     string filePath,

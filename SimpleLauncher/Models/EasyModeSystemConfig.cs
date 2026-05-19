@@ -4,7 +4,7 @@ using SimpleLauncher.Services.EasyMode.Models;
 
 // Required for DefaultValueAttribute
 
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 public class EasyModeSystemConfig
 {

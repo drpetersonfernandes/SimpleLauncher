@@ -1,5 +1,5 @@
 using MessagePack;
-using SimpleLauncher.SharedModels;
+using SimpleLauncher.Models;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 

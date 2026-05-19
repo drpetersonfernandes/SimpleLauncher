@@ -1,4 +1,4 @@
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 public enum DownloadButtonState
 {

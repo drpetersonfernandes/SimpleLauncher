@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
@@ -18,7 +19,6 @@ using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.SharedModels;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher.Pages;

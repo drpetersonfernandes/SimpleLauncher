@@ -6,8 +6,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.EasyMode;
 

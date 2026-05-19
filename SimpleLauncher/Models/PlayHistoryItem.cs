@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using MessagePack;
 
-namespace SimpleLauncher.SharedModels;
+namespace SimpleLauncher.Models;
 
 [MessagePackObject]
 public class PlayHistoryItem : INotifyPropertyChanged

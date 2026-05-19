@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
@@ -18,7 +19,6 @@ using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 

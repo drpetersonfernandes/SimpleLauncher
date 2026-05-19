@@ -4,6 +4,7 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.DownloadService.Models;
@@ -11,7 +12,6 @@ using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.SharedModels;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 

@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Models;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 
 namespace SimpleLauncher.Services.GameListUI;
@@ -70,7 +71,7 @@ public class GameListUiService
         else
         {
             _mainWindow.GameListItems.Clear();
-            _mainWindow.GameListItems.Add(new SharedModels.GameListViewItem
+            _mainWindow.GameListItems.Add(new GameListViewItem
             {
                 FileName = noGamesMatched,
                 MachineDescription = string.Empty

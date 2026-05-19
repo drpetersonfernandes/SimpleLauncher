@@ -3,8 +3,8 @@ using System.IO;
 using System.Windows;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.SharedModels;
 
 namespace SimpleLauncher.Services.Favorites;
 

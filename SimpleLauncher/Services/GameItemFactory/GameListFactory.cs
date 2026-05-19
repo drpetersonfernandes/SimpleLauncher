@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
@@ -10,7 +11,6 @@ using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;

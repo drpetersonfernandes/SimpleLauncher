@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
@@ -16,7 +17,6 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.SharedModels;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
