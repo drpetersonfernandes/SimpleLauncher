@@ -710,8 +710,8 @@
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Grant 'Simple Launcher' administrative access and try again.</system:String>
     <system:String x:Key="Green">Green</system:String>
     <system:String x:Key="GridView">Grid View</system:String>
-    <system:String x:Key="GroupByFolderMameWarningMessage">You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?</system:String>
-    <system:String x:Key="GroupByFolderOnlyForMameMessage">The 'Group Files by Folder' option is only compatible with MAME emulators. To use a different emulator, please edit the system settings and disable this option.</system:String>
+    <system:String x:Key="GroupByFolderMameWarningMessage">You have enabled 'Group Files by Folder' but have configured neither a MAME nor a DOSBox emulator. This option is only compatible with MAME (Software List CHDs) or DOSBox (uncompressed game folders). Are you sure you want to save these settings?</system:String>
+    <system:String x:Key="GroupByFolderOnlyForMameMessage">The 'Group Files by Folder' option is only compatible with MAME emulators (Software List CHDs) or DOSBox emulators (uncompressed DOS game folders). To use a different emulator, please edit the system settings and disable this option.</system:String>
     <system:String x:Key="GroupFilesByFolder">Group Files by Folder?</system:String>
     <system:String x:Key="GuideURL">Guide URL:</system:String>
     <system:String x:Key="Hardcore">Hardcore</system:String>

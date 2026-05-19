@@ -163,7 +163,7 @@ internal partial class EditSystemWindow
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                     isEmulator5LocationValid)) return;
 
-            // Warn user if GroupByFolder is true with a non-MAME emulator
+            // Warn user if GroupByFolder is true with neither MAME nor DOSBox configured
             if (groupByFolder)
             {
                 var emulatorsToCheck = new[]
@@ -175,15 +175,19 @@ internal partial class EditSystemWindow
                     (Name: emulator5NameText, Location: emulator5LocationText)
                 };
 
-                var hasMameEmulator = emulatorsToCheck.Any(static emu =>
-                    !string.IsNullOrEmpty(emu.Name) && (emu.Name.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
-                                                        (emu.Location != null && (emu.Location.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
-                                                                                  emu.Location.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase))))
+                var hasMameOrDosBoxEmulator = emulatorsToCheck.Any(static emu =>
+                    !string.IsNullOrEmpty(emu.Name) && (
+                        emu.Name.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                        emu.Name.Contains("DOSBox", StringComparison.OrdinalIgnoreCase) ||
+                        (emu.Location != null && (
+                            emu.Location.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                            emu.Location.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase) ||
+                            emu.Location.Contains("dosbox", StringComparison.OrdinalIgnoreCase))))
                 );
 
-                if (!hasMameEmulator)
+                if (!hasMameOrDosBoxEmulator)
                 {
-                    var result = MessageBoxLibrary.GroupByFolderMameWarningMessageBox();
+                    var result = MessageBoxLibrary.GroupByFolderWarningMessageBox();
                     if (result == MessageBoxResult.No)
                     {
                         return; // User chose not to save, so abort.

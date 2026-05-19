@@ -254,9 +254,12 @@ public partial class GameLauncher
                          emulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
                          emulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
 
-            if (!isMame)
+            var isDosBox = emulatorName.Contains("DOSBox", StringComparison.OrdinalIgnoreCase) ||
+                           emulatorLocation.Contains("dosbox", StringComparison.OrdinalIgnoreCase);
+
+            if (!isMame && !isDosBox)
             {
-                MessageBoxLibrary.GroupByFolderOnlyForMameMessageBox();
+                MessageBoxLibrary.GroupByFolderOnlyForMameAndDosBoxMessageBox();
                 return false;
             }
         }

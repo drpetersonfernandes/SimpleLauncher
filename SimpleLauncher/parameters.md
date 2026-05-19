@@ -1308,8 +1308,20 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **System Folder (Example):** c:\Microsoft DOS<br>
 **Extension to Search in the System Folder:** zip, 7z, rar<br>
 **Extract File Before Launch?** true<br>
-**Extension to Launch After Extraction:** bat<br>
+**Extension to Launch After Extraction:** bat, conf, exe, com<br>
 **Group Files by Folder:** false<br>
+
+.
+
+**When launching a compressed DOS game, Simple Launcher searches the extracted folder for game files in priority order:**<br>
+
+**1.** `.conf` - A DOSBox configuration file. If found, it is used directly (launched with `-conf`).<br>
+**2.** `.bat` - A batch file.<br>
+**3.** `.exe` - An executable.<br>
+**4.** `.com` - A command file.<br>
+
+**If no `.conf` file is found, a temporary `.conf` is automatically generated that mounts the extracted folder as a virtual C: drive and runs the detected game file.**<br>
+**You can also place uncompressed DOS game folders directly in the system folder (e.g., `C:\Microsoft DOS\Doom\`).** Include DOS executable extensions (e.g., `conf, bat, exe, com`) in `Extension to Search`, and set `Group Files by Folder` to `true`.<br>
 
 .
 

@@ -3292,24 +3292,24 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void GroupByFolderOnlyForMameMessageBox()
+    internal static void GroupByFolderOnlyForMameAndDosBoxMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
         {
-            var message = (string)Application.Current.TryFindResource("GroupByFolderOnlyForMameMessage") ?? "The 'Group Files by Folder' option is only compatible with MAME emulators. To use a different emulator, please edit the system settings and disable this option.";
+            var message = (string)Application.Current.TryFindResource("TheGroupFilesbyFolderoptionisonlycompatiblewith") ?? "The 'Group Files by Folder' option is only compatible with MAME emulators (Software List CHDs) or DOSBox emulators (uncompressed DOS game folders). To use a different emulator, please edit the system settings and disable this option.";
             var title = (string)Application.Current.TryFindResource("CompatibilityWarning") ?? "Compatibility Warning";
             System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
-    internal static MessageBoxResult GroupByFolderMameWarningMessageBox()
+    internal static MessageBoxResult GroupByFolderWarningMessageBox()
     {
         return Application.Current.Dispatcher.Invoke(static () =>
         {
-            var message = (string)Application.Current.TryFindResource("GroupByFolderMameWarningMessage") ?? "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?";
+            var message = (string)Application.Current.TryFindResource("YouhaveenabledGroupFilesbyFolderbuthave") ?? "You have enabled 'Group Files by Folder' but have configured neither a MAME nor a DOSBox emulator. This option is only compatible with MAME (Software List CHDs) or DOSBox (uncompressed game folders). Are you sure you want to save these settings?";
             var title = (string)Application.Current.TryFindResource("ConfigurationWarning") ?? "Configuration Warning";
             return System.Windows.MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
         });
