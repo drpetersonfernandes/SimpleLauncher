@@ -8,7 +8,8 @@
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Amstrad CPC<br>
@@ -65,7 +66,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
@@ -96,7 +98,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Emulators\mame\roms<br>
@@ -152,7 +155,8 @@ You can download this emulator on the [Official Website](https://raine.1emulatio
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 2600<br>
@@ -220,7 +224,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 5200<br>
@@ -275,7 +280,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 7800<br>
@@ -320,7 +326,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari 8-Bits<br>
@@ -375,7 +382,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari Jaguar<br>
@@ -416,7 +424,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
@@ -443,7 +452,8 @@ You can download this emulator on the [Official Website](https://richwhitehouse.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari Lynx<br>
@@ -512,7 +522,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Atari ST<br>
@@ -570,7 +581,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Atomiswave<br>
@@ -597,7 +609,8 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
@@ -677,7 +690,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
@@ -757,7 +771,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Casio PV-1000<br>
@@ -788,7 +803,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Colecovision<br>
@@ -856,7 +872,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore 64<br>
@@ -926,7 +943,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore 128<br>
@@ -985,7 +1003,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore Amiga<br>
@@ -1072,7 +1091,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
@@ -1117,7 +1137,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\FM Towns<br>
@@ -1146,7 +1167,8 @@ You can download this emulator on the [Official Website](https://github.com/capt
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\LaserDisk<br>
@@ -1185,7 +1207,8 @@ You can download this emulator on the [Official Website](https://github.com/Dirt
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
@@ -1226,7 +1249,8 @@ You can download this emulator on the [Official Website](https://o2em.sourceforg
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Mattel Aquarius<br>
@@ -1257,7 +1281,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
@@ -1302,7 +1327,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Microsoft DOS<br>
@@ -1387,7 +1413,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Microsoft MSX<br>
@@ -1483,7 +1510,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Microsoft MSX2<br>
@@ -1578,7 +1606,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Windows Games<br>
@@ -1605,7 +1634,8 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
@@ -1692,7 +1722,8 @@ You can download this emulator on the [Official Website](https://cxbx-reloaded.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
@@ -1740,7 +1771,8 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
@@ -1789,7 +1821,8 @@ You can download this emulator on the [Official Website](https://github.com/xeni
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC PC Engine<br>
@@ -1870,7 +1903,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC PC Engine CD<br>
@@ -1975,7 +2009,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC PC-FX<br>
@@ -2045,7 +2080,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
@@ -2099,7 +2135,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
@@ -2184,7 +2221,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo 64<br>
@@ -2302,7 +2340,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
@@ -2357,7 +2396,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo DS<br>
@@ -2433,7 +2473,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
@@ -2525,7 +2566,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
@@ -2676,7 +2718,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
@@ -2765,7 +2808,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
@@ -2917,7 +2961,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
@@ -2959,7 +3004,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo NES<br>
@@ -3082,7 +3128,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Satellaview<br>
@@ -3110,7 +3157,8 @@ You can download this emulator on the [Official Website](https://ares-emu.net/do
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo SNES<br>
@@ -3234,7 +3282,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
@@ -3286,7 +3335,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Switch<br>
@@ -3367,7 +3417,8 @@ This emulator is available for Windows-x64.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Virtual Boy<br>
@@ -3420,7 +3471,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo Wii<br>
@@ -3460,7 +3512,8 @@ Core may require BIOS files or system files to work.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
@@ -3486,7 +3539,8 @@ This emulator is available for Windows-x64.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
@@ -3526,7 +3580,8 @@ Core may require BIOS files or system files to work.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
@@ -3578,7 +3633,8 @@ Core may require BIOS files or system files to work.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Philips CD-i<br>
@@ -3619,7 +3675,8 @@ Core may require BIOS files or system files to work.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
@@ -3668,7 +3725,8 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
@@ -3749,7 +3807,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Game Gear<br>
@@ -3878,7 +3937,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Genesis<br>
@@ -4011,7 +4071,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
@@ -4084,7 +4145,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
@@ -4186,7 +4248,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Master System<br>
@@ -4305,7 +4368,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Sega Naomi<br>
@@ -4332,7 +4396,8 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Sega Naomi2<br>
@@ -4359,7 +4424,8 @@ You can download this emulator on the [Official Website](https://github.com/flyi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Model 3<br>
@@ -4385,7 +4451,8 @@ This emulator is available for Windows-x64.<br>
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega Saturn<br>
@@ -4551,7 +4618,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega SC-3000<br>
@@ -4621,7 +4689,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sega SG-1000<br>
@@ -4700,7 +4769,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sharp x68000<br>
@@ -4743,7 +4813,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
@@ -4814,7 +4885,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo<br>
@@ -4877,7 +4949,8 @@ This core cannot run MAME ROM sets. It uses ROM files with the extension .NEO.<b
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
@@ -4959,7 +5032,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
@@ -5036,7 +5110,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
@@ -5113,7 +5188,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
@@ -5267,7 +5343,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation 2<br>
@@ -5322,7 +5399,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 .
@@ -5399,7 +5477,8 @@ You can download this emulator on the [Official Website](https://rpcs3.net/downl
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
@@ -5426,7 +5505,8 @@ You can download this emulator on the [GitHub Repository](https://github.com/sha
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
@@ -5453,7 +5533,8 @@ You can download this emulator on the [Official Website](https://github.com/Vita
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Sony PSP<br>
@@ -5493,7 +5574,8 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** c:\Super ACan<br>
@@ -5523,7 +5605,8 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
 **%SYSTEMFOLDER%** - Represents the System path<br>
 **%EMULATORFOLDER%** - Represents the Emulator path<br>
-**%ROM%** - Represents the ROM path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Zeebo<br>
