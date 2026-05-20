@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -392,6 +392,10 @@
     <system:String x:Key="DolphinSettings">Dolphin Settings</system:String>
     <system:String x:Key="Donate">_Donate</system:String>
     <system:String x:Key="DonateIcon">Donate</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Multiple executable files were found. Select which file to launch with DOSBox:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Launch</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Select File to Launch</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Double-click or select a file and click Launch to start the game</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download and extraction completed successfully.</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
@@ -1824,6 +1828,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">The following required file(s) are missing:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">The game will launch now.</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">The 'Group Files by Folder' option is only compatible with MAME emulators (Software List CHDs) or DOSBox emulators (uncompressed DOS game folders). To use a different emulator, please edit the system settings and disable this option.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">The image may be corrupted or inaccessible.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">The launch of the selected tool was canceled by the user.</system:String>
     <system:String x:Key="Theme">_Theme</system:String>
@@ -2258,6 +2263,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">You can receive support from multiple AI providers or from the developer. Choose below.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">You can turn off this error message in Expert mode.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">You have enabled 'Group Files by Folder' but have configured neither a MAME nor a DOSBox emulator. This option is only compatible with MAME (Software List CHDs) or DOSBox (uncompressed game folders). Are you sure you want to save these settings?</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">You need to add RetroAchievement login information to use this feature.</system:String>
     <system:String x:Key="YourRankAndScore">Your Rank and Score</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
@@ -2301,8 +2307,4 @@
     <system:String x:Key="ZoomInIcon">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
-    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Select File to Launch</system:String>
-    <system:String x:Key="DosBoxSelectFileInstruction">Multiple executable files were found. Select which file to launch with DOSBox:</system:String>
-    <system:String x:Key="DosBoxSelectFileLaunch">_Launch</system:String>
-    <system:String x:Key="DosBoxSelectFileTooltip">Double-click or select a file and click Launch to start the game</system:String>
 </ResourceDictionary>
