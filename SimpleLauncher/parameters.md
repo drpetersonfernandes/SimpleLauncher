@@ -864,6 +864,35 @@ To use this emulator you need to use a MAME compatible set of ROMs, with the rig
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
 You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).<br>
 
+## Commander Genius
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
+
+**System Folder (Example):** C:\Commander Genius<br>
+**Extension to Search in the System Folder:** txt<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** Commander Genius<br>
+**Emulator Path (Example):** C:\Commander Genius\CGenius.exe<br>
+**Emulator Parameters (Example):** dir="games/%NAME%"<br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [GitLab Repository](https://gitlab.com/Dringgstein/Commander-Genius).<br>
+You can download this emulator on the [Official Website](https://clonekeenplus.sourceforge.io/download.php).<br>
+
 ## Commodore 64
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>

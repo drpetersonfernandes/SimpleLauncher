@@ -108,6 +108,8 @@ public static partial class HelpUser
             { "Casio PV-1000", CasioPv1000Details },
             { "Casio PV1000", CasioPv1000Details },
             { "Casio PV 1000", CasioPv1000Details },
+            { "Commander Genius", CommanderGeniusDetails },
+            { "Comander Genius", CommanderGeniusDetails },
             { "PV-1000", CasioPv1000Details },
             { "PV1000", CasioPv1000Details },
             { "PV 1000", CasioPv1000Details },
@@ -436,6 +438,11 @@ public static partial class HelpUser
     private static string ColecovisionDetails()
     {
         return GetSystemDetails("Colecovision");
+    }
+
+    private static string CommanderGeniusDetails()
+    {
+        return GetSystemDetails("Commander Genius");
     }
 
     private static string Commodore64Details()
