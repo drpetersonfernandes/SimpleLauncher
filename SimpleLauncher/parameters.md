@@ -893,6 +893,20 @@ This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [GitLab Repository](https://gitlab.com/Dringgstein/Commander-Genius).<br>
 You can download this emulator on the [Official Website](https://clonekeenplus.sourceforge.io/download.php).<br>
 
+.
+
+How to Set up Commander Genius<br>
+
+Commander Genius loads Commander Keen game data from subfolders under a `games/` directory. The `%NAME%` placeholder tells the emulator which game folder to open, based on the selected `.txt` file name.<br>
+
+1. Install Commander Genius and extract it to a folder like `C:\Commander Genius`.<br>
+2. Inside `C:\Commander Genius\games\`, create a subfolder for each game (e.g., `games\keen4\`, `games\keen5\`). Copy the original Commander Keen game files into each folder.<br>
+3. In your System Folder (`C:\Commander Genius`), create one `.txt` file per game. The filename (without `.txt`) must match the game folder name exactly:
+   - `keen4.txt` → opens `games\keen4`<br>
+   - `keen5.txt` → opens `games\keen5`<br>
+4. Use the settings above in Simple Launcher. When you select a game, the `%NAME%` placeholder resolves to the filename without extension, forming the final command: `CGenius.exe dir="games/keen4"`.<br>
+If you have issues, ensure the game folders and `.txt` files are named consistently.<br>
+
 ## Commodore 64
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>

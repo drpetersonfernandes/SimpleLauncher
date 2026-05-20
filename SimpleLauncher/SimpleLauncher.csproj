@@ -850,6 +850,9 @@
         <None Update="tools\PSXPackager\Resources\PIC1.PNG">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="images\systems\Commander Genius.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">
