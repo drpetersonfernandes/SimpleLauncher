@@ -74,18 +74,13 @@ internal static partial class PathHelper
             text.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
     }
 
-    private static bool IsQuoted(string token)
-    {
-        return (token.StartsWith('"') && token.EndsWith('"')) ||
-               (token.StartsWith('\'') && token.EndsWith('\''));
-    }
-
     public static string ResolveParameterString(
         string parameters,
         List<string> systemFolders = null,
         string resolvedEmulatorFolderPath = null,
         string resolvedRomPath = null,
-        string romSystemFolder = null)
+        string romSystemFolder = null,
+        string resolvedRomName = null)
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
@@ -103,7 +98,9 @@ internal static partial class PathHelper
             }
 
             var originalToken = match.Value;
-            var tokenForLogic = originalToken.Trim('"', '\'');
+            var isQuotedToken = (originalToken.StartsWith('"') && originalToken.EndsWith('"')) ||
+                                (originalToken.StartsWith('\'') && originalToken.EndsWith('\''));
+            var tokenForLogic = isQuotedToken ? originalToken[1..^1] : originalToken;
 
             // Skip processing if it's a game-specific placeholder, a known flag, or doesn't contain our custom placeholders.
             if (ContainsGameSpecificPlaceholder(tokenForLogic) ||
@@ -112,7 +109,8 @@ internal static partial class PathHelper
                  !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) &&
-                 !tokenForLogic.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)))
+                 !tokenForLogic.Contains("%ROM%", StringComparison.OrdinalIgnoreCase) &&
+                 !tokenForLogic.Contains("%NAME%", StringComparison.OrdinalIgnoreCase)))
             {
                 return originalToken;
             }
@@ -160,24 +158,28 @@ internal static partial class PathHelper
                 processedToken = processedToken.Replace("%ROM%", SanitizePathToken(resolvedRomPath), StringComparison.OrdinalIgnoreCase);
             }
 
+            if (!string.IsNullOrEmpty(resolvedRomName) && processedToken.Contains("%NAME%", StringComparison.OrdinalIgnoreCase))
+            {
+                processedToken = processedToken.Replace("%NAME%", resolvedRomName, StringComparison.OrdinalIgnoreCase);
+            }
+
             // Expand environment variables
             processedToken = Environment.ExpandEnvironmentVariables(processedToken);
 
             var finalTokenValue = processedToken;
 
             // Re-apply quotes if necessary
-            if (originalToken.StartsWith('"') && originalToken.EndsWith('"'))
+            if (isQuotedToken)
             {
-                return $"\"{finalTokenValue}\"";
-            }
+                if (originalToken.StartsWith('"'))
+                    return $"\"{finalTokenValue}\"";
 
-            if (originalToken.StartsWith('\'') && originalToken.EndsWith('\''))
-            {
                 return $"'{finalTokenValue}'";
             }
 
             // Add quotes if the resolved path contains spaces and wasn't originally quoted
-            if (finalTokenValue.Contains(' ') && !IsQuoted(originalToken))
+            // but only if the value doesn't already have internal quotes (they already protect the spaces)
+            if (finalTokenValue.Contains(' ') && !isQuotedToken && !finalTokenValue.Contains('"') && !finalTokenValue.Contains('\''))
             {
                 return $"\"{finalTokenValue}\"";
             }

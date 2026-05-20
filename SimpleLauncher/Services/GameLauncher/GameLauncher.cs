@@ -1018,13 +1018,18 @@ public partial class GameLauncher
             // Resolve the system folder that contains this specific ROM
             var romSystemFolder = PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedFilePath);
 
+            // Compute the ROM name (filename without extension, or folder name for directories)
+            // before ResolveParameterString so %NAME% can be resolved
+            var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
+
             // Resolve Emulator Parameters using the PathHelper.ResolveParameterString
             var resolvedParameters = PathHelper.ResolveParameterString(
                 rawEmulatorParameters, // The raw parameter string from config
                 selectedSystemManager.SystemFolders, // All configured system folders
                 resolvedEmulatorFolderPath, // The fully resolved emulator directory path
                 resolvedFilePath, // The ROM path for %ROM%
-                romSystemFolder // The system folder containing this ROM for %ROMSYSTEMFOLDER%
+                romSystemFolder, // The system folder containing this ROM for %ROMSYSTEMFOLDER%
+                romName // The ROM name (filename without extension) for %NAME%
             );
 
             string arguments;
@@ -1033,13 +1038,12 @@ public partial class GameLauncher
             var ext = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
             var isNeoGeoCd = ext is ".cue" or ".iso" or ".bin";
 
-            var romName = isDirectory ? Path.GetFileName(resolvedFilePath) : Path.GetFileNameWithoutExtension(resolvedFilePath);
-
             // If the original parameters contained %ROM%, it was already resolved by ResolveParameterString
             // and we should not append the file path again.
             var containsRomPlaceholder = rawEmulatorParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase);
+            var containsNamePlaceholder = rawEmulatorParameters.Contains("%NAME%", StringComparison.OrdinalIgnoreCase);
 
-            if (containsRomPlaceholder || PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
+            if (containsRomPlaceholder || containsNamePlaceholder || PathHelper.ContainsGameSpecificPlaceholder(resolvedParameters))
             {
                 arguments = resolvedParameters;
             }

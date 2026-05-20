@@ -431,6 +431,24 @@ public class PathHelperTests
     }
 
     [Fact]
+    public void ResolveParameterStringResolvesNamePlaceholder()
+    {
+        const string parameters = "dir=\"games/%NAME%\"";
+        var result = PathHelper.ResolveParameterString(parameters, null, null, null, null, "keen4");
+
+        Assert.Equal("dir=\"games/keen4\"", result);
+    }
+
+    [Fact]
+    public void ResolveParameterStringResolvesNamePlaceholderWithSpaces()
+    {
+        const string parameters = "dir=\"games/%NAME%\"";
+        var result = PathHelper.ResolveParameterString(parameters, null, null, null, null, "Cosmos Cosmic Adventure 1");
+
+        Assert.Equal("dir=\"games/Cosmos Cosmic Adventure 1\"", result);
+    }
+
+    [Fact]
     public void FindContainingSystemFolderEmptySystemFoldersListReturnsNull()
     {
         var systemManager = new Services.SystemManager.SystemManager
