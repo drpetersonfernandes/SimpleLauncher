@@ -877,7 +877,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
 
 **System Folder (Example):** C:\Commander Genius<br>
-**Extension to Search in the System Folder:** txt<br>
+**Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
@@ -897,15 +897,17 @@ You can download this emulator on the [Official Website](https://clonekeenplus.s
 
 How to Set up Commander Genius<br>
 
-Commander Genius loads Commander Keen game data from subfolders under a `games/` directory. The `%NAME%` placeholder tells the emulator which game folder to open, based on the selected `.txt` file name.<br>
+Commander Genius stores its data (config, saves, game files) in `Documents\Commander Genius\`. Games belong in the `games\` subfolder. Simple Launcher will automatically extract compressed game archives to this official location and launch them.<br>
 
 1. Install Commander Genius and extract it to a folder like `C:\Commander Genius`.<br>
-2. Inside `C:\Commander Genius\games\`, create a subfolder for each game (e.g., `games\keen4\`, `games\keen5\`). Copy the original Commander Keen game files into each folder.<br>
-3. In your System Folder (`C:\Commander Genius`), create one `.txt` file per game. The filename (without `.txt`) must match the game folder name exactly:
-   - `keen4.txt` → opens `games\keen4`<br>
-   - `keen5.txt` → opens `games\keen5`<br>
-4. Use the settings above in Simple Launcher. When you select a game, the `%NAME%` placeholder resolves to the filename without extension, forming the final command: `CGenius.exe dir="games/keen4"`.<br>
-If you have issues, ensure the game folders and `.txt` files are named consistently.<br>
+2. Compress each game folder (e.g., `keen4\`, `keen5\`) into a `.zip` file. The game folder must contain the original Commander Keen data files (`.CK1` to `.CK6` extensions).<br>
+3. Place the `.zip` files in your System Folder. The filename (without `.zip`) becomes the game folder name.<br>
+4. Use the settings above in Simple Launcher. When you select a game, Simple Launcher will automatically:
+   - Extract the `.zip` to `Documents\Commander Genius\games\<zipfilename>\`<br>
+   - Detect the game data folder inside the archive (even if nested)<br>
+   - Launch CGenius with the correct `dir=` parameter and the official CG data path as working directory<br>
+   - Clean up the extracted files after the game exits<br>
+If you have issues, ensure the game data files inside the `.zip` use `.CK1`-`.CK6` extensions, and the archive contains a valid Commander Keen game folder.<br>
 
 ## Commodore 64
 
