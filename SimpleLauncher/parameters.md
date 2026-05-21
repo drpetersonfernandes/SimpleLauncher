@@ -306,6 +306,17 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 .
 
+**Emulator Name:** ProSystem<br>
+**Emulator Path (Example):** C:\Emulators\ProSystem\ProSystem.exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [GitHub Repository](https://github.com/gstanton/ProSystem1_3).<br>
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 7800" a7800<br>

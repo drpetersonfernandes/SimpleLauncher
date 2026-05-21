@@ -84,7 +84,7 @@ public static class RetroAchievementsSystemMatcher
             "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
             "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME", "ARCADE - Multiple Arcade Machine Emulator"
         ]),
-        ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color"]),
+        ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color", "SNK Neo Geo Pocket"]),
         ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
         ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX", "Microsoft MSX2"]),
         ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad", "Amstrad PCW", "Amstrad CPC6128", "Amstrad CPC 6128"]),
