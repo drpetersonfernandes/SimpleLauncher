@@ -163,7 +163,7 @@ public class ZipService
                     destinationPath,
                     FileMode.Create,
                     FileAccess.Write,
-                    FileShare.None,
+                    FileShare.ReadWrite | FileShare.Delete,
                     FileBufferSize,
                     true);
                 await using var entryStream = reader.OpenEntryStream();
