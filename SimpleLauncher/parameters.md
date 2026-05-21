@@ -540,7 +540,7 @@ You can download this emulator on the [Official Website](https://www.mamedev.org
 **System Folder (Example):** c:\Atari ST<br>
 **Extension to Search in the System Folder:** zip<br>
 **Extract File Before Launch?** true or false (depending on the emulator you are using)<br>
-**Extension to Launch After Extraction:** msa, st, stx, dim, ipf<br>
+**Extension to Launch After Extraction:** msa, st, stx, dim, ipf, IMG, RAW, VHD, HDV, PRG, TOS, TTP, APP, ROM<br>
 **Group Files by Folder:** false<br>
 
 .
@@ -555,6 +555,17 @@ This emulator is available for Windows-x64.<br>
 You can find a list of command-line args on the [Hatari Website](https://www.hatari-emu.org/doc/manual.html#Command_line_options_and_arguments).<br>
 Emulator may require BIOS or system files to work.<br>
 You can download this emulator on the [Official Website](https://www.hatari-emu.org/download.html).<br>
+
+.
+
+**Emulator Name:** Steem SSE<br>
+**Emulator Path (Example):** C:\Emulators\Steem SSE\Steem64D3D.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator require BIOS to work.<br>
+You can download this emulator on the [SourceForge Repository](https://sourceforge.net/projects/steemsse/).<br>
 
 .
 
@@ -1109,6 +1120,20 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 
 .
 
+**Emulator Name:** Retroarch puae2021<br>
+**Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\puae2021_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\puae2021_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
+Core requires BIOS files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Commodore Amiga" a1200n<br>
@@ -1169,6 +1194,20 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
 Core may require BIOS files or system files to work.<br>
+You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
+
+.
+
+**Emulator Name:** Retroarch puae2021<br>
+**Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\puae2021_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\puae2021_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
+Core requires BIOS files to work.<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
 
 .
@@ -4834,6 +4873,17 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Extract File Before Launch?** false<br>
 **Extension to Launch After Extraction:** <br>
 **Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** XM6 Pro-68k<br>
+**Emulator Path (Example):** C:\Emulators\XM6 Pro-68k\XM6.exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You can download this emulator on the [Oficial Website](https://mijet.eludevisibility.org/XM6%20Pro-68k/XM6%20Pro-68k.html).<br>
 
 .
 
