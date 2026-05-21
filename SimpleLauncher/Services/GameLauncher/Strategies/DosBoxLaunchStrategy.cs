@@ -6,6 +6,7 @@ using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.GameLauncher.Models;
+using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -39,110 +40,117 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             return true;
 
         var ext = Path.GetExtension(context.ResolvedFilePath).ToUpperInvariant();
-        return ext is ".ZIP" or ".7Z" or ".RAR";
+        return ext is ".ZIP" or ".7Z" or ".RAR" or ".ISO" or ".CHD";
     }
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
     {
-        string tempDir = null;
-
-        try
+        var ext = Path.GetExtension(context.ResolvedFilePath).ToUpperInvariant();
+        switch (ext)
         {
-            string workingDir;
-            if (Directory.Exists(context.ResolvedFilePath))
-            {
-                workingDir = context.ResolvedFilePath;
-            }
-            else
-            {
-                var (_, extractedDir) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(
-                    context.ResolvedFilePath, ExtractionFormats);
-
-                if (string.IsNullOrEmpty(extractedDir) || !Directory.Exists(extractedDir))
-                {
-                    DebugLogger.Log("[DosBoxLaunchStrategy] Extraction failed or temp directory not created.");
-                    return;
-                }
-
-                tempDir = extractedDir;
-                workingDir = extractedDir;
-            }
-
-            var gameFiles = FindAllGameFiles(workingDir);
-            if (gameFiles.Count == 0)
-            {
-                DebugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found in {workingDir}");
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No DOS game executable found in: {context.ResolvedFilePath}");
-                MessageBoxLibrary.CouldNotFindAFileMessageBox();
+            case ".ISO":
+                await ExecuteIsoAsync(context, launcher);
                 return;
-            }
-
-            string selectedFile;
-            if (gameFiles.Count == 1)
+            case ".CHD":
+                await ExecuteChdAsync(context, launcher);
+                return;
+            default:
             {
-                selectedFile = gameFiles[0];
-                DebugLogger.Log($"[DosBoxLaunchStrategy] Single game file found, auto-selecting: {selectedFile}");
-            }
-            else
-            {
-                var dialog = new DosBoxFileSelectionWindow(gameFiles, workingDir);
-                var result = dialog.ShowDialog();
+                string tempDir = null;
 
-                if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
+                try
                 {
-                    DebugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection.");
-                    return;
+                    string workingDir;
+                    if (Directory.Exists(context.ResolvedFilePath))
+                    {
+                        workingDir = context.ResolvedFilePath;
+                    }
+                    else
+                    {
+                        var (_, extractedDir) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(
+                            context.ResolvedFilePath, ExtractionFormats);
+
+                        if (string.IsNullOrEmpty(extractedDir) || !Directory.Exists(extractedDir))
+                        {
+                            DebugLogger.Log("[DosBoxLaunchStrategy] Extraction failed or temp directory not created.");
+                            return;
+                        }
+
+                        tempDir = extractedDir;
+                        workingDir = extractedDir;
+                    }
+
+                    var gameFiles = FindAllGameFiles(workingDir);
+                    if (gameFiles.Count == 0)
+                    {
+                        DebugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found in {workingDir}");
+                        await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No DOS game executable found in: {context.ResolvedFilePath}");
+                        MessageBoxLibrary.CouldNotFindAFileMessageBox();
+                        return;
+                    }
+
+                    string selectedFile;
+                    if (gameFiles.Count == 1)
+                    {
+                        selectedFile = gameFiles[0];
+                        DebugLogger.Log($"[DosBoxLaunchStrategy] Single game file found, auto-selecting: {selectedFile}");
+                    }
+                    else
+                    {
+                        var dialog = new DosBoxFileSelectionWindow(gameFiles, workingDir);
+                        var result = dialog.ShowDialog();
+
+                        if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
+                        {
+                            DebugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection.");
+                            return;
+                        }
+
+                        selectedFile = dialog.SelectedFilePath;
+                        DebugLogger.Log($"[DosBoxLaunchStrategy] User selected file: {selectedFile}");
+                    }
+
+                    string confPath;
+                    if (Path.GetExtension(selectedFile).Equals(".conf", StringComparison.OrdinalIgnoreCase))
+                    {
+                        confPath = selectedFile;
+                    }
+                    else
+                    {
+                        confPath = GenerateTempConf(workingDir, selectedFile);
+                    }
+
+                    var launchParameters = BuildLaunchParameters(context.Parameters);
+
+                    await launcher.LaunchRegularEmulatorAsync(
+                        confPath,
+                        context.EmulatorName,
+                        context.SystemManager,
+                        context.EmulatorManager,
+                        launchParameters,
+                        context.MainWindow,
+                        context.LoadingState,
+                        context.ResolvedFilePath);
+                }
+                catch (Exception ex)
+                {
+                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
+                    MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
+                finally
+                {
+                    if (tempDir != null)
+                    {
+                        await CleanTempFolder.CleanupTempDirectoryAsync(tempDir);
+                    }
                 }
 
-                selectedFile = dialog.SelectedFilePath;
-                DebugLogger.Log($"[DosBoxLaunchStrategy] User selected file: {selectedFile}");
-            }
-
-            string confPath;
-            if (Path.GetExtension(selectedFile).Equals(".conf", StringComparison.OrdinalIgnoreCase))
-            {
-                confPath = selectedFile;
-            }
-            else
-            {
-                confPath = GenerateTempConf(workingDir, selectedFile);
-            }
-
-            var launchParameters = context.Parameters ?? string.Empty;
-            if (!launchParameters.Contains("-conf", StringComparison.OrdinalIgnoreCase))
-            {
-                launchParameters = string.IsNullOrWhiteSpace(launchParameters)
-                    ? "-conf %ROM%"
-                    : launchParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)
-                        ? launchParameters.Replace("%ROM%", "-conf %ROM%", StringComparison.OrdinalIgnoreCase)
-                        : $"-conf %ROM% {launchParameters}";
-            }
-
-            await launcher.LaunchRegularEmulatorAsync(
-                confPath,
-                context.EmulatorName,
-                context.SystemManager,
-                context.EmulatorManager,
-                launchParameters,
-                context.MainWindow,
-                context.LoadingState,
-                context.ResolvedFilePath);
-        }
-        catch (Exception ex)
-        {
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-        }
-        finally
-        {
-            if (tempDir != null)
-            {
-                await CleanTempFolder.CleanupTempDirectoryAsync(tempDir);
+                break;
             }
         }
     }
 
-    private static bool IsDosBoxEmulator(LaunchContext context)
+    internal static bool IsDosBoxEmulator(LaunchContext context)
     {
         var name = context.EmulatorName;
         var path = context.EmulatorManager?.EmulatorLocation ?? string.Empty;
@@ -214,6 +222,255 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
         File.WriteAllText(confPath, confContent, Encoding.ASCII);
         DebugLogger.Log($"[DosBoxLaunchStrategy] Generated conf file: {confPath}");
+
+        return confPath;
+    }
+
+    private async Task ExecuteIsoAsync(LaunchContext context, GameLauncher launcher)
+    {
+        string mountPath;
+        string selectedFile;
+
+        try
+        {
+            // 1. Mount ISO via PowerShell to scan for executables
+            var driveLetter = await MountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath);
+            if (string.IsNullOrEmpty(driveLetter))
+            {
+                DebugLogger.Log("[DosBoxLaunchStrategy] Failed to mount ISO via PowerShell.");
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                return;
+            }
+
+            mountPath = $"{driveLetter}:\\";
+            DebugLogger.Log($"[DosBoxLaunchStrategy] ISO mounted to {mountPath} for scanning");
+
+            if (!await MountIsoFiles.WaitForDirectoryToExistAsync(mountPath, 10000, 200))
+            {
+                DebugLogger.Log($"[DosBoxLaunchStrategy] Mount path {mountPath} did not become available.");
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                return;
+            }
+
+            var gameFiles = FindAllGameFiles(mountPath);
+            switch (gameFiles.Count)
+            {
+                case 0:
+                    DebugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
+                    await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No DOS game executable found in ISO: {context.ResolvedFilePath}");
+                    MessageBoxLibrary.CouldNotFindAFileMessageBox();
+                    return;
+                case 1:
+                    selectedFile = gameFiles[0];
+                    DebugLogger.Log($"[DosBoxLaunchStrategy] Single game file found on ISO, auto-selecting: {selectedFile}");
+                    break;
+                default:
+                {
+                    var dialog = new DosBoxFileSelectionWindow(gameFiles, mountPath);
+                    var result = dialog.ShowDialog();
+
+                    if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
+                    {
+                        DebugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection for ISO.");
+                        return;
+                    }
+
+                    selectedFile = dialog.SelectedFilePath;
+                    DebugLogger.Log($"[DosBoxLaunchStrategy] User selected file from ISO: {selectedFile}");
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            return;
+        }
+        finally
+        {
+            // 2. Dismount PowerShell ISO — no longer needed after scanning
+            if (!string.IsNullOrEmpty(context.ResolvedFilePath))
+            {
+                DebugLogger.Log($"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
+                await MountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath);
+            }
+        }
+
+        // 3. Generate conf that lets DOSBox mount the ISO natively via imgmount
+        var confPath = GenerateIsoConf(mountPath, selectedFile, context.ResolvedFilePath);
+        var launchParameters = BuildLaunchParameters(context.Parameters);
+
+        await launcher.LaunchRegularEmulatorAsync(
+            confPath,
+            context.EmulatorName,
+            context.SystemManager,
+            context.EmulatorManager,
+            launchParameters,
+            context.MainWindow,
+            context.LoadingState,
+            context.ResolvedFilePath);
+    }
+
+    private static string GenerateIsoConf(string mountPath, string executablePath, string isoFilePath)
+    {
+        var executableName = Path.GetFileName(executablePath);
+        var executableDir = Path.GetDirectoryName(executablePath);
+        var tempDir = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+        Directory.CreateDirectory(tempDir);
+        var confPath = Path.Combine(tempDir, $"{Guid.NewGuid():N}_dosbox_iso.conf");
+
+        string confContent;
+        if (!string.IsNullOrEmpty(executableDir) &&
+            !executableDir.TrimEnd('\\').Equals(mountPath.TrimEnd('\\'), StringComparison.OrdinalIgnoreCase))
+        {
+            var relativeDir = executableDir.Replace(mountPath, "").TrimStart('\\', '/');
+            confContent = string.Join("\r\n",
+                "[dosbox]",
+                "",
+                "[autoexec]",
+                "@echo off",
+                $"imgmount d \"{isoFilePath}\" -t iso",
+                "d:",
+                $"cd {relativeDir}",
+                executableName,
+                "exit",
+                "");
+        }
+        else
+        {
+            confContent = string.Join("\r\n",
+                "[dosbox]",
+                "",
+                "[autoexec]",
+                "@echo off",
+                $"imgmount d \"{isoFilePath}\" -t iso",
+                "d:",
+                executableName,
+                "exit",
+                "");
+        }
+
+        File.WriteAllText(confPath, confContent, Encoding.ASCII);
+        DebugLogger.Log($"[DosBoxLaunchStrategy] Generated ISO conf file: {confPath}");
+
+        return confPath;
+    }
+
+    private static string BuildLaunchParameters(string parameters)
+    {
+        var launchParameters = parameters ?? string.Empty;
+        if (!launchParameters.Contains("-conf", StringComparison.OrdinalIgnoreCase))
+        {
+            launchParameters = string.IsNullOrWhiteSpace(launchParameters)
+                ? "-conf %ROM%"
+                : launchParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)
+                    ? launchParameters.Replace("%ROM%", "-conf %ROM%", StringComparison.OrdinalIgnoreCase)
+                    : $"-conf %ROM% {launchParameters}";
+        }
+
+        return launchParameters;
+    }
+
+    private static async Task ExecuteChdAsync(LaunchContext context, GameLauncher launcher)
+    {
+        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, 19);
+
+        if (!mountedDrive.IsMounted)
+        {
+            DebugLogger.Log("[DosBoxLaunchStrategy] Failed to mount CHD via CHDMounter.");
+            return;
+        }
+
+        var mountPath = mountedDrive.MountedPath;
+        DebugLogger.Log($"[DosBoxLaunchStrategy] CHD mounted at {mountPath} via CHDMounter");
+
+        var gameFiles = FindAllGameFiles(mountPath);
+        if (gameFiles.Count == 0)
+        {
+            DebugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No DOS game executable found in CHD: {context.ResolvedFilePath}");
+            MessageBoxLibrary.CouldNotFindAFileMessageBox();
+            return;
+        }
+
+        string selectedFile;
+        if (gameFiles.Count == 1)
+        {
+            selectedFile = gameFiles[0];
+            DebugLogger.Log($"[DosBoxLaunchStrategy] Single game file found on CHD, auto-selecting: {selectedFile}");
+        }
+        else
+        {
+            var dialog = new DosBoxFileSelectionWindow(gameFiles, mountPath);
+            var result = dialog.ShowDialog();
+
+            if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
+            {
+                DebugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection for CHD.");
+                return;
+            }
+
+            selectedFile = dialog.SelectedFilePath;
+            DebugLogger.Log($"[DosBoxLaunchStrategy] User selected file from CHD: {selectedFile}");
+        }
+
+        var confPath = GenerateChdConf(mountPath, selectedFile);
+        var launchParameters = BuildLaunchParameters(context.Parameters);
+
+        await launcher.LaunchRegularEmulatorAsync(
+            confPath,
+            context.EmulatorName,
+            context.SystemManager,
+            context.EmulatorManager,
+            launchParameters,
+            context.MainWindow,
+            context.LoadingState,
+            context.ResolvedFilePath);
+    }
+
+    private static string GenerateChdConf(string mountPath, string executablePath)
+    {
+        var executableName = Path.GetFileName(executablePath);
+        var executableDir = Path.GetDirectoryName(executablePath);
+        var driveLetter = mountPath[0];
+        var tempDir = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+        Directory.CreateDirectory(tempDir);
+        var confPath = Path.Combine(tempDir, $"{Guid.NewGuid():N}_dosbox_chd.conf");
+
+        string confContent;
+        if (!string.IsNullOrEmpty(executableDir) &&
+            !executableDir.TrimEnd('\\').Equals(mountPath.TrimEnd('\\'), StringComparison.OrdinalIgnoreCase))
+        {
+            var relativeDir = executableDir.Replace(mountPath, "").TrimStart('\\', '/');
+            confContent = string.Join("\r\n",
+                "[dosbox]",
+                "",
+                "[autoexec]",
+                "@echo off",
+                $"mount {char.ToLowerInvariant(driveLetter)} \"{mountPath}\" -t cdrom",
+                $"{char.ToLowerInvariant(driveLetter)}:",
+                $"cd {relativeDir}",
+                executableName,
+                "exit",
+                "");
+        }
+        else
+        {
+            confContent = string.Join("\r\n",
+                "[dosbox]",
+                "",
+                "[autoexec]",
+                "@echo off",
+                $"mount {char.ToLowerInvariant(driveLetter)} \"{mountPath}\" -t cdrom",
+                $"{char.ToLowerInvariant(driveLetter)}:",
+                executableName,
+                "exit",
+                "");
+        }
+
+        File.WriteAllText(confPath, confContent, Encoding.ASCII);
+        DebugLogger.Log($"[DosBoxLaunchStrategy] Generated CHD conf file: {confPath}");
 
         return confPath;
     }

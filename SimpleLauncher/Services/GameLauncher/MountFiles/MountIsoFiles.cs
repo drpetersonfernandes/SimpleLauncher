@@ -134,7 +134,7 @@ public static class MountIsoFiles
         }
     }
 
-    private static async Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs)
+    internal static async Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs)
     {
         DebugLogger.Log($"[MountIsoFiles] Waiting for directory to exist: {directoryPath} (max wait: {maxWaitTimeMs}ms, poll interval: {pollIntervalMs}ms)");
 
@@ -155,7 +155,7 @@ public static class MountIsoFiles
         return false;
     }
 
-    private static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath)
+    internal static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath)
     {
         var escapedIsoPath = isoPath.Replace("'", "''"); // Escape single quotes for PowerShell
         var command = $"$isoPath = '{escapedIsoPath}'; " +
@@ -276,7 +276,7 @@ public static class MountIsoFiles
         }
     }
 
-    private static async Task ExecutePowerShellDismountCommandAsync(string isoPath)
+    internal static async Task ExecutePowerShellDismountCommandAsync(string isoPath)
     {
         var escapedIsoPath = isoPath.Replace("'", "''");
         var command = $"Dismount-DiskImage -ImagePath '{escapedIsoPath}' -ErrorAction SilentlyContinue";

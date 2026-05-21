@@ -63,6 +63,9 @@ public class ChdMountStrategy : ILaunchStrategy
             return false; // we do not mount chd if emulator is RetroArch
         }
 
+        if (DosBoxLaunchStrategy.IsDosBoxEmulator(context))
+            return false; // let DosBoxLaunchStrategy handle CHD for DOSBox
+
         ResolveEmulatorFlags(context);
         return _isGenesisPlusGx ||
                _is4Do ||
