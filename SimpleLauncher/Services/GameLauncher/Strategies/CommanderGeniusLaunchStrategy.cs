@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,7 @@ using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
-public class CommanderGeniusLaunchStrategy : ILaunchStrategy
+public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 {
     private readonly IExtractionService _extractionService;
     private readonly IConfiguration _configuration;
@@ -53,7 +54,7 @@ public class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
         try
         {
-            var cgDataPath = GetCommanderGeniusDataPath();
+            var cgDataPath = GetCommanderGeniusDataPath(context.EmulatorManager?.EmulatorLocation);
             if (string.IsNullOrEmpty(cgDataPath))
             {
                 DebugLogger.Log("[CommanderGeniusLaunchStrategy] Could not resolve CG data path.");
@@ -81,8 +82,7 @@ public class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
             FindAndFlattenGameData(extractionDir);
 
-            var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(
-                context.EmulatorManager.EmulatorLocation);
+            var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager?.EmulatorLocation);
 
             if (string.IsNullOrEmpty(emulatorLocation) || !File.Exists(PathHelper.GetLongPath(emulatorLocation)))
             {
@@ -167,10 +167,9 @@ public class CommanderGeniusLaunchStrategy : ILaunchStrategy
                                   $"Error: {ex.Message}";
                 await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, errorDetail);
 
-                if (context.EmulatorManager.ReceiveANotificationOnEmulatorError)
+                if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                 {
-                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(
-                        PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
             }
             catch (Exception ex)
@@ -185,7 +184,7 @@ public class CommanderGeniusLaunchStrategy : ILaunchStrategy
                                   $"Exception: {ex.Message}";
                 await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, errorDetail);
 
-                if (context.EmulatorManager.ReceiveANotificationOnEmulatorError)
+                if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                 {
                     await MessageBoxLibrary.CouldNotLaunchGameMessageBox(
                         PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -206,29 +205,129 @@ public class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
     }
 
-    private static string GetCommanderGeniusDataPath()
+    private static string GetCommanderGeniusDataPath(string emulatorLocation = null)
     {
         var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         if (string.IsNullOrEmpty(documentsPath)) return null;
 
-        var cgPath = Path.Combine(documentsPath, "Commander Genius");
-        if (Directory.Exists(cgPath)) return cgPath;
+        var cgDataDir = Path.Combine(documentsPath, "Commander Genius");
+        var configPath = Path.Combine(cgDataDir, "cgenius.cfg");
 
-        cgPath = Path.Combine(documentsPath, "My Documents", "Commander Genius");
-        if (Directory.Exists(cgPath)) return cgPath;
+        if (File.Exists(configPath))
+        {
+            var searchPath1 = ReadSearchPathFromConfig(configPath);
+            if (!string.IsNullOrEmpty(searchPath1))
+            {
+                var resolved = ResolveCgPath(searchPath1, emulatorLocation);
+                if (!string.IsNullOrEmpty(resolved) && Directory.Exists(resolved))
+                {
+                    DebugLogger.Log($"[CommanderGenius] Using SearchPath1 from config: {resolved}");
+                    return resolved;
+                }
 
-        cgPath = Path.Combine(documentsPath, "Commander Genius");
+                DebugLogger.Log($"[CommanderGenius] SearchPath1 '{searchPath1}' resolved to '{resolved}' but directory does not exist. Falling back to default.");
+            }
+            else
+            {
+                DebugLogger.Log("[CommanderGenius] SearchPath1 not found in config. Falling back to default.");
+            }
+        }
+        else
+        {
+            DebugLogger.Log($"[CommanderGenius] Config file not found at {configPath}. Commander Genius may not be properly installed.");
+        }
+
+        if (Directory.Exists(cgDataDir)) return cgDataDir;
+
+        var altPath = Path.Combine(documentsPath, "My Documents", "Commander Genius");
+        if (Directory.Exists(altPath)) return altPath;
+
         try
         {
-            Directory.CreateDirectory(cgPath);
+            Directory.CreateDirectory(cgDataDir);
         }
         catch
         {
             return null;
         }
 
-        return cgPath;
+        return cgDataDir;
     }
+
+    private static string ReadSearchPathFromConfig(string configPath)
+    {
+        try
+        {
+            var lines = File.ReadAllLines(configPath);
+            var inFileHandlingSection = false;
+
+            foreach (var line in lines)
+            {
+                var trimmed = line.Trim();
+
+                if (trimmed.StartsWith('[') && trimmed.EndsWith(']'))
+                {
+                    inFileHandlingSection = trimmed.Equals("[FileHandling]", StringComparison.OrdinalIgnoreCase);
+                    continue;
+                }
+
+                if (!inFileHandlingSection) continue;
+
+                var match = MyRegex().Match(trimmed);
+                if (match.Success)
+                {
+                    return match.Groups[1].Value.Trim();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[CommanderGenius] Error reading config: {ex.Message}");
+        }
+
+        return null;
+    }
+
+    private static string ResolveCgPath(string rawPath, string emulatorLocation)
+    {
+        if (string.IsNullOrWhiteSpace(rawPath)) return null;
+
+        var resolved = rawPath.Trim();
+
+        if (resolved.Contains("${HOME}", StringComparison.OrdinalIgnoreCase))
+        {
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            resolved = resolved.Replace("${HOME}", documentsPath, StringComparison.OrdinalIgnoreCase);
+        }
+
+        if (resolved.Contains("${BIN}", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!string.IsNullOrEmpty(emulatorLocation))
+            {
+                var binDir = Path.GetDirectoryName(emulatorLocation);
+                if (!string.IsNullOrEmpty(binDir))
+                {
+                    resolved = resolved.Replace("${BIN}", binDir, StringComparison.OrdinalIgnoreCase);
+                }
+            }
+            else
+            {
+                DebugLogger.Log("[CommanderGenius] ${BIN} variable found but emulator location is unknown.");
+                return null;
+            }
+        }
+
+        if (resolved.Equals(".", StringComparison.Ordinal))
+        {
+            if (!string.IsNullOrEmpty(emulatorLocation))
+            {
+                resolved = Path.GetDirectoryName(emulatorLocation) ?? resolved;
+            }
+        }
+
+        return Path.GetFullPath(resolved);
+    }
+
 
     private static void FindAndFlattenGameData(string extractionDir)
     {
@@ -392,4 +491,7 @@ public class CommanderGeniusLaunchStrategy : ILaunchStrategy
         var fullMessage = $"[CommanderGeniusLaunchStrategy] {message}\nFile: {context?.FilePath}";
         return App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, fullMessage);
     }
+
+    [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
+    private static partial Regex MyRegex();
 }

@@ -376,6 +376,14 @@ public partial class App : IDisposable
     {
         try
         {
+            // Detect WPF Render Thread Failure (UCEERR_RENDERTHREADFAILURE 0x88980406)
+            // This is often caused by outdated GPU drivers, remote desktop sessions,
+            // or WPF windows with AllowsTransparency=True (layered windows).
+            if (ex is COMException { HResult: unchecked((int)0x88980406) })
+            {
+                contextMessage = $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
+            }
+
             var logErrors = ServiceProvider?.GetRequiredService<ILogErrors>();
             if (logErrors != null)
             {

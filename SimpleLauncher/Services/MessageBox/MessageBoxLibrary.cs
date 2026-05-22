@@ -3162,6 +3162,40 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void DokanDriverNotInstalledMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var dokanDriverNotFound = (string)Application.Current.TryFindResource("DokanDriverNotFound") ?? "The Dokan file system driver (dokan2.dll) is required to mount archives as virtual drives. It does not appear to be installed on this system.";
+            var doYouWantToOpenBrowser = (string)Application.Current.TryFindResource("DoyouwanttoopenyourbrowsertodownloadDokan") ?? "Do you want to open your browser to download Dokan?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var messageBoxResult = System.Windows.MessageBox.Show($"{dokanDriverNotFound}\n\n{doYouWantToOpenBrowser}", error, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                var downloadPageUrl = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string>("Urls:DokanyWebsite") ?? "https://github.com/dokan-dev/dokany";
+
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = downloadPageUrl,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open the Dokan website.");
+                    var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningyourbrowser") ?? "An error occurred while opening your browser.";
+                    System.Windows.MessageBox.Show(anerroroccurredwhileopeningthebrowser, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+    }
+
     internal static void LaunchToolInformationMessageBox(string info)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

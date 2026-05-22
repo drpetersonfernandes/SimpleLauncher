@@ -75,6 +75,15 @@ public static class MountXisoFiles
             return new MountXisoDrive(); // Return failed state
         }
 
+        if (!DokanValidation.IsDokanInstalled())
+        {
+            const string errorMessage = "Dokan driver not found. Cannot mount ISO.";
+            DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            return new MountXisoDrive(); // Return failed state
+        }
+
         var driveLetter = GetAvailableDriveLetter();
         if (driveLetter == null)
         {

@@ -46,6 +46,15 @@ public static class MountChdFiles
             return new MountChdDrive();
         }
 
+        if (!DokanValidation.IsDokanInstalled())
+        {
+            const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
+            DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            return new MountChdDrive();
+        }
+
         // Capture existing drives before mounting
         var existingDrives = GetCurrentDriveLetters();
         DebugLogger.Log($"[MountChdFiles.MountAsync] Existing drives before mount: {string.Join(", ", existingDrives)}");
@@ -156,6 +165,15 @@ public static class MountChdFiles
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+            return;
+        }
+
+        if (!DokanValidation.IsDokanInstalled())
+        {
+            const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
+            DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
             return;
         }
 

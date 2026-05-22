@@ -651,49 +651,71 @@ internal partial class EditSystemWindow : ILoadingState
         UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 
-    private void ChooseSystemImageButton_Click(object sender, RoutedEventArgs e)
+    private async void ChooseSystemImageButton_Click(object sender, RoutedEventArgs e)
     {
-        var systemName = SystemNameTextBox.Text.Trim();
-        if (string.IsNullOrEmpty(systemName))
-        {
-            MessageBoxLibrary.SystemNameRequiredBeforeChoosingImageMessageBox();
-            return;
-        }
-
-        var dialog = new OpenFileDialog
-        {
-            DefaultExt = ".png",
-            Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
-            Title = "Select System Image"
-        };
-
-        if (dialog.ShowDialog() != true) return;
-
-        var sourceFilePath = dialog.FileName;
-        var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
-        if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
-        {
-            MessageBoxLibrary.InvalidImageFormatMessageBox();
-            return;
-        }
-
-        var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
         try
         {
-            if (!Directory.Exists(imagesSystemsDir))
+            var systemName = SystemNameTextBox.Text.Trim();
+            if (string.IsNullOrEmpty(systemName))
             {
-                Directory.CreateDirectory(imagesSystemsDir);
+                MessageBoxLibrary.SystemNameRequiredBeforeChoosingImageMessageBox();
+                return;
             }
 
-            var destFilePath = Path.Combine(imagesSystemsDir, $"{systemName}{extension}");
-            SystemImagePreview.Source = null; // Release any file lock before overwriting
-            File.Copy(sourceFilePath, destFilePath, true);
-            UpdateSystemImagePreview();
+            var dialog = new OpenFileDialog
+            {
+                DefaultExt = ".png",
+                Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
+                Title = "Select System Image"
+            };
+
+            if (dialog.ShowDialog() != true) return;
+
+            var sourceFilePath = dialog.FileName;
+            var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
+            if (extension != ".png" && extension != ".jpg" && extension != ".jpeg")
+            {
+                MessageBoxLibrary.InvalidImageFormatMessageBox();
+                return;
+            }
+
+            var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
+            try
+            {
+                if (!Directory.Exists(imagesSystemsDir))
+                {
+                    Directory.CreateDirectory(imagesSystemsDir);
+                }
+
+                var destFilePath = Path.Combine(imagesSystemsDir, $"{systemName}{extension}");
+                SystemImagePreview.Source = null; // Release any file lock before overwriting
+
+                const int maxRetries = 3;
+                const int retryDelayMs = 500;
+                for (var attempt = 1; attempt <= maxRetries; attempt++)
+                {
+                    try
+                    {
+                        File.Copy(sourceFilePath, destFilePath, true);
+                        break;
+                    }
+                    catch (IOException) when (attempt < maxRetries)
+                    {
+                        await Task.Delay(retryDelayMs * attempt);
+                    }
+                }
+
+                UpdateSystemImagePreview();
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying system image.");
+                MessageBoxLibrary.FailedToCopySystemImageMessageBox(ex.Message);
+            }
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying system image.");
-            MessageBoxLibrary.FailedToCopySystemImageMessageBox(ex.Message);
         }
     }
 
