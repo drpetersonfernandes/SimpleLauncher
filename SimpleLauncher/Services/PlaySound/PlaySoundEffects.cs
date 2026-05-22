@@ -101,6 +101,10 @@ public class PlaySoundEffects
                     }
 
                     var playerInstance = new MediaPlayer();
+                    playerInstance.MediaOpened += (_, _) =>
+                    {
+                        playerInstance.Play();
+                    };
                     playerInstance.MediaEnded += static (sender, _) =>
                     {
                         if (sender is not MediaPlayer endedPlayer) return;
@@ -111,9 +115,17 @@ public class PlaySoundEffects
                             _currentMediaPlayer = null;
                         }
                     };
+                    playerInstance.MediaFailed += (_, e) =>
+                    {
+                        DebugLogger.Log($"[PlaySound] MediaFailed: {e.ErrorException?.Message ?? "Unknown error"}");
+                        playerInstance.Close();
+                        if (ReferenceEquals(_currentMediaPlayer, playerInstance))
+                        {
+                            _currentMediaPlayer = null;
+                        }
+                    };
 
                     playerInstance.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-                    playerInstance.Play();
                     _currentMediaPlayer = playerInstance;
                 }
                 catch (Exception ex)
