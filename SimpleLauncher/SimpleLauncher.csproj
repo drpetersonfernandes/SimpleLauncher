@@ -1046,7 +1046,7 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.8" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.8" />
-        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
         <PackageReference Include="NAudio" Version="2.3.0" />
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
         <PackageReference Include="SharpCompress" Version="0.48.1" />

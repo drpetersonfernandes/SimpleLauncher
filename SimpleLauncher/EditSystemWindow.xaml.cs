@@ -30,8 +30,9 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly PlaySoundEffects _playSoundEffects;
     private string _originalSystemName;
     private readonly IConfiguration _configuration;
+    private readonly string _preSelectedSystemName;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -39,6 +40,7 @@ internal partial class EditSystemWindow : ILoadingState
         _configuration = configuration;
         _settings = settings;
         _playSoundEffects = playSoundEffects;
+        _preSelectedSystemName = preSelectedSystemName;
 
         ApplyExpanderSettings();
 
@@ -99,6 +101,11 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 _systems = systems;
                 PopulateSystemNamesDropdown();
+
+                if (!string.IsNullOrEmpty(_preSelectedSystemName))
+                {
+                    SystemNameDropdown.SelectedItem = _preSelectedSystemName;
+                }
             }
         }
         catch (Exception ex)

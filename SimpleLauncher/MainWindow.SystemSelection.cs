@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Automation;
+using System.Windows.Controls.Primitives;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.MessageBox;
@@ -113,6 +114,32 @@ public partial class MainWindow
             systemButton.SetResourceReference(StyleProperty, "SystemButtonStyle");
 
             systemButton.Click += SystemButtonClickAsync;
+
+            var contextMenu = new ContextMenu();
+
+            var selectMenuItem = new MenuItem
+            {
+                Header = (string)Application.Current.TryFindResource("SelectSystem") ?? "Select System"
+            };
+            selectMenuItem.Click += (_, _) => systemButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, systemButton));
+
+            var editMenuItem = new MenuItem
+            {
+                Header = (string)Application.Current.TryFindResource("EditSystem") ?? "Edit System"
+            };
+            editMenuItem.Click += (_, _) => EditSystemFromContextMenu(config.SystemName);
+
+            var deleteMenuItem = new MenuItem
+            {
+                Header = (string)Application.Current.TryFindResource("DeleteSystem") ?? "Delete System"
+            };
+            deleteMenuItem.Click += (_, _) => DeleteSystemFromContextMenu(config.SystemName);
+
+            contextMenu.Items.Add(selectMenuItem);
+            contextMenu.Items.Add(editMenuItem);
+            contextMenu.Items.Add(deleteMenuItem);
+            systemButton.ContextMenu = contextMenu;
+
             GameFileGrid.Children.Add(systemButton);
         }
     }
@@ -182,6 +209,52 @@ public partial class MainWindow
         catch (Exception ex)
         {
             _ = _logErrors.LogErrorAsync(ex, "Error in SystemButtonClickAsync.");
+        }
+    }
+
+    private async void DeleteSystemFromContextMenu(string systemName)
+    {
+        try
+        {
+            var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
+            if (result != MessageBoxResult.Yes) return;
+
+            _playSoundEffects.PlayNotificationSound();
+
+            SystemManager.DeleteSystemAsync(systemName);
+
+            await Task.Delay(100);
+
+            LoadOrReloadSystemManager();
+            ResetUiAsync();
+
+            MessageBoxLibrary.SystemHasBeenDeletedMessageBox(systemName);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in DeleteSystemFromContextMenu.");
+        }
+    }
+
+    private void EditSystemFromContextMenu(string systemName)
+    {
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
+
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, systemName)
+            {
+                Owner = this
+            };
+            editSystemWindow.ShowDialog();
+
+            LoadOrReloadSystemManager();
+            ResetUiAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in EditSystemFromContextMenu.");
         }
     }
 
