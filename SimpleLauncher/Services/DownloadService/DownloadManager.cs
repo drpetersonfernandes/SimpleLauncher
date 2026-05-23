@@ -1,5 +1,4 @@
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Windows;
 using SimpleLauncher.Models;
@@ -25,10 +24,6 @@ public class DownloadManager : IDisposable
     private volatile bool _isDownloadCompleted;
     private volatile bool _isUserCancellation;
     private volatile bool _isFileLockedDuringDownload;
-
-    // Constants
-    private const int RetryMaxAttempts = 3;
-    private const int RetryBaseDelayMs = 1000;
 
     // Private fields
     private readonly HttpClient _httpClient;
@@ -119,7 +114,6 @@ public class DownloadManager : IDisposable
         }
     }
 
-    // Existing property moved to use backing field for write access
     internal bool IsFileLockedDuringDownload
     {
         get => _isFileLockedDuringDownload;
@@ -162,7 +156,7 @@ public class DownloadManager : IDisposable
 
         IsDownloadCompleted = false;
         IsUserCancellation = false;
-        IsFileLockedDuringDownload = false; // Reset at the start of each download attempt
+        IsFileLockedDuringDownload = false;
 
         // Determine file name if not provided
         if (string.IsNullOrEmpty(fileName))
@@ -226,83 +220,34 @@ public class DownloadManager : IDisposable
             token = _cancellationTokenSource.Token;
         }
 
-        var success = false;
-        var currentRetry = 0;
-
-        while (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+        try
         {
-            try
+            await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
+
+            if (IsDownloadCompleted)
             {
-                // We pass 'currentRetry > 0' to attempt resuming if a partial file exists from a previous attempt
-                await DownloadWithProgressAsync(downloadUrl, downloadFilePath, currentRetry > 0, token);
-
-                if (IsDownloadCompleted)
-                {
-                    success = true;
-                    break;
-                }
-
-                currentRetry++;
+                return downloadFilePath;
             }
-            catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException)
+        }
+        catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException)
+        {
+            if (IsUserCancellation)
             {
-                if (IsUserCancellation)
-                {
-                    break;
-                }
+                return null;
+            }
 
-                // Check for file lock specifically
-                if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (currentRetry + 1 >= RetryMaxAttempts)
-                    {
-                        IsFileLockedDuringDownload = true;
-                        throw; // Exit loop to show the specific "File Locked" message box
-                    }
-
-                    // Attempt to delete the locked file before retrying
-                    DeleteFiles.TryDeleteFile(downloadFilePath);
-
-                    currentRetry++;
-                    var lockDelay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
-                    OnProgressChanged(new DownloadProgressEventArgs
-                    {
-                        ProgressPercentage = 0,
-                        StatusMessage = $"File is locked, retrying ({currentRetry}/{RetryMaxAttempts})..."
-                    });
-                    await Task.Delay(lockDelay, token);
-                    continue;
-                }
-
-                currentRetry++;
-                if (currentRetry >= RetryMaxAttempts) throw;
-
-                var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
-                var retryMsg = ex.Message.Contains("prematurely", StringComparison.OrdinalIgnoreCase)
-                    ? "Connection dropped, attempting to resume..."
-                    : $"Download error, retrying ({currentRetry}/{RetryMaxAttempts})...";
-
-                OnProgressChanged(new DownloadProgressEventArgs
-                {
-                    ProgressPercentage = 0,
-                    StatusMessage = retryMsg
-                });
-
-                // Attempt to clean up file before retrying
+            // Check for file lock specifically
+            if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
+            {
+                IsFileLockedDuringDownload = true;
                 DeleteFiles.TryDeleteFile(downloadFilePath);
-
-                await Task.Delay(delay, token);
+                return null;
             }
-        }
 
-        if (success && IsDownloadCompleted)
-        {
-            return downloadFilePath;
-        }
+            // Notify developer
+            _ = _logErrors.LogErrorAsync(ex, $"Download error for {downloadUrl}");
 
-        // Cleanup on failure
-        if (!IsDownloadCompleted && !IsFileLockedDuringDownload)
-        {
+            // Cleanup on failure
             DeleteFiles.TryDeleteFile(downloadFilePath);
         }
 
@@ -375,52 +320,23 @@ public class DownloadManager : IDisposable
         }
     }
 
-    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, bool tryResume, CancellationToken cancellationToken)
+    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
     {
-        long existingLength = 0;
-        if (tryResume && File.Exists(destinationPath))
-        {
-            existingLength = new FileInfo(destinationPath).Length;
-        }
-
-        // Create request with optional Range header
+        // Create request
         using var request = new HttpRequestMessage(HttpMethod.Get, downloadUrl);
-        if (existingLength > 0)
-        {
-            request.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(existingLength, null);
-            DebugLogger.Log($"[DownloadManager] Attempting to resume {Path.GetFileName(downloadUrl)} from byte {existingLength}");
-        }
 
         using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
-        // 416 means the file is likely already fully downloaded
-        if (response.StatusCode == HttpStatusCode.RequestedRangeNotSatisfiable)
-        {
-            IsDownloadCompleted = true;
-            return;
-        }
-
         response.EnsureSuccessStatusCode();
 
-        // Check if server actually accepted the range (206 Partial Content)
-        var isResuming = response.StatusCode == HttpStatusCode.PartialContent;
         var totalBytes = response.Content.Headers.ContentLength;
 
-        if (isResuming)
-        {
-            totalBytes += existingLength;
-        }
-        else
-        {
-            existingLength = 0; // Server ignored range, starting from scratch
-        }
-
-        // Open stream: Append if resuming, Create if starting fresh
-        await using var fileStream = new FileStream(destinationPath, isResuming ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
+        // Open stream: always start fresh (retries are handled by the resilience pipeline)
+        await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
         await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
         var buffer = new byte[8192];
-        var totalBytesRead = existingLength;
+        var totalBytesRead = 0L;
         int bytesRead;
         var lastProgressUpdate = DateTime.Now;
 

@@ -113,7 +113,14 @@ public partial class App : IDisposable
 
         serviceCollection.AddHttpClient("DownloadClient")
             .ConfigurePrimaryHttpMessageHandler(CreateHttpHandler)
-            .SetHandlerLifetime(TimeSpan.FromMinutes(5));
+            .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+            .AddStandardResilienceHandler(static options =>
+            {
+                options.Retry.MaxRetryAttempts = 5;
+                options.Retry.Delay = TimeSpan.FromSeconds(2);
+                options.Retry.BackoffType = Polly.DelayBackoffType.Exponential;
+                options.Retry.UseJitter = true;
+            });
 
         // Register IConfiguration
         serviceCollection.AddSingleton<IConfiguration>(configuration);
