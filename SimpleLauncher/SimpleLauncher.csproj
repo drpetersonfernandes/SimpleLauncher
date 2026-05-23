@@ -853,6 +853,12 @@
         <None Update="images\systems\Commander Genius.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="images\systems\J2ME.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC88.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">
@@ -1028,7 +1034,7 @@
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
         <PackageReference Include="MahApps.Metro" Version="2.4.11" />
         <PackageReference Include="MdXaml" Version="1.27.0" />
-        <PackageReference Include="MessagePack" Version="3.1.5" />
+        <PackageReference Include="MessagePack" Version="3.1.6" />
         <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.300">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -1043,7 +1049,7 @@
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
         <PackageReference Include="SharpCompress" Version="0.48.1" />
         <PackageReference Include="Tomlyn" Version="2.4.0" />
-        <PackageReference Include="YamlDotNet" Version="17.1.0" />
+        <PackageReference Include="YamlDotNet" Version="18.0.0" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="SharpDX" Version="4.2.0" />
