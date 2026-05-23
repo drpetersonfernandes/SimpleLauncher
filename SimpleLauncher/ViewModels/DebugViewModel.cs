@@ -49,6 +49,8 @@ public partial class DebugViewModel : ObservableObject
             var timestampedMessage = $"{DateTime.Now:HH:mm:ss} - {message}";
             LogMessages.Add(timestampedMessage);
             LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
+            OnPropertyChanged(nameof(CanClearLog));
+            OnPropertyChanged(nameof(CanCopyLog));
             ClearLogCommand.NotifyCanExecuteChanged();
             CopyLogCommand.NotifyCanExecuteChanged();
         }
@@ -61,6 +63,8 @@ public partial class DebugViewModel : ObservableObject
         {
             LogMessages.Clear();
             LogText = string.Empty;
+            OnPropertyChanged(nameof(CanClearLog));
+            OnPropertyChanged(nameof(CanCopyLog));
             ClearLogCommand.NotifyCanExecuteChanged();
             CopyLogCommand.NotifyCanExecuteChanged();
         }

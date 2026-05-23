@@ -54,7 +54,10 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         private set
         {
             if (SetProperty(ref _isOperationInProgress, value))
+            {
                 OnPropertyChanged(nameof(IsMainContentEnabled));
+                DownloadImagePackCommand.NotifyCanExecuteChanged();
+            }
         }
     }
 

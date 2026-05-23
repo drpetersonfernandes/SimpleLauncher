@@ -73,7 +73,7 @@ public partial class UpdateChecker
             // Use the pre-initialized HttpClient instance
             if (_httpClient != null)
             {
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
@@ -122,7 +122,7 @@ public partial class UpdateChecker
             // Use the pre-initialized HttpClient instance
             if (_httpClient != null)
             {
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
@@ -199,7 +199,7 @@ public partial class UpdateChecker
             // Use the pre-initialized HttpClient instance
             if (_httpClient != null)
             {
-                _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
                 var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (!response.IsSuccessStatusCode)
