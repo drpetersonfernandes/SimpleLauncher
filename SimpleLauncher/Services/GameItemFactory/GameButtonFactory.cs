@@ -329,7 +329,7 @@ internal partial class GameButtonFactory(
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects, context.LoadingStateProvider);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects, context.LoadingStateProvider, _logErrors);
                     }
                     catch (Exception ex)
                     {
@@ -391,7 +391,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow);
+                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors);
                     }
                     catch (Exception ex)
                     {
@@ -453,7 +453,7 @@ internal partial class GameButtonFactory(
                     context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow);
+                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, _mainWindow, _logErrors);
                     }
                     catch (Exception ex)
                     {
@@ -479,7 +479,7 @@ internal partial class GameButtonFactory(
             // No need to update currentVerticalOffset here as it's the last button.
         }
 
-        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
+        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors);
 
         // Create the kebab menu button
         var kebabButton = new Button

@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -14,6 +13,7 @@ public class MountXisoDrive : IAsyncDisposable
 {
     private readonly Process _mountProcess;
     private readonly int _mountProcessId;
+    private readonly ILogErrors _logErrors;
 
     public string MountedPath { get; }
     public bool IsMounted { get; }
@@ -21,10 +21,11 @@ public class MountXisoDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a successful mount.
     /// </summary>
-    public MountXisoDrive(Process mountProcess, string mountedPath)
+    public MountXisoDrive(Process mountProcess, string mountedPath, ILogErrors logErrors)
     {
         _mountProcess = mountProcess;
         _mountProcessId = mountProcess?.Id ?? -1;
+        _logErrors = logErrors;
         MountedPath = mountedPath;
         IsMounted = !string.IsNullOrEmpty(mountedPath) && _mountProcess != null;
     }
@@ -32,8 +33,9 @@ public class MountXisoDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a failed mount.
     /// </summary>
-    public MountXisoDrive()
+    public MountXisoDrive(ILogErrors logErrors)
     {
+        _logErrors = logErrors;
         IsMounted = false;
     }
 
@@ -103,7 +105,7 @@ public class MountXisoDrive : IAsyncDisposable
         {
             DebugLogger.Log(
                 $"[MountXisoDrive.DisposeAsync] Exception while terminating mounting tool (ID: {_mountProcessId}): {termEx}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx,
+            _ = _logErrors.LogErrorAsync(termEx,
                 $"Failed to terminate mounting tool (ID: {_mountProcessId}) for unmounting.");
         }
         finally
