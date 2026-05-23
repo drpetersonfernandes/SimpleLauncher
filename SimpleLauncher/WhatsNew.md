@@ -1,3 +1,52 @@
+# Release 5.5.0
+*2026-05-22*
+---
+
+## New System Support
+- **Commander Genius** — Added support for the Commander Keen engine recreation, including an intelligent launch strategy that:
+  - Automatically parses the `cgenius.cfg` config to resolve the data/games directory.
+  - Handles `${HOME}` and `${BIN}` variable expansion in config paths.
+  - Extracts ZIP/7z/RAR archives and automatically locates Keen game data files (`.CK1`–`.CK6`).
+  - Flattens nested folder structures and cleans up temp files after launch.
+
+## Improved DOSBox Support
+- **Full DOSBox launch strategy** with intelligent game file detection — automatically finds `.conf`, `.bat`, `.exe`, and `.com` files inside archives or folders.
+- **ISO and CHD support for DOSBox** — Mounts ISO files to scan for executables, then generates a DOSBox config with native `imgmount` commands. CHD files are mounted via CHDMounter and launched via DOSBox cdrom mount.
+- **DOSBox file selection dialog** — When multiple game files are found, presents a clean selection window with file names and relative paths.
+- **"Group Files by Folder" extended to DOSBox** — Now works with DOSBox-based emulators (DOSBox, DOSBox-X, DOSBox Staging, dosbox-pure).
+- **`-conf %ROM%` auto-injection** — Automatically inserts the `-conf` flag when launching via DOSBox if not already present.
+
+## UI/UX Improvements
+- **New minimize-to-tray function** — Allow Simple Launcher to remain open in the tray.
+
+## New Parameter Placeholder
+- **`%NAME%`** — Resolves to the ROM filename without path or extension. Useful for emulators that expect just the game name (e.g., Commander Genius `dir="games/%NAME%"`).
+
+## Improved Sound Service
+- **Replaced Windows MediaPlayer with NAudio** — Sound playback no longer requires UI thread dispatcher invocations, improving reliability and eliminating thread-affinity issues.
+
+## MVVM Migration to CommunityToolkit.Mvvm
+- Migrated all ViewModels from custom `ViewModelBase` and `RelayCommand` infrastructure to **CommunityToolkit.Mvvm 8.4.2**.
+- Created dedicated ViewModels for multiple windows.
+
+## Service Extraction from MainWindow
+- **`LoadingOverlayService`** — Extracted loading overlay management with operation counting (`SetLoadingState`, `EmergencyRelease`).
+- **`StartupInitializationService`** — Consolidated startup logic (first-run wizard, MS Store scanning, game loading).
+- **`GameListUIService`** — Extracted UI state management (grid/list mode, game button image cleanup, pagination).
+- **`ThemeMenuService`** — Extracted theme switching logic (base themes + accent colors).
+- **`LanguageMenuService`** — Extracted language switching with checkmark management.
+
+## Dokan Driver Validation
+- **New `DokanValidation` class** — Uses P/Invoke directly against `dokan2.dll` to check if Dokan is installed before any mount operation.
+- Provides clear error messages when Dokan is missing for ZIP/CHD mounts.
+
+## Dependency Updates
+- `CommunityToolkit.Mvvm` **8.4.2** *(new)*
+- `NAudio` **2.3.0** *(new, replaces Windows MediaPlayer)*
+- `MessagePack` 3.1.4 → **3.1.6**
+- `YamlDotNet` 17.1.0 → **18.0.0**
+- `SharpCompress` → **0.48.1**
+
 # Release 5.4.0
 *2026-05-10*
 ---
