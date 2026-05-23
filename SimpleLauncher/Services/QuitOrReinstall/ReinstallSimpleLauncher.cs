@@ -35,32 +35,10 @@ public static class ReinstallSimpleLauncher
                 {
                     // Log the access denied error
                     _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                        .LogErrorAsync(ex, "Access denied when starting Updater.exe. Attempting to restart with elevation.");
+                        .LogErrorAsync(ex, "Access denied when starting Updater.exe.");
 
-                    try
-                    {
-                        // Retry with elevated privileges (UAC prompt)
-                        var elevatedStartInfo = new ProcessStartInfo(updaterPath)
-                        {
-                            Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                            UseShellExecute = true,
-                            Verb = "runas",
-                            WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                        };
-                        Process.Start(elevatedStartInfo);
-
-                        // If elevation succeeded, shutdown
-                        ShutdownApplication();
-                    }
-                    catch (Exception elevationEx)
-                    {
-                        // Log the elevation attempt failure
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                            .LogErrorAsync(elevationEx, "Failed to start Updater.exe even with elevation.");
-
-                        // Notify user that update failed
-                        MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
-                    }
+                    // Notify user that update failed
+                    MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
                 }
             }
             else
@@ -112,32 +90,10 @@ public static class ReinstallSimpleLauncher
                         {
                             // Log the access denied error
                             _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                                .LogErrorAsync(ex, "Access denied when starting Updater.exe after download. Attempting to restart with elevation.");
+                                .LogErrorAsync(ex, "Access denied when starting Updater.exe after download.");
 
-                            try
-                            {
-                                // Retry with elevated privileges (UAC prompt)
-                                var elevatedStartInfo = new ProcessStartInfo(updaterPath)
-                                {
-                                    Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                                    UseShellExecute = true,
-                                    Verb = "runas",
-                                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                                };
-                                Process.Start(elevatedStartInfo);
-
-                                // If elevation succeeded, shutdown
-                                ShutdownApplication();
-                            }
-                            catch (Exception elevationEx)
-                            {
-                                // Log the elevation attempt failure
-                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                                    .LogErrorAsync(elevationEx, "Failed to start Updater.exe even with elevation after download.");
-
-                                // Notify user that update failed
-                                MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
-                            }
+                            // Notify user that update failed
+                            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
                         }
                     }
                     else

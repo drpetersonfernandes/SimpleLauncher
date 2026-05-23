@@ -108,33 +108,9 @@ public static class QuitSimpleLauncher
         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                .LogErrorAsync(ex, "Access denied when starting Updater.exe. Attempting to restart with elevation.");
+                .LogErrorAsync(ex, "Access denied when starting Updater.exe.");
 
-            try
-            {
-                var elevatedStartInfo = new ProcessStartInfo(updaterPath)
-                {
-                    Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                    UseShellExecute = true,
-                    Verb = "runas",
-                    WorkingDirectory = appDirectory
-                };
-                Process.Start(elevatedStartInfo);
-
-                Application.Current.Dispatcher.Invoke(static () =>
-                {
-                    Application.Current.Shutdown();
-                    Process.GetCurrentProcess().Kill();
-                    Environment.Exit(0);
-                });
-            }
-            catch (Exception elevationEx)
-            {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                    .LogErrorAsync(elevationEx, "Failed to start Updater.exe even with elevation.");
-
-                MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
-            }
+            MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }
         catch (Exception ex)
         {
