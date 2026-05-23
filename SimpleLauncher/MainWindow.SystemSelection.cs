@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Automation;
 using System.Windows.Controls.Primitives;
 using Microsoft.Extensions.Configuration;
@@ -117,21 +118,42 @@ public partial class MainWindow
 
             var contextMenu = new ContextMenu();
 
+            var selectIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/play.png")),
+                Width = 16,
+                Height = 16
+            };
             var selectMenuItem = new MenuItem
             {
-                Header = (string)Application.Current.TryFindResource("SelectSystem") ?? "Select System"
+                Header = (string)Application.Current.TryFindResource("SelectSystem") ?? "Select System",
+                Icon = selectIcon
             };
             selectMenuItem.Click += (_, _) => systemButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, systemButton));
 
+            var editIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/settings.png")),
+                Width = 16,
+                Height = 16
+            };
             var editMenuItem = new MenuItem
             {
-                Header = (string)Application.Current.TryFindResource("EditSystem") ?? "Edit System"
+                Header = (string)Application.Current.TryFindResource("EditSystem") ?? "Edit System",
+                Icon = editIcon
             };
             editMenuItem.Click += (_, _) => EditSystemFromContextMenu(config.SystemName);
 
+            var deleteIcon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+                Width = 16,
+                Height = 16
+            };
             var deleteMenuItem = new MenuItem
             {
-                Header = (string)Application.Current.TryFindResource("DeleteSystem") ?? "Delete System"
+                Header = (string)Application.Current.TryFindResource("DeleteSystem") ?? "Delete System",
+                Icon = deleteIcon
             };
             deleteMenuItem.Click += (_, _) => DeleteSystemFromContextMenu(config.SystemName);
 

@@ -6,7 +6,6 @@ using System.Security;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives.Zip;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -19,6 +18,7 @@ public partial class UpdateChecker
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
     private readonly HttpClient _httpClient;
+    private readonly ILogErrors _logErrors;
 
     private static string CurrentRuntimeIdentifier
     {
@@ -35,13 +35,14 @@ public partial class UpdateChecker
         }
     }
 
-    public UpdateChecker(IHttpClientFactory httpClientFactory)
+    public UpdateChecker(IHttpClientFactory httpClientFactory, ILogErrors logErrors)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
+        _logErrors = logErrors;
     }
 
-    private static string CurrentVersion
+    private string CurrentVersion
     {
         get
         {
@@ -52,7 +53,7 @@ public partial class UpdateChecker
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error getting CurrentVersion.");
+                _ = _logErrors.LogErrorAsync(ex, "Error getting CurrentVersion.");
 
                 return (string)Application.Current.TryFindResource("UnknownString") ?? "Unknown";
             }
@@ -96,7 +97,7 @@ public partial class UpdateChecker
                         {
                             // Notify developer
                             var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
+                            _ = _logErrors.LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
                         }
                     }
                 }
@@ -106,7 +107,7 @@ public partial class UpdateChecker
         {
             // Notify developer
             const string contextMessage = "Error checking for updates (silent).";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -134,7 +135,7 @@ public partial class UpdateChecker
 
                     if (latestVersion == null)
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
+                        _ = _logErrors.LogErrorAsync(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
                         MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
                         return;
                     }
@@ -154,7 +155,7 @@ public partial class UpdateChecker
                                 : "The main release package was also not found. Please check the GitHub releases page.";
 
                             // Notify developer
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
+                            _ = _logErrors.LogErrorAsync(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
 
                             // Notify user
                             MessageBoxLibrary.InstallUpdateManuallyMessageBox();
@@ -169,7 +170,7 @@ public partial class UpdateChecker
                 else
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+                    _ = _logErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
 
                     // Notify user
                     MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
@@ -180,7 +181,7 @@ public partial class UpdateChecker
         {
             // Notify developer
             const string contextMessage = "Error checking for updates (variant).";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
@@ -205,7 +206,7 @@ public partial class UpdateChecker
                 if (!response.IsSuccessStatusCode)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+                    _ = _logErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
                     return (null, null);
                 }
 
@@ -219,7 +220,7 @@ public partial class UpdateChecker
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error fetching latest updater info.");
+            _ = _logErrors.LogErrorAsync(ex, "Error fetching latest updater info.");
             return (null, null);
         }
     }
@@ -263,7 +264,7 @@ public partial class UpdateChecker
         catch (Exception ex)
         {
             const string contextMessage = "There was an error preparing for the application update.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
             logWindow?.Log($"An unexpected error occurred during the update process: {ex.Message}");
             MessageBoxLibrary.InstallUpdateManuallyMessageBox();
         }
@@ -294,7 +295,7 @@ public partial class UpdateChecker
         memoryStream.Position = 0;
     }
 
-    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow)
+    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow, ILogErrors logErrors)
     {
         try
         {
@@ -334,7 +335,7 @@ public partial class UpdateChecker
                         logWindow?.Log(errorMessage);
 
                         // Notify developer
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
+                        _ = logErrors.LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
                         return false;
                     }
 
@@ -372,21 +373,21 @@ public partial class UpdateChecker
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error processing the update ZIP archive.");
+            _ = logErrors.LogErrorAsync(ex, "Error processing the update ZIP archive.");
             logWindow?.Log($"Failed to process the update ZIP archive. Error: {ex.Message}");
 
             return false;
         }
     }
 
-    private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
+    private bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
         try
         {
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new ArgumentException("Current or latest version string is null or empty."), "Invalid version string for comparison.");
+                _ = _logErrors.LogErrorAsync(new ArgumentException("Current or latest version string is null or empty."), "Invalid version string for comparison.");
                 return false;
             }
 
@@ -396,7 +397,7 @@ public partial class UpdateChecker
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new ArgumentException("Normalized version string is null or empty after regex replace."), "Invalid version string after normalization.");
+                _ = _logErrors.LogErrorAsync(new ArgumentException("Normalized version string is null or empty after regex replace."), "Invalid version string after normalization.");
                 return false;
             }
 
@@ -411,7 +412,7 @@ public partial class UpdateChecker
             if (latestVersion != null)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
+                _ = _logErrors.LogErrorAsync(ex, $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
             }
 
             return false;
@@ -419,12 +420,12 @@ public partial class UpdateChecker
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Unexpected error in IsNewVersionAvailable.");
+            _ = _logErrors.LogErrorAsync(ex, "Unexpected error in IsNewVersionAvailable.");
             return false;
         }
     }
 
-    private static (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
+    private (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
     {
         try
         {
@@ -439,7 +440,7 @@ public partial class UpdateChecker
             else
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
+                _ = _logErrors.LogErrorAsync(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
                 return (null, null, null);
             }
 
@@ -459,7 +460,7 @@ public partial class UpdateChecker
             if (extractedNormalizedVersion == null)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FormatException($"Could not extract or normalize a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
+                _ = _logErrors.LogErrorAsync(new FormatException($"Could not extract or normalize a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
                 return (null, null, null);
             }
 
@@ -501,13 +502,13 @@ public partial class UpdateChecker
                 if (foundUpdaterZipUrl == null)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.", expectedUpdaterFileName), "GitHub API Asset Info");
+                    _ = _logErrors.LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.", expectedUpdaterFileName), "GitHub API Asset Info");
                 }
 
                 if (foundReleasePackageUrl == null)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
+                    _ = _logErrors.LogErrorAsync(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
                 }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
@@ -515,18 +516,18 @@ public partial class UpdateChecker
             else
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."), "GitHub API Response Error");
+                _ = _logErrors.LogErrorAsync(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."), "GitHub API Response Error");
             }
         }
         catch (JsonException jsonEx)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(jsonEx, "Failed to parse JSON response from GitHub API.");
+            _ = _logErrors.LogErrorAsync(jsonEx, "Failed to parse JSON response from GitHub API.");
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Unexpected error in ParseVersionAndAssetUrlsFromResponse.");
+            _ = _logErrors.LogErrorAsync(ex, "Unexpected error in ParseVersionAndAssetUrlsFromResponse.");
         }
 
         return (null, null, null);

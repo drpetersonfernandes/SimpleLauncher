@@ -4,7 +4,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using SharpCompress.Archives;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -73,7 +72,7 @@ internal static class MountZipFiles
     }
 
 
-    internal static void Configure(IConfiguration configuration)
+    internal static void Configure(IConfiguration configuration, ILogErrors logErrors)
     {
         var mountPathFromConfig = configuration.GetValue("ZipMountOptions:MountDriveLetter", "Z:");
 
@@ -134,7 +133,7 @@ internal static class MountZipFiles
     /// Finds an available drive letter, preferring the configured letter, then searching from Z: down to D:.
     /// </summary>
     /// <returns>An available character for a drive letter, or null if none are available.</returns>
-    private static char? GetAvailableDriveLetter()
+    private static char? GetAvailableDriveLetter(ILogErrors logErrors)
     {
         try
         {
@@ -169,12 +168,12 @@ internal static class MountZipFiles
         catch (Exception ex)
         {
             DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error enumerating available drive letters for ZIP mounting.");
+            _ = logErrors.LogErrorAsync(ex, "Error enumerating available drive letters for ZIP mounting.");
             return null;
         }
     }
 
-    private static void KillAllSimpleZipDriveProcesses()
+    private static void KillAllSimpleZipDriveProcesses(ILogErrors logErrors)
     {
         try
         {
@@ -199,6 +198,7 @@ internal static class MountZipFiles
                     catch (Exception ex)
                     {
                         DebugLogger.Log($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
+                        logErrors.LogErrorAsync(ex, $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
                     }
                     finally
                     {
@@ -222,7 +222,8 @@ internal static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher gameLauncher)
+        GameLauncher gameLauncher,
+        ILogErrors logErrors)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -238,7 +239,7 @@ internal static class MountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
@@ -250,18 +251,18 @@ internal static class MountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
             return;
         }
 
         // Get an available drive letter dynamically
-        var driveLetter = GetAvailableDriveLetter();
+        var driveLetter = GetAvailableDriveLetter(logErrors);
         if (driveLetter == null)
         {
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
@@ -355,7 +356,7 @@ internal static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for EBOOT.BIN...");
 
             // Find EBOOT.BIN
-            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountDriveRootForChecks);
+            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountDriveRootForChecks, logErrors);
 
             if (string.IsNullOrEmpty(ebootBinPath))
             {
@@ -378,7 +379,7 @@ internal static class MountZipFiles
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
@@ -424,7 +425,7 @@ internal static class MountZipFiles
                         DebugLogger.Log($"[MountZipFiles] InvalidOperationException while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {ioEx}");
 
                         // Notify developer
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
+                        _ = logErrors.LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
                     }
                 }
                 catch (Exception termEx)
@@ -432,7 +433,7 @@ internal static class MountZipFiles
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = logErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -459,7 +460,7 @@ internal static class MountZipFiles
             }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
-            KillAllSimpleZipDriveProcesses();
+            KillAllSimpleZipDriveProcesses(logErrors);
         }
     }
 
@@ -472,7 +473,8 @@ internal static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         string logPath,
-        GameLauncher gameLauncher)
+        GameLauncher gameLauncher,
+        ILogErrors logErrors)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -488,7 +490,7 @@ internal static class MountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
@@ -497,12 +499,12 @@ internal static class MountZipFiles
         }
 
         // Get an available drive letter dynamically
-        var driveLetter = GetAvailableDriveLetter();
+        var driveLetter = GetAvailableDriveLetter(logErrors);
         if (driveLetter == null)
         {
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
@@ -590,7 +592,7 @@ internal static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for nested file...");
-            var fileToLoad = FindNestedFile(mountDriveRootForChecks);
+            var fileToLoad = FindNestedFile(mountDriveRootForChecks, logErrors);
 
             if (string.IsNullOrEmpty(fileToLoad))
             {
@@ -614,7 +616,7 @@ internal static class MountZipFiles
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
@@ -653,7 +655,7 @@ internal static class MountZipFiles
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = logErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -679,11 +681,11 @@ internal static class MountZipFiles
             }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
-            KillAllSimpleZipDriveProcesses();
+            KillAllSimpleZipDriveProcesses(logErrors);
         }
     }
 
-    private static string FindNestedFile(string directoryPath)
+    private static string FindNestedFile(string directoryPath, ILogErrors logErrors)
     {
         const string targetFolderName = "000D0000";
         try
@@ -731,13 +733,13 @@ internal static class MountZipFiles
             DebugLogger.Log($"[FindNestedFile] Error searching for nested file in {directoryPath}: {ex.Message}");
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in FindNestedFile searching {directoryPath}");
+            _ = logErrors.LogErrorAsync(ex, $"Error in FindNestedFile searching {directoryPath}");
 
             return null;
         }
     }
 
-    private static string FindScummVmGamePath(string mountDriveRootForChecks)
+    private static string FindScummVmGamePath(string mountDriveRootForChecks, ILogErrors logErrors)
     {
         try
         {
@@ -776,7 +778,7 @@ internal static class MountZipFiles
             DebugLogger.Log($"[FindScummVmGamePath] Error: {ex.Message}");
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in FindScummVmGamePath");
+            _ = logErrors.LogErrorAsync(ex, "Error in FindScummVmGamePath");
 
             return mountDriveRootForChecks;
         }
@@ -789,7 +791,8 @@ internal static class MountZipFiles
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string selectedEmulatorParameters,
-        string logPath)
+        string logPath,
+        ILogErrors logErrors)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -805,7 +808,7 @@ internal static class MountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
@@ -814,12 +817,12 @@ internal static class MountZipFiles
         }
 
         // Get an available drive letter dynamically
-        var driveLetter = GetAvailableDriveLetter();
+        var driveLetter = GetAvailableDriveLetter(logErrors);
         if (driveLetter == null)
         {
             const string errorMessage = "No available drive letters found to mount the ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            _ = logErrors.LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
@@ -942,7 +945,7 @@ internal static class MountZipFiles
             );
 
             // Navigate into nested single-folder directories to find the actual game files location
-            var gamePath = FindScummVmGamePath(mountDriveRootForChecks);
+            var gamePath = FindScummVmGamePath(mountDriveRootForChecks, logErrors);
             // ScummVM -p expects just the drive letter (e.g. "Y:") for root paths, not "Y:\"
             var scummVmPath = gamePath == mountDriveRootForChecks ? mountDriveRootForChecks.TrimEnd('\\') : gamePath;
             var arguments = $"-p \"{scummVmPath}\" {resolvedParameters} ";
@@ -983,7 +986,7 @@ internal static class MountZipFiles
             var contextMessage = $"Error during ScummVM ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
@@ -1022,7 +1025,7 @@ internal static class MountZipFiles
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = logErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -1048,7 +1051,7 @@ internal static class MountZipFiles
             }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
-            KillAllSimpleZipDriveProcesses();
+            KillAllSimpleZipDriveProcesses(logErrors);
         }
     }
 }

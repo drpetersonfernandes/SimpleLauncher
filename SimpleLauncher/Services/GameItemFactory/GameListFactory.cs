@@ -111,7 +111,7 @@ public class GameListFactory(
                     null,
                     _gameLauncher,
                     _playSoundEffects
-                )
+                ), App.ServiceProvider.GetRequiredService<ILogErrors>()
             ),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,

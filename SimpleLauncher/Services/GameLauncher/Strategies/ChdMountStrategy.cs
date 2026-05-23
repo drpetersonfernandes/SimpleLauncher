@@ -1,6 +1,5 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -14,6 +13,7 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 public class ChdMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors;
 
     private bool _is4Do;
     private bool _isBlastem;
@@ -35,9 +35,10 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isXenia;
     private bool _isYabause;
 
-    public ChdMountStrategy(IConfiguration configuration)
+    public ChdMountStrategy(IConfiguration configuration, ILogErrors logErrors)
     {
         _configuration = configuration;
+        _logErrors = logErrors;
     }
 
     public int Priority => 10;
@@ -172,9 +173,9 @@ public class ChdMountStrategy : ILaunchStrategy
         var logPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
 
         // Get the console index for CHDMounter based on system and emulator
-        var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName);
+        var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logErrors);
 
-        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex);
+        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, consoleIndex, _logErrors);
 
         if (!mountedDrive.IsMounted)
         {
@@ -185,7 +186,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (_isRpcs3)
         {
             // RPCS3 needs the path to EBOOT.BIN
-            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath);
+            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logErrors);
         }
         else if (_isXenia)
         {
@@ -221,7 +222,7 @@ public class ChdMountStrategy : ILaunchStrategy
         if (string.IsNullOrEmpty(gameFilePath))
         {
             DebugLogger.Log($"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
+            await _logErrors.LogErrorAsync(null, $"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(logPath);
             return; // will be handle by the next Strategy
         }
