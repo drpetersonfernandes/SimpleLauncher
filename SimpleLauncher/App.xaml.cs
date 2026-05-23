@@ -309,7 +309,7 @@ public partial class App : IDisposable
         ApplyLanguage(settingsManager.Language);
 
         // --- Initialize services that need configuration ---
-        MountZipFiles.Configure(configuration);
+        MountZipFiles.Configure(configuration, ServiceProvider.GetRequiredService<ILogErrors>());
 
         // Manually create and show the MainWindow using DI
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
@@ -457,7 +457,7 @@ public partial class App : IDisposable
         // Kill any lingering CHDMounter processes as a safety net
         try
         {
-            MountChdFiles.KillAllChdMounterProcesses();
+            MountChdFiles.KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogErrors>());
         }
         catch (InvalidOperationException ex)
         {

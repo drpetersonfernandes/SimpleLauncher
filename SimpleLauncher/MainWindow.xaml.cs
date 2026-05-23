@@ -345,7 +345,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
                     if (result == MessageBoxResult.Yes)
                     {
-                        var easyModeWindow = new EasyModeWindow(_playSoundEffects, _configuration);
+                        var easyModeWindow = new EasyModeWindow(_playSoundEffects, _configuration, _logErrors);
                         easyModeWindow.Owner = this;
                         easyModeWindow.ShowDialog();
 

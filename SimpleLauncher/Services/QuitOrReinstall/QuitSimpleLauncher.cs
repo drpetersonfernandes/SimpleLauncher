@@ -68,7 +68,7 @@ public static class QuitSimpleLauncher
             {
                 using var memoryStream = new MemoryStream();
                 await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
-                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null);
+                UpdateChecker.ExtractAllFromZip(memoryStream, appDirectory, null, App.ServiceProvider.GetRequiredService<ILogErrors>());
                 if (File.Exists(updaterPath))
                 {
                     downloaded = true;

@@ -18,11 +18,12 @@ namespace SimpleLauncher;
 public partial class RetroAchievementsWindow : ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly ILogErrors _logErrors;
 
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
-    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects)
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -31,6 +32,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         _settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
         _raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
         _playSoundEffects = playSoundEffects;
+        _logErrors = logErrors;
 
         Loaded += RetroAchievementsWindow_Loaded;
 
@@ -90,7 +92,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error opening URL: {url}");
+            _ = _logErrors.LogErrorAsync(ex, $"Error opening URL: {url}");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
     }
@@ -274,7 +276,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             // Update messages for exception
             NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProfile") ?? "An error occurred while loading user profile.";
             NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
         finally
         {
@@ -355,7 +357,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             TotalPointsEarnedInRangeText.Text = "0";
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUnlocks") ?? "An error occurred while loading unlocks. Please try again.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
         finally
@@ -384,7 +386,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to fetch unlocks by date");
+            _ = _logErrors.LogErrorAsync(ex, "Failed to fetch unlocks by date");
             DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -410,7 +412,7 @@ public partial class RetroAchievementsWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to reset date range");
+            _ = _logErrors.LogErrorAsync(ex, "Failed to reset date range");
             DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -469,7 +471,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             NoUserProgressOverlay.Visibility = Visibility.Visible;
             NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProgress") ?? "An error occurred while loading user completion progress.";
             NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
         }
         finally

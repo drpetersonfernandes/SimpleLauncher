@@ -1,5 +1,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 
 namespace SimpleLauncher;
@@ -76,7 +78,7 @@ public partial class MainWindow
         try
         {
             // Kill any lingering CHDMounter processes as a safety net
-            MountChdFiles.KillAllChdMounterProcesses();
+            MountChdFiles.KillAllChdMounterProcesses(App.ServiceProvider.GetRequiredService<ILogErrors>());
 
             // Dispose tray icon resources
             TrayIconManager?.Dispose();

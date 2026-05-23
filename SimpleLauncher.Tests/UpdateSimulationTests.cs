@@ -1,5 +1,6 @@
 using System.IO.Compression;
 using SimpleLauncher.Services.CheckForUpdates;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -54,7 +55,7 @@ public class UpdateSimulationTests : IDisposable
         });
 
         // Act: use the real extraction logic from UpdateChecker
-        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null);
+        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogErrors());
 
         // Assert: extraction reported success
         Assert.True(result, "ExtractAllFromZip should return true for a valid ZIP.");
@@ -79,7 +80,7 @@ public class UpdateSimulationTests : IDisposable
         zipStream.Position = 0;
 
         // Act
-        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null);
+        var result = UpdateChecker.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogErrors());
 
         // Assert
         Assert.False(result, "ExtractAllFromZip should return false for an empty ZIP.");
@@ -240,10 +241,10 @@ public class UpdateSimulationTests : IDisposable
 
     private static bool InvokeIsNewVersionAvailable(string? current, string? latest)
     {
-        // UpdateChecker.IsNewVersionAvailable is private; use reflection
+        var checker = CreateCheckerInstance();
         var method = typeof(UpdateChecker).GetMethod("IsNewVersionAvailable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-        var result = method?.Invoke(null, [current, latest]);
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var result = method?.Invoke(checker, [current, latest]);
         return (bool)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
     }
 
@@ -257,9 +258,33 @@ public class UpdateSimulationTests : IDisposable
 
     private static (string version, string releaseUrl, string updaterUrl) InvokeParseVersionAndAssetUrls(string json)
     {
+        var checker = CreateCheckerInstance();
         var method = typeof(UpdateChecker).GetMethod("ParseVersionAndAssetUrlsFromResponse",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-        var result = method?.Invoke(null, [json]);
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var result = method?.Invoke(checker, [json]);
         return (ValueTuple<string, string, string>)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
+    }
+
+    private static UpdateChecker CreateCheckerInstance()
+    {
+        var constructor = typeof(UpdateChecker).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
+        var factory = new MockHttpClientFactory();
+        return (UpdateChecker)constructor.Invoke([factory, new NoOpLogErrors()]);
+    }
+
+    private sealed class MockHttpClientFactory : IHttpClientFactory
+    {
+        public HttpClient CreateClient(string name)
+        {
+            return new HttpClient();
+        }
+    }
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

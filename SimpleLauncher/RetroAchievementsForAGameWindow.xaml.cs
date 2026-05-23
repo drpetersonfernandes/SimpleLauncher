@@ -20,13 +20,14 @@ using ILoadingState = Services.LoadingInterface.ILoadingState;
 public partial class RetroAchievementsForAGameWindow : ILoadingState
 {
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly ILogErrors _logErrors;
 
     private readonly int _gameId;
     private readonly string _gameTitleForDisplay;
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
-    public RetroAchievementsForAGameWindow(int gameId, string gameTitleForDisplay)
+    public RetroAchievementsForAGameWindow(int gameId, string gameTitleForDisplay, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -37,6 +38,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         _settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
         _raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
         _playSoundEffects = App.ServiceProvider.GetRequiredService<PlaySoundEffects>();
+        _logErrors = logErrors;
 
         Loaded += AchievementsWindow_Loaded;
 
@@ -61,7 +63,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to initialize RetroAchievementsForAGameWindow.");
+            _ = _logErrors.LogErrorAsync(ex, "Failed to initialize RetroAchievementsForAGameWindow.");
         }
     }
 
@@ -125,7 +127,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     var casualText = progress.UserCompletion.Replace("%", "").Trim();
                     if (!double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture, out casualCompletion))
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
+                        _ = _logErrors.LogErrorAsync(null, $"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
                     }
                 }
 
@@ -134,7 +136,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     var hardcoreText = progress.UserCompletionHardcore.Replace("%", "").Trim();
                     if (!double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture, out hardcoreCompletion))
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
+                        _ = _logErrors.LogErrorAsync(null, $"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
                     }
                 }
 
@@ -201,7 +203,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 HighestAwardDateText.Text = (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A";
                 HighestAwardIcon.Visibility = Visibility.Collapsed; // Ensure icon is hidden on error
 
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to parse progress data for achievements display");
+                _ = _logErrors.LogErrorAsync(ex, "Failed to parse progress data for achievements display");
             }
         });
     }
@@ -223,7 +225,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error opening URL: {url}");
+            _ = _logErrors.LogErrorAsync(ex, $"Error opening URL: {url}");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
     }
@@ -255,7 +257,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             else
             {
                 // Log and potentially inform the user if the image source is not a valid URI
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
+                _ = _logErrors.LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
                 MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
             }
         }
@@ -272,7 +274,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             DebugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             MessageBoxLibrary.ErrorMessageBox();
         }
@@ -423,7 +425,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             NoAchievementsOverlay.Visibility = Visibility.Visible;
             NoAchievementsMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingAchievements") ?? "An error occurred while loading achievements. Please try again.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
         }
         finally
         {
@@ -597,7 +599,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             NoGameInfoOverlay.Visibility = Visibility.Visible;
             NoGameInfoMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingGameInfo") ?? "An error occurred while loading game info. Please try again.";
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load extended game info for game ID: {_gameId}");
+            await _logErrors.LogErrorAsync(ex, $"Failed to load extended game info for game ID: {_gameId}");
         }
         finally
         {
@@ -740,7 +742,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
             // Show error state
             LatestMastersDataGrid.ItemsSource = null;
             LatestMastersDataGrid.Visibility = Visibility.Collapsed;
@@ -883,7 +885,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             // Update messages for exception
             NoProfileMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProfile") ?? "An error occurred while loading user profile.";
             NoProfileSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
         finally
         {
@@ -966,7 +968,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             TotalPointsEarnedInRangeText.Text = "0";
             NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
             NoUnlocksMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUnlocks") ?? "An error occurred while loading unlocks. Please try again.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
         finally
@@ -996,7 +998,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to fetch unlocks by date");
+            _ = _logErrors.LogErrorAsync(ex, "Failed to fetch unlocks by date");
             DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -1022,7 +1024,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to reset date range");
+            _ = _logErrors.LogErrorAsync(ex, "Failed to reset date range");
             DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -1085,7 +1087,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             NoUserProgressOverlay.Visibility = Visibility.Visible;
             NoUserProgressMainMessage.Text = (string)Application.Current.TryFindResource("RaErrorLoadingUserProgress") ?? "An error occurred while loading user completion progress.";
             NoUserProgressSubMessage.Text = (string)Application.Current.TryFindResource("RaInfoCheckConnection") ?? "Please try again or check your internet connection.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
+            _ = _logErrors.LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
         }
         finally

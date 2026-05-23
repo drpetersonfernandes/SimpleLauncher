@@ -32,7 +32,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
 
-            EasyModeWindow editSystemEasyModeAddSystemWindow = new(_playSoundEffects, _configuration);
+            EasyModeWindow editSystemEasyModeAddSystemWindow = new(_playSoundEffects, _configuration, _logErrors);
             editSystemEasyModeAddSystemWindow.Owner = this;
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
@@ -686,7 +686,7 @@ public partial class MainWindow
         // Navigate to FavoritesPage
         var favoritesPage = new Pages.FavoritesPage(
             _settings, _systemManagers, _machines, _favoritesManager,
-            this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
+            this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
 
         NavigateToPage(favoritesPage);
     }
@@ -700,7 +700,7 @@ public partial class MainWindow
         var playHistoryPage = new Pages.PlayHistoryPage(
             _systemManagers, _machines, _settings,
             _favoritesManager, PlayHistoryManager, this,
-            _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
+            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
 
         NavigateToPage(playHistoryPage);
     }
@@ -710,7 +710,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", this);
 
-        var retroAchievementsWindow = new RetroAchievementsWindow(_playSoundEffects)
+        var retroAchievementsWindow = new RetroAchievementsWindow(_playSoundEffects, _logErrors)
         {
             Owner = this
         };
