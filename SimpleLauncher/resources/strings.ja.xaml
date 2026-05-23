@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">マシン名を表示 (MAME用)</system:String>
     <system:String x:Key="DisplayNoFilename">ファイル名を表示しない</system:String>
     <system:String x:Key="DisplayOriginalFilenames">元のファイル名を表示</system:String>
+    <system:String x:Key="DokanDriverNotFound">Dokanファイルシステムドライバー (dokan2.dll) は、アーカイブを仮想ドライブとしてマウントするために必要です。このシステムにはインストールされていないようです。</system:String>
     <system:String x:Key="Dokannotinstalled">Dokanライブラリがインストールされていません。DokanはZIP、CHD、ディスクイメージファイルをマウントするために必要です。</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphinの設定が正常に保存されました。</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">キャンセル</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">Dolphin設定</system:String>
     <system:String x:Key="Donate">寄付</system:String>
     <system:String x:Key="DonateIcon">寄付</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">複数の実行ファイルが見つかりました。DOSBoxで起動するファイルを選択してください:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">起動</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - 起動するファイルを選択</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">ファイルをダブルクリックするか、選択して「起動」をクリックするとゲームを開始します</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">エラーデバッグのために 'error_user.log' ファイルを開きますか？</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">ダウンロードと抽出が正常に完了しました。</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">以下の必須ファイルが見つかりません:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ゲームファイルが存在しません！</system:String>
     <system:String x:Key="Thegamewilllaunchnow">ゲームが今から起動します。</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">「フォルダーごとにファイルをグループ化」オプションは、MAMEエミュレーター (ソフトウェアリストCHD) またはDOSBoxエミュレーター (非圧縮DOSゲームフォルダー) のみと互換性があります。別のエミュレーターを使用する場合は、システム設定を編集してこのオプションを無効にしてください。</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">画像が破損しているか、アクセスできない可能性があります。</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">選択したツールの起動がユーザーによってキャンセルされました。</system:String>
     <system:String x:Key="Theme">テーマ</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">複数の AI プロバイダーまたは開発者からサポートを受けられます。以下から選択してください。</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">エキスパートモードでこのエラーメッセージをオフにすることができます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">「フォルダーごとにファイルをグループ化」を有効にしましたが、MAMEエミュレーターもDOSBoxエミュレーターも設定されていません。このオプションは、MAME (ソフトウェアリストCHD) またはDOSBox (非圧縮ゲームフォルダー) のみと互換性があります。これらの設定を保存してもよろしいですか？</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">この機能を使用するには、RetroAchievement のログインデータを追加する必要があります。</system:String>
     <system:String x:Key="YourRankAndScore">あなたのランクとスコア</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>

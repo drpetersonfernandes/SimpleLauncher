@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">Machinenaam weergeven (voor MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Geen bestandsnaam weergeven</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Originele bestandsnamen weergeven</system:String>
+    <system:String x:Key="DokanDriverNotFound">De Dokan bestandssysteemdriver (dokan2.dll) is vereist om archieven als virtuele schijven te koppelen. Deze lijkt niet op dit systeem geïnstalleerd te zijn.</system:String>
     <system:String x:Key="Dokannotinstalled">De Dokan-bibliotheek is niet geïnstalleerd. Dokan is vereist voor het koppelen van ZIP-, CHD- en schijfkopiebestanden.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Annuleren</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">Dolphin Instellingen</system:String>
     <system:String x:Key="Donate">Doneren</system:String>
     <system:String x:Key="DonateIcon">Doneren</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Meerdere uitvoerbare bestanden gevonden. Selecteer welk bestand u wilt starten met DOSBox:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Starten</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Selecteer bestand om te starten</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Dubbelklik of selecteer een bestand en klik op Starten om het spel te starten</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download en extractie succesvol voltooid.</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">De volgende vereiste bestand(en) ontbreken:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Het spelbestand bestaat niet!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Het spel wordt nu gestart.</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">De optie 'Bestanden groeperen op map' is alleen compatibel met MAME-emulators (Software List CHDs) of DOSBox-emulators (niet-gecomprimeerde DOS-game mappen). Om een andere emulator te gebruiken, bewerk de systeeminstellingen en schakel deze optie uit.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">De afbeelding kan beschadigd zijn of niet toegankelijk zijn.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">De start van de geselecteerde tool is door de gebruiker geannuleerd.</system:String>
     <system:String x:Key="Theme">Thema</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">U kunt ondersteuning krijgen van meerdere AI-aanbieders of van de ontwikkelaar. Kies hieronder.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">U kunt dit foutbericht uitschakelen in de expertmodus.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">U heeft 'Bestanden groeperen op map' ingeschakeld, maar heeft geen MAME- of DOSBox-emulator geconfigureerd. Deze optie is alleen compatibel met MAME (Software List CHDs) of DOSBox (niet-gecomprimeerde game mappen). Weet u zeker dat u deze instellingen wilt opslaan?</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">U moet RetroAchievement-inloggegevens toevoegen om deze functie te gebruiken.</system:String>
     <system:String x:Key="YourRankAndScore">Uw Rang en Score</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>

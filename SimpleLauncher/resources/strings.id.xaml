@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">Tampilkan Nama Mesin (untuk MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Jangan Tampilkan Nama File</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Tampilkan Nama File Asli</system:String>
+    <system:String x:Key="DokanDriverNotFound">Driver sistem berkas Dokan (dokan2.dll) diperlukan untuk memasang arsip sebagai drive virtual. Tampaknya tidak terinstal di sistem ini.</system:String>
     <system:String x:Key="Dokannotinstalled">Pustaka Dokan tidak terinstal. Dokan diperlukan untuk me-mount file ZIP, CHD, dan image disk.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Konfigurasi Dolphin berhasil disimpan.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Batal</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">Pengaturan Dolphin</system:String>
     <system:String x:Key="Donate">Donasi</system:String>
     <system:String x:Key="DonateIcon">Donasi</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Beberapa berkas yang dapat dieksekusi ditemukan. Pilih berkas mana yang akan diluncurkan dengan DOSBox:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Luncurkan</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Pilih Berkas untuk Diluncurkan</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Klik dua kali atau pilih berkas dan klik Luncurkan untuk memulai permainan</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">Unduhan dan ekstraksi selesai dengan sukses.</system:String>
     <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">File yang diperlukan berikut hilang:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">File game tidak ada!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Game akan diluncurkan sekarang.</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">Opsi 'Kelompokkan Berkas berdasarkan Folder' hanya kompatibel dengan emulator MAME (CHD Daftar Perangkat Lunak) atau emulator DOSBox (folder permainan DOS yang tidak terkompresi). Untuk menggunakan emulator yang berbeda, harap edit pengaturan sistem dan nonaktifkan opsi ini.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Gambar mungkin rusak atau tidak dapat diakses.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Peluncuran alat yang dipilih dibatalkan oleh pengguna.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Anda dapat menerima dukungan dari beberapa penyedia AI atau dari pengembang. Pilih di bawah ini.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Anda dapat mematikan pesan kesalahan ini dalam mode Ahli.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">Anda telah mengaktifkan 'Kelompokkan Berkas berdasarkan Folder' tetapi belum mengonfigurasi emulator MAME maupun DOSBox. Opsi ini hanya kompatibel dengan MAME (CHD Daftar Perangkat Lunak) atau DOSBox (folder permainan yang tidak terkompresi). Apakah Anda yakin ingin menyimpan pengaturan ini?</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Anda perlu menambahkan informasi login RetroAchievement untuk menggunakan fitur ini.</system:String>
     <system:String x:Key="YourRankAndScore">Peringkat dan Skor Anda</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>

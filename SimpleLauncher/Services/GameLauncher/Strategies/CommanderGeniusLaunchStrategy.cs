@@ -460,7 +460,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             {
                 try
                 {
-                    Directory.Delete(subdir, true);
+                    if (!Directory.EnumerateFileSystemEntries(subdir).Any())
+                    {
+                        Directory.Delete(subdir, false);
+                    }
                 }
                 catch
                 {

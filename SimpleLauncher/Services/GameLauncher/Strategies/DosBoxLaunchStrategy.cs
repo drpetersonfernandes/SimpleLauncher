@@ -372,61 +372,69 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         return launchParameters;
     }
 
-    private static async Task ExecuteChdAsync(LaunchContext context, GameLauncher launcher)
+    private async Task ExecuteChdAsync(LaunchContext context, GameLauncher launcher)
     {
-        await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, 19);
-
-        if (!mountedDrive.IsMounted)
+        try
         {
-            DebugLogger.Log("[DosBoxLaunchStrategy] Failed to mount CHD via CHDMounter.");
-            return;
-        }
+            await using var mountedDrive = await MountChdFiles.MountAsync(context.ResolvedFilePath, 19);
 
-        var mountPath = mountedDrive.MountedPath;
-        DebugLogger.Log($"[DosBoxLaunchStrategy] CHD mounted at {mountPath} via CHDMounter");
-
-        var gameFiles = FindAllGameFiles(mountPath);
-        if (gameFiles.Count == 0)
-        {
-            DebugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
-            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No DOS game executable found in CHD: {context.ResolvedFilePath}");
-            MessageBoxLibrary.CouldNotFindAFileMessageBox();
-            return;
-        }
-
-        string selectedFile;
-        if (gameFiles.Count == 1)
-        {
-            selectedFile = gameFiles[0];
-            DebugLogger.Log($"[DosBoxLaunchStrategy] Single game file found on CHD, auto-selecting: {selectedFile}");
-        }
-        else
-        {
-            var dialog = new DosBoxFileSelectionWindow(gameFiles, mountPath);
-            var result = dialog.ShowDialog();
-
-            if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
+            if (!mountedDrive.IsMounted)
             {
-                DebugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection for CHD.");
+                DebugLogger.Log("[DosBoxLaunchStrategy] Failed to mount CHD via CHDMounter.");
                 return;
             }
 
-            selectedFile = dialog.SelectedFilePath;
-            DebugLogger.Log($"[DosBoxLaunchStrategy] User selected file from CHD: {selectedFile}");
+            var mountPath = mountedDrive.MountedPath;
+            DebugLogger.Log($"[DosBoxLaunchStrategy] CHD mounted at {mountPath} via CHDMounter");
+
+            var gameFiles = FindAllGameFiles(mountPath);
+            if (gameFiles.Count == 0)
+            {
+                DebugLogger.Log($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"No DOS game executable found in CHD: {context.ResolvedFilePath}");
+                MessageBoxLibrary.CouldNotFindAFileMessageBox();
+                return;
+            }
+
+            string selectedFile;
+            if (gameFiles.Count == 1)
+            {
+                selectedFile = gameFiles[0];
+                DebugLogger.Log($"[DosBoxLaunchStrategy] Single game file found on CHD, auto-selecting: {selectedFile}");
+            }
+            else
+            {
+                var dialog = new DosBoxFileSelectionWindow(gameFiles, mountPath);
+                var result = dialog.ShowDialog();
+
+                if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
+                {
+                    DebugLogger.Log("[DosBoxLaunchStrategy] User cancelled file selection for CHD.");
+                    return;
+                }
+
+                selectedFile = dialog.SelectedFilePath;
+                DebugLogger.Log($"[DosBoxLaunchStrategy] User selected file from CHD: {selectedFile}");
+            }
+
+            var confPath = GenerateChdConf(mountPath, selectedFile);
+            var launchParameters = BuildLaunchParameters(context.Parameters);
+
+            await launcher.LaunchRegularEmulatorAsync(
+                confPath,
+                context.EmulatorName,
+                context.SystemManager,
+                context.EmulatorManager,
+                launchParameters,
+                context.MainWindow,
+                context.LoadingState,
+                context.ResolvedFilePath);
         }
-
-        var confPath = GenerateChdConf(mountPath, selectedFile);
-        var launchParameters = BuildLaunchParameters(context.Parameters);
-
-        await launcher.LaunchRegularEmulatorAsync(
-            confPath,
-            context.EmulatorName,
-            context.SystemManager,
-            context.EmulatorManager,
-            launchParameters,
-            context.MainWindow,
-            context.LoadingState,
-            context.ResolvedFilePath);
+        catch (Exception ex)
+        {
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+        }
     }
 
     private static string GenerateChdConf(string mountPath, string executablePath)

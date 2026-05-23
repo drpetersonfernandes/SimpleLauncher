@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">Hiển thị tên máy (cho MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Không hiển thị tên tệp</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Hiển thị tên tệp gốc</system:String>
+    <system:String x:Key="DokanDriverNotFound">Trình điều khiển hệ thống tệp Dokan (dokan2.dll) là bắt buộc để gắn các kho lưu trữ dưới dạng ổ đĩa ảo. Nó dường như chưa được cài đặt trên hệ thống này.</system:String>
     <system:String x:Key="Dokannotinstalled">Thư viện Dokan chưa được cài đặt. Dokan là bắt buộc để gắn các tệp ZIP, CHD và ảnh đĩa.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Đã lưu cấu hình Dolphin thành công.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Hủy</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">Cài đặt Dolphin</system:String>
     <system:String x:Key="Donate">Quyên góp</system:String>
     <system:String x:Key="DonateIcon">Quyên góp</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Tìm thấy nhiều tệp thực thi. Chọn tệp nào để khởi chạy bằng DOSBox:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Khởi chạy</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Chọn Tệp để Khởi chạy</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Nhấp đúp hoặc chọn một tệp và nhấp Khởi chạy để bắt đầu trò chơi</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">Tải xuống và trích xuất đã hoàn thành thành công.</system:String>
     <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Các tệp bắt buộc sau bị thiếu:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Tệp trò chơi không tồn tại!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Trò chơi sẽ được khởi động ngay bây giờ.</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">Tùy chọn 'Nhóm Tệp theo Thư mục' chỉ tương thích với trình giả lập MAME (CHD Danh sách Phần mềm) hoặc trình giả lập DOSBox (thư mục trò chơi DOS chưa nén). Để sử dụng trình giả lập khác, vui lòng chỉnh sửa cài đặt hệ thống và tắt tùy chọn này.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Hình ảnh có thể bị hỏng hoặc không thể truy cập được.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Việc khởi chạy công cụ đã chọn đã bị người dùng hủy.</system:String>
     <system:String x:Key="Theme">Giao diện</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Bạn có thể nhận hỗ trợ từ nhiều nhà cung cấp AI hoặc từ nhà phát triển. Chọn bên dưới.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bạn có thể tắt thông báo lỗi này trong chế độ Chuyên gia.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">Bạn đã bật 'Nhóm Tệp theo Thư mục' nhưng chưa cấu hình trình giả lập MAME cũng như DOSBox. Tùy chọn này chỉ tương thích với MAME (CHD Danh sách Phần mềm) hoặc DOSBox (thư mục trò chơi chưa nén). Bạn có chắc chắn muốn lưu các cài đặt này không?</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Bạn cần thêm thông tin đăng nhập RetroAchievement để sử dụng tính năng này.</system:String>
     <system:String x:Key="YourRankAndScore">Hạng và Điểm của bạn</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>

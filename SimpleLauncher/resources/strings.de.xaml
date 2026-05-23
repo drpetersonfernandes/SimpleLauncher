@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">Maschinenname anzeigen (für MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Keinen Dateinamen anzeigen</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Original-Dateinamen anzeigen</system:String>
+    <system:String x:Key="DokanDriverNotFound">Der Dokan-Dateisystemtreiber (dokan2.dll) wird benötigt, um Archive als virtuelle Laufwerke einzubinden. Er scheint auf diesem System nicht installiert zu sein.</system:String>
     <system:String x:Key="Dokannotinstalled">Die Dokan-Bibliothek ist nicht installiert. Dokan wird zum Einbinden von ZIP-, CHD- und Disk-Image-Dateien benötigt.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin-Konfiguration erfolgreich gespeichert.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Abbrechen</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">Dolphin Einstellungen</system:String>
     <system:String x:Key="Donate">Spenden</system:String>
     <system:String x:Key="DonateIcon">Spenden</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Es wurden mehrere ausführbare Dateien gefunden. Wählen Sie aus, welche Datei mit DOSBox gestartet werden soll:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Starten</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Datei zum Starten auswählen</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Doppelklicken Sie oder wählen Sie eine Datei aus und klicken Sie auf Starten, um das Spiel zu starten</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download und Extraktion erfolgreich abgeschlossen.</system:String>
     <system:String x:Key="Downloadcanceled">Download abgebrochen</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Die folgenden erforderlichen Datei(en) fehlen:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Die Spieldatei existiert nicht!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Das Spiel wird jetzt gestartet.</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">Die Option 'Dateien nach Ordner gruppieren' ist nur mit MAME-Emulatoren (Software List CHDs) oder DOSBox-Emulatoren (unkomprimierte DOS-Spieleordner) kompatibel. Um einen anderen Emulator zu verwenden, bearbeiten Sie bitte die Systemeinstellungen und deaktivieren Sie diese Option.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Das Bild ist möglicherweise beschädigt oder nicht zugänglich.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Der Start des ausgewählten Tools wurde vom Benutzer abgebrochen.</system:String>
     <system:String x:Key="Theme">Design</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Sie können Support von mehreren KI-Anbietern oder vom Entwickler erhalten. Wählen Sie unten aus.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Sie können diese Fehlermeldung im Expertenmodus ausschalten.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Sie können logische Operatoren UND / ODER verwenden.</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">Sie haben 'Dateien nach Ordner gruppieren' aktiviert, aber weder einen MAME- noch einen DOSBox-Emulator konfiguriert. Diese Option ist nur mit MAME (Software List CHDs) oder DOSBox (unkomprimierte Spieleordner) kompatibel. Möchten Sie diese Einstellungen wirklich speichern?</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Sie müssen RetroAchievements-Anmeldedaten hinzufügen, um diese Funktion zu nutzen.</system:String>
     <system:String x:Key="YourRankAndScore">Dein Rang &amp;amp;amp; Punkte</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Sie sollten die Emulatorparameter ändern, um zu verhindern, dass der Emulator im Vollbild startet.</system:String>

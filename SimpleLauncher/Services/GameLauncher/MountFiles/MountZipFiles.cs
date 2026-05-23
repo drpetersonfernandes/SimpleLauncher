@@ -111,11 +111,12 @@ internal static class MountZipFiles
     {
         var arch = RuntimeInformation.ProcessArchitecture;
 
+        // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
         return arch switch
         {
             Architecture.X64 => "SimpleZipDrive.exe",
             Architecture.Arm64 => "SimpleZipDrive_arm64.exe",
-            _ => "SimpleZipDrive.exe" // Default fallback
+            _ => throw new PlatformNotSupportedException($"Architecture {arch} is not supported by SimpleZipDrive.")
         };
     }
 

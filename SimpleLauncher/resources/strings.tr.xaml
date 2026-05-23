@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">Makine Adını Göster (MAME için)</system:String>
     <system:String x:Key="DisplayNoFilename">Dosya Adı Gösterme</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Orijinal Dosya Adlarını Göster</system:String>
+    <system:String x:Key="DokanDriverNotFound">Arşivleri sanal sürücüler olarak bağlamak için Dokan dosya sistemi sürücüsü (dokan2.dll) gereklidir. Bu sistemde yüklü görünmüyor.</system:String>
     <system:String x:Key="Dokannotinstalled">Dokan kütüphanesi yüklü değil. ZIP, CHD ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">İptal</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">Dolphin Ayarları</system:String>
     <system:String x:Key="Donate">Bağış Yap</system:String>
     <system:String x:Key="DonateIcon">Bağış Yap</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">Birden fazla çalıştırılabilir dosya bulundu. DOSBox ile başlatılacak dosyayı seçin:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_Başlat</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - Başlatılacak Dosyayı Seçin</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">Oyunu başlatmak için çift tıklayın veya bir dosya seçip Başlat'a tıklayın</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' dosyasını hatayı çözümlemek için açmak ister misiniz?</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">İndirme ve çıkarma başarıyla tamamlandı.</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Aşağıdaki gerekli dosya(lar) eksik:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Oyun şimdi başlatılacak.</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">'Dosyaları Klasöre Göre Grupla' seçeneği yalnızca MAME emülatörleri (Yazılım Listesi CHD'leri) veya DOSBox emülatörleri (sıkıştırılmamış DOS oyunu klasörleri) ile uyumludur. Farklı bir emülatör kullanmak için lütfen sistem ayarlarını düzenleyin ve bu seçeneği devre dışı bırakın.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Resim bozulmuş veya erişilemez durumda olabilir.</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Seçilen aracın başlatılması kullanıcı tarafından iptal edildi.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">Birden fazla yapay zeka sağlayıcısından veya geliştiriciden destek alabilirsiniz. Aşağıdan seçin.</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bu hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">'Dosyaları Klasöre Göre Grupla' seçeneğini etkinleştirdiniz ancak ne bir MAME ne de bir DOSBox emülatörü yapılandırdınız. Bu seçenek yalnızca MAME (Yazılım Listesi CHD'leri) veya DOSBox (sıkıştırılmamış oyun klasörleri) ile uyumludur. Bu ayarları kaydetmek istediğinizden emin misiniz?</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">Bu özelliği kullanmak için RetroAchievement giriş bilgilerini eklemeniz gerekiyor.</system:String>
     <system:String x:Key="YourRankAndScore">Sıralamanız ve Puanınız</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>

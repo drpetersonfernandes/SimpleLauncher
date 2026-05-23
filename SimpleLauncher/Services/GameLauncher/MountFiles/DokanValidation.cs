@@ -4,7 +4,7 @@ namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class DokanValidation
 {
-    [DllImport("dokan2.dll", ExactSpelling = true)]
+    [DllImport("dokan2.dll", ExactSpelling = true, CallingConvention = CallingConvention.Cdecl)]
     private static extern uint DokanVersion();
 
     public static bool IsDokanInstalled()
@@ -18,6 +18,10 @@ public static class DokanValidation
             return false;
         }
         catch (EntryPointNotFoundException)
+        {
+            return false;
+        }
+        catch (BadImageFormatException)
         {
             return false;
         }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <system:String x:Key="1000000games">تمام گیمز</system:String>
     <system:String x:Key="10000games">10000 گیمز</system:String>
@@ -362,6 +362,7 @@
     <system:String x:Key="DisplayMachineName">مشین کا نام دکھائیں (MAME کے لیے)</system:String>
     <system:String x:Key="DisplayNoFilename">کوئی فائل کا نام نہ دکھائیں</system:String>
     <system:String x:Key="DisplayOriginalFilenames">اصل فائل کے نام دکھائیں</system:String>
+    <system:String x:Key="DokanDriverNotFound">Dokan فائل سسٹم ڈرائیور (dokan2.dll) کو آرکائیوز کو ورچوئل ڈرائیوز کے طور پر ماؤنٹ کرنے کے لیے درکار ہے۔ ایسا لگتا ہے کہ یہ اس سسٹم پر انسٹال نہیں ہے۔</system:String>
     <system:String x:Key="Dokannotinstalled">ڈوکان لائبریری انسٹال نہیں ہے۔ ZIP، CHD اور ڈسک امیج فائلوں کو ماؤنٹ کرنے کے لیے ڈوکان درکار ہے۔</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">منسوخ کریں</system:String>
@@ -387,6 +388,10 @@
     <system:String x:Key="DolphinSettings">ڈولفن سیٹنگز</system:String>
     <system:String x:Key="Donate">عطیہ کریں</system:String>
     <system:String x:Key="DonateIcon">عطیہ کریں</system:String>
+    <system:String x:Key="DosBoxSelectFileInstruction">متعدد قابلِ عمل فائلیں ملی ہیں۔ منتخب کریں کہ DOSBox کے ساتھ کون سی فائل لانچ کرنی ہے:</system:String>
+    <system:String x:Key="DosBoxSelectFileLaunch">_لانچ کریں</system:String>
+    <system:String x:Key="DosBoxSelectFileTitle">DOSBox - لانچ کرنے کے لیے فائل منتخب کریں</system:String>
+    <system:String x:Key="DosBoxSelectFileTooltip">گیم شروع کرنے کے لیے فائل پر ڈبل کلک کریں یا اسے منتخب کریں اور لانچ پر کلک کریں</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">کیا آپ خرابی کو ڈیبگ کرنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Downloadandextractioncompletedsuccessfully">ڈاؤن لوڈ اور نکالنے کا کام کامیابی سے مکمل ہو گیا۔</system:String>
     <system:String x:Key="Downloadcanceled">ڈاؤن لوڈ منسوخ ہو گیا</system:String>
@@ -1819,6 +1824,7 @@
     <system:String x:Key="Thefollowingrequiredfilesaremissing">درج ذیل مطلوبہ فائلیں غائب ہیں:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">گیم فائل موجود نہیں ہے!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">گیم اب شروع ہوگی۔</system:String>
+    <system:String x:Key="TheGroupFilesbyFolderoptionisonlycompatiblewith">'فائلوں کو فولڈر کے لحاظ سے گروپ کریں' کا آپشن صرف MAME ایمولیٹرز (سافٹ ویئر لسٹ CHDs) یا DOSBox ایمولیٹرز (غیر کمپریسڈ DOS گیم فولڈرز) کے ساتھ مطابقت رکھتا ہے۔ مختلف ایمولیٹر استعمال کرنے کے لیے، براہ کرم سسٹم کی ترتیبات میں ترمیم کریں اور اس آپشن کو غیر فعال کریں۔</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">تصویر خراب یا قابل رسائی نہیں ہو سکتی۔</system:String>
     <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">منتخب ٹول کا لانچ صارف کی طرف سے منسوخ کر دیا گیا۔</system:String>
     <system:String x:Key="Theme">تھیم</system:String>
@@ -2253,6 +2259,7 @@
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">آپ متعدد AI فراہم کنندگان یا ڈویلپر سے سپورٹ حاصل کر سکتے ہیں۔ نیچے منتخب کریں۔</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">آپ ماہر موڈ میں اس غلطی کا پیغام بند کر سکتے ہیں۔</system:String>
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
+    <system:String x:Key="YouhaveenabledGroupFilesbyFolderbuthave">آپ نے 'فائلوں کو فولڈر کے لحاظ سے گروپ کریں' کو فعال کر دیا ہے لیکن نہ تو MAME اور نہ ہی DOSBox ایمولیٹر کو کنفیگر کیا ہے۔ یہ آپشن صرف MAME (سافٹ ویئر لسٹ CHDs) یا DOSBox (غیر کمپریسڈ گیم فولڈرز) کے ساتھ مطابقت رکھتا ہے۔ کیا آپ واقعی ان ترتیبات کو محفوظ کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="YouneedtoaddRetroAchievementlogin">اس خصوصیت کو استعمال کرنے کے لیے RetroAchievement لاگ ان کی معلومات شامل کریں۔</system:String>
     <system:String x:Key="YourRankAndScore">آپ کا رینک اور سکور</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>

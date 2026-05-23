@@ -367,6 +367,7 @@
     <system:String x:Key="DisplayMachineName">Display Machine Name (for MAME)</system:String>
     <system:String x:Key="DisplayNoFilename">Display No Filename</system:String>
     <system:String x:Key="DisplayOriginalFilenames">Display Original Filenames</system:String>
+    <system:String x:Key="DokanDriverNotFound">The Dokan file system driver (dokan2.dll) is required to mount archives as virtual drives. It does not appear to be installed on this system.</system:String>
     <system:String x:Key="Dokannotinstalled">Dokan library is not installed. Dokan is required for mounting ZIP, CHD and disk image files.</system:String>
     <system:String x:Key="DolphinConfigurationSavedSuccessfully">Dolphin configuration saved successfully.</system:String>
     <system:String x:Key="DolphinConfig_Cancel_Button">Cancel</system:String>
