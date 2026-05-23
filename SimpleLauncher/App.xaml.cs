@@ -134,6 +134,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddSingleton<Stats>();
         serviceCollection.AddSingleton<PlaySoundEffects>();
+        serviceCollection.AddSingleton<IPlaySoundEffects>(static sp => sp.GetRequiredService<PlaySoundEffects>());
         serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncher>();

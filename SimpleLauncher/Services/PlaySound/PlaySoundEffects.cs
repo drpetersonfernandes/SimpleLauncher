@@ -1,23 +1,31 @@
+#nullable enable
 using System.IO;
-using System.Windows.Media;
 using Microsoft.Extensions.DependencyInjection;
+using NAudio.Wave;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.PlaySound;
 
-public class PlaySoundEffects
+public interface IPlaySoundEffects
+{
+    void PlayNotificationSound();
+    void PlayShutterSound();
+    void PlayTrashSound();
+    void PlayConfiguredSound(string soundFileName);
+}
+
+public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 {
     private const string ClickSoundFile = "click.mp3";
     private const string ShutterSoundFile = "shutter.mp3";
     private const string TrashSoundFile = "trash.mp3";
 
-    private static MediaPlayer _currentMediaPlayer;
+    private static readonly Lock Lock = new();
     private readonly SettingsManager.SettingsManager _settingsManager;
 
-    /// <summary>
-    /// Initializes the PlaySoundEffects service with the necessary dependencies.
-    /// </summary>
-    /// <param name="settings">The application's settings manager.</param>
+    private WaveOutEvent? _waveOut;
+    private Mp3FileReader? _reader;
+
     public PlaySoundEffects(SettingsManager.SettingsManager settings)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -25,20 +33,11 @@ public class PlaySoundEffects
 
     public void PlayNotificationSound()
     {
-        if (_settingsManager == null)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("PlaySoundEffects not initialized with SettingsManager."), "Attempted to play notification sound before PlaySoundEffects was initialized.");
-
-            return;
-        }
-
         if (!_settingsManager.EnableNotificationSound)
         {
             return;
         }
 
-        // Use the custom sound file from settings.
         PlaySound(_settingsManager.CustomNotificationSoundFile ?? ClickSoundFile);
     }
 
@@ -56,9 +55,9 @@ public class PlaySoundEffects
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."), "Attempted to play sound with an empty filename.");
-
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+                new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."),
+                "Attempted to play sound with an empty filename.");
             return;
         }
 
@@ -69,77 +68,75 @@ public class PlaySoundEffects
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            const string contextMessageEmpty = "Attempted to play sound with an empty filename.";
-
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new ArgumentNullException(nameof(soundFileName), contextMessageEmpty), contextMessageEmpty);
-
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+                new ArgumentNullException(nameof(soundFileName), @"Attempted to play sound with an empty filename."),
+                "Attempted to play sound with an empty filename.");
             return;
         }
 
         var soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio", soundFileName);
         if (!File.Exists(soundPath))
         {
-            // Notify developer
             var contextMessageMissing = $"Sound file not found: {soundPath}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(contextMessageMissing, soundPath), contextMessageMissing);
-
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+                new FileNotFoundException(contextMessageMissing, soundPath),
+                contextMessageMissing);
             return;
         }
 
-        try
+        lock (Lock)
         {
-            // MediaPlayer has thread affinity - must run on UI thread
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            StopCurrentPlayback();
+
+            try
             {
-                try
-                {
-                    if (_currentMediaPlayer != null)
-                    {
-                        _currentMediaPlayer.Stop();
-                        _currentMediaPlayer.Close();
-                    }
-
-                    var playerInstance = new MediaPlayer();
-                    playerInstance.MediaOpened += (_, _) =>
-                    {
-                        playerInstance.Play();
-                    };
-                    playerInstance.MediaEnded += static (sender, _) =>
-                    {
-                        if (sender is not MediaPlayer endedPlayer) return;
-
-                        endedPlayer.Close();
-                        if (ReferenceEquals(_currentMediaPlayer, endedPlayer))
-                        {
-                            _currentMediaPlayer = null;
-                        }
-                    };
-                    playerInstance.MediaFailed += (_, e) =>
-                    {
-                        DebugLogger.Log($"[PlaySound] MediaFailed: {e.ErrorException?.Message ?? "Unknown error"}");
-                        playerInstance.Close();
-                        if (ReferenceEquals(_currentMediaPlayer, playerInstance))
-                        {
-                            _currentMediaPlayer = null;
-                        }
-                    };
-
-                    playerInstance.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-                    _currentMediaPlayer = playerInstance;
-                }
-                catch (Exception ex)
-                {
-                    // Log error but don't crash - sound is not critical
-                    DebugLogger.Log($"[PlaySound] Error playing sound on UI thread: {ex.Message}");
-                }
-            });
+                _reader = new Mp3FileReader(soundPath);
+                _waveOut = new WaveOutEvent();
+                _waveOut.PlaybackStopped += OnPlaybackStopped;
+                _waveOut.Init(_reader);
+                _waveOut.Play();
+            }
+            catch (Exception ex)
+            {
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex,
+                    $"Failed to play sound: {soundPath}");
+                StopCurrentPlayback();
+            }
         }
-        catch (Exception ex)
+    }
+
+    private void StopCurrentPlayback()
+    {
+        if (_waveOut != null)
         {
-            // Notify developer
-            var contextMessageError = $"Error playing '{soundFileName}' sound from path '{soundPath}'.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessageError);
+            _waveOut.PlaybackStopped -= OnPlaybackStopped;
+            _waveOut.Stop();
+            _waveOut.Dispose();
+            _waveOut = null;
         }
+
+        _reader?.Dispose();
+        _reader = null;
+    }
+
+    private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
+    {
+        lock (Lock)
+        {
+            if (_waveOut == sender)
+            {
+                StopCurrentPlayback();
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        lock (Lock)
+        {
+            StopCurrentPlayback();
+        }
+
+        GC.SuppressFinalize(this);
     }
 }
