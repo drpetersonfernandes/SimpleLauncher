@@ -29,7 +29,7 @@
     <system:String x:Key="700pixels">700 pixels</system:String>
     <system:String x:Key="750pixels">750 pixels</system:String>
     <system:String x:Key="800pixels">800 pixels</system:String>
-    <system:String x:Key="About">_About</system:String>
+    <system:String x:Key="About">About</system:String>
     <system:String x:Key="AboutIcon">About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
     <system:String x:Key="AccessDeniedExplanation">This may be due to insufficient permissions or Windows security settings blocking the file.</system:String>

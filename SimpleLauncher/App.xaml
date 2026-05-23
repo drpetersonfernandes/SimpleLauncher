@@ -458,31 +458,156 @@
             <Style x:Key="ThemeAwareMarkdownStyle" TargetType="FlowDocument">
                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="14" />
                 <Style.Resources>
+
+                    <!-- SECTION (Blockquote) -->
+                    <Style TargetType="Section">
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="Blockquote">
+                                <Setter Property="Padding" Value="14,8" />
+                                <Setter Property="Margin" Value="0,10,0,10" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
+                                <Setter Property="BorderThickness" Value="4,0,0,0" />
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray10}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <!-- PARAGRAPH (base text, headings, code blocks, notes) -->
                     <Style TargetType="Paragraph">
                         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Setter Property="Margin" Value="0,4,0,4" />
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="Heading1">
+                                <Setter Property="FontSize" Value="26" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
+                                <Setter Property="Margin" Value="0,28,0,10" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="Heading2">
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Margin" Value="0,20,0,8" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="Heading3">
+                                <Setter Property="FontSize" Value="16" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="Margin" Value="0,14,0,6" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="Heading4">
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="Margin" Value="0,10,0,4" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="CodeBlock">
+                                <Setter Property="FontFamily" Value="Consolas, Courier New" />
+                                <Setter Property="FontSize" Value="13" />
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray9}" />
+                                <Setter Property="Padding" Value="16,10" />
+                                <Setter Property="Margin" Value="0,8,0,8" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="Note">
+                                <Setter Property="Margin" Value="0,8,0,8" />
+                                <Setter Property="Padding" Value="12,8" />
+                                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
+                                <Setter Property="BorderThickness" Value="2" />
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray10}" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
+
+                    <!-- RUN and SPAN (inline code) -->
                     <Style TargetType="Run">
                         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="CodeSpan">
+                                <Setter Property="FontFamily" Value="Consolas, Courier New" />
+                                <Setter Property="FontSize" Value="13" />
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray9}" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
+                    <Style TargetType="Span">
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="CodeSpan">
+                                <Setter Property="FontFamily" Value="Consolas, Courier New" />
+                                <Setter Property="FontSize" Value="13" />
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray9}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <!-- HYPERLINK -->
                     <Style TargetType="Hyperlink">
                         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
+                        <Setter Property="TextDecorations" Value="None" />
                     </Style>
+
+                    <!-- TABLE -->
+                    <Style TargetType="Table">
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Setter Property="CellSpacing" Value="0" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray5}" />
+                        <Setter Property="Margin" Value="0,8,0,12" />
+                    </Style>
+
+                    <Style TargetType="TableRowGroup">
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="TableHeader">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style TargetType="TableRow">
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="EvenTableRow">
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray10}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <Style TargetType="TableCell">
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray5}" />
+                        <Setter Property="Padding" Value="10,5" />
+                    </Style>
+
+                    <!-- LISTS -->
                     <Style TargetType="List">
                         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Setter Property="Margin" Value="0,4,0,4" />
                     </Style>
                     <Style TargetType="ListItem">
                         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                        <Setter Property="Margin" Value="0,1,0,1" />
                     </Style>
-                    <Style TargetType="Table">
-                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+
+                    <!-- HORIZONTAL RULES -->
+                    <Style TargetType="BlockUIContainer">
+                        <Style.Triggers>
+                            <Trigger Property="Tag" Value="RuleSingle">
+                                <Setter Property="Margin" Value="0,14" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="RuleDouble">
+                                <Setter Property="Margin" Value="0,14" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="RuleBold">
+                                <Setter Property="Margin" Value="0,14" />
+                            </Trigger>
+                            <Trigger Property="Tag" Value="RuleBoldWithSingle">
+                                <Setter Property="Margin" Value="0,14" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
-                    <Style TargetType="TableCell">
-                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                    </Style>
-                    <Style TargetType="Section">
-                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                    </Style>
+
                 </Style.Resources>
             </Style>
 
