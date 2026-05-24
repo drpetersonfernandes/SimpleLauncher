@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
@@ -27,6 +26,7 @@ using ILoadingState = Services.LoadingInterface.ILoadingState;
 internal partial class FavoritesPage : ILoadingState
 {
     private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors;
     private readonly FavoritesManager _favoritesManager;
     private readonly ObservableCollection<Favorite> _favoriteList = [];
     private readonly SettingsManager _settings;
@@ -46,7 +46,8 @@ internal partial class FavoritesPage : ILoadingState
         GamePadController gamePadController,
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        ILogErrors logErrors)
     {
         InitializeComponent();
 
@@ -59,6 +60,7 @@ internal partial class FavoritesPage : ILoadingState
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _configuration = configuration;
+        _logErrors = logErrors;
 
         // Set the ItemsSource immediately to the empty collection
         FavoritesDataGrid.ItemsSource = _favoriteList;
@@ -102,7 +104,7 @@ internal partial class FavoritesPage : ILoadingState
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading favorites data in FavoritesPageLoadedAsync method.");
+                _ = _logErrors.LogErrorAsync(ex, "Error loading favorites data in FavoritesPageLoadedAsync method.");
                 MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
             }
             finally
@@ -112,7 +114,7 @@ internal partial class FavoritesPage : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the FavoritesPageLoadedAsync method.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the FavoritesPageLoadedAsync method.");
         }
     }
 
@@ -243,7 +245,7 @@ internal partial class FavoritesPage : ILoadingState
             if (systemManager == null)
             {
                 const string contextMessage = "systemManager is null for the selected favorite";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
                 return;
             }
@@ -271,7 +273,7 @@ internal partial class FavoritesPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -310,7 +312,7 @@ internal partial class FavoritesPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors);
             if (contextMenu != null)
             {
                 FavoritesDataGrid.ContextMenu = contextMenu;
@@ -320,7 +322,7 @@ internal partial class FavoritesPage : ILoadingState
         catch (Exception ex)
         {
             const string contextMessage = "There was an error in the right-click context menu.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
@@ -344,7 +346,7 @@ internal partial class FavoritesPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the LaunchGameClickAsync method.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -360,7 +362,7 @@ internal partial class FavoritesPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "[LaunchGameFromFavoritesAsync] selectedSystemManager is null.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -385,7 +387,7 @@ internal partial class FavoritesPage : ILoadingState
 
                 // Notify developer
                 var contextMessage = $"[LaunchGameFromFavoritesAsync] Favorite file does not exist or path resolution failed: {filePath}";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 return;
             }
@@ -395,7 +397,7 @@ internal partial class FavoritesPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "[LaunchGameFromFavoritesAsync] emulatorManager is null.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -412,7 +414,7 @@ internal partial class FavoritesPage : ILoadingState
             var contextMessage = $"[LaunchGameFromFavoritesAsync] There was an error launching the game from Favorites.\n" +
                                  $"File Path: {fileName}\n" +
                                  $"System Name: {selectedSystemName}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -441,7 +443,7 @@ internal partial class FavoritesPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the method MouseDoubleClick.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -471,7 +473,7 @@ internal partial class FavoritesPage : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 
@@ -526,7 +528,7 @@ internal partial class FavoritesPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error handling key press in FavoritesDataGrid.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 

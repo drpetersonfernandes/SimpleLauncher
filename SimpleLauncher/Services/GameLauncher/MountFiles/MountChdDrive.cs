@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -13,6 +12,7 @@ public class MountChdDrive : IAsyncDisposable
 {
     private readonly Process _mountProcess;
     private readonly int _mountProcessId;
+    private readonly ILogErrors _logErrors;
 
     public string MountedPath { get; }
     public string MountedDriveLetter { get; }
@@ -21,10 +21,11 @@ public class MountChdDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a successful mount.
     /// </summary>
-    public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter)
+    public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter, ILogErrors logErrors)
     {
         _mountProcess = mountProcess;
         _mountProcessId = mountProcess?.Id ?? -1;
+        _logErrors = logErrors;
         MountedPath = mountedPath;
         MountedDriveLetter = mountedDriveLetter;
         IsMounted = !string.IsNullOrEmpty(mountedPath) && _mountProcess != null;
@@ -33,8 +34,9 @@ public class MountChdDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a failed mount.
     /// </summary>
-    public MountChdDrive()
+    public MountChdDrive(ILogErrors logErrors)
     {
+        _logErrors = logErrors;
         IsMounted = false;
     }
 
@@ -91,8 +93,7 @@ public class MountChdDrive : IAsyncDisposable
         catch (Exception termEx)
         {
             DebugLogger.Log($"[MountChdDrive.DisposeAsync] Exception while terminating CHDMounter (ID: {_mountProcessId}): {termEx}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx,
-                $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
+            _ = _logErrors.LogErrorAsync(termEx, $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
         }
         finally
         {

@@ -1,12 +1,11 @@
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class FindEbootBin
 {
-    public static string FindEbootBinRecursive(string directoryPath)
+    public static string FindEbootBinRecursive(string directoryPath, ILogErrors logErrors)
     {
         if (string.IsNullOrEmpty(directoryPath))
         {
@@ -58,14 +57,14 @@ public static class FindEbootBin
             DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] UnauthorizedAccessException searching for {targetFileName} in {directoryPath}: {uaEx.Message}");
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
+            _ = logErrors.LogErrorAsync(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
         catch (Exception ex)
         {
             DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] Error searching for {targetFileName} in {directoryPath}: {ex.Message}");
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");
+            _ = logErrors.LogErrorAsync(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
 
         DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] {targetFileName} not found in {directoryPath}.");

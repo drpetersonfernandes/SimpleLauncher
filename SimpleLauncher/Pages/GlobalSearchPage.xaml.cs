@@ -572,7 +572,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors);
             if (contextMenu != null)
             {
                 ResultsDataGrid.ContextMenu = contextMenu;

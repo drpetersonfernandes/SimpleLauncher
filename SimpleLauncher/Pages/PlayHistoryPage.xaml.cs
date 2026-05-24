@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -28,6 +27,7 @@ using ILoadingState = Services.LoadingInterface.ILoadingState;
 public partial class PlayHistoryPage : ILoadingState
 {
     private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors;
     private CancellationTokenSource _cancellationTokenSource;
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
@@ -51,7 +51,8 @@ public partial class PlayHistoryPage : ILoadingState
         GamePadController gamePadController,
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        ILogErrors logErrors)
     {
         InitializeComponent();
 
@@ -65,6 +66,7 @@ public partial class PlayHistoryPage : ILoadingState
         _gameLauncher = gameLauncher;
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
+        _logErrors = logErrors;
 
         Loaded += PlayHistoryPageLoadedAsync;
 
@@ -107,7 +109,7 @@ public partial class PlayHistoryPage : ILoadingState
             catch (Exception ex)
             {
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading play history data in PlayHistoryPageLoadedAsync.");
+                _ = _logErrors.LogErrorAsync(ex, "Error loading play history data in PlayHistoryPageLoadedAsync.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -120,7 +122,7 @@ public partial class PlayHistoryPage : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the PlayHistoryPageLoadedAsync method.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the PlayHistoryPageLoadedAsync method.");
         }
     }
 
@@ -159,14 +161,14 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByDate()
     {
         var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(static item =>
+            _playHistoryList.OrderByDescending(item =>
                 TryParseDateTime(item.LastPlayDate, item.LastPlayTime))
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
-    private static DateTime TryParseDateTime(string dateStr, string timeStr)
+    private DateTime TryParseDateTime(string dateStr, string timeStr)
     {
         try
         {
@@ -207,9 +209,9 @@ public partial class PlayHistoryPage : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error parsing date and time.\n" +
-                                                                                       $"dateStr: {dateStr}\n" +
-                                                                                       $"timeStr: {timeStr}");
+            _ = _logErrors.LogErrorAsync(ex, "Error parsing date and time.\n" +
+                                             $"dateStr: {dateStr}\n" +
+                                             $"timeStr: {timeStr}");
 
             // In case of any exception, return a reasonable default
             return DateTime.MinValue;
@@ -251,7 +253,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "History item filename is null";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -264,7 +266,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "systemManager is null";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -297,7 +299,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -327,7 +329,7 @@ public partial class PlayHistoryPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors);
             if (contextMenu != null)
             {
                 PlayHistoryDataGrid.ContextMenu = contextMenu;
@@ -338,7 +340,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "There was an error in the method PlayHistoryPrepareForRightClickContext.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -352,7 +354,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "[LaunchGameFromHistoryAsync] systemManager is null.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            _ = _logErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -383,7 +385,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "[LaunchGameFromHistoryAsync] emulatorManager is null.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            _ = _logErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -465,7 +467,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error refreshing play history data.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -485,7 +487,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the method MouseDoubleClick.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -518,7 +520,7 @@ public partial class PlayHistoryPage : ILoadingState
             PreviewImage.Source = null; // Ensure image is cleared on error
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 
@@ -696,7 +698,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the LaunchGameClickAsync method.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
