@@ -130,7 +130,7 @@ Simple Launcher includes a comprehensive suite of specialized utilities:
 * **Image Viewer:** Built-in image viewer for game art and screenshots
 * **Debug Window:** Advanced debugging and error reporting interface
 * **Update System:** Built-in updater with version checking
-* **Multi-language Support:** 17 languages with localization system
+* **Multi-language Support:** 18 languages with localization system
 * **Accessibility Features:** Automation properties, access keys, and high contrast mode
 
 ### 📊 Supported Systems (100+ Systems)
@@ -140,8 +140,9 @@ The launcher supports an extensive range of gaming systems including:
 - **Microsoft:** Xbox, Xbox 360, Windows, DOS
 - **Sega:** Master System, Genesis, Saturn, Dreamcast, Game Gear, SG-1000, Model 3, Naomi, Naomi 2, Atomiswave
 - **Arcade:** MAME, FinalBurn Neo, FinalBurn Alpha, Raine
-- **Retro Computers:** Amiga, Amstrad CPC, Commodore 64, Commodore 128, ZX Spectrum, MSX, MSX2, Sharp X68000
+- **Retro Computers:** Amiga, Amstrad CPC, Commodore 64, Commodore 128, ZX Spectrum, MSX, MSX2, Sharp X68000, NEC PC-88
 - **Classic Consoles:** Atari 2600-7800, Jaguar, Lynx, ColecoVision, Intellivision, Neo Geo, Neo Geo CD, TurboGrafx-16, PC Engine, 3DO, CD-i
+- **Handheld/Mobile:** J2ME (Java ME)
 - **Modern Platforms:** ScummVM, Windows Store games, Xbox 360 XBLA
 
 ### 💿 CHD Support Matrix
@@ -188,8 +189,8 @@ The launcher supports an extensive range of gaming systems including:
 
 ## 🌐 Localization
 
-Simple Launcher is translated into **17 languages**:
-* English, Spanish, French, German, Italian, Portuguese (BR), Russian, Chinese (Simplified), Japanese, Korean, Arabic, Bengali, Hindi, Indonesian, Dutch, Turkish, and Urdu.
+Simple Launcher is translated into **18 languages**:
+* English, Spanish, French, German, Italian, Portuguese (BR), Russian, Chinese (Simplified), Japanese, Korean, Arabic, Bengali, Hindi, Indonesian, Dutch, Turkish, Urdu, and Vietnamese.
 
 ---
 
@@ -198,7 +199,7 @@ Simple Launcher is translated into **17 languages**:
 * **Framework:** .NET 10 (WPF)
 * **Language:** C# 14
 * **Data Serialization:** MessagePack (Binary) & XML
-* **Dependencies:** MahApps.Metro (UI), SharpDX (Input), SevenZipSharp (Archives), DokanNet (Mounting), YamlDotNet, Tomlyn, SharpCompress
+* **Dependencies:** MahApps.Metro (UI), SharpDX (Input), SharpCompress (Archives), DokanNet (Mounting), NAudio (Audio), YamlDotNet, Tomlyn
 * **Architecture:** Modular service-based architecture with dependency injection
 * **Storage:** SQLite for play history, MessagePack for favorites, XML for settings
 

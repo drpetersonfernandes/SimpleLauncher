@@ -101,7 +101,7 @@ public static class RetroAchievementsSystemMatcher
         ["arduboy"] = new RaSystemInfo(71, ["arduboy"]),
         ["wasm-4"] = new RaSystemInfo(72, ["wasm-4"]),
         ["pc-8000/8800"] = new RaSystemInfo(47, ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"]),
-        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Originals]", "C64 - Tapes {My Compilations]"]),
+        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]"]),
         ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
         ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
         ["fairchild channel f"] = new RaSystemInfo(57, ["fairchild channel f", "channel f"]),
