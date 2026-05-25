@@ -1,5 +1,5 @@
 # Release 5.5.0
-*2026-05-22*
+*2026-05-25*
 ---
 
 ## New System Support
@@ -8,6 +8,7 @@
   - Handles `${HOME}` and `${BIN}` variable expansion in config paths.
   - Extracts ZIP/7z/RAR archives and automatically locates Keen game data files (`.CK1`–`.CK6`).
   - Flattens nested folder structures and cleans up temp files after launch.
+  - Includes dedicated system image and setup documentation.
 
 ## Improved DOSBox Support
 - **Full DOSBox launch strategy** with intelligent game file detection — automatically finds `.conf`, `.bat`, `.exe`, and `.com` files inside archives or folders.
@@ -18,16 +19,34 @@
 
 ## UI/UX Improvements
 - **New minimize-to-tray function** — Allow Simple Launcher to remain open in the tray.
+- **System context menu** — Right-click on system buttons now shows Edit and Delete actions, passing the pre-selected system name.
+- **Dedicated context menu icons** — New icons for PS3, ScummVM, and Xbox 360 XBLA system menu items.
+- **Markdown rendering enhancements** — Improved Markdown styling with proper headings, code blocks, tables, lists, blockquotes, and horizontal rules in release notes and help content.
 
 ## New Parameter Placeholder
 - **`%NAME%`** — Resolves to the ROM filename without path or extension. Useful for emulators that expect just the game name (e.g., Commander Genius `dir="games/%NAME%"`).
 
-## Improved Sound Service
-- **Replaced Windows MediaPlayer with NAudio** — Sound playback no longer requires UI thread dispatcher invocations, improving reliability and eliminating thread-affinity issues.
+## Improved Error Handling
+- **Batch file error reporting** — Batch file failures now show a detailed error dialog with the option to open the error log. Batch file contents are also logged on failure for easier debugging.
+- **Batch file working directory validation** — Validates that the working directory exists before executing batch files.
+- **Unicode normalization for file paths** — Files created on macOS (NFD) can now be found on Windows (NFC) by trying multiple Unicode normalization forms, preventing "file not found" errors.
+- **Access denied handling for Updater** — The updater now handles Win32 access denied errors gracefully with a user-friendly message and download page redirect.
+- **COMException rendering detection** — Detects WPF render thread failures (UCEERR_RENDERTHREADFAILURE) caused by GPU driver issues or per-pixel transparency.
+
+## HTTP Resilience
+- **Replaced custom retry logic with Polly resilience handler** — HTTP downloads now use `Microsoft.Extensions.Http.Resilience` with exponential backoff and jitter (5 retry attempts, 2-second base delay).
+
+## Single Instance Improvements
+- **Improved single-instance behavior** — Launching a second instance now restores the existing window instead of showing an error message. Uses named events for cross-process signaling with a fallback to window enumeration.
+
+## Sound Service
+- **Replaced Windows MediaPlayer with NAudio 2.3.0** — Sound playback no longer requires UI thread dispatcher invocations, improving reliability and eliminating thread-affinity issues.
+- **Registered `IPlaySoundEffects` interface** — Added proper DI registration for sound effects service.
 
 ## MVVM Migration to CommunityToolkit.Mvvm
 - Migrated all ViewModels from custom `ViewModelBase` and `RelayCommand` infrastructure to **CommunityToolkit.Mvvm 8.4.2**.
-- Created dedicated ViewModels for multiple windows.
+- Created dedicated ViewModels for AboutWindow (`AboutViewModel`), ImageViewer (`ImageViewerViewModel`), SetFuzzyMatching (`SetFuzzyMatchingViewModel`), DebugWindow, and GlobalStatsWindow.
+- Added unit tests for `DebugViewModel`, `GameVerificationViewModel`, and `GlobalStatsViewModel`.
 
 ## Service Extraction from MainWindow
 - **`LoadingOverlayService`** — Extracted loading overlay management with operation counting (`SetLoadingState`, `EmergencyRelease`).
@@ -36,16 +55,26 @@
 - **`ThemeMenuService`** — Extracted theme switching logic (base themes + accent colors).
 - **`LanguageMenuService`** — Extracted language switching with checkmark management.
 
+## Code Refactoring
+- **Injected `ILogErrors` via constructor/parameter** — Replaced `ServiceProvider` resolution with proper constructor and parameter injection across favorites page, global search, context menu services, game button factory, and mount services.
+- **Standardized emulator detection checks** — Unified null-conditional access pattern for emulator detection checks (Azahar, Citra, DuckStation, Geolith, MAME, Ootake, Raine, RetroArch, Sameboy, Xemu).
+
 ## Dokan Driver Validation
 - **New `DokanValidation` class** — Uses P/Invoke directly against `dokan2.dll` to check if Dokan is installed before any mount operation.
 - Provides clear error messages when Dokan is missing for ZIP/CHD mounts.
+- **Dokan localization** — Added localized strings for Dokan driver not found dialog with option to open download page.
 
 ## Dependency Updates
 - `CommunityToolkit.Mvvm` **8.4.2** *(new)*
 - `NAudio` **2.3.0** *(new, replaces Windows MediaPlayer)*
+- `Microsoft.Extensions.Http.Resilience` **10.6.0** *(new, Polly resilience handler)*
 - `MessagePack` 3.1.4 → **3.1.6**
 - `YamlDotNet` 17.1.0 → **18.0.0**
 - `SharpCompress` → **0.48.1**
+- `Tomlyn` 2.3.2 → **2.4.0**
+- `Microsoft.Data.Sqlite` 10.0.7 → **10.0.8**
+- `Microsoft.Extensions.*` 10.0.7 → **10.0.8**
+- `Microsoft.CodeAnalysis.NetAnalyzers` 10.0.203 → **10.0.300**
 
 # Release 5.4.0
 *2026-05-10*
