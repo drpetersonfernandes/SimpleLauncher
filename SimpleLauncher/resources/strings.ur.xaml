@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">پسندیدہ میں شامل کر رہا ہے...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">اضافی سسٹم فولڈرز (اختیاری)</system:String>
     <system:String x:Key="AddNewSystem">نیا نظام شامل کریں</system:String>
+    <system:String x:Key="AddNewSystemIcon">نیا سسٹم شامل کریں</system:String>
     <system:String x:Key="AddSystem">سسٹم شامل کریں</system:String>
     <system:String x:Key="AddToFavorites">پسندیدہ میں شامل کریں</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">بٹن کے پہلو کا تناسب ایڈجسٹ کر رہا ہے...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">کور امیج حذف کریں</system:String>
     <system:String x:Key="DeleteGame">گیم حذف کریں</system:String>
     <system:String x:Key="DeleteSelectedSystem">منتخب شدہ سسٹم حذف کریں</system:String>
+    <system:String x:Key="DeleteSystem">سسٹم حذف کریں</system:String>
     <system:String x:Key="DeletingCoverImage">کور امیج حذف کر رہا ہے...</system:String>
     <system:String x:Key="DeletingGame">گیم حذف کر رہا ہے...</system:String>
     <system:String x:Key="Developer">ڈویلپر:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">آسان موڈ دستیاب نہیں ہے</system:String>
     <system:String x:Key="EditLinks">لنکس میں ترمیم کریں</system:String>
     <system:String x:Key="EditSystem">سسٹم ترمیم کریں</system:String>
+    <system:String x:Key="EditSystemIcon">سسٹم میں ترمیم کریں</system:String>
     <system:String x:Key="EditSystemtofixit">اسے درست کرنے کے لئے سسٹم ایڈٹ کریں۔</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">اس سسٹم کو 'ایکسپرٹ موڈ' میں ترمیم کریں اور اس ایمولیٹر کے لیے پیرامیٹر فیلڈ کو درست کریں۔</system:String>
     <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">ونڈوز سسٹم کی ترتیبات کی بنیاد پر لائٹ اور ڈارک موڈ کے درمیان خودکار طور پر تبدیل کریں</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">گیمز تلاش کرنے کے لیے ایک اور فولڈر شامل کریں</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">گیم فائلوں کو تلاش کرنے کے لیے اضافی فولڈرز شامل کریں۔</system:String>
+    <system:String x:Key="TooltipAddNewSystem">نیا سسٹم شامل کریں</system:String>
     <system:String x:Key="TooltipAddNewSystem2">ایک نئی گیم سسٹم کنفیگریشن شامل کریں</system:String>
     <system:String x:Key="TooltipAddSystem">کنفیگرڈ سسٹم کو اپنی لائبریری میں شامل کریں</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">گیم بٹنوں کا پہلو تناسب تبدیل کریں</system:String>

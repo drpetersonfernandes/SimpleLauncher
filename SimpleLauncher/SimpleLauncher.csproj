@@ -1017,6 +1017,8 @@
         <Resource Include="images\scummvm.png" />
         <None Remove="images\xboxxbla.png" />
         <Resource Include="images\xboxxbla.png" />
+        <None Remove="images\add.png" />
+        <Resource Include="images\add.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">

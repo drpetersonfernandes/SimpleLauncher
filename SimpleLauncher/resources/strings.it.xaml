@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">Aggiunta ai preferiti...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Cartelle di sistema aggiuntive (Opzionale)</system:String>
     <system:String x:Key="AddNewSystem">Aggiungi un nuovo sistema</system:String>
+    <system:String x:Key="AddNewSystemIcon">Aggiungi Nuovo Sistema</system:String>
     <system:String x:Key="AddSystem">Aggiungi sistema</system:String>
     <system:String x:Key="AddToFavorites">Aggiungi ai preferiti</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Regolazione rapporto d'aspetto pulsante...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">Elimina immagine di copertina</system:String>
     <system:String x:Key="DeleteGame">Elimina gioco</system:String>
     <system:String x:Key="DeleteSelectedSystem">Elimina il sistema selezionato</system:String>
+    <system:String x:Key="DeleteSystem">Elimina Sistema</system:String>
     <system:String x:Key="DeletingCoverImage">Eliminazione immagine di copertina...</system:String>
     <system:String x:Key="DeletingGame">Eliminazione gioco...</system:String>
     <system:String x:Key="Developer">Sviluppatore:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">Modalità Facile Non Disponibile</system:String>
     <system:String x:Key="EditLinks">Modifica collegamenti</system:String>
     <system:String x:Key="EditSystem">Modifica sistema</system:String>
+    <system:String x:Key="EditSystemIcon">Modifica Sistema</system:String>
     <system:String x:Key="EditSystemtofixit">Modifica il sistema per risolverlo.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Modifica questo sistema in 'Modalità Esperto' e correggi il campo del parametro per questo emulatore.</system:String>
     <system:String x:Key="ElevationRequired">L'operazione richiesta richiede l'elevazione (privilegi di amministratore).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Passa automaticamente tra Chiaro e Scuro in base alle impostazioni di sistema di Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Aggiungi un'altra cartella dove cercare giochi</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Aggiungi cartelle aggiuntive per la ricerca dei file di gioco</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Aggiungi Nuovo Sistema</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Aggiungi una nuova configurazione di sistema di gioco</system:String>
     <system:String x:Key="TooltipAddSystem">Aggiungi il sistema configurato alla tua libreria</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Cambia il rapporto d'aspetto dei pulsanti dei giochi</system:String>

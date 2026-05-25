@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">Menambahkan ke favorit...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Folder Sistem Tambahan (Opsional)</system:String>
     <system:String x:Key="AddNewSystem">Tambah Sistem Baru</system:String>
+    <system:String x:Key="AddNewSystemIcon">Tambah Sistem Baru</system:String>
     <system:String x:Key="AddSystem">Tambahkan Sistem</system:String>
     <system:String x:Key="AddToFavorites">Tambah ke Favorit</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Menyesuaikan rasio aspek tombol...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">Hapus Gambar Sampul</system:String>
     <system:String x:Key="DeleteGame">Hapus Game</system:String>
     <system:String x:Key="DeleteSelectedSystem">Hapus Sistem yang Dipilih</system:String>
+    <system:String x:Key="DeleteSystem">Hapus Sistem</system:String>
     <system:String x:Key="DeletingCoverImage">Menghapus gambar sampul...</system:String>
     <system:String x:Key="DeletingGame">Menghapus game...</system:String>
     <system:String x:Key="Developer">Pengembang:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">Mode Mudah Tidak Tersedia</system:String>
     <system:String x:Key="EditLinks">Edit Tautan</system:String>
     <system:String x:Key="EditSystem">Edit Sistem</system:String>
+    <system:String x:Key="EditSystemIcon">Edit Sistem</system:String>
     <system:String x:Key="EditSystemtofixit">Edit sistem untuk memperbaikinya.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Edit sistem ini dalam 'Mode Ahli' dan perbaiki bidang parameter untuk emulator ini.</system:String>
     <system:String x:Key="ElevationRequired">Operasi yang diminta memerlukan elevasi (Hak istimewa administrator).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Beralih secara otomatis antara Terang dan Gelap berdasarkan pengaturan sistem Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Tambahkan folder lain untuk mencari game</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Tambahkan folder tambahan untuk mencari file game</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Tambah Sistem Baru</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Tambahkan konfigurasi sistem game baru</system:String>
     <system:String x:Key="TooltipAddSystem">Tambahkan sistem yang dikonfigurasi ke perpustakaan Anda</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Ubah rasio aspek tombol game</system:String>

@@ -3,7 +3,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    
+   
+    <system:String x:Key="AddNewSystemIcon">Add New System</system:String>
+    <system:String x:Key="EditSystemIcon">Edit System</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Add New System</system:String>
     
     <system:String x:Key="1000000games">All games</system:String>
     <system:String x:Key="10000games">10000 games</system:String>
@@ -354,6 +357,7 @@
     <system:String x:Key="DeleteCoverImage">Delete Cover Image</system:String>
     <system:String x:Key="DeleteGame">Delete Game</system:String>
     <system:String x:Key="DeleteSelectedSystem">Delete Selected System</system:String>
+    <system:String x:Key="DeleteSystem">Delete System</system:String>
     <system:String x:Key="DeletingCoverImage">Deleting cover image...</system:String>
     <system:String x:Key="DeletingGame">Deleting game...</system:String>
     <system:String x:Key="Developer">Developer:</system:String>

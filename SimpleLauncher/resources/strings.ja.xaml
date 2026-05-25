@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">お気に入りに追加中...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">追加システムフォルダ (オプション)</system:String>
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
+    <system:String x:Key="AddNewSystemIcon">新しいシステムを追加</system:String>
     <system:String x:Key="AddSystem">システムを追加</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">ボタンのアスペクト比を調整しています...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">カバー画像を削除</system:String>
     <system:String x:Key="DeleteGame">ゲームを削除</system:String>
     <system:String x:Key="DeleteSelectedSystem">選択したシステムを削除</system:String>
+    <system:String x:Key="DeleteSystem">システムを削除</system:String>
     <system:String x:Key="DeletingCoverImage">カバー画像を削除中...</system:String>
     <system:String x:Key="DeletingGame">ゲームを削除中...</system:String>
     <system:String x:Key="Developer">開発者:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">イージーモードは利用できません</system:String>
     <system:String x:Key="EditLinks">リンクを編集</system:String>
     <system:String x:Key="EditSystem">システムを編集</system:String>
+    <system:String x:Key="EditSystemIcon">システムを編集</system:String>
     <system:String x:Key="EditSystemtofixit">修正するためにシステムを編集してください。</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">このシステムを「エキスパートモード」で編集し、このエミュレータのパラメータフィールドを修正してください。</system:String>
     <system:String x:Key="ElevationRequired">要求された操作には管理者特権が必要です。</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Windowsのシステム設定に基づいて、ライトモードとダークモードを自動的に切り替えます</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">ゲームを検索する別のフォルダを追加します</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">ゲームファイルを検索する追加フォルダーを追加します</system:String>
+    <system:String x:Key="TooltipAddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="TooltipAddNewSystem2">新しいゲームシステム設定を追加します</system:String>
     <system:String x:Key="TooltipAddSystem">設定したシステムをライブラリに追加します</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">ゲームボタンのアスペクト比を変更します</system:String>

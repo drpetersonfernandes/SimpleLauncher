@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">즐겨찾기에 추가 중...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">추가 시스템 폴더 (선택 사항)</system:String>
     <system:String x:Key="AddNewSystem">새 시스템 추가</system:String>
+    <system:String x:Key="AddNewSystemIcon">새 시스템 추가</system:String>
     <system:String x:Key="AddSystem">시스템 추가</system:String>
     <system:String x:Key="AddToFavorites">즐겨찾기에 추가</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">버튼 종횡비 조정 중...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">표지 이미지 삭제</system:String>
     <system:String x:Key="DeleteGame">게임 삭제</system:String>
     <system:String x:Key="DeleteSelectedSystem">선택한 시스템 삭제</system:String>
+    <system:String x:Key="DeleteSystem">시스템 삭제</system:String>
     <system:String x:Key="DeletingCoverImage">표지 이미지 삭제 중...</system:String>
     <system:String x:Key="DeletingGame">게임 삭제 중...</system:String>
     <system:String x:Key="Developer">개발자:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">이지 모드 사용 불가</system:String>
     <system:String x:Key="EditLinks">링크 편집</system:String>
     <system:String x:Key="EditSystem">시스템 편집</system:String>
+    <system:String x:Key="EditSystemIcon">시스템 편집</system:String>
     <system:String x:Key="EditSystemtofixit">문제를 해결하려면 시스템을 수정하세요.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">이 시스템을 '전문가 모드'에서 편집하고 이 에뮬레이터의 매개변수 필드를 수정하십시오.</system:String>
     <system:String x:Key="ElevationRequired">요청된 작업을 수행하려면 권한 상승(관리자 권한)이 필요합니다.</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Windows 시스템 설정에 따라 라이트 모드와 다크 모드를 자동으로 전환합니다.</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">게임을 검색할 다른 폴더를 추가합니다.</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">게임 파일을 검색할 추가 폴더를 추가합니다.</system:String>
+    <system:String x:Key="TooltipAddNewSystem">새 시스템 추가</system:String>
     <system:String x:Key="TooltipAddNewSystem2">새 게임 시스템 구성을 추가합니다.</system:String>
     <system:String x:Key="TooltipAddSystem">구성된 시스템을 라이브러리에 추가합니다.</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">게임 버튼의 종횡비 변경</system:String>

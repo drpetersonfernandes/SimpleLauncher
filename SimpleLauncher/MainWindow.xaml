@@ -507,15 +507,15 @@
             <MenuItem
                 Header="{DynamicResource EditSystem}"
                 ToolTip="{DynamicResource TooltipEditSystem}">
-                <MenuItem Click="EasyMode_Click" Header="{DynamicResource EasyMode}" ToolTip="{DynamicResource TooltipEditSystem}">
+                <MenuItem Click="EasyMode_Click" Header="{DynamicResource AddNewSystem}" ToolTip="{DynamicResource TooltipAddNewSystem}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/easy.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource EasyIcon}" />
+                        <Image Source="pack://application:,,,/images/add.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource AddNewSystemIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="ExpertMode_Click" Header="{DynamicResource ExpertMode}" ToolTip="{DynamicResource TooltipEditSystem}">
+                <MenuItem Click="ExpertMode_Click" Header="{DynamicResource EditSystem}" ToolTip="{DynamicResource TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image
-                            Source="pack://application:,,,/images/expert.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ExpertIcon}" />
+                            Source="pack://application:,,,/images/settings.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource EditSystemIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="DownloadImagePack_Click" Header="{DynamicResource DownloadImagePack}" ToolTip="{DynamicResource TooltipEditSystem}">

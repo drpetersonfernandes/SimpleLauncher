@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">Toevoegen aan favorieten...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Extra systeemmap (Optioneel)</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
+    <system:String x:Key="AddNewSystemIcon">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Knopverhouding aanpassen...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">Omslagafbeelding verwijderen</system:String>
     <system:String x:Key="DeleteGame">Verwijder spel</system:String>
     <system:String x:Key="DeleteSelectedSystem">Geselecteerd systeem verwijderen</system:String>
+    <system:String x:Key="DeleteSystem">Systeem verwijderen</system:String>
     <system:String x:Key="DeletingCoverImage">Coverafbeelding verwijderen...</system:String>
     <system:String x:Key="DeletingGame">Spel verwijderen...</system:String>
     <system:String x:Key="Developer">Ontwikkelaar:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">Eenvoudige modus niet beschikbaar</system:String>
     <system:String x:Key="EditLinks">Links bewerken</system:String>
     <system:String x:Key="EditSystem">Systeem bewerken</system:String>
+    <system:String x:Key="EditSystemIcon">Systeem bewerken</system:String>
     <system:String x:Key="EditSystemtofixit">Bewerk het systeem om dit op te lossen.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Bewerk dit systeem in 'Expert Modus' en corrigeer het parameter veld voor deze emulator.</system:String>
     <system:String x:Key="ElevationRequired">De gevraagde bewerking vereist verhoogde bevoegdheden (beheerdersrechten).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Schakel automatisch tussen Licht en Donker op basis van de Windows-systeeminstellingen</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Voeg nog een map toe om naar spellen te zoeken</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Voeg extra mappen toe om naar gamebestanden te zoeken</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Voeg een nieuwe spelsysteemconfiguratie toe</system:String>
     <system:String x:Key="TooltipAddSystem">Voeg het geconfigureerde systeem toe aan uw bibliotheek</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Wijzig de beeldverhouding van spelknoppen</system:String>

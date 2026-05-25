@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">প্রিয়তে যোগ করা হচ্ছে...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">অতিরিক্ত সিস্টেম ফোল্ডার (ঐচ্ছিক)</system:String>
     <system:String x:Key="AddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
+    <system:String x:Key="AddNewSystemIcon">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddToFavorites">প্রিয়তে যোগ করুন</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">বোতামের অনুপাত সমন্বয় করা হচ্ছে...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">কভার চিত্র মুছুন</system:String>
     <system:String x:Key="DeleteGame">গেম মুছুন</system:String>
     <system:String x:Key="DeleteSelectedSystem">নির্বাচিত সিস্টেম মুছে দিন</system:String>
+    <system:String x:Key="DeleteSystem">সিস্টেম মুছুন</system:String>
     <system:String x:Key="DeletingCoverImage">কভার ইমেজ মুছে ফেলা হচ্ছে...</system:String>
     <system:String x:Key="DeletingGame">গেম মুছে ফেলা হচ্ছে...</system:String>
     <system:String x:Key="Developer">ডেভেলপার:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">ইজি মোড উপলব্ধ নয়</system:String>
     <system:String x:Key="EditLinks">লিঙ্ক সম্পাদনা করুন</system:String>
     <system:String x:Key="EditSystem">সিস্টেম সম্পাদনা করুন</system:String>
+    <system:String x:Key="EditSystemIcon">সিস্টেম সম্পাদনা করুন</system:String>
     <system:String x:Key="EditSystemtofixit">এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">এই সিস্টেমটিকে 'বিশেষজ্ঞ মোডে' সম্পাদনা করুন এবং এই এমুলেটরের জন্য প্যারামিটার ক্ষেত্রটি ঠিক করুন।</system:String>
     <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">উইন্ডোজ সিস্টেম সেটিংসের উপর ভিত্তি করে স্বয়ংক্রিয়ভাবে হালকা এবং গাঢ় থিমের মধ্যে পরিবর্তন করুন</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">গেম অনুসন্ধানের জন্য আরেকটি ফোল্ডার যোগ করুন</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">গেম ফাইল খোঁজার জন্য অতিরিক্ত ফোল্ডার যোগ করুন</system:String>
+    <system:String x:Key="TooltipAddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="TooltipAddNewSystem2">একটি নতুন গেম সিস্টেম কনফিগারেশন যোগ করুন</system:String>
     <system:String x:Key="TooltipAddSystem">আপনার লাইব্রেরিতে কনফিগার করা সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">গেম বোতামগুলির অনুপাত পরিবর্তন করুন</system:String>

@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">Favorilere ekleniyor...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Ek Sistem Klasörleri (İsteğe Bağlı)</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
+    <system:String x:Key="AddNewSystemIcon">Yeni Sistem Ekle</system:String>
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Düğme en boy oranı ayarlanıyor...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">Kapak Görselini Sil</system:String>
     <system:String x:Key="DeleteGame">Oyunu Sil</system:String>
     <system:String x:Key="DeleteSelectedSystem">Seçilen sistemi sil</system:String>
+    <system:String x:Key="DeleteSystem">Sistemi Sil</system:String>
     <system:String x:Key="DeletingCoverImage">Kapak resmi siliniyor...</system:String>
     <system:String x:Key="DeletingGame">Oyun siliniyor...</system:String>
     <system:String x:Key="Developer">Geliştirici:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">Kolay Mod Kullanılamıyor</system:String>
     <system:String x:Key="EditLinks">Bağlantıları Düzenle</system:String>
     <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
+    <system:String x:Key="EditSystemIcon">Sistemi Düzenle</system:String>
     <system:String x:Key="EditSystemtofixit">Sorunu düzeltmek için sistemi düzenleyin.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Bu sistemi 'Uzman Modu'nda düzenleyin ve bu emülatör için parametre alanını düzeltin.</system:String>
     <system:String x:Key="ElevationRequired">İstenen işlem için yükseltme (Yönetici ayrıcalıkları) gerekiyor.</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Windows sistem ayarlarına göre Açık ve Koyu mod arasında otomatik geçiş yap</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Oyun aramak için başka bir klasör ekle</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Oyun dosyalarını aramak için ek klasörler ekle</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Yeni bir oyun sistemi yapılandırması ekle</system:String>
     <system:String x:Key="TooltipAddSystem">Yapılandırılan sistemi kitaplığınıza ekleyin</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Oyun düğmelerinin en boy oranını değiştir</system:String>

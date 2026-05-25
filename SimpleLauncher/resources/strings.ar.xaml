@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">الإضافة إلى المفضلة...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">مجلدات نظام إضافية (اختياري)</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
+    <system:String x:Key="AddNewSystemIcon">إضافة نظام جديد</system:String>
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">تعديل نسبة أبعاد الزر...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">حذف صورة الغلاف</system:String>
     <system:String x:Key="DeleteGame">حذف اللعبة</system:String>
     <system:String x:Key="DeleteSelectedSystem">حذف النظام المحدد</system:String>
+    <system:String x:Key="DeleteSystem">حذف النظام</system:String>
     <system:String x:Key="DeletingCoverImage">حذف صورة الغلاف...</system:String>
     <system:String x:Key="DeletingGame">حذف اللعبة...</system:String>
     <system:String x:Key="Developer">المطوّر:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">الوضع السهل غير متاح</system:String>
     <system:String x:Key="EditLinks">تعديل الروابط</system:String>
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
+    <system:String x:Key="EditSystemIcon">تعديل النظام</system:String>
     <system:String x:Key="EditSystemtofixit">قم بتعديل النظام لإصلاحه.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">قم بتحرير هذا النظام في &quot;الوضع الخبير&quot; وقم بإصلاح حقل المعلمة لهذا المحاكي.</system:String>
     <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">التبديل تلقائيًا بين الوضع الفاتح والداكن بناءً على إعدادات نظام Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">إضافة مجلد آخر للبحث عن الألعاب</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">أضف مجلدات إضافية للبحث عن ملفات الألعاب</system:String>
+    <system:String x:Key="TooltipAddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="TooltipAddNewSystem2">إضافة تكوين نظام ألعاب جديد</system:String>
     <system:String x:Key="TooltipAddSystem">إضافة النظام المكون إلى مكتبتك</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">تغيير نسبة العرض إلى الارتفاع لأزرار اللعبة</system:String>

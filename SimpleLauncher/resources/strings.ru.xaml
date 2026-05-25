@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">Добавление в избранное...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Дополнительные системные папки (необязательно)</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
+    <system:String x:Key="AddNewSystemIcon">Добавить новую систему</system:String>
     <system:String x:Key="AddSystem">Добавить систему</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Настройка соотношения сторон кнопок...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">Удалить изображение обложки</system:String>
     <system:String x:Key="DeleteGame">Удалить игру</system:String>
     <system:String x:Key="DeleteSelectedSystem">Удалить выбранную систему</system:String>
+    <system:String x:Key="DeleteSystem">Удалить систему</system:String>
     <system:String x:Key="DeletingCoverImage">Удаление изображения обложки...</system:String>
     <system:String x:Key="DeletingGame">Удаление игры...</system:String>
     <system:String x:Key="Developer">Разработчик:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">Простой режим недоступен</system:String>
     <system:String x:Key="EditLinks">Редактировать ссылки</system:String>
     <system:String x:Key="EditSystem">Редактировать систему</system:String>
+    <system:String x:Key="EditSystemIcon">Редактировать систему</system:String>
     <system:String x:Key="EditSystemtofixit">Отредактируйте систему, чтобы исправить.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Отредактируйте эту систему в &quot;Экспертном режиме&quot; и исправьте поле параметра для этого эмулятора.</system:String>
     <system:String x:Key="ElevationRequired">Для выполнения запрошенной операции требуются права администратора.</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Автоматическое переключение между светлой и тёмной темой на основе системных настроек Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Добавить еще одну папку для поиска игр</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Добавить дополнительные папки для поиска игровых файлов</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Добавить новую конфигурацию игровой системы</system:String>
     <system:String x:Key="TooltipAddSystem">Добавить настроенную систему в вашу библиотеку</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Изменить соотношение сторон кнопок игр</system:String>

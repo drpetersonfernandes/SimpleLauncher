@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">पसंदीदा में जोड़ रहा है...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">अतिरिक्त सिस्टम फ़ोल्डर (वैकल्पिक)</system:String>
     <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
+    <system:String x:Key="AddNewSystemIcon">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddSystem">सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddToFavorites">पसंदीदा में जोड़ें</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">बटन पहलू अनुपात समायोजित कर रहा है...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">कवर इमेज हटाएँ</system:String>
     <system:String x:Key="DeleteGame">खेल हटाएं</system:String>
     <system:String x:Key="DeleteSelectedSystem">चयनित सिस्टम हटाएं</system:String>
+    <system:String x:Key="DeleteSystem">सिस्टम हटाएँ</system:String>
     <system:String x:Key="DeletingCoverImage">कवर इमेज हटा रहा है...</system:String>
     <system:String x:Key="DeletingGame">गेम हटा रहा है...</system:String>
     <system:String x:Key="Developer">डेवलपर:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">आसान मोड अनुपलब्ध</system:String>
     <system:String x:Key="EditLinks">लिंक संपादित करें</system:String>
     <system:String x:Key="EditSystem">सिस्टम संपादित करें</system:String>
+    <system:String x:Key="EditSystemIcon">सिस्टम संपादित करें</system:String>
     <system:String x:Key="EditSystemtofixit">इसे ठीक करने के लिए सिस्टम संपादित करें।</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">इस सिस्टम को 'विशेषज्ञ मोड' में संपादित करें और इस एमुलेटर के लिए पैरामीटर फ़ील्ड को ठीक करें।</system:String>
     <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">विंडोज सिस्टम सेटिंग्स के आधार पर लाइट और डार्क के बीच स्वचालित रूप से स्विच करें</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">गेम खोजने के लिए एक और फ़ोल्डर जोड़ें</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">गेम फ़ाइलों को खोजने के लिए अतिरिक्त फ़ोल्डर जोड़ें</system:String>
+    <system:String x:Key="TooltipAddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="TooltipAddNewSystem2">एक नया गेम सिस्टम कॉन्फ़िगरेशन जोड़ें</system:String>
     <system:String x:Key="TooltipAddSystem">कॉन्फ़िगर किए गए सिस्टम को अपनी लाइब्रेरी में जोड़ें</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">गेम बटनों का पहलू अनुपात बदलें</system:String>

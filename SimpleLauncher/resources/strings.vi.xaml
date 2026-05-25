@@ -38,6 +38,7 @@
     <system:String x:Key="AddingToFavorites">Đang thêm vào mục ưa thích...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Thư mục hệ thống bổ sung (Tùy chọn)</system:String>
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
+    <system:String x:Key="AddNewSystemIcon">Thêm Hệ thống Mới</system:String>
     <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
     <system:String x:Key="AddToFavorites">Thêm vào mục yêu thích</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Đang điều chỉnh tỷ lệ khung hình nút...</system:String>
@@ -349,6 +350,7 @@
     <system:String x:Key="DeleteCoverImage">Xóa ảnh bìa</system:String>
     <system:String x:Key="DeleteGame">Xóa trò chơi</system:String>
     <system:String x:Key="DeleteSelectedSystem">Xóa hệ thống đã chọn</system:String>
+    <system:String x:Key="DeleteSystem">Xóa Hệ thống</system:String>
     <system:String x:Key="DeletingCoverImage">Đang xóa hình ảnh bìa...</system:String>
     <system:String x:Key="DeletingGame">Đang xóa trò chơi...</system:String>
     <system:String x:Key="Developer">Nhà phát triển:</system:String>
@@ -476,6 +478,7 @@
     <system:String x:Key="EasyModeUnavailable">Chế độ Dễ không khả dụng</system:String>
     <system:String x:Key="EditLinks">Chỉnh sửa liên kết</system:String>
     <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
+    <system:String x:Key="EditSystemIcon">Chỉnh sửa Hệ thống</system:String>
     <system:String x:Key="EditSystemtofixit">Chỉnh sửa hệ thống để khắc phục.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Chỉnh sửa hệ thống này trong 'Chế độ chuyên gia' và sửa trường tham số cho trình giả lập này.</system:String>
     <system:String x:Key="ElevationRequired">Thao tác được yêu cầu cần có đặc quyền cao hơn (quyền Quản trị viên).</system:String>
@@ -1905,6 +1908,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Tự động chuyển đổi giữa chế độ Sáng và Tối dựa trên cài đặt hệ thống Windows</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Thêm một thư mục khác để tìm kiếm trò chơi</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Thêm thư mục bổ sung để tìm kiếm tệp trò chơi</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Thêm Hệ thống Mới</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Thêm cấu hình hệ thống trò chơi mới</system:String>
     <system:String x:Key="TooltipAddSystem">Thêm hệ thống đã cấu hình vào thư viện của bạn</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Thay đổi tỷ lệ khung hình của các nút trò chơi</system:String>
