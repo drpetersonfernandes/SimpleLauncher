@@ -1537,6 +1537,19 @@
             Initialize the dispatcher queue.
             </summary>
         </member>
+        <member name="M:Microsoft.Web.WebView2.Wpf.WebView2CompositionControl.GetHostHwnd">
+            <summary>
+            Returns the host HWND, trying Window first, then falling back to HwndSource.
+            This allows the control to work when hosted inside an HwndSource without
+            a WPF Window ancestor (e.g. Visual Studio tool windows).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Web.WebView2.Wpf.WebView2CompositionControl.HwndSourceHook(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr,System.Boolean@)">
+            <summary>
+            Message hook for HwndSource-hosted scenarios. Listens for
+            WM_WINDOWPOSCHANGED to notify the browser that the host has moved.
+            </summary>
+        </member>
         <member name="M:Microsoft.Web.WebView2.Wpf.WebView2CompositionControl.CoreWebView2Controller_CursorChanged(System.Object,System.Object)">
             <summary>
             This is an event handler for our CoreWebView2CompositionController's CursorChanged event.

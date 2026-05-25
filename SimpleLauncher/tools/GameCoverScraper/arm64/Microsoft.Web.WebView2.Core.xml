@@ -947,6 +947,18 @@
         <member name="F:Microsoft.Web.WebView2.Core.CoreWebView2ProcessFailedReason.ProfileDeleted">
             <summary>Deprecated. This value is unused.</summary>
         </member>
+        <member name="F:Microsoft.Web.WebView2.Core.CoreWebView2ProcessFailedReason.NormalExit">
+            <summary>The process exited normally (exit code 0). This typically indicates
+            a clean or transparent process shutdown.</summary>
+        </member>
+        <member name="F:Microsoft.Web.WebView2.Core.CoreWebView2ProcessFailedReason.AbnormalExit">
+            <summary>The process exited abnormally (non-zero exit code). This indicates
+            an unexpected termination that is not a crash or kill.</summary>
+        </member>
+        <member name="F:Microsoft.Web.WebView2.Core.CoreWebView2ProcessFailedReason.IntegrityFailure">
+            <summary>The OS terminated the process due to a code integrity failure.
+            This indicates a DLL failed Windows Code Integrity verification.</summary>
+        </member>
         <member name="T:Microsoft.Web.WebView2.Core.CoreWebView2ProcessKind">
             <summary>Indicates the process type used in the ICoreWebView2ProcessInfo interface.</summary>
         </member>
