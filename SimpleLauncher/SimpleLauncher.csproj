@@ -1011,6 +1011,12 @@
         <Resource Include="images\romvalidator.png" />
         <None Remove="images\shrink.png" />
         <Resource Include="images\shrink.png" />
+        <None Remove="images\ps3.png" />
+        <Resource Include="images\ps3.png" />
+        <None Remove="images\scummvm.png" />
+        <Resource Include="images\scummvm.png" />
+        <None Remove="images\xboxxbla.png" />
+        <Resource Include="images\xboxxbla.png" />
     </ItemGroup>
     <ItemGroup>
         <None Update="images\default.png">

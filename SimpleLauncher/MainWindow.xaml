@@ -573,13 +573,13 @@
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click"
                           Header="Create Batch Files For PS3 Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/ps3.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForScummVMGames_Click"
                           Header="Create Batch Files For ScummVM Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/scummvm.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="CreateBatchFilesForWindowsGames_Click"
@@ -591,7 +591,7 @@
                 <MenuItem Click="CreateBatchFilesForXbox360XBLAGames_Click"
                           Header="Create Batch Files For Xbox360 XBLA Games" ToolTip="{DynamicResource TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
+                        <Image Source="pack://application:,,,/images/xboxxbla.png" Width="16" Height="16" AutomationProperties.Name="{DynamicResource ToolsIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="FindRomCover_Click" Header="Find Rom Cover" ToolTip="{DynamicResource TooltipToolsMenu}">
