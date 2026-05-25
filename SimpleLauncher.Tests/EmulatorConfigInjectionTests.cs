@@ -1,0 +1,476 @@
+using System.Text.Json.Nodes;
+using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Tests.TestHelpers;
+using Tomlyn;
+using Tomlyn.Model;
+using Xunit;
+using YamlDotNet.Serialization;
+
+namespace SimpleLauncher.Tests;
+
+public class EmulatorConfigInjectionTests : IDisposable
+{
+    private readonly string _testDirectory;
+    private readonly IConfiguration _configuration;
+
+    public EmulatorConfigInjectionTests()
+    {
+        _configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
+                ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
+            })
+            .Build();
+
+        ServiceProviderMock.Install();
+        _testDirectory = Path.Combine(Path.GetTempPath(), $"SL_EmuInjectionTest_{Guid.NewGuid():N}");
+        Directory.CreateDirectory(_testDirectory);
+    }
+
+    public void Dispose()
+    {
+        try
+        {
+            if (Directory.Exists(_testDirectory))
+                Directory.Delete(_testDirectory, true);
+        }
+        catch
+        {
+            // Best-effort cleanup
+        }
+
+        ServiceProviderMock.Restore();
+        GC.SuppressFinalize(this);
+    }
+
+    private void CopySampleToEmuDir(string emulatorDirName, string sampleSubDir, string configFileName)
+    {
+        var emuDir = Path.Combine(_testDirectory, emulatorDirName);
+        Directory.CreateDirectory(emuDir);
+
+        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", sampleSubDir, configFileName);
+        var destPath = Path.Combine(emuDir, configFileName);
+        File.Copy(samplePath, destPath);
+    }
+
+    private static string FakeEmulatorExePath(string emuDir)
+    {
+        return Path.Combine(emuDir, "emulator.exe");
+    }
+
+    private SettingsManager CreateSettingsManager()
+    {
+        return new SettingsManager(_configuration);
+    }
+
+    [Fact]
+    public void DuckStation_InjectsSettings_Correctly()
+    {
+        var emuDir = Path.Combine(_testDirectory, "DuckStation");
+        Directory.CreateDirectory(emuDir);
+        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "DuckStation", "settings.ini");
+        var destPath = Path.Combine(emuDir, "settings.ini");
+        File.Copy(samplePath, destPath);
+
+        var settings = CreateSettingsManager();
+        settings.DuckStationStartFullscreen = true;
+        settings.DuckStationPauseOnFocusLoss = false;
+        settings.DuckStationSaveStateOnExit = false;
+        settings.DuckStationRenderer = "Vulkan";
+        settings.DuckStationResolutionScale = 4;
+        settings.DuckStationTextureFilter = "Bilinear";
+        settings.DuckStationWidescreenHack = true;
+        settings.DuckStationPgxpEnable = false;
+        settings.DuckStationAspectRatio = "4:3";
+        settings.DuckStationVsync = true;
+        settings.DuckStationOutputVolume = 50;
+        settings.DuckStationOutputMuted = true;
+
+        DuckStationConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var lines = File.ReadAllLines(destPath).ToList();
+        var sectionValues = ParseIniSections(lines);
+
+        Assert.Equal("true", sectionValues[("Main", "StartFullscreen")]);
+        Assert.Equal("false", sectionValues[("Main", "PauseOnFocusLoss")]);
+        Assert.Equal("false", sectionValues[("Main", "SaveStateOnExit")]);
+        Assert.Equal("Vulkan", sectionValues[("GPU", "Renderer")]);
+        Assert.Equal("4", sectionValues[("GPU", "ResolutionScale")]);
+        Assert.Equal("Bilinear", sectionValues[("GPU", "TextureFilter")]);
+        Assert.Equal("true", sectionValues[("GPU", "WidescreenHack")]);
+        Assert.Equal("false", sectionValues[("GPU", "PGXPEnable")]);
+        Assert.Equal("4:3", sectionValues[("Display", "AspectRatio")]);
+        Assert.Equal("true", sectionValues[("Display", "VSync")]);
+        Assert.Equal("50", sectionValues[("Audio", "OutputVolume")]);
+        Assert.Equal("true", sectionValues[("Audio", "OutputMuted")]);
+    }
+
+    [Fact]
+    public void PCSX2_InjectsSettings_Correctly()
+    {
+        var emuDir = Path.Combine(_testDirectory, "PCSX2");
+        Directory.CreateDirectory(emuDir);
+        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "PCSX2", "PCSX2.ini");
+        var destPath = Path.Combine(emuDir, "PCSX2.ini");
+        File.Copy(samplePath, destPath);
+
+        var settings = CreateSettingsManager();
+        settings.Pcsx2StartFullscreen = false;
+        settings.Pcsx2EnableCheats = true;
+        settings.Pcsx2EnableWidescreenPatches = true;
+        settings.Pcsx2Renderer = 11; // Software
+        settings.Pcsx2UpscaleMultiplier = 3;
+        settings.Pcsx2AspectRatio = "4:3";
+        settings.Pcsx2Vsync = true;
+        settings.Pcsx2Volume = 75;
+        settings.Pcsx2AchievementsEnabled = true;
+        settings.Pcsx2AchievementsHardcore = false;
+
+        Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var lines = File.ReadAllLines(destPath).ToList();
+        var sectionValues = ParseIniSections(lines);
+
+        Assert.Equal("false", sectionValues[("UI", "StartFullscreen")]);
+        Assert.Equal("true", sectionValues[("EmuCore", "EnableCheats")]);
+        Assert.Equal("true", sectionValues[("EmuCore", "EnableWideScreenPatches")]);
+        Assert.Equal("11", sectionValues[("EmuCore/GS", "Renderer")]);
+        Assert.Equal("3", sectionValues[("EmuCore/GS", "upscale_multiplier")]);
+        Assert.Equal("4:3", sectionValues[("EmuCore/GS", "AspectRatio")]);
+        Assert.Equal("true", sectionValues[("EmuCore/GS", "VsyncEnable")]);
+        Assert.Equal("75", sectionValues[("SPU2/Mixing", "FinalVolume")]);
+        Assert.Equal("true", sectionValues[("Achievements", "Enabled")]);
+        Assert.Equal("false", sectionValues[("Achievements", "Hardcore")]);
+    }
+
+    [Fact]
+    public void Mesen_InjectsJsonSettings_Correctly()
+    {
+        CopySampleToEmuDir("Mesen", "Mesen", "settings.json");
+
+        var settings = CreateSettingsManager();
+        settings.MesenFullscreen = true;
+        settings.MesenAspectRatio = "16:9";
+        settings.MesenVsync = false;
+        settings.MesenBilinear = false;
+        settings.MesenVideoFilter = "CRT";
+        settings.MesenEnableAudio = false;
+        settings.MesenMasterVolume = 50;
+        settings.MesenRewind = true;
+        settings.MesenRunAhead = 2;
+        settings.MesenPauseInBackground = true;
+
+        var emuDir = Path.Combine(_testDirectory, "Mesen");
+        MesenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var configPath = Path.Combine(emuDir, "settings.json");
+        var root = JsonNode.Parse(File.ReadAllText(configPath))!.AsObject();
+
+        var video = root["Video"]!.AsObject();
+        Assert.True((bool)video["UseExclusiveFullscreen"]!);
+        Assert.Equal("Widescreen", (string)video["AspectRatio"]!);
+        Assert.False((bool)video["VerticalSync"]!);
+        Assert.False((bool)video["UseBilinearInterpolation"]!);
+        Assert.Equal("CRT", (string)video["VideoFilter"]!);
+
+        var audio = root["Audio"]!.AsObject();
+        Assert.False((bool)audio["EnableAudio"]!);
+        Assert.Equal(50, (int)audio["MasterVolume"]!);
+
+        var preferences = root["Preferences"]!.AsObject();
+        Assert.True((bool)preferences["EnableRewind"]!);
+        Assert.True((bool)preferences["PauseWhenInBackground"]!);
+
+        var emulation = root["Emulation"]!.AsObject();
+        Assert.Equal(2, (int)emulation["RunAheadFrames"]!);
+    }
+
+    [Fact]
+    public void Xenia_InjectsTomlSettings_Correctly()
+    {
+        CopySampleToEmuDir("Xenia", "Xenia", "xenia.config.toml");
+
+        var settings = CreateSettingsManager();
+        settings.XeniaApu = "xaudio2";
+        settings.XeniaMute = true;
+        settings.XeniaGpu = "vulkan";
+        settings.XeniaVsync = false;
+        settings.XeniaResScaleX = 2;
+        settings.XeniaResScaleY = 2;
+        settings.XeniaFullscreen = true;
+        settings.XeniaAa = "fxaa";
+        settings.XeniaScaling = "unscaled";
+        settings.XeniaHid = "winkey";
+        settings.XeniaVibration = false;
+        settings.XeniaDiscordPresence = false;
+        settings.XeniaApplyPatches = true;
+        settings.XeniaReadbackResolve = "fast";
+        settings.XeniaGammaSrgb = true;
+        settings.XeniaUserLanguage = 10;
+        settings.XeniaMountCache = false;
+
+        var emuDir = Path.Combine(_testDirectory, "Xenia");
+        XeniaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var configPath = Path.Combine(emuDir, "xenia.config.toml");
+        var tomlContent = File.ReadAllText(configPath);
+        var model = TomlSerializer.Deserialize<TomlTable>(tomlContent) ?? new TomlTable();
+
+        var apu = (TomlTable)model["APU"];
+        Assert.Equal("xaudio2", (string)apu["apu"]);
+        Assert.True((bool)apu["mute"]);
+
+        var gpu = (TomlTable)model["GPU"];
+        Assert.Equal("vulkan", (string)gpu["gpu"]);
+        Assert.False((bool)gpu["vsync"]);
+        Assert.Equal(2L, (long)gpu["draw_resolution_scale_x"]);
+        Assert.Equal(2L, (long)gpu["draw_resolution_scale_y"]);
+        Assert.Equal("fast", (string)gpu["readback_resolve"]);
+        Assert.True((bool)gpu["gamma_render_target_as_srgb"]);
+
+        var display = (TomlTable)model["Display"];
+        Assert.True((bool)display["fullscreen"]);
+        Assert.Equal("fxaa", (string)display["postprocess_antialiasing"]);
+        Assert.Equal("unscaled", (string)display["postprocess_scaling_and_sharpening"]);
+
+        var hid = (TomlTable)model["HID"];
+        Assert.Equal("winkey", (string)hid["hid"]);
+        Assert.False((bool)hid["vibration"]);
+
+        var general = (TomlTable)model["General"];
+        Assert.False((bool)general["discord"]);
+        Assert.True((bool)general["apply_patches"]);
+
+        var storage = (TomlTable)model["Storage"];
+        Assert.False((bool)storage["mount_cache"]);
+
+        var xconfig = (TomlTable)model["XConfig"];
+        Assert.Equal(10L, (long)xconfig["user_language"]);
+    }
+
+    [Fact]
+    public void RPCS3_InjectsYamlSettings_Correctly()
+    {
+        CopySampleToEmuDir("RPCS3", "RPCS3", "config.yml");
+
+        var settings = CreateSettingsManager();
+        settings.Rpcs3PpuDecoder = "Interpreter (fast)";
+        settings.Rpcs3SpuDecoder = "Interpreter (precise)";
+        settings.Rpcs3Renderer = "OpenGL";
+        settings.Rpcs3Resolution = "1920x1080";
+        settings.Rpcs3AspectRatio = "4:3";
+        settings.Rpcs3Vsync = true;
+        settings.Rpcs3ResolutionScale = 200;
+        settings.Rpcs3AnisotropicFilter = 16;
+        settings.Rpcs3AudioRenderer = "XAudio2";
+        settings.Rpcs3AudioBuffering = false;
+        settings.Rpcs3StartFullscreen = true;
+
+        var emuDir = Path.Combine(_testDirectory, "RPCS3");
+        Rpcs3ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var configPath = Path.Combine(emuDir, "config.yml");
+        var deserializer = new DeserializerBuilder().Build();
+        var yamlObject = deserializer.Deserialize<Dictionary<object, object>>(File.ReadAllText(configPath));
+
+        var core = (Dictionary<object, object>)yamlObject["Core"];
+        Assert.Equal("Interpreter (fast)", core["PPU Decoder"].ToString());
+        Assert.Equal("Interpreter (precise)", core["SPU Decoder"].ToString());
+
+        var video = (Dictionary<object, object>)yamlObject["Video"];
+        Assert.Equal("OpenGL", video["Renderer"].ToString());
+        Assert.Equal("1920x1080", video["Resolution"].ToString());
+        Assert.Equal("4:3", video["Aspect ratio"].ToString());
+        Assert.Equal("true", video["VSync"].ToString());
+        Assert.Equal("200", video["Resolution Scale"].ToString());
+        Assert.Equal("16", video["Anisotropic Filter Override"].ToString());
+
+        var audio = (Dictionary<object, object>)yamlObject["Audio"];
+        Assert.Equal("XAudio2", audio["Renderer"].ToString());
+        Assert.Equal("false", audio["Enable Buffering"].ToString());
+
+        var misc = (Dictionary<object, object>)yamlObject["Miscellaneous"];
+        Assert.Equal("true", misc["Start games in fullscreen mode"].ToString());
+    }
+
+    [Fact]
+    public void Redream_InjectsFlatKeyValue_Correctly()
+    {
+        CopySampleToEmuDir("Redream", "Redream", "redream.cfg");
+
+        var settings = CreateSettingsManager();
+        settings.RedreamCable = "RGB";
+        settings.RedreamBroadcast = "PAL";
+        settings.RedreamLanguage = "pt";
+        settings.RedreamRegion = "europe";
+        settings.RedreamVsync = false;
+        settings.RedreamFrameskip = false;
+        settings.RedreamAspect = "16:9";
+        settings.RedreamRes = 4;
+        settings.RedreamRenderer = "opengl";
+        settings.RedreamVolume = 75;
+        settings.RedreamLatency = 16;
+        settings.RedreamFramerate = true;
+
+        var emuDir = Path.Combine(_testDirectory, "Redream");
+        RedreamConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var lines = File.ReadAllLines(Path.Combine(emuDir, "redream.cfg"));
+        var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var line in lines)
+        {
+            var parts = line.Split('=', 2);
+            if (parts.Length == 2)
+            {
+                values[parts[0].Trim()] = parts[1].Trim();
+            }
+        }
+
+        Assert.Equal("RGB", values["cable"]);
+        Assert.Equal("PAL", values["broadcast"]);
+        Assert.Equal("pt", values["language"]);
+        Assert.Equal("europe", values["region"]);
+        Assert.Equal("0", values["vsync"]);
+        Assert.Equal("0", values["frameskip"]);
+        Assert.Equal("16:9", values["aspect"]);
+        Assert.Equal("4", values["res"]);
+        Assert.Equal("opengl", values["renderer"]);
+        Assert.Equal("75", values["volume"]);
+        Assert.Equal("16", values["latency"]);
+        Assert.Equal("1", values["framerate"]);
+    }
+
+    [Fact]
+    public void RetroArch_InjectsQuotedSettings_Correctly()
+    {
+        CopySampleToEmuDir("RetroArch", "Retroarch", "retroarch.cfg");
+
+        var settings = CreateSettingsManager();
+        settings.RetroArchFullscreen = true;
+        settings.RetroArchVsync = false;
+        settings.RetroArchVideoDriver = "vulkan";
+        settings.RetroArchThreadedVideo = true;
+        settings.RetroArchBilinear = false;
+        settings.RetroArchAspectRatioIndex = "3";
+        settings.RetroArchScaleInteger = true;
+        settings.RetroArchShaderEnable = false;
+        settings.RetroArchHardSync = true;
+        settings.RetroArchAudioEnable = false;
+        settings.RetroArchAudioMute = true;
+        settings.RetroArchPauseNonActive = false;
+        settings.RetroArchSaveOnExit = false;
+        settings.RetroArchAutoSaveState = true;
+        settings.RetroArchAutoLoadState = true;
+        settings.RetroArchRewind = true;
+        settings.RetroArchRunAhead = true;
+        settings.RetroArchDiscordAllow = false;
+        settings.RetroArchMenuDriver = "rgui";
+        settings.RetroArchShowAdvancedSettings = false;
+        settings.RetroArchCheevosEnable = true;
+        settings.RetroArchCheevosHardcore = true;
+
+        var emuDir = Path.Combine(_testDirectory, "RetroArch");
+        RetroArchConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var lines = File.ReadAllLines(Path.Combine(emuDir, "retroarch.cfg"));
+        var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var line in lines)
+        {
+            var trimmed = line.Trim();
+            if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith('#')) continue;
+
+            var parts = trimmed.Split('=', 2);
+            if (parts.Length >= 1)
+            {
+                values[parts[0].Trim()] = parts.Length > 1 ? parts[1].Trim() : "";
+            }
+        }
+
+        Assert.Equal("\"true\"", values["video_fullscreen"]);
+        Assert.Equal("\"false\"", values["video_vsync"]);
+        Assert.Equal("\"vulkan\"", values["video_driver"]);
+        Assert.Equal("\"true\"", values["video_threaded"]);
+        Assert.Equal("\"false\"", values["video_smooth"]);
+        Assert.Equal("\"3\"", values["video_aspect_ratio_index"]);
+        Assert.Equal("\"true\"", values["video_scale_integer"]);
+        Assert.Equal("\"false\"", values["video_shader_enable"]);
+        Assert.Equal("\"true\"", values["video_hard_sync"]);
+        Assert.Equal("\"false\"", values["audio_enable"]);
+        Assert.Equal("\"true\"", values["audio_mute_enable"]);
+        Assert.Equal("\"false\"", values["pause_nonactive"]);
+        Assert.Equal("\"false\"", values["config_save_on_exit"]);
+        Assert.Equal("\"true\"", values["savestate_auto_save"]);
+        Assert.Equal("\"true\"", values["savestate_auto_load"]);
+        Assert.Equal("\"true\"", values["rewind_enable"]);
+        Assert.Equal("\"true\"", values["run_ahead_enabled"]);
+        Assert.Equal("\"false\"", values["discord_allow"]);
+        Assert.Equal("\"rgui\"", values["menu_driver"]);
+        Assert.Equal("\"false\"", values["menu_show_advanced_settings"]);
+        Assert.Equal("\"true\"", values["cheevos_enable"]);
+        Assert.Equal("\"true\"", values["cheevos_hardcore_mode_enable"]);
+    }
+
+    [Fact]
+    public void Blastem_InjectsNestedBlockSettings_Correctly()
+    {
+        CopySampleToEmuDir("Blastem", "Blastem", "default.cfg");
+
+        var settings = CreateSettingsManager();
+        settings.BlastemFullscreen = true;
+        settings.BlastemVsync = false;
+        settings.BlastemAspect = "16:9";
+        settings.BlastemScaling = "integer";
+        settings.BlastemScanlines = true;
+        settings.BlastemAudioRate = 44100;
+        settings.BlastemSyncSource = "video";
+
+        var emuDir = Path.Combine(_testDirectory, "Blastem");
+        BlastemConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings);
+
+        var configPath = Path.Combine(emuDir, "default.cfg");
+        var content = File.ReadAllText(configPath);
+
+        Assert.Contains("fullscreen on", content);
+        Assert.Contains("vsync off", content);
+        Assert.Contains("aspect 16:9", content);
+        Assert.Contains("scaling integer", content);
+        Assert.Contains("scanlines on", content);
+        Assert.Contains("rate 44100", content);
+        Assert.Contains("sync_source video", content);
+    }
+
+    // --- Helpers ---
+
+    /// <summary>
+    /// Parses an INI file with sections into a dictionary keyed by (section, key).
+    /// </summary>
+    private static Dictionary<(string Section, string Key), string> ParseIniSections(List<string> lines)
+    {
+        var result = new Dictionary<(string, string), string>();
+        var currentSection = "";
+
+        foreach (var line in lines)
+        {
+            var trimmed = line.Trim();
+            if (trimmed.StartsWith('[') && trimmed.EndsWith(']'))
+            {
+                currentSection = trimmed[1..^1];
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith(';') || trimmed.StartsWith('#'))
+                continue;
+
+            var parts = trimmed.Split('=', 2);
+            if (parts.Length == 2)
+            {
+                result[(currentSection, parts[0].Trim())] = parts[1].Trim();
+            }
+        }
+
+        return result;
+    }
+}

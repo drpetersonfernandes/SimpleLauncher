@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Tests.TestHelpers;
@@ -17,7 +18,8 @@ public static class ServiceProviderMock
     /// Installs a minimal mock <see cref="IServiceProvider"/> into <see cref="App.ServiceProvider"/>
     /// that returns a no-op <see cref="ILogErrors"/> implementation.
     /// </summary>
-    public static void Install()
+    /// <param name="configuration">Optional <see cref="IConfiguration"/> to provide to services that request it.</param>
+    public static void Install(IConfiguration? configuration = null)
     {
         lock (Lock)
         {
@@ -29,7 +31,7 @@ public static class ServiceProviderMock
 
             _originalProvider = property.GetValue(null) as IServiceProvider;
 
-            var mockProvider = new MockServiceProvider();
+            var mockProvider = new MockServiceProvider(configuration);
             property.SetValue(null, mockProvider);
         }
     }
@@ -54,11 +56,23 @@ public static class ServiceProviderMock
 
     private sealed class MockServiceProvider : IServiceProvider
     {
+        private readonly IConfiguration? _configuration;
+
+        public MockServiceProvider(IConfiguration? configuration)
+        {
+            _configuration = configuration;
+        }
+
         public object? GetService(Type serviceType)
         {
             if (serviceType == typeof(ILogErrors))
             {
                 return new NoOpLogErrors();
+            }
+
+            if (serviceType == typeof(IConfiguration))
+            {
+                return _configuration;
             }
 
             return null;

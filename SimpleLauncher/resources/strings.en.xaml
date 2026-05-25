@@ -4,10 +4,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
    
-    <system:String x:Key="AddNewSystemIcon">Add New System</system:String>
-    <system:String x:Key="EditSystemIcon">Edit System</system:String>
-    <system:String x:Key="TooltipAddNewSystem">Add New System</system:String>
-    
     <system:String x:Key="1000000games">All games</system:String>
     <system:String x:Key="10000games">10000 games</system:String>
     <system:String x:Key="1000games">1000 games</system:String>
@@ -46,6 +42,7 @@
     <system:String x:Key="AddingToFavorites">Adding to favorites...</system:String>
     <system:String x:Key="AdditionalSystemFoldersOptional">Additional System Folders (Optional)</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
+    <system:String x:Key="AddNewSystemIcon">Add New System</system:String>
     <system:String x:Key="AddSystem">Add System</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
     <system:String x:Key="AdjustingButtonAspectRatio">Adjusting button aspect ratio...</system:String>
@@ -485,6 +482,7 @@
     <system:String x:Key="EasyModeUnavailable">Easy Mode Unavailable</system:String>
     <system:String x:Key="EditLinks">Edit Links</system:String>
     <system:String x:Key="EditSystem">Edit _System</system:String>
+    <system:String x:Key="EditSystemIcon">Edit System</system:String>
     <system:String x:Key="EditSystemtofixit">Edit System to fix it.</system:String>
     <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Edit this system in 'Expert Mode' and fix the parameter field for this emulator.</system:String>
     <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
@@ -1914,6 +1912,7 @@
     <system:String x:Key="TooltipAdaptiveMenu">Automatically switch between Light and Dark based on Windows system settings</system:String>
     <system:String x:Key="TooltipAddAdditionalFolder2">Add another folder to search for games</system:String>
     <system:String x:Key="TooltipAdditionalFoldersExpander">Add additional folders to search for game files</system:String>
+    <system:String x:Key="TooltipAddNewSystem">Add New System</system:String>
     <system:String x:Key="TooltipAddNewSystem2">Add a new game system configuration</system:String>
     <system:String x:Key="TooltipAddSystem">Add the configured system to your library</system:String>
     <system:String x:Key="TooltipAspectRatioMenu">Change the aspect ratio of game buttons</system:String>
