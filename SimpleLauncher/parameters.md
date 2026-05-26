@@ -1466,6 +1466,16 @@ You can download this emulator on the [Official Website](https://www.dosbox-stag
 
 .
 
+**Emulator Name:** DOSBox-X<br>
+**Emulator Path (Example):** C:\Emulators\DOSBox-X\dosbox-x.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can download this emulator on the [Official Website](https://dosbox-x.com/).<br>
+
+.
+
 **Emulator Name:** Retroarch dosbox_pure<br>
 **Emulator Path (Example):** C:\Emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "C:\Emulators\retroarch\cores\dosbox_pure_libretro.dll" -f<br>
@@ -1476,16 +1486,6 @@ This emulator is available for Windows-x64.<br>
 It may support RetroAchievements. Please check on the [RetroAchievements Website](https://retroachievements.org/downloads).<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox_pure/).<br>
 You can download this emulator on the [Official Website](https://www.retroarch.com/?page=platforms).<br>
-
-.
-
-**Emulator Name:** DOSBox-X<br>
-**Emulator Path (Example):** C:\Emulators\DOSBox-X\dosbox-x.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-You can download this emulator on the [Official Website](https://dosbox-x.com/).<br>
 
 .
 

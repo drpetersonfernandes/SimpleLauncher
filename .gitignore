@@ -396,9 +396,9 @@ FodyWeavers.xsd
 *.msp
 
 # JetBrains Rider
+.idea/
 *.sln.iml
 
-!/.idea/
 !/SimpleLauncher_analysis_20250408_220315.md
 !/SimpleLauncher/appsettings.json
 !/.gitignore
