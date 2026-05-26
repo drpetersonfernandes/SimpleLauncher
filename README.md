@@ -146,24 +146,25 @@ The launcher supports an extensive range of gaming systems including:
 - **Modern Platforms:** ScummVM, Windows Store games, Xbox 360 XBLA
 
 ### 💿 CHD Support Matrix
-| Emulator | CHD Support | Notes |
-|----------|-------------|-------|
-| RPCS3 | ✅ Added | PlayStation 3 |
-| Xemu | ✅ Added | Original Xbox |
-| Xenia | ✅ Added | Xbox 360 |
-| Cxbx-Reloaded | ✅ Added | Original Xbox |
-| Mednafen | ✅ Added | Multi-system |
-| PCSX-Redux | ✅ Added | PlayStation 1 |
-| 4DO | ✅ Added | 3DO |
-| Gens | ✅ Added | Sega Genesis |
-| Blastem | ✅ Added | Sega Genesis |
-| Yabause | ✅ Added | Sega Saturn |
-| Mesen | ✅ Added | NES, SNES |
-| FinalBurn Neo | ✅ Added | Arcade |
-| FinalBurn Alpha | ✅ Added | Arcade |
-| Raine | ✅ Added | Arcade |
-| CD-i Emulator | ✅ Added | Philips CD-i |
-| Tsugaru | ✅ Added | FM Towns |
+| Emulator            | CHD Support | Notes         |
+|---------------------|-------------|---------------|
+| 4DO                 | ✅ Added | 3DO           |
+| Blastem             | ✅ Added | Sega Genesis  |
+| CD-i Emulator       | ✅ Added | Philips CD-i  |
+| Cxbx-Reloaded       | ✅ Added | Original Xbox |
+| DOSBox and variants | ✅ Added | Microsoft DOS |
+| FinalBurn Alpha     | ✅ Added | Arcade        |
+| FinalBurn Neo       | ✅ Added | Arcade        |
+| Gens                | ✅ Added | Sega Genesis  |
+| Mednafen            | ✅ Added | Multi-system  |
+| Mesen               | ✅ Added | NES, SNES     |
+| PCSX-Redux          | ✅ Added | PlayStation 1 |
+| Raine               | ✅ Added | Arcade        |
+| RPCS3               | ✅ Added | PlayStation 3 |
+| Tsugaru             | ✅ Added | FM Towns      |
+| Xemu                | ✅ Added | Original Xbox |
+| Xenia               | ✅ Added | Xbox 360      |
+| Yabause             | ✅ Added | Sega Saturn   |
 
 ---
 

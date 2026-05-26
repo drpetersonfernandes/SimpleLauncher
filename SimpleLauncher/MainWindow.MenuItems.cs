@@ -54,7 +54,12 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration)
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+            var systemToPreselect = !string.IsNullOrEmpty(SelectedSystem) && SelectedSystem != nosystemselected
+                ? SelectedSystem
+                : null;
+
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, systemToPreselect)
             {
                 Owner = this
             };
