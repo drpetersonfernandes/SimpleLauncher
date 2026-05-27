@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -44,7 +43,7 @@ public partial class RomHistoryWindow
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading ROM history.");
+                App.LogErrorAsync(ex, "Error loading ROM history.");
                 DebugLogger.Log($"Error loading ROM history: {ex.Message}");
             }
         };
@@ -60,7 +59,7 @@ public partial class RomHistoryWindow
             if (!await Task.Run(() => File.Exists(historyFilePath)))
             {
                 const string contextMessage = "'history.xml' is missing.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                App.LogErrorAsync(null, contextMessage);
 
                 await Dispatcher.InvokeAsync(() =>
                 {
@@ -96,7 +95,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while loading ROM history.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
         }
     }
@@ -135,7 +134,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while opening the browser.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
         }
     }

@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
@@ -61,7 +60,7 @@ public partial class RetroAchievementsSettingsWindow
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening RetroAchievements control panel link.");
+            App.LogErrorAsync(ex, "Error opening RetroAchievements control panel link.");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
     }
@@ -179,12 +178,12 @@ public partial class RetroAchievementsSettingsWindow
             catch (Exception ex)
             {
                 MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
+                App.LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
             }
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in ConfigureEmulator method.");
+            App.LogErrorAsync(ex, "Error in ConfigureEmulator method.");
         }
     }
 }

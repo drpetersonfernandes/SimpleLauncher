@@ -1,9 +1,7 @@
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SystemManager;
@@ -191,7 +189,7 @@ internal partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
+            App.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
         }
     }
 }

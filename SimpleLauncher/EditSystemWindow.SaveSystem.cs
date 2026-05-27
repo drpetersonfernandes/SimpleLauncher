@@ -1,9 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CreateFolders;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SanitizeInputString;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -313,7 +311,7 @@ internal partial class EditSystemWindow
             {
                 // Notify developer
                 const string contextMessage = "Unexpected error during system save process.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SaveSystemFailedMessageBox("An unexpected error occurred.");
@@ -326,7 +324,7 @@ internal partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system configuration.");
+            App.LogErrorAsync(ex, "Error saving system configuration.");
         }
     }
 

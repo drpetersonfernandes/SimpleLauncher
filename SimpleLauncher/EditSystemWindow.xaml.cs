@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -111,7 +110,7 @@ internal partial class EditSystemWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading systems into Edit window.");
+            App.LogErrorAsync(ex, "Error loading systems into Edit window.");
         }
         finally
         {
@@ -554,7 +553,7 @@ internal partial class EditSystemWindow : ILoadingState
         catch (Exception ex)
         {
             DebugLogger.Log($"Error in method DeleteSystemButton_Click: {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method DeleteSystemButton_Click");
+            App.LogErrorAsync(ex, "Error in method DeleteSystemButton_Click");
         }
     }
 
@@ -584,7 +583,7 @@ internal partial class EditSystemWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method EditSystem_Closing");
+            App.LogErrorAsync(ex, "Error in method EditSystem_Closing");
         }
     }
 
@@ -606,18 +605,18 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 // Specific message for application control policy blocking links
                 MessageBoxLibrary.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Application control policy blocked opening HelpLink.");
+                App.LogErrorAsync(ex, "Application control policy blocked opening HelpLink.");
             }
             else
             {
                 // Existing error handling for other Win32Exceptions
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method HelpLink_Click");
+                App.LogErrorAsync(ex, "Error in method HelpLink_Click");
                 MessageBoxLibrary.ErrorOpeningUrlMessageBox();
             }
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method HelpLink_Click");
+            App.LogErrorAsync(ex, "Error in method HelpLink_Click");
             MessageBoxLibrary.ErrorOpeningUrlMessageBox();
         }
     }
@@ -716,13 +715,13 @@ internal partial class EditSystemWindow : ILoadingState
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying system image.");
+                App.LogErrorAsync(ex, "Error copying system image.");
                 MessageBoxLibrary.FailedToCopySystemImageMessageBox(ex.Message);
             }
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying system image.");
+            App.LogErrorAsync(ex, "Error copying system image.");
         }
     }
 

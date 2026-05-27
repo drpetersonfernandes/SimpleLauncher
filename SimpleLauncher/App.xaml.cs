@@ -382,6 +382,32 @@ public partial class App : IDisposable
         }
     }
 
+    public static void LogErrorAsync(Exception ex, string contextMessage)
+    {
+        try
+        {
+            var logErrors = ServiceProvider?.GetRequiredService<ILogErrors>();
+            if (logErrors != null)
+            {
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        await logErrors.LogErrorAsync(ex, contextMessage);
+                    }
+                    catch (Exception fireForgetEx)
+                    {
+                        DebugLogger.LogException(fireForgetEx, $"Failed to log error: {contextMessage}");
+                    }
+                });
+            }
+        }
+        catch (Exception logEx)
+        {
+            DebugLogger.LogException(logEx, $"Failed to resolve ILogErrors service: {contextMessage}");
+        }
+    }
+
     private static void ReportException(Exception ex, string contextMessage)
     {
         try

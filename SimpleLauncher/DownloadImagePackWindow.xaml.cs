@@ -1,7 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.ViewModels;
 
@@ -40,7 +38,7 @@ internal partial class DownloadImagePackWindow
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
+            App.LogErrorAsync(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
         }
     }
 
@@ -52,7 +50,7 @@ internal partial class DownloadImagePackWindow
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method CloseWindowRoutineAsync.");
+            App.LogErrorAsync(ex, "Error in method CloseWindowRoutineAsync.");
         }
     }
 

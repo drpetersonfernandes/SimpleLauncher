@@ -2,8 +2,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -34,7 +32,7 @@ public partial class UpdateHistoryWindow
         catch (Exception ex)
         {
             const string contextMessage = "Failed to load 'whatsnew.md'.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
 
             HistoryMarkdownViewer.Markdown = (string)Application.Current.TryFindResource("UpdateHistoryLoadError") ?? "Error. Could not load the update history. The error has been logged.";
         }
