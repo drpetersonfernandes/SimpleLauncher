@@ -5,7 +5,7 @@ using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
-internal partial class DownloadImagePackWindow
+internal partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;
 
@@ -57,5 +57,10 @@ internal partial class DownloadImagePackWindow
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
         _viewModel.EmergencyOverlayRelease();
+    }
+
+    public void Dispose()
+    {
+        _viewModel.Dispose();
     }
 }

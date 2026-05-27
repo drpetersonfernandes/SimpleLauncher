@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -83,7 +82,7 @@ public partial class DebugViewModel : ObservableObject
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying log");
+            App.LogErrorAsync(ex, "Error copying log");
 
             // Notify user
             MessageBoxLibrary.FailedToCopyLogContentMessageBox();

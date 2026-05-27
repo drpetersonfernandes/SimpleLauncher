@@ -1,8 +1,6 @@
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -114,7 +112,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
         {
             // Notify developer
             const string contextMessage = "Error setting fuzzy matching threshold from slider.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
 
             // Notify the user
             MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();

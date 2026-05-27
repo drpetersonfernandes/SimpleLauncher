@@ -180,7 +180,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error populating system dropdown.");
+            App.LogErrorAsync(ex, "Error populating system dropdown.");
             SystemNames.Clear();
         }
     }
@@ -250,7 +250,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                         return;
                     }
 
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
+                    App.LogErrorAsync(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
                     clickedItem.State = DownloadButtonState.Failed;
                     EndOperation();
                 }
@@ -260,13 +260,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 if (!_disposed)
                 {
                     EndOperation();
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
+                    App.LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
                 }
             }
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, "Critical error in DownloadImagePackButtonClickAsync.");
+            App.LogErrorAsync(ex, "Critical error in DownloadImagePackButtonClickAsync.");
             EndOperation();
         }
     }
@@ -307,7 +307,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             StatusMessage = $"{errorInvalidDestinationPath} {componentName}";
 
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            App.LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
             EndOperation();
             item.State = DownloadButtonState.Failed;
             return;
@@ -413,7 +413,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             {
                 var contextMessage = $"Error downloading {componentName}.\n" +
                                      $"URL: {downloadUrl}";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
             }
 
             if (_downloadManager.IsDownloadCompleted)
@@ -492,7 +492,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the download link.");
+            App.LogErrorAsync(ex, "Error opening the download link.");
 
             MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
         }
@@ -527,7 +527,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error closing the Add System window.");
+            App.LogErrorAsync(ex, "Error closing the Add System window.");
         }
     }
 

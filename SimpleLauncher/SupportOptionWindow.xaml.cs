@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;

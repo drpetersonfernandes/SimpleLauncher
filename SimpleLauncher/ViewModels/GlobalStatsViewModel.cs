@@ -5,9 +5,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GlobalStats.Models;
 using SimpleLauncher.Services.MessageBox;
@@ -196,7 +194,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An error occurred while calculating Global Statistics.");
+                App.LogErrorAsync(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
                 {
                     MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -219,7 +217,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An error occurred while calculating Global Statistics.");
+            App.LogErrorAsync(ex, "An error occurred while calculating Global Statistics.");
         }
     }
 
@@ -411,7 +409,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to save report.");
+                App.LogErrorAsync(ex, "Failed to save report.");
                 MessageBoxLibrary.FailedSaveReportMessageBox();
             }
         }
