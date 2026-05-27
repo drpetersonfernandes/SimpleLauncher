@@ -265,7 +265,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, systemName)
             {
                 Owner = this
             };

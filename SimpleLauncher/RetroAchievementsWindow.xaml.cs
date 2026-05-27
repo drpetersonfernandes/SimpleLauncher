@@ -121,7 +121,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
     {
-        var settingsWindow = new RetroAchievementsSettingsWindow(_settings)
+        var settingsWindow = new RetroAchievementsSettingsWindow(_settings, _logErrors)
         {
             Owner = this
         };

@@ -231,7 +231,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
 
         // Load _machines and _mameLookup
-        _machines = MameManager.LoadFromDat();
+        _machines = MameManager.LoadFromDat(_logErrors);
         _mameLookup = _machines
             .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
@@ -730,7 +730,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
         gameListViewFactory.HandleSelectionChangedAsync(selectedItem);
     }
 
@@ -846,7 +846,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
 
-            var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig, _settings);
+            var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig, _settings, _logErrors);
 
             bool isDefaultImage;
             if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))

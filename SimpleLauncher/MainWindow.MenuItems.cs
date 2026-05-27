@@ -59,7 +59,7 @@ public partial class MainWindow
                 ? SelectedSystem
                 : null;
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, systemToPreselect)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, systemToPreselect)
             {
                 Owner = this
             };
@@ -85,7 +85,7 @@ public partial class MainWindow
 
             ResetUiAsync();
 
-            DownloadImagePackWindow downloadImagePack = new(_playSoundEffects)
+            DownloadImagePackWindow downloadImagePack = new(_playSoundEffects, _logErrors)
             {
                 Owner = this
             };
@@ -198,7 +198,7 @@ public partial class MainWindow
 
         // Re-instantiate factories with the updated _systemManagers list
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
@@ -1288,7 +1288,7 @@ public partial class MainWindow
             _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
 
-            var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings)
+            var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings, _logErrors)
             {
                 Owner = this
             };

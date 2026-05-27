@@ -15,8 +15,9 @@ public partial class RomHistoryWindow
     private readonly string _romName;
     private readonly string _systemName;
     private readonly string _searchTerm;
+    private readonly ILogErrors _logErrors;
 
-    public RomHistoryWindow(string romName, string systemName, string searchTerm)
+    public RomHistoryWindow(string romName, string systemName, string searchTerm, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -24,6 +25,7 @@ public partial class RomHistoryWindow
         _romName = romName;
         _systemName = systemName;
         _searchTerm = searchTerm;
+        _logErrors = logErrors;
 
         RomNameTextBox.Text = _romName;
         RomDescriptionTextBox.Text = _searchTerm;
@@ -43,7 +45,7 @@ public partial class RomHistoryWindow
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, "Error loading ROM history.");
+                _logErrors.LogAndForget(ex, "Error loading ROM history.");
                 DebugLogger.Log($"Error loading ROM history: {ex.Message}");
             }
         };
@@ -59,7 +61,7 @@ public partial class RomHistoryWindow
             if (!await Task.Run(() => File.Exists(historyFilePath)))
             {
                 const string contextMessage = "'history.xml' is missing.";
-                App.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 await Dispatcher.InvokeAsync(() =>
                 {
@@ -95,7 +97,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while loading ROM history.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
         }
     }
@@ -134,7 +136,7 @@ public partial class RomHistoryWindow
         catch (Exception ex)
         {
             const string contextMessage = "An error occurred while opening the browser.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
         }
     }

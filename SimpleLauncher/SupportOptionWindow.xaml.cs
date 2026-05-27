@@ -76,7 +76,7 @@ public partial class SupportOptionWindow
             MessageBoxLibrary.CouldNotOpenBrowserForAiSupportMessageBox();
 
             var contextMessage = $"Error in LaunchAiSearch with base URL: {baseUrl}";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
         }
 
         Close();
@@ -101,7 +101,7 @@ public partial class SupportOptionWindow
         {
             // Fallback to hardcoded URL if not found in config, or log an error
             sb.Append(" 'Simple Launcher' parameters reference can be found on 'https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters'.");
-            App.LogErrorAsync(null, "WikiParametersUrl is null or empty in SupportOptionWindow.");
+            _logErrors.LogAndForget(null, "WikiParametersUrl is null or empty in SupportOptionWindow.");
         }
 
         if (!string.IsNullOrWhiteSpace(_contextMessage))

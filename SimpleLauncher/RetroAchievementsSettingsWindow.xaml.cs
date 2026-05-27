@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
@@ -12,14 +13,16 @@ namespace SimpleLauncher;
 public partial class RetroAchievementsSettingsWindow
 {
     private readonly SettingsManager _settings;
+    private readonly ILogErrors _logErrors;
 
-    public RetroAchievementsSettingsWindow(SettingsManager settings)
+    public RetroAchievementsSettingsWindow(SettingsManager settings, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Owner = Application.Current.MainWindow;
 
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _logErrors = logErrors;
 
         LoadSettings();
     }
@@ -60,7 +63,7 @@ public partial class RetroAchievementsSettingsWindow
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error opening RetroAchievements control panel link.");
+            _logErrors.LogAndForget(ex, "Error opening RetroAchievements control panel link.");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
     }
@@ -157,13 +160,13 @@ public partial class RetroAchievementsSettingsWindow
             {
                 switch (emulatorName)
                 {
-                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, password); break;
-                    case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, token); break;
-                    case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, token); break;
-                    case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token); break;
-                    case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token); break;
-                    case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token); break;
-                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, token); break;
+                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, password, _logErrors); break;
+                    case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, token, _logErrors); break;
+                    case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, token, _logErrors); break;
+                    case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token, _logErrors); break;
+                    case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token, _logErrors); break;
+                    case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token, _logErrors); break;
+                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, token, _logErrors); break;
                 }
 
                 if (success)
@@ -178,12 +181,12 @@ public partial class RetroAchievementsSettingsWindow
             catch (Exception ex)
             {
                 MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
-                App.LogErrorAsync(ex, $"Failed to configure {emulatorName}.");
+                _logErrors.LogAndForget(ex, $"Failed to configure {emulatorName}.");
             }
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error in ConfigureEmulator method.");
+            _logErrors.LogAndForget(ex, "Error in ConfigureEmulator method.");
         }
     }
 }
