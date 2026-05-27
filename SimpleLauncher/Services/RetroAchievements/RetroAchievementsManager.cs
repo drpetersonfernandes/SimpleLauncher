@@ -1,6 +1,5 @@
 using System.IO;
 using MessagePack;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements.Models;
 
@@ -34,7 +33,7 @@ public class RetroAchievementsManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
 
                 DebugLogger.Log($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
             }
@@ -48,7 +47,7 @@ public class RetroAchievementsManager
         {
             // Notify developer
             const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            App.LogErrorAsync(null, contextMessage);
 
             DebugLogger.Log("[RA Manager] Starting with empty RetroAchievements database");
         }

@@ -1,7 +1,5 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.CreateFolders;
@@ -29,7 +27,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the primary system folder.");
+                    App.LogErrorAsync(ex, "Error creating the primary system folder.");
 
                     // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
@@ -45,7 +43,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the primary image folder.");
+                    App.LogErrorAsync(ex, "Error creating the primary image folder.");
 
                     // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
@@ -67,7 +65,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the {folder} folder.");
+                    App.LogErrorAsync(ex, $"Error creating the {folder} folder.");
 
                     // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
@@ -78,7 +76,7 @@ public static class CreateDefaultSystemFolders
         {
             // Notify developer
             const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();

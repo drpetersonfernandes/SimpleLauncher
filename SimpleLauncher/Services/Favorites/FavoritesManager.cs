@@ -2,9 +2,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using MessagePack;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Favorites;
 
@@ -225,7 +223,7 @@ public class FavoritesManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading favorites.dat";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
             }
         }
 
@@ -330,7 +328,7 @@ public class FavoritesManager
         }
 
         // All retries exhausted or non-transient error
-        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving favorites.dat");
+        App.LogErrorAsync(lastException, "Error saving favorites.dat");
 
         // Attempt to clean up temp file if it exists
         try
@@ -342,7 +340,7 @@ public class FavoritesManager
         }
         catch (Exception cleanupEx)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+            App.LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
         }
 
         throw new InvalidOperationException("Failed to save favorites.", lastException);

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
@@ -183,7 +182,7 @@ public static class RetroAchievementsSystemMatcher
         if (LoggedUnmatchedSystems.Add(inputSystemName))
         {
             DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            App.LogErrorAsync(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
         return normalizedInput;

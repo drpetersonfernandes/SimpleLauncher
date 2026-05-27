@@ -1,8 +1,6 @@
 using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Models;
@@ -520,7 +518,7 @@ public class SettingsManager : IDisposable
                 }
                 catch (Exception ex)
                 {
-                    App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading settings.xml.");
+                    App.LogErrorAsync(ex, "Error loading settings.xml.");
                 }
             }
 
@@ -2199,7 +2197,7 @@ public class SettingsManager : IDisposable
             }
             catch (Exception ex)
             {
-                App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating settings directory.");
+                App.LogErrorAsync(ex, "Error creating settings directory.");
             }
         }
 
@@ -2279,7 +2277,7 @@ public class SettingsManager : IDisposable
         }
 
         // All retries exhausted or non-transient error
-        App.ServiceProvider?.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving settings.xml");
+        App.LogErrorAsync(lastException, "Error saving settings.xml");
 
         // Attempt to clean up temp file if it exists
         try

@@ -266,7 +266,7 @@ public partial class SystemManager
                         {
                             // Notify developer
                             const string contextMessage = "Error creating empty 'system.xml'.";
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(createEx, contextMessage);
+                            App.LogErrorAsync(createEx, contextMessage);
 
                             // Notify user
                             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -314,7 +314,7 @@ public partial class SystemManager
                 }
                 catch (XmlException ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
+                    App.LogErrorAsync(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
 
                     // Create a fresh document for rebuilding
                     doc = new XDocument(new XElement("SystemConfigs"));
@@ -341,19 +341,19 @@ public partial class SystemManager
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
                                 DebugLogger.Log($"Failed to validate system configuration for '{sysName}'");
-                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(innerEx, $"Failed to validate system configuration for '{sysName}'");
+                                App.LogErrorAsync(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
                     catch (Exception fatalEx)
                     {
                         DebugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(fatalEx, "Failed to perform regex recovery on system.xml.");
+                        App.LogErrorAsync(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
                 }
                 catch (IOException ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "The file 'system.xml' is locked.");
+                    App.LogErrorAsync(ex, "The file 'system.xml' is locked.");
                     MessageBoxLibrary.FileSystemXmlIsLockedMessageBox();
                 }
 
@@ -417,7 +417,7 @@ public partial class SystemManager
                 {
                     // Notify developer
                     const string contextMessage = "Error saving 'system.xml' after loading, cleaning, and sorting.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(saveEx, contextMessage);
+                    App.LogErrorAsync(saveEx, contextMessage);
                 }
 
                 // Return the list of valid system configurations (could be empty)
@@ -427,7 +427,7 @@ public partial class SystemManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading system configurations from 'system.xml'.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -575,7 +575,7 @@ public partial class SystemManager
             });
         }
 
-        bool RestoreBackupFile(string directoryPath, bool backupRestored, string systemXmlPath)
+        static bool RestoreBackupFile(string directoryPath, bool backupRestored, string systemXmlPath)
         {
             try
             {
@@ -601,7 +601,7 @@ public partial class SystemManager
                         {
                             // Notify developer
                             const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                            App.LogErrorAsync(ex, contextMessage);
 
                             // Notify user
                             MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
@@ -615,7 +615,7 @@ public partial class SystemManager
                 // Notify developer
                 // Error during backup search/restore attempt (e.g., directory access issues)
                 const string contextMessage = "Error during backup file handling.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
                 // Proceed to create empty file as backup handling failed
             }
 
@@ -686,7 +686,7 @@ public partial class SystemManager
                     }
                     catch (Exception ex)
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading/parsing system.xml for saving.");
+                        App.LogErrorAsync(ex, "Error loading/parsing system.xml for saving.");
                         throw new InvalidOperationException("Failed to load system configuration for saving.", ex);
                     }
 
@@ -810,7 +810,7 @@ public partial class SystemManager
                     }
 
                     // All retries exhausted or non-transient error
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(lastException, "Error saving system.xml.");
+                    App.LogErrorAsync(lastException, "Error saving system.xml.");
 
                     // Attempt to clean up temp file if it exists
                     try
@@ -833,7 +833,7 @@ public partial class SystemManager
         catch (Exception ex)
         {
             DebugLogger.Log($"Error saving system configuration: {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system configuration.");
+            App.LogErrorAsync(ex, "Error saving system configuration.");
         }
     }
 
@@ -855,7 +855,7 @@ public partial class SystemManager
                     }
                     catch (Exception ex)
                     {
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
+                        App.LogErrorAsync(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
                         throw new InvalidOperationException("Failed to load system configuration for deletion.", ex);
                     }
 
@@ -873,7 +873,7 @@ public partial class SystemManager
         catch (Exception ex)
         {
             DebugLogger.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error deleting system '{systemNameToDelete}'.");
+            App.LogErrorAsync(ex, $"Error deleting system '{systemNameToDelete}'.");
         }
     }
 

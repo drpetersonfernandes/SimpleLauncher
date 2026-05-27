@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.QuitOrReinstall;
 
@@ -133,7 +132,7 @@ public class TrayIconManager : IDisposable
         _mainWindow.ShowInTaskbar = false;
     }
 
-    private void OnOpenDebugWindow(object sender, RoutedEventArgs e)
+    private static void OnOpenDebugWindow(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -156,7 +155,7 @@ public class TrayIconManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open debug window from tray menu");
+            App.LogErrorAsync(ex, "Failed to open debug window from tray menu");
 
             ShowTrayMessage("Failed to open debug window");
         }

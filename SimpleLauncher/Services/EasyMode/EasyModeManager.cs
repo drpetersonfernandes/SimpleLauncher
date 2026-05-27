@@ -117,7 +117,7 @@ public class EasyModeManager : IDisposable
         {
             // If the file exists but is corrupt, we log it but still return null to allow API fallback.
             var contextMessage = $"The file '{xmlFile}' could not be loaded. It might be corrupted.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
             return null;
         }
     }
@@ -182,7 +182,7 @@ public class EasyModeManager : IDisposable
 
             if (systems == null || systems.Count == 0)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "EasyMode API returned no systems.");
+                App.LogErrorAsync(null, "EasyMode API returned no systems.");
                 return null;
             }
 
@@ -192,7 +192,7 @@ public class EasyModeManager : IDisposable
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An error occurred while loading EasyMode configuration from the API.");
+            App.LogErrorAsync(ex, "An error occurred while loading EasyMode configuration from the API.");
             return null;
         }
     }
@@ -259,7 +259,7 @@ public class EasyModeManager : IDisposable
         catch (Exception ex)
         {
             DebugLogger.Log($"Failed to load EasyMode configuration from fallback URL: {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
+            App.LogErrorAsync(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
             return null;
         }
     }

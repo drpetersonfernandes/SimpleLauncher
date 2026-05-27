@@ -43,7 +43,7 @@ public class ApplicationStats
                 }
                 else
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"ApplicationStats API returned: {response.StatusCode}");
+                    App.LogErrorAsync(ex, $"ApplicationStats API returned: {response.StatusCode}");
                 }
             }
         }
@@ -52,12 +52,12 @@ public class ApplicationStats
             // Request timed out - log but don't crash
             const string message = "ApplicationStats API call timed out after 15 seconds.";
             DebugLogger.Log(message);
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, message);
+            App.LogErrorAsync(null, message);
         }
         catch (Exception ex)
         {
             DebugLogger.Log($"ApplicationStats API call failed: {ex.Message}");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"ApplicationStats API call failed: {ex.Message}");
+            App.LogErrorAsync(ex, $"ApplicationStats API call failed: {ex.Message}");
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.UsageStats;
@@ -34,7 +33,7 @@ public class Stats
                 _isApiEnabled = false;
 
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
+                App.LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
 
                 return;
             }
@@ -46,7 +45,7 @@ public class Stats
                 _isApiEnabled = false;
 
                 // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.");
+                App.LogErrorAsync(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.");
 
                 return;
             }
@@ -59,7 +58,7 @@ public class Stats
             // Notify developer
             // Catch any other errors during loading (e.g., invalid JSON format)
             _isApiEnabled = false;
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.");
+            App.LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.");
         }
     }
 
@@ -75,7 +74,7 @@ public class Stats
         if (!_isApiEnabled)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Stats API call skipped: API not enabled.");
+            App.LogErrorAsync(null, "Stats API call skipped: API not enabled.");
 
             return;
         }
@@ -99,7 +98,7 @@ public class Stats
         {
             // Notify developer
             // This indicates a logic error if _isApiEnabled is true but _httpClient is null
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
+            App.LogErrorAsync(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
 
             return false;
         }
@@ -146,7 +145,7 @@ public class Stats
                                      $"Response Body: '{errorContent}'\n" +
                                      $"CallType: {callType}" +
                                      (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
+                App.LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
 
             return false;
@@ -158,7 +157,7 @@ public class Stats
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            App.LogErrorAsync(null, contextMessage);
 
             return false;
         }
@@ -169,7 +168,7 @@ public class Stats
             var contextMessage = $"Error communicating with the Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
 
             return false;
         }
@@ -180,7 +179,7 @@ public class Stats
             var contextMessage = $"Unexpected error while using Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
 
             return false;
         }
