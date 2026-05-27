@@ -126,7 +126,7 @@ public partial class InjectRedreamConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Redream");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Redream", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -154,7 +154,7 @@ public partial class InjectRedreamConfigWindow
 
         try
         {
-            RedreamConfigurationService.InjectSettings(path, _settings);
+            RedreamConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

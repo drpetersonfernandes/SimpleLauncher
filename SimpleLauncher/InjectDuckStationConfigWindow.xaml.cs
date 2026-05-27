@@ -85,7 +85,7 @@ public partial class InjectDuckStationConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("DuckStation");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("DuckStation", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -160,7 +160,7 @@ public partial class InjectDuckStationConfigWindow
 
         try
         {
-            DuckStationConfigurationService.InjectSettings(path, _settings);
+            DuckStationConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

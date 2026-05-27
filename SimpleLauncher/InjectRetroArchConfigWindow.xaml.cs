@@ -75,7 +75,7 @@ public partial class InjectRetroArchConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("RetroArch");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("RetroArch", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -137,7 +137,7 @@ public partial class InjectRetroArchConfigWindow
 
         try
         {
-            RetroArchConfigurationService.InjectSettings(path, _settings);
+            RetroArchConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

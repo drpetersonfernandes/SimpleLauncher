@@ -89,7 +89,7 @@ public partial class InjectYumirConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Yumir");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Yumir", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -118,7 +118,7 @@ public partial class InjectYumirConfigWindow
 
         try
         {
-            YumirConfigurationService.InjectSettings(path, _settings);
+            YumirConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (InvalidOperationException ex)

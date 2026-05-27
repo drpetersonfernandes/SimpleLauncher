@@ -56,7 +56,7 @@ public partial class InjectMesenConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Mesen");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Mesen", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -102,7 +102,7 @@ public partial class InjectMesenConfigWindow
 
         try
         {
-            MesenConfigurationService.InjectSettings(path, _settings);
+            MesenConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

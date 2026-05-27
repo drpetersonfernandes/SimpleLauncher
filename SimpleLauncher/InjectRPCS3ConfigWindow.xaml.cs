@@ -65,7 +65,7 @@ public partial class InjectRpcs3ConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("RPCS3");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("RPCS3", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -118,7 +118,7 @@ public partial class InjectRpcs3ConfigWindow
 
         try
         {
-            Rpcs3ConfigurationService.InjectSettings(path, _settings);
+            Rpcs3ConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

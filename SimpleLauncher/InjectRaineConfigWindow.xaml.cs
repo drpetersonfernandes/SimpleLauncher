@@ -48,7 +48,7 @@ public partial class InjectRaineConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Raine");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Raine", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -130,7 +130,7 @@ public partial class InjectRaineConfigWindow
         try
         {
             // Pass the stored paths to the service
-            RaineConfigurationService.InjectSettings(path, _settings, _gameFilePath, _systemRomPath, _settings.RaineRomDirectory);
+            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _gameFilePath, _systemRomPath, _settings.RaineRomDirectory);
             return true;
         }
         catch (Exception ex)

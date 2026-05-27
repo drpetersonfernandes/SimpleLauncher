@@ -67,7 +67,7 @@ public partial class InjectSupermodelConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Supermodel");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Supermodel", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -122,7 +122,7 @@ public partial class InjectSupermodelConfigWindow
 
         try
         {
-            SupermodelConfigurationService.InjectSettings(path, _settings);
+            SupermodelConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

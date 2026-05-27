@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -11,7 +13,8 @@ public partial class ImageViewerWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new ImageViewerViewModel();
+        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        _viewModel = new ImageViewerViewModel(logErrors);
         DataContext = _viewModel;
     }
 

@@ -75,7 +75,7 @@ public partial class InjectXeniaConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Xenia");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Xenia", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -146,7 +146,7 @@ public partial class InjectXeniaConfigWindow
 
         try
         {
-            XeniaConfigurationService.InjectSettings(path, _settings);
+            XeniaConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

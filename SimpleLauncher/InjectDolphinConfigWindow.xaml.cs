@@ -50,7 +50,7 @@ public partial class InjectDolphinConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Dolphin");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Dolphin", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -90,7 +90,7 @@ public partial class InjectDolphinConfigWindow
 
         try
         {
-            DolphinConfigurationService.InjectSettings(path, _settings);
+            DolphinConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

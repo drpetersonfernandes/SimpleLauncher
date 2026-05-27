@@ -74,7 +74,7 @@ public partial class InjectPcsx2ConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("PCSX2");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("PCSX2", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -101,7 +101,7 @@ public partial class InjectPcsx2ConfigWindow
 
         try
         {
-            Pcsx2ConfigurationService.InjectSettings(path, _settings);
+            Pcsx2ConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

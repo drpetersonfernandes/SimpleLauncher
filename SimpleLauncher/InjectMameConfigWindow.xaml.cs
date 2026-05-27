@@ -69,7 +69,7 @@ public partial class InjectMameConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("MAME");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("MAME", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -120,7 +120,7 @@ public partial class InjectMameConfigWindow
 
         try
         {
-            MameConfigurationService.InjectSettings(path, _settings, _systemRomPath, _listOfSecondarySystemFolders);
+            MameConfigurationService.InjectSettings(path, _settings, _logErrors, _systemRomPath, _listOfSecondarySystemFolders);
             return true;
         }
         catch (Exception ex)

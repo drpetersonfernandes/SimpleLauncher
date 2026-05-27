@@ -64,7 +64,7 @@ public partial class InjectSegaModel2ConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("SEGA Model 2");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("SEGA Model 2", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -115,7 +115,7 @@ public partial class InjectSegaModel2ConfigWindow
 
         try
         {
-            SegaModel2ConfigurationService.InjectSettings(path, _settings);
+            SegaModel2ConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)

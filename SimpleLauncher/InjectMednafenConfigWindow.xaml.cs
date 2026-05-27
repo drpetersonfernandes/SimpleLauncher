@@ -78,7 +78,7 @@ public partial class InjectMednafenConfigWindow
         }
 
         // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Mednafen");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Mednafen", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -137,7 +137,7 @@ public partial class InjectMednafenConfigWindow
 
         try
         {
-            MednafenConfigurationService.InjectSettings(path, _settings);
+            MednafenConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (Exception ex)
