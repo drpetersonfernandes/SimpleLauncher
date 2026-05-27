@@ -429,6 +429,35 @@ internal static partial class PathHelper
     private static partial Regex MyRegex();
 
     /// <summary>
+    /// Resolves a folder path (handling %BASEFOLDER% and relative paths) and returns
+    /// the absolute path if the directory exists, or null otherwise.
+    /// </summary>
+    /// <param name="folderPath">The folder path to resolve and check.</param>
+    /// <returns>The resolved absolute path if the directory exists, or null.</returns>
+    public static string TryGetExistingDirectory(string folderPath)
+    {
+        if (string.IsNullOrWhiteSpace(folderPath))
+        {
+            return null;
+        }
+
+        try
+        {
+            var resolved = ResolveRelativeToAppDirectory(folderPath);
+            if (!string.IsNullOrEmpty(resolved) && Directory.Exists(resolved))
+            {
+                return resolved;
+            }
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[TryGetExistingDirectory] Error resolving '{folderPath}': {ex.Message}");
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Attempts to find a file by trying different Unicode normalization forms.
     /// This is necessary because Windows filesystems can store filenames with different
     /// normalization forms (NFC vs NFD), especially when files are created on different

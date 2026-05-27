@@ -47,7 +47,7 @@ public class ExtractionService : IExtractionService
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
+            MessageBoxLibrary.DownloadedFileIsMissingMessageBox(archivePath);
 
             return false;
         }
@@ -67,9 +67,9 @@ public class ExtractionService : IExtractionService
             return false;
         }
 
-        // Add a retry loop to handle transient file locks (e.g., from antivirus)
-        const int maxRetries = 5;
-        const int retryDelayMs = 200;
+            // Add a retry loop to handle transient file locks (e.g., from antivirus)
+            const int maxRetries = 10;
+            const int retryDelayMs = 1000;
         for (var i = 0; i < maxRetries; i++)
         {
             if (!CheckForFileLock.CheckForFileLock.IsFileLocked(archivePath))

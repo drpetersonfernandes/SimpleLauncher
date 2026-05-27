@@ -8,8 +8,8 @@ namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
 public static class DeleteFiles
 {
-    private const int MaxDeleteRetries = 10;
-    private const int DeleteRetryDelayMs = 500;
+    private const int MaxDeleteRetries = 15;
+    private const int DeleteRetryDelayMs = 1000;
 
     /// <summary>
     /// Synchronous version for backward compatibility. Use TryDeleteFileAsync in async contexts.
