@@ -47,7 +47,7 @@ public class ExtractionService : IExtractionService
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.DownloadedFileIsMissingMessageBox(archivePath);
+            MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
 
             return false;
         }

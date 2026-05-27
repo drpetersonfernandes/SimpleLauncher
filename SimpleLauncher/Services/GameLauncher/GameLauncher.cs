@@ -206,6 +206,26 @@ public partial class GameLauncher
         if (!fileExists && !directoryExists)
         {
             var msg = $"File not found: {context.ResolvedFilePath}";
+
+            // Check if the path is in a OneDrive folder and provide specific guidance
+            if (!string.IsNullOrEmpty(context.ResolvedFilePath) &&
+                context.ResolvedFilePath.Contains("OneDrive", StringComparison.OrdinalIgnoreCase))
+            {
+                var parentDir = Path.GetDirectoryName(context.ResolvedFilePath);
+                var oneDriveFolderExists = !string.IsNullOrEmpty(parentDir) && Directory.Exists(parentDir);
+                if (!oneDriveFolderExists)
+                {
+                    msg += "\nThe parent OneDrive folder does not exist or is not accessible. " +
+                           "Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
+                }
+                else
+                {
+                    msg += "\nThe file is in a OneDrive folder but could not be found. " +
+                           "Ensure the file is synced and downloaded to your device. " +
+                           "Right-click the file in File Explorer and select 'Always keep on this device'.";
+                }
+            }
+
             await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(msg), msg);
             MessageBoxLibrary.FilePathIsInvalidMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return false;

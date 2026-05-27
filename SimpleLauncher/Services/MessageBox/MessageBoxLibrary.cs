@@ -1552,10 +1552,10 @@ internal static class MessageBoxLibrary
         static void ShowMessage()
         {
             var downloadedfileismissing = (string)Application.Current.TryFindResource("Downloadedfileismissing") ?? "Downloaded file is missing.";
-            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var oneDriveIssue = (string)Application.Current.TryFindResource("oneDriveIssue") ?? "If the file is in OneDrive, ensure it is synced and downloaded to your device. Right-click the file in File Explorer and select 'Always keep on this device'.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show($"{downloadedfileismissing}\n\n" +
-                                           $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+                                           $"{oneDriveIssue}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -2194,6 +2194,21 @@ internal static class MessageBoxLibrary
             var pleaseRemoveTheseCharacters = (string)Application.Current.TryFindResource("PleaseRemoveTheseCharacters") ?? "Please remove these characters and try again.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show($"{systemNamecontainsinvalid}\n\n{invalidChars}\n\n" +
+                                           $"{pleaseRemoveTheseCharacters}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void InvalidFolderCharactersMessageBox(string invalidChars)
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var systemFoldercontainsinvalid = (string)Application.Current.TryFindResource("SystemFoldercontainsinvalid") ?? "'System Folder' contains invalid characters:";
+            var pleaseRemoveTheseCharacters = (string)Application.Current.TryFindResource("PleaseRemoveTheseCharacters") ?? "Please remove these characters and try again.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            System.Windows.MessageBox.Show($"{systemFoldercontainsinvalid}\n\n{invalidChars}\n\n" +
                                            $"{pleaseRemoveTheseCharacters}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -3084,15 +3099,17 @@ internal static class MessageBoxLibrary
             var thefilepathisinvalid = (string)Application.Current.TryFindResource("Thefilepathisinvalid") ?? "The filepath is invalid or the file does not exist!";
             var networkPathIssue = (string)Application.Current.TryFindResource("networkPathIssue") ?? "If the file is on a network drive ensure your computer is still connected to that drive.";
             var usbDeviceIssue = (string)Application.Current.TryFindResource("usbDeviceIssue") ?? "If the file is on a portable USB device ensure it is still connected to your computer.";
+            var oneDriveIssue = (string)Application.Current.TryFindResource("oneDriveIssue") ?? "If the file is in OneDrive, ensure it is synced and downloaded to your device. Right-click the file in File Explorer and select 'Always keep on this device'.";
             var avoidusingspecialcharactersinthefilepath = (string)Application.Current.TryFindResource("Avoidusingspecialcharactersinthefilepath") ?? "Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var result = System.Windows.MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
-                                                        $"{thefilepathisinvalid}\n\n" +
-                                                        $"{networkPathIssue}\n\n" +
-                                                        $"{usbDeviceIssue}\n\n" +
+                                                        $"{thefilepathisinvalid}\n" +
+                                                        $"{networkPathIssue}\n" +
+                                                        $"{usbDeviceIssue}\n" +
+                                                        $"{oneDriveIssue}\n" +
                                                         $"{avoidusingspecialcharactersinthefilepath}\n\n" +
                                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
                                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
