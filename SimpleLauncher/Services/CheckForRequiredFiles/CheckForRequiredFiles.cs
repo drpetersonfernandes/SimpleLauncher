@@ -1,7 +1,5 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.CheckForRequiredFiles;
@@ -39,7 +37,7 @@ public static class CheckForRequiredFiles
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to check for required files.");
+            App.LogErrorAsync(ex, "Failed to check for required files.");
         }
     }
 }

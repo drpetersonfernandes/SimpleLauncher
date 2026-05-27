@@ -1,7 +1,6 @@
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CheckPaths;
@@ -264,7 +263,7 @@ internal static partial class PathHelper
             // The calling code should handle the null return.
 
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
+            App.LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
 
             return null;
         }

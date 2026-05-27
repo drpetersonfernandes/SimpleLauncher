@@ -1,7 +1,5 @@
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 
@@ -29,7 +27,7 @@ public static class CheckIfDirectoryIsWritable
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to check if directory is writable.");
+            App.LogErrorAsync(ex, "Failed to check if directory is writable.");
 
             return false;
         }
