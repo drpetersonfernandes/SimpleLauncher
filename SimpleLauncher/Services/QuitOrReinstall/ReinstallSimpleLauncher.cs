@@ -34,8 +34,7 @@ public static class ReinstallSimpleLauncher
                 catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
                 {
                     // Log the access denied error
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                        .LogErrorAsync(ex, "Access denied when starting Updater.exe.");
+                    App.LogErrorAsync(ex, "Access denied when starting Updater.exe.");
 
                     // Notify user that update failed
                     MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
@@ -89,8 +88,7 @@ public static class ReinstallSimpleLauncher
                         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
                         {
                             // Log the access denied error
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                                .LogErrorAsync(ex, "Access denied when starting Updater.exe after download.");
+                            App.LogErrorAsync(ex, "Access denied when starting Updater.exe after download.");
 
                             // Notify user that update failed
                             MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
@@ -105,7 +103,7 @@ public static class ReinstallSimpleLauncher
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to download and reinstall the updater.");
+                    App.LogErrorAsync(ex, "Failed to download and reinstall the updater.");
 
                     // Notify user
                     MessageBoxLibrary.InstallUpdateManuallyMessageBox();
@@ -115,7 +113,7 @@ public static class ReinstallSimpleLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to reinstall SimpleLauncher.");
+            App.LogErrorAsync(ex, "Failed to reinstall SimpleLauncher.");
 
             // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox();

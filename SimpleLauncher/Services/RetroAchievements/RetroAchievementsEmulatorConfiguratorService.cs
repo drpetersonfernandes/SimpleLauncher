@@ -2,7 +2,6 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
@@ -33,7 +32,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            App.LogErrorAsync(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
             return false;
         }
     }
@@ -49,7 +48,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("retroarch", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"RetroArch config not found and no sample available at {configPath}");
+                App.LogErrorAsync(null, $"RetroArch config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -80,7 +79,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         // Restore from sample if missing
         if (!RestoreConfigFromSample("pcsx2", configPath))
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"PCSX2 config not found and no sample available at {configPath}");
+            App.LogErrorAsync(null, $"PCSX2 config not found and no sample available at {configPath}");
             return false;
         }
 
@@ -108,7 +107,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("duckstation", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"DuckStation config not found and no sample available at {configPath}");
+                App.LogErrorAsync(null, $"DuckStation config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -118,7 +117,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Validate encryption succeeded
             if (string.IsNullOrEmpty(encryptedToken))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Failed to encrypt DuckStation token - cannot configure emulator");
+                App.LogErrorAsync(null, "Failed to encrypt DuckStation token - cannot configure emulator");
                 return false;
             }
 
@@ -161,7 +160,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("ppsspp", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"PPSSPP config not found and no sample available at {configPath}");
+                App.LogErrorAsync(null, $"PPSSPP config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -184,7 +183,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to create PPSSPP session file at {configDir}");
+                App.LogErrorAsync(ex, $"Failed to create PPSSPP session file at {configDir}");
                 return false;
             }
         }
@@ -224,7 +223,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to prepare Dolphin config path at {configDir}");
+            App.LogErrorAsync(ex, $"Failed to prepare Dolphin config path at {configDir}");
             return false;
         }
 
@@ -262,7 +261,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
                 // Try restoring to appdata if portable failed
                 if (!RestoreConfigFromSample("flycast", configPath))
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Flycast config not found and no sample available");
+                    App.LogErrorAsync(null, "Flycast config not found and no sample available");
                     return false;
                 }
             }
@@ -292,7 +291,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             // Restore from sample if missing
             if (!RestoreConfigFromSample("bizhawk", configPath))
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"BizHawk config not found and no sample available at {configPath}");
+                App.LogErrorAsync(null, $"BizHawk config not found and no sample available at {configPath}");
                 return false;
             }
 
@@ -320,7 +319,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to configure BizHawk at {configPath}");
+                App.LogErrorAsync(ex, $"Failed to configure BizHawk at {configPath}");
                 return false;
             }
         }
@@ -363,7 +362,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to update simple INI file: {filePath}");
+            App.LogErrorAsync(ex, $"Failed to update simple INI file: {filePath}");
             return false;
         }
 
@@ -461,7 +460,7 @@ internal static class RetroAchievementsEmulatorConfiguratorService
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to update INI file: {filePath}");
+            App.LogErrorAsync(ex, $"Failed to update INI file: {filePath}");
             return false;
         }
     }

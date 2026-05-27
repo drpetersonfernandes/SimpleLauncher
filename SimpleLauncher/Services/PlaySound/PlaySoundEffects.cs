@@ -1,6 +1,5 @@
 #nullable enable
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using NAudio.Wave;
 using SimpleLauncher.Services.DebugAndBugReport;
 
@@ -55,7 +54,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+            App.LogErrorAsync(
                 new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."),
                 "Attempted to play sound with an empty filename.");
             return;
@@ -68,7 +67,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+            App.LogErrorAsync(
                 new ArgumentNullException(nameof(soundFileName), @"Attempted to play sound with an empty filename."),
                 "Attempted to play sound with an empty filename.");
             return;
@@ -78,7 +77,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         if (!File.Exists(soundPath))
         {
             var contextMessageMissing = $"Sound file not found: {soundPath}";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(
+            App.LogErrorAsync(
                 new FileNotFoundException(contextMessageMissing, soundPath),
                 contextMessageMissing);
             return;
@@ -98,7 +97,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex,
+                App.LogErrorAsync(ex,
                     $"Failed to play sound: {soundPath}");
                 StopCurrentPlayback();
             }
@@ -115,7 +114,15 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             _waveOut = null;
         }
 
-        _reader?.Dispose();
+        try
+        {
+            _reader?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
+        }
+
         _reader = null;
     }
 

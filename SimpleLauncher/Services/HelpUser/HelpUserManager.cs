@@ -1,7 +1,5 @@
 using System.IO;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser.Models;
 using SimpleLauncher.Services.MessageBox;
 
@@ -24,7 +22,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is missing.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                App.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileParametersMdIsMissingMessageBox();
@@ -41,7 +39,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "Unable to load 'parameters.md'. The file may be corrupted or in use.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                App.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadParametersMdMessageBox();
@@ -53,7 +51,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is empty.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                App.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileParametersMdIsEmptyMessageBox();
@@ -67,7 +65,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "No valid systems found in 'parameters.md' after processing.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                App.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoSystemInParametersMdMessageBox();
@@ -81,7 +79,7 @@ public partial class HelpUserManager
         {
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'parameters.md'.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();

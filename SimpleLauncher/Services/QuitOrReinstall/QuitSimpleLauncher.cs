@@ -32,7 +32,7 @@ public static class QuitSimpleLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to start new process during application restart.");
+            App.LogErrorAsync(ex, "Failed to start new process during application restart.");
 
             // Notify user
             MessageBoxLibrary.FailedToRestartMessageBox();
@@ -107,14 +107,13 @@ public static class QuitSimpleLauncher
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>()
-                .LogErrorAsync(ex, "Access denied when starting Updater.exe.");
+            App.LogErrorAsync(ex, "Access denied when starting Updater.exe.");
 
             MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to start updater and shut down.");
+            App.LogErrorAsync(ex, "Failed to start updater and shut down.");
 
             MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }

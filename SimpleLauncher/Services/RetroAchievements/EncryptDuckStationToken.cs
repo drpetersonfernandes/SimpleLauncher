@@ -1,7 +1,5 @@
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
@@ -39,7 +37,7 @@ public class EncryptDuckStationToken
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to encrypt DuckStation token.");
+            App.LogErrorAsync(ex, "Failed to encrypt DuckStation token.");
             return string.Empty;
         }
     }
