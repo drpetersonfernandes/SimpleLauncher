@@ -5526,8 +5526,9 @@ There are multiple ways to use this emulator.<br>
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Parameter:** --fullscreen --no-gui<br>
 
+If you want to use the '--fullscreen' parameter you also need to use the '--no-gui' parameter. This is a requirement imposed by this emulator.<br>
 If you use a CHD file 'Simple Launcher' will automatically mount the CHD file before launching the emulator. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 Before converting your games from ISO to CHD ensure the ISO is decrypted.<br>
 
@@ -5542,7 +5543,9 @@ Before converting your games from ISO to CHD ensure the ISO is decrypted.<br>
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Parameter:** --fullscreen --no-gui<br>
+
+If you want to use the '--fullscreen' parameter you also need to use the '--no-gui' parameter. This is a requirement imposed by this emulator.<br>
 
 **Option 3 - Use [Game Folders]**
 
@@ -5555,8 +5558,9 @@ Before converting your games from ISO to CHD ensure the ISO is decrypted.<br>
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** <br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Parameter:** --fullscreen --no-gui<br>
 
+If you want to use the '--fullscreen' parameter you also need to use the '--no-gui' parameter. This is a requirement imposed by this emulator.<br>
 Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files for you.<br>
 
 **Option 4 - Use ZIP files**
@@ -5570,8 +5574,9 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Parameter:** --fullscreen --no-gui<br>
 
+If you want to use the '--fullscreen' parameter you also need to use the '--no-gui' parameter. This is a requirement imposed by this emulator.<br>
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for the logic to work.<br>
 You can download this emulator on the [Official Website](https://rpcs3.net/download).
 

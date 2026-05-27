@@ -22,6 +22,7 @@ using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GameListUI;
+using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadingOverlay;
@@ -157,6 +158,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<LoadingOverlayService>();
         serviceCollection.AddSingleton<StartupInitializationService>();
         serviceCollection.AddSingleton<GameListUiService>();
+        serviceCollection.AddSingleton<GameFileWatcherService>();
         serviceCollection.AddTransient<MainWindow>();
 
         // Handlers

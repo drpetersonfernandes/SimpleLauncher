@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Oliva</system:String>
     <system:String x:Key="OliveDrab">Verde oliva</system:String>
+    <system:String x:Key="oneDriveIssue">Se il file è in OneDrive, assicurati che sia sincronizzato e scaricato sul tuo dispositivo. Fai clic destro sul file nell'Esplora file e seleziona 'Mantieni sempre su questo dispositivo'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Uno o più percorsi o parametri non sono validi.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">L'emulatore Ootake non supporta file CHD, ISO, CUE/BIN.</system:String>
     <system:String x:Key="Open">Apri</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">Sistema:</system:String>
     <system:String x:Key="SystemFolder">Cartella del Sistema</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">La 'Cartella di sistema' non può essere vuota o contenere solo spazi.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'Cartella sistema' contiene caratteri non validi:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Il percorso della cartella di sistema non è valido o non esiste:</system:String>
     <system:String x:Key="SystemFolderRequired">Cartella di sistema (Obbligatorio)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Il sistema è stato aggiunto con successo!</system:String>

@@ -1040,6 +1040,7 @@
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olive</system:String>
     <system:String x:Key="OliveDrab">Olive Drab</system:String>
+    <system:String x:Key="oneDriveIssue">If the file is in OneDrive, ensure it is synced and downloaded to your device. Right-click the file in File Explorer and select 'Always keep on this device'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">One or more paths or parameters are invalid.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake emulator does not support CHD, ISO, CUE/BIN files.</system:String>
     <system:String x:Key="Open">Open</system:String>
@@ -1784,6 +1785,7 @@
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'System Folder' cannot be empty or contain only spaces.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'System Folder' contains invalid characters:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">System Folder path is not valid or does not exist:</system:String>
     <system:String x:Key="SystemFolderRequired">System Folder (Required)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>

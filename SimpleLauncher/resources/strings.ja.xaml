@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">オリーブ</system:String>
     <system:String x:Key="OliveDrab">オリーブドラブ</system:String>
+    <system:String x:Key="oneDriveIssue">ファイルがOneDriveにある場合は、同期されデバイスにダウンロードされていることを確認してください。ファイルエクスプローラーでファイルを右クリックし、「このデバイスに常に保持する」を選択してください。</system:String>
     <system:String x:Key="Oneormorepathsorparameters">1つ以上のパスまたはパラメーターが無効です。</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">OotakeエミュレータはCHD、ISO、CUE/BINファイルをサポートしていません。</system:String>
     <system:String x:Key="Open">開く</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">システム：</system:String>
     <system:String x:Key="SystemFolder">システムフォルダ</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「システムフォルダー」は空白やスペースのみであってはいけません。</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">「システムフォルダ」に無効な文字が含まれています：</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">システムフォルダパスが無効であるか、存在しません:</system:String>
     <system:String x:Key="SystemFolderRequired">システムフォルダー (必須)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">システムが正常に追加されました！</system:String>

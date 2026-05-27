@@ -29,8 +29,9 @@ public partial class MainWindow
                     // Clear the cached list when no system is selected
                     _allGamesForCurrentSystem.Clear();
                     IsPlayTimeVisible = false; // Hide when no system is selected
-                    // TopSystemImage.Visibility = Visibility.Collapsed;
-                    // TopSystemLogoImage.Source = null;
+
+                    // Stop watching ROM folders when no system is selected
+                    _gameFileWatcherService.StopWatching();
 
                     return;
                 }
@@ -123,6 +124,12 @@ public partial class MainWindow
                         : resolvedSystemImageFolderPath; // Use resolved configured path
 
                     await PopulateAllGamesForCurrentSystem(selectedManager, selectedSystem);
+
+                    // Start watching ROM folders for external file changes
+                    _gameFileWatcherService.StartWatching(
+                        selectedManager.SystemFolders,
+                        selectedSystem,
+                        selectedManager.FileFormatsToSearch);
 
                     _topLetterNumberMenu.DeselectLetter();
                     ResetPaginationButtons();

@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">Tamam</system:String>
     <system:String x:Key="Olive">Zeytin Yeşili</system:String>
     <system:String x:Key="OliveDrab">Zeytin Yeşili</system:String>
+    <system:String x:Key="oneDriveIssue">Dosya OneDrive'daysa, senkronize edildiğinden ve cihazınıza indirildiğinden emin olun. Dosya Gezgini'nde dosyaya sağ tıklayın ve 'Bu cihazda her zaman tut' seçeneğini belirleyin.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Bir veya daha fazla yol veya parametre geçersiz.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake emülatörü CHD, ISO, CUE/BIN dosyalarını desteklemiyor.</system:String>
     <system:String x:Key="Open">Aç</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘Sistem Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'Sistem Klasörü' geçersiz karakterler içeriyor:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Sistem klasörü yolu geçersiz veya mevcut değil:</system:String>
     <system:String x:Key="SystemFolderRequired">Sistem Klasörü (Gerekli)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem başarıyla eklendi!</system:String>

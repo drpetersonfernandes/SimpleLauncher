@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">ٹھیک ہے</system:String>
     <system:String x:Key="Olive">زیتونی</system:String>
     <system:String x:Key="OliveDrab">زیتونی رنگ (Olive Drab)</system:String>
+    <system:String x:Key="oneDriveIssue">اگر فائل OneDrive میں ہے، تو یقینی بنائیں کہ یہ مطابقت پذیر ہے اور آپ کے آلے پر ڈاؤن لوڈ ہو گئی ہے۔ فائل ایکسپلورر میں فائل پر دائیں کلک کریں اور 'اس آلے پر ہمیشہ رکھیں' منتخب کریں۔</system:String>
     <system:String x:Key="Oneormorepathsorparameters">ایک یا زیادہ راستے یا پیرامیٹرز غلط ہیں۔</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake ایمولیٹر CHD، ISO، CUE/BIN فائلوں کو سپورٹ نہیں کرتا۔</system:String>
     <system:String x:Key="Open">کھولیں</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">سسٹم:</system:String>
     <system:String x:Key="SystemFolder">سسٹم فولڈر</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">سسٹم فولڈر خالی نہیں ہو سکتا۔</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'سسٹم فولڈر' میں غیر موزوں حروف شامل ہیں:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">سسٹم فولڈر کا راستہ درست نہیں ہے یا موجود نہیں ہے:</system:String>
     <system:String x:Key="SystemFolderRequired">سسٹم فولڈر (ضروری)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">سسٹم کامیابی کے ساتھ شامل کر لیا گیا ہے!</system:String>

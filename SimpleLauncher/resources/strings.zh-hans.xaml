@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">确定</system:String>
     <system:String x:Key="Olive">橄榄色</system:String>
     <system:String x:Key="OliveDrab">橄榄褐</system:String>
+    <system:String x:Key="oneDriveIssue">如果文件在OneDrive中，请确保它已同步并下载到您的设备。在文件资源管理器中右键单击文件，选择"始终保留在此设备上"。</system:String>
     <system:String x:Key="Oneormorepathsorparameters">一个或多个路径或参数无效。</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake模拟器不支持CHD、ISO、CUE/BIN文件。</system:String>
     <system:String x:Key="Open">打开</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">系统：</system:String>
     <system:String x:Key="SystemFolder">系统文件夹</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">“系统文件夹”不能为空或只包含空格。</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">"系统文件夹"包含无效字符：</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">系统文件夹路径无效或不存在：</system:String>
     <system:String x:Key="SystemFolderRequired">系统文件夹 (必需)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">系统已成功添加！</system:String>

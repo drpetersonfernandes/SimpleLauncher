@@ -56,6 +56,13 @@ public partial class MainWindow
                 emergencyBtn.Click -= _emergencyButtonClickHandler;
             }
         }
+
+        // Unsubscribe and stop game file watcher
+        if (_gameFileWatcherService != null)
+        {
+            _gameFileWatcherService.GameFilesChanged -= OnGameFilesChanged;
+            _gameFileWatcherService.StopWatching();
+        }
     }
 
     public void Dispose()

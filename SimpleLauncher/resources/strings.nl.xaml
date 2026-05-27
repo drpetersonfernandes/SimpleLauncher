@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olijf</system:String>
     <system:String x:Key="OliveDrab">Olijfgroen</system:String>
+    <system:String x:Key="oneDriveIssue">Als het bestand in OneDrive staat, zorg er dan voor dat het gesynchroniseerd en gedownload is naar uw apparaat. Klik met de rechtermuisknop op het bestand in Verkenner en selecteer 'Altijd op dit apparaat bewaren'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Eén of meer paden of parameters zijn ongeldig.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake-emulator ondersteunt geen CHD-, ISO-, CUE/BIN-bestanden.</system:String>
     <system:String x:Key="Open">Openen</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">Systeem:</system:String>
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">De 'Systeemmap' mag niet leeg zijn of alleen spaties bevatten.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'Systeemmap' bevat ongeldige tekens:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Het systeemmap-pad is ongeldig of bestaat niet:</system:String>
     <system:String x:Key="SystemFolderRequired">Systeemmap (Vereist)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Systeem is succesvol toegevoegd!</system:String>

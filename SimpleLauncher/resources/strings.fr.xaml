@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olive</system:String>
     <system:String x:Key="OliveDrab">Vert olive</system:String>
+    <system:String x:Key="oneDriveIssue">Si le fichier est dans OneDrive, assurez-vous qu'il est synchronisé et téléchargé sur votre appareil. Faites un clic droit sur le fichier dans l'Explorateur de fichiers et sélectionnez 'Conserver toujours sur cet appareil'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Un ou plusieurs chemins ou paramètres sont invalides.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">L'émulateur Ootake ne prend pas en charge les fichiers CHD, ISO, CUE/BIN.</system:String>
     <system:String x:Key="Open">Ouvrir</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">Système :</system:String>
     <system:String x:Key="SystemFolder">Dossier Système</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">Le 'Dossier système' ne peut pas être vide ou contenir uniquement des espaces.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">Le « Dossier système » contient des caractères non valides :</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Le chemin du dossier système n'est pas valide ou n'existe pas :</system:String>
     <system:String x:Key="SystemFolderRequired">Dossier système (Requis)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Le système a été ajouté avec succès !</system:String>

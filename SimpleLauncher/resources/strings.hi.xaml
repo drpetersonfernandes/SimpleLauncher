@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">ठीक है</system:String>
     <system:String x:Key="Olive">जैतून</system:String>
     <system:String x:Key="OliveDrab">ऑलिव ड्रेब</system:String>
+    <system:String x:Key="oneDriveIssue">यदि फ़ाइल OneDrive में है, तो सुनिश्चित करें कि यह सिंक है और आपके डिवाइस पर डाउनलोड हो गई है। फ़ाइल एक्सप्लोरर में फ़ाइल पर राइट-क्लिक करें और 'इस डिवाइस पर हमेशा रखें' चुनें।</system:String>
     <system:String x:Key="Oneormorepathsorparameters">एक या अधिक मार्ग/पैरामीटर अमान्य हैं।</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake एमुलेटर CHD, ISO, CUE/BIN फ़ाइलों का समर्थन नहीं करता है।</system:String>
     <system:String x:Key="Open">खोलें</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">सिस्टम:</system:String>
     <system:String x:Key="SystemFolder">सिस्टम फ़ोल्डर</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'सिस्टम फ़ोल्डर' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'सिस्टम फ़ोल्डर' में अमान्य वर्ण हैं:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">सिस्टम फोल्डर का पथ अमान्य है या मौजूद नहीं है:</system:String>
     <system:String x:Key="SystemFolderRequired">सिस्टम फ़ोल्डर (आवश्यक)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">सिस्टम सफलतापूर्वक जोड़ा गया है!</system:String>

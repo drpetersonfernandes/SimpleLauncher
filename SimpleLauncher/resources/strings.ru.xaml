@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">ОК</system:String>
     <system:String x:Key="Olive">Оливковый</system:String>
     <system:String x:Key="OliveDrab">Оливковый</system:String>
+    <system:String x:Key="oneDriveIssue">Если файл находится в OneDrive, убедитесь, что он синхронизирован и загружен на ваше устройство. Щелкните правой кнопкой мыши файл в проводнике и выберите 'Всегда хранить на этом устройстве'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Один или несколько путей или параметров недействительны.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Эмулятор Ootake не поддерживает файлы CHD, ISO, CUE/BIN.</system:String>
     <system:String x:Key="Open">Открыть</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">Система:</system:String>
     <system:String x:Key="SystemFolder">Системная папка</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">Папка «Системная папка» не может быть пустой или содержать только пробелы.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">«Папка системы» содержит недопустимые символы:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Путь к папке системы недействителен или не существует:</system:String>
     <system:String x:Key="SystemFolderRequired">Системная папка (Обязательно)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Система успешно добавлена!</system:String>

@@ -14,6 +14,7 @@ using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindAndLoadImages;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
@@ -162,6 +163,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly LoadingOverlayService _loadingOverlayService;
     private readonly StartupInitializationService _startupInitializationService;
     private readonly GameListUiService _gameListUiService;
+    private readonly GameFileWatcherService _gameFileWatcherService;
 
     public MainWindow(
         SettingsManager settings,
@@ -182,7 +184,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         LanguageMenuService languageMenuService,
         LoadingOverlayService loadingOverlayService,
         StartupInitializationService startupInitializationService,
-        GameListUiService gameListUiService)
+        GameListUiService gameListUiService,
+        GameFileWatcherService gameFileWatcherService)
     {
         InitializeComponent();
 
@@ -200,6 +203,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _loadingOverlayService = loadingOverlayService;
         _startupInitializationService = startupInitializationService;
         _gameListUiService = gameListUiService;
+        _gameFileWatcherService = gameFileWatcherService;
         _stats = stats;
         _logErrors = logErrors;
         _retroAchievementsService = retroAchievementsService;
@@ -258,6 +262,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Closing += MainWindow_Closing;
         Activated += MainWindow_Activated;
         Deactivated += MainWindow_Deactivated;
+
+        // Wire up game file watcher to detect external file changes
+        _gameFileWatcherService.GameFilesChanged += OnGameFilesChanged;
 
         // Store the async Loaded handler reference so it can be unsubscribed later
         _asyncLoadedHandler = async void (_, _) =>
@@ -954,6 +961,34 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         finally
         {
             _allGamesLock.Release();
+        }
+    }
+
+    /// <summary>
+    /// Handles file change notifications from the GameFileWatcherService.
+    /// Invalidates the game list cache and reloads the current system's game list.
+    /// </summary>
+    /// <param name="systemName">The system name whose files changed.</param>
+    private async void OnGameFilesChanged(string systemName)
+    {
+        try
+        {
+            // Only reload if the changed system matches the currently selected system
+            var currentSystem = SystemComboBox.SelectedItem?.ToString();
+            if (!string.Equals(currentSystem, systemName, StringComparison.OrdinalIgnoreCase))
+            {
+                DebugLogger.Log($"[OnGameFilesChanged] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
+                return;
+            }
+
+            DebugLogger.Log($"[OnGameFilesChanged] File change detected for system '{systemName}'. Reloading game list.");
+
+            await InvalidateGameFileCachesAsync();
+            await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[OnGameFilesChanged] Error reloading game list: {ex.Message}");
         }
     }
 }

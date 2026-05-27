@@ -326,6 +326,14 @@ internal partial class EditSystemWindow
         var resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
         if (!string.IsNullOrEmpty(resolvedImageFolder) && !Directory.Exists(resolvedImageFolder))
         {
+            // Check for invalid path characters before attempting directory creation
+            if (SanitizeInputSystemName.ContainsInvalidPathCharacters(resolvedImageFolder, out var invalidChars))
+            {
+                var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
+                MessageBoxLibrary.InvalidFolderCharactersMessageBox(invalidCharsStr);
+                return true;
+            }
+
             try
             {
                 Directory.CreateDirectory(resolvedImageFolder);
@@ -362,6 +370,14 @@ internal partial class EditSystemWindow
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderText);
         if (!string.IsNullOrEmpty(resolvedSystemFolder) && !Directory.Exists(resolvedSystemFolder))
         {
+            // Check for invalid path characters before attempting directory creation
+            if (SanitizeInputSystemName.ContainsInvalidPathCharacters(resolvedSystemFolder, out var invalidChars))
+            {
+                var invalidCharsStr = string.Join(", ", invalidChars.Select(static c => $"'{c}'"));
+                MessageBoxLibrary.InvalidFolderCharactersMessageBox(invalidCharsStr);
+                return true;
+            }
+
             try
             {
                 Directory.CreateDirectory(resolvedSystemFolder);

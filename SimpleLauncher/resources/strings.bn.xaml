@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">ঠিক আছে</system:String>
     <system:String x:Key="Olive">জলপাই</system:String>
     <system:String x:Key="OliveDrab">অলিভ ড্র্যাব</system:String>
+    <system:String x:Key="oneDriveIssue">ফাইলটি যদি OneDrive-এ থাকে, তাহলে নিশ্চিত করুন যে এটি সিঙ্ক করা হয়েছে এবং আপনার ডিভাইসে ডাউনলোড করা হয়েছে। ফাইল এক্সপ্লোরারে ফাইলটিতে ডান-ক্লিক করুন এবং 'এই ডিভাইসে সর্বদা রাখুন' নির্বাচন করুন।</system:String>
     <system:String x:Key="Oneormorepathsorparameters">এক বা একাধিক পাথ বা প্যারামিটার ভুল হয়েছে।</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake এমুলেটর CHD, ISO, CUE/BIN ফাইল সমর্থন করে না।</system:String>
     <system:String x:Key="Open">খুলুন</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">সিস্টেম:</system:String>
     <system:String x:Key="SystemFolder">সিস্টেম ফোল্ডার</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘সিস্টেম ফোল্ডার’ খালি বা শুধুমাত্র স্পেস থাকতে পারবে না।</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'সিস্টেম ফোল্ডার'-এ অবৈধ অক্ষর রয়েছে:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">সিস্টেম ফোল্ডার পাথটি বৈধ নয় বা নেই:</system:String>
     <system:String x:Key="SystemFolderRequired">সিস্টেম ফোল্ডার (প্রয়োজনীয়)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">সিস্টেম সফলভাবে যুক্ত হয়েছে!</system:String>

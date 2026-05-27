@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">확인</system:String>
     <system:String x:Key="Olive">올리브</system:String>
     <system:String x:Key="OliveDrab">올리브 드랍 (국방색)</system:String>
+    <system:String x:Key="oneDriveIssue">파일이 OneDrive에 있는 경우 동기화되어 기기에 다운로드되었는지 확인하세요. 파일 탐색기에서 파일을 마우스 오른쪽 버튼으로 클릭하고 '이 기기에 항상 유지'를 선택하세요.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">하나 이상의 경로 또는 매개 변수가 잘못되었습니다.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Ootake 에뮬레이터는 CHD, ISO, CUE/BIN 파일을 지원하지 않습니다.</system:String>
     <system:String x:Key="Open">열기</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">시스템:</system:String>
     <system:String x:Key="SystemFolder">시스템 폴더</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘시스템 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'시스템 폴더'에 잘못된 문자가 포함되어 있습니다:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">시스템 폴더 경로가 잘못되었거나 존재하지 않습니다:</system:String>
     <system:String x:Key="SystemFolderRequired">시스템 폴더 (필수)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">시스템이 성공적으로 추가되었습니다!</system:String>
