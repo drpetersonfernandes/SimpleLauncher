@@ -1,6 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.FindAndLoadImages;
@@ -22,11 +23,13 @@ public static class FindCoverImage
     /// <param name="fileNameWithoutExtension">The file name without its extension for which the cover image is being searched.</param>
     /// <param name="systemName">The name of the system associated with the file, used to determine the appropriate image directory.</param>
     /// <param name="systemManager">The system manager instance that provides settings like system image folder configurations.</param>
-    /// <param name="settings">The SettingsManager instance for fuzzy matching configuration.</param> // ADDED PARAMETER
+    /// <param name="settings">The SettingsManager instance for fuzzy matching configuration.</param>
+    /// <param name="logErrors"></param>
+    /// // ADDED PARAMETER
     /// <returns>
     /// A string representing the file path of the cover image if found, or a global default image path when no matches are available.
     /// </returns>
-    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager.SystemManager systemManager, SettingsManager.SettingsManager settings)
+    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager.SystemManager systemManager, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
         var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
@@ -64,7 +67,7 @@ public static class FindCoverImage
                 else
                 {
                     // Notify developer
-                    App.LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
+                    logErrors.LogAndForget(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
                 }
 
                 // 2. If no exact match and fuzzy matching is enabled, check for similar filenames

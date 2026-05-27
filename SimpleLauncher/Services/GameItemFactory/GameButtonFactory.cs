@@ -76,7 +76,7 @@ internal partial class GameButtonFactory(
         if (isDirectory) // GroupByFolder is true
         {
             // First, try to find an image with the same name as the folder name.
-            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings, _logErrors);
 
             // If the found path is a default image, try the fallback logic.
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
@@ -87,14 +87,14 @@ internal partial class GameButtonFactory(
                 {
                     var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                     // Now search again with the new name. This will become the final imagePath.
-                    imagePath = FindCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager, _settings);
+                    imagePath = FindCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager, _settings, _logErrors);
                 }
             }
         }
         else
         {
             // This is the logic for non-grouped files, which remains the same.
-            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings, _logErrors);
         }
 
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);

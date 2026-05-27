@@ -185,8 +185,9 @@ public sealed class GameFileWatcherService : IDisposable
     private void CancelPendingDebounce()
     {
         var oldCts = Interlocked.Exchange(ref _debounceCts, null);
-        oldCts.Cancel();
-        oldCts.Dispose();
+        // ReSharper disable once ConstantConditionalAccessQualifier
+        oldCts?.Cancel();
+        oldCts?.Dispose();
     }
 
     public void Dispose()

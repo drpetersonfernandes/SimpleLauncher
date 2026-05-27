@@ -1,12 +1,13 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.CheckForRequiredFiles;
 
 public static class CheckForRequiredFiles
 {
-    public static void CheckFiles(IConfiguration configuration)
+    public static void CheckFiles(IConfiguration configuration, ILogErrors logErrors)
     {
         var baseDirectory = AppContext.BaseDirectory;
         var requiredFiles = configuration.GetValue<string[]>("RequiredFiles") ??
@@ -37,7 +38,7 @@ public static class CheckForRequiredFiles
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Failed to check for required files.");
+            logErrors.LogAndForget(ex, "Failed to check for required files.");
         }
     }
 }

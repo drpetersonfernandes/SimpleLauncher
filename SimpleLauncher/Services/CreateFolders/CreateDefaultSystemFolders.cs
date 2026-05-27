@@ -1,12 +1,13 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.CreateFolders;
 
 public static class CreateDefaultSystemFolders
 {
-    public static void CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration)
+    public static void CreateFolders(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogErrors logErrors)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var additionalFolders = configuration.GetValue<string[]>("AdditionalFolders") ??
@@ -27,7 +28,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    App.LogErrorAsync(ex, "Error creating the primary system folder.");
+                    logErrors.LogAndForget(ex, "Error creating the primary system folder.");
 
                     // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
@@ -43,7 +44,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    App.LogErrorAsync(ex, "Error creating the primary image folder.");
+                    logErrors.LogAndForget(ex, "Error creating the primary image folder.");
 
                     // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
@@ -65,7 +66,7 @@ public static class CreateDefaultSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    App.LogErrorAsync(ex, $"Error creating the {folder} folder.");
+                    logErrors.LogAndForget(ex, $"Error creating the {folder} folder.");
 
                     // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
@@ -76,7 +77,7 @@ public static class CreateDefaultSystemFolders
         {
             // Notify developer
             const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
-            App.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();

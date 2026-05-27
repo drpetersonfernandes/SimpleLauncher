@@ -16,6 +16,7 @@ public class GamePadController : IDisposable
     private readonly SemaphoreSlim _updateLock = new(1, 1);
     private readonly Lock _stateLock = new();
     private readonly Timer _timer;
+    private readonly ILogErrors _logErrors;
     private bool _isDisposed;
 
     // Add an Action for error logging
@@ -56,8 +57,10 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
-    public GamePadController()
+    public GamePadController(ILogErrors logErrors)
     {
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+
         // Initialize Xbox Controller using XInput
         _xinputController = new Controller(UserIndex.One);
 
@@ -384,7 +387,7 @@ public class GamePadController : IDisposable
             {
                 // Log but don't throw in async void
                 ErrorLogger?.Invoke(ex, "Update loop error");
-                App.LogErrorAsync(ex, "Error in method UpdateAsync");
+                _logErrors.LogAndForget(ex, "Error in method UpdateAsync");
             }
             finally
             {
@@ -402,7 +405,7 @@ public class GamePadController : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Error in method UpdateAsync");
+            _logErrors.LogAndForget(ex, "Error in method UpdateAsync");
         }
     }
 

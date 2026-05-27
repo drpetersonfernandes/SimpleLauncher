@@ -233,7 +233,7 @@ internal static class ContextMenuFunctions
 
         try
         {
-            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm);
+            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, logErrors);
             historyWindow.Show();
         }
         catch (Exception ex)
@@ -265,7 +265,7 @@ internal static class ContextMenuFunctions
                     UpdateStatusBar.UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
 
                     // Open RetroAchievements Settings Window
-                    var raSettingsWindow = new RetroAchievementsSettingsWindow(settings)
+                    var raSettingsWindow = new RetroAchievementsSettingsWindow(settings, logErrors)
                     {
                         Owner = mainWindow // Set owner to main window
                     };
@@ -282,7 +282,7 @@ internal static class ContextMenuFunctions
             var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
             DebugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
-            var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName);
+            var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName, logErrors);
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
             // Check if system is supported for RetroAchievements
@@ -388,7 +388,7 @@ internal static class ContextMenuFunctions
             await Task.Delay(100);
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider);
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch, loadingStateProvider, logErrors);
 
             if (raHashResult.ExtractionErrorMessage == "System selection cancelled by user.")
             {
@@ -870,7 +870,7 @@ internal static class ContextMenuFunctions
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, "Error clearing preview image source before taking screenshot.");
+                logErrors.LogAndForget(ex, "Error clearing preview image source before taking screenshot.");
             }
 
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);
@@ -1121,7 +1121,7 @@ internal static class ContextMenuFunctions
     public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
     {
         UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...", mainWindow);
-        var coverPath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);
+        var coverPath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings, logErrors);
 
         try
         {

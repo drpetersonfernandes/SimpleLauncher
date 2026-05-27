@@ -1,11 +1,12 @@
 using System.IO;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
 
 public static class CheckIfDirectoryIsWritable
 {
-    public static bool IsWritableDirectory(string path)
+    public static bool IsWritableDirectory(string path, ILogErrors logErrors)
     {
         try
         {
@@ -27,7 +28,7 @@ public static class CheckIfDirectoryIsWritable
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Failed to check if directory is writable.");
+            logErrors.LogAndForget(ex, "Failed to check if directory is writable.");
 
             return false;
         }
