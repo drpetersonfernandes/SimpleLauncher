@@ -149,7 +149,8 @@ public static class RetroAchievementsSystemMatcher
             "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes", "Acorn BBC Micro",
             "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD", "ra", "FBA2", "FBA",
             "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch",
-            "Namco 2x6", "FBN", "J2ME", "NEC PC-88"
+            "Namco 2x6", "FBN", "J2ME", "NEC PC-88", "CGenius", "NEC PC88", "Fujitsu FM-7", "Fairchild Channel-F", "Exelvision EX100",
+            "Enterprise 64-128"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

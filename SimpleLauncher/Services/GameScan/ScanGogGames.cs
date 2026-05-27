@@ -96,6 +96,7 @@ internal static class ScanGogGames
                         // Option B: Direct Launch (Bypasses Galaxy)
                         if (!string.IsNullOrEmpty(mainExePath) && File.Exists(mainExePath))
                         {
+                            Directory.CreateDirectory(windowsRomsPath);
                             var batPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
                             var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(mainExePath)}\"\r\nstart \"\" \"{Path.GetFileName(mainExePath)}\"";
                             await File.WriteAllTextAsync(batPath, batContent);

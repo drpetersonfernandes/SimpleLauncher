@@ -88,7 +88,7 @@ public static class MountChdFiles
 
             DebugLogger.Log($"[MountChdFiles.MountAsync] CHDMounter process started (ID: {mountProcess.Id}).");
 
-            var (mountSuccessful, detectedDrive) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcess.Id, logErrors);
+            var (mountSuccessful, detectedDrive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcess.Id, logErrors);
 
             if (!mountSuccessful || detectedDrive == null)
             {
@@ -98,7 +98,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
                 return new MountChdDrive(logErrors);
             }
 
@@ -214,7 +214,7 @@ public static class MountChdFiles
             mountProcessId = mountProcess.Id;
             DebugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
-            var (mountSuccessful, drive) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors);
+            var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors);
 
             if (!mountSuccessful || drive == null)
             {
@@ -224,7 +224,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
                 return;
             }
 
@@ -371,6 +371,15 @@ public static class MountChdFiles
             return;
         }
 
+        if (!DokanValidation.IsDokanInstalled())
+        {
+            const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
+            DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
+            _ = logErrors.LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            return;
+        }
+
         // Capture existing drives before mounting
         var existingDrives = GetCurrentDriveLetters();
         DebugLogger.Log($"[MountChdFiles] Existing drives before mount: {string.Join(", ", existingDrives)}");
@@ -412,7 +421,7 @@ public static class MountChdFiles
             mountProcessId = mountProcess.Id;
             DebugLogger.Log($"[MountChdFiles] CHDMounter process started (ID: {mountProcessId}).");
 
-            var (mountSuccessful, drive) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors);
+            var (mountSuccessful, drive, exitCode) = await WaitForDriveMountAndDetectAsync(existingDrives, mountProcess, mountProcessId, logErrors);
 
             if (!mountSuccessful || drive == null)
             {
@@ -422,7 +431,7 @@ public static class MountChdFiles
                 }
 
                 mountProcess.Dispose();
-                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox(exitCode);
                 return;
             }
 
@@ -683,7 +692,7 @@ public static class MountChdFiles
     /// Waits for a new drive to appear after mounting with /a flag (auto-select drive letter).
     /// Compares current drives against the pre-mount snapshot to detect which drive was assigned.
     /// </summary>
-    private static async Task<(bool Success, char? DriveLetter)> WaitForDriveMountAndDetectAsync(HashSet<char> existingDrives, Process mountProcess, int processId, ILogErrors logErrors)
+    private static async Task<(bool Success, char? DriveLetter, int? ExitCode)> WaitForDriveMountAndDetectAsync(HashSet<char> existingDrives, Process mountProcess, int processId, ILogErrors logErrors)
     {
         const int maxRetries = 240; // 2 minutes with 500 ms intervals
         const int pollIntervalMs = 500;
@@ -703,7 +712,7 @@ public static class MountChdFiles
 
                 DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
                 _ = logErrors.LogErrorAsync(null, contextMessage);
-                return (false, null);
+                return (false, null, exitCode);
             }
 
             // Get current drives and find any new ones
@@ -714,7 +723,7 @@ public static class MountChdFiles
             {
                 var detectedDrive = newDrives[0];
                 DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Found new drive '{detectedDrive}:' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
-                return (true, detectedDrive);
+                return (true, detectedDrive, null);
             }
 
             retryCount++;
@@ -724,7 +733,7 @@ public static class MountChdFiles
         DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Timed out waiting for new drive after {maxRetries * pollIntervalMs / 1000} seconds.");
         const string timeoutContextMessage = "Timed out waiting for the CHD to mount. No new drive detected.";
         _ = logErrors.LogErrorAsync(null, timeoutContextMessage);
-        return (false, null);
+        return (false, null, null);
     }
 
     /// <summary>

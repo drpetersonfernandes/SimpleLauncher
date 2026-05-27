@@ -137,20 +137,25 @@ internal static partial class ScanMicrosoftStoreGames
 
             if (string.IsNullOrWhiteSpace(output)) return;
 
-            var jsonStr = output.Trim();
-            // Safeguard against non-JSON output
-            if (!jsonStr.StartsWith('[') && !jsonStr.StartsWith('{')) return;
+            var trimmedOutput = output.Trim();
+
+            // Extract the first complete JSON array or object from the output.
+            // PowerShell may output non-JSON content (warnings, debug info) alongside the JSON,
+            // which causes JsonReaderException if parsed directly.
+            var jsonStr = ExtractFirstJsonArray(trimmedOutput);
+            if (jsonStr == null)
+            {
+                var jsonObj = ExtractFirstJsonObject(trimmedOutput);
+                if (jsonObj == null) return;
+
+                jsonStr = $"[{jsonObj}]";
+            }
 
             // Remove invalid control characters that may appear in PowerShell output
             // (e.g., game names containing control characters like 0x07 BEL)
             jsonStr = SanitizeJsonControlCharacters(jsonStr);
 
             var allInstalledApps = new List<StoreAppInfo>();
-
-            if (jsonStr.StartsWith('{')) // Single object returned
-            {
-                jsonStr = $"[{jsonStr}]";
-            }
 
             using var doc = JsonDocument.Parse(jsonStr);
             if (doc.RootElement.ValueKind != JsonValueKind.Array) return;
@@ -205,6 +210,8 @@ internal static partial class ScanMicrosoftStoreGames
             if (confirmedGames is { Count: > 0 })
             {
                 DebugLogger.Log($"[ScanMicrosoftStoreGames] API returned {confirmedGames.Count} confirmed games.");
+
+                Directory.CreateDirectory(windowsRomsPath);
 
                 foreach (var game in confirmedGames)
                 {
@@ -535,6 +542,76 @@ internal static partial class ScanMicrosoftStoreGames
         {
             await logErrors.LogErrorAsync(ex, $"Failed to extract Microsoft Store icon for {sanitizedGameName}");
         }
+    }
+
+    /// <summary>
+    /// Extracts the first complete JSON array from a string that may contain non-JSON content.
+    /// Uses bracket depth counting to find the matching closing bracket.
+    /// </summary>
+    private static string ExtractFirstJsonArray(string input)
+    {
+        var startIndex = input.IndexOf('[');
+        if (startIndex < 0) return null;
+
+        var result = ExtractJsonAtPosition(input, startIndex, '[', ']');
+        return result;
+    }
+
+    /// <summary>
+    /// Extracts the first complete JSON object from a string that may contain non-JSON content.
+    /// Uses brace depth counting to find the matching closing brace.
+    /// </summary>
+    private static string ExtractFirstJsonObject(string input)
+    {
+        var startIndex = input.IndexOf('{');
+        if (startIndex < 0) return null;
+
+        return ExtractJsonAtPosition(input, startIndex, '{', '}');
+    }
+
+    private static string ExtractJsonAtPosition(string input, int startIndex, char openChar, char closeChar)
+    {
+        var depth = 0;
+        var inString = false;
+        var escaped = false;
+
+        for (var i = startIndex; i < input.Length; i++)
+        {
+            var c = input[i];
+
+            if (escaped)
+            {
+                escaped = false;
+                continue;
+            }
+
+            switch (c)
+            {
+                case '\\' when inString:
+                    escaped = true;
+                    continue;
+                case '"':
+                    inString = !inString;
+                    continue;
+            }
+
+            if (inString) continue;
+
+            if (c == openChar)
+            {
+                depth++;
+            }
+            else if (c == closeChar)
+            {
+                depth--;
+                if (depth == 0)
+                {
+                    return input.Substring(startIndex, i - startIndex + 1);
+                }
+            }
+        }
+
+        return null;
     }
 
     /// <summary>

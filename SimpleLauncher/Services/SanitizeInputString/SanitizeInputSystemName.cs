@@ -39,6 +39,38 @@ public static class SanitizeInputSystemName
     }
 
     /// <summary>
+    /// Validates a path for invalid path characters.
+    /// Returns true if the path contains invalid path characters.
+    /// Uses Path.GetInvalidPathChars() which covers characters like ", &lt;, &gt;, |,
+    /// but allows :, \, ?, * which have special meaning in paths.
+    /// </summary>
+    /// <param name="path">The path to validate.</param>
+    /// <param name="invalidChars">The invalid characters found, if any.</param>
+    /// <returns>True if invalid path characters are found; otherwise false.</returns>
+    public static bool ContainsInvalidPathCharacters(string path, out char[] invalidChars)
+    {
+        invalidChars = [];
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return false;
+        }
+
+        var invalidPathChars = Path.GetInvalidPathChars();
+        var foundInvalidChars = new List<char>();
+
+        foreach (var c in path)
+        {
+            if (invalidPathChars.Contains(c) && !foundInvalidChars.Contains(c))
+            {
+                foundInvalidChars.Add(c);
+            }
+        }
+
+        invalidChars = [.. foundInvalidChars];
+        return invalidChars.Length > 0;
+    }
+
+    /// <summary>
     /// Sanitizes a string to be safe for use as a folder name.
     /// Removes invalid path characters and directory traversal sequences.
     /// </summary>
