@@ -232,7 +232,7 @@ public partial class PlayHistoryPage : ILoadingState
         else
         {
             // Use FindCoverImage which already handles system-specific paths and fuzzy matching
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings, _logErrors);
         }
     }
 

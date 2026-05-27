@@ -21,6 +21,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 {
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly DownloadManager _downloadManager;
+    private readonly ILogErrors _logErrors;
     private EasyModeManager _manager;
     private bool _disposed;
     private int _operationInProgressFlag;
@@ -33,9 +34,10 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private string _loadingMessage;
     private bool _isSystemDropdownEnabled = true;
 
-    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects)
+    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogErrors logErrors)
     {
         _playSoundEffects = playSoundEffects;
+        _logErrors = logErrors;
         _downloadManager = App.ServiceProvider.GetRequiredService<DownloadManager>();
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
@@ -180,7 +182,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error populating system dropdown.");
+            _logErrors.LogAndForget(ex, "Error populating system dropdown.");
             SystemNames.Clear();
         }
     }
@@ -250,7 +252,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                         return;
                     }
 
-                    App.LogErrorAsync(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
+                    _logErrors.LogAndForget(ex, $"Error in DownloadImagePackButtonClickAsync for {clickedItem.DisplayName}.");
                     clickedItem.State = DownloadButtonState.Failed;
                     EndOperation();
                 }
@@ -260,13 +262,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 if (!_disposed)
                 {
                     EndOperation();
-                    App.LogErrorAsync(ex, "Error in DownloadImagePackButtonClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButtonClickAsync.");
                 }
             }
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Critical error in DownloadImagePackButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Critical error in DownloadImagePackButtonClickAsync.");
             EndOperation();
         }
     }
@@ -307,7 +309,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             StatusMessage = $"{errorInvalidDestinationPath} {componentName}";
 
-            App.LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _logErrors.LogAndForget(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
             EndOperation();
             item.State = DownloadButtonState.Failed;
             return;
@@ -413,7 +415,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             {
                 var contextMessage = $"Error downloading {componentName}.\n" +
                                      $"URL: {downloadUrl}";
-                App.LogErrorAsync(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
             }
 
             if (_downloadManager.IsDownloadCompleted)
@@ -492,7 +494,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error opening the download link.");
+            _logErrors.LogAndForget(ex, "Error opening the download link.");
 
             MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
         }
@@ -527,7 +529,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error closing the Add System window.");
+            _logErrors.LogAndForget(ex, "Error closing the Add System window.");
         }
     }
 

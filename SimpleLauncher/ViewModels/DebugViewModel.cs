@@ -11,8 +11,14 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class DebugViewModel : ObservableObject
 {
+    private readonly ILogErrors _logErrors;
     private readonly object _logLock = new();
     private string _logText = string.Empty;
+
+    public DebugViewModel(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
 
     /// <summary>
     /// Gets the collection of log messages.
@@ -82,7 +88,7 @@ public partial class DebugViewModel : ObservableObject
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Error copying log");
+            _logErrors.LogAndForget(ex, "Error copying log");
 
             // Notify user
             MessageBoxLibrary.FailedToCopyLogContentMessageBox();

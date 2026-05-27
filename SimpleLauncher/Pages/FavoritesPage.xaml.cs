@@ -179,7 +179,7 @@ internal partial class FavoritesPage : ILoadingState
         }
         else
         {
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings, _logErrors);
         }
     }
 

@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GlobalStats.Models;
 using SimpleLauncher.Services.MessageBox;
@@ -21,6 +22,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly List<SystemManager> _systemManagers;
+    private readonly ILogErrors _logErrors;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly object _processingLock = new();
 
@@ -35,10 +37,11 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     private bool _isStartButtonVisible = true;
     private bool _forceClose;
 
-    public GlobalStatsViewModel(List<SystemManager> systemManagers, IConfiguration configuration)
+    public GlobalStatsViewModel(List<SystemManager> systemManagers, IConfiguration configuration, ILogErrors logErrors)
     {
         _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _logErrors = logErrors;
 
         // Initialize info text
         InfoText = Application.Current?.TryFindResource("GlobalStatsExplanation") as string ?? string.Empty;
@@ -194,7 +197,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, "An error occurred while calculating Global Statistics.");
+                _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
                 {
                     MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -217,7 +220,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "An error occurred while calculating Global Statistics.");
+            _logErrors.LogAndForget(ex, "An error occurred while calculating Global Statistics.");
         }
     }
 
@@ -409,7 +412,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, "Failed to save report.");
+                _logErrors.LogAndForget(ex, "Failed to save report.");
                 MessageBoxLibrary.FailedSaveReportMessageBox();
             }
         }

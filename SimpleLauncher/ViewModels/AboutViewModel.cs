@@ -3,6 +3,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GetApplicationVersion;
 using SimpleLauncher.Services.MessageBox;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
@@ -14,10 +15,12 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public partial class AboutViewModel : ObservableObject
 {
+    private readonly ILogErrors _logErrors;
     private string _appVersion;
 
-    public AboutViewModel()
+    public AboutViewModel(ILogErrors logErrors)
     {
+        _logErrors = logErrors;
         AppVersion = GetApplicationVersion.GetVersion;
     }
 
@@ -85,7 +88,7 @@ public partial class AboutViewModel : ObservableObject
         {
             // Notify developer
             const string contextMessage = "Error in the CheckForUpdateAsync_Click method.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
@@ -116,7 +119,7 @@ public partial class AboutViewModel : ObservableObject
         {
             // Notify developer
             const string contextMessage = "Error in the Hyperlink_RequestNavigate method.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
