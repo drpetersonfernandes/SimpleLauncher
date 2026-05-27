@@ -1,6 +1,7 @@
 using System.Globalization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -14,6 +15,7 @@ namespace SimpleLauncher.ViewModels;
 public partial class SetFuzzyMatchingViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
+    private readonly ILogErrors _logErrors;
 
     private double _thresholdValue;
 
@@ -22,9 +24,10 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     public const double MaximumThreshold = 0.95;
     public const double TickFrequency = 0.05;
 
-    public SetFuzzyMatchingViewModel(SettingsManager settings)
+    public SetFuzzyMatchingViewModel(SettingsManager settings, ILogErrors logErrors)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _logErrors = logErrors;
 
         // Initialize values from settings
         _thresholdValue = Math.Max(MinimumThreshold, Math.Min(MaximumThreshold, _settings.FuzzyMatchingThreshold));
@@ -112,7 +115,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
         {
             // Notify developer
             const string contextMessage = "Error setting fuzzy matching threshold from slider.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify the user
             MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();

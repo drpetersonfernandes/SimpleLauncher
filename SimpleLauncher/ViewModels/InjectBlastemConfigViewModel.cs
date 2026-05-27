@@ -82,7 +82,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Blastem");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Blastem", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -106,7 +106,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
 
         try
         {
-            BlastemConfigurationService.InjectSettings(path, _settings);
+            BlastemConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (FileNotFoundException ex)

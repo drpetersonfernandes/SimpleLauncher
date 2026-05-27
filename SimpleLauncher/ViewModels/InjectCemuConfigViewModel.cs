@@ -76,7 +76,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Cemu");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Cemu", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -100,7 +100,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
 
         try
         {
-            CemuConfigurationService.InjectSettings(path, _settings);
+            CemuConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (InvalidOperationException ex)

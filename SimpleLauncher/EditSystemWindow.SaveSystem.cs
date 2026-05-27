@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.CreateFolders;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SanitizeInputString;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -298,7 +299,7 @@ internal partial class EditSystemWindow
                 // Create folders based on the resolved paths
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? string.Empty);
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
-                CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration);
+                CreateDefaultSystemFolders.CreateFolders(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
@@ -311,7 +312,7 @@ internal partial class EditSystemWindow
             {
                 // Notify developer
                 const string contextMessage = "Unexpected error during system save process.";
-                App.LogErrorAsync(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SaveSystemFailedMessageBox("An unexpected error occurred.");
@@ -324,7 +325,7 @@ internal partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Error saving system configuration.");
+            _logErrors.LogAndForget(ex, "Error saving system configuration.");
         }
     }
 

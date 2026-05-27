@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -9,7 +11,8 @@ public partial class AboutWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        var viewModel = new AboutViewModel();
+        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+        var viewModel = new AboutViewModel(logErrors);
         viewModel.CloseRequested += Close;
         viewModel.OpenUpdateHistoryRequested += static () =>
         {

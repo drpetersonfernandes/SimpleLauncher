@@ -82,7 +82,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -104,7 +104,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
         try
         {
-            AzaharConfigurationService.InjectSettings(path, _settings);
+            AzaharConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (AzaharPermissionException)

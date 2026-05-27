@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.ViewModels;
 
@@ -8,13 +9,15 @@ namespace SimpleLauncher;
 internal partial class DownloadImagePackWindow : IDisposable
 {
     private readonly DownloadImagePackViewModel _viewModel;
+    private readonly ILogErrors _logErrors;
 
-    internal DownloadImagePackWindow(PlaySoundEffects playSoundEffects)
+    internal DownloadImagePackWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+        _logErrors = logErrors;
 
-        _viewModel = new DownloadImagePackViewModel(playSoundEffects);
+        _viewModel = new DownloadImagePackViewModel(playSoundEffects, logErrors);
         DataContext = _viewModel;
 
         Closed += CloseWindowRoutineAsync;
@@ -38,7 +41,7 @@ internal partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
+            _logErrors.LogAndForget(ex, "[DownloadImagePackWindowLoadedAsync] Error initializing EasyModeManager.");
         }
     }
 
@@ -50,7 +53,7 @@ internal partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error in method CloseWindowRoutineAsync.");
+            _logErrors.LogAndForget(ex, "Error in method CloseWindowRoutineAsync.");
         }
     }
 

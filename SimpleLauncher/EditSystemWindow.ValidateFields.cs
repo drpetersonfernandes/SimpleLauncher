@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Win32;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SanitizeInputString;
 
@@ -338,7 +339,7 @@ internal partial class EditSystemWindow
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, $"Error creating the system image folder: {resolvedImageFolder}");
+                _logErrors.LogAndForget(ex, $"Error creating the system image folder: {resolvedImageFolder}");
                 MessageBoxLibrary.FolderCreationFailedMessageBox();
                 return true;
             }
@@ -382,7 +383,7 @@ internal partial class EditSystemWindow
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, $"Error creating the system folder: {resolvedSystemFolder}");
+                _logErrors.LogAndForget(ex, $"Error creating the system folder: {resolvedSystemFolder}");
                 MessageBoxLibrary.FolderCreationFailedMessageBox();
                 return true;
             }

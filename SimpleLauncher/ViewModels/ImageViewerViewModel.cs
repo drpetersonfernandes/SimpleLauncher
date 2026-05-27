@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.ViewModels;
@@ -10,8 +11,14 @@ namespace SimpleLauncher.ViewModels;
 /// </summary>
 public class ImageViewerViewModel : ObservableObject
 {
+    private readonly ILogErrors _logErrors;
     private BitmapSource _imageSource;
     private string _errorMessage;
+
+    public ImageViewerViewModel(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
 
     /// <summary>
     /// Gets or sets the image source to display.
@@ -55,7 +62,7 @@ public class ImageViewerViewModel : ObservableObject
         {
             // Notify developer
             const string contextMessage = "Failed to load the image in the Image Viewer window.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ImageViewerErrorMessageBox();
@@ -86,7 +93,7 @@ public class ImageViewerViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to load image from URI in ImageViewerWindow: {imageUri}");
+            _logErrors.LogAndForget(ex, $"Failed to load image from URI in ImageViewerWindow: {imageUri}");
             ImageSource = null;
         }
     }

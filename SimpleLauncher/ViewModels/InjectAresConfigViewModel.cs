@@ -94,7 +94,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
             return _emulatorPath;
         }
 
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Ares");
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Ares", _logErrors);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
         {
             _emulatorPath = resolved;
@@ -118,7 +118,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
 
         try
         {
-            AresConfigurationService.InjectSettings(path, _settings);
+            AresConfigurationService.InjectSettings(path, _settings, _logErrors);
             return true;
         }
         catch (InvalidOperationException ex)

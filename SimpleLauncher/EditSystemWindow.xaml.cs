@@ -27,11 +27,12 @@ internal partial class EditSystemWindow : ILoadingState
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly ILogErrors _logErrors;
     private string _originalSystemName;
     private readonly IConfiguration _configuration;
     private readonly string _preSelectedSystemName;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -39,6 +40,7 @@ internal partial class EditSystemWindow : ILoadingState
         _configuration = configuration;
         _settings = settings;
         _playSoundEffects = playSoundEffects;
+        _logErrors = logErrors;
         _preSelectedSystemName = preSelectedSystemName;
 
         ApplyExpanderSettings();
@@ -110,7 +112,7 @@ internal partial class EditSystemWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Error loading systems into Edit window.");
+            _logErrors.LogAndForget(ex, "Error loading systems into Edit window.");
         }
         finally
         {
@@ -553,7 +555,7 @@ internal partial class EditSystemWindow : ILoadingState
         catch (Exception ex)
         {
             DebugLogger.Log($"Error in method DeleteSystemButton_Click: {ex.Message}");
-            App.LogErrorAsync(ex, "Error in method DeleteSystemButton_Click");
+            _logErrors.LogAndForget(ex, "Error in method DeleteSystemButton_Click");
         }
     }
 
@@ -583,7 +585,7 @@ internal partial class EditSystemWindow : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Error in method EditSystem_Closing");
+            _logErrors.LogAndForget(ex, "Error in method EditSystem_Closing");
         }
     }
 
@@ -605,18 +607,18 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 // Specific message for application control policy blocking links
                 MessageBoxLibrary.ApplicationControlPolicyBlockedManualLinkMessageBox(searchUrl);
-                App.LogErrorAsync(ex, "Application control policy blocked opening HelpLink.");
+                _logErrors.LogAndForget(ex, "Application control policy blocked opening HelpLink.");
             }
             else
             {
                 // Existing error handling for other Win32Exceptions
-                App.LogErrorAsync(ex, "Error in method HelpLink_Click");
+                _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
                 MessageBoxLibrary.ErrorOpeningUrlMessageBox();
             }
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error in method HelpLink_Click");
+            _logErrors.LogAndForget(ex, "Error in method HelpLink_Click");
             MessageBoxLibrary.ErrorOpeningUrlMessageBox();
         }
     }
@@ -715,13 +717,13 @@ internal partial class EditSystemWindow : ILoadingState
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex, "Error copying system image.");
+                _logErrors.LogAndForget(ex, "Error copying system image.");
                 MessageBoxLibrary.FailedToCopySystemImageMessageBox(ex.Message);
             }
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Error copying system image.");
+            _logErrors.LogAndForget(ex, "Error copying system image.");
         }
     }
 

@@ -1118,7 +1118,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
                     var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
 
-                    CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration);
+                    CreateDefaultSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logErrors);
 
                     var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                     DownloadStatus = systemhasbeensuccessfullyadded;

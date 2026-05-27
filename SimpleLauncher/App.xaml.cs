@@ -135,7 +135,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static provider =>
         {
             var config = provider.GetRequiredService<IConfiguration>();
-            var sm = new SettingsManager(config);
+            var logErrors = provider.GetRequiredService<ILogErrors>();
+            var sm = new SettingsManager(config, logErrors);
             sm.Load();
             return sm;
         });
@@ -149,9 +150,21 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<RetroAchievementsService>();
-        serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites());
-        serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
-        serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
+        serviceCollection.AddSingleton(static sp =>
+        {
+            var logErrors = sp.GetRequiredService<ILogErrors>();
+            return FavoritesManager.LoadFavorites(logErrors);
+        });
+        serviceCollection.AddSingleton(static sp =>
+        {
+            var logErrors = sp.GetRequiredService<ILogErrors>();
+            return PlayHistoryManager.LoadPlayHistory(logErrors);
+        });
+        serviceCollection.AddSingleton(static sp =>
+        {
+            var logErrors = sp.GetRequiredService<ILogErrors>();
+            return RetroAchievementsManager.LoadRetroAchievement(logErrors);
+        });
         serviceCollection.AddSingleton<GameScannerService>();
         serviceCollection.AddSingleton<ThemeMenuService>();
         serviceCollection.AddSingleton<LanguageMenuService>();
@@ -195,6 +208,10 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
+
+        // Initialize static services that need DI
+        var logErrors = ServiceProvider.GetRequiredService<ILogErrors>();
+        Services.HelpUser.HelpUser.Initialize(logErrors);
 
         // --- Single Instance Check ---
         // Catch args
@@ -323,7 +340,7 @@ public partial class App : IDisposable
         {
             try
             {
-                await ApplicationStats.CallApplicationStatsAsync(configuration);
+                await ApplicationStats.CallApplicationStatsAsync(configuration, logErrors);
             }
             catch (Exception ex)
             {
@@ -379,32 +396,6 @@ public partial class App : IDisposable
                 PooledConnectionLifetime = TimeSpan.FromMinutes(5),
                 ConnectTimeout = TimeSpan.FromSeconds(20)
             };
-        }
-    }
-
-    public static void LogErrorAsync(Exception ex, string contextMessage)
-    {
-        try
-        {
-            var logErrors = ServiceProvider?.GetRequiredService<ILogErrors>();
-            if (logErrors != null)
-            {
-                _ = Task.Run(async () =>
-                {
-                    try
-                    {
-                        await logErrors.LogErrorAsync(ex, contextMessage);
-                    }
-                    catch (Exception fireForgetEx)
-                    {
-                        DebugLogger.LogException(fireForgetEx, $"Failed to log error: {contextMessage}");
-                    }
-                });
-            }
-        }
-        catch (Exception logEx)
-        {
-            DebugLogger.LogException(logEx, $"Failed to resolve ILogErrors service: {contextMessage}");
         }
     }
 
