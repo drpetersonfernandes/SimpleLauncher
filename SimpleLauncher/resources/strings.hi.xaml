@@ -486,7 +486,7 @@
     <system:String x:Key="Emerald">पन्ना</system:String>
     <system:String x:Key="Emulator">एमुलेटर</system:String>
     <system:String x:Key="Emulator1">एमुलेटर 1</system:String>
-    <system:String x:Key="Emulator1Nameisrequired">&quot;एमुलेटर 1 का नाम&quot; आवश्यक है।</system:String>
+    <system:String x:Key="Emulator1Nameisrequired">'एमुलेटर 1 का नाम' आवश्यक है।</system:String>
     <system:String x:Key="Emulator1NameRequired">एमुलेटर 1 का नाम (आवश्यक)</system:String>
     <system:String x:Key="Emulator1Parameters">एमुलेटर 1 पैरामीटर</system:String>
     <system:String x:Key="Emulator1Path">इम्यूलेटर 1 पथ</system:String>
@@ -558,10 +558,10 @@
     <system:String x:Key="ExitIcon">बाहर निकलें</system:String>
     <system:String x:Key="ExpertIcon">विशेषज्ञ</system:String>
     <system:String x:Key="ExpertMode">विशेषज्ञ मोड</system:String>
-    <system:String x:Key="ExtensiontoLaunchAfterExtraction">&quot;'लॉन्च के बाद एक्सट्रैक्ट करने का एक्सटेंशन&quot; आवश्यक है जब 'लॉन्च से पहले फ़ाइल को एक्सट्रैक्ट करें’ चालू है।</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction">''लॉन्च के बाद एक्सट्रैक्ट करने का एक्सटेंशन' आवश्यक है जब 'लॉन्च से पहले फ़ाइल को एक्सट्रैक्ट करें’ चालू है।</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">निकालने के बाद लॉन्च करने के लिए एक्सटेंशन (आवश्यक हो सकता है)</system:String>
-    <system:String x:Key="ExtensiontoSearchintheSystemFolder">&quot;'सिस्टम फ़ोल्डर में खोजने का एक्सटेंशन' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder">''सिस्टम फ़ोल्डर में खोजने का एक्सटेंशन' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">सिस्टम फ़ोल्डर में खोजने के लिए एक्सटेंशन</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">सिस्टम फ़ोल्डर में खोजने के लिए एक्सटेंशन (आवश्यक)</system:String>
     <system:String x:Key="ExtractFileBeforeLaunch">लॉन्च से पहले फ़ाइल को अनज़िप करें?</system:String>
@@ -2194,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">चेतावनी! प्रति पृष्ठ बहुत अधिक संख्या में गेम सेट करने से ग्रिड मोड में सिस्टम मेमोरी का उपयोग काफी बढ़ जाएगा। यदि संख्या बहुत अधिक है, तो यह एप्लिकेशन क्रैश हो सकता है। कृपया सावधानी से आगे बढ़ें।</system:String>
     <system:String x:Key="wascanceled">रद्द कर दिया गया था।</system:String>
     <system:String x:Key="wasremovedfromfavorites">पसंदीदा से हटा दिया गया।</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">हम उन सिस्टमों का भी समर्थन करते हैं जिन्हें इन फाइलों की आवश्यकता होती है; हालांकि, इसके लिए आपको &quot;एक्सपर्ट मोड&quot; पर स्विच करना होगा और उन्हें मैन्युअल रूप से इंस्टॉल करना होगा।</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">हम उन सिस्टमों का भी समर्थन करते हैं जिन्हें इन फाइलों की आवश्यकता होती है; हालांकि, इसके लिए आपको 'एक्सपर्ट मोड' पर स्विच करना होगा और उन्हें मैन्युअल रूप से इंस्टॉल करना होगा।</system:String>
     <system:String x:Key="Welcome">स्वागत</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">'सिंपल लॉन्चर' में आपका स्वागत है!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' नहीं मिला। अपडेट इतिहास फ़ाइल नहीं मिल सकी।</system:String>

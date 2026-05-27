@@ -498,6 +498,15 @@ internal static class MountZipFiles
             return;
         }
 
+        if (!DokanValidation.IsDokanInstalled())
+        {
+            const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = logErrors.LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
+            return;
+        }
+
         // Get an available drive letter dynamically
         var driveLetter = GetAvailableDriveLetter(logErrors);
         if (driveLetter == null)
@@ -813,6 +822,15 @@ internal static class MountZipFiles
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
 
+            return;
+        }
+
+        if (!DokanValidation.IsDokanInstalled())
+        {
+            const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = logErrors.LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
             return;
         }
 

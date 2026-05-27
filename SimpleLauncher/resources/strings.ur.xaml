@@ -2194,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">انتباہ! فی صفحہ بہت زیادہ گیمز کی تعداد مقرر کرنے سے گرڈ موڈ میں سسٹم میموری کا استعمال نمایاں طور پر بڑھ جائے گا۔ اگر تعداد بہت زیادہ ہے، تو یہ ایپلیکیشن کے کریش ہونے کا سبب بن سکتا ہے۔ براہ کرم احتیاط سے آگے بڑھیں۔</system:String>
     <system:String x:Key="wascanceled">منسوخ کر دیا گیا تھا۔</system:String>
     <system:String x:Key="wasremovedfromfavorites">پسندیدہ سے ہٹا دیا گیا۔</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">ہم ان سسٹمز کو بھی سپورٹ کرتے ہیں جنہیں ان فائلوں کی ضرورت ہے؛ اس کے لیے آپ کو &quot;ایکسپرٹ موڈ&quot; پر جانا ہوگا اور دستی طور پر انسٹال کرنا ہوگا۔</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">ہم ان سسٹمز کو بھی سپورٹ کرتے ہیں جنہیں ان فائلوں کی ضرورت ہے؛ اس کے لیے آپ کو 'ایکسپرٹ موڈ' پر جانا ہوگا اور دستی طور پر انسٹال کرنا ہوگا۔</system:String>
     <system:String x:Key="Welcome">خوش آمدید</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">’سمپل لانچر‘ میں خوش آمدید!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' نہیں ملا۔ اپ ڈیٹ ہسٹری فائل نہیں مل سکی۔</system:String>

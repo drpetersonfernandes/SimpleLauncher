@@ -2194,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Uyarı! Sayfa başına çok yüksek sayıda oyun ayarlamak, Izgara modundayken sistem bellek kullanımını önemli ölçüde artıracaktır. Sayı çok yüksekse, bu uygulamanın çökmesine neden olabilir. Lütfen dikkatli ilerleyin.</system:String>
     <system:String x:Key="wascanceled">iptal edildi.</system:String>
     <system:String x:Key="wasremovedfromfavorites">favorilerden kaldırıldı.</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">Bu dosyaları gerektiren sistemleri de destekliyoruz; ancak, &quot;Uzman Modu&quot;na geçip bunları manuel olarak kurmanız gerekir.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Bu dosyaları gerektiren sistemleri de destekliyoruz; ancak, 'Uzman Modu'na geçip bunları manuel olarak kurmanız gerekir.</system:String>
     <system:String x:Key="Welcome">Hoş Geldiniz</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Simple Launcher'a Hoş Geldiniz!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' bulunamadı. Güncelleme geçmişi dosyası bulunamadı.</system:String>

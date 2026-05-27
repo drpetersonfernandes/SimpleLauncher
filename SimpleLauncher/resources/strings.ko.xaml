@@ -2194,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">경고! 그리드 모드에서 페이지당 매우 많은 수의 게임을 설정하면 시스템 메모리 사용량이 크게 증가합니다. 수가 너무 많으면 애플리케이션이 충돌할 수 있습니다. 주의하여 진행하십시오.</system:String>
     <system:String x:Key="wascanceled">취소되었습니다.</system:String>
     <system:String x:Key="wasremovedfromfavorites">즐겨찾기에서 삭제되었습니다.</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">이러한 파일이 필요한 시스템도 지원합니다. 그러나 &quot;전문가 모드&quot;로 전환하여 수동으로 설치해야 합니다.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">이러한 파일이 필요한 시스템도 지원합니다. 그러나 '전문가 모드'로 전환하여 수동으로 설치해야 합니다.</system:String>
     <system:String x:Key="Welcome">환영합니다</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">'Simple Launcher'에 오신 것을 환영합니다!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' 파일을 찾을 수 없습니다. 업데이트 기록 파일을 찾을 수 없습니다.</system:String>

@@ -1019,7 +1019,7 @@
     <system:String x:Key="NoSoundFileSelectedWarning">Nessun file audio selezionato.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Nessuna statistica disponibile da salvare. Attendi il caricamento dei dati.</system:String>
     <system:String x:Key="Nosystemnameprovided">Nessun nome del sistema fornito.</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">Nessun sistema configurato. Usa il menu &quot;Modifica sistema&quot; per aggiungere sistemi.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">Nessun sistema configurato. Usa il menu 'Modifica sistema' per aggiungere sistemi.</system:String>
     <system:String x:Key="Nosystemselected">Nessun sistema selezionato</system:String>
     <system:String x:Key="NoSystemsFound">Nessun sistema trovato nella configurazione.</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Spazio su disco insufficiente per l'estrazione.</system:String>
@@ -1658,7 +1658,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' non è riuscito a lanciare questo gioco.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' non è riuscito a caricare 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' non è riuscito a caricare il file 'mame.dat' o il file è danneggiato.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">&quot;Simple Launcher&quot; non è riuscito a montare il gioco selezionato.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' non è riuscito a montare il gioco selezionato.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' non è riuscito ad aprire il link di download.</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' non supporta l'hash RetroAchievements dei sistemi raggruppati per cartella.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' non supporta l'architettura del processore attuale. Supportiamo solo 64-bit (x64) o ARM64. L'applicazione si chiuderà ora.</system:String>

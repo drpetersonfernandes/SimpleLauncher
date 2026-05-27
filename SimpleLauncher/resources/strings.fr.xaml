@@ -1658,7 +1658,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' n'a pas pu lancer ce jeu.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' n'a pas pu charger 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' n'a pas pu charger le fichier 'mame.dat' ou il est corrompu.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">&quot;Simple Launcher&quot; n'a pas pu monter le jeu sélectionné.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' n'a pas pu monter le jeu sélectionné.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' n'a pas pu ouvrir le lien de téléchargement.</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' ne prend pas en charge le hachage RetroAchievements des systèmes regroupés par dossier.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' ne prend pas en charge l'architecture de processeur actuelle. Nous ne prenons en charge que le 64 bits (x64) ou ARM64. L'application va maintenant se fermer.</system:String>

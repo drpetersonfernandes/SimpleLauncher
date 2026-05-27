@@ -74,7 +74,7 @@
     <system:String x:Key="ArchivePathMessage">ملف الأرشيف:</system:String>
     <system:String x:Key="AresConfigurationSavedSuccessfully">تم حفظ تكوين Ares بنجاح.</system:String>
     <system:String x:Key="AresConfig_AspectCorrection_Label">تصحيح نسبة العرض إلى الارتفاع:</system:String>
-    <system:String x:Key="AresConfig_AspectCorrection_Tooltip">كيف يتم تغيير حجم الصورة لتناسب الشاشة. &quot;قياسي&quot; موصى به.</system:String>
+    <system:String x:Key="AresConfig_AspectCorrection_Tooltip">كيف يتم تغيير حجم الصورة لتناسب الشاشة. 'قياسي' موصى به.</system:String>
     <system:String x:Key="AresConfig_Audio_Header">الصوت</system:String>
     <system:String x:Key="AresConfig_AutoSaveMemory_Checkbox">حفظ الذاكرة تلقائيًا</system:String>
     <system:String x:Key="AresConfig_AutoSaveMemory_Tooltip">يحفظ تلقائيًا ذاكرة الوصول العشوائي المدعومة بالبطارية (مثل حفظ الألعاب) عند الخروج.</system:String>
@@ -98,7 +98,7 @@
     <system:String x:Key="AresConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="AresConfig_Save_Tooltip">حفظ التكوين وإغلاق هذه النافذة.</system:String>
     <system:String x:Key="AresConfig_Shader_Label">المظلل (Shader):</system:String>
-    <system:String x:Key="AresConfig_Shader_Tooltip">حدد مظلل معالجة لاحقة. &quot;بلا&quot; لعدم وجود مظلل.</system:String>
+    <system:String x:Key="AresConfig_Shader_Tooltip">حدد مظلل معالجة لاحقة. 'بلا' لعدم وجود مظلل.</system:String>
     <system:String x:Key="AresConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="AresConfig_ShowBeforeLaunch_Tooltip">إظهار هذه النافذة قبل تشغيل اللعبة.</system:String>
     <system:String x:Key="AresConfig_Title">إعدادات Ares</system:String>
@@ -169,7 +169,7 @@
     <system:String x:Key="Big">كبير</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">تم حفظ تكوين Blastem بنجاح.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">نسبة العرض إلى الارتفاع:</system:String>
-    <system:String x:Key="BlastemConfig_Aspect_Tooltip">يحدد نسبة العرض إلى الارتفاع للعرض. &quot;stretch&quot; سيملأ النافذة.</system:String>
+    <system:String x:Key="BlastemConfig_Aspect_Tooltip">يحدد نسبة العرض إلى الارتفاع للعرض. 'stretch' سيملأ النافذة.</system:String>
     <system:String x:Key="BlastemConfig_AudioRate_Label">معدل عينة الصوت:</system:String>
     <system:String x:Key="BlastemConfig_AudioRate_Tooltip">يحدد معدل عينة إخراج الصوت بالهرتز. القيم الأعلى توفر جودة أفضل.</system:String>
     <system:String x:Key="BlastemConfig_Audio_Header">الصوت</system:String>
@@ -182,13 +182,13 @@
     <system:String x:Key="BlastemConfig_Save_Button">حفظ</system:String>
     <system:String x:Key="BlastemConfig_Save_Tooltip">حفظ التكوين وإغلاق هذه النافذة.</system:String>
     <system:String x:Key="BlastemConfig_Scaling_Label">مرشح التحجيم:</system:String>
-    <system:String x:Key="BlastemConfig_Scaling_Tooltip">&quot;linear&quot; يوفر تحجيمًا سلسًا (تصفية ثنائية الخط). &quot;nearest&quot; يوفر تحجيمًا حادًا ومبكسلًا (أقرب جار).</system:String>
+    <system:String x:Key="BlastemConfig_Scaling_Tooltip">'linear' يوفر تحجيمًا سلسًا (تصفية ثنائية الخط). 'nearest' يوفر تحجيمًا حادًا ومبكسلًا (أقرب جار).</system:String>
     <system:String x:Key="BlastemConfig_Scanlines_Checkbox">تمكين خطوط المسح (Scanlines)</system:String>
     <system:String x:Key="BlastemConfig_Scanlines_Tooltip">يحاكي مظهر شاشة CRT بإضافة خطوط أفقية.</system:String>
     <system:String x:Key="BlastemConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="BlastemConfig_ShowBeforeLaunch_Tooltip">إظهار هذه النافذة قبل تشغيل اللعبة.</system:String>
     <system:String x:Key="BlastemConfig_SyncSource_Label">مصدر المزامنة:</system:String>
-    <system:String x:Key="BlastemConfig_SyncSource_Tooltip">&quot;video&quot; يوفر التجربة الأكثر سلاسة عندما تتطابق معدلات التحديث. &quot;audio&quot; يوفر زمن استجابة صوتي أقل.</system:String>
+    <system:String x:Key="BlastemConfig_SyncSource_Tooltip">'video' يوفر التجربة الأكثر سلاسة عندما تتطابق معدلات التحديث. 'audio' يوفر زمن استجابة صوتي أقل.</system:String>
     <system:String x:Key="BlastemConfig_System_Header">النظام</system:String>
     <system:String x:Key="BlastemConfig_Title">إعدادات Blastem</system:String>
     <system:String x:Key="BlastemConfig_Video_Header">عرض الفيديو</system:String>
@@ -264,8 +264,8 @@
     <system:String x:Key="ChooseSystemImage">اختر صورة</system:String>
     <system:String x:Key="ClearLog">مسح السجل</system:String>
     <system:String x:Key="ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu">انقر هنا إذا توقفت شاشة التحميل للعودة إلى القائمة الرئيسية</system:String>
-    <system:String x:Key="ClickNoToKeepTheEntry">انقر على &quot;لا&quot; للاحتفاظ بالإدخال في القائمة.</system:String>
-    <system:String x:Key="ClickNoToKeepTheFavorite">انقر على &quot;لا&quot; للاحتفاظ بالمفضلة في القائمة.</system:String>
+    <system:String x:Key="ClickNoToKeepTheEntry">انقر على 'لا' للاحتفاظ بالإدخال في القائمة.</system:String>
+    <system:String x:Key="ClickNoToKeepTheFavorite">انقر على 'لا' للاحتفاظ بالمفضلة في القائمة.</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
     <system:String x:Key="ClickToViewFullSize">انقر للعرض بالحجم الكامل</system:String>
     <system:String x:Key="Close">إغلاق</system:String>
@@ -446,7 +446,7 @@
     <system:String x:Key="DuckStationConfig_PgxpEnable_Checkbox">تمكين تصحيح هندسة PGXP</system:String>
     <system:String x:Key="DuckStationConfig_PgxpEnable_Tooltip">يصلح المضلعات المتذبذبة ومشاكل العرض ثلاثية الأبعاد الأخرى الشائعة في PlayStation الأصلي.</system:String>
     <system:String x:Key="DuckStationConfig_Renderer_Label">العارض (Renderer)</system:String>
-    <system:String x:Key="DuckStationConfig_Renderer_Tooltip">حدد واجهة برمجة تطبيقات الرسوميات المراد استخدامها. &quot;تلقائي&quot; موصى به. قد يوفر Vulkan أو D3D12 أداءً أفضل.</system:String>
+    <system:String x:Key="DuckStationConfig_Renderer_Tooltip">حدد واجهة برمجة تطبيقات الرسوميات المراد استخدامها. 'تلقائي' موصى به. قد يوفر Vulkan أو D3D12 أداءً أفضل.</system:String>
     <system:String x:Key="DuckStationConfig_ResolutionScale_Label">مقياس الدقة الداخلية</system:String>
     <system:String x:Key="DuckStationConfig_ResolutionScale_Tooltip">يزيد من دقة العرض الداخلية لرسومات أكثر وضوحًا. 1x هي الدقة الأصلية.</system:String>
     <system:String x:Key="DuckStationConfig_RewindEnable_Checkbox">تمكين الإرجاع (Rewind)</system:String>
@@ -462,7 +462,7 @@
     <system:String x:Key="DuckStationConfig_ShowBeforeLaunch_Checkbox">إظهار هذه النافذة قبل تشغيل اللعبة</system:String>
     <system:String x:Key="DuckStationConfig_ShowBeforeLaunch_Tooltip">إظهار هذه النافذة قبل تشغيل اللعبة.</system:String>
     <system:String x:Key="DuckStationConfig_TextureFilter_Label">تصفية التركيبات</system:String>
-    <system:String x:Key="DuckStationConfig_TextureFilter_Tooltip">&quot;Nearest&quot; يوفر مظهرًا حادًا ومبكسلًا. &quot;Bilinear&quot; ينعم التركيبات.</system:String>
+    <system:String x:Key="DuckStationConfig_TextureFilter_Tooltip">'Nearest' يوفر مظهرًا حادًا ومبكسلًا. 'Bilinear' ينعم التركيبات.</system:String>
     <system:String x:Key="DuckStationConfig_Title">إعدادات DuckStation</system:String>
     <system:String x:Key="DuckStationConfig_Video_Header">إعدادات الفيديو ووحدة معالجة الرسوميات</system:String>
     <system:String x:Key="DuckStationConfig_Volume_Label">مستوى الصوت الرئيسي</system:String>
@@ -480,7 +480,7 @@
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
     <system:String x:Key="EditSystemIcon">تعديل النظام</system:String>
     <system:String x:Key="EditSystemtofixit">قم بتعديل النظام لإصلاحه.</system:String>
-    <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">قم بتحرير هذا النظام في &quot;الوضع الخبير&quot; وقم بإصلاح حقل المعلمة لهذا المحاكي.</system:String>
+    <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">قم بتحرير هذا النظام في 'الوضع الخبير' وقم بإصلاح حقل المعلمة لهذا المحاكي.</system:String>
     <system:String x:Key="ElevationRequired">The requested operation requires elevation (Administrator privileges).</system:String>
     <system:String x:Key="Email">البريد الإلكتروني</system:String>
     <system:String x:Key="Emerald">زمردي</system:String>
@@ -938,10 +938,10 @@
     <system:String x:Key="MednafenConfig_ShowBeforeLaunch_Tooltip">إظهار هذه النافذة قبل تشغيل اللعبة.</system:String>
     <system:String x:Key="MednafenConfig_Sound_Header">الصوت</system:String>
     <system:String x:Key="MednafenConfig_Stretch_Label">نسبة العرض إلى الارتفاع / التمديد:</system:String>
-    <system:String x:Key="MednafenConfig_Stretch_Tooltip">كيف يتم تمديد صورة اللعبة لتناسب الشاشة. &quot;aspect&quot; موصى به.</system:String>
+    <system:String x:Key="MednafenConfig_Stretch_Tooltip">كيف يتم تمديد صورة اللعبة لتناسب الشاشة. 'aspect' موصى به.</system:String>
     <system:String x:Key="MednafenConfig_Title">إعدادات Mednafen</system:String>
     <system:String x:Key="MednafenConfig_VideoDriver_Label">مشغل الفيديو:</system:String>
-    <system:String x:Key="MednafenConfig_VideoDriver_Tooltip">حدد مشغل عرض الفيديو. &quot;opengl&quot; موصى به للأداء والميزات.</system:String>
+    <system:String x:Key="MednafenConfig_VideoDriver_Tooltip">حدد مشغل عرض الفيديو. 'opengl' موصى به للأداء والميزات.</system:String>
     <system:String x:Key="MednafenConfig_Video_Header">الفيديو</system:String>
     <system:String x:Key="MednafenConfig_Volume_Label">مستوى الصوت الرئيسي (%):</system:String>
     <system:String x:Key="MednafenConfig_Volume_Tooltip">يضبط مستوى الصوت الرئيسي. 100 هو الافتراضي.</system:String>
@@ -1019,7 +1019,7 @@
     <system:String x:Key="NoSoundFileSelectedWarning">لم يتم تحديد ملف صوت.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">لا توجد إحصائيات للحفظ. يرجى الانتظار حتى يتم تحميل البيانات.</system:String>
     <system:String x:Key="Nosystemnameprovided">لم يتم توفير اسم النظام.</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة &quot;تحرير النظام&quot; لإضافة أنظمة.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة 'تحرير النظام' لإضافة أنظمة.</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="NoSystemsFound">لم يتم العثور على أنظمة في التكوين الخاص بك.</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">مساحة القرص غير كافية للاستخراج.</system:String>
@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">موافق</system:String>
     <system:String x:Key="Olive">زيتي</system:String>
     <system:String x:Key="OliveDrab">أخضر زيتوني باهت</system:String>
+    <system:String x:Key="oneDriveIssue">إذا كان الملف في OneDrive، تأكد من أنه متزامن ومحمل إلى جهازك. انقر بزر الماوس الأيمن على الملف في مستكشف الملفات وحدد 'الاحتفاظ دائمًا على هذا الجهاز'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">مسار أو أكثر أو معلمات غير صحيحة.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">محاكي Ootake لا يدعم ملفات CHD، ISO، CUE/BIN.</system:String>
     <system:String x:Key="Open">فتح</system:String>
@@ -1380,7 +1381,7 @@
     <system:String x:Key="RetroArchConfig_AdvancedSettings_Checkbox">إظهار الإعدادات المتقدمة</system:String>
     <system:String x:Key="RetroArchConfig_AdvancedSettings_Tooltip">يعرض المزيد من الخيارات المعقدة في قائمة RetroArch.</system:String>
     <system:String x:Key="RetroArchConfig_AspectRatio_Label">نسبة العرض إلى الارتفاع:</system:String>
-    <system:String x:Key="RetroArchConfig_AspectRatio_Tooltip">يضبط نسبة العرض إلى الارتفاع للشاشة (عادةً ما يكون &quot;المقدم من النواة&quot; هو الأفضل).</system:String>
+    <system:String x:Key="RetroArchConfig_AspectRatio_Tooltip">يضبط نسبة العرض إلى الارتفاع للشاشة (عادةً ما يكون 'المقدم من النواة' هو الأفضل).</system:String>
     <system:String x:Key="RetroArchConfig_AudioEnable_Checkbox">تمكين الصوت</system:String>
     <system:String x:Key="RetroArchConfig_AudioEnable_Tooltip">يمكّن إخراج الصوت.</system:String>
     <system:String x:Key="RetroArchConfig_AudioMute_Checkbox">كتم الصوت</system:String>
@@ -1395,7 +1396,7 @@
     <system:String x:Key="RetroArchConfig_Bilinear_Tooltip">يطبق تصفية ثنائية الخط لتنعيم البكسلات.</system:String>
     <system:String x:Key="RetroArchConfig_Cancel_Button">إلغاء</system:String>
     <system:String x:Key="RetroArchConfig_Cancel_Tooltip">إلغاء وإغلاق هذه النافذة دون حفظ التغييرات.</system:String>
-    <system:String x:Key="RetroArchConfig_CredentialsManaged_Text">تتم إدارة بيانات الاعتماد في نافذة &quot;إعدادات إنجازات ريترو&quot;.</system:String>
+    <system:String x:Key="RetroArchConfig_CredentialsManaged_Text">تتم إدارة بيانات الاعتماد في نافذة 'إعدادات إنجازات ريترو'.</system:String>
     <system:String x:Key="RetroArchConfig_DiscordPresence_Checkbox">وجود ديسكورد الغني (Discord Rich Presence)</system:String>
     <system:String x:Key="RetroArchConfig_DiscordPresence_Tooltip">يظهر ما تلعبه على ملفك الشخصي في ديسكورد.</system:String>
     <system:String x:Key="RetroArchConfig_EnableCheevos_Checkbox">تمكين إنجازات ريترو (RetroAchievements)</system:String>
@@ -1443,7 +1444,7 @@
     <system:String x:Key="RetroArchemulatorpathnotfoundPlease">لم يتم العثور على مسار محاكي RetroArch. يرجى تحديد 'retroarch.exe' لتطبيق هذه الإعدادات.</system:String>
     <system:String x:Key="RetroArchParameterIssue">لم يتمكن RetroArch من تشغيل لعبتك.</system:String>
     <system:String x:Key="RetroArchParameterIssue2">99% من حالات فشل التشغيل ترجع إلى معلمات غير صحيحة.</system:String>
-    <system:String x:Key="RetroArchParameterIssue3">ارجع إلى &quot;الوضع الخبير&quot; وتحقق جيدًا من حقل المعلمة لهذا المحاكي. تحقق جيدًا من المسار إلى النواة المطلوبة. اقرأ التوصيات من مطور &quot;Simple Launcher&quot; للنظام المحدد.</system:String>
+    <system:String x:Key="RetroArchParameterIssue3">ارجع إلى 'الوضع الخبير' وتحقق جيدًا من حقل المعلمة لهذا المحاكي. تحقق جيدًا من المسار إلى النواة المطلوبة. اقرأ التوصيات من مطور 'Simple Launcher' للنظام المحدد.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">تحقق من متطلبات النواة لتشغيلها. تتطلب بعض النوى ملف BIOS للعمل. اقرأ وثائق النواة لمعرفة ما هي المتطلبات لتلك النواة المحددة.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">يجب أن تحتوي معلمة RetroArch على -L للإشارة بشكل صحيح إلى النواة المطلوبة.</system:String>
     <system:String x:Key="RetroArchSettings">إعدادات RetroArch</system:String>
@@ -1637,9 +1638,9 @@
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
-    <system:String x:Key="SimpleLaunchercannotperform">لا يمكن لـ &quot;Simple Launcher&quot; تنفيذ المهمة المطلوبة.</system:String>
+    <system:String x:Key="SimpleLaunchercannotperform">لا يمكن لـ 'Simple Launcher' تنفيذ المهمة المطلوبة.</system:String>
     <system:String x:Key="SimpleLaunchercannotrunfromatemporary">'Simple Launcher' لا يمكن تشغيله من مجلد مؤقت.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">تعذر على &quot;Simple Launcher&quot; الوصول إلى واجهة برمجة تطبيقات الويب (Web API) لتنزيل عناوين URL المحدثة. يرجى المحاولة مرة أخرى لاحقاً.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">تعذر على 'Simple Launcher' الوصول إلى واجهة برمجة تطبيقات الويب (Web API) لتنزيل عناوين URL المحدثة. يرجى المحاولة مرة أخرى لاحقاً.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration">لم يتمكن 'Simple Launcher' من الوصول إلى واجهة برمجة تطبيقات الويب لتنزيل التكوين المحدّث.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration2">قد يكون هذا بسبب:</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration3">• جدار حماية حكومي أو قيود على الإنترنت في منطقتك</system:String>
@@ -1647,7 +1648,7 @@
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration5">لحل هذه المشكلة، يمكنك:</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration6">1. تمكين اتصال VPN والمحاولة مرة أخرى</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration7">2. التحقق من اتصالك بالإنترنت</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration8">3. تكوين الأنظمة يدويًا باستخدام ميزة &quot;تعديل النظام&quot;</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration8">3. تكوين الأنظمة يدويًا باستخدام ميزة 'تعديل النظام'</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration9">ملاحظة: قد يكون استخدام VPN ضروريًا إذا كنت مقيمًا في بلد به قيود على الإنترنت.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcalculate">لم يتمكن 'Simple Launcher' من حساب قيمة الهاش لهذه اللعبة أو أن هذه اللعبة غير مدعومة بعد من قبل RetroAchievements.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">لم يتمكن 'Simple Launcher' من التحقق من مساحة القرص للمسار المحدد. يرجى التحقق من المسار والمحاولة مرة أخرى.</system:String>
@@ -1657,7 +1658,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">لم يتمكن 'Simple Launcher' من تحميل 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">لم يتمكن &quot;Simple Launcher&quot; من تحميل اللعبة المحددة.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">لم يتمكن 'Simple Launcher' من تحميل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' لا يدعم تجزئة RetroAchievements للأنظمة المجمعة حسب المجلد.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' لا يدعم بنية المعالج الحالية. نحن ندعم فقط 64-بت (x64) أو ARM64. سيتم إغلاق التطبيق الآن.</system:String>
@@ -1716,7 +1717,7 @@
     <system:String x:Key="StellaConfig_TvFilter_None">بلا</system:String>
     <system:String x:Key="StellaConfig_TvFilter_Tooltip">يحاكي أنواعًا مختلفة من شاشات التلفزيون.</system:String>
     <system:String x:Key="StellaConfig_VideoDriver_Label">مشغل الفيديو:</system:String>
-    <system:String x:Key="StellaConfig_VideoDriver_Tooltip">يحدد واجهة برمجة تطبيقات الرسوميات المراد استخدامها للعرض. &quot;direct3d&quot; موصى به لنظام Windows.</system:String>
+    <system:String x:Key="StellaConfig_VideoDriver_Tooltip">يحدد واجهة برمجة تطبيقات الرسوميات المراد استخدامها للعرض. 'direct3d' موصى به لنظام Windows.</system:String>
     <system:String x:Key="StellaConfig_Video_Header">الفيديو</system:String>
     <system:String x:Key="StellaConfig_Vsync_Checkbox">تمكين المزامنة الرأسية (V-Sync)</system:String>
     <system:String x:Key="StellaConfig_Vsync_Tooltip">مزامنة العرض مع معدل تحديث الشاشة لمنع تمزق الشاشة.</system:String>
@@ -1780,6 +1781,7 @@
     <system:String x:Key="System">النظام:</system:String>
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'مجلد النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">'مجلد النظام' يحتوي على أحرف غير صالحة:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">مسار مجلد النظام غير صالح أو غير موجود:</system:String>
     <system:String x:Key="SystemFolderRequired">مجلد النظام (مطلوب)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">تمت إضافة النظام بنجاح!</system:String>
@@ -1790,7 +1792,7 @@
     <system:String x:Key="SystemImageLabel">صورة النظام</system:String>
     <system:String x:Key="SystemLoadCancelled">تم إلغاء تحميل النظام.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'اسم النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
-    <system:String x:Key="SystemNamecontainsinvalid">&quot;اسم النظام&quot; يحتوي على أحرف غير صالحة:</system:String>
+    <system:String x:Key="SystemNamecontainsinvalid">'اسم النظام' يحتوي على أحرف غير صالحة:</system:String>
     <system:String x:Key="SystemNameHeader">اسم النظام</system:String>
     <system:String x:Key="SystemNameRequired">اسم النظام (مطلوب)</system:String>
     <system:String x:Key="SystemNameRequiredBeforeChoosingImage">الرجاء إدخال اسم النظام قبل اختيار صورة.</system:String>
@@ -1799,7 +1801,7 @@
     <system:String x:Key="SystemSelectionPrompt">الرجاء تحديد النظام الصحيح:</system:String>
     <system:String x:Key="SystemSpecifics">تفاصيل النظام:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' تالف أو لا يمكن فتحه.</system:String>
-    <system:String x:Key="systemxmlnotfound">لم يتم العثور على &quot;system.xml&quot; داخل مجلد التطبيق.</system:String>
+    <system:String x:Key="systemxmlnotfound">لم يتم العثور على 'system.xml' داخل مجلد التطبيق.</system:String>
     <system:String x:Key="TakeScreenshot">التقاط لقطة شاشة</system:String>
     <system:String x:Key="TakingScreenshot">التقاط لقطة شاشة...</system:String>
     <system:String x:Key="Taller">أطول</system:String>
@@ -2192,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">تحذير! تعيين عدد كبير جدًا من الألعاب لكل صفحة سيزيد بشكل كبير من استخدام ذاكرة النظام عند وضع الشبكة. إذا كان العدد مرتفعًا جدًا، فقد يتسبب ذلك في تعطل التطبيق. يرجى المتابعة بحذر.</system:String>
     <system:String x:Key="wascanceled">تم الإلغاء.</system:String>
     <system:String x:Key="wasremovedfromfavorites">تمت إزالته من المفضلة.</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">ندعم أيضاً الأنظمة التي تتطلب تلك الملفات؛ ومع ذلك، ستحتاج إلى التبديل إلى &quot;الوضع المتقدم&quot; وتثبيتها يدوياً.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">ندعم أيضاً الأنظمة التي تتطلب تلك الملفات؛ ومع ذلك، ستحتاج إلى التبديل إلى 'الوضع المتقدم' وتثبيتها يدوياً.</system:String>
     <system:String x:Key="Welcome">مرحباً</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">مرحباً بك في 'Simple Launcher'!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' غير موجود. لم يتم العثور على ملف سجل التحديث.</system:String>
@@ -2257,7 +2259,7 @@
     <system:String x:Key="XeniaSettings">إعدادات Xenia</system:String>
     <system:String x:Key="Yellow">أصفر</system:String>
     <system:String x:Key="Youcanaddanewsystem">يمكنك الآن إضافة نظام جديد.</system:String>
-    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">يمكنك أيضًا تعطيل برنامج مكافحة الفيروسات مؤقتًا أو إضافة مجلد &quot;Simple Launcher&quot; إلى قائمة الاستثناءات في برنامج مكافحة الفيروسات.</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">يمكنك أيضًا تعطيل برنامج مكافحة الفيروسات مؤقتًا أو إضافة مجلد 'Simple Launcher' إلى قائمة الاستثناءات في برنامج مكافحة الفيروسات.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
     <system:String x:Key="YouCanHaveSupportFromMultipleAIProvidersOrFromTheDeveloper">يمكنك الحصول على دعم من عدة مزودي ذكاء اصطناعي أو من المطور. اختر أدناه.</system:String>

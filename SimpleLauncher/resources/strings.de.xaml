@@ -486,7 +486,7 @@
     <system:String x:Key="Emerald">Smaragd</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
     <system:String x:Key="Emulator1">Emulator 1</system:String>
-    <system:String x:Key="Emulator1Nameisrequired">&quot;Emulator 1 Name&quot; ist erforderlich.</system:String>
+    <system:String x:Key="Emulator1Nameisrequired">'Emulator 1 Name' ist erforderlich.</system:String>
     <system:String x:Key="Emulator1NameRequired">Emulator 1 Name (erforderlich)</system:String>
     <system:String x:Key="Emulator1Parameters">Emulator 1 Parameter</system:String>
     <system:String x:Key="Emulator1Path">Emulator 1 Pfad</system:String>
@@ -558,10 +558,10 @@
     <system:String x:Key="ExitIcon">Beenden</system:String>
     <system:String x:Key="ExpertIcon">Experte</system:String>
     <system:String x:Key="ExpertMode">Expertenmodus</system:String>
-    <system:String x:Key="ExtensiontoLaunchAfterExtraction">&quot;Erweiterung zum Starten nach der Extraktion&quot; ist erforderlich, wenn &quot;Datei vor dem Start extrahieren&quot; auf &quot;Wahr&quot; gesetzt ist.</system:String>
+    <system:String x:Key="ExtensiontoLaunchAfterExtraction">'Erweiterung zum Starten nach der Extraktion' ist erforderlich, wenn 'Datei vor dem Start extrahieren' auf 'Wahr' gesetzt ist.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Erweiterung zum Starten nach der Extraktion</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtractionMaybeRequired">Erweiterung, die nach der Extraktion gestartet werden soll (kann erforderlich sein)</system:String>
-    <system:String x:Key="ExtensiontoSearchintheSystemFolder">&quot;Erweiterung zum Suchen im Systemordner&quot; darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
+    <system:String x:Key="ExtensiontoSearchintheSystemFolder">'Erweiterung zum Suchen im Systemordner' darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolder2">Erweiterung zum Suchen im Systemordner</system:String>
     <system:String x:Key="ExtensiontoSearchintheSystemFolderRequired">Erweiterung zum Suchen im Systemordner (erforderlich)</system:String>
     <system:String x:Key="ExtractFileBeforeLaunch">Datei vor dem Start extrahieren?</system:String>
@@ -1036,6 +1036,7 @@
     <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Oliv</system:String>
     <system:String x:Key="OliveDrab">Olivgrün</system:String>
+    <system:String x:Key="oneDriveIssue">Wenn die Datei in OneDrive ist, stellen Sie sicher, dass sie synchronisiert und auf Ihr Gerät heruntergeladen wurde. Klicken Sie mit der rechten Maustaste auf die Datei im Datei-Explorer und wählen Sie 'Immer auf diesem Gerät speichern'.</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Einer oder mehrere Pfade oder Parameter sind ungültig.</system:String>
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Der Ootake-Emulator unterstützt keine CHD-, ISO-, CUE/BIN-Dateien.</system:String>
     <system:String x:Key="Open">Öffnen</system:String>
@@ -1647,7 +1648,7 @@
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration5">Um dieses Problem zu beheben, können Sie:</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration6">1. Eine VPN-Verbindung aktivieren und erneut versuchen</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration7">2. Ihre Internetverbindung überprüfen</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration8">3. Systeme manuell über die Funktion &quot;System bearbeiten&quot; konfigurieren</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration8">3. Systeme manuell über die Funktion 'System bearbeiten' konfigurieren</system:String>
     <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPIToDownloadTheUpdatedConfiguration9">Hinweis: Ein VPN kann erforderlich sein, wenn Sie sich in einem Land mit Internetbeschränkungen befinden.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcalculate">'Simple Launcher' konnte den Hash-Wert dieses Spiels nicht berechnen oder dieses Spiel wird noch nicht von RetroAchievements unterstützt.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' konnte den Speicherplatz für den angegebenen Pfad nicht überprüfen. Bitte überprüfen Sie den Pfad und versuchen Sie es erneut.</system:String>
@@ -1657,7 +1658,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' konnte dieses Spiel nicht starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' konnte 'helpuser.xml' nicht laden.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' konnte die Datei 'mame.dat' nicht laden oder sie ist beschädigt.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">&quot;Simple Launcher&quot; konnte das ausgewählte Spiel nicht mounten.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' konnte das ausgewählte Spiel nicht mounten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' konnte den Download-Link nicht öffnen.</system:String>
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' unterstützt RetroAchievements-Hashes von nach Ordnern gruppierten Systemen nicht.</system:String>
     <system:String x:Key="SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture">'Simple Launcher' unterstützt die aktuelle Prozessorarchitektur nicht. Wir unterstützen nur 64-Bit (x64) oder ARM64. Die Anwendung wird jetzt geschlossen.</system:String>
@@ -1779,17 +1780,18 @@
     <system:String x:Key="Supportrequestsentsuccessfully">Support-Anfrage erfolgreich gesendet.</system:String>
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="SystemFolder">Systemordner</system:String>
-    <system:String x:Key="SystemFoldercannotbeempty">&quot;Systemordner&quot; darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
+    <system:String x:Key="SystemFoldercannotbeempty">'Systemordner' darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">„Systemordner" enthält ungültige Zeichen:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Der Pfad des Systemordners ist ungültig oder existiert nicht:</system:String>
     <system:String x:Key="SystemFolderRequired">Systemordner (Erforderlich)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System wurde erfolgreich hinzugefügt!</system:String>
     <system:String x:Key="SystemImageFolder">System-Bildordner</system:String>
-    <system:String x:Key="SystemImageFoldercannotbeempty">&quot;System-Bildordner&quot; darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
+    <system:String x:Key="SystemImageFoldercannotbeempty">'System-Bildordner' darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
     <system:String x:Key="SystemImageFolderOptional">System-Bildordner (optional)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">Der Pfad des Systembilder-Ordners ist ungültig oder existiert nicht:</system:String>
     <system:String x:Key="SystemImageLabel">Systembild</system:String>
     <system:String x:Key="SystemLoadCancelled">Systemladung abgebrochen.</system:String>
-    <system:String x:Key="SystemNamecannotbeemptyor">&quot;Systemname&quot; darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
+    <system:String x:Key="SystemNamecannotbeemptyor">'Systemname' darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
     <system:String x:Key="SystemNamecontainsinvalid">„Systemname“ enthält ungültige Zeichen:</system:String>
     <system:String x:Key="SystemNameHeader">Systemname</system:String>
     <system:String x:Key="SystemNameRequired">Systemname (erforderlich)</system:String>
@@ -1799,7 +1801,7 @@
     <system:String x:Key="SystemSelectionPrompt">Bitte wählen Sie das korrekte System aus:</system:String>
     <system:String x:Key="SystemSpecifics">Systemspezifikationen:</system:String>
     <system:String x:Key="systemxmliscorrupted">'system.xml' ist beschädigt oder konnte nicht geöffnet werden.</system:String>
-    <system:String x:Key="systemxmlnotfound">&quot;system.xml&quot; wurde im Anwendungsverzeichnis nicht gefunden.</system:String>
+    <system:String x:Key="systemxmlnotfound">'system.xml' wurde im Anwendungsverzeichnis nicht gefunden.</system:String>
     <system:String x:Key="TakeScreenshot">Screenshot erstellen</system:String>
     <system:String x:Key="TakingScreenshot">Screenshot wird erstellt...</system:String>
     <system:String x:Key="Taller">Höher</system:String>
@@ -2196,7 +2198,7 @@
     <system:String x:Key="Welcome">Willkommen</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Willkommen bei 'Simple Launcher'!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' nicht gefunden. Die Update-Verlaufsdatei konnte nicht gefunden werden.</system:String>
-    <system:String x:Key="WhenExtractFileBeforeLaunch">Wenn &quot;Datei vor dem Start extrahieren&quot; auf &quot;Wahr&quot; gesetzt ist, muss &quot;Erweiterung zum Suchen im Systemordner&quot; &quot;zip&quot;, &quot;7z&quot; oder &quot;rar&quot; enthalten.</system:String>
+    <system:String x:Key="WhenExtractFileBeforeLaunch">Wenn 'Datei vor dem Start extrahieren' auf 'Wahr' gesetzt ist, muss 'Erweiterung zum Suchen im Systemordner' 'zip', '7z' oder 'rar' enthalten.</system:String>
     <system:String x:Key="Wider">Breiter</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Möchten Sie zur Download-Seite weitergeleitet werden?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Möchten Sie zur Download-Seite weitergeleitet werden, um es manuell zu installieren oder zu aktualisieren?</system:String>

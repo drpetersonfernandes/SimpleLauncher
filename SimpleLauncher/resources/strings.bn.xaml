@@ -2194,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">সতর্কতা! প্রতি পৃষ্ঠায় খুব বেশি সংখ্যক গেম সেট করলে গ্রিড মোডে থাকাকালীন সিস্টেম মেমরি ব্যবহার উল্লেখযোগ্যভাবে বৃদ্ধি পাবে। সংখ্যাটি খুব বেশি হলে, এটি অ্যাপ্লিকেশন ক্র্যাশ করতে পারে। অনুগ্রহ করে সতর্কতার সাথে এগিয়ে যান।</system:String>
     <system:String x:Key="wascanceled">বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="wasremovedfromfavorites">পছন্দের তালিকা থেকে সরানো হয়েছে।</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">আমরা সেগুলোও সমর্থন করি যারা এসব ফাইলের প্রয়োজন; তবে, আপনাকে &quot;এক্সপার্ট মোড&quot;-এ যেতে হবে এবং নিজে ইনস্টল করতে হবে।</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">আমরা সেগুলোও সমর্থন করি যারা এসব ফাইলের প্রয়োজন; তবে, আপনাকে 'এক্সপার্ট মোড'-এ যেতে হবে এবং নিজে ইনস্টল করতে হবে।</system:String>
     <system:String x:Key="Welcome">স্বাগতম</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">‘সিম্পল লঞ্চার’-এ স্বাগতম!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># 'whatsnew.md' পাওয়া যায়নি। আপডেট হিস্টরি ফাইলটি খুঁজে পাওয়া যায়নি।</system:String>

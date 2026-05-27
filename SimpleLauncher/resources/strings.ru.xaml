@@ -444,7 +444,7 @@
     <system:String x:Key="DuckStationConfig_PauseOnFocusLoss_Checkbox">Пауза при потере фокуса</system:String>
     <system:String x:Key="DuckStationConfig_PauseOnFocusLoss_Tooltip">Если отмечено, эмуляция будет приостановлена, когда окно неактивно.</system:String>
     <system:String x:Key="DuckStationConfig_PgxpEnable_Checkbox">Включить коррекцию геометрии PGXP</system:String>
-    <system:String x:Key="DuckStationConfig_PgxpEnable_Tooltip">Исправляет &quot;дрожащие&quot; полигоны и другие проблемы 3D-рендеринга, характерные для оригинальной PlayStation.</system:String>
+    <system:String x:Key="DuckStationConfig_PgxpEnable_Tooltip">Исправляет 'дрожащие' полигоны и другие проблемы 3D-рендеринга, характерные для оригинальной PlayStation.</system:String>
     <system:String x:Key="DuckStationConfig_Renderer_Label">Рендерер</system:String>
     <system:String x:Key="DuckStationConfig_Renderer_Tooltip">Выберите графический API для использования. 'Automatic' (Автоматический) рекомендуется. Vulkan или D3D12 могут предложить лучшую производительность.</system:String>
     <system:String x:Key="DuckStationConfig_ResolutionScale_Label">Масштаб внутреннего разрешения</system:String>
@@ -480,7 +480,7 @@
     <system:String x:Key="EditSystem">Редактировать систему</system:String>
     <system:String x:Key="EditSystemIcon">Редактировать систему</system:String>
     <system:String x:Key="EditSystemtofixit">Отредактируйте систему, чтобы исправить.</system:String>
-    <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Отредактируйте эту систему в &quot;Экспертном режиме&quot; и исправьте поле параметра для этого эмулятора.</system:String>
+    <system:String x:Key="EditthissysteminExpertModeandfixtheparameter">Отредактируйте эту систему в 'Экспертном режиме' и исправьте поле параметра для этого эмулятора.</system:String>
     <system:String x:Key="ElevationRequired">Для выполнения запрошенной операции требуются права администратора.</system:String>
     <system:String x:Key="Email">Электронная почта</system:String>
     <system:String x:Key="Emerald">Изумрудный</system:String>
@@ -992,7 +992,7 @@
     <system:String x:Key="MoreOptions">Больше опций</system:String>
     <system:String x:Key="MostRecentAward">Самая последняя награда</system:String>
     <system:String x:Key="MyProfileTab">Мой профиль |</system:String>
-    <system:String x:Key="MyProfileTabTooltip">Вкладка &quot;Мой профиль&quot;</system:String>
+    <system:String x:Key="MyProfileTabTooltip">Вкладка 'Мой профиль'</system:String>
     <system:String x:Key="Name">Имя</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">требуется, так как предоставлены связанные данные.</system:String>
     <system:String x:Key="networkPathIssue">Если файл находится на сетевом диске, убедитесь, что компьютер всё еще подключен к этому диску.</system:String>
@@ -1041,7 +1041,7 @@
     <system:String x:Key="OotakeemulatordoesnotsupportCHD">Эмулятор Ootake не поддерживает файлы CHD, ISO, CUE/BIN.</system:String>
     <system:String x:Key="Open">Открыть</system:String>
     <system:String x:Key="OpenInfoLink">Открыть ссылку на информацию</system:String>
-    <system:String x:Key="OpeningAboutWindow">Открытие окна &quot;О программе&quot;...</system:String>
+    <system:String x:Key="OpeningAboutWindow">Открытие окна 'О программе'...</system:String>
     <system:String x:Key="OpeningAresConfiguration">Открытие настроек Ares...</system:String>
     <system:String x:Key="OpeningBlastemConfiguration">Открытие настроек Blastem...</system:String>
     <system:String x:Key="OpeningCabinetImage">Открытие изображения корпуса...</system:String>
@@ -1086,7 +1086,7 @@
     <system:String x:Key="OpeningWalkthrough">Открытие прохождения...</system:String>
     <system:String x:Key="OpeningXeniaConfiguration">Открытие конфигурации Xenia...</system:String>
     <system:String x:Key="OpenRaSettings">Открыть настройки RetroAchievements</system:String>
-    <system:String x:Key="OpenRaSettingsButtonTooltip">Кнопка &quot;Открыть настройки RetroAchievements&quot;</system:String>
+    <system:String x:Key="OpenRaSettingsButtonTooltip">Кнопка 'Открыть настройки RetroAchievements'</system:String>
     <system:String x:Key="OpenRetroAchievementsSettings">Открыть настройки RetroAchievements</system:String>
     <system:String x:Key="OpenROMHistory">Открыть историю ROM</system:String>
     <system:String x:Key="OpenTempFolderQuestion">Хотите открыть временную папку, чтобы извлечь файл вручную?</system:String>
@@ -1444,7 +1444,7 @@
     <system:String x:Key="RetroArchemulatorpathnotfoundPlease">Путь к эмулятору RetroArch не найден. Пожалуйста, выберите 'retroarch.exe', чтобы применить эти настройки.</system:String>
     <system:String x:Key="RetroArchParameterIssue">RetroArch не смог запустить вашу игру.</system:String>
     <system:String x:Key="RetroArchParameterIssue2">99% сбоев запуска происходят из-за неправильных параметров.</system:String>
-    <system:String x:Key="RetroArchParameterIssue3">Вернитесь в &quot;Экспертный режим&quot; и перепроверьте поле параметра для этого эмулятора. Дважды проверьте путь к желаемому ядру. Прочитайте рекомендации разработчика &quot;Simple Launcher&quot; для конкретной системы.</system:String>
+    <system:String x:Key="RetroArchParameterIssue3">Вернитесь в 'Экспертный режим' и перепроверьте поле параметра для этого эмулятора. Дважды проверьте путь к желаемому ядру. Прочитайте рекомендации разработчика 'Simple Launcher' для конкретной системы.</system:String>
     <system:String x:Key="RetroArchParameterIssue4">Проверьте требования ядра для его запуска. Некоторые ядра требуют файл BIOS для работы. Прочитайте документацию ядра, чтобы выяснить, каковы требования для этого конкретного ядра.</system:String>
     <system:String x:Key="RetroArchParameterShouldContainL">Параметр RetroArch должен содержать -L, чтобы правильно указывать на желаемое ядро.</system:String>
     <system:String x:Key="RetroArchSettings">Настройки RetroArch</system:String>
@@ -2153,7 +2153,7 @@
     <system:String x:Key="UnknownSystemError">Неизвестная системная ошибка</system:String>
     <system:String x:Key="UnlocksDataGridTooltip">Таблица данных разблокировок достижений</system:String>
     <system:String x:Key="UnlocksTab">Разблокировки |</system:String>
-    <system:String x:Key="UnlocksTabTooltip">Вкладка &quot;Разблокировки достижений&quot;</system:String>
+    <system:String x:Key="UnlocksTabTooltip">Вкладка 'Разблокировки достижений'</system:String>
     <system:String x:Key="UnsupportedArchitecture">Неподдерживаемая архитектура</system:String>
     <system:String x:Key="UpdateAvailable">Доступно обновление</system:String>
     <system:String x:Key="Updated">Обновлено:</system:String>
@@ -2169,7 +2169,7 @@
     <system:String x:Key="Username">Имя пользователя</system:String>
     <system:String x:Key="UserProgressDataGridTooltip">Таблица данных прогресса пользователя</system:String>
     <system:String x:Key="UserProgressTab">Прогресс пользователя |</system:String>
-    <system:String x:Key="UserProgressTabTooltip">Вкладка &quot;Прогресс пользователя&quot;</system:String>
+    <system:String x:Key="UserProgressTabTooltip">Вкладка 'Прогресс пользователя'</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Используйте форму ниже для получения поддержки</system:String>
     <system:String x:Key="Validationerrors">Ошибки проверки</system:String>
     <system:String x:Key="Version">Версия:</system:String>
@@ -2183,7 +2183,7 @@
     <system:String x:Key="ViewMode">Режим просмотра</system:String>
     <system:String x:Key="ViewOnRetroAchievements">Посмотреть на RetroAchievements.org</system:String>
     <system:String x:Key="ViewProfileOnRA">Посмотреть профиль на RetroAchievements.org</system:String>
-    <system:String x:Key="ViewProfileOnRaButtonTooltip">Кнопка &quot;Просмотреть профиль на RetroAchievements&quot;</system:String>
+    <system:String x:Key="ViewProfileOnRaButtonTooltip">Кнопка 'Просмотреть профиль на RetroAchievements'</system:String>
     <system:String x:Key="ViewProfileOnRetroAchievementsTooltip">Просмотреть профиль на RetroAchievements</system:String>
     <system:String x:Key="ViewVideo">Просмотреть видео</system:String>
     <system:String x:Key="Violet">Фиалковый</system:String>
@@ -2194,7 +2194,7 @@
     <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Предупреждение! Установка очень большого количества игр на страницу значительно увеличит использование системной памяти в режиме сетки. Если число будет слишком высоким, это может привести к сбою приложения. Пожалуйста, действуйте с осторожностью.</system:String>
     <system:String x:Key="wascanceled">была отменена.</system:String>
     <system:String x:Key="wasremovedfromfavorites">удалено из избранного.</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">Мы также поддерживаем системы, которым требуются эти файлы; однако вам нужно будет переключиться в &quot;Экспертный режим&quot; и установить их вручную.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Мы также поддерживаем системы, которым требуются эти файлы; однако вам нужно будет переключиться в 'Экспертный режим' и установить их вручную.</system:String>
     <system:String x:Key="Welcome">Добро пожаловать</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Добро пожаловать в 'Simple Launcher'!</system:String>
     <system:String x:Key="WhatsNewFileNotFound"># Файл 'whatsnew.md' не найден. Файл истории обновлений не найден.</system:String>
