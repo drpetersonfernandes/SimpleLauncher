@@ -1,4 +1,5 @@
 using System.Globalization;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;
@@ -19,9 +20,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void Constructor_InitializesEmptyLog()
+    public void ConstructorInitializesEmptyLog()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
 
         Assert.Empty(viewModel.LogMessages);
         Assert.Empty(viewModel.LogText);
@@ -30,9 +31,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void AppendLogMessage_AddsMessageWithTimestamp()
+    public void AppendLogMessageAddsMessageWithTimestamp()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         const string message = "Test message";
 
         viewModel.AppendLogMessage(message);
@@ -46,9 +47,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void AppendLogMessage_AddsMultipleMessages()
+    public void AppendLogMessageAddsMultipleMessages()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
 
         viewModel.AppendLogMessage("Message 1");
         viewModel.AppendLogMessage("Message 2");
@@ -61,9 +62,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void ClearLogCommand_CanExecute_WhenLogHasMessages()
+    public void ClearLogCommandCanExecuteWhenLogHasMessages()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         viewModel.AppendLogMessage("Test");
 
         var canExecute = viewModel.ClearLogCommand.CanExecute(null);
@@ -72,9 +73,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void ClearLogCommand_CannotExecute_WhenLogIsEmpty()
+    public void ClearLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
 
         var canExecute = viewModel.ClearLogCommand.CanExecute(null);
 
@@ -82,9 +83,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void ClearLogCommand_ClearsAllMessages()
+    public void ClearLogCommandClearsAllMessages()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         viewModel.AppendLogMessage("Message 1");
         viewModel.AppendLogMessage("Message 2");
 
@@ -97,9 +98,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void CopyLogCommand_CanExecute_WhenLogHasContent()
+    public void CopyLogCommandCanExecuteWhenLogHasContent()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         viewModel.AppendLogMessage("Test");
 
         var canExecute = viewModel.CopyLogCommand.CanExecute(null);
@@ -108,9 +109,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void CopyLogCommand_CannotExecute_WhenLogIsEmpty()
+    public void CopyLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
 
         var canExecute = viewModel.CopyLogCommand.CanExecute(null);
 
@@ -118,9 +119,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void CopyLogCommand_ExistsAndCanExecuteWhenLogHasContent()
+    public void CopyLogCommandExistsAndCanExecuteWhenLogHasContent()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         viewModel.AppendLogMessage("Test message for clipboard");
 
         // Verify command exists and CanExecute returns true when there's content
@@ -128,9 +129,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void LogText_ContainsAllMessagesJoined()
+    public void LogTextContainsAllMessagesJoined()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         viewModel.AppendLogMessage("First");
         viewModel.AppendLogMessage("Second");
 
@@ -142,9 +143,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void PropertyChanged_RaisedForCanClearLog_WhenMessagesAdded()
+    public void PropertyChangedRaisedForCanClearLogWhenMessagesAdded()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         var propertyChangedRaised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
@@ -160,9 +161,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void PropertyChanged_RaisedForCanCopyLog_WhenMessagesAdded()
+    public void PropertyChangedRaisedForCanCopyLogWhenMessagesAdded()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         var propertyChangedRaised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
@@ -178,9 +179,9 @@ public class DebugViewModelTests : IDisposable
     }
 
     [Fact]
-    public void PropertyChanged_RaisedForLogText_WhenMessagesAdded()
+    public void PropertyChangedRaisedForLogTextWhenMessagesAdded()
     {
-        var viewModel = new DebugViewModel();
+        var viewModel = new DebugViewModel(new NoOpLogErrors());
         var propertyChangedRaised = false;
         viewModel.PropertyChanged += (_, e) =>
         {
@@ -193,5 +194,13 @@ public class DebugViewModelTests : IDisposable
         viewModel.AppendLogMessage("Test");
 
         Assert.True(propertyChangedRaised);
+    }
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

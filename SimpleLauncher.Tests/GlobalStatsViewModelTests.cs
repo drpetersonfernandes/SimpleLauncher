@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;
@@ -10,6 +11,7 @@ namespace SimpleLauncher.Tests;
 public class GlobalStatsViewModelTests : IDisposable
 {
     private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors = new NoOpLogErrors();
 
     public GlobalStatsViewModelTests()
     {
@@ -31,11 +33,11 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void Constructor_WithEmptySystemManagers_InitializesEmptyCollections()
+    public void ConstructorWithEmptySystemManagersInitializesEmptyCollections()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
 
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.Empty(viewModel.SystemStats);
         Assert.True(viewModel.IsStartButtonVisible);
@@ -46,11 +48,11 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void Constructor_InitializesInfoText()
+    public void ConstructorInitializesInfoText()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
 
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.NotNull(viewModel.InfoText);
         // InfoText may be empty when Application.Current is null (in unit tests)
@@ -58,11 +60,11 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void Constructor_InitializesBusyOverlayText()
+    public void ConstructorInitializesBusyOverlayText()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
 
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.NotNull(viewModel.BusyOverlayText);
         Assert.NotEmpty(viewModel.BusyOverlayText);
@@ -72,94 +74,94 @@ public class GlobalStatsViewModelTests : IDisposable
     public void ImplementsINotifyPropertyChanged()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.IsAssignableFrom<INotifyPropertyChanged>(viewModel);
     }
 
     [Fact]
-    public void StartCommand_Exists()
+    public void StartCommandExists()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.NotNull(viewModel.StartCommand);
     }
 
     [Fact]
-    public void CancelCommand_Exists()
+    public void CancelCommandExists()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.NotNull(viewModel.CancelCommand);
     }
 
     [Fact]
-    public void SaveReportCommand_Exists()
+    public void SaveReportCommandExists()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.NotNull(viewModel.SaveReportCommand);
     }
 
     [Fact]
-    public void ClosingCommand_Exists()
+    public void ClosingCommandExists()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.NotNull(viewModel.ClosingCommand);
     }
 
     [Fact]
-    public void CancelCommand_CannotExecute_Initially()
+    public void CancelCommandCannotExecuteInitially()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         // Initially cannot execute because IsProcessing is false
         Assert.False(viewModel.CancelCommand.CanExecute(null));
     }
 
     [Fact]
-    public void SaveReportCommand_CannotExecute_Initially()
+    public void SaveReportCommandCannotExecuteInitially()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         Assert.False(viewModel.SaveReportCommand.CanExecute(null));
     }
 
     [Fact]
-    public void StartCommand_CanExecute_WhenNotProcessing()
+    public void StartCommandCanExecuteWhenNotProcessing()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         // StartCommand CanExecute depends on !IsProcessing
         Assert.True(viewModel.StartCommand.CanExecute(null));
     }
 
     [Fact]
-    public void Constructor_ThrowsOnNullSystemManagers()
+    public void ConstructorThrowsOnNullSystemManagers()
     {
-        Assert.Throws<ArgumentNullException>(() => new GlobalStatsViewModel(null!, _configuration));
+        Assert.Throws<ArgumentNullException>(() => new GlobalStatsViewModel(null!, _configuration, _logErrors));
     }
 
     [Fact]
-    public void Constructor_ThrowsOnNullConfiguration()
+    public void ConstructorThrowsOnNullConfiguration()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        Assert.Throws<ArgumentNullException>(() => new GlobalStatsViewModel(systemManagers, null!));
+        Assert.Throws<ArgumentNullException>(() => new GlobalStatsViewModel(systemManagers, null!, _logErrors));
     }
 
     [Fact]
-    public void Dispose_DoesNotThrow()
+    public void DisposeDoesNotThrow()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         var exception = Record.Exception(viewModel.Dispose);
 
@@ -167,10 +169,10 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void CloseRequestedEvent_CanBeSubscribed()
+    public void CloseRequestedEventCanBeSubscribed()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         // Verify event can be subscribed to
         var eventRaised = false;
@@ -180,10 +182,10 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void ConfirmSaveReportRequestedEvent_CanBeSubscribed()
+    public void ConfirmSaveReportRequestedEventCanBeSubscribed()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         viewModel.ConfirmSaveReportRequested += Handler;
         viewModel.ConfirmSaveReportRequested -= Handler;
@@ -199,10 +201,10 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void ConfirmCancelRequestedEvent_CanBeSubscribed()
+    public void ConfirmCancelRequestedEventCanBeSubscribed()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         viewModel.ConfirmCancelRequested += Handler;
         viewModel.ConfirmCancelRequested -= Handler;
@@ -218,10 +220,10 @@ public class GlobalStatsViewModelTests : IDisposable
     }
 
     [Fact]
-    public void PropertyChanged_EventCanBeSubscribed()
+    public void PropertyChangedEventCanBeSubscribed()
     {
         var systemManagers = new List<Services.SystemManager.SystemManager>();
-        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration);
+        var viewModel = new GlobalStatsViewModel(systemManagers, _configuration, _logErrors);
 
         // Verify PropertyChanged event can be subscribed to
         viewModel.PropertyChanged += static (_, _) => { };
@@ -230,5 +232,13 @@ public class GlobalStatsViewModelTests : IDisposable
         Assert.NotNull(viewModel.InfoText);
         Assert.NotNull(viewModel.BusyOverlayText);
         Assert.NotNull(viewModel.SystemStats);
+    }
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
     }
 }

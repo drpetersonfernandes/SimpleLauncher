@@ -1,3 +1,4 @@
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements;
 using Xunit;
 
@@ -5,6 +6,14 @@ namespace SimpleLauncher.Tests;
 
 public class RetroAchievementsSystemMatcherTests
 {
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
+    }
+
     [Theory]
     [InlineData("snes", "super nintendo entertainment system")]
     [InlineData("SNES", "super nintendo entertainment system")]
@@ -22,16 +31,16 @@ public class RetroAchievementsSystemMatcherTests
     [InlineData("sega dreamcast", "dreamcast")]
     public void GetBestMatchSystemNameKnownAliasReturnsExpectedKey(string input, string expected)
     {
-        var result = RetroAchievementsSystemMatcher.GetBestMatchSystemName(input);
+        var result = RetroAchievementsSystemMatcher.GetBestMatchSystemName(input, new NoOpLogErrors());
         Assert.Equal(expected, result);
     }
 
     [Fact]
     public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
     {
-        Assert.Null(RetroAchievementsSystemMatcher.GetBestMatchSystemName(null));
-        Assert.Equal("", RetroAchievementsSystemMatcher.GetBestMatchSystemName(""));
-        Assert.Equal("   ", RetroAchievementsSystemMatcher.GetBestMatchSystemName("   "));
+        Assert.Null(RetroAchievementsSystemMatcher.GetBestMatchSystemName(null, new NoOpLogErrors()));
+        Assert.Equal("", RetroAchievementsSystemMatcher.GetBestMatchSystemName("", new NoOpLogErrors()));
+        Assert.Equal("   ", RetroAchievementsSystemMatcher.GetBestMatchSystemName("   ", new NoOpLogErrors()));
     }
 
     [Theory]

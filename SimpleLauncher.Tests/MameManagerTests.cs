@@ -1,4 +1,5 @@
 using MessagePack;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -7,6 +8,16 @@ namespace SimpleLauncher.Tests;
 
 public class MameManagerTests : IDisposable
 {
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+
     public MameManagerTests()
     {
         ServiceProviderMock.Install();
@@ -33,7 +44,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(tempFile);
+            var result = MameManager.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
@@ -60,7 +71,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(tempFile);
+            var result = MameManager.LoadFromDat(_logErrors, tempFile);
 
             Assert.Single(result);
             Assert.Equal("galaga", result[0].MachineName);
@@ -80,7 +91,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(tempFile);
+            var result = MameManager.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
@@ -99,7 +110,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(tempFile);
+            var result = MameManager.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);
@@ -118,7 +129,7 @@ public class MameManagerTests : IDisposable
 
         try
         {
-            var result = MameManager.LoadFromDat(tempFile);
+            var result = MameManager.LoadFromDat(_logErrors, tempFile);
 
             Assert.NotNull(result);
             Assert.Empty(result);

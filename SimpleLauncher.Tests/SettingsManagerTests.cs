@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
@@ -8,6 +9,7 @@ public class SettingsManagerTests : IDisposable
 {
     private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors = new NoOpLogErrors();
 
     public SettingsManagerTests()
     {
@@ -43,49 +45,49 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultThumbnailSizeIs250()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal(250, settings.ThumbnailSize);
     }
 
     [Fact]
     public void DefaultGamesPerPageIs200()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal(200, settings.GamesPerPage);
     }
 
     [Fact]
     public void DefaultShowGamesIsShowAll()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("ShowAll", settings.ShowGames);
     }
 
     [Fact]
     public void DefaultViewModeIsGridView()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("GridView", settings.ViewMode);
     }
 
     [Fact]
     public void DefaultBaseThemeIsDark()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Dark", settings.BaseTheme);
     }
 
     [Fact]
     public void DefaultAccentColorIsBlue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Blue", settings.AccentColor);
     }
 
     [Fact]
     public void DefaultLanguageIsEn()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("en", settings.Language);
     }
 
@@ -104,77 +106,77 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultEnableFuzzyMatchingIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.True(settings.EnableFuzzyMatching);
     }
 
     [Fact]
     public void DefaultFuzzyMatchingThresholdIs080()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal(0.80, settings.FuzzyMatchingThreshold);
     }
 
     [Fact]
     public void DefaultEnableNotificationSoundIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.True(settings.EnableNotificationSound);
     }
 
     [Fact]
     public void DefaultButtonAspectRatioIsSquare()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Square", settings.ButtonAspectRatio);
     }
 
     [Fact]
     public void DefaultFilenameDisplayModeIsOriginal()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Original", settings.FilenameDisplayMode);
     }
 
     [Fact]
     public void DefaultFilenameFontSizeIsNormal()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Normal", settings.FilenameFontSize);
     }
 
     [Fact]
     public void DefaultMachineNameFontSizeIsNormal()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Normal", settings.MachineNameFontSize);
     }
 
     [Fact]
     public void DefaultStyleVariantIsDefault()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("Default", settings.StyleVariant);
     }
 
     [Fact]
     public void DefaultOverlayOpenVideoButtonIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.True(settings.OverlayOpenVideoButton);
     }
 
     [Fact]
     public void DefaultAdditionalSystemFoldersExpandedIsTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.True(settings.AdditionalSystemFoldersExpanded);
     }
 
     [Fact]
     public void DefaultEmulatorExpandedStatesAreTrue()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.True(settings.Emulator1Expanded);
         Assert.True(settings.Emulator2Expanded);
         Assert.True(settings.Emulator3Expanded);
@@ -185,7 +187,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void SettingsCanBeModified()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
 
         settings.ThumbnailSize = 500;
         settings.GamesPerPage = 1000;
@@ -211,7 +213,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultDuckStationSettingsAreCorrect()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.False(settings.DuckStationStartFullscreen);
         Assert.True(settings.DuckStationPauseOnFocusLoss);
         Assert.True(settings.DuckStationSaveStateOnExit);
@@ -225,7 +227,7 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void DefaultRetroArchSettingsAreCorrect()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.False(settings.RetroArchFullscreen);
         Assert.Equal("gl", settings.RetroArchVideoDriver);
         Assert.True(settings.RetroArchVsync);
@@ -237,21 +239,29 @@ public class SettingsManagerTests : IDisposable
     [Fact]
     public void SystemPlayTimesDefaultIsEmpty()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Empty(settings.SystemPlayTimes);
     }
 
     [Fact]
     public void VideoUrlDefaultsFromConfiguration()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("https://www.youtube.com/results?search_query=", settings.VideoUrl);
     }
 
     [Fact]
     public void InfoUrlDefaultsFromConfiguration()
     {
-        using var settings = new Services.SettingsManager.SettingsManager(_configuration);
+        using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
         Assert.Equal("https://www.igdb.com/search?q=", settings.InfoUrl);
+    }
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
     }
 }
