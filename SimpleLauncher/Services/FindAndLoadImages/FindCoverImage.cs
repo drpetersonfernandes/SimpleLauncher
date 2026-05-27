@@ -1,7 +1,6 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.FindAndLoadImages;
@@ -65,7 +64,7 @@ public static class FindCoverImage
                 else
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
+                    App.LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
                 }
 
                 // 2. If no exact match and fuzzy matching is enabled, check for similar filenames

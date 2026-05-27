@@ -2,8 +2,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
+
 
 namespace SimpleLauncher.Services.GameScan;
 
@@ -49,7 +48,7 @@ public static class IconExtractor
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to extract icon from {exePath}");
+            App.LogErrorAsync(ex, $"Failed to extract icon from {exePath}");
         }
         finally
         {

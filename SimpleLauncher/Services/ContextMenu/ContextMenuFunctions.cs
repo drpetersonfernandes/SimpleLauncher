@@ -870,7 +870,7 @@ internal static class ContextMenuFunctions
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, "Error clearing preview image source before taking screenshot.");
+                App.LogErrorAsync(ex, "Error clearing preview image source before taking screenshot.");
             }
 
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);

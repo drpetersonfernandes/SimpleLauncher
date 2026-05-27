@@ -384,7 +384,7 @@ public class GamePadController : IDisposable
             {
                 // Log but don't throw in async void
                 ErrorLogger?.Invoke(ex, "Update loop error");
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdateAsync");
+                App.LogErrorAsync(ex, "Error in method UpdateAsync");
             }
             finally
             {
@@ -402,7 +402,7 @@ public class GamePadController : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdateAsync");
+            App.LogErrorAsync(ex, "Error in method UpdateAsync");
         }
     }
 

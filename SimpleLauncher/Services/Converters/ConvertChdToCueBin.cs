@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
@@ -99,7 +98,7 @@ public static class ConvertChdToCueBin
         catch (Exception ex)
         {
             DebugLogger.LogException(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
+            App.LogErrorAsync(ex, "[ConvertChdToCueBin] Error converting CHD to CUE/BIN.");
             return null;
         }
     }

@@ -1,5 +1,4 @@
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -28,24 +27,16 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
         if (string.IsNullOrWhiteSpace(emulatorLocation))
         {
             DebugLogger.Log("[BlastemConfigHandler] ERROR: Emulator location is not configured");
-            var logErrors = App.ServiceProvider?.GetService<ILogErrors>();
-            if (logErrors != null)
-            {
-                await logErrors.LogErrorAsync(new InvalidOperationException("Blastem emulator location is not configured"),
-                    "BlastemConfigHandler: Emulator location is null or empty in system configuration");
-            }
+            App.LogErrorAsync(new InvalidOperationException("Blastem emulator location is not configured"),
+                "BlastemConfigHandler: Emulator location is null or empty in system configuration");
             // Allow game to launch anyway, user will be prompted to select emulator
         }
         // Early validation: Check if resolved path is valid
         else if (string.IsNullOrEmpty(resolvedExe))
         {
             DebugLogger.Log($"[BlastemConfigHandler] ERROR: Failed to resolve emulator path: {emulatorLocation}");
-            var logErrors = App.ServiceProvider?.GetService<ILogErrors>();
-            if (logErrors != null)
-            {
-                await logErrors.LogErrorAsync(new InvalidOperationException($"Failed to resolve Blastem emulator path: {emulatorLocation}"),
-                    $"BlastemConfigHandler: Path resolution failed for '{emulatorLocation}'");
-            }
+            App.LogErrorAsync(new InvalidOperationException($"Failed to resolve Blastem emulator path: {emulatorLocation}"),
+                $"BlastemConfigHandler: Path resolution failed for '{emulatorLocation}'");
             // Allow game to launch anyway, user will be prompted to select emulator
         }
         // Early validation: Check if file exists
@@ -79,11 +70,7 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[BlastemConfigHandler] ERROR: Configuration injection failed: {ex.Message}");
-                    var logErrors = App.ServiceProvider?.GetService<ILogErrors>();
-                    if (logErrors != null)
-                    {
-                        await logErrors.LogErrorAsync(ex, $"BlastemConfigHandler: Configuration injection failed for path: {resolvedExe}");
-                    }
+                    App.LogErrorAsync(ex, $"BlastemConfigHandler: Configuration injection failed for path: {resolvedExe}");
                     // Continue launching the game even if injection fails
                 }
             }

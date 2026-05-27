@@ -2,7 +2,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
@@ -92,7 +91,7 @@ public static class ConvertDiscImageToIso
         catch (Exception ex)
         {
             DebugLogger.LogException(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            App.LogErrorAsync(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }
     }

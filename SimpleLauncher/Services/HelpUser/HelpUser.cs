@@ -3,8 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
+
 
 namespace SimpleLauncher.Services.HelpUser;
 
@@ -22,7 +21,7 @@ public static partial class HelpUser
         {
             // Notify developer
             const string contextMessage = "Failed to load parameters.md.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            App.LogErrorAsync(ex, contextMessage);
         }
     }
 
