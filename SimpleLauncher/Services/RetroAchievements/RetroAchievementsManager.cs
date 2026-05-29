@@ -14,7 +14,7 @@ public class RetroAchievementsManager
     private Dictionary<string, RaGameInfo> _hashToGameInfoLookup;
     private static string DatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RetroAchievements.dat");
 
-    public static RetroAchievementsManager LoadRetroAchievement()
+    public static RetroAchievementsManager LoadRetroAchievement(ILogErrors logErrors)
     {
         var manager = new RetroAchievementsManager();
         if (File.Exists(DatFilePath))
@@ -33,7 +33,7 @@ public class RetroAchievementsManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
-                App.LogErrorAsync(ex, contextMessage);
+                logErrors.LogAndForget(ex, contextMessage);
 
                 DebugLogger.Log($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
             }
@@ -47,7 +47,7 @@ public class RetroAchievementsManager
         {
             // Notify developer
             const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
-            App.LogErrorAsync(null, contextMessage);
+            logErrors.LogAndForget(null, contextMessage);
 
             DebugLogger.Log("[RA Manager] Starting with empty RetroAchievements database");
         }

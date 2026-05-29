@@ -90,9 +90,9 @@ public class StartupInitializationService
         DebugLogger.Log("ViewMode was set.");
     }
 
-    private static void CheckWriteAccess()
+    private void CheckWriteAccess()
     {
-        if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
+        if (!CheckDirWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory, _logErrors))
         {
             MessageBoxLibrary.MoveToWritableFolderMessageBox();
             DebugLogger.Log("Application does not have write access.");
@@ -107,13 +107,13 @@ public class StartupInitializationService
 
     private void InitializeTrayIcon()
     {
-        _mainWindow.SetTrayIconManager(new TrayIconManager(_mainWindow));
+        _mainWindow.SetTrayIconManager(new TrayIconManager(_mainWindow, _logErrors));
         DebugLogger.Log("TrayIconManager was initialized.");
     }
 
     private void CheckRequiredFiles()
     {
-        RequiredFiles.CheckFiles(_configuration);
+        RequiredFiles.CheckFiles(_configuration, _logErrors);
         DebugLogger.Log("Required files were checked.");
     }
 

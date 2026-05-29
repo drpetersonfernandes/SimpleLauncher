@@ -14,6 +14,7 @@ public static class QuitSimpleLauncher
 {
     public static void RestartApplication()
     {
+        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
 
@@ -32,7 +33,7 @@ public static class QuitSimpleLauncher
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Failed to start new process during application restart.");
+            logErrors.LogAndForget(ex, "Failed to start new process during application restart.");
 
             // Notify user
             MessageBoxLibrary.FailedToRestartMessageBox();
@@ -55,6 +56,7 @@ public static class QuitSimpleLauncher
     // Then launches the updater and forcefully exits the current process.
     public static async Task ShutdownForUpdateAsync(string updaterPath)
     {
+        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
         var appDirectory = Path.GetDirectoryName(updaterPath) ?? AppDomain.CurrentDomain.BaseDirectory;
 
         // 1. Try to download a fresh Updater.exe from GitHub (overwrites any existing copy)
@@ -107,13 +109,13 @@ public static class QuitSimpleLauncher
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 5) // Access Denied
         {
-            App.LogErrorAsync(ex, "Access denied when starting Updater.exe.");
+            logErrors.LogAndForget(ex, "Access denied when starting Updater.exe.");
 
             MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Failed to start updater and shut down.");
+            logErrors.LogAndForget(ex, "Failed to start updater and shut down.");
 
             MessageBoxLibrary.UpdaterLaunchFailedMessageBox();
         }

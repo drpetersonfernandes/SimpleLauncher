@@ -1,11 +1,12 @@
 using System.Security.Cryptography;
 using System.Text;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
 public class EncryptDuckStationToken
 {
-    public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable)
+    public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable, ILogErrors logErrors)
     {
         if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(username)) return string.Empty;
 
@@ -37,7 +38,7 @@ public class EncryptDuckStationToken
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, "Failed to encrypt DuckStation token.");
+            logErrors.LogAndForget(ex, "Failed to encrypt DuckStation token.");
             return string.Empty;
         }
     }

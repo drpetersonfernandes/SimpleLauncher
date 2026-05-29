@@ -21,13 +21,15 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
     private static readonly Lock Lock = new();
     private readonly SettingsManager.SettingsManager _settingsManager;
+    private readonly ILogErrors _logErrors;
 
     private WaveOutEvent? _waveOut;
     private Mp3FileReader? _reader;
 
-    public PlaySoundEffects(SettingsManager.SettingsManager settings)
+    public PlaySoundEffects(SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
     }
 
     public void PlayNotificationSound()
@@ -54,7 +56,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            App.LogErrorAsync(
+            _logErrors.LogAndForget(
                 new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."),
                 "Attempted to play sound with an empty filename.");
             return;
@@ -67,7 +69,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
-            App.LogErrorAsync(
+            _logErrors.LogAndForget(
                 new ArgumentNullException(nameof(soundFileName), @"Attempted to play sound with an empty filename."),
                 "Attempted to play sound with an empty filename.");
             return;
@@ -77,7 +79,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         if (!File.Exists(soundPath))
         {
             var contextMessageMissing = $"Sound file not found: {soundPath}";
-            App.LogErrorAsync(
+            _logErrors.LogAndForget(
                 new FileNotFoundException(contextMessageMissing, soundPath),
                 contextMessageMissing);
             return;
@@ -97,7 +99,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             }
             catch (Exception ex)
             {
-                App.LogErrorAsync(ex,
+                _logErrors.LogAndForget(ex,
                     $"Failed to play sound: {soundPath}");
                 StopCurrentPlayback();
             }
@@ -106,24 +108,43 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
     private void StopCurrentPlayback()
     {
+        if (_reader != null)
+        {
+            try
+            {
+                _reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
+            }
+
+            _reader = null;
+        }
+
         if (_waveOut != null)
         {
             _waveOut.PlaybackStopped -= OnPlaybackStopped;
-            _waveOut.Stop();
-            _waveOut.Dispose();
+            try
+            {
+                _waveOut.Stop();
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[PlaySoundEffects] Error stopping waveOut: {ex.Message}");
+            }
+
+            try
+            {
+                _waveOut.Dispose();
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[PlaySoundEffects] Error disposing waveOut: {ex.Message}");
+            }
+
             _waveOut = null;
         }
-
-        try
-        {
-            _reader?.Dispose();
-        }
-        catch (Exception ex)
-        {
-            DebugLogger.Log($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
-        }
-
-        _reader = null;
     }
 
     private void OnPlaybackStopped(object? sender, StoppedEventArgs e)

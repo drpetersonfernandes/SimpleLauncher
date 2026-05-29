@@ -161,8 +161,9 @@ public static class RetroAchievementsSystemMatcher
     /// Finds the best matching RetroAchievements system name using fuzzy matching.
     /// </summary>
     /// <param name="inputSystemName">The system name to match</param>
+    /// <param name="logErrors"></param>
     /// <returns>The normalized RetroAchievements system name, or the original if no match found</returns>
-    public static string GetBestMatchSystemName(string inputSystemName)
+    public static string GetBestMatchSystemName(string inputSystemName, ILogErrors logErrors)
     {
         if (string.IsNullOrWhiteSpace(inputSystemName))
             return inputSystemName;
@@ -182,7 +183,7 @@ public static class RetroAchievementsSystemMatcher
         if (LoggedUnmatchedSystems.Add(inputSystemName))
         {
             DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-            App.LogErrorAsync(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            logErrors.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
         return normalizedInput;
@@ -206,7 +207,7 @@ public static class RetroAchievementsSystemMatcher
     public static int GetSystemId(string inputSystemName)
     {
         DebugLogger.Log($"[GetSystemId] Looking up system ID for '{inputSystemName}'");
-        var bestMatch = GetBestMatchSystemName(inputSystemName);
+        var bestMatch = GetBestMatchSystemName(inputSystemName, null);
         DebugLogger.Log($"[GetSystemId] Best match: '{bestMatch}'");
         return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
@@ -258,7 +259,7 @@ public static class RetroAchievementsSystemMatcher
         }
 
         // Try fuzzy matching as a last resort
-        var bestMatch = GetBestMatchSystemName(systemName);
+        var bestMatch = GetBestMatchSystemName(systemName, null);
         return SystemMappings.ContainsKey(bestMatch);
     }
 }

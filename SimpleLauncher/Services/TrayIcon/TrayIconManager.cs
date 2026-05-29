@@ -13,6 +13,7 @@ public class TrayIconManager : IDisposable
     private readonly TaskbarIcon _taskbarIcon;
     private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;
+    private readonly ILogErrors _logErrors;
 
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onMinimizeToTrayHandler;
@@ -20,10 +21,11 @@ public class TrayIconManager : IDisposable
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    public TrayIconManager(Window mainWindow)
+    public TrayIconManager(Window mainWindow, ILogErrors logErrors)
     {
         _instance = this;
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
 
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
@@ -132,7 +134,7 @@ public class TrayIconManager : IDisposable
         _mainWindow.ShowInTaskbar = false;
     }
 
-    private static void OnOpenDebugWindow(object sender, RoutedEventArgs e)
+    private void OnOpenDebugWindow(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -155,7 +157,7 @@ public class TrayIconManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            App.LogErrorAsync(ex, "Failed to open debug window from tray menu");
+            _logErrors.LogAndForget(ex, "Failed to open debug window from tray menu");
 
             ShowTrayMessage("Failed to open debug window");
         }
