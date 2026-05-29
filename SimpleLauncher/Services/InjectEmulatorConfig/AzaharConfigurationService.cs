@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -13,10 +12,11 @@ public static class AzaharConfigurationService
     /// </summary>
     /// <param name="emulatorPath">Path to the Azahar executable.</param>
     /// <param name="settings">The settings manager containing Azahar configuration.</param>
+    /// <param name="logErrors"></param>
     /// <returns>True if injection was successful, false if it failed due to permissions but the game can still launch.</returns>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -45,13 +45,13 @@ public static class AzaharConfigurationService
                 catch (UnauthorizedAccessException ex)
                 {
                     DebugLogger.Log($"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}", ex);
                 }
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -97,7 +97,7 @@ public static class AzaharConfigurationService
         catch (UnauthorizedAccessException ex)
         {
             DebugLogger.Log($"[AzaharConfig] Failed to read qt-config.ini due to permissions: {ex.Message}");
-            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to read qt-config.ini: {ex.Message}");
+            logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to read qt-config.ini: {ex.Message}");
             throw new AzaharPermissionException($"Cannot read configuration file: {configPath}", ex);
         }
 
@@ -191,13 +191,13 @@ public static class AzaharConfigurationService
             catch (UnauthorizedAccessException ex)
             {
                 DebugLogger.Log($"[AzaharConfig] Failed to inject configuration changes due to permissions: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 throw new AzaharPermissionException($"Cannot write to configuration file: {configPath}", ex);
             }
             catch (Exception ex)
             {
                 DebugLogger.Log($"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

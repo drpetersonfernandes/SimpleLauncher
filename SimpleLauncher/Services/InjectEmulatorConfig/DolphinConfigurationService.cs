@@ -1,13 +1,12 @@
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class DolphinConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -43,11 +42,11 @@ public static class DolphinConfigurationService
         // Inject into all determined paths
         foreach (var configPath in configPaths)
         {
-            InjectIntoConfigFile(configPath, settings);
+            InjectIntoConfigFile(configPath, settings, logErrors);
         }
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings)
+    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var configDir = Path.GetDirectoryName(configPath);
 
@@ -66,7 +65,7 @@ public static class DolphinConfigurationService
                 catch (Exception ex)
                 {
                     var contextMessage = $"Failed to create Dolphin.ini from sample at {samplePath}";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    logErrors.LogAndForget(ex, contextMessage);
                     throw;
                 }
             }
@@ -155,7 +154,7 @@ public static class DolphinConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

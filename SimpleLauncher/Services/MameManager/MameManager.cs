@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using MessagePack;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -17,7 +16,7 @@ public class MameManager
 
     private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
 
-    public static List<MameManager> LoadFromDat(string datPath = null)
+    public static List<MameManager> LoadFromDat(ILogErrors logErrors, string datPath = null)
     {
         datPath ??= DefaultDatPath;
 
@@ -25,7 +24,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file 'mame.dat' could not be found in the application folder.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+            logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
@@ -45,7 +44,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file mame.dat could not be loaded or is corrupted.";
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();

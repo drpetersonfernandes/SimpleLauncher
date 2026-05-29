@@ -73,7 +73,7 @@ public static class ScanItchioGames
                         }
                         catch (Exception ex)
                         {
-                            App.LogErrorAsync(ex, "Error parsing itch.io manifest file.");
+                            logErrors.LogAndForget(ex, "Error parsing itch.io manifest file.");
                         }
                     }
 

@@ -2,7 +2,6 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -11,7 +10,7 @@ public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -32,7 +31,7 @@ public static partial class BlastemConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -135,7 +134,7 @@ public static partial class BlastemConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

@@ -252,7 +252,7 @@ public class GameScannerService
             var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
             if (mainExe != null)
             {
-                IconExtractor.SaveIconFromExe(mainExe, imagePath);
+                IconExtractor.SaveIconFromExe(mainExe, imagePath, logErrors);
             }
         }
         catch (Exception ex)
@@ -272,7 +272,7 @@ public class GameScannerService
             var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
             if (mainExe != null)
             {
-                IconExtractor.SaveIconFromExe(mainExe, iconPath);
+                IconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
             }
         }
         catch (Exception ex)

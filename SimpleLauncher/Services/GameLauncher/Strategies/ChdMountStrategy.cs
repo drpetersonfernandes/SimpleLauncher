@@ -191,28 +191,28 @@ public class ChdMountStrategy : ILaunchStrategy
         else if (_isXenia)
         {
             // Xenia needs the path to default.xex
-            gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath);
+            gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath, _logErrors);
         }
         else if (_isXemu)
         {
             // Xemu needs the path to image.iso
-            gameFilePath = FindImageIso.Find(mountedDrive.MountedPath);
+            gameFilePath = FindImageIso.Find(mountedDrive.MountedPath, _logErrors);
         }
         else if (_isCxbxReloaded)
         {
             // Cxbx-Reloaded needs the path to default.xbe
-            gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath);
+            gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logErrors);
         }
         else if (_isGens || _cDiEmu)
         {
             // Path to a .bin file
-            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath);
+            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logErrors);
         }
         else if (_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen || _isMesen || _isNebula ||
                  _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause)
         {
             // Path to a .cue file
-            gameFilePath = FindCueFile.Find(mountedDrive.MountedPath);
+            gameFilePath = FindCueFile.Find(mountedDrive.MountedPath, _logErrors);
         }
         else
         {

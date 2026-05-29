@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 
 namespace SimpleLauncher.Services.GameScan;
@@ -23,7 +24,8 @@ public static class IconExtractor
     /// </summary>
     /// <param name="exePath">The path to the executable file.</param>
     /// <param name="savePath">The path where the PNG icon should be saved.</param>
-    public static void SaveIconFromExe(string exePath, string savePath)
+    /// <param name="logErrors"></param>
+    public static void SaveIconFromExe(string exePath, string savePath, ILogErrors logErrors)
     {
         if (!File.Exists(exePath) || !savePath.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) return;
 
@@ -48,7 +50,7 @@ public static class IconExtractor
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to extract icon from {exePath}");
+            logErrors.LogAndForget(ex, $"Failed to extract icon from {exePath}");
         }
         finally
         {
