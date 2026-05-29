@@ -1,4 +1,5 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -7,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class DuckStationConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public DuckStationConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("DuckStation", StringComparison.OrdinalIgnoreCase) ||
@@ -32,7 +40,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
             shouldRun = true;
             if (File.Exists(resolvedExe))
             {
-                DuckStationConfigurationService.InjectSettings(resolvedExe, context.Settings);
+                DuckStationConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
             }
         }
 

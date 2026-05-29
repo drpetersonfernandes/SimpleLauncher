@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.CleanAndDeleteFiles;
 
@@ -44,7 +46,7 @@ public static class DeleteFiles
                 {
                     // Log final failure after retries
                     // Notify developer
-                    App.LogErrorAsync(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
 
                     return; // Exit after logging final failure
                 }
@@ -75,7 +77,7 @@ public static class DeleteFiles
                 if (i == MaxDeleteRetries - 1)
                 {
                     // Notify developer
-                    App.LogErrorAsync(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
 
                     return;
                 }
@@ -86,7 +88,7 @@ public static class DeleteFiles
             catch (Exception ex)
             {
                 // Notify developer
-                App.LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
+                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
 
                 return;
             }
@@ -128,7 +130,7 @@ public static class DeleteFiles
                 {
                     // Log final failure after retries
                     // Notify developer
-                    App.LogErrorAsync(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
 
                     return; // Exit after logging final failure
                 }
@@ -159,7 +161,7 @@ public static class DeleteFiles
                 if (i == MaxDeleteRetries - 1)
                 {
                     // Notify developer
-                    App.LogErrorAsync(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
 
                     return;
                 }
@@ -170,7 +172,7 @@ public static class DeleteFiles
             catch (Exception ex)
             {
                 // Notify developer
-                App.LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
+                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
 
                 return;
             }

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Converters;
@@ -94,7 +95,7 @@ public static class ConvertChdToIso
         catch (Exception ex)
         {
             DebugLogger.LogException(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
-            App.LogErrorAsync(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
+            App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "[ConvertChdToIso] Error converting CHD to ISO.");
             return null;
         }
     }

@@ -1,4 +1,5 @@
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -6,6 +7,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class SegaModel2ConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public SegaModel2ConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -28,7 +36,7 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
         else
         {
             shouldRun = true;
-            SegaModel2ConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            SegaModel2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
         }
 
         return shouldRun;

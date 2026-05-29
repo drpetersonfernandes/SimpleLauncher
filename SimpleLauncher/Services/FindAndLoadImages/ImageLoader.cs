@@ -1,6 +1,8 @@
 using System.IO;
 using System.Windows.Media.Imaging;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.Services.FindAndLoadImages;
@@ -42,7 +44,7 @@ public static class ImageLoader
             // Any other cause for image load failure (file not found, I/O errors, permissions, etc.)
             // Report to developer and use fallback logic
             var contextMessage = $"Failed to load primary image: {imagePath}. Attempting to load default.";
-            App.LogErrorAsync(ex, contextMessage);
+            App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
 
             // Then attempt to load the default image
             return await LoadDefaultImageAsync();
@@ -68,7 +70,7 @@ public static class ImageLoader
             // Notify developer
             // If loading the default image fails, log a critical error
             const string contextMessage = "Failed to load global default image: images\\default.png.";
-            App.LogErrorAsync(ex, contextMessage);
+            App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DefaultImageNotFoundMessageBox();

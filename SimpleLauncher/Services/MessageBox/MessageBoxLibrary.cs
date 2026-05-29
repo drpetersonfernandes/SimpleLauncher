@@ -437,7 +437,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -510,7 +510,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -644,7 +644,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1233,7 +1233,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1268,7 +1268,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the 'error_user.log' file.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the 'error_user.log' file.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1302,7 +1302,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -1315,7 +1315,7 @@ internal static class MessageBoxLibrary
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
             var therewasanerrorinstallingorupdating = (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ?? "There was an error installing or updating the application.";
             var wouldyouliketoberedirectedtothedownloadpage = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
@@ -1339,7 +1339,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method InstallUpdateManuallyMessageBox");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Error in method InstallUpdateManuallyMessageBox");
 
                     // Notify user
                     var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
@@ -1356,7 +1356,7 @@ internal static class MessageBoxLibrary
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
             var updaterLaunchFailed = (string)Application.Current.TryFindResource("UpdaterLaunchFailed") ?? "Failed to launch the Updater.";
             var accessDeniedExplanation = (string)Application.Current.TryFindResource("AccessDeniedExplanation") ?? "This may be due to insufficient permissions or Windows security settings blocking the file.";
@@ -1382,7 +1382,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method UpdaterLaunchFailedMessageBox");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Error in method UpdaterLaunchFailedMessageBox");
 
                     // Notify user
                     var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
@@ -1594,7 +1594,7 @@ internal static class MessageBoxLibrary
                     var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
                     var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
                     System.Windows.MessageBox.Show(errorOpeningFolderMessage, errorOpeningFolderTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open temp folder: {tempFolderPath}");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
                 }
             }
         }
@@ -1710,7 +1710,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
 
                     // Notify user
                     var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1751,7 +1751,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
 
                     // Notify user
                     var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1792,7 +1792,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
 
                     // Notify user
                     var errorOpeningDownloadLink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -2283,7 +2283,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     // Notify user
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2321,7 +2321,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
                                                  "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas,
@@ -2362,7 +2362,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -2395,7 +2395,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog,
                         error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2432,7 +2432,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -2474,12 +2474,31 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a batch file error message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a batch file error message box.");
                     var notFound = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(notFound, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
+    }
+
+    internal static bool BatchFilePathsMissingMessageBox(List<string> missingPaths)
+    {
+        var result = false;
+        var dispatcher = Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            var batchfilepathsmissing = (string)Application.Current.TryFindResource("Batchfilepathsmissing") ?? "The batch file references paths that do not exist:";
+            var batchfilepathsmissingexplanation = (string)Application.Current.TryFindResource("Batchfilepathsmissingexplanation") ?? "This may cause the batch file to fail. Not all paths may be detected — this is a best-effort check.";
+            var doyouwanttocontinueanyway = (string)Application.Current.TryFindResource("Doyouwanttocontinueanyway") ?? "Do you want to continue anyway?";
+            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+
+            var pathsList = string.Join("\n", missingPaths.Select(static p => $"  - {p}"));
+            var message = $"{batchfilepathsmissing}\n\n{pathsList}\n\n{batchfilepathsmissingexplanation}\n\n{doyouwanttocontinueanyway}";
+
+            result = System.Windows.MessageBox.Show(message, warning, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
+        });
+        dispatcher.Wait();
+        return result;
     }
 
     internal static void ElevationRequiredMessageBox()
@@ -3126,7 +3145,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -3169,7 +3188,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open the Dokan website.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open the Dokan website.");
 
                     // Notify user
                     var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningyourbrowser") ?? "An error occurred while opening your browser.";
@@ -3184,7 +3203,7 @@ internal static class MessageBoxLibrary
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
             var dokanDriverNotFound = (string)Application.Current.TryFindResource("DokanDriverNotFound") ?? "The Dokan file system driver (dokan2.dll) is required to mount archives as virtual drives. It does not appear to be installed on this system.";
             var doYouWantToOpenBrowser = (string)Application.Current.TryFindResource("DoyouwanttoopenyourbrowsertodownloadDokan") ?? "Do you want to open your browser to download Dokan?";
@@ -3205,7 +3224,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open the Dokan website.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open the Dokan website.");
                     var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningyourbrowser") ?? "An error occurred while opening your browser.";
                     System.Windows.MessageBox.Show(anerroroccurredwhileopeningthebrowser, error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -3593,7 +3612,7 @@ internal static class MessageBoxLibrary
                     var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
                     var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
                     System.Windows.MessageBox.Show(errorOpeningFolderMessage, errorOpeningFolderTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open temp folder: {tempFolderPath}");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
                 }
             }
         });
@@ -3623,7 +3642,7 @@ internal static class MessageBoxLibrary
                     var errorOpeningFolderTitle = (string)Application.Current.TryFindResource("ErrorOpeningFolderTitle") ?? "Error Opening Folder";
                     var errorOpeningFolderMessage = (string)Application.Current.TryFindResource("ErrorOpeningFolderMessage") ?? "Could not open the temporary folder.";
                     System.Windows.MessageBox.Show(errorOpeningFolderMessage, errorOpeningFolderTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open temp folder: {tempFolderPath}");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to open temp folder: {tempFolderPath}");
                 }
             }
         });
@@ -3655,7 +3674,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
                     System.Windows.MessageBox.Show(thefileerroruserlogwasnotfound, launchError, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -4836,7 +4855,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
                 }
             }
         }
@@ -4874,7 +4893,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
                 }
             }
         }
@@ -4912,7 +4931,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
                 }
             }
         }
@@ -4961,7 +4980,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     System.Windows.MessageBox.Show($"Could not open browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Could not open browser");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Could not open browser");
                 }
             }
         }
@@ -5012,7 +5031,7 @@ internal static class MessageBoxLibrary
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open the error log file from a message box.");
+                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to open the error log file from a message box.");
                     // Notify user
                     var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                     System.Windows.MessageBox.Show(thefileerroruserlogwas, title, MessageBoxButton.OK, MessageBoxImage.Error);

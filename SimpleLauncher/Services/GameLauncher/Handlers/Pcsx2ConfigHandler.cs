@@ -1,5 +1,6 @@
 using System.IO;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -7,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class Pcsx2ConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public Pcsx2ConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("PCSX2", StringComparison.OrdinalIgnoreCase) ||
@@ -30,7 +38,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            Pcsx2ConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
         }
 
         return shouldRun;

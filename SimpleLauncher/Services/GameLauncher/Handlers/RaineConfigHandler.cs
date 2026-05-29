@@ -1,4 +1,5 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -7,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class RaineConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public RaineConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
@@ -36,7 +44,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
         else if (File.Exists(resolvedExe))
         {
             // Pass the resolved RaineRomDirectory to the service
-            RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
+            RaineConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, context.ResolvedFilePath, resolvedSystemFolder, resolvedRaineRomDirectory);
         }
 
         return shouldRun;

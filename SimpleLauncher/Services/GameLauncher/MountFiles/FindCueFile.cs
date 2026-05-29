@@ -1,10 +1,11 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class FindCueFile
 {
-    public static string Find(string rootPath)
+    public static string Find(string rootPath, ILogErrors logErrors)
     {
         try
         {
@@ -23,7 +24,7 @@ public static class FindCueFile
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Error finding cue file in path: {rootPath}");
+            logErrors.LogAndForget(ex, $"Error finding cue file in path: {rootPath}");
             return null;
         }
     }

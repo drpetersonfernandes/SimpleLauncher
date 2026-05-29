@@ -1,5 +1,6 @@
 using System.IO;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -7,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class DolphinConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public DolphinConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -28,7 +36,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            DolphinConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            DolphinConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
         }
 
         return shouldRun;

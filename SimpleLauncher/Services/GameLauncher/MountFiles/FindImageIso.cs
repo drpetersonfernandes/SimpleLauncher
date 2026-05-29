@@ -1,10 +1,11 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class FindImageIso
 {
-    public static string Find(string rootPath)
+    public static string Find(string rootPath, ILogErrors logErrors)
     {
         try
         {
@@ -23,7 +24,7 @@ public static class FindImageIso
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Error finding image.iso in path: {rootPath}");
+            logErrors.LogAndForget(ex, $"Error finding image.iso in path: {rootPath}");
             return null;
         }
     }

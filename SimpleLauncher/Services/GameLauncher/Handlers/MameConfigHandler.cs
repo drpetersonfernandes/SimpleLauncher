@@ -1,3 +1,4 @@
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -6,6 +7,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class MameConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public MameConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
@@ -31,7 +39,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
         }
         else
         {
-            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, resolvedSystemFolder, listOfSecondarySystemFolders);
+            MameConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors, resolvedSystemFolder, listOfSecondarySystemFolders);
         }
 
         return shouldRun;

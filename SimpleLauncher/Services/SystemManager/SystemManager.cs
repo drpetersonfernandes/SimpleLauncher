@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -16,10 +17,8 @@ public partial class SystemManager
 {
     private static readonly object XmlLock = new();
 
-    // Portable mode support for system.xml
-    private static string _systemXmlFilePath;
-    private static bool _isPortableMode;
-    private static bool _pathInitialized;
+    private static DataFileLocation _fileLocation;
+    private static readonly object FileLocationLock = new();
 
     public string SystemName { get; init; }
     public List<string> SystemFolders { get; init; }
@@ -40,164 +39,25 @@ public partial class SystemManager
     /// <returns>The full path to system.xml.</returns>
     private static string GetSystemXmlPath(IConfiguration configuration)
     {
-        // Initialize path if not already done
-        if (!_pathInitialized)
+        if (_fileLocation == null)
         {
-            InitializeSystemXmlPath(configuration);
-        }
-
-        return _systemXmlFilePath;
-    }
-
-    /// <summary>
-    /// Initializes the system.xml file path, preferring portable mode but falling back to LocalAppData if necessary.
-    /// </summary>
-    /// <param name="configuration">The application configuration.</param>
-    private static void InitializeSystemXmlPath(IConfiguration configuration)
-    {
-        var configuredPath = configuration.GetValue<string>("SystemXmlPath") ?? "system.xml";
-        var portablePath = PathHelper.ResolveRelativeToAppDirectory(configuredPath) ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
-        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
-        var localAppDataPath = Path.Combine(appDataFolder, "system.xml");
-
-        // Check if settings already exist in either location
-        var portableSettingsExist = File.Exists(portablePath);
-        var localAppDataSettingsExist = File.Exists(localAppDataPath);
-
-        switch (portableSettingsExist)
-        {
-            case true when !localAppDataSettingsExist:
-                // Existing portable installation - keep using portable mode
-                _systemXmlFilePath = portablePath;
-                _isPortableMode = true;
-                break;
-            case false when localAppDataSettingsExist:
-                // Settings were previously moved to LocalAppData - continue using it
-                _systemXmlFilePath = localAppDataPath;
-                _isPortableMode = false;
-                break;
-            case true when localAppDataSettingsExist:
+            lock (FileLocationLock)
             {
-                // Both exist - use the more recently modified one
-                var portableInfo = new FileInfo(portablePath);
-                var localInfo = new FileInfo(localAppDataPath);
-                if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
-                {
-                    _systemXmlFilePath = portablePath;
-                    _isPortableMode = true;
-                }
-                else
-                {
-                    _systemXmlFilePath = localAppDataPath;
-                    _isPortableMode = false;
-                }
-
-                break;
-            }
-            default:
-            {
-                // No existing settings - try portable mode first
-                if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
-                {
-                    _systemXmlFilePath = portablePath;
-                    _isPortableMode = true;
-                }
-                else
-                {
-                    // Application directory is not writable - fallback to LocalAppData
-                    try
-                    {
-                        if (!Directory.Exists(appDataFolder))
-                        {
-                            Directory.CreateDirectory(appDataFolder);
-                        }
-                    }
-                    catch
-                    {
-                        // If we can't create the directory, we'll still use the path
-                    }
-
-                    _systemXmlFilePath = localAppDataPath;
-                    _isPortableMode = false;
-                }
-
-                break;
+                _fileLocation ??= new DataFileLocation(configuration, "SystemXmlPath", "system.xml");
             }
         }
 
-        _pathInitialized = true;
+        return _fileLocation.FilePath;
     }
 
-    /// <summary>
-    /// Checks if a directory is writable by attempting to create and delete a temporary file.
-    /// </summary>
-    /// <param name="directoryPath">The directory to test.</param>
-    /// <returns>True if the directory is writable; otherwise, false.</returns>
-    private static bool IsDirectoryWritable(string directoryPath)
-    {
-        try
-        {
-            if (!Directory.Exists(directoryPath))
-            {
-                return false;
-            }
-
-            var testFilePath = Path.Combine(directoryPath, $".write_test_{Guid.NewGuid()}.tmp");
-            File.WriteAllText(testFilePath, "test");
-            File.Delete(testFilePath);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Attempts to fallback from portable mode to LocalAppData when save fails.
-    /// </summary>
-    private static void TryFallbackToLocalAppData()
-    {
-        try
-        {
-            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
-            var newFilePath = Path.Combine(appDataFolder, "system.xml");
-
-            // Ensure the directory exists
-            if (!Directory.Exists(appDataFolder))
-            {
-                Directory.CreateDirectory(appDataFolder);
-            }
-
-            _systemXmlFilePath = newFilePath;
-            _isPortableMode = false;
-        }
-        catch
-        {
-            // If fallback fails, we'll just keep the original path
-        }
-    }
-
-    /// <summary>
-    /// Gets whether the application is running in portable mode for system.xml.
-    /// </summary>
     public static bool IsPortableMode
     {
         get
         {
             lock (XmlLock)
             {
-                if (!_pathInitialized)
-                {
-                    // Initialize with default configuration if not already done
-                    // This shouldn't happen in normal operation
-                    return true; // Assume portable by default
-                }
+                return _fileLocation?.IsPortableMode ?? true;
             }
-
-            return _isPortableMode;
         }
     }
 
@@ -234,7 +94,7 @@ public partial class SystemManager
         }
     }
 
-    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration)
+    public static List<SystemManager> LoadSystemManagers(IConfiguration configuration, ILogErrors logErrors = null)
     {
         lock (XmlLock)
         {
@@ -266,7 +126,7 @@ public partial class SystemManager
                         {
                             // Notify developer
                             const string contextMessage = "Error creating empty 'system.xml'.";
-                            App.LogErrorAsync(createEx, contextMessage);
+                            logErrors?.LogAndForget(createEx, contextMessage);
 
                             // Notify user
                             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -314,7 +174,7 @@ public partial class SystemManager
                 }
                 catch (XmlException ex)
                 {
-                    App.LogErrorAsync(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
+                    logErrors?.LogAndForget(ex, "Structural corruption in 'system.xml'. Attempting partial recovery.");
 
                     // Create a fresh document for rebuilding
                     doc = new XDocument(new XElement("SystemConfigs"));
@@ -341,19 +201,19 @@ public partial class SystemManager
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
                                 DebugLogger.Log($"Failed to validate system configuration for '{sysName}'");
-                                App.LogErrorAsync(innerEx, $"Failed to validate system configuration for '{sysName}'");
+                                logErrors?.LogAndForget(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
                         }
                     }
                     catch (Exception fatalEx)
                     {
                         DebugLogger.Log($"Failed to perform regex recovery on system.xml: {fatalEx.Message}");
-                        App.LogErrorAsync(fatalEx, "Failed to perform regex recovery on system.xml.");
+                        logErrors?.LogAndForget(fatalEx, "Failed to perform regex recovery on system.xml.");
                     }
                 }
                 catch (IOException ex)
                 {
-                    App.LogErrorAsync(ex, "The file 'system.xml' is locked.");
+                    logErrors?.LogAndForget(ex, "The file 'system.xml' is locked.");
                     MessageBoxLibrary.FileSystemXmlIsLockedMessageBox();
                 }
 
@@ -417,7 +277,7 @@ public partial class SystemManager
                 {
                     // Notify developer
                     const string contextMessage = "Error saving 'system.xml' after loading, cleaning, and sorting.";
-                    App.LogErrorAsync(saveEx, contextMessage);
+                    logErrors?.LogAndForget(saveEx, contextMessage);
                 }
 
                 // Return the list of valid system configurations (could be empty)
@@ -427,7 +287,7 @@ public partial class SystemManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading system configurations from 'system.xml'.";
-                App.LogErrorAsync(ex, contextMessage);
+                logErrors?.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(PathHelper.ResolveRelativeToAppDirectory(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
@@ -575,7 +435,7 @@ public partial class SystemManager
             });
         }
 
-        static bool RestoreBackupFile(string directoryPath, bool backupRestored, string systemXmlPath)
+        bool RestoreBackupFile(string directoryPath, bool backupRestored, string systemXmlPath)
         {
             try
             {
@@ -601,7 +461,7 @@ public partial class SystemManager
                         {
                             // Notify developer
                             const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
-                            App.LogErrorAsync(ex, contextMessage);
+                            logErrors?.LogAndForget(ex, contextMessage);
 
                             // Notify user
                             MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
@@ -615,7 +475,7 @@ public partial class SystemManager
                 // Notify developer
                 // Error during backup search/restore attempt (e.g., directory access issues)
                 const string contextMessage = "Error during backup file handling.";
-                App.LogErrorAsync(ex, contextMessage);
+                logErrors?.LogAndForget(ex, contextMessage);
                 // Proceed to create empty file as backup handling failed
             }
 
@@ -658,7 +518,7 @@ public partial class SystemManager
         };
     }
 
-    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManager systemConfig, string originalSystemName = null, ILogErrors logErrors = null)
     {
         try
         {
@@ -684,9 +544,36 @@ public partial class SystemManager
                             xmlDoc = new XDocument(new XElement("SystemConfigs"));
                         }
                     }
+                    catch (UnauthorizedAccessException) when (_fileLocation is { IsPortableMode: true })
+                    {
+                        var fallbackPath = _fileLocation.GetLocalAppDataPath();
+                        if (File.Exists(fallbackPath))
+                        {
+                            try
+                            {
+                                var xmlContent = File.ReadAllText(fallbackPath);
+                                xmlDoc = string.IsNullOrWhiteSpace(xmlContent) ? new XDocument(new XElement("SystemConfigs")) : XDocument.Parse(xmlContent);
+                                if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
+                                {
+                                    xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                                }
+
+                                _fileLocation.TryFallbackToLocalAppData();
+                                systemXmlPath = _fileLocation.FilePath;
+                            }
+                            catch
+                            {
+                                xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                            }
+                        }
+                        else
+                        {
+                            xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                        }
+                    }
                     catch (Exception ex)
                     {
-                        App.LogErrorAsync(ex, "Error loading/parsing system.xml for saving.");
+                        logErrors?.LogAndForget(ex, "Error loading/parsing system.xml for saving.");
                         throw new InvalidOperationException("Failed to load system configuration for saving.", ex);
                     }
 
@@ -758,7 +645,7 @@ public partial class SystemManager
                             lastException = ex;
 
                             // If in portable mode and this is the last attempt, try falling back to LocalAppData
-                            if (_isPortableMode && attempt == maxRetries - 1)
+                            if (_fileLocation is { IsPortableMode: true } && attempt == maxRetries - 1)
                             {
                                 try
                                 {
@@ -766,14 +653,16 @@ public partial class SystemManager
                                     var oldSystemXmlPath = systemXmlPath;
 
                                     // Attempt fallback
-                                    TryFallbackToLocalAppData();
-                                    systemXmlPath = _systemXmlFilePath;
-
-                                    // If we successfully switched paths, retry the save
-                                    if (systemXmlPath != oldSystemXmlPath)
+                                    if (_fileLocation.TryFallbackToLocalAppData())
                                     {
-                                        attempt--; // Don't count this as an attempt, retry with new path
-                                        continue;
+                                        systemXmlPath = _fileLocation.FilePath;
+
+                                        // If we successfully switched paths, retry the save
+                                        if (systemXmlPath != oldSystemXmlPath)
+                                        {
+                                            attempt--; // Don't count this as an attempt, retry with new path
+                                            continue;
+                                        }
                                     }
                                 }
                                 catch
@@ -810,7 +699,7 @@ public partial class SystemManager
                     }
 
                     // All retries exhausted or non-transient error
-                    App.LogErrorAsync(lastException, "Error saving system.xml.");
+                    logErrors?.LogAndForget(lastException, "Error saving system.xml.");
 
                     // Attempt to clean up temp file if it exists
                     try
@@ -833,11 +722,11 @@ public partial class SystemManager
         catch (Exception ex)
         {
             DebugLogger.Log($"Error saving system configuration: {ex.Message}");
-            App.LogErrorAsync(ex, "Error saving system configuration.");
+            logErrors?.LogAndForget(ex, "Error saving system configuration.");
         }
     }
 
-    public static async void DeleteSystemAsync(string systemNameToDelete)
+    public static async void DeleteSystemAsync(string systemNameToDelete, ILogErrors logErrors = null)
     {
         try
         {
@@ -855,7 +744,7 @@ public partial class SystemManager
                     }
                     catch (Exception ex)
                     {
-                        App.LogErrorAsync(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
+                        logErrors?.LogAndForget(ex, $"Error loading system.xml for deleting system '{systemNameToDelete}'.");
                         throw new InvalidOperationException("Failed to load system configuration for deletion.", ex);
                     }
 
@@ -873,7 +762,7 @@ public partial class SystemManager
         catch (Exception ex)
         {
             DebugLogger.Log($"Error deleting system '{systemNameToDelete}': {ex.Message}");
-            App.LogErrorAsync(ex, $"Error deleting system '{systemNameToDelete}'.");
+            logErrors?.LogAndForget(ex, $"Error deleting system '{systemNameToDelete}'.");
         }
     }
 

@@ -1,10 +1,11 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameLauncher.MountFiles;
 
 public static class FindDefaultXbe
 {
-    public static string Find(string rootPath)
+    public static string Find(string rootPath, ILogErrors logErrors)
     {
         try
         {
@@ -23,7 +24,7 @@ public static class FindDefaultXbe
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Error finding default.xbe in path: {rootPath}");
+            logErrors.LogAndForget(ex, $"Error finding default.xbe in path: {rootPath}");
             return null;
         }
     }

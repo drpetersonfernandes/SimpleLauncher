@@ -8,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class XeniaConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public XeniaConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
@@ -33,7 +40,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
         {
             try
             {
-                XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings);
+                XeniaConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
             }
             catch (Exception ex)
             {

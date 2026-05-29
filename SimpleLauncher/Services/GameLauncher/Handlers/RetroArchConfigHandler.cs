@@ -1,5 +1,6 @@
 using System.IO;
 using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
@@ -7,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class RetroArchConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public RetroArchConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -28,7 +36,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
         }
         else if (File.Exists(resolvedExe))
         {
-            RetroArchConfigurationService.InjectSettings(resolvedExe, context.Settings);
+            RetroArchConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
         }
 
         return shouldRun;

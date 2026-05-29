@@ -1,4 +1,5 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
@@ -7,6 +8,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class MesenConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public MesenConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Mesen", StringComparison.OrdinalIgnoreCase) ||
@@ -31,7 +39,7 @@ public class MesenConfigHandler : IEmulatorConfigHandler
         {
             shouldRun = true;
             if (File.Exists(resolvedExe))
-                MesenConfigurationService.InjectSettings(resolvedExe, context.Settings);
+                MesenConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
         }
 
         return shouldRun;

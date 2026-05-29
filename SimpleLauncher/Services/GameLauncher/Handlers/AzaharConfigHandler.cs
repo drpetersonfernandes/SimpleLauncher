@@ -1,4 +1,5 @@
 using System.IO;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.MessageBox;
@@ -8,6 +9,13 @@ namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 public class AzaharConfigHandler : IEmulatorConfigHandler
 {
+    private readonly ILogErrors _logErrors;
+
+    public AzaharConfigHandler(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
+
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
         return emulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("azahar.exe", StringComparison.OrdinalIgnoreCase) ?? false);
@@ -31,7 +39,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
         {
             try
             {
-                AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings);
+                AzaharConfigurationService.InjectSettings(resolvedExe, context.Settings, _logErrors);
             }
             catch (AzaharPermissionException)
             {
