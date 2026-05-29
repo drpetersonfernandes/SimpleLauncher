@@ -49,10 +49,18 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     private static void ResetSystemXmlStaticState()
     {
         var type = typeof(SystemManager);
-        type.GetField("_pathInitialized", BindingFlags.NonPublic | BindingFlags.Static)?.SetValue(null, false);
-        type.GetField("_systemXmlFilePath", BindingFlags.NonPublic | BindingFlags.Static)?.SetValue(null, null);
-        var isPortableField = type.GetField("_isPortableMode", BindingFlags.NonPublic | BindingFlags.Static);
-        if (isPortableField != null) isPortableField.SetValue(null, false);
+        type.GetField("_fileLocation", BindingFlags.NonPublic | BindingFlags.Static)?.SetValue(null, null);
+
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var localFile = Path.Combine(localAppData, "SimpleLauncher", "system.xml");
+        try
+        {
+            if (File.Exists(localFile)) File.Delete(localFile);
+        }
+        catch
+        {
+            // ignored
+        }
     }
 
     private static string BuildValidSystemXml()
