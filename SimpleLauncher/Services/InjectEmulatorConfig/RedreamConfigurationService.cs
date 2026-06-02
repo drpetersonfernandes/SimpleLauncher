@@ -1,14 +1,13 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class RedreamConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +28,7 @@ public static class RedreamConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -120,7 +119,7 @@ public static class RedreamConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

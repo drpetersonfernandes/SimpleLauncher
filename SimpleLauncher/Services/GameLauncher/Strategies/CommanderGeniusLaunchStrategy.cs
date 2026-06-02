@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
@@ -21,16 +20,18 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 {
     private readonly IExtractionService _extractionService;
     private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors;
 
     private static readonly string[] KeenDataExtensions =
     [
         ".CK1", ".CK2", ".CK3", ".CK4", ".CK5", ".CK6"
     ];
 
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors)
     {
         _extractionService = extractionService;
         _configuration = configuration;
+        _logErrors = logErrors;
     }
 
     public int Priority => 20;
@@ -58,7 +59,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             if (string.IsNullOrEmpty(cgDataPath))
             {
                 DebugLogger.Log("[CommanderGeniusLaunchStrategy] Could not resolve CG data path.");
-                await LogErrorAsync(context, "Could not resolve Commander Genius data path.");
+                LogErrorAsync("Could not resolve Commander Genius data path.");
                 return;
             }
 
@@ -87,7 +88,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             if (string.IsNullOrEmpty(emulatorLocation) || !File.Exists(PathHelper.GetLongPath(emulatorLocation)))
             {
                 DebugLogger.Log("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
-                await LogErrorAsync(context, $"Emulator executable not found: {emulatorLocation}");
+                LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
             }
@@ -165,7 +166,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                                   $"Emulator: {psi.FileName}\n" +
                                   $"Arguments: {psi.Arguments}\n" +
                                   $"Error: {ex.Message}";
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, errorDetail);
+                _logErrors.LogAndForget(ex, errorDetail);
 
                 if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                 {
@@ -182,7 +183,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                                   $"Output: {output}\n" +
                                   $"Error: {error}\n" +
                                   $"Exception: {ex.Message}";
-                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, errorDetail);
+                _logErrors.LogAndForget(ex, errorDetail);
 
                 if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                 {
@@ -194,7 +195,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             DebugLogger.Log($"[CommanderGeniusLaunchStrategy] Unexpected error: {ex}");
-            await LogErrorAsync(context, $"Unexpected error: {ex.Message}");
+            LogErrorAsync($"Unexpected error: {ex.Message}\nFile: {context?.FilePath}");
         }
         finally
         {
@@ -489,10 +490,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
     }
 
-    private static Task LogErrorAsync(LaunchContext context, string message)
+    private void LogErrorAsync(string message)
     {
-        var fullMessage = $"[CommanderGeniusLaunchStrategy] {message}\nFile: {context?.FilePath}";
-        return App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, fullMessage);
+        var fullMessage = $"[CommanderGeniusLaunchStrategy] {message}";
+        _logErrors.LogAndForget(null, fullMessage);
     }
 
     [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase, "pt-BR")]

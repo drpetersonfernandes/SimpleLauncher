@@ -1,7 +1,6 @@
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 
@@ -9,7 +8,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static partial class MameConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors, string systemRomPath = null, string[] listOfSecondaryRomPath = null)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
             throw new ArgumentException(@"Emulator path cannot be null or empty.", nameof(emulatorPath));
@@ -38,7 +37,7 @@ public static partial class MameConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -247,7 +246,7 @@ public static partial class MameConfigurationService
                 }
 
                 DebugLogger.Log("[MameConfig] Failed to inject configuration changes.");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, "[MameConfig] Failed to inject configuration changes.");
+                logErrors.LogAndForget(ex, "[MameConfig] Failed to inject configuration changes.");
                 throw;
             }
         }
@@ -257,7 +256,7 @@ public static partial class MameConfigurationService
     /// Restores mame.ini from the bundled sample.
     /// Backs up the existing file to mame.ini.bak before overwriting.
     /// </summary>
-    public static bool RestoreMameIniFromSample(string emulatorPath)
+    public static bool RestoreMameIniFromSample(string emulatorPath, ILogErrors logErrors)
     {
         if (string.IsNullOrWhiteSpace(emulatorPath))
             return false;
@@ -291,7 +290,7 @@ public static partial class MameConfigurationService
         catch (Exception ex)
         {
             DebugLogger.Log($"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
-            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
+            logErrors.LogAndForget(ex, $"[MameConfig] Failed to restore mame.ini from sample: {ex.Message}");
             return false;
         }
     }

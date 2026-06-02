@@ -1,14 +1,13 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class MesenConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -30,7 +29,7 @@ public static class MesenConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -92,7 +91,7 @@ public static class MesenConfigurationService
         catch (Exception ex)
         {
             DebugLogger.Log($"[MesenConfig] Error injecting settings: {ex.Message}");
-            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MesenConfig] Error injecting settings: {ex.Message}");
+            logErrors.LogAndForget(ex, $"[MesenConfig] Error injecting settings: {ex.Message}");
             throw; // Re-throw to be caught by the caller
         }
     }

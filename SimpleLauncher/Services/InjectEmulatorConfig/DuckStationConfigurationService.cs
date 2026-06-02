@@ -1,14 +1,13 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class DuckStationConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +28,7 @@ public static class DuckStationConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -156,7 +155,7 @@ public static class DuckStationConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

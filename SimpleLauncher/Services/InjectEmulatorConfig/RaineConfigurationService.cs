@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -11,6 +10,7 @@ public static class RaineConfigurationService
     public static void InjectSettings(
         string emulatorPath,
         SettingsManager.SettingsManager settings,
+        ILogErrors logErrors,
         string gameFilePath = null,
         string systemRomPath = null,
         string raineCustomRomDirectory = null)
@@ -38,7 +38,7 @@ public static class RaineConfigurationService
                 }
                 catch (Exception ex)
                 {
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, "Failed to create Raine config from sample.");
+                    logErrors.LogAndForget(ex, "Failed to create Raine config from sample.");
                     throw;
                 }
             }
@@ -179,7 +179,7 @@ public static class RaineConfigurationService
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, "Failed to inject Raine configuration.");
+                logErrors.LogAndForget(ex, "Failed to inject Raine configuration.");
                 throw;
             }
         }

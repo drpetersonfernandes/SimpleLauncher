@@ -1,6 +1,5 @@
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using YamlDotNet.Serialization;
 
@@ -8,7 +7,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class Rpcs3ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +28,7 @@ public static class Rpcs3ConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
                     throw;
                 }
             }

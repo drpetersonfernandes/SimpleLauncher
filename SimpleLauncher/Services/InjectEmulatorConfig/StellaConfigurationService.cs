@@ -1,14 +1,13 @@
 using System.Globalization;
 using System.IO;
 using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class StellaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +28,7 @@ public static class StellaConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
                     throw;
                 }
             }

@@ -19,7 +19,7 @@ internal static class MountZipFiles
     internal static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
 
-    private static void ValidateZipForPathTraversal(string archivePath)
+    private static bool ValidateZipForPathTraversal(string archivePath)
     {
         if (!File.Exists(archivePath))
         {
@@ -58,6 +58,8 @@ internal static class MountZipFiles
                     throw new InvalidOperationException($"Archive entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
                 }
             }
+
+            return true;
         }
         catch (Exception ex) when (ex is InvalidOperationException)
         {
@@ -66,8 +68,11 @@ internal static class MountZipFiles
         }
         catch (Exception ex)
         {
-            // Wrap other exceptions (corrupted archive, etc.) as InvalidOperationException
-            throw new InvalidOperationException($"Invalid or corrupted archive file: {ex.Message}", ex);
+            // Archive is corrupted or in an unsupported format — skip validation.
+            // SharpCompress cannot open the archive, so there are no entries to check
+            // for path traversal. The caller should notify the user that the file is corrupt.
+            DebugLogger.Log($"[MountZipFiles] Skipping path traversal validation — unable to open archive: {archivePath}. Error: {ex.Message}");
+            return false;
         }
     }
 
@@ -228,7 +233,14 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        ValidateZipForPathTraversal(resolvedZipFilePath);
+        if (!ValidateZipForPathTraversal(resolvedZipFilePath))
+        {
+            var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = logErrors.LogErrorAsync(null, errorMessage);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            return;
+        }
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
@@ -479,7 +491,14 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        ValidateZipForPathTraversal(resolvedZipFilePath);
+        if (!ValidateZipForPathTraversal(resolvedZipFilePath))
+        {
+            var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = logErrors.LogErrorAsync(null, errorMessage);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            return;
+        }
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
@@ -806,7 +825,14 @@ internal static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        ValidateZipForPathTraversal(resolvedZipFilePath);
+        if (!ValidateZipForPathTraversal(resolvedZipFilePath))
+        {
+            var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = logErrors.LogErrorAsync(null, errorMessage);
+            await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            return;
+        }
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 

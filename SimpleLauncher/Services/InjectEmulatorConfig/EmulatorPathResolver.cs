@@ -7,7 +7,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class EmulatorPathResolver
 {
-    public static string TryFindEmulatorPath(string emulatorNameHint)
+    public static string TryFindEmulatorPath(string emulatorNameHint, ILogErrors logErrors)
     {
         if (string.IsNullOrWhiteSpace(emulatorNameHint))
             return null;
@@ -45,7 +45,7 @@ public static class EmulatorPathResolver
         }
         catch (Exception ex)
         {
-            _ = App.ServiceProvider?.GetService<ILogErrors>()?.LogErrorAsync(ex, $"Error resolving emulator path for hint: {emulatorNameHint}");
+            logErrors.LogAndForget(ex, $"Error resolving emulator path for hint: {emulatorNameHint}");
         }
 
         return null;

@@ -1,5 +1,4 @@
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;
@@ -8,7 +7,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class YumirConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +28,7 @@ public static class YumirConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -74,7 +73,7 @@ public static class YumirConfigurationService
         catch (Exception ex)
         {
             DebugLogger.Log($"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
-            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
+            logErrors.LogAndForget(ex, $"[YumirConfig] Failed to inject configuration changes: {ex.Message}");
             throw;
         }
     }

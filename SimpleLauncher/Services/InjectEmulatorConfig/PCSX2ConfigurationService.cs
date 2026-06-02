@@ -1,14 +1,13 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class Pcsx2ConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -35,7 +34,7 @@ public static class Pcsx2ConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -151,7 +150,7 @@ public static class Pcsx2ConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

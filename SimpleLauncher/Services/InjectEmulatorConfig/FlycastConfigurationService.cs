@@ -1,14 +1,13 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class FlycastConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -29,7 +28,7 @@ public static class FlycastConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -121,7 +120,7 @@ public static class FlycastConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

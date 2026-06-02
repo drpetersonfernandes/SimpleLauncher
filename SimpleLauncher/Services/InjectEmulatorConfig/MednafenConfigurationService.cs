@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
@@ -17,7 +16,7 @@ public static class MednafenConfigurationService
 
     private static readonly char[] Separator = [' ', '\t'];
 
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -38,7 +37,7 @@ public static class MednafenConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -119,7 +118,7 @@ public static class MednafenConfigurationService
             catch (Exception ex)
             {
                 DebugLogger.Log($"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
-                _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
+                logErrors.LogAndForget(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
         }

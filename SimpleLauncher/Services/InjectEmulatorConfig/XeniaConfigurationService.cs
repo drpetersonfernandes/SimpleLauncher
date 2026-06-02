@@ -1,5 +1,4 @@
 using System.IO;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using Tomlyn;
 using Tomlyn.Model;
@@ -8,7 +7,7 @@ namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 public static class XeniaConfigurationService
 {
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -39,7 +38,7 @@ public static class XeniaConfigurationService
             // The UpdateSingleConfigFile now handles creation from sample if missing.
             // So we don't need to check File.Exists(configPath) here anymore,
             // as it will attempt to create it if not found.
-            if (UpdateSingleConfigFile(configPath, settings))
+            if (UpdateSingleConfigFile(configPath, settings, logErrors))
             {
                 processedCount++;
             }
@@ -53,7 +52,7 @@ public static class XeniaConfigurationService
         }
     }
 
-    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManager settings)
+    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManager settings, ILogErrors logErrors)
     {
         // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))
@@ -70,7 +69,7 @@ public static class XeniaConfigurationService
                 catch (Exception ex)
                 {
                     DebugLogger.Log($"[XeniaConfig] Failed to create {fileName} from sample: {ex.Message}");
-                    _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[XeniaConfig] Failed to create {fileName} from sample: {ex.Message}");
+                    logErrors.LogAndForget(ex, $"[XeniaConfig] Failed to create {fileName} from sample: {ex.Message}");
                     throw;
                 }
             }
@@ -139,7 +138,7 @@ public static class XeniaConfigurationService
         catch (Exception ex)
         {
             DebugLogger.Log($"[XeniaConfig] Failed to inject configuration changes: {ex.Message}");
-            _ = App.ServiceProvider.GetService<ILogErrors>()?.LogErrorAsync(ex, $"[XeniaConfig] Failed to inject configuration changes: {ex.Message}");
+            logErrors.LogAndForget(ex, $"[XeniaConfig] Failed to inject configuration changes: {ex.Message}");
             throw;
         }
 
