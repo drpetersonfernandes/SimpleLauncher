@@ -873,6 +873,7 @@ internal partial class EditSystemWindow : ILoadingState
     {
         var successTitle = (string)Application.Current.TryFindResource("ParameterResolverSuccess") ?? "Parameter Suggestion";
         var errorTitle = (string)Application.Current.TryFindResource("ParameterResolverError") ?? "Error";
+        var errorMessage = (string)Application.Current.TryFindResource("ErrorProcessingRequest") ?? "There was an error processing your request.";
         var confirmMessage = (string)Application.Current.TryFindResource("ParameterResolverConfirmApply") ?? "Do you want to apply this parameter?";
 
         if (string.IsNullOrWhiteSpace(emulatorName))
@@ -901,8 +902,7 @@ internal partial class EditSystemWindow : ILoadingState
                 CurrentParameters = currentParameters?.Trim()
             };
 
-            var apiKey = _configuration["ParameterResolver:ApiKey"]
-                         ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+            var apiKey = _configuration["ParameterResolver:ApiKey"] ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
 
             var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
             var client = httpClientFactory.CreateClient("ParameterResolverClient");
@@ -927,9 +927,7 @@ internal partial class EditSystemWindow : ILoadingState
                     dialogMessage += $"\n\nExplanation: {explanation}";
                 }
 
-                var applyResult = MessageBoxLibrary.CustomQuestionMessageBox(
-                    successTitle,
-                    dialogMessage);
+                var applyResult = MessageBoxLibrary.CustomQuestionMessageBox(successTitle, dialogMessage);
 
                 if (applyResult)
                 {
@@ -941,13 +939,13 @@ internal partial class EditSystemWindow : ILoadingState
             {
                 var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
                 _logErrors.LogAndForget(apiException, "ParameterResolver API error");
-                MessageBoxLibrary.CustomErrorMessageBox($"{errorTitle}: {responseBody}", errorTitle);
+                MessageBoxLibrary.CustomErrorMessageBox(errorMessage, errorTitle);
             }
         }
         catch (Exception ex)
         {
             _logErrors.LogAndForget(ex, "Error calling ParameterResolver API");
-            MessageBoxLibrary.CustomErrorMessageBox($"{errorTitle}: {ex.Message}", errorTitle);
+            MessageBoxLibrary.CustomErrorMessageBox(errorMessage, errorTitle);
         }
         finally
         {

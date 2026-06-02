@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser.Models;
 using SimpleLauncher.Services.MessageBox;
 
@@ -8,11 +9,17 @@ namespace SimpleLauncher.Services.HelpUser;
 public partial class HelpUserManager
 {
     private const string FilePath = "parameters.md";
+    private readonly ILogErrors _logErrors;
 
     // Regex to match Markdown H2 headers: ## System Name
     private static readonly Regex HeaderRegex = MyRegex();
 
     public List<SystemHelper> Systems { get; private set; } = [];
+
+    public HelpUserManager(ILogErrors logErrors)
+    {
+        _logErrors = logErrors;
+    }
 
     public void Load()
     {
@@ -22,7 +29,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is missing.";
-                App.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileParametersMdIsMissingMessageBox();
@@ -39,7 +46,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "Unable to load 'parameters.md'. The file may be corrupted or in use.";
-                App.LogErrorAsync(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadParametersMdMessageBox();
@@ -51,7 +58,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'parameters.md' is empty.";
-                App.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileParametersMdIsEmptyMessageBox();
@@ -65,7 +72,7 @@ public partial class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "No valid systems found in 'parameters.md' after processing.";
-                App.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoSystemInParametersMdMessageBox();
@@ -79,7 +86,7 @@ public partial class HelpUserManager
         {
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'parameters.md'.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingParametersMdMessageBox();

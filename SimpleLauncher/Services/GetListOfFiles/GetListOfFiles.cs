@@ -13,6 +13,7 @@ public abstract class GetListOfFiles
     {
         return Task.Run(() =>
         {
+            var logError = App.ServiceProvider.GetRequiredService<ILogErrors>();
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
@@ -20,7 +21,7 @@ public abstract class GetListOfFiles
                 {
                     // Notify developer
                     var contextMessage = $"Directory does not exist: '{directoryPath}'.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                    logError.LogAndForget(null, contextMessage);
 
                     return []; // Return an empty list
                 }
@@ -51,7 +52,7 @@ public abstract class GetListOfFiles
                 // Notify developer
                 var contextMessage = $"There was an error using the method GetFilesAsync.\n" +
                                      $"Directory path: {directoryPath}";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                logError.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorFindingGameFilesMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
@@ -63,6 +64,7 @@ public abstract class GetListOfFiles
 
     private static void EnumerateFilesRecursive(string path, HashSet<string> extensions, List<string> results, List<string> restrictedFolders, bool doRecurse, CancellationToken token)
     {
+        var logError = App.ServiceProvider.GetRequiredService<ILogErrors>();
         token.ThrowIfCancellationRequested();
 
         // Proactive guard against the common race condition where a directory disappears
@@ -102,7 +104,7 @@ public abstract class GetListOfFiles
         }
         catch (PathTooLongException ex)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Path too long during enumeration: {path}");
+            logError.LogAndForget(ex, $"Path too long during enumeration: {path}");
         }
         catch (DirectoryNotFoundException)
         {
@@ -111,7 +113,7 @@ public abstract class GetListOfFiles
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unexpected error accessing folder: {path}");
+            logError.LogAndForget(ex, $"Unexpected error accessing folder: {path}");
         }
     }
 

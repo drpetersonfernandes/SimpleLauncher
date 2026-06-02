@@ -2440,7 +2440,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void BatchFileFailedMessageBox(string batchFilePath, string errorDetail, string logPath)
+    internal static void BatchFileFailedMessageBox(string batchFilePath, string errorDetail, string logPath, int? exitCode = null)
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -2453,12 +2453,20 @@ internal static class MessageBoxLibrary
             var errorMessage = !string.IsNullOrEmpty(errorDetail)
                 ? $"Error: {errorDetail}\n\n"
                 : string.Empty;
-            var explanation = (string)Application.Current.TryFindResource("Batchfilefailedexplanation") ?? "This usually means a path referenced inside the batch file no longer exists or is incorrect.";
+            var exitCodeMessage = exitCode.HasValue
+                ? $"Exit code: {exitCode.Value}\n\n"
+                : string.Empty;
+            var explanation = exitCode is < 0
+                ? (string)Application.Current.TryFindResource("Theprogramlaunchedbythisbatch") ?? "The program launched by this batch file may have crashed or been terminated unexpectedly. Negative exit codes typically indicate system-level failures."
+                : (string)Application.Current.TryFindResource("Batchfilefailedexplanation") ?? "This usually means a path referenced inside the batch file no longer exists or is incorrect.";
             var youcanturnoff = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopen = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var message = $"{batchNameMessage}\n\n{errorMessage}{explanation}\n\n{youcanturnoff}\n\n{doyouwanttoopen}";
+            var message = $"{batchNameMessage}\n\n" +
+                          $"{exitCodeMessage}{errorMessage}{explanation}\n\n" +
+                          $"{youcanturnoff}\n\n" +
+                          $"{doyouwanttoopen}";
 
             var result = System.Windows.MessageBox.Show(message, error, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
@@ -5214,6 +5222,40 @@ internal static class MessageBoxLibrary
             var baseMessage = (string)Application.Current.TryFindResource("FailedToCopySystemImage") ?? "Failed to copy the image:";
             var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
             System.Windows.MessageBox.Show($"{baseMessage} {errorMessage}", title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void WarningMessageBox(string message)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowMessage(message));
+        return;
+
+        static void ShowMessage(string message)
+        {
+            var title = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void CustomErrorMessageBox(string message, string title)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowMessage(message, title));
+        return;
+
+        static void ShowMessage(string message, string title)
+        {
+            System.Windows.MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static bool CustomQuestionMessageBox(string title, string message)
+    {
+        return Application.Current.Dispatcher.Invoke(() => ShowMessage(title, message));
+
+        static bool ShowMessage(string title, string message)
+        {
+            var result = System.Windows.MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            return result == MessageBoxResult.Yes;
         }
     }
 }

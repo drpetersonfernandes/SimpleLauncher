@@ -3,25 +3,33 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 
 namespace SimpleLauncher.Services.HelpUser;
 
 public static partial class HelpUser
 {
-    private static readonly HelpUserManager Manager = new();
+    private static HelpUserManager _manager;
+    private static ILogErrors _logErrors;
 
-    static HelpUser()
+    /// <summary>
+    /// Initializes the HelpUser with the required dependencies.
+    /// Must be called after DI container is built.
+    /// </summary>
+    public static void Initialize(ILogErrors logErrors)
     {
+        _logErrors = logErrors;
+        _manager = new HelpUserManager(logErrors);
         try
         {
-            Manager.Load(); // Load parameters.md
+            _manager.Load(); // Load parameters.md
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Failed to load parameters.md.";
-            App.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
         }
     }
 
@@ -787,7 +795,7 @@ public static partial class HelpUser
     private static string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
-        var system = Manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
+        var system = _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
 
         var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
