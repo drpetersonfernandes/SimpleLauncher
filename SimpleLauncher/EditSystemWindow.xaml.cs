@@ -1,10 +1,16 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
@@ -366,6 +372,11 @@ internal partial class EditSystemWindow : ILoadingState
         ChooseEmulator4PathButton.IsEnabled = true;
         ChooseEmulator5PathButton.IsEnabled = true;
         ChooseSystemImageButton.IsEnabled = true;
+        SuggestEmulator1ParametersButton.IsEnabled = true;
+        SuggestEmulator2ParametersButton.IsEnabled = true;
+        SuggestEmulator3ParametersButton.IsEnabled = true;
+        SuggestEmulator4ParametersButton.IsEnabled = true;
+        SuggestEmulator5ParametersButton.IsEnabled = true;
     }
 
     private void DisableAllEditableFields()
@@ -442,6 +453,11 @@ internal partial class EditSystemWindow : ILoadingState
         ChooseEmulator4PathButton.IsEnabled = false;
         ChooseEmulator5PathButton.IsEnabled = false;
         ChooseSystemImageButton.IsEnabled = false;
+        SuggestEmulator1ParametersButton.IsEnabled = false;
+        SuggestEmulator2ParametersButton.IsEnabled = false;
+        SuggestEmulator3ParametersButton.IsEnabled = false;
+        SuggestEmulator4ParametersButton.IsEnabled = false;
+        SuggestEmulator5ParametersButton.IsEnabled = false;
     }
 
     private void ClearFields()
@@ -765,5 +781,197 @@ internal partial class EditSystemWindow : ILoadingState
         {
             SystemImagePreview.Source = null;
         }
+    }
+
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        WriteIndented = false
+    };
+
+    private async void SuggestEmulator1Parameters_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(
+                Emulator1NameTextBox.Text,
+                Emulator1PathTextBox.Text,
+                Emulator1ParametersTextBox.Text,
+                SuggestEmulator1ParametersButton);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator1Parameters_Click");
+        }
+    }
+
+    private async void SuggestEmulator2Parameters_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(
+                Emulator2NameTextBox.Text,
+                Emulator2PathTextBox.Text,
+                Emulator2ParametersTextBox.Text,
+                SuggestEmulator2ParametersButton);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator2Parameters_Click");
+        }
+    }
+
+    private async void SuggestEmulator3Parameters_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(
+                Emulator3NameTextBox.Text,
+                Emulator3PathTextBox.Text,
+                Emulator3ParametersTextBox.Text,
+                SuggestEmulator3ParametersButton);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator3Parameters_Click");
+        }
+    }
+
+    private async void SuggestEmulator4Parameters_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(
+                Emulator4NameTextBox.Text,
+                Emulator4PathTextBox.Text,
+                Emulator4ParametersTextBox.Text,
+                SuggestEmulator4ParametersButton);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator4Parameters_Click");
+        }
+    }
+
+    private async void SuggestEmulator5Parameters_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await SuggestParametersAsync(
+                Emulator5NameTextBox.Text,
+                Emulator5PathTextBox.Text,
+                Emulator5ParametersTextBox.Text,
+                SuggestEmulator5ParametersButton);
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator5Parameters_Click");
+        }
+    }
+
+    private async Task SuggestParametersAsync(string emulatorName, string emulatorPath, string currentParameters, Button suggestButton)
+    {
+        var successTitle = (string)Application.Current.TryFindResource("ParameterResolverSuccess") ?? "Parameter Suggestion";
+        var errorTitle = (string)Application.Current.TryFindResource("ParameterResolverError") ?? "Error";
+        var confirmMessage = (string)Application.Current.TryFindResource("ParameterResolverConfirmApply") ?? "Do you want to apply this parameter?";
+
+        if (string.IsNullOrWhiteSpace(emulatorName))
+        {
+            var enterEmulatorNameMsg = (string)Application.Current.TryFindResource("ParameterResolverEnterEmulatorName") ?? "Please enter an emulator name first.";
+            MessageBoxLibrary.WarningMessageBox(enterEmulatorNameMsg);
+            return;
+        }
+
+        suggestButton.IsEnabled = false;
+        Mouse.OverrideCursor = Cursors.Wait;
+
+        try
+        {
+            var request = new
+            {
+                SystemName = SystemNameTextBox.Text.Trim(),
+                SystemFolder = SystemFolderTextBox.Text.Trim(),
+                FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text),
+                ExtractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem?.ToString() == "true",
+                FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text),
+                GroupByFolder = GroupByFolderComboBox.SelectedItem?.ToString() == "true",
+                DisableRecursiveSearch = DisableRecursiveSearchComboBox.SelectedItem?.ToString() == "true",
+                EmulatorName = emulatorName.Trim(),
+                EmulatorPath = emulatorPath?.Trim(),
+                CurrentParameters = currentParameters?.Trim()
+            };
+
+            var apiKey = _configuration["ParameterResolver:ApiKey"]
+                         ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+
+            var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+            var client = httpClientFactory.CreateClient("ParameterResolverClient");
+
+            var jsonContent = JsonSerializer.Serialize(request, JsonOptions);
+            using var httpRequest = new HttpRequestMessage(HttpMethod.Post, "api/ParameterResolver/resolve");
+            httpRequest.Headers.Add("X-Api-Key", apiKey);
+            httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var response = await client.SendAsync(httpRequest);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
+                var suggestedParam = result?.SuggestedParameter ?? string.Empty;
+                var explanation = result?.Explanation ?? string.Empty;
+
+                var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
+                if (!string.IsNullOrEmpty(explanation))
+                {
+                    dialogMessage += $"\n\nExplanation: {explanation}";
+                }
+
+                var applyResult = MessageBoxLibrary.CustomQuestionMessageBox(
+                    successTitle,
+                    dialogMessage);
+
+                if (applyResult)
+                {
+                    var textBox = FindParametersTextBox(emulatorName);
+                    textBox?.Text = suggestedParam;
+                }
+            }
+            else
+            {
+                var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
+                _logErrors.LogAndForget(apiException, "ParameterResolver API error");
+                MessageBoxLibrary.CustomErrorMessageBox($"{errorTitle}: {responseBody}", errorTitle);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error calling ParameterResolver API");
+            MessageBoxLibrary.CustomErrorMessageBox($"{errorTitle}: {ex.Message}", errorTitle);
+        }
+        finally
+        {
+            suggestButton.IsEnabled = true;
+            Mouse.OverrideCursor = null;
+        }
+    }
+
+    private TextBox FindParametersTextBox(string emulatorName)
+    {
+        if (emulatorName == Emulator1NameTextBox.Text) return Emulator1ParametersTextBox;
+        if (emulatorName == Emulator2NameTextBox.Text) return Emulator2ParametersTextBox;
+        if (emulatorName == Emulator3NameTextBox.Text) return Emulator3ParametersTextBox;
+        if (emulatorName == Emulator4NameTextBox.Text) return Emulator4ParametersTextBox;
+        if (emulatorName == Emulator5NameTextBox.Text) return Emulator5ParametersTextBox;
+
+        return null;
+    }
+
+    private static List<string> SplitAndTrim(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return null;
+
+        return text.Split([',', '|', ';'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
     }
 }

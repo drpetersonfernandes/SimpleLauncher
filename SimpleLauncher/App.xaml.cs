@@ -112,6 +112,14 @@ public partial class App : IDisposable
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
         }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
 
+        serviceCollection.AddHttpClient("ParameterResolverClient", client =>
+        {
+            var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            client.BaseAddress = new Uri(resolverUrl);
+            client.Timeout = TimeSpan.FromSeconds(60);
+            client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
+        }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
+
         serviceCollection.AddHttpClient("DownloadClient")
             .ConfigurePrimaryHttpMessageHandler(CreateHttpHandler)
             .SetHandlerLifetime(TimeSpan.FromMinutes(5))

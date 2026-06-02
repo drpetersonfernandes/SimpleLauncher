@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.RetroAchievements;
 
@@ -13,15 +14,15 @@ internal static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the MD5 hash of the entire file.
     /// </summary>
-    public static Task<string> CalculateStandardMd5Async(string filePath)
+    public static Task<string> CalculateStandardMd5Async(string filePath, ILogErrors logErrors)
     {
-        return CalculateMd5WithOffsetAsync(filePath, 0);
+        return CalculateMd5WithOffsetAsync(filePath, 0, logErrors);
     }
 
     /// <summary>
     /// Calculates the MD5 hash of a file, starting from a specific offset.
     /// </summary>
-    private static async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset)
+    private static async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset, ILogErrors logErrors)
     {
         try
         {
@@ -38,7 +39,7 @@ internal static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
+            logErrors.LogAndForget(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
             return null;
         }
     }
@@ -46,7 +47,7 @@ internal static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arcade games by hashing the filename without its extension.
     /// </summary>
-    public static string CalculateFilenameHash(string filePath)
+    public static string CalculateFilenameHash(string filePath, ILogErrors logErrors)
     {
         try
         {
@@ -57,7 +58,7 @@ internal static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to calculate Arcade hash for {filePath}");
+            logErrors.LogAndForget(ex, $"Failed to calculate Arcade hash for {filePath}");
             return null;
         }
     }
@@ -85,8 +86,9 @@ internal static class RetroAchievementsFileHasher
     /// </summary>
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="systemName">The normalized RetroAchievements system name.</param>
+    /// <param name="logErrors"></param>
     /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
-    public static async Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName)
+    public static async Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName, ILogErrors logErrors)
     {
         long offset = 0;
         try
@@ -94,7 +96,7 @@ internal static class RetroAchievementsFileHasher
             var fileInfo = new FileInfo(filePath);
             if (!fileInfo.Exists)
             {
-                App.LogErrorAsync(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
+                logErrors.LogAndForget(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
                 return null;
             }
 
@@ -162,15 +164,15 @@ internal static class RetroAchievementsFileHasher
                 default:
                     // Fallback for any unexpected system name, hash the whole file.
                     offset = 0;
-                    App.LogErrorAsync(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
+                    logErrors.LogAndForget(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
                     break;
             }
 
-            return await CalculateMd5WithOffsetAsync(filePath, offset);
+            return await CalculateMd5WithOffsetAsync(filePath, offset, logErrors);
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
+            logErrors.LogAndForget(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
             return null;
         }
     }
@@ -178,7 +180,7 @@ internal static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the hash for Arduboy files by normalizing line endings.
     /// </summary>
-    public static async Task<string> CalculateArduboyHashAsync(string filePath)
+    public static async Task<string> CalculateArduboyHashAsync(string filePath, ILogErrors logErrors)
     {
         try
         {
@@ -190,7 +192,7 @@ internal static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to calculate Arduboy hash for {filePath}");
+            logErrors.LogAndForget(ex, $"Failed to calculate Arduboy hash for {filePath}");
             return null;
         }
     }
@@ -200,7 +202,7 @@ internal static class RetroAchievementsFileHasher
     /// .z64 (Big Endian) is hashed directly.
     /// .v64 (Byte Swapped) and .n64 (Little Endian) are byte-swapped to Big Endian before hashing.
     /// </summary>
-    public static async Task<string> CalculateN64HashAsync(string filePath)
+    public static async Task<string> CalculateN64HashAsync(string filePath, ILogErrors logErrors)
     {
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
         try
@@ -208,7 +210,7 @@ internal static class RetroAchievementsFileHasher
             switch (extension)
             {
                 case ".z64": // Big Endian (standard)
-                    return await CalculateStandardMd5Async(filePath);
+                    return await CalculateStandardMd5Async(filePath, logErrors);
 
                 case ".v64": // Byte-swapped
                 case ".n64": // Little-endian
@@ -221,12 +223,12 @@ internal static class RetroAchievementsFileHasher
 
                 default:
                     // Fallback for unknown extensions like .rom, treat as standard.
-                    return await CalculateStandardMd5Async(filePath);
+                    return await CalculateStandardMd5Async(filePath, logErrors);
             }
         }
         catch (Exception ex)
         {
-            App.LogErrorAsync(ex, $"Failed to calculate N64 hash for {filePath}");
+            logErrors.LogAndForget(ex, $"Failed to calculate N64 hash for {filePath}");
             return null;
         }
     }

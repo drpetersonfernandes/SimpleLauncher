@@ -456,13 +456,16 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
-
-                                <Label
-                                    Margin="10,0,10,10"
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    VerticalAlignment="Center"
-                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" ToolTip="{DynamicResource TooltipEmulator1NotificationLabel}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="SuggestEmulator1ParametersButton"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Click="SuggestEmulator1Parameters_Click"
+                                    Content="{DynamicResource SuggestParameters}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipSuggestParameters}" />
                                 <ComboBox
                                     Margin="0,0,10,10"
                                     x:Name="ReceiveANotificationOnEmulatorError1"
@@ -546,6 +549,16 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="SuggestEmulator2ParametersButton"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Click="SuggestEmulator2Parameters_Click"
+                                    Content="{DynamicResource SuggestParameters}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipSuggestParameters}" />
 
                                 <Label
                                     Margin="10,0,10,10"
@@ -635,6 +648,16 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="SuggestEmulator3ParametersButton"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Click="SuggestEmulator3Parameters_Click"
+                                    Content="{DynamicResource SuggestParameters}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipSuggestParameters}" />
 
                                 <Label
                                     Margin="10,0,10,10"
@@ -724,6 +747,16 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="SuggestEmulator4ParametersButton"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Click="SuggestEmulator4Parameters_Click"
+                                    Content="{DynamicResource SuggestParameters}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipSuggestParameters}" />
 
                                 <Label
                                     Margin="10,0,10,10"
@@ -813,6 +846,16 @@
                                     IsReadOnly="True"
                                     IsEnabled="False"
                                     ToolTip="{DynamicResource TooltipEmulatorParameters}" />
+                                <Button
+                                    Margin="0,0,10,10"
+                                    x:Name="SuggestEmulator5ParametersButton"
+                                    Grid.Row="2"
+                                    Grid.Column="2"
+                                    Click="SuggestEmulator5Parameters_Click"
+                                    Content="{DynamicResource SuggestParameters}"
+                                    IsEnabled="False"
+                                    HorizontalAlignment="Left"
+                                    ToolTip="{DynamicResource TooltipSuggestParameters}" />
 
                                 <Label
                                     Margin="10,0,10,10"

@@ -1061,7 +1061,7 @@
         <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
         <PackageReference Include="NAudio" Version="2.3.0" />
         <PackageReference Include="SharpDX.DirectInput" Version="4.2.0" />
-        <PackageReference Include="SharpCompress" Version="0.49.0" />
+        <PackageReference Include="SharpCompress" Version="0.49.1" />
         <PackageReference Include="Tomlyn" Version="2.4.1" />
         <PackageReference Include="YamlDotNet" Version="18.0.0" />
     </ItemGroup>

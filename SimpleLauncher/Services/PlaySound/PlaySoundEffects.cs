@@ -108,42 +108,45 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 
     private void StopCurrentPlayback()
     {
-        if (_reader != null)
+        var waveOut = _waveOut;
+        if (waveOut != null)
         {
+            _waveOut = null;
+            waveOut.PlaybackStopped -= OnPlaybackStopped;
             try
             {
-                _reader.Dispose();
-            }
-            catch (Exception ex)
-            {
-                DebugLogger.Log($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
-            }
-
-            _reader = null;
-        }
-
-        if (_waveOut != null)
-        {
-            _waveOut.PlaybackStopped -= OnPlaybackStopped;
-            try
-            {
-                _waveOut.Stop();
+                waveOut.Stop();
             }
             catch (Exception ex)
             {
                 DebugLogger.Log($"[PlaySoundEffects] Error stopping waveOut: {ex.Message}");
             }
+        }
 
+        var reader = _reader;
+        if (reader != null)
+        {
+            _reader = null;
             try
             {
-                _waveOut.Dispose();
+                reader.Dispose();
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Log($"[PlaySoundEffects] Error disposing reader: {ex.Message}");
+            }
+        }
+
+        if (waveOut != null)
+        {
+            try
+            {
+                waveOut.Dispose();
             }
             catch (Exception ex)
             {
                 DebugLogger.Log($"[PlaySoundEffects] Error disposing waveOut: {ex.Message}");
             }
-
-            _waveOut = null;
         }
     }
 

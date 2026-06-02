@@ -30,7 +30,7 @@ public static class RetroAchievementsSystemMatcher
     {
         // Nintendo systems
         ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD", "Nintendo N64"]),
-        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom", "NintendoSNES"]),
+        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom", "NintendoSNES", "Nintendo Satellaview"]),
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy"]),
         ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance", "Nintendo - Game Boy Advance"]),
         ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color", "Nintendo - Game Boy Color", "Nintendo Game Boy Color"]),
@@ -100,7 +100,7 @@ public static class RetroAchievementsSystemMatcher
         ["arduboy"] = new RaSystemInfo(71, ["arduboy"]),
         ["wasm-4"] = new RaSystemInfo(72, ["wasm-4"]),
         ["pc-8000/8800"] = new RaSystemInfo(47, ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"]),
-        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]"]),
+        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]", "C64 - Ultimate Tape Archive", "C64 - Floppy [Scene Collection]"]),
         ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
         ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
         ["fairchild channel f"] = new RaSystemInfo(57, ["fairchild channel f", "channel f"]),
@@ -149,7 +149,7 @@ public static class RetroAchievementsSystemMatcher
             "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD", "ra", "FBA2", "FBA",
             "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch",
             "Namco 2x6", "FBN", "J2ME", "NEC PC-88", "CGenius", "NEC PC88", "Fujitsu FM-7", "Fairchild Channel-F", "Exelvision EX100",
-            "Enterprise 64-128"
+            "Enterprise 64-128", "Capcom Medalusion"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),
