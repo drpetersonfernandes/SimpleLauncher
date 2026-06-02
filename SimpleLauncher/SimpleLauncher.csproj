@@ -865,6 +865,12 @@
         <None Update="tools\BatchConvertIsoToXiso\7za_arm64.exe">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="tools\SevenZip\7za.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="tools\SevenZip\7za_arm64.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">
@@ -1309,6 +1315,7 @@
     <ItemGroup>
         <Folder Include="samples\Stella\" />
         <Folder Include="Services\GlobalSearch\" />
+        <Folder Include="tools\SevenZip\" />
     </ItemGroup>
 
     <ItemGroup>

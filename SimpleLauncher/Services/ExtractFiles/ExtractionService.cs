@@ -1,6 +1,8 @@
 #nullable enable
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using SharpCompress.Archives;
@@ -235,6 +237,26 @@ public class ExtractionService : IExtractionService
         }
         catch (Exception ex)
         {
+            // For .7z files, try fallback extraction with 7za executable
+            if (extension == ".7z" && !string.IsNullOrEmpty(resolvedDestinationFolder))
+            {
+                DebugLogger.Log($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
+                var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, resolvedDestinationFolder);
+                if (fallbackSuccess)
+                {
+                    DebugLogger.Log($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
+                    var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
+                    if (File.Exists(extractionTrackingFile))
+                    {
+                        DeleteFiles.TryDeleteFile(extractionTrackingFile);
+                    }
+
+                    return true;
+                }
+
+                DebugLogger.Log($"[ExtractionService] 7za fallback extraction also failed for: {archivePath}");
+            }
+
             if (!string.IsNullOrEmpty(resolvedDestinationFolder)) // Only attempt cleanup if resolution was successful
             {
                 try
@@ -370,6 +392,20 @@ public class ExtractionService : IExtractionService
         }
         catch (Exception ex)
         {
+            // For .7z files, try fallback extraction with 7za executable
+            if (extension == ".7z" && !string.IsNullOrEmpty(tempDirectory))
+            {
+                DebugLogger.Log($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
+                var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, tempDirectory);
+                if (fallbackSuccess)
+                {
+                    DebugLogger.Log($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
+                    return tempDirectory;
+                }
+
+                DebugLogger.Log($"[ExtractionService] 7za fallback extraction also failed for: {archivePath}");
+            }
+
             await CleanTempFolder.CleanupTempDirectoryAsync(tempDirectory);
 
             // Notify developer
@@ -380,6 +416,84 @@ public class ExtractionService : IExtractionService
             MessageBoxLibrary.ExtractionFailedMessageBox();
 
             return null;
+        }
+    }
+
+    private async Task<bool> ExtractWith7ZipAsync(string archivePath, string destinationFolder)
+    {
+        var arch = RuntimeInformation.ProcessArchitecture;
+        var exeName = arch == Architecture.Arm64 ? "7za_arm64.exe" : "7za.exe";
+        var exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "SevenZip", exeName);
+
+        if (!File.Exists(exePath))
+        {
+            DebugLogger.Log($"[ExtractionService] 7-Zip executable not found at: {exePath}");
+            return false;
+        }
+
+        try
+        {
+            Directory.CreateDirectory(destinationFolder);
+
+            var args = $"x -o\"{destinationFolder}\" -y \"{archivePath}\"";
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = exePath,
+                Arguments = args,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = new Process();
+            process.StartInfo = processStartInfo;
+
+            var errorBuilder = new StringBuilder();
+            process.ErrorDataReceived += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Data))
+                    errorBuilder.AppendLine(e.Data);
+            };
+
+            DebugLogger.Log($"[ExtractionService] Running 7za fallback for: {archivePath}");
+            process.Start();
+            process.BeginErrorReadLine();
+
+            using var timeoutCts = new CancellationTokenSource(TimeSpan.FromMinutes(30));
+            try
+            {
+                await process.WaitForExitAsync(timeoutCts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                DebugLogger.Log("[ExtractionService] 7za extraction timed out after 30 minutes.");
+                try
+                {
+                    process.Kill();
+                }
+                catch
+                {
+                    /* ignored */
+                }
+
+                return false;
+            }
+
+            if (process.ExitCode == 0)
+            {
+                DebugLogger.Log($"[ExtractionService] 7za extraction succeeded for: {archivePath}");
+                return true;
+            }
+
+            DebugLogger.Log($"[ExtractionService] 7za extraction failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[ExtractionService] 7za extraction exception: {ex.Message}");
+            _logErrors.LogAndForget(ex, $"Error extracting with 7za: {archivePath}");
+            return false;
         }
     }
 
