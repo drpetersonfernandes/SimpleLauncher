@@ -2316,4 +2316,12 @@
     <system:String x:Key="ZoomInIcon">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
+    <system:String x:Key="SuggestParameters">Suggest</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Use AI to suggest the best parameter for this emulator</system:String>
+    <system:String x:Key="ParameterResolverLoading">Resolving parameters, please wait...</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Parameter Suggestion</system:String>
+    <system:String x:Key="ParameterResolverError">Error</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Do you want to apply this suggested parameter?</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Parameter resolver is not configured. Please check the API key.</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Please enter an emulator name first.</system:String>
 </ResourceDictionary>

@@ -3,19 +3,17 @@ using System.IO;
 using System.Windows;
 using MessagePack;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.AppDataFile;
+using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.Favorites;
 
-[MessagePackObject]
+[MessagePackObject(AllowPrivate = true)]
 public class FavoritesManager
 {
     [IgnoreMember] private static readonly object ListLock = new();
-
-    // Portable mode support for favorites.dat
-    [IgnoreMember] private static string _datFilePath;
-    [IgnoreMember] private static string _tempDatFilePath;
-    [IgnoreMember] private static bool _isPortableMode;
-    [IgnoreMember] private static bool _pathInitialized;
+    [IgnoreMember] private ILogErrors _logErrors;
+    [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
 
     // This collection will be serialized with MessagePack
     [Key(0)]
@@ -23,212 +21,34 @@ public class FavoritesManager
 
     [Key(1)] public int Version { get; set; } = 1;
 
-    private static string DatFilePath => GetDatFilePath();
-    private static string TempDatFilePath => GetTempDatFilePath();
-
-    /// <summary>
-    /// Gets the path to favorites.dat, determining the location based on portable mode availability.
-    /// </summary>
-    private static string GetDatFilePath()
-    {
-        if (!_pathInitialized)
-        {
-            InitializeFavoritesPath();
-        }
-
-        return _datFilePath;
-    }
-
-    /// <summary>
-    /// Gets the path to the temporary favorites file.
-    /// </summary>
-    private static string GetTempDatFilePath()
-    {
-        if (!_pathInitialized)
-        {
-            InitializeFavoritesPath();
-        }
-
-        return _tempDatFilePath;
-    }
-
-    /// <summary>
-    /// Initializes the favorites.dat file path, preferring portable mode but falling back to LocalAppData if necessary.
-    /// </summary>
-    private static void InitializeFavoritesPath()
-    {
-        var portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat");
-        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
-        var localAppDataPath = Path.Combine(appDataFolder, "favorites.dat");
-
-        // Check if favorites already exist in either location
-        var portableFavoritesExist = File.Exists(portablePath);
-        var localAppDataFavoritesExist = File.Exists(localAppDataPath);
-
-        switch (portableFavoritesExist)
-        {
-            case true when !localAppDataFavoritesExist:
-                // Existing portable installation - keep using portable mode
-                _datFilePath = portablePath;
-                _tempDatFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat.tmp");
-                _isPortableMode = true;
-                break;
-            case false when localAppDataFavoritesExist:
-                // Favorites were previously moved to LocalAppData - continue using it
-                _datFilePath = localAppDataPath;
-                _tempDatFilePath = Path.Combine(appDataFolder, "favorites.dat.tmp");
-                _isPortableMode = false;
-                break;
-            case true when localAppDataFavoritesExist:
-            {
-                // Both exist - use the more recently modified one
-                var portableInfo = new FileInfo(portablePath);
-                var localInfo = new FileInfo(localAppDataPath);
-                if (portableInfo.LastWriteTimeUtc > localInfo.LastWriteTimeUtc)
-                {
-                    _datFilePath = portablePath;
-                    _tempDatFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat.tmp");
-                    _isPortableMode = true;
-                }
-                else
-                {
-                    _datFilePath = localAppDataPath;
-                    _tempDatFilePath = Path.Combine(appDataFolder, "favorites.dat.tmp");
-                    _isPortableMode = false;
-                }
-
-                break;
-            }
-            default:
-            {
-                // No existing favorites - try portable mode first
-                if (IsDirectoryWritable(AppDomain.CurrentDomain.BaseDirectory))
-                {
-                    _datFilePath = portablePath;
-                    _tempDatFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat.tmp");
-                    _isPortableMode = true;
-                }
-                else
-                {
-                    // Application directory is not writable - fallback to LocalAppData
-                    try
-                    {
-                        if (!Directory.Exists(appDataFolder))
-                        {
-                            Directory.CreateDirectory(appDataFolder);
-                        }
-                    }
-                    catch
-                    {
-                        // If we can't create the directory, we'll still use the path
-                    }
-
-                    _datFilePath = localAppDataPath;
-                    _tempDatFilePath = Path.Combine(appDataFolder, "favorites.dat.tmp");
-                    _isPortableMode = false;
-                }
-
-                break;
-            }
-        }
-
-        _pathInitialized = true;
-    }
-
-    /// <summary>
-    /// Checks if a directory is writable by attempting to create and delete a temporary file.
-    /// </summary>
-    /// <param name="directoryPath">The directory to test.</param>
-    /// <returns>True if the directory is writable; otherwise, false.</returns>
-    private static bool IsDirectoryWritable(string directoryPath)
-    {
-        try
-        {
-            if (!Directory.Exists(directoryPath))
-            {
-                return false;
-            }
-
-            var testFilePath = Path.Combine(directoryPath, $".write_test_{Guid.NewGuid()}.tmp");
-            File.WriteAllText(testFilePath, "test");
-            File.Delete(testFilePath);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Attempts to fallback from portable mode to LocalAppData when save fails.
-    /// </summary>
-    private static void TryFallbackToLocalAppData()
-    {
-        try
-        {
-            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var appDataFolder = Path.Combine(localAppData, "SimpleLauncher");
-            var newFilePath = Path.Combine(appDataFolder, "favorites.dat");
-
-            // Ensure the directory exists
-            if (!Directory.Exists(appDataFolder))
-            {
-                Directory.CreateDirectory(appDataFolder);
-            }
-
-            _datFilePath = newFilePath;
-            _tempDatFilePath = Path.Combine(appDataFolder, "favorites.dat.tmp");
-            _isPortableMode = false;
-        }
-        catch
-        {
-            // If fallback fails, we'll just keep the original path
-        }
-    }
-
-    /// <summary>
-    /// Gets whether the application is running in portable mode for favorites.dat.
-    /// </summary>
-    public static bool IsPortableMode
-    {
-        get
-        {
-            if (!_pathInitialized)
-            {
-                // Initialize with default configuration if not already done
-                // This shouldn't happen in normal operation
-                return true; // Assume portable by default
-            }
-
-            return _isPortableMode;
-        }
-    }
+    private static string DatFilePath => FileLocation.FilePath;
+    private static string TempDatFilePath => FileLocation.TempFilePath;
+    public static bool IsPortableMode => FileLocation.IsPortableMode;
 
     /// <summary>
     /// Loads favorites from the DAT file. If the DAT file doesn't exist, will create a new instance.
     /// </summary>
-    public static FavoritesManager LoadFavorites()
+    public static FavoritesManager LoadFavorites(ILogErrors logErrors = null)
     {
         if (File.Exists(DatFilePath))
         {
             try
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
-
-                return MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
+                var manager = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
+                manager._logErrors = logErrors;
+                return manager;
             }
             catch (Exception ex)
             {
                 // Notify developer
                 const string contextMessage = "Error loading favorites.dat";
-                App.LogErrorAsync(ex, contextMessage);
+                logErrors?.LogAndForget(ex, contextMessage);
             }
         }
 
         // If no files exist, create a new instance
-        var defaultManager = new FavoritesManager();
+        var defaultManager = new FavoritesManager { _logErrors = logErrors };
         defaultManager.SaveFavorites();
         return defaultManager; // Return default instance if error occurs
     }
@@ -285,15 +105,16 @@ public class FavoritesManager
                 lastException = ex;
 
                 // If in portable mode and this is the last attempt, try falling back to LocalAppData
-                if (_isPortableMode && attempt == maxRetries - 1)
+                if (FileLocation.IsPortableMode && attempt == maxRetries - 1)
                 {
                     try
                     {
-                        // Attempt fallback
-                        TryFallbackToLocalAppData();
-                        // Retry with new paths (don't count this as an attempt)
-                        attempt--;
-                        continue;
+                        if (FileLocation.TryFallbackToLocalAppData())
+                        {
+                            // Retry with new paths (don't count this as an attempt)
+                            attempt--;
+                            continue;
+                        }
                     }
                     catch
                     {
@@ -328,7 +149,7 @@ public class FavoritesManager
         }
 
         // All retries exhausted or non-transient error
-        App.LogErrorAsync(lastException, "Error saving favorites.dat");
+        _logErrors?.LogAndForget(lastException, "Error saving favorites.dat");
 
         // Attempt to clean up temp file if it exists
         try
@@ -340,7 +161,7 @@ public class FavoritesManager
         }
         catch (Exception cleanupEx)
         {
-            App.LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+            _logErrors?.LogAndForget(cleanupEx, "Error cleaning up temporary favorites file after failed save");
         }
 
         throw new InvalidOperationException("Failed to save favorites.", lastException);
