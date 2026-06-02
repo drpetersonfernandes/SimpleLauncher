@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">মৌলিক থিম</system:String>
     <system:String x:Key="Batchfilefailed">ব্যাচ ফাইলটি চালু হতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Batchfilefailedexplanation">এর মানে সাধারণত ব্যাচ ফাইলের মধ্যে উল্লেখিত একটি পাথ আর বিদ্যমান নেই অথবা ভুল।</system:String>
+    <system:String x:Key="Batchfilepathsmissing">ব্যাচ ফাইলটি এমন পাথ উল্লেখ করে যা বিদ্যমান নেই:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">এর ফলে ব্যাচ ফাইলটি ব্যর্থ হতে পারে। সব পাথ সনাক্ত নাও হতে পারে — এটি একটি সর্বোত্তম-প্রচেষ্টা যাচাই।</system:String>
     <system:String x:Key="Big">বড়</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">অ্যাসপেক্ট রেশিও:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher' সমস্যা সমাধানের জন্য স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">আপনি কি তবুও চালিয়ে যেতে চান?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">আপনি কি খেলার ইতিহাস থেকে এই এন্ট্রিটি মুছে ফেলতে চান?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">আপনি কি তালিকা থেকে এই প্রিয় গেমটি মুছে ফেলতে চান?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">আপডেট স্বয়ংক্রিয় পরিচন্ন।</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">ডাউনলোড লিঙ্ক খোলার সময় ত্রুটি।</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">আপডেট ইতিহাস উইন্ডো খোলা যাচ্ছে না।</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">ভিডিও লিঙ্ক খুলতে ত্রুটি।</system:String>
+    <system:String x:Key="ErrorProcessingRequest">আপনার অনুরোধ প্রক্রিয়া করতে একটি ত্রুটি হয়েছে।</system:String>
     <system:String x:Key="errorSettingSoundFile">শব্দ ফাইল নির্বাচন বা কপি করার সময় ত্রুটি।</system:String>
     <system:String x:Key="EssentialsHeader">আবশ্যকীয়</system:String>
     <system:String x:Key="ExecutingSearch">অনুসন্ধান কার্যকর করা হচ্ছে...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">এর মধ্যে</system:String>
     <system:String x:Key="OverlayButtonIcon">ওভারলে বাটন</system:String>
     <system:String x:Key="OverlayButtonSettings">ওভারলে বাটন সেটিংস</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">আপনি কি এই প্রস্তাবিত প্যারামিটারটি প্রয়োগ করতে চান?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">প্রথমে একটি এমুলেটরের নাম লিখুন।</system:String>
+    <system:String x:Key="ParameterResolverError">ত্রুটি</system:String>
+    <system:String x:Key="ParameterResolverLoading">প্যারামিটারগুলি সমাধান করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">প্যারামিটার রিজলভার কনফিগার করা হয়নি। অনুগ্রহ করে API কী পরীক্ষা করুন।</system:String>
+    <system:String x:Key="ParameterResolverSuccess">প্যারামিটার প্রস্তাবনা</system:String>
     <system:String x:Key="ParentGame">প্যারেন্ট গেম:</system:String>
     <system:String x:Key="PathManipulationDetected">সম্ভাব্য পাথ ম্যানিপুলেশন সনাক্ত করা হয়েছে</system:String>
     <system:String x:Key="PathToRomsWatermark">ROMs এর পথ...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">স্টেলা সেটিংস</system:String>
     <system:String x:Key="StopDownload">ডাউনলোড বন্ধ করুন</system:String>
     <system:String x:Key="Success">সফল</system:String>
+    <system:String x:Key="SuggestParameters">প্রস্তাব করুন</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel কনফিগারেশন সফলভাবে সংরক্ষণ করা হয়েছে।</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">অডিও</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">বাতিল করুন</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">থিম</system:String>
     <system:String x:Key="ThemeIcon">থিম</system:String>
     <system:String x:Key="Thename">নাম</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">এই ব্যাচ ফাইল দ্বারা চালু করা প্রোগ্রামটি ক্র্যাশ করেছে বা অপ্রত্যাশিতভাবে বন্ধ হয়ে গেছে। নেগেটিভ এক্সিট কোড সাধারণত সিস্টেম-স্তরের ব্যর্থতা নির্দেশ করে।</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">সংস্করণ জরিপ।</system:String>
     <system:String x:Key="Thereisnocabinetfile">এই গেমের সাথে কোনো কেবিনেট ফাইল যুক্ত নেই</system:String>
     <system:String x:Key="Thereisnocartfile">এই গেমের সাথে কোনো কার্ট ফাইল যুক্ত নেই</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">বর্তমান স্থিতি বার্তা</system:String>
     <system:String x:Key="TooltipStopDownload">বর্তমান ডাউনলোড অপারেশন বাতিল করুন</system:String>
     <system:String x:Key="TooltipStopImageDownload">ইমেজ প্যাক ডাউনলোড বাতিল করুন</system:String>
+    <system:String x:Key="TooltipSuggestParameters">এই এমুলেটরের জন্য সেরা প্যারামিটার প্রস্তাব করতে AI ব্যবহার করুন</system:String>
     <system:String x:Key="TooltipSupportDetails">আপনার সমস্যা বা প্রশ্ন বিস্তারিতভাবে বর্ণনা করুন</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">এই সিস্টেমের জন্য ROM বা ISO ফাইল ধারণকারী ফোল্ডার</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">এই সিস্টেমের কভার ছবি ধারণকারী ঐচ্ছিক ফোল্ডার</system:String>

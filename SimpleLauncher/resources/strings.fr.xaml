@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Thème de base</system:String>
     <system:String x:Key="Batchfilefailed">L'exécution du fichier de commandes a échoué.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Cela signifie généralement qu'un chemin d'accès référencé dans le fichier de commandes n'existe plus ou est incorrect.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Le fichier de commandes référence des chemins qui n'existent pas :</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Cela peut entraîner l'échec du fichier de commandes. Tous les chemins peuvent ne pas être détectés — il s'agit d'une vérification au mieux de nos capacités.</system:String>
     <system:String x:Key="Big">Grand</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Configuration Blastem enregistrée avec succès.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Rapport d'aspect :</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Voulez-vous continuer quand même ?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Voulez-vous supprimer cette entrée de l'historique de jeu ?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Voulez-vous supprimer ce favori de la liste ?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Voulez-vous télécharger et installer automatiquement la dernière version ?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Erreur lors de l'ouverture du lien de téléchargement.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Erreur lors de l'ouverture de la fenêtre de l'historique des mises à jour.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Erreur lors de l'ouverture du lien vidéo.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Une erreur est survenue lors du traitement de votre requête.</system:String>
     <system:String x:Key="errorSettingSoundFile">Erreur lors du choix ou de la copie du fichier son.</system:String>
     <system:String x:Key="EssentialsHeader">Essentiels</system:String>
     <system:String x:Key="ExecutingSearch">Exécution de la recherche...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">sur</system:String>
     <system:String x:Key="OverlayButtonIcon">Bouton de superposition</system:String>
     <system:String x:Key="OverlayButtonSettings">Paramètres des boutons de superposition</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Voulez-vous appliquer ce paramètre suggéré ?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Veuillez d'abord saisir un nom d'émulateur.</system:String>
+    <system:String x:Key="ParameterResolverError">Erreur</system:String>
+    <system:String x:Key="ParameterResolverLoading">Résolution des paramètres, veuillez patienter...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Le résolveur de paramètres n'est pas configuré. Veuillez vérifier la clé API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Suggestion de paramètre</system:String>
     <system:String x:Key="ParentGame">Jeu parent :</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulation potentielle de chemin détectée</system:String>
     <system:String x:Key="PathToRomsWatermark">Chemin vers les ROMs...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Paramètres Stella</system:String>
     <system:String x:Key="StopDownload">Arrêter le téléchargement</system:String>
     <system:String x:Key="Success">Succès</system:String>
+    <system:String x:Key="SuggestParameters">Suggérer</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Configuration Supermodel enregistrée avec succès.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Annuler</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Thème</system:String>
     <system:String x:Key="ThemeIcon">Thème</system:String>
     <system:String x:Key="Thename">Le nom</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Le programme lancé par ce fichier de commandes a peut-être planté ou été terminé de manière inattendue. Les codes de sortie négatifs indiquent généralement des défaillances au niveau du système.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Une mise à jour logicielle est disponible.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Aucun fichier de cabinet n'est associé à ce jeu.</system:String>
     <system:String x:Key="Thereisnocartfile">Aucun fichier de cartouche n'est associé à ce jeu.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Message d'état actuel</system:String>
     <system:String x:Key="TooltipStopDownload">Annuler l'opération de téléchargement en cours</system:String>
     <system:String x:Key="TooltipStopImageDownload">Annuler le téléchargement du pack d'images</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Utiliser l'IA pour suggérer le meilleur paramètre pour cet émulateur</system:String>
     <system:String x:Key="TooltipSupportDetails">Décrivez votre problème ou question en détail</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Dossier contenant les fichiers ROM ou ISO pour ce système</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Dossier facultatif contenant les images de couverture pour ce système</system:String>

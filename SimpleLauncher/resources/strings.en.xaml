@@ -558,6 +558,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Error opening the download link.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error opening the Update History window.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Error opening video link.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">There was an error processing your request.</system:String>
     <system:String x:Key="errorSettingSoundFile">Error choosing or copying sound file.</system:String>
     <system:String x:Key="EssentialsHeader">Essentials</system:String>
     <system:String x:Key="ExecutingSearch">Executing search...</system:String>
@@ -1105,6 +1106,12 @@
     <system:String x:Key="outof">out of</system:String>
     <system:String x:Key="OverlayButtonIcon">Overlay Button</system:String>
     <system:String x:Key="OverlayButtonSettings">Overlay Button Settings</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Do you want to apply this suggested parameter?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Please enter an emulator name first.</system:String>
+    <system:String x:Key="ParameterResolverError">Error</system:String>
+    <system:String x:Key="ParameterResolverLoading">Resolving parameters, please wait...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Parameter resolver is not configured. Please check the API key.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Parameter Suggestion</system:String>
     <system:String x:Key="ParentGame">Parent Game:</system:String>
     <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
     <system:String x:Key="PathToRomsWatermark">Path to ROMs...</system:String>
@@ -1732,6 +1739,7 @@
     <system:String x:Key="StellaSettings">Stella Settings</system:String>
     <system:String x:Key="StopDownload">Stop Download</system:String>
     <system:String x:Key="Success">Success</system:String>
+    <system:String x:Key="SuggestParameters">Suggest</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel configuration saved successfully.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Cancel</system:String>
@@ -1842,6 +1850,7 @@
     <system:String x:Key="Theme">_Theme</system:String>
     <system:String x:Key="ThemeIcon">Theme</system:String>
     <system:String x:Key="Thename">The name</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">The program launched by this batch file may have crashed or been terminated unexpectedly. Negative exit codes typically indicate system-level failures.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">There is a software update available.</system:String>
     <system:String x:Key="Thereisnocabinetfile">There is no cabinet file associated with this game.</system:String>
     <system:String x:Key="Thereisnocartfile">There is no cart file associated with this game.</system:String>
@@ -2103,6 +2112,7 @@
     <system:String x:Key="TooltipStatusBarText">Current status message</system:String>
     <system:String x:Key="TooltipStopDownload">Cancel the current download operation</system:String>
     <system:String x:Key="TooltipStopImageDownload">Cancel the image pack download</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Use AI to suggest the best parameter for this emulator</system:String>
     <system:String x:Key="TooltipSupportDetails">Describe your issue or question in detail</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Folder containing the ROM or ISO files for this system</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Optional folder containing cover images for this system</system:String>
@@ -2316,12 +2326,4 @@
     <system:String x:Key="ZoomInIcon">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="ZoomOutIcon">Zoom Out</system:String>
-    <system:String x:Key="SuggestParameters">Suggest</system:String>
-    <system:String x:Key="TooltipSuggestParameters">Use AI to suggest the best parameter for this emulator</system:String>
-    <system:String x:Key="ParameterResolverLoading">Resolving parameters, please wait...</system:String>
-    <system:String x:Key="ParameterResolverSuccess">Parameter Suggestion</system:String>
-    <system:String x:Key="ParameterResolverError">Error</system:String>
-    <system:String x:Key="ParameterResolverConfirmApply">Do you want to apply this suggested parameter?</system:String>
-    <system:String x:Key="ParameterResolverNotConfigured">Parameter resolver is not configured. Please check the API key.</system:String>
-    <system:String x:Key="ParameterResolverEnterEmulatorName">Please enter an emulator name first.</system:String>
 </ResourceDictionary>

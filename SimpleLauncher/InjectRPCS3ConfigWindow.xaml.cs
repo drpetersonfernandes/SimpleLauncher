@@ -1,194 +1,41 @@
-using System.Globalization;
-using System.IO;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class InjectRpcs3ConfigWindow
 {
-    private readonly SettingsManager _settings;
-    private readonly bool _isLauncherMode;
-    public bool ShouldRun { get; private set; }
-    private string _emulatorPath;
-    private readonly ILogErrors _logErrors;
+    private readonly InjectRpcs3ConfigViewModel _viewModel;
 
     public InjectRpcs3ConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _settings = settings;
-        _emulatorPath = emulatorPath;
-        _isLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        LoadSettings();
-    }
 
-    private void LoadSettings()
-    {
-        // Video
-        CmbRenderer.Text = _settings.Rpcs3Renderer;
-        CmbResolution.Text = _settings.Rpcs3Resolution;
-        CmbAspectRatio.Text = _settings.Rpcs3AspectRatio;
-        ChkVsync.IsChecked = _settings.Rpcs3Vsync;
-        CmbResolutionScale.Text = _settings.Rpcs3ResolutionScale.ToString(CultureInfo.InvariantCulture);
-        CmbAnisotropicFilter.Text = _settings.Rpcs3AnisotropicFilter.ToString(CultureInfo.InvariantCulture);
+        _viewModel = new InjectRpcs3ConfigViewModel(settings, emulatorPath, isLauncherMode);
+        _viewModel.CloseRequested += Close;
+        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
+        _viewModel.GetOwnerWindow += () => this;
 
-        // Core
-        CmbPpuDecoder.Text = _settings.Rpcs3PpuDecoder;
-        CmbSpuDecoder.Text = _settings.Rpcs3SpuDecoder;
+        DataContext = _viewModel;
 
-        // Audio
-        CmbAudioRenderer.Text = _settings.Rpcs3AudioRenderer;
-        ChkAudioBuffering.IsChecked = _settings.Rpcs3AudioBuffering;
-
-        // Misc
-        ChkStartFullscreen.IsChecked = _settings.Rpcs3StartFullscreen;
-        ChkShowBeforeLaunch.IsChecked = _settings.Rpcs3ShowSettingsBeforeLaunch;
-
-        BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
-        if (!_isLauncherMode)
+        if (!isLauncherMode)
         {
             BtnSave.IsDefault = true;
         }
     }
 
-    private string EnsureEmulatorPath()
+    public bool ShouldRun => _viewModel.ShouldRun;
+
+    private static string OnRequestEmulatorPath()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
-
-        // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("RPCS3", _logErrors);
-        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
-        {
-            _emulatorPath = resolved;
-            return _emulatorPath;
-        }
-
-        MessageBoxLibrary.Rpcs3EmulatorNotFoundPleaseLocateMessageBox();
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "RPCS3 Executable|rpcs3.exe|All Executables|*.exe",
             Title = (string)Application.Current.TryFindResource("SelectRPCS3Emulator") ?? "Select RPCS3 Emulator"
         };
 
-        if (dialog.ShowDialog() != true) return null;
-
-        _emulatorPath = dialog.FileName;
-        return _emulatorPath;
-    }
-
-    private void SaveSettings()
-    {
-        // Video
-        _settings.Rpcs3Renderer = CmbRenderer.Text;
-        _settings.Rpcs3Resolution = CmbResolution.Text;
-        _settings.Rpcs3AspectRatio = CmbAspectRatio.Text;
-        _settings.Rpcs3Vsync = ChkVsync.IsChecked ?? false;
-        _settings.Rpcs3ResolutionScale = int.Parse(CmbResolutionScale.Text, CultureInfo.InvariantCulture);
-        _settings.Rpcs3AnisotropicFilter = int.Parse(CmbAnisotropicFilter.Text, CultureInfo.InvariantCulture);
-
-        // Core
-        _settings.Rpcs3PpuDecoder = CmbPpuDecoder.Text;
-        _settings.Rpcs3SpuDecoder = CmbSpuDecoder.Text;
-
-        // Audio
-        _settings.Rpcs3AudioRenderer = CmbAudioRenderer.Text;
-        _settings.Rpcs3AudioBuffering = ChkAudioBuffering.IsChecked ?? true;
-
-        // Misc
-        _settings.Rpcs3StartFullscreen = ChkStartFullscreen.IsChecked ?? false;
-        _settings.Rpcs3ShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
-
-        _settings.Save();
-    }
-
-    private bool InjectConfig()
-    {
-        var path = EnsureEmulatorPath();
-        if (string.IsNullOrEmpty(path))
-            throw new OperationCanceledException("User cancelled emulator path selection.");
-
-        try
-        {
-            Rpcs3ConfigurationService.InjectSettings(path, _settings, _logErrors);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogErrorAsync(ex, $"RPCS3 configuration injection failed for path: {path}");
-            return false;
-        }
-    }
-
-    private void BtnRun_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                ShouldRun = true;
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-                ShouldRun = true; // Game should still launch
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window → Launch game
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-            ShouldRun = true; // Game should still launch
-        }
-    }
-
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                MessageBoxLibrary.Rpcs3ConfigurationSavedSuccessfullyMessageBox();
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-        }
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 }

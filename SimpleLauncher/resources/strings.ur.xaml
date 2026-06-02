@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">بنیادی تھیم</system:String>
     <system:String x:Key="Batchfilefailed">بیچ فائل چلانے میں ناکام ہو گئی۔</system:String>
     <system:String x:Key="Batchfilefailedexplanation">اس کا عام طور پر مطلب ہے کہ بیچ فائل کے اندر حوالہ دیا گیا پاتھ اب موجود نہیں ہے یا غلط ہے۔</system:String>
+    <system:String x:Key="Batchfilepathsmissing">بیچ فائل میں ایسے راستوں کا حوالہ دیا گیا ہے جو موجود نہیں ہیں:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">اس سے بیچ فائل ناکام ہو سکتی ہے۔ تمام راستے شاید معلوم نہ ہو سکیں — یہ ایک بہترین کوشش کی جانچ ہے۔</system:String>
     <system:String x:Key="Big">بڑا</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">پہلو تناسب:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">کیا آپ 'Simple Launcher' کو خود بخود دوبارہ انسٹال کرنا چاہتے ہیں تاکہ مسئلہ حل ہو سکے؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">کیا آپ مسئلہ حل کرنے کے لئے 'Simple Launcher' کو از خود دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">کیا آپ مسئلہ حل کرنے کے لئے 'Simple Launcher' کو از خود دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">کیا آپ پھر بھی جاری رکھنا چاہتے ہیں؟</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">کیا آپ اس اندراج کو پلے ہسٹری سے حذف کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">کیا آپ اس پسندیدہ کو فہرست سے حذف کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">کیا آپ تازہ ترین ورژن کو خودکار طور پر ڈاؤن لوڈ اور انسٹال کرنا چاہتے ہیں؟</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">ڈاؤن لوڈ لنک کھولنے میں خرابی۔</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">اپ ڈیٹ ہسٹری ونڈو کھولنے میں خرابی۔</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">ویڈیو لنک کھولنے میں خرابی۔</system:String>
+    <system:String x:Key="ErrorProcessingRequest">آپ کی درخواست پر کارروائی کرتے وقت ایک خرابی پیش آئی۔</system:String>
     <system:String x:Key="errorSettingSoundFile">آواز کی فائل منتخب کرنے یا کاپی کرنے میں خرابی۔</system:String>
     <system:String x:Key="EssentialsHeader">ضروریات</system:String>
     <system:String x:Key="ExecutingSearch">تلاش عمل میں لا رہا ہے...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">میں سے</system:String>
     <system:String x:Key="OverlayButtonIcon">اوورلے بٹن</system:String>
     <system:String x:Key="OverlayButtonSettings">اوورلے بٹن کی ترتیبات</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">کیا آپ اس تجویز کردہ پیرامیٹر کو لاگو کرنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">براہ کرم پہلے ایک ایمولیٹر کا نام درج کریں۔</system:String>
+    <system:String x:Key="ParameterResolverError">خرابی</system:String>
+    <system:String x:Key="ParameterResolverLoading">پیرامیٹرز حل کیے جا رہے ہیں، براہ کرم انتظار کریں...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">پیرامیٹر ریزالور کنفیگر نہیں ہے۔ براہ کرم API کی کو چیک کریں۔</system:String>
+    <system:String x:Key="ParameterResolverSuccess">پیرامیٹر کی تجویز</system:String>
     <system:String x:Key="ParentGame">والدین گیم:</system:String>
     <system:String x:Key="PathManipulationDetected">ممکنہ راستہ میں ہیرا پھیری کا پتہ چلا</system:String>
     <system:String x:Key="PathToRomsWatermark">ROMs کا راستہ...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">سٹیلا سیٹنگز</system:String>
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
+    <system:String x:Key="SuggestParameters">تجویز کریں</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel کنفیگریشن کامیابی سے محفوظ ہو گئی۔</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">آڈیو</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">منسوخ کریں</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">تھیم</system:String>
     <system:String x:Key="ThemeIcon">تھیم</system:String>
     <system:String x:Key="Thename">نام</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">اس بیچ فائل کے ذریعے شروع کیا گیا پروگرام کریش ہو گیا ہو گا یا غیر متوقع طور پر ختم ہو گیا ہو گا۔ منفی ایگزٹ کوڈز عام طور پر سسٹم کی سطح کی ناکامیوں کی نشاندہی کرتے ہیں۔</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">ایک سافٹ ویئر اپ ڈیٹ دستیاب ہے۔</system:String>
     <system:String x:Key="Thereisnocabinetfile">اس گیم کے ساتھ کوئی کابینہ فائل منسلک نہیں ہے۔</system:String>
     <system:String x:Key="Thereisnocartfile">اس گیم کے ساتھ کوئی کارٹ فائل منسلک نہیں ہے۔</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">موجودہ اسٹیٹس پیغام</system:String>
     <system:String x:Key="TooltipStopDownload">موجودہ ڈاؤن لوڈ آپریشن منسوخ کریں</system:String>
     <system:String x:Key="TooltipStopImageDownload">امیج پیک ڈاؤن لوڈ منسوخ کریں</system:String>
+    <system:String x:Key="TooltipSuggestParameters">اس ایمولیٹر کے لیے بہترین پیرامیٹر تجویز کرنے کے لیے AI کا استعمال کریں</system:String>
     <system:String x:Key="TooltipSupportDetails">اپنے مسئلے یا سوال کو تفصیل سے بیان کریں</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">اس سسٹم کے لیے ROM یا ISO فائلوں پر مشتمل فولڈر</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">اختیاری فولڈر جس میں اس سسٹم کے لیے کور امیجز شامل ہیں۔</system:String>

@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">السمة الأساسية</system:String>
     <system:String x:Key="Batchfilefailed">فشل تشغيل ملف الدفعة.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">يعني هذا عادةً أن المسار المشار إليه داخل ملف الدفعة لم يعد موجودًا أو غير صحيح.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">ملف الدفعة يشير إلى مسارات غير موجودة:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">قد يتسبب هذا في فشل ملف الدفعة. قد لا يتم الكشف عن جميع المسارات — هذا فحص بأقصى جهد ممكن.</system:String>
     <system:String x:Key="Big">كبير</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">تم حفظ تكوين Blastem بنجاح.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">نسبة العرض إلى الارتفاع:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لحل المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">هل تريد المتابعة على أي حال؟</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">هل تريد حذف هذا الإدخال من سجل اللعب؟</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">هل تريد حذف هذه المفضلة من القائمة؟</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">هل ترغب في تنزيل وتثبيت الإصدار الأخير تلقائيًا؟</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">خطأ في فتح رابط التنزيل.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">خطأ في فتح نافذة سجل التحديث.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">خطأ في فتح رابط الفيديو.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">حدث خطأ أثناء معالجة طلبك.</system:String>
     <system:String x:Key="errorSettingSoundFile">خطأ في اختيار أو نسخ ملف الصوت.</system:String>
     <system:String x:Key="EssentialsHeader">أساسيات</system:String>
     <system:String x:Key="ExecutingSearch">تنفيذ البحث...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">من أصل</system:String>
     <system:String x:Key="OverlayButtonIcon">زر التراكب</system:String>
     <system:String x:Key="OverlayButtonSettings">إعدادات زر التراكب</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">هل تريد تطبيق هذا المعامل المقترح؟</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">الرجاء إدخال اسم المحاكي أولاً.</system:String>
+    <system:String x:Key="ParameterResolverError">خطأ</system:String>
+    <system:String x:Key="ParameterResolverLoading">يتم حل المعاملات، الرجاء الانتظار...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">محلل المعاملات غير مهيأ. الرجاء التحقق من مفتاح API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">اقتراح المعامل</system:String>
     <system:String x:Key="ParentGame">اللعبة الأم:</system:String>
     <system:String x:Key="PathManipulationDetected">تم اكتشاف تلاعب محتمل في المسار</system:String>
     <system:String x:Key="PathToRomsWatermark">مسار ملفات ROMs...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">إعدادات Stella</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
+    <system:String x:Key="SuggestParameters">اقتراح</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">تم حفظ تكوين Supermodel بنجاح.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">الصوت</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">إلغاء</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">السمة</system:String>
     <system:String x:Key="ThemeIcon">المظهر</system:String>
     <system:String x:Key="Thename">الاسم</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">قد يكون البرنامج الذي تم تشغيله بواسطة ملف الدفعة هذا قد تعطل أو تم إنهاؤه بشكل غير متوقع. تشير رموز الخروج السلبية عادةً إلى فشل على مستوى النظام.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">يتوفر تحديث للبرنامج.</system:String>
     <system:String x:Key="Thereisnocabinetfile">لا يوجد ملف خزانة مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnocartfile">لا يوجد ملف شريط مرتبط بهذه اللعبة.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">رسالة الحالة الحالية</system:String>
     <system:String x:Key="TooltipStopDownload">إلغاء عملية التنزيل الحالية</system:String>
     <system:String x:Key="TooltipStopImageDownload">إلغاء تنزيل حزمة الصور</system:String>
+    <system:String x:Key="TooltipSuggestParameters">استخدم الذكاء الاصطناعي لاقتراح أفضل معامل لهذا المحاكي</system:String>
     <system:String x:Key="TooltipSupportDetails">صف مشكلتك أو سؤالك بالتفصيل</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">المجلد الذي يحتوي على ملفات ROM أو ISO لهذا النظام</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">مجلد اختياري يحتوي على صور غلاف لهذا النظام</system:String>

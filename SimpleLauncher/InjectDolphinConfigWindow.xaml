@@ -6,6 +6,9 @@
                       Height="500" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,23 +26,20 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource DolphinConfig_GfxBackend_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbGfxBackend" Grid.Column="1" ToolTip="{DynamicResource DolphinConfig_GfxBackend_Tooltip}">
-                                <ComboBoxItem Content="Vulkan" />
-                                <ComboBoxItem Content="D3D12" />
-                                <ComboBoxItem Content="D3D11" />
-                                <ComboBoxItem Content="OpenGL" />
-                                <ComboBoxItem Content="Software Renderer" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding GfxBackendOptions}"
+                                      SelectedItem="{Binding GfxBackend}"
+                                      ToolTip="{DynamicResource DolphinConfig_GfxBackend_Tooltip}" />
                         </Grid>
-                        <CheckBox x:Name="ChkDspThread" Content="{DynamicResource DolphinConfig_DspThread_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_DspThread_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DspThread}" Content="{DynamicResource DolphinConfig_DspThread_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_DspThread_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Wiimote Section -->
                 <GroupBox Header="{DynamicResource DolphinConfig_Wiimote_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkWiimoteContinuousScanning" Content="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Tooltip}" />
-                        <CheckBox x:Name="ChkWiimoteEnableSpeaker" Content="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Tooltip}" />
+                        <CheckBox IsChecked="{Binding WiimoteContinuousScanning}" Content="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Tooltip}" />
+                        <CheckBox IsChecked="{Binding WiimoteEnableSpeaker}" Content="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -47,7 +47,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource DolphinConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource DolphinConfig_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource DolphinConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource DolphinConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -57,11 +57,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource DolphinConfig_Save_Button}"
                     Style="{DynamicResource DialogSecondaryButtonStyle}"
-                    Click="BtnSave_Click"
+                    Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource DolphinConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource DolphinConfig_Run_Button2}"
                     Style="{DynamicResource DialogPrimaryButtonStyle}"
-                    Click="BtnRun_Click" IsDefault="True"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource DolphinConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource DolphinConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

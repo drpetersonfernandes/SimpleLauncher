@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Tema di base</system:String>
     <system:String x:Key="Batchfilefailed">Il file batch non è stato eseguito.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Ciò di solito significa che un percorso a cui si fa riferimento all'interno del file batch non esiste più o non è corretto.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Il file batch fa riferimento a percorsi inesistenti:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Ciò potrebbe causare il fallimento del file batch. Non tutti i percorsi potrebbero essere rilevati — questo è un controllo fatto al meglio delle possibilità.</system:String>
     <system:String x:Key="Big">Grande</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Configurazione di Blastem salvata con successo.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Rapporto d'Aspetto:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Vuoi continuare comunque?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Vuoi eliminare questa voce dalla cronologia di gioco?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Vuoi eliminare questo preferito dall'elenco?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Vuoi scaricare e installare automaticamente l'ultima versione?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Errore nell'apertura del link di download.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Errore nell'apertura della finestra della cronologia aggiornamenti.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Errore nell'apertura del link video.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Si è verificato un errore durante l'elaborazione della tua richiesta.</system:String>
     <system:String x:Key="errorSettingSoundFile">Errore durante la scelta o la copia del file audio.</system:String>
     <system:String x:Key="EssentialsHeader">Elementi essenziali</system:String>
     <system:String x:Key="ExecutingSearch">Esecuzione ricerca...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">di</system:String>
     <system:String x:Key="OverlayButtonIcon">Pulsante in sovrimpressione</system:String>
     <system:String x:Key="OverlayButtonSettings">Impostazioni pulsanti overlay</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Vuoi applicare questo parametro suggerito?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Inserisci prima un nome per l'emulatore.</system:String>
+    <system:String x:Key="ParameterResolverError">Errore</system:String>
+    <system:String x:Key="ParameterResolverLoading">Risoluzione dei parametri in corso, attendere...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Il risolutore di parametri non è configurato. Controlla la chiave API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Suggerimento Parametro</system:String>
     <system:String x:Key="ParentGame">Gioco Padre:</system:String>
     <system:String x:Key="PathManipulationDetected">Rilevata potenziale manipolazione del percorso</system:String>
     <system:String x:Key="PathToRomsWatermark">Percorso delle ROM...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Impostazioni Stella</system:String>
     <system:String x:Key="StopDownload">Interrompi download</system:String>
     <system:String x:Key="Success">Successo</system:String>
+    <system:String x:Key="SuggestParameters">Suggerisci</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Configurazione di Supermodel salvata con successo.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Annulla</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="ThemeIcon">Tema</system:String>
     <system:String x:Key="Thename">Il nome</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Il programma avviato da questo file batch potrebbe essere andato in crash o essere stato terminato inaspettatamente. I codici di uscita negativi indicano tipicamente errori a livello di sistema.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">È disponibile un aggiornamento software.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Nessun file di cabinet associato a questo gioco.</system:String>
     <system:String x:Key="Thereisnocartfile">Nessun file di cartuccia associato a questo gioco.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Messaggio di stato attuale</system:String>
     <system:String x:Key="TooltipStopDownload">Annulla l'operazione di download corrente</system:String>
     <system:String x:Key="TooltipStopImageDownload">Annulla il download del pacchetto di immagini</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Usa l'IA per suggerire il miglior parametro per questo emulatore</system:String>
     <system:String x:Key="TooltipSupportDetails">Descrivi il tuo problema o domanda in dettaglio</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Cartella contenente i file ROM o ISO per questo sistema</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Cartella opzionale contenente immagini di copertina per questo sistema</system:String>

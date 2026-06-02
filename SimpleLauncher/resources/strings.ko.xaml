@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">기본 테마</system:String>
     <system:String x:Key="Batchfilefailed">배치 파일을 실행하지 못했습니다.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">이는 일반적으로 배치 파일 내에서 참조된 경로가 더 이상 존재하지 않거나 잘못되었음을 의미합니다.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">배치 파일이 존재하지 않는 경로를 참조합니다:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">이로 인해 배치 파일이 실패할 수 있습니다. 모든 경로가 감지되지 않을 수 있습니다 — 이는 최선의 노력으로 수행된 확인입니다.</system:String>
     <system:String x:Key="Big">크게</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">화면 비율:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">그래도 계속하시겠습니까?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">플레이 기록에서 이 항목을 삭제하시겠습니까?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">즐겨찾기 목록에서 이 항목을 삭제하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">최신 버전을 자동으로 다운로드하고 설치하시겠습니까?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">업데이트 기록 창을 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">비디오 링크를 여는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">요청 처리 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="errorSettingSoundFile">사운드 파일을 선택하거나 복사하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="EssentialsHeader">필수 사항</system:String>
     <system:String x:Key="ExecutingSearch">검색 실행 중...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">중</system:String>
     <system:String x:Key="OverlayButtonIcon">오버레이 버튼</system:String>
     <system:String x:Key="OverlayButtonSettings">오버레이 버튼 설정</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">이 제안된 매개변수를 적용하시겠습니까?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">먼저 에뮬레이터 이름을 입력하십시오.</system:String>
+    <system:String x:Key="ParameterResolverError">오류</system:String>
+    <system:String x:Key="ParameterResolverLoading">매개변수를 확인 중입니다. 잠시 기다려 주십시오...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">매개변수 확인기가 구성되지 않았습니다. API 키를 확인하십시오.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">매개변수 제안</system:String>
     <system:String x:Key="ParentGame">상위 게임:</system:String>
     <system:String x:Key="PathManipulationDetected">잠재적 경로 조작 감지됨</system:String>
     <system:String x:Key="PathToRomsWatermark">ROM 경로...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">스텔라 설정</system:String>
     <system:String x:Key="StopDownload">다운로드 중지</system:String>
     <system:String x:Key="Success">성공</system:String>
+    <system:String x:Key="SuggestParameters">제안</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel 설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">오디오</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">취소</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">테마</system:String>
     <system:String x:Key="ThemeIcon">테마</system:String>
     <system:String x:Key="Thename">이름</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">이 배치 파일로 실행된 프로그램이 충돌했거나 예기치 않게 종료되었을 수 있습니다. 음수 종료 코드는 일반적으로 시스템 수준의 오류를 나타냅니다.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">소프트웨어 업데이트가 가능합니다.</system:String>
     <system:String x:Key="Thereisnocabinetfile">이 게임과 연결된 캐비닛 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnocartfile">이 게임과 연결된 카트리지 파일이 없습니다.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">현재 상태 메시지</system:String>
     <system:String x:Key="TooltipStopDownload">현재 다운로드 작업을 취소합니다.</system:String>
     <system:String x:Key="TooltipStopImageDownload">이미지 팩 다운로드를 취소합니다.</system:String>
+    <system:String x:Key="TooltipSuggestParameters">AI를 사용하여 이 에뮬레이터에 가장 적합한 매개변수를 제안합니다</system:String>
     <system:String x:Key="TooltipSupportDetails">문제 또는 질문을 자세히 설명하십시오.</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">이 시스템용 ROM 또는 ISO 파일이 포함된 폴더</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">이 시스템의 표지 이미지를 포함하는 선택적 폴더</system:String>

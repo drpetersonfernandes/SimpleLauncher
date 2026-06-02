@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">基本テーマ</system:String>
     <system:String x:Key="Batchfilefailed">バッチファイルの実行に失敗しました。</system:String>
     <system:String x:Key="Batchfilefailedexplanation">これは通常、バッチファイル内で参照されているパスが存在しないか、正しくないことを意味します。</system:String>
+    <system:String x:Key="Batchfilepathsmissing">バッチファイルが、存在しないパスを参照しています:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">これにより、バッチファイルが失敗する可能性があります。すべてのパスが検出されるわけではありません — これは最善の努力によるチェックです。</system:String>
     <system:String x:Key="Big">大</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastemの設定が正常に保存されました。</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">アスペクト比:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">問題を解決するために『Simple Launcher』を自動的に再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">いずれにしても続行しますか？</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">プレイ履歴からこの項目を削除しますか？</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">お気に入りからこの項目を削除しますか？</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">最新バージョンを自動的にダウンロードしてインストールしますか？</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">ダウンロードリンクの開封中にエラーが発生しました。</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">アップデート履歴ウィンドウを開く際にエラーが発生しました。</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">ビデオリンクを開く際にエラーが発生しました。</system:String>
+    <system:String x:Key="ErrorProcessingRequest">リクエストの処理中にエラーが発生しました。</system:String>
     <system:String x:Key="errorSettingSoundFile">サウンドファイルの選択またはコピー中にエラーが発生しました。</system:String>
     <system:String x:Key="EssentialsHeader">必須項目</system:String>
     <system:String x:Key="ExecutingSearch">検索を実行中...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">のうち</system:String>
     <system:String x:Key="OverlayButtonIcon">オーバーレイボタン</system:String>
     <system:String x:Key="OverlayButtonSettings">オーバーレイボタン設定</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">この提案されたパラメーターを適用しますか？</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">まずエミュレーター名を入力してください。</system:String>
+    <system:String x:Key="ParameterResolverError">エラー</system:String>
+    <system:String x:Key="ParameterResolverLoading">パラメーターを解決しています。お待ちください...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">パラメーターリゾルバーが設定されていません。APIキーを確認してください。</system:String>
+    <system:String x:Key="ParameterResolverSuccess">パラメーターの提案</system:String>
     <system:String x:Key="ParentGame">親ゲーム:</system:String>
     <system:String x:Key="PathManipulationDetected">潜在的なパス操作が検出されました</system:String>
     <system:String x:Key="PathToRomsWatermark">ROMsへのパス...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Stella設定</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
     <system:String x:Key="Success">成功</system:String>
+    <system:String x:Key="SuggestParameters">提案</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodelの設定が正常に保存されました。</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">オーディオ</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">キャンセル</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">テーマ</system:String>
     <system:String x:Key="ThemeIcon">テーマ</system:String>
     <system:String x:Key="Thename">名前</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">このバッチファイルによって起動されたプログラムは、クラッシュしたか、予期せず終了した可能性があります。負の終了コードは通常、システムレベルの障害を示します。</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">ソフトウェアの更新が利用可能です。</system:String>
     <system:String x:Key="Thereisnocabinetfile">このゲームにはキャビネットファイルが関連付けられていません。</system:String>
     <system:String x:Key="Thereisnocartfile">このゲームにはカートリッジファイルが関連付けられていません。</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">現在のステータスメッセージ</system:String>
     <system:String x:Key="TooltipStopDownload">現在のダウンロード操作をキャンセルします</system:String>
     <system:String x:Key="TooltipStopImageDownload">画像パックのダウンロードをキャンセルします</system:String>
+    <system:String x:Key="TooltipSuggestParameters">AIを使用して、このエミュレーターに最適なパラメーターを提案します</system:String>
     <system:String x:Key="TooltipSupportDetails">問題または質問を詳細に記述してください</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">このシステム用のROMまたはISOファイルを含むフォルダー</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">このシステム用のカバー画像を含む任意のフォルダー</system:String>

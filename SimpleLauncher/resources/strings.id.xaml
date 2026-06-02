@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Tema Dasar</system:String>
     <system:String x:Key="Batchfilefailed">File batch gagal dijalankan.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Ini biasanya berarti jalur yang direferensikan di dalam file batch tidak lagi ada atau salah.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">File batch merujuk ke jalur yang tidak ada:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Ini dapat menyebabkan file batch gagal. Tidak semua jalur mungkin terdeteksi — ini adalah pemeriksaan upaya terbaik.</system:String>
     <system:String x:Key="Big">Besar</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Konfigurasi Blastem berhasil disimpan.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Rasio Aspek:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Adakah anda ingin memasang semula 'Simple Launcher' secara automatik bagi menyelesaikan masalah ini?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Apakah Anda tetap ingin melanjutkan?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Apakah Anda ingin menghapus entri ini dari riwayat bermain?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Apakah Anda ingin menghapus favorit ini dari daftar?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Apakah Anda ingin mengunduh dan menginstal versi terbaru secara otomatis?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Kesalahan saat membuka tautan unduhan.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Kesalahan saat membuka jendela Riwayat Pembaruan.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Kesalahan saat membuka tautan video.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Terjadi kesalahan saat memproses permintaan Anda.</system:String>
     <system:String x:Key="errorSettingSoundFile">Kesalahan saat memilih atau menyalin file suara.</system:String>
     <system:String x:Key="EssentialsHeader">Esensial</system:String>
     <system:String x:Key="ExecutingSearch">Mengeksekusi pencarian...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">dari</system:String>
     <system:String x:Key="OverlayButtonIcon">Tombol Overlay</system:String>
     <system:String x:Key="OverlayButtonSettings">Pengaturan Tombol Overlay</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Apakah Anda ingin menerapkan parameter yang disarankan ini?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Mohon masukkan nama emulator terlebih dahulu.</system:String>
+    <system:String x:Key="ParameterResolverError">Kesalahan</system:String>
+    <system:String x:Key="ParameterResolverLoading">Memproses parameter, mohon tunggu...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Pemecah parameter belum dikonfigurasi. Mohon periksa kunci API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Saran Parameter</system:String>
     <system:String x:Key="ParentGame">Game Induk:</system:String>
     <system:String x:Key="PathManipulationDetected">Potensi Manipulasi Jalur Terdeteksi</system:String>
     <system:String x:Key="PathToRomsWatermark">Jalur ke ROMs...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Pengaturan Stella</system:String>
     <system:String x:Key="StopDownload">Hentikan Unduhan</system:String>
     <system:String x:Key="Success">Berhasil</system:String>
+    <system:String x:Key="SuggestParameters">Sarankan</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Konfigurasi Supermodel berhasil disimpan.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Batal</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="ThemeIcon">Tema</system:String>
     <system:String x:Key="Thename">Nama</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Program yang diluncurkan oleh file batch ini mungkin mengalami crash atau dihentikan secara tidak terduga. Kode keluar negatif biasanya menunjukkan kegagalan tingkat sistem.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Ada pembaruan perangkat lunak yang tersedia.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Tidak ada file kabinet yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnocartfile">Tidak ada file kartrid yang terkait dengan game ini.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Pesan status saat ini</system:String>
     <system:String x:Key="TooltipStopDownload">Batalkan operasi unduhan saat ini</system:String>
     <system:String x:Key="TooltipStopImageDownload">Batalkan unduhan paket gambar</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Gunakan AI untuk menyarankan parameter terbaik untuk emulator ini</system:String>
     <system:String x:Key="TooltipSupportDetails">Jelaskan masalah atau pertanyaan Anda secara rinci</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Folder yang berisi file ROM atau ISO untuk sistem ini</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Folder opsional berisi gambar sampul untuk sistem ini</system:String>

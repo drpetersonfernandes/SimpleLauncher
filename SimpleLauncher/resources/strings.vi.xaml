@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Chủ đề cơ bản</system:String>
     <system:String x:Key="Batchfilefailed">Tệp batch không chạy được.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Điều này thường có nghĩa là một đường dẫn được tham chiếu trong tệp batch không còn tồn tại hoặc không chính xác.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Tệp batch tham chiếu đến các đường dẫn không tồn tại:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Điều này có thể khiến tệp batch bị lỗi. Không phải tất cả các đường dẫn đều có thể được phát hiện — đây là một kiểm tra nỗ lực tốt nhất.</system:String>
     <system:String x:Key="Big">Lớn</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Đã lưu cấu hình Blastem thành công.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Tỷ lệ khung hình:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' tự động để khắc phục sự cố không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Bạn có muốn tiếp tục không?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Bạn có muốn xóa mục này khỏi lịch sử chơi không?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Bạn có muốn xóa mục yêu thích này khỏi danh sách không?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Bạn có muốn tự động tải xuống và cài đặt phiên bản mới nhất không?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Lỗi khi mở cửa sổ Lịch sử Cập nhật.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Lỗi khi mở liên kết video.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Đã xảy ra lỗi khi xử lý yêu cầu của bạn.</system:String>
     <system:String x:Key="errorSettingSoundFile">Lỗi khi chọn hoặc sao chép tệp âm thanh.</system:String>
     <system:String x:Key="EssentialsHeader">Thiết yếu</system:String>
     <system:String x:Key="ExecutingSearch">Đang thực hiện tìm kiếm...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">trên tổng số</system:String>
     <system:String x:Key="OverlayButtonIcon">Nút lớp phủ</system:String>
     <system:String x:Key="OverlayButtonSettings">Cài đặt Nút Lớp phủ</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Bạn có muốn áp dụng tham số được đề xuất này không?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Vui lòng nhập tên trình giả lập trước.</system:String>
+    <system:String x:Key="ParameterResolverError">Lỗi</system:String>
+    <system:String x:Key="ParameterResolverLoading">Đang giải quyết tham số, vui lòng đợi...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Trình giải quyết tham số chưa được cấu hình. Vui lòng kiểm tra khóa API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Gợi ý Tham số</system:String>
     <system:String x:Key="ParentGame">Trò chơi gốc:</system:String>
     <system:String x:Key="PathManipulationDetected">Phát hiện thao túng đường dẫn tiềm năng</system:String>
     <system:String x:Key="PathToRomsWatermark">Đường dẫn đến ROMs...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Cài đặt Stella</system:String>
     <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
     <system:String x:Key="Success">Thành công</system:String>
+    <system:String x:Key="SuggestParameters">Gợi ý</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Đã lưu cấu hình Supermodel thành công.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Âm thanh</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Hủy</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Giao diện</system:String>
     <system:String x:Key="ThemeIcon">Giao diện</system:String>
     <system:String x:Key="Thename">Tên</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Chương trình được khởi chạy bởi tệp batch này có thể đã gặp sự cố hoặc bị chấm dứt đột ngột. Mã thoát âm thường cho thấy các lỗi cấp hệ thống.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Có một bản cập nhật phần mềm khả dụng.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Không có tệp tủ nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnocartfile">Không có tệp cartridge nào được liên kết với trò chơi này.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Thông báo trạng thái hiện tại</system:String>
     <system:String x:Key="TooltipStopDownload">Hủy thao tác tải xuống hiện tại</system:String>
     <system:String x:Key="TooltipStopImageDownload">Hủy tải xuống gói hình ảnh</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Sử dụng AI để gợi ý tham số tốt nhất cho trình giả lập này</system:String>
     <system:String x:Key="TooltipSupportDetails">Mô tả chi tiết vấn đề hoặc câu hỏi của bạn</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Thư mục chứa các tệp ROM hoặc ISO cho hệ thống này</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Thư mục tùy chọn chứa hình ảnh bìa cho hệ thống này</system:String>

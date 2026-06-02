@@ -1,197 +1,41 @@
-using System.Globalization;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class InjectPcsx2ConfigWindow
 {
-    private readonly SettingsManager _settings;
-    private readonly bool _isLauncherMode;
-    public bool ShouldRun { get; private set; }
-    private string _emulatorPath;
-    private readonly ILogErrors _logErrors;
+    private readonly InjectPcsx2ConfigViewModel _viewModel;
 
     public InjectPcsx2ConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _settings = settings;
-        _emulatorPath = emulatorPath;
-        _isLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        LoadSettings();
-    }
 
-    private void LoadSettings()
-    {
-        SelectComboByTag(CmbRenderer, _settings.Pcsx2Renderer.ToString(CultureInfo.InvariantCulture));
-        SelectComboByTag(CmbUpscale, _settings.Pcsx2UpscaleMultiplier.ToString(CultureInfo.InvariantCulture));
-        CmbAspect.Text = _settings.Pcsx2AspectRatio;
-        ChkVsync.IsChecked = _settings.Pcsx2Vsync;
-        ChkWidescreenPatches.IsChecked = _settings.Pcsx2EnableWidescreenPatches;
-        ChkFullscreen.IsChecked = _settings.Pcsx2StartFullscreen;
-        ChkCheats.IsChecked = _settings.Pcsx2EnableCheats;
-        SldVolume.Value = _settings.Pcsx2Volume;
-        ChkAchEnabled.IsChecked = _settings.Pcsx2AchievementsEnabled;
-        ChkAchHardcore.IsChecked = _settings.Pcsx2AchievementsHardcore;
-        ChkShowBeforeLaunch.IsChecked = _settings.Pcsx2ShowSettingsBeforeLaunch;
+        _viewModel = new InjectPcsx2ConfigViewModel(settings, emulatorPath, isLauncherMode);
+        _viewModel.CloseRequested += Close;
+        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
+        _viewModel.GetOwnerWindow += () => this;
 
-        BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
-        if (!_isLauncherMode)
+        DataContext = _viewModel;
+
+        if (!isLauncherMode)
         {
             BtnSave.IsDefault = true;
         }
     }
 
-    private void SaveSettings()
+    public bool ShouldRun => _viewModel.ShouldRun;
+
+    private static string OnRequestEmulatorPath()
     {
-        _settings.Pcsx2Renderer = int.Parse(GetSelectedTag(CmbRenderer), CultureInfo.InvariantCulture);
-        _settings.Pcsx2UpscaleMultiplier = int.Parse(GetSelectedTag(CmbUpscale), CultureInfo.InvariantCulture);
-        _settings.Pcsx2AspectRatio = CmbAspect.Text;
-        _settings.Pcsx2Vsync = ChkVsync.IsChecked ?? false;
-        _settings.Pcsx2EnableWidescreenPatches = ChkWidescreenPatches.IsChecked == true;
-        _settings.Pcsx2StartFullscreen = ChkFullscreen.IsChecked == true;
-        _settings.Pcsx2EnableCheats = ChkCheats.IsChecked == true;
-        _settings.Pcsx2Volume = (int)SldVolume.Value;
-        _settings.Pcsx2AchievementsEnabled = ChkAchEnabled.IsChecked == true;
-        _settings.Pcsx2AchievementsHardcore = ChkAchHardcore.IsChecked == true;
-        _settings.Pcsx2ShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked == true;
-        _settings.Save();
-    }
-
-    private string EnsureEmulatorPath()
-    {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
-
-        // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("PCSX2", _logErrors);
-        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
-        {
-            _emulatorPath = resolved;
-            return _emulatorPath;
-        }
-
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Filter = "PCSX2 Executable|pcsx2*.exe",
+            Filter = "PCSX2 Executable|pcsx2*.exe|All Executables|*.exe",
             Title = (string)Application.Current.TryFindResource("SelectPCSX2Emulator") ?? "Select PCSX2 Emulator"
         };
 
-        if (dialog.ShowDialog() != true) return null;
-
-        _emulatorPath = dialog.FileName;
-        return _emulatorPath;
-    }
-
-    private bool InjectConfig()
-    {
-        var path = EnsureEmulatorPath();
-        if (string.IsNullOrEmpty(path))
-            throw new OperationCanceledException("User cancelled emulator path selection.");
-
-        try
-        {
-            Pcsx2ConfigurationService.InjectSettings(path, _settings, _logErrors);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logErrors.LogErrorAsync(ex, "PCSX2 injection failed.");
-            return false;
-        }
-    }
-
-    private void BtnRun_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                ShouldRun = true;
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-                ShouldRun = true; // Game should still launch
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window → Launch game
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-            ShouldRun = true; // Game should still launch
-        }
-    }
-
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                MessageBoxLibrary.Pcsx2SettingssavedMessageBox();
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-        }
-    }
-
-    private static void SelectComboByTag(ComboBox cmb, string tag)
-    {
-        foreach (ComboBoxItem item in cmb.Items)
-            if (item.Tag?.ToString() == tag)
-            {
-                cmb.SelectedItem = item;
-                return;
-            }
-
-        if (cmb.Items.Count > 0)
-        {
-            cmb.SelectedIndex = 0;
-        }
-    }
-
-    private static string GetSelectedTag(ComboBox cmb)
-    {
-        return (cmb.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "0";
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 }

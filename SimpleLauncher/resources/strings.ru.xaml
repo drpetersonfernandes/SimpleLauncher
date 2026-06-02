@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Базовая тема</system:String>
     <system:String x:Key="Batchfilefailed">Пакетный файл не удалось запустить.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Обычно это означает, что путь, указанный в пакетном файле, больше не существует или неверен.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Пакетный файл ссылается на несуществующие пути:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Это может привести к сбою пакетного файла. Не все пути могут быть обнаружены — это проверка с максимальными усилиями.</system:String>
     <system:String x:Key="Big">Большой</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Конфигурация Blastem успешно сохранена.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Соотношение сторон:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Вы все равно хотите продолжить?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Вы хотите удалить эту запись из истории игр?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Вы хотите удалить этот элемент из избранного?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Хотите автоматически скачать и установить последнюю версию?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Ошибка при открытии окна истории обновлений.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Ошибка при открытии видеоссылки.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Произошла ошибка при обработке вашего запроса.</system:String>
     <system:String x:Key="errorSettingSoundFile">Ошибка при выборе или копировании звукового файла.</system:String>
     <system:String x:Key="EssentialsHeader">Основные</system:String>
     <system:String x:Key="ExecutingSearch">Выполнение поиска...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">из</system:String>
     <system:String x:Key="OverlayButtonIcon">Кнопка оверлея</system:String>
     <system:String x:Key="OverlayButtonSettings">Настройки кнопки наложения</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Вы хотите применить этот предложенный параметр?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Пожалуйста, сначала введите имя эмулятора.</system:String>
+    <system:String x:Key="ParameterResolverError">Ошибка</system:String>
+    <system:String x:Key="ParameterResolverLoading">Разрешение параметров, пожалуйста, подождите...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Средство разрешения параметров не настроено. Пожалуйста, проверьте ключ API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Предложение параметра</system:String>
     <system:String x:Key="ParentGame">Родительская игра:</system:String>
     <system:String x:Key="PathManipulationDetected">Обнаружена потенциальная манипуляция с путями</system:String>
     <system:String x:Key="PathToRomsWatermark">Путь к ROM'ам...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Настройки Stella</system:String>
     <system:String x:Key="StopDownload">Остановить загрузку</system:String>
     <system:String x:Key="Success">Успех</system:String>
+    <system:String x:Key="SuggestParameters">Предложить</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Конфигурация Supermodel успешно сохранена.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Аудио</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Отмена</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Тема</system:String>
     <system:String x:Key="ThemeIcon">Тема</system:String>
     <system:String x:Key="Thename">Имя</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Программа, запущенная этим пакетным файлом, могла завершиться сбоем или быть неожиданно прервана. Отрицательные коды выхода обычно указывают на сбои системного уровня.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Доступно обновление программного обеспечения.</system:String>
     <system:String x:Key="Thereisnocabinetfile">С этой игрой не связан файл кабинета.</system:String>
     <system:String x:Key="Thereisnocartfile">С этой игрой не связан файл картриджа.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Текущее сообщение о состоянии</system:String>
     <system:String x:Key="TooltipStopDownload">Отменить текущую операцию загрузки</system:String>
     <system:String x:Key="TooltipStopImageDownload">Отменить загрузку пакета изображений</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Используйте ИИ, чтобы предложить лучший параметр для этого эмулятора</system:String>
     <system:String x:Key="TooltipSupportDetails">Подробно опишите вашу проблему или вопрос</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Папка, содержащая файлы ROM или ISO для этой системы</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Необязательная папка, содержащая изображения обложек для этой системы</system:String>

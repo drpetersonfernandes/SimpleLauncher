@@ -1,82 +1,27 @@
-using System.Windows;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class InjectDaphneConfigWindow
 {
-    private readonly SettingsManager _settings;
-    private readonly bool _isLauncherMode;
-    public bool ShouldRun { get; private set; }
+    private readonly InjectDaphneConfigViewModel _viewModel;
 
     public InjectDaphneConfigWindow(SettingsManager settings, bool isLauncherMode = true)
     {
-        ArgumentNullException.ThrowIfNull(settings);
-
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _settings = settings;
-        _isLauncherMode = isLauncherMode;
-        // Note: Unlike other config windows, we don't need emulatorPath since Daphne uses command-line arguments instead of file injection.
-        LoadSettings();
-    }
 
-    private void LoadSettings()
-    {
-        // Video
-        ChkFullscreen.IsChecked = _settings.DaphneFullscreen;
-        ChkBilinear.IsChecked = _settings.DaphneBilinear;
-        NumResX.Value = _settings.DaphneResX;
-        NumResY.Value = _settings.DaphneResY;
+        _viewModel = new InjectDaphneConfigViewModel(settings, isLauncherMode);
+        _viewModel.CloseRequested += Close;
 
-        // Audio
-        ChkEnableSound.IsChecked = _settings.DaphneEnableSound;
+        DataContext = _viewModel;
 
-        // Gameplay
-        ChkDisableCrosshairs.IsChecked = _settings.DaphneDisableCrosshairs;
-        ChkUseOverlays.IsChecked = _settings.DaphneUseOverlays;
-
-        ChkShowBeforeLaunch.IsChecked = _settings.DaphneShowSettingsBeforeLaunch;
-
-        BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
-        if (!_isLauncherMode)
+        if (!isLauncherMode)
         {
             BtnSave.IsDefault = true;
         }
     }
 
-    private void SaveSettings()
-    {
-        // Video
-        _settings.DaphneFullscreen = ChkFullscreen.IsChecked ?? false;
-        _settings.DaphneBilinear = ChkBilinear.IsChecked ?? true;
-        _settings.DaphneResX = (int)(NumResX.Value ?? 640);
-        _settings.DaphneResY = (int)(NumResY.Value ?? 480);
-
-        // Audio
-        _settings.DaphneEnableSound = ChkEnableSound.IsChecked ?? true;
-
-        // Gameplay
-        _settings.DaphneDisableCrosshairs = ChkDisableCrosshairs.IsChecked ?? false;
-        _settings.DaphneUseOverlays = ChkUseOverlays.IsChecked ?? true;
-
-        _settings.DaphneShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
-
-        _settings.Save();
-    }
-
-    private void BtnRun_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        ShouldRun = true;
-        Close();
-    }
-
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        MessageBoxLibrary.DaphnesettingssavedsuccessfullyMessageBox();
-        Close();
-    }
+    public bool ShouldRun => _viewModel.ShouldRun;
 }

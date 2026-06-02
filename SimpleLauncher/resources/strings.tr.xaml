@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Temel Tema</system:String>
     <system:String x:Key="Batchfilefailed">Toplu iş dosyası çalıştırılamadı.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Bu genellikle, toplu iş dosyasında referans verilen bir yolun artık mevcut olmadığı veya yanlış olduğu anlamına gelir.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Toplu iş dosyası, mevcut olmayan yollara başvuruyor:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Bu durum, toplu iş dosyasının başarısız olmasına neden olabilir. Tüm yollar tespit edilemeyebilir — bu, en iyi çaba kontrolüdür.</system:String>
     <system:String x:Key="Big">Büyük</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">En Boy Oranı:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Yine de devam etmek istiyor musunuz?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Bu öğeyi oynatma geçmişinden silmek istiyor musunuz?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Bu favoriyi listeden silmek istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Son sürümü otomatik indirmek ve yüklemek ister misiniz?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">İndirme bağlantısını açarken hata oluştu.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Güncelleme Geçmişi penceresi açılırken hata oluştu.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Video bağlantısı açılırken hata oluştu.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">İsteğiniz işlenirken bir hata oluştu.</system:String>
     <system:String x:Key="errorSettingSoundFile">Ses dosyası seçilirken veya kopyalanırken hata oluştu.</system:String>
     <system:String x:Key="EssentialsHeader">Temel Öğeler</system:String>
     <system:String x:Key="ExecutingSearch">Arama yürütülüyor...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">toplam</system:String>
     <system:String x:Key="OverlayButtonIcon">Katman Düğmesi</system:String>
     <system:String x:Key="OverlayButtonSettings">Katman Düğmesi Ayarları</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Bu önerilen parametreyi uygulamak istiyor musunuz?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Lütfen önce bir emülatör adı girin.</system:String>
+    <system:String x:Key="ParameterResolverError">Hata</system:String>
+    <system:String x:Key="ParameterResolverLoading">Parametreler çözümleniyor, lütfen bekleyin...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Parametre çözümleyici yapılandırılmamış. Lütfen API anahtarını kontrol edin.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Parametre Önerisi</system:String>
     <system:String x:Key="ParentGame">Ana Oyun:</system:String>
     <system:String x:Key="PathManipulationDetected">Potansiyel Yol Manipülasyonu Tespit Edildi</system:String>
     <system:String x:Key="PathToRomsWatermark">ROM'ların yolu...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Stella Ayarları</system:String>
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
+    <system:String x:Key="SuggestParameters">Öner</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel yapılandırması başarıyla kaydedildi.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Ses</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">İptal</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="ThemeIcon">Tema</system:String>
     <system:String x:Key="Thename">Adı</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Bu toplu iş dosyası tarafından başlatılan program çökmüş veya beklenmedik bir şekilde sonlandırılmış olabilir. Negatif çıkış kodları genellikle sistem düzeyinde hataları gösterir.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Yeni bir yazılım güncellemesi mevcut.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Bu oyunla ilişkilendirilmiş bir kabin dosyası yok.</system:String>
     <system:String x:Key="Thereisnocartfile">Bu oyunla ilişkilendirilmiş bir kartuş dosyası yok.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Geçerli durum mesajı</system:String>
     <system:String x:Key="TooltipStopDownload">Mevcut indirme işlemini iptal edin</system:String>
     <system:String x:Key="TooltipStopImageDownload">Resim paketi indirmeyi iptal et</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Bu emülatör için en iyi parametreyi önermek üzere yapay zekayı kullanın</system:String>
     <system:String x:Key="TooltipSupportDetails">Sorununuzu veya sorunuzu ayrıntılı olarak açıklayın</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Bu sistem için ROM veya ISO dosyalarını içeren klasör</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Bu sistem için kapak resimlerini içeren isteğe bağlı klasör</system:String>

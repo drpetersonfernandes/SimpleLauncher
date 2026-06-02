@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Basisthema</system:String>
     <system:String x:Key="Batchfilefailed">Het batchbestand kon niet worden uitgevoerd.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Dit betekent meestal dat een pad waarnaar wordt verwezen in het batchbestand niet meer bestaat of onjuist is.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Het batchbestand verwijst naar paden die niet bestaan:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Dit kan ertoe leiden dat het batchbestand mislukt. Mogelijk worden niet alle paden gedetecteerd — dit is een poging naar beste vermogen.</system:String>
     <system:String x:Key="Big">Groot</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Beeldverhouding:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Wilt u toch doorgaan?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Wilt u dit item uit de speelgeschiedenis verwijderen?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Wilt u deze favoriet uit de lijst verwijderen?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Wil je de laatste versie automatisch downloaden en installeren?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fout bij het openen van het updategeschiedenisvenster.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Fout bij het openen van de videolink.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Er is een fout opgetreden bij het verwerken van uw verzoek.</system:String>
     <system:String x:Key="errorSettingSoundFile">Fout bij het kiezen of kopiëren van geluidsbestand.</system:String>
     <system:String x:Key="EssentialsHeader">Essentieel</system:String>
     <system:String x:Key="ExecutingSearch">Zoekopdracht uitvoeren...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">van</system:String>
     <system:String x:Key="OverlayButtonIcon">Overlay-knop</system:String>
     <system:String x:Key="OverlayButtonSettings">Overlay-knopinstellingen</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Wilt u deze voorgestelde parameter toepassen?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Voer eerst een emulatienaam in.</system:String>
+    <system:String x:Key="ParameterResolverError">Fout</system:String>
+    <system:String x:Key="ParameterResolverLoading">Parameters worden opgelost, even geduld alstublieft...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Parameteroplosser is niet geconfigureerd. Controleer de API-sleutel.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Parametersuggestie</system:String>
     <system:String x:Key="ParentGame">Hoofdspel:</system:String>
     <system:String x:Key="PathManipulationDetected">Mogelijke padmanipulatie gedetecteerd</system:String>
     <system:String x:Key="PathToRomsWatermark">Pad naar ROM's...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Stella Instellingen</system:String>
     <system:String x:Key="StopDownload">Stop download</system:String>
     <system:String x:Key="Success">Succes</system:String>
+    <system:String x:Key="SuggestParameters">Voorstellen</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel-configuratie succesvol opgeslagen.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Annuleren</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Thema</system:String>
     <system:String x:Key="ThemeIcon">Thema</system:String>
     <system:String x:Key="Thename">De naam</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Het programma dat door dit batchbestand is gestart, is mogelijk vastgelopen of onverwacht beëindigd. Negatieve exitcodes duiden doorgaans op fouten op systeemniveau.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Er is een software-update beschikbaar.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Er is geen kastbestand aan dit spel gekoppeld.</system:String>
     <system:String x:Key="Thereisnocartfile">Er is geen cartridgebestand aan dit spel gekoppeld.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Huidig statusbericht</system:String>
     <system:String x:Key="TooltipStopDownload">Annuleer de huidige downloadoperatie</system:String>
     <system:String x:Key="TooltipStopImageDownload">Annuleer de download van het afbeeldingspakket</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Gebruik AI om de beste parameter voor deze emulator voor te stellen</system:String>
     <system:String x:Key="TooltipSupportDetails">Beschrijf uw probleem of vraag in detail</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Map met de ROM- of ISO-bestanden voor dit systeem</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Optionele map met omslagafbeeldingen voor dit systeem</system:String>

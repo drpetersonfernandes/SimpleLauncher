@@ -28,8 +28,8 @@
         <PackageIcon>icon2.png</PackageIcon>
         <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>5.5.1</AssemblyVersion>
-        <FileVersion>5.5.1</FileVersion>
+        <AssemblyVersion>5.6.0</AssemblyVersion>
+        <FileVersion>5.6.0</FileVersion>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <Version>$(VersionPrefix)</Version>
         <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
@@ -929,6 +929,7 @@
         <Page Remove="resources\Strings.en.xaml" />
         <Resource Include="resources\strings.en.xaml" />
         <Page Remove="resources\Strings.es.xaml" />
+        <Resource Include="resources\strings.es.xaml" />
         <Page Remove="resources\Strings.fr.xaml" />
         <Resource Include="resources\strings.fr.xaml" />
         <Page Remove="resources\Strings.ja.xaml" />
@@ -937,6 +938,7 @@
         <Page Remove="resources\Strings.ko.xaml" />
         <Resource Include="resources\strings.ko.xaml" />
         <Page Remove="resources\Strings.pt-BR.xaml" />
+        <Resource Include="resources\strings.pt-br.xaml" />
         <Page Remove="resources\Strings.pt-PT.xaml" />
         <Page Remove="resources\Strings.ru.xaml" />
         <Resource Include="resources\strings.ru.xaml" />

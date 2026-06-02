@@ -1,3 +1,56 @@
+# Release 5.6.0
+*2026-06-02*
+---
+
+## Game File Watcher
+- **New `GameFileWatcherService`** — Monitors ROM system folders for external file changes (create, delete, rename) and automatically refreshes the game list when changes are detected.
+- Uses debouncing (500ms) to avoid rapid re-scans during batch file operations like archive extraction.
+- Automatically starts/stops watching when switching between systems.
+
+## Parameter Resolver API
+- **New "Suggest" buttons** in the Edit System window for each emulator parameter field.
+- Uses an AI-powered API to suggest the best emulator parameters based on system configuration.
+- Shows a confirmation dialog with the suggested parameter and explanation before applying.
+
+## 7za Fallback Extraction
+- **Automatic fallback to 7za** — When SharpCompress fails to extract `.7z` files, the application now automatically retries using the bundled `7za.exe` (or `7za_arm64.exe` on ARM64).
+- Includes a 30-minute timeout for large extractions.
+
+## Batch File Path Validation
+- **Pre-execution path validation** — Batch files are now validated before execution to detect referenced paths that do not exist.
+- Shows a warning dialog listing missing paths with the option to continue or cancel.
+- Changed batch file execution from `cmd.exe /c` to direct `UseShellExecute` for better compatibility.
+
+## OneDrive Error Handling
+- **Specific OneDrive guidance** — When game files fail to launch and the path contains "OneDrive", the error message now provides specific instructions about syncing and downloading files.
+- Added localized `oneDriveIssue` string across all supported languages.
+
+## Invalid Folder Character Validation
+- **Path character validation** — System folder and image folder paths are now validated for invalid path characters before attempting directory creation.
+- Shows a clear error message listing the invalid characters found.
+
+## CHD Mount Error Handling
+- **Exit code reporting** — CHD mount failures now include the process exit code in error messages for easier debugging.
+- Added Dokan installation check before CHD mount operations.
+
+## DI Refactoring (ILogErrors)
+- **Major dependency injection refactoring** — Replaced `App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(...)` with constructor-injected `ILogErrors` instances using `LogAndForget()` across the entire codebase.
+- Affected services: `ExtractionService`, `GameLauncher`, `SettingsManager`, `FavoritesManager`, `PlayHistoryManager`, `RetroAchievementsManager`, `Stats`, `GamePadController`, `PlaySoundEffects`, `HelpUser`, `TrayIconManager`, and all emulator configuration services.
+- Improved testability and reduced coupling to the static `App.ServiceProvider`.
+
+## DataFileLocation Abstraction
+- **New `DataFileLocation` class** — Centralizes portable mode file management for `settings.xml`, `system.xml`, `favorites.dat`, and `playhistory.dat`.
+- Consolidates duplicate path resolution and fallback logic across multiple managers.
+
+## RetroAchievements System Matching
+- Expanded system name aliases: added "Nintendo Satellaview" for SNES, "C64 - Ultimate Tape Archive" and "C64 - Floppy [Scene Collection]" for Commodore 64.
+- Added new unsupported system entries: CGenius, NEC PC88, Fujitsu FM-7, Fairchild Channel-F, Exelvision EX100, Enterprise 64-128, Capcom Medalusion.
+
+## Dependency Updates
+- `SharpCompress` 0.48.1 → **0.49.1**
+- `Tomlyn` 2.4.0 → **2.4.1**
+- `Microsoft.NET.Test.Sdk` 18.5.1 → **18.6.0**
+
 # Release 5.5.0
 *2026-05-25*
 ---

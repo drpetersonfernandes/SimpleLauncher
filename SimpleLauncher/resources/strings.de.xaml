@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Grunddesign</system:String>
     <system:String x:Key="Batchfilefailed">Die Batchdatei konnte nicht ausgeführt werden.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Dies bedeutet normalerweise, dass ein in der Batchdatei referenzierter Pfad nicht mehr existiert oder falsch ist.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">Die Batchdatei verweist auf Pfade, die nicht existieren:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Dies kann dazu führen, dass die Batchdatei fehlschlägt. Möglicherweise werden nicht alle Pfade erkannt – dies ist eine Überprüfung nach bestem Wissen und Gewissen.</system:String>
     <system:String x:Key="Big">Groß</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Blastem-Konfiguration erfolgreich gespeichert.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Seitenverhältnis:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu lösen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu beheben?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu beheben?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">Möchten Sie trotzdem fortfahren?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">Möchten Sie diesen Eintrag aus dem Spielverlauf löschen?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">Möchten Sie diesen Favoriten aus der Liste löschen?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Möchten Sie die neueste Version automatisch herunterladen und installieren?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Fehler beim Öffnen des Download-Links.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fehler beim Öffnen des Update-Historienfensters.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Fehler beim Öffnen des Videolinks.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="errorSettingSoundFile">Fehler beim Auswählen oder Kopieren der Tondatei.</system:String>
     <system:String x:Key="EssentialsHeader">Grundlagen</system:String>
     <system:String x:Key="ExecutingSearch">Suche wird ausgeführt...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">von</system:String>
     <system:String x:Key="OverlayButtonIcon">Overlay-Schaltfläche</system:String>
     <system:String x:Key="OverlayButtonSettings">Overlay-Schaltflächen-Einstellungen</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">Möchten Sie diesen vorgeschlagenen Parameter anwenden?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Bitte geben Sie zuerst einen Emulatornamen ein.</system:String>
+    <system:String x:Key="ParameterResolverError">Fehler</system:String>
+    <system:String x:Key="ParameterResolverLoading">Parameter werden aufgelöst, bitte warten Sie...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">Der Parameter-Resolver ist nicht konfiguriert. Bitte überprüfen Sie den API-Schlüssel.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Parametervorschlag</system:String>
     <system:String x:Key="ParentGame">Übergeordnetes Spiel:</system:String>
     <system:String x:Key="PathManipulationDetected">Mögliche Pfadmanipulation erkannt</system:String>
     <system:String x:Key="PathToRomsWatermark">Pfad zu ROMs...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Stella Einstellungen</system:String>
     <system:String x:Key="StopDownload">Download stoppen</system:String>
     <system:String x:Key="Success">Erfolg</system:String>
+    <system:String x:Key="SuggestParameters">Vorschlagen</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Supermodel-Konfiguration erfolgreich gespeichert.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Abbrechen</system:String>
@@ -1781,7 +1792,7 @@
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="SystemFolder">Systemordner</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'Systemordner' darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
-    <system:String x:Key="SystemFoldercontainsinvalid">„Systemordner" enthält ungültige Zeichen:</system:String>
+    <system:String x:Key="SystemFoldercontainsinvalid">„Systemordner&quot; enthält ungültige Zeichen:</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Der Pfad des Systemordners ist ungültig oder existiert nicht:</system:String>
     <system:String x:Key="SystemFolderRequired">Systemordner (Erforderlich)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System wurde erfolgreich hinzugefügt!</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Design</system:String>
     <system:String x:Key="ThemeIcon">Design</system:String>
     <system:String x:Key="Thename">Der Name</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">Das von dieser Batchdatei gestartete Programm ist möglicherweise abgestürzt oder wurde unerwartet beendet. Negative Exit-Codes weisen typischerweise auf Systemfehler hin.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Es ist ein Software-Update verfügbar.</system:String>
     <system:String x:Key="Thereisnocabinetfile">Es ist keine Gehäuse-Datei mit diesem Spiel verknüpft.</system:String>
     <system:String x:Key="Thereisnocartfile">Es ist keine Kassette-Datei mit diesem Spiel verknüpft.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Aktuelle Statusmeldung</system:String>
     <system:String x:Key="TooltipStopDownload">Den aktuellen Download-Vorgang abbrechen</system:String>
     <system:String x:Key="TooltipStopImageDownload">Den Download des Bildpakets abbrechen</system:String>
+    <system:String x:Key="TooltipSuggestParameters">KI verwenden, um den besten Parameter für diesen Emulator vorzuschlagen</system:String>
     <system:String x:Key="TooltipSupportDetails">Beschreiben Sie Ihr Problem oder Ihre Frage detailliert</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Ordner, der die ROM- oder ISO-Dateien für dieses System enthält</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Optionaler Ordner für Coverbilder dieses Systems</system:String>

@@ -6,6 +6,9 @@
                       Height="700" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,13 +26,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource Pcsx2Config_Renderer_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbRenderer" Grid.Column="1" ToolTip="{DynamicResource Pcsx2Config_Renderer_Tooltip}">
-                                <ComboBoxItem Content="Vulkan" Tag="14" />
-                                <ComboBoxItem Content="Direct3D 12" Tag="13" />
-                                <ComboBoxItem Content="Direct3D 11" Tag="12" />
-                                <ComboBoxItem Content="OpenGL" Tag="15" />
-                                <ComboBoxItem Content="Software" Tag="11" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RendererDisplayNames}"
+                                      SelectedItem="{Binding Pcsx2Renderer}"
+                                      ToolTip="{DynamicResource Pcsx2Config_Renderer_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -37,15 +37,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource Pcsx2Config_Upscale_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbUpscale" Grid.Column="1" ToolTip="{DynamicResource Pcsx2Config_Upscale_Tooltip}">
-                                <ComboBoxItem Content="Native (PS2)" Tag="1" />
-                                <ComboBoxItem Content="2x (720p)" Tag="2" />
-                                <ComboBoxItem Content="3x (1080p)" Tag="3" />
-                                <ComboBoxItem Content="4x (1440p)" Tag="4" />
-                                <ComboBoxItem Content="5x (3K)" Tag="5" />
-                                <ComboBoxItem Content="6x (4K)" Tag="6" />
-                                <ComboBoxItem Content="8x (5K+)" Tag="8" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding UpscaleDisplayNames}"
+                                      SelectedItem="{Binding Pcsx2UpscaleMultiplier}"
+                                      ToolTip="{DynamicResource Pcsx2Config_Upscale_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -53,32 +48,31 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource Pcsx2Config_Aspect_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAspect" Grid.Column="1" ToolTip="{DynamicResource Pcsx2Config_Aspect_Tooltip}">
-                                <ComboBoxItem Content="4:3" />
-                                <ComboBoxItem Content="16:9" />
-                                <ComboBoxItem Content="Stretch" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectOptions}"
+                                      SelectedItem="{Binding Pcsx2AspectRatio}"
+                                      ToolTip="{DynamicResource Pcsx2Config_Aspect_Tooltip}" />
                         </Grid>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource Pcsx2Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Vsync_Tooltip}" />
-                        <CheckBox x:Name="ChkWidescreenPatches" Content="{DynamicResource Pcsx2Config_WidescreenPatches_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_WidescreenPatches_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2Vsync}" Content="{DynamicResource Pcsx2Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2EnableWidescreenPatches}" Content="{DynamicResource Pcsx2Config_WidescreenPatches_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_WidescreenPatches_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource Pcsx2Config_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource Pcsx2Config_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Fullscreen_Tooltip}" />
-                        <CheckBox x:Name="ChkCheats" Content="{DynamicResource Pcsx2Config_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Cheats_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2StartFullscreen}" Content="{DynamicResource Pcsx2Config_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2EnableCheats}" Content="{DynamicResource Pcsx2Config_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Cheats_Tooltip}" />
                         <Label Content="{DynamicResource Pcsx2Config_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider x:Name="SldVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource Pcsx2Config_Volume_Tooltip}" />
+                        <Slider Value="{Binding Pcsx2Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource Pcsx2Config_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Achievements Section -->
                 <GroupBox Header="{DynamicResource Pcsx2Config_Achievements_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAchEnabled" Content="{DynamicResource Pcsx2Config_AchEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchEnabled_Tooltip}" />
-                        <CheckBox x:Name="ChkAchHardcore" Content="{DynamicResource Pcsx2Config_AchHardcore_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchHardcore_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2AchievementsEnabled}" Content="{DynamicResource Pcsx2Config_AchEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchEnabled_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2AchievementsHardcore}" Content="{DynamicResource Pcsx2Config_AchHardcore_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchHardcore_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -86,7 +80,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2ShowSettingsBeforeLaunch}" Content="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -94,10 +88,13 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource Pcsx2Config_Save_Button}"
-                    Style="{DynamicResource DialogSecondaryButtonStyle}" Click="BtnSave_Click"
+                    Style="{DynamicResource DialogSecondaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource Pcsx2Config_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource Pcsx2Config_Run_Button2}"
-                    Style="{DynamicResource DialogPrimaryButtonStyle}" Click="BtnRun_Click" IsDefault="True"
+                    Style="{DynamicResource DialogPrimaryButtonStyle}"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource Pcsx2Config_Run_Tooltip}" />
             <Button Content="{DynamicResource Pcsx2Config_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

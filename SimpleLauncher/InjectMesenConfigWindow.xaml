@@ -6,6 +6,9 @@
                       Height="700" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -17,21 +20,19 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource MesenConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource MesenConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Fullscreen_Tooltip}" />
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource MesenConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Vsync_Tooltip}" />
-                        <CheckBox x:Name="ChkBilinear" Content="{DynamicResource MesenConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Bilinear_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource MesenConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource MesenConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Bilinear}" Content="{DynamicResource MesenConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Bilinear_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource MesenConfig_AspectRatio_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAspectRatio" Grid.Column="1" ToolTip="{DynamicResource MesenConfig_AspectRatio_Tooltip}">
-                                <ComboBoxItem Content="NoStretching" />
-                                <ComboBoxItem Content="4:3" />
-                                <ComboBoxItem Content="16:9" />
-                                <ComboBoxItem Content="Auto" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectRatioOptions}"
+                                      SelectedItem="{Binding AspectRatio}"
+                                      ToolTip="{DynamicResource MesenConfig_AspectRatio_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -39,12 +40,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource MesenConfig_VideoFilter_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbVideoFilter" Grid.Column="1" ToolTip="{DynamicResource MesenConfig_VideoFilter_Tooltip}">
-                                <ComboBoxItem Content="None" />
-                                <ComboBoxItem Content="NTSC" />
-                                <ComboBoxItem Content="CRT" />
-                                <ComboBoxItem Content="LCD" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding VideoFilterOptions}"
+                                      SelectedItem="{Binding VideoFilter}"
+                                      ToolTip="{DynamicResource MesenConfig_VideoFilter_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -52,19 +51,19 @@
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource MesenConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkEnableAudio" Content="{DynamicResource MesenConfig_EnableAudio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_EnableAudio_Tooltip}" />
+                        <CheckBox IsChecked="{Binding EnableAudio}" Content="{DynamicResource MesenConfig_EnableAudio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_EnableAudio_Tooltip}" />
                         <Label Content="{DynamicResource MesenConfig_MasterVolume_Label}" VerticalAlignment="Center" />
-                        <Slider x:Name="SldMasterVolume" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MesenConfig_MasterVolume_Tooltip}" />
+                        <Slider Value="{Binding MasterVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MesenConfig_MasterVolume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Performance & Features Section -->
                 <GroupBox Header="{DynamicResource MesenConfig_Performance_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkRewind" Content="{DynamicResource MesenConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Rewind_Tooltip}" />
-                        <CheckBox x:Name="ChkPauseInBackground" Content="{DynamicResource MesenConfig_PauseInBackground_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_PauseInBackground_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rewind}" Content="{DynamicResource MesenConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Rewind_Tooltip}" />
+                        <CheckBox IsChecked="{Binding PauseInBackground}" Content="{DynamicResource MesenConfig_PauseInBackground_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_PauseInBackground_Tooltip}" />
                         <Label Content="{DynamicResource MesenConfig_RunAhead_Label}" VerticalAlignment="Center" />
-                        <Slider x:Name="SldRunAhead" Minimum="0" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MesenConfig_RunAhead_Tooltip}" />
+                        <Slider Value="{Binding RunAhead}" Minimum="0" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MesenConfig_RunAhead_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -72,7 +71,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource MesenConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource MesenConfig_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource MesenConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource MesenConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -82,11 +81,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource MesenConfig_Save_Button}"
                     Style="{DynamicResource DialogSecondaryButtonStyle}"
-                    Click="BtnSave_Click"
+                    Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource MesenConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource MesenConfig_Run_Button2}"
                     Style="{DynamicResource DialogPrimaryButtonStyle}"
-                    Click="BtnRun_Click" IsDefault="True"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource MesenConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource MesenConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

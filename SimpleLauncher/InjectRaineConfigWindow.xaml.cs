@@ -1,212 +1,47 @@
-using System.Globalization;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.InjectEmulatorConfig;
-using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class InjectRaineConfigWindow
 {
-    private readonly SettingsManager _settings;
-    private readonly bool _isLauncherMode;
-    public bool ShouldRun { get; private set; }
-    private string _emulatorPath;
-    private readonly string _gameFilePath;
-    private readonly string _systemRomPath;
-    private readonly ILogErrors _logErrors;
+    private readonly InjectRaineConfigViewModel _viewModel;
 
     public InjectRaineConfigWindow(SettingsManager settings, string emulatorPath = null, string gameFilePath = null, string systemRomPath = null, bool isLauncherMode = true)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _settings = settings;
-        _emulatorPath = emulatorPath;
-        _gameFilePath = gameFilePath;
-        _systemRomPath = systemRomPath;
-        _isLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
 
-        BtnRun.Visibility = _isLauncherMode ? Visibility.Visible : Visibility.Collapsed;
-        if (!_isLauncherMode)
+        _viewModel = new InjectRaineConfigViewModel(settings, emulatorPath, isLauncherMode, gameFilePath, systemRomPath);
+        _viewModel.CloseRequested += Close;
+        _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
+        _viewModel.RequestFilePath += OnRequestFilePath;
+        _viewModel.RequestFolderPath += OnRequestFolderPath;
+        _viewModel.GetOwnerWindow += () => this;
+
+        DataContext = _viewModel;
+
+        if (!isLauncherMode)
         {
             BtnSave.IsDefault = true;
         }
-
-        LoadSettings();
     }
 
-    private string EnsureEmulatorPath()
+    public bool ShouldRun => _viewModel.ShouldRun;
+
+    private static string OnRequestEmulatorPath()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
-
-        // Try to resolve from system.xml
-        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Raine", _logErrors);
-        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
-        {
-            _emulatorPath = resolved;
-            return _emulatorPath;
-        }
-
-        // Use a localized message if possible, or generic
-        MessageBoxLibrary.RaineExecutableNotFoundMessageBox();
-
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "Raine Executable|raine*.exe|All Executables|*.exe",
             Title = (string)Application.Current.TryFindResource("RaineConfig_SelectExeTitle") ?? "Select Raine Emulator"
         };
 
-        if (dialog.ShowDialog() != true) return null;
-
-        _emulatorPath = dialog.FileName;
-        return _emulatorPath;
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    private void LoadSettings()
-    {
-        ChkFullscreen.IsChecked = _settings.RaineFullscreen;
-        ChkFixAspect.IsChecked = _settings.RaineFixAspectRatio;
-        ChkVsync.IsChecked = _settings.RaineVsync;
-        NumResX.Value = _settings.RaineResX;
-        NumResY.Value = _settings.RaineResY;
-        CmbAudioDriver.Text = _settings.RaineSoundDriver;
-        CmbSampleRate.Text = _settings.RaineSampleRate.ToString(CultureInfo.InvariantCulture);
-        ChkShowBeforeLaunch.IsChecked = _settings.RaineShowSettingsBeforeLaunch;
-        ChkShowFps.IsChecked = _settings.RaineShowFps;
-        CmbFrameSkip.SelectedIndex = Math.Clamp(_settings.RaineFrameSkip, 0, 5);
-        TxtNeoCdBios.Text = _settings.RaineNeoCdBios ?? string.Empty;
-        NumMusicVolume.Value = _settings.RaineMusicVolume;
-        NumSfxVolume.Value = _settings.RaineSfxVolume;
-        ChkMuteSfx.IsChecked = _settings.RaineMuteSfx;
-        ChkMuteMusic.IsChecked = _settings.RaineMuteMusic;
-        TxtRaineRomDirectory.Text = _settings.RaineRomDirectory ?? string.Empty;
-    }
-
-    private void SaveSettings()
-    {
-        _settings.RaineFullscreen = ChkFullscreen.IsChecked ?? false;
-        _settings.RaineFixAspectRatio = ChkFixAspect.IsChecked ?? true;
-        _settings.RaineVsync = ChkVsync.IsChecked ?? true;
-        _settings.RaineResX = (int)(NumResX.Value ?? 640);
-        _settings.RaineResY = (int)(NumResY.Value ?? 480);
-        _settings.RaineSoundDriver = (CmbAudioDriver.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "directsound";
-
-        if (CmbSampleRate.SelectedItem is ComboBoxItem selectedRate &&
-            int.TryParse(selectedRate.Content.ToString(), out var rate))
-        {
-            _settings.RaineSampleRate = rate;
-        }
-        else
-        {
-            _settings.RaineSampleRate = 44100;
-        }
-
-        _settings.RaineShowSettingsBeforeLaunch = ChkShowBeforeLaunch.IsChecked ?? true;
-        _settings.RaineShowFps = ChkShowFps.IsChecked ?? false;
-        _settings.RaineFrameSkip = CmbFrameSkip.SelectedIndex;
-        _settings.RaineNeoCdBios = TxtNeoCdBios.Text;
-        _settings.RaineMusicVolume = (int)(NumMusicVolume.Value ?? 60);
-        _settings.RaineSfxVolume = (int)(NumSfxVolume.Value ?? 60);
-        _settings.RaineMuteSfx = ChkMuteSfx.IsChecked ?? false;
-        _settings.RaineMuteMusic = ChkMuteMusic.IsChecked ?? false;
-        _settings.RaineRomDirectory = TxtRaineRomDirectory.Text;
-        _settings.Save();
-    }
-
-    private bool InjectConfig()
-    {
-        var path = EnsureEmulatorPath();
-        if (string.IsNullOrEmpty(path))
-            throw new OperationCanceledException("User cancelled emulator path selection.");
-
-        try
-        {
-            // Pass the stored paths to the service
-            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _gameFilePath, _systemRomPath, _settings.RaineRomDirectory);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _ = _logErrors.LogErrorAsync(ex, $"Raine configuration injection failed for path: {path}");
-            return false;
-        }
-    }
-
-    private void BtnRun_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                ShouldRun = true;
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-                ShouldRun = true; // Game should still launch
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window → Launch game
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-            ShouldRun = true; // Game should still launch
-        }
-    }
-
-    private void BtnSave_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        try
-        {
-            if (InjectConfig())
-            {
-                if (!_isLauncherMode)
-                    MessageBoxLibrary.RaineSettingsSavedAndInjectedMessageBox();
-
-                Close();
-            }
-            else
-            {
-                // Injection failed but was already logged inside InjectConfig.
-                // Notify user and close without generating a duplicate report.
-                MessageBoxLibrary.InjectionFailedGenericMessageBox();
-                Close();
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // User cancelled - close silently
-            Close();
-        }
-        catch (Exception ex)
-        {
-            // Injection failed: Notify user → Notify developer → Close window
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, GetType());
-            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, this);
-        }
-    }
-
-    private void BtnSelectNeoCdBios_Click(object sender, RoutedEventArgs e)
+    private static string OnRequestFilePath()
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
@@ -214,67 +49,34 @@ public partial class InjectRaineConfigWindow
             Title = (string)Application.Current.TryFindResource("RaineConfig_SelectNeoCdBios") ?? "Select NeoGeo CD BIOS File"
         };
 
-        if (!string.IsNullOrEmpty(TxtNeoCdBios.Text) && File.Exists(TxtNeoCdBios.Text))
-        {
-            dialog.InitialDirectory = Path.GetDirectoryName(TxtNeoCdBios.Text);
-            dialog.FileName = Path.GetFileName(TxtNeoCdBios.Text);
-        }
-        else if (!string.IsNullOrEmpty(_emulatorPath))
-        {
-            // Try to suggest a path relative to the emulator
-            var emuDir = Path.GetDirectoryName(_emulatorPath);
-            if (emuDir != null)
-            {
-                var biosPath = Path.Combine(emuDir, "bios", "neocd.bin"); // Common bios location
-                if (File.Exists(biosPath))
-                {
-                    dialog.InitialDirectory = Path.GetDirectoryName(biosPath);
-                    dialog.FileName = Path.GetFileName(biosPath);
-                }
-                else if (Directory.Exists(emuDir))
-                {
-                    dialog.InitialDirectory = emuDir;
-                }
-            }
-        }
-
-        if (dialog.ShowDialog() == true)
-        {
-            TxtNeoCdBios.Text = dialog.FileName;
-        }
+        return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    private void BtnSelectRaineRomDirectory_Click(object sender, RoutedEventArgs e)
+    private static string OnRequestFolderPath()
     {
         var dialog = new Microsoft.Win32.OpenFolderDialog
         {
             Title = (string)Application.Current.TryFindResource("RaineConfig_SelectRomDirectory") ?? "Select Raine ROM Directory"
         };
 
-        if (!string.IsNullOrEmpty(TxtRaineRomDirectory.Text) && Directory.Exists(TxtRaineRomDirectory.Text))
-        {
-            dialog.InitialDirectory = TxtRaineRomDirectory.Text;
-        }
-        else if (!string.IsNullOrEmpty(_systemRomPath) && Directory.Exists(_systemRomPath))
-        {
-            dialog.InitialDirectory = _systemRomPath;
-        }
-        else if (!string.IsNullOrEmpty(_emulatorPath))
-        {
-            var emuDir = Path.GetDirectoryName(_emulatorPath);
-            if (emuDir != null && Directory.Exists(Path.Combine(emuDir, "roms")))
-            {
-                dialog.InitialDirectory = Path.Combine(emuDir, "roms");
-            }
-            else if (Directory.Exists(emuDir))
-            {
-                dialog.InitialDirectory = emuDir;
-            }
-        }
+        return dialog.ShowDialog() == true ? dialog.FolderName : null;
+    }
 
-        if (dialog.ShowDialog() == true)
+    private void BtnSelectNeoCdBios_Click(object sender, RoutedEventArgs e)
+    {
+        var path = OnRequestFilePath();
+        if (!string.IsNullOrEmpty(path))
         {
-            TxtRaineRomDirectory.Text = dialog.FolderName;
+            _viewModel.RaineNeoCdBios = path;
+        }
+    }
+
+    private void BtnSelectRaineRomDirectory_Click(object sender, RoutedEventArgs e)
+    {
+        var path = OnRequestFolderPath();
+        if (!string.IsNullOrEmpty(path))
+        {
+            _viewModel.RaineRomDirectory = path;
         }
     }
 }

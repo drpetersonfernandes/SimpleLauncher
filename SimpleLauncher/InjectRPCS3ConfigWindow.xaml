@@ -6,6 +6,9 @@
                       Height="750" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -23,11 +26,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_Renderer_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbRenderer" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_Renderer_Tooltip}">
-                                <ComboBoxItem Content="Vulkan" />
-                                <ComboBoxItem Content="OpenGL" />
-                                <ComboBoxItem Content="Null" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding RendererOptions}"
+                                      SelectedItem="{Binding Rpcs3Renderer}"
+                                      ToolTip="{DynamicResource RPCS3Config_Renderer_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -35,12 +37,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_Resolution_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbResolution" Grid.Column="1" IsEditable="True" ToolTip="{DynamicResource RPCS3Config_Resolution_Tooltip}">
-                                <ComboBoxItem Content="1280x720" />
-                                <ComboBoxItem Content="1920x1080" />
-                                <ComboBoxItem Content="2560x1440" />
-                                <ComboBoxItem Content="3840x2160" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1" IsEditable="True"
+                                      ItemsSource="{Binding ResolutionOptions}"
+                                      Text="{Binding Rpcs3Resolution}"
+                                      ToolTip="{DynamicResource RPCS3Config_Resolution_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -48,11 +48,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_AspectRatio_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAspectRatio" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_AspectRatio_Tooltip}">
-                                <ComboBoxItem Content="16:9" />
-                                <ComboBoxItem Content="4:3" />
-                                <ComboBoxItem Content="Auto" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AspectRatioOptions}"
+                                      SelectedItem="{Binding Rpcs3AspectRatio}"
+                                      ToolTip="{DynamicResource RPCS3Config_AspectRatio_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -60,12 +59,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_ResolutionScale_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbResolutionScale" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_ResolutionScale_Tooltip}">
-                                <ComboBoxItem Content="100" />
-                                <ComboBoxItem Content="150" />
-                                <ComboBoxItem Content="200" />
-                                <ComboBoxItem Content="300" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ResolutionScaleOptions}"
+                                      SelectedItem="{Binding Rpcs3ResolutionScale}"
+                                      ToolTip="{DynamicResource RPCS3Config_ResolutionScale_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -73,15 +70,12 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_AnisotropicFilter_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAnisotropicFilter" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_AnisotropicFilter_Tooltip}">
-                                <ComboBoxItem Content="0" ToolTip="Disabled" />
-                                <ComboBoxItem Content="2" />
-                                <ComboBoxItem Content="4" />
-                                <ComboBoxItem Content="8" />
-                                <ComboBoxItem Content="16" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AnisotropicFilterOptions}"
+                                      SelectedItem="{Binding Rpcs3AnisotropicFilter}"
+                                      ToolTip="{DynamicResource RPCS3Config_AnisotropicFilter_Tooltip}" />
                         </Grid>
-                        <CheckBox x:Name="ChkVsync" Content="{DynamicResource RPCS3Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3Vsync}" Content="{DynamicResource RPCS3Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_Vsync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -94,11 +88,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_PpuDecoder_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbPpuDecoder" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_PpuDecoder_Tooltip}">
-                                <ComboBoxItem Content="Recompiler (LLVM)" />
-                                <ComboBoxItem Content="Interpreter (static)" />
-                                <ComboBoxItem Content="Interpreter (dynamic)" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding PpuDecoderOptions}"
+                                      SelectedItem="{Binding Rpcs3PpuDecoder}"
+                                      ToolTip="{DynamicResource RPCS3Config_PpuDecoder_Tooltip}" />
                         </Grid>
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
@@ -106,12 +99,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_SpuDecoder_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbSpuDecoder" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_SpuDecoder_Tooltip}">
-                                <ComboBoxItem Content="Recompiler (LLVM)" />
-                                <ComboBoxItem Content="Recompiler (ASMJIT)" />
-                                <ComboBoxItem Content="Interpreter (static)" />
-                                <ComboBoxItem Content="Interpreter (dynamic)" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding SpuDecoderOptions}"
+                                      SelectedItem="{Binding Rpcs3SpuDecoder}"
+                                      ToolTip="{DynamicResource RPCS3Config_SpuDecoder_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -125,20 +116,19 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RPCS3Config_AudioRenderer_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbAudioRenderer" Grid.Column="1" ToolTip="{DynamicResource RPCS3Config_AudioRenderer_Tooltip}">
-                                <ComboBoxItem Content="Cubeb" />
-                                <ComboBoxItem Content="XAudio2" />
-                                <ComboBoxItem Content="Null" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding AudioRendererOptions}"
+                                      SelectedItem="{Binding Rpcs3AudioRenderer}"
+                                      ToolTip="{DynamicResource RPCS3Config_AudioRenderer_Tooltip}" />
                         </Grid>
-                        <CheckBox x:Name="ChkAudioBuffering" Content="{DynamicResource RPCS3Config_AudioBuffering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_AudioBuffering_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3AudioBuffering}" Content="{DynamicResource RPCS3Config_AudioBuffering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_AudioBuffering_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Miscellaneous Section -->
                 <GroupBox Header="{DynamicResource RPCS3Config_Misc_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkStartFullscreen" Content="{DynamicResource RPCS3Config_StartFullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_StartFullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3StartFullscreen}" Content="{DynamicResource RPCS3Config_StartFullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_StartFullscreen_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -146,7 +136,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource RPCS3Config_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RPCS3Config_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3ShowSettingsBeforeLaunch}" Content="{DynamicResource RPCS3Config_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RPCS3Config_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -156,11 +146,12 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource RPCS3Config_Save_Button}"
                     Style="{DynamicResource DialogSecondaryButtonStyle}"
-                    Click="BtnSave_Click"
+                    Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource RPCS3Config_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource RPCS3Config_Run_Button2}"
                     Style="{DynamicResource DialogPrimaryButtonStyle}"
-                    Click="BtnRun_Click" IsDefault="True"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource RPCS3Config_Run_Tooltip}" />
             <Button Content="{DynamicResource RPCS3Config_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

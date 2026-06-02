@@ -166,6 +166,8 @@
     <system:String x:Key="BaseTheme">Tema base</system:String>
     <system:String x:Key="Batchfilefailed">El archivo por lotes no se pudo ejecutar.</system:String>
     <system:String x:Key="Batchfilefailedexplanation">Esto suele significar que una ruta referenciada dentro del archivo por lotes ya no existe o es incorrecta.</system:String>
+    <system:String x:Key="Batchfilepathsmissing">El archivo por lotes hace referencia a rutas que no existen:</system:String>
+    <system:String x:Key="Batchfilepathsmissingexplanation">Esto puede hacer que el archivo por lotes falle. Es posible que no se detecten todas las rutas; esta es una verificación de mejor esfuerzo.</system:String>
     <system:String x:Key="Big">Grande</system:String>
     <system:String x:Key="BlastemConfigurationSavedSuccessfully">Configuración de Blastem guardada correctamente.</system:String>
     <system:String x:Key="BlastemConfig_Aspect_Label">Relación de Aspecto:</system:String>
@@ -421,6 +423,7 @@
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">¿Desea reinstalar automáticamente 'Simple Launcher' para resolver el problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">¿Desea reinstalar automáticamente 'Simple Launcher' para solucionarlo?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">¿Desea reinstalar automáticamente 'Simple Launcher' para solucionarlo?</system:String>
+    <system:String x:Key="Doyouwanttocontinueanyway">¿Desea continuar de todos modos?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisEntry">¿Desea eliminar esta entrada del historial de juego?</system:String>
     <system:String x:Key="DoYouWantToDeleteThisFavorite">¿Desea eliminar este favorito de la lista?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">¿Desea descargar e instalar automáticamente la última versión?</system:String>
@@ -551,6 +554,7 @@
     <system:String x:Key="Erroropeningthedownloadlink">Error al abrir el enlace de descarga.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error al abrir la ventana de Historial de Actualizaciones.</system:String>
     <system:String x:Key="ErrorOpeningVideoLink">Error al abrir el enlace de video.</system:String>
+    <system:String x:Key="ErrorProcessingRequest">Hubo un error al procesar su solicitud.</system:String>
     <system:String x:Key="errorSettingSoundFile">Error al elegir o copiar el archivo de sonido.</system:String>
     <system:String x:Key="EssentialsHeader">Esenciales</system:String>
     <system:String x:Key="ExecutingSearch">Ejecutando búsqueda...</system:String>
@@ -1098,6 +1102,12 @@
     <system:String x:Key="outof">de</system:String>
     <system:String x:Key="OverlayButtonIcon">Botón de superposición</system:String>
     <system:String x:Key="OverlayButtonSettings">Configuración de botones de superposición</system:String>
+    <system:String x:Key="ParameterResolverConfirmApply">¿Desea aplicar este parámetro sugerido?</system:String>
+    <system:String x:Key="ParameterResolverEnterEmulatorName">Por favor, introduzca primero un nombre de emulador.</system:String>
+    <system:String x:Key="ParameterResolverError">Error</system:String>
+    <system:String x:Key="ParameterResolverLoading">Resolviendo parámetros, por favor espere...</system:String>
+    <system:String x:Key="ParameterResolverNotConfigured">El resolvedor de parámetros no está configurado. Por favor, compruebe la clave API.</system:String>
+    <system:String x:Key="ParameterResolverSuccess">Sugerencia de Parámetro</system:String>
     <system:String x:Key="ParentGame">Juego padre:</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulación potencial de ruta detectada</system:String>
     <system:String x:Key="PathToRomsWatermark">Ruta a las ROMs...</system:String>
@@ -1725,6 +1735,7 @@
     <system:String x:Key="StellaSettings">Ajustes de Stella</system:String>
     <system:String x:Key="StopDownload">Detener descarga</system:String>
     <system:String x:Key="Success">Éxito</system:String>
+    <system:String x:Key="SuggestParameters">Sugerir</system:String>
     <system:String x:Key="Supermodelconfigurationsavedsuccessfully">Configuración de Supermodel guardada correctamente.</system:String>
     <system:String x:Key="SupermodelConfig_Audio_Header">Audio</system:String>
     <system:String x:Key="SupermodelConfig_Cancel_Button">Cancelar</system:String>
@@ -1835,6 +1846,7 @@
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="ThemeIcon">Tema</system:String>
     <system:String x:Key="Thename">El nombre</system:String>
+    <system:String x:Key="Theprogramlaunchedbythisbatch">El programa iniciado por este archivo por lotes puede haber fallado o terminado inesperadamente. Los códigos de salida negativos suelen indicar fallos a nivel del sistema.</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Hay una actualización de software disponible.</system:String>
     <system:String x:Key="Thereisnocabinetfile">No hay un archivo de gabinete asociado con este juego.</system:String>
     <system:String x:Key="Thereisnocartfile">No hay un archivo de cartucho asociado con este juego.</system:String>
@@ -2096,6 +2108,7 @@
     <system:String x:Key="TooltipStatusBarText">Mensaje de estado actual</system:String>
     <system:String x:Key="TooltipStopDownload">Cancelar la operación de descarga actual</system:String>
     <system:String x:Key="TooltipStopImageDownload">Cancelar la descarga del paquete de imágenes</system:String>
+    <system:String x:Key="TooltipSuggestParameters">Usar IA para sugerir el mejor parámetro para este emulador</system:String>
     <system:String x:Key="TooltipSupportDetails">Describe tu problema o pregunta en detalle</system:String>
     <system:String x:Key="TooltipSystemFolderRequiredLabel">Carpeta que contiene los archivos ROM o ISO para este sistema</system:String>
     <system:String x:Key="TooltipSystemImageFolderOptionalLabel">Carpeta opcional que contiene imágenes de portada para este sistema</system:String>

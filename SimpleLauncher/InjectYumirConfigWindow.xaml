@@ -1,4 +1,3 @@
-<!-- File: SimpleLauncher\InjectYumirConfigWindow.xaml -->
 <controls:MetroWindow x:Class="SimpleLauncher.InjectYumirConfigWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +6,9 @@
                       Height="650" Width="700"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -18,9 +20,9 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource YumirConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkFullscreen" Content="{DynamicResource YumirConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_Fullscreen_Tooltip}" />
-                        <CheckBox x:Name="ChkForceAspect" Content="{DynamicResource YumirConfig_ForceAspect_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_ForceAspect_Tooltip}" />
-                        <CheckBox x:Name="ChkReduceLatency" Content="{DynamicResource YumirConfig_ReduceLatency_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_ReduceLatency_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirFullscreen}" Content="{DynamicResource YumirConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirForceAspectRatio}" Content="{DynamicResource YumirConfig_ForceAspect_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_ForceAspect_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirReduceLatency}" Content="{DynamicResource YumirConfig_ReduceLatency_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_ReduceLatency_Tooltip}" />
 
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
@@ -28,10 +30,10 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource YumirConfig_ForcedAspect_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbForcedAspect" Grid.Column="1" ToolTip="{DynamicResource YumirConfig_ForcedAspect_Tooltip}">
-                                <ComboBoxItem Content="16:9 (1.77)" Tag="1.7777777777777777" />
-                                <ComboBoxItem Content="4:3 (1.33)" Tag="1.3333333333333333" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding ForcedAspectOptions}"
+                                      SelectedItem="{Binding YumirForcedAspect}"
+                                      ToolTip="{DynamicResource YumirConfig_ForcedAspect_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -39,28 +41,28 @@
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource YumirConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkMute" Content="{DynamicResource YumirConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_Mute_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirMute}" Content="{DynamicResource YumirConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_Mute_Tooltip}" />
                         <Label Content="{DynamicResource YumirConfig_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider x:Name="SldVolume" Minimum="0.0" Maximum="1.0" IsSnapToTickEnabled="True" TickFrequency="0.05" ToolTip="{DynamicResource YumirConfig_Volume_Tooltip}" />
+                        <Slider Value="{Binding YumirVolume}" Minimum="0.0" Maximum="1.0" IsSnapToTickEnabled="True" TickFrequency="0.05" ToolTip="{DynamicResource YumirConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
                 <GroupBox Header="{DynamicResource YumirConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox x:Name="ChkAutoRegion" Content="{DynamicResource YumirConfig_AutoRegion_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_AutoRegion_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirAutoDetectRegion}" Content="{DynamicResource YumirConfig_AutoRegion_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_AutoRegion_Tooltip}" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource YumirConfig_VideoStandard_Label}" VerticalAlignment="Center" />
-                            <ComboBox x:Name="CmbVideoStandard" Grid.Column="1" ToolTip="{DynamicResource YumirConfig_VideoStandard_Tooltip}">
-                                <ComboBoxItem Content="PAL" />
-                                <ComboBoxItem Content="NTSC" />
-                            </ComboBox>
+                            <ComboBox Grid.Column="1"
+                                      ItemsSource="{Binding VideoStandardOptions}"
+                                      SelectedItem="{Binding YumirVideoStandard}"
+                                      ToolTip="{DynamicResource YumirConfig_VideoStandard_Tooltip}" />
                         </Grid>
-                        <CheckBox x:Name="ChkPauseUnfocused" Content="{DynamicResource YumirConfig_PauseUnfocused_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_PauseUnfocused_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirPauseWhenUnfocused}" Content="{DynamicResource YumirConfig_PauseUnfocused_Checkbox}" Margin="0,5" ToolTip="{DynamicResource YumirConfig_PauseUnfocused_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -68,7 +70,7 @@
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox x:Name="ChkShowBeforeLaunch" Content="{DynamicResource YumirConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource YumirConfig_ShowBeforeLaunch_Tooltip}" />
+                        <CheckBox IsChecked="{Binding YumirShowSettingsBeforeLaunch}" Content="{DynamicResource YumirConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -76,10 +78,13 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave" Content="{DynamicResource YumirConfig_Save_Button}"
-                    Style="{DynamicResource DialogSecondaryButtonStyle}" Click="BtnSave_Click"
+                    Style="{DynamicResource DialogSecondaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
                     ToolTip="{DynamicResource YumirConfig_Save_Tooltip}" />
             <Button x:Name="BtnRun" Content="{DynamicResource YumirConfig_Run_Button2}"
-                    Style="{DynamicResource DialogPrimaryButtonStyle}" Click="BtnRun_Click" IsDefault="True"
+                    Style="{DynamicResource DialogPrimaryButtonStyle}"
+                    Command="{Binding RunCommand}" IsDefault="True"
+                    Visibility="{Binding IsLauncherMode, Converter={StaticResource BooleanToVisibilityConverter}}"
                     ToolTip="{DynamicResource YumirConfig_Run_Tooltip}" />
             <Button Content="{DynamicResource YumirConfig_Cancel_Button}"
                     Style="{DynamicResource DialogCancelButtonStyle}"

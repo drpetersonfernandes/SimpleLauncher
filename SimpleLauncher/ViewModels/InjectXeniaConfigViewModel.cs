@@ -1,0 +1,229 @@
+using System.IO;
+using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.SettingsManager;
+
+namespace SimpleLauncher.ViewModels;
+
+public partial class InjectXeniaConfigViewModel : ObservableObject
+{
+    private readonly SettingsManager _settings;
+    private readonly ILogErrors _logErrors;
+    private string _emulatorPath;
+
+    [ObservableProperty] private string _xeniaGpu;
+    [ObservableProperty] private bool _xeniaVsync;
+    [ObservableProperty] private bool _xeniaFullscreen;
+    [ObservableProperty] private int _xeniaResScaleX;
+    [ObservableProperty] private int _xeniaResScaleY;
+    [ObservableProperty] private string _xeniaAa;
+    [ObservableProperty] private string _xeniaScaling;
+    [ObservableProperty] private string _xeniaReadbackResolve;
+    [ObservableProperty] private bool _xeniaGammaSrgb;
+    [ObservableProperty] private string _xeniaApu;
+    [ObservableProperty] private bool _xeniaMute;
+    [ObservableProperty] private bool _xeniaMountCache;
+    [ObservableProperty] private bool _xeniaVibration;
+    [ObservableProperty] private bool _xeniaApplyPatches;
+    [ObservableProperty] private string _xeniaHid;
+    [ObservableProperty] private int _xeniaUserLanguage;
+    [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
+
+    public InjectXeniaConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    {
+        _settings = settings;
+        _emulatorPath = emulatorPath;
+        IsLauncherMode = isLauncherMode;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+
+        LoadSettings();
+    }
+
+    public List<string> GpuOptions { get; } = ["d3d12", "vulkan", "null"];
+    public List<string> ResScaleOptions { get; } = ["1", "2", "3"];
+
+    public List<TagOption> AaOptions { get; } =
+    [
+        new("", "None"),
+        new("fxaa", "FXAA"),
+        new("fxaa_extreme", "FXAA Extreme")
+    ];
+
+    public List<string> ScalingOptions { get; } = ["fsr", "cas", "bilinear"];
+    public List<string> ReadbackOptions { get; } = ["none", "fast", "full"];
+    public List<string> ApuOptions { get; } = ["xaudio2", "sdl", "nop", "any"];
+    public List<string> HidOptions { get; } = ["xinput", "sdl", "winkey", "any"];
+
+    public List<TagOption> LangOptions { get; } =
+    [
+        new("1", "English"),
+        new("2", "Japanese"),
+        new("3", "German"),
+        new("4", "French"),
+        new("5", "Spanish"),
+        new("6", "Italian"),
+        new("7", "Korean"),
+        new("8", "Chinese"),
+        new("9", "Portuguese")
+    ];
+
+    public bool IsLauncherMode { get; }
+
+    public bool ShouldRun { get; private set; }
+
+    public event Action CloseRequested;
+    public event Func<string> RequestEmulatorPath;
+    public event Func<Window> GetOwnerWindow;
+
+    private void LoadSettings()
+    {
+        XeniaGpu = _settings.XeniaGpu;
+        XeniaVsync = _settings.XeniaVsync;
+        XeniaFullscreen = _settings.XeniaFullscreen;
+        XeniaResScaleX = _settings.XeniaResScaleX;
+        XeniaResScaleY = _settings.XeniaResScaleY;
+        XeniaAa = _settings.XeniaAa;
+        XeniaScaling = _settings.XeniaScaling;
+        XeniaReadbackResolve = _settings.XeniaReadbackResolve;
+        XeniaGammaSrgb = _settings.XeniaGammaSrgb;
+        XeniaApu = _settings.XeniaApu;
+        XeniaMute = _settings.XeniaMute;
+        XeniaMountCache = _settings.XeniaMountCache;
+        XeniaVibration = _settings.XeniaVibration;
+        XeniaApplyPatches = _settings.XeniaApplyPatches;
+        XeniaHid = _settings.XeniaHid;
+        XeniaUserLanguage = _settings.XeniaUserLanguage;
+        XeniaShowSettingsBeforeLaunch = _settings.XeniaShowSettingsBeforeLaunch;
+    }
+
+    private void SaveSettings()
+    {
+        _settings.XeniaGpu = XeniaGpu;
+        _settings.XeniaVsync = XeniaVsync;
+        _settings.XeniaFullscreen = XeniaFullscreen;
+        _settings.XeniaResScaleX = XeniaResScaleX;
+        _settings.XeniaResScaleY = XeniaResScaleY;
+        _settings.XeniaAa = XeniaAa;
+        _settings.XeniaScaling = XeniaScaling;
+        _settings.XeniaReadbackResolve = XeniaReadbackResolve;
+        _settings.XeniaGammaSrgb = XeniaGammaSrgb;
+        _settings.XeniaApu = XeniaApu;
+        _settings.XeniaMute = XeniaMute;
+        _settings.XeniaMountCache = XeniaMountCache;
+        _settings.XeniaVibration = XeniaVibration;
+        _settings.XeniaApplyPatches = XeniaApplyPatches;
+        _settings.XeniaHid = XeniaHid;
+        _settings.XeniaUserLanguage = XeniaUserLanguage;
+        _settings.XeniaShowSettingsBeforeLaunch = XeniaShowSettingsBeforeLaunch;
+
+        _settings.Save();
+    }
+
+    private string EnsureEmulatorPath()
+    {
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
+        {
+            return _emulatorPath;
+        }
+
+        var resolved = EmulatorPathResolver.TryFindEmulatorPath("Xenia", _logErrors);
+        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
+        {
+            _emulatorPath = resolved;
+            return _emulatorPath;
+        }
+
+        MessageBoxLibrary.XeniaemulatorpathnotfoundMessageBox();
+
+        var result = RequestEmulatorPath?.Invoke();
+        if (string.IsNullOrEmpty(result)) return null;
+
+        _emulatorPath = result;
+        return _emulatorPath;
+    }
+
+    private bool InjectConfig()
+    {
+        var path = EnsureEmulatorPath();
+        if (string.IsNullOrEmpty(path))
+            throw new OperationCanceledException("User cancelled emulator path selection.");
+
+        try
+        {
+            XeniaConfigurationService.InjectSettings(path, _settings, _logErrors);
+            return true;
+        }
+        catch (InvalidOperationException ex)
+        {
+            _logErrors.LogErrorAsync(ex, $"Xenia configuration injection failed for path: {path}");
+            return false;
+        }
+    }
+
+    [RelayCommand]
+    private void Run()
+    {
+        SaveSettings();
+        try
+        {
+            if (InjectConfig())
+            {
+                ShouldRun = true;
+                CloseRequested?.Invoke();
+            }
+            else
+            {
+                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                CloseRequested?.Invoke();
+                ShouldRun = true;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            CloseRequested?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectXeniaConfigWindow));
+            var window = GetOwnerWindow?.Invoke();
+            InjectionErrorHandler.HandleRunButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+            ShouldRun = true;
+        }
+    }
+
+    [RelayCommand]
+    private void Save()
+    {
+        SaveSettings();
+        try
+        {
+            if (InjectConfig())
+            {
+                MessageBoxLibrary.XeniaconfigurationinjectedsuccessfullyMessageBox();
+                CloseRequested?.Invoke();
+            }
+            else
+            {
+                MessageBoxLibrary.InjectionFailedGenericMessageBox();
+                CloseRequested?.Invoke();
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            CloseRequested?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectXeniaConfigWindow));
+            var window = GetOwnerWindow?.Invoke();
+            InjectionErrorHandler.HandleSaveButtonFailure(_logErrors, ex, emulatorName, _emulatorPath, window);
+        }
+    }
+}
+
+public record TagOption(string Tag, string Display);
