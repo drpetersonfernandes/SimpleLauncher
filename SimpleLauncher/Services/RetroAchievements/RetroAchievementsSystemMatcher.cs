@@ -100,7 +100,10 @@ public static class RetroAchievementsSystemMatcher
         ["arduboy"] = new RaSystemInfo(71, ["arduboy"]),
         ["wasm-4"] = new RaSystemInfo(72, ["wasm-4"]),
         ["pc-8000/8800"] = new RaSystemInfo(47, ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"]),
-        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]", "C64 - Ultimate Tape Archive", "C64 - Floppy [Scene Collection]"]),
+        ["commodore 64"] = new RaSystemInfo(30, [
+            "commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - OneLoad64 Collection",
+            "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]", "C64 - Ultimate Tape Archive", "C64 - Floppy [Scene Collection]"
+        ]),
         ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
         ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
         ["fairchild channel f"] = new RaSystemInfo(57, ["fairchild channel f", "channel f"]),
@@ -145,11 +148,12 @@ public static class RetroAchievementsSystemMatcher
             "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade",
             "Atari 5200", "Super ACan", "Mattel Aquarius", "LaserDisk",
             "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate",
-            "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes", "Acorn BBC Micro",
+            "Bandai RX-78", "Apple Mac", "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes", "Acorn BBC Micro", "Archimedes",
             "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD", "ra", "FBA2", "FBA",
             "Bally Astrocade", "unsupported", "Build Engine", "Elektronika BK-001-411", "PC-Port", "Nintendo Game and Watch",
             "Namco 2x6", "FBN", "J2ME", "NEC PC-88", "CGenius", "NEC PC88", "Fujitsu FM-7", "Fairchild Channel-F", "Exelvision EX100",
-            "Enterprise 64-128", "Capcom Medalusion"
+            "Enterprise 64-128", "Capcom Medalusion", "Sharp MZ-700", "Gakken Compact Vision", "Gamepark GP32", "Exidy Sorcerer",
+            "Cybiko", "Mophun"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
         ["DOS"] = new RaSystemInfo(26, ["dos", "microsoft dos"]),

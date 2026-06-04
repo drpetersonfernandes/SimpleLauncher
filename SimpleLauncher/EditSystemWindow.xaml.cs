@@ -886,6 +886,10 @@ internal partial class EditSystemWindow : ILoadingState
         suggestButton.IsEnabled = false;
         Mouse.OverrideCursor = Cursors.Wait;
 
+        var loadingMessage = (string)Application.Current.TryFindResource("ParameterResolverLoading") ?? "Resolving parameters, please wait...";
+        LoadingOverlay.Content = loadingMessage;
+        LoadingOverlay.Visibility = Visibility.Visible;
+
         try
         {
             var request = new
@@ -902,7 +906,7 @@ internal partial class EditSystemWindow : ILoadingState
                 CurrentParameters = currentParameters?.Trim()
             };
 
-            var apiKey = _configuration["ParameterResolver:ApiKey"] ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
+            var apiKey = _configuration["ApiKey"];
 
             var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
             var client = httpClientFactory.CreateClient("ParameterResolverClient");
@@ -949,6 +953,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         finally
         {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
             suggestButton.IsEnabled = true;
             Mouse.OverrideCursor = null;
         }
