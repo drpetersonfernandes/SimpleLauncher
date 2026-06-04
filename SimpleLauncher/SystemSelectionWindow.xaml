@@ -17,25 +17,26 @@
                        FontWeight="Bold"
                        Margin="0,0,0,5" />
 
-<ComboBox x:Name="SystemComboBox"
-Margin="0,0,0,30"
-ToolTip="{DynamicResource TooltipChooseSystemForGame}" />
+            <ComboBox ItemsSource="{Binding Systems}"
+                      SelectedItem="{Binding SelectedSystem}"
+                      Margin="0,0,0,30"
+                      ToolTip="{DynamicResource TooltipChooseSystemForGame}" />
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-<Button Content="{DynamicResource ConfirmSelectionButton}"
-Click="Confirm_Click"
-IsDefault="True"
-Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-Margin="0,0,10,0"
-Width="120"
-ToolTip="{DynamicResource TooltipConfirmSelection}" />
+                <Button Content="{DynamicResource ConfirmSelectionButton}"
+                        Command="{Binding ConfirmCommand}"
+                        IsDefault="True"
+                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                        Margin="0,0,10,0"
+                        Width="120"
+                        ToolTip="{DynamicResource TooltipConfirmSelection}" />
 
-<Button Content="{DynamicResource Cancel}"
-Click="Cancel_Click"
-IsCancel="True"
-Style="{DynamicResource MahApps.Styles.Button.Square}"
-Width="80"
-ToolTip="{DynamicResource ToolTipCancel}" />
+                <Button Content="{DynamicResource Cancel}"
+                        Command="{Binding CancelCommand}"
+                        IsCancel="True"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
+                        Width="80"
+                        ToolTip="{DynamicResource ToolTipCancel}" />
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -1,33 +1,28 @@
-using System.Windows.Controls;
-using SimpleLauncher.Services.TakeScreenshot.Models;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class WindowSelectionDialogWindow
 {
-    public IntPtr SelectedWindowHandle { get; private set; } = IntPtr.Zero;
+    private readonly WindowSelectionDialogViewModel _viewModel;
 
     public WindowSelectionDialogWindow(IEnumerable<(IntPtr Handle, string Title)> windows)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        // Populate the ListBox with the window data
-        foreach (var window in windows.Where(static window => !string.IsNullOrWhiteSpace(window.Title)))
+        _viewModel = new WindowSelectionDialogViewModel(windows);
+        _viewModel.DialogResultRequested += result =>
         {
-            WindowsListBox.Items.Add(new WindowItem { Title = window.Title, Handle = window.Handle });
-        }
+            DialogResult = result;
+            Close();
+        };
+
+        DataContext = _viewModel;
 
         // Set default DialogResult to false
         Closed += (_, _) => { DialogResult ??= false; };
     }
 
-    private void WindowsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (WindowsListBox.SelectedItem is not WindowItem selectedItem) return;
-
-        SelectedWindowHandle = selectedItem.Handle;
-        DialogResult = true; // Only works after ShowDialog() is called
-        Close();
-    }
+    public IntPtr SelectedWindowHandle => _viewModel.SelectedWindowHandle;
 }

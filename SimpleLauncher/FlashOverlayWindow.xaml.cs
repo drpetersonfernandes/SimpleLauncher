@@ -1,13 +1,21 @@
 using System.Windows;
 using System.Windows.Media.Animation;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class FlashOverlayWindow
 {
+    private readonly FlashOverlayViewModel _viewModel;
+
     public FlashOverlayWindow()
     {
         InitializeComponent();
+
+        _viewModel = new FlashOverlayViewModel();
+        _viewModel.CloseRequested += Close;
+
+        DataContext = _viewModel;
     }
 
     public async Task ShowFlashAsync()
@@ -34,6 +42,6 @@ public partial class FlashOverlayWindow
         await Task.Delay(600);
 
         // Close the window after the flash
-        Close();
+        _viewModel.OnAnimationCompleted();
     }
 }

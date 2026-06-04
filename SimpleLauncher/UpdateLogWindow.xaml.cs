@@ -1,19 +1,25 @@
+using SimpleLauncher.ViewModels;
+
 namespace SimpleLauncher;
 
 public partial class UpdateLogWindow
 {
+    private readonly UpdateLogViewModel _viewModel;
+
     public UpdateLogWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+
+        _viewModel = new UpdateLogViewModel();
+        DataContext = _viewModel;
     }
 
     public void Log(string message)
     {
         Dispatcher.Invoke(() =>
         {
-            LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
-            LogTextBox.ScrollToEnd();
+            _viewModel.AppendLog(message);
         });
     }
 }

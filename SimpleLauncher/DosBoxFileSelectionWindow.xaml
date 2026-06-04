@@ -26,7 +26,8 @@
 
         <ListBox x:Name="FileListBox"
                  Grid.Row="1"
-                 SelectionChanged="FileListBox_SelectionChanged"
+                 ItemsSource="{Binding FileItems}"
+                 SelectedItem="{Binding SelectedItem}"
                  MouseDoubleClick="FileListBox_MouseDoubleClick"
                  Margin="10,0"
                  Padding="5"
@@ -39,12 +40,11 @@
                         <TextBlock Text="{Binding DisplayName}"
                                    Margin="5,2,5,2"
                                    FontSize="14"
-                                   FontWeight="SemiBold" d:DataContext="{d:DesignInstance }" />
+                                   FontWeight="SemiBold" />
                         <TextBlock Text="{Binding RelativePath}"
                                    Margin="5,0,5,2"
                                    FontSize="11"
-                                   Foreground="{DynamicResource MahApps.Brushes.Gray}"
-                                   d:DataContext="{d:DesignInstance }" />
+                                   Foreground="{DynamicResource MahApps.Brushes.Gray}" />
                         <Separator Margin="5,2" />
                     </StackPanel>
                 </DataTemplate>
@@ -52,17 +52,15 @@
         </ListBox>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,15,10,5">
-            <Button x:Name="CancelButton"
-                    Content="{DynamicResource Cancel}"
+            <Button Content="{DynamicResource Cancel}"
                     Margin="5,0"
-                    Click="CancelButton_Click"
+                    Command="{Binding CancelCommand}"
                     MinWidth="75" />
-            <Button x:Name="LaunchButton"
-                    Content="{DynamicResource DosBoxSelectFileLaunch}"
+            <Button Content="{DynamicResource DosBoxSelectFileLaunch}"
                     Margin="5,0"
-                    Click="LaunchButton_Click"
+                    Command="{Binding LaunchCommand}"
                     MinWidth="75"
-                    IsEnabled="False" />
+                    IsEnabled="{Binding IsLaunchEnabled}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

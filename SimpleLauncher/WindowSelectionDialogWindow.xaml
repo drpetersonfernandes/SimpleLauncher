@@ -9,8 +9,8 @@
                       Height="450"
                       ResizeMode="NoResize">
     <Grid Margin="10">
-        <ListBox x:Name="WindowsListBox"
-                 SelectionChanged="WindowsListBox_SelectionChanged"
+        <ListBox ItemsSource="{Binding WindowItems}"
+                 SelectedItem="{Binding SelectedItem}"
                  Margin="10"
                  Padding="5"
                  VerticalAlignment="Stretch"
@@ -22,7 +22,7 @@
                         <!-- Display Window Title -->
                         <TextBlock Text="{Binding Title}"
                                    Margin="5,2,5,2"
-                                   FontSize="14" d:DataContext="{d:DesignInstance }" />
+                                   FontSize="14" />
                         <!-- Separator Line -->
                         <Separator Margin="5,2" />
                     </StackPanel>

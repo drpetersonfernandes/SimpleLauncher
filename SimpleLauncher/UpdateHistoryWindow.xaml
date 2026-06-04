@@ -14,6 +14,7 @@
                                  Margin="10"
                                  VerticalAlignment="Top"
                                  HorizontalAlignment="Stretch"
+                                 Markdown="{Binding MarkdownContent}"
                                  MarkdownStyle="{StaticResource ThemeAwareMarkdownStyle}" />
     </Grid>
 </controls:MetroWindow>

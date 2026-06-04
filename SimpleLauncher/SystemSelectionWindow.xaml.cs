@@ -1,33 +1,24 @@
-using System.Windows;
-using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class SystemSelectionWindow
 {
-    public string SelectedSystem { get; private set; }
+    private readonly SystemSelectionViewModel _viewModel;
 
     public SystemSelectionWindow(string currentGuess)
     {
         InitializeComponent();
-        var systems = RetroAchievementsSystemMatcher.GetSupportedSystemNames();
-        SystemComboBox.ItemsSource = systems;
 
-        // Try to pre-select the guess if it exists in the list
-        SystemComboBox.SelectedItem = systems.FirstOrDefault(s => s.Equals(currentGuess, StringComparison.OrdinalIgnoreCase));
-    }
-
-    private void Confirm_Click(object sender, RoutedEventArgs e)
-    {
-        if (SystemComboBox.SelectedItem != null)
+        _viewModel = new SystemSelectionViewModel(currentGuess);
+        _viewModel.DialogResultRequested += result =>
         {
-            SelectedSystem = SystemComboBox.SelectedItem.ToString();
-            DialogResult = true; // This automatically closes the window
-        }
+            DialogResult = result;
+            Close();
+        };
+
+        DataContext = _viewModel;
     }
 
-    private void Cancel_Click(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-    }
+    public string SelectedSystem => _viewModel.SelectedSystem;
 }
