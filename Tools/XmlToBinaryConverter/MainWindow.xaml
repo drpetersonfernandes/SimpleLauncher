@@ -1,0 +1,113 @@
+﻿<Window x:Class="XmlToBinaryConverter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="XML to Binary Converter" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="80"/>
+        </Style>
+        
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,5,0,5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Menu -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Exit" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About" Click="About_Click"/>
+            </MenuItem>
+        </Menu>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Conversion Type -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                <TextBlock Text="Conversion Type:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="ConversionTypeComboBox" Margin="10,0,0,0" Width="150" 
+                         SelectionChanged="ConversionTypeComboBox_SelectionChanged">
+                    <ComboBoxItem IsSelected="True">XML to Binary</ComboBoxItem>
+                    <ComboBoxItem>Binary to XML</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            
+            <!-- Input File Selection -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Input File:" VerticalAlignment="Center" Margin="0,0,10,0"></TextBlock>
+                <TextBox x:Name="InputFilePathTextBox" Grid.Column="1" IsReadOnly="True"></TextBox>
+                <Button Grid.Column="2" Content="Browse..." Click="BrowseInput_Click"></Button>
+            </Grid>
+            
+            <!-- Output File Selection -->
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Output File:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox x:Name="OutputFilePathTextBox" Grid.Column="1" IsReadOnly="True"/>
+                <Button Grid.Column="2" Content="Browse..." Click="BrowseOutput_Click"/>
+            </Grid>
+            
+            <!-- Convert Button -->
+            <Button x:Name="ConvertButton" Grid.Row="3" Content="Convert" 
+                   HorizontalAlignment="Center" Margin="0,20,0,0" Width="150" Height="40"
+                   Click="Convert_Click"/>
+            
+            <!-- Processing Indicator -->
+            <StackPanel x:Name="ProcessingIndicator" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"
+                      Visibility="Collapsed">
+                <TextBlock Text="Converting..." HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <ProgressBar IsIndeterminate="True" Height="20" Width="200"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusMessageTextBlock" Text="Ready to convert"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
