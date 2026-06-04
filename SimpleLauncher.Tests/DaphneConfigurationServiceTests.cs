@@ -1,0 +1,233 @@
+using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
+using SimpleLauncher.Services.InjectEmulatorConfig;
+using SimpleLauncher.Services.SettingsManager;
+using SimpleLauncher.Tests.TestHelpers;
+using Xunit;
+
+namespace SimpleLauncher.Tests;
+
+public class DaphneConfigurationServiceTests : IDisposable
+{
+    private readonly IConfiguration _configuration;
+    private readonly ILogErrors _logErrors = new NoOpLogErrors();
+
+    public DaphneConfigurationServiceTests()
+    {
+        _configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                ["Urls:YouTubeSearch"] = "https://www.youtube.com/results?search_query=",
+                ["Urls:IgdbSearch"] = "https://www.igdb.com/search?q="
+            })
+            .Build();
+
+        ServiceProviderMock.Install();
+    }
+
+    public void Dispose()
+    {
+        ServiceProviderMock.Restore();
+        GC.SuppressFinalize(this);
+    }
+
+    private SettingsManager CreateSettingsManager()
+    {
+        return new SettingsManager(_configuration, _logErrors);
+    }
+
+    [Fact]
+    public void BuildArguments_NullSettings_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(static () => DaphneConfigurationService.BuildArguments(null));
+    }
+
+    [Fact]
+    public void BuildArguments_DefaultSettings_ContainsUseOverlays()
+    {
+        var settings = CreateSettingsManager();
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-use_overlays", args);
+    }
+
+    [Fact]
+    public void BuildArguments_FullscreenEnabled_ContainsFullscreenFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneFullscreen = true;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-fullscreen", args);
+    }
+
+    [Fact]
+    public void BuildArguments_FullscreenDisabled_OmitsFullscreenFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneFullscreen = false;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.DoesNotContain("-fullscreen", args);
+    }
+
+    [Fact]
+    public void BuildArguments_ValidResolution_ContainsXYArgs()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneResX = 1920;
+        settings.DaphneResY = 1080;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-x 1920", args);
+        Assert.Contains("-y 1080", args);
+    }
+
+    [Fact]
+    public void BuildArguments_ResolutionBelowMin_OmitsResolutionArgs()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneResX = 100; // Below 640 minimum
+        settings.DaphneResY = 100; // Below 480 minimum
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.DoesNotContain("-x", args);
+        Assert.DoesNotContain("-y", args);
+    }
+
+    [Fact]
+    public void BuildArguments_ResolutionAboveMax_OmitsResolutionArgs()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneResX = 9999; // Above 7680 maximum
+        settings.DaphneResY = 9999; // Above 4320 maximum
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.DoesNotContain("-x", args);
+        Assert.DoesNotContain("-y", args);
+    }
+
+    [Fact]
+    public void BuildArguments_CrosshairsDisabled_ContainsNoCrosshairsFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneDisableCrosshairs = true;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-nocrosshairs", args);
+    }
+
+    [Fact]
+    public void BuildArguments_CrosshairsEnabled_OmitsNoCrosshairsFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneDisableCrosshairs = false;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.DoesNotContain("-nocrosshairs", args);
+    }
+
+    [Fact]
+    public void BuildArguments_BilinearDisabled_ContainsNoLinearScaleFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneBilinear = false;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-nolinear_scale", args);
+    }
+
+    [Fact]
+    public void BuildArguments_BilinearEnabled_OmitsNoLinearScaleFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneBilinear = true;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.DoesNotContain("-nolinear_scale", args);
+    }
+
+    [Fact]
+    public void BuildArguments_SoundDisabled_ContainsNoSoundFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneEnableSound = false;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-nosound", args);
+    }
+
+    [Fact]
+    public void BuildArguments_SoundEnabled_OmitsNoSoundFlag()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneEnableSound = true;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.DoesNotContain("-nosound", args);
+    }
+
+    [Fact]
+    public void BuildArguments_OverlaysEnabled_ContainsUseOverlays1()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneUseOverlays = true;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-use_overlays 1", args);
+    }
+
+    [Fact]
+    public void BuildArguments_OverlaysDisabled_ContainsUseOverlays0()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneUseOverlays = false;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-use_overlays 0", args);
+    }
+
+    [Fact]
+    public void BuildArguments_AllOptionsEnabled_ContainsAllFlags()
+    {
+        var settings = CreateSettingsManager();
+        settings.DaphneFullscreen = true;
+        settings.DaphneResX = 1920;
+        settings.DaphneResY = 1080;
+        settings.DaphneDisableCrosshairs = true;
+        settings.DaphneBilinear = false;
+        settings.DaphneEnableSound = false;
+        settings.DaphneUseOverlays = true;
+
+        var args = DaphneConfigurationService.BuildArguments(settings);
+
+        Assert.Contains("-fullscreen", args);
+        Assert.Contains("-x 1920", args);
+        Assert.Contains("-y 1080", args);
+        Assert.Contains("-nocrosshairs", args);
+        Assert.Contains("-nolinear_scale", args);
+        Assert.Contains("-nosound", args);
+        Assert.Contains("-use_overlays 1", args);
+    }
+
+    private sealed class NoOpLogErrors : ILogErrors
+    {
+        public Task LogErrorAsync(Exception? ex, string? contextMessage = null)
+        {
+            return Task.CompletedTask;
+        }
+    }
+}
