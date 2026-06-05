@@ -56,7 +56,7 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
 
         var shouldRun = false;
 
-        if (context.Settings.BlastemShowSettingsBeforeLaunch)
+        if (context.Settings.Blastem.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

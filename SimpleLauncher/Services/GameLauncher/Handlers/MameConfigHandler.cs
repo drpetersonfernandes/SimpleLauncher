@@ -29,7 +29,7 @@ public class MameConfigHandler : IEmulatorConfigHandler
         var listOfSecondarySystemFolders = context.SystemManager.SystemFolders.ToArray();
 
         var shouldRun = true;
-        if (context.Settings.MameShowSettingsBeforeLaunch)
+        if (context.Settings.Mame.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

@@ -98,34 +98,34 @@ public partial class InjectAresConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        VideoDriver = _settings.AresVideoDriver;
-        Exclusive = _settings.AresExclusive;
-        Shader = _settings.AresShader;
-        Multiplier = _settings.AresMultiplier.ToString(CultureInfo.InvariantCulture);
-        AspectCorrection = _settings.AresAspectCorrection;
-        Mute = _settings.AresMute;
-        Volume = _settings.AresVolume;
-        FastBoot = _settings.AresFastBoot;
-        Rewind = _settings.AresRewind;
-        RunAhead = _settings.AresRunAhead;
-        AutoSaveMemory = _settings.AresAutoSaveMemory;
-        ShowBeforeLaunch = _settings.AresShowSettingsBeforeLaunch;
+        VideoDriver = _settings.Ares.VideoDriver;
+        Exclusive = _settings.Ares.Exclusive;
+        Shader = _settings.Ares.Shader;
+        Multiplier = _settings.Ares.Multiplier.ToString(CultureInfo.InvariantCulture);
+        AspectCorrection = _settings.Ares.AspectCorrection;
+        Mute = _settings.Ares.Mute;
+        Volume = _settings.Ares.Volume;
+        FastBoot = _settings.Ares.FastBoot;
+        Rewind = _settings.Ares.Rewind;
+        RunAhead = _settings.Ares.RunAhead;
+        AutoSaveMemory = _settings.Ares.AutoSaveMemory;
+        ShowBeforeLaunch = _settings.Ares.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.AresVideoDriver = VideoDriver;
-        _settings.AresExclusive = Exclusive;
-        _settings.AresShader = Shader;
-        _settings.AresMultiplier = int.Parse(Multiplier, CultureInfo.InvariantCulture);
-        _settings.AresAspectCorrection = AspectCorrection;
-        _settings.AresMute = Mute;
-        _settings.AresVolume = Volume;
-        _settings.AresFastBoot = FastBoot;
-        _settings.AresRewind = Rewind;
-        _settings.AresRunAhead = RunAhead;
-        _settings.AresAutoSaveMemory = AutoSaveMemory;
-        _settings.AresShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Ares.VideoDriver = VideoDriver;
+        _settings.Ares.Exclusive = Exclusive;
+        _settings.Ares.Shader = Shader;
+        _settings.Ares.Multiplier = int.Parse(Multiplier, CultureInfo.InvariantCulture);
+        _settings.Ares.AspectCorrection = AspectCorrection;
+        _settings.Ares.Mute = Mute;
+        _settings.Ares.Volume = Volume;
+        _settings.Ares.FastBoot = FastBoot;
+        _settings.Ares.Rewind = Rewind;
+        _settings.Ares.RunAhead = RunAhead;
+        _settings.Ares.AutoSaveMemory = AutoSaveMemory;
+        _settings.Ares.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

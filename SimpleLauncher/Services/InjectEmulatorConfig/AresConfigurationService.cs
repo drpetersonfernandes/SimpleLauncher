@@ -45,26 +45,26 @@ public static class AresConfigurationService
         {
             ["Video"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "Driver:", settings.AresVideoDriver },
-                { "Exclusive:", settings.AresExclusive.ToString().ToLowerInvariant() },
-                { "Shader:", settings.AresShader },
-                { "Multiplier:", settings.AresMultiplier.ToString(CultureInfo.InvariantCulture) },
-                { "Output:", settings.AresAspectCorrection }
+                { "Driver:", settings.Ares.VideoDriver },
+                { "Exclusive:", settings.Ares.Exclusive.ToString().ToLowerInvariant() },
+                { "Shader:", settings.Ares.Shader },
+                { "Multiplier:", settings.Ares.Multiplier.ToString(CultureInfo.InvariantCulture) },
+                { "Output:", settings.Ares.AspectCorrection }
             },
             ["Audio"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "Mute:", settings.AresMute.ToString().ToLowerInvariant() },
-                { "Volume:", settings.AresVolume.ToString("F1", CultureInfo.InvariantCulture) }
+                { "Mute:", settings.Ares.Mute.ToString().ToLowerInvariant() },
+                { "Volume:", settings.Ares.Volume.ToString("F1", CultureInfo.InvariantCulture) }
             },
             ["Boot"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "Fast:", settings.AresFastBoot.ToString().ToLowerInvariant() }
+                { "Fast:", settings.Ares.FastBoot.ToString().ToLowerInvariant() }
             },
             ["General"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "Rewind:", settings.AresRewind.ToString().ToLowerInvariant() },
-                { "RunAhead:", settings.AresRunAhead.ToString().ToLowerInvariant() },
-                { "AutoSaveMemory:", settings.AresAutoSaveMemory.ToString().ToLowerInvariant() }
+                { "Rewind:", settings.Ares.Rewind.ToString().ToLowerInvariant() },
+                { "RunAhead:", settings.Ares.RunAhead.ToString().ToLowerInvariant() },
+                { "AutoSaveMemory:", settings.Ares.AutoSaveMemory.ToString().ToLowerInvariant() }
             }
         };
 

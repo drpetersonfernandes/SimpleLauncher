@@ -74,26 +74,26 @@ public partial class InjectCemuConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Fullscreen = _settings.CemuFullscreen;
-        GraphicApi = _settings.CemuGraphicApi.ToString(CultureInfo.InvariantCulture);
-        Vsync = _settings.CemuVsync.ToString(CultureInfo.InvariantCulture);
-        AsyncCompile = _settings.CemuAsyncCompile;
-        Volume = _settings.CemuTvVolume;
-        Discord = _settings.CemuDiscordPresence;
-        Language = _settings.CemuConsoleLanguage.ToString(CultureInfo.InvariantCulture);
-        ShowBeforeLaunch = _settings.CemuShowSettingsBeforeLaunch;
+        Fullscreen = _settings.Cemu.Fullscreen;
+        GraphicApi = _settings.Cemu.GraphicApi.ToString(CultureInfo.InvariantCulture);
+        Vsync = _settings.Cemu.Vsync.ToString(CultureInfo.InvariantCulture);
+        AsyncCompile = _settings.Cemu.AsyncCompile;
+        Volume = _settings.Cemu.TvVolume;
+        Discord = _settings.Cemu.DiscordPresence;
+        Language = _settings.Cemu.ConsoleLanguage.ToString(CultureInfo.InvariantCulture);
+        ShowBeforeLaunch = _settings.Cemu.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.CemuFullscreen = Fullscreen;
-        _settings.CemuGraphicApi = int.Parse(GraphicApi, CultureInfo.InvariantCulture);
-        _settings.CemuVsync = int.Parse(Vsync, CultureInfo.InvariantCulture);
-        _settings.CemuAsyncCompile = AsyncCompile;
-        _settings.CemuTvVolume = Volume;
-        _settings.CemuDiscordPresence = Discord;
-        _settings.CemuConsoleLanguage = int.Parse(Language, CultureInfo.InvariantCulture);
-        _settings.CemuShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Cemu.Fullscreen = Fullscreen;
+        _settings.Cemu.GraphicApi = int.Parse(GraphicApi, CultureInfo.InvariantCulture);
+        _settings.Cemu.Vsync = int.Parse(Vsync, CultureInfo.InvariantCulture);
+        _settings.Cemu.AsyncCompile = AsyncCompile;
+        _settings.Cemu.TvVolume = Volume;
+        _settings.Cemu.DiscordPresence = Discord;
+        _settings.Cemu.ConsoleLanguage = int.Parse(Language, CultureInfo.InvariantCulture);
+        _settings.Cemu.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
         _settings.Save();
     }
 

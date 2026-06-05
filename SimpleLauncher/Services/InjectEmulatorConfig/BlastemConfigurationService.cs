@@ -45,13 +45,13 @@ public static partial class BlastemConfigurationService
 
         var updates = new Dictionary<string, string>
         {
-            { "fullscreen", settings.BlastemFullscreen ? "on" : "off" },
-            { "vsync", settings.BlastemVsync ? "on" : "off" },
-            { "aspect", settings.BlastemAspect },
-            { "scaling", settings.BlastemScaling },
-            { "scanlines", settings.BlastemScanlines ? "on" : "off" },
-            { "rate", settings.BlastemAudioRate.ToString(CultureInfo.InvariantCulture) },
-            { "sync_source", settings.BlastemSyncSource }
+            { "fullscreen", settings.Blastem.Fullscreen ? "on" : "off" },
+            { "vsync", settings.Blastem.Vsync ? "on" : "off" },
+            { "aspect", settings.Blastem.Aspect },
+            { "scaling", settings.Blastem.Scaling },
+            { "scanlines", settings.Blastem.Scanlines ? "on" : "off" },
+            { "rate", settings.Blastem.AudioRate.ToString(CultureInfo.InvariantCulture) },
+            { "sync_source", settings.Blastem.SyncSource }
         };
 
         var lines = File.ReadAllLines(configPath, new UTF8Encoding(false)).ToList();

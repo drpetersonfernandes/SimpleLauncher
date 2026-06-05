@@ -27,7 +27,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
         var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var shouldRun = false;
 
-        if (context.Settings.AresShowSettingsBeforeLaunch)
+        if (context.Settings.Ares.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

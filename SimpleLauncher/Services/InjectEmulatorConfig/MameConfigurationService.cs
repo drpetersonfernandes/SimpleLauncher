@@ -52,21 +52,21 @@ public static partial class MameConfigurationService
         // Prepare the settings dictionary
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "video", settings.MameVideo },
-            { "window", settings.MameWindow ? "1" : "0" },
-            { "maximize", settings.MameMaximize ? "1" : "0" },
-            { "keepaspect", settings.MameKeepAspect ? "1" : "0" },
-            { "skip_gameinfo", settings.MameSkipGameInfo ? "1" : "0" },
-            { "autosave", settings.MameAutosave ? "1" : "0" },
-            { "confirm_quit", settings.MameConfirmQuit ? "1" : "0" },
-            { "joystick", settings.MameJoystick ? "1" : "0" },
-            { "autoframeskip", settings.MameAutoframeskip ? "1" : "0" },
-            { "bgfx_backend", settings.MameBgfxBackend },
-            { "bgfx_screen_chains", settings.MameBgfxScreenChains },
-            { "filter", settings.MameFilter ? "1" : "0" },
-            { "cheat", settings.MameCheat ? "1" : "0" },
-            { "rewind", settings.MameRewind ? "1" : "0" },
-            { "nvram_save", settings.MameNvramSave ? "1" : "0" }
+            { "video", settings.Mame.Video },
+            { "window", settings.Mame.Window ? "1" : "0" },
+            { "maximize", settings.Mame.Maximize ? "1" : "0" },
+            { "keepaspect", settings.Mame.KeepAspect ? "1" : "0" },
+            { "skip_gameinfo", settings.Mame.SkipGameInfo ? "1" : "0" },
+            { "autosave", settings.Mame.Autosave ? "1" : "0" },
+            { "confirm_quit", settings.Mame.ConfirmQuit ? "1" : "0" },
+            { "joystick", settings.Mame.Joystick ? "1" : "0" },
+            { "autoframeskip", settings.Mame.Autoframeskip ? "1" : "0" },
+            { "bgfx_backend", settings.Mame.BgfxBackend },
+            { "bgfx_screen_chains", settings.Mame.BgfxScreenChains },
+            { "filter", settings.Mame.Filter ? "1" : "0" },
+            { "cheat", settings.Mame.Cheat ? "1" : "0" },
+            { "rewind", settings.Mame.Rewind ? "1" : "0" },
+            { "nvram_save", settings.Mame.NvramSave ? "1" : "0" }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

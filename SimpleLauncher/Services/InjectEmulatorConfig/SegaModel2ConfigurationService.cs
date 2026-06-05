@@ -42,22 +42,22 @@ public static class SegaModel2ConfigurationService
 
         var rendererUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "FullScreenWidth", settings.SegaModel2ResX.ToString(CultureInfo.InvariantCulture) },
-            { "FullScreenHeight", settings.SegaModel2ResY.ToString(CultureInfo.InvariantCulture) },
-            { "WideScreenWindow", settings.SegaModel2WideScreen.ToString(CultureInfo.InvariantCulture) },
-            { "Bilinear", settings.SegaModel2Bilinear ? "1" : "0" },
-            { "Trilinear", settings.SegaModel2Trilinear ? "1" : "0" },
-            { "FilterTilemaps", settings.SegaModel2FilterTilemaps ? "1" : "0" },
-            { "DrawCross", settings.SegaModel2DrawCross ? "1" : "0" },
-            { "FSAA", settings.SegaModel2Fsaa.ToString(CultureInfo.InvariantCulture) }
+            { "FullScreenWidth", settings.SegaModel2.ResX.ToString(CultureInfo.InvariantCulture) },
+            { "FullScreenHeight", settings.SegaModel2.ResY.ToString(CultureInfo.InvariantCulture) },
+            { "WideScreenWindow", settings.SegaModel2.WideScreen.ToString(CultureInfo.InvariantCulture) },
+            { "Bilinear", settings.SegaModel2.Bilinear ? "1" : "0" },
+            { "Trilinear", settings.SegaModel2.Trilinear ? "1" : "0" },
+            { "FilterTilemaps", settings.SegaModel2.FilterTilemaps ? "1" : "0" },
+            { "DrawCross", settings.SegaModel2.DrawCross ? "1" : "0" },
+            { "FSAA", settings.SegaModel2.Fsaa.ToString(CultureInfo.InvariantCulture) }
         };
 
         var inputUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "XInput", settings.SegaModel2XInput ? "1" : "0" },
-            { "EnableFF", settings.SegaModel2EnableFf ? "1" : "0" },
-            { "HoldGears", settings.SegaModel2HoldGears ? "1" : "0" },
-            { "UseRawInput", settings.SegaModel2UseRawInput ? "1" : "0" }
+            { "XInput", settings.SegaModel2.XInput ? "1" : "0" },
+            { "EnableFF", settings.SegaModel2.EnableFf ? "1" : "0" },
+            { "HoldGears", settings.SegaModel2.HoldGears ? "1" : "0" },
+            { "UseRawInput", settings.SegaModel2.UseRawInput ? "1" : "0" }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

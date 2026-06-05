@@ -65,27 +65,27 @@ public static class AzaharConfigurationService
         {
             ["Renderer"] = new()
             {
-                { "graphics_api", settings.AzaharGraphicsApi.ToString(CultureInfo.InvariantCulture) },
-                { "resolution_factor", settings.AzaharResolutionFactor.ToString(CultureInfo.InvariantCulture) },
-                { "use_vsync_new", BoolToString(settings.AzaharUseVsync) },
-                { "async_shader_compilation", BoolToString(settings.AzaharAsyncShaderCompilation) }
+                { "graphics_api", settings.Azahar.GraphicsApi.ToString(CultureInfo.InvariantCulture) },
+                { "resolution_factor", settings.Azahar.ResolutionFactor.ToString(CultureInfo.InvariantCulture) },
+                { "use_vsync_new", BoolToString(settings.Azahar.UseVsync) },
+                { "async_shader_compilation", BoolToString(settings.Azahar.AsyncShaderCompilation) }
             },
             ["UI"] = new()
             {
-                { "fullscreen", BoolToString(settings.AzaharFullscreen) }
+                { "fullscreen", BoolToString(settings.Azahar.Fullscreen) }
             },
             ["Audio"] = new()
             {
-                { "volume", (settings.AzaharVolume / 100.0).ToString("F2", CultureInfo.InvariantCulture) },
-                { "enable_audio_stretching", BoolToString(settings.AzaharEnableAudioStretching) }
+                { "volume", (settings.Azahar.Volume / 100.0).ToString("F2", CultureInfo.InvariantCulture) },
+                { "enable_audio_stretching", BoolToString(settings.Azahar.EnableAudioStretching) }
             },
             ["System"] = new()
             {
-                { "is_new_3ds", BoolToString(settings.AzaharIsNew3Ds) }
+                { "is_new_3ds", BoolToString(settings.Azahar.IsNew3Ds) }
             },
             ["Layout"] = new()
             {
-                { "layout_option", settings.AzaharLayoutOption.ToString(CultureInfo.InvariantCulture) }
+                { "layout_option", settings.Azahar.LayoutOption.ToString(CultureInfo.InvariantCulture) }
             }
         };
 

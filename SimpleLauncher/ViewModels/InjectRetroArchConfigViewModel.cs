@@ -108,56 +108,56 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        VideoDriver = _settings.RetroArchVideoDriver;
-        Fullscreen = _settings.RetroArchFullscreen;
-        Vsync = _settings.RetroArchVsync;
-        ThreadedVideo = _settings.RetroArchThreadedVideo;
-        Bilinear = _settings.RetroArchBilinear;
-        AspectRatioIndex = _settings.RetroArchAspectRatioIndex;
-        ScaleInteger = _settings.RetroArchScaleInteger;
-        ShaderEnable = _settings.RetroArchShaderEnable;
-        HardSync = _settings.RetroArchHardSync;
-        AudioEnable = _settings.RetroArchAudioEnable;
-        AudioMute = _settings.RetroArchAudioMute;
-        PauseNonActive = _settings.RetroArchPauseNonActive;
-        SaveOnExit = _settings.RetroArchSaveOnExit;
-        AutoSaveState = _settings.RetroArchAutoSaveState;
-        AutoLoadState = _settings.RetroArchAutoLoadState;
-        Rewind = _settings.RetroArchRewind;
-        RunAhead = _settings.RetroArchRunAhead;
-        MenuDriver = _settings.RetroArchMenuDriver;
-        ShowAdvancedSettings = _settings.RetroArchShowAdvancedSettings;
-        CheevosEnable = _settings.RetroArchCheevosEnable;
-        CheevosHardcore = _settings.RetroArchCheevosHardcore;
-        DiscordAllow = _settings.RetroArchDiscordAllow;
-        ShowBeforeLaunch = _settings.RetroArchShowSettingsBeforeLaunch;
+        VideoDriver = _settings.RetroArch.VideoDriver;
+        Fullscreen = _settings.RetroArch.Fullscreen;
+        Vsync = _settings.RetroArch.Vsync;
+        ThreadedVideo = _settings.RetroArch.ThreadedVideo;
+        Bilinear = _settings.RetroArch.Bilinear;
+        AspectRatioIndex = _settings.RetroArch.AspectRatioIndex;
+        ScaleInteger = _settings.RetroArch.ScaleInteger;
+        ShaderEnable = _settings.RetroArch.ShaderEnable;
+        HardSync = _settings.RetroArch.HardSync;
+        AudioEnable = _settings.RetroArch.AudioEnable;
+        AudioMute = _settings.RetroArch.AudioMute;
+        PauseNonActive = _settings.RetroArch.PauseNonActive;
+        SaveOnExit = _settings.RetroArch.SaveOnExit;
+        AutoSaveState = _settings.RetroArch.AutoSaveState;
+        AutoLoadState = _settings.RetroArch.AutoLoadState;
+        Rewind = _settings.RetroArch.Rewind;
+        RunAhead = _settings.RetroArch.RunAhead;
+        MenuDriver = _settings.RetroArch.MenuDriver;
+        ShowAdvancedSettings = _settings.RetroArch.ShowAdvancedSettings;
+        CheevosEnable = _settings.RetroArch.CheevosEnable;
+        CheevosHardcore = _settings.RetroArch.CheevosHardcore;
+        DiscordAllow = _settings.RetroArch.DiscordAllow;
+        ShowBeforeLaunch = _settings.RetroArch.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.RetroArchVideoDriver = VideoDriver;
-        _settings.RetroArchFullscreen = Fullscreen;
-        _settings.RetroArchVsync = Vsync;
-        _settings.RetroArchThreadedVideo = ThreadedVideo;
-        _settings.RetroArchBilinear = Bilinear;
-        _settings.RetroArchAspectRatioIndex = AspectRatioIndex;
-        _settings.RetroArchScaleInteger = ScaleInteger;
-        _settings.RetroArchShaderEnable = ShaderEnable;
-        _settings.RetroArchHardSync = HardSync;
-        _settings.RetroArchAudioEnable = AudioEnable;
-        _settings.RetroArchAudioMute = AudioMute;
-        _settings.RetroArchPauseNonActive = PauseNonActive;
-        _settings.RetroArchSaveOnExit = SaveOnExit;
-        _settings.RetroArchAutoSaveState = AutoSaveState;
-        _settings.RetroArchAutoLoadState = AutoLoadState;
-        _settings.RetroArchRewind = Rewind;
-        _settings.RetroArchRunAhead = RunAhead;
-        _settings.RetroArchMenuDriver = MenuDriver;
-        _settings.RetroArchShowAdvancedSettings = ShowAdvancedSettings;
-        _settings.RetroArchCheevosEnable = CheevosEnable;
-        _settings.RetroArchCheevosHardcore = CheevosHardcore;
-        _settings.RetroArchDiscordAllow = DiscordAllow;
-        _settings.RetroArchShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.RetroArch.VideoDriver = VideoDriver;
+        _settings.RetroArch.Fullscreen = Fullscreen;
+        _settings.RetroArch.Vsync = Vsync;
+        _settings.RetroArch.ThreadedVideo = ThreadedVideo;
+        _settings.RetroArch.Bilinear = Bilinear;
+        _settings.RetroArch.AspectRatioIndex = AspectRatioIndex;
+        _settings.RetroArch.ScaleInteger = ScaleInteger;
+        _settings.RetroArch.ShaderEnable = ShaderEnable;
+        _settings.RetroArch.HardSync = HardSync;
+        _settings.RetroArch.AudioEnable = AudioEnable;
+        _settings.RetroArch.AudioMute = AudioMute;
+        _settings.RetroArch.PauseNonActive = PauseNonActive;
+        _settings.RetroArch.SaveOnExit = SaveOnExit;
+        _settings.RetroArch.AutoSaveState = AutoSaveState;
+        _settings.RetroArch.AutoLoadState = AutoLoadState;
+        _settings.RetroArch.Rewind = Rewind;
+        _settings.RetroArch.RunAhead = RunAhead;
+        _settings.RetroArch.MenuDriver = MenuDriver;
+        _settings.RetroArch.ShowAdvancedSettings = ShowAdvancedSettings;
+        _settings.RetroArch.CheevosEnable = CheevosEnable;
+        _settings.RetroArch.CheevosHardcore = CheevosHardcore;
+        _settings.RetroArch.DiscordAllow = DiscordAllow;
+        _settings.RetroArch.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

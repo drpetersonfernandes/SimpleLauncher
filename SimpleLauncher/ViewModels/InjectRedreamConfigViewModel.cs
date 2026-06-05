@@ -131,42 +131,42 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        RedreamCable = _settings.RedreamCable;
-        RedreamBroadcast = _settings.RedreamBroadcast;
-        RedreamVsync = _settings.RedreamVsync;
-        RedreamFrameskip = _settings.RedreamFrameskip;
-        RedreamAspect = _settings.RedreamAspect;
-        RedreamRes = _settings.RedreamRes;
-        RedreamRenderer = _settings.RedreamRenderer;
-        RedreamFullmode = _settings.RedreamFullmode;
-        RedreamWidth = _settings.RedreamWidth;
-        RedreamHeight = _settings.RedreamHeight;
-        RedreamLanguage = _settings.RedreamLanguage;
-        RedreamRegion = _settings.RedreamRegion;
-        RedreamVolume = _settings.RedreamVolume;
-        RedreamLatency = _settings.RedreamLatency;
-        RedreamFramerate = _settings.RedreamFramerate;
-        RedreamShowSettingsBeforeLaunch = _settings.RedreamShowSettingsBeforeLaunch;
+        RedreamCable = _settings.Redream.Cable;
+        RedreamBroadcast = _settings.Redream.Broadcast;
+        RedreamVsync = _settings.Redream.Vsync;
+        RedreamFrameskip = _settings.Redream.Frameskip;
+        RedreamAspect = _settings.Redream.Aspect;
+        RedreamRes = _settings.Redream.Res;
+        RedreamRenderer = _settings.Redream.Renderer;
+        RedreamFullmode = _settings.Redream.Fullmode;
+        RedreamWidth = _settings.Redream.Width;
+        RedreamHeight = _settings.Redream.Height;
+        RedreamLanguage = _settings.Redream.Language;
+        RedreamRegion = _settings.Redream.Region;
+        RedreamVolume = _settings.Redream.Volume;
+        RedreamLatency = _settings.Redream.Latency;
+        RedreamFramerate = _settings.Redream.Framerate;
+        RedreamShowSettingsBeforeLaunch = _settings.Redream.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.RedreamCable = RedreamCable;
-        _settings.RedreamBroadcast = RedreamBroadcast;
-        _settings.RedreamVsync = RedreamVsync;
-        _settings.RedreamFrameskip = RedreamFrameskip;
-        _settings.RedreamAspect = RedreamAspect;
-        _settings.RedreamRes = RedreamRes;
-        _settings.RedreamRenderer = RedreamRenderer;
-        _settings.RedreamFullmode = RedreamFullmode;
-        _settings.RedreamWidth = RedreamWidth;
-        _settings.RedreamHeight = RedreamHeight;
-        _settings.RedreamLanguage = RedreamLanguage;
-        _settings.RedreamRegion = RedreamRegion;
-        _settings.RedreamVolume = RedreamVolume;
-        _settings.RedreamLatency = RedreamLatency;
-        _settings.RedreamFramerate = RedreamFramerate;
-        _settings.RedreamShowSettingsBeforeLaunch = RedreamShowSettingsBeforeLaunch;
+        _settings.Redream.Cable = RedreamCable;
+        _settings.Redream.Broadcast = RedreamBroadcast;
+        _settings.Redream.Vsync = RedreamVsync;
+        _settings.Redream.Frameskip = RedreamFrameskip;
+        _settings.Redream.Aspect = RedreamAspect;
+        _settings.Redream.Res = RedreamRes;
+        _settings.Redream.Renderer = RedreamRenderer;
+        _settings.Redream.Fullmode = RedreamFullmode;
+        _settings.Redream.Width = RedreamWidth;
+        _settings.Redream.Height = RedreamHeight;
+        _settings.Redream.Language = RedreamLanguage;
+        _settings.Redream.Region = RedreamRegion;
+        _settings.Redream.Volume = RedreamVolume;
+        _settings.Redream.Latency = RedreamLatency;
+        _settings.Redream.Framerate = RedreamFramerate;
+        _settings.Redream.ShowSettingsBeforeLaunch = RedreamShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

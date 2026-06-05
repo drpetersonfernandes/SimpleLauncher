@@ -27,7 +27,7 @@ public class MesenConfigHandler : IEmulatorConfigHandler
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var shouldRun = false;
 
-        if (context.Settings.MesenShowSettingsBeforeLaunch)
+        if (context.Settings.Mesen.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

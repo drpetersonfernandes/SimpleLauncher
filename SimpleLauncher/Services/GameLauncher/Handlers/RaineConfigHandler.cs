@@ -26,10 +26,10 @@ public class RaineConfigHandler : IEmulatorConfigHandler
     {
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManager.PrimarySystemFolder);
-        var resolvedRaineRomDirectory = PathHelper.ResolveRelativeToAppDirectory(context.Settings.RaineRomDirectory);
+        var resolvedRaineRomDirectory = PathHelper.ResolveRelativeToAppDirectory(context.Settings.Raine.RomDirectory);
         var shouldRun = true;
 
-        if (context.Settings.RaineShowSettingsBeforeLaunch)
+        if (context.Settings.Raine.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

@@ -87,33 +87,33 @@ public static class XeniaConfigurationService
 
         // [APU]
         var apu = GetOrCreateTable("APU");
-        apu["apu"] = settings.XeniaApu;
-        apu["mute"] = settings.XeniaMute;
+        apu["apu"] = settings.Xenia.Apu;
+        apu["mute"] = settings.Xenia.Mute;
 
         // [GPU]
         var gpu = GetOrCreateTable("GPU");
-        gpu["gpu"] = settings.XeniaGpu;
-        gpu["vsync"] = settings.XeniaVsync;
-        gpu["draw_resolution_scale_x"] = settings.XeniaResScaleX;
-        gpu["draw_resolution_scale_y"] = settings.XeniaResScaleY;
-        gpu["readback_resolve"] = settings.XeniaReadbackResolve;
-        gpu["gamma_render_target_as_srgb"] = settings.XeniaGammaSrgb;
+        gpu["gpu"] = settings.Xenia.Gpu;
+        gpu["vsync"] = settings.Xenia.Vsync;
+        gpu["draw_resolution_scale_x"] = settings.Xenia.ResScaleX;
+        gpu["draw_resolution_scale_y"] = settings.Xenia.ResScaleY;
+        gpu["readback_resolve"] = settings.Xenia.ReadbackResolve;
+        gpu["gamma_render_target_as_srgb"] = settings.Xenia.GammaSrgb;
 
         // [Display]
         var display = GetOrCreateTable("Display");
-        display["fullscreen"] = settings.XeniaFullscreen;
-        display["postprocess_antialiasing"] = settings.XeniaAa;
-        display["postprocess_scaling_and_sharpening"] = settings.XeniaScaling;
+        display["fullscreen"] = settings.Xenia.Fullscreen;
+        display["postprocess_antialiasing"] = settings.Xenia.Aa;
+        display["postprocess_scaling_and_sharpening"] = settings.Xenia.Scaling;
 
         // [HID]
         var hid = GetOrCreateTable("HID");
-        hid["hid"] = settings.XeniaHid;
-        hid["vibration"] = settings.XeniaVibration;
+        hid["hid"] = settings.Xenia.Hid;
+        hid["vibration"] = settings.Xenia.Vibration;
 
         // [General]
         var general = GetOrCreateTable("General");
-        general["discord"] = settings.XeniaDiscordPresence;
-        general["apply_patches"] = settings.XeniaApplyPatches;
+        general["discord"] = settings.Xenia.DiscordPresence;
+        general["apply_patches"] = settings.Xenia.ApplyPatches;
 
         // [Logging]
         var logging = GetOrCreateTable("Logging");
@@ -121,11 +121,11 @@ public static class XeniaConfigurationService
 
         // [Storage]
         var storage = GetOrCreateTable("Storage");
-        storage["mount_cache"] = settings.XeniaMountCache;
+        storage["mount_cache"] = settings.Xenia.MountCache;
 
         // [XConfig]
         var xconfig = GetOrCreateTable("XConfig");
-        xconfig["user_language"] = settings.XeniaUserLanguage;
+        xconfig["user_language"] = settings.Xenia.UserLanguage;
 
         // Write back
         var updatedToml = TomlSerializer.Serialize(model);

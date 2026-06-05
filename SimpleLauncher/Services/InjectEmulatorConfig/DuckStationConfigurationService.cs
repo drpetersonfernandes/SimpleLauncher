@@ -42,32 +42,32 @@ public static class DuckStationConfigurationService
 
         var mainUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "StartFullscreen", settings.DuckStationStartFullscreen.ToString().ToLowerInvariant() },
-            { "PauseOnFocusLoss", settings.DuckStationPauseOnFocusLoss.ToString().ToLowerInvariant() },
-            { "SaveStateOnExit", settings.DuckStationSaveStateOnExit.ToString().ToLowerInvariant() },
-            { "RewindEnable", settings.DuckStationRewindEnable.ToString().ToLowerInvariant() },
-            { "RunaheadFrameCount", settings.DuckStationRunaheadFrameCount.ToString(CultureInfo.InvariantCulture) }
+            { "StartFullscreen", settings.DuckStation.StartFullscreen.ToString().ToLowerInvariant() },
+            { "PauseOnFocusLoss", settings.DuckStation.PauseOnFocusLoss.ToString().ToLowerInvariant() },
+            { "SaveStateOnExit", settings.DuckStation.SaveStateOnExit.ToString().ToLowerInvariant() },
+            { "RewindEnable", settings.DuckStation.RewindEnable.ToString().ToLowerInvariant() },
+            { "RunaheadFrameCount", settings.DuckStation.RunaheadFrameCount.ToString(CultureInfo.InvariantCulture) }
         };
 
         var gpuUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "Renderer", settings.DuckStationRenderer },
-            { "ResolutionScale", settings.DuckStationResolutionScale.ToString(CultureInfo.InvariantCulture) },
-            { "TextureFilter", settings.DuckStationTextureFilter },
-            { "WidescreenHack", settings.DuckStationWidescreenHack.ToString().ToLowerInvariant() },
-            { "PGXPEnable", settings.DuckStationPgxpEnable.ToString().ToLowerInvariant() }
+            { "Renderer", settings.DuckStation.Renderer },
+            { "ResolutionScale", settings.DuckStation.ResolutionScale.ToString(CultureInfo.InvariantCulture) },
+            { "TextureFilter", settings.DuckStation.TextureFilter },
+            { "WidescreenHack", settings.DuckStation.WidescreenHack.ToString().ToLowerInvariant() },
+            { "PGXPEnable", settings.DuckStation.PgxpEnable.ToString().ToLowerInvariant() }
         };
 
         var displayUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "AspectRatio", settings.DuckStationAspectRatio },
-            { "VSync", settings.DuckStationVsync.ToString().ToLowerInvariant() }
+            { "AspectRatio", settings.DuckStation.AspectRatio },
+            { "VSync", settings.DuckStation.Vsync.ToString().ToLowerInvariant() }
         };
 
         var audioUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "OutputVolume", settings.DuckStationOutputVolume.ToString(CultureInfo.InvariantCulture) },
-            { "OutputMuted", settings.DuckStationOutputMuted.ToString().ToLowerInvariant() }
+            { "OutputVolume", settings.DuckStation.OutputVolume.ToString(CultureInfo.InvariantCulture) },
+            { "OutputMuted", settings.DuckStation.OutputMuted.ToString().ToLowerInvariant() }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

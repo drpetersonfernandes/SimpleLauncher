@@ -27,7 +27,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var shouldRun = false;
 
-        if (context.Settings.RedreamShowSettingsBeforeLaunch)
+        if (context.Settings.Redream.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

@@ -51,20 +51,20 @@ public static class SupermodelConfigurationService
 
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "New3DEngine", settings.SupermodelNew3DEngine ? "1" : "0" },
-            { "QuadRendering", settings.SupermodelQuadRendering ? "1" : "0" },
-            { "FullScreen", settings.SupermodelFullscreen ? "1" : "0" },
-            { "XResolution", settings.SupermodelResX.ToString(CultureInfo.InvariantCulture) },
-            { "YResolution", settings.SupermodelResY.ToString(CultureInfo.InvariantCulture) },
-            { "WideScreen", settings.SupermodelWideScreen ? "1" : "0" },
-            { "Stretch", settings.SupermodelStretch ? "1" : "0" },
-            { "VSync", settings.SupermodelVsync ? "1" : "0" },
-            { "Throttle", settings.SupermodelThrottle ? "1" : "0" },
-            { "MusicVolume", settings.SupermodelMusicVolume.ToString(CultureInfo.InvariantCulture) },
-            { "SoundVolume", settings.SupermodelSoundVolume.ToString(CultureInfo.InvariantCulture) },
-            { "InputSystem", GetValidInputSystem(settings.SupermodelInputSystem) },
-            { "MultiThreaded", settings.SupermodelMultiThreaded ? "1" : "0" },
-            { "PowerPCFrequency", settings.SupermodelPowerPcFrequency.ToString(CultureInfo.InvariantCulture) }
+            { "New3DEngine", settings.Supermodel.New3DEngine ? "1" : "0" },
+            { "QuadRendering", settings.Supermodel.QuadRendering ? "1" : "0" },
+            { "FullScreen", settings.Supermodel.Fullscreen ? "1" : "0" },
+            { "XResolution", settings.Supermodel.ResX.ToString(CultureInfo.InvariantCulture) },
+            { "YResolution", settings.Supermodel.ResY.ToString(CultureInfo.InvariantCulture) },
+            { "WideScreen", settings.Supermodel.WideScreen ? "1" : "0" },
+            { "Stretch", settings.Supermodel.Stretch ? "1" : "0" },
+            { "VSync", settings.Supermodel.Vsync ? "1" : "0" },
+            { "Throttle", settings.Supermodel.Throttle ? "1" : "0" },
+            { "MusicVolume", settings.Supermodel.MusicVolume.ToString(CultureInfo.InvariantCulture) },
+            { "SoundVolume", settings.Supermodel.SoundVolume.ToString(CultureInfo.InvariantCulture) },
+            { "InputSystem", GetValidInputSystem(settings.Supermodel.InputSystem) },
+            { "MultiThreaded", settings.Supermodel.MultiThreaded ? "1" : "0" },
+            { "PowerPCFrequency", settings.Supermodel.PowerPcFrequency.ToString(CultureInfo.InvariantCulture) }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

@@ -53,26 +53,26 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        DaphneFullscreen = _settings.DaphneFullscreen;
-        DaphneBilinear = _settings.DaphneBilinear;
-        DaphneResX = _settings.DaphneResX;
-        DaphneResY = _settings.DaphneResY;
-        DaphneEnableSound = _settings.DaphneEnableSound;
-        DaphneDisableCrosshairs = _settings.DaphneDisableCrosshairs;
-        DaphneUseOverlays = _settings.DaphneUseOverlays;
-        DaphneShowSettingsBeforeLaunch = _settings.DaphneShowSettingsBeforeLaunch;
+        DaphneFullscreen = _settings.Daphne.Fullscreen;
+        DaphneBilinear = _settings.Daphne.Bilinear;
+        DaphneResX = _settings.Daphne.ResX;
+        DaphneResY = _settings.Daphne.ResY;
+        DaphneEnableSound = _settings.Daphne.EnableSound;
+        DaphneDisableCrosshairs = _settings.Daphne.DisableCrosshairs;
+        DaphneUseOverlays = _settings.Daphne.UseOverlays;
+        DaphneShowSettingsBeforeLaunch = _settings.Daphne.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.DaphneFullscreen = DaphneFullscreen;
-        _settings.DaphneBilinear = DaphneBilinear;
-        _settings.DaphneResX = DaphneResX;
-        _settings.DaphneResY = DaphneResY;
-        _settings.DaphneEnableSound = DaphneEnableSound;
-        _settings.DaphneDisableCrosshairs = DaphneDisableCrosshairs;
-        _settings.DaphneUseOverlays = DaphneUseOverlays;
-        _settings.DaphneShowSettingsBeforeLaunch = DaphneShowSettingsBeforeLaunch;
+        _settings.Daphne.Fullscreen = DaphneFullscreen;
+        _settings.Daphne.Bilinear = DaphneBilinear;
+        _settings.Daphne.ResX = DaphneResX;
+        _settings.Daphne.ResY = DaphneResY;
+        _settings.Daphne.EnableSound = DaphneEnableSound;
+        _settings.Daphne.DisableCrosshairs = DaphneDisableCrosshairs;
+        _settings.Daphne.UseOverlays = DaphneUseOverlays;
+        _settings.Daphne.ShowSettingsBeforeLaunch = DaphneShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

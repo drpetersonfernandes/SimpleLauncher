@@ -46,32 +46,32 @@ public static class Pcsx2ConfigurationService
 
         var uiUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "StartFullscreen", settings.Pcsx2StartFullscreen.ToString().ToLowerInvariant() }
+            { "StartFullscreen", settings.Pcsx2.StartFullscreen.ToString().ToLowerInvariant() }
         };
 
         var emuCoreUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "EnableCheats", settings.Pcsx2EnableCheats.ToString().ToLowerInvariant() },
-            { "EnableWideScreenPatches", settings.Pcsx2EnableWidescreenPatches.ToString().ToLowerInvariant() }
+            { "EnableCheats", settings.Pcsx2.EnableCheats.ToString().ToLowerInvariant() },
+            { "EnableWideScreenPatches", settings.Pcsx2.EnableWidescreenPatches.ToString().ToLowerInvariant() }
         };
 
         var gsUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "Renderer", settings.Pcsx2Renderer.ToString(CultureInfo.InvariantCulture) },
-            { "upscale_multiplier", settings.Pcsx2UpscaleMultiplier.ToString(CultureInfo.InvariantCulture) },
-            { "AspectRatio", settings.Pcsx2AspectRatio },
-            { "VsyncEnable", settings.Pcsx2Vsync.ToString().ToLowerInvariant() }
+            { "Renderer", settings.Pcsx2.Renderer.ToString(CultureInfo.InvariantCulture) },
+            { "upscale_multiplier", settings.Pcsx2.UpscaleMultiplier.ToString(CultureInfo.InvariantCulture) },
+            { "AspectRatio", settings.Pcsx2.AspectRatio },
+            { "VsyncEnable", settings.Pcsx2.Vsync.ToString().ToLowerInvariant() }
         };
 
         var audioUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "FinalVolume", settings.Pcsx2Volume.ToString(CultureInfo.InvariantCulture) }
+            { "FinalVolume", settings.Pcsx2.Volume.ToString(CultureInfo.InvariantCulture) }
         };
 
         var achUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "Enabled", settings.Pcsx2AchievementsEnabled.ToString().ToLowerInvariant() },
-            { "Hardcore", settings.Pcsx2AchievementsHardcore.ToString().ToLowerInvariant() }
+            { "Enabled", settings.Pcsx2.AchievementsEnabled.ToString().ToLowerInvariant() },
+            { "Hardcore", settings.Pcsx2.AchievementsHardcore.ToString().ToLowerInvariant() }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

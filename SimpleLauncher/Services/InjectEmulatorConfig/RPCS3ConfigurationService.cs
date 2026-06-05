@@ -45,23 +45,23 @@ public static class Rpcs3ConfigurationService
         var yamlObject = deserializer.Deserialize<Dictionary<object, object>>(File.ReadAllText(configPath));
 
         // Core
-        SetValue("Core", "PPU Decoder", settings.Rpcs3PpuDecoder);
-        SetValue("Core", "SPU Decoder", settings.Rpcs3SpuDecoder);
+        SetValue("Core", "PPU Decoder", settings.Rpcs3.PpuDecoder);
+        SetValue("Core", "SPU Decoder", settings.Rpcs3.SpuDecoder);
 
         // Video
-        SetValue("Video", "Renderer", settings.Rpcs3Renderer);
-        SetValue("Video", "Resolution", settings.Rpcs3Resolution);
-        SetValue("Video", "Aspect ratio", settings.Rpcs3AspectRatio);
-        SetValue("Video", "VSync", settings.Rpcs3Vsync);
-        SetValue("Video", "Resolution Scale", settings.Rpcs3ResolutionScale);
-        SetValue("Video", "Anisotropic Filter Override", settings.Rpcs3AnisotropicFilter);
+        SetValue("Video", "Renderer", settings.Rpcs3.Renderer);
+        SetValue("Video", "Resolution", settings.Rpcs3.Resolution);
+        SetValue("Video", "Aspect ratio", settings.Rpcs3.AspectRatio);
+        SetValue("Video", "VSync", settings.Rpcs3.Vsync);
+        SetValue("Video", "Resolution Scale", settings.Rpcs3.ResolutionScale);
+        SetValue("Video", "Anisotropic Filter Override", settings.Rpcs3.AnisotropicFilter);
 
         // Audio
-        SetValue("Audio", "Renderer", settings.Rpcs3AudioRenderer);
-        SetValue("Audio", "Enable Buffering", settings.Rpcs3AudioBuffering);
+        SetValue("Audio", "Renderer", settings.Rpcs3.AudioRenderer);
+        SetValue("Audio", "Enable Buffering", settings.Rpcs3.AudioBuffering);
 
         // Miscellaneous
-        SetValue("Miscellaneous", "Start games in fullscreen mode", settings.Rpcs3StartFullscreen);
+        SetValue("Miscellaneous", "Start games in fullscreen mode", settings.Rpcs3.StartFullscreen);
 
         var updatedYaml = serializer.Serialize(yamlObject);
         File.WriteAllText(configPath, updatedYaml, new UTF8Encoding(false));

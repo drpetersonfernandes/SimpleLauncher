@@ -90,30 +90,30 @@ public partial class InjectYumirConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        YumirFullscreen = _settings.YumirFullscreen;
-        YumirForceAspectRatio = _settings.YumirForceAspectRatio;
-        YumirReduceLatency = _settings.YumirReduceLatency;
-        YumirMute = _settings.YumirMute;
-        YumirVolume = _settings.YumirVolume;
-        YumirAutoDetectRegion = _settings.YumirAutoDetectRegion;
-        YumirVideoStandard = _settings.YumirVideoStandard;
-        YumirPauseWhenUnfocused = _settings.YumirPauseWhenUnfocused;
-        YumirForcedAspect = _settings.YumirForcedAspect;
-        YumirShowSettingsBeforeLaunch = _settings.YumirShowSettingsBeforeLaunch;
+        YumirFullscreen = _settings.Yumir.Fullscreen;
+        YumirForceAspectRatio = _settings.Yumir.ForceAspectRatio;
+        YumirReduceLatency = _settings.Yumir.ReduceLatency;
+        YumirMute = _settings.Yumir.Mute;
+        YumirVolume = _settings.Yumir.Volume;
+        YumirAutoDetectRegion = _settings.Yumir.AutoDetectRegion;
+        YumirVideoStandard = _settings.Yumir.VideoStandard;
+        YumirPauseWhenUnfocused = _settings.Yumir.PauseWhenUnfocused;
+        YumirForcedAspect = _settings.Yumir.ForcedAspect;
+        YumirShowSettingsBeforeLaunch = _settings.Yumir.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.YumirFullscreen = YumirFullscreen;
-        _settings.YumirForceAspectRatio = YumirForceAspectRatio;
-        _settings.YumirReduceLatency = YumirReduceLatency;
-        _settings.YumirMute = YumirMute;
-        _settings.YumirVolume = YumirVolume;
-        _settings.YumirAutoDetectRegion = YumirAutoDetectRegion;
-        _settings.YumirVideoStandard = YumirVideoStandard;
-        _settings.YumirPauseWhenUnfocused = YumirPauseWhenUnfocused;
-        _settings.YumirForcedAspect = YumirForcedAspect;
-        _settings.YumirShowSettingsBeforeLaunch = YumirShowSettingsBeforeLaunch;
+        _settings.Yumir.Fullscreen = YumirFullscreen;
+        _settings.Yumir.ForceAspectRatio = YumirForceAspectRatio;
+        _settings.Yumir.ReduceLatency = YumirReduceLatency;
+        _settings.Yumir.Mute = YumirMute;
+        _settings.Yumir.Volume = YumirVolume;
+        _settings.Yumir.AutoDetectRegion = YumirAutoDetectRegion;
+        _settings.Yumir.VideoStandard = YumirVideoStandard;
+        _settings.Yumir.PauseWhenUnfocused = YumirPauseWhenUnfocused;
+        _settings.Yumir.ForcedAspect = YumirForcedAspect;
+        _settings.Yumir.ShowSettingsBeforeLaunch = YumirShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

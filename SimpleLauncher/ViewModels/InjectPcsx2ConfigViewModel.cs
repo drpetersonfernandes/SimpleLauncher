@@ -101,32 +101,32 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Pcsx2Renderer = _settings.Pcsx2Renderer;
-        Pcsx2UpscaleMultiplier = _settings.Pcsx2UpscaleMultiplier;
-        Pcsx2AspectRatio = _settings.Pcsx2AspectRatio;
-        Pcsx2Vsync = _settings.Pcsx2Vsync;
-        Pcsx2EnableWidescreenPatches = _settings.Pcsx2EnableWidescreenPatches;
-        Pcsx2StartFullscreen = _settings.Pcsx2StartFullscreen;
-        Pcsx2EnableCheats = _settings.Pcsx2EnableCheats;
-        Pcsx2Volume = _settings.Pcsx2Volume;
-        Pcsx2AchievementsEnabled = _settings.Pcsx2AchievementsEnabled;
-        Pcsx2AchievementsHardcore = _settings.Pcsx2AchievementsHardcore;
-        Pcsx2ShowSettingsBeforeLaunch = _settings.Pcsx2ShowSettingsBeforeLaunch;
+        Pcsx2Renderer = _settings.Pcsx2.Renderer;
+        Pcsx2UpscaleMultiplier = _settings.Pcsx2.UpscaleMultiplier;
+        Pcsx2AspectRatio = _settings.Pcsx2.AspectRatio;
+        Pcsx2Vsync = _settings.Pcsx2.Vsync;
+        Pcsx2EnableWidescreenPatches = _settings.Pcsx2.EnableWidescreenPatches;
+        Pcsx2StartFullscreen = _settings.Pcsx2.StartFullscreen;
+        Pcsx2EnableCheats = _settings.Pcsx2.EnableCheats;
+        Pcsx2Volume = _settings.Pcsx2.Volume;
+        Pcsx2AchievementsEnabled = _settings.Pcsx2.AchievementsEnabled;
+        Pcsx2AchievementsHardcore = _settings.Pcsx2.AchievementsHardcore;
+        Pcsx2ShowSettingsBeforeLaunch = _settings.Pcsx2.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.Pcsx2Renderer = Pcsx2Renderer;
-        _settings.Pcsx2UpscaleMultiplier = Pcsx2UpscaleMultiplier;
-        _settings.Pcsx2AspectRatio = Pcsx2AspectRatio;
-        _settings.Pcsx2Vsync = Pcsx2Vsync;
-        _settings.Pcsx2EnableWidescreenPatches = Pcsx2EnableWidescreenPatches;
-        _settings.Pcsx2StartFullscreen = Pcsx2StartFullscreen;
-        _settings.Pcsx2EnableCheats = Pcsx2EnableCheats;
-        _settings.Pcsx2Volume = Pcsx2Volume;
-        _settings.Pcsx2AchievementsEnabled = Pcsx2AchievementsEnabled;
-        _settings.Pcsx2AchievementsHardcore = Pcsx2AchievementsHardcore;
-        _settings.Pcsx2ShowSettingsBeforeLaunch = Pcsx2ShowSettingsBeforeLaunch;
+        _settings.Pcsx2.Renderer = Pcsx2Renderer;
+        _settings.Pcsx2.UpscaleMultiplier = Pcsx2UpscaleMultiplier;
+        _settings.Pcsx2.AspectRatio = Pcsx2AspectRatio;
+        _settings.Pcsx2.Vsync = Pcsx2Vsync;
+        _settings.Pcsx2.EnableWidescreenPatches = Pcsx2EnableWidescreenPatches;
+        _settings.Pcsx2.StartFullscreen = Pcsx2StartFullscreen;
+        _settings.Pcsx2.EnableCheats = Pcsx2EnableCheats;
+        _settings.Pcsx2.Volume = Pcsx2Volume;
+        _settings.Pcsx2.AchievementsEnabled = Pcsx2AchievementsEnabled;
+        _settings.Pcsx2.AchievementsHardcore = Pcsx2AchievementsHardcore;
+        _settings.Pcsx2.ShowSettingsBeforeLaunch = Pcsx2ShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

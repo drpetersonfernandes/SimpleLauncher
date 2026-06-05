@@ -117,34 +117,34 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Rpcs3Renderer = _settings.Rpcs3Renderer;
-        Rpcs3Resolution = _settings.Rpcs3Resolution;
-        Rpcs3AspectRatio = _settings.Rpcs3AspectRatio;
-        Rpcs3Vsync = _settings.Rpcs3Vsync;
-        Rpcs3ResolutionScale = _settings.Rpcs3ResolutionScale;
-        Rpcs3AnisotropicFilter = _settings.Rpcs3AnisotropicFilter;
-        Rpcs3PpuDecoder = _settings.Rpcs3PpuDecoder;
-        Rpcs3SpuDecoder = _settings.Rpcs3SpuDecoder;
-        Rpcs3AudioRenderer = _settings.Rpcs3AudioRenderer;
-        Rpcs3AudioBuffering = _settings.Rpcs3AudioBuffering;
-        Rpcs3StartFullscreen = _settings.Rpcs3StartFullscreen;
-        Rpcs3ShowSettingsBeforeLaunch = _settings.Rpcs3ShowSettingsBeforeLaunch;
+        Rpcs3Renderer = _settings.Rpcs3.Renderer;
+        Rpcs3Resolution = _settings.Rpcs3.Resolution;
+        Rpcs3AspectRatio = _settings.Rpcs3.AspectRatio;
+        Rpcs3Vsync = _settings.Rpcs3.Vsync;
+        Rpcs3ResolutionScale = _settings.Rpcs3.ResolutionScale;
+        Rpcs3AnisotropicFilter = _settings.Rpcs3.AnisotropicFilter;
+        Rpcs3PpuDecoder = _settings.Rpcs3.PpuDecoder;
+        Rpcs3SpuDecoder = _settings.Rpcs3.SpuDecoder;
+        Rpcs3AudioRenderer = _settings.Rpcs3.AudioRenderer;
+        Rpcs3AudioBuffering = _settings.Rpcs3.AudioBuffering;
+        Rpcs3StartFullscreen = _settings.Rpcs3.StartFullscreen;
+        Rpcs3ShowSettingsBeforeLaunch = _settings.Rpcs3.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.Rpcs3Renderer = Rpcs3Renderer;
-        _settings.Rpcs3Resolution = Rpcs3Resolution;
-        _settings.Rpcs3AspectRatio = Rpcs3AspectRatio;
-        _settings.Rpcs3Vsync = Rpcs3Vsync;
-        _settings.Rpcs3ResolutionScale = Rpcs3ResolutionScale;
-        _settings.Rpcs3AnisotropicFilter = Rpcs3AnisotropicFilter;
-        _settings.Rpcs3PpuDecoder = Rpcs3PpuDecoder;
-        _settings.Rpcs3SpuDecoder = Rpcs3SpuDecoder;
-        _settings.Rpcs3AudioRenderer = Rpcs3AudioRenderer;
-        _settings.Rpcs3AudioBuffering = Rpcs3AudioBuffering;
-        _settings.Rpcs3StartFullscreen = Rpcs3StartFullscreen;
-        _settings.Rpcs3ShowSettingsBeforeLaunch = Rpcs3ShowSettingsBeforeLaunch;
+        _settings.Rpcs3.Renderer = Rpcs3Renderer;
+        _settings.Rpcs3.Resolution = Rpcs3Resolution;
+        _settings.Rpcs3.AspectRatio = Rpcs3AspectRatio;
+        _settings.Rpcs3.Vsync = Rpcs3Vsync;
+        _settings.Rpcs3.ResolutionScale = Rpcs3ResolutionScale;
+        _settings.Rpcs3.AnisotropicFilter = Rpcs3AnisotropicFilter;
+        _settings.Rpcs3.PpuDecoder = Rpcs3PpuDecoder;
+        _settings.Rpcs3.SpuDecoder = Rpcs3SpuDecoder;
+        _settings.Rpcs3.AudioRenderer = Rpcs3AudioRenderer;
+        _settings.Rpcs3.AudioBuffering = Rpcs3AudioBuffering;
+        _settings.Rpcs3.StartFullscreen = Rpcs3StartFullscreen;
+        _settings.Rpcs3.ShowSettingsBeforeLaunch = Rpcs3ShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

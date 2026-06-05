@@ -91,40 +91,40 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        New3DEngine = _settings.SupermodelNew3DEngine;
-        QuadRendering = _settings.SupermodelQuadRendering;
-        Fullscreen = _settings.SupermodelFullscreen;
-        Vsync = _settings.SupermodelVsync;
-        WideScreen = _settings.SupermodelWideScreen;
-        Stretch = _settings.SupermodelStretch;
-        ResX = _settings.SupermodelResX;
-        ResY = _settings.SupermodelResY;
-        MusicVolume = _settings.SupermodelMusicVolume;
-        SoundVolume = _settings.SupermodelSoundVolume;
-        Throttle = _settings.SupermodelThrottle;
-        MultiThreaded = _settings.SupermodelMultiThreaded;
-        InputSystem = _settings.SupermodelInputSystem;
-        PowerPcFrequency = _settings.SupermodelPowerPcFrequency.ToString(CultureInfo.InvariantCulture);
-        ShowBeforeLaunch = _settings.SupermodelShowSettingsBeforeLaunch;
+        New3DEngine = _settings.Supermodel.New3DEngine;
+        QuadRendering = _settings.Supermodel.QuadRendering;
+        Fullscreen = _settings.Supermodel.Fullscreen;
+        Vsync = _settings.Supermodel.Vsync;
+        WideScreen = _settings.Supermodel.WideScreen;
+        Stretch = _settings.Supermodel.Stretch;
+        ResX = _settings.Supermodel.ResX;
+        ResY = _settings.Supermodel.ResY;
+        MusicVolume = _settings.Supermodel.MusicVolume;
+        SoundVolume = _settings.Supermodel.SoundVolume;
+        Throttle = _settings.Supermodel.Throttle;
+        MultiThreaded = _settings.Supermodel.MultiThreaded;
+        InputSystem = _settings.Supermodel.InputSystem;
+        PowerPcFrequency = _settings.Supermodel.PowerPcFrequency.ToString(CultureInfo.InvariantCulture);
+        ShowBeforeLaunch = _settings.Supermodel.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.SupermodelNew3DEngine = New3DEngine;
-        _settings.SupermodelQuadRendering = QuadRendering;
-        _settings.SupermodelFullscreen = Fullscreen;
-        _settings.SupermodelVsync = Vsync;
-        _settings.SupermodelWideScreen = WideScreen;
-        _settings.SupermodelStretch = Stretch;
-        _settings.SupermodelResX = ResX;
-        _settings.SupermodelResY = ResY;
-        _settings.SupermodelMusicVolume = MusicVolume;
-        _settings.SupermodelSoundVolume = SoundVolume;
-        _settings.SupermodelThrottle = Throttle;
-        _settings.SupermodelMultiThreaded = MultiThreaded;
-        _settings.SupermodelInputSystem = InputSystem;
-        _settings.SupermodelPowerPcFrequency = int.Parse(PowerPcFrequency, CultureInfo.InvariantCulture);
-        _settings.SupermodelShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Supermodel.New3DEngine = New3DEngine;
+        _settings.Supermodel.QuadRendering = QuadRendering;
+        _settings.Supermodel.Fullscreen = Fullscreen;
+        _settings.Supermodel.Vsync = Vsync;
+        _settings.Supermodel.WideScreen = WideScreen;
+        _settings.Supermodel.Stretch = Stretch;
+        _settings.Supermodel.ResX = ResX;
+        _settings.Supermodel.ResY = ResY;
+        _settings.Supermodel.MusicVolume = MusicVolume;
+        _settings.Supermodel.SoundVolume = SoundVolume;
+        _settings.Supermodel.Throttle = Throttle;
+        _settings.Supermodel.MultiThreaded = MultiThreaded;
+        _settings.Supermodel.InputSystem = InputSystem;
+        _settings.Supermodel.PowerPcFrequency = int.Parse(PowerPcFrequency, CultureInfo.InvariantCulture);
+        _settings.Supermodel.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

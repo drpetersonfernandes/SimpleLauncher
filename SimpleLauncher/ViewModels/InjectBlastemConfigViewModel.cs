@@ -94,26 +94,26 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Fullscreen = _settings.BlastemFullscreen;
-        Vsync = _settings.BlastemVsync;
-        Scanlines = _settings.BlastemScanlines;
-        Aspect = _settings.BlastemAspect;
-        Scaling = _settings.BlastemScaling;
-        AudioRate = _settings.BlastemAudioRate.ToString(CultureInfo.InvariantCulture);
-        SyncSource = _settings.BlastemSyncSource;
-        ShowBeforeLaunch = _settings.BlastemShowSettingsBeforeLaunch;
+        Fullscreen = _settings.Blastem.Fullscreen;
+        Vsync = _settings.Blastem.Vsync;
+        Scanlines = _settings.Blastem.Scanlines;
+        Aspect = _settings.Blastem.Aspect;
+        Scaling = _settings.Blastem.Scaling;
+        AudioRate = _settings.Blastem.AudioRate.ToString(CultureInfo.InvariantCulture);
+        SyncSource = _settings.Blastem.SyncSource;
+        ShowBeforeLaunch = _settings.Blastem.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.BlastemFullscreen = Fullscreen;
-        _settings.BlastemVsync = Vsync;
-        _settings.BlastemScanlines = Scanlines;
-        _settings.BlastemAspect = Aspect;
-        _settings.BlastemScaling = Scaling;
-        _settings.BlastemAudioRate = int.Parse(AudioRate, CultureInfo.InvariantCulture);
-        _settings.BlastemSyncSource = SyncSource;
-        _settings.BlastemShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Blastem.Fullscreen = Fullscreen;
+        _settings.Blastem.Vsync = Vsync;
+        _settings.Blastem.Scanlines = Scanlines;
+        _settings.Blastem.Aspect = Aspect;
+        _settings.Blastem.Scaling = Scaling;
+        _settings.Blastem.AudioRate = int.Parse(AudioRate, CultureInfo.InvariantCulture);
+        _settings.Blastem.SyncSource = SyncSource;
+        _settings.Blastem.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

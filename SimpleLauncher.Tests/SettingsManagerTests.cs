@@ -214,26 +214,26 @@ public class SettingsManagerTests : IDisposable
     public void DefaultDuckStationSettingsAreCorrect()
     {
         using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
-        Assert.False(settings.DuckStationStartFullscreen);
-        Assert.True(settings.DuckStationPauseOnFocusLoss);
-        Assert.True(settings.DuckStationSaveStateOnExit);
-        Assert.Equal("Automatic", settings.DuckStationRenderer);
-        Assert.Equal(2, settings.DuckStationResolutionScale);
-        Assert.Equal("Nearest", settings.DuckStationTextureFilter);
-        Assert.Equal("16:9", settings.DuckStationAspectRatio);
-        Assert.Equal(100, settings.DuckStationOutputVolume);
+        Assert.False(settings.DuckStation.StartFullscreen);
+        Assert.True(settings.DuckStation.PauseOnFocusLoss);
+        Assert.True(settings.DuckStation.SaveStateOnExit);
+        Assert.Equal("Automatic", settings.DuckStation.Renderer);
+        Assert.Equal(2, settings.DuckStation.ResolutionScale);
+        Assert.Equal("Nearest", settings.DuckStation.TextureFilter);
+        Assert.Equal("16:9", settings.DuckStation.AspectRatio);
+        Assert.Equal(100, settings.DuckStation.OutputVolume);
     }
 
     [Fact]
     public void DefaultRetroArchSettingsAreCorrect()
     {
         using var settings = new Services.SettingsManager.SettingsManager(_configuration, _logErrors);
-        Assert.False(settings.RetroArchFullscreen);
-        Assert.Equal("gl", settings.RetroArchVideoDriver);
-        Assert.True(settings.RetroArchVsync);
-        Assert.True(settings.RetroArchAudioEnable);
-        Assert.Equal("ozone", settings.RetroArchMenuDriver);
-        Assert.True(settings.RetroArchShowAdvancedSettings);
+        Assert.False(settings.RetroArch.Fullscreen);
+        Assert.Equal("gl", settings.RetroArch.VideoDriver);
+        Assert.True(settings.RetroArch.Vsync);
+        Assert.True(settings.RetroArch.AudioEnable);
+        Assert.Equal("ozone", settings.RetroArch.MenuDriver);
+        Assert.True(settings.RetroArch.ShowAdvancedSettings);
     }
 
     [Fact]

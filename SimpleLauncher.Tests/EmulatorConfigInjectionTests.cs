@@ -78,18 +78,18 @@ public class EmulatorConfigInjectionTests : IDisposable
         File.Copy(samplePath, destPath);
 
         var settings = CreateSettingsManager();
-        settings.DuckStationStartFullscreen = true;
-        settings.DuckStationPauseOnFocusLoss = false;
-        settings.DuckStationSaveStateOnExit = false;
-        settings.DuckStationRenderer = "Vulkan";
-        settings.DuckStationResolutionScale = 4;
-        settings.DuckStationTextureFilter = "Bilinear";
-        settings.DuckStationWidescreenHack = true;
-        settings.DuckStationPgxpEnable = false;
-        settings.DuckStationAspectRatio = "4:3";
-        settings.DuckStationVsync = true;
-        settings.DuckStationOutputVolume = 50;
-        settings.DuckStationOutputMuted = true;
+        settings.DuckStation.StartFullscreen = true;
+        settings.DuckStation.PauseOnFocusLoss = false;
+        settings.DuckStation.SaveStateOnExit = false;
+        settings.DuckStation.Renderer = "Vulkan";
+        settings.DuckStation.ResolutionScale = 4;
+        settings.DuckStation.TextureFilter = "Bilinear";
+        settings.DuckStation.WidescreenHack = true;
+        settings.DuckStation.PgxpEnable = false;
+        settings.DuckStation.AspectRatio = "4:3";
+        settings.DuckStation.Vsync = true;
+        settings.DuckStation.OutputVolume = 50;
+        settings.DuckStation.OutputMuted = true;
 
         DuckStationConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
 
@@ -120,16 +120,16 @@ public class EmulatorConfigInjectionTests : IDisposable
         File.Copy(samplePath, destPath);
 
         var settings = CreateSettingsManager();
-        settings.Pcsx2StartFullscreen = false;
-        settings.Pcsx2EnableCheats = true;
-        settings.Pcsx2EnableWidescreenPatches = true;
-        settings.Pcsx2Renderer = 11; // Software
-        settings.Pcsx2UpscaleMultiplier = 3;
-        settings.Pcsx2AspectRatio = "4:3";
-        settings.Pcsx2Vsync = true;
-        settings.Pcsx2Volume = 75;
-        settings.Pcsx2AchievementsEnabled = true;
-        settings.Pcsx2AchievementsHardcore = false;
+        settings.Pcsx2.StartFullscreen = false;
+        settings.Pcsx2.EnableCheats = true;
+        settings.Pcsx2.EnableWidescreenPatches = true;
+        settings.Pcsx2.Renderer = 11; // Software
+        settings.Pcsx2.UpscaleMultiplier = 3;
+        settings.Pcsx2.AspectRatio = "4:3";
+        settings.Pcsx2.Vsync = true;
+        settings.Pcsx2.Volume = 75;
+        settings.Pcsx2.AchievementsEnabled = true;
+        settings.Pcsx2.AchievementsHardcore = false;
 
         Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
 
@@ -154,16 +154,16 @@ public class EmulatorConfigInjectionTests : IDisposable
         CopySampleToEmuDir("Mesen", "Mesen", "settings.json");
 
         var settings = CreateSettingsManager();
-        settings.MesenFullscreen = true;
-        settings.MesenAspectRatio = "16:9";
-        settings.MesenVsync = false;
-        settings.MesenBilinear = false;
-        settings.MesenVideoFilter = "CRT";
-        settings.MesenEnableAudio = false;
-        settings.MesenMasterVolume = 50;
-        settings.MesenRewind = true;
-        settings.MesenRunAhead = 2;
-        settings.MesenPauseInBackground = true;
+        settings.Mesen.Fullscreen = true;
+        settings.Mesen.AspectRatio = "16:9";
+        settings.Mesen.Vsync = false;
+        settings.Mesen.Bilinear = false;
+        settings.Mesen.VideoFilter = "CRT";
+        settings.Mesen.EnableAudio = false;
+        settings.Mesen.MasterVolume = 50;
+        settings.Mesen.Rewind = true;
+        settings.Mesen.RunAhead = 2;
+        settings.Mesen.PauseInBackground = true;
 
         var emuDir = Path.Combine(_testDirectory, "Mesen");
         MesenConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -196,23 +196,23 @@ public class EmulatorConfigInjectionTests : IDisposable
         CopySampleToEmuDir("Xenia", "Xenia", "xenia.config.toml");
 
         var settings = CreateSettingsManager();
-        settings.XeniaApu = "xaudio2";
-        settings.XeniaMute = true;
-        settings.XeniaGpu = "vulkan";
-        settings.XeniaVsync = false;
-        settings.XeniaResScaleX = 2;
-        settings.XeniaResScaleY = 2;
-        settings.XeniaFullscreen = true;
-        settings.XeniaAa = "fxaa";
-        settings.XeniaScaling = "unscaled";
-        settings.XeniaHid = "winkey";
-        settings.XeniaVibration = false;
-        settings.XeniaDiscordPresence = false;
-        settings.XeniaApplyPatches = true;
-        settings.XeniaReadbackResolve = "fast";
-        settings.XeniaGammaSrgb = true;
-        settings.XeniaUserLanguage = 10;
-        settings.XeniaMountCache = false;
+        settings.Xenia.Apu = "xaudio2";
+        settings.Xenia.Mute = true;
+        settings.Xenia.Gpu = "vulkan";
+        settings.Xenia.Vsync = false;
+        settings.Xenia.ResScaleX = 2;
+        settings.Xenia.ResScaleY = 2;
+        settings.Xenia.Fullscreen = true;
+        settings.Xenia.Aa = "fxaa";
+        settings.Xenia.Scaling = "unscaled";
+        settings.Xenia.Hid = "winkey";
+        settings.Xenia.Vibration = false;
+        settings.Xenia.DiscordPresence = false;
+        settings.Xenia.ApplyPatches = true;
+        settings.Xenia.ReadbackResolve = "fast";
+        settings.Xenia.GammaSrgb = true;
+        settings.Xenia.UserLanguage = 10;
+        settings.Xenia.MountCache = false;
 
         var emuDir = Path.Combine(_testDirectory, "Xenia");
         XeniaConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -259,17 +259,17 @@ public class EmulatorConfigInjectionTests : IDisposable
         CopySampleToEmuDir("RPCS3", "RPCS3", "config.yml");
 
         var settings = CreateSettingsManager();
-        settings.Rpcs3PpuDecoder = "Interpreter (fast)";
-        settings.Rpcs3SpuDecoder = "Interpreter (precise)";
-        settings.Rpcs3Renderer = "OpenGL";
-        settings.Rpcs3Resolution = "1920x1080";
-        settings.Rpcs3AspectRatio = "4:3";
-        settings.Rpcs3Vsync = true;
-        settings.Rpcs3ResolutionScale = 200;
-        settings.Rpcs3AnisotropicFilter = 16;
-        settings.Rpcs3AudioRenderer = "XAudio2";
-        settings.Rpcs3AudioBuffering = false;
-        settings.Rpcs3StartFullscreen = true;
+        settings.Rpcs3.PpuDecoder = "Interpreter (fast)";
+        settings.Rpcs3.SpuDecoder = "Interpreter (precise)";
+        settings.Rpcs3.Renderer = "OpenGL";
+        settings.Rpcs3.Resolution = "1920x1080";
+        settings.Rpcs3.AspectRatio = "4:3";
+        settings.Rpcs3.Vsync = true;
+        settings.Rpcs3.ResolutionScale = 200;
+        settings.Rpcs3.AnisotropicFilter = 16;
+        settings.Rpcs3.AudioRenderer = "XAudio2";
+        settings.Rpcs3.AudioBuffering = false;
+        settings.Rpcs3.StartFullscreen = true;
 
         var emuDir = Path.Combine(_testDirectory, "RPCS3");
         Rpcs3ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -304,18 +304,18 @@ public class EmulatorConfigInjectionTests : IDisposable
         CopySampleToEmuDir("Redream", "Redream", "redream.cfg");
 
         var settings = CreateSettingsManager();
-        settings.RedreamCable = "RGB";
-        settings.RedreamBroadcast = "PAL";
-        settings.RedreamLanguage = "pt";
-        settings.RedreamRegion = "europe";
-        settings.RedreamVsync = false;
-        settings.RedreamFrameskip = false;
-        settings.RedreamAspect = "16:9";
-        settings.RedreamRes = 4;
-        settings.RedreamRenderer = "opengl";
-        settings.RedreamVolume = 75;
-        settings.RedreamLatency = 16;
-        settings.RedreamFramerate = true;
+        settings.Redream.Cable = "RGB";
+        settings.Redream.Broadcast = "PAL";
+        settings.Redream.Language = "pt";
+        settings.Redream.Region = "europe";
+        settings.Redream.Vsync = false;
+        settings.Redream.Frameskip = false;
+        settings.Redream.Aspect = "16:9";
+        settings.Redream.Res = 4;
+        settings.Redream.Renderer = "opengl";
+        settings.Redream.Volume = 75;
+        settings.Redream.Latency = 16;
+        settings.Redream.Framerate = true;
 
         var emuDir = Path.Combine(_testDirectory, "Redream");
         RedreamConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -351,28 +351,28 @@ public class EmulatorConfigInjectionTests : IDisposable
         CopySampleToEmuDir("RetroArch", "Retroarch", "retroarch.cfg");
 
         var settings = CreateSettingsManager();
-        settings.RetroArchFullscreen = true;
-        settings.RetroArchVsync = false;
-        settings.RetroArchVideoDriver = "vulkan";
-        settings.RetroArchThreadedVideo = true;
-        settings.RetroArchBilinear = false;
-        settings.RetroArchAspectRatioIndex = "3";
-        settings.RetroArchScaleInteger = true;
-        settings.RetroArchShaderEnable = false;
-        settings.RetroArchHardSync = true;
-        settings.RetroArchAudioEnable = false;
-        settings.RetroArchAudioMute = true;
-        settings.RetroArchPauseNonActive = false;
-        settings.RetroArchSaveOnExit = false;
-        settings.RetroArchAutoSaveState = true;
-        settings.RetroArchAutoLoadState = true;
-        settings.RetroArchRewind = true;
-        settings.RetroArchRunAhead = true;
-        settings.RetroArchDiscordAllow = false;
-        settings.RetroArchMenuDriver = "rgui";
-        settings.RetroArchShowAdvancedSettings = false;
-        settings.RetroArchCheevosEnable = true;
-        settings.RetroArchCheevosHardcore = true;
+        settings.RetroArch.Fullscreen = true;
+        settings.RetroArch.Vsync = false;
+        settings.RetroArch.VideoDriver = "vulkan";
+        settings.RetroArch.ThreadedVideo = true;
+        settings.RetroArch.Bilinear = false;
+        settings.RetroArch.AspectRatioIndex = "3";
+        settings.RetroArch.ScaleInteger = true;
+        settings.RetroArch.ShaderEnable = false;
+        settings.RetroArch.HardSync = true;
+        settings.RetroArch.AudioEnable = false;
+        settings.RetroArch.AudioMute = true;
+        settings.RetroArch.PauseNonActive = false;
+        settings.RetroArch.SaveOnExit = false;
+        settings.RetroArch.AutoSaveState = true;
+        settings.RetroArch.AutoLoadState = true;
+        settings.RetroArch.Rewind = true;
+        settings.RetroArch.RunAhead = true;
+        settings.RetroArch.DiscordAllow = false;
+        settings.RetroArch.MenuDriver = "rgui";
+        settings.RetroArch.ShowAdvancedSettings = false;
+        settings.RetroArch.CheevosEnable = true;
+        settings.RetroArch.CheevosHardcore = true;
 
         var emuDir = Path.Combine(_testDirectory, "RetroArch");
         RetroArchConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -421,13 +421,13 @@ public class EmulatorConfigInjectionTests : IDisposable
         CopySampleToEmuDir("Blastem", "Blastem", "default.cfg");
 
         var settings = CreateSettingsManager();
-        settings.BlastemFullscreen = true;
-        settings.BlastemVsync = false;
-        settings.BlastemAspect = "16:9";
-        settings.BlastemScaling = "integer";
-        settings.BlastemScanlines = true;
-        settings.BlastemAudioRate = 44100;
-        settings.BlastemSyncSource = "video";
+        settings.Blastem.Fullscreen = true;
+        settings.Blastem.Vsync = false;
+        settings.Blastem.Aspect = "16:9";
+        settings.Blastem.Scaling = "integer";
+        settings.Blastem.Scanlines = true;
+        settings.Blastem.AudioRate = 44100;
+        settings.Blastem.SyncSource = "video";
 
         var emuDir = Path.Combine(_testDirectory, "Blastem");
         BlastemConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);

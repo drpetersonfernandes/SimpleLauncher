@@ -42,10 +42,10 @@ public static class FlycastConfigurationService
 
         var windowUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "fullscreen", settings.FlycastFullscreen ? "yes" : "no" },
-            { "width", settings.FlycastWidth.ToString(CultureInfo.InvariantCulture) },
-            { "height", settings.FlycastHeight.ToString(CultureInfo.InvariantCulture) },
-            { "maximized", settings.FlycastMaximized ? "yes" : "no" }
+            { "fullscreen", settings.Flycast.Fullscreen ? "yes" : "no" },
+            { "width", settings.Flycast.Width.ToString(CultureInfo.InvariantCulture) },
+            { "height", settings.Flycast.Height.ToString(CultureInfo.InvariantCulture) },
+            { "maximized", settings.Flycast.Maximized ? "yes" : "no" }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

@@ -28,7 +28,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var shouldRun = true;
 
-        if (context.Settings.Pcsx2ShowSettingsBeforeLaunch)
+        if (context.Settings.Pcsx2.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

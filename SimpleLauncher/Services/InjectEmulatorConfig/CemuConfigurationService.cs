@@ -48,19 +48,19 @@ public static class CemuConfigurationService
             if (content == null) throw new InvalidDataException("Invalid Cemu settings.xml format.");
 
             // Root level elements
-            SetOrUpdateElement(content, "fullscreen", settings.CemuFullscreen.ToString().ToLowerInvariant());
-            SetOrUpdateElement(content, "use_discord_presence", settings.CemuDiscordPresence.ToString().ToLowerInvariant());
-            SetOrUpdateElement(content, "console_language", settings.CemuConsoleLanguage.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(content, "fullscreen", settings.Cemu.Fullscreen.ToString().ToLowerInvariant());
+            SetOrUpdateElement(content, "use_discord_presence", settings.Cemu.DiscordPresence.ToString().ToLowerInvariant());
+            SetOrUpdateElement(content, "console_language", settings.Cemu.ConsoleLanguage.ToString(CultureInfo.InvariantCulture));
 
             // Graphic Section
             var graphic = GetOrCreateElement(content, "Graphic");
-            SetOrUpdateElement(graphic, "api", settings.CemuGraphicApi.ToString(CultureInfo.InvariantCulture));
-            SetOrUpdateElement(graphic, "VSync", settings.CemuVsync.ToString(CultureInfo.InvariantCulture));
-            SetOrUpdateElement(graphic, "AsyncCompile", settings.CemuAsyncCompile.ToString().ToLowerInvariant());
+            SetOrUpdateElement(graphic, "api", settings.Cemu.GraphicApi.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(graphic, "VSync", settings.Cemu.Vsync.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(graphic, "AsyncCompile", settings.Cemu.AsyncCompile.ToString().ToLowerInvariant());
 
             // Audio Section
             var audio = GetOrCreateElement(content, "Audio");
-            SetOrUpdateElement(audio, "TVVolume", settings.CemuTvVolume.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(audio, "TVVolume", settings.Cemu.TvVolume.ToString(CultureInfo.InvariantCulture));
 
             // Preserve original formatting by using XmlWriter
             var writerSettings = new System.Xml.XmlWriterSettings

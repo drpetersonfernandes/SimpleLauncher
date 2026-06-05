@@ -92,53 +92,53 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        MednafenVideoDriver = _settings.MednafenVideoDriver;
-        MednafenStretch = _settings.MednafenStretch;
+        MednafenVideoDriver = _settings.Mednafen.VideoDriver;
+        MednafenStretch = _settings.Mednafen.Stretch;
 
-        if (!string.IsNullOrEmpty(_settings.MednafenSpecial) && _settings.MednafenSpecial != "none")
+        if (!string.IsNullOrEmpty(_settings.Mednafen.Special) && _settings.Mednafen.Special != "none")
         {
-            MednafenShader = _settings.MednafenSpecial;
+            MednafenShader = _settings.Mednafen.Special;
         }
         else
         {
-            MednafenShader = _settings.MednafenShader;
+            MednafenShader = _settings.Mednafen.Shader;
         }
 
-        MednafenSpecial = _settings.MednafenSpecial;
-        MednafenFullscreen = _settings.MednafenFullscreen;
-        MednafenVsync = _settings.MednafenVsync;
-        MednafenBilinear = _settings.MednafenBilinear;
-        MednafenScanlines = _settings.MednafenScanlines;
-        MednafenVolume = _settings.MednafenVolume;
-        MednafenCheats = _settings.MednafenCheats;
-        MednafenRewind = _settings.MednafenRewind;
-        MednafenShowSettingsBeforeLaunch = _settings.MednafenShowSettingsBeforeLaunch;
+        MednafenSpecial = _settings.Mednafen.Special;
+        MednafenFullscreen = _settings.Mednafen.Fullscreen;
+        MednafenVsync = _settings.Mednafen.Vsync;
+        MednafenBilinear = _settings.Mednafen.Bilinear;
+        MednafenScanlines = _settings.Mednafen.Scanlines;
+        MednafenVolume = _settings.Mednafen.Volume;
+        MednafenCheats = _settings.Mednafen.Cheats;
+        MednafenRewind = _settings.Mednafen.Rewind;
+        MednafenShowSettingsBeforeLaunch = _settings.Mednafen.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.MednafenVideoDriver = MednafenVideoDriver;
-        _settings.MednafenStretch = MednafenStretch;
+        _settings.Mednafen.VideoDriver = MednafenVideoDriver;
+        _settings.Mednafen.Stretch = MednafenStretch;
 
         if (MednafenShader is "scale2x" or "snes_ntsc")
         {
-            _settings.MednafenSpecial = MednafenShader;
-            _settings.MednafenShader = "none";
+            _settings.Mednafen.Special = MednafenShader;
+            _settings.Mednafen.Shader = "none";
         }
         else
         {
-            _settings.MednafenSpecial = "none";
-            _settings.MednafenShader = MednafenShader;
+            _settings.Mednafen.Special = "none";
+            _settings.Mednafen.Shader = MednafenShader;
         }
 
-        _settings.MednafenFullscreen = MednafenFullscreen;
-        _settings.MednafenVsync = MednafenVsync;
-        _settings.MednafenBilinear = MednafenBilinear;
-        _settings.MednafenScanlines = MednafenScanlines;
-        _settings.MednafenVolume = MednafenVolume;
-        _settings.MednafenCheats = MednafenCheats;
-        _settings.MednafenRewind = MednafenRewind;
-        _settings.MednafenShowSettingsBeforeLaunch = MednafenShowSettingsBeforeLaunch;
+        _settings.Mednafen.Fullscreen = MednafenFullscreen;
+        _settings.Mednafen.Vsync = MednafenVsync;
+        _settings.Mednafen.Bilinear = MednafenBilinear;
+        _settings.Mednafen.Scanlines = MednafenScanlines;
+        _settings.Mednafen.Volume = MednafenVolume;
+        _settings.Mednafen.Cheats = MednafenCheats;
+        _settings.Mednafen.Rewind = MednafenRewind;
+        _settings.Mednafen.ShowSettingsBeforeLaunch = MednafenShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

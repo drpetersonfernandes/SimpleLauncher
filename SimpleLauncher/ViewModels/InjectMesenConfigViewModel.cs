@@ -86,32 +86,32 @@ public partial class InjectMesenConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Fullscreen = _settings.MesenFullscreen;
-        Vsync = _settings.MesenVsync;
-        AspectRatio = _settings.MesenAspectRatio;
-        Bilinear = _settings.MesenBilinear;
-        VideoFilter = _settings.MesenVideoFilter;
-        EnableAudio = _settings.MesenEnableAudio;
-        MasterVolume = _settings.MesenMasterVolume;
-        Rewind = _settings.MesenRewind;
-        RunAhead = _settings.MesenRunAhead;
-        PauseInBackground = _settings.MesenPauseInBackground;
-        ShowBeforeLaunch = _settings.MesenShowSettingsBeforeLaunch;
+        Fullscreen = _settings.Mesen.Fullscreen;
+        Vsync = _settings.Mesen.Vsync;
+        AspectRatio = _settings.Mesen.AspectRatio;
+        Bilinear = _settings.Mesen.Bilinear;
+        VideoFilter = _settings.Mesen.VideoFilter;
+        EnableAudio = _settings.Mesen.EnableAudio;
+        MasterVolume = _settings.Mesen.MasterVolume;
+        Rewind = _settings.Mesen.Rewind;
+        RunAhead = _settings.Mesen.RunAhead;
+        PauseInBackground = _settings.Mesen.PauseInBackground;
+        ShowBeforeLaunch = _settings.Mesen.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.MesenFullscreen = Fullscreen;
-        _settings.MesenVsync = Vsync;
-        _settings.MesenAspectRatio = AspectRatio;
-        _settings.MesenBilinear = Bilinear;
-        _settings.MesenVideoFilter = VideoFilter;
-        _settings.MesenEnableAudio = EnableAudio;
-        _settings.MesenMasterVolume = MasterVolume;
-        _settings.MesenRewind = Rewind;
-        _settings.MesenRunAhead = RunAhead;
-        _settings.MesenPauseInBackground = PauseInBackground;
-        _settings.MesenShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Mesen.Fullscreen = Fullscreen;
+        _settings.Mesen.Vsync = Vsync;
+        _settings.Mesen.AspectRatio = AspectRatio;
+        _settings.Mesen.Bilinear = Bilinear;
+        _settings.Mesen.VideoFilter = VideoFilter;
+        _settings.Mesen.EnableAudio = EnableAudio;
+        _settings.Mesen.MasterVolume = MasterVolume;
+        _settings.Mesen.Rewind = Rewind;
+        _settings.Mesen.RunAhead = RunAhead;
+        _settings.Mesen.PauseInBackground = PauseInBackground;
+        _settings.Mesen.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

@@ -75,20 +75,20 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        GfxBackend = _settings.DolphinGfxBackend;
-        DspThread = _settings.DolphinDspThread;
-        WiimoteContinuousScanning = _settings.DolphinWiimoteContinuousScanning;
-        WiimoteEnableSpeaker = _settings.DolphinWiimoteEnableSpeaker;
-        ShowBeforeLaunch = _settings.DolphinShowSettingsBeforeLaunch;
+        GfxBackend = _settings.Dolphin.GfxBackend;
+        DspThread = _settings.Dolphin.DspThread;
+        WiimoteContinuousScanning = _settings.Dolphin.WiimoteContinuousScanning;
+        WiimoteEnableSpeaker = _settings.Dolphin.WiimoteEnableSpeaker;
+        ShowBeforeLaunch = _settings.Dolphin.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.DolphinGfxBackend = GfxBackend;
-        _settings.DolphinDspThread = DspThread;
-        _settings.DolphinWiimoteContinuousScanning = WiimoteContinuousScanning;
-        _settings.DolphinWiimoteEnableSpeaker = WiimoteEnableSpeaker;
-        _settings.DolphinShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Dolphin.GfxBackend = GfxBackend;
+        _settings.Dolphin.DspThread = DspThread;
+        _settings.Dolphin.WiimoteContinuousScanning = WiimoteContinuousScanning;
+        _settings.Dolphin.WiimoteEnableSpeaker = WiimoteEnableSpeaker;
+        _settings.Dolphin.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

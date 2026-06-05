@@ -45,24 +45,24 @@ public static class YumirConfigurationService
 
         // [Video]
         var video = GetOrCreateTable(model, "Video");
-        video["FullScreen"] = settings.YumirFullscreen;
-        video["ForceAspectRatio"] = settings.YumirForceAspectRatio;
-        video["ForcedAspect"] = settings.YumirForcedAspect;
-        video["ReduceLatency"] = settings.YumirReduceLatency;
+        video["FullScreen"] = settings.Yumir.Fullscreen;
+        video["ForceAspectRatio"] = settings.Yumir.ForceAspectRatio;
+        video["ForcedAspect"] = settings.Yumir.ForcedAspect;
+        video["ReduceLatency"] = settings.Yumir.ReduceLatency;
 
         // [Audio]
         var audio = GetOrCreateTable(model, "Audio");
-        audio["Volume"] = settings.YumirVolume;
-        audio["Mute"] = settings.YumirMute;
+        audio["Volume"] = settings.Yumir.Volume;
+        audio["Mute"] = settings.Yumir.Mute;
 
         // [System]
         var system = GetOrCreateTable(model, "System");
-        system["VideoStandard"] = settings.YumirVideoStandard;
-        system["AutoDetectRegion"] = settings.YumirAutoDetectRegion;
+        system["VideoStandard"] = settings.Yumir.VideoStandard;
+        system["AutoDetectRegion"] = settings.Yumir.AutoDetectRegion;
 
         // [General]
         var general = GetOrCreateTable(model, "General");
-        general["PauseWhenUnfocused"] = settings.YumirPauseWhenUnfocused;
+        general["PauseWhenUnfocused"] = settings.Yumir.PauseWhenUnfocused;
 
         var updatedToml = TomlSerializer.Serialize(model);
         try

@@ -87,32 +87,32 @@ public partial class InjectStellaConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Fullscreen = _settings.StellaFullscreen;
-        Vsync = _settings.StellaVsync;
-        CorrectAspect = _settings.StellaCorrectAspect;
-        VideoDriver = _settings.StellaVideoDriver;
-        TvFilter = _settings.StellaTvFilter.ToString(CultureInfo.InvariantCulture);
-        Scanlines = _settings.StellaScanlines;
-        AudioEnabled = _settings.StellaAudioEnabled;
-        AudioVolume = _settings.StellaAudioVolume;
-        TimeMachine = _settings.StellaTimeMachine;
-        ConfirmExit = _settings.StellaConfirmExit;
-        ShowBeforeLaunch = _settings.StellaShowSettingsBeforeLaunch;
+        Fullscreen = _settings.Stella.Fullscreen;
+        Vsync = _settings.Stella.Vsync;
+        CorrectAspect = _settings.Stella.CorrectAspect;
+        VideoDriver = _settings.Stella.VideoDriver;
+        TvFilter = _settings.Stella.TvFilter.ToString(CultureInfo.InvariantCulture);
+        Scanlines = _settings.Stella.Scanlines;
+        AudioEnabled = _settings.Stella.AudioEnabled;
+        AudioVolume = _settings.Stella.AudioVolume;
+        TimeMachine = _settings.Stella.TimeMachine;
+        ConfirmExit = _settings.Stella.ConfirmExit;
+        ShowBeforeLaunch = _settings.Stella.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.StellaFullscreen = Fullscreen;
-        _settings.StellaVsync = Vsync;
-        _settings.StellaCorrectAspect = CorrectAspect;
-        _settings.StellaVideoDriver = VideoDriver;
-        _settings.StellaTvFilter = int.Parse(TvFilter, CultureInfo.InvariantCulture);
-        _settings.StellaScanlines = Scanlines;
-        _settings.StellaAudioEnabled = AudioEnabled;
-        _settings.StellaAudioVolume = AudioVolume;
-        _settings.StellaTimeMachine = TimeMachine;
-        _settings.StellaConfirmExit = ConfirmExit;
-        _settings.StellaShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Stella.Fullscreen = Fullscreen;
+        _settings.Stella.Vsync = Vsync;
+        _settings.Stella.CorrectAspect = CorrectAspect;
+        _settings.Stella.VideoDriver = VideoDriver;
+        _settings.Stella.TvFilter = int.Parse(TvFilter, CultureInfo.InvariantCulture);
+        _settings.Stella.Scanlines = Scanlines;
+        _settings.Stella.AudioEnabled = AudioEnabled;
+        _settings.Stella.AudioVolume = AudioVolume;
+        _settings.Stella.TimeMachine = TimeMachine;
+        _settings.Stella.ConfirmExit = ConfirmExit;
+        _settings.Stella.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

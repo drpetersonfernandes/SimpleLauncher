@@ -79,14 +79,14 @@ public static class DolphinConfigurationService
 
         var coreUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "GFXBackend", settings.DolphinGfxBackend },
-            { "WiimoteContinuousScanning", settings.DolphinWiimoteContinuousScanning.ToString() },
-            { "WiimoteEnableSpeaker", settings.DolphinWiimoteEnableSpeaker.ToString() }
+            { "GFXBackend", settings.Dolphin.GfxBackend },
+            { "WiimoteContinuousScanning", settings.Dolphin.WiimoteContinuousScanning.ToString() },
+            { "WiimoteEnableSpeaker", settings.Dolphin.WiimoteEnableSpeaker.ToString() }
         };
 
         var dspUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "DSPThread", settings.DolphinDspThread.ToString() }
+            { "DSPThread", settings.Dolphin.DspThread.ToString() }
         };
 
         var lines = File.ReadAllLines(configPath).ToList();

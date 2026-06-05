@@ -26,7 +26,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var shouldRun = true;
 
-        if (context.Settings.FlycastShowSettingsBeforeLaunch)
+        if (context.Settings.Flycast.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

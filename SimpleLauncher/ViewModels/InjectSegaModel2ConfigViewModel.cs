@@ -89,36 +89,36 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        ResX = _settings.SegaModel2ResX;
-        ResY = _settings.SegaModel2ResY;
-        WideScreen = _settings.SegaModel2WideScreen.ToString(CultureInfo.InvariantCulture);
-        Fsaa = _settings.SegaModel2Fsaa.ToString(CultureInfo.InvariantCulture);
-        Bilinear = _settings.SegaModel2Bilinear;
-        Trilinear = _settings.SegaModel2Trilinear;
-        FilterTilemaps = _settings.SegaModel2FilterTilemaps;
-        DrawCross = _settings.SegaModel2DrawCross;
-        XInput = _settings.SegaModel2XInput;
-        EnableFf = _settings.SegaModel2EnableFf;
-        HoldGears = _settings.SegaModel2HoldGears;
-        UseRawInput = _settings.SegaModel2UseRawInput;
-        ShowBeforeLaunch = _settings.SegaModel2ShowSettingsBeforeLaunch;
+        ResX = _settings.SegaModel2.ResX;
+        ResY = _settings.SegaModel2.ResY;
+        WideScreen = _settings.SegaModel2.WideScreen.ToString(CultureInfo.InvariantCulture);
+        Fsaa = _settings.SegaModel2.Fsaa.ToString(CultureInfo.InvariantCulture);
+        Bilinear = _settings.SegaModel2.Bilinear;
+        Trilinear = _settings.SegaModel2.Trilinear;
+        FilterTilemaps = _settings.SegaModel2.FilterTilemaps;
+        DrawCross = _settings.SegaModel2.DrawCross;
+        XInput = _settings.SegaModel2.XInput;
+        EnableFf = _settings.SegaModel2.EnableFf;
+        HoldGears = _settings.SegaModel2.HoldGears;
+        UseRawInput = _settings.SegaModel2.UseRawInput;
+        ShowBeforeLaunch = _settings.SegaModel2.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.SegaModel2ResX = ResX;
-        _settings.SegaModel2ResY = ResY;
-        _settings.SegaModel2WideScreen = int.Parse(WideScreen, CultureInfo.InvariantCulture);
-        _settings.SegaModel2Fsaa = int.Parse(Fsaa, CultureInfo.InvariantCulture);
-        _settings.SegaModel2Bilinear = Bilinear;
-        _settings.SegaModel2Trilinear = Trilinear;
-        _settings.SegaModel2FilterTilemaps = FilterTilemaps;
-        _settings.SegaModel2DrawCross = DrawCross;
-        _settings.SegaModel2XInput = XInput;
-        _settings.SegaModel2EnableFf = EnableFf;
-        _settings.SegaModel2HoldGears = HoldGears;
-        _settings.SegaModel2UseRawInput = UseRawInput;
-        _settings.SegaModel2ShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.SegaModel2.ResX = ResX;
+        _settings.SegaModel2.ResY = ResY;
+        _settings.SegaModel2.WideScreen = int.Parse(WideScreen, CultureInfo.InvariantCulture);
+        _settings.SegaModel2.Fsaa = int.Parse(Fsaa, CultureInfo.InvariantCulture);
+        _settings.SegaModel2.Bilinear = Bilinear;
+        _settings.SegaModel2.Trilinear = Trilinear;
+        _settings.SegaModel2.FilterTilemaps = FilterTilemaps;
+        _settings.SegaModel2.DrawCross = DrawCross;
+        _settings.SegaModel2.XInput = XInput;
+        _settings.SegaModel2.EnableFf = EnableFf;
+        _settings.SegaModel2.HoldGears = HoldGears;
+        _settings.SegaModel2.UseRawInput = UseRawInput;
+        _settings.SegaModel2.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

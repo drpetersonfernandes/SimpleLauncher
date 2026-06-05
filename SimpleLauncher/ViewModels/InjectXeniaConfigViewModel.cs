@@ -138,44 +138,44 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        XeniaGpu = _settings.XeniaGpu;
-        XeniaVsync = _settings.XeniaVsync;
-        XeniaFullscreen = _settings.XeniaFullscreen;
-        XeniaResScaleX = _settings.XeniaResScaleX;
-        XeniaResScaleY = _settings.XeniaResScaleY;
-        XeniaAa = _settings.XeniaAa;
-        XeniaScaling = _settings.XeniaScaling;
-        XeniaReadbackResolve = _settings.XeniaReadbackResolve;
-        XeniaGammaSrgb = _settings.XeniaGammaSrgb;
-        XeniaApu = _settings.XeniaApu;
-        XeniaMute = _settings.XeniaMute;
-        XeniaMountCache = _settings.XeniaMountCache;
-        XeniaVibration = _settings.XeniaVibration;
-        XeniaApplyPatches = _settings.XeniaApplyPatches;
-        XeniaHid = _settings.XeniaHid;
-        XeniaUserLanguage = _settings.XeniaUserLanguage;
-        XeniaShowSettingsBeforeLaunch = _settings.XeniaShowSettingsBeforeLaunch;
+        XeniaGpu = _settings.Xenia.Gpu;
+        XeniaVsync = _settings.Xenia.Vsync;
+        XeniaFullscreen = _settings.Xenia.Fullscreen;
+        XeniaResScaleX = _settings.Xenia.ResScaleX;
+        XeniaResScaleY = _settings.Xenia.ResScaleY;
+        XeniaAa = _settings.Xenia.Aa;
+        XeniaScaling = _settings.Xenia.Scaling;
+        XeniaReadbackResolve = _settings.Xenia.ReadbackResolve;
+        XeniaGammaSrgb = _settings.Xenia.GammaSrgb;
+        XeniaApu = _settings.Xenia.Apu;
+        XeniaMute = _settings.Xenia.Mute;
+        XeniaMountCache = _settings.Xenia.MountCache;
+        XeniaVibration = _settings.Xenia.Vibration;
+        XeniaApplyPatches = _settings.Xenia.ApplyPatches;
+        XeniaHid = _settings.Xenia.Hid;
+        XeniaUserLanguage = _settings.Xenia.UserLanguage;
+        XeniaShowSettingsBeforeLaunch = _settings.Xenia.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.XeniaGpu = XeniaGpu;
-        _settings.XeniaVsync = XeniaVsync;
-        _settings.XeniaFullscreen = XeniaFullscreen;
-        _settings.XeniaResScaleX = XeniaResScaleX;
-        _settings.XeniaResScaleY = XeniaResScaleY;
-        _settings.XeniaAa = XeniaAa;
-        _settings.XeniaScaling = XeniaScaling;
-        _settings.XeniaReadbackResolve = XeniaReadbackResolve;
-        _settings.XeniaGammaSrgb = XeniaGammaSrgb;
-        _settings.XeniaApu = XeniaApu;
-        _settings.XeniaMute = XeniaMute;
-        _settings.XeniaMountCache = XeniaMountCache;
-        _settings.XeniaVibration = XeniaVibration;
-        _settings.XeniaApplyPatches = XeniaApplyPatches;
-        _settings.XeniaHid = XeniaHid;
-        _settings.XeniaUserLanguage = XeniaUserLanguage;
-        _settings.XeniaShowSettingsBeforeLaunch = XeniaShowSettingsBeforeLaunch;
+        _settings.Xenia.Gpu = XeniaGpu;
+        _settings.Xenia.Vsync = XeniaVsync;
+        _settings.Xenia.Fullscreen = XeniaFullscreen;
+        _settings.Xenia.ResScaleX = XeniaResScaleX;
+        _settings.Xenia.ResScaleY = XeniaResScaleY;
+        _settings.Xenia.Aa = XeniaAa;
+        _settings.Xenia.Scaling = XeniaScaling;
+        _settings.Xenia.ReadbackResolve = XeniaReadbackResolve;
+        _settings.Xenia.GammaSrgb = XeniaGammaSrgb;
+        _settings.Xenia.Apu = XeniaApu;
+        _settings.Xenia.Mute = XeniaMute;
+        _settings.Xenia.MountCache = XeniaMountCache;
+        _settings.Xenia.Vibration = XeniaVibration;
+        _settings.Xenia.ApplyPatches = XeniaApplyPatches;
+        _settings.Xenia.Hid = XeniaHid;
+        _settings.Xenia.UserLanguage = XeniaUserLanguage;
+        _settings.Xenia.ShowSettingsBeforeLaunch = XeniaShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

@@ -72,17 +72,17 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Ares", "Ares", "settings.bml");
 
         var settings = CreateSettingsManager();
-        settings.AresVideoDriver = "OpenGL 3.2";
-        settings.AresExclusive = true;
-        settings.AresShader = "CRT";
-        settings.AresMultiplier = 4;
-        settings.AresAspectCorrection = "Stretch";
-        settings.AresMute = true;
-        settings.AresVolume = 0.5;
-        settings.AresFastBoot = true;
-        settings.AresRewind = true;
-        settings.AresRunAhead = false;
-        settings.AresAutoSaveMemory = false;
+        settings.Ares.VideoDriver = "OpenGL 3.2";
+        settings.Ares.Exclusive = true;
+        settings.Ares.Shader = "CRT";
+        settings.Ares.Multiplier = 4;
+        settings.Ares.AspectCorrection = "Stretch";
+        settings.Ares.Mute = true;
+        settings.Ares.Volume = 0.5;
+        settings.Ares.FastBoot = true;
+        settings.Ares.Rewind = true;
+        settings.Ares.RunAhead = false;
+        settings.Ares.AutoSaveMemory = false;
 
         var emuDir = Path.Combine(_testDirectory, "Ares");
         AresConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -109,15 +109,15 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Azahar", "Azahar", "qt-config.ini");
 
         var settings = CreateSettingsManager();
-        settings.AzaharGraphicsApi = 1;
-        settings.AzaharResolutionFactor = 2;
-        settings.AzaharUseVsync = true;
-        settings.AzaharAsyncShaderCompilation = false;
-        settings.AzaharFullscreen = true;
-        settings.AzaharVolume = 75;
-        settings.AzaharEnableAudioStretching = true;
-        settings.AzaharIsNew3Ds = false;
-        settings.AzaharLayoutOption = 1;
+        settings.Azahar.GraphicsApi = 1;
+        settings.Azahar.ResolutionFactor = 2;
+        settings.Azahar.UseVsync = true;
+        settings.Azahar.AsyncShaderCompilation = false;
+        settings.Azahar.Fullscreen = true;
+        settings.Azahar.Volume = 75;
+        settings.Azahar.EnableAudioStretching = true;
+        settings.Azahar.IsNew3Ds = false;
+        settings.Azahar.LayoutOption = 1;
 
         var emuDir = Path.Combine(_testDirectory, "Azahar");
         AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -143,7 +143,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Azahar", "Azahar", "qt-config.ini");
 
         var settings = CreateSettingsManager();
-        settings.AzaharFullscreen = true;
+        settings.Azahar.Fullscreen = true;
 
         var emuDir = Path.Combine(_testDirectory, "Azahar");
         AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -162,13 +162,13 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Cemu", "Cemu", "settings.xml");
 
         var settings = CreateSettingsManager();
-        settings.CemuFullscreen = true;
-        settings.CemuDiscordPresence = false;
-        settings.CemuConsoleLanguage = 2;
-        settings.CemuGraphicApi = 1;
-        settings.CemuVsync = 1;
-        settings.CemuAsyncCompile = true;
-        settings.CemuTvVolume = 80;
+        settings.Cemu.Fullscreen = true;
+        settings.Cemu.DiscordPresence = false;
+        settings.Cemu.ConsoleLanguage = 2;
+        settings.Cemu.GraphicApi = 1;
+        settings.Cemu.Vsync = 1;
+        settings.Cemu.AsyncCompile = true;
+        settings.Cemu.TvVolume = 80;
 
         var emuDir = Path.Combine(_testDirectory, "Cemu");
         CemuConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -199,10 +199,10 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Dolphin", "Dolphin", "Dolphin.ini");
 
         var settings = CreateSettingsManager();
-        settings.DolphinGfxBackend = "D3D12";
-        settings.DolphinWiimoteContinuousScanning = false;
-        settings.DolphinWiimoteEnableSpeaker = false;
-        settings.DolphinDspThread = false;
+        settings.Dolphin.GfxBackend = "D3D12";
+        settings.Dolphin.WiimoteContinuousScanning = false;
+        settings.Dolphin.WiimoteEnableSpeaker = false;
+        settings.Dolphin.DspThread = false;
 
         var emuDir = Path.Combine(_testDirectory, "Dolphin");
 
@@ -229,10 +229,10 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Flycast", "Flycast", "emu.cfg");
 
         var settings = CreateSettingsManager();
-        settings.FlycastFullscreen = true;
-        settings.FlycastWidth = 1920;
-        settings.FlycastHeight = 1080;
-        settings.FlycastMaximized = true;
+        settings.Flycast.Fullscreen = true;
+        settings.Flycast.Width = 1920;
+        settings.Flycast.Height = 1080;
+        settings.Flycast.Maximized = true;
 
         var emuDir = Path.Combine(_testDirectory, "Flycast");
         FlycastConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -253,8 +253,8 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Flycast", "Flycast", "emu.cfg");
 
         var settings = CreateSettingsManager();
-        settings.FlycastFullscreen = false;
-        settings.FlycastMaximized = false;
+        settings.Flycast.Fullscreen = false;
+        settings.Flycast.Maximized = false;
 
         var emuDir = Path.Combine(_testDirectory, "Flycast");
         FlycastConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -273,21 +273,21 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Mame", "MAME", "mame.ini");
 
         var settings = CreateSettingsManager();
-        settings.MameVideo = "d3d";
-        settings.MameWindow = false;
-        settings.MameMaximize = true;
-        settings.MameKeepAspect = true;
-        settings.MameSkipGameInfo = true;
-        settings.MameAutosave = true;
-        settings.MameConfirmQuit = false;
-        settings.MameJoystick = true;
-        settings.MameAutoframeskip = false;
-        settings.MameBgfxBackend = "vulkan";
-        settings.MameBgfxScreenChains = "crt-geom";
-        settings.MameFilter = true;
-        settings.MameCheat = true;
-        settings.MameRewind = true;
-        settings.MameNvramSave = false;
+        settings.Mame.Video = "d3d";
+        settings.Mame.Window = false;
+        settings.Mame.Maximize = true;
+        settings.Mame.KeepAspect = true;
+        settings.Mame.SkipGameInfo = true;
+        settings.Mame.Autosave = true;
+        settings.Mame.ConfirmQuit = false;
+        settings.Mame.Joystick = true;
+        settings.Mame.Autoframeskip = false;
+        settings.Mame.BgfxBackend = "vulkan";
+        settings.Mame.BgfxScreenChains = "crt-geom";
+        settings.Mame.Filter = true;
+        settings.Mame.Cheat = true;
+        settings.Mame.Rewind = true;
+        settings.Mame.NvramSave = false;
 
         var emuDir = Path.Combine(_testDirectory, "Mame");
         MameConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -305,20 +305,20 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Supermodel", "Supermodel", "Supermodel.ini");
 
         var settings = CreateSettingsManager();
-        settings.SupermodelNew3DEngine = true;
-        settings.SupermodelQuadRendering = true;
-        settings.SupermodelFullscreen = true;
-        settings.SupermodelResX = 1920;
-        settings.SupermodelResY = 1080;
-        settings.SupermodelWideScreen = true;
-        settings.SupermodelStretch = false;
-        settings.SupermodelVsync = true;
-        settings.SupermodelThrottle = true;
-        settings.SupermodelMusicVolume = 100;
-        settings.SupermodelSoundVolume = 100;
-        settings.SupermodelInputSystem = "dinput";
-        settings.SupermodelMultiThreaded = true;
-        settings.SupermodelPowerPcFrequency = 50;
+        settings.Supermodel.New3DEngine = true;
+        settings.Supermodel.QuadRendering = true;
+        settings.Supermodel.Fullscreen = true;
+        settings.Supermodel.ResX = 1920;
+        settings.Supermodel.ResY = 1080;
+        settings.Supermodel.WideScreen = true;
+        settings.Supermodel.Stretch = false;
+        settings.Supermodel.Vsync = true;
+        settings.Supermodel.Throttle = true;
+        settings.Supermodel.MusicVolume = 100;
+        settings.Supermodel.SoundVolume = 100;
+        settings.Supermodel.InputSystem = "dinput";
+        settings.Supermodel.MultiThreaded = true;
+        settings.Supermodel.PowerPcFrequency = 50;
 
         var emuDir = Path.Combine(_testDirectory, "Supermodel");
         SupermodelConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -350,7 +350,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Supermodel", "Supermodel", "Supermodel.ini");
 
         var settings = CreateSettingsManager();
-        settings.SupermodelInputSystem = "invalid_value";
+        settings.Supermodel.InputSystem = "invalid_value";
 
         var emuDir = Path.Combine(_testDirectory, "Supermodel");
         SupermodelConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -367,18 +367,18 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("SegaModel2", "SEGA Model 2", "EMULATOR.INI");
 
         var settings = CreateSettingsManager();
-        settings.SegaModel2ResX = 1920;
-        settings.SegaModel2ResY = 1080;
-        settings.SegaModel2WideScreen = 1;
-        settings.SegaModel2Bilinear = true;
-        settings.SegaModel2Trilinear = true;
-        settings.SegaModel2FilterTilemaps = true;
-        settings.SegaModel2DrawCross = false;
-        settings.SegaModel2Fsaa = 4;
-        settings.SegaModel2XInput = true;
-        settings.SegaModel2EnableFf = true;
-        settings.SegaModel2HoldGears = true;
-        settings.SegaModel2UseRawInput = true;
+        settings.SegaModel2.ResX = 1920;
+        settings.SegaModel2.ResY = 1080;
+        settings.SegaModel2.WideScreen = 1;
+        settings.SegaModel2.Bilinear = true;
+        settings.SegaModel2.Trilinear = true;
+        settings.SegaModel2.FilterTilemaps = true;
+        settings.SegaModel2.DrawCross = false;
+        settings.SegaModel2.Fsaa = 4;
+        settings.SegaModel2.XInput = true;
+        settings.SegaModel2.EnableFf = true;
+        settings.SegaModel2.HoldGears = true;
+        settings.SegaModel2.UseRawInput = true;
 
         var emuDir = Path.Combine(_testDirectory, "SegaModel2");
         SegaModel2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -407,15 +407,15 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Yumir", "Yumir", "Ymir.toml");
 
         var settings = CreateSettingsManager();
-        settings.YumirFullscreen = true;
-        settings.YumirForceAspectRatio = true;
-        settings.YumirForcedAspect = 1.78;
-        settings.YumirReduceLatency = true;
-        settings.YumirVolume = 0.5;
-        settings.YumirMute = true;
-        settings.YumirVideoStandard = "NTSC";
-        settings.YumirAutoDetectRegion = false;
-        settings.YumirPauseWhenUnfocused = true;
+        settings.Yumir.Fullscreen = true;
+        settings.Yumir.ForceAspectRatio = true;
+        settings.Yumir.ForcedAspect = 1.78;
+        settings.Yumir.ReduceLatency = true;
+        settings.Yumir.Volume = 0.5;
+        settings.Yumir.Mute = true;
+        settings.Yumir.VideoStandard = "NTSC";
+        settings.Yumir.AutoDetectRegion = false;
+        settings.Yumir.PauseWhenUnfocused = true;
 
         var emuDir = Path.Combine(_testDirectory, "Yumir");
         YumirConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);
@@ -446,15 +446,15 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CopySampleToEmuDir("Raine", "Raine", "raine32_sdl.cfg");
 
         var settings = CreateSettingsManager();
-        settings.RaineFullscreen = true;
-        settings.RaineResX = 1920;
-        settings.RaineResY = 1080;
-        settings.RaineFixAspectRatio = false;
-        settings.RaineVsync = true;
-        settings.RaineSoundDriver = "SDL";
-        settings.RaineSampleRate = 48000;
-        settings.RaineFrameSkip = 1;
-        settings.RaineShowFps = true;
+        settings.Raine.Fullscreen = true;
+        settings.Raine.ResX = 1920;
+        settings.Raine.ResY = 1080;
+        settings.Raine.FixAspectRatio = false;
+        settings.Raine.Vsync = true;
+        settings.Raine.SoundDriver = "SDL";
+        settings.Raine.SampleRate = 48000;
+        settings.Raine.FrameSkip = 1;
+        settings.Raine.ShowFps = true;
 
         var emuDir = Path.Combine(_testDirectory, "Raine");
         RaineConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, _logErrors);

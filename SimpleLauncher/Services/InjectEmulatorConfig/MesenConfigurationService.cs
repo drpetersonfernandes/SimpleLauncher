@@ -53,35 +53,35 @@ public static class MesenConfigurationService
 
             // [Video]
             var video = GetOrCreateObject(root, "Video");
-            video["UseExclusiveFullscreen"] = settings.MesenFullscreen;
+            video["UseExclusiveFullscreen"] = settings.Mesen.Fullscreen;
 
             // Map UI aspect ratio values to Mesen enum values
-            var aspectRatio = settings.MesenAspectRatio switch
+            var aspectRatio = settings.Mesen.AspectRatio switch
             {
                 "4:3" => "Standard",
                 "16:9" => "Widescreen",
                 "Auto" => "Auto",
                 "NoStretching" => "NoStretching",
-                _ => settings.MesenAspectRatio
+                _ => settings.Mesen.AspectRatio
             };
             video["AspectRatio"] = aspectRatio;
-            video["VerticalSync"] = settings.MesenVsync;
-            video["UseBilinearInterpolation"] = settings.MesenBilinear;
-            video["VideoFilter"] = settings.MesenVideoFilter;
+            video["VerticalSync"] = settings.Mesen.Vsync;
+            video["UseBilinearInterpolation"] = settings.Mesen.Bilinear;
+            video["VideoFilter"] = settings.Mesen.VideoFilter;
 
             // [Audio]
             var audio = GetOrCreateObject(root, "Audio");
-            audio["EnableAudio"] = settings.MesenEnableAudio;
-            audio["MasterVolume"] = settings.MesenMasterVolume;
+            audio["EnableAudio"] = settings.Mesen.EnableAudio;
+            audio["MasterVolume"] = settings.Mesen.MasterVolume;
 
             // [Preferences]
             var preferences = GetOrCreateObject(root, "Preferences");
-            preferences["EnableRewind"] = settings.MesenRewind;
-            preferences["PauseWhenInBackground"] = settings.MesenPauseInBackground;
+            preferences["EnableRewind"] = settings.Mesen.Rewind;
+            preferences["PauseWhenInBackground"] = settings.Mesen.PauseInBackground;
 
             // [Emulation]
             var emulation = GetOrCreateObject(root, "Emulation");
-            emulation["RunAheadFrames"] = settings.MesenRunAhead;
+            emulation["RunAheadFrames"] = settings.Mesen.RunAhead;
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             File.WriteAllText(configPath, root.ToJsonString(options));

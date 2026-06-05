@@ -53,23 +53,23 @@ public static class MednafenConfigurationService
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             // Global settings
-            { "video.driver", settings.MednafenVideoDriver },
-            { "video.fs", settings.MednafenFullscreen ? "1" : "0" },
-            { "video.glvsync", settings.MednafenVsync ? "1" : "0" },
-            { "video.blit_timesync", settings.MednafenVsync ? "1" : "0" },
-            { "sound.volume", settings.MednafenVolume.ToString(CultureInfo.InvariantCulture) },
-            { "cheats", settings.MednafenCheats ? "1" : "0" },
-            { "state_rewind", settings.MednafenRewind ? "1" : "0" }
+            { "video.driver", settings.Mednafen.VideoDriver },
+            { "video.fs", settings.Mednafen.Fullscreen ? "1" : "0" },
+            { "video.glvsync", settings.Mednafen.Vsync ? "1" : "0" },
+            { "video.blit_timesync", settings.Mednafen.Vsync ? "1" : "0" },
+            { "sound.volume", settings.Mednafen.Volume.ToString(CultureInfo.InvariantCulture) },
+            { "cheats", settings.Mednafen.Cheats ? "1" : "0" },
+            { "state_rewind", settings.Mednafen.Rewind ? "1" : "0" }
         };
 
         // Add per-system settings for all common systems
         foreach (var prefix in SystemPrefixes)
         {
-            updates[$"{prefix}.stretch"] = settings.MednafenStretch;
-            updates[$"{prefix}.videoip"] = settings.MednafenBilinear ? "1" : "0";
-            updates[$"{prefix}.scanlines"] = settings.MednafenScanlines.ToString(CultureInfo.InvariantCulture);
-            updates[$"{prefix}.shader"] = settings.MednafenShader;
-            updates[$"{prefix}.special"] = settings.MednafenSpecial;
+            updates[$"{prefix}.stretch"] = settings.Mednafen.Stretch;
+            updates[$"{prefix}.videoip"] = settings.Mednafen.Bilinear ? "1" : "0";
+            updates[$"{prefix}.scanlines"] = settings.Mednafen.Scanlines.ToString(CultureInfo.InvariantCulture);
+            updates[$"{prefix}.shader"] = settings.Mednafen.Shader;
+            updates[$"{prefix}.special"] = settings.Mednafen.Special;
         }
 
         var lines = File.ReadAllLines(configPath).ToList();

@@ -55,7 +55,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_FullscreenEnabled_ContainsFullscreenFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneFullscreen = true;
+        settings.Daphne.Fullscreen = true;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -66,7 +66,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_FullscreenDisabled_OmitsFullscreenFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneFullscreen = false;
+        settings.Daphne.Fullscreen = false;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -77,8 +77,8 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_ValidResolution_ContainsXYArgs()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneResX = 1920;
-        settings.DaphneResY = 1080;
+        settings.Daphne.ResX = 1920;
+        settings.Daphne.ResY = 1080;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -90,8 +90,8 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_ResolutionBelowMin_OmitsResolutionArgs()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneResX = 100; // Below 640 minimum
-        settings.DaphneResY = 100; // Below 480 minimum
+        settings.Daphne.ResX = 100; // Below 640 minimum
+        settings.Daphne.ResY = 100; // Below 480 minimum
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -103,8 +103,8 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_ResolutionAboveMax_OmitsResolutionArgs()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneResX = 9999; // Above 7680 maximum
-        settings.DaphneResY = 9999; // Above 4320 maximum
+        settings.Daphne.ResX = 9999; // Above 7680 maximum
+        settings.Daphne.ResY = 9999; // Above 4320 maximum
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -116,7 +116,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_CrosshairsDisabled_ContainsNoCrosshairsFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneDisableCrosshairs = true;
+        settings.Daphne.DisableCrosshairs = true;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -127,7 +127,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_CrosshairsEnabled_OmitsNoCrosshairsFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneDisableCrosshairs = false;
+        settings.Daphne.DisableCrosshairs = false;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -138,7 +138,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_BilinearDisabled_ContainsNoLinearScaleFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneBilinear = false;
+        settings.Daphne.Bilinear = false;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -149,7 +149,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_BilinearEnabled_OmitsNoLinearScaleFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneBilinear = true;
+        settings.Daphne.Bilinear = true;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -160,7 +160,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_SoundDisabled_ContainsNoSoundFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneEnableSound = false;
+        settings.Daphne.EnableSound = false;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -171,7 +171,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_SoundEnabled_OmitsNoSoundFlag()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneEnableSound = true;
+        settings.Daphne.EnableSound = true;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -182,7 +182,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_OverlaysEnabled_ContainsUseOverlays1()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneUseOverlays = true;
+        settings.Daphne.UseOverlays = true;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -193,7 +193,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_OverlaysDisabled_ContainsUseOverlays0()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneUseOverlays = false;
+        settings.Daphne.UseOverlays = false;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 
@@ -204,13 +204,13 @@ public class DaphneConfigurationServiceTests : IDisposable
     public void BuildArguments_AllOptionsEnabled_ContainsAllFlags()
     {
         var settings = CreateSettingsManager();
-        settings.DaphneFullscreen = true;
-        settings.DaphneResX = 1920;
-        settings.DaphneResY = 1080;
-        settings.DaphneDisableCrosshairs = true;
-        settings.DaphneBilinear = false;
-        settings.DaphneEnableSound = false;
-        settings.DaphneUseOverlays = true;
+        settings.Daphne.Fullscreen = true;
+        settings.Daphne.ResX = 1920;
+        settings.Daphne.ResY = 1080;
+        settings.Daphne.DisableCrosshairs = true;
+        settings.Daphne.Bilinear = false;
+        settings.Daphne.EnableSound = false;
+        settings.Daphne.UseOverlays = true;
 
         var args = DaphneConfigurationService.BuildArguments(settings);
 

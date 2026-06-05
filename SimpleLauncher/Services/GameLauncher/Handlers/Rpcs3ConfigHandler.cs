@@ -26,7 +26,7 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
         var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
         var shouldRun = true;
 
-        if (context.Settings.Rpcs3ShowSettingsBeforeLaunch)
+        if (context.Settings.Rpcs3.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

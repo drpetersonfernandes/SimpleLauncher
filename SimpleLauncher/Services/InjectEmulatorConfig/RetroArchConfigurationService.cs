@@ -44,36 +44,36 @@ public static class RetroArchConfigurationService
         var updates = new Dictionary<string, string>
         {
             // --- Video ---
-            { "video_fullscreen", FormatBool(settings.RetroArchFullscreen) },
-            { "video_vsync", FormatBool(settings.RetroArchVsync) },
-            { "video_driver", FormatString(settings.RetroArchVideoDriver) },
-            { "video_threaded", FormatBool(settings.RetroArchThreadedVideo) },
-            { "video_smooth", FormatBool(settings.RetroArchBilinear) },
-            { "video_aspect_ratio_index", FormatString(settings.RetroArchAspectRatioIndex) },
-            { "video_scale_integer", FormatBool(settings.RetroArchScaleInteger) },
-            { "video_shader_enable", FormatBool(settings.RetroArchShaderEnable) },
-            { "video_hard_sync", FormatBool(settings.RetroArchHardSync) },
+            { "video_fullscreen", FormatBool(settings.RetroArch.Fullscreen) },
+            { "video_vsync", FormatBool(settings.RetroArch.Vsync) },
+            { "video_driver", FormatString(settings.RetroArch.VideoDriver) },
+            { "video_threaded", FormatBool(settings.RetroArch.ThreadedVideo) },
+            { "video_smooth", FormatBool(settings.RetroArch.Bilinear) },
+            { "video_aspect_ratio_index", FormatString(settings.RetroArch.AspectRatioIndex) },
+            { "video_scale_integer", FormatBool(settings.RetroArch.ScaleInteger) },
+            { "video_shader_enable", FormatBool(settings.RetroArch.ShaderEnable) },
+            { "video_hard_sync", FormatBool(settings.RetroArch.HardSync) },
 
             // --- Audio ---
-            { "audio_enable", FormatBool(settings.RetroArchAudioEnable) },
-            { "audio_mute_enable", FormatBool(settings.RetroArchAudioMute) },
+            { "audio_enable", FormatBool(settings.RetroArch.AudioEnable) },
+            { "audio_mute_enable", FormatBool(settings.RetroArch.AudioMute) },
 
             // --- Automation / Misc ---
-            { "pause_nonactive", FormatBool(settings.RetroArchPauseNonActive) },
-            { "config_save_on_exit", FormatBool(settings.RetroArchSaveOnExit) },
-            { "savestate_auto_save", FormatBool(settings.RetroArchAutoSaveState) },
-            { "savestate_auto_load", FormatBool(settings.RetroArchAutoLoadState) },
-            { "rewind_enable", FormatBool(settings.RetroArchRewind) },
-            { "run_ahead_enabled", FormatBool(settings.RetroArchRunAhead) },
-            { "discord_allow", FormatBool(settings.RetroArchDiscordAllow) },
+            { "pause_nonactive", FormatBool(settings.RetroArch.PauseNonActive) },
+            { "config_save_on_exit", FormatBool(settings.RetroArch.SaveOnExit) },
+            { "savestate_auto_save", FormatBool(settings.RetroArch.AutoSaveState) },
+            { "savestate_auto_load", FormatBool(settings.RetroArch.AutoLoadState) },
+            { "rewind_enable", FormatBool(settings.RetroArch.Rewind) },
+            { "run_ahead_enabled", FormatBool(settings.RetroArch.RunAhead) },
+            { "discord_allow", FormatBool(settings.RetroArch.DiscordAllow) },
 
             // --- UI ---
-            { "menu_driver", FormatString(settings.RetroArchMenuDriver) },
-            { "menu_show_advanced_settings", FormatBool(settings.RetroArchShowAdvancedSettings) },
+            { "menu_driver", FormatString(settings.RetroArch.MenuDriver) },
+            { "menu_show_advanced_settings", FormatBool(settings.RetroArch.ShowAdvancedSettings) },
 
             // --- RetroAchievements ---
-            { "cheevos_enable", FormatBool(settings.RetroArchCheevosEnable) },
-            { "cheevos_hardcore_mode_enable", FormatBool(settings.RetroArchCheevosHardcore) }
+            { "cheevos_enable", FormatBool(settings.RetroArch.CheevosEnable) },
+            { "cheevos_hardcore_mode_enable", FormatBool(settings.RetroArch.CheevosHardcore) }
         };
 
         // Read and Update

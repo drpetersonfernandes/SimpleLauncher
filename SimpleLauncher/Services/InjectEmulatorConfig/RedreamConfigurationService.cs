@@ -40,37 +40,37 @@ public static class RedreamConfigurationService
 
         DebugLogger.Log($"[RedreamConfig] Injecting configuration into: {configPath}");
 
-        var isWindowed = IsWindowedMode(settings.RedreamFullmode);
+        var isWindowed = IsWindowedMode(settings.Redream.Fullmode);
 
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            { "cable", settings.RedreamCable },
-            { "broadcast", settings.RedreamBroadcast },
-            { "language", settings.RedreamLanguage },
-            { "region", settings.RedreamRegion },
-            { "vsync", settings.RedreamVsync ? "1" : "0" },
-            { "frameskip", settings.RedreamFrameskip ? "1" : "0" },
-            { "aspect", settings.RedreamAspect },
-            { "res", settings.RedreamRes.ToString(CultureInfo.InvariantCulture) },
-            { "renderer", settings.RedreamRenderer },
-            { "volume", settings.RedreamVolume.ToString(CultureInfo.InvariantCulture) },
-            { "latency", settings.RedreamLatency.ToString(CultureInfo.InvariantCulture) },
-            { "framerate", settings.RedreamFramerate ? "1" : "0" }
+            { "cable", settings.Redream.Cable },
+            { "broadcast", settings.Redream.Broadcast },
+            { "language", settings.Redream.Language },
+            { "region", settings.Redream.Region },
+            { "vsync", settings.Redream.Vsync ? "1" : "0" },
+            { "frameskip", settings.Redream.Frameskip ? "1" : "0" },
+            { "aspect", settings.Redream.Aspect },
+            { "res", settings.Redream.Res.ToString(CultureInfo.InvariantCulture) },
+            { "renderer", settings.Redream.Renderer },
+            { "volume", settings.Redream.Volume.ToString(CultureInfo.InvariantCulture) },
+            { "latency", settings.Redream.Latency.ToString(CultureInfo.InvariantCulture) },
+            { "framerate", settings.Redream.Framerate ? "1" : "0" }
         };
 
         // Handle window/fullscreen mode correctly
-        if (isWindowed) // Changed from: if (settings.RedreamFullmode == "windowed")
+        if (isWindowed) // Changed from: if (settings.Redream.Fullmode == "windowed")
         {
             updates["mode"] = "windowed";
-            updates["width"] = settings.RedreamWidth.ToString(CultureInfo.InvariantCulture);
-            updates["height"] = settings.RedreamHeight.ToString(CultureInfo.InvariantCulture);
+            updates["width"] = settings.Redream.Width.ToString(CultureInfo.InvariantCulture);
+            updates["height"] = settings.Redream.Height.ToString(CultureInfo.InvariantCulture);
         }
         else
         {
             updates["mode"] = "fullscreen";
-            updates["fullmode"] = settings.RedreamFullmode;
-            updates["fullwidth"] = settings.RedreamWidth.ToString(CultureInfo.InvariantCulture);
-            updates["fullheight"] = settings.RedreamHeight.ToString(CultureInfo.InvariantCulture);
+            updates["fullmode"] = settings.Redream.Fullmode;
+            updates["fullwidth"] = settings.Redream.Width.ToString(CultureInfo.InvariantCulture);
+            updates["fullheight"] = settings.Redream.Height.ToString(CultureInfo.InvariantCulture);
         }
 
         var lines = File.ReadAllLines(configPath).ToList();

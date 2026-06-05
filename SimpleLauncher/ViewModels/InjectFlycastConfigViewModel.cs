@@ -70,20 +70,20 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        Fullscreen = _settings.FlycastFullscreen;
-        Maximized = _settings.FlycastMaximized;
-        Width = _settings.FlycastWidth;
-        Height = _settings.FlycastHeight;
-        ShowBeforeLaunch = _settings.FlycastShowSettingsBeforeLaunch;
+        Fullscreen = _settings.Flycast.Fullscreen;
+        Maximized = _settings.Flycast.Maximized;
+        Width = _settings.Flycast.Width;
+        Height = _settings.Flycast.Height;
+        ShowBeforeLaunch = _settings.Flycast.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.FlycastFullscreen = Fullscreen;
-        _settings.FlycastMaximized = Maximized;
-        _settings.FlycastWidth = Width;
-        _settings.FlycastHeight = Height;
-        _settings.FlycastShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Flycast.Fullscreen = Fullscreen;
+        _settings.Flycast.Maximized = Maximized;
+        _settings.Flycast.Width = Width;
+        _settings.Flycast.Height = Height;
+        _settings.Flycast.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
 
         _settings.Save();
     }

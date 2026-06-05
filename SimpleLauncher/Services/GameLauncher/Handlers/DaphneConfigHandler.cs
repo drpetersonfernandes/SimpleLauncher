@@ -14,7 +14,7 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
     public async Task<bool> HandleConfigurationAsync(LaunchContext context)
     {
         var shouldRun = true;
-        if (context.Settings.DaphneShowSettingsBeforeLaunch)
+        if (context.Settings.Daphne.ShowSettingsBeforeLaunch)
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {

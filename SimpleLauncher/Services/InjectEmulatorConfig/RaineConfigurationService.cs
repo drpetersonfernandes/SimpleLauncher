@@ -54,21 +54,21 @@ public static class RaineConfigurationService
         {
             ["Display"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "fullscreen", settings.RaineFullscreen ? "1" : "0" },
-                { "screen_x", settings.RaineResX.ToString(CultureInfo.InvariantCulture) },
-                { "screen_y", settings.RaineResY.ToString(CultureInfo.InvariantCulture) },
-                { "fix_aspect_ratio", settings.RaineFixAspectRatio ? "1" : "0" },
-                { "ogl_dbuf", settings.RaineVsync ? "2" : "0" }
+                { "fullscreen", settings.Raine.Fullscreen ? "1" : "0" },
+                { "screen_x", settings.Raine.ResX.ToString(CultureInfo.InvariantCulture) },
+                { "screen_y", settings.Raine.ResY.ToString(CultureInfo.InvariantCulture) },
+                { "fix_aspect_ratio", settings.Raine.FixAspectRatio ? "1" : "0" },
+                { "ogl_dbuf", settings.Raine.Vsync ? "2" : "0" }
             },
             ["Sound"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "driver", settings.RaineSoundDriver },
-                { "sample_rate", settings.RaineSampleRate.ToString(CultureInfo.InvariantCulture) }
+                { "driver", settings.Raine.SoundDriver },
+                { "sample_rate", settings.Raine.SampleRate.ToString(CultureInfo.InvariantCulture) }
             },
             ["General"] = new(StringComparer.OrdinalIgnoreCase)
             {
-                { "frame_skip", settings.RaineFrameSkip.ToString(CultureInfo.InvariantCulture) },
-                { "ShowFPS", settings.RaineShowFps ? "1" : "0" }
+                { "frame_skip", settings.Raine.FrameSkip.ToString(CultureInfo.InvariantCulture) },
+                { "ShowFPS", settings.Raine.ShowFps ? "1" : "0" }
             },
             ["Directories"] = new(StringComparer.OrdinalIgnoreCase),
             ["neocd"] = new(StringComparer.OrdinalIgnoreCase)
@@ -103,11 +103,11 @@ public static class RaineConfigurationService
                 updates["neocd"]["neocd_dir"] = gameDir.EndsWith(Path.DirectorySeparatorChar) ? gameDir : gameDir + Path.DirectorySeparatorChar;
             }
 
-            updates["neocd"]["neocd_bios"] = settings.RaineNeoCdBios;
-            updates["neocd"]["music_volume"] = settings.RaineMusicVolume.ToString(CultureInfo.InvariantCulture);
-            updates["neocd"]["sfx_volume"] = settings.RaineSfxVolume.ToString(CultureInfo.InvariantCulture);
-            updates["neocd"]["mute_sfx"] = settings.RaineMuteSfx ? "1" : "0";
-            updates["neocd"]["mute_music"] = settings.RaineMuteMusic ? "1" : "0";
+            updates["neocd"]["neocd_bios"] = settings.Raine.NeoCdBios;
+            updates["neocd"]["music_volume"] = settings.Raine.MusicVolume.ToString(CultureInfo.InvariantCulture);
+            updates["neocd"]["sfx_volume"] = settings.Raine.SfxVolume.ToString(CultureInfo.InvariantCulture);
+            updates["neocd"]["mute_sfx"] = settings.Raine.MuteSfx ? "1" : "0";
+            updates["neocd"]["mute_music"] = settings.Raine.MuteMusic ? "1" : "0";
         }
 
         var lines = File.ReadAllLines(configPath).ToList();

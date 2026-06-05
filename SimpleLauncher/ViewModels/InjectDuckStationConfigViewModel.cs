@@ -110,40 +110,40 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        DuckStationStartFullscreen = _settings.DuckStationStartFullscreen;
-        DuckStationPauseOnFocusLoss = _settings.DuckStationPauseOnFocusLoss;
-        DuckStationSaveStateOnExit = _settings.DuckStationSaveStateOnExit;
-        DuckStationRewindEnable = _settings.DuckStationRewindEnable;
-        DuckStationRunaheadFrameCount = _settings.DuckStationRunaheadFrameCount;
-        DuckStationRenderer = _settings.DuckStationRenderer;
-        DuckStationResolutionScale = _settings.DuckStationResolutionScale;
-        DuckStationTextureFilter = _settings.DuckStationTextureFilter;
-        DuckStationAspectRatio = _settings.DuckStationAspectRatio;
-        DuckStationWidescreenHack = _settings.DuckStationWidescreenHack;
-        DuckStationPgxpEnable = _settings.DuckStationPgxpEnable;
-        DuckStationVsync = _settings.DuckStationVsync;
-        DuckStationOutputMuted = _settings.DuckStationOutputMuted;
-        DuckStationOutputVolume = _settings.DuckStationOutputVolume;
-        DuckStationShowSettingsBeforeLaunch = _settings.DuckStationShowSettingsBeforeLaunch;
+        DuckStationStartFullscreen = _settings.DuckStation.StartFullscreen;
+        DuckStationPauseOnFocusLoss = _settings.DuckStation.PauseOnFocusLoss;
+        DuckStationSaveStateOnExit = _settings.DuckStation.SaveStateOnExit;
+        DuckStationRewindEnable = _settings.DuckStation.RewindEnable;
+        DuckStationRunaheadFrameCount = _settings.DuckStation.RunaheadFrameCount;
+        DuckStationRenderer = _settings.DuckStation.Renderer;
+        DuckStationResolutionScale = _settings.DuckStation.ResolutionScale;
+        DuckStationTextureFilter = _settings.DuckStation.TextureFilter;
+        DuckStationAspectRatio = _settings.DuckStation.AspectRatio;
+        DuckStationWidescreenHack = _settings.DuckStation.WidescreenHack;
+        DuckStationPgxpEnable = _settings.DuckStation.PgxpEnable;
+        DuckStationVsync = _settings.DuckStation.Vsync;
+        DuckStationOutputMuted = _settings.DuckStation.OutputMuted;
+        DuckStationOutputVolume = _settings.DuckStation.OutputVolume;
+        DuckStationShowSettingsBeforeLaunch = _settings.DuckStation.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.DuckStationStartFullscreen = DuckStationStartFullscreen;
-        _settings.DuckStationPauseOnFocusLoss = DuckStationPauseOnFocusLoss;
-        _settings.DuckStationSaveStateOnExit = DuckStationSaveStateOnExit;
-        _settings.DuckStationRewindEnable = DuckStationRewindEnable;
-        _settings.DuckStationRunaheadFrameCount = DuckStationRunaheadFrameCount;
-        _settings.DuckStationRenderer = DuckStationRenderer;
-        _settings.DuckStationResolutionScale = DuckStationResolutionScale;
-        _settings.DuckStationTextureFilter = DuckStationTextureFilter;
-        _settings.DuckStationAspectRatio = DuckStationAspectRatio;
-        _settings.DuckStationWidescreenHack = DuckStationWidescreenHack;
-        _settings.DuckStationPgxpEnable = DuckStationPgxpEnable;
-        _settings.DuckStationVsync = DuckStationVsync;
-        _settings.DuckStationOutputMuted = DuckStationOutputMuted;
-        _settings.DuckStationOutputVolume = DuckStationOutputVolume;
-        _settings.DuckStationShowSettingsBeforeLaunch = DuckStationShowSettingsBeforeLaunch;
+        _settings.DuckStation.StartFullscreen = DuckStationStartFullscreen;
+        _settings.DuckStation.PauseOnFocusLoss = DuckStationPauseOnFocusLoss;
+        _settings.DuckStation.SaveStateOnExit = DuckStationSaveStateOnExit;
+        _settings.DuckStation.RewindEnable = DuckStationRewindEnable;
+        _settings.DuckStation.RunaheadFrameCount = DuckStationRunaheadFrameCount;
+        _settings.DuckStation.Renderer = DuckStationRenderer;
+        _settings.DuckStation.ResolutionScale = DuckStationResolutionScale;
+        _settings.DuckStation.TextureFilter = DuckStationTextureFilter;
+        _settings.DuckStation.AspectRatio = DuckStationAspectRatio;
+        _settings.DuckStation.WidescreenHack = DuckStationWidescreenHack;
+        _settings.DuckStation.PgxpEnable = DuckStationPgxpEnable;
+        _settings.DuckStation.Vsync = DuckStationVsync;
+        _settings.DuckStation.OutputMuted = DuckStationOutputMuted;
+        _settings.DuckStation.OutputVolume = DuckStationOutputVolume;
+        _settings.DuckStation.ShowSettingsBeforeLaunch = DuckStationShowSettingsBeforeLaunch;
 
         _settings.Save();
     }

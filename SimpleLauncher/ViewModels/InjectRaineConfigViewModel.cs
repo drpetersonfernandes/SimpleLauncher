@@ -112,42 +112,42 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        RaineFullscreen = _settings.RaineFullscreen;
-        RaineFixAspectRatio = _settings.RaineFixAspectRatio;
-        RaineVsync = _settings.RaineVsync;
-        RaineResX = _settings.RaineResX;
-        RaineResY = _settings.RaineResY;
-        RaineSoundDriver = _settings.RaineSoundDriver;
-        RaineSampleRate = _settings.RaineSampleRate;
-        RaineShowSettingsBeforeLaunch = _settings.RaineShowSettingsBeforeLaunch;
-        RaineShowFps = _settings.RaineShowFps;
-        RaineFrameSkip = _settings.RaineFrameSkip;
-        RaineNeoCdBios = _settings.RaineNeoCdBios ?? string.Empty;
-        RaineMusicVolume = _settings.RaineMusicVolume;
-        RaineSfxVolume = _settings.RaineSfxVolume;
-        RaineMuteSfx = _settings.RaineMuteSfx;
-        RaineMuteMusic = _settings.RaineMuteMusic;
-        RaineRomDirectory = _settings.RaineRomDirectory ?? string.Empty;
+        RaineFullscreen = _settings.Raine.Fullscreen;
+        RaineFixAspectRatio = _settings.Raine.FixAspectRatio;
+        RaineVsync = _settings.Raine.Vsync;
+        RaineResX = _settings.Raine.ResX;
+        RaineResY = _settings.Raine.ResY;
+        RaineSoundDriver = _settings.Raine.SoundDriver;
+        RaineSampleRate = _settings.Raine.SampleRate;
+        RaineShowSettingsBeforeLaunch = _settings.Raine.ShowSettingsBeforeLaunch;
+        RaineShowFps = _settings.Raine.ShowFps;
+        RaineFrameSkip = _settings.Raine.FrameSkip;
+        RaineNeoCdBios = _settings.Raine.NeoCdBios ?? string.Empty;
+        RaineMusicVolume = _settings.Raine.MusicVolume;
+        RaineSfxVolume = _settings.Raine.SfxVolume;
+        RaineMuteSfx = _settings.Raine.MuteSfx;
+        RaineMuteMusic = _settings.Raine.MuteMusic;
+        RaineRomDirectory = _settings.Raine.RomDirectory ?? string.Empty;
     }
 
     private void SaveSettings()
     {
-        _settings.RaineFullscreen = RaineFullscreen;
-        _settings.RaineFixAspectRatio = RaineFixAspectRatio;
-        _settings.RaineVsync = RaineVsync;
-        _settings.RaineResX = RaineResX;
-        _settings.RaineResY = RaineResY;
-        _settings.RaineSoundDriver = RaineSoundDriver;
-        _settings.RaineSampleRate = RaineSampleRate;
-        _settings.RaineShowSettingsBeforeLaunch = RaineShowSettingsBeforeLaunch;
-        _settings.RaineShowFps = RaineShowFps;
-        _settings.RaineFrameSkip = RaineFrameSkip;
-        _settings.RaineNeoCdBios = RaineNeoCdBios;
-        _settings.RaineMusicVolume = RaineMusicVolume;
-        _settings.RaineSfxVolume = RaineSfxVolume;
-        _settings.RaineMuteSfx = RaineMuteSfx;
-        _settings.RaineMuteMusic = RaineMuteMusic;
-        _settings.RaineRomDirectory = RaineRomDirectory;
+        _settings.Raine.Fullscreen = RaineFullscreen;
+        _settings.Raine.FixAspectRatio = RaineFixAspectRatio;
+        _settings.Raine.Vsync = RaineVsync;
+        _settings.Raine.ResX = RaineResX;
+        _settings.Raine.ResY = RaineResY;
+        _settings.Raine.SoundDriver = RaineSoundDriver;
+        _settings.Raine.SampleRate = RaineSampleRate;
+        _settings.Raine.ShowSettingsBeforeLaunch = RaineShowSettingsBeforeLaunch;
+        _settings.Raine.ShowFps = RaineShowFps;
+        _settings.Raine.FrameSkip = RaineFrameSkip;
+        _settings.Raine.NeoCdBios = RaineNeoCdBios;
+        _settings.Raine.MusicVolume = RaineMusicVolume;
+        _settings.Raine.SfxVolume = RaineSfxVolume;
+        _settings.Raine.MuteSfx = RaineMuteSfx;
+        _settings.Raine.MuteMusic = RaineMuteMusic;
+        _settings.Raine.RomDirectory = RaineRomDirectory;
 
         _settings.Save();
     }
@@ -183,7 +183,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 
         try
         {
-            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _gameFilePath, _systemRomPath, _settings.RaineRomDirectory);
+            RaineConfigurationService.InjectSettings(path, _settings, _logErrors, _gameFilePath, _systemRomPath, _settings.Raine.RomDirectory);
             return true;
         }
         catch (InvalidOperationException ex)

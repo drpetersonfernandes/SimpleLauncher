@@ -76,30 +76,30 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        GraphicsApi = _settings.AzaharGraphicsApi.ToString(CultureInfo.InvariantCulture);
-        Resolution = _settings.AzaharResolutionFactor.ToString(CultureInfo.InvariantCulture);
-        Layout = _settings.AzaharLayoutOption.ToString(CultureInfo.InvariantCulture);
-        Fullscreen = _settings.AzaharFullscreen;
-        Vsync = _settings.AzaharUseVsync;
-        AsyncShader = _settings.AzaharAsyncShaderCompilation;
-        IsNew3Ds = _settings.AzaharIsNew3Ds;
-        Volume = _settings.AzaharVolume;
-        ShowBeforeLaunch = _settings.AzaharShowSettingsBeforeLaunch;
-        AudioStretching = _settings.AzaharEnableAudioStretching;
+        GraphicsApi = _settings.Azahar.GraphicsApi.ToString(CultureInfo.InvariantCulture);
+        Resolution = _settings.Azahar.ResolutionFactor.ToString(CultureInfo.InvariantCulture);
+        Layout = _settings.Azahar.LayoutOption.ToString(CultureInfo.InvariantCulture);
+        Fullscreen = _settings.Azahar.Fullscreen;
+        Vsync = _settings.Azahar.UseVsync;
+        AsyncShader = _settings.Azahar.AsyncShaderCompilation;
+        IsNew3Ds = _settings.Azahar.IsNew3Ds;
+        Volume = _settings.Azahar.Volume;
+        ShowBeforeLaunch = _settings.Azahar.ShowSettingsBeforeLaunch;
+        AudioStretching = _settings.Azahar.EnableAudioStretching;
     }
 
     private void SaveSettings()
     {
-        _settings.AzaharGraphicsApi = int.Parse(GraphicsApi, CultureInfo.InvariantCulture);
-        _settings.AzaharResolutionFactor = int.Parse(Resolution, CultureInfo.InvariantCulture);
-        _settings.AzaharLayoutOption = int.Parse(Layout, CultureInfo.InvariantCulture);
-        _settings.AzaharFullscreen = Fullscreen;
-        _settings.AzaharUseVsync = Vsync;
-        _settings.AzaharAsyncShaderCompilation = AsyncShader;
-        _settings.AzaharIsNew3Ds = IsNew3Ds;
-        _settings.AzaharVolume = Volume;
-        _settings.AzaharShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.AzaharEnableAudioStretching = AudioStretching;
+        _settings.Azahar.GraphicsApi = int.Parse(GraphicsApi, CultureInfo.InvariantCulture);
+        _settings.Azahar.ResolutionFactor = int.Parse(Resolution, CultureInfo.InvariantCulture);
+        _settings.Azahar.LayoutOption = int.Parse(Layout, CultureInfo.InvariantCulture);
+        _settings.Azahar.Fullscreen = Fullscreen;
+        _settings.Azahar.UseVsync = Vsync;
+        _settings.Azahar.AsyncShaderCompilation = AsyncShader;
+        _settings.Azahar.IsNew3Ds = IsNew3Ds;
+        _settings.Azahar.Volume = Volume;
+        _settings.Azahar.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
+        _settings.Azahar.EnableAudioStretching = AudioStretching;
         _settings.Save();
     }
 

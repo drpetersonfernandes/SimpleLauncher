@@ -42,16 +42,16 @@ public static class StellaConfigurationService
 
         var updates = new Dictionary<string, string>
         {
-            { "fullscreen", settings.StellaFullscreen ? "1" : "0" },
-            { "vsync", settings.StellaVsync ? "true" : "false" },
-            { "video", settings.StellaVideoDriver },
-            { "tia.correct_aspect", settings.StellaCorrectAspect ? "true" : "false" },
-            { "tv.filter", settings.StellaTvFilter.ToString(CultureInfo.InvariantCulture) },
-            { "tv.scanlines", settings.StellaScanlines.ToString(CultureInfo.InvariantCulture) },
-            { "audio.enabled", settings.StellaAudioEnabled ? "1" : "0" },
-            { "audio.volume", settings.StellaAudioVolume.ToString(CultureInfo.InvariantCulture) },
-            { "dev.timemachine", settings.StellaTimeMachine ? "1" : "0" },
-            { "confirmexit", settings.StellaConfirmExit ? "1" : "0" }
+            { "fullscreen", settings.Stella.Fullscreen ? "1" : "0" },
+            { "vsync", settings.Stella.Vsync ? "true" : "false" },
+            { "video", settings.Stella.VideoDriver },
+            { "tia.correct_aspect", settings.Stella.CorrectAspect ? "true" : "false" },
+            { "tv.filter", settings.Stella.TvFilter.ToString(CultureInfo.InvariantCulture) },
+            { "tv.scanlines", settings.Stella.Scanlines.ToString(CultureInfo.InvariantCulture) },
+            { "audio.enabled", settings.Stella.AudioEnabled ? "1" : "0" },
+            { "audio.volume", settings.Stella.AudioVolume.ToString(CultureInfo.InvariantCulture) },
+            { "dev.timemachine", settings.Stella.TimeMachine ? "1" : "0" },
+            { "confirmexit", settings.Stella.ConfirmExit ? "1" : "0" }
         };
 
         var connectionString = new SqliteConnectionStringBuilder { DataSource = configPath }.ToString();

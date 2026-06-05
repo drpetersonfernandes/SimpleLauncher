@@ -102,42 +102,42 @@ public partial class InjectMameConfigViewModel : ObservableObject
 
     private void LoadSettings()
     {
-        MameVideo = _settings.MameVideo;
-        MameBgfxBackend = _settings.MameBgfxBackend;
-        MameBgfxScreenChains = _settings.MameBgfxScreenChains;
-        MameFilter = _settings.MameFilter;
-        MameAutoframeskip = _settings.MameAutoframeskip;
-        MameCheat = _settings.MameCheat;
-        MameRewind = _settings.MameRewind;
-        MameNvramSave = _settings.MameNvramSave;
-        MameWindow = _settings.MameWindow;
-        MameMaximize = _settings.MameMaximize;
-        MameKeepAspect = _settings.MameKeepAspect;
-        MameSkipGameInfo = _settings.MameSkipGameInfo;
-        MameAutosave = _settings.MameAutosave;
-        MameConfirmQuit = _settings.MameConfirmQuit;
-        MameJoystick = _settings.MameJoystick;
-        MameShowSettingsBeforeLaunch = _settings.MameShowSettingsBeforeLaunch;
+        MameVideo = _settings.Mame.Video;
+        MameBgfxBackend = _settings.Mame.BgfxBackend;
+        MameBgfxScreenChains = _settings.Mame.BgfxScreenChains;
+        MameFilter = _settings.Mame.Filter;
+        MameAutoframeskip = _settings.Mame.Autoframeskip;
+        MameCheat = _settings.Mame.Cheat;
+        MameRewind = _settings.Mame.Rewind;
+        MameNvramSave = _settings.Mame.NvramSave;
+        MameWindow = _settings.Mame.Window;
+        MameMaximize = _settings.Mame.Maximize;
+        MameKeepAspect = _settings.Mame.KeepAspect;
+        MameSkipGameInfo = _settings.Mame.SkipGameInfo;
+        MameAutosave = _settings.Mame.Autosave;
+        MameConfirmQuit = _settings.Mame.ConfirmQuit;
+        MameJoystick = _settings.Mame.Joystick;
+        MameShowSettingsBeforeLaunch = _settings.Mame.ShowSettingsBeforeLaunch;
     }
 
     private void SaveSettings()
     {
-        _settings.MameVideo = MameVideo;
-        _settings.MameBgfxBackend = MameBgfxBackend;
-        _settings.MameBgfxScreenChains = MameBgfxScreenChains;
-        _settings.MameFilter = MameFilter;
-        _settings.MameAutoframeskip = MameAutoframeskip;
-        _settings.MameCheat = MameCheat;
-        _settings.MameRewind = MameRewind;
-        _settings.MameNvramSave = MameNvramSave;
-        _settings.MameWindow = MameWindow;
-        _settings.MameMaximize = MameMaximize;
-        _settings.MameKeepAspect = MameKeepAspect;
-        _settings.MameSkipGameInfo = MameSkipGameInfo;
-        _settings.MameAutosave = MameAutosave;
-        _settings.MameConfirmQuit = MameConfirmQuit;
-        _settings.MameJoystick = MameJoystick;
-        _settings.MameShowSettingsBeforeLaunch = MameShowSettingsBeforeLaunch;
+        _settings.Mame.Video = MameVideo;
+        _settings.Mame.BgfxBackend = MameBgfxBackend;
+        _settings.Mame.BgfxScreenChains = MameBgfxScreenChains;
+        _settings.Mame.Filter = MameFilter;
+        _settings.Mame.Autoframeskip = MameAutoframeskip;
+        _settings.Mame.Cheat = MameCheat;
+        _settings.Mame.Rewind = MameRewind;
+        _settings.Mame.NvramSave = MameNvramSave;
+        _settings.Mame.Window = MameWindow;
+        _settings.Mame.Maximize = MameMaximize;
+        _settings.Mame.KeepAspect = MameKeepAspect;
+        _settings.Mame.SkipGameInfo = MameSkipGameInfo;
+        _settings.Mame.Autosave = MameAutosave;
+        _settings.Mame.ConfirmQuit = MameConfirmQuit;
+        _settings.Mame.Joystick = MameJoystick;
+        _settings.Mame.ShowSettingsBeforeLaunch = MameShowSettingsBeforeLaunch;
 
         _settings.Save();
     }
