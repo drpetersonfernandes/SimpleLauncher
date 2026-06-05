@@ -157,9 +157,6 @@
         <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.runtimeconfig.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="history.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
         <None Update="audio\shutter.mp3">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
@@ -869,6 +866,9 @@
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="tools\SevenZip\7za_arm64.exe">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="history.dat">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>

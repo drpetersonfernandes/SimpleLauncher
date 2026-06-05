@@ -6,12 +6,12 @@ public partial class UpdateLogWindow
 {
     private readonly UpdateLogViewModel _viewModel;
 
-    public UpdateLogWindow()
+    public UpdateLogWindow(UpdateLogViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new UpdateLogViewModel();
+        _viewModel = viewModel;
         DataContext = _viewModel;
     }
 

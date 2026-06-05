@@ -1,19 +1,14 @@
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class SetFuzzyMatchingWindow
 {
-    public SetFuzzyMatchingWindow(SettingsManager settings)
+    public SetFuzzyMatchingWindow(SetFuzzyMatchingViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        var viewModel = new SetFuzzyMatchingViewModel(settings, logErrors);
         viewModel.SaveCompleted += () =>
         {
             DialogResult = true;

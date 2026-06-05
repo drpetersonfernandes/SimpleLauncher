@@ -6,11 +6,11 @@ public partial class SystemSelectionWindow
 {
     private readonly SystemSelectionViewModel _viewModel;
 
-    public SystemSelectionWindow(string currentGuess)
+    public SystemSelectionWindow(SystemSelectionViewModel viewModel)
     {
         InitializeComponent();
 
-        _viewModel = new SystemSelectionViewModel(currentGuess);
+        _viewModel = viewModel;
         _viewModel.DialogResultRequested += result =>
         {
             DialogResult = result;
@@ -18,6 +18,11 @@ public partial class SystemSelectionWindow
         };
 
         DataContext = _viewModel;
+    }
+
+    public void Initialize(string currentGuess)
+    {
+        _viewModel.Initialize(currentGuess);
     }
 
     public string SelectedSystem => _viewModel.SelectedSystem;

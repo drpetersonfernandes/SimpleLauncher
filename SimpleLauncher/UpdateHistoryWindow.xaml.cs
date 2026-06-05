@@ -1,7 +1,5 @@
 using System.Windows.Documents;
 using System.Windows.Navigation;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -10,13 +8,12 @@ public partial class UpdateHistoryWindow
 {
     private readonly UpdateHistoryViewModel _viewModel;
 
-    public UpdateHistoryWindow()
+    public UpdateHistoryWindow(UpdateHistoryViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        _viewModel = new UpdateHistoryViewModel(logErrors);
+        _viewModel = viewModel;
 
         DataContext = _viewModel;
 

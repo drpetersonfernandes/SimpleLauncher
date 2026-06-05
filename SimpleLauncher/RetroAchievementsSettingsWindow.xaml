@@ -10,25 +10,26 @@
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- Username -->
-        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource Username}" VerticalAlignment="Center" Margin="0,0,10,10"/>
-        <TextBox x:Name="UsernameTextBox" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,10" ToolTip="{DynamicResource TooltipRaUsername}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource Username}" VerticalAlignment="Center" Margin="0,0,10,10" />
+        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,10"
+                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" ToolTip="{DynamicResource TooltipRaUsername}" />
 
         <!-- API Key -->
-        <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource ApiKey}" VerticalAlignment="Center" Margin="0,0,10,10"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource ApiKey}" VerticalAlignment="Center" Margin="0,0,10,10" />
         <PasswordBox x:Name="ApiKeyPasswordBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,10" ToolTip="{DynamicResource TooltipRaApiKey}" />
 
         <!-- RA Password -->
@@ -37,31 +38,31 @@
 
         <!-- Hyperlink -->
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="0,10,0,10">
-            <Run Text="{DynamicResource FindYourApiKeyHere}"/>
-            <Hyperlink NavigateUri="https://retroachievements.org/controlpanel.php" RequestNavigate="Hyperlink_RequestNavigate">
-                <Run Text="{DynamicResource RaSettingsControlPanelLink}"/>
+            <Run Text="{DynamicResource FindYourApiKeyHere}" />
+            <Hyperlink NavigateUri="https://retroachievements.org/controlpanel.php" Command="{Binding OpenControlPanelCommand}">
+                <Run Text="{DynamicResource RaSettingsControlPanelLink}" />
             </Hyperlink>
         </TextBlock>
 
         <!-- Emulator Integration Section -->
         <GroupBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource EmulatorIntegration}" Margin="0,20,0,10">
             <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="BizHawk" Click="ConfigureBizHawk_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureBizHawk}"/>
-                <Button Content="Dolphin" Click="ConfigureDolphin_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureDolphin}"/>
-                <Button Content="DuckStation" Click="ConfigureDuckStation_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureDuckStation}"/>
-                <Button Content="Flycast" Click="ConfigureFlycast_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureFlycast}"/>
-                <Button Content="PCSX2" Click="ConfigurePcsx2_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigurePcsx2}"/>
-                <Button Content="PPSSPP" Click="ConfigurePpspp_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigurePpspp}"/>
-                <Button Content="RetroArch" Click="ConfigureRetroArch_Click" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureRetroArch}"/>
+                <Button Content="BizHawk" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="BizHawk" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureBizHawk}" />
+                <Button Content="Dolphin" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="Dolphin" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureDolphin}" />
+                <Button Content="DuckStation" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="DuckStation" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureDuckStation}" />
+                <Button Content="Flycast" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="Flycast" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureFlycast}" />
+                <Button Content="PCSX2" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="PCSX2" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigurePcsx2}" />
+                <Button Content="PPSSPP" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="PPSSPP" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigurePpspp}" />
+                <Button Content="RetroArch" Command="{Binding ConfigureEmulatorCommand}" CommandParameter="RetroArch" Style="{DynamicResource MahApps.Styles.Button.Square}" Margin="5" ToolTip="{DynamicResource TooltipConfigureRetroArch}" />
             </WrapPanel>
         </GroupBox>
 
         <!-- Buttons -->
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Content="{DynamicResource Save}" Click="SaveButton_Click"
-                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" IsDefault="True" Width="80" Margin="0,0,10,0" ToolTip="{DynamicResource TooltipSaveRaSettings}"/>
-        <Button Content="{DynamicResource Cancel}"
-                Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" Width="80" ToolTip="{DynamicResource ToolTipCancel}"/>
+            <Button Content="{DynamicResource Save}" Command="{Binding SaveCommand}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" IsDefault="True" Width="80" Margin="0,0,10,0" ToolTip="{DynamicResource TooltipSaveRaSettings}" />
+            <Button Content="{DynamicResource Cancel}" Command="{Binding CancelCommand}"
+                    Style="{DynamicResource MahApps.Styles.Button.Square}" IsCancel="True" Width="80" ToolTip="{DynamicResource ToolTipCancel}" />
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

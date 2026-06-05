@@ -1,34 +1,29 @@
-using System.Globalization;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LoadingInterface;
-using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.UpdateStatusBar;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class SupportWindow : ILoadingState
 {
-    private readonly PlaySoundEffects _playSoundEffects;
-    private static IHttpClientFactory _httpClientFactory;
-    private readonly ILogErrors _logErrors;
-    private readonly IConfiguration _configuration;
+    private readonly SupportViewModel _viewModel;
 
-    public SupportWindow(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, ILogErrors logErrors, IConfiguration configuration)
+    public SupportWindow(SupportViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _playSoundEffects = playSoundEffects;
-        _httpClientFactory = httpClientFactory;
-        _logErrors = logErrors;
-        _configuration = configuration;
+        _viewModel = viewModel;
+
+        _viewModel.CloseRequested += Close;
+        _viewModel.FormCleared += () =>
+        {
+            NameTextBox.Text = string.Empty;
+            EmailTextBox.Text = string.Empty;
+            SupportTextBox.Text = string.Empty;
+        };
 
         Loaded += (_, _) =>
         {
@@ -38,6 +33,8 @@ public partial class SupportWindow : ILoadingState
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
+
+        DataContext = _viewModel;
     }
 
     public void SetLoadingState(bool isLoading, string message = null)
@@ -46,7 +43,6 @@ public partial class SupportWindow : ILoadingState
         {
             LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
 
-            // Ensure the main content area is disabled to prevent Tab-key navigation
             MainContentGrid?.IsEnabled = !isLoading;
 
             if (isLoading)
@@ -56,185 +52,12 @@ public partial class SupportWindow : ILoadingState
         });
     }
 
-    private void CloseButton_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
-    private async void SendSupportRequestClickAsync(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var nameText = NameTextBox.Text;
-            var emailText = EmailTextBox.Text;
-            var supportRequestText = SupportTextBox.Text; // This now includes the pre-filled error report
-
-            if (CheckIfNameIsNullOrEmpty(nameText)) return;
-            if (CheckIfEmailIsNullOrEmpty(emailText)) return;
-            if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return; // Check if it's still empty after pre-filling
-
-            MainContentGrid.IsEnabled = false;
-
-            LoadingOverlay.Content = (string)Application.Current.TryFindResource("SendingMessagePleaseWait") ?? "Sending message... Please wait.";
-            LoadingOverlay.Visibility = Visibility.Visible;
-            await Task.Yield();
-
-            try
-            {
-                // Build the full message, including original error details if available
-                // The SupportTextBox.Text already contains the formatted error details if provided
-                var fullMessageBuilder = new StringBuilder();
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Name: {nameText}");
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Email: {emailText}");
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}"); // Use the content of the textbox directly
-
-                _playSoundEffects.PlayNotificationSound();
-                await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...", Application.Current.MainWindow as MainWindow);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error in the SendSupportRequestClickAsync method.";
-                _ = _logErrors.LogErrorAsync(ex, contextMessage);
-            }
-            finally
-            {
-                LoadingOverlay.Visibility = Visibility.Collapsed;
-                MainContentGrid.IsEnabled = true;
-                await Task.Yield();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error in the SendSupportRequestClickAsync method.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
-        }
-    }
-
-    private async Task SendSupportRequestToApiAsync(string fullMessage)
-    {
-        var apiBaseUrl = _configuration.GetValue<string>("EmailApiBaseUrl") ?? "https://www.purelogiccode.com/customeremailservice/api/send-customer-email/";
-        var apiKey = _configuration.GetValue<string>("ApiKey") ?? "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
-
-        // Check if the API base URL is configured
-        if (string.IsNullOrEmpty(apiBaseUrl))
-        {
-            MessageBoxLibrary.ApiKeyErrorMessageBox();
-            return;
-        }
-
-        // Create the request payload for the new API
-        var requestPayload = new
-        {
-            to = "contact@purelogiccode.com",
-            subject = "Support Request from SimpleLauncher",
-            body = fullMessage,
-            applicationName = "SimpleLauncher",
-            isHtml = false
-        };
-
-        // Convert to JSON using System.Text.Json
-        var jsonString = JsonSerializer.Serialize(requestPayload);
-        var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-        try
-        {
-            var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
-            if (httpClient != null)
-            {
-                httpClient.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
-
-                // Construct the full API URL
-                var apiUrl = apiBaseUrl.TrimEnd('/');
-
-                // Use a CancellationToken with a 20-second timeout to prevent indefinite hangs
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
-
-                using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    NameTextBox.Clear();
-                    EmailTextBox.Clear();
-                    SupportTextBox.Clear();
-
-                    // Notify user
-                    MessageBoxLibrary.SupportRequestSuccessMessageBox();
-                }
-                else
-                {
-                    // Get error details from the response
-                    var errorContent = await response.Content.ReadAsStringAsync(cts.Token);
-
-                    // Notify developer
-                    var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
-                    _ = _logErrors.LogErrorAsync(null, contextMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.SupportRequestSendErrorMessageBox();
-                }
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Request timed out - notify user and developer
-            const string contextMessage = "The support request timed out after 15 seconds. Please check your internet connection and try again.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.SupportRequestSendErrorMessageBox();
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error sending the Support Request.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.SupportRequestSendErrorMessageBox();
-        }
-    }
-
-    private static bool CheckIfNameIsNullOrEmpty(string nameText)
-    {
-        if (!string.IsNullOrWhiteSpace(nameText)) return false;
-
-        // Notify user
-        MessageBoxLibrary.EnterNameMessageBox();
-
-        return true;
-    }
-
-    private static bool CheckIfEmailIsNullOrEmpty(string emailText)
-    {
-        if (!string.IsNullOrWhiteSpace(emailText)) return false;
-
-        // Notify user
-        MessageBoxLibrary.EnterEmailMessageBox();
-
-        return true;
-    }
-
-    private static bool CheckIfSupportRequestIsNullOrEmpty(string supportRequestText)
-    {
-        if (!string.IsNullOrWhiteSpace(supportRequestText)) return false;
-
-        // Notify user
-        MessageBoxLibrary.EnterSupportRequestMessageBox();
-
-        return true;
-    }
-
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
         LoadingOverlay.Visibility = Visibility.Collapsed;
         MainContentGrid?.IsEnabled = true;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in SupportWindow.");
-        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

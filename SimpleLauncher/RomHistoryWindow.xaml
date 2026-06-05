@@ -13,28 +13,30 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBox Name="RomNameTextBox"
-                 Grid.Row="0"
+        <TextBox Grid.Row="0"
                  IsReadOnly="True"
                  FontWeight="Bold"
                  FontSize="16"
                  Margin="0"
                  HorizontalAlignment="Center"
                  HorizontalScrollBarVisibility="Disabled"
+                 Text="{Binding RomNameText}"
                  ToolTip="{DynamicResource RomName}" />
-        <TextBox Name="RomDescriptionTextBox"
-                 Grid.Row="1"
+        <TextBox Grid.Row="1"
                  IsReadOnly="True"
                  FontWeight="Bold"
                  FontSize="16"
                  Margin="0"
                  HorizontalAlignment="Center"
                  HorizontalScrollBarVisibility="Disabled"
+                 Text="{Binding RomDescriptionText}"
+                 Visibility="{Binding DescriptionVisibility}"
                  ToolTip="{DynamicResource RomDescription}" />
         <md:MarkdownScrollViewer x:Name="HistoryMarkdownViewer"
                                  Grid.Row="2"
                                  Margin="0,20,0,0"
                                  VerticalAlignment="Top"
+                                 Markdown="{Binding HistoryMarkdown}"
                                  MarkdownStyle="{StaticResource ThemeAwareMarkdownStyle}" />
     </Grid>
 </controls:MetroWindow>

@@ -2,26 +2,30 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameFileWatcher;
+using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -60,10 +64,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     // Constants for magic numbers
     private const int BatchSize = 100;
-    private const int ZoomStep = 50;
-    private const int MaxThumbnailSizeForSystem = 150;
-    private const int MaxThumbnailSize = 800;
-    private const int MinThumbnailSize = 50;
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
 
@@ -128,7 +128,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     internal TrayIconManager TrayIconManager;
     internal PlayHistoryManager PlayHistoryManager { get; }
     private readonly IConfiguration _configuration;
-    private static IHttpClientFactory _httpClientFactory;
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu;
     private GameListFactory _gameListFactory;
@@ -164,6 +163,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly StartupInitializationService _startupInitializationService;
     private readonly GameListUiService _gameListUiService;
     private readonly GameFileWatcherService _gameFileWatcherService;
+    private readonly IHelpUserService _helpUserService;
+    private readonly IGetListOfFiles _getListOfFiles;
+    private readonly IFindCoverImage _findCoverImage;
+    private readonly IImageLoader _imageLoader;
+    internal readonly MenuActionHandlerService MenuActionHandlerService;
+    internal readonly IUpdateStatusBar UpdateStatusBarService;
 
     public MainWindow(
         SettingsManager settings,
@@ -179,13 +184,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         GameScannerService gameScannerService,
         RetroAchievementsService retroAchievementsService,
         IConfiguration configuration,
-        IHttpClientFactory httpClientFactory,
         ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
         LoadingOverlayService loadingOverlayService,
         StartupInitializationService startupInitializationService,
         GameListUiService gameListUiService,
-        GameFileWatcherService gameFileWatcherService)
+        GameFileWatcherService gameFileWatcherService,
+        IHelpUserService helpUserService,
+        IGetListOfFiles getListOfFiles,
+        MenuActionHandlerService menuActionHandlerService,
+        IUpdateStatusBar updateStatusBarService,
+        IFindCoverImage findCoverImage,
+        IImageLoader imageLoader)
     {
         InitializeComponent();
 
@@ -204,16 +214,22 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _startupInitializationService = startupInitializationService;
         _gameListUiService = gameListUiService;
         _gameFileWatcherService = gameFileWatcherService;
+        _helpUserService = helpUserService;
+        _getListOfFiles = getListOfFiles;
+        MenuActionHandlerService = menuActionHandlerService;
+        UpdateStatusBarService = updateStatusBarService;
         _stats = stats;
         _logErrors = logErrors;
         _retroAchievementsService = retroAchievementsService;
         _configuration = configuration;
-        _httpClientFactory = httpClientFactory;
+        _findCoverImage = findCoverImage;
+        _imageLoader = imageLoader;
 
         _themeMenuService.Initialize(this);
         _languageMenuService.Initialize(this);
         _loadingOverlayService.Initialize(this);
         _gameListUiService.Initialize(this);
+        MenuActionHandlerService.Initialize(this);
 
         DataContext = this;
 
@@ -240,7 +256,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
         if (_gameFileGrid == null)
         {
-            _ = _logErrors.LogErrorAsync(null, "GameFileGrid not found");
+            _logErrors.LogAndForget(null, "GameFileGrid not found");
             throw new InvalidOperationException("GameFileGrid not found");
         }
 
@@ -283,7 +299,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error in the HandleLoadedAsync method.");
+                _logErrors.LogAndForget(ex, "Error in the HandleLoadedAsync method.");
             }
         };
         Loaded += _asyncLoadedHandler;
@@ -293,12 +309,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            await DisplaySystemSelectionScreenAsync();
+            await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
             DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
+            _logErrors.LogAndForget(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
             DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
         }
 
@@ -311,7 +327,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+            _logErrors.LogAndForget(ex, "Error in the Loaded event.");
             DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
         }
 
@@ -327,18 +343,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     await _gameScannerService.ScanForStoreGamesAsync();
                     if (_gameScannerService.WasNewSystemCreated)
                     {
-                        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.", this);
+                        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.", this);
 
                         // Reload to get the new system
                         LoadOrReloadSystemManager();
 
                         // After reloading, the system selection screen needs to be updated.
-                        await DisplaySystemSelectionScreenAsync();
+                        await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
                     }
                 }
                 catch (Exception ex)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error during initial Windows games scan.");
+                    _logErrors.LogAndForget(ex, "Error during initial Windows games scan.");
                 }
                 finally
                 {
@@ -352,21 +368,26 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
                     if (result == MessageBoxResult.Yes)
                     {
-                        var easyModeWindow = new EasyModeWindow(_playSoundEffects, _configuration, _logErrors);
+                        var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
                         easyModeWindow.Owner = this;
                         easyModeWindow.ShowDialog();
 
                         LoadOrReloadSystemManager();
-                        await DisplaySystemSelectionScreenAsync(); // Await this now
+                        await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
                     }
                 }
             }
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event's first-run logic.");
+            _logErrors.LogAndForget(ex, "Error in the Loaded event's first-run logic.");
             DebugLogger.Log($"Error in the Loaded event's first-run logic: {ex.Message}");
         }
+    }
+
+    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        _startupInitializationService.Initialize(this);
     }
 
     private void MainWindow_Activated(object sender, EventArgs e)
@@ -402,7 +423,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in method TopLetterNumberMenu_OnLetterSelected");
+            _logErrors.LogAndForget(ex, "Error in method TopLetterNumberMenu_OnLetterSelected");
         }
     }
 
@@ -506,7 +527,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenuClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in TopLetterNumberMenuClickAsync.");
         }
     }
 
@@ -539,7 +560,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
         }
     }
 
@@ -576,14 +597,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
 
     internal void RefreshGameListAfterPlay(string fileName, string systemName)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...", this);
         try
         {
             // Only update if in ListView mode
@@ -626,7 +647,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             // Notify developer
             const string contextMessage = "Error refreshing game list play time";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
         }
     }
 
@@ -730,7 +751,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
         gameListViewFactory.HandleSelectionChangedAsync(selectedItem);
     }
 
@@ -756,7 +777,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             // Notify developer
             const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItemAsync.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
         }
     }
 
@@ -846,7 +867,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
 
-            var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig, _settings, _logErrors);
+            var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig, _settings);
 
             bool isDefaultImage;
             if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
@@ -919,7 +940,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in SortOrderToggleButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in SortOrderToggleButtonClickAsync.");
             DebugLogger.Log("Error in SortOrderToggleButtonClickAsync.");
         }
     }
@@ -951,7 +972,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         // Use WaitAsync to avoid blocking the UI thread when acquiring the lock,
         // preventing deadlocks if a background thread holding the lock is also waiting for the UI thread.
-        await _allGamesLock.WaitAsync();
+        await _allGamesLock.WaitAsync(((IMenuActionHost)this).CurrentCancellationToken);
         try
         {
             _allGamesForCurrentSystem.Clear();
@@ -984,7 +1005,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             DebugLogger.Log($"[OnGameFilesChanged] File change detected for system '{systemName}'. Reloading game list.");
 
             await InvalidateGameFileCachesAsync();
-            await LoadGameFilesAsync();
+            await LoadGameFilesAsync(cancellationToken: ((IMenuActionHost)this).CurrentCancellationToken);
         }
         catch (Exception ex)
         {

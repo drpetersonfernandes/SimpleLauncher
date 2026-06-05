@@ -34,7 +34,7 @@
             TextAlignment="Justify" />
 
         <!-- Dead Zone Explanation -->
-        <GroupBox 
+        <GroupBox
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="3"
@@ -45,12 +45,12 @@
                     Text="{DynamicResource DeadZoneExplanationContent}"
                     TextWrapping="Wrap"
                     TextAlignment="Left"
-                    Margin="5"/>
+                    Margin="5" />
                 <TextBlock
                     Text="{DynamicResource Highervalueslargerdeadzone}"
                     TextWrapping="Wrap"
                     TextAlignment="Left"
-                    Margin="5"/>
+                    Margin="5" />
                 <TextBlock
                     Text="{DynamicResource Lowervaluessmallerdeadzone}"
                     TextWrapping="Wrap"
@@ -77,27 +77,27 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Content="{DynamicResource DeadZoneX}" />
-  <Slider
-   x:Name="DeadZoneXSlider"
-   Margin="10"
-   Grid.Row="2"
-   Grid.Column="1"
-   Width="150"
-   Minimum="0"
-   Maximum="0.3"
-   SmallChange="0.01"
-   LargeChange="0.05"
-   TickFrequency="0.01"
-   HorizontalAlignment="Center"
-   IsSnapToTickEnabled="True"
-   ToolTip="{DynamicResource TooltipDeadZoneX}" />
+        <Slider
+            Margin="10"
+            Grid.Row="2"
+            Grid.Column="1"
+            Width="150"
+            Minimum="0"
+            Maximum="0.3"
+            SmallChange="0.01"
+            LargeChange="0.05"
+            TickFrequency="0.01"
+            HorizontalAlignment="Center"
+            IsSnapToTickEnabled="True"
+            Value="{Binding DeadZoneX, Mode=TwoWay}"
+            ToolTip="{DynamicResource TooltipDeadZoneX}" />
         <TextBlock
             Margin="10"
             Grid.Row="2"
             Grid.Column="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            Text="{Binding ElementName=DeadZoneXSlider, Path=Value, StringFormat={}{0:F2}}" />
+            Text="{Binding DeadZoneXText}" />
 
         <!-- DeadZoneY -->
         <Label
@@ -107,49 +107,49 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Content="{DynamicResource DeadZoneY}" />
-  <Slider
-   x:Name="DeadZoneYSlider"
-   Margin="10"
-   Grid.Row="3"
-   Grid.Column="1"
-   Width="150"
-   Minimum="0"
-   Maximum="0.3"
-   SmallChange="0.01"
-   LargeChange="0.05"
-   TickFrequency="0.01"
-   HorizontalAlignment="Center"
-   IsSnapToTickEnabled="True"
-   ToolTip="{DynamicResource TooltipDeadZoneY}" />
+        <Slider
+            Margin="10"
+            Grid.Row="3"
+            Grid.Column="1"
+            Width="150"
+            Minimum="0"
+            Maximum="0.3"
+            SmallChange="0.01"
+            LargeChange="0.05"
+            TickFrequency="0.01"
+            HorizontalAlignment="Center"
+            IsSnapToTickEnabled="True"
+            Value="{Binding DeadZoneY, Mode=TwoWay}"
+            ToolTip="{DynamicResource TooltipDeadZoneY}" />
         <TextBlock
             Margin="10"
             Grid.Row="3"
             Grid.Column="2"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
-            Text="{Binding ElementName=DeadZoneYSlider, Path=Value, StringFormat={}{0:F2}}" />
+            Text="{Binding DeadZoneYText}" />
 
-        <Grid 
+        <Grid
             Grid.Row="4"
             Grid.Column="0" Grid.ColumnSpan="3">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-    <!-- Save Button -->
-    <Button
-     Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
-     Margin="0,20,5,10"
-     Padding="10"
-     Click="SaveDeadZoneButton_Click"
-     Content="{DynamicResource SaveDeadZone}"
-     ToolTip="{DynamicResource TooltipSaveDeadZone}" />
+                <!-- Save Button -->
+                <Button
+                    Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                    Margin="0,20,5,10"
+                    Padding="10"
+                    Command="{Binding SaveCommand}"
+                    Content="{DynamicResource SaveDeadZone}"
+                    ToolTip="{DynamicResource TooltipSaveDeadZone}" />
 
-    <!-- Revert Button -->
-    <Button
-     Style="{DynamicResource MahApps.Styles.Button.Square}"
-     Margin="5,20,0,10"
-     Padding="10"
-     Click="RevertDeadZoneButton_Click"
-     Content="{DynamicResource ReverttoDefaultValues}"
-     ToolTip="{DynamicResource TooltipRevertDeadZone}" />
+                <!-- Revert Button -->
+                <Button
+                    Style="{DynamicResource MahApps.Styles.Button.Square}"
+                    Margin="5,20,0,10"
+                    Padding="10"
+                    Command="{Binding RevertCommand}"
+                    Content="{DynamicResource ReverttoDefaultValues}"
+                    ToolTip="{DynamicResource TooltipRevertDeadZone}" />
             </StackPanel>
         </Grid>
 

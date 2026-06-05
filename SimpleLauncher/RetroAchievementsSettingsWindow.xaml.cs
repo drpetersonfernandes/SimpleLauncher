@@ -1,192 +1,53 @@
-using System.Diagnostics;
 using System.Windows;
-using System.Windows.Navigation;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.UpdateStatusBar;
+using Microsoft.Win32;
+using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
 
 public partial class RetroAchievementsSettingsWindow
 {
-    private readonly SettingsManager _settings;
-    private readonly ILogErrors _logErrors;
+    private readonly RetroAchievementsSettingsViewModel _viewModel;
 
-    public RetroAchievementsSettingsWindow(SettingsManager settings, ILogErrors logErrors)
+    public RetroAchievementsSettingsWindow(RetroAchievementsSettingsViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Owner = Application.Current.MainWindow;
 
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _logErrors = logErrors;
+        _viewModel = viewModel;
 
-        LoadSettings();
-    }
-
-    private void LoadSettings()
-    {
-        UsernameTextBox.Text = _settings.RaUsername;
-        ApiKeyPasswordBox.Password = _settings.RaApiKey;
-        RaPasswordPasswordBox.Password = _settings.RaPassword;
-    }
-
-    private void SaveSettings()
-    {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...", Application.Current.MainWindow as MainWindow);
-
-        var newUsername = UsernameTextBox.Text.Trim();
-        var newApiKey = ApiKeyPasswordBox.Password;
-        var newPassword = RaPasswordPasswordBox.Password;
-
-        _settings.RaUsername = newUsername;
-        _settings.RaApiKey = newApiKey;
-        _settings.RaPassword = newPassword;
-        _settings.Save();
-    }
-
-    private void SaveButton_Click(object sender, RoutedEventArgs e)
-    {
-        SaveSettings();
-        Close();
-    }
-
-    private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-    {
-        try
+        _viewModel.SaveCompleted += () =>
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-            e.Handled = true;
-        }
-        catch (Exception ex)
+            DialogResult = true;
+            Close();
+        };
+        _viewModel.CloseRequested += () =>
         {
-            _logErrors.LogAndForget(ex, "Error opening RetroAchievements control panel link.");
-            MessageBoxLibrary.UnableToOpenLinkMessageBox();
-        }
-    }
+            DialogResult = false;
+            Close();
+        };
+        _viewModel.RequestExePath += OnRequestExePath;
 
-    private void ConfigureRetroArch_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("RetroArch");
-    }
+        ApiKeyPasswordBox.PasswordChanged += (_, _) => { _viewModel.ApiKey = ApiKeyPasswordBox.Password; };
+        RaPasswordPasswordBox.PasswordChanged += (_, _) => { _viewModel.Password = RaPasswordPasswordBox.Password; };
 
-    private void ConfigurePcsx2_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("PCSX2");
-    }
-
-    private void ConfigureDuckStation_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("DuckStation");
-    }
-
-    private void ConfigurePpspp_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("PPSSPP");
-    }
-
-    private void ConfigureDolphin_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("Dolphin");
-    }
-
-    private void ConfigureFlycast_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("Flycast");
-    }
-
-    private void ConfigureBizHawk_Click(object sender, RoutedEventArgs e)
-    {
-        ConfigureEmulator("BizHawk");
-    }
-
-    private async void ConfigureEmulator(string emulatorName)
-    {
-        try
+        Loaded += (_, _) =>
         {
-            var username = UsernameTextBox.Text.Trim();
-            // ReSharper disable once UnusedVariable
-            var apiKey = ApiKeyPasswordBox.Password;
-            var password = RaPasswordPasswordBox.Password;
+            ApiKeyPasswordBox.Password = _viewModel.ApiKey;
+            RaPasswordPasswordBox.Password = _viewModel.Password;
+        };
 
-            // 1. Ensure user entered credentials before attempting injection
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-            {
-                MessageBoxLibrary.EnterUsernamePasswordMessageBox();
-                return;
-            }
+        DataContext = _viewModel;
+    }
 
-            // 2. Save the current settings before proceeding.
-            SaveSettings();
-
-            // 3. Ensure session token is generated for emulators that require it
-            var token = _settings.RaToken;
-            if (emulatorName != "RetroArch")
-            {
-                if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
-                {
-                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RaStatusLoggingIn") ?? "Logging in to RetroAchievements...", Application.Current.MainWindow as MainWindow);
-                    var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
-                    token = await raService.GetSessionTokenAsync(username, password);
-
-                    if (!string.IsNullOrEmpty(token))
-                    {
-                        _settings.RaToken = token;
-                        _settings.Save();
-                    }
-                    else
-                    {
-                        MessageBoxLibrary.FailedToLoginToRetroAchievementsMessageBox();
-                        return;
-                    }
-                }
-            }
-
-            // 4. Proceed with emulator configuration.
-            var openFileDialog = new Microsoft.Win32.OpenFileDialog
-            {
-                Title = $"Select {emulatorName} Executable",
-                Filter = "Executable files (*.exe)|*.exe"
-            };
-
-            if (openFileDialog.ShowDialog() != true) return;
-
-            var exePath = openFileDialog.FileName;
-            var success = false;
-            try
-            {
-                switch (emulatorName)
-                {
-                    case "RetroArch": success = RetroAchievementsEmulatorConfiguratorService.ConfigureRetroArch(exePath, username, password, _logErrors); break;
-                    case "PCSX2": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePcsx2(exePath, username, token, _logErrors); break;
-                    case "DuckStation": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDuckStation(exePath, username, token, _logErrors); break;
-                    case "PPSSPP": success = RetroAchievementsEmulatorConfiguratorService.ConfigurePpspp(exePath, username, token, _logErrors); break;
-                    case "Dolphin": success = RetroAchievementsEmulatorConfiguratorService.ConfigureDolphin(exePath, username, token, _logErrors); break;
-                    case "Flycast": success = RetroAchievementsEmulatorConfiguratorService.ConfigureFlycast(exePath, username, token, _logErrors); break;
-                    case "BizHawk": success = RetroAchievementsEmulatorConfiguratorService.ConfigureBizHawk(exePath, username, token, _logErrors); break;
-                }
-
-                if (success)
-                {
-                    MessageBoxLibrary.EmulatorConfiguredSuccessfullyMessageBox();
-                }
-                else
-                {
-                    MessageBoxLibrary.FailedToConfigureTheEmulatorMessageBox();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBoxLibrary.AnErrorOccurredWhileConfiguringTheEmulatorMessageBox();
-                _logErrors.LogAndForget(ex, $"Failed to configure {emulatorName}.");
-            }
-        }
-        catch (Exception ex)
+    private static string OnRequestExePath()
+    {
+        var openFileDialog = new OpenFileDialog
         {
-            _logErrors.LogAndForget(ex, "Error in ConfigureEmulator method.");
-        }
+            Title = "Select Emulator Executable",
+            Filter = "Executable files (*.exe)|*.exe"
+        };
+
+        return openFileDialog.ShowDialog() == true ? openFileDialog.FileName : null;
     }
 }
