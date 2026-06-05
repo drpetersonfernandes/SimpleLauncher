@@ -1,5 +1,4 @@
 using System.Windows;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -8,17 +7,22 @@ public partial class InjectBlastemConfigWindow
 {
     private readonly InjectBlastemConfigViewModel _viewModel;
 
-    public InjectBlastemConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
+    public InjectBlastemConfigWindow(InjectBlastemConfigViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new InjectBlastemConfigViewModel(settings, emulatorPath, isLauncherMode);
+        _viewModel = viewModel;
         _viewModel.CloseRequested += Close;
         _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
         _viewModel.GetOwnerWindow += () => this;
 
         DataContext = _viewModel;
+    }
+
+    public void Initialize(string emulatorPath = null, bool isLauncherMode = true)
+    {
+        _viewModel.Initialize(emulatorPath, isLauncherMode);
 
         if (!isLauncherMode)
         {

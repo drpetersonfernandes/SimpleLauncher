@@ -1,5 +1,4 @@
 using System.Windows;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -8,17 +7,22 @@ public partial class InjectMameConfigWindow
 {
     private readonly InjectMameConfigViewModel _viewModel;
 
-    public InjectMameConfigWindow(SettingsManager settings, string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true, string[] listOfSecondaryRomPaths = null)
+    public InjectMameConfigWindow(InjectMameConfigViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new InjectMameConfigViewModel(settings, emulatorPath, isLauncherMode, systemRomPath, listOfSecondaryRomPaths);
+        _viewModel = viewModel;
         _viewModel.CloseRequested += Close;
         _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
         _viewModel.GetOwnerWindow += () => this;
 
         DataContext = _viewModel;
+    }
+
+    public void Initialize(string emulatorPath = null, string systemRomPath = null, bool isLauncherMode = true, string[] listOfSecondaryRomPaths = null)
+    {
+        _viewModel.Initialize(emulatorPath, isLauncherMode, systemRomPath, listOfSecondaryRomPaths);
 
         if (!isLauncherMode)
         {

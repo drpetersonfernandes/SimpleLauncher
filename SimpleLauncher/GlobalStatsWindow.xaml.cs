@@ -1,8 +1,5 @@
 using System.ComponentModel;
 using System.Windows;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.ViewModels;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
@@ -13,12 +10,11 @@ internal partial class GlobalStatsWindow : IDisposable
 {
     private readonly GlobalStatsViewModel _viewModel;
 
-    internal GlobalStatsWindow(List<SystemManager> systemManagers, IConfiguration configuration)
+    internal GlobalStatsWindow(GlobalStatsViewModel viewModel)
     {
         InitializeComponent();
 
-        var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-        _viewModel = new GlobalStatsViewModel(systemManagers, configuration, logErrors);
+        _viewModel = viewModel;
         _viewModel.CloseRequested += () =>
         {
             Application.Current.Dispatcher.InvokeAsync(Close);
@@ -28,6 +24,11 @@ internal partial class GlobalStatsWindow : IDisposable
 
         DataContext = _viewModel;
         App.ApplyThemeToWindow(this);
+    }
+
+    internal void Initialize(List<SystemManager> systemManagers)
+    {
+        _viewModel.Initialize(systemManagers);
     }
 
     private void GlobalStatsWindow_Closing(object sender, CancelEventArgs e)

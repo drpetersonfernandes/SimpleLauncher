@@ -8,11 +8,11 @@ public partial class FlashOverlayWindow
 {
     private readonly FlashOverlayViewModel _viewModel;
 
-    public FlashOverlayWindow()
+    public FlashOverlayWindow(FlashOverlayViewModel viewModel)
     {
         InitializeComponent();
 
-        _viewModel = new FlashOverlayViewModel();
+        _viewModel = viewModel;
         _viewModel.CloseRequested += Close;
 
         DataContext = _viewModel;

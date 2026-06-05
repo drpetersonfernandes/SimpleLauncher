@@ -14,14 +14,13 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.HelpUser;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.SystemManager;
-using SimpleLauncher.Services.FindAndLoadImages;
-using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -34,11 +33,13 @@ internal partial class EditSystemWindow : ILoadingState
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly ILogErrors _logErrors;
+    private readonly IHelpUserService _helpUserService;
+    private readonly IImageLoader _imageLoader;
     private string _originalSystemName;
     private readonly IConfiguration _configuration;
     private readonly string _preSelectedSystemName;
 
-    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, string preSelectedSystemName = null)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, IHelpUserService helpUserService, IImageLoader imageLoader, string preSelectedSystemName = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -47,6 +48,8 @@ internal partial class EditSystemWindow : ILoadingState
         _settings = settings;
         _playSoundEffects = playSoundEffects;
         _logErrors = logErrors;
+        _helpUserService = helpUserService;
+        _imageLoader = imageLoader;
         _preSelectedSystemName = preSelectedSystemName;
 
         ApplyExpanderSettings();
@@ -184,7 +187,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator2Path(object sender, RoutedEventArgs e)
@@ -207,7 +210,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator3Path(object sender, RoutedEventArgs e)
@@ -230,7 +233,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator4Path(object sender, RoutedEventArgs e)
@@ -253,7 +256,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator5Path(object sender, RoutedEventArgs e)
@@ -275,7 +278,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -643,7 +646,7 @@ internal partial class EditSystemWindow : ILoadingState
     {
         // Update HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void AddFolderButton_Click(object sender, RoutedEventArgs e)
@@ -672,7 +675,7 @@ internal partial class EditSystemWindow : ILoadingState
         MainContentGrid?.IsEnabled = true;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in EditSystemWindow.");
-        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 
     private async void ChooseSystemImageButton_Click(object sender, RoutedEventArgs e)
@@ -775,7 +778,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         try
         {
-            SystemImagePreview.Source = ImageLoader.LoadBitmapImageSafe(imagePath);
+            SystemImagePreview.Source = _imageLoader.LoadBitmapImageSafe(imagePath);
         }
         catch
         {
@@ -801,7 +804,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator1Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator1Parameters_Click");
         }
     }
 
@@ -817,7 +820,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator2Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator2Parameters_Click");
         }
     }
 
@@ -833,7 +836,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator3Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator3Parameters_Click");
         }
     }
 
@@ -849,7 +852,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator4Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator4Parameters_Click");
         }
     }
 
@@ -865,7 +868,7 @@ internal partial class EditSystemWindow : ILoadingState
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SuggestEmulator5Parameters_Click");
+            _logErrors.LogAndForget(ex, "Error in method SuggestEmulator5Parameters_Click");
         }
     }
 

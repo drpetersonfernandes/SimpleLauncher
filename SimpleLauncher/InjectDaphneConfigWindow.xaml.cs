@@ -1,4 +1,3 @@
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -7,15 +6,20 @@ public partial class InjectDaphneConfigWindow
 {
     private readonly InjectDaphneConfigViewModel _viewModel;
 
-    public InjectDaphneConfigWindow(SettingsManager settings, bool isLauncherMode = true)
+    public InjectDaphneConfigWindow(InjectDaphneConfigViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new InjectDaphneConfigViewModel(settings, isLauncherMode);
+        _viewModel = viewModel;
         _viewModel.CloseRequested += Close;
 
         DataContext = _viewModel;
+    }
+
+    public void Initialize(bool isLauncherMode = true)
+    {
+        _viewModel.Initialize(isLauncherMode);
 
         if (!isLauncherMode)
         {
