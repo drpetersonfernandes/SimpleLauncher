@@ -3,12 +3,29 @@ using System.Runtime.CompilerServices;
 
 namespace SimpleLauncher.Models;
 
+/// <summary>
+/// Represents a single item in the game list view, supporting data binding for live UI updates.
+/// </summary>
 public class GameListViewItem : INotifyPropertyChanged
 {
+    /// <summary>
+    /// Gets the full file path of the game ROM.
+    /// </summary>
     public string FilePath { get; init; }
+
+    /// <summary>
+    /// Gets the folder path containing the game ROM.
+    /// </summary>
     public string FolderPath { get; init; }
+
+    /// <summary>
+    /// Gets or sets the right-click context menu for this item.
+    /// </summary>
     public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether this game is marked as a favorite.
+    /// </summary>
     public bool IsFavorite
     {
         get;
@@ -21,13 +38,18 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Gets the file name of the game ROM (set once at creation).
+    /// </summary>
     public string FileName
     {
         get;
-        init // FileName is set once at creation and doesn't change
-        ;
+        init;
     }
 
+    /// <summary>
+    /// Gets or sets the machine description from the ROM database.
+    /// </summary>
     public string MachineDescription
     {
         get;
@@ -40,6 +62,9 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Gets or sets the number of times this game has been played.
+    /// </summary>
     public string TimesPlayed
     {
         get;
@@ -52,6 +77,9 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     } = "0";
 
+    /// <summary>
+    /// Gets or sets the total play time formatted as a string.
+    /// </summary>
     public string PlayTime
     {
         get;
@@ -64,6 +92,9 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     } = "0m 0s";
 
+    /// <summary>
+    /// Gets or sets whether this game has RetroAchievements data.
+    /// </summary>
     public bool HasAchievements
     {
         get;
@@ -76,6 +107,9 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Gets or sets the number of achievements earned for this game.
+    /// </summary>
     public int AchievementsEarned
     {
         get;
@@ -88,6 +122,9 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Gets or sets the total number of achievements available for this game.
+    /// </summary>
     public int AchievementsTotal
     {
         get;

@@ -15,17 +15,22 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameLauncher.Handlers;
+using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GameLauncher.Strategies;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GameFileWatcher;
+using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
+using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -33,7 +38,9 @@ using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.ThemeMenu;
+using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
+using SimpleLauncher.ViewModels;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
 
 namespace SimpleLauncher;
@@ -180,7 +187,97 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<StartupInitializationService>();
         serviceCollection.AddSingleton<GameListUiService>();
         serviceCollection.AddSingleton<GameFileWatcherService>();
+        serviceCollection.AddSingleton<MenuActionHandlerService>();
+        serviceCollection.AddSingleton<IHelpUserService, HelpUserService>();
+        serviceCollection.AddSingleton<IGetListOfFiles, GetListOfFilesService>();
+        serviceCollection.AddSingleton<IUpdateStatusBar, UpdateStatusBarService>();
+        serviceCollection.AddSingleton<IFindCoverImage, FindCoverImage>();
+        serviceCollection.AddSingleton<IImageLoader, ImageLoader>();
+
+        // ViewModels
+        serviceCollection.AddTransient<AboutViewModel>();
+        serviceCollection.AddTransient<DebugViewModel>();
+        serviceCollection.AddTransient<UpdateHistoryViewModel>();
+        serviceCollection.AddTransient<ImageViewerViewModel>();
+        serviceCollection.AddTransient<SetFuzzyMatchingViewModel>();
+        serviceCollection.AddTransient<SetGamepadDeadZoneViewModel>();
+        serviceCollection.AddTransient<SetLinksViewModel>();
+        serviceCollection.AddTransient<SoundConfigurationViewModel>();
+        serviceCollection.AddTransient<SupportOptionViewModel>();
+        serviceCollection.AddTransient<RomHistoryViewModel>();
+        serviceCollection.AddTransient<SupportViewModel>();
+        serviceCollection.AddTransient<RetroAchievementsSettingsViewModel>();
+        serviceCollection.AddTransient<DownloadImagePackViewModel>();
+        serviceCollection.AddTransient<FlashOverlayViewModel>();
+        serviceCollection.AddTransient<UpdateLogViewModel>();
+        serviceCollection.AddTransient<GlobalStatsViewModel>();
+        serviceCollection.AddTransient<DosBoxFileSelectionViewModel>();
+        serviceCollection.AddTransient<SystemSelectionViewModel>();
+        serviceCollection.AddTransient<WindowSelectionDialogViewModel>();
+        serviceCollection.AddTransient<InjectAresConfigViewModel>();
+        serviceCollection.AddTransient<InjectAzaharConfigViewModel>();
+        serviceCollection.AddTransient<InjectBlastemConfigViewModel>();
+        serviceCollection.AddTransient<InjectCemuConfigViewModel>();
+        serviceCollection.AddTransient<InjectDaphneConfigViewModel>();
+        serviceCollection.AddTransient<InjectDolphinConfigViewModel>();
+        serviceCollection.AddTransient<InjectDuckStationConfigViewModel>();
+        serviceCollection.AddTransient<InjectFlycastConfigViewModel>();
+        serviceCollection.AddTransient<InjectMameConfigViewModel>();
+        serviceCollection.AddTransient<InjectMednafenConfigViewModel>();
+        serviceCollection.AddTransient<InjectMesenConfigViewModel>();
+        serviceCollection.AddTransient<InjectPcsx2ConfigViewModel>();
+        serviceCollection.AddTransient<InjectRaineConfigViewModel>();
+        serviceCollection.AddTransient<InjectRedreamConfigViewModel>();
+        serviceCollection.AddTransient<InjectRetroArchConfigViewModel>();
+        serviceCollection.AddTransient<InjectRpcs3ConfigViewModel>();
+        serviceCollection.AddTransient<InjectSegaModel2ConfigViewModel>();
+        serviceCollection.AddTransient<InjectStellaConfigViewModel>();
+        serviceCollection.AddTransient<InjectSupermodelConfigViewModel>();
+        serviceCollection.AddTransient<InjectXeniaConfigViewModel>();
+        serviceCollection.AddTransient<InjectYumirConfigViewModel>();
+
+        // Windows
         serviceCollection.AddTransient<MainWindow>();
+        serviceCollection.AddTransient<AboutWindow>();
+        serviceCollection.AddTransient<ImageViewerWindow>();
+        serviceCollection.AddTransient<FlashOverlayWindow>();
+        serviceCollection.AddTransient<UpdateHistoryWindow>();
+        serviceCollection.AddTransient<UpdateLogWindow>();
+        serviceCollection.AddTransient<SetFuzzyMatchingWindow>();
+        serviceCollection.AddTransient<DownloadImagePackWindow>();
+        serviceCollection.AddTransient<EasyModeWindow>();
+        serviceCollection.AddTransient<RetroAchievementsWindow>();
+        serviceCollection.AddTransient<RetroAchievementsForAGameWindow>();
+        serviceCollection.AddTransient<InjectAresConfigWindow>();
+        serviceCollection.AddTransient<InjectAzaharConfigWindow>();
+        serviceCollection.AddTransient<InjectBlastemConfigWindow>();
+        serviceCollection.AddTransient<InjectCemuConfigWindow>();
+        serviceCollection.AddTransient<InjectDaphneConfigWindow>();
+        serviceCollection.AddTransient<InjectDolphinConfigWindow>();
+        serviceCollection.AddTransient<InjectDuckStationConfigWindow>();
+        serviceCollection.AddTransient<InjectFlycastConfigWindow>();
+        serviceCollection.AddTransient<InjectMameConfigWindow>();
+        serviceCollection.AddTransient<InjectMednafenConfigWindow>();
+        serviceCollection.AddTransient<InjectMesenConfigWindow>();
+        serviceCollection.AddTransient<InjectPcsx2ConfigWindow>();
+        serviceCollection.AddTransient<InjectRaineConfigWindow>();
+        serviceCollection.AddTransient<InjectRedreamConfigWindow>();
+        serviceCollection.AddTransient<InjectRetroArchConfigWindow>();
+        serviceCollection.AddTransient<InjectRpcs3ConfigWindow>();
+        serviceCollection.AddTransient<InjectSegaModel2ConfigWindow>();
+        serviceCollection.AddTransient<InjectStellaConfigWindow>();
+        serviceCollection.AddTransient<InjectSupermodelConfigWindow>();
+        serviceCollection.AddTransient<InjectXeniaConfigWindow>();
+        serviceCollection.AddTransient<InjectYumirConfigWindow>();
+        serviceCollection.AddTransient<SoundConfigurationWindow>();
+        serviceCollection.AddTransient<RetroAchievementsSettingsWindow>();
+        serviceCollection.AddTransient<SetLinksWindow>();
+        serviceCollection.AddTransient<SetGamepadDeadZoneWindow>();
+        serviceCollection.AddTransient<SupportOptionWindow>();
+        serviceCollection.AddTransient<RomHistoryWindow>();
+        serviceCollection.AddTransient<DosBoxFileSelectionWindow>();
+        serviceCollection.AddTransient<SystemSelectionWindow>();
+        serviceCollection.AddTransient<WindowSelectionDialogWindow>();
 
         // Handlers
         serviceCollection.AddSingleton<IEmulatorConfigHandler, AresConfigHandler>();
@@ -216,10 +313,6 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
-
-        // Initialize static services that need DI
-        var logErrors = ServiceProvider.GetRequiredService<ILogErrors>();
-        Services.HelpUser.HelpUser.Initialize(logErrors);
 
         // --- Single Instance Check ---
         // Catch args
@@ -266,7 +359,7 @@ public partial class App : IDisposable
             }
             catch (UnauthorizedAccessException ex)
             {
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
+                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
 
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
 
@@ -277,7 +370,7 @@ public partial class App : IDisposable
             }
             catch (IOException ex)
             {
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
+                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to create or acquire single instance mutex.");
 
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
 
@@ -348,7 +441,7 @@ public partial class App : IDisposable
         {
             try
             {
-                await ApplicationStats.CallApplicationStatsAsync(configuration, logErrors);
+                await ApplicationStats.CallApplicationStatsAsync(configuration, ServiceProvider.GetRequiredService<ILogErrors>());
             }
             catch (Exception ex)
             {
@@ -361,30 +454,30 @@ public partial class App : IDisposable
         if (displayHistoryWindow)
         {
             // Use Dispatcher.BeginInvoke to show the window after the main window is loaded
-            Dispatcher.BeginInvoke(new Action(() =>
+            Dispatcher.BeginInvoke(new Action(static () =>
             {
                 try
                 {
-                    var updateHistoryWindow = new UpdateHistoryWindow();
+                    var updateHistoryWindow = ServiceProvider.GetRequiredService<UpdateHistoryWindow>();
                     updateHistoryWindow.ShowDialog();
                 }
                 catch (InvalidOperationException ex)
                 {
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
                 }
                 catch (ArgumentException ex)
                 {
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
                 }
                 catch (SystemException ex)
                 {
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
                 }
             }));
         }
@@ -488,11 +581,11 @@ public partial class App : IDisposable
         }
         catch (InvalidOperationException ex)
         {
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to kill lingering CHDMounter processes on exit.");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
         catch (SystemException ex)
         {
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to kill lingering CHDMounter processes on exit.");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
 
         try
@@ -505,12 +598,12 @@ public partial class App : IDisposable
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to dispose gamepad resources.");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to dispose gamepad resources.");
         }
         catch (SystemException ex)
         {
             // Notify developer
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to dispose gamepad resources.");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to dispose gamepad resources.");
         }
 
         // Release the mutex if this was the first instance and the mutex was successfully created
@@ -525,17 +618,17 @@ public partial class App : IDisposable
             catch (ApplicationException ex)
             {
                 // Notify developer
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to release single instance mutex on exit.");
             }
             catch (ObjectDisposedException ex)
             {
                 // Notify developer
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to release single instance mutex on exit.");
             }
             catch (InvalidOperationException ex)
             {
                 // Notify developer
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to release single instance mutex on exit.");
             }
             finally
             {
@@ -576,7 +669,7 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Log the error using the LogErrorsService
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to Apply Language.");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, "Failed to Apply Language.");
 
             // Fallback to English if loading the specified language fails
             if (languageCode != "en")
@@ -592,11 +685,11 @@ public partial class App : IDisposable
                 catch (Exception fallbackEx)
                 {
                     // If even English fails, something is seriously wrong
-                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(fallbackEx, "Failed to apply English as fallback language.");
+                    ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(fallbackEx, "Failed to apply English as fallback language.");
                 }
 
                 // Notify developer
-                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");
+                ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(null, "Fallback to English language resources due to initial culture error.");
             }
         }
     }
@@ -637,7 +730,7 @@ public partial class App : IDisposable
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, contextMessage);
         }
     }
 
@@ -697,7 +790,7 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to apply custom theme override: {fileName}");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to apply custom theme override: {fileName}");
         }
     }
 
@@ -726,7 +819,7 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
         }
     }
 
@@ -781,7 +874,7 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}.");
+            ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to apply theme to window {window.GetType().Name}.");
         }
     }
 
