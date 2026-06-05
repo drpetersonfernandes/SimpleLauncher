@@ -9,15 +9,15 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.UpdateStatusBar;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher.Pages;
@@ -41,6 +41,8 @@ public partial class PlayHistoryPage : ILoadingState
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IFindCoverImage _findCoverImage;
+    private readonly IImageLoader _imageLoader;
 
     public PlayHistoryPage(List<SystemManager> systemManagers,
         List<MameManager> machines,
@@ -52,7 +54,9 @@ public partial class PlayHistoryPage : ILoadingState
         GameLauncher gameLauncher,
         PlaySoundEffects playSoundEffects,
         IConfiguration configuration,
-        ILogErrors logErrors)
+        ILogErrors logErrors,
+        IFindCoverImage findCoverImage,
+        IImageLoader imageLoader)
     {
         InitializeComponent();
 
@@ -67,6 +71,8 @@ public partial class PlayHistoryPage : ILoadingState
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
         _logErrors = logErrors;
+        _findCoverImage = findCoverImage;
+        _imageLoader = imageLoader;
 
         Loaded += PlayHistoryPageLoadedAsync;
 
@@ -109,7 +115,7 @@ public partial class PlayHistoryPage : ILoadingState
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error loading play history data in PlayHistoryPageLoadedAsync.");
+                _logErrors.LogAndForget(ex, "Error loading play history data in PlayHistoryPageLoadedAsync.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -122,7 +128,7 @@ public partial class PlayHistoryPage : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the PlayHistoryPageLoadedAsync method.");
+            _logErrors.LogAndForget(ex, "Error in the PlayHistoryPageLoadedAsync method.");
         }
     }
 
@@ -209,9 +215,9 @@ public partial class PlayHistoryPage : ILoadingState
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error parsing date and time.\n" +
-                                             $"dateStr: {dateStr}\n" +
-                                             $"timeStr: {timeStr}");
+            _logErrors.LogAndForget(ex, "Error parsing date and time.\n" +
+                                        $"dateStr: {dateStr}\n" +
+                                        $"timeStr: {timeStr}");
 
             // In case of any exception, return a reasonable default
             return DateTime.MinValue;
@@ -232,7 +238,7 @@ public partial class PlayHistoryPage : ILoadingState
         else
         {
             // Use FindCoverImage which already handles system-specific paths and fuzzy matching
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings, _logErrors);
+            return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
         }
     }
 
@@ -253,7 +259,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "History item filename is null";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -266,7 +272,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "systemManager is null";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -299,7 +305,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -329,7 +335,7 @@ public partial class PlayHistoryPage : ILoadingState
                 this
             );
 
-            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors);
+            var contextMenu = Services.ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
             if (contextMenu != null)
             {
                 PlayHistoryDataGrid.ContextMenu = contextMenu;
@@ -340,7 +346,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "There was an error in the method PlayHistoryPrepareForRightClickContext.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -354,7 +360,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "[LaunchGameFromHistoryAsync] systemManager is null.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -385,7 +391,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "[LaunchGameFromHistoryAsync] emulatorManager is null.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -467,7 +473,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error refreshing play history data.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
         }
     }
 
@@ -487,7 +493,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the method MouseDoubleClick.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -505,7 +511,7 @@ public partial class PlayHistoryPage : ILoadingState
             }
 
             var imagePath = selectedItem.CoverImage;
-            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath); // <--- Changed to await
+            var (loadedImage, _) = await _imageLoader.LoadImageAsync(imagePath); // <--- Changed to await
 
             // Race condition check: Only assign if the selected item hasn't changed
             if (PlayHistoryDataGrid.SelectedItem == selectedItem)
@@ -520,7 +526,7 @@ public partial class PlayHistoryPage : ILoadingState
             PreviewImage.Source = null; // Ensure image is cleared on error
 
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
+            _logErrors.LogAndForget(ex, "Error in the SetPreviewImageOnSelectionChangedAsync method.");
         }
     }
 
@@ -570,7 +576,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -595,7 +601,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -631,7 +637,7 @@ public partial class PlayHistoryPage : ILoadingState
 
         if (selectedItems.Count > 0)
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...", _mainWindow);
+            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...", _mainWindow);
 
             _playSoundEffects.PlayTrashSound();
 
@@ -658,7 +664,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
         var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...", _mainWindow);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -690,7 +696,7 @@ public partial class PlayHistoryPage : ILoadingState
             else
             {
                 // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...", _mainWindow);
+                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...", _mainWindow);
                 MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
@@ -698,7 +704,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Notify developer
             const string contextMessage = "Error in the LaunchGameClickAsync method.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
@@ -708,7 +714,7 @@ public partial class PlayHistoryPage : ILoadingState
     private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -755,6 +761,6 @@ public partial class PlayHistoryPage : ILoadingState
         LoadingOverlay.Visibility = Visibility.Collapsed;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
-        UpdateStatusBar.UpdateContent("Emergency reset performed.", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.", _mainWindow);
     }
 }

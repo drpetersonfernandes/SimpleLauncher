@@ -1,6 +1,5 @@
 using System.Windows;
 using SimpleLauncher.Services.PlaySound;
-using StatusBar = SimpleLauncher.Services.UpdateStatusBar.UpdateStatusBar;
 
 namespace SimpleLauncher.Services.LoadingOverlay;
 
@@ -82,7 +81,7 @@ public class LoadingOverlayService
         });
 
         _mainWindow.ResetUiAsync();
-        StatusBar.UpdateContent("Emergency reset performed.", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.", _mainWindow);
         DebugAndBugReport.DebugLogger.Log("[Emergency] User forced overlay dismissal via Return button.");
     }
 }

@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Windows;
 using System.Xml.Linq;
 using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -2065,121 +2066,125 @@ public class SettingsManager : IDisposable
             _settingsLock.ExitReadLock();
         }
 
-        // 2. Perform serialization and I/O outside the lock
-        var tempPath = _fileLocation.TempFilePath;
-        const int maxRetries = 3;
-        var retryDelayMs = 500;
-        Exception lastException = null;
-
-        // Ensure the settings directory exists before attempting to save
-        var settingsDirectory = Path.GetDirectoryName(_fileLocation.FilePath);
-        if (!string.IsNullOrEmpty(settingsDirectory) && !Directory.Exists(settingsDirectory))
+        // 2. Perform serialization and I/O on a background thread so
+        //    Thread.Sleep in the retry loop does not block the UI thread.
+        Task.Run(() =>
         {
-            try
-            {
-                Directory.CreateDirectory(settingsDirectory);
-            }
-            catch (Exception ex)
-            {
-                _logErrors.LogAndForget(ex, "Error creating settings directory.");
-            }
-        }
+            var tempPath = _fileLocation.TempFilePath;
+            const int maxRetries = 3;
+            var retryDelayMs = 500;
+            Exception lastException = null;
 
-        for (var attempt = 0; attempt < maxRetries; attempt++)
-        {
-            try
+            // Ensure the settings directory exists before attempting to save
+            var settingsDirectory = Path.GetDirectoryName(_fileLocation.FilePath);
+            if (!string.IsNullOrEmpty(settingsDirectory) && !Directory.Exists(settingsDirectory))
             {
-                var root = BuildXElement(snapshot);
-
-                // Serialize to memory first to ensure we have valid data before touching the disk.
-                // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
-                byte[] xmlBytes;
-                using (var ms = new MemoryStream())
+                try
                 {
-                    root.Save(ms);
-                    xmlBytes = ms.ToArray();
+                    Directory.CreateDirectory(settingsDirectory);
                 }
-
-                if (xmlBytes.Length == 0)
+                catch (Exception ex)
                 {
-                    throw new InvalidOperationException("Generated settings XML is empty.");
+                    _logErrors.LogAndForget(ex, "Error creating settings directory.");
                 }
-
-                // Write the entire buffer at once to the temporary file.
-                File.WriteAllBytes(tempPath, xmlBytes);
-
-                // Atomically replace the main file with the temp file.
-                File.Move(tempPath, _fileLocation.FilePath, true);
-                return; // Success
             }
-            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
-            {
-                lastException = ex;
 
-                // If in portable mode and this is the last attempt, try falling back to LocalAppData
-                if (IsPortableMode && attempt == maxRetries - 1)
+            for (var attempt = 0; attempt < maxRetries; attempt++)
+            {
+                try
                 {
-                    try
+                    var root = BuildXElement(snapshot);
+
+                    // Serialize to memory first to ensure we have valid data before touching the disk.
+                    // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
+                    byte[] xmlBytes;
+                    using (var ms = new MemoryStream())
                     {
-                        if (_fileLocation.TryFallbackToLocalAppData())
+                        root.Save(ms);
+                        xmlBytes = ms.ToArray();
+                    }
+
+                    if (xmlBytes.Length == 0)
+                    {
+                        throw new InvalidOperationException("Generated settings XML is empty.");
+                    }
+
+                    // Write the entire buffer at once to the temporary file.
+                    File.WriteAllBytes(tempPath, xmlBytes);
+
+                    // Atomically replace the main file with the temp file.
+                    File.Move(tempPath, _fileLocation.FilePath, true);
+                    return; // Success
+                }
+                catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+                {
+                    lastException = ex;
+
+                    // If in portable mode and this is the last attempt, try falling back to LocalAppData
+                    if (IsPortableMode && attempt == maxRetries - 1)
+                    {
+                        try
                         {
-                            // Update temp path for the new location
-                            tempPath = _fileLocation.TempFilePath;
-                            // Give it one more try in the new location
-                            attempt--; // Don't count this as an attempt
-                            continue;
+                            if (_fileLocation.TryFallbackToLocalAppData())
+                            {
+                                // Update temp path for the new location
+                                tempPath = _fileLocation.TempFilePath;
+                                // Give it one more try in the new location
+                                attempt--; // Don't count this as an attempt
+                                continue;
+                            }
+                        }
+                        catch
+                        {
+                            // Fallback failed, continue with normal error handling
                         }
                     }
-                    catch
-                    {
-                        // Fallback failed, continue with normal error handling
-                    }
-                }
 
-                if (attempt < maxRetries - 1)
-                {
-                    // Attempt to clean up temp file before retrying
-                    try
+                    if (attempt < maxRetries - 1)
                     {
-                        if (File.Exists(tempPath))
+                        // Attempt to clean up temp file before retrying
+                        try
                         {
-                            File.Delete(tempPath);
+                            if (File.Exists(tempPath))
+                            {
+                                File.Delete(tempPath);
+                            }
                         }
-                    }
-                    catch
-                    {
-                        // Ignore cleanup errors
-                    }
+                        catch
+                        {
+                            // Ignore cleanup errors
+                        }
 
-                    Thread.Sleep(retryDelayMs);
-                    retryDelayMs *= 2; // Exponential backoff
+                        Thread.Sleep(retryDelayMs);
+                        retryDelayMs *= 2; // Exponential backoff
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lastException = ex;
+                    break; // Don't retry non-transient errors
                 }
             }
-            catch (Exception ex)
+
+            // All retries exhausted or non-transient error
+            _logErrors.LogAndForget(lastException, "Error saving settings.xml");
+
+            // Attempt to clean up temp file if it exists
+            try
             {
-                lastException = ex;
-                break; // Don't retry non-transient errors
+                if (File.Exists(tempPath))
+                {
+                    File.Delete(tempPath);
+                }
             }
-        }
-
-        // All retries exhausted or non-transient error
-        _logErrors.LogAndForget(lastException, "Error saving settings.xml");
-
-        // Attempt to clean up temp file if it exists
-        try
-        {
-            if (File.Exists(tempPath))
+            catch
             {
-                File.Delete(tempPath);
+                // Ignore cleanup errors
             }
-        }
-        catch
-        {
-            // Ignore cleanup errors
-        }
 
-        // Notify user that settings could not be saved
-        MessageBoxLibrary.FailedToSaveSettingsMessageBox();
+            // Notify user that settings could not be saved
+            Application.Current.Dispatcher.Invoke(MessageBoxLibrary.FailedToSaveSettingsMessageBox);
+        });
     }
 
     private static XElement BuildXElement(SettingsManager s)

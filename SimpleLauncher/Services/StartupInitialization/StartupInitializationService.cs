@@ -127,7 +127,7 @@ public class StartupInitializationService
 
     private void InitializeGamePad()
     {
-        _gamePadController.ErrorLogger = (ex, msg) => { _ = _logErrors.LogErrorAsync(ex, msg); };
+        _gamePadController.ErrorLogger = (ex, msg) => { _logErrors.LogAndForget(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
             _gamePadController.Start();

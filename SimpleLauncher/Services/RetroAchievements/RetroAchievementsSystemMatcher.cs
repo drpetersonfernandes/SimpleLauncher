@@ -187,7 +187,7 @@ public static class RetroAchievementsSystemMatcher
         if (LoggedUnmatchedSystems.Add(inputSystemName))
         {
             DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-            logErrors.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            logErrors?.LogAndForget(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
         return normalizedInput;

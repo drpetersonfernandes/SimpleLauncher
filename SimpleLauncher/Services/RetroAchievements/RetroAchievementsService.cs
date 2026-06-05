@@ -63,7 +63,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "[RA Service] Failed to get session token.");
+            _logErrors.LogAndForget(ex, "[RA Service] Failed to get session token.");
             return null;
         }
     }
@@ -89,7 +89,7 @@ public class RetroAchievementsService
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _logErrors.LogAndForget(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -161,7 +161,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
             return (null, null);
         }
     }
@@ -190,7 +190,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -219,7 +219,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -249,7 +249,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -278,7 +278,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
             return null;
         }
     }
@@ -307,7 +307,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserRecentlyPlayedGamesAsync for user {username}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserRecentlyPlayedGamesAsync for user {username}.");
             return null;
         }
     }
@@ -339,7 +339,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetAchievementsEarnedBetweenAsync for user {username}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetAchievementsEarnedBetweenAsync for user {username}.");
             return null;
         }
     }
@@ -380,7 +380,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserCompletionProgressAsync for user {username}.");
+            _logErrors.LogAndForget(ex, $"[RA Service] Error in GetUserCompletionProgressAsync for user {username}.");
             return null;
         }
     }

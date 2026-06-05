@@ -218,93 +218,98 @@ public class PlayHistoryManager
     /// </summary>
     internal void SavePlayHistory()
     {
-        const int maxRetries = 3;
-        var retryDelayMs = 500;
-        Exception lastException = null;
-
-        for (var attempt = 0; attempt < maxRetries; attempt++)
+        // Serialize and write on a background thread so Thread.Sleep in the
+        // retry loop does not block the UI thread.
+        Task.Run(() =>
         {
+            const int maxRetries = 3;
+            var retryDelayMs = 500;
+            Exception lastException = null;
+
+            for (var attempt = 0; attempt < maxRetries; attempt++)
+            {
+                try
+                {
+                    // Notify user
+                    Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
+
+                    byte[] bytes;
+                    lock (_historyLock)
+                    {
+                        bytes = MessagePackSerializer.Serialize(this);
+                    }
+
+                    // Write to a temporary file first to prevent data loss on crash
+                    File.WriteAllBytes(TempFilePath, bytes);
+
+                    // Atomically replace the main file with the temp file
+                    File.Move(TempFilePath, FilePath, true);
+                    return; // Success
+                }
+                catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+                {
+                    lastException = ex;
+
+                    // If in portable mode and this is the last attempt, try falling back to LocalAppData
+                    if (FileLocation.IsPortableMode && attempt == maxRetries - 1)
+                    {
+                        try
+                        {
+                            if (FileLocation.TryFallbackToLocalAppData())
+                            {
+                                // Retry with new paths (don't count this as an attempt)
+                                attempt--;
+                                continue;
+                            }
+                        }
+                        catch
+                        {
+                            // Fallback failed, continue with normal error handling
+                        }
+                    }
+
+                    if (attempt < maxRetries - 1)
+                    {
+                        // Attempt to clean up temp file before retrying
+                        try
+                        {
+                            if (File.Exists(TempFilePath))
+                            {
+                                File.Delete(TempFilePath);
+                            }
+                        }
+                        catch
+                        {
+                            // Ignore cleanup errors
+                        }
+
+                        Thread.Sleep(retryDelayMs);
+                        retryDelayMs *= 2; // Exponential backoff
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lastException = ex;
+                    break; // Don't retry non-transient errors
+                }
+            }
+
+            // All retries exhausted or non-transient error
+            _logErrors?.LogAndForget(lastException, "Error saving playhistory.dat");
+
+            // Attempt to clean up temp file if it exists
             try
             {
-                // Notify user
-                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
-
-                byte[] bytes;
-                lock (_historyLock)
+                if (File.Exists(TempFilePath))
                 {
-                    bytes = MessagePackSerializer.Serialize(this);
-                }
-
-                // Write to a temporary file first to prevent data loss on crash
-                File.WriteAllBytes(TempFilePath, bytes);
-
-                // Atomically replace the main file with the temp file
-                File.Move(TempFilePath, FilePath, true);
-                return; // Success
-            }
-            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
-            {
-                lastException = ex;
-
-                // If in portable mode and this is the last attempt, try falling back to LocalAppData
-                if (FileLocation.IsPortableMode && attempt == maxRetries - 1)
-                {
-                    try
-                    {
-                        if (FileLocation.TryFallbackToLocalAppData())
-                        {
-                            // Retry with new paths (don't count this as an attempt)
-                            attempt--;
-                            continue;
-                        }
-                    }
-                    catch
-                    {
-                        // Fallback failed, continue with normal error handling
-                    }
-                }
-
-                if (attempt < maxRetries - 1)
-                {
-                    // Attempt to clean up temp file before retrying
-                    try
-                    {
-                        if (File.Exists(TempFilePath))
-                        {
-                            File.Delete(TempFilePath);
-                        }
-                    }
-                    catch
-                    {
-                        // Ignore cleanup errors
-                    }
-
-                    Thread.Sleep(retryDelayMs);
-                    retryDelayMs *= 2; // Exponential backoff
+                    File.Delete(TempFilePath);
                 }
             }
-            catch (Exception ex)
+            catch (Exception cleanupEx)
             {
-                lastException = ex;
-                break; // Don't retry non-transient errors
+                _logErrors?.LogAndForget(cleanupEx, "Error cleaning up temporary play history file after failed save");
             }
-        }
-
-        // All retries exhausted or non-transient error
-        _logErrors?.LogAndForget(lastException, "Error saving playhistory.dat");
-
-        // Attempt to clean up temp file if it exists
-        try
-        {
-            if (File.Exists(TempFilePath))
-            {
-                File.Delete(TempFilePath);
-            }
-        }
-        catch (Exception cleanupEx)
-        {
-            _logErrors?.LogAndForget(cleanupEx, "Error cleaning up temporary play history file after failed save");
-        }
+        });
     }
 
     /// <summary>
@@ -319,7 +324,7 @@ public class PlayHistoryManager
                 return;
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history...", Application.Current.MainWindow as MainWindow));
+            Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history...", Application.Current.MainWindow as MainWindow));
 
             // Get the current date and time in a culture-invariant format
             // This ensures it can be parsed regardless of the UI language

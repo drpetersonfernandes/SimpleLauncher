@@ -340,7 +340,9 @@ internal static class RetroAchievementsHasherTool
             DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
 
             // Directly show the dialog (already on the UI thread)
-            var win = new SystemSelectionWindow(guess) { Owner = Application.Current.MainWindow };
+            var win = App.ServiceProvider.GetRequiredService<SystemSelectionWindow>();
+            win.Owner = Application.Current.MainWindow;
+            win.Initialize(guess);
             var userSelectedSystem = win.ShowDialog() == true ? win.SelectedSystem : null;
 
             DebugLogger.Log($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
