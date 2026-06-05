@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher.ViewModels;
@@ -105,7 +104,7 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
 
             _settings.FuzzyMatchingThreshold = newThreshold;
             _settings.Save();
-            UpdateStatusBar.UpdateContent(
+            (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
                 (string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...",
                 Application.Current.MainWindow as MainWindow);
 

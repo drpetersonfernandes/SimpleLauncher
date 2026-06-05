@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -28,11 +27,9 @@ public partial class DebugWindow
     {
         if (Instance == null)
         {
-            var logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
             Instance = new DebugWindow
             {
-                // Create and set up ViewModel
-                _viewModel = new DebugViewModel(logErrors)
+                _viewModel = App.ServiceProvider.GetRequiredService<DebugViewModel>()
             };
 
             Instance.DataContext = Instance._viewModel;

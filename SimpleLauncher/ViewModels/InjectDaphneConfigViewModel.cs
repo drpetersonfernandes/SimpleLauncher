@@ -5,6 +5,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the Daphne emulator configuration injection window.
+/// </summary>
 public partial class InjectDaphneConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -18,18 +21,34 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
 
-    public InjectDaphneConfigViewModel(SettingsManager settings, bool isLauncherMode)
+    public InjectDaphneConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
-        IsLauncherMode = isLauncherMode;
+    }
 
+    /// <summary>
+    /// Initializes the ViewModel with the launcher mode.
+    /// </summary>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(bool isLauncherMode)
+    {
+        IsLauncherMode = isLauncherMode;
         LoadSettings();
     }
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
 
     private void LoadSettings()

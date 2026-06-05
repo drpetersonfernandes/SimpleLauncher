@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -11,13 +10,13 @@ internal partial class DownloadImagePackWindow : IDisposable
     private readonly DownloadImagePackViewModel _viewModel;
     private readonly ILogErrors _logErrors;
 
-    internal DownloadImagePackWindow(PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    internal DownloadImagePackWindow(ILogErrors logErrors, DownloadImagePackViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _logErrors = logErrors;
 
-        _viewModel = new DownloadImagePackViewModel(playSoundEffects, logErrors);
+        _viewModel = viewModel;
         DataContext = _viewModel;
 
         Closed += CloseWindowRoutineAsync;

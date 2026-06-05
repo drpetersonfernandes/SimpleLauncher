@@ -11,7 +11,7 @@ public class WindowSelectionDialogViewModel : ObservableObject
 {
     private WindowItem _selectedItem;
 
-    public WindowSelectionDialogViewModel(IEnumerable<(IntPtr Handle, string Title)> windows)
+    public void Initialize(IEnumerable<(IntPtr Handle, string Title)> windows)
     {
         var windowItems = windows
             .Where(static w => !string.IsNullOrWhiteSpace(w.Title))
@@ -19,12 +19,13 @@ public class WindowSelectionDialogViewModel : ObservableObject
             .ToList();
 
         WindowItems = new ObservableCollection<WindowItem>(windowItems);
+        OnPropertyChanged(nameof(WindowItems));
     }
 
     /// <summary>
     /// Gets the collection of window items.
     /// </summary>
-    public ObservableCollection<WindowItem> WindowItems { get; }
+    public ObservableCollection<WindowItem> WindowItems { get; private set; } = [];
 
     /// <summary>
     /// Gets or sets the selected window item.

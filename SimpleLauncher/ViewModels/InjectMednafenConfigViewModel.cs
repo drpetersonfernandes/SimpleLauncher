@@ -10,6 +10,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the Mednafen emulator configuration injection window.
+/// </summary>
 public partial class InjectMednafenConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -29,26 +32,62 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mednafenRewind;
     [ObservableProperty] private bool _mednafenShowSettingsBeforeLaunch;
 
-    public InjectMednafenConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectMednafenConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the Mednafen emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available video driver options for Mednafen.
+    /// </summary>
     public List<string> VideoDriverOptions { get; } = ["opengl", "soft", "default"];
+
+    /// <summary>
+    /// Available stretch mode options for Mednafen.
+    /// </summary>
     public List<string> StretchOptions { get; } = ["0", "full", "aspect", "aspect_int"];
+
+    /// <summary>
+    /// Available shader options for Mednafen.
+    /// </summary>
     public List<string> ShaderOptions { get; } = ["none", "ip", "ipsharper", "scale2x", "snes_ntsc", "goat"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

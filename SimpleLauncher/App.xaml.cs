@@ -273,7 +273,6 @@ public partial class App : IDisposable
         serviceCollection.AddTransient<RetroAchievementsSettingsWindow>();
         serviceCollection.AddTransient<SetLinksWindow>();
         serviceCollection.AddTransient<SetGamepadDeadZoneWindow>();
-        serviceCollection.AddTransient<SupportOptionWindow>();
         serviceCollection.AddTransient<RomHistoryWindow>();
         serviceCollection.AddTransient<DosBoxFileSelectionWindow>();
         serviceCollection.AddTransient<SystemSelectionWindow>();

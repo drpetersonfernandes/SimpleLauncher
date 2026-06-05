@@ -1,60 +1,80 @@
 using System.Diagnostics;
 using System.Globalization;
-using System.Net.Http;
 using System.Text;
-using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.ViewModels;
 
-public partial class SupportOptionWindow
+/// <summary>
+/// ViewModel for the support option dialog that offers AI-assisted help or developer contact.
+/// </summary>
+public partial class SupportOptionViewModel : ObservableObject
 {
-    private readonly Exception _exception;
-    private readonly string _contextMessage;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
-    private static IHttpClientFactory _httpClientFactory;
     private readonly ILogErrors _logErrors;
 
-    public SupportOptionWindow(Exception ex, string contextMessage, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogErrors logErrors)
-    {
-        InitializeComponent();
-        App.ApplyThemeToWindow(this);
+    private Exception _exception;
+    private string _contextMessage;
 
-        _exception = ex;
-        _contextMessage = contextMessage;
+    public SupportOptionViewModel(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors)
+    {
         _playSoundEffects = playSoundEffects;
         _configuration = configuration;
-        _httpClientFactory = httpClientFactory;
         _logErrors = logErrors;
     }
 
-    private void BtnContactDeveloper_Click(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// Initializes the ViewModel with the exception context for AI-assisted support.
+    /// </summary>
+    public void Initialize(Exception exception, string contextMessage)
+    {
+        _exception = exception;
+        _contextMessage = contextMessage;
+    }
+
+    /// <summary>Event raised when the window should be closed.</summary>
+    public event Action CloseRequested;
+
+    [RelayCommand]
+    private void ContactDeveloper()
     {
         _playSoundEffects?.PlayNotificationSound();
 
-        var supportRequestWindow = new SupportWindow(_playSoundEffects, _httpClientFactory, _logErrors, _configuration);
+        var supportRequestWindow = App.ServiceProvider.GetRequiredService<SupportWindow>();
         supportRequestWindow.Show();
 
-        Close();
+        CloseRequested?.Invoke();
     }
 
-    private void BtnAskPerplexity_Click(object sender, RoutedEventArgs e)
+    [RelayCommand]
+    private void AskPerplexity()
     {
         LaunchAiSearch(_configuration.GetValue<string>("Urls:PerplexitySearch") ?? "https://www.perplexity.ai/search?q=");
     }
 
-    private void BtnAskPhind_Click(object sender, RoutedEventArgs e)
+    [RelayCommand]
+    private void AskPhind()
     {
         LaunchAiSearch(_configuration.GetValue<string>("Urls:PhindSearch") ?? "https://www.phind.com/search?q=");
     }
 
-    private void BtnAskYou_Click(object sender, RoutedEventArgs e)
+    [RelayCommand]
+    private void AskYou()
     {
         LaunchAiSearch(_configuration.GetValue<string>("Urls:YouSearch") ?? "https://you.com/search?q=");
+    }
+
+    [RelayCommand]
+    private void Cancel()
+    {
+        CloseRequested?.Invoke();
     }
 
     private void LaunchAiSearch(string baseUrl)
@@ -79,7 +99,7 @@ public partial class SupportOptionWindow
             _logErrors.LogAndForget(ex, contextMessage);
         }
 
-        Close();
+        CloseRequested?.Invoke();
     }
 
     private string BuildQuery()
@@ -91,7 +111,6 @@ public partial class SupportOptionWindow
         sb.Append("Maybe the paths are incorrect.");
         sb.Append("Provide me a very simple explanation of the problem and help me fix the parameters.");
 
-        // Retrieve the URL from appsettings.json
         var wikiParametersUrl = _configuration.GetValue<string>("WikiParametersUrl") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
         if (!string.IsNullOrEmpty(wikiParametersUrl))
         {
@@ -99,7 +118,6 @@ public partial class SupportOptionWindow
         }
         else
         {
-            // Fallback to hardcoded URL if not found in config, or log an error
             sb.Append(" 'Simple Launcher' parameters reference can be found on 'https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters'.");
             _logErrors.LogAndForget(null, "WikiParametersUrl is null or empty in SupportOptionWindow.");
         }
@@ -116,7 +134,6 @@ public partial class SupportOptionWindow
 
             if (_exception.StackTrace != null)
             {
-                // Truncate stack trace to avoid extremely long URLs
                 var stackTrace = _exception.StackTrace.Length > 1500
                     ? string.Concat(_exception.StackTrace.AsSpan(0, 1500), "...")
                     : _exception.StackTrace;
@@ -125,10 +142,5 @@ public partial class SupportOptionWindow
         }
 
         return sb.ToString();
-    }
-
-    private void BtnCancel_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
     }
 }

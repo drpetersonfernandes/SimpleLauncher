@@ -12,7 +12,7 @@ public partial class SystemSelectionViewModel : ObservableObject
 {
     private string _selectedSystem;
 
-    public SystemSelectionViewModel(string currentGuess)
+    public void Initialize(string currentGuess)
     {
         var systems = RetroAchievementsSystemMatcher.GetSupportedSystemNames();
         Systems = new ObservableCollection<string>(systems);
@@ -24,7 +24,7 @@ public partial class SystemSelectionViewModel : ObservableObject
     /// <summary>
     /// Gets the collection of system names.
     /// </summary>
-    public ObservableCollection<string> Systems { get; }
+    public ObservableCollection<string> Systems { get; private set; } = [];
 
     /// <summary>
     /// Gets or sets the selected system name.

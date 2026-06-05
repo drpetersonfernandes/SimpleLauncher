@@ -10,6 +10,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the PCSX2 emulator configuration injection window.
+/// </summary>
 public partial class InjectPcsx2ConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -28,28 +31,72 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _pcsx2AchievementsHardcore;
     [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
 
-    public InjectPcsx2ConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectPcsx2ConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the PCSX2 emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available renderer ID options for PCSX2.
+    /// </summary>
     public List<string> RendererOptions { get; } = ["14", "13", "12", "15", "11"];
+
+    /// <summary>
+    /// Display names corresponding to the renderer options for PCSX2.
+    /// </summary>
     public List<string> RendererDisplayNames { get; } = ["Vulkan", "Direct3D 12", "Direct3D 11", "OpenGL", "Software"];
+
+    /// <summary>
+    /// Available upscale multiplier options for PCSX2.
+    /// </summary>
     public List<string> UpscaleOptions { get; } = ["1", "2", "3", "4", "5", "6", "8"];
+
+    /// <summary>
+    /// Display names corresponding to the upscale multiplier options for PCSX2.
+    /// </summary>
     public List<string> UpscaleDisplayNames { get; } = ["1x (Native)", "2x", "3x", "4x", "5x", "6x", "8x"];
+
+    /// <summary>
+    /// Available aspect ratio options for PCSX2.
+    /// </summary>
     public List<string> AspectOptions { get; } = ["4:3", "16:9", "Stretch"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

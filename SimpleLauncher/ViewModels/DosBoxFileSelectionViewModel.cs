@@ -14,7 +14,7 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
     private DosBoxFileItem _selectedItem;
     private bool _isLaunchEnabled;
 
-    public DosBoxFileSelectionViewModel(List<string> filePaths, string baseDirectory)
+    public void Initialize(List<string> filePaths, string baseDirectory)
     {
         var fileItems = filePaths.Select(path => new DosBoxFileItem
         {
@@ -24,12 +24,13 @@ public partial class DosBoxFileSelectionViewModel : ObservableObject
         }).ToList();
 
         FileItems = new ObservableCollection<DosBoxFileItem>(fileItems);
+        OnPropertyChanged(nameof(FileItems));
     }
 
     /// <summary>
     /// Gets the collection of file items.
     /// </summary>
-    public ObservableCollection<DosBoxFileItem> FileItems { get; }
+    public ObservableCollection<DosBoxFileItem> FileItems { get; private set; } = [];
 
     /// <summary>
     /// Gets or sets the selected file item.

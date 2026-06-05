@@ -11,12 +11,14 @@ using SimpleLauncher.Services.DownloadService.Models;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.UpdateStatusBar;
 using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the image pack download window.
+/// </summary>
 public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 {
     private readonly PlaySoundEffects _playSoundEffects;
@@ -47,9 +49,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         DownloadImagePackCommand = new RelayCommand<object>(ExecuteDownloadAsync, _ => !IsOperationInProgress);
     }
 
+    /// <summary>Gets the collection of system names available for image pack download.</summary>
     public ObservableCollection<string> SystemNames { get; }
+
+    /// <summary>Gets the collection of image pack items to display for the selected system.</summary>
     public ObservableCollection<ImagePackDownloadItem> ImagePacksToDisplay { get; }
 
+    /// <summary>Gets whether a download or extraction operation is currently in progress.</summary>
     public bool IsOperationInProgress
     {
         get => _isOperationInProgress;
@@ -63,24 +69,28 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Gets whether the stop button is enabled.</summary>
     public bool IsStopEnabled
     {
         get => _isStopEnabled;
         private set => SetProperty(ref _isStopEnabled, value);
     }
 
+    /// <summary>Gets the current download progress percentage (0-100).</summary>
     public double ProgressPercentage
     {
         get => _progressPercentage;
         private set => SetProperty(ref _progressPercentage, value);
     }
 
+    /// <summary>Gets the current status message displayed to the user.</summary>
     public string StatusMessage
     {
         get => _statusMessage;
         private set => SetProperty(ref _statusMessage, value);
     }
 
+    /// <summary>Gets whether a loading indicator should be shown.</summary>
     public bool IsLoading
     {
         get => _isLoading;
@@ -91,12 +101,14 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Gets the message displayed during loading.</summary>
     public string LoadingMessage
     {
         get => _loadingMessage;
         private set => SetProperty(ref _loadingMessage, value);
     }
 
+    /// <summary>Gets whether the system selection dropdown is enabled.</summary>
     public bool IsSystemDropdownEnabled
     {
         get => _isSystemDropdownEnabled;
@@ -105,6 +117,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
     private string _selectedSystemName;
 
+    /// <summary>Gets or sets the currently selected system name.</summary>
     public string SelectedSystemName
     {
         get => _selectedSystemName;
@@ -117,8 +130,10 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>Gets whether the main content area is enabled (no operation or loading in progress).</summary>
     public bool IsMainContentEnabled => !IsOperationInProgress && !IsLoading;
 
+    /// <summary>Gets the command to download the selected image pack.</summary>
     public IRelayCommand<object> DownloadImagePackCommand { get; }
 
     private bool TryStartOperation()
@@ -136,6 +151,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         Interlocked.Exchange(ref _operationInProgressFlag, 0);
     }
 
+    /// <summary>
+    /// Initializes the ViewModel by loading the Easy Mode configuration.
+    /// </summary>
     public async Task InitializeAsync()
     {
         LoadingMessage = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
@@ -500,6 +518,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <summary>
+    /// Forces release of the busy overlay and cancels any in-progress download.
+    /// </summary>
     public void EmergencyOverlayRelease()
     {
         _playSoundEffects.PlayNotificationSound();
@@ -511,9 +532,12 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         IsLoading = false;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
-        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 
+    /// <summary>
+    /// Performs cleanup when the window is closing.
+    /// </summary>
     public async Task CloseWindowRoutineAsync()
     {
         try
@@ -533,6 +557,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         }
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(true);

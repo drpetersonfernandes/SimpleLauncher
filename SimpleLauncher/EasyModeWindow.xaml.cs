@@ -5,7 +5,6 @@ using System.Windows.Navigation;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
@@ -17,7 +16,6 @@ using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
-using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
@@ -262,7 +260,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         });
     }
 
-    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors)
+    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration, ILogErrors logErrors, DownloadManager downloadManager)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -274,8 +272,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         // Set DataContext for XAML bindings to work
         DataContext = this;
 
-        // Get the DownloadManager from the service provider
-        _downloadManager = App.ServiceProvider.GetRequiredService<DownloadManager>();
+        _downloadManager = downloadManager;
 
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
@@ -300,7 +297,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "[EasyModeWindowLoadedAsync] Error initializing EasyModeManager.");
+            _logErrors.LogAndForget(ex, "[EasyModeWindowLoadedAsync] Error initializing EasyModeManager.");
         }
     }
 
@@ -368,7 +365,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         {
             // Notify developer
             const string contextMessage = "Error populating system dropdown.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             SystemNameDropdown.ItemsSource = new List<string>(); // Assign an empty list if there's any error
         }
@@ -476,7 +473,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsEmulatorDownloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadEmulatorButtonClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadEmulatorButtonClickAsync.");
                 }
             }
             finally
@@ -496,7 +493,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadEmulatorButtonClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadEmulatorButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadEmulatorButtonClickAsync.");
         }
     }
 
@@ -520,7 +517,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsCoreDownloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadCoreButtonClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadCoreButtonClickAsync.");
                 }
             }
             finally
@@ -539,7 +536,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadCoreButtonClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadCoreButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadCoreButtonClickAsync.");
         }
     }
 
@@ -563,7 +560,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsImagePack1Downloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton1ClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton1ClickAsync.");
                 }
             }
             finally
@@ -582,7 +579,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadImagePackButton1ClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton1ClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton1ClickAsync.");
         }
     }
 
@@ -606,7 +603,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsImagePack2Downloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton2ClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton2ClickAsync.");
                 }
             }
             finally
@@ -625,7 +622,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadImagePackButton2ClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton2ClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton2ClickAsync.");
         }
     }
 
@@ -649,7 +646,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsImagePack3Downloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton3ClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton3ClickAsync.");
                 }
             }
             finally
@@ -668,7 +665,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadImagePackButton3ClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton3ClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton3ClickAsync.");
         }
     }
 
@@ -692,7 +689,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsImagePack4Downloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton4ClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton4ClickAsync.");
                 }
             }
             finally
@@ -711,7 +708,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadImagePackButton4ClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton4ClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton4ClickAsync.");
         }
     }
 
@@ -735,7 +732,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 OnPropertyChanged(nameof(IsImagePack5Downloaded));
                 if (!_disposed)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton5ClickAsync.");
+                    _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton5ClickAsync.");
                 }
             }
             finally
@@ -754,7 +751,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             Debug.WriteLine($"Error in DownloadImagePackButton5ClickAsync: {ex}");
-            _ = _logErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton5ClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in DownloadImagePackButton5ClickAsync.");
         }
     }
 
@@ -843,7 +840,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
             EndOperation();
             // Notify developer
-            _ = _logErrors.LogErrorAsync(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _logErrors.LogAndForget(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
             SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
             return;
         }
@@ -959,7 +956,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 var contextMessage = $"Error downloading {componentName}.\n" +
                                      $"URL: {downloadUrl}";
-                _ = _logErrors.LogErrorAsync(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
             }
 
             // Check if the download failed due to a file lock
@@ -1140,7 +1137,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     DownloadStatus = errorFailedtoaddsystem;
 
                     const string contextMessage = "Unexpected error adding system.";
-                    _ = _logErrors.LogErrorAsync(ex, contextMessage);
+                    _logErrors.LogAndForget(ex, contextMessage);
 
                     MessageBoxLibrary.AddSystemFailedMessageBox();
                 }
@@ -1160,12 +1157,12 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             catch (Exception ex)
             {
                 EndOperation();
-                _ = _logErrors.LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
+                _logErrors.LogAndForget(ex, "Error in AddSystemButtonClickAsync.");
             }
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in AddSystemButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in AddSystemButtonClickAsync.");
         }
     }
 
@@ -1227,7 +1224,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error closing the Add System window.");
+            _logErrors.LogAndForget(ex, "Error closing the Add System window.");
         }
     }
 
@@ -1262,7 +1259,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error opening the download link.");
+            _logErrors.LogAndForget(ex, "Error opening the download link.");
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenTheDownloadLinkMessageBox();
@@ -1289,6 +1286,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         MainContentGrid?.IsEnabled = true;
 
         DebugLogger.Log("[Emergency] User forced overlay dismissal in EasyModeWindow.");
-        UpdateStatusBar.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.", Application.Current.MainWindow as MainWindow);
     }
 }

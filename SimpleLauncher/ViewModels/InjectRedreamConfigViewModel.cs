@@ -10,6 +10,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the Redream emulator configuration injection window.
+/// </summary>
 public partial class InjectRedreamConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -33,33 +36,97 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     [ObservableProperty] private bool _redreamFramerate;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
 
-    public InjectRedreamConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectRedreamConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the Redream emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available video cable options for Redream.
+    /// </summary>
     public List<string> CableOptions { get; } = ["vga", "composite", "rgb"];
+
+    /// <summary>
+    /// Available broadcast standard options for Redream.
+    /// </summary>
     public List<string> BroadcastOptions { get; } = ["ntsc", "pal", "pal_m", "pal_n"];
+
+    /// <summary>
+    /// Available aspect ratio options for Redream.
+    /// </summary>
     public List<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
+
+    /// <summary>
+    /// Available internal resolution options for Redream.
+    /// </summary>
     public List<string> ResOptions { get; } = ["1", "2", "3", "4", "5", "6", "7", "8"];
+
+    /// <summary>
+    /// Available renderer options for Redream.
+    /// </summary>
     public List<string> RendererOptions { get; } = ["hle_perstrip", "hle_perpixel", "lle"];
+
+    /// <summary>
+    /// Available fullscreen mode options for Redream.
+    /// </summary>
     public List<string> FullmodeOptions { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
+
+    /// <summary>
+    /// Tags corresponding to the fullscreen mode options for Redream.
+    /// </summary>
     public List<string> FullmodeTags { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
+
+    /// <summary>
+    /// Available window size options for Redream.
+    /// </summary>
     public List<string> WindowSizeOptions { get; } = ["640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440", "3840x2160", "2560x1080", "3440x1440"];
+
+    /// <summary>
+    /// Available language options for Redream.
+    /// </summary>
     public List<string> LanguageOptions { get; } = ["english", "japanese", "german", "french", "spanish", "italian"];
+
+    /// <summary>
+    /// Available region options for Redream.
+    /// </summary>
     public List<string> RegionOptions { get; } = ["usa", "japan", "europe"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

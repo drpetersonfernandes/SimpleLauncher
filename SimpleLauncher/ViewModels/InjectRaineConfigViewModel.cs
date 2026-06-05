@@ -10,13 +10,16 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the Raine emulator configuration injection window.
+/// </summary>
 public partial class InjectRaineConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private string _emulatorPath;
-    private readonly string _gameFilePath;
-    private readonly string _systemRomPath;
+    private string _gameFilePath;
+    private string _systemRomPath;
 
     [ObservableProperty] private bool _raineFullscreen;
     [ObservableProperty] private bool _raineFixAspectRatio;
@@ -35,30 +38,76 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory;
 
-    public InjectRaineConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode, string gameFilePath = null, string systemRomPath = null)
+    public InjectRaineConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path, launcher mode, and optional file paths.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the Raine emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    /// <param name="gameFilePath">Optional path to the game file.</param>
+    /// <param name="systemRomPath">Optional path to the system ROM.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode, string gameFilePath = null, string systemRomPath = null)
+    {
         _emulatorPath = emulatorPath;
         _gameFilePath = gameFilePath;
         _systemRomPath = systemRomPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available sound driver options for Raine.
+    /// </summary>
     public List<string> SoundDriverOptions { get; } = ["directsound", "sdl"];
+
+    /// <summary>
+    /// Available audio sample rate options for Raine.
+    /// </summary>
     public List<string> SampleRateOptions { get; } = ["22050", "44100", "48000"];
+
+    /// <summary>
+    /// Available frame skip options for Raine.
+    /// </summary>
     public List<string> FrameSkipOptions { get; } = ["0", "1", "2", "3", "4", "5"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
+
+    /// <summary>
+    /// Requests the user to select a file path.
+    /// </summary>
     public event Func<string> RequestFilePath;
+
+    /// <summary>
+    /// Requests the user to select a folder path.
+    /// </summary>
     public event Func<string> RequestFolderPath;
 
     private void LoadSettings()

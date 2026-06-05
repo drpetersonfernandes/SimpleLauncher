@@ -10,6 +10,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the DuckStation emulator configuration injection window.
+/// </summary>
 public partial class InjectDuckStationConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -32,18 +35,32 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     [ObservableProperty] private int _duckStationOutputVolume;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
 
-    public InjectDuckStationConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectDuckStationConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the DuckStation emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available renderer options for DuckStation.
+    /// </summary>
     public List<string> RendererOptions { get; } = ["Automatic", "Vulkan", "Direct3D 11", "Direct3D 12", "OpenGL", "Software"];
 
+    /// <summary>
+    /// Available resolution scale options for DuckStation.
+    /// </summary>
     public List<TagOption> ResolutionScaleOptions { get; } =
     [
         new("1", "1x (Native)"),
@@ -56,15 +73,39 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         new("8", "8x (8K)")
     ];
 
+    /// <summary>
+    /// Available texture filter options for DuckStation.
+    /// </summary>
     public List<string> TextureFilterOptions { get; } = ["Nearest", "Bilinear", "Bilinear(Bilinear)"];
+
+    /// <summary>
+    /// Available aspect ratio options for DuckStation.
+    /// </summary>
     public List<string> AspectRatioOptions { get; } = ["Auto", "4:3", "16:9", "16:10", "Crop"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

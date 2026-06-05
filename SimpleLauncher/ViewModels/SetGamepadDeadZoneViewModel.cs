@@ -1,0 +1,97 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.SettingsManager;
+using Application = System.Windows.Application;
+
+namespace SimpleLauncher.ViewModels;
+
+/// <summary>
+/// ViewModel for the gamepad dead zone configuration window.
+/// </summary>
+public partial class SetGamepadDeadZoneViewModel : ObservableObject
+{
+    private readonly SettingsManager _settingsManager;
+
+    private double _deadZoneX;
+    private double _deadZoneY;
+
+    public SetGamepadDeadZoneViewModel(SettingsManager settingsManager)
+    {
+        _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
+
+        _deadZoneX = _settingsManager.DeadZoneX;
+        _deadZoneY = _settingsManager.DeadZoneY;
+    }
+
+    /// <summary>Gets or sets the X-axis dead zone value.</summary>
+    public double DeadZoneX
+    {
+        get => _deadZoneX;
+        set
+        {
+            if (SetProperty(ref _deadZoneX, value))
+            {
+                OnPropertyChanged(nameof(DeadZoneXText));
+            }
+        }
+    }
+
+    /// <summary>Gets or sets the Y-axis dead zone value.</summary>
+    public double DeadZoneY
+    {
+        get => _deadZoneY;
+        set
+        {
+            if (SetProperty(ref _deadZoneY, value))
+            {
+                OnPropertyChanged(nameof(DeadZoneYText));
+            }
+        }
+    }
+
+    /// <summary>Gets the X-axis dead zone formatted for display.</summary>
+    public string DeadZoneXText => _deadZoneX.ToString("F2");
+
+    /// <summary>Gets the Y-axis dead zone formatted for display.</summary>
+    public string DeadZoneYText => _deadZoneY.ToString("F2");
+
+    /// <summary>Event raised when settings have been saved.</summary>
+    public event Action SaveCompleted;
+
+    /// <summary>Event raised when the window should be closed.</summary>
+    public event Action CloseRequested;
+
+    [RelayCommand]
+    private void Save()
+    {
+        _settingsManager.DeadZoneX = (float)DeadZoneX;
+        _settingsManager.DeadZoneY = (float)DeadZoneY;
+        _settingsManager.Save();
+
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("SavingGamepadDeadZoneSettings") ?? "Saving gamepad dead zone settings...",
+            Application.Current.MainWindow as MainWindow);
+
+        MessageBoxLibrary.DeadZonesSavedMessageBox();
+
+        SaveCompleted?.Invoke();
+    }
+
+    [RelayCommand]
+    private void Revert()
+    {
+        _settingsManager.DeadZoneX = SettingsManager.DefaultDeadZoneX;
+        _settingsManager.DeadZoneY = SettingsManager.DefaultDeadZoneY;
+        _settingsManager.Save();
+
+        DeadZoneX = SettingsManager.DefaultDeadZoneX;
+        DeadZoneY = SettingsManager.DefaultDeadZoneY;
+
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("RevertingGamepadDeadZoneSettings") ?? "Reverting gamepad dead zone settings...",
+            Application.Current.MainWindow as MainWindow);
+
+        CloseRequested?.Invoke();
+    }
+}

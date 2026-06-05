@@ -6,12 +6,12 @@ public partial class DosBoxFileSelectionWindow
 {
     private readonly DosBoxFileSelectionViewModel _viewModel;
 
-    public DosBoxFileSelectionWindow(List<string> filePaths, string baseDirectory)
+    public DosBoxFileSelectionWindow(DosBoxFileSelectionViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new DosBoxFileSelectionViewModel(filePaths, baseDirectory);
+        _viewModel = viewModel;
         _viewModel.DialogResultRequested += result =>
         {
             DialogResult = result;
@@ -21,6 +21,11 @@ public partial class DosBoxFileSelectionWindow
         DataContext = _viewModel;
 
         Closed += (_, _) => { DialogResult ??= false; };
+    }
+
+    public void Initialize(List<string> filePaths, string baseDirectory)
+    {
+        _viewModel.Initialize(filePaths, baseDirectory);
     }
 
     public string SelectedFilePath => _viewModel.SelectedFilePath;

@@ -11,6 +11,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the BlastEm emulator configuration injection window.
+/// </summary>
 public partial class InjectBlastemConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -26,27 +29,67 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     [ObservableProperty] private string _syncSource;
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    public InjectBlastemConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectBlastemConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the BlastEm emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available aspect ratio options for BlastEm.
+    /// </summary>
     public List<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
+
+    /// <summary>
+    /// Available scaling options for BlastEm.
+    /// </summary>
     public List<string> ScalingOptions { get; } = ["linear", "nearest"];
+
+    /// <summary>
+    /// Available audio sample rate options for BlastEm.
+    /// </summary>
     public List<string> AudioRateOptions { get; } = ["48000", "44100", "22050"];
+
+    /// <summary>
+    /// Available sync source options for BlastEm.
+    /// </summary>
     public List<string> SyncSourceOptions { get; } = ["audio", "video"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

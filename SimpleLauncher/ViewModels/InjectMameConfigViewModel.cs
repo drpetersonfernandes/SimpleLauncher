@@ -10,13 +10,16 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the MAME emulator configuration injection window.
+/// </summary>
 public partial class InjectMameConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
     private readonly ILogErrors _logErrors;
     private string _emulatorPath;
-    private readonly string _systemRomPath;
-    private readonly string[] _listOfSecondarySystemFolders;
+    private string _systemRomPath;
+    private string[] _listOfSecondarySystemFolders;
 
     [ObservableProperty] private string _mameVideo;
     [ObservableProperty] private string _mameBgfxBackend;
@@ -35,28 +38,66 @@ public partial class InjectMameConfigViewModel : ObservableObject
     [ObservableProperty] private bool _mameJoystick;
     [ObservableProperty] private bool _mameShowSettingsBeforeLaunch;
 
-    public InjectMameConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode, string systemRomPath = null, string[] listOfSecondaryRomPaths = null)
+    public InjectMameConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path, launcher mode, and optional ROM paths.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the MAME emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    /// <param name="systemRomPath">Optional path to the system ROM directory.</param>
+    /// <param name="listOfSecondaryRomPaths">Optional list of secondary ROM folder paths.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode, string systemRomPath = null, string[] listOfSecondaryRomPaths = null)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
         _systemRomPath = systemRomPath;
         _listOfSecondarySystemFolders = listOfSecondaryRomPaths;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available video output options for MAME.
+    /// </summary>
     public List<string> VideoOptions { get; } = ["auto", "d3d", "opengl", "bgfx", "gdi"];
+
+    /// <summary>
+    /// Available BGFX backend options for MAME.
+    /// </summary>
     public List<string> BgfxBackendOptions { get; } = ["auto", "d3d11", "vulkan", "opengl"];
+
+    /// <summary>
+    /// Available BGFX screen chain options for MAME.
+    /// </summary>
     public List<string> BgfxChainsOptions { get; } = ["default", "crt-geom"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

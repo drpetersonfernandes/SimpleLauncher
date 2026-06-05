@@ -10,6 +10,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the Xenia emulator configuration injection window.
+/// </summary>
 public partial class InjectXeniaConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -34,19 +37,37 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     [ObservableProperty] private int _xeniaUserLanguage;
     [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
 
-    public InjectXeniaConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectXeniaConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the Xenia emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available GPU backend options for Xenia.
+    /// </summary>
     public List<string> GpuOptions { get; } = ["d3d12", "vulkan", "null"];
+
+    /// <summary>
+    /// Available resolution scale options for Xenia.
+    /// </summary>
     public List<string> ResScaleOptions { get; } = ["1", "2", "3"];
 
+    /// <summary>
+    /// Available anti-aliasing options for Xenia.
+    /// </summary>
     public List<TagOption> AaOptions { get; } =
     [
         new("", "None"),
@@ -54,11 +75,29 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         new("fxaa_extreme", "FXAA Extreme")
     ];
 
+    /// <summary>
+    /// Available scaling options for Xenia.
+    /// </summary>
     public List<string> ScalingOptions { get; } = ["fsr", "cas", "bilinear"];
+
+    /// <summary>
+    /// Available readback resolve options for Xenia.
+    /// </summary>
     public List<string> ReadbackOptions { get; } = ["none", "fast", "full"];
+
+    /// <summary>
+    /// Available APU (audio processing unit) options for Xenia.
+    /// </summary>
     public List<string> ApuOptions { get; } = ["xaudio2", "sdl", "nop", "any"];
+
+    /// <summary>
+    /// Available HID (human interface device) input options for Xenia.
+    /// </summary>
     public List<string> HidOptions { get; } = ["xinput", "sdl", "winkey", "any"];
 
+    /// <summary>
+    /// Available language options for Xenia.
+    /// </summary>
     public List<TagOption> LangOptions { get; } =
     [
         new("1", "English"),
@@ -72,12 +111,29 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
         new("9", "Portuguese")
     ];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()

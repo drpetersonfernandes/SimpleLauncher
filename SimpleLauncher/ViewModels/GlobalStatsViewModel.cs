@@ -21,8 +21,9 @@ namespace SimpleLauncher.ViewModels;
 public partial class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly List<SystemManager> _systemManagers;
+    private List<SystemManager> _systemManagers;
     private readonly ILogErrors _logErrors;
+    private readonly IGetListOfFiles _getListOfFiles;
     private CancellationTokenSource _cancellationTokenSource;
     private readonly object _processingLock = new();
 
@@ -37,11 +38,16 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
     private bool _isStartButtonVisible = true;
     private bool _forceClose;
 
-    public GlobalStatsViewModel(List<SystemManager> systemManagers, IConfiguration configuration, ILogErrors logErrors)
+    public GlobalStatsViewModel(IConfiguration configuration, ILogErrors logErrors, IGetListOfFiles getListOfFiles)
     {
-        _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logErrors = logErrors;
+        _getListOfFiles = getListOfFiles;
+    }
+
+    public void Initialize(List<SystemManager> systemManagers)
+    {
+        _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
 
         // Initialize info text
         InfoText = Application.Current?.TryFindResource("GlobalStatsExplanation") as string ?? string.Empty;
@@ -306,7 +312,7 @@ public partial class GlobalStatsViewModel : ObservableObject, IDisposable
                     var path = PathHelper.ResolveRelativeToAppDirectory(folderRaw);
                     if (!string.IsNullOrEmpty(path) && Directory.Exists(path) && systemManager.FileFormatsToSearch != null)
                     {
-                        var files = await GetListOfFiles.GetFilesAsync(path, systemManager.FileFormatsToSearch, systemManager, cancellationToken);
+                        var files = await _getListOfFiles.GetFilesAsync(path, systemManager.FileFormatsToSearch, systemManager, cancellationToken);
                         allRomFiles.AddRange(files);
                     }
                 }

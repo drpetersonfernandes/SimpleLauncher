@@ -10,6 +10,9 @@ using SimpleLauncher.Services.SettingsManager;
 
 namespace SimpleLauncher.ViewModels;
 
+/// <summary>
+/// ViewModel for the RPCS3 emulator configuration injection window.
+/// </summary>
 public partial class InjectRpcs3ConfigViewModel : ObservableObject
 {
     private readonly SettingsManager _settings;
@@ -29,31 +32,87 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     [ObservableProperty] private bool _rpcs3StartFullscreen;
     [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
 
-    public InjectRpcs3ConfigViewModel(SettingsManager settings, string emulatorPath, bool isLauncherMode)
+    public InjectRpcs3ConfigViewModel(SettingsManager settings)
     {
         _settings = settings;
+        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
+    }
+
+    /// <summary>
+    /// Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the RPCS3 emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string emulatorPath, bool isLauncherMode)
+    {
         _emulatorPath = emulatorPath;
         IsLauncherMode = isLauncherMode;
-        _logErrors = App.ServiceProvider.GetRequiredService<ILogErrors>();
-
         LoadSettings();
     }
 
+    /// <summary>
+    /// Available renderer options for RPCS3.
+    /// </summary>
     public List<string> RendererOptions { get; } = ["Vulkan", "OpenGL", "Null"];
+
+    /// <summary>
+    /// Available resolution options for RPCS3.
+    /// </summary>
     public List<string> ResolutionOptions { get; } = ["1280x720", "1920x1080", "2560x1440", "3840x2160"];
+
+    /// <summary>
+    /// Available aspect ratio options for RPCS3.
+    /// </summary>
     public List<string> AspectRatioOptions { get; } = ["16:9", "4:3", "Auto"];
+
+    /// <summary>
+    /// Available resolution scale percentage options for RPCS3.
+    /// </summary>
     public List<string> ResolutionScaleOptions { get; } = ["100", "150", "200", "300"];
+
+    /// <summary>
+    /// Available anisotropic filtering options for RPCS3.
+    /// </summary>
     public List<string> AnisotropicFilterOptions { get; } = ["0", "2", "4", "8", "16"];
+
+    /// <summary>
+    /// Available PPU decoder options for RPCS3.
+    /// </summary>
     public List<string> PpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Interpreter (static)", "Interpreter (dynamic)"];
+
+    /// <summary>
+    /// Available SPU decoder options for RPCS3.
+    /// </summary>
     public List<string> SpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Recompiler (ASMJIT)", "Interpreter (static)", "Interpreter (dynamic)"];
+
+    /// <summary>
+    /// Available audio renderer options for RPCS3.
+    /// </summary>
     public List<string> AudioRendererOptions { get; } = ["Cubeb", "XAudio2", "Null"];
 
-    public bool IsLauncherMode { get; }
+    /// <summary>
+    /// Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
 
+    /// <summary>
+    /// Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
     public bool ShouldRun { get; private set; }
 
+    /// <summary>
+    /// Raised when the window should be closed.
+    /// </summary>
     public event Action CloseRequested;
+
+    /// <summary>
+    /// Requests the user to provide the emulator executable path.
+    /// </summary>
     public event Func<string> RequestEmulatorPath;
+
+    /// <summary>
+    /// Gets the owner window for dialog display.
+    /// </summary>
     public event Func<Window> GetOwnerWindow;
 
     private void LoadSettings()
