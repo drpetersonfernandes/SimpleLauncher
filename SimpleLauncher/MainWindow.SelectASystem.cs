@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DisplaySystemInfo;
-using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MessageBox;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
@@ -38,7 +38,7 @@ public partial class MainWindow
 
                 _isUiUpdating = true;
                 SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
-                await Task.Delay(100); // Give the UI thread time to render the loading overlay
+                await Task.Delay(100, _cancellationSource.Token); // Give the UI thread time to render the loading overlay
                 try
                 {
                     SearchTextBox.Text = "";
@@ -63,14 +63,14 @@ public partial class MainWindow
                     {
                         // Notify developer
                         const string errorMessage = "Selected system or its configuration is null.";
-                        _ = _logErrors.LogErrorAsync(null, errorMessage);
+                        _logErrors.LogAndForget(null, errorMessage);
 
                         // Notify user
                         MessageBoxLibrary.InvalidSystemConfigMessageBox();
                         SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                         SystemComboBox.SelectedItem = null;
-                        await DisplaySystemSelectionScreenAsync();
+                        await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
 
                         // Clear the cached list on error
                         _allGamesForCurrentSystem.Clear();
@@ -98,10 +98,8 @@ public partial class MainWindow
                     var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
 
-                    // await UpdateTopSystemImageAsync(selectedManager);
-
                     // Display SystemInfo and get the validation result. Game count is now handled inside this method.
-                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
+                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid, ((IMenuActionHost)this).CurrentCancellationToken);
 
                     // If validation failed, show the message box with aggregated errors
                     if (!validationResult.IsValid)
@@ -138,7 +136,7 @@ public partial class MainWindow
                 {
                     // Notify developer
                     const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
-                    _ = _logErrors.LogErrorAsync(ex, errorMessage);
+                    _logErrors.LogAndForget(ex, errorMessage);
 
                     // Notify user
                     MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -154,7 +152,7 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+                _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
             }
 
             return;
@@ -168,14 +166,14 @@ public partial class MainWindow
                     var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                     if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedManager.FileFormatsToSearch == null) continue;
 
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager);
+                    var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, ((IMenuActionHost)this).CurrentCancellationToken);
                     foreach (var file in filesInFolder)
                     {
                         uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
                     }
                 }
 
-                await _allGamesLock.WaitAsync(); // Acquire lock before modifying _allGamesForCurrentSystem
+                await _allGamesLock.WaitAsync(((IMenuActionHost)this).CurrentCancellationToken); // Acquire lock before modifying _allGamesForCurrentSystem
                 try
                 {
                     _allGamesForCurrentSystem = uniqueFilesForSystem.Values.ToList(); // WRITE
@@ -189,31 +187,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+            _logErrors.LogAndForget(ex, "Error in SystemComboBoxSelectionChangedAsync.");
         }
     }
-
-    // private async Task UpdateTopSystemImageAsync(SystemManager selectedManager)
-    // {
-    //     if (selectedManager == null)
-    //     {
-    //         // TopSystemImage.Visibility = Visibility.Collapsed;
-    //         // TopSystemLogoImage?.Source = null;
-    //         return;
-    //     }
-    //
-    //     try
-    //     {
-    //         // var imagePath = await GetSystemDisplayImagePathAsync(selectedManager, _settings);
-    //         // var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
-    //         // TopSystemLogoImage.Source = loadedImage;
-    //         // TopSystemImage.Visibility = Visibility.Visible;
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         _ = _logErrors.LogErrorAsync(ex, "Error updating top system logo image.");
-    //         // TopSystemImage.Visibility = Visibility.Collapsed;
-    //         // TopSystemLogoImage.Source = null;
-    //     }
-    // }
 }

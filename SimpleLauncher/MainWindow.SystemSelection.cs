@@ -6,10 +6,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Automation;
 using System.Windows.Controls.Primitives;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.SettingsManager;
-using SimpleLauncher.Services.UpdateStatusBar;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
@@ -67,7 +66,7 @@ public partial class MainWindow
 
             // Pass the injected _settings instance to GetSystemDisplayImagePathAsync
             var imagePath = await GetSystemDisplayImagePathAsync(config, _settings); // UPDATED CALL
-            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
+            var (loadedImage, _) = await _imageLoader.LoadImageAsync(imagePath);
 
             var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
 
@@ -191,17 +190,17 @@ public partial class MainWindow
                 }
 
                 _playSoundEffects.PlayNotificationSound();
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
+                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
             }
             catch (OperationCanceledException)
             {
                 // Handle cancellation if needed, e.g., reset UI state
                 SetLoadingState(false);
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.", this);
+                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.", this);
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, "Error in SystemButtonClickAsync.");
+                _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
                 SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
@@ -230,7 +229,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in SystemButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in SystemButtonClickAsync.");
         }
     }
 
@@ -245,7 +244,7 @@ public partial class MainWindow
 
             SystemManager.DeleteSystemAsync(systemName);
 
-            await Task.Delay(100);
+            await Task.Delay(100, _cancellationSource.Token);
 
             LoadOrReloadSystemManager();
             ResetUiAsync();
@@ -254,7 +253,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in DeleteSystemFromContextMenu.");
+            _logErrors.LogAndForget(ex, "Error in DeleteSystemFromContextMenu.");
         }
     }
 
@@ -263,9 +262,9 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, _helpUserService, _imageLoader, systemName)
             {
                 Owner = this
             };
@@ -276,7 +275,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in EditSystemFromContextMenu.");
+            _logErrors.LogAndForget(ex, "Error in EditSystemFromContextMenu.");
         }
     }
 
@@ -322,7 +321,7 @@ public partial class MainWindow
                 var lowerFileName = fileWithoutExt.ToLowerInvariant();
 
                 // Calculate similarity using Jaro-Winkler
-                var similarity = FindCoverImage.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
+                var similarity = _findCoverImage.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
 
                 if (!(similarity > highestSimilarity)) continue;
 
@@ -368,7 +367,7 @@ public partial class MainWindow
 
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
             // Notify user
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...", this);
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...", this);
 
             var (sl, sq) = GetLoadGameFilesParams();
             SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
@@ -379,7 +378,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string errorMessage = "Error in the method NavToggleButtonAspectRatioClickAsync.";
-            _ = _logErrors.LogErrorAsync(ex, errorMessage);
+            _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();

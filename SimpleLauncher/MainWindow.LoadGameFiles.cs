@@ -3,9 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
-using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -15,7 +13,7 @@ public partial class MainWindow
 {
     internal async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null, CancellationToken cancellationToken = default)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...", this);
 
         // Note: Loading overlay should be shown by the caller before invoking this method
         // to ensure immediate UI feedback. This prevents the overlay from flickering or not showing.
@@ -38,7 +36,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string contextMessage = "selectedConfig is null.";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
+                _logErrors.LogAndForget(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -186,7 +184,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
@@ -297,7 +295,7 @@ public partial class MainWindow
                                     return true;
 
                                 // 2. Fuzzy Check: Jaro-Winkler Similarity (handles case-insensitive comparison internally)
-                                var similarity = Services.FindAndLoadImages.FindCoverImage.CalculateJaroWinklerSimilarity(fileName, raTitle);
+                                var similarity = _findCoverImage.CalculateJaroWinklerSimilarity(fileName, raTitle);
                                 return similarity >= threshold;
                             });
                         }).ToList();
@@ -308,7 +306,7 @@ public partial class MainWindow
                     {
                         allFiles = [];
                         DebugLogger.Log($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
-                        _ = _logErrors.LogErrorAsync(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
+                        _logErrors.LogAndForget(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                     }
                     finally
                     {
@@ -376,7 +374,7 @@ public partial class MainWindow
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -477,7 +475,7 @@ public partial class MainWindow
                         !Directory.Exists(resolvedSystemFolderPath) ||
                         selectedManager.FileFormatsToSearch == null) continue;
 
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
+                    var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
                     foreach (var file in filesInFolder)
                     {
                         uniqueFiles.TryAdd(Path.GetFileName(file), file);

@@ -1,5 +1,4 @@
 using System.Windows;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -8,12 +7,12 @@ public partial class InjectRaineConfigWindow
 {
     private readonly InjectRaineConfigViewModel _viewModel;
 
-    public InjectRaineConfigWindow(SettingsManager settings, string emulatorPath = null, string gameFilePath = null, string systemRomPath = null, bool isLauncherMode = true)
+    public InjectRaineConfigWindow(InjectRaineConfigViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new InjectRaineConfigViewModel(settings, emulatorPath, isLauncherMode, gameFilePath, systemRomPath);
+        _viewModel = viewModel;
         _viewModel.CloseRequested += Close;
         _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
         _viewModel.RequestFilePath += OnRequestFilePath;
@@ -21,6 +20,11 @@ public partial class InjectRaineConfigWindow
         _viewModel.GetOwnerWindow += () => this;
 
         DataContext = _viewModel;
+    }
+
+    public void Initialize(string emulatorPath = null, bool isLauncherMode = true, string gameFilePath = null, string systemRomPath = null)
+    {
+        _viewModel.Initialize(emulatorPath, isLauncherMode, gameFilePath, systemRomPath);
 
         if (!isLauncherMode)
         {

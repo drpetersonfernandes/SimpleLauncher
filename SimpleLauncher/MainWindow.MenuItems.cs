@@ -1,10 +1,7 @@
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameItemFactory;
-using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.UpdateStatusBar;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher;
@@ -27,103 +24,28 @@ public partial class MainWindow
 
     private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
-
-            EasyModeWindow editSystemEasyModeAddSystemWindow = new(_playSoundEffects, _configuration, _logErrors);
-            editSystemEasyModeAddSystemWindow.Owner = this;
-            editSystemEasyModeAddSystemWindow.ShowDialog();
-
-            LoadOrReloadSystemManager();
-
-            ResetUiAsync();
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method EasyMode_Click.");
-        }
+        MenuActionHandlerService.HandleEasyMode();
     }
 
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
-
-            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-            var systemToPreselect = !string.IsNullOrEmpty(SelectedSystem) && SelectedSystem != nosystemselected
-                ? SelectedSystem
-                : null;
-
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _logErrors, systemToPreselect)
-            {
-                Owner = this
-            };
-            editSystemWindow.ShowDialog();
-
-            LoadOrReloadSystemManager();
-
-            ResetUiAsync();
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ExpertMode_Click.");
-        }
+        MenuActionHandlerService.HandleExpertMode();
     }
 
     private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...", this);
-
-            ResetUiAsync();
-
-            DownloadImagePackWindow downloadImagePack = new(_playSoundEffects, _logErrors)
-            {
-                Owner = this
-            };
-            downloadImagePack.ShowDialog();
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method DownloadImagePack_Click.");
-        }
+        MenuActionHandlerService.HandleDownloadImagePack();
     }
 
     private async void ScanForMicrosoftWindowsGames_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            _playSoundEffects.PlayNotificationSound();
-            SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
-            await Task.Yield(); // Allow UI to update before starting the scan
-            try
-            {
-                await _gameScannerService.ScanForStoreGamesAsync();
-                await Task.Delay(2000);
-                LoadOrReloadSystemManager();
-                ResetUiAsync();
-            }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in method ScanForMicrosoftWindowsGames_Click.");
-            }
-            finally
-            {
-                SetLoadingState(false);
-            }
+            await MenuActionHandlerService.HandleScanForWindowsGames();
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ScanForMicrosoftWindowsGames_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method ScanForMicrosoftWindowsGames_Click");
         }
     }
 
@@ -172,7 +94,7 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUiAsync.");
+                _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync.");
             }
             finally
             {
@@ -185,7 +107,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUiAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ResetUiAsync.");
         }
     }
 
@@ -197,35 +119,19 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            CancelAndRecreateToken();
-            if (sender is not MenuItem) return;
-
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkSettings") ?? "Opening link settings...", this);
-            _playSoundEffects.PlayNotificationSound();
-
-            SetLinksWindow setLinksWindow = new(_settings, _configuration)
-            {
-                Owner = this
-            };
-            setLinksWindow.ShowDialog();
-
-            var (sl, sq) = GetLoadGameFilesParams();
-            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-            await Task.Yield(); // Allow UI to render the loading overlay
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await MenuActionHandlerService.HandleEditLinks();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinksClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method EditLinksClickAsync.");
         }
     }
 
@@ -233,99 +139,25 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-
-            // Update the settings
-            _settings.EnableGamePadNavigation = menuItem.IsChecked;
-            _settings.Save();
-
-            // Start or stop the GamePadController
-            if (menuItem.IsChecked)
-            {
-                _gamePadController.Start();
-            }
-            else
-            {
-                _gamePadController.Stop();
-            }
-
-            // Notify user
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingGamepadNavigation") ?? "Toggling gamepad navigation...", this);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Failed to toggle gamepad.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ToggleGamepadFailureMessageBox();
-        }
+        MenuActionHandlerService.HandleToggleGamepad(menuItem.IsChecked);
     }
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGamepadDeadZoneSettings") ?? "Opening Gamepad Dead Zone settings...", this);
-
-        SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
-        setGamepadDeadZoneWindow.ShowDialog();
-
-        // Update the GamePadController dead zone settings from SettingsManager
-        _gamePadController.DeadZoneX = _settings.DeadZoneX;
-
-        _gamePadController.DeadZoneY = _settings.DeadZoneY;
-
-        if (_settings.EnableGamePadNavigation)
-        {
-            _gamePadController.Stop();
-            _gamePadController.Start();
-        }
-        else
-        {
-            _gamePadController.Stop();
-        }
+        MenuActionHandlerService.HandleSetGamepadDeadZone();
     }
 
     private async void ToggleFuzzyMatchingClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            CancelAndRecreateToken();
             if (sender is not MenuItem menuItem) return;
 
-            try
-            {
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
-                _playSoundEffects.PlayNotificationSound();
-
-                _settings.EnableFuzzyMatching = menuItem.IsChecked;
-                _settings.Save();
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingFuzzyMatching") ?? "Toggling fuzzy matching...", this);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Failed to toggle fuzzy matching.";
-                _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
-            }
+            await MenuActionHandlerService.HandleToggleFuzzyMatching(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ToggleFuzzyMatchingClickAsync.");
         }
     }
 
@@ -333,112 +165,43 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-            _playSoundEffects.PlayNotificationSound();
-
-            var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
-            setThresholdWindow.ShowDialog();
-
-            // After the dialog closes, the settings are saved within the dialog.
-            if (!_settings.EnableFuzzyMatching) return;
-
-            var (sl, sq) = GetLoadGameFilesParams();
-            // Notify user
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFuzzyMatchingSettings") ?? "Opening fuzzy matching settings...", this);
-            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-            await Task.Yield(); // Allow UI to render the loading overlay
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await MenuActionHandlerService.HandleSetFuzzyMatchingThreshold();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThresholdClickAsync");
+            _logErrors.LogAndForget(ex, "Error in the method SetFuzzyMatchingThresholdClickAsync.");
         }
     }
 
     private void Support_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
-        _playSoundEffects.PlayNotificationSound();
-
-        SupportWindow supportRequestWindow = new(_playSoundEffects, _httpClientFactory, _logErrors, _configuration)
-        {
-            Owner = this
-        };
-        supportRequestWindow.ShowDialog();
+        MenuActionHandlerService.HandleSupport();
     }
 
     private void Donate_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDonationPage") ?? "Opening donation page...", this);
-
-            var psi = new ProcessStartInfo
-            {
-                FileName = _configuration.GetValue<string>("Urls:DonationPage") ?? "https://www.purelogiccode.com/Donate/",
-                UseShellExecute = true
-            };
-            Process.Start(psi);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Unable to open the Donation Link from the menu.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
-        }
+        MenuActionHandlerService.HandleDonate();
     }
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
-
-        AboutWindow aboutWindow = new()
-        {
-            Owner = this
-        };
-        aboutWindow.ShowDialog();
+        MenuActionHandlerService.HandleAbout();
     }
 
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        Close();
+        MenuActionHandlerService.HandleExit();
     }
 
     private async void ShowAllGamesClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            CancelAndRecreateToken();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
-
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
-
-                UpdateShowGamesSetting("ShowAll");
-                UpdateMenuCheckMarks("ShowAll");
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGamesClickAsync.");
-            }
+            await MenuActionHandlerService.HandleShowGames("ShowAll");
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGamesClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ShowAllGamesClickAsync.");
         }
     }
 
@@ -446,31 +209,11 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
-
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
-
-                UpdateShowGamesSetting("ShowWithCover");
-                UpdateMenuCheckMarks("ShowWithCover");
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCoverClickAsync.");
-            }
+            await MenuActionHandlerService.HandleShowGames("ShowWithCover");
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCoverClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ShowGamesWithCoverClickAsync.");
         }
     }
 
@@ -478,90 +221,28 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
-
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
-
-                UpdateShowGamesSetting("ShowWithoutCover");
-                UpdateMenuCheckMarks("ShowWithoutCover");
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
-            }
+            await MenuActionHandlerService.HandleShowGames("ShowWithoutCover");
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ShowGamesWithoutCoverClickAsync.");
         }
-    }
-
-    private void UpdateShowGamesSetting(string showGames)
-    {
-        _settings.ShowGames = showGames;
-        _settings.Save();
-    }
-
-    private void UpdateMenuCheckMarks(string selectedMenu)
-    {
-        ShowAll.IsChecked = selectedMenu == "ShowAll";
-        ShowWithCover.IsChecked = selectedMenu == "ShowWithCover";
-        ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
     }
 
     private async void ButtonSizeClickAsync(object sender, RoutedEventArgs e)
     {
         try
         {
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem clickedItem) return;
 
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
+            var sizeText = clickedItem.Name.Replace("Size", "");
+            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
 
-                var sizeText = clickedItem.Name.Replace("Size", "");
-
-                if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
-
-                _gameButtonFactory.ImageHeight = newSize; // Update the image height
-                _settings.ThumbnailSize = newSize;
-                _settings.Save();
-
-                UpdateThumbnailSizeCheckMarks(newSize);
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", this);
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string errorMessage = "Error in method ButtonSizeClickAsync.";
-                _ = _logErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.ErrorMessageBox();
-            }
+            await MenuActionHandlerService.HandleButtonSize(newSize);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonSizeClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ButtonSizeClickAsync.");
         }
     }
 
@@ -569,40 +250,13 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonAspectRatio") ?? "Adjusting button aspect ratio...", this);
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem clickedItem) return;
 
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
-
-                var aspectRatio = clickedItem.Name;
-                _settings.ButtonAspectRatio = aspectRatio;
-                _settings.Save();
-
-                UpdateButtonAspectRatioCheckMarks(aspectRatio);
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error in method ButtonAspectRatioClickAsync";
-                _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ErrorMessageBox();
-            }
+            await MenuActionHandlerService.HandleButtonAspectRatio(clickedItem.Name);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonAspectRatioClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method ButtonAspectRatioClickAsync.");
         }
     }
 
@@ -610,116 +264,42 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem clickedItem) return;
 
-            try
-            {
-                if (clickedItem.Name is "Page1000" or "Page10000" or "Page1000000")
-                {
-                    if (MessageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBox() == MessageBoxResult.No)
-                    {
-                        return; // User chose not to proceed
-                    }
-                }
+            var pageText = clickedItem.Name.Replace("Page", "");
+            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
 
-                _playSoundEffects.PlayNotificationSound();
-
-                var pageText = clickedItem.Name.Replace("Page", "");
-                if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
-
-                _filesPerPage = newPage;
-                _paginationThreshold = newPage;
-                _settings.GamesPerPage = newPage;
-
-                _settings.Save();
-                UpdateNumberOfGamesPerPageCheckMarks(newPage);
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", this);
-
-                var (sl, sq) = GetLoadGameFilesParams();
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                await Task.Yield(); // Allow UI to render the loading overlay
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPageClickAsync.");
-            }
+            await MenuActionHandlerService.HandleGamesPerPage(newPage);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPageClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method GamesPerPageClickAsync.");
         }
     }
 
     private void ShowGlobalSearchWindow_Click()
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
-
-        // Navigate to GlobalSearchPage
-        var globalSearchPage = new Pages.GlobalSearchPage(
-            _systemManagers, _machines, _mameLookup,
-            _favoritesManager, _settings, this,
-            _gamePadController, _gameLauncher, _playSoundEffects,
-            _logErrors, _configuration);
-
-        NavigateToPage(globalSearchPage);
+        MenuActionHandlerService.HandleShowGlobalSearch();
     }
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", this);
-        _playSoundEffects.PlayNotificationSound();
-
-        var globalStatsWindow = new GlobalStatsWindow(_systemManagers, _configuration)
-        {
-            Owner = this
-        };
-        globalStatsWindow.Show();
+        MenuActionHandlerService.HandleShowGlobalStats();
     }
 
     private void ShowFavoritesWindow_Click()
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
-        _playSoundEffects.PlayNotificationSound();
-
-        // Navigate to FavoritesPage
-        var favoritesPage = new Pages.FavoritesPage(
-            _settings, _systemManagers, _machines, _favoritesManager,
-            this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
-
-        NavigateToPage(favoritesPage);
+        MenuActionHandlerService.HandleShowFavorites();
     }
 
     private void ShowPlayHistoryWindow_Click()
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
-
-        // Navigate to PlayHistoryPage
-        var playHistoryPage = new Pages.PlayHistoryPage(
-            _systemManagers, _machines, _settings,
-            _favoritesManager, PlayHistoryManager, this,
-            _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors);
-
-        NavigateToPage(playHistoryPage);
+        MenuActionHandlerService.HandleShowPlayHistory();
     }
 
     public void ShowRetroAchievementsWindowClick(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", this);
-
-        var retroAchievementsWindow = new RetroAchievementsWindow(_playSoundEffects, _logErrors)
-        {
-            Owner = this
-        };
-        retroAchievementsWindow.Show();
+        MenuActionHandlerService.HandleShowRetroAchievements();
     }
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
@@ -776,47 +356,21 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem clickedItem) return;
 
-            try
+            var mode = clickedItem.Name switch
             {
-                _playSoundEffects.PlayNotificationSound();
+                "FilenameDisplayOriginal" => "Original",
+                "FilenameDisplayCleanUp" => "CleanUp",
+                "FilenameDisplayNoFilename" => "NoFilename",
+                _ => "Original"
+            };
 
-                var mode = clickedItem.Name switch
-                {
-                    "FilenameDisplayOriginal" => "Original",
-                    "FilenameDisplayCleanUp" => "CleanUp",
-                    "FilenameDisplayNoFilename" => "NoFilename",
-                    _ => "Original"
-                };
-
-                _settings.FilenameDisplayMode = mode;
-                _settings.Save();
-
-                UpdateFilenameDisplayModeCheckMarks(mode);
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameDisplayMode") ?? "Changing filename display mode...", this);
-
-                // Only reload if in GridView mode
-                if (_settings.ViewMode == "GridView")
-                {
-                    var (sl, sq) = GetLoadGameFilesParams();
-                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                    await Task.Yield(); // Allow UI to render the loading overlay
-                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-                }
-            }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in method FilenameDisplayMode_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
-            }
+            await MenuActionHandlerService.HandleFilenameDisplayMode(mode);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method FilenameDisplayMode_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method FilenameDisplayMode_Click.");
         }
     }
 
@@ -824,37 +378,13 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem menuItem) return;
 
-            try
-            {
-                _playSoundEffects.PlayNotificationSound();
-
-                _settings.DisplayMachineName = menuItem.IsChecked;
-                _settings.Save();
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingDisplayMachineName") ?? "Changing machine name display...", this);
-
-                // Only reload if in GridView mode
-                if (_settings.ViewMode == "GridView")
-                {
-                    var (sl, sq) = GetLoadGameFilesParams();
-                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                    await Task.Yield(); // Allow UI to render the loading overlay
-                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-                }
-            }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in method DisplayMachineName_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
-            }
+            await MenuActionHandlerService.HandleDisplayMachineName(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method DisplayMachineName_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method DisplayMachineName_Click.");
         }
     }
 
@@ -870,47 +400,21 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem clickedItem) return;
 
-            try
+            var size = clickedItem.Name switch
             {
-                _playSoundEffects.PlayNotificationSound();
+                "FilenameFontSizeSmall" => "Small",
+                "FilenameFontSizeNormal" => "Normal",
+                "FilenameFontSizeBig" => "Big",
+                _ => "Normal"
+            };
 
-                var size = clickedItem.Name switch
-                {
-                    "FilenameFontSizeSmall" => "Small",
-                    "FilenameFontSizeNormal" => "Normal",
-                    "FilenameFontSizeBig" => "Big",
-                    _ => "Normal"
-                };
-
-                _settings.FilenameFontSize = size;
-                _settings.Save();
-
-                UpdateFilenameFontSizeCheckMarks(size);
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingFilenameFontSize") ?? "Changing filename font size...", this);
-
-                // Only reload if in GridView mode
-                if (_settings.ViewMode == "GridView")
-                {
-                    var (sl, sq) = GetLoadGameFilesParams();
-                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                    await Task.Yield(); // Allow UI to render the loading overlay
-                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-                }
-            }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in method FilenameFontSize_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
-            }
+            await MenuActionHandlerService.HandleFilenameFontSize(size);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method FilenameFontSize_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method FilenameFontSize_Click.");
         }
     }
 
@@ -918,47 +422,21 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
             if (sender is not MenuItem clickedItem) return;
 
-            try
+            var size = clickedItem.Name switch
             {
-                _playSoundEffects.PlayNotificationSound();
+                "MachineNameFontSizeSmall" => "Small",
+                "MachineNameFontSizeNormal" => "Normal",
+                "MachineNameFontSizeBig" => "Big",
+                _ => "Normal"
+            };
 
-                var size = clickedItem.Name switch
-                {
-                    "MachineNameFontSizeSmall" => "Small",
-                    "MachineNameFontSizeNormal" => "Normal",
-                    "MachineNameFontSizeBig" => "Big",
-                    _ => "Normal"
-                };
-
-                _settings.MachineNameFontSize = size;
-                _settings.Save();
-
-                UpdateMachineNameFontSizeCheckMarks(size);
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingMachineNameFontSize") ?? "Changing machine name font size...", this);
-
-                // Only reload if in GridView mode
-                if (_settings.ViewMode == "GridView")
-                {
-                    var (sl, sq) = GetLoadGameFilesParams();
-                    SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
-                    await Task.Yield(); // Allow UI to render the loading overlay
-                    await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-                }
-            }
-            catch (Exception ex)
-            {
-                _ = _logErrors.LogErrorAsync(ex, "Error in method MachineNameFontSize_Click.");
-                MessageBoxLibrary.ErrorMessageBox();
-            }
+            await MenuActionHandlerService.HandleMachineNameFontSize(size);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method MachineNameFontSize_Click.");
+            _logErrors.LogAndForget(ex, "Error in the method MachineNameFontSize_Click.");
         }
     }
 
@@ -978,68 +456,25 @@ public partial class MainWindow
 
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-
-            if (Equals(sender, GridView))
-            {
-                GridView.IsChecked = true;
-                ListView.IsChecked = false;
-                _settings.ViewMode = "GridView";
-
-                GameFileGrid.Visibility = Visibility.Visible;
-                ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
-            }
-            else if (Equals(sender, ListView))
-            {
-                GridView.IsChecked = false;
-                ListView.IsChecked = true;
-                _settings.ViewMode = "ListView";
-
-                GameFileGrid.Visibility = Visibility.Collapsed;
-                ListViewPreviewArea.Visibility = Visibility.Visible;
-
-                // Notify user
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
-            }
-
-            _settings.Save(); // Save the updated ViewMode
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string errorMessage = "Error while using the method ChangeViewMode_Click.";
-            _ = _logErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorChangingViewModeMessageBox();
-        }
+        MenuActionHandlerService.HandleChangeViewMode(sender);
     }
 
     private void ApplyShowGamesSetting()
     {
-        UpdateMenuCheckMarks(_settings.ShowGames);
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ?? "Applying game visibility settings...", this);
+        UpdateShowGamesCheckMarks(_settings.ShowGames);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ?? "Applying game visibility settings...", this);
     }
 
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
 
-        _languageMenuService.ChangeLanguage(menuItem);
+        MenuActionHandlerService.HandleChangeLanguage(menuItem);
     }
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-
-        // Navigate back to main content if on a page, then reset UI
-        NavigateBackToMainContent();
-        ResetUiAsync();
+        MenuActionHandlerService.HandleRestart();
     }
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
@@ -1071,14 +506,11 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...", this);
-            _playSoundEffects.PlayNotificationSound();
-            await ShowSystemFavoriteGamesClickAsync();
+            await MenuActionHandlerService.HandleShowSystemFavorites();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method NavSelectedSystemFavoriteButtonClickAsync.");
         }
     }
 
@@ -1086,14 +518,11 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PickingARandomGame") ?? "Picking a random game...", this);
-            _playSoundEffects.PlayNotificationSound();
-            await ShowSystemFeelingLuckyClickAsync();
+            await MenuActionHandlerService.HandleFeelingLucky();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method NavRandomLuckGameButtonClickAsync.");
         }
     }
 
@@ -1101,25 +530,11 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames)
-            {
-                CancelAndRecreateToken();
-            }
-
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FilteringRetroAchievements") ?? "Filtering games with achievements...", this);
-
-            _topLetterNumberMenu.DeselectLetter();
-            SearchTextBox.Text = "";
-            _currentFilter = null;
-            _activeSearchQueryOrMode = "RETRO_ACHIEVEMENTS";
-
-            await LoadGameFilesAsync(null, "RETRO_ACHIEVEMENTS", _cancellationSource.Token);
+            await MenuActionHandlerService.HandleShowGamesWithRetroAchievements();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method NavShowGamesWithRetroAchievementsButtonClickAsync.");
         }
     }
 
@@ -1127,48 +542,11 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
-            _playSoundEffects.PlayNotificationSound();
-
-            // Check if we're in system selection mode (TopSystemSelection is collapsed when viewing system selection)
-            var isSystemSelectionMode = TopSystemSelection.Visibility == Visibility.Collapsed;
-
-            if (isSystemSelectionMode)
-            {
-                // Use ThumbnailSizeForSystem for system selection screen
-                var newSize = Math.Min(MaxThumbnailSizeForSystem, _settings.ThumbnailSizeForSystem + ZoomStep);
-
-                if (newSize != _settings.ThumbnailSizeForSystem)
-                {
-                    _settings.ThumbnailSizeForSystem = newSize;
-                    _settings.Save();
-                }
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
-                await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
-            }
-            else
-            {
-                // Use ThumbnailSize for game view
-                var newSize = Math.Min(MaxThumbnailSize, _settings.ThumbnailSize + ZoomStep);
-
-                if (newSize != _settings.ThumbnailSize)
-                {
-                    _gameButtonFactory.ImageHeight = newSize;
-                    _settings.ThumbnailSize = newSize;
-                    _settings.Save();
-                    UpdateThumbnailSizeCheckMarks(newSize);
-                }
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
+            await MenuActionHandlerService.HandleZoomIn();
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomInButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method NavZoomInButtonClickAsync.");
         }
     }
 
@@ -1176,48 +554,11 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
-            _playSoundEffects.PlayNotificationSound();
-
-            // Check if we're in system selection mode (TopSystemSelection is collapsed when viewing system selection)
-            var isSystemSelectionMode = TopSystemSelection.Visibility == Visibility.Collapsed;
-
-            if (isSystemSelectionMode)
-            {
-                // Use ThumbnailSizeForSystem for system selection screen
-                var newSize = Math.Max(MinThumbnailSize, _settings.ThumbnailSizeForSystem - ZoomStep);
-
-                if (newSize != _settings.ThumbnailSizeForSystem)
-                {
-                    _settings.ThumbnailSizeForSystem = newSize;
-                    _settings.Save();
-                }
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
-                await DisplaySystemSelectionScreenAsync(_cancellationSource.Token);
-            }
-            else
-            {
-                // Use ThumbnailSize for game view
-                var newSize = Math.Max(MinThumbnailSize, _settings.ThumbnailSize - ZoomStep);
-
-                if (newSize != _settings.ThumbnailSize)
-                {
-                    _gameButtonFactory.ImageHeight = newSize;
-                    _settings.ThumbnailSize = newSize;
-                    _settings.Save();
-                    UpdateThumbnailSizeCheckMarks(newSize);
-                }
-
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
-                var (sl, sq) = GetLoadGameFilesParams();
-                await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
-            }
+            await MenuActionHandlerService.HandleZoomOut();
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButtonClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method NavZoomOutButtonClickAsync.");
         }
     }
 
@@ -1225,389 +566,183 @@ public partial class MainWindow
     {
         try
         {
-            CancelAndRecreateToken();
-
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...", this);
-            _playSoundEffects.PlayNotificationSound();
-
-            if (_settings.ViewMode == "GridView")
-            {
-                GridView.IsChecked = false;
-                ListView.IsChecked = true;
-                _settings.ViewMode = "ListView";
-                GameFileGrid.Visibility = Visibility.Collapsed;
-                ListViewPreviewArea.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                GridView.IsChecked = true;
-                ListView.IsChecked = false;
-                _settings.ViewMode = "GridView";
-                GameFileGrid.Visibility = Visibility.Visible;
-                ListViewPreviewArea.Visibility = Visibility.Collapsed;
-            }
-
-            _settings.Save();
-
-            var (sl, sq) = GetLoadGameFilesParams();
-            await LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
+            await MenuActionHandlerService.HandleToggleViewMode();
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavToggleViewModeClickAsync.");
+            _logErrors.LogAndForget(ex, "Error in the method NavToggleViewModeClickAsync.");
         }
     }
 
     private void SoundConfiguration_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSoundConfigurationSettings") ?? "Opening Sound Configuration settings...", this);
-
-            var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors)
-            {
-                Owner = this
-            };
-            soundConfigWindow.ShowDialog();
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error opening Sound Configuration window.");
-
-            // Notify user
-            MessageBoxLibrary.CouldNotOpenSoundConfigurationWindowMessageBox();
-        }
+        MenuActionHandlerService.HandleSoundConfiguration();
     }
 
     private void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
-
-            var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings, _logErrors)
-            {
-                Owner = this
-            };
-            raSettingsWindow.ShowDialog();
-        }
-        catch (Exception ex)
-        {
-            _ = _logErrors.LogErrorAsync(ex, "Error opening RetroAchievements settings window.");
-            MessageBoxLibrary.ErrorMessageBox();
-        }
+        MenuActionHandlerService.HandleShowRetroAchievementsSettings();
     }
 
-    private void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)
+    private async void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)
     {
-        CancelAndRecreateToken();
-
-        if (sender is not MenuItem menuItem) return;
-
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingRetroAchievementsOverlayButton") ?? "Toggling RetroAchievements overlay button...", this);
         try
         {
-            _playSoundEffects.PlayNotificationSound();
+            if (sender is not MenuItem menuItem) return;
 
-            _settings.OverlayRetroAchievementButton = menuItem.IsChecked;
-            _settings.Save();
-
-            // Reload game files to reflect the change in overlay buttons
-            var (sl, sq) = GetLoadGameFilesParams();
-            _ = LoadGameFilesAsync(sl, sq, _cancellationSource.Token); // Use _ = to avoid blocking UI
+            await MenuActionHandlerService.HandleToggleRetroAchievementButton(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error toggling RetroAchievements overlay button.");
-            MessageBoxLibrary.ErrorMessageBox();
+            _logErrors.LogAndForget(ex, "Error in the method ToggleRetroAchievementButton_Click.");
         }
     }
 
-    private void ToggleVideoLinkButton_Click(object sender, RoutedEventArgs e)
+    private async void ToggleVideoLinkButton_Click(object sender, RoutedEventArgs e)
     {
-        CancelAndRecreateToken();
-
-        if (sender is not MenuItem menuItem) return;
-
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingVideoLinkOverlayButton") ?? "Toggling video link overlay button...", this);
         try
         {
-            _playSoundEffects.PlayNotificationSound();
+            if (sender is not MenuItem menuItem) return;
 
-            _settings.OverlayOpenVideoButton = menuItem.IsChecked;
-            _settings.Save();
-
-            // Reload game files to reflect the change in overlay buttons
-            var (sl, sq) = GetLoadGameFilesParams();
-            _ = LoadGameFilesAsync(sl, sq, _cancellationSource.Token); // Use _ = to avoid blocking UI
+            await MenuActionHandlerService.HandleToggleVideoLinkButton(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error toggling video link overlay button.");
-            MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
+            _logErrors.LogAndForget(ex, "Error in the method TgoggleVideoLinkButton_Click.");
         }
     }
 
-    private void ToggleInfoLinkButton_Click(object sender, RoutedEventArgs e)
+    private async void ToggleInfoLinkButton_Click(object sender, RoutedEventArgs e)
     {
-        CancelAndRecreateToken();
-
-        if (sender is not MenuItem menuItem) return;
-
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingInfoLinkOverlayButton") ?? "Toggling info link overlay button...", this);
         try
         {
-            _playSoundEffects.PlayNotificationSound();
+            if (sender is not MenuItem menuItem) return;
 
-            _settings.OverlayOpenInfoButton = menuItem.IsChecked;
-            _settings.Save();
-
-            // Reload game files to reflect the change in overlay buttons
-            var (sl, sq) = GetLoadGameFilesParams();
-            _ = LoadGameFilesAsync(sl, sq, _cancellationSource.Token); // Use _ = to avoid blocking UI
+            await MenuActionHandlerService.HandleToggleInfoLinkButton(menuItem.IsChecked);
         }
         catch (Exception ex)
         {
-            _ = _logErrors.LogErrorAsync(ex, "Error toggling info link overlay button.");
-            MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
+            _logErrors.LogAndForget(ex, "Error in the method ToggleInfoLinkButton_Click.");
         }
     }
 
+    // Emulator config windows
     private void ShowXeniaSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningXeniaConfiguration") ?? "Opening Xenia configuration...", this);
-
-        var xeniaWindow = new InjectXeniaConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        xeniaWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Xenia");
     }
 
     private void ShowMameSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningMameConfiguration") ?? "Opening MAME configuration...", this);
-
-        var mameWindow = new InjectMameConfigWindow(_settings, null, null, false)
-        {
-            Owner = this
-        };
-        mameWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Mame");
     }
 
     private void ShowRetroArchSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroArchConfiguration") ?? "Opening RetroArch configuration...", this);
-
-        var raWindow = new InjectRetroArchConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        raWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("RetroArch");
     }
 
     private void ShowSupermodelSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupermodelConfiguration") ?? "Opening Supermodel configuration...", this);
-
-        var supermodelWindow = new InjectSupermodelConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        supermodelWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Supermodel");
     }
 
     private void ShowMednafenSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningMednafenConfiguration") ?? "Opening Mednafen configuration...", this);
-
-        var mednafenWindow = new InjectMednafenConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        mednafenWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Mednafen");
     }
 
     private void ShowSegaModel2Settings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSegaModel2Configuration") ?? "Opening SEGA Model 2 configuration...", this);
-
-        var segaModel2Window = new InjectSegaModel2ConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        segaModel2Window.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("SegaModel2");
     }
 
     private void ShowAresSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAresConfiguration") ?? "Opening Ares configuration...", this);
-
-        var aresWindow = new InjectAresConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        aresWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Ares");
     }
 
     private void ShowDaphneSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDaphneConfiguration") ?? "Opening Daphne configuration...", this);
-
-        var daphneWindow = new InjectDaphneConfigWindow(_settings, false)
-        {
-            Owner = this
-        };
-        daphneWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Daphne");
     }
 
     private void ShowBlastemSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningBlastemConfiguration") ?? "Opening Blastem configuration...", this);
-
-        var blastemWindow = new InjectBlastemConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        blastemWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Blastem");
     }
 
     private void ShowMesenSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningMesenConfiguration") ?? "Opening Mesen configuration...", this);
-
-        var mesenWindow = new InjectMesenConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        mesenWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Mesen");
     }
 
     private void ShowDuckStationSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDuckStationConfiguration") ?? "Opening DuckStation configuration...", this);
-
-        var duckstationWindow = new InjectDuckStationConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        duckstationWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("DuckStation");
     }
 
     private void ShowRPCS3Settings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRPCS3Configuration") ?? "Opening RPCS3 configuration...", this);
-
-        var rpcs3Window = new InjectRpcs3ConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        rpcs3Window.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("RPCS3");
     }
 
     private void ShowFlycastSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFlycastConfiguration") ?? "Opening Flycast configuration...", this);
-
-        var flycastWindow = new InjectFlycastConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        flycastWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Flycast");
     }
 
     private void ShowStellaSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningStellaConfiguration") ?? "Opening Stella configuration...", this);
-
-        var stellaWindow = new InjectStellaConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        stellaWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Stella");
     }
 
     private void ShowDolphinSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDolphinConfiguration") ?? "Opening Dolphin configuration...", this);
-
-        var dolphinWindow = new InjectDolphinConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        dolphinWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Dolphin");
     }
 
     private void ShowCemuSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening Cemu configuration...", this);
-        var cemuWindow = new InjectCemuConfigWindow(_settings, null, false) { Owner = this };
-        cemuWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Cemu");
     }
 
     private void ShowPcsx2Settings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening PCSX2 configuration...", this);
-        var pcsx2Window = new InjectPcsx2ConfigWindow(_settings, null, false) { Owner = this };
-        pcsx2Window.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("PCSX2");
     }
 
     private void ShowAzaharSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening Azahar configuration...", this);
-
-        var azaharWindow = new InjectAzaharConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        azaharWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Azahar");
     }
 
     private void ShowYumirSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening Yumir configuration...", this);
-        var yumirWindow = new InjectYumirConfigWindow(_settings, null, false) { Owner = this };
-        yumirWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Yumir");
     }
 
     private void ShowRaineSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening Raine configuration...", this);
-        var raineWindow = new InjectRaineConfigWindow(_settings, null, null, null, false) { Owner = this };
-        raineWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Raine");
     }
 
     private void ShowRedreamSettings_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
-        UpdateStatusBar.UpdateContent("Opening Redream configuration...", this);
-        var redreamWindow = new InjectRedreamConfigWindow(_settings, null, false)
-        {
-            Owner = this
-        };
-        redreamWindow.ShowDialog();
+        MenuActionHandlerService.ShowEmulatorConfigWindow("Redream");
+    }
+
+    private void ChangeBaseTheme_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) return;
+
+        _themeMenuService.ChangeBaseTheme(menuItem);
+    }
+
+    private void ChangeAccentColor_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) return;
+
+        _themeMenuService.ChangeAccentColor(menuItem);
     }
 }

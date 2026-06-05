@@ -1,5 +1,4 @@
 using System.Windows;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher;
@@ -8,17 +7,22 @@ public partial class InjectYumirConfigWindow
 {
     private readonly InjectYumirConfigViewModel _viewModel;
 
-    public InjectYumirConfigWindow(SettingsManager settings, string emulatorPath = null, bool isLauncherMode = true)
+    public InjectYumirConfigWindow(InjectYumirConfigViewModel viewModel)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        _viewModel = new InjectYumirConfigViewModel(settings, emulatorPath, isLauncherMode);
+        _viewModel = viewModel;
         _viewModel.CloseRequested += Close;
         _viewModel.RequestEmulatorPath += OnRequestEmulatorPath;
         _viewModel.GetOwnerWindow += () => this;
 
         DataContext = _viewModel;
+    }
+
+    public void Initialize(string emulatorPath = null, bool isLauncherMode = true)
+    {
+        _viewModel.Initialize(emulatorPath, isLauncherMode);
 
         if (!isLauncherMode)
         {

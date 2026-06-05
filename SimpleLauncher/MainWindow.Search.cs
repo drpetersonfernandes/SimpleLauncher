@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.UpdateStatusBar;
 
 namespace SimpleLauncher;
 
@@ -11,7 +11,7 @@ public partial class MainWindow
     {
         try
         {
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...", this);
+            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...", this);
             _playSoundEffects.PlayNotificationSound();
             await ExecuteSearchAsync();
         }
@@ -19,7 +19,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string errorMessage = "Error in the method SearchButtonClickAsync.";
-            _ = _logErrors.LogErrorAsync(ex, errorMessage);
+            _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
@@ -39,7 +39,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string contextMessage = "Error in the method SearchTextBoxKeyDownAsync.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
@@ -50,7 +50,7 @@ public partial class MainWindow
     {
         if (_isLoadingGames) return; // Prevent re-entrance even if UI fails
 
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
         var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
         SetLoadingState(true, searchingMsg);
 
@@ -111,7 +111,7 @@ public partial class MainWindow
 
                 // Notify developer
                 const string contextMessage = "Error during search execution.";
-                _ = _logErrors.LogErrorAsync(ex, contextMessage);
+                _logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();

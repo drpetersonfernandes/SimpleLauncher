@@ -1,4 +1,5 @@
 using System.Windows;
+using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
 
@@ -45,7 +46,7 @@ public partial class MainWindow
 
             // Notify developer
             const string errorMessage = "Previous page button error.";
-            _ = _logErrors.LogErrorAsync(ex, errorMessage);
+            _logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.NavigationButtonErrorMessageBox();
@@ -82,7 +83,7 @@ public partial class MainWindow
             SetLoadingState(false);
 
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, "Error in the NextPageButtonClickAsync method.");
+            _logErrors.LogAndForget(ex, "Error in the NextPageButtonClickAsync method.");
 
             // Notify user
             MessageBoxLibrary.NavigationButtonErrorMessageBox();
