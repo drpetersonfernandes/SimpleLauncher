@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.QuitOrReinstall;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
-using StatusBar = SimpleLauncher.Services.UpdateStatusBar.UpdateStatusBar;
 
 namespace SimpleLauncher.Services.LanguageMenu;
 
@@ -54,7 +53,7 @@ public class LanguageMenuService
         _playSoundEffects.PlayNotificationSound();
         _settings.Language = languageCode;
         SetLanguageCheckMarks(languageCode);
-        StatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", _mainWindow);
+        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", _mainWindow);
         _settings.Save();
         QuitSimpleLauncher.RestartApplication();
     }

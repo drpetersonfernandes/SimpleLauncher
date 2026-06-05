@@ -2,12 +2,13 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
@@ -28,7 +29,10 @@ public class GameListFactory(
     GameLauncher.GameLauncher gameLauncher,
     PlaySoundEffects playSoundEffects,
     IConfiguration configuration,
-    ILogErrors logErrors)
+    ILogErrors logErrors,
+    IGetListOfFiles getListOfFiles,
+    IFindCoverImage findCoverImage,
+    IImageLoader imageLoader)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -43,6 +47,9 @@ public class GameListFactory(
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogErrors _logErrors = logErrors;
+    private readonly IGetListOfFiles _getListOfFiles = getListOfFiles;
+    private readonly IFindCoverImage _findCoverImage = findCoverImage;
+    private readonly IImageLoader _imageLoader = imageLoader;
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManager systemManager)
     {
@@ -113,7 +120,7 @@ public class GameListFactory(
                     null,
                     _gameLauncher,
                     _playSoundEffects
-                ), App.ServiceProvider.GetRequiredService<ILogErrors>()
+                ), _logErrors, _findCoverImage
             ),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
@@ -161,7 +168,7 @@ public class GameListFactory(
                     _logErrors.LogAndForget(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
-                    var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    var (defaultImg, _) = await _imageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
 
                     return;
@@ -176,7 +183,7 @@ public class GameListFactory(
                     _logErrors.LogAndForget(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
-                    var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    var (defaultImg, _) = await _imageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
 
                     return;
@@ -189,7 +196,7 @@ public class GameListFactory(
                     _logErrors.LogAndForget(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
-                    var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    var (defaultImg, _) = await _imageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
 
                     return;
@@ -201,25 +208,25 @@ public class GameListFactory(
                 if (isDirectory) // GroupByFolder is true
                 {
                     // First, try to find an image with the same name as the folder name.
-                    previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings, _logErrors);
+                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
 
                     // If the found path is a default image, try the fallback logic.
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                     {
                         // Fallback to current logic: look inside the folder for a file to use as a name.
-                        var filesInFolder = await GetListOfFiles.GetListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch, systemManager);
+                        var filesInFolder = await _getListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch, systemManager);
                         if (filesInFolder.Count != 0)
                         {
                             var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                             // Now search again with the new name.
-                            previewImagePath = FindCoverImage.FindCoverImagePath(representativeFileName, selectedSystem, systemManager, _settings, _logErrors);
+                            previewImagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystem, systemManager, _settings);
                         }
                     }
                 }
                 else
                 {
                     // This is the logic for non-grouped files, which remains the same.
-                    previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings, _logErrors);
+                    previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
                 }
 
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
@@ -229,7 +236,7 @@ public class GameListFactory(
                     previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
                 }
 
-                var (imageSource, _) = await ImageLoader.LoadImageAsync(previewImagePath); // LoadImageAsync handles null/empty path by returning default
+                var (imageSource, _) = await _imageLoader.LoadImageAsync(previewImagePath); // LoadImageAsync handles null/empty path by returning default
 
                 _mainWindow.Dispatcher.Invoke(() =>
                 {
@@ -248,7 +255,7 @@ public class GameListFactory(
                 // Attempt to set a default image in case of any error during the process
                 try
                 {
-                    var (defaultImageSource, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    var (defaultImageSource, _) = await _imageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() =>
                     {
                         // Race condition check: Only assign if the selected item hasn't changed (or is now null)

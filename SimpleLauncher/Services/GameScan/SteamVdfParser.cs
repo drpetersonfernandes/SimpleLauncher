@@ -86,7 +86,7 @@ public static partial class SteamVdfParser
         {
             if (logErrors != null)
             {
-                _ = logErrors.LogErrorAsync(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
+                logErrors.LogAndForget(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
             }
             else
             {

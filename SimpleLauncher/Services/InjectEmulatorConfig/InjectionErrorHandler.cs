@@ -12,7 +12,7 @@ public static class InjectionErrorHandler
         ShowGenericInjectionError();
 
         // Notify developer
-        _ = logErrors.LogErrorAsync(ex, $"Run button failed for {emulatorName} at path: {emulatorPath}");
+        logErrors.LogAndForget(ex, $"Run button failed for {emulatorName} at path: {emulatorPath}");
 
         // Close injection window
         window?.Close();
@@ -24,7 +24,7 @@ public static class InjectionErrorHandler
         ShowGenericInjectionError();
 
         // Notify developer
-        _ = logErrors.LogErrorAsync(ex, $"Save button failed for {emulatorName} at path: {emulatorPath}");
+        logErrors.LogAndForget(ex, $"Save button failed for {emulatorName} at path: {emulatorPath}");
 
         // Close injection window
         window?.Close();

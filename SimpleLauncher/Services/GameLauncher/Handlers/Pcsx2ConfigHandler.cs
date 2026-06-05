@@ -2,6 +2,7 @@ using System.IO;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
@@ -31,7 +32,9 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {
-                var win = new InjectPcsx2ConfigWindow(context.Settings, resolvedExe) { Owner = context.MainWindow };
+                var win = App.ServiceProvider.GetRequiredService<InjectPcsx2ConfigWindow>();
+                win.Owner = context.MainWindow;
+                win.Initialize(resolvedExe);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;
             });

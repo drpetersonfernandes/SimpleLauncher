@@ -11,8 +11,10 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.GetListOfFiles;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using Image = System.Windows.Controls.Image;
@@ -33,7 +35,10 @@ internal partial class GameButtonFactory(
     GamePadController gamePadController,
     GameLauncher.GameLauncher gameLauncher,
     PlaySoundEffects playSoundEffects,
-    ILogErrors logErrors)
+    ILogErrors logErrors,
+    IGetListOfFiles getListOfFiles,
+    IFindCoverImage findCoverImage,
+    IImageLoader imageLoader)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
     private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
@@ -47,6 +52,9 @@ internal partial class GameButtonFactory(
     private readonly GameLauncher.GameLauncher _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
     private readonly ILogErrors _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+    private readonly IGetListOfFiles _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
+    private readonly IFindCoverImage _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
+    private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -76,28 +84,28 @@ internal partial class GameButtonFactory(
         if (isDirectory) // GroupByFolder is true
         {
             // First, try to find an image with the same name as the folder name.
-            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings, _logErrors);
+            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
 
             // If the found path is a default image, try the fallback logic.
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
                 // Fallback to current logic: look inside the folder for a file to use as a name.
-                var filesInFolder = await GetListOfFiles.GetListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch, selectedSystemManager);
+                var filesInFolder = await _getListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch, selectedSystemManager);
                 if (filesInFolder.Count != 0)
                 {
                     var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                     // Now search again with the new name. This will become the final imagePath.
-                    imagePath = FindCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager, _settings, _logErrors);
+                    imagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager, _settings);
                 }
             }
         }
         else
         {
             // This is the logic for non-grouped files, which remains the same.
-            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings, _logErrors);
+            imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
         }
 
-        var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
+        var (loadedImage, isDefaultImage) = await _imageLoader.LoadImageAsync(imagePath);
 
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel
@@ -309,7 +317,7 @@ internal partial class GameButtonFactory(
             };
             trophyButton.Content = trophyImage;
 
-            trophyButton.Click += async (s, e) =>
+            trophyButton.Click += async (_, e) =>
             {
                 try
                 {
@@ -321,7 +329,7 @@ internal partial class GameButtonFactory(
                     // Null check for _mainWindow before using it
                     if (_mainWindow == null)
                     {
-                        _ = _logErrors.LogErrorAsync(null, "_mainWindow is null in trophy button click handler.");
+                        _logErrors.LogAndForget(null, "_mainWindow is null in trophy button click handler.");
                         return;
                     }
 
@@ -334,7 +342,7 @@ internal partial class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _ = _logErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+                        _logErrors.LogAndForget(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
                         MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
@@ -346,7 +354,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error opening Retro Achievements Window.");
+                    _logErrors.LogAndForget(ex, "Error opening Retro Achievements Window.");
                     DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
@@ -379,7 +387,7 @@ internal partial class GameButtonFactory(
             };
             videoLinkButton.Content = videoLinkImage;
 
-            videoLinkButton.Click += (s, e) =>
+            videoLinkButton.Click += (_, e) =>
             {
                 try
                 {
@@ -396,7 +404,7 @@ internal partial class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _ = _logErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
+                        _logErrors.LogAndForget(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
                         MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
@@ -408,7 +416,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error opening the video Link.");
+                    _logErrors.LogAndForget(ex, "Error opening the video Link.");
                     DebugLogger.Log($"Error opening the video link: {ex.Message}");
                 }
             };
@@ -441,7 +449,7 @@ internal partial class GameButtonFactory(
             };
             infoLinkButton.Content = infoLinkImage;
 
-            infoLinkButton.Click += (s, e) =>
+            infoLinkButton.Click += (_, e) =>
             {
                 try
                 {
@@ -458,7 +466,7 @@ internal partial class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _ = _logErrors.LogErrorAsync(ex, $"Error opening info link for {fileNameWithoutExtension}");
+                        _logErrors.LogAndForget(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
                         MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
@@ -470,7 +478,7 @@ internal partial class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, "Error opening the info Link.");
+                    _logErrors.LogAndForget(ex, "Error opening the info Link.");
                     DebugLogger.Log($"Error opening the info link: {ex.Message}");
                 }
             };
@@ -479,7 +487,7 @@ internal partial class GameButtonFactory(
             // No need to update currentVerticalOffset here as it's the last button.
         }
 
-        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors);
+        var contextMenu = ContextMenu.ContextMenu.AddRightClickReturnContextMenu(context, _logErrors, _findCoverImage);
 
         // Create the kebab menu button
         var kebabButton = new Button
@@ -557,7 +565,7 @@ internal partial class GameButtonFactory(
 
         // Assign click handler AFTER context is created ***
         // Lambda can safely capture 'context'.
-        _button.Click += async (sender, e) =>
+        _button.Click += async (sender, _) =>
         {
             try
             {
@@ -570,7 +578,7 @@ internal partial class GameButtonFactory(
 
                 if (_emulatorComboBox == null)
                 {
-                    _ = _logErrors.LogErrorAsync(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
+                    _logErrors.LogAndForget(null, "[CreateGameButtonAsync] _emulatorComboBox is null.");
                     MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
                     _mainWindow?.SetGameButtonsEnabled(true);
                     return;
@@ -580,7 +588,7 @@ internal partial class GameButtonFactory(
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
-                    _ = _logErrors.LogErrorAsync(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
+                    _logErrors.LogAndForget(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
                     MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
@@ -595,7 +603,7 @@ internal partial class GameButtonFactory(
 
                     if (_gameLauncher == null)
                     {
-                        _ = _logErrors.LogErrorAsync(null, "[CreateGameButtonAsync] _gameLauncher is null.");
+                        _logErrors.LogAndForget(null, "[CreateGameButtonAsync] _gameLauncher is null.");
                         return;
                     }
 
@@ -608,7 +616,7 @@ internal partial class GameButtonFactory(
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
+                _logErrors.LogAndForget(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };

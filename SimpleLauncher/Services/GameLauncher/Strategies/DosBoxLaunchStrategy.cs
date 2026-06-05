@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.ExtractFiles;
@@ -98,7 +99,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                     }
                     else
                     {
-                        var dialog = new DosBoxFileSelectionWindow(gameFiles, workingDir);
+                        var dialog = App.ServiceProvider.GetRequiredService<DosBoxFileSelectionWindow>();
+                        dialog.Initialize(gameFiles, workingDir);
                         var result = dialog.ShowDialog();
 
                         if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
@@ -267,7 +269,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                     break;
                 default:
                 {
-                    var dialog = new DosBoxFileSelectionWindow(gameFiles, mountPath);
+                    var dialog = App.ServiceProvider.GetRequiredService<DosBoxFileSelectionWindow>();
+                    dialog.Initialize(gameFiles, mountPath);
                     var result = dialog.ShowDialog();
 
                     if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))
@@ -405,7 +408,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             }
             else
             {
-                var dialog = new DosBoxFileSelectionWindow(gameFiles, mountPath);
+                var dialog = App.ServiceProvider.GetRequiredService<DosBoxFileSelectionWindow>();
+                dialog.Initialize(gameFiles, mountPath);
                 var result = dialog.ShowDialog();
 
                 if (result != true || string.IsNullOrEmpty(dialog.SelectedFilePath))

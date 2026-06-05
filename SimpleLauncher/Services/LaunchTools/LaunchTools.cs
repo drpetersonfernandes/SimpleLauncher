@@ -30,14 +30,14 @@ public class LaunchTools : ILaunchTools
     {
         if (string.IsNullOrEmpty(toolPath))
         {
-            _ = _logErrors.LogErrorAsync(null, "Tool path cannot be null or empty.");
+            _logErrors.LogAndForget(null, "Tool path cannot be null or empty.");
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             return;
         }
 
         if (!File.Exists(toolPath))
         {
-            _ = _logErrors.LogErrorAsync(null, $"External tool not found: {toolPath}");
+            _logErrors.LogAndForget(null, $"External tool not found: {toolPath}");
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
             return;
         }
@@ -77,7 +77,7 @@ public class LaunchTools : ILaunchTools
             var contextMessage = $"An error occurred while launching external tool: {toolPath}.\n" +
                                  $"Arguments: {arguments ?? "None"}\n" +
                                  $"Working Directory: {workingDirectory ?? "Default"}";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));

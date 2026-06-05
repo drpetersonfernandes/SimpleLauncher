@@ -41,7 +41,7 @@ public static class MountChdFiles
         {
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
-            _ = logErrors.LogErrorAsync(null, errorMessage);
+            logErrors.LogAndForget(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return new MountChdDrive(logErrors);
         }
@@ -50,7 +50,7 @@ public static class MountChdFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles.MountAsync] Error: {errorMessage}");
-            _ = logErrors.LogErrorAsync(null, errorMessage);
+            logErrors.LogAndForget(null, errorMessage);
             MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
             return new MountChdDrive(logErrors);
         }
@@ -110,7 +110,7 @@ public static class MountChdFiles
         {
             DebugLogger.Log($"[MountChdFiles.MountAsync] Exception during CHD mounting: {ex}");
             var contextMessage = $"Error during CHD mount process for {resolvedChdFilePath}.\nException: {ex.Message}";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             if (!mountProcess.HasExited)
             {
@@ -165,7 +165,7 @@ public static class MountChdFiles
         {
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
-            _ = logErrors.LogErrorAsync(null, errorMessage);
+            logErrors.LogAndForget(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
@@ -174,7 +174,7 @@ public static class MountChdFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
-            _ = logErrors.LogErrorAsync(null, errorMessage);
+            logErrors.LogAndForget(null, errorMessage);
             MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
             return;
         }
@@ -253,7 +253,7 @@ public static class MountChdFiles
             var contextMessage = $"Error during CHD mount/launch process for {resolvedChdFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"{exitCodeInfoInCatch}";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
         }
@@ -296,13 +296,13 @@ public static class MountChdFiles
                     else
                     {
                         DebugLogger.Log($"[MountChdFiles] InvalidOperationException while terminating CHDMounter (ID: {mountProcessId}): {ioEx}");
-                        _ = logErrors.LogErrorAsync(ioEx, "Unexpected InvalidOperationException during CHDMounter termination.");
+                        logErrors.LogAndForget(ioEx, "Unexpected InvalidOperationException during CHDMounter termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
                     DebugLogger.Log($"[MountChdFiles] Exception while terminating CHDMounter (ID: {mountProcessId}): {termEx}");
-                    _ = logErrors.LogErrorAsync(termEx, $"Failed to terminate CHDMounter (ID: {mountProcessId}) for unmounting.");
+                    logErrors.LogAndForget(termEx, $"Failed to terminate CHDMounter (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -366,7 +366,7 @@ public static class MountChdFiles
         {
             const string errorMessage = $"CHDMounter.exe not found at {ChdMounterRelativePath}. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
-            _ = logErrors.LogErrorAsync(null, errorMessage);
+            logErrors.LogAndForget(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
             return;
         }
@@ -375,7 +375,7 @@ public static class MountChdFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             DebugLogger.Log($"[MountChdFiles] Error: {errorMessage}");
-            _ = logErrors.LogErrorAsync(null, errorMessage);
+            logErrors.LogAndForget(null, errorMessage);
             MessageBoxLibrary.DokanDriverNotInstalledMessageBox();
             return;
         }
@@ -460,7 +460,7 @@ public static class MountChdFiles
             var contextMessage = $"Error during CHD mount/launch process for {resolvedChdFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"{exitCodeInfoInCatch}";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             MessageBoxLibrary.ThereWasAnErrorMountingTheFileMessageBox();
         }
@@ -503,13 +503,13 @@ public static class MountChdFiles
                     else
                     {
                         DebugLogger.Log($"[MountChdFiles] InvalidOperationException while terminating CHDMounter (ID: {mountProcessId}): {ioEx}");
-                        _ = logErrors.LogErrorAsync(ioEx, "Unexpected InvalidOperationException during CHDMounter termination.");
+                        logErrors.LogAndForget(ioEx, "Unexpected InvalidOperationException during CHDMounter termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
                     DebugLogger.Log($"[MountChdFiles] Exception while terminating CHDMounter (ID: {mountProcessId}): {termEx}");
-                    _ = logErrors.LogErrorAsync(termEx, $"Failed to terminate CHDMounter (ID: {mountProcessId}) for unmounting.");
+                    logErrors.LogAndForget(termEx, $"Failed to terminate CHDMounter (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -711,7 +711,7 @@ public static class MountChdFiles
                     : $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode}.";
 
                 DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
-                _ = logErrors.LogErrorAsync(null, contextMessage);
+                logErrors.LogAndForget(null, contextMessage);
                 return (false, null, exitCode);
             }
 
@@ -732,7 +732,7 @@ public static class MountChdFiles
 
         DebugLogger.Log($"[MountChdFiles.WaitForDriveMountAndDetectAsync] Timed out waiting for new drive after {maxRetries * pollIntervalMs / 1000} seconds.");
         const string timeoutContextMessage = "Timed out waiting for the CHD to mount. No new drive detected.";
-        _ = logErrors.LogErrorAsync(null, timeoutContextMessage);
+        logErrors.LogAndForget(null, timeoutContextMessage);
         return (false, null, null);
     }
 
@@ -772,7 +772,7 @@ public static class MountChdFiles
         catch (Exception ex)
         {
             DebugLogger.Log($"[MountChdFiles.FindGameFile] Error searching for game file in {driveRoot}: {ex.Message}");
-            _ = logErrors.LogErrorAsync(ex, $"Error in FindGameFile searching {driveRoot}");
+            logErrors.LogAndForget(ex, $"Error in FindGameFile searching {driveRoot}");
             return null;
         }
     }

@@ -105,7 +105,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
 
             TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {context.EmulatorName}");
-            UpdateStatusBar.UpdateStatusBar.UpdateContent(
+            context.MainWindow.UpdateStatusBarService.UpdateContent(
                 $"{originalFileName} {launchedwith} {context.EmulatorName}", context.MainWindow);
 
             var psi = new ProcessStartInfo

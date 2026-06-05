@@ -8,16 +8,12 @@ using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.HelpUser;
 
-public static partial class HelpUser
+public partial class HelpUserService : IHelpUserService
 {
-    private static HelpUserManager _manager;
-    private static ILogErrors _logErrors;
+    private readonly HelpUserManager _manager;
+    private readonly ILogErrors _logErrors;
 
-    /// <summary>
-    /// Initializes the HelpUser with the required dependencies.
-    /// Must be called after DI container is built.
-    /// </summary>
-    public static void Initialize(ILogErrors logErrors)
+    public HelpUserService(ILogErrors logErrors)
     {
         _logErrors = logErrors;
         _manager = new HelpUserManager(logErrors);
@@ -55,7 +51,7 @@ public static partial class HelpUser
     /// </summary>
     /// <param name="helpUserRichTextBox">The RichTextBox to update.</param>
     /// <param name="systemNameTextBox">The TextBox containing the system name.</param>
-    public static void UpdateHelpUserTextBlock(RichTextBox helpUserRichTextBox, TextBox systemNameTextBox)
+    public void UpdateHelpUserTextBlock(RichTextBox helpUserRichTextBox, TextBox systemNameTextBox)
     {
         var systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
 
@@ -367,432 +363,432 @@ public static partial class HelpUser
         }
     }
 
-    private static string AmstradCpcDetails()
+    private string AmstradCpcDetails()
     {
         return GetSystemDetails("Amstrad CPC");
     }
 
-    private static string AmstradCpcgx4000Details()
+    private string AmstradCpcgx4000Details()
     {
         return GetSystemDetails("Amstrad GX4000");
     }
 
-    private static string ArcadeDetails()
+    private string ArcadeDetails()
     {
         return GetSystemDetails("Arcade");
     }
 
-    private static string Atari2600Details()
+    private string Atari2600Details()
     {
         return GetSystemDetails("Atari 2600");
     }
 
-    private static string Atari5200Details()
+    private string Atari5200Details()
     {
         return GetSystemDetails("Atari 5200");
     }
 
-    private static string Atari7800Details()
+    private string Atari7800Details()
     {
         return GetSystemDetails("Atari 7800");
     }
 
-    private static string Atari8BitDetails()
+    private string Atari8BitDetails()
     {
         return GetSystemDetails("Atari 8-Bit");
     }
 
-    private static string AtariJaguarDetails()
+    private string AtariJaguarDetails()
     {
         return GetSystemDetails("Atari Jaguar");
     }
 
-    private static string AtariJaguarCdDetails()
+    private string AtariJaguarCdDetails()
     {
         return GetSystemDetails("Atari Jaguar CD");
     }
 
-    private static string AtariLynxDetails()
+    private string AtariLynxDetails()
     {
         return GetSystemDetails("Atari Lynx");
     }
 
-    private static string AtariStDetails()
+    private string AtariStDetails()
     {
         return GetSystemDetails("Atari ST");
     }
 
-    private static string AtomiswaveDetails()
+    private string AtomiswaveDetails()
     {
         return GetSystemDetails("Atomiswave");
     }
 
-    private static string BandaiWonderSwanDetails()
+    private string BandaiWonderSwanDetails()
     {
         return GetSystemDetails("Bandai WonderSwan");
     }
 
-    private static string BandaiWonderSwanColorDetails()
+    private string BandaiWonderSwanColorDetails()
     {
         return GetSystemDetails("Bandai WonderSwan Color");
     }
 
-    private static string CasioPv1000Details()
+    private string CasioPv1000Details()
     {
         return GetSystemDetails("Casio PV-1000");
     }
 
-    private static string ColecovisionDetails()
+    private string ColecovisionDetails()
     {
         return GetSystemDetails("Colecovision");
     }
 
-    private static string CommanderGeniusDetails()
+    private string CommanderGeniusDetails()
     {
         return GetSystemDetails("Commander Genius");
     }
 
-    private static string Commodore64Details()
+    private string Commodore64Details()
     {
         return GetSystemDetails("Commodore 64");
     }
 
-    private static string Commodore128Details()
+    private string Commodore128Details()
     {
         return GetSystemDetails("Commodore 128");
     }
 
-    private static string CommodoreAmigaDetails()
+    private string CommodoreAmigaDetails()
     {
         return GetSystemDetails("Commodore Amiga");
     }
 
-    private static string CommodoreAmigaCd32Details()
+    private string CommodoreAmigaCd32Details()
     {
         return GetSystemDetails("Commodore Amiga CD32");
     }
 
-    private static string FmTownsDetails()
+    private string FmTownsDetails()
     {
         return GetSystemDetails("FM Towns");
     }
 
-    private static string LaserDiskDetails()
+    private string LaserDiskDetails()
     {
         return GetSystemDetails("LaserDisk");
     }
 
-    private static string MagnavoxOdyssey2Details()
+    private string MagnavoxOdyssey2Details()
     {
         return GetSystemDetails("Magnavox Odyssey 2");
     }
 
-    private static string MattelAquariusDetails()
+    private string MattelAquariusDetails()
     {
         return GetSystemDetails("Mattel Aquarius");
     }
 
-    private static string MattelIntellivisionDetails()
+    private string MattelIntellivisionDetails()
     {
         return GetSystemDetails("Mattel Intellivision");
     }
 
-    private static string MicrosoftDosDetails()
+    private string MicrosoftDosDetails()
     {
         return GetSystemDetails("Microsoft DOS");
     }
 
-    private static string MicrosoftMsxDetails()
+    private string MicrosoftMsxDetails()
     {
         return GetSystemDetails("Microsoft MSX");
     }
 
-    private static string MicrosoftMsx2Details()
+    private string MicrosoftMsx2Details()
     {
         return GetSystemDetails("Microsoft MSX2");
     }
 
-    private static string MicrosoftWindowsDetails()
+    private string MicrosoftWindowsDetails()
     {
         return GetSystemDetails("Microsoft Windows");
     }
 
-    private static string MicrosoftXboxDetails()
+    private string MicrosoftXboxDetails()
     {
         return GetSystemDetails("Microsoft Xbox");
     }
 
-    private static string MicrosoftXbox360Details()
+    private string MicrosoftXbox360Details()
     {
         return GetSystemDetails("Microsoft Xbox 360");
     }
 
-    private static string MicrosoftXbox360XblaDetails()
+    private string MicrosoftXbox360XblaDetails()
     {
         return GetSystemDetails("Microsoft Xbox 360 XBLA");
     }
 
-    private static string NecpcEngineDetails()
+    private string NecpcEngineDetails()
     {
         return GetSystemDetails("NEC PC Engine");
     }
 
-    private static string NecTurboGrafx16Details()
+    private string NecTurboGrafx16Details()
     {
         return GetSystemDetails("NEC TurboGrafx-16");
     }
 
-    private static string NecpcEngineCdDetails()
+    private string NecpcEngineCdDetails()
     {
         return GetSystemDetails("NEC PC Engine CD");
     }
 
-    private static string NecpcfxDetails()
+    private string NecpcfxDetails()
     {
         return GetSystemDetails("NEC PC-FX");
     }
 
-    private static string NecSuperGrafxDetails()
+    private string NecSuperGrafxDetails()
     {
         return GetSystemDetails("NEC SuperGrafx");
     }
 
-    private static string Nintendo3DsDetails()
+    private string Nintendo3DsDetails()
     {
         return GetSystemDetails("Nintendo 3DS");
     }
 
-    private static string Nintendo64Details()
+    private string Nintendo64Details()
     {
         return GetSystemDetails("Nintendo 64");
     }
 
-    private static string Nintendo64DdDetails()
+    private string Nintendo64DdDetails()
     {
         return GetSystemDetails("Nintendo 64DD");
     }
 
-    private static string NintendoDsDetails()
+    private string NintendoDsDetails()
     {
         return GetSystemDetails("Nintendo DS");
     }
 
-    private static string NintendoFamilyComputerDiskSystemDetails()
+    private string NintendoFamilyComputerDiskSystemDetails()
     {
         return GetSystemDetails("Nintendo Family Computer Disk System");
     }
 
-    private static string NintendoGameBoyDetails()
+    private string NintendoGameBoyDetails()
     {
         return GetSystemDetails("Nintendo Game Boy");
     }
 
-    private static string NintendoGameBoyAdvanceDetails()
+    private string NintendoGameBoyAdvanceDetails()
     {
         return GetSystemDetails("Nintendo Game Boy Advance");
     }
 
-    private static string NintendoGameBoyColorDetails()
+    private string NintendoGameBoyColorDetails()
     {
         return GetSystemDetails("Nintendo Game Boy Color");
     }
 
-    private static string NintendoGameCubeDetails()
+    private string NintendoGameCubeDetails()
     {
         return GetSystemDetails("Nintendo GameCube");
     }
 
-    private static string NintendoNesDetails()
+    private string NintendoNesDetails()
     {
         return GetSystemDetails("Nintendo NES");
     }
 
-    private static string NintendoSatellaviewDetails()
+    private string NintendoSatellaviewDetails()
     {
         return GetSystemDetails("Nintendo Satellaview");
     }
 
-    private static string NintendoSnesDetails()
+    private string NintendoSnesDetails()
     {
         return GetSystemDetails("Nintendo SNES");
     }
 
-    private static string NintendoSnesmsu1Details()
+    private string NintendoSnesmsu1Details()
     {
         return GetSystemDetails("Nintendo SNES MSU1");
     }
 
-    private static string NintendoSwitchDetails()
+    private string NintendoSwitchDetails()
     {
         return GetSystemDetails("Nintendo Switch");
     }
 
-    private static string NintendoWiiDetails()
+    private string NintendoWiiDetails()
     {
         return GetSystemDetails("Nintendo Wii");
     }
 
-    private static string NintendoWiiUDetails()
+    private string NintendoWiiUDetails()
     {
         return GetSystemDetails("Nintendo WiiU");
     }
 
-    private static string NintendoWiiWareDetails()
+    private string NintendoWiiWareDetails()
     {
         return GetSystemDetails("Nintendo WiiWare");
     }
 
-    private static string NintendoVirtualBoyDetails()
+    private string NintendoVirtualBoyDetails()
     {
         return GetSystemDetails("Nintendo Virtual Boy");
     }
 
-    private static string Panasonic3DoDetails()
+    private string Panasonic3DoDetails()
     {
         return GetSystemDetails("Panasonic 3DO");
     }
 
-    private static string PhilipsCDiDetails()
+    private string PhilipsCDiDetails()
     {
         return GetSystemDetails("Philips CD-i");
     }
 
-    private static string ScummVmDetails()
+    private string ScummVmDetails()
     {
         return GetSystemDetails("ScummVM");
     }
 
-    private static string SegaDreamcastDetails()
+    private string SegaDreamcastDetails()
     {
         return GetSystemDetails("Sega Dreamcast");
     }
 
-    private static string SegaGameGearDetails()
+    private string SegaGameGearDetails()
     {
         return GetSystemDetails("Sega Game Gear");
     }
 
-    private static string SegaGenesisDetails()
+    private string SegaGenesisDetails()
     {
         return GetSystemDetails("Sega Genesis");
     }
 
-    private static string SegaGenesis32XDetails()
+    private string SegaGenesis32XDetails()
     {
         return GetSystemDetails("Sega Genesis 32X");
     }
 
-    private static string SegaGenesisCdDetails()
+    private string SegaGenesisCdDetails()
     {
         return GetSystemDetails("Sega Genesis CD");
     }
 
-    private static string SegaMasterSystemDetails()
+    private string SegaMasterSystemDetails()
     {
         return GetSystemDetails("Sega Master System");
     }
 
-    private static string SegaModel3Details()
+    private string SegaModel3Details()
     {
         return GetSystemDetails("Sega Model 3");
     }
 
-    private static string SegaNaomiDetails()
+    private string SegaNaomiDetails()
     {
         return GetSystemDetails("Sega Naomi");
     }
 
-    private static string SegaNaomi2Details()
+    private string SegaNaomi2Details()
     {
         return GetSystemDetails("Sega Naomi 2");
     }
 
-    private static string SegaSaturnDetails()
+    private string SegaSaturnDetails()
     {
         return GetSystemDetails("Sega Saturn");
     }
 
-    private static string SegaSc3000Details()
+    private string SegaSc3000Details()
     {
         return GetSystemDetails("Sega SC-3000");
     }
 
-    private static string SegaSg1000Details()
+    private string SegaSg1000Details()
     {
         return GetSystemDetails("Sega SG-1000");
     }
 
-    private static string Sharpx68000Details()
+    private string Sharpx68000Details()
     {
         return GetSystemDetails("Sharp x68000");
     }
 
-    private static string SinclairZxSpectrumDetails()
+    private string SinclairZxSpectrumDetails()
     {
         return GetSystemDetails("Sinclair ZX Spectrum");
     }
 
-    private static string SnkNeoGeoDetails()
+    private string SnkNeoGeoDetails()
     {
         return GetSystemDetails("SNK Neo Geo");
     }
 
-    private static string SnkNeoGeoCdDetails()
+    private string SnkNeoGeoCdDetails()
     {
         return GetSystemDetails("SNK Neo Geo CD");
     }
 
-    private static string SnkNeoGeoPocketDetails()
+    private string SnkNeoGeoPocketDetails()
     {
         return GetSystemDetails("SNK Neo Geo Pocket");
     }
 
-    private static string SnkNeoGeoPocketColorDetails()
+    private string SnkNeoGeoPocketColorDetails()
     {
         return GetSystemDetails("SNK Neo Geo Pocket Color");
     }
 
-    private static string SonyPlayStation1Details()
+    private string SonyPlayStation1Details()
     {
         return GetSystemDetails("Sony PlayStation 1");
     }
 
-    private static string SonyPlayStation2Details()
+    private string SonyPlayStation2Details()
     {
         return GetSystemDetails("Sony PlayStation 2");
     }
 
-    private static string SonyPlayStation3Details()
+    private string SonyPlayStation3Details()
     {
         return GetSystemDetails("Sony PlayStation 3");
     }
 
-    private static string SonyPlayStation4Details()
+    private string SonyPlayStation4Details()
     {
         return GetSystemDetails("Sony PlayStation 4");
     }
 
-    private static string SonyPlayStationVitaDetails()
+    private string SonyPlayStationVitaDetails()
     {
         return GetSystemDetails("Sony PlayStation Vita");
     }
 
-    private static string SonyPspDetails()
+    private string SonyPspDetails()
     {
         return GetSystemDetails("Sony PSP");
     }
 
-    private static string SuperAcanDetails()
+    private string SuperAcanDetails()
     {
         return GetSystemDetails("Super Acan");
     }
 
-    private static string ZeeboDetails()
+    private string ZeeboDetails()
     {
         return GetSystemDetails("Zeebo");
     }
 
-    private static string GetSystemDetails(string systemName)
+    private string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
         var system = _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
@@ -930,4 +926,3 @@ public static partial class HelpUser
         richTextBox.Document = flowDocument;
     }
 }
-

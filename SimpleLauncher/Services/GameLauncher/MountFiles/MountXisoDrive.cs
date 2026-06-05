@@ -105,7 +105,7 @@ public class MountXisoDrive : IAsyncDisposable
         {
             DebugLogger.Log(
                 $"[MountXisoDrive.DisposeAsync] Exception while terminating mounting tool (ID: {_mountProcessId}): {termEx}");
-            _ = _logErrors.LogErrorAsync(termEx,
+            _logErrors.LogAndForget(termEx,
                 $"Failed to terminate mounting tool (ID: {_mountProcessId}) for unmounting.");
         }
         finally

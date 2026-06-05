@@ -93,7 +93,7 @@ public class MountChdDrive : IAsyncDisposable
         catch (Exception termEx)
         {
             DebugLogger.Log($"[MountChdDrive.DisposeAsync] Exception while terminating CHDMounter (ID: {_mountProcessId}): {termEx}");
-            _ = _logErrors.LogErrorAsync(termEx, $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
+            _logErrors.LogAndForget(termEx, $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
         }
         finally
         {

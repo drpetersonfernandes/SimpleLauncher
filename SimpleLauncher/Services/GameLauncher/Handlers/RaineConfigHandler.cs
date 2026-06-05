@@ -2,6 +2,7 @@ using System.IO;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using Microsoft.Extensions.DependencyInjection;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
@@ -32,11 +33,9 @@ public class RaineConfigHandler : IEmulatorConfigHandler
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {
-                // Pass the game path, system folder, and resolved RaineRomDirectory to the window
-                var win = new InjectRaineConfigWindow(context.Settings, resolvedExe, context.ResolvedFilePath, resolvedSystemFolder)
-                {
-                    Owner = context.MainWindow
-                };
+                var win = App.ServiceProvider.GetRequiredService<InjectRaineConfigWindow>();
+                win.Owner = context.MainWindow;
+                win.Initialize(resolvedExe, true, context.ResolvedFilePath, resolvedSystemFolder);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;
             });

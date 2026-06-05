@@ -11,6 +11,8 @@ public static class LogErrorsExtensions
 {
     public static void LogAndForget(this ILogErrors logErrors, Exception ex, string contextMessage = null)
     {
+        if (logErrors == null) return;
+
         _ = Task.Run(async () =>
         {
             try

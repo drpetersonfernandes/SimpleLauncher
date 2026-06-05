@@ -1,6 +1,7 @@
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using Microsoft.Extensions.DependencyInjection;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
@@ -32,7 +33,9 @@ public class MameConfigHandler : IEmulatorConfigHandler
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {
-                var win = new InjectMameConfigWindow(context.Settings, resolvedExe, resolvedSystemFolder, true, listOfSecondarySystemFolders) { Owner = context.MainWindow };
+                var win = App.ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
+                win.Owner = context.MainWindow;
+                win.Initialize(resolvedExe, resolvedSystemFolder, true, listOfSecondarySystemFolders);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;
             });

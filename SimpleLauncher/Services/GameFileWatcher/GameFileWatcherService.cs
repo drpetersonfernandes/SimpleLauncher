@@ -158,28 +158,31 @@ public sealed class GameFileWatcherService : IDisposable
 
     private void DebounceAndRaiseEvent(string systemName)
     {
-        CancelPendingDebounce();
-
-        var cts = new CancellationTokenSource();
-        _debounceCts = cts;
-
-        _ = Task.Run(async () =>
+        lock (_lock)
         {
-            try
-            {
-                await Task.Delay(DebounceDelay, cts.Token);
+            CancelPendingDebounce();
 
-                if (!cts.IsCancellationRequested)
-                {
-                    DebugLogger.Log($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
-                    GameFilesChanged?.Invoke(systemName);
-                }
-            }
-            catch (TaskCanceledException)
+            var cts = new CancellationTokenSource();
+            _debounceCts = cts;
+
+            _ = Task.Run(async () =>
             {
-                // Expected when debounce is reset by another file change
-            }
-        }, cts.Token);
+                try
+                {
+                    await Task.Delay(DebounceDelay, cts.Token);
+
+                    if (!cts.IsCancellationRequested)
+                    {
+                        DebugLogger.Log($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
+                        GameFilesChanged?.Invoke(systemName);
+                    }
+                }
+                catch (TaskCanceledException)
+                {
+                    // Expected when debounce is reset by another file change
+                }
+            }, cts.Token);
+        }
     }
 
     private void CancelPendingDebounce()
@@ -197,7 +200,6 @@ public sealed class GameFileWatcherService : IDisposable
         _disposed = true;
 
         StopWatching();
-        _debounceCts?.Dispose();
     }
 
     /// <summary>

@@ -11,9 +11,10 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.Favorites;
-using SimpleLauncher.Services.FindAndLoadImages;
+using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GamePad;
+using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingInterface;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
@@ -68,7 +69,7 @@ internal static class ContextMenuFunctions
                 }
 
                 // Notify user
-                UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FileAddedToFavorites") ?? "File added to favorites.", mainWindow);
+                mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FileAddedToFavorites") ?? "File added to favorites.", mainWindow);
                 MessageBoxLibrary.FileAddedToFavoritesMessageBox(fileNameWithExtension);
             }
             else
@@ -81,7 +82,7 @@ internal static class ContextMenuFunctions
         {
             // Notify developer
             const string contextMessage = "An error occurred while adding a game to the favorites.";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
@@ -129,14 +130,14 @@ internal static class ContextMenuFunctions
             }
 
             // Notify user
-            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FileRemovedFromFavorites") ?? "File removed from favorites.", mainWindow);
+            mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FileRemovedFromFavorites") ?? "File removed from favorites.", mainWindow);
             MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "An error occurred while removing a game from favorites.";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileRemovingGameFromFavoriteMessageBox();
@@ -166,17 +167,17 @@ internal static class ContextMenuFunctions
         // Catch Win32Exception specifically for "No application associated" error
         catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
-            _ = logErrors.LogErrorAsync(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
+            logErrors.LogAndForget(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
             MessageBoxLibrary.NoDefaultBrowserConfiguredMessageBox();
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "There was a problem opening the Video Link.";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningVideoLink") ?? "Error opening video link.", mainWindow);
+            mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningVideoLink") ?? "Error opening video link.", mainWindow);
             MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
         }
     }
@@ -204,17 +205,17 @@ internal static class ContextMenuFunctions
         // Catch Win32Exception specifically for "No application associated" error
         catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
         {
-            _ = logErrors.LogErrorAsync(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
+            logErrors.LogAndForget(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
             MessageBoxLibrary.NoDefaultBrowserConfiguredMessageBox();
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "There was a problem opening the Info Link.";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningInfoLink") ?? "Error opening info link.", mainWindow);
+            mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningInfoLink") ?? "Error opening info link.", mainWindow);
             MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
         }
     }
@@ -233,17 +234,18 @@ internal static class ContextMenuFunctions
 
         try
         {
-            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, logErrors);
+            var historyWindow = App.ServiceProvider.GetRequiredService<RomHistoryWindow>();
+            historyWindow.Initialize(romName, systemName, searchTerm);
             historyWindow.Show();
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "There was a problem opening the History window.";
-            _ = logErrors.LogErrorAsync(ex, contextMessage);
+            logErrors.LogAndForget(ex, contextMessage);
 
             // Notify user
-            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningROMHistory") ?? "Error opening ROM history.", mainWindow);
+            mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningROMHistory") ?? "Error opening ROM history.", mainWindow);
             MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
         }
     }
@@ -262,13 +264,11 @@ internal static class ContextMenuFunctions
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
 
                     // Open RetroAchievements Settings Window
-                    var raSettingsWindow = new RetroAchievementsSettingsWindow(settings, logErrors)
-                    {
-                        Owner = mainWindow // Set owner to main window
-                    };
+                    var raSettingsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsSettingsWindow>();
+                    raSettingsWindow.Owner = mainWindow;
                     raSettingsWindow.ShowDialog();
                 });
 
@@ -297,15 +297,15 @@ internal static class ContextMenuFunctions
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects, logErrors);
+                        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                         retroAchievementsWindow.Show();
                     });
                 }
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemManager.SystemName}' is not supported by RetroAchievements.", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent($"System '{systemManager.SystemName}' is not supported by RetroAchievements.", mainWindow);
                 });
 
                 return;
@@ -323,13 +323,13 @@ internal static class ContextMenuFunctions
             if (!File.Exists(filePath))
             {
                 DebugLogger.Log($"[RA Service] File not found at {filePath}");
-                _ = logErrors.LogErrorAsync(null, $"[RA Service] File not found at {filePath}");
+                logErrors.LogAndForget(null, $"[RA Service] File not found at {filePath}");
 
                 MessageBoxLibrary.CouldNotFindAFileMessageBox();
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
                 });
 
                 return;
@@ -338,12 +338,12 @@ internal static class ContextMenuFunctions
             if (string.IsNullOrEmpty(fileNameWithoutExtension))
             {
                 DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
-                _ = logErrors.LogErrorAsync(null, "[RA Service] FileNameWithoutExtension is null or empty.");
+                logErrors.LogAndForget(null, "[RA Service] FileNameWithoutExtension is null or empty.");
                 MessageBoxLibrary.ErrorMessageBox();
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
                 });
 
                 return;
@@ -352,7 +352,7 @@ internal static class ContextMenuFunctions
             if (string.IsNullOrWhiteSpace(systemName))
             {
                 DebugLogger.Log("[RA Service] SystemName is null or empty.");
-                _ = logErrors.LogErrorAsync(null, "[RA Service] SystemName is null or empty.");
+                logErrors.LogAndForget(null, "[RA Service] SystemName is null or empty.");
 
                 var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -361,15 +361,15 @@ internal static class ContextMenuFunctions
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects, logErrors);
+                        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                         retroAchievementsWindow.Show();
                     });
                 }
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
                 });
 
                 return;
@@ -381,7 +381,7 @@ internal static class ContextMenuFunctions
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 loadingStateProvider.SetLoadingState(true, preparingRaMsg);
-                UpdateStatusBar.UpdateStatusBar.UpdateContent(preparingRaMsg, mainWindow);
+                mainWindow.UpdateStatusBarService.UpdateContent(preparingRaMsg, mainWindow);
             }, System.Windows.Threading.DispatcherPriority.Render);
 
             // Allow the UI to render the overlay before starting CPU-intensive hash calculation
@@ -398,7 +398,7 @@ internal static class ContextMenuFunctions
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                UpdateStatusBar.UpdateStatusBar.UpdateContent("Calculating the hash of the selected game", mainWindow);
+                mainWindow.UpdateStatusBarService.UpdateContent("Calculating the hash of the selected game", mainWindow);
             });
 
             var hash = raHashResult.Hash;
@@ -419,15 +419,15 @@ internal static class ContextMenuFunctions
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                            var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects, logErrors);
+                            mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                            var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                             retroAchievementsWindow.Show();
                         });
                     }
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent($"System '{systemName}' is not supported by RetroAchievements.", mainWindow);
+                        mainWindow.UpdateStatusBarService.UpdateContent($"System '{systemName}' is not supported by RetroAchievements.", mainWindow);
                     });
                 }
                 // Check if the failure was due to an actual extraction issue (and not just "system not supported")
@@ -437,7 +437,7 @@ internal static class ContextMenuFunctions
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent("Error extracting the file for hashing", mainWindow);
+                        mainWindow.UpdateStatusBarService.UpdateContent("Error extracting the file for hashing", mainWindow);
                     });
                 }
                 else // A generic hashing failure not covered by the above
@@ -449,15 +449,15 @@ internal static class ContextMenuFunctions
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                            var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects, logErrors);
+                            mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                            var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                             retroAchievementsWindow.Show();
                         });
                     }
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
+                        mainWindow.UpdateStatusBarService.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
                     });
                 }
 
@@ -469,7 +469,7 @@ internal static class ContextMenuFunctions
 
             Application.Current.Dispatcher.Invoke(() =>
             {
-                UpdateStatusBar.UpdateStatusBar.UpdateContent($"Successfully obtained hash for {fileNameWithoutExtension}", mainWindow);
+                mainWindow.UpdateStatusBarService.UpdateContent($"Successfully obtained hash for {fileNameWithoutExtension}", mainWindow);
             });
 
             // Use the lookup method from RetroAchievementsManager
@@ -481,16 +481,15 @@ internal static class ContextMenuFunctions
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent($"Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})", mainWindow);
                 });
 
                 // Ensure this is run on the UI thread as it creates a new window
                 await mainWindow.Dispatcher.InvokeAsync(() =>
                 {
-                    var achievementsWindow = new RetroAchievementsForAGameWindow(matchedGame.Id, fileNameWithoutExtension, logErrors)
-                    {
-                        Owner = mainWindow // Set owner
-                    };
+                    var achievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsForAGameWindow>();
+                    achievementsWindow.Owner = mainWindow;
+                    achievementsWindow.Initialize(matchedGame.Id, fileNameWithoutExtension);
                     achievementsWindow.Show();
                 });
             }
@@ -500,7 +499,7 @@ internal static class ContextMenuFunctions
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    UpdateStatusBar.UpdateStatusBar.UpdateContent($"No match found for hash: {hash}", mainWindow);
+                    mainWindow.UpdateStatusBarService.UpdateContent($"No match found for hash: {hash}", mainWindow);
                 });
 
                 var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
@@ -510,8 +509,8 @@ internal static class ContextMenuFunctions
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
-                        var retroAchievementsWindow = new RetroAchievementsWindow(playSoundEffects, logErrors);
+                        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievements") ?? "Opening RetroAchievements...", mainWindow);
+                        var retroAchievementsWindow = App.ServiceProvider.GetRequiredService<RetroAchievementsWindow>();
                         retroAchievementsWindow.Show();
                     });
                 }
@@ -519,7 +518,7 @@ internal static class ContextMenuFunctions
         }
         catch (Exception ex)
         {
-            _ = logErrors.LogErrorAsync(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
+            logErrors.LogAndForget(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
         }
@@ -548,7 +547,7 @@ internal static class ContextMenuFunctions
 
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image...", mainWindow);
+        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image...", mainWindow);
 
         // Image extensions to look for
         var imageExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
@@ -557,7 +556,7 @@ internal static class ContextMenuFunctions
         // Then search inside the globalImageDirectory
         if (TryFindImage(resolvedSystemImageFolder, out var foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
         {
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(foundImagePath);
             imageViewerWindow.Show();
         }
@@ -594,7 +593,7 @@ internal static class ContextMenuFunctions
     public static void OpenTitleSnapshot(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot...", Application.Current.MainWindow as MainWindow);
         var titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
         string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -603,7 +602,7 @@ internal static class ContextMenuFunctions
             var titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(titleSnapshotPath)) continue;
 
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(titleSnapshotPath);
             imageViewerWindow.Show();
             return;
@@ -617,7 +616,7 @@ internal static class ContextMenuFunctions
     public static void OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot...", Application.Current.MainWindow as MainWindow);
         var gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
         var gameplaySnapshotExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
@@ -626,7 +625,7 @@ internal static class ContextMenuFunctions
             var gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(gameplaySnapshotPath)) continue;
 
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(gameplaySnapshotPath);
             imageViewerWindow.Show();
             return;
@@ -640,7 +639,7 @@ internal static class ContextMenuFunctions
     public static void OpenCart(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image...", Application.Current.MainWindow as MainWindow);
         var cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
         string[] cartExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -649,7 +648,7 @@ internal static class ContextMenuFunctions
             var cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(cartPath)) continue;
 
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(cartPath);
             imageViewerWindow.Show();
             return;
@@ -663,7 +662,7 @@ internal static class ContextMenuFunctions
     public static void PlayVideo(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...", Application.Current.MainWindow as MainWindow);
         var videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
         string[] videoExtensions = [".mp4", ".avi", ".mkv"];
 
@@ -688,7 +687,7 @@ internal static class ContextMenuFunctions
     public static void OpenManual(string systemName, string fileNameWithoutExtension, ILogErrors logErrors)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...", Application.Current.MainWindow as MainWindow);
         var manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
         string[] manualExtensions = [".pdf"];
 
@@ -712,7 +711,7 @@ internal static class ContextMenuFunctions
                 // No application is associated with the file format
                 // Notify developer
                 const string contextMessage = "There was a problem opening the manual. No PDF viewer is installed.";
-                _ = logErrors.LogErrorAsync(ex, contextMessage);
+                logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoPdfViewerInstalledMessageBox();
@@ -723,7 +722,7 @@ internal static class ContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "There was a problem opening the manual.";
-                _ = logErrors.LogErrorAsync(ex, contextMessage);
+                logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotOpenManualMessageBox();
@@ -740,7 +739,7 @@ internal static class ContextMenuFunctions
     public static void OpenWalkthrough(string systemName, string fileNameWithoutExtension, ILogErrors logErrors)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...", Application.Current.MainWindow as MainWindow);
         var walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
         string[] walkthroughExtensions = [".pdf"];
 
@@ -765,7 +764,7 @@ internal static class ContextMenuFunctions
                 // No application is associated with the file format
                 // Notify developer
                 const string contextMessage = "There was a problem opening the walkthrough. No PDF viewer is installed.";
-                _ = logErrors.LogErrorAsync(ex, contextMessage);
+                logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoPdfViewerInstalledMessageBox();
@@ -776,7 +775,7 @@ internal static class ContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "There was a problem opening the walkthrough.";
-                _ = logErrors.LogErrorAsync(ex, contextMessage);
+                logErrors.LogAndForget(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotOpenWalkthroughMessageBox();
@@ -793,7 +792,7 @@ internal static class ContextMenuFunctions
     public static void OpenCabinet(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image...", Application.Current.MainWindow as MainWindow);
         var cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
         var cabinetExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
@@ -802,7 +801,7 @@ internal static class ContextMenuFunctions
             var cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(cabinetPath)) continue;
 
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(cabinetPath);
             imageViewerWindow.Show();
             return;
@@ -816,7 +815,7 @@ internal static class ContextMenuFunctions
     public static void OpenFlyer(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image...", Application.Current.MainWindow as MainWindow);
         var flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
         string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -825,7 +824,7 @@ internal static class ContextMenuFunctions
             var flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(flyerPath)) continue;
 
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(flyerPath);
             imageViewerWindow.Show();
             return;
@@ -839,7 +838,7 @@ internal static class ContextMenuFunctions
     public static void OpenPcb(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...", Application.Current.MainWindow as MainWindow);
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image...", Application.Current.MainWindow as MainWindow);
         var pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
         var pcbExtensions = App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
 
@@ -848,7 +847,7 @@ internal static class ContextMenuFunctions
             var pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(pcbPath)) continue;
 
-            var imageViewerWindow = new ImageViewerWindow();
+            var imageViewerWindow = App.ServiceProvider.GetRequiredService<ImageViewerWindow>();
             imageViewerWindow.LoadImagePath(pcbPath);
             imageViewerWindow.Show();
             return;
@@ -860,7 +859,7 @@ internal static class ContextMenuFunctions
 
     public static async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher.GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILoadingState loadingStateProvider, ILogErrors logErrors)
     {
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", mainWindow);
+        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", mainWindow);
         try
         {
             // Clear the preview image
@@ -890,7 +889,7 @@ internal static class ContextMenuFunctions
                 // Notify developer
                 if (App.ServiceProvider != null)
                 {
-                    _ = logErrors.LogErrorAsync(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
+                    logErrors.LogAndForget(ex, $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
                 }
             }
 
@@ -945,97 +944,99 @@ internal static class ContextMenuFunctions
             var openWindows = WindowManager.GetOpenWindows();
 
             // Show the selection dialog
-            var dialog = new WindowSelectionDialogWindow(openWindows);
-            if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
+            if (App.ServiceProvider != null)
             {
-                return;
-            }
-
-            var hWnd = dialog.SelectedWindowHandle;
-
-            WindowScreenshot.Rectangle rectangle;
-
-            // Try to get the client area dimensions
-            if (!TakeScreenshot.WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
-            {
-                // If the client area fails, fall back to the full window dimensions
-                if (!TakeScreenshot.WindowScreenshot.GetWindowRect(hWnd, out rectangle))
+                var dialog = App.ServiceProvider.GetRequiredService<WindowSelectionDialogWindow>();
+                dialog.Initialize(openWindows);
+                if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
                 {
-                    throw new InvalidOperationException("Failed to retrieve window dimensions.");
-                }
-            }
-            else
-            {
-                // Successfully retrieved client area
-                rectangle = clientRect;
-            }
-
-            var width = rectangle.Right - rectangle.Left;
-            var height = rectangle.Bottom - rectangle.Top;
-
-            // Add a check for invalid dimensions (i.e., a minimized window)
-            if (width <= 0 || height <= 0)
-            {
-                // Notify the user that they can't screenshot a minimized window.
-                MessageBoxLibrary.CannotScreenshotMinimizedWindowMessageBox();
-                DebugLogger.Log("Cannot take a screenshot of a minimized window.");
-
-                return; // Exit the method gracefully
-            }
-
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-            var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
-
-            // Capture the window into a bitmap
-            using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
-            {
-                using (var graphics = Graphics.FromImage(bitmap))
-                {
-                    graphics.CopyFromScreen(
-                        new Point(rectangle.Left, rectangle.Top),
-                        Point.Empty,
-                        new Size(width, height));
+                    return;
                 }
 
-                // Save the screenshot
-                bitmap.Save(screenshotPath, ImageFormat.Png);
-            }
+                var hWnd = dialog.SelectedWindowHandle;
 
-            playSoundEffects.PlayShutterSound();
+                WindowScreenshot.Rectangle rectangle;
 
-            // Wait
-            await Task.Delay(1000);
-
-            // Show the flash effect
-            var flashWindow = new FlashOverlayWindow();
-            await flashWindow.ShowFlashAsync();
-
-            if (button != null)
-            {
-                // Update the button's image using the new ImageLoader
-                try
+                // Try to get the client area dimensions
+                if (!TakeScreenshot.WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
                 {
-                    if (button.Content is Grid grid)
+                    // If the client area fails, fall back to the full window dimensions
+                    if (!TakeScreenshot.WindowScreenshot.GetWindowRect(hWnd, out rectangle))
                     {
-                        // Find the Image control within the button's template
-                        if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
+                        throw new InvalidOperationException("Failed to retrieve window dimensions.");
+                    }
+                }
+                else
+                {
+                    // Successfully retrieved client area
+                    rectangle = clientRect;
+                }
+
+                var width = rectangle.Right - rectangle.Left;
+                var height = rectangle.Bottom - rectangle.Top;
+
+                // Add a check for invalid dimensions (i.e., a minimized window)
+                if (width <= 0 || height <= 0)
+                {
+                    // Notify the user that they can't screenshot a minimized window.
+                    MessageBoxLibrary.CannotScreenshotMinimizedWindowMessageBox();
+                    DebugLogger.Log("Cannot take a screenshot of a minimized window.");
+
+                    return; // Exit the method gracefully
+                }
+
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+                var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+
+                // Capture the window into a bitmap
+                using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
+                {
+                    using (var graphics = Graphics.FromImage(bitmap))
+                    {
+                        graphics.CopyFromScreen(
+                            new Point(rectangle.Left, rectangle.Top),
+                            Point.Empty,
+                            new Size(width, height));
+                    }
+
+                    // Save the screenshot
+                    bitmap.Save(screenshotPath, ImageFormat.Png);
+                }
+
+                playSoundEffects.PlayShutterSound();
+
+                // Wait
+                await Task.Delay(1000);
+
+                // Show the flash effect
+                var flashWindow = App.ServiceProvider.GetRequiredService<FlashOverlayWindow>();
+                await flashWindow.ShowFlashAsync();
+
+                if (button != null)
+                {
+                    // Update the button's image using the new ImageLoader
+                    try
+                    {
+                        if (button.Content is Grid grid)
                         {
-                            // Load the new screenshot image
-                            var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);
-                            imageControl.Source = loadedImage; // Assign the loaded image
+                            // Find the Image control within the button's template
+                            if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
+                            {
+                                // Load the new screenshot image
+                                var imageLoader = App.ServiceProvider.GetRequiredService<IImageLoader>();
+                                var (loadedImage, _) = await imageLoader.LoadImageAsync(screenshotPath);
+                                imageControl.Source = loadedImage; // Assign the loaded image
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "[TakeScreenshotOfSelectedWindow] Failed to update button image after screenshot.";
-                    if (App.ServiceProvider != null)
+                    catch (Exception ex)
                     {
-                        _ = logErrors.LogErrorAsync(ex, contextMessage);
-                    }
+                        // Notify developer
+                        const string contextMessage = "[TakeScreenshotOfSelectedWindow] Failed to update button image after screenshot.";
+                        logErrors.LogAndForget(ex, contextMessage);
 
-                    // Do not notify the user
+                        // Do not notify the user
+                    }
                 }
             }
 
@@ -1048,10 +1049,7 @@ internal static class ContextMenuFunctions
             {
                 // Notify developer
                 const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem loading the Game Files.";
-                if (App.ServiceProvider != null)
-                {
-                    _ = logErrors.LogErrorAsync(ex, contextMessage);
-                }
+                logErrors.LogAndForget(ex, contextMessage);
             }
         }
         catch (Exception ex)
@@ -1060,7 +1058,7 @@ internal static class ContextMenuFunctions
             const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.";
             if (App.ServiceProvider != null)
             {
-                _ = logErrors.LogErrorAsync(ex, contextMessage);
+                logErrors.LogAndForget(ex, contextMessage);
             }
 
             // Notify user
@@ -1070,7 +1068,7 @@ internal static class ContextMenuFunctions
 
     public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
     {
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...", mainWindow);
+        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...", mainWindow);
         if (File.Exists(filePath))
         {
             try
@@ -1094,14 +1092,14 @@ internal static class ContextMenuFunctions
                 {
                     // Notify developer
                     const string contextMessage = "There was a problem loading the Game Files after deletion.";
-                    _ = logErrors.LogErrorAsync(ex, contextMessage);
+                    logErrors.LogAndForget(ex, contextMessage);
                 }
             }
             catch (Exception ex)
             {
                 // Notify developer
                 var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'.";
-                _ = logErrors.LogErrorAsync(ex, errorMessage);
+                logErrors.LogAndForget(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
@@ -1111,17 +1109,17 @@ internal static class ContextMenuFunctions
         {
             // Notify developer
             var contextMessage = $"The file '{fileNameWithExtension}' could not be found for deletion.\n\nFile path checked: {filePath}";
-            _ = logErrors.LogErrorAsync(null, contextMessage);
+            logErrors.LogAndForget(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
         }
     }
 
-    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
+    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager.SystemManager selectedSystemManager, SettingsManager.SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogErrors logErrors, IFindCoverImage findCoverImage)
     {
-        UpdateStatusBar.UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...", mainWindow);
-        var coverPath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings, logErrors);
+        mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image...", mainWindow);
+        var coverPath = findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);
 
         try
         {
@@ -1147,7 +1145,7 @@ internal static class ContextMenuFunctions
         {
             // Notify developer
             var errorMessage = $"An error occurred while trying to delete the game cover '{coverPath}'.";
-            _ = logErrors.LogErrorAsync(ex, errorMessage);
+            logErrors.LogAndForget(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(coverPath);

@@ -53,7 +53,7 @@ public class DownloadManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, $"Error creating temp folder: {TempFolder}");
+            _logErrors.LogAndForget(ex, $"Error creating temp folder: {TempFolder}");
         }
 
         // Get HttpClient from the factory
@@ -245,7 +245,7 @@ public class DownloadManager : IDisposable
             }
 
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, $"Download error for {downloadUrl}");
+            _logErrors.LogAndForget(ex, $"Download error for {downloadUrl}");
 
             // Cleanup on failure
             DeleteFiles.TryDeleteFile(downloadFilePath);
@@ -314,7 +314,7 @@ public class DownloadManager : IDisposable
             });
 
             // Notify developer
-            _ = _logErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
+            _logErrors.LogAndForget(ex, $"Error extracting file: {filePath} to {destinationPath}");
 
             return false;
         }

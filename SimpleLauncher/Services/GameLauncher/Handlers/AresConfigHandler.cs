@@ -2,6 +2,7 @@ using System.IO;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
+using Microsoft.Extensions.DependencyInjection;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
@@ -30,7 +31,9 @@ public class AresConfigHandler : IEmulatorConfigHandler
         {
             await context.MainWindow.Dispatcher.InvokeAsync(() =>
             {
-                var aresWindow = new InjectAresConfigWindow(context.Settings, resolvedEmulatorExePath) { Owner = context.MainWindow };
+                var aresWindow = App.ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
+                aresWindow.Owner = context.MainWindow;
+                aresWindow.Initialize(resolvedEmulatorExePath);
                 aresWindow.ShowDialog();
                 shouldRun = aresWindow.ShouldRun;
             });
