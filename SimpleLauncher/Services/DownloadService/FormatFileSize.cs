@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace SimpleLauncher.Services.DownloadService;
 
 public static class FormatFileSize
@@ -10,7 +12,7 @@ public static class FormatFileSize
     public static string FormatToMb(long bytes)
     {
         var sizeMb = bytes / (1024.0 * 1024.0);
-        return $"{sizeMb:F2} MB";
+        return string.Format(CultureInfo.InvariantCulture, "{0:F2} MB", sizeMb);
     }
 
     /// <summary>
@@ -30,6 +32,6 @@ public static class FormatFileSize
             counter++;
         }
 
-        return $"{size:F2} {suffixes[counter]}";
+        return string.Format(CultureInfo.InvariantCulture, "{0:F2} {1}", size, suffixes[counter]);
     }
 }

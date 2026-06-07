@@ -191,6 +191,11 @@ public partial class UrlValidationTests
             if (getResponse.IsSuccessStatusCode)
                 return null;
 
+            // Many servers block automated requests with 403 but work fine in browsers.
+            // Treat 403 as acceptable for URL validation.
+            if ((int)getResponse.StatusCode == 403)
+                return null;
+
             return $"{url} -> HTTP {(int)getResponse.StatusCode}";
         }
         catch (TaskCanceledException)

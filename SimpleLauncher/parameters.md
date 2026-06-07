@@ -3448,7 +3448,7 @@ You can download this emulator on the [Official Website](https://www.retroarch.c
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-You can download this emulator on the [Official Website](https://eden-emu.dev/download).<br>
+You can download this emulator on the [Official Website](https://eden-emu.dev).<br>
 
 .
 
