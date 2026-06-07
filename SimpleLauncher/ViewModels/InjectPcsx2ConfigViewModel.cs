@@ -127,8 +127,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         _settings.Pcsx2.AchievementsEnabled = Pcsx2AchievementsEnabled;
         _settings.Pcsx2.AchievementsHardcore = Pcsx2AchievementsHardcore;
         _settings.Pcsx2.ShowSettingsBeforeLaunch = Pcsx2ShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -165,7 +164,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"PCSX2 configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"PCSX2 configuration injection failed for path: {path}");
             return false;
         }
     }

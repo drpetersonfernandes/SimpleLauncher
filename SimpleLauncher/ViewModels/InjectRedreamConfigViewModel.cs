@@ -167,8 +167,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         _settings.Redream.Latency = RedreamLatency;
         _settings.Redream.Framerate = RedreamFramerate;
         _settings.Redream.ShowSettingsBeforeLaunch = RedreamShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -207,7 +206,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Redream configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Redream configuration injection failed for path: {path}");
             return false;
         }
     }

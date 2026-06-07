@@ -126,8 +126,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         _settings.Ares.RunAhead = RunAhead;
         _settings.Ares.AutoSaveMemory = AutoSaveMemory;
         _settings.Ares.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -166,7 +165,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Ares configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Ares configuration injection failed for path: {path}");
             return false;
         }
     }

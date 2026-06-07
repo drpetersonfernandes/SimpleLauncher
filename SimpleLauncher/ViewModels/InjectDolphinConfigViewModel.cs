@@ -89,8 +89,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         _settings.Dolphin.WiimoteContinuousScanning = WiimoteContinuousScanning;
         _settings.Dolphin.WiimoteEnableSpeaker = WiimoteEnableSpeaker;
         _settings.Dolphin.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -129,7 +128,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Dolphin configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Dolphin configuration injection failed for path: {path}");
             return false;
         }
     }

@@ -100,7 +100,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         _settings.Azahar.Volume = Volume;
         _settings.Azahar.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
         _settings.Azahar.EnableAudioStretching = AudioStretching;
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -142,7 +142,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, "Azahar injection failed");
+            _logErrors.LogAndForget(ex, "Azahar injection failed");
             MessageBoxLibrary.FailedToSaveAzaharConfigurationMessageBox();
             return false;
         }

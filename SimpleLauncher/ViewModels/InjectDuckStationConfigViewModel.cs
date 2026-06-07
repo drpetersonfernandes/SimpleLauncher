@@ -144,8 +144,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         _settings.DuckStation.OutputMuted = DuckStationOutputMuted;
         _settings.DuckStation.OutputVolume = DuckStationOutputVolume;
         _settings.DuckStation.ShowSettingsBeforeLaunch = DuckStationShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -184,7 +183,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"DuckStation configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"DuckStation configuration injection failed for path: {path}");
             return false;
         }
     }

@@ -114,8 +114,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         _settings.Blastem.AudioRate = int.Parse(AudioRate, CultureInfo.InvariantCulture);
         _settings.Blastem.SyncSource = SyncSource;
         _settings.Blastem.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -155,25 +154,25 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         catch (FileNotFoundException ex)
         {
             var errorMsg = $"Configuration file not found for Blastem at: {path}. Details: {ex.Message}";
-            _logErrors.LogErrorAsync(ex, errorMsg);
+            _logErrors.LogAndForget(ex, errorMsg);
             return false;
         }
         catch (UnauthorizedAccessException ex)
         {
             var errorMsg = $"Permission denied accessing Blastem configuration at: {path}. Details: {ex.Message}";
-            _logErrors.LogErrorAsync(ex, errorMsg);
+            _logErrors.LogAndForget(ex, errorMsg);
             return false;
         }
         catch (IOException ex)
         {
             var errorMsg = $"I/O error while accessing Blastem configuration at: {path}. Details: {ex.Message}";
-            _logErrors.LogErrorAsync(ex, errorMsg);
+            _logErrors.LogAndForget(ex, errorMsg);
             return false;
         }
         catch (Exception ex)
         {
             var errorMsg = $"Blastem configuration injection failed for path: {path}. Details: {ex.Message}";
-            _logErrors.LogErrorAsync(ex, errorMsg);
+            _logErrors.LogAndForget(ex, errorMsg);
             return false;
         }
     }

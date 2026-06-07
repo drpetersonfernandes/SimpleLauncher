@@ -84,8 +84,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
         _settings.Flycast.Width = Width;
         _settings.Flycast.Height = Height;
         _settings.Flycast.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -124,7 +123,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Flycast configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Flycast configuration injection failed for path: {path}");
             return false;
         }
     }

@@ -94,7 +94,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         _settings.Cemu.DiscordPresence = Discord;
         _settings.Cemu.ConsoleLanguage = int.Parse(Language, CultureInfo.InvariantCulture);
         _settings.Cemu.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -133,7 +133,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Cemu injection failed: {path}");
+            _logErrors.LogAndForget(ex, $"Cemu injection failed: {path}");
             return false;
         }
     }

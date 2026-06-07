@@ -138,8 +138,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
         _settings.Mame.ConfirmQuit = MameConfirmQuit;
         _settings.Mame.Joystick = MameJoystick;
         _settings.Mame.ShowSettingsBeforeLaunch = MameShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -178,7 +177,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"MAME configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"MAME configuration injection failed for path: {path}");
             return false;
         }
     }

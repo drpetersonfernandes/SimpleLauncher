@@ -112,8 +112,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
         _settings.Mesen.RunAhead = RunAhead;
         _settings.Mesen.PauseInBackground = PauseInBackground;
         _settings.Mesen.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -152,7 +151,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Mesen configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Mesen configuration injection failed for path: {path}");
             return false;
         }
     }

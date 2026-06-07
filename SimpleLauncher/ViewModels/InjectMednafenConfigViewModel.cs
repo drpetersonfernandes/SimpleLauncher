@@ -139,8 +139,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         _settings.Mednafen.Cheats = MednafenCheats;
         _settings.Mednafen.Rewind = MednafenRewind;
         _settings.Mednafen.ShowSettingsBeforeLaunch = MednafenShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -179,7 +178,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Mednafen configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Mednafen configuration injection failed for path: {path}");
             return false;
         }
     }

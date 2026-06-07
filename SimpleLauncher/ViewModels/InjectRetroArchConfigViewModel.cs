@@ -158,8 +158,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         _settings.RetroArch.CheevosHardcore = CheevosHardcore;
         _settings.RetroArch.DiscordAllow = DiscordAllow;
         _settings.RetroArch.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -198,7 +197,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"RetroArch configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"RetroArch configuration injection failed for path: {path}");
             return false;
         }
     }

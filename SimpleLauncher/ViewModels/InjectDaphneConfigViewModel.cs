@@ -73,8 +73,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
         _settings.Daphne.DisableCrosshairs = DaphneDisableCrosshairs;
         _settings.Daphne.UseOverlays = DaphneUseOverlays;
         _settings.Daphne.ShowSettingsBeforeLaunch = DaphneShowSettingsBeforeLaunch;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     [RelayCommand]

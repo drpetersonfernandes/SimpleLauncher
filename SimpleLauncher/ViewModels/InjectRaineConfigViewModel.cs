@@ -148,8 +148,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         _settings.Raine.MuteSfx = RaineMuteSfx;
         _settings.Raine.MuteMusic = RaineMuteMusic;
         _settings.Raine.RomDirectory = RaineRomDirectory;
-
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private string EnsureEmulatorPath()
@@ -188,7 +187,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         }
         catch (InvalidOperationException ex)
         {
-            _logErrors.LogErrorAsync(ex, $"Raine configuration injection failed for path: {path}");
+            _logErrors.LogAndForget(ex, $"Raine configuration injection failed for path: {path}");
             return false;
         }
     }
