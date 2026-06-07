@@ -1,14 +1,11 @@
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Automation;
 using System.Windows.Controls.Primitives;
-using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.UIReset;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
@@ -65,8 +62,8 @@ public partial class MainWindow
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            // Pass the injected _settings instance to GetSystemDisplayImagePathAsync
-            var imagePath = await GetSystemDisplayImagePathAsync(config, _settings); // UPDATED CALL
+            // Resolve system display image via service
+            var imagePath = await _systemImageResolverService.ResolveDisplayImageAsync(config);
             var (loadedImage, _) = await _imageLoader.LoadImageAsync(imagePath);
 
             var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
@@ -270,68 +267,6 @@ public partial class MainWindow
         {
             _logErrors.LogAndForget(ex, "Error in EditSystemFromContextMenu.");
         }
-    }
-
-    // Update method signature to accept SettingsManager
-    private Task<string> GetSystemDisplayImagePathAsync(SystemManager config, SettingsManager settings) // ADDED PARAMETER
-    {
-        var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
-        var systemName = config.SystemName;
-        var imageExtensions = _configuration.GetValue<string[]>("ImageExtensions") ?? [".png", ".jpg", ".jpeg"];
-
-        // 1. Check for system-specific image files (exact match)
-        foreach (var ext in imageExtensions)
-        {
-            var systemImagePath = Path.Combine(systemImageFolder, $"{systemName}{ext}");
-            if (File.Exists(systemImagePath))
-            {
-                return Task.FromResult(systemImagePath);
-            }
-        }
-
-        // Get settings for fuzzy matching (now from the passed parameter)
-        // var settings = App.Settings; // REMOVED: settings is now a parameter
-        var enableFuzzyMatching = settings.EnableFuzzyMatching;
-        var similarityThreshold = settings.FuzzyMatchingThreshold;
-
-        // 2. If fuzzy matching is enabled and the directory exists, check for similar filenames
-        if (enableFuzzyMatching && Directory.Exists(systemImageFolder))
-        {
-            var filesInImageFolder = Directory.GetFiles(systemImageFolder)
-                .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                .ToList();
-
-            string bestMatchPath = null;
-            double highestSimilarity = 0;
-            var lowerSystemName = systemName.ToLowerInvariant();
-
-            foreach (var filePath in filesInImageFolder)
-            {
-                var fileWithoutExt = Path.GetFileNameWithoutExtension(filePath);
-                if (string.IsNullOrEmpty(fileWithoutExt)) continue; // Skip files without names
-
-                var lowerFileName = fileWithoutExt.ToLowerInvariant();
-
-                // Calculate similarity using Jaro-Winkler
-                var similarity = _findCoverImage.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
-
-                if (!(similarity > highestSimilarity)) continue;
-
-                highestSimilarity = similarity;
-                bestMatchPath = filePath;
-            }
-
-            // If the highest similarity meets the threshold, return that path
-            if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
-            {
-                return Task.FromResult(bestMatchPath);
-            }
-        }
-
-        // 3. Fallback to the global default image if no match is found
-        var defaultImagePath = Path.Combine(systemImageFolder, "default.png");
-        return Task.FromResult(File.Exists(defaultImagePath) ? defaultImagePath : Path.Combine(appBaseDir, "images", "default.png"));
     }
 
     private async void NavToggleButtonAspectRatioClickAsync(object sender, RoutedEventArgs e)

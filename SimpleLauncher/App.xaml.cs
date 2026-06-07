@@ -32,6 +32,7 @@ using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
+using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
@@ -39,9 +40,11 @@ using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
+using SimpleLauncher.Services.SystemImageResolver;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UIReset;
@@ -205,6 +208,9 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IPaginationService, PaginationService>();
         serviceCollection.AddSingleton<IGameCacheService, GameCacheService>();
         serviceCollection.AddSingleton<IGameFilterService, GameFilterService>();
+        serviceCollection.AddSingleton<IMameDataService, MameDataService>();
+        serviceCollection.AddSingleton<ISearchOrchestratorService, SearchOrchestratorService>();
+        serviceCollection.AddSingleton<ISystemImageResolverService, SystemImageResolverService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

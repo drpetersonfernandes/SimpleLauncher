@@ -49,7 +49,7 @@ public partial class MainWindow
 
     private async Task ExecuteSearchAsync()
     {
-        if (_isLoadingGames) return; // Prevent re-entrance even if UI fails
+        if (_isLoadingGames) return;
 
         UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
         var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
@@ -60,53 +60,42 @@ public partial class MainWindow
             CancelAndRecreateToken();
             ResetPaginationButtons();
 
-            await _gameCacheService.SetSearchResultsAsync([], _cancellationSource.Token);
-
             var searchQuery = SearchTextBox.Text.Trim();
-            ((IUiResetHost)this).ActiveSearchQueryOrMode = searchQuery; // Set active search mode to the text query
+            ((IUiResetHost)this).ActiveSearchQueryOrMode = searchQuery;
 
-            if (SystemComboBox.SelectedItem == null)
+            var selectedSystem = SystemComboBox.SelectedItem?.ToString();
+            var result = await _searchOrchestratorService.ValidateAndPrepareAsync(searchQuery, selectedSystem, _cancellationSource.Token);
+
+            if (!result.IsValid)
             {
-                // Notify user
-                MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
-                SetLoadingState(false);
+                if (SystemComboBox.SelectedItem == null)
+                {
+                    MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
+                }
+                else
+                {
+                    MessageBoxLibrary.EnterSearchQueryMessageBox();
+                }
 
+                SetLoadingState(false);
                 return;
             }
 
-            if (string.IsNullOrEmpty(searchQuery))
-            {
-                // Notify user
-                MessageBoxLibrary.EnterSearchQueryMessageBox();
-                // If search query is empty, we might want to revert to "All" games for the system
-                // or do nothing. Current behavior is to show a message and return.
-                // If we want to show "All", then _activeSearchQueryOrMode should be null.
-                // For now, stick to the message.
-                SetLoadingState(false);
-
-                return;
-            }
-
-            // Call DeselectLetter to clear any selected letter filter UI
             _topLetterNumberMenu.DeselectLetter();
-            ((IUiResetHost)this).CurrentFilter = null; // Clear active letter filter
+            ((IUiResetHost)this).CurrentFilter = null;
 
             try
             {
-                // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
-                // and _currentFilter (which is null here). It will also manage the loading indicator.
-                await LoadGameFilesAsync(null, searchQuery, _cancellationSource.Token);
+                await LoadGameFilesAsync(null, result.ValidatedQuery, _cancellationSource.Token);
                 SetLoadingState(false);
             }
             catch (Exception ex)
             {
                 SetLoadingState(false);
 
-                // Notify developer
                 const string contextMessage = "Error during search execution.";
                 _logErrors.LogAndForget(ex, contextMessage);
 
-                // Notify user
                 MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
             }
         }

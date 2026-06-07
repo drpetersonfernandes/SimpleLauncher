@@ -59,8 +59,8 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _mameDataService.Machines.ToList(), _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _mameDataService.Machines.ToList(), _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
     }
 
     private async void EditLinksClickAsync(object sender, RoutedEventArgs e)

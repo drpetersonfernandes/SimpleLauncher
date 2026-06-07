@@ -23,7 +23,7 @@ using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
-using SimpleLauncher.Services.MameManager;
+using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
@@ -31,9 +31,11 @@ using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SettingsManager;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
+using SimpleLauncher.Services.SystemImageResolver;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
@@ -133,8 +135,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private GameButtonFactory _gameButtonFactory;
     private readonly SettingsManager _settings;
     private readonly FavoritesManager _favoritesManager;
-    private readonly List<MameManager> _machines;
-    private readonly Dictionary<string, string> _mameLookup;
+    private readonly IMameDataService _mameDataService;
     private string _selectedImageFolder;
     private List<string> _selectedRomFolders;
     private readonly RetroAchievementsService _retroAchievementsService;
@@ -161,6 +162,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly IGetListOfFiles _getListOfFiles;
     private readonly IFindCoverImage _findCoverImage;
     private readonly IImageLoader _imageLoader;
+    private readonly ISearchOrchestratorService _searchOrchestratorService;
+    private readonly ISystemImageResolverService _systemImageResolverService;
     internal readonly MenuActionHandlerService MenuActionHandlerService;
     internal readonly IUpdateStatusBar UpdateStatusBarService;
     internal readonly IMenuCheckMarkService MenuCheckMarkService;
@@ -198,7 +201,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         ISystemConfigurationService systemConfigurationService,
         IPaginationService paginationService,
         Services.GameCache.IGameCacheService gameCacheService,
-        Services.GameFilter.IGameFilterService gameFilterService)
+        Services.GameFilter.IGameFilterService gameFilterService,
+        IMameDataService mameDataService,
+        ISearchOrchestratorService searchOrchestratorService,
+        ISystemImageResolverService systemImageResolverService)
     {
         InitializeComponent();
 
@@ -234,6 +240,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _paginationService = paginationService;
         _gameCacheService = gameCacheService;
         _gameFilterService = gameFilterService;
+        _mameDataService = mameDataService;
+        _searchOrchestratorService = searchOrchestratorService;
+        _systemImageResolverService = systemImageResolverService;
 
         _paginationService.Initialize(this);
         _themeMenuService.Initialize(this);
@@ -258,12 +267,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _paginationService.FilesPerPage = _settings.GamesPerPage;
         _paginationService.PaginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
-
-        // Load _machines and _mameLookup
-        _machines = MameManager.LoadFromDat(_logErrors);
-        _mameLookup = _machines
-            .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
         // Initialize _gameFileGrid before LoadOrReloadSystemManager uses it
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
@@ -773,7 +776,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _mameDataService.Machines.ToList(), _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _logErrors, _getListOfFiles, _findCoverImage, _imageLoader);
         gameListViewFactory.HandleSelectionChangedAsync(selectedItem);
     }
 

@@ -87,7 +87,7 @@ public partial class MainWindow
                 allFiles = groupedFiles;
             }
 
-            allFiles = _gameFilterService.SortByMameDescription(allFiles, ((IUiResetHost)this).MameSortOrder, _mameLookup);
+            allFiles = _gameFilterService.SortByMameDescription(allFiles, ((IUiResetHost)this).MameSortOrder, _mameDataService.Lookup);
             cancellationToken.ThrowIfCancellationRequested();
 
             allFiles = await _gameFilterService.FilterByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
@@ -384,7 +384,7 @@ public partial class MainWindow
                     // ... filtering by searchQuery ...
                     if (!string.IsNullOrWhiteSpace(searchQuery2) && searchQuery2 != "RANDOM_SELECTION" && searchQuery2 != "FAVORITES")
                     {
-                        allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery2, _mameLookup);
+                        allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery2, _mameDataService.Lookup);
                         await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     }
 

@@ -228,12 +228,12 @@ public partial class MainWindow : IMenuActionHost
 
     List<Services.MameManager.MameManager> IMenuActionHost.GetMachines()
     {
-        return _machines;
+        return _mameDataService.Machines.ToList();
     }
 
     Dictionary<string, string> IMenuActionHost.GetMameLookup()
     {
-        return _mameLookup;
+        return _mameDataService.Lookup;
     }
 
     // Language
