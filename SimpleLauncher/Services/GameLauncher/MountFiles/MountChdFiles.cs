@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
@@ -143,7 +144,7 @@ public static class MountChdFiles
     /// <param name="selectedSystemManager">The system manager.</param>
     /// <param name="selectedEmulatorManager">The emulator manager.</param>
     /// <param name="rawEmulatorParameters">Raw emulator parameters.</param>
-    /// <param name="mainWindow">The main window.</param>
+    /// <param name="windowContext">The window context.</param>
     /// <param name="gameLauncher">The game launcher instance.</param>
     /// <param name="logErrors"></param>
     public static async Task MountChdFileAndLoadAsync(
@@ -153,7 +154,7 @@ public static class MountChdFiles
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         GameLauncher gameLauncher,
         ILogErrors logErrors)
     {
@@ -245,7 +246,7 @@ public static class MountChdFiles
             DebugLogger.Log($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
 
             // Pass the original CHD file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedChdFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedChdFilePath);
 
             DebugLogger.Log($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
         }
@@ -342,7 +343,7 @@ public static class MountChdFiles
     /// <param name="selectedSystemManager">The system manager.</param>
     /// <param name="selectedEmulatorManager">The emulator manager.</param>
     /// <param name="rawEmulatorParameters">Raw emulator parameters.</param>
-    /// <param name="mainWindow">The main window.</param>
+    /// <param name="windowContext">The window context.</param>
     /// <param name="gameLauncher">The game launcher instance.</param>
     /// <param name="consoleIndex">Optional console index for CHDMounter (1-16). If null, uses /a for auto-detection.</param>
     /// <param name="logErrors"></param>
@@ -353,7 +354,7 @@ public static class MountChdFiles
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         GameLauncher gameLauncher,
         int? consoleIndex,
         ILogErrors logErrors)
@@ -452,7 +453,7 @@ public static class MountChdFiles
             DebugLogger.Log($"[MountChdFiles] Game file found at: {gameFilePath}. Proceeding to launch with {selectedEmulatorName}.");
 
             // Pass the original CHD file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedChdFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(gameFilePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedChdFilePath);
 
             DebugLogger.Log($"[MountChdFiles] Emulator for {gameFilePath} has exited.");
         }

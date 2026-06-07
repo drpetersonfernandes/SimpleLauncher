@@ -13,6 +13,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.TrayIcon;
+using SimpleLauncher.Services.UpdateStatusBar;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
@@ -22,17 +23,19 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private readonly IExtractionService _extractionService;
     private readonly IConfiguration _configuration;
     private readonly ILogErrors _logErrors;
+    private readonly IUpdateStatusBar _updateStatusBar;
 
     private static readonly string[] KeenDataExtensions =
     [
         ".CK1", ".CK2", ".CK3", ".CK4", ".CK5", ".CK6"
     ];
 
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, ILogErrors logErrors, IUpdateStatusBar updateStatusBar)
     {
         _extractionService = extractionService;
         _configuration = configuration;
         _logErrors = logErrors;
+        _updateStatusBar = updateStatusBar;
     }
 
     public int Priority => 20;
@@ -108,7 +111,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
 
                 TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {context.EmulatorName}");
-                context.MainWindow.UpdateStatusBarService.UpdateContent(
+                _updateStatusBar.UpdateContent(
                     $"{originalFileName} {launchedwith} {context.EmulatorName}");
 
                 var psi = new ProcessStartInfo

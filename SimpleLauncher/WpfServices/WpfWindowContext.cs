@@ -8,9 +8,10 @@ public class WpfWindowContext : IWindowContext
 {
     private readonly Window _window;
 
-    public WpfWindowContext(Window window)
+    public WpfWindowContext(Window window, IDispatcherService dispatcher)
     {
         _window = window;
+        Dispatcher = dispatcher;
     }
 
     public IntPtr Handle => new WindowInteropHelper(_window).Handle;
@@ -28,5 +29,14 @@ public class WpfWindowContext : IWindowContext
     public void Activate()
     {
         _window.Activate();
+    }
+
+    public IDispatcherService Dispatcher { get; }
+
+    public object PlatformWindow => _window;
+
+    public static WpfWindowContext FromMainWindow(Window window)
+    {
+        return new WpfWindowContext(window, new WpfDispatcherService());
     }
 }

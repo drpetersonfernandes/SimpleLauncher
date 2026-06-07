@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
@@ -17,6 +18,7 @@ using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.UpdateStatusBar;
@@ -34,6 +36,7 @@ public partial class GameLauncher
     private readonly Stats _stats;
     private readonly ILogErrors _logErrors;
     private readonly IUpdateStatusBar _updateStatusBar;
+    private readonly PlayHistoryManager _playHistoryManager;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
@@ -44,7 +47,8 @@ public partial class GameLauncher
         Stats stats,
         IConfiguration configuration,
         ILogErrors logErrors,
-        IUpdateStatusBar updateStatusBar)
+        IUpdateStatusBar updateStatusBar,
+        PlayHistoryManager playHistoryManager)
     {
         _configHandlers = configHandlers;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority);
@@ -53,6 +57,7 @@ public partial class GameLauncher
         _configuration = configuration;
         _logErrors = logErrors;
         _updateStatusBar = updateStatusBar;
+        _playHistoryManager = playHistoryManager;
     }
 
     internal async Task HandleButtonClickAsync(string filePath,
@@ -60,12 +65,10 @@ public partial class GameLauncher
         string selectedSystemName,
         SystemManager.SystemManager selectedSystemManager,
         SettingsManager.SettingsManager settings,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         GamePadController gamePadController,
-        ILoadingState loadingStateProvider = null)
+        ILoadingState loadingStateProvider)
     {
-        loadingStateProvider ??= mainWindow;
-
         // 1. Create Context
         var context = new LaunchContext
         {
@@ -75,7 +78,7 @@ public partial class GameLauncher
             SystemName = selectedSystemName,
             SystemManager = selectedSystemManager,
             Settings = settings,
-            MainWindow = mainWindow,
+            WindowContext = windowContext,
             LoadingState = loadingStateProvider
         };
 
@@ -310,15 +313,7 @@ public partial class GameLauncher
         {
             // Use FilePath (original archive path) instead of ResolvedFilePath (temp extracted path)
             // to ensure play history stores the persistent archive location, not the temp file
-            context.MainWindow.PlayHistoryManager.AddOrUpdatePlayHistoryItem(context.FilePath, context.SystemName, playTime);
-
-            var systemPlayTime = context.Settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(context.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemPlayTime != null)
-            {
-                context.MainWindow.PlayTime = systemPlayTime.FormattedPlayTime;
-            }
-
-            context.MainWindow.RefreshGameListAfterPlay(context.FilePath, context.SystemName);
+            _playHistoryManager.AddOrUpdatePlayHistoryItem(context.FilePath, context.SystemName, playTime);
         }
         catch (Exception ex)
         {
@@ -328,7 +323,7 @@ public partial class GameLauncher
         _ = _stats.CallApiAsync(context.EmulatorName);
     }
 
-    internal async Task RunBatchFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task RunBatchFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
         var invalidPaths = ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
         if (invalidPaths.Count > 0)
@@ -480,7 +475,7 @@ public partial class GameLauncher
         }
     }
 
-    internal async Task LaunchShortcutFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task LaunchShortcutFileAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
         // Common UI updates.
         var launched = (string)Application.Current.TryFindResource("Launched") ?? "launched";
@@ -626,7 +621,7 @@ public partial class GameLauncher
         }
     }
 
-    internal async Task LaunchExecutableAsync(string resolvedFilePath, Emulator selectedEmulatorManager, MainWindow mainWindow)
+    internal async Task LaunchExecutableAsync(string resolvedFilePath, Emulator selectedEmulatorManager, IWindowContext windowContext)
     {
         var psi = new ProcessStartInfo
         {
@@ -762,7 +757,7 @@ public partial class GameLauncher
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         ILoadingState loadingStateProvider,
         string originalFilePathForDisplay = null)
     {

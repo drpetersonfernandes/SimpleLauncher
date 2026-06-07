@@ -1,4 +1,5 @@
 using System.IO;
+using System.Windows;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.GameLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,10 +29,10 @@ public class YumirConfigHandler : IEmulatorConfigHandler
 
         if (context.Settings.Yumir.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = App.ServiceProvider.GetRequiredService<InjectYumirConfigWindow>();
-                win.Owner = context.MainWindow;
+                win.Owner = (Window)context.WindowContext.PlatformWindow;
                 win.Initialize(resolvedExe);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;

@@ -238,7 +238,7 @@ public class ChdMountStrategy : ILaunchStrategy
             context.SystemManager,
             context.EmulatorManager,
             context.Parameters,
-            context.MainWindow,
+            context.WindowContext,
             context.LoadingState,
             context.ResolvedFilePath);
     }

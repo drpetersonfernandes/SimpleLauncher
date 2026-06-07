@@ -20,6 +20,7 @@ using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.WpfServices;
 using SimpleLauncher.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
@@ -411,7 +412,7 @@ public partial class PlayHistoryPage : ILoadingState
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
-        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingStateProvider);
+        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, loadingStateProvider);
 
         RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }

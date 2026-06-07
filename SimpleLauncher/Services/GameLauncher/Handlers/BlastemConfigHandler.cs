@@ -1,4 +1,5 @@
 using System.IO;
+using System.Windows;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -59,10 +60,10 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
 
         if (context.Settings.Blastem.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = App.ServiceProvider.GetRequiredService<InjectBlastemConfigWindow>();
-                win.Owner = context.MainWindow;
+                win.Owner = (Window)context.WindowContext.PlatformWindow;
                 win.Initialize(resolvedExe);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;

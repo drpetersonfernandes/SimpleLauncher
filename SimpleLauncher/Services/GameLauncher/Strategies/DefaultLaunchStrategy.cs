@@ -19,12 +19,12 @@ public class DefaultLaunchStrategy : ILaunchStrategy
         switch (ext)
         {
             case ".BAT":
-                return launcher.RunBatchFileAsync(context.ResolvedFilePath, context.EmulatorManager, context.MainWindow);
+                return launcher.RunBatchFileAsync(context.ResolvedFilePath, context.EmulatorManager, context.WindowContext);
             case ".LNK":
             case ".URL":
-                return launcher.LaunchShortcutFileAsync(context.ResolvedFilePath, context.EmulatorManager, context.MainWindow);
+                return launcher.LaunchShortcutFileAsync(context.ResolvedFilePath, context.EmulatorManager, context.WindowContext);
             case ".EXE":
-                return launcher.LaunchExecutableAsync(context.ResolvedFilePath, context.EmulatorManager, context.MainWindow);
+                return launcher.LaunchExecutableAsync(context.ResolvedFilePath, context.EmulatorManager, context.WindowContext);
             default:
                 // This handles all standard ROMs/Games
                 return launcher.LaunchRegularEmulatorAsync(
@@ -33,7 +33,7 @@ public class DefaultLaunchStrategy : ILaunchStrategy
                     context.SystemManager,
                     context.EmulatorManager,
                     context.Parameters,
-                    context.MainWindow,
+                    context.WindowContext,
                     context.LoadingState);
         }
     }

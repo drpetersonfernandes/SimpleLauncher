@@ -13,6 +13,7 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.WpfServices;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;
@@ -348,6 +349,6 @@ public class GameListFactory(
             return Task.CompletedTask;
         }
 
-        return _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+        return _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, null);
     }
 }

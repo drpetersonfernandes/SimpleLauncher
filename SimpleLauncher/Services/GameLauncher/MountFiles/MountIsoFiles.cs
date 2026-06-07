@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -17,7 +18,7 @@ public static class MountIsoFiles
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         string logPath,
         GameLauncher gameLauncher,
         ILogErrors logErrors)
@@ -97,7 +98,7 @@ public static class MountIsoFiles
 
             // 3. Launch the game/emulator with EBOOT.BIN
             // Pass the original ISO file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedIsoFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedIsoFilePath);
 
             DebugLogger.Log($"[MountIsoFiles] Emulator for {ebootBinPath} has exited.");
         }

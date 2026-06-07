@@ -1,3 +1,4 @@
+using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
@@ -16,10 +17,10 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
         var shouldRun = true;
         if (context.Settings.Daphne.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = App.ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();
-                win.Owner = context.MainWindow;
+                win.Owner = (Window)context.WindowContext.PlatformWindow;
                 win.Initialize();
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using SharpCompress.Archives;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
@@ -223,7 +224,7 @@ internal static class MountZipFiles
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         string logPath,
         GameLauncher gameLauncher,
         ILogErrors logErrors)
@@ -381,7 +382,7 @@ internal static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
 
             // Pass the original ZIP file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedZipFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedZipFilePath);
 
             DebugLogger.Log($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
@@ -485,7 +486,7 @@ internal static class MountZipFiles
         SystemManager.SystemManager selectedSystemManager,
         Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
-        MainWindow mainWindow,
+        IWindowContext windowContext,
         string logPath,
         GameLauncher gameLauncher,
         ILogErrors logErrors)
@@ -637,7 +638,7 @@ internal static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
 
             // Pass the original ZIP file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, mainWindow, resolvedZipFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedZipFilePath);
 
             DebugLogger.Log($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
         }

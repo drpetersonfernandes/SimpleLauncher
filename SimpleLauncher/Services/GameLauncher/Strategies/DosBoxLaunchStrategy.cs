@@ -133,7 +133,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                         context.SystemManager,
                         context.EmulatorManager,
                         launchParameters,
-                        context.MainWindow,
+                        context.WindowContext,
                         context.LoadingState,
                         context.ResolvedFilePath);
                 }
@@ -313,7 +313,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             context.SystemManager,
             context.EmulatorManager,
             launchParameters,
-            context.MainWindow,
+            context.WindowContext,
             context.LoadingState,
             context.ResolvedFilePath);
     }
@@ -433,7 +433,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 context.SystemManager,
                 context.EmulatorManager,
                 launchParameters,
-                context.MainWindow,
+                context.WindowContext,
                 context.LoadingState,
                 context.ResolvedFilePath);
         }

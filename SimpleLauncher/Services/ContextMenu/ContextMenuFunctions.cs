@@ -22,6 +22,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.TakeScreenshot;
+using SimpleLauncher.WpfServices;
 using Image = System.Windows.Controls.Image;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using Point = System.Drawing.Point;
@@ -901,7 +902,7 @@ internal static class ContextMenuFunctions
             DebugLogger.Log($"[Screenshot] Initial window count: {initialCount}");
 
             // Launch game
-            _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController, loadingStateProvider);
+            _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, WpfWindowContext.FromMainWindow(mainWindow), gamePadController, loadingStateProvider);
 
             // Minimum wait time to process startup)
             await Task.Delay(2000);

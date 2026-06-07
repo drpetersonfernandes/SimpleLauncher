@@ -6,4 +6,6 @@ public interface IWindowContext
     void Show();
     void Hide();
     void Activate();
+    IDispatcherService Dispatcher { get; }
+    object PlatformWindow { get; }
 }

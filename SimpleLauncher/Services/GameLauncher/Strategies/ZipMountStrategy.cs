@@ -49,7 +49,7 @@ public class ZipMountStrategy : ILaunchStrategy
         var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         if (context.EmulatorName.Contains("RPCS3"))
         {
-            return MountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, log, launcher, _logErrors);
+            return MountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, log, launcher, _logErrors);
         }
         else if (context.SystemName.Contains("Scumm"))
         {
@@ -57,7 +57,7 @@ public class ZipMountStrategy : ILaunchStrategy
         }
         else
         {
-            return MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, log, launcher, _logErrors);
+            return MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.WindowContext, log, launcher, _logErrors);
         }
     }
 }

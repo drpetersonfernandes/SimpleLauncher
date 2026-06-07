@@ -1,3 +1,4 @@
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.LoadingInterface;
 using SimpleLauncher.Core.Services.SystemManager;
 
@@ -13,6 +14,6 @@ public class LaunchContext
     public Emulator EmulatorManager { get; set; }
     public string Parameters { get; set; }
     public SettingsManager.SettingsManager Settings { get; set; }
-    public MainWindow MainWindow { get; set; }
+    public IWindowContext WindowContext { get; set; }
     public ILoadingState LoadingState { get; set; }
 }

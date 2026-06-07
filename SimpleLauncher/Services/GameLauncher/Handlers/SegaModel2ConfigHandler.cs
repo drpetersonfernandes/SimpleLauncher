@@ -1,3 +1,4 @@
+using System.Windows;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.GameLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,10 +28,10 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
 
         if (context.Settings.SegaModel2.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = App.ServiceProvider.GetRequiredService<InjectSegaModel2ConfigWindow>();
-                win.Owner = context.MainWindow;
+                win.Owner = (Window)context.WindowContext.PlatformWindow;
                 win.Initialize(resolvedExe);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;

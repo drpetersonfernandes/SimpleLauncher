@@ -1,4 +1,5 @@
 using System.IO;
+using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,10 +32,10 @@ public class RaineConfigHandler : IEmulatorConfigHandler
 
         if (context.Settings.Raine.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = App.ServiceProvider.GetRequiredService<InjectRaineConfigWindow>();
-                win.Owner = context.MainWindow;
+                win.Owner = (Window)context.WindowContext.PlatformWindow;
                 win.Initialize(resolvedExe, true, context.ResolvedFilePath, resolvedSystemFolder);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;

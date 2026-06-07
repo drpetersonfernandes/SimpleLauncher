@@ -1,3 +1,4 @@
+using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,10 +32,10 @@ public class MameConfigHandler : IEmulatorConfigHandler
         var shouldRun = true;
         if (context.Settings.Mame.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = App.ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
-                win.Owner = context.MainWindow;
+                win.Owner = (Window)context.WindowContext.PlatformWindow;
                 win.Initialize(resolvedExe, resolvedSystemFolder, true, listOfSecondarySystemFolders);
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;

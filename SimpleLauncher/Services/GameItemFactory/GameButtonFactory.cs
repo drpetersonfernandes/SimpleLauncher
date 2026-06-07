@@ -21,6 +21,7 @@ using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.WpfServices;
 using Image = System.Windows.Controls.Image;
 
 // ReSharper disable UnusedMember.Local
@@ -612,7 +613,7 @@ internal partial class GameButtonFactory(
                         return;
                     }
 
-                    await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, _mainWindow);
+                    await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, _mainWindow);
                 }
                 finally
                 {

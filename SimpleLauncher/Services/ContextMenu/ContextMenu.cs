@@ -9,6 +9,7 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.FindCoverImage;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.WpfServices;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
@@ -69,7 +70,7 @@ public static class ContextMenu
                     return; // The finally block will still execute
                 }
 
-                await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow, context.GamePadController, context.LoadingStateProvider);
+                await context.GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, WpfWindowContext.FromMainWindow(context.MainWindow), context.GamePadController, context.LoadingStateProvider);
 
                 // Notify user
                 context.MainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGame") ?? "Launching game...");

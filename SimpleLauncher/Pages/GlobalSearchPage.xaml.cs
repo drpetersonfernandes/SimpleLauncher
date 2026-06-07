@@ -20,6 +20,7 @@ using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameManager;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
+using SimpleLauncher.WpfServices;
 using SimpleLauncher.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -469,7 +470,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 return;
             }
 
-            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController, loadingState);
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, loadingState);
         }
         catch (Exception ex)
         {

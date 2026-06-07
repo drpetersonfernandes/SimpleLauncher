@@ -1,4 +1,5 @@
 using System.IO;
+using System.Windows;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,10 +30,10 @@ public class AresConfigHandler : IEmulatorConfigHandler
 
         if (context.Settings.Ares.ShowSettingsBeforeLaunch)
         {
-            await context.MainWindow.Dispatcher.InvokeAsync(() =>
+            await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var aresWindow = App.ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
-                aresWindow.Owner = context.MainWindow;
+                aresWindow.Owner = (Window)context.WindowContext.PlatformWindow;
                 aresWindow.Initialize(resolvedEmulatorExePath);
                 aresWindow.ShowDialog();
                 shouldRun = aresWindow.ShouldRun;
