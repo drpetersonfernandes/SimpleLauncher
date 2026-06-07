@@ -48,6 +48,7 @@ using SimpleLauncher.Services.SystemImageResolver;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UIReset;
+using SimpleLauncher.Services.UiOrchestrator;
 using SimpleLauncher.Services.UsageStats;
 using SimpleLauncher.ViewModels;
 using UpdateChecker = SimpleLauncher.Services.CheckForUpdates.UpdateChecker;
@@ -211,6 +212,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMameDataService, MameDataService>();
         serviceCollection.AddSingleton<ISearchOrchestratorService, SearchOrchestratorService>();
         serviceCollection.AddSingleton<ISystemImageResolverService, SystemImageResolverService>();
+        serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

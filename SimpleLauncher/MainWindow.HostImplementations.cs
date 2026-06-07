@@ -1,9 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LanguageMenu;
-using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
@@ -13,63 +11,6 @@ namespace SimpleLauncher;
 
 public partial class MainWindow
 {
-    // ILoadingOverlayHost
-    Dispatcher ILoadingOverlayHost.Dispatcher => Dispatcher;
-
-    void ILoadingOverlayHost.SetIsLoadingGamesInternal(bool value)
-    {
-        SetIsLoadingGamesInternal(value);
-    }
-
-    void ILoadingOverlayHost.SetLoadingOverlayVisibility(Visibility visibility)
-    {
-        LoadingOverlay.Visibility = visibility;
-    }
-
-    void ILoadingOverlayHost.SetLoadingOverlayContent(object content)
-    {
-        LoadingOverlay.Content = content;
-    }
-
-    void ILoadingOverlayHost.SetMainContentGridEnabled(bool enabled)
-    {
-        MainContentGrid.IsEnabled = enabled;
-    }
-
-    void ILoadingOverlayHost.CancelAndRecreateToken()
-    {
-        CancelAndRecreateToken();
-    }
-
-    async Task ILoadingOverlayHost.ResetUiAsync()
-    {
-        ResetUiAsync();
-    }
-
-    IUpdateStatusBar ILoadingOverlayHost.UpdateStatusBarService => UpdateStatusBarService;
-
-    // IGameListUiHost
-    Dispatcher IGameListUiHost.Dispatcher => Dispatcher;
-    ScrollViewer IGameListUiHost.Scroller => Scroller;
-    Image IGameListUiHost.PreviewImage => PreviewImage;
-    WrapPanel IGameListUiHost.GameFileGrid => GameFileGrid;
-    Grid IGameListUiHost.ListViewPreviewArea => ListViewPreviewArea;
-
-    void IGameListUiHost.SetGameFileGridVisibility(Visibility visibility)
-    {
-        GameFileGrid.Visibility = visibility;
-    }
-
-    void IGameListUiHost.SetListViewPreviewAreaVisibility(Visibility visibility)
-    {
-        ListViewPreviewArea.Visibility = visibility;
-    }
-
-    void IGameListUiHost.SetPaginationButtonsVisibility(Visibility visibility)
-    {
-        SetPaginationButtonsVisibility(visibility);
-    }
-
     // IStartupInitializationHost
     DispatcherTimer IStartupInitializationHost.StatusBarTimer
     {

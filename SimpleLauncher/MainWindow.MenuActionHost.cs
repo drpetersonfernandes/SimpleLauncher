@@ -94,12 +94,12 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.SetFilesPerPage(int count)
     {
-        _paginationService.FilesPerPage = count;
+        UiOrchestrator.PaginationFilesPerPage = count;
     }
 
     void IMenuActionHost.SetPaginationThreshold(int threshold)
     {
-        _paginationService.PaginationThreshold = threshold;
+        UiOrchestrator.PaginationThreshold = threshold;
     }
 
     void IMenuActionHost.SetMameSortOrder(string sortOrder)

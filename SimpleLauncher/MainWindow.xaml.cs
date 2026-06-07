@@ -22,12 +22,10 @@ using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadImages;
-using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
 using SimpleLauncher.Services.MessageBox;
-using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.RetroAchievements;
@@ -40,6 +38,7 @@ using SimpleLauncher.Services.ThemeMenu;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
 using SimpleLauncher.Services.UIReset;
+using SimpleLauncher.Services.UiOrchestrator;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
 using Application = System.Windows.Application;
@@ -52,7 +51,7 @@ namespace SimpleLauncher;
 
 using ILoadingState = Services.LoadingInterface.ILoadingState;
 
-public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IPaginationHost, ILoadingOverlayHost, IGameListUiHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
     private CancellationTokenSource _cancellationSource = new();
     private bool _isResortOperation;
@@ -121,7 +120,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     // Pagination
-    private readonly IPaginationService _paginationService;
     internal Button NextPageButton2;
     internal Button PrevPageButton2;
 
@@ -154,9 +152,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private readonly GameScannerService _gameScannerService;
     private readonly ThemeMenuService _themeMenuService;
     private readonly LanguageMenuService _languageMenuService;
-    private readonly LoadingOverlayService _loadingOverlayService;
     private readonly StartupInitializationService _startupInitializationService;
-    private readonly GameListUiService _gameListUiService;
     private readonly GameFileWatcherService _gameFileWatcherService;
     private readonly IHelpUserService _helpUserService;
     private readonly IGetListOfFiles _getListOfFiles;
@@ -169,6 +165,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     internal readonly IMenuCheckMarkService MenuCheckMarkService;
     internal readonly IUiResetService UiResetService;
     internal readonly ISystemConfigurationService SystemConfigurationService;
+    internal readonly IUiOrchestrator UiOrchestrator;
 
     public MainWindow(
         SettingsManager settings,
@@ -186,9 +183,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IConfiguration configuration,
         ThemeMenuService themeMenuService,
         LanguageMenuService languageMenuService,
-        LoadingOverlayService loadingOverlayService,
         StartupInitializationService startupInitializationService,
-        GameListUiService gameListUiService,
         GameFileWatcherService gameFileWatcherService,
         IHelpUserService helpUserService,
         IGetListOfFiles getListOfFiles,
@@ -199,12 +194,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IMenuCheckMarkService menuCheckMarkService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
-        IPaginationService paginationService,
         Services.GameCache.IGameCacheService gameCacheService,
         Services.GameFilter.IGameFilterService gameFilterService,
         IMameDataService mameDataService,
         ISearchOrchestratorService searchOrchestratorService,
-        ISystemImageResolverService systemImageResolverService)
+        ISystemImageResolverService systemImageResolverService,
+        IUiOrchestrator uiOrchestrator)
     {
         InitializeComponent();
 
@@ -219,9 +214,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameScannerService = gameScannerService;
         _themeMenuService = themeMenuService;
         _languageMenuService = languageMenuService;
-        _loadingOverlayService = loadingOverlayService;
         _startupInitializationService = startupInitializationService;
-        _gameListUiService = gameListUiService;
         _gameFileWatcherService = gameFileWatcherService;
         _helpUserService = helpUserService;
         _getListOfFiles = getListOfFiles;
@@ -237,18 +230,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         MenuCheckMarkService = menuCheckMarkService;
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
-        _paginationService = paginationService;
         _gameCacheService = gameCacheService;
         _gameFilterService = gameFilterService;
         _mameDataService = mameDataService;
         _searchOrchestratorService = searchOrchestratorService;
         _systemImageResolverService = systemImageResolverService;
+        UiOrchestrator = uiOrchestrator;
 
-        _paginationService.Initialize(this);
+        UiOrchestrator.Initialize(this);
         _themeMenuService.Initialize((IThemeMenuHost)this);
         _languageMenuService.Initialize((ILanguageMenuHost)this);
-        _loadingOverlayService.Initialize((ILoadingOverlayHost)this);
-        _gameListUiService.Initialize((IGameListUiHost)this);
         MenuActionHandlerService.Initialize(this);
         MenuCheckMarkService.Initialize(this);
         UiResetService.Initialize(this);
@@ -265,8 +256,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         MenuCheckMarkService.UpdateFilenameDisplayModeCheckMarks(_settings.FilenameDisplayMode);
         MenuCheckMarkService.UpdateFilenameFontSizeCheckMarks(_settings.FilenameFontSize);
         MenuCheckMarkService.UpdateMachineNameFontSizeCheckMarks(_settings.MachineNameFontSize);
-        _paginationService.FilesPerPage = _settings.GamesPerPage;
-        _paginationService.PaginationThreshold = _settings.GamesPerPage;
+        UiOrchestrator.PaginationFilesPerPage = _settings.GamesPerPage;
+        UiOrchestrator.PaginationThreshold = _settings.GamesPerPage;
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
 
         // Initialize _gameFileGrid before LoadOrReloadSystemManager uses it
@@ -682,7 +673,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     public void SetLoadingState(bool isLoading, string message = null)
     {
-        _loadingOverlayService.SetLoadingState(isLoading, message);
+        UiOrchestrator.SetLoadingState(isLoading, message);
     }
 
     internal void SetIsLoadingGamesInternal(bool value)
@@ -693,7 +684,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
-        _loadingOverlayService.EmergencyRelease();
+        UiOrchestrator.EmergencyRelease();
     }
 
     internal void SetPaginationButtonsDefault()
@@ -719,7 +710,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         // Save application's current state
         _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
-        _settings.GamesPerPage = _paginationService.FilesPerPage;
+        _settings.GamesPerPage = UiOrchestrator.PaginationFilesPerPage;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
 
@@ -809,7 +800,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     internal void SetGameButtonsEnabled(bool isEnabled)
     {
-        _gameListUiService.SetGameButtonsEnabled(isEnabled);
+        UiOrchestrator.SetGameButtonsEnabled(isEnabled);
     }
 
     internal static void ClearGameButtonImages(Panel panel)
@@ -819,12 +810,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private Task SetUiBeforeLoadGameFilesAsync()
     {
-        return _gameListUiService.SetUiBeforeLoadGameFilesAsync();
+        return UiOrchestrator.SetUiBeforeLoadGameFilesAsync();
     }
 
     private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
     {
-        return _paginationService.ApplyPagination(allFiles);
+        return UiOrchestrator.ApplyPagination(allFiles);
     }
 
     private async void SortOrderToggleButtonClickAsync(object sender, RoutedEventArgs e)
@@ -914,5 +905,40 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         {
             DebugLogger.Log($"[OnGameFilesChanged] Error reloading game list: {ex.Message}");
         }
+    }
+
+    // IUiOrchestratorHost implementation
+    ScrollViewer IUiOrchestratorHost.Scroller => Scroller;
+    Image IUiOrchestratorHost.PreviewImage => PreviewImage;
+    WrapPanel IUiOrchestratorHost.GameFileGrid => GameFileGrid;
+    Grid IUiOrchestratorHost.ListViewPreviewArea => ListViewPreviewArea;
+    Frame IUiOrchestratorHost.PageContentFrame => PageContentFrame;
+    Grid IUiOrchestratorHost.MainGameContent => MainGameContent;
+    Grid IUiOrchestratorHost.MainContentGrid => MainContentGrid;
+    Label IUiOrchestratorHost.TotalFilesLabel => TotalFilesLabel;
+    Button IUiOrchestratorHost.PrevPageButton2 => PrevPageButton2;
+    Button IUiOrchestratorHost.NextPageButton2 => NextPageButton2;
+    UIElement IUiOrchestratorHost.LoadingOverlay => LoadingOverlay;
+    Button IUiOrchestratorHost.SortOrderToggleButton => SortOrderToggleButton;
+    TextBox IUiOrchestratorHost.SearchTextBox => SearchTextBox;
+    ComboBox IUiOrchestratorHost.SystemComboBox => SystemComboBox;
+    ComboBox IUiOrchestratorHost.EmulatorComboBox => EmulatorComboBox;
+    ObservableCollection<GameListViewItem> IUiOrchestratorHost.GameListItems => GameListItems;
+
+    bool IUiOrchestratorHost.IsLoadingGames => _isLoadingGames;
+
+    void IUiOrchestratorHost.SetIsLoadingGamesInternal(bool value)
+    {
+        SetIsLoadingGamesInternal(value);
+    }
+
+    void IUiOrchestratorHost.CancelAndRecreateToken()
+    {
+        CancelAndRecreateToken();
+    }
+
+    async Task IUiOrchestratorHost.ResetUiAsync()
+    {
+        ResetUiAsync();
     }
 }
