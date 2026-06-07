@@ -10,7 +10,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GlobalStats.Models;
 using SimpleLauncher.Services.GetListOfFiles;
 using SimpleLauncher.Services.MessageBox;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher.ViewModels;

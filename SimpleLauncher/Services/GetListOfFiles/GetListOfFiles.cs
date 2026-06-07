@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -60,7 +61,7 @@ public class GetListOfFilesService : IGetListOfFiles
                 _logError.LogAndForget(ex, contextMessage);
 
                 var logPath = _configuration.GetValue("LogPath", "error_user.log");
-                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(logPath));
+                MessageBoxLibrary.ErrorFindingGameFilesMessageBox(PathHelper.ResolveRelativeToAppDirectory(logPath));
 
                 return new List<string>();
             }

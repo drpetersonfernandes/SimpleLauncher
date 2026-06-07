@@ -1,15 +1,14 @@
 using System.Globalization;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.RetroAchievements;
+namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
 /// Provides methods for hashing ROM files according to RetroAchievements' specifications.
 /// </summary>
-internal static class RetroAchievementsFileHasher
+public static class RetroAchievementsFileHasher
 {
     /// <summary>
     /// Calculates the MD5 hash of the entire file.

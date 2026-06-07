@@ -1,4 +1,4 @@
-using SimpleLauncher.Services.SearchOrchestrator;
+using SimpleLauncher.Core.Services.SearchOrchestrator;
 using Xunit;
 
 namespace SimpleLauncher.Tests;

@@ -6,12 +6,13 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using SharpCompress.Archives;
+using SimpleLauncher.Core.Services.CheckForFileLock;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ExtractFiles;
 
@@ -81,7 +82,7 @@ public class ExtractionService : IExtractionService
             const int retryDelayMs = 1000;
         for (var i = 0; i < maxRetries; i++)
         {
-            if (!CheckForFileLock.CheckForFileLock.IsFileLocked(archivePath))
+            if (!CheckForFileLock.IsFileLocked(archivePath))
             {
                 break; // File is not locked, proceed
             }
@@ -177,7 +178,7 @@ public class ExtractionService : IExtractionService
 
                 // Path traversal check
                 var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
-                if (!fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                if (fullResolvedDestFolder != null && !fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
                 {
                     fullResolvedDestFolder += Path.DirectorySeparatorChar;
                 }
@@ -189,7 +190,7 @@ public class ExtractionService : IExtractionService
                         var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.Key));
                         var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
 
-                        if (!fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
+                        if (fullDestPath != null && fullResolvedDestFolder != null && !fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
                         {
                             // Notify user
                             MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);

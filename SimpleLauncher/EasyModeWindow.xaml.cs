@@ -17,7 +17,7 @@ using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.EasyMode;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
@@ -449,7 +449,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         SetDownloadState(EasyModeManager.DownloadType.ImagePack5, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
 
         // Resolve path for display in the textbox
-        SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder);
+        SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder) ?? string.Empty;
 
         UpdateAddSystemButtonState();
     }
@@ -822,80 +822,126 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 return;
         }
 
-        var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
-
-        // Ensure valid URL and destination path
-        if (string.IsNullOrEmpty(downloadUrl))
+        if (easyModeExtractPath != null)
         {
-            var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
-            EndOperation();
-            DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
-            SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
-            return;
-        }
+            var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
 
-        if (string.IsNullOrEmpty(destinationPath))
-        {
-            var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
-            DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
-
-            EndOperation();
-            // Notify developer
-            _logErrors.LogAndForget(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
-            SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
-            return;
-        }
-
-        try
-        {
-            var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
-            DownloadStatus = $"{preparingtodownload} {componentName}...";
-
-            DownloadProgressBar.Visibility = Visibility.Visible;
-            DownloadProgressBar.Value = 0;
-            StopDownloadButton.IsEnabled = true;
-
-            var success = false;
-
-            var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
-            DownloadStatus = $"{downloading} {componentName}...";
-
-            var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
-
-            if (_disposed)
+            // Ensure valid URL and destination path
+            if (string.IsNullOrEmpty(downloadUrl))
             {
+                var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
                 EndOperation();
+                DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
+                SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
                 return;
             }
 
-            if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
+            if (string.IsNullOrEmpty(destinationPath))
             {
-                var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-                DownloadStatus = $"{extracting} {componentName}...";
+                var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+                DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
 
-                LoadingOverlay.Content = $"{extracting} {componentName}...";
-                LoadingOverlay.Visibility = Visibility.Visible;
-                await Task.Yield();
-
-                success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-                LoadingOverlay.Visibility = Visibility.Collapsed;
-                await Task.Yield();
-            }
-
-            if (success)
-            {
                 EndOperation();
-                var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
-                DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
-
-                // Notify user
-                MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-
-                StopDownloadButton.IsEnabled = false;
-                // Mark as successfully downloaded
-                SetDownloadState(type, DownloadButtonState.Downloaded);
+                // Notify developer
+                _logErrors.LogAndForget(null, $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+                SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
+                return;
             }
-            else // Download was not completed successfully (either cancelled, locked, or other failure)
+
+            try
+            {
+                var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+                DownloadStatus = $"{preparingtodownload} {componentName}...";
+
+                DownloadProgressBar.Visibility = Visibility.Visible;
+                DownloadProgressBar.Value = 0;
+                StopDownloadButton.IsEnabled = true;
+
+                var success = false;
+
+                var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+                DownloadStatus = $"{downloading} {componentName}...";
+
+                var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+                if (_disposed)
+                {
+                    EndOperation();
+                    return;
+                }
+
+                if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
+                {
+                    var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                    DownloadStatus = $"{extracting} {componentName}...";
+
+                    LoadingOverlay.Content = $"{extracting} {componentName}...";
+                    LoadingOverlay.Visibility = Visibility.Visible;
+                    await Task.Yield();
+
+                    success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                    LoadingOverlay.Visibility = Visibility.Collapsed;
+                    await Task.Yield();
+                }
+
+                if (success)
+                {
+                    EndOperation();
+                    var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                    DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
+
+                    // Notify user
+                    MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+
+                    StopDownloadButton.IsEnabled = false;
+                    // Mark as successfully downloaded
+                    SetDownloadState(type, DownloadButtonState.Downloaded);
+                }
+                else // Download was not completed successfully (either cancelled, locked, or other failure)
+                {
+                    if (_disposed)
+                    {
+                        EndOperation();
+                        return;
+                    }
+
+                    if (_downloadManager.IsUserCancellation) // User cancelled the download
+                    {
+                        var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
+                        var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                        DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
+                        StopDownloadButton.IsEnabled = false;
+                        EndOperation();
+                        SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on cancel
+                    }
+                    else if (_downloadManager.IsFileLockedDuringDownload) // Specific check for file lock during download
+                    {
+                        await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
+                        EndOperation();
+                    }
+                    else if (_downloadManager.IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
+                    {
+                        var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                        DownloadStatus = $"{errorFailedtoextract} {componentName}.";
+                        EndOperation();
+                        SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on extraction failure
+                        await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
+                    }
+                    else // Generic download failure (not user cancelled, not file locked, not extraction failure)
+                    {
+                        var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ?? "Error during download";
+                        DownloadStatus = $"{errorDuringDownload}: {componentName}.";
+
+                        EndOperation();
+                        // Fallback to original behavior for download failures
+                        await ShowDownloadErrorDialogAsync(type, selectedSystem);
+                        SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on download failure
+                    }
+
+                    StopDownloadButton.IsEnabled = false;
+                }
+            }
+            catch (Exception ex)
             {
                 if (_disposed)
                 {
@@ -903,95 +949,52 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     return;
                 }
 
-                if (_downloadManager.IsUserCancellation) // User cancelled the download
+                var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
+                var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+                DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
+
+                // Notify developer only if it's not a disk space error
+                // Disk space errors are user-environment issues, not code issues
+                if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space") || ioEx.Message.Contains("Cannot check disk space"))))
                 {
-                    var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
-                    var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
-                    DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
-                    StopDownloadButton.IsEnabled = false;
-                    EndOperation();
-                    SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on cancel
+                    var contextMessage = $"Error downloading {componentName}.\n" +
+                                         $"URL: {downloadUrl}";
+                    _logErrors.LogAndForget(ex, contextMessage);
                 }
-                else if (_downloadManager.IsFileLockedDuringDownload) // Specific check for file lock during download
+
+                // Check if the download failed due to a file lock
+                if (_downloadManager.IsFileLockedDuringDownload)
                 {
+                    EndOperation();
                     await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
-                    EndOperation();
                 }
-                else if (_downloadManager.IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
+
+                // If download was completed, the exception was likely during extraction.
+                else if (_downloadManager.IsDownloadCompleted)
                 {
-                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
-                    DownloadStatus = $"{errorFailedtoextract} {componentName}.";
                     EndOperation();
-                    SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on extraction failure
                     await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                 }
-                else // Generic download failure (not user cancelled, not file locked, not extraction failure)
+                else // Exception was during download
                 {
-                    var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ?? "Error during download";
-                    DownloadStatus = $"{errorDuringDownload}: {componentName}.";
-
                     EndOperation();
-                    // Fallback to original behavior for download failures
                     await ShowDownloadErrorDialogAsync(type, selectedSystem);
-                    SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on download failure
+                }
+
+                if (_disposed)
+                {
+                    EndOperation();
+                    return;
                 }
 
                 StopDownloadButton.IsEnabled = false;
-            }
-        }
-        catch (Exception ex)
-        {
-            if (_disposed)
-            {
+                SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on exception
                 EndOperation();
-                return;
             }
-
-            var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
-            var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
-            DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
-
-            // Notify developer only if it's not a disk space error
-            // Disk space errors are user-environment issues, not code issues
-            if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space") || ioEx.Message.Contains("Cannot check disk space"))))
+            finally
             {
-                var contextMessage = $"Error downloading {componentName}.\n" +
-                                     $"URL: {downloadUrl}";
-                _logErrors.LogAndForget(ex, contextMessage);
+                _currentDownloadType = null;
             }
-
-            // Check if the download failed due to a file lock
-            if (_downloadManager.IsFileLockedDuringDownload)
-            {
-                EndOperation();
-                await MessageBoxLibrary.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
-            }
-
-            // If download was completed, the exception was likely during extraction.
-            else if (_downloadManager.IsDownloadCompleted)
-            {
-                EndOperation();
-                await MessageBoxLibrary.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
-            }
-            else // Exception was during download
-            {
-                EndOperation();
-                await ShowDownloadErrorDialogAsync(type, selectedSystem);
-            }
-
-            if (_disposed)
-            {
-                EndOperation();
-                return;
-            }
-
-            StopDownloadButton.IsEnabled = false;
-            SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on exception
-            EndOperation();
-        }
-        finally
-        {
-            _currentDownloadType = null;
         }
     }
 

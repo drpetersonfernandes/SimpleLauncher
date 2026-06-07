@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -45,7 +46,7 @@ public class ZipMountStrategy : ILaunchStrategy
 
     public Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
     {
-        var log = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         if (context.EmulatorName.Contains("RPCS3"))
         {
             return MountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName, context.EmulatorName, context.SystemManager, context.EmulatorManager, context.Parameters, context.MainWindow, log, launcher, _logErrors);

@@ -1,12 +1,12 @@
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.MessageBox;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

@@ -6,7 +6,7 @@ using SimpleLauncher.Core.Services.SanitizeInputString;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Services.CreateFolders;
 using SimpleLauncher.Services.MessageBox;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 

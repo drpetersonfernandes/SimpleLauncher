@@ -1,3 +1,4 @@
+using SimpleLauncher.Core.Services.SearchOrchestrator;
 using SimpleLauncher.Services.GameCache;
 
 namespace SimpleLauncher.Services.SearchOrchestrator;

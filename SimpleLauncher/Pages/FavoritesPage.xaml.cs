@@ -20,7 +20,7 @@ using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.PlaySound;
 using SimpleLauncher.Services.SettingsManager;
 using ILoadingState = SimpleLauncher.Core.Services.LoadingInterface.ILoadingState;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManager;
 
 namespace SimpleLauncher.Pages;
@@ -260,7 +260,7 @@ internal partial class FavoritesPage : ILoadingState
                 return;
             }
 
-            var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
+            var filePath = PathHelper.FindFileInSystemFolders(systemManager.SystemFolders, selectedFavorite.FileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 // Ask user if they want to delete the favorite
@@ -301,7 +301,7 @@ internal partial class FavoritesPage : ILoadingState
             }
 
             var context = new RightClickContext(
-                PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName),
+                PathHelper.FindFileInSystemFolders(systemManager.SystemFolders, selectedFavorite.FileName),
                 selectedFavorite.FileName,
                 Path.GetFileNameWithoutExtension(selectedFavorite.FileName),
                 selectedFavorite.SystemName,
@@ -380,7 +380,7 @@ internal partial class FavoritesPage : ILoadingState
                 return;
             }
 
-            var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
+            var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager.SystemFolders, fileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 // Ask user if they want to delete the favorite

@@ -3,8 +3,8 @@ using System.IO;
 using System.Windows;
 using MessagePack;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.AppDataFile;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.AppDataFile;
 
 namespace SimpleLauncher.Services.Favorites;
 

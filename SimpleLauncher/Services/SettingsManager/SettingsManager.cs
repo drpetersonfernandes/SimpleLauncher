@@ -3,10 +3,10 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Xml.Linq;
-using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.MessageBox;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.AppDataFile;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.SettingsManager.EmulatorSettings;
 

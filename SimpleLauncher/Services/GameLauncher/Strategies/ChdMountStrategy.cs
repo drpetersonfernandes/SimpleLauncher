@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -172,7 +173,7 @@ public class ChdMountStrategy : ILaunchStrategy
         string gameFilePath;
         ResolveEmulatorFlags(context);
 
-        var logPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var logPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
 
         // Get the console index for CHDMounter based on system and emulator
         var consoleIndex = MountChdFiles.GetConsoleIndexFromSystemName(context.SystemName, context.EmulatorName, _logErrors);

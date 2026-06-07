@@ -1,7 +1,6 @@
-using System.IO;
 using System.Runtime.InteropServices;
 
-namespace SimpleLauncher.Services.CleanAndDeleteFiles;
+namespace SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 
 public static class CleanSimpleLauncherFolder
 {

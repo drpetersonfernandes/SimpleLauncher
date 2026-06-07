@@ -4,10 +4,10 @@ using System.IO;
 using System.Runtime.InteropServices;
 using SharpCompress.Archives;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -988,7 +988,7 @@ internal static class MountZipFiles
 
             // 2. Resolve Parameters
             var romSystemFolder = selectedSystemManager != null
-                ? PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedZipFilePath)
+                ? PathHelper.FindContainingSystemFolder(selectedSystemManager.SystemFolders, selectedSystemManager.PrimarySystemFolder, resolvedZipFilePath)
                 : null;
             var resolvedParameters = PathHelper.ResolveParameterString(
                 selectedEmulatorParameters,

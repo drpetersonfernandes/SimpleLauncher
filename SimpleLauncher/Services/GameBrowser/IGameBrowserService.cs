@@ -1,7 +1,7 @@
+using SimpleLauncher.Core.Services.SearchOrchestrator;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameFileLoadingOrchestrator;
 using SimpleLauncher.Services.GameItemRender;
-using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.SystemSelectionOrchestrator;
 
 namespace SimpleLauncher.Services.GameBrowser;

@@ -6,7 +6,7 @@ using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.ThemeMenu;
-using CheckDirWritable = SimpleLauncher.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
+using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritable;
 using RequiredFiles = SimpleLauncher.Services.CheckForRequiredFiles.CheckForRequiredFiles;
 using Settings = SimpleLauncher.Services.SettingsManager.SettingsManager;
 using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;

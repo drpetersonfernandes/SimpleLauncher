@@ -8,7 +8,7 @@ using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.LaunchTools;
 using SimpleLauncher.Services.MessageBox;
 using Application = System.Windows.Application;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.LaunchTools;
 

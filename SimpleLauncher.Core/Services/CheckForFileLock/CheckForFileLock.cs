@@ -1,6 +1,6 @@
-using System.IO;
+using SimpleLauncher.Core.Services.CheckPaths;
 
-namespace SimpleLauncher.Services.CheckForFileLock;
+namespace SimpleLauncher.Core.Services.CheckForFileLock;
 
 public static class CheckForFileLock
 {
@@ -10,11 +10,11 @@ public static class CheckForFileLock
             return false;
 
         // Resolve the path to an absolute path, handling placeholders like %BASEFOLDER%
-        var resolvedPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(filePath);
+        var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(filePath);
         if (string.IsNullOrEmpty(resolvedPath))
             return false; // Path could not be resolved
 
-        var longPath = CheckPaths.PathHelper.GetLongPath(resolvedPath);
+        var longPath = PathHelper.GetLongPath(resolvedPath);
 
         if (!File.Exists(longPath))
             return false;

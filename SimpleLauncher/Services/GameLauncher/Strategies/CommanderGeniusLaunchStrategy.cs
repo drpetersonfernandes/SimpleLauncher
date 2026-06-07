@@ -6,14 +6,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.TrayIcon;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
@@ -84,112 +84,115 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
             FindAndFlattenGameData(extractionDir);
 
-            var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager?.EmulatorLocation);
-
-            if (string.IsNullOrEmpty(emulatorLocation) || !File.Exists(PathHelper.GetLongPath(emulatorLocation)))
+            if (context.EmulatorManager?.EmulatorLocation != null)
             {
-                DebugLogger.Log("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
-                LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                return;
-            }
+                var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager?.EmulatorLocation);
 
-            var arguments = $"dir=\"games/{zipName}\"";
-
-            DebugLogger.Log($"CommanderGeniusLaunchStrategy:\n\n" +
-                            $"Program Location: {emulatorLocation}\n" +
-                            $"Arguments: {arguments}\n" +
-                            $"Working Directory: {cgDataPath}\n" +
-                            $"Zip: {context.ResolvedFilePath}");
-
-            var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
-            var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
-
-            TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {context.EmulatorName}");
-            context.MainWindow.UpdateStatusBarService.UpdateContent(
-                $"{originalFileName} {launchedwith} {context.EmulatorName}");
-
-            var psi = new ProcessStartInfo
-            {
-                FileName = emulatorLocation,
-                Arguments = arguments,
-                WorkingDirectory = cgDataPath,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                StandardErrorEncoding = Encoding.UTF8
-            };
-
-            var output = new StringBuilder();
-            var error = new StringBuilder();
-
-            using var process = new Process();
-            process.StartInfo = psi;
-
-            process.OutputDataReceived += (_, args) =>
-            {
-                if (!string.IsNullOrEmpty(args.Data))
+                if (string.IsNullOrEmpty(emulatorLocation) || !File.Exists(PathHelper.GetLongPath(emulatorLocation)))
                 {
-                    output.AppendLine(args.Data);
-                }
-            };
-
-            process.ErrorDataReceived += (_, args) =>
-            {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    error.AppendLine(args.Data);
-                }
-            };
-
-            try
-            {
-                var processStarted = process.Start();
-                if (!processStarted)
-                {
-                    throw new InvalidOperationException("Failed to start Commander Genius process.");
+                    DebugLogger.Log("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
+                    LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
+                    MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    return;
                 }
 
-                if (!process.HasExited)
-                {
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-                    await process.WaitForExitAsync();
-                }
-            }
-            catch (Win32Exception ex)
-            {
-                var exitCodeInfo = SafeGetExitCode(process);
-                var errorDetail = $"Commander Genius could not start.\n" +
-                                  $"{exitCodeInfo}\n" +
-                                  $"Emulator: {psi.FileName}\n" +
-                                  $"Arguments: {psi.Arguments}\n" +
-                                  $"Error: {ex.Message}";
-                _logErrors.LogAndForget(ex, errorDetail);
+                var arguments = $"dir=\"games/{zipName}\"";
 
-                if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
-                {
-                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                }
-            }
-            catch (Exception ex)
-            {
-                var exitCodeInfo = SafeGetExitCode(process);
-                var errorDetail = $"Commander Genius error.\n" +
-                                  $"{exitCodeInfo}\n" +
-                                  $"Emulator: {psi.FileName}\n" +
-                                  $"Arguments: {psi.Arguments}\n" +
-                                  $"Output: {output}\n" +
-                                  $"Error: {error}\n" +
-                                  $"Exception: {ex.Message}";
-                _logErrors.LogAndForget(ex, errorDetail);
+                DebugLogger.Log($"CommanderGeniusLaunchStrategy:\n\n" +
+                                $"Program Location: {emulatorLocation}\n" +
+                                $"Arguments: {arguments}\n" +
+                                $"Working Directory: {cgDataPath}\n" +
+                                $"Zip: {context.ResolvedFilePath}");
 
-                if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
+                var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
+                var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
+
+                TrayIconManager.ShowTrayMessage($"{originalFileName} {launchedwith} {context.EmulatorName}");
+                context.MainWindow.UpdateStatusBarService.UpdateContent(
+                    $"{originalFileName} {launchedwith} {context.EmulatorName}");
+
+                var psi = new ProcessStartInfo
                 {
-                    await MessageBoxLibrary.CouldNotLaunchGameMessageBox(
-                        PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    FileName = emulatorLocation,
+                    Arguments = arguments,
+                    WorkingDirectory = cgDataPath,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardErrorEncoding = Encoding.UTF8
+                };
+
+                var output = new StringBuilder();
+                var error = new StringBuilder();
+
+                using var process = new Process();
+                process.StartInfo = psi;
+
+                process.OutputDataReceived += (_, args) =>
+                {
+                    if (!string.IsNullOrEmpty(args.Data))
+                    {
+                        output.AppendLine(args.Data);
+                    }
+                };
+
+                process.ErrorDataReceived += (_, args) =>
+                {
+                    if (!string.IsNullOrEmpty(args.Data))
+                    {
+                        error.AppendLine(args.Data);
+                    }
+                };
+
+                try
+                {
+                    var processStarted = process.Start();
+                    if (!processStarted)
+                    {
+                        throw new InvalidOperationException("Failed to start Commander Genius process.");
+                    }
+
+                    if (!process.HasExited)
+                    {
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+                        await process.WaitForExitAsync();
+                    }
+                }
+                catch (Win32Exception ex)
+                {
+                    var exitCodeInfo = SafeGetExitCode(process);
+                    var errorDetail = $"Commander Genius could not start.\n" +
+                                      $"{exitCodeInfo}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Arguments: {psi.Arguments}\n" +
+                                      $"Error: {ex.Message}";
+                    _logErrors.LogAndForget(ex, errorDetail);
+
+                    if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
+                    {
+                        await MessageBoxLibrary.CouldNotLaunchGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var exitCodeInfo = SafeGetExitCode(process);
+                    var errorDetail = $"Commander Genius error.\n" +
+                                      $"{exitCodeInfo}\n" +
+                                      $"Emulator: {psi.FileName}\n" +
+                                      $"Arguments: {psi.Arguments}\n" +
+                                      $"Output: {output}\n" +
+                                      $"Error: {error}\n" +
+                                      $"Exception: {ex.Message}";
+                    _logErrors.LogAndForget(ex, errorDetail);
+
+                    if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
+                    {
+                        await MessageBoxLibrary.CouldNotLaunchGameMessageBox(
+                            PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    }
                 }
             }
         }

@@ -1,10 +1,7 @@
 using System.Diagnostics;
-using System.IO;
-using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Core.Services.CheckPaths;
 
-namespace SimpleLauncher.Services.CleanAndDeleteFiles;
+namespace SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 
 public static class DeleteFiles
 {
@@ -46,7 +43,7 @@ public static class DeleteFiles
                 {
                     // Log final failure after retries
                     // Notify developer
-                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
+                    Debug.WriteLine($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
 
                     return; // Exit after logging final failure
                 }
@@ -76,8 +73,7 @@ public static class DeleteFiles
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
                 {
-                    // Notify developer
-                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
+                    Debug.WriteLine($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
 
                     return;
                 }
@@ -87,8 +83,7 @@ public static class DeleteFiles
             }
             catch (Exception ex)
             {
-                // Notify developer
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
+                Debug.WriteLine($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
 
                 return;
             }
@@ -128,9 +123,7 @@ public static class DeleteFiles
                 // If this is the last attempt, re-throw or log final failure
                 if (i == MaxDeleteRetries - 1)
                 {
-                    // Log final failure after retries
-                    // Notify developer
-                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries.");
+                    Debug.WriteLine($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
 
                     return; // Exit after logging final failure
                 }
@@ -160,8 +153,7 @@ public static class DeleteFiles
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
                 {
-                    // Notify developer
-                    App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions).");
+                    Debug.WriteLine($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
 
                     return;
                 }
@@ -171,8 +163,7 @@ public static class DeleteFiles
             }
             catch (Exception ex)
             {
-                // Notify developer
-                App.ServiceProvider.GetRequiredService<ILogErrors>().LogAndForget(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}'. Stopping retries.");
+                Debug.WriteLine($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
 
                 return;
             }

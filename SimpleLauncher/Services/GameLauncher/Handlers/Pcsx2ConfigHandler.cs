@@ -1,5 +1,5 @@
 using System.IO;
-using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.GameLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;

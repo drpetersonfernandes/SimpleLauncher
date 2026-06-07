@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
-namespace SimpleLauncher.Services.RetroAchievements;
+namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 public class EncryptDuckStationToken
 {

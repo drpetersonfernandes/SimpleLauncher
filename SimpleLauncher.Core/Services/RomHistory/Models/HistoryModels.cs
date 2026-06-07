@@ -1,8 +1,8 @@
-using MessagePack;
-
 #nullable enable
 
-namespace SimpleLauncher.Services.RomHistory.Models;
+using MessagePack;
+
+namespace SimpleLauncher.Core.Services.RomHistory.Models;
 
 [MessagePackObject]
 public class HistoryData

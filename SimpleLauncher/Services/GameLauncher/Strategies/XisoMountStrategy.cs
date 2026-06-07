@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -33,7 +34,7 @@ public class XisoMountStrategy : ILaunchStrategy
 
     public async Task ExecuteAsync(LaunchContext context, GameLauncher launcher)
     {
-        await using var mountedDrive = await MountXisoFiles.MountAsync(context.ResolvedFilePath, CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logErrors);
+        await using var mountedDrive = await MountXisoFiles.MountAsync(context.ResolvedFilePath, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logErrors);
         if (mountedDrive.IsMounted)
         {
             // Pass the original ISO file path for display in notifications

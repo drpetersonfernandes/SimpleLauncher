@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -604,7 +605,7 @@ public static class ContextMenu
                 await logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -615,7 +616,7 @@ public static class ContextMenu
                 await logErrors.LogErrorAsync(null, "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -626,7 +627,7 @@ public static class ContextMenu
                 await logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }
@@ -637,7 +638,7 @@ public static class ContextMenu
                 await logErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
 
                 return true;
             }

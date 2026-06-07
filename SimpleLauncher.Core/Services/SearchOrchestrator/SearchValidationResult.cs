@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Services.SearchOrchestrator;
+namespace SimpleLauncher.Core.Services.SearchOrchestrator;
 
 public class SearchValidationResult
 {

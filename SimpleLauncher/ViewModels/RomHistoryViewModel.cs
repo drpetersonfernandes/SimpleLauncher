@@ -5,6 +5,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
+using SimpleLauncher.Core.Services.RomHistory;
 using SimpleLauncher.Services.MessageBox;
 
 namespace SimpleLauncher.ViewModels;
@@ -73,7 +74,7 @@ public partial class RomHistoryViewModel : ObservableObject
             }
 
             var entry = await Task.Run(() =>
-                Services.RomHistory.RomHistoryLoader.FindEntry(historyXmlFilePath, _romName));
+                RomHistoryLoader.FindEntry(historyXmlFilePath, _romName));
 
             RomNameText = _romName;
             RomDescriptionText = _searchTerm;

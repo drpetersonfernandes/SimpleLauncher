@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Core.Services.LoadingInterface;
+using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.RetroAchievements.Models;
 using SimpleLauncher.Services.Converters;
 using SimpleLauncher.Services.DebugAndBugReport;

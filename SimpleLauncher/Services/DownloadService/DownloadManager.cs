@@ -2,10 +2,10 @@ using System.IO;
 using System.Net.Http;
 using System.Windows;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.DownloadService;
 using SimpleLauncher.Core.Services.ExtractFiles;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 
 namespace SimpleLauncher.Services.DownloadService;
 

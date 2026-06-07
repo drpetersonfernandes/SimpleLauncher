@@ -6,8 +6,9 @@ using System.Text;
 using System.Text.Json;
 using System.Windows;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 
 namespace SimpleLauncher.Services.DebugAndBugReport;
 
@@ -34,37 +35,37 @@ public class LogErrorsService : ILogErrors
             DebugLogger.Log(contextMessage);
         }
 
-        var errorLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathForAdmin") ?? "error.log");
-        var userLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var errorLogPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathForAdmin") ?? "error.log");
+        var userLogPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
         var errorMessage = BugReportFormatter.BuildReport(ex, contextMessage);
 
         await LogFileLock.WaitAsync();
         try
         {
             // Append the error message to the general log
-            await File.AppendAllTextAsync(errorLogPath, errorMessage);
-
-            // Append the error message to the user-specific log
-            var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
-            await File.AppendAllTextAsync(userLogPath, userErrorMessage);
-
-            // Attempt to send the error log content to the API only if enabled
-            if (await SendLogToApiAsync(ex, errorMessage))
+            if (errorLogPath != null)
             {
-                // If the log was successfully sent, delete the general log file to clean up.
-                if (File.Exists(errorLogPath))
+                await File.AppendAllTextAsync(errorLogPath, errorMessage);
+
+                // Append the error message to the user-specific log
+                var userErrorMessage = errorMessage + "--------------------------------------------------------------------------------------------------------------\n\n\n";
+                if (userLogPath != null) await File.AppendAllTextAsync(userLogPath, userErrorMessage);
+
+                // Attempt to send the error log content to the API only if enabled
+                if (await SendLogToApiAsync(ex, errorMessage))
                 {
-                    try
+                    // If the log was successfully sent, delete the general log file to clean up.
+                    if (File.Exists(errorLogPath))
                     {
-                        DeleteFiles.TryDeleteFile(errorLogPath);
-                    }
-                    catch (Exception ex2)
-                    {
-                        WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
-                        Application.Current.Dispatcher.Invoke(() =>
+                        try
                         {
-                            DebugLogger.LogException(ex2, "Error deleting the ErrorLog");
-                        });
+                            DeleteFiles.TryDeleteFile(errorLogPath);
+                        }
+                        catch (Exception ex2)
+                        {
+                            WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
+                            Application.Current.Dispatcher.Invoke(() => { DebugLogger.LogException(ex2, "Error deleting the ErrorLog"); });
+                        }
                     }
                 }
             }
@@ -215,13 +216,13 @@ public class LogErrorsService : ILogErrors
     /// </summary>
     private void WriteLocalErrorLog(Exception ex, string contextMessage)
     {
-        var criticalLogPath = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathCritical") ?? "critical_error.log");
+        var criticalLogPath = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPathCritical") ?? "critical_error.log");
         var errorMessage = BugReportFormatter.BuildReport(ex, contextMessage) +
                            "\n--------------------------------------------------------------------------------------------------------------\n\n\n";
 
         try
         {
-            File.AppendAllText(criticalLogPath, errorMessage);
+            if (criticalLogPath != null) File.AppendAllText(criticalLogPath, errorMessage);
         }
         catch (Exception ex2)
         {

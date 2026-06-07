@@ -1,12 +1,11 @@
-using System.IO;
+#nullable enable
+
 using System.Xml;
 using System.Xml.Linq;
 using MessagePack;
-using SimpleLauncher.Services.RomHistory.Models;
+using SimpleLauncher.Core.Services.RomHistory.Models;
 
-#nullable enable
-
-namespace SimpleLauncher.Services.RomHistory;
+namespace SimpleLauncher.Core.Services.RomHistory;
 
 /// <summary>
 /// Provides methods for loading and querying the local ROM history database (history.dat or history.xml).

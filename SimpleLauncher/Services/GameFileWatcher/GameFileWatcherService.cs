@@ -1,5 +1,5 @@
 using System.IO;
-using SimpleLauncher.Services.CheckPaths;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 
 namespace SimpleLauncher.Services.GameFileWatcher;
@@ -62,20 +62,23 @@ public sealed class GameFileWatcherService : IDisposable
             {
                 try
                 {
-                    var watcher = new FileSystemWatcher(folder)
+                    if (folder != null)
                     {
-                        NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName,
-                        IncludeSubdirectories = true,
-                        EnableRaisingEvents = false
-                    };
+                        var watcher = new FileSystemWatcher(folder)
+                        {
+                            NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                            IncludeSubdirectories = true,
+                            EnableRaisingEvents = false
+                        };
 
-                    watcher.Created += OnFileChanged;
-                    watcher.Deleted += OnFileChanged;
-                    watcher.Renamed += OnFileChanged;
-                    watcher.Error += OnWatcherError;
+                        watcher.Created += OnFileChanged;
+                        watcher.Deleted += OnFileChanged;
+                        watcher.Renamed += OnFileChanged;
+                        watcher.Error += OnWatcherError;
 
-                    _watchers[watcher] = tag;
-                    watcher.EnableRaisingEvents = true;
+                        _watchers[watcher] = tag;
+                        watcher.EnableRaisingEvents = true;
+                    }
 
                     DebugLogger.Log($"[GameFileWatcherService] Watching '{folder}' for system '{systemName}'.");
                 }

@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.AppDataFile;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.EasyMode.Models;
 using SimpleLauncher.Core.Services.SystemManager;
-using SimpleLauncher.Services.AppDataFile;
-using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 

@@ -12,7 +12,7 @@ using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MessageBox;
 using SimpleLauncher.Services.RetroAchievements;
 using SimpleLauncher.Services.UpdateStatusBar;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 
@@ -386,7 +386,7 @@ public class GameFileLoadingOrchestrator : IGameFileLoadingOrchestrator
 
         var favoriteGamePaths = favorites
             .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
-            .Select(fav => PathHelper.FindFileInSystemFolders(selectedManager, fav.FileName))
+            .Select(fav => PathHelper.FindFileInSystemFolders(selectedManager.SystemFolders, fav.FileName))
             .Where(static path => !string.IsNullOrEmpty(path))
             .ToList();
 

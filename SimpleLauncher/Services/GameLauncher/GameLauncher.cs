@@ -21,7 +21,7 @@ using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.InjectEmulatorConfig;
 using SimpleLauncher.Services.UpdateStatusBar;
 using SimpleLauncher.Services.UsageStats;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
@@ -986,7 +986,7 @@ public partial class GameLauncher
             }
 
             // Resolve the system folder that contains this specific ROM
-            var romSystemFolder = PathHelper.FindContainingSystemFolder(selectedSystemManager, resolvedFilePath);
+            var romSystemFolder = PathHelper.FindContainingSystemFolder(selectedSystemManager.SystemFolders, selectedSystemManager.PrimarySystemFolder, resolvedFilePath);
 
             // Compute the ROM name (filename without extension, or folder name for directories)
             // before ResolveParameterString so %NAME% can be resolved
@@ -1020,7 +1020,7 @@ public partial class GameLauncher
             else
             {
                 // Trim trailing spaces and check if it ends with '=' to avoid adding an extra space
-                var trimmedParameters = resolvedParameters?.TrimEnd() ?? string.Empty;
+                var trimmedParameters = resolvedParameters.TrimEnd();
                 var space = (string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('=')) ? "" : " ";
 
                 // Will load the filename without the extension

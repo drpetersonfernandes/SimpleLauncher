@@ -4,9 +4,9 @@ using System.IO;
 using System.Windows;
 using MessagePack;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.AppDataFile;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.AppDataFile;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.PlayHistory;
 
@@ -393,7 +393,7 @@ public class PlayHistoryManager
                 var system = systemManagers.FirstOrDefault(s => s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
                 if (system != null)
                 {
-                    var resolvedPath = PathHelper.FindFileInSystemFolders(system, item.FileName);
+                    var resolvedPath = PathHelper.FindFileInSystemFolders(system.SystemFolders, item.FileName);
                     if (!string.IsNullOrEmpty(resolvedPath))
                     {
                         item.FileName = resolvedPath;

@@ -1,3 +1,4 @@
+using SimpleLauncher.Core.Services.SearchOrchestrator;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFileLoadingOrchestrator;

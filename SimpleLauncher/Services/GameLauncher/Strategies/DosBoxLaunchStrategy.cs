@@ -2,9 +2,10 @@ using System.IO;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.ExtractFiles;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.GameLauncher.Models;
 using SimpleLauncher.Services.GameLauncher.MountFiles;
@@ -139,7 +140,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 catch (Exception ex)
                 {
                     await _logErrors.LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
-                    MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
                 finally
                 {
@@ -289,7 +290,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             await _logErrors.LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return;
         }
         finally
@@ -439,7 +440,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             await _logErrors.LogErrorAsync(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 

@@ -1,6 +1,6 @@
 using System.IO;
 using SimpleLauncher.Services.FindCoverImage;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFilter;
 

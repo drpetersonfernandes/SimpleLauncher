@@ -1,6 +1,4 @@
-using System.IO;
-
-namespace SimpleLauncher.Services.CleanAndDeleteFiles;
+namespace SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 
 public static class CleanTempFolder
 {

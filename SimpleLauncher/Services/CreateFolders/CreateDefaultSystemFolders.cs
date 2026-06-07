@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
 
@@ -14,8 +15,8 @@ public static class CreateDefaultSystemFolders
         [
             "roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"
         ];
-        var resolvedSystemFolder = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(systemFolder);
-        var resolvedSystemImageFolder = CheckPaths.PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
+        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
+        var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
 
         try
         {

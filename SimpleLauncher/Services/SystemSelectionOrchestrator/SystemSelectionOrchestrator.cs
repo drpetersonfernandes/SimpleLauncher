@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFileWatcher;

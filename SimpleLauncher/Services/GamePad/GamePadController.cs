@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.MessageBox;
@@ -122,7 +123,7 @@ public class GamePadController : IDisposable
                 // Notify user
                 Application.Current.Dispatcher.Invoke(static () =>
                 {
-                    MessageBoxLibrary.GamePadErrorMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                    MessageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
                 });
             }
         }
@@ -148,7 +149,7 @@ public class GamePadController : IDisposable
                 // Notify user
                 Application.Current.Dispatcher.Invoke(static () =>
                 {
-                    MessageBoxLibrary.GamePadErrorMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                    MessageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
                 });
             }
         }
@@ -369,7 +370,7 @@ public class GamePadController : IDisposable
                             // Notify user
                             Application.Current.Dispatcher.Invoke(static () =>
                             {
-                                MessageBoxLibrary.GamePadErrorMessageBox(CheckPaths.PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                                MessageBoxLibrary.GamePadErrorMessageBox(PathHelper.ResolveRelativeToAppDirectory(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
                             });
                         }
 

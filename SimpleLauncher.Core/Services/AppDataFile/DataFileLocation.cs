@@ -1,8 +1,7 @@
-using System.IO;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Services.CheckPaths;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
-namespace SimpleLauncher.Services.AppDataFile;
+namespace SimpleLauncher.Core.Services.AppDataFile;
 
 public sealed class DataFileLocation
 {

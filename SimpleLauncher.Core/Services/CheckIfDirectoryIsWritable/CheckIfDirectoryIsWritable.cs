@@ -1,8 +1,7 @@
-using System.IO;
+using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
-using SimpleLauncher.Services.CleanAndDeleteFiles;
 
-namespace SimpleLauncher.Services.CheckIfDirectoryIsWritable;
+namespace SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable;
 
 public static class CheckIfDirectoryIsWritable
 {
