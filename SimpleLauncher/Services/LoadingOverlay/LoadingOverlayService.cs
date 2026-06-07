@@ -48,7 +48,7 @@ public class LoadingOverlayService
 
         _host.Dispatcher.Invoke(() =>
         {
-            _host.SetLoadingOverlayVisibility(shouldShowOverlay ? Visibility.Visible : Visibility.Collapsed);
+            _host.SetLoadingOverlayVisible(shouldShowOverlay);
             _host.SetMainContentGridEnabled(!shouldShowOverlay);
 
             if (isLoading && shouldShowOverlay && message != null)
@@ -76,7 +76,7 @@ public class LoadingOverlayService
 
         _host.Dispatcher.Invoke(() =>
         {
-            _host.SetLoadingOverlayVisibility(Visibility.Collapsed);
+            _host.SetLoadingOverlayVisible(false);
             _host.SetMainContentGridEnabled(true);
         });
 

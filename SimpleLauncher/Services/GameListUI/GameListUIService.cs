@@ -38,19 +38,19 @@ public class GameListUiService
         {
             if (_settings.ViewMode == "GridView")
             {
-                _host.SetGameFileGridVisibility(Visibility.Visible);
-                _host.SetListViewPreviewAreaVisibility(Visibility.Collapsed);
+                _host.SetGameFileGridVisible(true);
+                _host.SetListViewPreviewAreaVisible(false);
             }
             else
             {
-                _host.SetGameFileGridVisibility(Visibility.Collapsed);
-                _host.SetListViewPreviewAreaVisibility(Visibility.Visible);
+                _host.SetGameFileGridVisible(false);
+                _host.SetListViewPreviewAreaVisible(true);
             }
         });
 
         await _host.Dispatcher.InvokeAsync(() =>
         {
-            _host.SetPaginationButtonsVisibility(Visibility.Visible);
+            _host.SetPaginationButtonsVisible(true);
         });
     }
 

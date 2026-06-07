@@ -1,4 +1,3 @@
-using System.Windows;
 using System.Windows.Controls;
 
 namespace SimpleLauncher.Services.UiOrchestrator;
@@ -15,21 +14,21 @@ public interface IUiOrchestrator
 
     void ResetPaginationButtons();
     void SetPaginationButtonsDefault();
-    void SetPaginationButtonsVisibility(Visibility visibility);
+    void SetPaginationButtonsVisible(bool isVisible);
     void SetPaginationButtonsEnabled(bool prevEnabled, bool nextEnabled);
 
     void SetGameButtonsEnabled(bool isEnabled);
     void ClearGameButtonImages();
-    void SetGameFileGridVisibility(Visibility visibility);
-    void SetListViewPreviewAreaVisibility(Visibility visibility);
+    void SetGameFileGridVisible(bool isVisible);
+    void SetListViewPreviewAreaVisible(bool isVisible);
     void ScrollToTop();
     void UpdateTotalFilesLabel(string text);
     void AddNoFilesMessage();
 
     void ClearPreviewImage();
     void SetSearchTextBoxText(string text);
-    void SetSortOrderToggleButtonVisibility(Visibility visibility);
-    void SetLoadingOverlayVisibility(Visibility visibility);
+    void SetSortOrderToggleButtonVisible(bool isVisible);
+    void SetLoadingOverlayVisible(bool isVisible);
 
     Task SetUiBeforeLoadGameFilesAsync();
 

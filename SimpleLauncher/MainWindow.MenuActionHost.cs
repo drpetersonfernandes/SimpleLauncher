@@ -38,9 +38,12 @@ public partial class MainWindow : IMenuActionHost
         _gameBrowser.LoadOrReloadSystemManager();
     }
 
-    void IMenuActionHost.NavigateToPage(Page page)
+    void IMenuActionHost.NavigateToPage(object page)
     {
-        NavigateToPage(page);
+        if (page is Page wpfPage)
+        {
+            NavigateToPage(wpfPage);
+        }
     }
 
     void IMenuActionHost.NavigateBackToMainContent()
@@ -149,14 +152,14 @@ public partial class MainWindow : IMenuActionHost
         ListView.IsChecked = isChecked;
     }
 
-    void IMenuActionHost.SetGameFileGridVisibility(Visibility visibility)
+    void IMenuActionHost.SetGameFileGridVisible(bool isVisible)
     {
-        GameFileGrid.Visibility = visibility;
+        GameFileGrid.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    void IMenuActionHost.SetListViewPreviewAreaVisibility(Visibility visibility)
+    void IMenuActionHost.SetListViewPreviewAreaVisible(bool isVisible)
     {
-        ListViewPreviewArea.Visibility = visibility;
+        ListViewPreviewArea.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     void IMenuActionHost.SetSearchTextBoxText(string text)
@@ -179,14 +182,14 @@ public partial class MainWindow : IMenuActionHost
         EmulatorComboBox.SelectedItem = item;
     }
 
-    void IMenuActionHost.SetSortOrderToggleButtonVisibility(Visibility visibility)
+    void IMenuActionHost.SetSortOrderToggleButtonVisible(bool isVisible)
     {
-        SortOrderToggleButton.Visibility = visibility;
+        SortOrderToggleButton.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    void IMenuActionHost.SetLoadingOverlayVisibility(Visibility visibility)
+    void IMenuActionHost.SetLoadingOverlayVisible(bool isVisible)
     {
-        LoadingOverlay.Visibility = visibility;
+        LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     void IMenuActionHost.SetSortOrderToggleButtonToolTip(string toolTip)
@@ -200,9 +203,9 @@ public partial class MainWindow : IMenuActionHost
         return SelectedSystem;
     }
 
-    Visibility IMenuActionHost.GetTopSystemSelectionVisibility()
+    bool IMenuActionHost.IsTopSystemSelectionVisible()
     {
-        return TopSystemSelection.Visibility;
+        return TopSystemSelection.Visibility == Visibility.Visible;
     }
 
     string IMenuActionHost.GetViewMode()
@@ -210,15 +213,9 @@ public partial class MainWindow : IMenuActionHost
         return _settings.ViewMode;
     }
 
-    MenuItem IMenuActionHost.GetGridViewMenuItem()
-    {
-        return GridView;
-    }
+    string IMenuActionHost.GridViewMenuItemId => "GridView";
 
-    MenuItem IMenuActionHost.GetListViewMenuItem()
-    {
-        return ListView;
-    }
+    string IMenuActionHost.ListViewMenuItemId => "ListView";
 
     // Data access
     List<Services.SystemManager.SystemManager> IMenuActionHost.GetSystemManagers()
@@ -237,8 +234,8 @@ public partial class MainWindow : IMenuActionHost
     }
 
     // Language
-    void IMenuActionHost.ChangeLanguageFromMenu(MenuItem menuItem)
+    void IMenuActionHost.ChangeLanguage(string languageCode)
     {
-        _menuOrchestrator.ChangeLanguage(menuItem);
+        _menuOrchestrator.ChangeLanguage(languageCode);
     }
 }

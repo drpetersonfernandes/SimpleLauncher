@@ -855,7 +855,7 @@ public class MenuActionHandlerService
             _host.CancelAndRecreateToken();
             _playSoundEffects.PlayNotificationSound();
 
-            var isSystemSelectionMode = _host.GetTopSystemSelectionVisibility() == Visibility.Collapsed;
+            var isSystemSelectionMode = !_host.IsTopSystemSelectionVisible();
 
             if (isSystemSelectionMode)
             {
@@ -900,7 +900,7 @@ public class MenuActionHandlerService
             _host.CancelAndRecreateToken();
             _playSoundEffects.PlayNotificationSound();
 
-            var isSystemSelectionMode = _host.GetTopSystemSelectionVisibility() == Visibility.Collapsed;
+            var isSystemSelectionMode = !_host.IsTopSystemSelectionVisible();
 
             if (isSystemSelectionMode)
             {
@@ -953,16 +953,16 @@ public class MenuActionHandlerService
             {
                 _host.SetGridViewChecked(false);
                 _host.SetListViewChecked(true);
-                _host.SetGameFileGridVisibility(Visibility.Collapsed);
-                _host.SetListViewPreviewAreaVisibility(Visibility.Visible);
+                _host.SetGameFileGridVisible(false);
+                _host.SetListViewPreviewAreaVisible(true);
                 _settings.ViewMode = "ListView";
             }
             else
             {
                 _host.SetGridViewChecked(true);
                 _host.SetListViewChecked(false);
-                _host.SetGameFileGridVisibility(Visibility.Visible);
-                _host.SetListViewPreviewAreaVisibility(Visibility.Collapsed);
+                _host.SetGameFileGridVisible(true);
+                _host.SetListViewPreviewAreaVisible(false);
                 _settings.ViewMode = "GridView";
             }
 
@@ -983,27 +983,28 @@ public class MenuActionHandlerService
         {
             _playSoundEffects.PlayNotificationSound();
 
-            if (Equals(sender, _host.GetGridViewMenuItem()))
+            switch (sender)
             {
-                _host.SetGridViewChecked(true);
-                _host.SetListViewChecked(false);
-                _settings.ViewMode = "GridView";
+                case MenuItem mi when mi.Name == _host.GridViewMenuItemId:
+                    _host.SetGridViewChecked(true);
+                    _host.SetListViewChecked(false);
+                    _settings.ViewMode = "GridView";
 
-                _host.SetGameFileGridVisibility(Visibility.Visible);
-                _host.SetListViewPreviewAreaVisibility(Visibility.Collapsed);
+                    _host.SetGameFileGridVisible(true);
+                    _host.SetListViewPreviewAreaVisible(false);
 
-                _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
-            }
-            else if (Equals(sender, _host.GetListViewMenuItem()))
-            {
-                _host.SetGridViewChecked(false);
-                _host.SetListViewChecked(true);
-                _settings.ViewMode = "ListView";
+                    _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
+                    break;
+                case MenuItem mi2 when mi2.Name == _host.ListViewMenuItemId:
+                    _host.SetGridViewChecked(false);
+                    _host.SetListViewChecked(true);
+                    _settings.ViewMode = "ListView";
 
-                _host.SetGameFileGridVisibility(Visibility.Collapsed);
-                _host.SetListViewPreviewAreaVisibility(Visibility.Visible);
+                    _host.SetGameFileGridVisible(false);
+                    _host.SetListViewPreviewAreaVisible(true);
 
-                _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
+                    _updateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...");
+                    break;
             }
 
             _settings.SaveAsync();
@@ -1286,9 +1287,9 @@ public class MenuActionHandlerService
 
     // ---- Language ----
 
-    public void HandleChangeLanguage(MenuItem menuItem)
+    public void HandleChangeLanguage(string languageCode)
     {
-        _host.ChangeLanguageFromMenu(menuItem);
+        _host.ChangeLanguage(languageCode);
     }
 
     // ---- Top Letter/Number Menu ----

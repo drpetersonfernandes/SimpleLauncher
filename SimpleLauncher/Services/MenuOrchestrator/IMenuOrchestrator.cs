@@ -71,6 +71,6 @@ public interface IMenuOrchestrator
     void SetCheckedTheme(string baseTheme, string accentColor);
 
     // Language
-    void ChangeLanguage(MenuItem menuItem);
+    void ChangeLanguage(string languageCode);
     void SetLanguageCheckMarks(string languageCode);
 }

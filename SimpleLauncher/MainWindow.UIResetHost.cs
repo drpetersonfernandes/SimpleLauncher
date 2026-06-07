@@ -53,9 +53,9 @@ public partial class MainWindow
         return _gameBrowser.DisplaySystemSelectionScreenAsync(cancellationToken);
     }
 
-    void IUiResetHost.SetLoadingOverlayVisibility(Visibility visibility)
+    void IUiResetHost.SetLoadingOverlayVisible(bool isVisible)
     {
-        LoadingOverlay.Visibility = visibility;
+        LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     void IUiResetHost.SetSearchTextBoxText(string text)
@@ -78,8 +78,8 @@ public partial class MainWindow
         EmulatorComboBox.SelectedItem = item;
     }
 
-    void IUiResetHost.SetSortOrderToggleButtonVisibility(Visibility visibility)
+    void IUiResetHost.SetSortOrderToggleButtonVisible(bool isVisible)
     {
-        SortOrderToggleButton.Visibility = visibility;
+        SortOrderToggleButton.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 }

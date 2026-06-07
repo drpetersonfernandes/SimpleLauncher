@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using SimpleLauncher.Models;
@@ -14,7 +13,7 @@ public interface IGameListUiHost
     WrapPanel GameFileGrid { get; }
     Grid ListViewPreviewArea { get; }
     ObservableCollection<GameListViewItem> GameListItems { get; }
-    void SetGameFileGridVisibility(Visibility visibility);
-    void SetListViewPreviewAreaVisibility(Visibility visibility);
-    void SetPaginationButtonsVisibility(Visibility visibility);
+    void SetGameFileGridVisible(bool isVisible);
+    void SetListViewPreviewAreaVisible(bool isVisible);
+    void SetPaginationButtonsVisible(bool isVisible);
 }

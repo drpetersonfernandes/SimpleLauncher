@@ -45,9 +45,14 @@ public class LanguageMenuService
         _host = host;
     }
 
-    public void ChangeLanguage(MenuItem menuItem)
+    public static string GetLanguageCodeFromMenuItem(MenuItem menuItem)
     {
-        if (!NameToCode.TryGetValue(menuItem.Name, out var languageCode))
+        return NameToCode.GetValueOrDefault(menuItem.Name);
+    }
+
+    public void ChangeLanguage(string languageCode)
+    {
+        if (string.IsNullOrEmpty(languageCode))
             return;
 
         _playSoundEffects.PlayNotificationSound();

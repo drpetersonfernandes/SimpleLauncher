@@ -246,7 +246,11 @@ public class MenuOrchestrator : IMenuOrchestrator
 
     public void HandleChangeLanguage(MenuItem menuItem)
     {
-        _menuActionHandler.HandleChangeLanguage(menuItem);
+        var languageCode = LanguageMenuService.GetLanguageCodeFromMenuItem(menuItem);
+        if (languageCode != null)
+        {
+            _menuActionHandler.HandleChangeLanguage(languageCode);
+        }
     }
 
     // Check mark management
@@ -307,9 +311,9 @@ public class MenuOrchestrator : IMenuOrchestrator
     }
 
     // Language
-    public void ChangeLanguage(MenuItem menuItem)
+    public void ChangeLanguage(string languageCode)
     {
-        _languageMenu.ChangeLanguage(menuItem);
+        _languageMenu.ChangeLanguage(languageCode);
     }
 
     public void SetLanguageCheckMarks(string languageCode)

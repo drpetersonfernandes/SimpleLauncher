@@ -88,8 +88,9 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _host.NextPageButton2.IsEnabled = false;
     }
 
-    public void SetPaginationButtonsVisibility(Visibility visibility)
+    public void SetPaginationButtonsVisible(bool isVisible)
     {
+        var visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
         _host.PrevPageButton2.Visibility = visibility;
         _host.NextPageButton2.Visibility = visibility;
     }
@@ -110,14 +111,14 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         GameListUiService.ClearGameButtonImages(_host.GameFileGrid);
     }
 
-    public void SetGameFileGridVisibility(Visibility visibility)
+    public void SetGameFileGridVisible(bool isVisible)
     {
-        _host.GameFileGrid.Visibility = visibility;
+        _host.GameFileGrid.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    public void SetListViewPreviewAreaVisibility(Visibility visibility)
+    public void SetListViewPreviewAreaVisible(bool isVisible)
     {
-        _host.ListViewPreviewArea.Visibility = visibility;
+        _host.ListViewPreviewArea.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public void ScrollToTop()
@@ -145,14 +146,14 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _host.SearchTextBox.Text = text;
     }
 
-    public void SetSortOrderToggleButtonVisibility(Visibility visibility)
+    public void SetSortOrderToggleButtonVisible(bool isVisible)
     {
-        _host.SortOrderToggleButton.Visibility = visibility;
+        _host.SortOrderToggleButton.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    public void SetLoadingOverlayVisibility(Visibility visibility)
+    public void SetLoadingOverlayVisible(bool isVisible)
     {
-        _host.LoadingOverlay.Visibility = visibility;
+        _host.LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public Task SetUiBeforeLoadGameFilesAsync()
@@ -204,9 +205,9 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
         _host.SetIsLoadingGamesInternal(value);
     }
 
-    void ILoadingOverlayHost.SetLoadingOverlayVisibility(Visibility visibility)
+    void ILoadingOverlayHost.SetLoadingOverlayVisible(bool isVisible)
     {
-        _host.LoadingOverlay.Visibility = visibility;
+        _host.LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
     void ILoadingOverlayHost.SetLoadingOverlayContent(object content)
@@ -242,19 +243,19 @@ public class UiOrchestrator : IUiOrchestrator, ILoadingOverlayHost, IGameListUiH
 
     ObservableCollection<GameListViewItem> IGameListUiHost.GameListItems => _host.GameListItems;
 
-    void IGameListUiHost.SetGameFileGridVisibility(Visibility visibility)
+    void IGameListUiHost.SetGameFileGridVisible(bool isVisible)
     {
-        _host.GameFileGrid.Visibility = visibility;
+        _host.GameFileGrid.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    void IGameListUiHost.SetListViewPreviewAreaVisibility(Visibility visibility)
+    void IGameListUiHost.SetListViewPreviewAreaVisible(bool isVisible)
     {
-        _host.ListViewPreviewArea.Visibility = visibility;
+        _host.ListViewPreviewArea.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    void IGameListUiHost.SetPaginationButtonsVisibility(Visibility visibility)
+    void IGameListUiHost.SetPaginationButtonsVisible(bool isVisible)
     {
-        SetPaginationButtonsVisibility(visibility);
+        SetPaginationButtonsVisible(isVisible);
     }
 
     void IPaginationHost.SetPrevPageButtonEnabled(bool enabled)

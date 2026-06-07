@@ -1,5 +1,3 @@
-using System.Windows;
-
 namespace SimpleLauncher.Services.UIReset;
 
 public interface IUiResetHost
@@ -20,10 +18,10 @@ public interface IUiResetHost
     Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken);
 
     // UI element setters
-    void SetLoadingOverlayVisibility(Visibility visibility);
+    void SetLoadingOverlayVisible(bool isVisible);
     void SetSearchTextBoxText(string text);
     void ClearPreviewImage();
     void SetSystemComboBoxSelectedItem(object item);
     void SetEmulatorComboBoxSelectedItem(object item);
-    void SetSortOrderToggleButtonVisibility(Visibility visibility);
+    void SetSortOrderToggleButtonVisible(bool isVisible);
 }

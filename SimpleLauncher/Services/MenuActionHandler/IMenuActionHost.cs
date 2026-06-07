@@ -1,6 +1,3 @@
-using System.Windows;
-using System.Windows.Controls;
-
 namespace SimpleLauncher.Services.MenuActionHandler;
 
 public interface IMenuActionHost
@@ -12,7 +9,7 @@ public interface IMenuActionHost
     (string startLetter, string searchQuery) GetLoadGameFilesParams();
     void ResetUiAsync();
     void LoadOrReloadSystemManager();
-    void NavigateToPage(Page page);
+    void NavigateToPage(object page);
     void NavigateBackToMainContent();
     Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken = default);
     void ResetPaginationButtons();
@@ -41,22 +38,22 @@ public interface IMenuActionHost
     void SetViewModeUi(string viewMode);
     void SetGridViewChecked(bool isChecked);
     void SetListViewChecked(bool isChecked);
-    void SetGameFileGridVisibility(Visibility visibility);
-    void SetListViewPreviewAreaVisibility(Visibility visibility);
+    void SetGameFileGridVisible(bool isVisible);
+    void SetListViewPreviewAreaVisible(bool isVisible);
     void SetSearchTextBoxText(string text);
     void ClearPreviewImage();
     void SetSystemComboBoxSelectedItem(object item);
     void SetEmulatorComboBoxSelectedItem(object item);
-    void SetSortOrderToggleButtonVisibility(Visibility visibility);
-    void SetLoadingOverlayVisibility(Visibility visibility);
+    void SetSortOrderToggleButtonVisible(bool isVisible);
+    void SetLoadingOverlayVisible(bool isVisible);
     void SetSortOrderToggleButtonToolTip(string toolTip);
 
     // UI state getters
     string GetSelectedSystem();
-    Visibility GetTopSystemSelectionVisibility();
+    bool IsTopSystemSelectionVisible();
     string GetViewMode();
-    MenuItem GetGridViewMenuItem();
-    MenuItem GetListViewMenuItem();
+    string GridViewMenuItemId { get; }
+    string ListViewMenuItemId { get; }
 
     // Data access for page construction
     List<SystemManager.SystemManager> GetSystemManagers();
@@ -64,5 +61,5 @@ public interface IMenuActionHost
     Dictionary<string, string> GetMameLookup();
 
     // Language
-    void ChangeLanguageFromMenu(MenuItem menuItem);
+    void ChangeLanguage(string languageCode);
 }
