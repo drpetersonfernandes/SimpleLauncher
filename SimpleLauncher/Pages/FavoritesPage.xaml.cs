@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
@@ -264,7 +265,7 @@ internal partial class FavoritesPage : ILoadingState
             {
                 // Ask user if they want to delete the favorite
                 var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? selectedFavorite.FileName);
-                if (result == MessageBoxResult.Yes)
+                if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName.Equals(selectedFavorite.FileName, StringComparison.OrdinalIgnoreCase) && fav.SystemName.Equals(systemManager.SystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -384,7 +385,7 @@ internal partial class FavoritesPage : ILoadingState
             {
                 // Ask user if they want to delete the favorite
                 var result = MessageBoxLibrary.FavoriteFileDoesNotExistAskToDeleteMessageBox(filePath ?? fileName);
-                if (result == MessageBoxResult.Yes)
+                if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -471,12 +472,12 @@ internal partial class FavoritesPage : ILoadingState
             }
 
             var imagePath = selectedFavorite.CoverImage;
-            var (loadedImage, _) = await _imageLoader.LoadImageAsync(imagePath);
+            var (imageStream, _) = await _imageLoader.LoadImageAsync(imagePath);
 
             // Race condition check: Only assign if the selected item hasn't changed
             if (FavoritesDataGrid.SelectedItem == selectedFavorite)
             {
-                PreviewImage.Source = loadedImage; // Assign the loaded image to the PreviewImage control
+                PreviewImage.Source = imageStream.ToBitmapImage(); // Assign the loaded image to the PreviewImage control
             }
         }
         catch (Exception ex)

@@ -1,8 +1,11 @@
+#nullable enable
+
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 
 
@@ -45,30 +48,13 @@ public partial class HelpUserService : IHelpUserService
     [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
     private static partial Regex RawUrlRegex();
 
-    /// <summary>
-    /// Updates the content of a RichTextBox with formatted text, including bold, headings,
-    /// Markdown links ([text](url)), and raw URLs.
-    /// </summary>
-    /// <param name="helpUserRichTextBox">The RichTextBox to update.</param>
-    /// <param name="systemNameTextBox">The TextBox containing the system name.</param>
-    public void UpdateHelpUserTextBlock(RichTextBox helpUserRichTextBox, TextBox systemNameTextBox)
+    public string GetHelpText(string systemName)
     {
-        var systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
-
-        // Clear the RichTextBox's content
-        helpUserRichTextBox.Document.Blocks.Clear();
-
         if (string.IsNullOrEmpty(systemName))
         {
-            var nosystemnameprovided2 = (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
-
-            // Add a default message to the RichTextBox
-            helpUserRichTextBox.Document.Blocks.Add(new Paragraph(new Run(nosystemnameprovided2)));
-
-            return;
+            return (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
         }
 
-        // Define the emulator configurations based on system names
         var responses = new Dictionary<string, Func<string>>(StringComparer.OrdinalIgnoreCase)
         {
             { "Amstrad CPC", AmstradCpcDetails },
@@ -352,15 +338,23 @@ public partial class HelpUserService : IHelpUserService
         // Check if a response exists for the given system name
         if (responses.TryGetValue(systemName, out var responseGenerator))
         {
-            var text = responseGenerator();
-            SetTextWithMarkdownInternal(helpUserRichTextBox, text); // Call the internal parsing method
+            return responseGenerator();
         }
         else
         {
-            // Display a message if the system name is not recognized
             var noinformationavailableforsystem2 = (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ?? "No information available for system:";
-            helpUserRichTextBox.Document.Blocks.Add(new Paragraph(new Run($"{noinformationavailableforsystem2} {systemName}")));
+            return $"{noinformationavailableforsystem2} {systemName}";
         }
+    }
+
+    /// <summary>
+    /// Updates the content of a RichTextBox with formatted text for the given system name.
+    /// </summary>
+    public void UpdateHelpUserTextBlock(RichTextBox helpUserRichTextBox, string systemName)
+    {
+        helpUserRichTextBox.Document.Blocks.Clear();
+        var text = GetHelpText(systemName);
+        SetTextWithMarkdownInternal(helpUserRichTextBox, text);
     }
 
     private string AmstradCpcDetails()

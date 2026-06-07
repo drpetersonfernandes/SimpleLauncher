@@ -2,6 +2,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
@@ -168,8 +169,8 @@ public class GameListFactory(
                     _logErrors.LogAndForget(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
-                    var (defaultImg, _) = await _imageLoader.LoadImageAsync(null); // Load global default
-                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+                    var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
 
                     return;
                 }
@@ -183,8 +184,8 @@ public class GameListFactory(
                     _logErrors.LogAndForget(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
-                    var (defaultImg, _) = await _imageLoader.LoadImageAsync(null); // Load global default
-                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+                    var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
 
                     return;
                 }
@@ -196,8 +197,8 @@ public class GameListFactory(
                     _logErrors.LogAndForget(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
-                    var (defaultImg, _) = await _imageLoader.LoadImageAsync(null); // Load global default
-                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+                    var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
 
                     return;
                 }
@@ -236,14 +237,14 @@ public class GameListFactory(
                     previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
                 }
 
-                var (imageSource, _) = await _imageLoader.LoadImageAsync(previewImagePath); // LoadImageAsync handles null/empty path by returning default
+                var (imageStream, _) = await _imageLoader.LoadImageAsync(previewImagePath); // LoadImageAsync handles null/empty path by returning default
 
                 _mainWindow.Dispatcher.Invoke(() =>
                 {
                     // Race condition check: Only assign if the selected item hasn't changed
                     if (_mainWindow.GameDataGrid.SelectedItem == selectedItem)
                     {
-                        _mainWindow.PreviewImage.Source = imageSource;
+                        _mainWindow.PreviewImage.Source = imageStream.ToBitmapImage();
                     }
                 });
             }
@@ -255,13 +256,13 @@ public class GameListFactory(
                 // Attempt to set a default image in case of any error during the process
                 try
                 {
-                    var (defaultImageSource, _) = await _imageLoader.LoadImageAsync(null); // Load global default
+                    var (defaultImageStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() =>
                     {
                         // Race condition check: Only assign if the selected item hasn't changed (or is now null)
                         if (_mainWindow.GameDataGrid.SelectedItem == selectedItem || _mainWindow.GameDataGrid.SelectedItem == null)
                         {
-                            _mainWindow?.PreviewImage?.Source = defaultImageSource;
+                            _mainWindow?.PreviewImage?.Source = defaultImageStream.ToBitmapImage();
                         }
                     });
                 }

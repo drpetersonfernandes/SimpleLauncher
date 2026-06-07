@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
@@ -287,7 +288,7 @@ public partial class PlayHistoryPage : ILoadingState
             {
                 // Show message box asking user if they want to delete the entry
                 var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(selectedItem.FileName);
-                if (result == MessageBoxResult.Yes)
+                if (result == System.Windows.MessageBoxResult.Yes)
                 {
                     var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(selectedItem.FileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
                     if (itemToRemove != null)
@@ -375,7 +376,7 @@ public partial class PlayHistoryPage : ILoadingState
         {
             // Ask user if they want to delete the entry from history
             var result = MessageBoxLibrary.GameFileDoesNotExistAskToDeleteMessageBox(fileName);
-            if (result == MessageBoxResult.Yes)
+            if (result == System.Windows.MessageBoxResult.Yes)
             {
                 var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                 if (itemToRemove != null)
@@ -514,12 +515,12 @@ public partial class PlayHistoryPage : ILoadingState
             }
 
             var imagePath = selectedItem.CoverImage;
-            var (loadedImage, _) = await _imageLoader.LoadImageAsync(imagePath); // <--- Changed to await
+            var (imageStream, _) = await _imageLoader.LoadImageAsync(imagePath); // <--- Changed to await
 
             // Race condition check: Only assign if the selected item hasn't changed
             if (PlayHistoryDataGrid.SelectedItem == selectedItem)
             {
-                PreviewImage.Source = loadedImage;
+                PreviewImage.Source = imageStream.ToBitmapImage();
             }
         }
         catch (Exception ex)
@@ -669,7 +670,7 @@ public partial class PlayHistoryPage : ILoadingState
         var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
         _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...");
 
-        if (result == MessageBoxResult.Yes)
+        if (result == System.Windows.MessageBoxResult.Yes)
         {
             _playHistoryList.Clear();
             _playHistoryManager.PlayHistoryList = _playHistoryList;

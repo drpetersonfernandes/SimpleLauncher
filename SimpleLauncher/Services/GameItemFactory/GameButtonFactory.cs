@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameItemFactory;
 using SimpleLauncher.Models;
@@ -108,7 +109,8 @@ internal partial class GameButtonFactory(
             imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
         }
 
-        var (loadedImage, isDefaultImage) = await _imageLoader.LoadImageAsync(imagePath);
+        var (imageStream, isDefaultImage) = await _imageLoader.LoadImageAsync(imagePath);
+        var loadedImage = imageStream.ToBitmapImage();
 
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel

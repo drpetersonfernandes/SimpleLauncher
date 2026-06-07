@@ -1,6 +1,8 @@
+#nullable enable
+
 using System.IO;
-using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Services.CheckPaths;
 using SimpleLauncher.Services.MessageBox;
@@ -15,7 +17,7 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
         AppDomain.CurrentDomain.BaseDirectory,
         configuration.GetValue<string>("DefaultImagePath") ?? Path.Combine("images", "default.png"));
 
-    public async Task<(BitmapSource image, bool isDefault)> LoadImageAsync(string imagePath)
+    public async Task<(Stream? image, bool isDefault)> LoadImageAsync(string? imagePath)
     {
         if (string.IsNullOrWhiteSpace(imagePath))
         {
@@ -24,8 +26,9 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
 
         try
         {
-            var bitmapImage = await Task.Run(() => LoadBitmapImageSafe(imagePath));
-            return (bitmapImage, false);
+            var imageBytes = await Task.Run(() => LoadImageBytes(imagePath));
+
+            return (new MemoryStream(imageBytes), false);
         }
         catch (NotSupportedException)
         {
@@ -39,12 +42,13 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
         }
     }
 
-    private async Task<(BitmapSource image, bool isDefault)> LoadDefaultImageAsync()
+    private async Task<(Stream? image, bool isDefault)> LoadDefaultImageAsync()
     {
         try
         {
-            var bitmapImage = await Task.Run(() => LoadBitmapImageSafe(_defaultImagePath));
-            return (bitmapImage, true);
+            var imageBytes = await Task.Run(() => LoadImageBytes(_defaultImagePath));
+
+            return (new MemoryStream(imageBytes), true);
         }
         catch (Exception ex)
         {
@@ -55,7 +59,7 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
         }
     }
 
-    public BitmapImage LoadBitmapImageSafe(string filePath)
+    public byte[] LoadImageBytes(string filePath)
     {
         var longPath = PathHelper.GetLongPath(filePath);
 
@@ -64,10 +68,9 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
             throw new FileNotFoundException($"Image file not found: {filePath}", filePath);
         }
 
-        byte[] imageData;
         try
         {
-            imageData = File.ReadAllBytes(longPath);
+            return File.ReadAllBytes(longPath);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
@@ -76,22 +79,6 @@ public class ImageLoader(ILogErrors logErrors, IConfiguration configuration) : I
         catch (Exception ex)
         {
             throw new IOException($"An unexpected error occurred while reading image file '{filePath}'.", ex);
-        }
-
-        try
-        {
-            using var ms = new MemoryStream(imageData);
-            var bi = new BitmapImage();
-            bi.BeginInit();
-            bi.CacheOption = BitmapCacheOption.OnLoad;
-            bi.StreamSource = ms;
-            bi.EndInit();
-            bi.Freeze();
-            return bi;
-        }
-        catch (NotSupportedException ex)
-        {
-            throw new NotSupportedException($"The image format or codec is not supported by the system: {filePath}", ex);
         }
     }
 }

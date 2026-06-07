@@ -1,5 +1,6 @@
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
@@ -8,7 +9,6 @@ using SimpleLauncher.Services.GameItemFactory;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.GamePad;
 using SimpleLauncher.Services.GetListOfFiles;
-using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.PlaySound;
 

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CheckApplicationControlPolicy;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
@@ -188,7 +189,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
     private void ChooseEmulator2Path(object sender, RoutedEventArgs e)
@@ -211,7 +212,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
     private void ChooseEmulator3Path(object sender, RoutedEventArgs e)
@@ -234,7 +235,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
     private void ChooseEmulator4Path(object sender, RoutedEventArgs e)
@@ -257,7 +258,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
     private void ChooseEmulator5Path(object sender, RoutedEventArgs e)
@@ -279,7 +280,7 @@ internal partial class EditSystemWindow : ILoadingState
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -558,7 +559,7 @@ internal partial class EditSystemWindow : ILoadingState
             var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
 
             var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-            if (result != MessageBoxResult.Yes) return;
+            if (result != System.Windows.MessageBoxResult.Yes) return;
 
             SystemManager.DeleteSystemAsync(selectedSystemName);
             _playSoundEffects.PlayNotificationSound();
@@ -647,7 +648,7 @@ internal partial class EditSystemWindow : ILoadingState
     {
         // Update HelpUserTextBlock
         HelpUserTextBlock.Document.Blocks.Clear();
-        _helpUserService.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        ((HelpUserService)_helpUserService).UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox.Text.Trim());
     }
 
     private void AddFolderButton_Click(object sender, RoutedEventArgs e)
@@ -779,7 +780,8 @@ internal partial class EditSystemWindow : ILoadingState
 
         try
         {
-            SystemImagePreview.Source = _imageLoader.LoadBitmapImageSafe(imagePath);
+            var imageBytes = _imageLoader.LoadImageBytes(imagePath);
+            SystemImagePreview.Source = imageBytes.ToBitmapImage();
         }
         catch
         {

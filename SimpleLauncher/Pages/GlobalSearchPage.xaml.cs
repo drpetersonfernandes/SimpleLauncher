@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.SystemManager;
 using SimpleLauncher.Models;
@@ -637,12 +638,12 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 LaunchButton.IsEnabled = true; // Enable launch button when a valid item is selected
-                var (loadedImage, _) = await _imageLoader.LoadImageAsync(selectedResult.CoverImage);
+                var (imageStream, _) = await _imageLoader.LoadImageAsync(selectedResult.CoverImage);
 
                 // Race condition check: Only assign if the selected item hasn't changed
                 if (ResultsDataGrid.SelectedItem == selectedResult)
                 {
-                    PreviewImage.Source = loadedImage;
+                    PreviewImage.Source = imageStream.ToBitmapImage();
                 }
             }
             else

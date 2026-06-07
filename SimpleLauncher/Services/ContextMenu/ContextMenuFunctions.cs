@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using SimpleLauncher.Core.Services.GameItemFactory;
@@ -292,7 +293,7 @@ internal static class ContextMenuFunctions
                 DebugLogger.Log($"[RA Service] System '{systemManager.SystemName}' is not supported for RetroAchievements.");
 
                 var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                if (messageBoxResult == MessageBoxResult.Yes)
+                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
 
@@ -356,7 +357,7 @@ internal static class ContextMenuFunctions
                 logErrors.LogAndForget(null, "[RA Service] SystemName is null or empty.");
 
                 var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                if (messageBoxResult == MessageBoxResult.Yes)
+                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
 
@@ -414,7 +415,7 @@ internal static class ContextMenuFunctions
                 if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true)
                 {
                     var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    if (messageBoxResult == MessageBoxResult.Yes)
+                    if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
                     {
                         playSoundEffects.PlayNotificationSound();
 
@@ -444,7 +445,7 @@ internal static class ContextMenuFunctions
                 else // A generic hashing failure not covered by the above
                 {
                     var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    if (messageBoxResult == MessageBoxResult.Yes)
+                    if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
                     {
                         playSoundEffects.PlayNotificationSound();
 
@@ -504,7 +505,7 @@ internal static class ContextMenuFunctions
                 });
 
                 var messageBoxResult = MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                if (messageBoxResult == MessageBoxResult.Yes)
+                if (messageBoxResult == System.Windows.MessageBoxResult.Yes)
                 {
                     playSoundEffects.PlayNotificationSound();
 
@@ -1025,8 +1026,8 @@ internal static class ContextMenuFunctions
                             {
                                 // Load the new screenshot image
                                 var imageLoader = App.ServiceProvider.GetRequiredService<IImageLoader>();
-                                var (loadedImage, _) = await imageLoader.LoadImageAsync(screenshotPath);
-                                imageControl.Source = loadedImage; // Assign the loaded image
+                                var (imageStream, _) = await imageLoader.LoadImageAsync(screenshotPath);
+                                imageControl.Source = imageStream.ToBitmapImage(); // Assign the loaded image
                             }
                         }
                     }

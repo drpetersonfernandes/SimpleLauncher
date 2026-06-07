@@ -7,6 +7,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.DebugAndBugReport;
 using PathHelper = SimpleLauncher.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.DisplaySystemInfo;
@@ -14,7 +15,6 @@ using SimpleLauncher.Services.GameCache;
 using SimpleLauncher.Services.GameFileWatcher;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GetListOfFiles;
-using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MessageBox;
@@ -140,7 +140,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
             cancellationToken.ThrowIfCancellationRequested();
 
             var imagePath = await _systemImageResolverService.ResolveDisplayImageAsync(config);
-            var (loadedImage, _) = await _imageLoader.LoadImageAsync(imagePath);
+            var (imageStream, _) = await _imageLoader.LoadImageAsync(imagePath);
 
             var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
 
@@ -148,7 +148,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
 
             var image = new Image
             {
-                Source = loadedImage,
+                Source = imageStream.ToBitmapImage(),
                 Height = systemImageSize * 1.3,
                 Width = systemImageSize * 1.3 * 1.6,
                 Stretch = Stretch.Uniform,
@@ -297,7 +297,7 @@ public class SystemSelectionOrchestrator : ISystemSelectionOrchestrator
         try
         {
             var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-            if (result != MessageBoxResult.Yes) return;
+            if (result != System.Windows.MessageBoxResult.Yes) return;
 
             _playSoundEffects.PlayNotificationSound();
 
