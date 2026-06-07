@@ -39,6 +39,7 @@ using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LaunchTools;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.LoadingOverlay;
+using SimpleLauncher.WpfServices;
 using SimpleLauncher.Services.MameData;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
@@ -221,6 +222,13 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMameDataService, MameDataService>();
         serviceCollection.AddSingleton<ISearchOrchestratorService, SearchOrchestratorService>();
         serviceCollection.AddSingleton<ISystemImageResolverService, SystemImageResolverService>();
+
+        // Phase 5: WPF platform service implementations
+        serviceCollection.AddSingleton<IMessageDialogService, WpfMessageDialogService>();
+        serviceCollection.AddSingleton<IResourceProvider, WpfResourceProvider>();
+        serviceCollection.AddSingleton<IDispatcherService, WpfDispatcherService>();
+        serviceCollection.AddSingleton<IFilePickerService, WpfFilePickerService>();
+        serviceCollection.AddSingleton<IApplicationLifetime, WpfApplicationLifetime>();
         serviceCollection.AddSingleton<IUiOrchestrator, UiOrchestrator>();
         serviceCollection.AddSingleton<IGameItemRenderService, GameItemRenderService>();
         serviceCollection.AddSingleton<ISystemSelectionOrchestrator, SystemSelectionOrchestrator>();
