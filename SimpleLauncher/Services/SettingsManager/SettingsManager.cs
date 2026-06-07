@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Xml.Linq;
 using SimpleLauncher.Services.AppDataFile;
@@ -30,6 +31,7 @@ public class SettingsManager : IDisposable
     private readonly HashSet<string> _validStyleVariants = ["Default"];
     private readonly HashSet<string> _validBaseThemes = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
     private readonly HashSet<string> _validAccentColors = ["Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta", "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow"];
+    private bool _disposed;
 
     // Application Settings
     public int ThumbnailSize { get; set; } = 250;
@@ -97,6 +99,40 @@ public class SettingsManager : IDisposable
 
     private const string DefaultSettingsFilePath = "settings.xml";
     private const string DefaultNotificationSoundFileName = "click.mp3";
+    private const string EncryptedPrefix = "DPAPI:";
+
+    private static string EncryptString(string plainText)
+    {
+        if (string.IsNullOrEmpty(plainText)) return plainText;
+
+        try
+        {
+            var plainBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            var encryptedBytes = ProtectedData.Protect(plainBytes, null, DataProtectionScope.CurrentUser);
+            return EncryptedPrefix + Convert.ToBase64String(encryptedBytes);
+        }
+        catch
+        {
+            return plainText;
+        }
+    }
+
+    private static string DecryptString(string storedValue)
+    {
+        if (string.IsNullOrEmpty(storedValue) || !storedValue.StartsWith(EncryptedPrefix, StringComparison.Ordinal)) return storedValue;
+
+        try
+        {
+            var base64 = storedValue[EncryptedPrefix.Length..];
+            var encryptedBytes = Convert.FromBase64String(base64);
+            var plainBytes = ProtectedData.Unprotect(encryptedBytes, null, DataProtectionScope.CurrentUser);
+            return System.Text.Encoding.UTF8.GetString(plainBytes);
+        }
+        catch
+        {
+            return storedValue[EncryptedPrefix.Length..];
+        }
+    }
 
     public SettingsManager(IConfiguration configuration, ILogErrors logErrors)
     {
@@ -112,24 +148,34 @@ public class SettingsManager : IDisposable
 
     public void Load()
     {
+        XElement settings = null;
+
+        // Read from disk without holding any lock — disk I/O is slow and
+        // does not mutate shared state, so concurrent readers are unaffected.
+        if (File.Exists(_fileLocation.FilePath))
+        {
+            try
+            {
+                settings = XElement.Load(_fileLocation.FilePath);
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error loading settings.xml.");
+            }
+        }
+
+        // Take a write lock only for the in-memory property updates.
         _settingsLock.EnterWriteLock();
         try
         {
-            if (File.Exists(_fileLocation.FilePath))
+            if (settings != null)
             {
-                try
-                {
-                    var settings = XElement.Load(_fileLocation.FilePath);
-                    LoadFromXml(settings);
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    _logErrors.LogAndForget(ex, "Error loading settings.xml.");
-                }
+                LoadFromXml(settings);
             }
-
-            SetDefaultsAndSave();
+            else
+            {
+                SetDefaultsAndSave();
+            }
         }
         finally
         {
@@ -242,8 +288,8 @@ public class SettingsManager : IDisposable
 
         RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
         RaApiKey = app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey;
-        RaPassword = app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword;
-        RaToken = app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken;
+        RaPassword = DecryptString(app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword);
+        RaToken = DecryptString(app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken);
 
         if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx))
         {
@@ -369,7 +415,7 @@ public class SettingsManager : IDisposable
         }
     }
 
-    public void Save()
+    public Task SaveAsync()
     {
         SettingsManager snapshot;
         _settingsLock.EnterReadLock();
@@ -383,7 +429,7 @@ public class SettingsManager : IDisposable
             _settingsLock.ExitReadLock();
         }
 
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             var tempPath = _fileLocation.TempFilePath;
             const int maxRetries = 3;
@@ -403,7 +449,8 @@ public class SettingsManager : IDisposable
                 }
             }
 
-            for (var attempt = 0; attempt < maxRetries; attempt++)
+            var attempt = 0;
+            while (attempt < maxRetries)
             {
                 try
                 {
@@ -428,15 +475,16 @@ public class SettingsManager : IDisposable
                 catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                 {
                     lastException = ex;
+                    attempt++;
 
-                    if (IsPortableMode && attempt == maxRetries - 1)
+                    if (IsPortableMode && attempt >= maxRetries)
                     {
                         try
                         {
                             if (_fileLocation.TryFallbackToLocalAppData())
                             {
                                 tempPath = _fileLocation.TempFilePath;
-                                attempt--;
+                                attempt = 0;
                                 continue;
                             }
                         }
@@ -446,7 +494,7 @@ public class SettingsManager : IDisposable
                         }
                     }
 
-                    if (attempt < maxRetries - 1)
+                    if (attempt < maxRetries)
                     {
                         try
                         {
@@ -519,8 +567,8 @@ public class SettingsManager : IDisposable
                 new XElement("CustomNotificationSoundFile", s.CustomNotificationSoundFile),
                 new XElement("RaUsername", s.RaUsername),
                 new XElement("RaApiKey", s.RaApiKey),
-                new XElement("RaPassword", s.RaPassword),
-                new XElement("RaToken", s.RaToken),
+                new XElement("RaPassword", EncryptString(s.RaPassword)),
+                new XElement("RaToken", EncryptString(s.RaToken)),
                 new XElement("OverlayRetroAchievementButton", s.OverlayRetroAchievementButton),
                 new XElement("OverlayOpenVideoButton", s.OverlayOpenVideoButton),
                 new XElement("OverlayOpenInfoButton", s.OverlayOpenInfoButton),
@@ -633,7 +681,7 @@ public class SettingsManager : IDisposable
     private void SetDefaultsAndSave()
     {
         ResetToDefaults();
-        Save();
+        _ = SaveAsync();
     }
 
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
@@ -660,6 +708,10 @@ public class SettingsManager : IDisposable
 
     public void Dispose()
     {
+        if (_disposed) return;
+
+        _disposed = true;
+
         _settingsLock?.Dispose();
 
         GC.SuppressFinalize(this);

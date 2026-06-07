@@ -363,7 +363,7 @@ public partial class MainWindow
 
             // Update the settings
             _settings.ButtonAspectRatio = newAspectRatio;
-            _settings.Save();
+            await _settings.SaveAsync();
 
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
             // Notify user

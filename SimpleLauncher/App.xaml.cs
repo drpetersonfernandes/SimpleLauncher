@@ -103,12 +103,12 @@ public partial class App : IDisposable
         {
             // Set the base address for the EasyMode configuration API
             var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
-            client.BaseAddress = new Uri(easyModeUrl);
             if (!easyModeUrl.EndsWith('/'))
             {
-                // ReSharper disable once RedundantAssignment
                 easyModeUrl += "/";
             }
+
+            client.BaseAddress = new Uri(easyModeUrl);
         }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
 
         serviceCollection.AddHttpClient("GameClassificationClient", client =>
@@ -160,7 +160,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<IPlaySoundEffects>(static sp => sp.GetRequiredService<PlaySoundEffects>());
         serviceCollection.AddSingleton<GamePadController>();
-        serviceCollection.AddTransient<DownloadManager>();
+        serviceCollection.AddScoped<DownloadManager>();
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
@@ -334,8 +334,6 @@ public partial class App : IDisposable
                 DebugLogger.LogException(ex, "Failed to cleanup trash in SimpleLauncher folder.");
             }
         });
-        // _ = Task.Run(CleanSimpleLauncherFolder.CleanupTempFiles);
-
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
             try
@@ -904,7 +902,7 @@ public partial class App : IDisposable
         var settings = ServiceProvider.GetRequiredService<SettingsManager>();
         settings.BaseTheme = baseTheme;
         settings.AccentColor = accentColor;
-        settings.Save();
+        settings.SaveAsync();
 
         ApplyTheme(baseTheme, accentColor);
 
@@ -927,11 +925,14 @@ public partial class App : IDisposable
 
     private void InstanceSignalListener()
     {
-        while (_instanceSignal != null)
+        while (true)
         {
+            var signal = _instanceSignal;
+            if (signal == null) break;
+
             try
             {
-                _instanceSignal.WaitOne();
+                signal.WaitOne();
                 Dispatcher.Invoke(static () =>
                 {
                     if (Current.MainWindow is null) return;

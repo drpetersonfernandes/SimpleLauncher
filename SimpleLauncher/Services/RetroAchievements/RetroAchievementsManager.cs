@@ -1,5 +1,6 @@
 using System.IO;
 using MessagePack;
+using SimpleLauncher.Services.AppDataFile;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.RetroAchievements.Models;
 
@@ -12,7 +13,8 @@ public class RetroAchievementsManager
     public List<RaGameInfo> AllGames { get; set; } = [];
 
     private Dictionary<string, RaGameInfo> _hashToGameInfoLookup;
-    private static string DatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RetroAchievements.dat");
+    private static readonly DataFileLocation FileLocation = new("RetroAchievements.dat");
+    private static string DatFilePath => FileLocation.FilePath;
 
     public static RetroAchievementsManager LoadRetroAchievement(ILogErrors logErrors)
     {

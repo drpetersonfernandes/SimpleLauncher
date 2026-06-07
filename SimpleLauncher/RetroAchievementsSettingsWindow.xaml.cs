@@ -21,11 +21,6 @@ public partial class RetroAchievementsSettingsWindow
             DialogResult = true;
             Close();
         };
-        _viewModel.CloseRequested += () =>
-        {
-            DialogResult = false;
-            Close();
-        };
         _viewModel.RequestExePath += OnRequestExePath;
 
         ApiKeyPasswordBox.PasswordChanged += (_, _) => { _viewModel.ApiKey = ApiKeyPasswordBox.Password; };

@@ -481,25 +481,37 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         return (startLetterToUse, searchQueryToUse);
     }
 
-    private void MainWindow_MouseWheel(object sender, MouseWheelEventArgs e)
+    private async void MainWindow_MouseWheel(object sender, MouseWheelEventArgs e)
     {
-        // Check if the Ctrl key is pressed
-        if (Keyboard.Modifiers != ModifierKeys.Control) return;
-
-        switch (e.Delta)
+        try
         {
-            case > 0:
-                // Scroll up, trigger zoom in
-                NavZoomInButtonClickAsync(null, null); // Pass null for sender and EventArgs
-                break;
-            case < 0:
-                // Scroll down, trigger zoom out
-                NavZoomOutButtonClickAsync(null, null); // Pass null for sender and EventArgs
-                break;
-        }
+            // Check if the Ctrl key is pressed
+            if (Keyboard.Modifiers != ModifierKeys.Control) return;
 
-        // Mark the event as handled to prevent scrolling the ScrollViewer
-        e.Handled = true;
+            try
+            {
+                switch (e.Delta)
+                {
+                    case > 0:
+                        await MenuActionHandlerService.HandleZoomIn();
+                        break;
+                    case < 0:
+                        await MenuActionHandlerService.HandleZoomOut();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheel.");
+            }
+
+            // Mark the event as handled to prevent scrolling the ScrollViewer
+            e.Handled = true;
+        }
+        catch (Exception ex)
+        {
+            _logErrors.LogAndForget(ex, "Error in the method MainWindow_MouseWheel.");
+        }
     }
 
     private async Task TopLetterNumberMenuClickAsync(string selectedLetter)
@@ -544,7 +556,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             // Change the filter to ShowAll (as favorites might not have covers)
             _settings.ShowGames = "ShowAll";
-            _settings.Save();
+            await _settings.SaveAsync();
             ApplyShowGamesSetting();
 
             SearchTextBox.Text = "";
@@ -574,7 +586,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             // Change the filter to ShowAll
             _settings.ShowGames = "ShowAll";
-            _settings.Save();
+            await _settings.SaveAsync();
             ApplyShowGamesSetting();
 
             _topLetterNumberMenu.DeselectLetter();
@@ -700,14 +712,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         // cannot properly identify custom themes like "Adaptive", "HighContrast",
         // or "Midnight" - it would incorrectly save them as "Dark" or "Light".
 
-        _settings.Save();
+        _settings.SaveAsync();
     }
 
     private List<string> GetFavoriteGamesForSelectedSystem(FavoritesManager favoritesManager)
     {
-        // // Reload favorites to ensure we have the latest data
-        // _favoritesManager = FavoritesManager.LoadFavorites();
-
         // Use the injected favoritesManager instance directly (no need to load again)
         var favorites = favoritesManager.FavoriteList;
 

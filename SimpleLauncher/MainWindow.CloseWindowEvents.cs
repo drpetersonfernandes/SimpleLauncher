@@ -12,13 +12,6 @@ public partial class MainWindow
     {
         SaveApplicationSettings();
 
-        // Stop the status bar timer before closing
-        if (StatusBarTimer != null)
-        {
-            StatusBarTimer.Stop();
-            StatusBarTimer = null;
-        }
-
         // Unsubscribe from events to prevent memory leaks
         UnsubscribeEventHandlers();
 
@@ -86,6 +79,13 @@ public partial class MainWindow
         {
             // Kill any lingering CHDMounter processes as a safety net
             MountChdFiles.KillAllChdMounterProcesses(App.ServiceProvider.GetRequiredService<ILogErrors>());
+
+            // Stop and release the status bar timer
+            if (StatusBarTimer != null)
+            {
+                StatusBarTimer.Stop();
+                StatusBarTimer = null;
+            }
 
             // Dispose tray icon resources
             TrayIconManager?.Dispose();

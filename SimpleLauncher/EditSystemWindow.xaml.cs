@@ -587,7 +587,7 @@ internal partial class EditSystemWindow : ILoadingState
         _settings.Emulator3Expanded = Emulator3Expander.IsExpanded;
         _settings.Emulator4Expanded = Emulator4Expander.IsExpanded;
         _settings.Emulator5Expanded = Emulator5Expander.IsExpanded;
-        _settings.Save();
+        _settings.SaveAsync();
 
         // Create a backup file
         var appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
