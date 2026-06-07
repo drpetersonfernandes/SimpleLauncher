@@ -93,33 +93,10 @@ public partial class MainWindow
             // Clean up collections
             GameListItems?.Clear();
 
-            // 2. Use a small timeout to avoid blocking the UI thread indefinitely during disposal.
-            // If the lock cannot be acquired within 100ms, it's safer to skip clearing and continue shutdown.
-            // Also check disposal state to prevent ObjectDisposedException.
-            if (!_isDisposed)
-            {
-                try
-                {
-                    if (_allGamesLock.Wait(100))
-                    {
-                        try
-                        {
-                            _currentSearchResults?.Clear();
-                        }
-                        finally
-                        {
-                            _allGamesLock.Release();
-                        }
-                    }
-                }
-                catch (ObjectDisposedException)
-                {
-                    // Semaphore was disposed, ignore and continue shutdown
-                }
-            }
+            // Clear game caches via the cache service
+            _gameCacheService?.ClearSync();
 
             _systemManagers?.Clear();
-            _allGamesForCurrentSystem?.Clear();
 
             _cancellationSource?.Dispose();
         }

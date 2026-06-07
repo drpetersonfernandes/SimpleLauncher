@@ -60,15 +60,7 @@ public partial class MainWindow
             CancelAndRecreateToken();
             ResetPaginationButtons();
 
-            await _allGamesLock.WaitAsync(_cancellationSource.Token);
-            try
-            {
-                _currentSearchResults.Clear(); // Clear previous search results
-            }
-            finally
-            {
-                _allGamesLock.Release();
-            }
+            await _gameCacheService.SetSearchResultsAsync([], _cancellationSource.Token);
 
             var searchQuery = SearchTextBox.Text.Trim();
             ((IUiResetHost)this).ActiveSearchQueryOrMode = searchQuery; // Set active search mode to the text query

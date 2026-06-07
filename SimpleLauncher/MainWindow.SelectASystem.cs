@@ -28,7 +28,7 @@ public partial class MainWindow
                 if (SystemComboBox.SelectedItem == null)
                 {
                     // Clear the cached list when no system is selected
-                    _allGamesForCurrentSystem.Clear();
+                    await _gameCacheService.InvalidateAsync(CancellationToken.None);
                     IsPlayTimeVisible = false; // Hide when no system is selected
 
                     // Stop watching ROM folders when no system is selected
@@ -47,7 +47,7 @@ public partial class MainWindow
                     EmulatorComboBox.SelectedIndex = -1;
                     PreviewImage.Source = null;
 
-                    _currentSearchResults.Clear();
+                    await _gameCacheService.SetSearchResultsAsync([], _cancellationSource.Token);
                     ((IUiResetHost)this).CurrentFilter = null;
                     ((IUiResetHost)this).ActiveSearchQueryOrMode = null;
 
@@ -74,7 +74,7 @@ public partial class MainWindow
                         await DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
 
                         // Clear the cached list on error
-                        _allGamesForCurrentSystem.Clear();
+                        await _gameCacheService.InvalidateAsync(_cancellationSource.Token);
 
                         return;
                     }
@@ -143,7 +143,7 @@ public partial class MainWindow
                     MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
                     // Clear cached list on error
-                    _allGamesForCurrentSystem.Clear();
+                    await _gameCacheService.InvalidateAsync(_cancellationSource.Token);
                 }
                 finally
                 {
@@ -163,7 +163,6 @@ public partial class MainWindow
                 var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                 foreach (var folder in _selectedRomFolders)
                 {
-                    // This part can run concurrently with other file system operations, but not modify _allGamesForCurrentSystem
                     var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                     if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedManager.FileFormatsToSearch == null) continue;
 
@@ -174,16 +173,7 @@ public partial class MainWindow
                     }
                 }
 
-                await _allGamesLock.WaitAsync(((IMenuActionHost)this).CurrentCancellationToken); // Acquire lock before modifying _allGamesForCurrentSystem
-                try
-                {
-                    _allGamesForCurrentSystem = uniqueFilesForSystem.Values.ToList(); // WRITE
-                    DebugLogger.Log($"[SystemComboBoxSelectionChangedAsync] Populated _allGamesForCurrentSystem for '{currentSelectedSystem}'. Count: {_allGamesForCurrentSystem.Count}");
-                }
-                finally
-                {
-                    _allGamesLock.Release(); // Release lock
-                }
+                await _gameCacheService.SetAllGamesAsync(uniqueFilesForSystem.Values.ToList(), currentSelectedSystem, ((IMenuActionHost)this).CurrentCancellationToken);
             }
         }
         catch (Exception ex)

@@ -87,10 +87,10 @@ public partial class MainWindow
                 allFiles = groupedFiles;
             }
 
-            allFiles = ProcessListOfAllFilesWithMachineDescription(allFiles);
+            allFiles = _gameFilterService.SortByMameDescription(allFiles, ((IUiResetHost)this).MameSortOrder, _mameLookup);
             cancellationToken.ThrowIfCancellationRequested();
 
-            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
+            allFiles = await _gameFilterService.FilterByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
             cancellationToken.ThrowIfCancellationRequested();
 
             allFiles = SetPaginationOfListOfFiles(allFiles);
@@ -204,64 +204,42 @@ public partial class MainWindow
         {
             if (_isResortOperation)
             {
-                await _allGamesLock.WaitAsync(token);
-                try
-                {
-                    // If a search or filter is active, _currentSearchResults holds the full (unpaginated) list.
-                    // Otherwise, the full list is in _allGamesForCurrentSystem.
-                    var sourceList = !string.IsNullOrEmpty(((IUiResetHost)this).ActiveSearchQueryOrMode) || !string.IsNullOrEmpty(((IUiResetHost)this).CurrentFilter)
-                        ? _currentSearchResults
-                        : _allGamesForCurrentSystem;
+                var hasActiveFilter = !string.IsNullOrEmpty(((IUiResetHost)this).ActiveSearchQueryOrMode) ||
+                                      !string.IsNullOrEmpty(((IUiResetHost)this).CurrentFilter);
+                var (sourceList, _) = await _gameCacheService.GetResortSourceAsync(hasActiveFilter, token);
 
-                    if (sourceList != null)
-                    {
-                        DebugLogger.Log($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
-                        return [..sourceList];
-                    }
-                }
-                finally
+                if (sourceList.Count > 0)
                 {
-                    _allGamesLock.Release();
+                    DebugLogger.Log($"[BuildListOfAllFilesToLoad] Re-sorting existing list. Count: {sourceList.Count}");
+                    return sourceList;
                 }
             }
 
-            var allFiles = new List<string>();
+            List<string> allFiles;
 
             switch (searchQuery2)
             {
                 case "FAVORITES":
                     // Build favorites list on-demand
                     var favoriteGames = GetFavoriteGamesForSelectedSystem(_favoritesManager);
-
-                    await _allGamesLock.WaitAsync(token);
-                    try
-                    {
-                        _currentSearchResults = favoriteGames.ToList();
-                        allFiles = _currentSearchResults;
-                    }
-                    finally
-                    {
-                        _allGamesLock.Release();
-                    }
-
+                    allFiles = favoriteGames.ToList();
+                    await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     break;
 
                 case "RETRO_ACHIEVEMENTS":
                     // Ensure cache is populated
-                    await EnsureAllGamesCachePopulatedAsync(selectedManager, token);
+                    await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
                     var systemId = Services.RetroAchievements.RetroAchievementsSystemMatcher.GetSystemId(selectedManager.SystemName);
-                    // Use the threshold from settings (e.g., 0.8)
                     var threshold = _settings.FuzzyMatchingThreshold;
 
-                    await _allGamesLock.WaitAsync(token);
                     try
                     {
                         // 1. Handle null service or manager
                         if (_retroAchievementsService?.RaManager?.AllGames == null)
                         {
-                            _currentSearchResults = [];
                             allFiles = [];
+                            await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                             await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
                             break;
                         }
@@ -271,18 +249,19 @@ public partial class MainWindow
                             .Where(g => g.ConsoleId == systemId)
                             .ToList();
 
+                        var cachedGames = await _gameCacheService.GetAllGamesAsync(token);
+
                         // 2. Handle case where system has no achievements in the database
                         // or no local games are found to match against
-                        if (raGamesForSystem.Count == 0 || _allGamesForCurrentSystem == null || _allGamesForCurrentSystem.Count == 0)
+                        if (raGamesForSystem.Count == 0 || cachedGames.Count == 0)
                         {
-                            _currentSearchResults = [];
                             allFiles = [];
-                            // await Dispatcher.BeginInvoke(static () => MessageBoxLibrary.ErrorMessageBox());
+                            await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                             break;
                         }
 
                         // Match filenames against RA Titles using Jaro-Winkler Fuzzy Matching
-                        _currentSearchResults = _allGamesForCurrentSystem.Where(filePath =>
+                        allFiles = cachedGames.Where(filePath =>
                         {
                             var fileName = Path.GetFileNameWithoutExtension(filePath);
 
@@ -301,7 +280,7 @@ public partial class MainWindow
                             });
                         }).ToList();
 
-                        allFiles = _currentSearchResults;
+                        await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     }
                     catch (Exception ex)
                     {
@@ -309,205 +288,108 @@ public partial class MainWindow
                         DebugLogger.Log($"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                         _logErrors.LogAndForget(ex, $"[BuildListOfAllFilesToLoad] Error matching RA games against local files: {ex}");
                     }
-                    finally
-                    {
-                        _allGamesLock.Release();
-                    }
 
                     break;
 
                 case "RANDOM_SELECTION":
                     // Ensure cache is populated for random selection
-                    await EnsureAllGamesCachePopulatedAsync(selectedManager, token);
+                    await _gameCacheService.PopulateFromDiskAsync(selectedManager, _getListOfFiles, token);
 
-                    await _allGamesLock.WaitAsync(token);
-                    try
+                    var allGamesForRandom = await _gameCacheService.GetAllGamesAsync(token);
+                    if (allGamesForRandom.Count == 0)
                     {
-                        if (_allGamesForCurrentSystem.Count == 0)
-                        {
-                            allFiles = [];
-                        }
-                        else
-                        {
-                            // Randomly select one game
-                            var randomIndex = Random.Shared.Next(0, _allGamesForCurrentSystem.Count);
-                            var selectedGame = _allGamesForCurrentSystem[randomIndex];
-                            _currentSearchResults = [selectedGame];
-                            allFiles = _currentSearchResults;
-                        }
+                        allFiles = [];
                     }
-                    finally
+                    else
                     {
-                        _allGamesLock.Release();
+                        // Randomly select one game
+                        var randomIndex = Random.Shared.Next(0, allGamesForRandom.Count);
+                        var selectedGame = allGamesForRandom[randomIndex];
+                        allFiles = [selectedGame];
+                        await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     }
 
                     break;
 
                 default: // This branch handles initial load, letter filter, and text search
                 {
-                    // If no specific filter (letter or search query), and _allGamesForCurrentSystem is already populated for this system,
-                    // use it directly. Otherwise, perform a full disk scan. The _selectedSystem field ensures the cache is for the *currently active* system.
-                    var useCache = false;
-                    await _allGamesLock.WaitAsync(token);
-                    try
+                    // If no specific filter (letter or search query), and cache is already populated for this system,
+                    // use it directly. Otherwise, perform a full disk scan.
+                    if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2))
                     {
-                        if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2) &&
-                            _allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 &&
-                            _selectedSystem == selectedManager.SystemName)
+                        var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
+                        if (isPopulated)
                         {
-                            allFiles = new List<string>(_allGamesForCurrentSystem);
-                            useCache = true;
+                            allFiles = await _gameCacheService.GetAllGamesAsync(token);
                             DebugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                         }
-                    }
-                    finally
-                    {
-                        _allGamesLock.Release();
-                    }
-
-                    if (!useCache)
-                    {
-                        // Disk scan happens here, completely outside the lock.
-                        var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                        foreach (var folder in selectedManager.SystemFolders)
+                        else
                         {
-                            token.ThrowIfCancellationRequested();
-                            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
-
-                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
-                            foreach (var file in filesInFolder)
+                            // Disk scan
+                            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var folder in selectedManager.SystemFolders)
                             {
-                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                                token.ThrowIfCancellationRequested();
+                                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                                var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
+                                foreach (var file in filesInFolder)
+                                {
+                                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                                }
                             }
+
+                            allFiles = uniqueFiles.Values.ToList();
+                            await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
+                            DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                         }
-
-                        allFiles = uniqueFiles.Values.ToList();
-
-                        // If this is an initial load (no filters), update the cache.
-                        if (string.IsNullOrWhiteSpace(startLetter2) && string.IsNullOrWhiteSpace(searchQuery2))
+                    }
+                    else
+                    {
+                        // When filtering, ensure cache is populated first
+                        var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
+                        if (!isPopulated)
                         {
-                            await _allGamesLock.WaitAsync(token);
-                            try
+                            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var folder in selectedManager.SystemFolders)
                             {
-                                _allGamesForCurrentSystem = new List<string>(allFiles);
-                                DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                                token.ThrowIfCancellationRequested();
+                                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                                var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
+                                foreach (var file in filesInFolder)
+                                {
+                                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                                }
                             }
-                            finally
-                            {
-                                _allGamesLock.Release();
-                            }
+
+                            allFiles = uniqueFiles.Values.ToList();
+                            await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
+                        }
+                        else
+                        {
+                            allFiles = await _gameCacheService.GetAllGamesAsync(token);
                         }
                     }
 
                     // ... filtering by startLetter ...
                     if (!string.IsNullOrWhiteSpace(startLetter2))
                     {
-                        allFiles = await FilterFilesAsync(allFiles, startLetter2);
-                        // After filtering by letter, store the results so they can be re-sorted.
-                        await _allGamesLock.WaitAsync(token);
-                        try
-                        {
-                            _currentSearchResults = new List<string>(allFiles);
-                        }
-                        finally
-                        {
-                            _allGamesLock.Release();
-                        }
+                        allFiles = await _gameFilterService.FilterByLetterAsync(allFiles, startLetter2);
+                        await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     }
 
                     // ... filtering by searchQuery ...
                     if (!string.IsNullOrWhiteSpace(searchQuery2) && searchQuery2 != "RANDOM_SELECTION" && searchQuery2 != "FAVORITES")
                     {
-                        var lowerQuery = searchQuery2.ToLowerInvariant();
-                        allFiles = await Task.Run(() =>
-                            allFiles.FindAll(file =>
-                            {
-                                var fileName = Path.GetFileNameWithoutExtension(file);
-                                var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                                if (filenameMatch) return true;
-
-                                if (_mameLookup != null && _mameLookup.TryGetValue(fileName, out var description))
-                                {
-                                    return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                                }
-
-                                return false;
-                            }), token);
-
-                        await _allGamesLock.WaitAsync(token);
-                        try
-                        {
-                            _currentSearchResults = new List<string>(allFiles); // Store search results
-                        }
-                        finally
-                        {
-                            _allGamesLock.Release();
-                        }
+                        allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery2, _mameLookup);
+                        await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                     }
 
                     break;
                 }
-            }
-
-            return allFiles;
-        }
-
-        async Task EnsureAllGamesCachePopulatedAsync(SystemManager selectedManager, CancellationToken token)
-        {
-            await _allGamesLock.WaitAsync(token);
-            try
-            {
-                if (_allGamesForCurrentSystem?.Count > 0 && _selectedSystem == selectedManager.SystemName)
-                {
-                    DebugLogger.Log($"[EnsureAllGamesCachePopulatedAsync] Using cached list for '{selectedManager.SystemName}'. Count: {_allGamesForCurrentSystem.Count}");
-                    return;
-                }
-
-                DebugLogger.Log($"[EnsureAllGamesCachePopulatedAsync] Populating from disk for '{selectedManager.SystemName}'.");
-                var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-                foreach (var folder in selectedManager.SystemFolders)
-                {
-                    token.ThrowIfCancellationRequested();
-
-                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
-                        !Directory.Exists(resolvedSystemFolderPath) ||
-                        selectedManager.FileFormatsToSearch == null) continue;
-
-                    var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager, token);
-                    foreach (var file in filesInFolder)
-                    {
-                        uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                    }
-                }
-
-                _allGamesForCurrentSystem = uniqueFiles.Values.ToList();
-                _selectedSystem = selectedManager.SystemName;
-                DebugLogger.Log($"[EnsureAllGamesCachePopulatedAsync] Populated {_allGamesForCurrentSystem.Count} games.");
-            }
-            finally
-            {
-                _allGamesLock.Release();
-            }
-        }
-
-        List<string> ProcessListOfAllFilesWithMachineDescription(List<string> allFiles)
-        {
-            if (((IUiResetHost)this).MameSortOrder == "MachineDescription")
-            {
-                allFiles = allFiles.OrderBy(f =>
-                {
-                    var fileName = Path.GetFileNameWithoutExtension(f);
-                    return _mameLookup.TryGetValue(fileName, out var description) && !string.IsNullOrWhiteSpace(description)
-                        ? description
-                        : fileName;
-                }, StringComparer.OrdinalIgnoreCase).ToList();
-            }
-            else
-            {
-                allFiles = allFiles.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
             }
 
             return allFiles;

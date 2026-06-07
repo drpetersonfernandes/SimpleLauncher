@@ -16,6 +16,8 @@ using SimpleLauncher.Services.DownloadService;
 using SimpleLauncher.Services.ExtractFiles;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.FindCoverImage;
+using SimpleLauncher.Services.GameCache;
+using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameLauncher.Handlers;
 using SimpleLauncher.Services.HelpUser;
@@ -201,6 +203,8 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IUiResetService, UiResetService>();
         serviceCollection.AddSingleton<ISystemConfigurationService, SystemConfigurationService>();
         serviceCollection.AddSingleton<IPaginationService, PaginationService>();
+        serviceCollection.AddSingleton<IGameCacheService, GameCacheService>();
+        serviceCollection.AddSingleton<IGameFilterService, GameFilterService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();

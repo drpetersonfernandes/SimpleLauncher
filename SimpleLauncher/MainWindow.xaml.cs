@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -140,10 +139,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     private List<string> _selectedRomFolders;
     private readonly RetroAchievementsService _retroAchievementsService;
 
-    // All Games for Current System and Current Search
-    private List<string> _allGamesForCurrentSystem = [];
-    private List<string> _currentSearchResults = [];
-    private readonly SemaphoreSlim _allGamesLock = new(1, 1);
+    // Game cache and filtering are now handled by dedicated services
+    private readonly Services.GameCache.IGameCacheService _gameCacheService;
+    private readonly Services.GameFilter.IGameFilterService _gameFilterService;
 
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
@@ -198,7 +196,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         IMenuCheckMarkService menuCheckMarkService,
         IUiResetService uiResetService,
         ISystemConfigurationService systemConfigurationService,
-        IPaginationService paginationService)
+        IPaginationService paginationService,
+        Services.GameCache.IGameCacheService gameCacheService,
+        Services.GameFilter.IGameFilterService gameFilterService)
     {
         InitializeComponent();
 
@@ -232,6 +232,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         UiResetService = uiResetService;
         SystemConfigurationService = systemConfigurationService;
         _paginationService = paginationService;
+        _gameCacheService = gameCacheService;
+        _gameFilterService = gameFilterService;
 
         _paginationService.Initialize(this);
         _themeMenuService.Initialize(this);
@@ -821,62 +823,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         return _paginationService.ApplyPagination(allFiles);
     }
 
-    private Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
-    {
-        if (files.Count == 0 || _settings.ShowGames == "ShowAll")
-            return Task.FromResult(files);
-
-        var filteredFiles = new List<string>();
-
-        foreach (var filePath in files) // 'filePath' is already resolved here
-        {
-            var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-
-            var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig, _settings);
-
-            bool isDefaultImage;
-            if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
-            {
-                isDefaultImage = true;
-            }
-            else
-            {
-                // Resolve the found image path before checking existence
-                var resolvedImagePath = PathHelper.ResolveRelativeToAppDirectory(imagePath);
-                isDefaultImage = string.IsNullOrEmpty(resolvedImagePath) || !File.Exists(resolvedImagePath) || resolvedImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
-            }
-
-            switch (_settings.ShowGames)
-            {
-                case "ShowWithCover" when !isDefaultImage:
-                case "ShowWithoutCover" when isDefaultImage:
-                    filteredFiles.Add(filePath);
-                    break;
-            }
-        }
-
-        return Task.FromResult(filteredFiles);
-    }
-
-    private static Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
-    {
-        return Task.Run(() =>
-        {
-            if (string.IsNullOrEmpty(startLetter))
-                return files;
-
-            if (startLetter == "#")
-            {
-                return files.Where(static file => !string.IsNullOrEmpty(file) &&
-                                                  file.Length > 0 &&
-                                                  char.IsDigit(Path.GetFileName(file)[0])).ToList();
-            }
-
-            return files.Where(file => !string.IsNullOrEmpty(file) &&
-                                       Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
-        });
-    }
-
     private async void SortOrderToggleButtonClickAsync(object sender, RoutedEventArgs e)
     {
         try
@@ -933,21 +879,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// Invalidates the in-memory caches of game file paths, forcing a reload from disk
     /// or re-evaluation of search results on the next LoadGameFilesAsync call.
     /// </summary>
-    internal async Task InvalidateGameFileCachesAsync()
+    internal Task InvalidateGameFileCachesAsync()
     {
-        // Use WaitAsync to avoid blocking the UI thread when acquiring the lock,
-        // preventing deadlocks if a background thread holding the lock is also waiting for the UI thread.
-        await _allGamesLock.WaitAsync(((IMenuActionHost)this).CurrentCancellationToken);
-        try
-        {
-            _allGamesForCurrentSystem.Clear();
-            _currentSearchResults.Clear();
-            DebugLogger.Log("[MainWindow.InvalidateGameFileCaches] All game file caches invalidated.");
-        }
-        finally
-        {
-            _allGamesLock.Release();
-        }
+        return _gameCacheService.InvalidateAsync(((IMenuActionHost)this).CurrentCancellationToken);
     }
 
     /// <summary>
